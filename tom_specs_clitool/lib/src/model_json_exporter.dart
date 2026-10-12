@@ -121,12 +121,36 @@ class ModelJsonExporter {
         ),
       if (cls.annotations.isNotEmpty)
         'annotations': _exportAnnotations(cls.annotations),
-      'fields': cls.fields.map(_exportField).toList(),
+      'fields': cls.fields.map((f) => _exportField(f, owner: cls)).toList(),
     };
   }
 
-  Map<String, Object?> _exportField(ModelField f) {
-    final out = <String, Object?>{'name': f.name, 'kind': _kind(f)};
+  /// The `@Form` fields that structure [f]'s value: its own, or — for the
+  /// class's `content` member — the owning class's class-level `@Form`.
+  ///
+  /// `tom_specs_model_rules.md` §5.3: "`@Form` classes replace the free
+  /// content with `FieldName: value` lines". The schema generator always
+  /// honoured that, giving such a section an `<id>-form` format; this export
+  /// did not, so all nine runtimes saw the content as plain text and no
+  /// document could satisfy both tiers (found authoring tom_uam's Blueprint,
+  /// eleven of the 73 classes that carry a class-level `@Form`).
+  List<FormFieldInfo> _formFieldsOf(ModelField f, ModelClass? owner) {
+    if (f.formFields.isNotEmpty) return f.formFields;
+    if (owner != null &&
+        f.name == 'content' &&
+        f.isContentLike &&
+        owner.formFields.isNotEmpty) {
+      return owner.formFields;
+    }
+    return const [];
+  }
+
+  Map<String, Object?> _exportField(ModelField f, {ModelClass? owner}) {
+    final formFields = _formFieldsOf(f, owner);
+    final out = <String, Object?>{
+      'name': f.name,
+      'kind': _kind(f, formFields: formFields),
+    };
     if (f.docComment.isNotEmpty) out['doc'] = f.docComment;
 
     final help = _help(f.getAnnotation('ContentHelp'));
@@ -162,7 +186,7 @@ class ModelJsonExporter {
         if (min != null) out['min'] = min;
         break;
       case 'form':
-        out['formFields'] = f.formFields
+        out['formFields'] = formFields
             .map(
               (ff) => {
                 'name': ff.name,
@@ -224,9 +248,9 @@ class ModelJsonExporter {
   /// boolean fields would otherwise be misclassified as `complex` (and the
   /// editor would try to resolve them as classes). The validator's semantics
   /// are left untouched — the correction lives here, at the render boundary.
-  String _kind(ModelField f) {
+  String _kind(ModelField f, {List<FormFieldInfo>? formFields}) {
     if (f.isList) return 'list';
-    if (f.formFields.isNotEmpty) return 'form';
+    if ((formFields ?? f.formFields).isNotEmpty) return 'form';
     if (f.isSectionType) return 'section';
     if (f.isEnum) return 'enum';
     if (f.isContentLike) return 'content';

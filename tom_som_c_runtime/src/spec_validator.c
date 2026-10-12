@@ -625,8 +625,13 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
     /* A form node is the one non-leaf that legitimately carries content: it is
      * the form's preamble, the free text before the first field line (SOM §11.4
      * rule 7), in the same slot a plain section's body uses. */
+    /* A wrapper section (TextSection, ...) is the other: its class is not
+     * exported, so it resolves to no class and its text is stored at its own
+     * path, the way the YAML codec writes it. */
+    int is_wrapper_section =
+        strcmp(res.kind, SPEC_NODE_KIND_SECTION) == 0 && res.target_class == NULL;
     if (!spec_resolution_is_value_leaf(&res) &&
-        strcmp(res.kind, SPEC_NODE_KIND_FORM) != 0) {
+        strcmp(res.kind, SPEC_NODE_KIND_FORM) != 0 && !is_wrapper_section) {
       errors_push(out, path, SPEC_VALIDATION_CODE_KIND_MISMATCH,
                   fmt_kind("expected a value leaf but path resolves to ",
                            res.kind));

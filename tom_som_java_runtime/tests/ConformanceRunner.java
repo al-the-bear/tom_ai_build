@@ -1027,6 +1027,7 @@ public final class ConformanceRunner {
     // section collapses into its target class exactly as a complex member does,
     // and keys on the target class's id when the field carries none.
     d.setContent("DEMO/notes/NOTE-BDY", "Section-kind body");
+    d.setContent("DEMO/notes/remarks", "Wrapper-section text");
     return d;
   }
 

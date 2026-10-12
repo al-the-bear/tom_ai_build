@@ -298,10 +298,13 @@ class SpecDocumentMarkdown:
         path segment (the member name)."""
         if node.section_id is not None:
             return node.section_id
+        # The class id is the node's class_section_id, as the YAML key uses —
+        # never class_named(node.class_name): a wrapper section (TextSection,
+        # ...) carries its OWNER's class name, and that lookup returned the
+        # owner's id.
         if node.kind in (SomMetaKind.SECTION, SomMetaKind.COMPLEX):
-            cls = self.model.class_named(node.class_name)
-            if cls is not None and cls.section_id is not None:
-                return cls.section_id
+            if node.class_section_id is not None:
+                return node.class_section_id
         return node.segment
 
     # --- Transparency (SOM §11.2, mirroring the schema generator , SOM §13) ---------
@@ -334,8 +337,10 @@ class SpecDocumentMarkdown:
             return False
         if n.section_id is not None:
             return False
-        cls = self.model.class_named(n.class_name)
-        return cls is None or cls.section_id is None
+        # class_section_id, not class_named(n.class_name): see _heading_id_of.
+        # A wrapper section (TextSection, ...) has neither id, so it is
+        # transparent (SOM §11.6).
+        return n.class_section_id is None
 
     @staticmethod
     def _is_transparent_value(n: SomMetaNode) -> bool:

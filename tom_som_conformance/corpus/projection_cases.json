@@ -444,6 +444,17 @@
     "hasValue": true
   },
   {
+    "path": "DEMO/notes/remarks",
+    "kind": "section",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
     "path": "DEMO/REG",
     "kind": "complex",
     "classId": "Registry",

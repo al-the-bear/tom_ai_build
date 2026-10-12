@@ -1862,13 +1862,24 @@ void buildAccessConstraintPoliciesChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccessConstraintPolicies";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"separationOfDuties", "bool", "Separation of Duties", false, "Yes | No — enforce static or dynamic separation of duties to prevent conflicts of interest (e.g. creator cannot approve)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sodEnforcement", "String", "SoD Enforcement", false, "Static | Dynamic | Both — whether separation of duties is enforced at role-assignment time (static) or at runtime (dynamic)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"temporalConstraints", "bool", "Temporal Constraints", false, "Yes | No — time-based access restrictions (business hours, maintenance windows, embargo periods)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"locationConstraints", "bool", "Location Constraints", false, "Yes | No — geographic or network-based access restrictions (IP range, geofencing, VPN requirement)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceConstraints", "bool", "Device Constraints", false, "Yes | No — device-based access restrictions (managed devices, compliance status, device type)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskAdaptiveAccess", "bool", "Risk-Adaptive Access", false, "Yes | No — access decisions consider real-time risk scores (user behavior, threat intelligence, anomaly detection)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextualAttributes", "String", "Contextual Attributes", false, "Comma-separated list of contextual attributes used in access decisions (e.g. time, location, device, riskScore, authenticationLevel, networkZone)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxSessionPermissions", "bool", "Max Session Permissions", false, "Yes | No — limit the maximum number of active permissions per session to reduce exposure from compromised sessions", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"leastPrivilegeEnforcement", "String", "Least Privilege Enforcement", false, "Manual | Automated | ContinuousReview — how least privilege principle is enforced and verified over time", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privilegeCreepDetection", "bool", "Privilege Creep Detection", false, "Yes | No — automatically detect users who accumulate excessive permissions over time through role changes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional access constraint notes", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -1991,13 +2002,25 @@ void buildAccessControlModelSelectionChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccessControlModelSelection";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryModel", "String", "Primary Model", true, "RBAC | ABAC | ReBAC | Hybrid-RBAC-ABAC | Hybrid-RBAC-ReBAC | Hybrid-ABAC-ReBAC | Hybrid-All — primary access control paradigm", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"modelRationale", "String", "Model Rationale", false, "Why this model was chosen over alternatives", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rbacEnabled", "bool", "RBAC Enabled", false, "Yes | No — role-based access control with permissions assigned to roles rather than directly to users", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"abacEnabled", "bool", "ABAC Enabled", false, "Yes | No — attribute-based access control using subject, resource, action, and environment attributes per NIST SP 800-162", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rebacEnabled", "bool", "ReBAC Enabled", false, "Yes | No — relationship-based access control granting access based on relationships between resources and users (e.g. Zanzibar model)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyLanguage", "String", "Policy Language", false, "XACML | OPA-Rego | CedarPolicy | CustomDSL | None — formal policy language for expressing access control rules", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyDecisionPoint", "String", "Policy Decision Point", false, "Embedded | ExternalPDP | Sidecar | CloudService — where access control decisions are evaluated", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyEnforcementPoint", "String", "Policy Enforcement Point", false, "APIGateway | Middleware | ServiceMesh | InApplication — where access control decisions are enforced", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyAdministrationPoint", "String", "Policy Administration Point", false, "AdminUI | ConfigFile | PolicyRepository | ExternalService — where policies are managed and maintained", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyInformationPoint", "String", "Policy Information Point", false, "UserDirectory | AttributeStore | ExternalIdP | Database — source of attributes used in access decisions", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"delegationModel", "String", "Delegation Model", false, "None | Administrative | UserInitiated | Hierarchical — whether and how permissions can be delegated between users", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional access control model selection notes", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2624,13 +2647,24 @@ void buildAccountActivationPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccountActivationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationMethod", "String", "Activation Method", false, "EmailLink | AdminApproval | Automatic | PhoneVerification | Combined", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationLinkExpiry", "String", "Activation Link Expiry", false, "Duration before activation link expires (e.g., 24h)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxActivationAttempts", "int", "Max Activation Attempts", false, "Number of times user can request re-activation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationPrerequisites", "String", "Activation Prerequisites", false, "Conditions that must be met before activation (e.g., email verified, approved)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"provisioningOnActivation", "String", "Provisioning on Activation", false, "Resources provisioned when account becomes active (workspace, storage, etc.)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationNotification", "String", "Activation Notification", false, "Channels notified on activation (email, SMS, admin alert)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationTimeout", "String", "Activation Timeout", false, "Time after which unactivated accounts are purged or flagged", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationTimeoutAction", "String", "Activation Timeout Action", false, "Delete | Flag | Remind | Escalate — action on timeout", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postActivationRedirect", "String", "Post-Activation Redirect", false, "Where the user is directed after activation (dashboard, onboarding wizard)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"onboardingRequired", "String", "Onboarding Required", false, "Yes | No — whether guided onboarding follows activation", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"onboardingSteps", "String", "Onboarding Steps", false, "Steps in onboarding flow (profile completion, tutorial, preference setup)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2653,13 +2687,27 @@ void buildAccountDeactivationPolicyChildren(som::SomMetaNode& parent, std::vecto
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccountDeactivationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivationTriggers", "String", "Deactivation Triggers", false, "Manual | Inactivity | PolicyViolation | ContractEnd | SecurityIncident", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inactivityThreshold", "String", "Inactivity Threshold", false, "Period of inactivity before automatic deactivation (e.g., 90d, 180d)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inactivityWarningPeriod", "String", "Inactivity Warning Period", false, "Advance notice before deactivation (e.g., warn 14d before deactivation)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivationApproval", "String", "Deactivation Approval", false, "Who can deactivate accounts (admin, manager, system, self)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"immediateDeactivationCases", "String", "Immediate Deactivation Cases", false, "Cases where deactivation is immediate without warning (security breach, termination)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivatedAccountAccess", "String", "Deactivated Account Data Access", false, "Whether deactivated account data remains accessible to admins", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivationEffects", "String", "Deactivation Effects", false, "LoginBlocked | ApiKeysRevoked | SessionsTerminated | DataPreserved", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reactivationPolicy", "String", "Reactivation Policy", false, "UserRequest | AdminOnly | AutoOnLogin | NotAllowed — how accounts are reactivated", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reactivationApproval", "String", "Reactivation Approval", false, "Who approves reactivation (original approver, admin, manager)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reactivationReverification", "String", "Reactivation Re-verification", false, "PasswordReset | MFA | IdentityProofing — verification at reactivation", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxDeactivationPeriod", "String", "Max Deactivation Period", false, "Maximum time an account can stay deactivated before escalation to deletion", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivationNotification", "String", "Deactivation Notification", false, "User | Admin | Manager | All — channels notified on deactivation", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gracePeriodAfterDeactivation", "String", "Grace Period After Deactivation", false, "Window during which deactivation is easily reversible", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataPreservationDuration", "String", "Data Preservation Duration", false, "How long deactivated account data is preserved (30d, 1y, indefinitely)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2682,13 +2730,29 @@ void buildAccountDeletionPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccountDeletionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionTriggers", "String", "Deletion Triggers", false, "UserRequest | RetentionExpiry | AdminDecision | RegulatoryOrder", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionApproval", "String", "Deletion Approval", false, "Who approves deletion (admin, data protection officer, auto-approved)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"softDeleteEnabled", "String", "Soft Delete Enabled", false, "Yes | No — whether accounts are soft-deleted before hard deletion", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"softDeleteRetention", "String", "Soft Delete Retention Period", false, "Duration in soft-deleted state before permanent removal (e.g., 30d, 90d)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permanentDeletionProcess", "String", "Permanent Deletion Process", false, "Anonymize | Purge | Archive — what happens to data on permanent deletion", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAnonymizationStrategy", "String", "Data Anonymization Strategy", false, "Fields anonymized, pseudonymization method, referential integrity handling", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retainedDataAfterDeletion", "String", "Retained Data After Deletion", false, "Data kept for legal/audit reasons (transaction logs, audit trails)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPeriodAfterDeletion", "String", "Retention Period After Deletion", false, "How long retained data is kept post-deletion", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataExportBeforeDeletion", "String", "Data Export Before Deletion", false, "Yes | No — whether users can export their data before deletion", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exportFormats", "String", "Export Formats", false, "JSON | CSV | XML | PDF — formats for data export", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cascadeDeletionBehavior", "String", "Cascade Deletion Behavior", false, "What happens to associated content (posts, files, records) on user deletion", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionConfirmation", "String", "Deletion Confirmation", false, "PasswordEntry | EmailConfirmation | WaitingPeriod — confirmation method", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionNotification", "String", "Deletion Notification", false, "User | Admin | DPO | All — who is notified on deletion", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rightToErasureCompliance", "String", "Right to Erasure Compliance", false, "GDPR Art.17 | CCPA | None — applicable right-to-be-forgotten regulations", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"erasureResponseTime", "String", "Erasure Response Time", false, "Maximum time to fulfill an erasure request (e.g., 30 days per GDPR)", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"thirdPartyDataDeletion", "String", "Third-Party Data Deletion", false, "How data shared with third parties is removed or anonymized", 15, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2711,13 +2775,26 @@ void buildAccountLockoutPolicyChildren(som::SomMetaNode& parent, std::vector<std
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccountLockoutPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutThreshold", "String", "Lockout Threshold", false, "Number of consecutive failed attempts before lockout (NIST max: 100, typical: 5-10)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutDuration", "String", "Lockout Duration", false, "Duration of lockout (e.g., 15min, 30min, UntilAdminUnlock, Progressive)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutEscalation", "String", "Lockout Escalation", false, "Fixed | Progressive | Exponential — whether lockout duration increases", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rateLimitingMethod", "String", "Rate Limiting Method", false, "Delay | CAPTCHA | Lockout | IPBlock | Combination — rate-limiting strategy", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"delayProgression", "String", "Delay Progression", false, "Delay schedule for progressive throttling (e.g., 30s after 3rd, 1min after 5th)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"captchaTriggerThreshold", "String", "CAPTCHA Trigger Threshold", false, "Number of failed attempts before CAPTCHA is required", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ipBasedRateLimiting", "String", "IP-Based Rate Limiting", false, "Yes | No — whether rate limiting also applies per IP address", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"distributedAttackProtection", "String", "Distributed Attack Protection", false, "Yes | No — whether protection against credential stuffing across IPs is implemented", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unlockMechanism", "String", "Unlock Mechanism", false, "TimeBasedAutoUnlock | AdminUnlock | SelfServiceWithMFA | EmailVerification", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"failedAttemptResetOnSuccess", "String", "Failed Attempt Reset On Success", false, "Yes | No — whether the failed attempt counter resets after successful login", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutNotification", "String", "Lockout Notification", false, "User | Admin | Both | None — who is notified when lockout occurs", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permanentLockoutEnabled", "String", "Permanent Lockout Enabled", false, "Yes | No — whether accounts are permanently locked after extreme abuse", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permanentLockoutThreshold", "String", "Permanent Lockout Threshold", false, "Number of lockout cycles before permanent lock (e.g., 5, 10)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2740,13 +2817,27 @@ void buildAccountModificationPolicyChildren(som::SomMetaNode& parent, std::vecto
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AccountModificationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"selfModifiableFields", "String", "Self-Modifiable Fields", false, "Fields the user can change themselves (display name, avatar, preferences)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adminModifiableFields", "String", "Admin-Modifiable Fields", false, "Fields only an administrator can change (role, status, organization)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemModifiableFields", "String", "System-Modifiable Fields", false, "Fields updated automatically (last login, login count, risk score)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"emailChangePolicy", "String", "Email Change Policy", false, "Re-verification required | Admin approval | Confirmation to old+new email", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phoneChangePolicy", "String", "Phone Change Policy", false, "Verification via old number | Admin approval", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nameChangePolicy", "String", "Name Change Policy", false, "Self-service | RequiresVerification | AdminOnly", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleChangeApproval", "String", "Role Change Approval", false, "Who approves role changes (manager, admin, auto-approved for certain changes)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bulkModificationSupport", "String", "Bulk Modification Support", false, "Yes | No — whether batch attribute updates are supported", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeAuditLogging", "String", "Change Audit Logging", false, "All changes | SensitiveOnly | None — audit trail granularity", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeNotification", "String", "Change Notification", false, "User | Admin | Both | None — who receives notification of changes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"historicalVersioning", "String", "Historical Versioning", false, "Yes | No — whether previous attribute values are preserved", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reverificationTriggers", "String", "Re-verification Triggers", false, "Which changes trigger re-verification (email, password, security question)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"modificationRateLimiting", "String", "Modification Rate Limiting", false, "Limits on how frequently attributes can be changed (e.g., email max 1/30d)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"modificationCooldownPeriod", "String", "Modification Cooldown Period", false, "Waiting period after sensitive changes before full access resumes", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4207,13 +4298,27 @@ void buildApiAbuseProtectionChildren(som::SomMetaNode& parent, std::vector<std::
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiAbuseProtection";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rateLimitingEnabled", "bool", "Rate Limiting Enabled", true, "Yes | No — whether security-focused rate limiting is enforced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rateLimitScope", "String", "Rate Limit Scope", false, "PerClient | PerEndpoint | PerTenant | Global — at what level limits are applied", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationEndpointLimits", "String", "Authentication Endpoint Limits", false, "Stricter rate limits for login/token endpoints to prevent brute-force attacks", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveEndpointLimits", "String", "Sensitive Endpoint Limits", false, "Additional rate limits for password reset, MFA enrolment, payment endpoints", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bruteForceProtection", "String", "Brute Force Protection", false, "Account lockout, progressive delays, CAPTCHA — how brute force authentication attacks are mitigated", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"botDetectionPolicy", "String", "Bot Detection Policy", false, "CAPTCHA | BehavioralAnalysis | DeviceFingerprint | None — automated request detection", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ipReputationFiltering", "bool", "IP Reputation Filtering", false, "Yes | No — use IP reputation databases to filter known-malicious sources", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automaticBlocking", "bool", "Automatic Blocking", false, "Yes | No — automatically block clients exceeding abuse thresholds", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blockDuration", "String", "Block Duration", false, "Temporary (minutes/hours) or permanent — duration of automatic blocks", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"geographicRestrictions", "String", "Geographic Restrictions", false, "Region or country-based access restrictions for API endpoints", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requestThrottlingOnFailure", "String", "Request Throttling on Failure", false, "Progressive delay or backoff on repeated authentication or validation failures", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessFlowProtection", "String", "Business Flow Protection", false, "How automated abuse of business-critical flows is detected and prevented (OWASP API6)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"webhookFloodProtection", "String", "Webhook Flood Protection", false, "How webhook replay attacks and flood scenarios are prevented", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional abuse protection notes", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4236,13 +4341,32 @@ void buildApiAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiAuthenticationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationMethod", "String", "Primary Authentication Method", true, "OAuth2 | APIKey | JWT | mTLS | HMAC | Basic — primary API authentication mechanism", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multipleMethodsSupported", "bool", "Multiple Methods Supported", false, "Yes | No — whether the API supports multiple authentication methods simultaneously", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyTransmission", "String", "API Key Transmission", false, "Header | QueryParam | Cookie — where API keys are transmitted (Header recommended)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyRotationPolicy", "String", "API Key Rotation Policy", false, "Automatic periodic rotation interval and overlap/grace period for old keys", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyScoping", "String", "API Key Scoping", false, "Global | PerEnvironment | PerService — whether keys are scoped to specific environments or services", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"jwtValidationPolicy", "String", "JWT Validation Policy", false, "iss, aud, exp, nbf — required JWT claims to validate on every request", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"jwtSigningAlgorithm", "String", "JWT Signing Algorithm", false, "RS256 | ES256 | EdDSA — required JWT signing algorithm (HS256 discouraged for APIs)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessTokenLifetime", "String", "Access Token Lifetime", false, "Maximum access token validity duration (e.g. 15 min, 1 hour)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshTokenPolicy", "String", "Refresh Token Policy", false, "Rotation | Reuse | None — refresh token handling and lifetime", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientCredentialsFlow", "bool", "Client Credentials Flow", false, "Yes | No — whether OAuth2 client credentials flow is supported for service-to-service", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationCodeFlow", "bool", "Authorization Code Flow", false, "Yes | No — whether OAuth2 authorization code flow with PKCE is supported", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenRevocationSupport", "bool", "Token Revocation Support", false, "Yes | No — whether explicit token revocation is supported (RFC 7009)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mutualTlsRequired", "bool", "Mutual TLS Required", false, "Yes | No — require client certificate authentication for service-to-service communication", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountPolicy", "String", "Service Account Policy", false, "How service accounts authenticate and what credential types they use", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"webhookSignatureVerification", "String", "Webhook Signature Verification", false, "HMAC-SHA256 | RSA | EdDSA — method used to verify incoming webhook requests", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"thirdPartyApiConsumption", "String", "Third-Party API Consumption Security", false, "Security requirements when consuming external third-party APIs (OWASP API10)", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialTransmission", "String", "Credential Transmission", false, "Header | Body — where credentials are transmitted (Header via Authorization recommended)", 16, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bearerTokenFormat", "String", "Bearer Token Format", false, "JWT | Opaque | Reference — format used for bearer tokens", 17, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional API authentication notes", 18, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4265,13 +4389,28 @@ void buildApiAuthorizationPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiAuthorizationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"objectLevelAuthorization", "String", "Object-Level Authorization", true, "How every API endpoint verifies the caller owns or may access the requested object (OWASP API1)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"functionLevelAuthorization", "String", "Function-Level Authorization", false, "How administrative vs. regular functions are separated and access-controlled (OWASP API5)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"propertyLevelAuthorization", "String", "Property-Level Authorization", false, "How field-level exposure is controlled — preventing excessive data exposure and mass assignment (OWASP API3)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionGranularity", "String", "Permission Granularity", false, "Endpoint | Resource | Field — granularity at which permissions are evaluated", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeDefinitions", "String", "OAuth2 Scope Definitions", false, "OAuth2 scopes required for API access (e.g. read:users, write:orders)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeEnforcementLevel", "String", "Scope Enforcement Level", false, "Gateway | Service | Both — where scope checks are enforced", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"delegatedAccessPolicy", "String", "Delegated Access Policy", false, "How delegation or impersonation is controlled (on-behalf-of flows)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bulkOperationAuthorization", "String", "Bulk Operation Authorization", false, "How batch/bulk API operations are authorized — per-item or at collection level", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextualAuthorization", "String", "Contextual Authorization", false, "IP, time-of-day, device, or geolocation-based access decisions", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"massAssignmentPrevention", "String", "Mass Assignment Prevention", false, "How mass assignment attacks are prevented — allowlisted fields, DTOs, read-only markers", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"horizontalPrivilegeEscalation", "String", "Horizontal Privilege Escalation Prevention", false, "Controls preventing a user from accessing another user's data via direct object reference", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"verticalPrivilegeEscalation", "String", "Vertical Privilege Escalation Prevention", false, "Controls preventing regular users from accessing administrative functions", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveBusinessFlowProtection", "String", "Sensitive Business Flow Protection", false, "How sensitive workflows (checkout, transfer) are protected from automated abuse (OWASP API6)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowStateValidation", "String", "Workflow State Validation", false, "How out-of-order API execution is prevented (server-side state machine enforcement)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional API authorization notes", 14, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4381,13 +4520,26 @@ void buildApiCorsSecurityChildren(som::SomMetaNode& parent, std::vector<std::str
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiCorsSecurity";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"corsEnabled", "bool", "CORS Enabled", true, "Yes | No — whether CORS is enabled for the API", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedOrigins", "String", "Allowed Origins", false, "Explicit domain list or pattern — avoid wildcard * with credentials", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedMethods", "String", "Allowed HTTP Methods", false, "GET | POST | PUT | DELETE | PATCH — permitted HTTP methods", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedHeaders", "String", "Allowed Request Headers", false, "Authorization, Content-Type, X-Request-ID — allowed request headers", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exposedHeaders", "String", "Exposed Response Headers", false, "X-RateLimit-Remaining, X-Request-ID — response headers visible to client JavaScript", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialsAllowed", "bool", "Credentials Allowed", false, "Yes | No — Access-Control-Allow-Credentials (mutually exclusive with wildcard origin)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preflightCacheMaxAge", "int", "Preflight Cache Max-Age", false, "Maximum time in seconds that preflight responses can be cached (e.g. 3600)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"wildcardRestriction", "bool", "Wildcard Restriction", false, "Yes | No — whether wildcard * origin is explicitly prohibited when credentials are used", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentSecurityPolicy", "String", "Content Security Policy", false, "CSP directives for API responses (e.g. default-src none, frame-ancestors none)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"strictTransportSecurity", "String", "Strict Transport Security", false, "HSTS max-age and includeSubDomains directive for API endpoints", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityHeadersRequired", "String", "Required Security Headers", false, "X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: no-referrer", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privateNetworkAccess", "String", "Private Network Access Policy", false, "How CORS private network access requests are handled (Access-Control-Request-Private-Network)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional CORS security notes", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4410,13 +4562,27 @@ void buildApiKeyManagementPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiKeyManagementPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyAuthEnabled", "String", "API Key Auth Enabled", false, "Yes | No — whether API key authentication is supported", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyTypes", "String", "API Key Types", false, "Static | Rotating | Scoped | ShortLived — types of API keys supported", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyGenerationMethod", "String", "Key Generation Method", false, "Cryptographic random | UUID | JWT — how API keys are generated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyLength", "String", "Key Length", false, "Minimum key length or entropy (e.g., 256-bit, 32 bytes)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyRotationPolicy", "String", "Key Rotation Policy", false, "Rotation frequency and method (e.g., 90d, automatic, manual)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyExpirationPolicy", "String", "Key Expiration Policy", false, "Maximum key lifetime (e.g., 1y, never, custom)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyScopeRestrictions", "String", "Key Scope Restrictions", false, "Yes | No — whether API keys can be limited to specific resources/actions", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ipAllowlisting", "String", "IP Allowlisting", false, "Yes | No — whether API keys can be restricted to specific IP addresses", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rateLimitingPerKey", "String", "Rate Limiting Per Key", false, "Yes | No — whether rate limiting is enforced per API key", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyRevocationProcess", "String", "Key Revocation Process", false, "Immediate | Graceful — how revoked keys stop working", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyStorageGuidance", "String", "Key Storage Guidance", false, "VaultService | EnvironmentVariable | SecretManager — recommended storage", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyAuditLogging", "String", "Key Audit Logging", false, "Yes | No — whether API key usage is logged for audit purposes", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceTokenSupport", "String", "Service Token Support", false, "OAuth2ClientCredentials | JWT | Custom — machine-to-machine token types", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenLifetime", "String", "Token Lifetime", false, "Default lifetime for service tokens (e.g., 1h, 24h)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4439,13 +4605,29 @@ void buildApiRequestValidationPolicyChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiRequestValidationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputValidationStrategy", "String", "Input Validation Strategy", true, "Allowlist | Blocklist | SchemaValidation — primary validation approach (Allowlist recommended)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"schemaValidationEnforced", "bool", "Schema Validation Enforced", false, "Yes | No — whether JSON Schema or OpenAPI schema validation is enforced on all requests", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"schemaValidationTool", "String", "Schema Validation Tool", false, "Library or framework used for request schema validation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentTypeValidation", "bool", "Content-Type Validation", false, "Yes | No — whether Content-Type header is validated against expected types", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptedContentTypes", "String", "Accepted Content Types", false, "application/json | application/xml — comma-separated list of accepted content types", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rejectUnexpectedContentType", "bool", "Reject Unexpected Content-Type", false, "Yes | No — respond with HTTP 415 for unsupported media types", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requestSizeLimit", "String", "Request Size Limit", false, "Maximum request body size (e.g. 1 MB, 10 MB) — reject with HTTP 413", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"arrayLengthLimit", "int", "Array Length Limit", false, "Maximum number of elements allowed in any JSON array in request body", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nestedObjectDepthLimit", "int", "Nested Object Depth Limit", false, "Maximum nesting depth for JSON objects to prevent DoS via deep nesting", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stringFieldMaxLength", "int", "String Field Max Length", false, "Default maximum character length for string fields unless overridden per field", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parameterTypeEnforcement", "bool", "Parameter Type Enforcement", false, "Yes | No — enforce strong typing (number, boolean, date) on query/path parameters", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"numericRangeValidation", "bool", "Numeric Range Validation", false, "Yes | No — enforce min/max bounds on numeric parameters", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dateFormatValidation", "String", "Date Format Validation", false, "ISO 8601 | RFC 3339 | Custom — required date/time format for all date fields", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encodingValidation", "String", "Encoding Validation", false, "UTF-8 | ASCII — accepted character encoding for request bodies", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileUploadValidation", "String", "File Upload Validation", false, "Allowed extensions, MIME types, max file size, and content scanning requirements", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional request validation notes", 15, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4592,13 +4774,27 @@ void buildApiSecurityMonitoringChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ApiSecurityMonitoring";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiAccessLogging", "bool", "API Access Logging", true, "Yes | No — whether all API access is logged with caller identity and action", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"loggedAttributes", "String", "Logged Request Attributes", false, "Timestamp, clientId, endpoint, method, statusCode, responseTime, sourceIP — attributes captured per request", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveEndpointMonitoring", "bool", "Sensitive Endpoint Monitoring", false, "Yes | No — enhanced logging for authentication, payment, and admin endpoints", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveDataRedaction", "bool", "Sensitive Data Redaction", false, "Yes | No — redact PII, credentials, and tokens from API logs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"anomalyDetection", "bool", "Anomaly Detection", false, "Yes | No — detect anomalous API usage patterns (unusual volume, timing, geography)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorRateMonitoring", "String", "Error Rate Monitoring", false, "Threshold and window for error-rate alerting (e.g. >5% 4xx in 5-min window)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationFailureTracking", "bool", "Authentication Failure Tracking", false, "Yes | No — track and alert on authentication failure patterns per client/IP", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataExfiltrationDetection", "bool", "Data Exfiltration Detection", false, "Yes | No — detect unusual data volume patterns that may indicate exfiltration", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiVersionInventory", "bool", "API Version Inventory", false, "Yes | No — maintain a current inventory of all API versions and endpoints (OWASP API9)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deprecatedEndpointMonitoring", "bool", "Deprecated Endpoint Monitoring", false, "Yes | No — monitor and alert on usage of deprecated API endpoints or versions", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"realTimeAlerts", "bool", "Real-Time Alerts", false, "Yes | No — trigger real-time security alerts on threshold breaches", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityResponseAutomation", "String", "Security Response Automation", false, "Automated actions on security events — block, throttle, escalate, notify", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceReporting", "String", "Compliance Reporting", false, "Frequency and format of API security compliance reports", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional API security monitoring notes", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -6099,13 +6295,24 @@ void buildAuthenticationErrorHandlingChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "AuthenticationErrorHandling";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"invalidCredentialResponse", "String", "Invalid Credential Response", false, "GenericError | SpecificError — response to invalid credentials (generic preferred)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accountLockoutThreshold", "String", "Account Lockout Threshold", false, "Number of failed attempts before lockout (e.g., 5, 10, configurable)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutDuration", "String", "Lockout Duration", false, "Duration of lockout (e.g., 15min, 30min, progressive, permanent)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockoutEscalation", "String", "Lockout Escalation", false, "Fixed | Progressive | Exponential — whether lockout duration increases", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bruteForceProtection", "String", "Brute Force Protection", false, "RateLimiting | CAPTCHA | IPBlock | AccountLock — brute-force mitigation", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialStuffingProtection", "String", "Credential Stuffing Protection", false, "BreachDatabase | DeviceFingerprint | BehaviorAnalysis | None", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"userNotificationOnFailure", "String", "User Notification On Failure", false, "Yes | No — whether users are notified of failed login attempts", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adminAlertThreshold", "String", "Admin Alert Threshold", false, "Number of failures before admin alert (e.g., 10, 50, per-minute rate)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"failedLoginAuditLogging", "String", "Failed Login Audit Logging", false, "Yes | No — whether failed login attempts are logged for audit", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"suspiciousActivityResponse", "String", "Suspicious Activity Response", false, "RequireMFA | TemporaryBlock | CAPTCHA | ManualReview — response to anomalies", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gracefulDegradation", "String", "Graceful Degradation", false, "Behavior when authentication service is partially unavailable (queue, fallback, deny)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -7504,13 +7711,20 @@ void buildBackupEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "BackupEncryptionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupEncryptionRequired", "bool", "Backup Encryption Required", true, "Yes | No — whether all backups (database, file, system) must be encrypted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupEncryptionMethod", "String", "Backup Encryption Method", false, "SameAsSource | SeparateKey | EnvelopeEncryption | CloudProviderManaged — how backup data is encrypted (SameAsSource = same keys as live data)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"separateBackupKeys", "bool", "Separate Backup Keys", false, "Yes | No — whether backups use separate encryption keys from production data (recommended for key rotation independence)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupKeyRotation", "String", "Backup Key Rotation", false, "OnEveryBackup | Monthly | Quarterly | Annual | OnKeyChange — how often backup encryption keys are rotated", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptedBackupVerification", "bool", "Encrypted Backup Verification", false, "Yes | No — whether backup integrity and encryption are periodically verified through test restores", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"offSiteBackupEncryption", "bool", "Off-Site Backup Encryption", false, "Yes | No — whether off-site or disaster recovery backups have additional encryption requirements", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional backup encryption notes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -8148,13 +8362,25 @@ void buildBiometricAuthenticationPolicyChildren(som::SomMetaNode& parent, std::v
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "BiometricAuthenticationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricAuthEnabled", "String", "Biometric Auth Enabled", false, "Yes | No — whether biometric authentication is supported", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricModalities", "String", "Biometric Modalities", false, "Fingerprint | FacialRecognition | IrisScan | VoicePrint — supported modalities", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricUsageContext", "String", "Biometric Usage Context", false, "DeviceUnlock | TransactionApproval | MfaActivation — when biometrics are used", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricAsActivationFactor", "String", "Biometric As Activation Factor", false, "Yes | No — whether biometric is used as MFA activation factor per NIST guidance", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"localVsCentralComparison", "String", "Local vs Central Comparison", false, "Local | Central — where biometric comparison is performed (local preferred)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"falseMatchRateTarget", "String", "False Match Rate Target", false, "Target FMR (e.g., 1:10000 per NIST SP 800-63B)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationAttackDetection", "String", "Presentation Attack Detection", false, "Yes | No — whether PAD is implemented (required for facial recognition)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxConsecutiveFailures", "String", "Max Consecutive Failures", false, "Maximum failed biometric attempts before fallback (e.g., 5 without PAD, 10 with PAD)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackMethod", "String", "Fallback Method", false, "PIN | Password | AlternateModality — fallback when biometric fails", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricDataStorage", "String", "Biometric Data Storage", false, "DeviceOnly | EncryptedCentral | Never — where biometric templates are stored", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privacyConsiderations", "String", "Privacy Considerations", false, "Consent requirements, data retention policy, right to withdraw", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessibilityAlternative", "String", "Accessibility Alternative", false, "Alternative authentication for users unable to use biometric modalities", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -10722,13 +10948,25 @@ void buildCertificateAuthenticationPolicyChildren(som::SomMetaNode& parent, std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CertificateAuthenticationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateAuthEnabled", "String", "Certificate Auth Enabled", false, "Yes | No — whether certificate-based authentication is supported", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateTypes", "String", "Certificate Types", false, "X.509 | PIV | CAC | SmartCard — types of certificates accepted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateIssuance", "String", "Certificate Issuance", false, "InternalCA | ExternalCA | SelfSigned — who issues the certificates", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateAuthority", "String", "Certificate Authority", false, "CA product or service used for certificate issuance", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyStorageRequirement", "String", "Key Storage Requirement", false, "TPM | HSM | SmartCard | SoftwareKeystore — where private keys must be stored", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mutualTlsRequired", "String", "Mutual TLS Required", false, "Yes | No — whether mTLS (client certificate) is required for API access", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateValidation", "String", "Certificate Validation", false, "OCSP | CRL | OCSP-Stapling — certificate revocation checking method", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateLifetime", "String", "Certificate Lifetime", false, "Maximum validity period for certificates (e.g., 1y, 2y)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"renewalProcess", "String", "Renewal Process", false, "Automatic | Manual | AdminApproval — certificate renewal method", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"revocationProcess", "String", "Revocation Process", false, "How compromised certificates are revoked and propagated", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumKeyStrength", "String", "Minimum Key Strength", false, "RSA-2048 | RSA-4096 | EC-P256 | EC-P384 — minimum key requirements", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fipsComplianceRequired", "String", "FIPS Compliance Required", false, "Yes | No — whether FIPS 140-2/3 validated modules are required", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -10839,13 +11077,24 @@ void buildCertificateManagementPolicyChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CertificateManagementPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateAuthority", "String", "Certificate Authority", true, "LetsEncrypt | DigiCert | GlobalSign | InternalCA | Other — certificate authority used for issuing TLS certificates", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationType", "String", "Validation Type", false, "DV | OV | EV — Domain Validated, Organization Validated, or Extended Validation (DV is sufficient for most applications; EV provides no additional browser security benefits)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumKeyLength", "int", "Minimum Key Length (bits)", false, "2048 | 3072 | 4096 — minimum RSA key length in bits for certificates (2048 minimum per NIST; 3072+ recommended)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyType", "String", "Key Type", false, "RSA | ECDSA | Ed25519 — certificate key type (ECDSA with P-256/P-384 or Ed25519 preferred for performance; RSA for broadest compatibility)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hashingAlgorithm", "String", "Hashing Algorithm", false, "SHA-256 | SHA-384 | SHA-512 — certificate hashing algorithm (SHA-256 minimum; MD5 and SHA-1 must not be used)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"wildcardCertificatePolicy", "String", "Wildcard Certificate Policy", false, "Allowed | Restricted | Prohibited — policy on wildcard certificates (* certs; use with caution per OWASP — violates least privilege principle)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateLifetimeDays", "int", "Certificate Lifetime (Days)", false, "Maximum certificate validity in days (e.g. 90 for LetsEncrypt auto-renewal, 365 for annual, 730 for 2-year)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automatedRenewal", "bool", "Automated Renewal", false, "Yes | No — whether certificates are automatically renewed via ACME or similar protocol before expiration", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificateTransparency", "bool", "Certificate Transparency", false, "Yes | No — whether certificates are logged in Certificate Transparency logs for public auditability", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"caaRecords", "bool", "CAA DNS Records", false, "Yes | No — whether CAA DNS records restrict which CAs can issue certificates for the domain", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional certificate management notes", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -12365,12 +12614,19 @@ void buildChannelIntegrationsChildren(som::SomMetaNode& parent, std::vector<std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ChannelIntegrations";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"form", "Channel-specific integration requirements."};
     (*n).docComment = "Integration requirements content.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pushNotificationService", "String", "Push Notification Service", false, "FCM, APNs, Web Push", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"analyticsService", "String", "Analytics Service", false, "Firebase Analytics, Mixpanel, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crashReporting", "String", "Crash Reporting", false, "Crashlytics, Sentry, etc.", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deepLinking", "String", "Deep Linking", false, "URL scheme, Universal Links, App Links", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"socialIntegration", "String", "Social Integration", false, "Social login, sharing capabilities", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"paymentIntegration", "String", "Payment Integration", false, "Apple Pay, Google Pay, Stripe, etc.", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"biometricIntegration", "String", "Biometric Integration", false, "Face ID, Touch ID, Fingerprint", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -13864,13 +14120,22 @@ void buildColumnLevelSecurityPolicyChildren(som::SomMetaNode& parent, std::vecto
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ColumnLevelSecurityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnLevelSecurityEnabled", "String", "Column-Level Security Enabled", false, "Yes | No — whether column-level access control is implemented", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnAccessImplementation", "String", "Column Access Implementation", false, "DatabaseGrants | ViewRestriction | ApplicationLayer | FieldProjection — enforcement mechanism", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveColumnClassification", "String", "Sensitive Column Classification", false, "PII | Financial | Health | Confidential | Internal | Public — classification scheme for columns", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"piiColumnAccess", "String", "PII Column Access", false, "RestrictedByRole | MaskedByDefault | EncryptedAtRest — access policy for PII columns", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"financialDataColumnAccess", "String", "Financial Data Column Access", false, "RestrictedByRole | AuditedAccess | Masked — access policy for financial data columns", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"healthDataColumnAccess", "String", "Health Data Column Access", false, "HipaaCompliant | StrictRole | Encrypted — access policy for health/medical data", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dynamicFieldVisibility", "String", "Dynamic Field Visibility", false, "Yes | No — whether field visibility varies dynamically based on user role or context", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnAccessAudit", "String", "Column Access Audit", false, "Yes | No — whether access to sensitive columns is individually audited", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnEncryptionPolicy", "String", "Column Encryption Policy", false, "None | SelectedColumns | AllSensitive | AlwaysEncrypted — column-level encryption approach", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -17044,13 +17309,24 @@ void buildConcurrentSessionPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ConcurrentSessionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concurrentSessionsAllowed", "String", "Concurrent Sessions Allowed", false, "Yes | No | Limited — whether multiple simultaneous sessions are permitted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxConcurrentSessions", "String", "Maximum Concurrent Sessions", false, "Maximum number of active sessions per user (e.g., 1, 3, 5, unlimited)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concurrentSessionScope", "String", "Concurrent Session Scope", false, "PerAccount | PerDeviceType | PerApplication — scope for counting sessions", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"conflictResolution", "String", "Session Conflict Resolution", false, "TerminateOldest | TerminateNewest | DenyNew | AskUser — action when limit exceeded", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionListVisible", "String", "Session List Visible to User", false, "Yes | No — whether users can see a list of their active sessions", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"remoteTerminationEnabled", "String", "Remote Termination Enabled", false, "Yes | No — whether users can terminate other sessions remotely", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionDeviceInfo", "String", "Session Device Information", false, "IPAddress | DeviceType | Browser | Location | All — info shown per session", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concurrentLoginNotification", "String", "Concurrent Login Notification", false, "None | Email | Push | InApp | All — notification when new session starts", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"suspiciousConcurrentLoginAction", "String", "Suspicious Concurrent Login Action", false, "Notify | RequireMFA | TerminateAll | LockAccount — action for suspicious simultaneous access", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privilegedAccountSessionLimit", "String", "Privileged Account Session Limit", false, "Maximum sessions for admin/privileged accounts (typically stricter, e.g., 1)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossDeviceSessionHandling", "String", "Cross-Device Session Handling", false, "Independent | Synchronized | SingleDevice — how sessions relate across devices", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -17437,13 +17713,28 @@ void buildContentScanningPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ContentScanningPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"antivirusScanningEnabled", "bool", "Antivirus Scanning Enabled", true, "Yes | No — whether uploaded files are scanned by antivirus before acceptance", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scanTiming", "String", "Scan Timing", false, "OnUpload | Asynchronous | OnAccess | Periodic — when scanning occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scanEngine", "String", "Scan Engine", false, "ClamAV | CloudProvider | ThirdPartyAPI | Multiple — scanning engine or service used", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"quarantinePolicy", "String", "Quarantine Policy", false, "Quarantine | Reject | NotifyAndQuarantine — action when malicious content is detected", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"quarantineRetentionDays", "int", "Quarantine Retention Days", false, "Number of days quarantined files are retained before permanent deletion", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"signatureUpdateFrequency", "String", "Signature Update Frequency", false, "Hourly | Daily | RealTime — how often antivirus signatures are updated", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cdrEnabled", "bool", "CDR (Content Disarm & Reconstruct) Enabled", false, "Yes | No — whether CDR is applied to office documents, PDFs, and similar file types", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cdrApplicableTypes", "String", "CDR Applicable File Types", false, "PDF | DOCX | XLSX | Images — file types processed by CDR", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dlpScanningEnabled", "bool", "DLP Scanning Enabled", false, "Yes | No — scan file contents for sensitive data (PII, credit cards, health records)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dlpPolicies", "String", "DLP Policies", false, "Regex patterns, trained classifiers, keyword lists — methods for detecting sensitive data in files", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dlpAction", "String", "DLP Action on Detection", false, "Block | Redact | Notify | Quarantine — action when DLP detects sensitive content", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentModeration", "bool", "Content Moderation", false, "Yes | No — scan for illegal, offensive, or policy-violating content", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"moderationMethod", "String", "Moderation Method", false, "Automated | ManualReview | Hybrid — approach to content moderation", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hashBasedDetection", "bool", "Hash-Based Detection", false, "Yes | No — use file hash databases (e.g. VirusTotal) to detect known-malicious files", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional content scanning notes", 14, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -17942,13 +18233,23 @@ void buildCredentialCompromiseDetectionPolicyChildren(som::SomMetaNode& parent, 
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CredentialCompromiseDetectionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"breachDatabaseMonitoring", "String", "Breach Database Monitoring", false, "Yes | No — whether passwords are checked against known breach databases", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"breachDatabaseSource", "String", "Breach Database Source", false, "HaveIBeenPwned | Internal | CommercialFeed | Multiple — source of breach data", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"breachCheckFrequency", "String", "Breach Check Frequency", false, "AtCreation | AtLogin | Periodic | RealTime — when breach checks are performed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compromisedCredentialAction", "String", "Compromised Credential Action", false, "ForceChange | NotifyAndRecommend | DisableAccount — action when credential is found compromised", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialStuffingDetection", "String", "Credential Stuffing Detection", false, "Yes | No — whether automated credential stuffing attacks are detected", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stuffingDetectionMethod", "String", "Stuffing Detection Method", false, "BehaviorAnalysis | IPReputation | VelocityChecks | DeviceFingerprint — detection methods", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"darkWebMonitoring", "String", "Dark Web Monitoring", false, "Yes | No — whether organizational credentials are monitored on dark web", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"userCompromiseNotification", "String", "User Compromise Notification", false, "Email | InApp | Push | SMS — how users are notified of credential compromise", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adminCompromiseAlerts", "String", "Admin Compromise Alerts", false, "Yes | No — whether administrators receive alerts for mass compromise events", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compromiseResponseSla", "String", "Compromise Response SLA", false, "Time to force credential change after detection (e.g., Immediate, 24h, 72h)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -17971,13 +18272,26 @@ void buildCredentialRecoveryPolicyChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CredentialRecoveryPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordResetMethod", "String", "Password Reset Method", false, "EmailLink | SMSCode | SecurityQuestions | MfaVerification | AdminAssisted — how users reset passwords", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resetLinkExpiry", "String", "Reset Link Expiry", false, "Duration before a password reset link expires (e.g., 15min, 1h, 24h)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resetLinkSingleUse", "String", "Reset Link Single Use", false, "Yes | No — whether reset links can only be used once", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resetRateLimiting", "String", "Reset Rate Limiting", false, "Requests per period allowed (e.g., 3 per hour, 5 per day)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"savedRecoveryCodesEnabled", "String", "Saved Recovery Codes Enabled", false, "Yes | No — whether one-time recovery codes are provided at enrollment", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryCodeCount", "String", "Recovery Code Count", false, "Number of recovery codes generated (e.g., 8, 10, 16)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryCodeFormat", "String", "Recovery Code Format", false, "AlphaNumeric | NumericOnly | Words — format of recovery codes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"issuedRecoveryCodeChannels", "String", "Issued Recovery Code Channels", false, "Email | SMS | PostalMail | InPerson — channels for sending issued recovery codes", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryCodeExpiry", "String", "Recovery Code Expiry", false, "Duration before issued recovery codes expire (NIST: 10min SMS, 24h email)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"identityReverificationRequired", "String", "Identity Reverification Required", false, "Yes | No — whether identity re-verification is required for recovery at higher AALs", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryContactEnabled", "String", "Recovery Contact Enabled", false, "Yes | No — whether a trusted contact can initiate recovery", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multipleRecoveryAddresses", "String", "Multiple Recovery Addresses", false, "Yes | No — whether subscribers can register multiple recovery addresses (NIST: at least 2)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryAuditLogging", "String", "Recovery Audit Logging", false, "Yes | No — whether all recovery attempts are logged for audit", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -18155,13 +18469,21 @@ void buildCrossTenantAccessPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CrossTenantAccessPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossTenantAccessAllowed", "bool", "Cross-Tenant Access Allowed", true, "Yes | No — whether any form of cross-tenant access is permitted in the system", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossTenantAccessModel", "String", "Cross-Tenant Access Model", false, "GlobalAdmin | ServiceAccount | ExplicitGrant | Federation | None — model governing how cross-tenant access is structured", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationMechanism", "String", "Authorization Mechanism", false, "SuperAdminRole | ServiceAccountToken | ExplicitGrant | FederationAgreement — how cross-tenant operations are authorized when allowed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceSharingModel", "String", "Resource Sharing Model", false, "None | ReferenceOnly | Copy | SharedOwnership | Linked — how resources can be shared across tenant boundaries", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idorPreventionStrategy", "String", "IDOR Prevention Strategy", false, "CompositeKeys | QueryFilter | RLS | ScopedTokens — strategy to prevent insecure direct object references across tenants", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossTenantAuditRequirement", "String", "Cross-Tenant Audit Requirement", false, "All | AdminOnly | None — level of audit logging required for cross-tenant operations", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessReviewFrequency", "String", "Access Review Frequency", false, "Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often cross-tenant access grants are reviewed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional cross-tenant access policy notes", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -22754,13 +23076,25 @@ void buildDataAccessAuditPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DataAccessAuditPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAccessLoggingEnabled", "String", "Data Access Logging Enabled", false, "Yes | No — whether data access events are logged", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAccessLoggingScope", "String", "Data Access Logging Scope", false, "AllTables | SensitiveTablesOnly | ByClassification — which data access is logged", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"loggedOperations", "String", "Logged Operations", false, "Read | Write | Delete | SchemaChange | All — which operations are captured", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAccessLogDetail", "String", "Data Access Log Detail", false, "QueryText | AffectedRows | ColumnAccess | Minimal — what detail is recorded per event", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"queryTextLogging", "String", "Query Text Logging", false, "Full | Sanitized | HashOnly | Disabled — whether executed query text is logged", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"anomalyDetectionEnabled", "String", "Anomaly Detection Enabled", false, "Yes | No — whether unusual data access patterns trigger alerts", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"anomalySignals", "String", "Anomaly Detection Signals", false, "BulkExport | OffHoursAccess | UnusualVolume | NewAccessPattern — signals monitored", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataBreachDetection", "String", "Data Breach Detection", false, "RealTime | BatchReview | ThirdPartyDLP — how potential data exfiltration is detected", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAccessReviewCycle", "String", "Data Access Review Cycle", false, "Monthly | Quarterly | Annually — how often data access permissions are reviewed", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privilegedQueryAlerts", "String", "Privileged Query Alerts", false, "Yes | No — whether queries by privileged accounts trigger real-time alerts", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceReportingEnabled", "String", "Compliance Reporting Enabled", false, "Yes | No — whether automated compliance reports are generated from access logs", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAccessRetention", "String", "Data Access Log Retention", false, "Duration data access logs are retained (e.g., 90d, 1y, 7y)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -24478,13 +24812,27 @@ void buildDataMaskingPolicyChildren(som::SomMetaNode& parent, std::vector<std::s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DataMaskingPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dynamicDataMaskingEnabled", "String", "Dynamic Data Masking Enabled", false, "Yes | No — whether dynamic data masking is implemented in production", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dynamicMaskingRules", "String", "Dynamic Masking Rules", false, "FullMask | PartialMask | Redact | Tokenize — available masking transformations", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dynamicMaskingScope", "String", "Dynamic Masking Scope", false, "RoleBased | QueryBased | ColumnBased — how masking rules are applied", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"staticMaskingForNonProduction", "String", "Static Masking for Non-Production", false, "Yes | No — whether production data is statically masked before copying to test/dev", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"staticMaskingTool", "String", "Static Masking Tool", false, "BuiltIn | ThirdParty | CustomScript — tool used for static data masking", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maskingPreservesFormat", "String", "Masking Preserves Format", false, "Yes | No — whether masked data maintains original format and referential integrity", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maskingReversibility", "String", "Masking Reversibility", false, "Irreversible | Tokenized | Deterministic — whether masking can be reversed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"piiMaskingPolicy", "String", "PII Masking Policy", false, "FullRedact | PartialMask | Pseudonymize — specific masking approach for PII fields", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"emailMaskingFormat", "String", "Email Masking Format", false, "e.g., j***@example.com or completely redacted — how email addresses are masked", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phoneMaskingFormat", "String", "Phone Masking Format", false, "e.g., ***-***-1234 or fully redacted — how phone numbers are masked", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"addressMaskingFormat", "String", "Address Masking Format", false, "CityOnly | ZipCodeOnly | FullRedact — how addresses are masked", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"financialDataMasking", "String", "Financial Data Masking", false, "FullRedact | Last4Digits | Tokenized — how financial data (credit cards, bank accounts) is masked", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maskingAuditTrail", "String", "Masking Audit Trail", false, "Yes | No — whether masking/unmasking operations are audited", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentDataStrategy", "String", "Development Data Strategy", false, "MaskedCopy | SyntheticData | SubsetExtract | SeedData — strategy for development/test environments", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26362,13 +26710,27 @@ void buildDatabaseAccessPolicyChildren(som::SomMetaNode& parent, std::vector<std
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DatabaseAccessPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseConnectionSecurity", "String", "Database Connection Security", false, "TlsRequired | TlsOptional | LocalSocketOnly — transport security for DB connections", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumTlsVersion", "String", "Minimum TLS Version", false, "TLS 1.2 | TLS 1.3 — minimum TLS version for database connections", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicationAccountStrategy", "String", "Application Account Strategy", false, "PerService | PerModule | SharedPool — how application-level DB accounts are organized", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicationAccountPrivileges", "String", "Application Account Privileges", false, "SelectUpdateDelete | ReadOnly | Custom — default permissions for application accounts", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"schemaOwnershipSeparation", "String", "Schema Ownership Separation", false, "Yes | No — whether schema owner accounts are separate from application accounts", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"directTableAccess", "String", "Direct Table Access", false, "Allowed | ViewsOnly | StoredProceduresOnly — whether direct table access is permitted", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseCredentialStorage", "String", "Database Credential Storage", false, "SecretsVault | EnvironmentVariable | EncryptedConfig — where DB credentials are stored", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialRotationPolicy", "String", "Credential Rotation Policy", false, "Automatic | Manual | Interval — how DB credentials are rotated (e.g., every 90d)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectionPoolSecurity", "String", "Connection Pool Security", false, "PerUser | PerService | Shared — connection pool isolation level", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privilegedAccessManagement", "String", "Privileged Access Management", false, "JustInTime | PermanentWithApproval | BreakGlass — how DBA access is managed", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseFirewallRules", "String", "Database Firewall Rules", false, "AllowlistOnly | VpcInternal | SubnetRestricted — network access restrictions", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sqlInjectionPrevention", "String", "SQL Injection Prevention", false, "ParameterizedQueries | OrmOnly | PreparedStatements — SQL injection mitigation strategy", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"queryComplexityLimits", "String", "Query Complexity Limits", false, "Yes | No — whether query complexity or execution time limits are enforced", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseActivityMonitoring", "String", "Database Activity Monitoring", false, "DamEnabled | NativeAudit | None — database activity monitoring tool usage", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26478,13 +26840,20 @@ void buildDatabaseEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DatabaseEncryptionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseEncryptionMethod", "String", "Database Encryption Method", true, "TDE | ColumnLevel | CellLevel | ApplicationLayer | None — method of encrypting data within the database", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptedColumnStrategy", "String", "Encrypted Column Strategy", false, "Deterministic | Randomized | Homomorphic | Envelope — how individual columns are encrypted (deterministic allows equality search; randomized provides stronger security)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"indexOnEncryptedColumns", "bool", "Index on Encrypted Columns", false, "Yes | No — whether indexes are maintained on encrypted columns (requires deterministic encryption or specialized schemes)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"searchOnEncryptedData", "String", "Search on Encrypted Data", false, "None | DeterministicMatch | BlindIndex | Searchable Encryption | DecryptThenSearch — strategy for querying encrypted data without full decryption", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectionEncryption", "bool", "Connection Encryption", false, "Yes | No — whether database connections use TLS/SSL for data in transit to/from the database", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseEngine", "String", "Database Engine", false, "PostgreSQL | MySQL | SQLServer | Oracle | MongoDB | Other — target database engine (encryption capabilities vary by engine)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional database encryption notes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -32329,13 +32698,23 @@ void buildEncryptionAtRestPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "EncryptionAtRestPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultAlgorithm", "String", "Default Algorithm", true, "AES-256 | AES-128 | ChaCha20 | 3DES | Other — symmetric encryption algorithm used as the default for data at rest (AES-256 recommended per OWASP/NIST)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultKeyLength", "int", "Default Key Length (bits)", true, "128 | 192 | 256 — minimum key length in bits for symmetric encryption (256-bit recommended for sensitive data)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cipherMode", "String", "Cipher Mode", false, "GCM | CCM | CTR | CBC | XTS — block cipher mode of operation (GCM or CCM recommended for authenticated encryption; XTS for full-disk encryption)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionLayer", "String", "Encryption Layer", false, "Application | Database | Filesystem | Hardware | Multiple — at which architectural layer encryption is primarily applied (multiple = defense-in-depth across layers)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldLevelEncryption", "bool", "Field-Level Encryption", false, "Yes | No — whether individual sensitive fields (e.g. SSN, credit card) are encrypted at the application level beyond database/disk encryption", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"transparentDataEncryption", "bool", "Transparent Data Encryption", false, "Yes | No — whether TDE (Transparent Data Encryption) is used at the database engine level (e.g. SQL Server TDE, Oracle TDE, PostgreSQL pgcrypto)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fullDiskEncryption", "bool", "Full-Disk Encryption", false, "Yes | No — whether full-disk or volume-level encryption is required (e.g. LUKS, BitLocker, AWS EBS encryption)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimizeSensitiveStorage", "bool", "Minimize Sensitive Storage", false, "Yes | No — whether the system actively minimizes storage of sensitive data (e.g. tokenization, truncation, avoiding unnecessary PII retention)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceFramework", "String", "Compliance Framework", false, "FIPS-140-2 | PCI-DSS | HIPAA | GDPR | SOC2 | None — regulatory or compliance framework dictating encryption requirements", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional encryption at rest policy notes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -37653,13 +38032,30 @@ void buildFileAccessControlPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "FileAccessControlPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileAccessModel", "String", "File Access Model", true, "OwnerBased | RoleBased | ACL | Capability — how file access permissions are determined", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationRequired", "bool", "Authentication Required", false, "Yes | No — whether authentication is required for all file access", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"anonymousDownloadAllowed", "bool", "Anonymous Download Allowed", false, "Yes | No — whether any files can be downloaded without authentication (public files)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileOwnershipModel", "String", "File Ownership Model", false, "User | Tenant | SharedOwnership — who owns uploaded files by default", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionGranularity", "String", "Permission Granularity", false, "Read | Write | Delete | Share | Admin — permission types supported on files", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"folderLevelPermissions", "bool", "Folder-Level Permissions", false, "Yes | No — whether permissions can be set at folder/directory level with inheritance", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionInheritance", "String", "Permission Inheritance", false, "Inherit | Override | None — how folder permissions propagate to contained files", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharingEnabled", "bool", "Sharing Enabled", false, "Yes | No — whether files can be shared with other users or externally", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"shareableLinkSupport", "bool", "Shareable Link Support", false, "Yes | No — support for time-limited or password-protected shareable URLs", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"shareableLinkExpiration", "String", "Shareable Link Default Expiration", false, "Default expiration time for shareable links (e.g. 24 hours, 7 days, never)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSharingPolicy", "String", "External Sharing Policy", false, "Allowed | RestrictedDomains | Disabled — whether files can be shared outside the tenant", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"storageLocationPolicy", "String", "Storage Location Policy", false, "SeparateServer | OutsideWebroot | CloudBucket — where files are stored relative to application", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantStorageIsolation", "String", "Tenant Storage Isolation", false, "SeparateBucket | PrefixPartition | SharedWithACL — how tenant files are isolated in storage", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"filesystemPermissions", "String", "Filesystem Permissions", false, "Least-privilege file permission policy (read-only for web server, write for upload service)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"presignedUrlSupport", "bool", "Pre-signed URL Support", false, "Yes | No — use pre-signed URLs for time-limited direct file access", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"presignedUrlMaxExpiry", "String", "Pre-signed URL Max Expiry", false, "Maximum validity period for pre-signed URLs (e.g. 15 min, 1 hour)", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional file access control notes", 16, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -37806,13 +38202,25 @@ void buildFileDownloadSecurityPolicyChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "FileDownloadSecurityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"downloadAuthenticationRequired", "bool", "Download Authentication Required", true, "Yes | No — whether authentication is required for file downloads", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"downloadRateLimiting", "bool", "Download Rate Limiting", false, "Yes | No — rate limit file downloads per user/IP to prevent DoS", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"downloadRateLimit", "String", "Download Rate Limit", false, "Maximum downloads per minute/hour/day per user or IP", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bandwidthThrottling", "bool", "Bandwidth Throttling", false, "Yes | No — throttle download bandwidth per user to prevent abuse", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentDispositionPolicy", "String", "Content-Disposition Policy", false, "Attachment | Inline | PerType — how Content-Disposition header is set (Attachment recommended for untrusted content)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cdnDelivery", "bool", "CDN Delivery", false, "Yes | No — serve files through a CDN for performance and DDoS protection", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hotlinkPrevention", "bool", "Hotlink Prevention", false, "Yes | No — prevent direct linking to files from external sites", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cacheControlPolicy", "String", "Cache-Control Policy", false, "NoStore | Private | PublicShortTTL — cache directives for file download responses", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"downloadAuditLogging", "bool", "Download Audit Logging", false, "Yes | No — log all file download events with user, timestamp, file, and IP", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"downloadAlerts", "bool", "Download Alerts", false, "Yes | No — alert on unusual download patterns (bulk downloads, sensitive files)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"watermarking", "bool", "File Watermarking", false, "Yes | No — apply invisible watermarks to downloaded files for traceability", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional file download security notes", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -37835,13 +38243,20 @@ void buildFileStorageEncryptionPolicyChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "FileStorageEncryptionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileEncryptionMethod", "String", "File Encryption Method", true, "FileLevel | VolumeLevel | ObjectLevel | ClientSide | ServerSide | None — how files and blobs are encrypted at rest", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cloudStorageEncryption", "String", "Cloud Storage Encryption", false, "SSE-S3 | SSE-KMS | SSE-C | AzureSSE | GCS-CMEK | None — cloud provider server-side encryption method if applicable", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientSideEncryption", "bool", "Client-Side Encryption", false, "Yes | No — whether files are encrypted before upload (client-side encryption for defense-in-depth)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptedFileFormats", "String", "Encrypted File Formats", false, "Comma-separated list of file types that must be encrypted (e.g. PDF, XLSX, CSV, backup dumps, log archives)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"localDeviceEncryption", "bool", "Local Device Encryption", false, "Yes | No — whether local device storage (mobile, desktop) must be encrypted for cached or offline data", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"temporaryFileEncryption", "bool", "Temporary File Encryption", false, "Yes | No — whether temporary files and caches must be encrypted (prevents data leakage through temp files)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional file and storage encryption notes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -37864,13 +38279,33 @@ void buildFileUploadValidationPolicyChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "FileUploadValidationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"extensionValidationStrategy", "String", "Extension Validation Strategy", true, "Allowlist | Blocklist | Both — approach to file extension validation (Allowlist recommended)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedFileExtensions", "String", "Allowed File Extensions", false, "Comma-separated list of permitted extensions (e.g. jpg, png, pdf, docx)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blockedFileExtensions", "String", "Blocked File Extensions", false, "Comma-separated list of explicitly blocked extensions (e.g. exe, bat, sh, php, js)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"doubleExtensionPrevention", "bool", "Double Extension Prevention", false, "Yes | No — prevent bypass via double extensions like .jpg.php", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentTypeValidation", "bool", "Content-Type Validation", false, "Yes | No — validate MIME type from Content-Type header against allowed types", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileSignatureValidation", "bool", "File Signature (Magic Byte) Validation", false, "Yes | No — validate file magic bytes match the declared content type", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"signatureMismatchAction", "String", "Signature Mismatch Action", false, "Reject | Quarantine | Log — action when file signature does not match extension", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"filenameStrategy", "String", "Filename Strategy", false, "GenerateUUID | SanitizeOriginal | Preserve — how filenames are handled on upload", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"filenameMaxLength", "int", "Filename Max Length", false, "Maximum allowed filename length in characters", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"filenameAllowedCharacters", "String", "Filename Allowed Characters", false, "Alphanumeric, hyphen, underscore, period — allowed characters in filenames", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pathTraversalPrevention", "bool", "Path Traversal Prevention", false, "Yes | No — strip or reject path components (../, /) in filenames", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nullBytePrevention", "bool", "Null Byte Prevention", false, "Yes | No — reject filenames containing null bytes (%00)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxFileSizeBytes", "String", "Max File Size", false, "Maximum individual file size (e.g. 10 MB, 50 MB, 1 GB)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxUploadBatchSize", "String", "Max Upload Batch Size", false, "Maximum total size for multi-file uploads in a single request", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxConcurrentUploads", "int", "Max Concurrent Uploads", false, "Maximum number of simultaneous file uploads per user", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compressedFileSizeLimit", "String", "Compressed File Size Limit", false, "Maximum decompressed size for ZIP/archive files to prevent ZIP bombs", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"imageRewriting", "bool", "Image Rewriting", false, "Yes | No — rewrite/re-encode images to strip embedded metadata and malicious payloads", 16, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"documentSanitization", "bool", "Document Sanitization", false, "Yes | No — apply Content Disarm & Reconstruct (CDR) to office documents and PDFs", 17, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metadataStripping", "bool", "Metadata Stripping", false, "Yes | No — remove EXIF, XMP, and other embedded metadata from uploaded files", 18, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional file upload validation notes", 19, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -47131,13 +47566,29 @@ void buildLoginFlowConfigurationChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "LoginFlowConfiguration";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"loginEntryPoint", "String", "Login Entry Point", false, "LoginPage | Modal | InlineWidget | ApiEndpoint — where users initiate login", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialSubmissionMethod", "String", "Credential Submission Method", false, "FormPost | Ajax | OAuth2AuthCode | OAuth2PKCE | SAMLRequest", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preAuthenticationChecks", "String", "Pre-Authentication Checks", false, "CAPTCHA | DeviceFingerprint | GeoIP | RiskScore | None", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationEndpoint", "String", "Authentication Endpoint", false, "URL or path of the authentication API endpoint", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedAuthenticationMethods", "String", "Allowed Authentication Methods", false, "Comma-separated list of allowed methods for this login flow", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mfaChallengePresentation", "String", "MFA Challenge Presentation", false, "SamePage | SeparateStep | PushNotification — how MFA is presented", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeEnabled", "String", "Remember Me Enabled", false, "Yes | No — whether Remember Me option is available", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeDuration", "String", "Remember Me Duration", false, "Duration the device is remembered (e.g., 30d, 90d)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"socialLoginEnabled", "String", "Social Login Enabled", false, "Yes | No — whether social identity providers are supported", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"socialLoginProviders", "String", "Social Login Providers", false, "Google | Apple | Microsoft | GitHub | Facebook — supported providers", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordlessLoginEnabled", "String", "Passwordless Login Enabled", false, "Yes | No — whether passwordless options (magic link, WebAuthn) are offered", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordlessLoginMethods", "String", "Passwordless Login Methods", false, "MagicLink | WebAuthn | FIDO2 | Passkey — available passwordless methods", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postAuthenticationAction", "String", "Post-Authentication Action", false, "RedirectToOriginal | Dashboard | ConsentScreen | ProfileCompletion", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concurrentLoginPolicy", "String", "Concurrent Login Policy", false, "Allow | DenyNew | TerminateOldest | TerminateAll — behavior for concurrent logins", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"loginNotification", "String", "Login Notification", false, "Yes | No — whether users are notified of successful logins", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"loginFromNewDeviceAction", "String", "Login From New Device Action", false, "Notify | RequireMFA | Block | VerifyEmail — action for unrecognized devices", 15, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -48696,13 +49147,25 @@ void buildMfaConfigurationChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "MfaConfiguration";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mfaRequired", "String", "MFA Required", false, "Yes | No | Conditional — whether MFA is mandatory", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mfaEnforcementScope", "String", "MFA Enforcement Scope", false, "AllUsers | AdminOnly | PrivilegedRoles | ExternalAccess | Conditional", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultSecondFactor", "String", "Default Second Factor", false, "TOTP | Push | FIDO2 | SMS | Email | HardwareToken", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedSecondFactors", "String", "Allowed Second Factors", false, "Comma-separated list of permitted second-factor types", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assuranceLevelTarget", "String", "Assurance Level Target", false, "AAL1 | AAL2 | AAL3 — target NIST authentication assurance level", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phishingResistanceRequired", "String", "Phishing Resistance Required", false, "Yes | No — whether phishing-resistant authenticators are required (AAL3)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpAuthenticationEnabled", "String", "Step-Up Authentication Enabled", false, "Yes | No — whether sensitive operations trigger higher AAL re-authentication", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpTriggers", "String", "Step-Up Triggers", false, "Operations that trigger step-up (payment, admin actions, data export)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberDevicePolicy", "String", "Remember Device Policy", false, "Duration a device is remembered before MFA re-prompt (e.g., 30d, never)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoveryCodePolicy", "String", "Recovery Code Policy", false, "How many one-time recovery codes are issued and their validity", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enrollmentGracePeriod", "String", "Enrollment Grace Period", false, "Time allowed for users to enroll MFA after it becomes required (e.g., 14d)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mfaBypassPolicy", "String", "MFA Bypass Policy", false, "Conditions under which MFA can be bypassed (break-glass, service accounts)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -51373,13 +51836,20 @@ void buildMutualTlsPolicyChildren(som::SomMetaNode& parent, std::vector<std::str
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "MutualTlsPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mtlsEnabled", "bool", "mTLS Enabled", true, "Yes | No — whether mutual TLS is used anywhere in the system (client certificates for authentication)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mtlsScope", "String", "mTLS Scope", false, "AllServices | InternalOnly | HighValueAPIs | SpecificEndpoints — which communication paths require mTLS", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientCertificateIssuance", "String", "Client Certificate Issuance", false, "InternalCA | ExternalCA | SelfSigned | Automated — how client certificates are issued and distributed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"revocationChecking", "String", "Revocation Checking", false, "CRL | OCSP | OCSPStapling | None — how certificate revocation status is verified", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackOnMtlsFailure", "String", "Fallback on mTLS Failure", false, "Reject | FallbackToTLS | DegradeWithWarning — behavior when mTLS handshake fails (Reject recommended for high-security channels)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientCertificateRotation", "String", "Client Certificate Rotation", false, "Automated | Manual | OnExpiry — how client certificates are rotated", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional mutual TLS policy notes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56091,13 +56561,25 @@ void buildPasswordLifecyclePolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PasswordLifecyclePolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"periodicRotationRequired", "String", "Periodic Rotation Required", false, "Yes | No — whether periodic password changes are required (NIST: No)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rotationPeriod", "String", "Rotation Period", false, "If rotation is required: period in days (e.g., 90, 180, 365)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"forceChangeOnCompromise", "String", "Force Change On Compromise", false, "Yes | No — whether password change is forced on evidence of compromise", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordHistoryDepth", "String", "Password History Depth", false, "Number of previous passwords stored to prevent reuse (e.g., 0, 5, 12, 24)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumPasswordAge", "String", "Minimum Password Age", false, "Minimum time before a password can be changed again (e.g., 0, 1d) to prevent rapid cycling", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"initialPasswordPolicy", "String", "Initial Password Policy", false, "SystemGenerated | UserChosen | TemporaryWithForceChange — policy for initial passwords", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"temporaryPasswordExpiry", "String", "Temporary Password Expiry", false, "Duration before a temporary/initial password expires (e.g., 24h, 72h)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordExpiryWarning", "String", "Password Expiry Warning", false, "Number of days before expiry that users are warned (e.g., 14, 30)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordChangeNotification", "String", "Password Change Notification", false, "Yes | No — whether users are notified when their password is changed", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordChangeRequiresCurrent", "String", "Password Change Requires Current", false, "Yes | No — whether current password must be verified before setting a new one", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"administratorResetPolicy", "String", "Administrator Reset Policy", false, "TemporaryPassword | ResetLink | MfaVerification — how admins reset user passwords", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordInactivityDisable", "String", "Password Inactivity Disable", false, "Duration of inactivity before account is disabled (e.g., 90d, 180d, Never)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56120,13 +56602,29 @@ void buildPasswordRequirementsPolicyChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PasswordRequirementsPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumLengthSingleFactor", "String", "Minimum Length Single Factor", false, "Minimum password length when used as single factor (NIST: 15 characters)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumLengthMultiFactor", "String", "Minimum Length Multi Factor", false, "Minimum password length when used as part of MFA (NIST: 8 characters)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maximumLength", "String", "Maximum Length", false, "Maximum allowed password length (NIST: at least 64 characters)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedCharacterSets", "String", "Allowed Character Sets", false, "ASCII | Unicode | ASCIIPlusSpace — character sets accepted in passwords", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compositionRulesEnforced", "String", "Composition Rules Enforced", false, "Yes | No — whether mixed-case/digit/symbol rules are enforced (NIST: No)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passphraseSupported", "String", "Passphrase Supported", false, "Yes | No — whether multi-word passphrases with spaces are supported", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unicodeNormalization", "String", "Unicode Normalization", false, "NFC | NFD | None — Unicode normalization form applied before hashing", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordBlocklistEnabled", "String", "Password Blocklist Enabled", false, "Yes | No — whether passwords are compared against a blocklist", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocklistSources", "String", "Blocklist Sources", false, "BreachCorpus | DictionaryWords | ContextSpecific | HaveIBeenPwned — sources for blocklist", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordStrengthMeter", "String", "Password Strength Meter", false, "Yes | No — whether a real-time strength indicator is displayed during creation", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordHintsAllowed", "String", "Password Hints Allowed", false, "Yes | No — whether password hints are stored (NIST: No)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityQuestionsAllowed", "String", "Security Questions Allowed", false, "Yes | No — whether KBA/security questions are used (NIST: No)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"showPasswordOption", "String", "Show Password Option", false, "Yes | No — whether users can toggle password visibility during entry", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordManagerSupport", "String", "Password Manager Support", false, "Yes | No — whether autofill and paste are supported for password entry", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"truncationPolicy", "String", "Truncation Policy", false, "None | Trim — whether leading/trailing whitespace is trimmed (NIST: verify entire password)", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"typoTolerancePolicy", "String", "Typo Tolerance Policy", false, "None | CaseFirstChar | TrimWhitespace — whether minor typo corrections are attempted", 15, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56149,13 +56647,25 @@ void buildPasswordStoragePolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PasswordStoragePolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hashingAlgorithm", "String", "Hashing Algorithm", false, "Argon2id | bcrypt | scrypt | PBKDF2 — password hashing algorithm", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hashingCostFactor", "String", "Hashing Cost Factor", false, "Work factor/iteration count for the hashing algorithm (e.g., bcrypt cost 12)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"costFactorReviewSchedule", "String", "Cost Factor Review Schedule", false, "Annual | Biannual | OnHardwareUpgrade — when cost factor is re-evaluated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"saltLength", "String", "Salt Length", false, "Minimum salt length in bits (NIST: at least 32 bits)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"saltGeneration", "String", "Salt Generation", false, "CryptoRandom | CSPRNG — method for generating salt values", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pepperEnabled", "String", "Pepper Enabled", false, "Yes | No — whether a server-side secret key (pepper) is used for additional hashing", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pepperStorage", "String", "Pepper Storage", false, "HSM | TEE | EncryptedConfig | SecretManager — where the pepper key is stored", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hashVersioning", "String", "Hash Versioning", false, "Yes | No — whether the hash algorithm and cost factor are stored per password for migration", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"transmissionEncryption", "String", "Transmission Encryption", false, "TLS1.3 | TLS1.2 — encryption for password transmission", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientSideHashing", "String", "Client-Side Hashing", false, "Yes | No — whether passwords are pre-hashed on the client before transmission", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"memoryHardFunction", "String", "Memory-Hard Function", false, "Yes | No — whether the hashing function is memory-hard to resist GPU attacks", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outputLength", "String", "Output Length", false, "Hash output length in bits (should match underlying scheme output length)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56447,13 +56957,23 @@ void buildPermissionCompositionStrategyChildren(som::SomMetaNode& parent, std::v
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PermissionCompositionStrategy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compositionModel", "String", "Composition Model", true, "Additive | Subtractive | MostRestrictive | LeastRestrictive | OrderedPrecedence | WeightedPriority — how permissions compose", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultPolicy", "String", "Default Policy", true, "DenyByDefault | AllowByDefault — action when no explicit rule matches (OWASP: always deny by default)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"explicitDenyOverride", "bool", "Explicit Deny Override", false, "Yes | No — whether explicit deny always overrides any allow (deny-trumps-allow semantics)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolePermissionInheritance", "bool", "Role Permission Inheritance", false, "Yes | No — whether child roles inherit permissions from parent roles in a hierarchy", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"groupPermissionAggregation", "String", "Group Permission Aggregation", false, "Union | Intersection | FirstMatch — how permissions from multiple group memberships combine", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"conflictResolution", "String", "Conflict Resolution", false, "DenyWins | AllowWins | MostSpecificWins | ExplicitWins | PriorityBased — how conflicting permissions are resolved", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionBoundary", "bool", "Permission Boundary", false, "Yes | No — whether a maximum permission boundary constrains effective permissions regardless of assigned roles", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopedPermissions", "bool", "Scoped Permissions", false, "Yes | No — whether permissions can be scoped to specific contexts (e.g. project, department, time window)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"temporaryElevation", "bool", "Temporary Elevation", false, "Yes | No — whether time-limited permission elevation is supported (just-in-time access, break-glass procedures)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional permission composition notes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56476,13 +56996,24 @@ void buildPermissionEvaluationBehaviorChildren(som::SomMetaNode& parent, std::ve
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PermissionEvaluationBehavior";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"evaluationLocation", "String", "Evaluation Location", true, "ServerSide | Gateway | ServiceMesh | Serverless — where permission checks are performed (OWASP: never client-side only)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"evaluationFrequency", "String", "Evaluation Frequency", true, "EveryRequest | SessionStart | Cached | Lazy — how often permissions are re-evaluated (OWASP: validate on every request)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cachingStrategy", "String", "Caching Strategy", false, "None | ShortLived | SessionBound | DistributedCache — permission decision caching approach and TTL", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cacheTtlSeconds", "int", "Cache TTL (Seconds)", false, "Maximum time in seconds before cached permission decisions expire", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"failureMode", "String", "Failure Mode", true, "DenyOnFailure | LastKnownGood | DegradedAccess — behavior when the authorization service is unavailable (OWASP: exit safely)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationLogging", "bool", "Authorization Logging", false, "Yes | No — log all access control decisions including grants and denials for audit and incident response", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"logDeniedRequests", "bool", "Log Denied Requests", false, "Yes | No — log details of all denied access attempts", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"logSuccessfulAccess", "bool", "Log Successful Access", false, "Yes | No — log successful access to sensitive resources for forensic analysis", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automatedTesting", "bool", "Automated Testing", false, "Yes | No — unit and integration tests verify authorization logic (OWASP: catch low-hanging security issues early)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientSideHints", "bool", "Client-Side Hints", false, "Yes | No — provide permission hints to UI for UX purposes while enforcing all checks server-side", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional permission evaluation behavior notes", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56505,13 +57036,23 @@ void buildPermissionGranularityPolicyChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "PermissionGranularityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"functionLevelControl", "bool", "Function-Level Control", false, "Yes | No — permissions control access to entire functions, operations, or API endpoints", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataLevelControl", "bool", "Data-Level Control", false, "Yes | No — permissions control access to specific data records, rows, or resource instances (horizontal access control)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldLevelControl", "bool", "Field-Level Control", false, "Yes | No — permissions control access to individual fields or attributes within a record (column-level security)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"uiElementControl", "bool", "UI Element Control", false, "Yes | No — permissions control visibility or availability of UI components, menus, or actions", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiOperationControl", "bool", "API Operation Control", false, "Yes | No — permissions are specific to individual API operations (GET, POST, PUT, DELETE on specific resources)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"objectLevelControl", "bool", "Object-Level Control", false, "Yes | No — permissions apply to individual business object instances (IDOR prevention through ownership checks)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantLevelControl", "bool", "Tenant-Level Control", false, "Yes | No — permissions provide isolation between tenants in a multi-tenant system", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"finestGranularity", "String", "Finest Granularity", false, "Function | Data | Field | UIElement | APIOperation | Object — the finest level of permission granularity supported", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dynamicPermissions", "bool", "Dynamic Permissions", false, "Yes | No — permissions can change dynamically based on runtime context (time, location, device, risk score)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional permission granularity notes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -63125,13 +63666,25 @@ void buildRedirectHandlingPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RedirectHandlingPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"oauthRedirectUriPolicy", "String", "OAuth Redirect URI Policy", false, "ExactMatch | WildcardSubdomain | DynamicRegistration — redirect URI validation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedRedirectDomains", "String", "Allowed Redirect Domains", false, "Comma-separated list of allowed redirect domains", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"callbackUrlValidation", "String", "Callback URL Validation", false, "StrictMatch | PathPrefix | OriginOnly — how callback URLs are validated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateParameterRequired", "String", "State Parameter Required", false, "Yes | No — whether OAuth state parameter is required for CSRF protection", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pkceRequired", "String", "PKCE Required", false, "Yes | No — whether PKCE (Proof Key for Code Exchange) is mandatory", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pkceMethod", "String", "PKCE Method", false, "S256 | Plain — PKCE code challenge method (S256 recommended)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deepLinkHandling", "String", "Deep Link Handling", false, "UniversalLinks | AppLinks | CustomScheme — mobile deep link strategy", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorRedirectBehavior", "String", "Error Redirect Behavior", false, "RedirectWithError | ErrorPage | OriginalPage — behavior on auth errors", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postLogoutRedirectUri", "String", "Post-Logout Redirect URI", false, "Where users are redirected after logout", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"singleLogoutRedirectChain", "String", "Single Logout Redirect Chain", false, "Yes | No — whether SLO propagates logouts across all connected services", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"corsPolicy", "String", "CORS Policy", false, "AllowedOrigins for authentication endpoints (exact list or pattern)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"iframeEmbeddingPolicy", "String", "Iframe Embedding Policy", false, "Deny | SameOrigin | AllowSpecific — X-Frame-Options / CSP frame-ancestors", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -63917,13 +64470,26 @@ void buildRememberMePolicyChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RememberMePolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeEnabled", "String", "Remember-Me Enabled", false, "Yes | No — whether remember-me / keep-me-signed-in is offered", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeDuration", "String", "Remember-Me Duration", false, "Duration of persistent session (e.g., 7d, 30d, 90d)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeTokenType", "String", "Remember-Me Token Type", false, "PersistentCookie | DeviceToken | RefreshToken — mechanism for persistent login", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeTokenStorage", "String", "Remember-Me Token Storage", false, "HttpOnlyCookie | SecureStorage | EncryptedLocalStorage — client-side storage", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeTokenRotation", "String", "Remember-Me Token Rotation", false, "Yes | No — whether persistent tokens are rotated on each use", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeReuseDetection", "String", "Remember-Me Reuse Detection", false, "Yes | No — whether reuse of old persistent tokens triggers revocation", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeDeviceBinding", "String", "Remember-Me Device Binding", false, "None | Fingerprint | CertificateBound — how persistent tokens are bound to devices", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeRevocation", "String", "Remember-Me Revocation", false, "ManualOnly | OnPasswordChange | OnSecurityEvent | All — when persistent tokens are revoked", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeAalReduction", "String", "Remember-Me AAL Reduction", false, "Yes | No — whether remember-me reduces effective AAL (e.g., AAL2 to AAL1)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rememberMeRestrictedOperations", "String", "Restricted Operations with Remember-Me", false, "Operations requiring full reauthentication even with active remember-me (e.g., password change, payment)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"trustedDeviceManagement", "String", "Trusted Device Management", false, "Yes | No — whether users can manage a list of trusted/remembered devices", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxTrustedDevices", "String", "Maximum Trusted Devices", false, "Maximum number of devices in the trusted device list (e.g., 5, 10)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"trustedDeviceExpiry", "String", "Trusted Device Expiry", false, "Duration a device stays trusted (e.g., 30d, 90d, indefinite)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68457,13 +69023,22 @@ void buildRoleCertificationPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RoleCertificationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificationRequired", "bool", "Certification Required", false, "Yes | No — whether periodic role certification (access review) is mandated", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificationFrequency", "String", "Certification Frequency", false, "Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often role certifications are conducted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certifier", "String", "Certifier", false, "Manager | RoleOwner | SecurityOfficer | Automated — who performs the certification review", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nonResponseAction", "String", "Non-Response Action", false, "Revoke | Escalate | Extend | NoAction — what happens if the certifier does not respond within the deadline", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskBasedScheduling", "bool", "Risk-Based Scheduling", false, "Yes | No — whether high-risk role assignments are reviewed more frequently than low-risk ones", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automatedDetection", "bool", "Automated Detection", false, "Yes | No — whether the system automatically detects and flags anomalous or dormant role assignments", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dormantRoleThresholdDays", "int", "Dormant Role Threshold (Days)", false, "Number of days after which an unused role assignment is flagged as dormant (e.g. 90)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificationAuditTrail", "bool", "Certification Audit Trail", false, "Yes | No — whether certification decisions are logged for compliance and audit purposes", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional role certification notes", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68705,13 +69280,23 @@ void buildRoleHierarchyPolicyChildren(som::SomMetaNode& parent, std::vector<std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RoleHierarchyPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hierarchyModel", "String", "Hierarchy Model", true, "Tree | DAG | Flat | Layered — structure of the role hierarchy (tree = single parent, DAG = multiple parents, flat = no inheritance, layered = tiered levels)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxHierarchyDepth", "int", "Maximum Hierarchy Depth", false, "Maximum number of inheritance levels allowed (e.g. 5); 0 = unlimited depth", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inheritanceMode", "String", "Inheritance Mode", false, "Full | Selective | None — whether child roles automatically inherit all parent permissions (full), selected permissions (selective), or none", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multipleInheritance", "bool", "Multiple Inheritance", false, "Yes | No — whether a role can inherit from more than one parent role (DAG model)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionOverride", "bool", "Permission Override", false, "Yes | No — whether child roles can override (restrict or extend) inherited permissions from parent roles", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activationConstraints", "bool", "Activation Constraints", false, "Yes | No — whether role activation is subject to constraints (time-based, prerequisite roles, approval workflows)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxActiveRolesPerUser", "int", "Max Active Roles Per User", false, "Maximum number of roles a single user can hold simultaneously; 0 = unlimited", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolePriorityScheme", "String", "Role Priority Scheme", false, "HierarchyLevel | ExplicitWeight | None — how conflicts between equal-level roles are resolved", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automaticInheritanceRevocation", "bool", "Automatic Inheritance Revocation", false, "Yes | No — whether removing a parent role automatically revokes inherited child-role permissions", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional role hierarchy policy notes", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68969,13 +69554,24 @@ void buildRowLevelSecurityPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "RowLevelSecurityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rowLevelSecurityEnabled", "String", "Row-Level Security Enabled", false, "Yes | No — whether row-level security (RLS) is implemented", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rlsImplementation", "String", "RLS Implementation", false, "DatabaseNative | ApplicationLayer | OrmFilter | Hybrid — where RLS is enforced", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rlsFilteringStrategy", "String", "RLS Filtering Strategy", false, "TenantId | UserId | OrganizationId | CustomPredicate — primary filtering dimension", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rlsBypassPolicy", "String", "RLS Bypass Policy", false, "NeverBypass | SuperAdminOnly | ServiceAccountOnly — who can bypass RLS", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hierarchicalVisibility", "String", "Hierarchical Data Visibility", false, "Yes | No — whether managers see subordinate data (organizational hierarchy)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hierarchyDepthLimit", "String", "Hierarchy Depth Limit", false, "Unlimited | DirectReports | NLevels — how deep hierarchical visibility extends", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossTenantAccess", "String", "Cross-Tenant Data Access", false, "Denied | PlatformAdminOnly | ConsentBased — cross-tenant data access rules", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataOwnerAccess", "String", "Data Owner Access", false, "FullAccess | ReadOnly | Delegated — access level for the data owner/creator", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedDataHandling", "String", "Shared Data Handling", false, "ExplicitGrant | GroupBased | LinkSharing — how shared records are authorized", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rlsPerformanceStrategy", "String", "RLS Performance Strategy", false, "IndexedFilterColumn | PartitionedByTenant | MaterializedViews — performance optimization for RLS", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rlsTestingStrategy", "String", "RLS Testing Strategy", false, "AutomatedTests | PenetrationTesting | Both — how RLS enforcement is verified", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -73709,13 +74305,27 @@ void buildSelfServiceAccountManagementChildren(som::SomMetaNode& parent, std::ve
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SelfServiceAccountManagement";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"profileUpdateEnabled", "String", "Profile Update Enabled", false, "Yes | No — users can update their own profile information", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordChangeEnabled", "String", "Password Change Enabled", false, "Yes | No — users can change their own password", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordResetEnabled", "String", "Password Reset Enabled", false, "Yes | No — users can reset forgotten passwords", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordResetMethods", "String", "Password Reset Methods", false, "Email | SMS | SecurityQuestions | AdminAssisted", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mfaEnrollmentSelfService", "String", "MFA Enrollment Self-Service", false, "Yes | No — users can enroll/change MFA devices", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accountDeactivationSelfService", "String", "Account Deactivation Self-Service", false, "Yes | No — users can deactivate their own account", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accountDeletionSelfService", "String", "Account Deletion Self-Service", false, "Yes | No — users can request deletion of their own account", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataExportSelfService", "String", "Data Export Self-Service", false, "Yes | No — users can export their own data", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionManagementSelfService", "String", "Session Management Self-Service", false, "Yes | No — users can view and terminate their active sessions", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyManagementSelfService", "String", "API Key Management Self-Service", false, "Yes | No — users can create/revoke their own API keys", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationPreferences", "String", "Notification Preferences", false, "Yes | No — users can configure their notification preferences", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"delegationEnabled", "String", "Delegation Enabled", false, "Yes | No — users can delegate account actions to another user", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"delegationScope", "String", "Delegation Scope", false, "What actions can be delegated (read, write, approve)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accountRecoveryProcess", "String", "Account Recovery Process", false, "Steps when a user loses all credentials (identity re-proofing, admin reset)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -74551,13 +75161,23 @@ void buildServiceAccountCredentialPolicyChildren(som::SomMetaNode& parent, std::
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ServiceAccountCredentialPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountPasswordPolicy", "String", "Service Account Password Policy", false, "AutoGenerated | ManagedByVault | CertificateBased — how service account credentials are managed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountRotationPeriod", "String", "Service Account Rotation Period", false, "Rotation period for service account credentials (e.g., 30d, 90d, OnDemand)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyLifetime", "String", "API Key Lifetime", false, "Maximum lifetime for API keys (e.g., 90d, 365d, NoExpiry)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyRotationPolicy", "String", "API Key Rotation Policy", false, "Automatic | Manual | GracePeriodOverlap — how API keys are rotated", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secretsManagementTool", "String", "Secrets Management Tool", false, "HashiCorpVault | AWSSecretsManager | AzureKeyVault | GCPSecretManager | None", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"machineToMachineAuth", "String", "Machine-to-Machine Auth", false, "OAuth2ClientCredentials | mTLS | JWTBearer | APIKey — authentication method", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountMfaRequired", "String", "Service Account MFA Required", false, "Yes | No — whether service accounts require MFA for interactive login", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedCredentialProhibition", "String", "Shared Credential Prohibition", false, "Yes | No — whether shared/group credentials are prohibited", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialVaultIntegration", "String", "Credential Vault Integration", false, "Yes | No — whether application credentials are injected from a secrets vault at runtime", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hardcodedCredentialDetection", "String", "Hardcoded Credential Detection", false, "Yes | No — whether CI/CD scans for hardcoded credentials in source code", 9, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -74580,13 +75200,28 @@ void buildServiceAccountLifecycleChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ServiceAccountLifecycle";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountTypes", "String", "Service Account Types", false, "API Client | Bot | SystemIntegration | ScheduledJob | DeviceIdentity", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"creationProcess", "String", "Creation Process", false, "How service accounts are created (admin, DevOps pipeline, self-service)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"creationApproval", "String", "Creation Approval", false, "Who approves service account creation (security team, admin)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ownerAssignment", "String", "Owner Assignment", false, "Yes | No — whether each service account must have a human owner", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ownerReviewFrequency", "String", "Owner Review Frequency", false, "How often owners must recertify service accounts (quarterly, annually)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialRotationPolicy", "String", "Credential Rotation Policy", false, "How often credentials (keys, secrets, certificates) must be rotated", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"credentialStorageMethod", "String", "Credential Storage Method", false, "VaultService | EnvironmentVariable | SecretManager | HSM", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopeLimitation", "String", "Scope Limitation", false, "Principle of least privilege — minimum permissions for service accounts", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ipRestriction", "String", "IP Restriction", false, "Yes | No — whether service accounts are restricted to specific IPs", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expirationPolicy", "String", "Expiration Policy", false, "Whether service accounts expire and after how long (e.g., 1y, never)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"renewalProcess", "String", "Renewal Process", false, "Steps to renew an expiring service account", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decommissioningProcess", "String", "Decommissioning Process", false, "How service accounts are retired (revoke, archive, delete)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"monitoringRequirements", "String", "Monitoring Requirements", false, "Anomaly detection, usage thresholds, alerting for service accounts", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceAccountNamingConvention", "String", "Naming Convention", false, "Naming pattern for service accounts (e.g., svc-{app}-{environment})", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"documentationRequirements", "String", "Documentation Requirements", false, "What must be documented for each service account (purpose, owner, scope)", 14, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -74900,13 +75535,26 @@ void buildSessionCreationPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SessionCreationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionMechanism", "String", "Session Mechanism", false, "ServerSideCookie | JwtBearer | OpaqueToken — primary session mechanism", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionIdGeneration", "String", "Session ID Generation", false, "CryptoRandom | UUID | HMAC — method for session identifier generation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionIdEntropy", "String", "Session ID Entropy", false, "Minimum entropy for session identifiers (e.g., 128-bit, 256-bit)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionBindingMethod", "String", "Session Binding Method", false, "Cookie | Header | TokenBound — how sessions are bound to requests", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"httpOnlyCookies", "String", "HttpOnly Cookies", false, "Yes | No — whether session cookies use HttpOnly flag", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secureCookies", "String", "Secure Cookies", false, "Yes | No — whether session cookies use Secure flag (HTTPS only)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sameSitePolicy", "String", "SameSite Policy", false, "Strict | Lax | None — SameSite cookie attribute policy", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"cookieDomain", "String", "Cookie Domain", false, "Domain scope for session cookies (exact domain or parent domain)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceBinding", "String", "Device Binding", false, "None | Fingerprint | CertificateBound | DPoP — session-to-device binding", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionDataStorage", "String", "Session Data Storage", false, "ServerSide | ClientSide | Hybrid — where full session data is stored", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionReplicationStrategy", "String", "Session Replication Strategy", false, "StickySession | Distributed | Stateless — strategy for multi-node deployments", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"csrfProtection", "String", "CSRF Protection", false, "SynchronizerToken | DoubleSubmit | SameSite | None — CSRF mitigation method", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postLoginRedirectValidation", "String", "Post-Login Redirect Validation", false, "Allowlist | SameOrigin | None — validation of post-login redirect targets", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -74929,13 +75577,25 @@ void buildSessionLifecycleMonitoringChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SessionLifecycleMonitoring";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionCreationLogging", "String", "Session Creation Logging", false, "Yes | No — whether session creation events are logged", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionDestructionLogging", "String", "Session Destruction Logging", false, "Yes | No — whether session termination events are logged", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionRenewalLogging", "String", "Session Renewal Logging", false, "Yes | No — whether session ID renewal events are logged", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionEventDetails", "String", "Session Event Details", false, "Timestamp | SourceIP | UserAgent | GeoLocation | SessionAction — details captured per event", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionIdInLogs", "String", "Session ID in Logs", false, "SaltedHash | Truncated | Never — how session IDs appear in logs (never in plaintext)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionActivityTracking", "String", "Session Activity Tracking", false, "Yes | No — whether per-session activity (page visits, actions) is tracked", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionHistoryVisibleToUser", "String", "Session History Visible to User", false, "Yes | No — whether users can view their session activity history", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"failedSessionAccessLogging", "String", "Failed Session Access Logging", false, "Yes | No — whether invalid/expired session access attempts are logged", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionMetricsCollection", "String", "Session Metrics Collection", false, "Yes | No — whether session duration, count, and patterns are collected as metrics", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionAuditRetention", "String", "Session Audit Log Retention", false, "Duration session audit logs are retained (e.g., 90d, 1y, 7y)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"realTimeSessionAlerts", "String", "Real-Time Session Alerts", false, "Yes | No — whether suspicious session events trigger real-time alerts", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"alertTriggers", "String", "Session Alert Triggers", false, "BruteForce | AnomalousAccess | MassLogout | SessionHijack — events triggering alerts", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -75152,13 +75812,26 @@ void buildSessionRevocationPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SessionRevocationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"logoutMechanism", "String", "Logout Mechanism", false, "ServerSideInvalidation | TokenBlacklist | CookieClear | All — how sessions are terminated", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"logoutButtonPlacement", "String", "Logout Button Placement", false, "Header | Menu | Both | EveryPage — where the logout action is accessible", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"logoutConfirmation", "String", "Logout Confirmation", false, "Immediate | ConfirmDialog | None — whether logout requires confirmation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postLogoutRedirect", "String", "Post-Logout Redirect", false, "LoginPage | HomePage | GoodbyePage | CustomUrl — where users go after logout", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postLogoutCacheClear", "String", "Post-Logout Cache Clear", false, "Yes | No — whether Clear-Site-Data header is sent on logout", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"singleLogoutEnabled", "String", "Single Logout (SLO) Enabled", false, "Yes | No — whether logout propagates to all connected IdPs and services", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"singleLogoutProtocol", "String", "Single Logout Protocol", false, "FrontChannel | BackChannel | Both — SLO propagation method", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"privilegeChangeRevocation", "String", "Session Revocation on Privilege Change", false, "Regenerate | Terminate | NoAction — session handling when user roles change", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"passwordChangeRevocation", "String", "Session Revocation on Password Change", false, "TerminateAll | TerminateOthers | KeepCurrent — session handling after password change", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"compromiseRevocation", "String", "Session Revocation on Compromise Detection", false, "TerminateAll | TerminateOthers | RequireReauth — action when account compromise suspected", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adminTerminationEnabled", "String", "Admin Session Termination Enabled", false, "Yes | No — whether administrators can terminate user sessions", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bulkRevocationEnabled", "String", "Bulk Session Revocation Enabled", false, "Yes | No — whether mass session invalidation is supported (e.g., security incident)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"revocationPropagationDelay", "String", "Revocation Propagation Delay", false, "Immediate | EventualConsistency | MaxDelay — how quickly revocation takes effect across nodes", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -75181,13 +75854,25 @@ void buildSessionSecurityPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SessionSecurityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionFixationProtection", "String", "Session Fixation Protection", false, "RegenerateOnLogin | RegenerateOnPrivilegeChange | Both — session ID regeneration strategy", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionIdRegenerationTriggers", "String", "Session ID Regeneration Triggers", false, "Login | PrivilegeChange | PasswordChange | MfaStep | All — events triggering session ID renewal", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionBindingProperties", "String", "Session Binding Properties", false, "None | IPAddress | UserAgent | DeviceFingerprint | TlsCertificate — properties bound to session", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bindingMismatchAction", "String", "Binding Mismatch Action", false, "Terminate | RequireReauth | LogAndContinue | StepUpAuth — action on session binding violation", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionAnomalyDetection", "String", "Session Anomaly Detection", false, "Yes | No — whether session anomalies (IP change, user-agent change) are monitored", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"anomalyDetectionSignals", "String", "Anomaly Detection Signals", false, "IPChange | UserAgentChange | GeoLocationJump | ConcurrentAccess — signals monitored", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionCachePolicy", "String", "Session Cache Policy", false, "NoStore | NoCache | Private — Cache-Control directive for pages with session data", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clearSiteDataOnLogout", "String", "Clear-Site-Data on Logout", false, "Yes | No — whether Clear-Site-Data header clears cache, cookies, storage on logout", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionTransportSecurity", "String", "Session Transport Security", false, "HttpsOnly | HstsEnabled | CertificatePinning — transport layer requirements for sessions", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionIdInUrlPrevention", "String", "Session ID in URL Prevention", false, "Yes | No — whether session IDs in URL parameters are explicitly blocked", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossOriginSessionProtection", "String", "Cross-Origin Session Protection", false, "SameSiteCookies | CorsRestriction | Both — cross-origin session protection mechanisms", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionDataMinimization", "String", "Session Data Minimization", false, "Yes | No — whether session stores only essential data (minimize sensitive data in session)", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -75210,13 +75895,30 @@ void buildSessionTimeoutPolicyChildren(som::SomMetaNode& parent, std::vector<std
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SessionTimeoutPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idleTimeoutDefault", "String", "Default Idle Timeout", false, "Duration of inactivity before session expires (e.g., 15min, 30min, 1h)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idleTimeoutHighValue", "String", "Idle Timeout — High-Value Operations", false, "Shorter idle timeout for sensitive operations (e.g., 2min, 5min)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"absoluteTimeout", "String", "Absolute Session Timeout", false, "Maximum session duration regardless of activity (e.g., 4h, 8h, 24h)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"renewalTimeout", "String", "Session ID Renewal Timeout", false, "Interval at which the session ID is transparently rotated (e.g., 15min, 30min)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idleTimeoutAal1", "String", "Idle Timeout — AAL1", false, "Idle timeout for AAL1 sessions (NIST default: 30 days)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"absoluteTimeoutAal1", "String", "Absolute Timeout — AAL1", false, "Maximum session duration for AAL1 (NIST default: 30 days)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idleTimeoutAal2", "String", "Idle Timeout — AAL2", false, "Idle timeout for AAL2 sessions (NIST default: 1 hour)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"absoluteTimeoutAal2", "String", "Absolute Timeout — AAL2", false, "Maximum session duration for AAL2 (NIST default: 24 hours)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idleTimeoutAal3", "String", "Idle Timeout — AAL3", false, "Idle timeout for AAL3 sessions (NIST default: 15 minutes)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"absoluteTimeoutAal3", "String", "Absolute Timeout — AAL3", false, "Maximum session duration for AAL3 (NIST default: 12 hours)", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutEnforcement", "String", "Timeout Enforcement", false, "ServerSide | ClientSide | Both — where session timeout is enforced (server-side mandatory)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutWarningEnabled", "String", "Timeout Warning Enabled", false, "Yes | No — whether users receive a warning before session expiry", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutWarningLeadTime", "String", "Timeout Warning Lead Time", false, "Time before expiry to show warning (e.g., 2min, 5min)", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutWarningAction", "String", "Timeout Warning Action", false, "ExtendSession | SaveDraft | RedirectToLogin — action offered to user", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionExtensionAllowed", "String", "Session Extension Allowed", false, "Yes | No | Limited — whether users can extend an expiring session", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxExtensions", "String", "Maximum Session Extensions", false, "Maximum number of consecutive session extensions (e.g., 3, unlimited)", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gracePeriodAfterExpiry", "String", "Grace Period After Expiry", false, "Brief window after expiry for saving work (e.g., 0s, 30s, 2min)", 16, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -76311,13 +77013,25 @@ void buildSsoPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& 
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SsoPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ssoEnabled", "String", "SSO Enabled", false, "Yes | No — whether SSO is implemented", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ssoProtocol", "String", "SSO Protocol", false, "SAML2.0 | OIDC | OAuth2 | WS-Federation | Kerberos", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"identityProviderType", "String", "Identity Provider Type", false, "Internal | External | Hybrid — where the IdP is hosted", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"identityProviderProduct", "String", "Identity Provider Product", false, "Specific IdP product or service (e.g., Keycloak, Azure AD, Okta, Auth0)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"federationProtocol", "String", "Federation Protocol", false, "Protocol for cross-organization federation (SAML, OIDC, SCIM)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"attributeMapping", "String", "Attribute Mapping", false, "How IdP attributes map to application roles and permissions", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"justInTimeProvisioning", "String", "Just-In-Time Provisioning", false, "Yes | No — whether accounts are auto-created on first SSO login", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionSynchronization", "String", "Session Synchronization", false, "Yes | No — whether logout from one app logs out all SSO-connected apps", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"singleLogoutEnabled", "String", "Single Logout Enabled", false, "Yes | No — whether SLO (Single Logout) is implemented across services", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ssoFallbackMethod", "String", "SSO Fallback Method", false, "Local password | Backup IdP | None — fallback when IdP is unavailable", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ssoScopePolicy", "String", "SSO Scope Policy", false, "Which applications are included in SSO (all, internal only, selected)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalIdpTrustPolicy", "String", "External IdP Trust Policy", false, "Validation requirements for external identity providers", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -78997,13 +79711,25 @@ void buildStepUpAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "StepUpAuthenticationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpEnabled", "String", "Step-Up Enabled", false, "Yes | No — whether step-up authentication is implemented", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpTriggers", "String", "Step-Up Triggers", false, "HighRiskOperation | SensitiveDataAccess | AdminAction | PaymentApproval | SettingsChange", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpTargetAal", "String", "Step-Up Target AAL", false, "AAL2 | AAL3 — target assurance level for step-up authentication", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepUpTimeout", "String", "Step-Up Timeout", false, "Duration the elevated session lasts (e.g., 5min, 15min, transaction-scoped)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskBasedAuthEnabled", "String", "Risk-Based Auth Enabled", false, "Yes | No — whether risk signals influence authentication requirements", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskSignals", "String", "Risk Signals", false, "GeoLocation | IPReputation | DeviceFingerprint | BehaviorPattern | TimeOfDay", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScoringMethod", "String", "Risk Scoring Method", false, "RuleBased | MachineLearning | Hybrid — how risk scores are computed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lowRiskAction", "String", "Low Risk Action", false, "AllowSilently | NormalAuth — response to low-risk signals", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mediumRiskAction", "String", "Medium Risk Action", false, "RequireMFA | AdditionalVerification — response to medium-risk signals", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"highRiskAction", "String", "High Risk Action", false, "Block | RequirePhishingResistant | ManualReview — response to high-risk signals", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adaptiveAuthProvider", "String", "Adaptive Auth Provider", false, "Built-in | Third-party service name — provider of adaptive authentication", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"continuousAuthEnabled", "String", "Continuous Auth Enabled", false, "Yes | No — whether session is continuously monitored for risk changes", 11, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -79029,13 +79755,26 @@ void buildStorageEncryptionPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "StorageEncryptionPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionAtRest", "bool", "Encryption at Rest", true, "Yes | No — whether stored files are encrypted at rest", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionAlgorithm", "String", "Encryption Algorithm", false, "AES-256-GCM | AES-256-CBC | ChaCha20-Poly1305 — algorithm for file encryption", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionScope", "String", "Encryption Scope", false, "Volume | Bucket | PerFile | PerTenant — granularity at which encryption keys are applied", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serverSideEncryption", "String", "Server-Side Encryption", false, "SSE-S3 | SSE-KMS | SSE-C | ManagedKey — server-side encryption method", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientSideEncryption", "bool", "Client-Side Encryption", false, "Yes | No — whether files are encrypted before upload by the client", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"clientSideEncryptionMethod", "String", "Client-Side Encryption Method", false, "Envelope encryption, client-managed keys — method for client-side encryption", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileKeyRotation", "String", "File Encryption Key Rotation", false, "Frequency and method of rotating file encryption keys", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"perTenantKeys", "bool", "Per-Tenant Encryption Keys", false, "Yes | No — whether each tenant has its own encryption key for file storage", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyDeletionOnTenantRemoval", "bool", "Key Deletion on Tenant Removal", false, "Yes | No — whether tenant file encryption keys are destroyed when tenant is deleted", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"encryptionInTransit", "bool", "Encryption in Transit", false, "Yes | No — TLS for file upload/download transport", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumTlsVersion", "String", "Minimum TLS Version for File Transfer", false, "TLS 1.2 | TLS 1.3 — minimum TLS version for file transfers", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupEncryption", "bool", "Backup Encryption", false, "Yes | No — whether file storage backups are encrypted with the same or separate keys", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional storage encryption notes", 12, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -79058,13 +79797,30 @@ void buildStorageLifecyclePolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "StorageLifecyclePolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPolicy", "String", "Retention Policy", true, "TimeBased | Indefinite | ComplianceDriven — default file retention strategy", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultRetentionPeriod", "String", "Default Retention Period", false, "Default duration files are kept before eligible for deletion (e.g. 90 days, 7 years)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionByFileType", "bool", "Retention by File Type", false, "Yes | No — different retention periods for different file categories", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"legalHoldSupport", "bool", "Legal Hold Support", false, "Yes | No — ability to place legal holds preventing deletion regardless of retention policy", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"archivingEnabled", "bool", "Archiving Enabled", false, "Yes | No — whether files are moved to low-cost archival tiers after a defined period", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"archivalStorageTier", "String", "Archival Storage Tier", false, "Glacier | ColdStorage | NearlineStorage — target tier for archived files", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"archivalTransitionDays", "int", "Archival Transition Days", false, "Number of days after last access before files move to archival storage", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"versioningEnabled", "bool", "File Versioning Enabled", false, "Yes | No — maintain previous versions of overwritten or modified files", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxVersions", "int", "Max Versions Retained", false, "Maximum number of previous versions to retain per file", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"versionRetentionDays", "int", "Version Retention Days", false, "Number of days previous versions are retained", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupSchedule", "String", "Backup Schedule", false, "Daily | Hourly | Continuous — frequency of file storage backups", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"backupRetentionDays", "int", "Backup Retention Days", false, "Number of days file backups are retained", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossRegionReplication", "bool", "Cross-Region Replication", false, "Yes | No — replicate file storage to a secondary region for disaster recovery", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secureDeletionMethod", "String", "Secure Deletion Method", false, "CryptoShred | Overwrite | StandardDelete — method for permanent file deletion", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionConfirmation", "bool", "Deletion Confirmation Required", false, "Yes | No — require explicit confirmation or approval for permanent file deletion", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletionAuditLogging", "bool", "Deletion Audit Logging", false, "Yes | No — log all file deletion events for compliance and forensics", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional storage lifecycle notes", 16, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85379,13 +86135,22 @@ void buildTenantBoundaryEnforcementPolicyChildren(som::SomMetaNode& parent, std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TenantBoundaryEnforcementPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementLayer", "String", "Enforcement Layer", true, "API | Service | Database | All — at which architectural layer tenant authorization boundaries are enforced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationFilterStrategy", "String", "Authorization Filter Strategy", false, "QueryFilter | TokenScope | PolicyEngine | Middleware — how tenant boundaries are applied in authorization decisions", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"implicitTenantFilter", "bool", "Implicit Tenant Filter", false, "Yes | No — whether all authorization queries automatically include a tenant filter (defense-in-depth)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"escalationPrevention", "String", "Escalation Prevention", false, "StrictScoping | RoleSeparation | TokenIsolation | All — how privilege escalation across tenant boundaries is prevented", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedServiceAuthorization", "String", "Shared Service Authorization", false, "ServiceAccount | PlatformRole | TenantAgnostic | ScopedProxy — how shared platform services authorize operations that span or are independent of tenants", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantSwitchingPolicy", "String", "Tenant Switching Policy", false, "ReAuthenticate | SessionSwitch | TokenExchange | NotAllowed — how users belonging to multiple tenants switch their active tenant context", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multiTenantUserSupport", "bool", "Multi-Tenant User Support", false, "Yes | No — whether a single user identity can belong to and operate within multiple tenants", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationCaching", "String", "Authorization Caching", false, "None | PerTenant | SharedWithValidation | InvalidateOnSwitch — how authorization decisions are cached with respect to tenant context to prevent cross-tenant cache leakage", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional tenant boundary enforcement notes", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85408,13 +86173,20 @@ void buildTenantContextPolicyChildren(som::SomMetaNode& parent, std::vector<std:
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TenantContextPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextResolutionMethod", "String", "Context Resolution Method", true, "Token | Header | Domain | Path | Session | IDP-Asserted — how tenant identity is determined from incoming requests", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextPropagation", "String", "Context Propagation", false, "ThreadLocal | RequestScoped | ServiceMesh | TokenBased — how tenant context flows through application layers during authorization evaluation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextValidation", "String", "Context Validation", false, "SessionBinding | TokenClaim | DatabaseLookup | IDP-Asserted — how tenant context is validated against the authenticated user", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contextImmutability", "bool", "Context Immutability", false, "Yes | No — whether the tenant context is immutable once established for a request (prevents mid-request tampering)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossServicePropagation", "String", "Cross-Service Propagation", false, "JwtClaim | Header | gRPC-Metadata | ContextObject — how tenant context propagates across service boundaries in distributed architectures", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"missingContextBehavior", "String", "Missing Context Behavior", false, "Reject | DefaultTenant | Anonymous — what happens when tenant context cannot be determined (reject = deny access; defaultTenant = use platform default)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional tenant context policy notes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85462,13 +86234,24 @@ void buildTenantDataIsolationPolicyChildren(som::SomMetaNode& parent, std::vecto
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TenantDataIsolationPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantIsolationModel", "String", "Tenant Isolation Model", false, "SharedDatabase_SharedSchema | SharedDatabase_SeparateSchema | SeparateDatabase — multi-tenancy architecture", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantIdentifierColumn", "String", "Tenant Identifier Column", false, "Column name used for tenant filtering (e.g., tenant_id, org_id)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantContextInjection", "String", "Tenant Context Injection", false, "SessionVariable | ConnectionString | MiddlewareFilter | RowPolicy — how tenant context is set", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantIsolationEnforcement", "String", "Tenant Isolation Enforcement", false, "DatabaseLevel | ApplicationLevel | Both — where isolation is enforced", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossTenantQueryPrevention", "String", "Cross-Tenant Query Prevention", false, "DatabaseRLS | QueryRewriting | GlobalFilter | AllLayers — how cross-tenant queries are blocked", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantDataBackupIsolation", "String", "Tenant Data Backup Isolation", false, "SharedBackup | PerTenantBackup | EncryptedShared — tenant-specific backup strategy", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantDataDeletion", "String", "Tenant Data Deletion", false, "SoftDelete | HardDelete | CryptoShredding — how tenant data is removed on offboarding", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantDataExport", "String", "Tenant Data Export", false, "SelfService | AdminAssisted | ApiExport — data portability for tenants", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantResourceQuotas", "String", "Tenant Resource Quotas", false, "Yes | No — whether storage/query quotas are enforced per tenant", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tenantIsolationTesting", "String", "Tenant Isolation Testing", false, "AutomatedTests | PenetrationTesting | Both — how tenant isolation is verified", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedReferenceDataAccess", "String", "Shared Reference Data Access", false, "ReadOnly | CachedLocally | Replicated — how tenants access shared/global reference data", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85608,13 +86391,22 @@ void buildTenantOnboardingPolicyChildren(som::SomMetaNode& parent, std::vector<s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TenantOnboardingPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationProvisioningModel", "String", "Authorization Provisioning Model", true, "Template | Clone | Custom | Minimal — how authorization resources (roles, permissions, policies) are provisioned for new tenants", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultRoleTemplate", "String", "Default Role Template", false, "Name or ID of the role template used to bootstrap initial roles for a new tenant (e.g. StandardSaaS, Enterprise, Minimal)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adminRoleProvisioning", "String", "Admin Role Provisioning", false, "AutoCreate | ManualAssign | InviteBased — how the initial tenant administrator role is set up", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"initialPermissionSet", "String", "Initial Permission Set", false, "Full | Minimal | Custom — what permissions are granted to a new tenant upon creation", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"offboardingStrategy", "String", "Offboarding Strategy", false, "SoftDelete | HardDelete | Archive | Anonymize — how tenant authorization data is handled on offboarding", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceCleanupOnOffboarding", "String", "Resource Cleanup on Offboarding", false, "Immediate | Deferred | Manual | PolicyBased — when authorization resources are cleaned up after tenant removal", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataRetentionDays", "int", "Data Retention Days", false, "Number of days tenant authorization data (roles, assignments, audit logs) is retained after offboarding (0 = immediate)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"offboardingApproval", "String", "Offboarding Approval", false, "None | PlatformAdmin | ComplianceOfficer | Both — who must approve tenant offboarding and data deletion", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional tenant onboarding/offboarding notes", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -86346,13 +87138,22 @@ void buildTlsProtocolPolicyChildren(som::SomMetaNode& parent, std::vector<std::s
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TlsProtocolPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumTlsVersion", "String", "Minimum TLS Version", true, "TLS1.2 | TLS1.3 — minimum acceptable TLS version (TLS 1.3 recommended; TLS 1.0/1.1 are deprecated and should not be used; PCI DSS forbids TLS 1.0)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preferredTlsVersion", "String", "Preferred TLS Version", false, "TLS1.3 | TLS1.2 — preferred TLS version for new connections (TLS 1.3 provides improved security and performance)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedCipherSuites", "String", "Allowed Cipher Suites", false, "Comma-separated cipher suite names or categories (e.g. TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256; disable NULL, Anonymous, EXPORT, DES, RC4 ciphers)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preferAuthenticatedEncryption", "bool", "Prefer Authenticated Encryption", false, "Yes | No — whether GCM/CCM authenticated cipher modes are preferred over CBC (recommended: Yes)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dhGroups", "String", "Diffie-Hellman Groups", false, "Comma-separated DH groups for key exchange (e.g. x25519, prime256v1, ffdhe3072; per RFC 7919)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tlsCompressionDisabled", "bool", "TLS Compression Disabled", false, "Yes | No — whether TLS compression is disabled to prevent CRIME/BREACH attacks (recommended: Yes)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionResumption", "String", "Session Resumption", false, "Tickets | SessionID | None — TLS session resumption mechanism (tickets recommended for TLS 1.3; session IDs for TLS 1.2)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceFramework", "String", "Compliance Framework", false, "FIPS-140-2 | PCI-DSS | HIPAA | NIST-800-52 | None — regulatory framework dictating TLS requirements", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional TLS protocol policy notes", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -86463,13 +87264,29 @@ void buildTokenManagementPolicyChildren(som::SomMetaNode& parent, std::vector<st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TokenManagementPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenFormat", "String", "Token Format", false, "JWT | Opaque | SAML | Custom — primary access token format", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenSigningAlgorithm", "String", "Token Signing Algorithm", false, "RS256 | ES256 | HS256 | EdDSA — algorithm for signing tokens", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessTokenLifetime", "String", "Access Token Lifetime", false, "Duration of access token validity (e.g., 15min, 1h)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshTokenEnabled", "String", "Refresh Token Enabled", false, "Yes | No — whether refresh tokens are issued", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshTokenLifetime", "String", "Refresh Token Lifetime", false, "Duration of refresh token validity (e.g., 7d, 30d)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshTokenRotation", "String", "Refresh Token Rotation", false, "Yes | No — whether refresh tokens are rotated on each use", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshTokenReuseDetection", "String", "Refresh Token Reuse Detection", false, "Yes | No — whether reuse of old refresh tokens triggers revocation", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idTokenEnabled", "String", "ID Token Enabled", false, "Yes | No — whether OIDC ID tokens are issued", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"idTokenClaims", "String", "ID Token Claims", false, "Standard claims included in ID tokens (sub, email, name, roles)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenStorageClient", "String", "Token Storage Client", false, "HttpOnlyCookie | SessionStorage | LocalStorage | Memory — client-side storage", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenStorageServer", "String", "Token Storage Server", false, "Redis | Database | InMemory | None — server-side token store (for opaque tokens)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenRevocationEnabled", "String", "Token Revocation Enabled", false, "Yes | No — whether token revocation endpoint is available", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenRevocationPropagation", "String", "Token Revocation Propagation", false, "Immediate | EventualConsistency | Polling — how revocation propagates", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tokenIntrospectionEnabled", "String", "Token Introspection Enabled", false, "Yes | No — whether RFC 7662 token introspection endpoint is available", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"audienceRestriction", "String", "Audience Restriction", false, "Yes | No — whether tokens are audience-restricted to specific services", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scopePolicy", "String", "Scope Policy", false, "Minimum scope principle — how token scopes are assigned and validated", 15, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -88810,13 +89627,22 @@ void buildTransportSecurityPolicyChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TransportSecurityPolicy";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsEnabled", "bool", "HSTS Enabled", true, "Yes | No — whether HTTP Strict Transport Security header is sent to force browsers to use HTTPS", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsMaxAgeDays", "int", "HSTS Max-Age (Days)", false, "HSTS max-age value in days (e.g. 365 = 1 year; 730 = 2 years; must be sufficiently long to prevent downgrade)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsIncludeSubdomains", "bool", "HSTS Include Subdomains", false, "Yes | No — whether HSTS applies to all subdomains (recommended: Yes when all subdomains support HTTPS)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsPreload", "bool", "HSTS Preload", false, "Yes | No — whether the domain is submitted to the HSTS preload list (hardcoded into browsers; requires includeSubDomains and long max-age)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"httpToHttpsRedirect", "bool", "HTTP-to-HTTPS Redirect", false, "Yes | No — whether HTTP requests are permanently redirected (301) to HTTPS", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secureCookieFlag", "bool", "Secure Cookie Flag", false, "Yes | No — whether all cookies are marked with Secure flag (browsers only send them over HTTPS)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preventMixedContent", "bool", "Prevent Mixed Content", false, "Yes | No — whether loading of non-TLS resources from TLS pages is blocked", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitiveDataCaching", "String", "Sensitive Data Caching", false, "NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional transport security policy notes", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -90322,13 +91148,24 @@ void buildUserAccountStatesDefinitionChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserAccountStatesDefinition";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateModel", "String", "State Model Type", false, "Linear | Graph | Hierarchical — how states relate to each other", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"initialState", "String", "Initial State", false, "State assigned at account creation (e.g., Pending Verification)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"activeState", "String", "Active State", false, "Fully operational account state name", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"suspendedState", "String", "Suspended State", false, "Temporarily restricted state name", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lockedState", "String", "Locked State", false, "Account locked due to security policy (e.g., failed logins)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deactivatedState", "String", "Deactivated State", false, "Administratively disabled, recoverable", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"archivedState", "String", "Archived State", false, "Read-only historical state before permanent deletion", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deletedState", "String", "Deleted State", false, "Permanently removed or anonymized", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"customStates", "String", "Custom States", false, "Additional project-specific states (comma-separated)", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateVisibility", "String", "State Visibility", false, "Which states are visible to the user vs. admin-only", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateTransitionDiagramRef", "String", "State Transition Diagram Reference", false, "Reference to a state transition diagram (mermaid or external)", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -91226,12 +92063,20 @@ void buildUserInteractionModelSummaryChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserInteractionModelSummary";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"aggregation", "Key metrics and classifications for user interaction model."};
     (*n).docComment = "Summary content for interaction model.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryAccessChannel", "String", "Primary Access Channel", false, "Web, Mobile App, Desktop App, API, CLI", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelCount", "int", "Number of Access Channels", false, "Total count of access channels defined", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"interactionPatternCount", "int", "Number of Interaction Patterns", false, "Total count of interaction patterns defined", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevelCount", "int", "Number of Access Levels", false, "Total count of access levels defined", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"multiChannelSupport", "String", "Multi-Channel Support", false, "None, Limited, Full", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"offlineCapability", "String", "Offline Capability", false, "None, Read-only, Full", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sessionManagement", "String", "Session Management Approach", false, "Server-side, Client-side, Hybrid, Stateless", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationChannels", "String", "Notification Channels", false, "e.g., Email, SMS, Push, In-app", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -91591,13 +92436,22 @@ void buildUserLifecycleTransitionsChildren(som::SomMetaNode& parent, std::vector
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserLifecycleTransitions";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"transitionModel", "String", "Transition Model", false, "StateMachine | Workflow | Hybrid — how transitions are modeled", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"approvalPolicyDefault", "String", "Default Approval Policy", false, "SingleApprover | DualControl | AutoApproved — default for all transitions", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"escalationPolicy", "String", "Escalation Policy", false, "What happens if approval is not granted within SLA (auto-deny, escalate, remind)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"escalationTimeframe", "String", "Escalation Timeframe", false, "Time before pending approval is escalated (e.g., 48h)", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"auditTrailRequired", "String", "Audit Trail Required", false, "Yes | No — whether every transition is logged", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationOnTransition", "String", "Notification on Transition", false, "User | Approver | Admin | All — who is notified on state change", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bulkTransitionSupport", "String", "Bulk Transition Support", false, "Yes | No — whether multiple accounts can transition at once", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automatedTransitions", "String", "Automated Transitions", false, "Transitions triggered automatically (inactivity → deactivated, expiry → deleted)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"transitionUndoPolicy", "String", "Transition Undo Policy", false, "Which transitions are reversible and within what time window", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -91738,12 +92592,18 @@ void buildUserNotificationPreferencesChildren(som::SomMetaNode& parent, std::vec
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserNotificationPreferences";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"form", "User notification preference options."};
     (*n).docComment = "Preferences content.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"globalOptOut", "String", "Global Opt-Out Support", false, "Can users opt out of all non-essential notifications", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"perTypeControl", "String", "Per-Type Control", false, "Can users control individual notification types", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelPreferences", "String", "Channel Preferences", false, "Can users choose preferred channels", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequencyControl", "String", "Frequency Control", false, "Can users control notification frequency", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"quietHours", "String", "Quiet Hours", false, "Can users set do-not-disturb hours", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"digestOption", "String", "Digest Option", false, "Can users opt for daily/weekly digests", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -91998,13 +92858,30 @@ void buildUserRegistrationProcessChildren(som::SomMetaNode& parent, std::vector<
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UserRegistrationProcess";
     (*n).memberName = "content";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).contentHelp = "Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"registrationMethods", "String", "Registration Methods", false, "SelfRegistration | Invitation | AdminProvisioned | BulkImport | ExternalIdP", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"selfRegistrationEnabled", "String", "Self-Registration Enabled", false, "Yes | No | PerCategory — whether users can self-register", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"identityProofingLevel", "String", "Identity Proofing Level", false, "None | Email | Phone | Document | InPerson — per NIST SP 800-63A IAL", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"emailVerificationRequired", "String", "Email Verification Required", false, "Yes | No | Optional", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phoneVerificationRequired", "String", "Phone Verification Required", false, "Yes | No | Optional", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"captchaRequired", "String", "CAPTCHA Required", false, "Yes | No — bot prevention during self-registration", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"invitationExpiryPeriod", "String", "Invitation Expiry Period", false, "Duration before invitation link expires (e.g., 48h, 7d)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"approvalRequired", "String", "Approval Required", false, "Yes | No — whether registration needs manual approval", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"approvalWorkflow", "String", "Approval Workflow", false, "Single Approver | Multi-Level | Auto-Approved — workflow type", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"approverRole", "String", "Approver Role", false, "Role or person who approves new registrations", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredFieldsAtRegistration", "String", "Required Fields at Registration", false, "Comma-separated list of mandatory fields during signup", 10, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"optionalFieldsAtRegistration", "String", "Optional Fields at Registration", false, "Comma-separated list of optional fields during signup", 11, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"termsAcceptanceRequired", "String", "Terms Acceptance Required", false, "Yes | No — must accept terms of service / privacy policy", 12, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"duplicateDetection", "String", "Duplicate Detection", false, "How duplicate accounts are detected (email, phone, name matching)", 13, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"welcomeNotification", "String", "Welcome Notification", false, "Email | SMS | InApp | None — notification on successful registration", 14, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"initialRoleAssignment", "String", "Initial Role Assignment", false, "Default role(s) assigned at registration", 15, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"registrationRateLimiting", "String", "Registration Rate Limiting", false, "Max registrations per IP/time window to prevent abuse", 16, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {

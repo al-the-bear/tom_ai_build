@@ -2305,6 +2305,8 @@ typedef struct { SomNode node; } AcceptanceProcessTimelineForm;
 typedef struct { SomNode node; } AcceptanceStepEntryContentForm;
 typedef struct { SomNode node; } AcceptanceStepEntryFlowForm;
 typedef struct { SomNode node; } AcceptanceStepEntryOutcomeForm;
+typedef struct { SomNode node; } AccessConstraintPoliciesContentForm;
+typedef struct { SomNode node; } AccessControlModelSelectionContentForm;
 typedef struct { SomNode node; } AccessLevelEntryContentForm;
 typedef struct { SomNode node; } AccessLevelEntryGovernanceForm;
 typedef struct { SomNode node; } AccessLevelEntryPermissionsForm;
@@ -2324,6 +2326,11 @@ typedef struct { SomNode node; } AccessibilityStandardEntryTestingForm;
 typedef struct { SomNode node; } AccessibilityStrategyForm;
 typedef struct { SomNode node; } AccessibilitySupportForm;
 typedef struct { SomNode node; } AccessibilityTestingForm;
+typedef struct { SomNode node; } AccountActivationPolicyContentForm;
+typedef struct { SomNode node; } AccountDeactivationPolicyContentForm;
+typedef struct { SomNode node; } AccountDeletionPolicyContentForm;
+typedef struct { SomNode node; } AccountLockoutPolicyContentForm;
+typedef struct { SomNode node; } AccountModificationPolicyContentForm;
 typedef struct { SomNode node; } ActionParameterEntryContentForm;
 typedef struct { SomNode node; } ActorCharacteristicsContentForm;
 typedef struct { SomNode node; } ActorCharacteristicsSupportForm;
@@ -2372,11 +2379,18 @@ typedef struct { SomNode node; } AlternativeFlowEntryContentForm;
 typedef struct { SomNode node; } AlternativeFlowEntryResumePointForm;
 typedef struct { SomNode node; } AlternativeStepEntryContentForm;
 typedef struct { SomNode node; } AnomalyDetectionPolicyContentForm;
+typedef struct { SomNode node; } ApiAbuseProtectionContentForm;
+typedef struct { SomNode node; } ApiAuthenticationPolicyContentForm;
+typedef struct { SomNode node; } ApiAuthorizationPolicyContentForm;
 typedef struct { SomNode node; } ApiCompatibilityEntryContentForm;
 typedef struct { SomNode node; } ApiCompatibilityEntryFormatForm;
 typedef struct { SomNode node; } ApiCompatibilityEntryPolicyForm;
 typedef struct { SomNode node; } ApiCompatibilityEntrySpecificationForm;
 typedef struct { SomNode node; } ApiCompatibilityEntryTransportDetailsForm;
+typedef struct { SomNode node; } ApiCorsSecurityContentForm;
+typedef struct { SomNode node; } ApiKeyManagementPolicyContentForm;
+typedef struct { SomNode node; } ApiRequestValidationPolicyContentForm;
+typedef struct { SomNode node; } ApiSecurityMonitoringContentForm;
 typedef struct { SomNode node; } ApiVersioningStrategyCompatibilityForm;
 typedef struct { SomNode node; } ApiVersioningStrategyContentForm;
 typedef struct { SomNode node; } ApiVersioningStrategyDocumentationForm;
@@ -2423,6 +2437,7 @@ typedef struct { SomNode node; } AssumptionRegisterEntryContentForm;
 typedef struct { SomNode node; } AuditEntryContentForm;
 typedef struct { SomNode node; } AuditEvidenceRequirementsContentForm;
 typedef struct { SomNode node; } AuditEvidenceTypeEntryContentForm;
+typedef struct { SomNode node; } AuthenticationErrorHandlingContentForm;
 typedef struct { SomNode node; } AuthenticationEventPolicyContentForm;
 typedef struct { SomNode node; } AuthenticationMethodEntryApplicabilityForm;
 typedef struct { SomNode node; } AuthenticationMethodEntryContentForm;
@@ -2454,6 +2469,7 @@ typedef struct { SomNode node; } BackupComplianceReportingForm;
 typedef struct { SomNode node; } BackupDataClassificationCategoriesForm;
 typedef struct { SomNode node; } BackupDataClassificationContentForm;
 typedef struct { SomNode node; } BackupDataClassificationExclusionsForm;
+typedef struct { SomNode node; } BackupEncryptionPolicyContentForm;
 typedef struct { SomNode node; } BackupInfrastructureContentForm;
 typedef struct { SomNode node; } BackupInfrastructureNetworkForm;
 typedef struct { SomNode node; } BackupInfrastructureSecurityForm;
@@ -2482,6 +2498,7 @@ typedef struct { SomNode node; } BatchJobManagementContentForm;
 typedef struct { SomNode node; } BatchJobManagementExecutionForm;
 typedef struct { SomNode node; } BatchJobManagementMonitoringForm;
 typedef struct { SomNode node; } BehaviorRuleEntryContentForm;
+typedef struct { SomNode node; } BiometricAuthenticationPolicyContentForm;
 typedef struct { SomNode node; } BoundaryAssumptionEntryContentForm;
 typedef struct { SomNode node; } BoundaryAssumptionEntryRiskForm;
 typedef struct { SomNode node; } BoundaryAssumptionEntryValidationForm;
@@ -2553,10 +2570,12 @@ typedef struct { SomNode node; } CapacityReviewProcessEscalationForm;
 typedef struct { SomNode node; } CapacityReviewProcessMonitoringForm;
 typedef struct { SomNode node; } CapacityReviewProcessPlanningForm;
 typedef struct { SomNode node; } CcbMemberEntryContentForm;
+typedef struct { SomNode node; } CertificateAuthenticationPolicyContentForm;
 typedef struct { SomNode node; } CertificateManagementContentForm;
 typedef struct { SomNode node; } CertificateManagementKeysForm;
 typedef struct { SomNode node; } CertificateManagementLifecycleForm;
 typedef struct { SomNode node; } CertificateManagementMonitoringForm;
+typedef struct { SomNode node; } CertificateManagementPolicyContentForm;
 typedef struct { SomNode node; } CertificateManagementStorageForm;
 typedef struct { SomNode node; } CertificationEntryContentForm;
 typedef struct { SomNode node; } CertificationEntryExamForm;
@@ -2604,6 +2623,7 @@ typedef struct { SomNode node; } ChangedRoleTransitionContentForm;
 typedef struct { SomNode node; } ChangedRoleTransitionSupportForm;
 typedef struct { SomNode node; } ChangedRoleTransitionTrainingForm;
 typedef struct { SomNode node; } ChangesFromCurrentStructureOverviewContentForm;
+typedef struct { SomNode node; } ChannelIntegrationsContentForm;
 typedef struct { SomNode node; } CiCdPipelineConfigurationContentForm;
 typedef struct { SomNode node; } CiCdPipelineRequirementsBuildForm;
 typedef struct { SomNode node; } CiCdPipelineRequirementsContentForm;
@@ -2664,6 +2684,7 @@ typedef struct { SomNode node; } CodingStandardsSectionPracticesForm;
 typedef struct { SomNode node; } CodingStandardsSectionQualityForm;
 typedef struct { SomNode node; } CodingStandardsSectionReviewForm;
 typedef struct { SomNode node; } ColorPaletteEntryContentForm;
+typedef struct { SomNode node; } ColumnLevelSecurityPolicyContentForm;
 typedef struct { SomNode node; } CommitteeCharterContentForm;
 typedef struct { SomNode node; } CommitteeMemberEntryContentForm;
 typedef struct { SomNode node; } CommitteeResponsibilityEntryContentForm;
@@ -2776,6 +2797,7 @@ typedef struct { SomNode node; } ComputingEquipmentEntryContentForm;
 typedef struct { SomNode node; } ComputingEquipmentEntryHardwareForm;
 typedef struct { SomNode node; } ComputingEquipmentEntryPlanningForm;
 typedef struct { SomNode node; } ComputingEquipmentEntryPlatformForm;
+typedef struct { SomNode node; } ConcurrentSessionPolicyContentForm;
 typedef struct { SomNode node; } ConfidentialInfoCategoryEntryContentForm;
 typedef struct { SomNode node; } ConfidentialityRequirementsContentForm;
 typedef struct { SomNode node; } ConfidentialityRequirementsDataHandlingForm;
@@ -2795,6 +2817,7 @@ typedef struct { SomNode node; } ConsentManagementRequirementsManagementForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsStorageForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsTrackingForm;
 typedef struct { SomNode node; } ConstraintRegisterEntryContentForm;
+typedef struct { SomNode node; } ContentScanningPolicyContentForm;
 typedef struct { SomNode node; } ContextualHelpContextualHelpContentForm;
 typedef struct { SomNode node; } ContextualHelpInlineForm;
 typedef struct { SomNode node; } ContextualHelpPanelsForm;
@@ -2811,12 +2834,15 @@ typedef struct { SomNode node; } CorrectnessAccuracyForm;
 typedef struct { SomNode node; } CorrectnessContentForm;
 typedef struct { SomNode node; } CorrectnessIntegrityForm;
 typedef struct { SomNode node; } CorrectnessVerificationForm;
+typedef struct { SomNode node; } CredentialCompromiseDetectionPolicyContentForm;
+typedef struct { SomNode node; } CredentialRecoveryPolicyContentForm;
 typedef struct { SomNode node; } CrossCuttingConcernsCachingForm;
 typedef struct { SomNode node; } CrossCuttingConcernsContentForm;
 typedef struct { SomNode node; } CrossCuttingConcernsErrorsForm;
 typedef struct { SomNode node; } CrossCuttingConcernsObservabilityForm;
 typedef struct { SomNode node; } CrossCuttingConcernsSecurityForm;
 typedef struct { SomNode node; } CrossCuttingConcernsSharedForm;
+typedef struct { SomNode node; } CrossTenantAccessPolicyContentForm;
 typedef struct { SomNode node; } CurrentBusinessProcessContentForm;
 typedef struct { SomNode node; } CurrentBusinessProcessProcessContextForm;
 typedef struct { SomNode node; } CurrentDataClassificationClassificationSummaryForm;
@@ -2835,6 +2861,7 @@ typedef struct { SomNode node; } DashboardRequirementsFeaturesForm;
 typedef struct { SomNode node; } DashboardRequirementsMobileForm;
 typedef struct { SomNode node; } DashboardRequirementsStandardForm;
 typedef struct { SomNode node; } DashboardTemplatesContentForm;
+typedef struct { SomNode node; } DataAccessAuditPolicyContentForm;
 typedef struct { SomNode node; } DataAccessEventPolicyContentForm;
 typedef struct { SomNode node; } DataArchitectureAccessForm;
 typedef struct { SomNode node; } DataArchitectureConsistencyForm;
@@ -2893,6 +2920,7 @@ typedef struct { SomNode node; } DataIntegrationEntryOwnershipForm;
 typedef struct { SomNode node; } DataIntegrationEntryReliabilityInfoForm;
 typedef struct { SomNode node; } DataIntegrationEntryTransportForm;
 typedef struct { SomNode node; } DataIntegrationPointsIntegrationSummaryForm;
+typedef struct { SomNode node; } DataMaskingPolicyContentForm;
 typedef struct { SomNode node; } DataMigrationStrategyApproachForm;
 typedef struct { SomNode node; } DataMigrationStrategyComplianceForm;
 typedef struct { SomNode node; } DataMigrationStrategyContentForm;
@@ -2950,11 +2978,13 @@ typedef struct { SomNode node; } DataVolumeSummaryCapacityForm;
 typedef struct { SomNode node; } DataVolumeSummaryContentForm;
 typedef struct { SomNode node; } DataVolumeSummaryGrowthForm;
 typedef struct { SomNode node; } DataVolumeSummaryProjectionForm;
+typedef struct { SomNode node; } DatabaseAccessPolicyContentForm;
 typedef struct { SomNode node; } DatabaseCompatibilityEntryConnectionForm;
 typedef struct { SomNode node; } DatabaseCompatibilityEntryContentForm;
 typedef struct { SomNode node; } DatabaseCompatibilityEntryFeaturesForm;
 typedef struct { SomNode node; } DatabaseCompatibilityEntryPerformanceForm;
 typedef struct { SomNode node; } DatabaseCompatibilityEntrySupportForm;
+typedef struct { SomNode node; } DatabaseEncryptionPolicyContentForm;
 typedef struct { SomNode node; } DebuggingConfigurationBreakpointsForm;
 typedef struct { SomNode node; } DebuggingConfigurationContentForm;
 typedef struct { SomNode node; } DebuggingConfigurationErrorsForm;
@@ -3153,6 +3183,7 @@ typedef struct { SomNode node; } EmergencyMaintenanceProceduresContentForm;
 typedef struct { SomNode node; } EmergencyMaintenanceProceduresExecutionForm;
 typedef struct { SomNode node; } EmergencyMaintenanceProceduresGovernanceForm;
 typedef struct { SomNode node; } EncryptedDataCategoryEntryContentForm;
+typedef struct { SomNode node; } EncryptionAtRestPolicyContentForm;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryContentForm;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryIntegrationForm;
 typedef struct { SomNode node; } EnterpriseSystemCompatibilityEntryRequirementsForm;
@@ -3315,6 +3346,10 @@ typedef struct { SomNode node; } FeatureStakeholdersContentForm;
 typedef struct { SomNode node; } FeatureTourEntryContentForm;
 typedef struct { SomNode node; } FieldHelpEntryContentForm;
 typedef struct { SomNode node; } FieldValidationRuleContentForm;
+typedef struct { SomNode node; } FileAccessControlPolicyContentForm;
+typedef struct { SomNode node; } FileDownloadSecurityPolicyContentForm;
+typedef struct { SomNode node; } FileStorageEncryptionPolicyContentForm;
+typedef struct { SomNode node; } FileUploadValidationPolicyContentForm;
 typedef struct { SomNode node; } FirewallRequirementsAdvancedForm;
 typedef struct { SomNode node; } FirewallRequirementsContentForm;
 typedef struct { SomNode node; } FirewallRequirementsLoggingForm;
@@ -3613,6 +3648,7 @@ typedef struct { SomNode node; } LogManagementRequirementsStorageForm;
 typedef struct { SomNode node; } LogProtectionPolicyContentForm;
 typedef struct { SomNode node; } LogRetentionPolicyContentForm;
 typedef struct { SomNode node; } LogStoragePolicyContentForm;
+typedef struct { SomNode node; } LoginFlowConfigurationContentForm;
 typedef struct { SomNode node; } LoginFlowStepEntryBehaviorForm;
 typedef struct { SomNode node; } LoginFlowStepEntryContentForm;
 typedef struct { SomNode node; } LoginFlowStepEntryProtocolForm;
@@ -3667,6 +3703,7 @@ typedef struct { SomNode node; } MfaCategoryRequirementEntryAuthenticatorsForm;
 typedef struct { SomNode node; } MfaCategoryRequirementEntryContentForm;
 typedef struct { SomNode node; } MfaCategoryRequirementEntryOperationsForm;
 typedef struct { SomNode node; } MfaCategoryRequirementEntryTimingForm;
+typedef struct { SomNode node; } MfaConfigurationContentForm;
 typedef struct { SomNode node; } MigrationConsiderationsStrategyContentForm;
 typedef struct { SomNode node; } MigrationEnvironmentsContentForm;
 typedef struct { SomNode node; } MigrationMappingEntryContentForm;
@@ -3748,6 +3785,7 @@ typedef struct { SomNode node; } MustPassCriterionEntryDefinitionForm;
 typedef struct { SomNode node; } MustPassCriterionEntryGovernanceForm;
 typedef struct { SomNode node; } MustPassCriterionEntryStatusForm;
 typedef struct { SomNode node; } MustPassCriterionEntryVerificationForm;
+typedef struct { SomNode node; } MutualTlsPolicyContentForm;
 typedef struct { SomNode node; } NativeAppRequirementsContentForm;
 typedef struct { SomNode node; } NativeAppRequirementsLinkingForm;
 typedef struct { SomNode node; } NativeAppRequirementsPerformanceForm;
@@ -3878,6 +3916,9 @@ typedef struct { SomNode node; } PainPointGapCorrelationEntryContentForm;
 typedef struct { SomNode node; } PainPointRelationshipsContentForm;
 typedef struct { SomNode node; } PainPointsAndGapsPainPointsSummaryForm;
 typedef struct { SomNode node; } ParticipantEntryContentForm;
+typedef struct { SomNode node; } PasswordLifecyclePolicyContentForm;
+typedef struct { SomNode node; } PasswordRequirementsPolicyContentForm;
+typedef struct { SomNode node; } PasswordStoragePolicyContentForm;
 typedef struct { SomNode node; } PeakLoadPatternsCapacityForm;
 typedef struct { SomNode node; } PeakLoadPatternsContentForm;
 typedef struct { SomNode node; } PeakLoadPatternsMetricsForm;
@@ -3889,6 +3930,9 @@ typedef struct { SomNode node; } PenetrationTestingRequirementsSchedulingForm;
 typedef struct { SomNode node; } PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm;
 typedef struct { SomNode node; } PeriodicReviewPolicyContentForm;
 typedef struct { SomNode node; } PeripheralEquipmentEntryContentForm;
+typedef struct { SomNode node; } PermissionCompositionStrategyContentForm;
+typedef struct { SomNode node; } PermissionEvaluationBehaviorContentForm;
+typedef struct { SomNode node; } PermissionGranularityPolicyContentForm;
 typedef struct { SomNode node; } PermissionMatrixEntryContentForm;
 typedef struct { SomNode node; } PersonaEntryContentForm;
 typedef struct { SomNode node; } PersonaEntryContextForm;
@@ -4085,6 +4129,7 @@ typedef struct { SomNode node; } RecoveryProceduresContentForm;
 typedef struct { SomNode node; } RecoveryProceduresDatabaseForm;
 typedef struct { SomNode node; } RecoveryProceduresValidationForm;
 typedef struct { SomNode node; } RecoveryScenarioEntryContentForm;
+typedef struct { SomNode node; } RedirectHandlingPolicyContentForm;
 typedef struct { SomNode node; } ReferenceDocumentEntryContentForm;
 typedef struct { SomNode node; } ReferenceDocumentEntryGovernanceForm;
 typedef struct { SomNode node; } ReferenceDocumentEntryLifecycleForm;
@@ -4110,6 +4155,7 @@ typedef struct { SomNode node; } ReliabilityDurabilityForm;
 typedef struct { SomNode node; } ReliabilityFailoverForm;
 typedef struct { SomNode node; } ReliabilityRecoveryForm;
 typedef struct { SomNode node; } ReliabilityVerificationForm;
+typedef struct { SomNode node; } RememberMePolicyContentForm;
 typedef struct { SomNode node; } RemovedRoleEntryContentForm;
 typedef struct { SomNode node; } RemovedRoleEntryContinuityForm;
 typedef struct { SomNode node; } RemovedRoleEntryGovernanceForm;
@@ -4261,10 +4307,12 @@ typedef struct { SomNode node; } RoleAdjustmentEntryGovernanceForm;
 typedef struct { SomNode node; } RoleAdjustmentEntryRationaleForm;
 typedef struct { SomNode node; } RoleAdjustmentEntryRiskForm;
 typedef struct { SomNode node; } RoleAdjustmentsAdjustmentSummaryForm;
+typedef struct { SomNode node; } RoleCertificationPolicyContentForm;
 typedef struct { SomNode node; } RoleCombinationConstraintEntryContentForm;
 typedef struct { SomNode node; } RoleCompetencyEntryContentForm;
 typedef struct { SomNode node; } RoleDataScopeEntryContentForm;
 typedef struct { SomNode node; } RoleExclusionEntryContentForm;
+typedef struct { SomNode node; } RoleHierarchyPolicyContentForm;
 typedef struct { SomNode node; } RoleHolderEntryContentForm;
 typedef struct { SomNode node; } RoleInheritanceRuleEntryContentForm;
 typedef struct { SomNode node; } RolePermissionEntryContentForm;
@@ -4275,6 +4323,7 @@ typedef struct { SomNode node; } RollbackStrategyHealthForm;
 typedef struct { SomNode node; } RollbackStrategyOperationsForm;
 typedef struct { SomNode node; } RollbackStrategyTargetsForm;
 typedef struct { SomNode node; } RollbackStrategyTriggersForm;
+typedef struct { SomNode node; } RowLevelSecurityPolicyContentForm;
 typedef struct { SomNode node; } RpoRtoRequirementsByTierForm;
 typedef struct { SomNode node; } RpoRtoRequirementsContentForm;
 typedef struct { SomNode node; } RpoRtoRequirementsDegradedForm;
@@ -4438,6 +4487,7 @@ typedef struct { SomNode node; } SelfRegistrationPolicyContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyFieldsForm;
 typedef struct { SomNode node; } SelfRegistrationPolicySecurityForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyVerificationForm;
+typedef struct { SomNode node; } SelfServiceAccountManagementContentForm;
 typedef struct { SomNode node; } ServerCallStepEntryContentForm;
 typedef struct { SomNode node; } ServerConfigurationSettingEntryContentForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryAccessForm;
@@ -4462,6 +4512,8 @@ typedef struct { SomNode node; } ServerStorageRequirementsContentForm;
 typedef struct { SomNode node; } ServerStorageRequirementsDatabaseForm;
 typedef struct { SomNode node; } ServerStorageRequirementsFileStorageForm;
 typedef struct { SomNode node; } ServerStorageRequirementsPerformanceForm;
+typedef struct { SomNode node; } ServiceAccountCredentialPolicyContentForm;
+typedef struct { SomNode node; } ServiceAccountLifecycleContentForm;
 typedef struct { SomNode node; } ServiceLevelAgreementEntryContentForm;
 typedef struct { SomNode node; } ServiceLevelContentForm;
 typedef struct { SomNode node; } ServiceLevelEscalationForm;
@@ -4476,9 +4528,14 @@ typedef struct { SomNode node; } ServiceLevelRestorationForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayContentForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayLoadBalancingForm;
 typedef struct { SomNode node; } ServiceMeshAndGatewayMeshForm;
+typedef struct { SomNode node; } SessionCreationPolicyContentForm;
+typedef struct { SomNode node; } SessionLifecycleMonitoringContentForm;
 typedef struct { SomNode node; } SessionModelLifecycleForm;
 typedef struct { SomNode node; } SessionModelSecurityForm;
 typedef struct { SomNode node; } SessionModelSessionConfigurationForm;
+typedef struct { SomNode node; } SessionRevocationPolicyContentForm;
+typedef struct { SomNode node; } SessionSecurityPolicyContentForm;
+typedef struct { SomNode node; } SessionTimeoutPolicyContentForm;
 typedef struct { SomNode node; } SharedInfrastructureEntryCapacityForm;
 typedef struct { SomNode node; } SharedInfrastructureEntryContentForm;
 typedef struct { SomNode node; } SharedInfrastructureEntryOperationsForm;
@@ -4520,6 +4577,7 @@ typedef struct { SomNode node; } SoftwareLayerEntryTechnologyForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryContentForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryPlanningForm;
 typedef struct { SomNode node; } SpecializedEquipmentEntryTechnicalForm;
+typedef struct { SomNode node; } SsoPolicyContentForm;
 typedef struct { SomNode node; } StaffingBudgetAllocationsForm;
 typedef struct { SomNode node; } StaffingBudgetContentForm;
 typedef struct { SomNode node; } StaffingBudgetGovernanceForm;
@@ -4601,6 +4659,9 @@ typedef struct { SomNode node; } StakeholderEntryContentForm;
 typedef struct { SomNode node; } StakeholderRegisterEntryContentForm;
 typedef struct { SomNode node; } StakeholdersAndGovernanceSummaryForm;
 typedef struct { SomNode node; } StakeholdersAndInterestsContentForm;
+typedef struct { SomNode node; } StepUpAuthenticationPolicyContentForm;
+typedef struct { SomNode node; } StorageEncryptionPolicyContentForm;
+typedef struct { SomNode node; } StorageLifecyclePolicyContentForm;
 typedef struct { SomNode node; } StrategicAlignmentAlignmentDetailsForm;
 typedef struct { SomNode node; } SubFunctionEntryContentForm;
 typedef struct { SomNode node; } SubStageEntryContentForm;
@@ -4757,7 +4818,11 @@ typedef struct { SomNode node; } TechnologyStandardEntryContentForm;
 typedef struct { SomNode node; } TechnologyStandardEntryDetailsForm;
 typedef struct { SomNode node; } TechnologyStandardEntryImpactForm;
 typedef struct { SomNode node; } TechnologyStandardEntryScopeForm;
+typedef struct { SomNode node; } TenantBoundaryEnforcementPolicyContentForm;
+typedef struct { SomNode node; } TenantContextPolicyContentForm;
 typedef struct { SomNode node; } TenantCustomizationEntryContentForm;
+typedef struct { SomNode node; } TenantDataIsolationPolicyContentForm;
+typedef struct { SomNode node; } TenantOnboardingPolicyContentForm;
 typedef struct { SomNode node; } TestScenarioEntryBusinessForm;
 typedef struct { SomNode node; } TestScenarioEntryContentForm;
 typedef struct { SomNode node; } TestScenarioEntryExecutionForm;
@@ -4793,11 +4858,13 @@ typedef struct { SomNode node; } ThrowawayPrototypeDispositionForm;
 typedef struct { SomNode node; } ThrowawayPrototypeFindingsForm;
 typedef struct { SomNode node; } ThrowawayPrototypeThrowawayContentForm;
 typedef struct { SomNode node; } ThrowawayPrototypeValueForm;
+typedef struct { SomNode node; } TlsProtocolPolicyContentForm;
 typedef struct { SomNode node; } TlsRequirementsCertificateValidationForm;
 typedef struct { SomNode node; } TlsRequirementsCipherSuitesForm;
 typedef struct { SomNode node; } TlsRequirementsComplianceForm;
 typedef struct { SomNode node; } TlsRequirementsContentForm;
 typedef struct { SomNode node; } TlsRequirementsTerminationForm;
+typedef struct { SomNode node; } TokenManagementPolicyContentForm;
 typedef struct { SomNode node; } ToolEntryAccessForm;
 typedef struct { SomNode node; } ToolEntryApprovalForm;
 typedef struct { SomNode node; } ToolEntryConfigurationForm;
@@ -4877,6 +4944,7 @@ typedef struct { SomNode node; } TranslationRequirementsTechnicalForm;
 typedef struct { SomNode node; } TranslationRequirementsTranslationRequirementsContentForm;
 typedef struct { SomNode node; } TranslationRequirementsVariantsForm;
 typedef struct { SomNode node; } TranslationVendorEntryContentForm;
+typedef struct { SomNode node; } TransportSecurityPolicyContentForm;
 typedef struct { SomNode node; } TroubleshootingCapabilitiesAccessForm;
 typedef struct { SomNode node; } TroubleshootingCapabilitiesCommunicationForm;
 typedef struct { SomNode node; } TroubleshootingCapabilitiesContentForm;
@@ -4931,6 +4999,7 @@ typedef struct { SomNode node; } UserAccessPermissionsGovernanceForm;
 typedef struct { SomNode node; } UserAccessPermissionsPermissionsFormForm;
 typedef struct { SomNode node; } UserAccessPermissionsRestrictionsProfileForm;
 typedef struct { SomNode node; } UserAccessibilityNeedsAccessibilityFormForm;
+typedef struct { SomNode node; } UserAccountStatesDefinitionContentForm;
 typedef struct { SomNode node; } UserAssistanceDeliveryForm;
 typedef struct { SomNode node; } UserAssistanceHelpOverviewContentForm;
 typedef struct { SomNode node; } UserAssistanceInsightsForm;
@@ -4948,10 +5017,13 @@ typedef struct { SomNode node; } UserGrowthProjectionsContentForm;
 typedef struct { SomNode node; } UserGrowthProjectionsForecastForm;
 typedef struct { SomNode node; } UserGrowthProjectionsSegmentationForm;
 typedef struct { SomNode node; } UserGrowthProjectionsThresholdsForm;
+typedef struct { SomNode node; } UserInteractionModelSummaryContentForm;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryApprovalForm;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryAutomationForm;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryContentForm;
 typedef struct { SomNode node; } UserLifecycleTransitionEntryEffectsForm;
+typedef struct { SomNode node; } UserLifecycleTransitionsContentForm;
+typedef struct { SomNode node; } UserNotificationPreferencesContentForm;
 typedef struct { SomNode node; } UserPersonaDetailsBehaviorForm;
 typedef struct { SomNode node; } UserPersonaDetailsContextDetailsForm;
 typedef struct { SomNode node; } UserPersonaDetailsGoalsForm;
@@ -4960,6 +5032,7 @@ typedef struct { SomNode node; } UserProvisioningToolsContentForm;
 typedef struct { SomNode node; } UserProvisioningToolsDirectoryIntegrationForm;
 typedef struct { SomNode node; } UserProvisioningToolsLifecycleForm;
 typedef struct { SomNode node; } UserProvisioningToolsRoleManagementForm;
+typedef struct { SomNode node; } UserRegistrationProcessContentForm;
 typedef struct { SomNode node; } UserSettingEntryContentForm;
 typedef struct { SomNode node; } UserTrainingRequirementsTrainingFormForm;
 typedef struct { SomNode node; } UtilityMenuItemEntryActionForm;
@@ -5211,8 +5284,7 @@ int access_constraint_policies_can_have_content(const AccessConstraintPolicies *
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *access_constraint_policies_content(const AccessConstraintPolicies *self);
-void access_constraint_policies_set_content(AccessConstraintPolicies *self, const char *value);
+AccessConstraintPoliciesContentForm access_constraint_policies_content(const AccessConstraintPolicies *self);
 // Access Constraint Details (text).
 // (skipped: accessConstraintDetails has no target type)
 
@@ -5258,8 +5330,7 @@ int access_control_model_selection_can_have_content(const AccessControlModelSele
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *access_control_model_selection_content(const AccessControlModelSelection *self);
-void access_control_model_selection_set_content(AccessControlModelSelection *self, const char *value);
+AccessControlModelSelectionContentForm access_control_model_selection_content(const AccessControlModelSelection *self);
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
 
@@ -5443,8 +5514,7 @@ int account_activation_policy_can_have_content(const AccountActivationPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *account_activation_policy_content(const AccountActivationPolicy *self);
-void account_activation_policy_set_content(AccountActivationPolicy *self, const char *value);
+AccountActivationPolicyContentForm account_activation_policy_content(const AccountActivationPolicy *self);
 // Activation Flow Description (text).
 // (skipped: activationFlowDescription has no target type)
 
@@ -5461,8 +5531,7 @@ int account_deactivation_policy_can_have_content(const AccountDeactivationPolicy
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *account_deactivation_policy_content(const AccountDeactivationPolicy *self);
-void account_deactivation_policy_set_content(AccountDeactivationPolicy *self, const char *value);
+AccountDeactivationPolicyContentForm account_deactivation_policy_content(const AccountDeactivationPolicy *self);
 // Deactivation Process Description (text).
 // (skipped: deactivationProcessDescription has no target type)
 
@@ -5478,8 +5547,7 @@ int account_deletion_policy_can_have_content(const AccountDeletionPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *account_deletion_policy_content(const AccountDeletionPolicy *self);
-void account_deletion_policy_set_content(AccountDeletionPolicy *self, const char *value);
+AccountDeletionPolicyContentForm account_deletion_policy_content(const AccountDeletionPolicy *self);
 // Deletion Process Description (text).
 // (skipped: deletionProcessDescription has no target type)
 
@@ -5496,8 +5564,7 @@ int account_lockout_policy_can_have_content(const AccountLockoutPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *account_lockout_policy_content(const AccountLockoutPolicy *self);
-void account_lockout_policy_set_content(AccountLockoutPolicy *self, const char *value);
+AccountLockoutPolicyContentForm account_lockout_policy_content(const AccountLockoutPolicy *self);
 // Account Lockout Details (text).
 // (skipped: accountLockoutDetails has no target type)
 
@@ -5513,8 +5580,7 @@ int account_modification_policy_can_have_content(const AccountModificationPolicy
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *account_modification_policy_content(const AccountModificationPolicy *self);
-void account_modification_policy_set_content(AccountModificationPolicy *self, const char *value);
+AccountModificationPolicyContentForm account_modification_policy_content(const AccountModificationPolicy *self);
 // Modification Rules Description (text).
 // (skipped: modificationRulesDescription has no target type)
 
@@ -5972,8 +6038,7 @@ int api_abuse_protection_can_have_content(const ApiAbuseProtection *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_abuse_protection_content(const ApiAbuseProtection *self);
-void api_abuse_protection_set_content(ApiAbuseProtection *self, const char *value);
+ApiAbuseProtectionContentForm api_abuse_protection_content(const ApiAbuseProtection *self);
 // Abuse Protection Details (text).
 // (skipped: abuseProtectionDetails has no target type)
 
@@ -5989,8 +6054,7 @@ int api_authentication_policy_can_have_content(const ApiAuthenticationPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_authentication_policy_content(const ApiAuthenticationPolicy *self);
-void api_authentication_policy_set_content(ApiAuthenticationPolicy *self, const char *value);
+ApiAuthenticationPolicyContentForm api_authentication_policy_content(const ApiAuthenticationPolicy *self);
 // API Authentication Details (text).
 // (skipped: apiAuthenticationDetails has no target type)
 
@@ -6007,8 +6071,7 @@ int api_authorization_policy_can_have_content(const ApiAuthorizationPolicy *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_authorization_policy_content(const ApiAuthorizationPolicy *self);
-void api_authorization_policy_set_content(ApiAuthorizationPolicy *self, const char *value);
+ApiAuthorizationPolicyContentForm api_authorization_policy_content(const ApiAuthorizationPolicy *self);
 // API Authorization Details (text).
 // (skipped: apiAuthorizationDetails has no target type)
 
@@ -6045,8 +6108,7 @@ int api_cors_security_can_have_content(const ApiCorsSecurity *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_cors_security_content(const ApiCorsSecurity *self);
-void api_cors_security_set_content(ApiCorsSecurity *self, const char *value);
+ApiCorsSecurityContentForm api_cors_security_content(const ApiCorsSecurity *self);
 // CORS Security Details (text).
 // (skipped: corsSecurityDetails has no target type)
 
@@ -6062,8 +6124,7 @@ int api_key_management_policy_can_have_content(const ApiKeyManagementPolicy *sel
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_key_management_policy_content(const ApiKeyManagementPolicy *self);
-void api_key_management_policy_set_content(ApiKeyManagementPolicy *self, const char *value);
+ApiKeyManagementPolicyContentForm api_key_management_policy_content(const ApiKeyManagementPolicy *self);
 // API Key Management Details (text).
 // (skipped: apiKeyDetails has no target type)
 
@@ -6081,8 +6142,7 @@ int api_request_validation_policy_can_have_content(const ApiRequestValidationPol
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_request_validation_policy_content(const ApiRequestValidationPolicy *self);
-void api_request_validation_policy_set_content(ApiRequestValidationPolicy *self, const char *value);
+ApiRequestValidationPolicyContentForm api_request_validation_policy_content(const ApiRequestValidationPolicy *self);
 // Request Validation Details (text).
 // (skipped: requestValidationDetails has no target type)
 
@@ -6132,8 +6192,7 @@ int api_security_monitoring_can_have_content(const ApiSecurityMonitoring *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *api_security_monitoring_content(const ApiSecurityMonitoring *self);
-void api_security_monitoring_set_content(ApiSecurityMonitoring *self, const char *value);
+ApiSecurityMonitoringContentForm api_security_monitoring_content(const ApiSecurityMonitoring *self);
 // API Security Monitoring Details (text).
 // (skipped: apiSecurityMonitoringDetails has no target type)
 
@@ -6553,8 +6612,7 @@ int authentication_error_handling_can_have_content(const AuthenticationErrorHand
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *authentication_error_handling_content(const AuthenticationErrorHandling *self);
-void authentication_error_handling_set_content(AuthenticationErrorHandling *self, const char *value);
+AuthenticationErrorHandlingContentForm authentication_error_handling_content(const AuthenticationErrorHandling *self);
 // Error Handling Details (text).
 // (skipped: errorHandlingDetails has no target type)
 
@@ -6912,8 +6970,7 @@ int backup_encryption_policy_can_have_content(const BackupEncryptionPolicy *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *backup_encryption_policy_content(const BackupEncryptionPolicy *self);
-void backup_encryption_policy_set_content(BackupEncryptionPolicy *self, const char *value);
+BackupEncryptionPolicyContentForm backup_encryption_policy_content(const BackupEncryptionPolicy *self);
 // Backup Encryption Details (text).
 // (skipped: backupEncryptionDetails has no target type)
 
@@ -7113,8 +7170,7 @@ int biometric_authentication_policy_can_have_content(const BiometricAuthenticati
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *biometric_authentication_policy_content(const BiometricAuthenticationPolicy *self);
-void biometric_authentication_policy_set_content(BiometricAuthenticationPolicy *self, const char *value);
+BiometricAuthenticationPolicyContentForm biometric_authentication_policy_content(const BiometricAuthenticationPolicy *self);
 // Biometric Implementation Details (text).
 // (skipped: biometricDetails has no target type)
 
@@ -7841,8 +7897,7 @@ int certificate_authentication_policy_can_have_content(const CertificateAuthenti
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *certificate_authentication_policy_content(const CertificateAuthenticationPolicy *self);
-void certificate_authentication_policy_set_content(CertificateAuthenticationPolicy *self, const char *value);
+CertificateAuthenticationPolicyContentForm certificate_authentication_policy_content(const CertificateAuthenticationPolicy *self);
 // Certificate Authentication Details (text).
 // (skipped: certificateDetails has no target type)
 
@@ -7878,8 +7933,7 @@ int certificate_management_policy_can_have_content(const CertificateManagementPo
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *certificate_management_policy_content(const CertificateManagementPolicy *self);
-void certificate_management_policy_set_content(CertificateManagementPolicy *self, const char *value);
+CertificateManagementPolicyContentForm certificate_management_policy_content(const CertificateManagementPolicy *self);
 // Certificate Management Details (text).
 // (skipped: certificateManagementDetails has no target type)
 
@@ -8272,8 +8326,7 @@ void channel_integrations_free(ChannelIntegrations *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int channel_integrations_can_have_content(const ChannelIntegrations *self);
 // Integration requirements content.
-char *channel_integrations_content(const ChannelIntegrations *self);
-void channel_integrations_set_content(ChannelIntegrations *self, const char *value);
+ChannelIntegrationsContentForm channel_integrations_content(const ChannelIntegrations *self);
 
 // CI/CD pipeline configuration.
 // Binds a CiCdPipelineConfiguration facade to a document and a path (path copied).
@@ -8658,8 +8711,7 @@ int column_level_security_policy_can_have_content(const ColumnLevelSecurityPolic
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *column_level_security_policy_content(const ColumnLevelSecurityPolicy *self);
-void column_level_security_policy_set_content(ColumnLevelSecurityPolicy *self, const char *value);
+ColumnLevelSecurityPolicyContentForm column_level_security_policy_content(const ColumnLevelSecurityPolicy *self);
 // Column-Level Security Details (text).
 // (skipped: columnLevelSecurityDetails has no target type)
 
@@ -9513,8 +9565,7 @@ int concurrent_session_policy_can_have_content(const ConcurrentSessionPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *concurrent_session_policy_content(const ConcurrentSessionPolicy *self);
-void concurrent_session_policy_set_content(ConcurrentSessionPolicy *self, const char *value);
+ConcurrentSessionPolicyContentForm concurrent_session_policy_content(const ConcurrentSessionPolicy *self);
 // Concurrent Session Details (text).
 // (skipped: concurrentSessionDetails has no target type)
 
@@ -9631,8 +9682,7 @@ int content_scanning_policy_can_have_content(const ContentScanningPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *content_scanning_policy_content(const ContentScanningPolicy *self);
-void content_scanning_policy_set_content(ContentScanningPolicy *self, const char *value);
+ContentScanningPolicyContentForm content_scanning_policy_content(const ContentScanningPolicy *self);
 // Content Scanning Details (text).
 // (skipped: contentScanningDetails has no target type)
 
@@ -9780,8 +9830,7 @@ int credential_compromise_detection_policy_can_have_content(const CredentialComp
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *credential_compromise_detection_policy_content(const CredentialCompromiseDetectionPolicy *self);
-void credential_compromise_detection_policy_set_content(CredentialCompromiseDetectionPolicy *self, const char *value);
+CredentialCompromiseDetectionPolicyContentForm credential_compromise_detection_policy_content(const CredentialCompromiseDetectionPolicy *self);
 // Compromise Detection Details (text).
 // (skipped: compromiseDetectionDetails has no target type)
 
@@ -9797,8 +9846,7 @@ int credential_recovery_policy_can_have_content(const CredentialRecoveryPolicy *
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *credential_recovery_policy_content(const CredentialRecoveryPolicy *self);
-void credential_recovery_policy_set_content(CredentialRecoveryPolicy *self, const char *value);
+CredentialRecoveryPolicyContentForm credential_recovery_policy_content(const CredentialRecoveryPolicy *self);
 // Credential Recovery Details (text).
 // (skipped: credentialRecoveryDetails has no target type)
 
@@ -9883,8 +9931,7 @@ int cross_tenant_access_policy_can_have_content(const CrossTenantAccessPolicy *s
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *cross_tenant_access_policy_content(const CrossTenantAccessPolicy *self);
-void cross_tenant_access_policy_set_content(CrossTenantAccessPolicy *self, const char *value);
+CrossTenantAccessPolicyContentForm cross_tenant_access_policy_content(const CrossTenantAccessPolicy *self);
 // Cross-Tenant Access Policy Details (text).
 // (skipped: crossTenantAccessPolicyDetails has no target type)
 
@@ -11297,8 +11344,7 @@ int data_access_audit_policy_can_have_content(const DataAccessAuditPolicy *self)
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *data_access_audit_policy_content(const DataAccessAuditPolicy *self);
-void data_access_audit_policy_set_content(DataAccessAuditPolicy *self, const char *value);
+DataAccessAuditPolicyContentForm data_access_audit_policy_content(const DataAccessAuditPolicy *self);
 // Data Access Audit Details (text).
 // (skipped: dataAccessAuditDetails has no target type)
 
@@ -11965,8 +12011,7 @@ int data_masking_policy_can_have_content(const DataMaskingPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *data_masking_policy_content(const DataMaskingPolicy *self);
-void data_masking_policy_set_content(DataMaskingPolicy *self, const char *value);
+DataMaskingPolicyContentForm data_masking_policy_content(const DataMaskingPolicy *self);
 // Data Masking Details (text).
 // (skipped: dataMaskingDetails has no target type)
 
@@ -12436,8 +12481,7 @@ int database_access_policy_can_have_content(const DatabaseAccessPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *database_access_policy_content(const DatabaseAccessPolicy *self);
-void database_access_policy_set_content(DatabaseAccessPolicy *self, const char *value);
+DatabaseAccessPolicyContentForm database_access_policy_content(const DatabaseAccessPolicy *self);
 // Database Access Policy Details (text).
 // (skipped: databaseAccessDetails has no target type)
 
@@ -12473,8 +12517,7 @@ int database_encryption_policy_can_have_content(const DatabaseEncryptionPolicy *
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *database_encryption_policy_content(const DatabaseEncryptionPolicy *self);
-void database_encryption_policy_set_content(DatabaseEncryptionPolicy *self, const char *value);
+DatabaseEncryptionPolicyContentForm database_encryption_policy_content(const DatabaseEncryptionPolicy *self);
 // Database Encryption Details (text).
 // (skipped: databaseEncryptionDetails has no target type)
 
@@ -14162,8 +14205,7 @@ int encryption_at_rest_policy_can_have_content(const EncryptionAtRestPolicy *sel
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *encryption_at_rest_policy_content(const EncryptionAtRestPolicy *self);
-void encryption_at_rest_policy_set_content(EncryptionAtRestPolicy *self, const char *value);
+EncryptionAtRestPolicyContentForm encryption_at_rest_policy_content(const EncryptionAtRestPolicy *self);
 // Encryption At Rest Policy Details (text).
 // (skipped: encryptionAtRestPolicyDetails has no target type)
 
@@ -15758,8 +15800,7 @@ int file_access_control_policy_can_have_content(const FileAccessControlPolicy *s
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *file_access_control_policy_content(const FileAccessControlPolicy *self);
-void file_access_control_policy_set_content(FileAccessControlPolicy *self, const char *value);
+FileAccessControlPolicyContentForm file_access_control_policy_content(const FileAccessControlPolicy *self);
 // File Access Control Details (text).
 // (skipped: fileAccessControlDetails has no target type)
 
@@ -15807,8 +15848,7 @@ int file_download_security_policy_can_have_content(const FileDownloadSecurityPol
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *file_download_security_policy_content(const FileDownloadSecurityPolicy *self);
-void file_download_security_policy_set_content(FileDownloadSecurityPolicy *self, const char *value);
+FileDownloadSecurityPolicyContentForm file_download_security_policy_content(const FileDownloadSecurityPolicy *self);
 // Download Security Details (text).
 // (skipped: downloadSecurityDetails has no target type)
 
@@ -15825,8 +15865,7 @@ int file_storage_encryption_policy_can_have_content(const FileStorageEncryptionP
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *file_storage_encryption_policy_content(const FileStorageEncryptionPolicy *self);
-void file_storage_encryption_policy_set_content(FileStorageEncryptionPolicy *self, const char *value);
+FileStorageEncryptionPolicyContentForm file_storage_encryption_policy_content(const FileStorageEncryptionPolicy *self);
 // File Storage Encryption Details (text).
 // (skipped: fileStorageEncryptionDetails has no target type)
 
@@ -15844,8 +15883,7 @@ int file_upload_validation_policy_can_have_content(const FileUploadValidationPol
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *file_upload_validation_policy_content(const FileUploadValidationPolicy *self);
-void file_upload_validation_policy_set_content(FileUploadValidationPolicy *self, const char *value);
+FileUploadValidationPolicyContentForm file_upload_validation_policy_content(const FileUploadValidationPolicy *self);
 // Upload Validation Details (text).
 // (skipped: uploadValidationDetails has no target type)
 
@@ -18572,8 +18610,7 @@ int login_flow_configuration_can_have_content(const LoginFlowConfiguration *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *login_flow_configuration_content(const LoginFlowConfiguration *self);
-void login_flow_configuration_set_content(LoginFlowConfiguration *self, const char *value);
+LoginFlowConfigurationContentForm login_flow_configuration_content(const LoginFlowConfiguration *self);
 // Login Flow Details (text).
 // (skipped: loginFlowDetails has no target type)
 
@@ -19094,8 +19131,7 @@ int mfa_configuration_can_have_content(const MfaConfiguration *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *mfa_configuration_content(const MfaConfiguration *self);
-void mfa_configuration_set_content(MfaConfiguration *self, const char *value);
+MfaConfigurationContentForm mfa_configuration_content(const MfaConfiguration *self);
 // MFA Implementation Details (text).
 // Returns the list view; element type: scalar (construct from item paths).
 SomList mfa_configuration_mfa_details(const MfaConfiguration *self);
@@ -19853,8 +19889,7 @@ int mutual_tls_policy_can_have_content(const MutualTlsPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *mutual_tls_policy_content(const MutualTlsPolicy *self);
-void mutual_tls_policy_set_content(MutualTlsPolicy *self, const char *value);
+MutualTlsPolicyContentForm mutual_tls_policy_content(const MutualTlsPolicy *self);
 // Mutual TLS Policy Details (text).
 // (skipped: mutualTlsPolicyDetails has no target type)
 
@@ -21109,8 +21144,7 @@ int password_lifecycle_policy_can_have_content(const PasswordLifecyclePolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *password_lifecycle_policy_content(const PasswordLifecyclePolicy *self);
-void password_lifecycle_policy_set_content(PasswordLifecyclePolicy *self, const char *value);
+PasswordLifecyclePolicyContentForm password_lifecycle_policy_content(const PasswordLifecyclePolicy *self);
 // Password Lifecycle Details (text).
 // (skipped: passwordLifecycleDetails has no target type)
 
@@ -21127,8 +21161,7 @@ int password_requirements_policy_can_have_content(const PasswordRequirementsPoli
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *password_requirements_policy_content(const PasswordRequirementsPolicy *self);
-void password_requirements_policy_set_content(PasswordRequirementsPolicy *self, const char *value);
+PasswordRequirementsPolicyContentForm password_requirements_policy_content(const PasswordRequirementsPolicy *self);
 // Password Requirements Details (text).
 // (skipped: passwordRequirementsDetails has no target type)
 
@@ -21144,8 +21177,7 @@ int password_storage_policy_can_have_content(const PasswordStoragePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *password_storage_policy_content(const PasswordStoragePolicy *self);
-void password_storage_policy_set_content(PasswordStoragePolicy *self, const char *value);
+PasswordStoragePolicyContentForm password_storage_policy_content(const PasswordStoragePolicy *self);
 // Password Storage Details (text).
 // (skipped: passwordStorageDetails has no target type)
 
@@ -21253,8 +21285,7 @@ int permission_composition_strategy_can_have_content(const PermissionComposition
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *permission_composition_strategy_content(const PermissionCompositionStrategy *self);
-void permission_composition_strategy_set_content(PermissionCompositionStrategy *self, const char *value);
+PermissionCompositionStrategyContentForm permission_composition_strategy_content(const PermissionCompositionStrategy *self);
 // Permission Composition Details (text).
 // (skipped: permissionCompositionDetails has no target type)
 
@@ -21270,8 +21301,7 @@ int permission_evaluation_behavior_can_have_content(const PermissionEvaluationBe
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *permission_evaluation_behavior_content(const PermissionEvaluationBehavior *self);
-void permission_evaluation_behavior_set_content(PermissionEvaluationBehavior *self, const char *value);
+PermissionEvaluationBehaviorContentForm permission_evaluation_behavior_content(const PermissionEvaluationBehavior *self);
 // Permission Evaluation Details (text).
 // (skipped: permissionEvaluationDetails has no target type)
 
@@ -21287,8 +21317,7 @@ int permission_granularity_policy_can_have_content(const PermissionGranularityPo
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *permission_granularity_policy_content(const PermissionGranularityPolicy *self);
-void permission_granularity_policy_set_content(PermissionGranularityPolicy *self, const char *value);
+PermissionGranularityPolicyContentForm permission_granularity_policy_content(const PermissionGranularityPolicy *self);
 // Permission Granularity Details (text).
 // (skipped: permissionGranularityDetails has no target type)
 
@@ -23153,8 +23182,7 @@ int redirect_handling_policy_can_have_content(const RedirectHandlingPolicy *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *redirect_handling_policy_content(const RedirectHandlingPolicy *self);
-void redirect_handling_policy_set_content(RedirectHandlingPolicy *self, const char *value);
+RedirectHandlingPolicyContentForm redirect_handling_policy_content(const RedirectHandlingPolicy *self);
 // Redirect Handling Details (text).
 // (skipped: redirectDetails has no target type)
 
@@ -23410,8 +23438,7 @@ int remember_me_policy_can_have_content(const RememberMePolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *remember_me_policy_content(const RememberMePolicy *self);
-void remember_me_policy_set_content(RememberMePolicy *self, const char *value);
+RememberMePolicyContentForm remember_me_policy_content(const RememberMePolicy *self);
 // Remember-Me Policy Details (text).
 // (skipped: rememberMeDetails has no target type)
 
@@ -24759,8 +24786,7 @@ int role_certification_policy_can_have_content(const RoleCertificationPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *role_certification_policy_content(const RoleCertificationPolicy *self);
-void role_certification_policy_set_content(RoleCertificationPolicy *self, const char *value);
+RoleCertificationPolicyContentForm role_certification_policy_content(const RoleCertificationPolicy *self);
 // Role Certification Details (text).
 // (skipped: roleCertificationDetails has no target type)
 
@@ -24857,8 +24883,7 @@ int role_hierarchy_policy_can_have_content(const RoleHierarchyPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *role_hierarchy_policy_content(const RoleHierarchyPolicy *self);
-void role_hierarchy_policy_set_content(RoleHierarchyPolicy *self, const char *value);
+RoleHierarchyPolicyContentForm role_hierarchy_policy_content(const RoleHierarchyPolicy *self);
 // Role Hierarchy Policy Details (text).
 // (skipped: roleHierarchyPolicyDetails has no target type)
 
@@ -24998,8 +25023,7 @@ int row_level_security_policy_can_have_content(const RowLevelSecurityPolicy *sel
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *row_level_security_policy_content(const RowLevelSecurityPolicy *self);
-void row_level_security_policy_set_content(RowLevelSecurityPolicy *self, const char *value);
+RowLevelSecurityPolicyContentForm row_level_security_policy_content(const RowLevelSecurityPolicy *self);
 // Row-Level Security Details (text).
 // (skipped: rowLevelSecurityDetails has no target type)
 
@@ -26429,8 +26453,7 @@ int self_service_account_management_can_have_content(const SelfServiceAccountMan
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *self_service_account_management_content(const SelfServiceAccountManagement *self);
-void self_service_account_management_set_content(SelfServiceAccountManagement *self, const char *value);
+SelfServiceAccountManagementContentForm self_service_account_management_content(const SelfServiceAccountManagement *self);
 // Self-Service Capabilities Description (text).
 // (skipped: selfServiceDescription has no target type)
 
@@ -26739,8 +26762,7 @@ int service_account_credential_policy_can_have_content(const ServiceAccountCrede
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *service_account_credential_policy_content(const ServiceAccountCredentialPolicy *self);
-void service_account_credential_policy_set_content(ServiceAccountCredentialPolicy *self, const char *value);
+ServiceAccountCredentialPolicyContentForm service_account_credential_policy_content(const ServiceAccountCredentialPolicy *self);
 // Service Account Credential Details (text).
 // (skipped: serviceAccountDetails has no target type)
 
@@ -26756,8 +26778,7 @@ int service_account_lifecycle_can_have_content(const ServiceAccountLifecycle *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *service_account_lifecycle_content(const ServiceAccountLifecycle *self);
-void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const char *value);
+ServiceAccountLifecycleContentForm service_account_lifecycle_content(const ServiceAccountLifecycle *self);
 // Service Account Management Description (text).
 // (skipped: serviceAccountDescription has no target type)
 
@@ -26842,8 +26863,7 @@ int session_creation_policy_can_have_content(const SessionCreationPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *session_creation_policy_content(const SessionCreationPolicy *self);
-void session_creation_policy_set_content(SessionCreationPolicy *self, const char *value);
+SessionCreationPolicyContentForm session_creation_policy_content(const SessionCreationPolicy *self);
 // Session Creation Details (text).
 // (skipped: sessionCreationDetails has no target type)
 
@@ -26860,8 +26880,7 @@ int session_lifecycle_monitoring_can_have_content(const SessionLifecycleMonitori
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *session_lifecycle_monitoring_content(const SessionLifecycleMonitoring *self);
-void session_lifecycle_monitoring_set_content(SessionLifecycleMonitoring *self, const char *value);
+SessionLifecycleMonitoringContentForm session_lifecycle_monitoring_content(const SessionLifecycleMonitoring *self);
 // Session Lifecycle Monitoring Details (text).
 // (skipped: sessionLifecycleDetails has no target type)
 
@@ -26931,8 +26950,7 @@ int session_revocation_policy_can_have_content(const SessionRevocationPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *session_revocation_policy_content(const SessionRevocationPolicy *self);
-void session_revocation_policy_set_content(SessionRevocationPolicy *self, const char *value);
+SessionRevocationPolicyContentForm session_revocation_policy_content(const SessionRevocationPolicy *self);
 // Session Revocation Details (text).
 // (skipped: sessionRevocationDetails has no target type)
 
@@ -26949,8 +26967,7 @@ int session_security_policy_can_have_content(const SessionSecurityPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *session_security_policy_content(const SessionSecurityPolicy *self);
-void session_security_policy_set_content(SessionSecurityPolicy *self, const char *value);
+SessionSecurityPolicyContentForm session_security_policy_content(const SessionSecurityPolicy *self);
 // Session Security Details (text).
 // (skipped: sessionSecurityDetails has no target type)
 
@@ -26968,8 +26985,7 @@ int session_timeout_policy_can_have_content(const SessionTimeoutPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *session_timeout_policy_content(const SessionTimeoutPolicy *self);
-void session_timeout_policy_set_content(SessionTimeoutPolicy *self, const char *value);
+SessionTimeoutPolicyContentForm session_timeout_policy_content(const SessionTimeoutPolicy *self);
 // Session Timeout Details (text).
 // (skipped: sessionTimeoutDetails has no target type)
 
@@ -27285,8 +27301,7 @@ int sso_policy_can_have_content(const SsoPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *sso_policy_content(const SsoPolicy *self);
-void sso_policy_set_content(SsoPolicy *self, const char *value);
+SsoPolicyContentForm sso_policy_content(const SsoPolicy *self);
 // SSO Implementation Details (text).
 // (skipped: ssoDetails has no target type)
 
@@ -27931,8 +27946,7 @@ int step_up_authentication_policy_can_have_content(const StepUpAuthenticationPol
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *step_up_authentication_policy_content(const StepUpAuthenticationPolicy *self);
-void step_up_authentication_policy_set_content(StepUpAuthenticationPolicy *self, const char *value);
+StepUpAuthenticationPolicyContentForm step_up_authentication_policy_content(const StepUpAuthenticationPolicy *self);
 // Step-Up Authentication Details (text).
 // Returns the list view; element type: scalar (construct from item paths).
 SomList step_up_authentication_policy_step_up_details(const StepUpAuthenticationPolicy *self);
@@ -27950,8 +27964,7 @@ int storage_encryption_policy_can_have_content(const StorageEncryptionPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *storage_encryption_policy_content(const StorageEncryptionPolicy *self);
-void storage_encryption_policy_set_content(StorageEncryptionPolicy *self, const char *value);
+StorageEncryptionPolicyContentForm storage_encryption_policy_content(const StorageEncryptionPolicy *self);
 // Storage Encryption Details (text).
 // (skipped: storageEncryptionDetails has no target type)
 
@@ -27968,8 +27981,7 @@ int storage_lifecycle_policy_can_have_content(const StorageLifecyclePolicy *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *storage_lifecycle_policy_content(const StorageLifecyclePolicy *self);
-void storage_lifecycle_policy_set_content(StorageLifecyclePolicy *self, const char *value);
+StorageLifecyclePolicyContentForm storage_lifecycle_policy_content(const StorageLifecyclePolicy *self);
 // Storage Lifecycle Details (text).
 // (skipped: storageLifecycleDetails has no target type)
 
@@ -29637,8 +29649,7 @@ int tenant_boundary_enforcement_policy_can_have_content(const TenantBoundaryEnfo
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *tenant_boundary_enforcement_policy_content(const TenantBoundaryEnforcementPolicy *self);
-void tenant_boundary_enforcement_policy_set_content(TenantBoundaryEnforcementPolicy *self, const char *value);
+TenantBoundaryEnforcementPolicyContentForm tenant_boundary_enforcement_policy_content(const TenantBoundaryEnforcementPolicy *self);
 // Tenant Boundary Enforcement Details (text).
 // (skipped: boundaryEnforcementDetails has no target type)
 
@@ -29657,8 +29668,7 @@ int tenant_context_policy_can_have_content(const TenantContextPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *tenant_context_policy_content(const TenantContextPolicy *self);
-void tenant_context_policy_set_content(TenantContextPolicy *self, const char *value);
+TenantContextPolicyContentForm tenant_context_policy_content(const TenantContextPolicy *self);
 // Tenant Context Policy Details (text).
 // (skipped: tenantContextPolicyDetails has no target type)
 
@@ -29689,8 +29699,7 @@ int tenant_data_isolation_policy_can_have_content(const TenantDataIsolationPolic
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *tenant_data_isolation_policy_content(const TenantDataIsolationPolicy *self);
-void tenant_data_isolation_policy_set_content(TenantDataIsolationPolicy *self, const char *value);
+TenantDataIsolationPolicyContentForm tenant_data_isolation_policy_content(const TenantDataIsolationPolicy *self);
 // Tenant Data Isolation Details (text).
 // (skipped: tenantDataIsolationDetails has no target type)
 
@@ -29741,8 +29750,7 @@ int tenant_onboarding_policy_can_have_content(const TenantOnboardingPolicy *self
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *tenant_onboarding_policy_content(const TenantOnboardingPolicy *self);
-void tenant_onboarding_policy_set_content(TenantOnboardingPolicy *self, const char *value);
+TenantOnboardingPolicyContentForm tenant_onboarding_policy_content(const TenantOnboardingPolicy *self);
 // Tenant Onboarding Policy Details (text).
 // (skipped: tenantOnboardingPolicyDetails has no target type)
 
@@ -29927,8 +29935,7 @@ int tls_protocol_policy_can_have_content(const TlsProtocolPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *tls_protocol_policy_content(const TlsProtocolPolicy *self);
-void tls_protocol_policy_set_content(TlsProtocolPolicy *self, const char *value);
+TlsProtocolPolicyContentForm tls_protocol_policy_content(const TlsProtocolPolicy *self);
 // TLS Protocol Policy Details (text).
 // (skipped: tlsProtocolPolicyDetails has no target type)
 
@@ -29963,8 +29970,7 @@ int token_management_policy_can_have_content(const TokenManagementPolicy *self);
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *token_management_policy_content(const TokenManagementPolicy *self);
-void token_management_policy_set_content(TokenManagementPolicy *self, const char *value);
+TokenManagementPolicyContentForm token_management_policy_content(const TokenManagementPolicy *self);
 // Token Management Details (text).
 // (skipped: tokenManagementDetails has no target type)
 
@@ -30594,8 +30600,7 @@ int transport_security_policy_can_have_content(const TransportSecurityPolicy *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *transport_security_policy_content(const TransportSecurityPolicy *self);
-void transport_security_policy_set_content(TransportSecurityPolicy *self, const char *value);
+TransportSecurityPolicyContentForm transport_security_policy_content(const TransportSecurityPolicy *self);
 // Transport Security Policy Details (text).
 // (skipped: transportSecurityPolicyDetails has no target type)
 
@@ -30993,8 +30998,7 @@ int user_account_states_definition_can_have_content(const UserAccountStatesDefin
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *user_account_states_definition_content(const UserAccountStatesDefinition *self);
-void user_account_states_definition_set_content(UserAccountStatesDefinition *self, const char *value);
+UserAccountStatesDefinitionContentForm user_account_states_definition_content(const UserAccountStatesDefinition *self);
 // State Transition Diagram (mermaid).
 // (skipped: stateTransitionDiagram has no target type)
 
@@ -31231,8 +31235,7 @@ void user_interaction_model_summary_free(UserInteractionModelSummary *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_interaction_model_summary_can_have_content(const UserInteractionModelSummary *self);
 // Summary content for interaction model.
-char *user_interaction_model_summary_content(const UserInteractionModelSummary *self);
-void user_interaction_model_summary_set_content(UserInteractionModelSummary *self, const char *value);
+UserInteractionModelSummaryContentForm user_interaction_model_summary_content(const UserInteractionModelSummary *self);
 
 // 4.1.4.n.7. User Journey.
 //
@@ -31332,8 +31335,7 @@ int user_lifecycle_transitions_can_have_content(const UserLifecycleTransitions *
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *user_lifecycle_transitions_content(const UserLifecycleTransitions *self);
-void user_lifecycle_transitions_set_content(UserLifecycleTransitions *self, const char *value);
+UserLifecycleTransitionsContentForm user_lifecycle_transitions_content(const UserLifecycleTransitions *self);
 // Transition Rules Description (text).
 // (skipped: transitionRulesDescription has no target type)
 // Lifecycle State Transition Diagram (mermaid).
@@ -31387,8 +31389,7 @@ void user_notification_preferences_free(UserNotificationPreferences *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_notification_preferences_can_have_content(const UserNotificationPreferences *self);
 // Preferences content.
-char *user_notification_preferences_content(const UserNotificationPreferences *self);
-void user_notification_preferences_set_content(UserNotificationPreferences *self, const char *value);
+UserNotificationPreferencesContentForm user_notification_preferences_content(const UserNotificationPreferences *self);
 
 // 4.1.4.n.1. User Persona Details.
 //
@@ -31469,8 +31470,7 @@ int user_registration_process_can_have_content(const UserRegistrationProcess *se
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-char *user_registration_process_content(const UserRegistrationProcess *self);
-void user_registration_process_set_content(UserRegistrationProcess *self, const char *value);
+UserRegistrationProcessContentForm user_registration_process_content(const UserRegistrationProcess *self);
 // Registration Flow Description (text).
 // (skipped: registrationFlowDescription has no target type)
 // Registration Flow Diagram (mermaid-sequence).
@@ -32375,6 +32375,66 @@ void acceptance_step_entry_outcome_form_set_duration(AcceptanceStepEntryOutcomeF
 char *acceptance_step_entry_outcome_form_decision_options(const AcceptanceStepEntryOutcomeForm *self);
 void acceptance_step_entry_outcome_form_set_decision_options(AcceptanceStepEntryOutcomeForm *self, const char *value);
 
+// AccessConstraintPoliciesContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void access_constraint_policies_content_form_init(AccessConstraintPoliciesContentForm *self, SpecDocument *doc, const char *path);
+void access_constraint_policies_content_form_free(AccessConstraintPoliciesContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *access_constraint_policies_content_form_content(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_content(AccessConstraintPoliciesContentForm *self, const char *value);
+bool access_constraint_policies_content_form_separation_of_duties(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_separation_of_duties(AccessConstraintPoliciesContentForm *self, bool value);
+char *access_constraint_policies_content_form_sod_enforcement(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_sod_enforcement(AccessConstraintPoliciesContentForm *self, const char *value);
+bool access_constraint_policies_content_form_temporal_constraints(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_temporal_constraints(AccessConstraintPoliciesContentForm *self, bool value);
+bool access_constraint_policies_content_form_location_constraints(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_location_constraints(AccessConstraintPoliciesContentForm *self, bool value);
+bool access_constraint_policies_content_form_device_constraints(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_device_constraints(AccessConstraintPoliciesContentForm *self, bool value);
+bool access_constraint_policies_content_form_risk_adaptive_access(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_risk_adaptive_access(AccessConstraintPoliciesContentForm *self, bool value);
+char *access_constraint_policies_content_form_contextual_attributes(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_contextual_attributes(AccessConstraintPoliciesContentForm *self, const char *value);
+bool access_constraint_policies_content_form_max_session_permissions(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_max_session_permissions(AccessConstraintPoliciesContentForm *self, bool value);
+char *access_constraint_policies_content_form_least_privilege_enforcement(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_least_privilege_enforcement(AccessConstraintPoliciesContentForm *self, const char *value);
+bool access_constraint_policies_content_form_privilege_creep_detection(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_privilege_creep_detection(AccessConstraintPoliciesContentForm *self, bool value);
+char *access_constraint_policies_content_form_notes(const AccessConstraintPoliciesContentForm *self);
+void access_constraint_policies_content_form_set_notes(AccessConstraintPoliciesContentForm *self, const char *value);
+
+// AccessControlModelSelectionContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void access_control_model_selection_content_form_init(AccessControlModelSelectionContentForm *self, SpecDocument *doc, const char *path);
+void access_control_model_selection_content_form_free(AccessControlModelSelectionContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *access_control_model_selection_content_form_content(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_content(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_primary_model(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_primary_model(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_model_rationale(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_model_rationale(AccessControlModelSelectionContentForm *self, const char *value);
+bool access_control_model_selection_content_form_rbac_enabled(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_rbac_enabled(AccessControlModelSelectionContentForm *self, bool value);
+bool access_control_model_selection_content_form_abac_enabled(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_abac_enabled(AccessControlModelSelectionContentForm *self, bool value);
+bool access_control_model_selection_content_form_rebac_enabled(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_rebac_enabled(AccessControlModelSelectionContentForm *self, bool value);
+char *access_control_model_selection_content_form_policy_language(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_policy_language(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_policy_decision_point(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_policy_decision_point(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_policy_enforcement_point(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_policy_enforcement_point(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_policy_administration_point(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_policy_administration_point(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_policy_information_point(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_policy_information_point(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_delegation_model(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_delegation_model(AccessControlModelSelectionContentForm *self, const char *value);
+char *access_control_model_selection_content_form_notes(const AccessControlModelSelectionContentForm *self);
+void access_control_model_selection_content_form_set_notes(AccessControlModelSelectionContentForm *self, const char *value);
+
 // AccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void access_level_entry_content_form_init(AccessLevelEntryContentForm *self, SpecDocument *doc, const char *path);
 void access_level_entry_content_form_free(AccessLevelEntryContentForm *self);
@@ -32641,6 +32701,177 @@ char *accessibility_testing_form_assistive_tech_testing(const AccessibilityTesti
 void accessibility_testing_form_set_assistive_tech_testing(AccessibilityTestingForm *self, const char *value);
 bool accessibility_testing_form_user_testing_with_disabilities(const AccessibilityTestingForm *self);
 void accessibility_testing_form_set_user_testing_with_disabilities(AccessibilityTestingForm *self, bool value);
+
+// AccountActivationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void account_activation_policy_content_form_init(AccountActivationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void account_activation_policy_content_form_free(AccountActivationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *account_activation_policy_content_form_content(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_content(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_activation_method(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_method(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_activation_link_expiry(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_link_expiry(AccountActivationPolicyContentForm *self, const char *value);
+long account_activation_policy_content_form_max_activation_attempts(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_max_activation_attempts(AccountActivationPolicyContentForm *self, long value);
+char *account_activation_policy_content_form_activation_prerequisites(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_prerequisites(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_provisioning_on_activation(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_provisioning_on_activation(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_activation_notification(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_notification(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_activation_timeout(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_timeout(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_activation_timeout_action(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_activation_timeout_action(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_post_activation_redirect(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_post_activation_redirect(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_onboarding_required(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_onboarding_required(AccountActivationPolicyContentForm *self, const char *value);
+char *account_activation_policy_content_form_onboarding_steps(const AccountActivationPolicyContentForm *self);
+void account_activation_policy_content_form_set_onboarding_steps(AccountActivationPolicyContentForm *self, const char *value);
+
+// AccountDeactivationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void account_deactivation_policy_content_form_init(AccountDeactivationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void account_deactivation_policy_content_form_free(AccountDeactivationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *account_deactivation_policy_content_form_content(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_content(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_deactivation_triggers(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_deactivation_triggers(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_inactivity_threshold(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_inactivity_threshold(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_inactivity_warning_period(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_inactivity_warning_period(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_deactivation_approval(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_deactivation_approval(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_immediate_deactivation_cases(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_immediate_deactivation_cases(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_deactivated_account_access(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_deactivated_account_access(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_deactivation_effects(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_deactivation_effects(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_reactivation_policy(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_reactivation_policy(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_reactivation_approval(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_reactivation_approval(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_reactivation_reverification(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_reactivation_reverification(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_max_deactivation_period(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_max_deactivation_period(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_deactivation_notification(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_deactivation_notification(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_grace_period_after_deactivation(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_grace_period_after_deactivation(AccountDeactivationPolicyContentForm *self, const char *value);
+char *account_deactivation_policy_content_form_data_preservation_duration(const AccountDeactivationPolicyContentForm *self);
+void account_deactivation_policy_content_form_set_data_preservation_duration(AccountDeactivationPolicyContentForm *self, const char *value);
+
+// AccountDeletionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void account_deletion_policy_content_form_init(AccountDeletionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void account_deletion_policy_content_form_free(AccountDeletionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *account_deletion_policy_content_form_content(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_content(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_deletion_triggers(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_deletion_triggers(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_deletion_approval(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_deletion_approval(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_soft_delete_enabled(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_soft_delete_enabled(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_soft_delete_retention(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_soft_delete_retention(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_permanent_deletion_process(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_permanent_deletion_process(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_data_anonymization_strategy(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_data_anonymization_strategy(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_retained_data_after_deletion(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_retained_data_after_deletion(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_retention_period_after_deletion(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_retention_period_after_deletion(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_data_export_before_deletion(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_data_export_before_deletion(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_export_formats(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_export_formats(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_cascade_deletion_behavior(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_cascade_deletion_behavior(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_deletion_confirmation(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_deletion_confirmation(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_deletion_notification(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_deletion_notification(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_right_to_erasure_compliance(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_right_to_erasure_compliance(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_erasure_response_time(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_erasure_response_time(AccountDeletionPolicyContentForm *self, const char *value);
+char *account_deletion_policy_content_form_third_party_data_deletion(const AccountDeletionPolicyContentForm *self);
+void account_deletion_policy_content_form_set_third_party_data_deletion(AccountDeletionPolicyContentForm *self, const char *value);
+
+// AccountLockoutPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void account_lockout_policy_content_form_init(AccountLockoutPolicyContentForm *self, SpecDocument *doc, const char *path);
+void account_lockout_policy_content_form_free(AccountLockoutPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *account_lockout_policy_content_form_content(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_content(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_lockout_threshold(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_lockout_threshold(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_lockout_duration(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_lockout_duration(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_lockout_escalation(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_lockout_escalation(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_rate_limiting_method(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_rate_limiting_method(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_delay_progression(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_delay_progression(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_captcha_trigger_threshold(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_captcha_trigger_threshold(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_ip_based_rate_limiting(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_ip_based_rate_limiting(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_distributed_attack_protection(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_distributed_attack_protection(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_unlock_mechanism(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_unlock_mechanism(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_failed_attempt_reset_on_success(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_failed_attempt_reset_on_success(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_lockout_notification(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_lockout_notification(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_permanent_lockout_enabled(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_permanent_lockout_enabled(AccountLockoutPolicyContentForm *self, const char *value);
+char *account_lockout_policy_content_form_permanent_lockout_threshold(const AccountLockoutPolicyContentForm *self);
+void account_lockout_policy_content_form_set_permanent_lockout_threshold(AccountLockoutPolicyContentForm *self, const char *value);
+
+// AccountModificationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void account_modification_policy_content_form_init(AccountModificationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void account_modification_policy_content_form_free(AccountModificationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *account_modification_policy_content_form_content(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_content(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_self_modifiable_fields(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_self_modifiable_fields(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_admin_modifiable_fields(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_admin_modifiable_fields(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_system_modifiable_fields(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_system_modifiable_fields(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_email_change_policy(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_email_change_policy(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_phone_change_policy(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_phone_change_policy(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_name_change_policy(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_name_change_policy(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_role_change_approval(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_role_change_approval(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_bulk_modification_support(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_bulk_modification_support(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_change_audit_logging(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_change_audit_logging(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_change_notification(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_change_notification(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_historical_versioning(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_historical_versioning(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_reverification_triggers(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_reverification_triggers(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_modification_rate_limiting(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_modification_rate_limiting(AccountModificationPolicyContentForm *self, const char *value);
+char *account_modification_policy_content_form_modification_cooldown_period(const AccountModificationPolicyContentForm *self);
+void account_modification_policy_content_form_set_modification_cooldown_period(AccountModificationPolicyContentForm *self, const char *value);
 
 // ActionParameterEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void action_parameter_entry_content_form_init(ActionParameterEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -33440,6 +33671,123 @@ void anomaly_detection_policy_content_form_set_alert_recipients(AnomalyDetection
 char *anomaly_detection_policy_content_form_response_actions(const AnomalyDetectionPolicyContentForm *self);
 void anomaly_detection_policy_content_form_set_response_actions(AnomalyDetectionPolicyContentForm *self, const char *value);
 
+// ApiAbuseProtectionContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_abuse_protection_content_form_init(ApiAbuseProtectionContentForm *self, SpecDocument *doc, const char *path);
+void api_abuse_protection_content_form_free(ApiAbuseProtectionContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_abuse_protection_content_form_content(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_content(ApiAbuseProtectionContentForm *self, const char *value);
+bool api_abuse_protection_content_form_rate_limiting_enabled(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_rate_limiting_enabled(ApiAbuseProtectionContentForm *self, bool value);
+char *api_abuse_protection_content_form_rate_limit_scope(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_rate_limit_scope(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_authentication_endpoint_limits(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_authentication_endpoint_limits(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_sensitive_endpoint_limits(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_sensitive_endpoint_limits(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_brute_force_protection(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_brute_force_protection(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_bot_detection_policy(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_bot_detection_policy(ApiAbuseProtectionContentForm *self, const char *value);
+bool api_abuse_protection_content_form_ip_reputation_filtering(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_ip_reputation_filtering(ApiAbuseProtectionContentForm *self, bool value);
+bool api_abuse_protection_content_form_automatic_blocking(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_automatic_blocking(ApiAbuseProtectionContentForm *self, bool value);
+char *api_abuse_protection_content_form_block_duration(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_block_duration(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_geographic_restrictions(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_geographic_restrictions(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_request_throttling_on_failure(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_request_throttling_on_failure(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_business_flow_protection(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_business_flow_protection(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_webhook_flood_protection(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_webhook_flood_protection(ApiAbuseProtectionContentForm *self, const char *value);
+char *api_abuse_protection_content_form_notes(const ApiAbuseProtectionContentForm *self);
+void api_abuse_protection_content_form_set_notes(ApiAbuseProtectionContentForm *self, const char *value);
+
+// ApiAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_authentication_policy_content_form_init(ApiAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void api_authentication_policy_content_form_free(ApiAuthenticationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_authentication_policy_content_form_content(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_content(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_authentication_method(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_authentication_method(ApiAuthenticationPolicyContentForm *self, const char *value);
+bool api_authentication_policy_content_form_multiple_methods_supported(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_multiple_methods_supported(ApiAuthenticationPolicyContentForm *self, bool value);
+char *api_authentication_policy_content_form_api_key_transmission(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_api_key_transmission(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_api_key_rotation_policy(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_api_key_rotation_policy(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_api_key_scoping(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_api_key_scoping(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_jwt_validation_policy(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_jwt_validation_policy(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_jwt_signing_algorithm(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_jwt_signing_algorithm(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_access_token_lifetime(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_access_token_lifetime(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_refresh_token_policy(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_refresh_token_policy(ApiAuthenticationPolicyContentForm *self, const char *value);
+bool api_authentication_policy_content_form_client_credentials_flow(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_client_credentials_flow(ApiAuthenticationPolicyContentForm *self, bool value);
+bool api_authentication_policy_content_form_authorization_code_flow(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_authorization_code_flow(ApiAuthenticationPolicyContentForm *self, bool value);
+bool api_authentication_policy_content_form_token_revocation_support(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_token_revocation_support(ApiAuthenticationPolicyContentForm *self, bool value);
+bool api_authentication_policy_content_form_mutual_tls_required(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_mutual_tls_required(ApiAuthenticationPolicyContentForm *self, bool value);
+char *api_authentication_policy_content_form_service_account_policy(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_service_account_policy(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_webhook_signature_verification(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_webhook_signature_verification(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_third_party_api_consumption(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_third_party_api_consumption(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_credential_transmission(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_credential_transmission(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_bearer_token_format(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_bearer_token_format(ApiAuthenticationPolicyContentForm *self, const char *value);
+char *api_authentication_policy_content_form_notes(const ApiAuthenticationPolicyContentForm *self);
+void api_authentication_policy_content_form_set_notes(ApiAuthenticationPolicyContentForm *self, const char *value);
+
+// ApiAuthorizationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_authorization_policy_content_form_init(ApiAuthorizationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void api_authorization_policy_content_form_free(ApiAuthorizationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_authorization_policy_content_form_content(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_content(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_object_level_authorization(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_object_level_authorization(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_function_level_authorization(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_function_level_authorization(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_property_level_authorization(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_property_level_authorization(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_permission_granularity(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_permission_granularity(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_scope_definitions(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_scope_definitions(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_scope_enforcement_level(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_scope_enforcement_level(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_delegated_access_policy(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_delegated_access_policy(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_bulk_operation_authorization(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_bulk_operation_authorization(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_contextual_authorization(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_contextual_authorization(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_mass_assignment_prevention(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_mass_assignment_prevention(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_horizontal_privilege_escalation(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_horizontal_privilege_escalation(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_vertical_privilege_escalation(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_vertical_privilege_escalation(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_sensitive_business_flow_protection(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_sensitive_business_flow_protection(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_workflow_state_validation(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_workflow_state_validation(ApiAuthorizationPolicyContentForm *self, const char *value);
+char *api_authorization_policy_content_form_notes(const ApiAuthorizationPolicyContentForm *self);
+void api_authorization_policy_content_form_set_notes(ApiAuthorizationPolicyContentForm *self, const char *value);
+
 // ApiCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void api_compatibility_entry_content_form_init(ApiCompatibilityEntryContentForm *self, SpecDocument *doc, const char *path);
 void api_compatibility_entry_content_form_free(ApiCompatibilityEntryContentForm *self);
@@ -33504,6 +33852,148 @@ char *api_compatibility_entry_transport_details_form_security(const ApiCompatibi
 void api_compatibility_entry_transport_details_form_set_security(ApiCompatibilityEntryTransportDetailsForm *self, const char *value);
 char *api_compatibility_entry_transport_details_form_authentication(const ApiCompatibilityEntryTransportDetailsForm *self);
 void api_compatibility_entry_transport_details_form_set_authentication(ApiCompatibilityEntryTransportDetailsForm *self, const char *value);
+
+// ApiCorsSecurityContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_cors_security_content_form_init(ApiCorsSecurityContentForm *self, SpecDocument *doc, const char *path);
+void api_cors_security_content_form_free(ApiCorsSecurityContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_cors_security_content_form_content(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_content(ApiCorsSecurityContentForm *self, const char *value);
+bool api_cors_security_content_form_cors_enabled(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_cors_enabled(ApiCorsSecurityContentForm *self, bool value);
+char *api_cors_security_content_form_allowed_origins(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_allowed_origins(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_allowed_methods(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_allowed_methods(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_allowed_headers(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_allowed_headers(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_exposed_headers(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_exposed_headers(ApiCorsSecurityContentForm *self, const char *value);
+bool api_cors_security_content_form_credentials_allowed(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_credentials_allowed(ApiCorsSecurityContentForm *self, bool value);
+long api_cors_security_content_form_preflight_cache_max_age(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_preflight_cache_max_age(ApiCorsSecurityContentForm *self, long value);
+bool api_cors_security_content_form_wildcard_restriction(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_wildcard_restriction(ApiCorsSecurityContentForm *self, bool value);
+char *api_cors_security_content_form_content_security_policy(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_content_security_policy(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_strict_transport_security(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_strict_transport_security(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_security_headers_required(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_security_headers_required(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_private_network_access(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_private_network_access(ApiCorsSecurityContentForm *self, const char *value);
+char *api_cors_security_content_form_notes(const ApiCorsSecurityContentForm *self);
+void api_cors_security_content_form_set_notes(ApiCorsSecurityContentForm *self, const char *value);
+
+// ApiKeyManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_key_management_policy_content_form_init(ApiKeyManagementPolicyContentForm *self, SpecDocument *doc, const char *path);
+void api_key_management_policy_content_form_free(ApiKeyManagementPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_key_management_policy_content_form_content(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_content(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_api_key_auth_enabled(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_api_key_auth_enabled(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_api_key_types(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_api_key_types(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_generation_method(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_generation_method(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_length(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_length(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_rotation_policy(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_rotation_policy(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_expiration_policy(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_expiration_policy(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_scope_restrictions(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_scope_restrictions(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_ip_allowlisting(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_ip_allowlisting(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_rate_limiting_per_key(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_rate_limiting_per_key(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_revocation_process(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_revocation_process(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_storage_guidance(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_storage_guidance(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_key_audit_logging(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_key_audit_logging(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_service_token_support(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_service_token_support(ApiKeyManagementPolicyContentForm *self, const char *value);
+char *api_key_management_policy_content_form_token_lifetime(const ApiKeyManagementPolicyContentForm *self);
+void api_key_management_policy_content_form_set_token_lifetime(ApiKeyManagementPolicyContentForm *self, const char *value);
+
+// ApiRequestValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_request_validation_policy_content_form_init(ApiRequestValidationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void api_request_validation_policy_content_form_free(ApiRequestValidationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_request_validation_policy_content_form_content(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_content(ApiRequestValidationPolicyContentForm *self, const char *value);
+char *api_request_validation_policy_content_form_input_validation_strategy(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_input_validation_strategy(ApiRequestValidationPolicyContentForm *self, const char *value);
+bool api_request_validation_policy_content_form_schema_validation_enforced(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_schema_validation_enforced(ApiRequestValidationPolicyContentForm *self, bool value);
+char *api_request_validation_policy_content_form_schema_validation_tool(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_schema_validation_tool(ApiRequestValidationPolicyContentForm *self, const char *value);
+bool api_request_validation_policy_content_form_content_type_validation(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_content_type_validation(ApiRequestValidationPolicyContentForm *self, bool value);
+char *api_request_validation_policy_content_form_accepted_content_types(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_accepted_content_types(ApiRequestValidationPolicyContentForm *self, const char *value);
+bool api_request_validation_policy_content_form_reject_unexpected_content_type(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_reject_unexpected_content_type(ApiRequestValidationPolicyContentForm *self, bool value);
+char *api_request_validation_policy_content_form_request_size_limit(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_request_size_limit(ApiRequestValidationPolicyContentForm *self, const char *value);
+long api_request_validation_policy_content_form_array_length_limit(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_array_length_limit(ApiRequestValidationPolicyContentForm *self, long value);
+long api_request_validation_policy_content_form_nested_object_depth_limit(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_nested_object_depth_limit(ApiRequestValidationPolicyContentForm *self, long value);
+long api_request_validation_policy_content_form_string_field_max_length(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_string_field_max_length(ApiRequestValidationPolicyContentForm *self, long value);
+bool api_request_validation_policy_content_form_parameter_type_enforcement(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_parameter_type_enforcement(ApiRequestValidationPolicyContentForm *self, bool value);
+bool api_request_validation_policy_content_form_numeric_range_validation(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_numeric_range_validation(ApiRequestValidationPolicyContentForm *self, bool value);
+char *api_request_validation_policy_content_form_date_format_validation(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_date_format_validation(ApiRequestValidationPolicyContentForm *self, const char *value);
+char *api_request_validation_policy_content_form_encoding_validation(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_encoding_validation(ApiRequestValidationPolicyContentForm *self, const char *value);
+char *api_request_validation_policy_content_form_file_upload_validation(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_file_upload_validation(ApiRequestValidationPolicyContentForm *self, const char *value);
+char *api_request_validation_policy_content_form_notes(const ApiRequestValidationPolicyContentForm *self);
+void api_request_validation_policy_content_form_set_notes(ApiRequestValidationPolicyContentForm *self, const char *value);
+
+// ApiSecurityMonitoringContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void api_security_monitoring_content_form_init(ApiSecurityMonitoringContentForm *self, SpecDocument *doc, const char *path);
+void api_security_monitoring_content_form_free(ApiSecurityMonitoringContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *api_security_monitoring_content_form_content(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_content(ApiSecurityMonitoringContentForm *self, const char *value);
+bool api_security_monitoring_content_form_api_access_logging(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_api_access_logging(ApiSecurityMonitoringContentForm *self, bool value);
+char *api_security_monitoring_content_form_logged_attributes(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_logged_attributes(ApiSecurityMonitoringContentForm *self, const char *value);
+bool api_security_monitoring_content_form_sensitive_endpoint_monitoring(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_sensitive_endpoint_monitoring(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_sensitive_data_redaction(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_sensitive_data_redaction(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_anomaly_detection(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_anomaly_detection(ApiSecurityMonitoringContentForm *self, bool value);
+char *api_security_monitoring_content_form_error_rate_monitoring(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_error_rate_monitoring(ApiSecurityMonitoringContentForm *self, const char *value);
+bool api_security_monitoring_content_form_authentication_failure_tracking(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_authentication_failure_tracking(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_data_exfiltration_detection(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_data_exfiltration_detection(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_api_version_inventory(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_api_version_inventory(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_deprecated_endpoint_monitoring(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_deprecated_endpoint_monitoring(ApiSecurityMonitoringContentForm *self, bool value);
+bool api_security_monitoring_content_form_real_time_alerts(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_real_time_alerts(ApiSecurityMonitoringContentForm *self, bool value);
+char *api_security_monitoring_content_form_security_response_automation(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_security_response_automation(ApiSecurityMonitoringContentForm *self, const char *value);
+char *api_security_monitoring_content_form_compliance_reporting(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_compliance_reporting(ApiSecurityMonitoringContentForm *self, const char *value);
+char *api_security_monitoring_content_form_notes(const ApiSecurityMonitoringContentForm *self);
+void api_security_monitoring_content_form_set_notes(ApiSecurityMonitoringContentForm *self, const char *value);
 
 // ApiVersioningStrategyCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own `content` text followed by one typed member per form field.
 void api_versioning_strategy_compatibility_form_init(ApiVersioningStrategyCompatibilityForm *self, SpecDocument *doc, const char *path);
@@ -34161,6 +34651,35 @@ void audit_evidence_type_entry_content_form_set_format(AuditEvidenceTypeEntryCon
 char *audit_evidence_type_entry_content_form_responsible_role(const AuditEvidenceTypeEntryContentForm *self);
 void audit_evidence_type_entry_content_form_set_responsible_role(AuditEvidenceTypeEntryContentForm *self, const char *value);
 
+// AuthenticationErrorHandlingContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void authentication_error_handling_content_form_init(AuthenticationErrorHandlingContentForm *self, SpecDocument *doc, const char *path);
+void authentication_error_handling_content_form_free(AuthenticationErrorHandlingContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authentication_error_handling_content_form_content(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_content(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_invalid_credential_response(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_invalid_credential_response(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_account_lockout_threshold(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_account_lockout_threshold(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_lockout_duration(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_lockout_duration(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_lockout_escalation(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_lockout_escalation(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_brute_force_protection(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_brute_force_protection(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_credential_stuffing_protection(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_credential_stuffing_protection(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_user_notification_on_failure(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_user_notification_on_failure(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_admin_alert_threshold(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_admin_alert_threshold(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_failed_login_audit_logging(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_failed_login_audit_logging(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_suspicious_activity_response(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_suspicious_activity_response(AuthenticationErrorHandlingContentForm *self, const char *value);
+char *authentication_error_handling_content_form_graceful_degradation(const AuthenticationErrorHandlingContentForm *self);
+void authentication_error_handling_content_form_set_graceful_degradation(AuthenticationErrorHandlingContentForm *self, const char *value);
+
 // AuthenticationEventPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void authentication_event_policy_content_form_init(AuthenticationEventPolicyContentForm *self, SpecDocument *doc, const char *path);
 void authentication_event_policy_content_form_free(AuthenticationEventPolicyContentForm *self);
@@ -34584,6 +35103,27 @@ void backup_data_classification_exclusions_form_set_cache_data(BackupDataClassif
 char *backup_data_classification_exclusions_form_notes(const BackupDataClassificationExclusionsForm *self);
 void backup_data_classification_exclusions_form_set_notes(BackupDataClassificationExclusionsForm *self, const char *value);
 
+// BackupEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void backup_encryption_policy_content_form_init(BackupEncryptionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void backup_encryption_policy_content_form_free(BackupEncryptionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *backup_encryption_policy_content_form_content(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_content(BackupEncryptionPolicyContentForm *self, const char *value);
+bool backup_encryption_policy_content_form_backup_encryption_required(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_backup_encryption_required(BackupEncryptionPolicyContentForm *self, bool value);
+char *backup_encryption_policy_content_form_backup_encryption_method(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_backup_encryption_method(BackupEncryptionPolicyContentForm *self, const char *value);
+bool backup_encryption_policy_content_form_separate_backup_keys(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_separate_backup_keys(BackupEncryptionPolicyContentForm *self, bool value);
+char *backup_encryption_policy_content_form_backup_key_rotation(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_backup_key_rotation(BackupEncryptionPolicyContentForm *self, const char *value);
+bool backup_encryption_policy_content_form_encrypted_backup_verification(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_encrypted_backup_verification(BackupEncryptionPolicyContentForm *self, bool value);
+bool backup_encryption_policy_content_form_off_site_backup_encryption(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_off_site_backup_encryption(BackupEncryptionPolicyContentForm *self, bool value);
+char *backup_encryption_policy_content_form_notes(const BackupEncryptionPolicyContentForm *self);
+void backup_encryption_policy_content_form_set_notes(BackupEncryptionPolicyContentForm *self, const char *value);
+
 // BackupInfrastructureContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void backup_infrastructure_content_form_init(BackupInfrastructureContentForm *self, SpecDocument *doc, const char *path);
 void backup_infrastructure_content_form_free(BackupInfrastructureContentForm *self);
@@ -34987,6 +35527,37 @@ char *behavior_rule_entry_content_form_validation_rules(const BehaviorRuleEntryC
 void behavior_rule_entry_content_form_set_validation_rules(BehaviorRuleEntryContentForm *self, const char *value);
 char *behavior_rule_entry_content_form_calculated_properties(const BehaviorRuleEntryContentForm *self);
 void behavior_rule_entry_content_form_set_calculated_properties(BehaviorRuleEntryContentForm *self, const char *value);
+
+// BiometricAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void biometric_authentication_policy_content_form_init(BiometricAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void biometric_authentication_policy_content_form_free(BiometricAuthenticationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *biometric_authentication_policy_content_form_content(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_content(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_biometric_auth_enabled(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_biometric_auth_enabled(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_biometric_modalities(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_biometric_modalities(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_biometric_usage_context(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_biometric_usage_context(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_biometric_as_activation_factor(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_biometric_as_activation_factor(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_local_vs_central_comparison(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_local_vs_central_comparison(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_false_match_rate_target(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_false_match_rate_target(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_presentation_attack_detection(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_presentation_attack_detection(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_max_consecutive_failures(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_max_consecutive_failures(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_fallback_method(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_fallback_method(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_biometric_data_storage(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_biometric_data_storage(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_privacy_considerations(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_privacy_considerations(BiometricAuthenticationPolicyContentForm *self, const char *value);
+char *biometric_authentication_policy_content_form_accessibility_alternative(const BiometricAuthenticationPolicyContentForm *self);
+void biometric_authentication_policy_content_form_set_accessibility_alternative(BiometricAuthenticationPolicyContentForm *self, const char *value);
 
 // BoundaryAssumptionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void boundary_assumption_entry_content_form_init(BoundaryAssumptionEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -35997,6 +36568,37 @@ void ccb_member_entry_content_form_set_substitute(CcbMemberEntryContentForm *sel
 char *ccb_member_entry_content_form_required_for_quorum(const CcbMemberEntryContentForm *self);
 void ccb_member_entry_content_form_set_required_for_quorum(CcbMemberEntryContentForm *self, const char *value);
 
+// CertificateAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void certificate_authentication_policy_content_form_init(CertificateAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void certificate_authentication_policy_content_form_free(CertificateAuthenticationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *certificate_authentication_policy_content_form_content(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_content(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_auth_enabled(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_auth_enabled(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_types(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_types(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_issuance(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_issuance(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_authority(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_authority(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_key_storage_requirement(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_key_storage_requirement(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_mutual_tls_required(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_mutual_tls_required(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_validation(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_validation(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_certificate_lifetime(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_certificate_lifetime(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_renewal_process(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_renewal_process(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_revocation_process(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_revocation_process(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_minimum_key_strength(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_minimum_key_strength(CertificateAuthenticationPolicyContentForm *self, const char *value);
+char *certificate_authentication_policy_content_form_fips_compliance_required(const CertificateAuthenticationPolicyContentForm *self);
+void certificate_authentication_policy_content_form_set_fips_compliance_required(CertificateAuthenticationPolicyContentForm *self, const char *value);
+
 // CertificateManagementContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void certificate_management_content_form_init(CertificateManagementContentForm *self, SpecDocument *doc, const char *path);
 void certificate_management_content_form_free(CertificateManagementContentForm *self);
@@ -36050,6 +36652,35 @@ char *certificate_management_monitoring_form_expiry_alert_threshold(const Certif
 void certificate_management_monitoring_form_set_expiry_alert_threshold(CertificateManagementMonitoringForm *self, const char *value);
 char *certificate_management_monitoring_form_notes(const CertificateManagementMonitoringForm *self);
 void certificate_management_monitoring_form_set_notes(CertificateManagementMonitoringForm *self, const char *value);
+
+// CertificateManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void certificate_management_policy_content_form_init(CertificateManagementPolicyContentForm *self, SpecDocument *doc, const char *path);
+void certificate_management_policy_content_form_free(CertificateManagementPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *certificate_management_policy_content_form_content(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_content(CertificateManagementPolicyContentForm *self, const char *value);
+char *certificate_management_policy_content_form_certificate_authority(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_certificate_authority(CertificateManagementPolicyContentForm *self, const char *value);
+char *certificate_management_policy_content_form_validation_type(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_validation_type(CertificateManagementPolicyContentForm *self, const char *value);
+long certificate_management_policy_content_form_minimum_key_length(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_minimum_key_length(CertificateManagementPolicyContentForm *self, long value);
+char *certificate_management_policy_content_form_key_type(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_key_type(CertificateManagementPolicyContentForm *self, const char *value);
+char *certificate_management_policy_content_form_hashing_algorithm(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_hashing_algorithm(CertificateManagementPolicyContentForm *self, const char *value);
+char *certificate_management_policy_content_form_wildcard_certificate_policy(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_wildcard_certificate_policy(CertificateManagementPolicyContentForm *self, const char *value);
+long certificate_management_policy_content_form_certificate_lifetime_days(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_certificate_lifetime_days(CertificateManagementPolicyContentForm *self, long value);
+bool certificate_management_policy_content_form_automated_renewal(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_automated_renewal(CertificateManagementPolicyContentForm *self, bool value);
+bool certificate_management_policy_content_form_certificate_transparency(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_certificate_transparency(CertificateManagementPolicyContentForm *self, bool value);
+bool certificate_management_policy_content_form_caa_records(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_caa_records(CertificateManagementPolicyContentForm *self, bool value);
+char *certificate_management_policy_content_form_notes(const CertificateManagementPolicyContentForm *self);
+void certificate_management_policy_content_form_set_notes(CertificateManagementPolicyContentForm *self, const char *value);
 
 // CertificateManagementStorageForm is the generated section facade for the `storage` @Form section: its own `content` text followed by one typed member per form field.
 void certificate_management_storage_form_init(CertificateManagementStorageForm *self, SpecDocument *doc, const char *path);
@@ -36757,6 +37388,27 @@ char *changes_from_current_structure_overview_content_form_communication_channel
 void changes_from_current_structure_overview_content_form_set_communication_channel_changes(ChangesFromCurrentStructureOverviewContentForm *self, const char *value);
 char *changes_from_current_structure_overview_content_form_collaboration_model_changes(const ChangesFromCurrentStructureOverviewContentForm *self);
 void changes_from_current_structure_overview_content_form_set_collaboration_model_changes(ChangesFromCurrentStructureOverviewContentForm *self, const char *value);
+
+// ChannelIntegrationsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void channel_integrations_content_form_init(ChannelIntegrationsContentForm *self, SpecDocument *doc, const char *path);
+void channel_integrations_content_form_free(ChannelIntegrationsContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *channel_integrations_content_form_content(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_content(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_push_notification_service(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_push_notification_service(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_analytics_service(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_analytics_service(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_crash_reporting(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_crash_reporting(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_deep_linking(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_deep_linking(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_social_integration(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_social_integration(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_payment_integration(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_payment_integration(ChannelIntegrationsContentForm *self, const char *value);
+char *channel_integrations_content_form_biometric_integration(const ChannelIntegrationsContentForm *self);
+void channel_integrations_content_form_set_biometric_integration(ChannelIntegrationsContentForm *self, const char *value);
 
 // CiCdPipelineConfigurationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void ci_cd_pipeline_configuration_content_form_init(CiCdPipelineConfigurationContentForm *self, SpecDocument *doc, const char *path);
@@ -37595,6 +38247,31 @@ char *color_palette_entry_content_form_wcag_compliance(const ColorPaletteEntryCo
 void color_palette_entry_content_form_set_wcag_compliance(ColorPaletteEntryContentForm *self, const char *value);
 char *color_palette_entry_content_form_usage_guidelines(const ColorPaletteEntryContentForm *self);
 void color_palette_entry_content_form_set_usage_guidelines(ColorPaletteEntryContentForm *self, const char *value);
+
+// ColumnLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void column_level_security_policy_content_form_init(ColumnLevelSecurityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void column_level_security_policy_content_form_free(ColumnLevelSecurityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *column_level_security_policy_content_form_content(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_content(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_column_level_security_enabled(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_column_level_security_enabled(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_column_access_implementation(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_column_access_implementation(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_sensitive_column_classification(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_sensitive_column_classification(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_pii_column_access(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_pii_column_access(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_financial_data_column_access(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_financial_data_column_access(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_health_data_column_access(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_health_data_column_access(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_dynamic_field_visibility(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_dynamic_field_visibility(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_column_access_audit(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_column_access_audit(ColumnLevelSecurityPolicyContentForm *self, const char *value);
+char *column_level_security_policy_content_form_column_encryption_policy(const ColumnLevelSecurityPolicyContentForm *self);
+void column_level_security_policy_content_form_set_column_encryption_policy(ColumnLevelSecurityPolicyContentForm *self, const char *value);
 
 // CommitteeCharterContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void committee_charter_content_form_init(CommitteeCharterContentForm *self, SpecDocument *doc, const char *path);
@@ -39206,6 +39883,35 @@ void computing_equipment_entry_platform_form_set_port_requirements(ComputingEqui
 char *computing_equipment_entry_platform_form_form_factor(const ComputingEquipmentEntryPlatformForm *self);
 void computing_equipment_entry_platform_form_set_form_factor(ComputingEquipmentEntryPlatformForm *self, const char *value);
 
+// ConcurrentSessionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void concurrent_session_policy_content_form_init(ConcurrentSessionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void concurrent_session_policy_content_form_free(ConcurrentSessionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *concurrent_session_policy_content_form_content(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_content(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_concurrent_sessions_allowed(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_concurrent_sessions_allowed(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_max_concurrent_sessions(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_max_concurrent_sessions(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_concurrent_session_scope(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_concurrent_session_scope(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_conflict_resolution(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_conflict_resolution(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_session_list_visible(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_session_list_visible(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_remote_termination_enabled(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_remote_termination_enabled(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_session_device_info(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_session_device_info(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_concurrent_login_notification(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_concurrent_login_notification(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_suspicious_concurrent_login_action(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_suspicious_concurrent_login_action(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_privileged_account_session_limit(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_privileged_account_session_limit(ConcurrentSessionPolicyContentForm *self, const char *value);
+char *concurrent_session_policy_content_form_cross_device_session_handling(const ConcurrentSessionPolicyContentForm *self);
+void concurrent_session_policy_content_form_set_cross_device_session_handling(ConcurrentSessionPolicyContentForm *self, const char *value);
+
 // ConfidentialInfoCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void confidential_info_category_entry_content_form_init(ConfidentialInfoCategoryEntryContentForm *self, SpecDocument *doc, const char *path);
 void confidential_info_category_entry_content_form_free(ConfidentialInfoCategoryEntryContentForm *self);
@@ -39463,6 +40169,43 @@ void constraint_register_entry_content_form_set_source(ConstraintRegisterEntryCo
 char *constraint_register_entry_content_form_impact(const ConstraintRegisterEntryContentForm *self);
 void constraint_register_entry_content_form_set_impact(ConstraintRegisterEntryContentForm *self, const char *value);
 
+// ContentScanningPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void content_scanning_policy_content_form_init(ContentScanningPolicyContentForm *self, SpecDocument *doc, const char *path);
+void content_scanning_policy_content_form_free(ContentScanningPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *content_scanning_policy_content_form_content(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_content(ContentScanningPolicyContentForm *self, const char *value);
+bool content_scanning_policy_content_form_antivirus_scanning_enabled(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_antivirus_scanning_enabled(ContentScanningPolicyContentForm *self, bool value);
+char *content_scanning_policy_content_form_scan_timing(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_scan_timing(ContentScanningPolicyContentForm *self, const char *value);
+char *content_scanning_policy_content_form_scan_engine(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_scan_engine(ContentScanningPolicyContentForm *self, const char *value);
+char *content_scanning_policy_content_form_quarantine_policy(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_quarantine_policy(ContentScanningPolicyContentForm *self, const char *value);
+long content_scanning_policy_content_form_quarantine_retention_days(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_quarantine_retention_days(ContentScanningPolicyContentForm *self, long value);
+char *content_scanning_policy_content_form_signature_update_frequency(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_signature_update_frequency(ContentScanningPolicyContentForm *self, const char *value);
+bool content_scanning_policy_content_form_cdr_enabled(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_cdr_enabled(ContentScanningPolicyContentForm *self, bool value);
+char *content_scanning_policy_content_form_cdr_applicable_types(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_cdr_applicable_types(ContentScanningPolicyContentForm *self, const char *value);
+bool content_scanning_policy_content_form_dlp_scanning_enabled(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_dlp_scanning_enabled(ContentScanningPolicyContentForm *self, bool value);
+char *content_scanning_policy_content_form_dlp_policies(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_dlp_policies(ContentScanningPolicyContentForm *self, const char *value);
+char *content_scanning_policy_content_form_dlp_action(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_dlp_action(ContentScanningPolicyContentForm *self, const char *value);
+bool content_scanning_policy_content_form_content_moderation(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_content_moderation(ContentScanningPolicyContentForm *self, bool value);
+char *content_scanning_policy_content_form_moderation_method(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_moderation_method(ContentScanningPolicyContentForm *self, const char *value);
+bool content_scanning_policy_content_form_hash_based_detection(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_hash_based_detection(ContentScanningPolicyContentForm *self, bool value);
+char *content_scanning_policy_content_form_notes(const ContentScanningPolicyContentForm *self);
+void content_scanning_policy_content_form_set_notes(ContentScanningPolicyContentForm *self, const char *value);
+
 // ContextualHelpContextualHelpContentForm is the generated section facade for the `contextualHelpContent` @Form section: its own `content` text followed by one typed member per form field.
 void contextual_help_contextual_help_content_form_init(ContextualHelpContextualHelpContentForm *self, SpecDocument *doc, const char *path);
 void contextual_help_contextual_help_content_form_free(ContextualHelpContextualHelpContentForm *self);
@@ -39691,6 +40434,66 @@ void correctness_verification_form_set_test_coverage_target(CorrectnessVerificat
 char *correctness_verification_form_regression_testing_approach(const CorrectnessVerificationForm *self);
 void correctness_verification_form_set_regression_testing_approach(CorrectnessVerificationForm *self, const char *value);
 
+// CredentialCompromiseDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void credential_compromise_detection_policy_content_form_init(CredentialCompromiseDetectionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void credential_compromise_detection_policy_content_form_free(CredentialCompromiseDetectionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *credential_compromise_detection_policy_content_form_content(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_content(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_breach_database_monitoring(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_breach_database_monitoring(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_breach_database_source(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_breach_database_source(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_breach_check_frequency(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_breach_check_frequency(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_compromised_credential_action(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_compromised_credential_action(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_credential_stuffing_detection(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_credential_stuffing_detection(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_stuffing_detection_method(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_stuffing_detection_method(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_dark_web_monitoring(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_dark_web_monitoring(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_user_compromise_notification(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_user_compromise_notification(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_admin_compromise_alerts(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_admin_compromise_alerts(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+char *credential_compromise_detection_policy_content_form_compromise_response_sla(const CredentialCompromiseDetectionPolicyContentForm *self);
+void credential_compromise_detection_policy_content_form_set_compromise_response_sla(CredentialCompromiseDetectionPolicyContentForm *self, const char *value);
+
+// CredentialRecoveryPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void credential_recovery_policy_content_form_init(CredentialRecoveryPolicyContentForm *self, SpecDocument *doc, const char *path);
+void credential_recovery_policy_content_form_free(CredentialRecoveryPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *credential_recovery_policy_content_form_content(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_content(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_password_reset_method(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_password_reset_method(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_reset_link_expiry(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_reset_link_expiry(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_reset_link_single_use(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_reset_link_single_use(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_reset_rate_limiting(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_reset_rate_limiting(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_saved_recovery_codes_enabled(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_saved_recovery_codes_enabled(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_recovery_code_count(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_recovery_code_count(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_recovery_code_format(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_recovery_code_format(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_issued_recovery_code_channels(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_issued_recovery_code_channels(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_recovery_code_expiry(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_recovery_code_expiry(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_identity_reverification_required(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_identity_reverification_required(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_recovery_contact_enabled(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_recovery_contact_enabled(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_multiple_recovery_addresses(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_multiple_recovery_addresses(CredentialRecoveryPolicyContentForm *self, const char *value);
+char *credential_recovery_policy_content_form_recovery_audit_logging(const CredentialRecoveryPolicyContentForm *self);
+void credential_recovery_policy_content_form_set_recovery_audit_logging(CredentialRecoveryPolicyContentForm *self, const char *value);
+
 // CrossCuttingConcernsCachingForm is the generated section facade for the `caching` @Form section: its own `content` text followed by one typed member per form field.
 void cross_cutting_concerns_caching_form_init(CrossCuttingConcernsCachingForm *self, SpecDocument *doc, const char *path);
 void cross_cutting_concerns_caching_form_free(CrossCuttingConcernsCachingForm *self);
@@ -39768,6 +40571,29 @@ char *cross_cutting_concerns_shared_form_validation(const CrossCuttingConcernsSh
 void cross_cutting_concerns_shared_form_set_validation(CrossCuttingConcernsSharedForm *self, const char *value);
 char *cross_cutting_concerns_shared_form_notes(const CrossCuttingConcernsSharedForm *self);
 void cross_cutting_concerns_shared_form_set_notes(CrossCuttingConcernsSharedForm *self, const char *value);
+
+// CrossTenantAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void cross_tenant_access_policy_content_form_init(CrossTenantAccessPolicyContentForm *self, SpecDocument *doc, const char *path);
+void cross_tenant_access_policy_content_form_free(CrossTenantAccessPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *cross_tenant_access_policy_content_form_content(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_content(CrossTenantAccessPolicyContentForm *self, const char *value);
+bool cross_tenant_access_policy_content_form_cross_tenant_access_allowed(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_cross_tenant_access_allowed(CrossTenantAccessPolicyContentForm *self, bool value);
+char *cross_tenant_access_policy_content_form_cross_tenant_access_model(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_cross_tenant_access_model(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_authorization_mechanism(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_authorization_mechanism(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_resource_sharing_model(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_resource_sharing_model(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_idor_prevention_strategy(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_idor_prevention_strategy(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_cross_tenant_audit_requirement(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_cross_tenant_audit_requirement(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_access_review_frequency(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_access_review_frequency(CrossTenantAccessPolicyContentForm *self, const char *value);
+char *cross_tenant_access_policy_content_form_notes(const CrossTenantAccessPolicyContentForm *self);
+void cross_tenant_access_policy_content_form_set_notes(CrossTenantAccessPolicyContentForm *self, const char *value);
 
 // CurrentBusinessProcessContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void current_business_process_content_form_init(CurrentBusinessProcessContentForm *self, SpecDocument *doc, const char *path);
@@ -40078,6 +40904,37 @@ char *dashboard_templates_content_form_template_versioning(const DashboardTempla
 void dashboard_templates_content_form_set_template_versioning(DashboardTemplatesContentForm *self, const char *value);
 char *dashboard_templates_content_form_notes(const DashboardTemplatesContentForm *self);
 void dashboard_templates_content_form_set_notes(DashboardTemplatesContentForm *self, const char *value);
+
+// DataAccessAuditPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void data_access_audit_policy_content_form_init(DataAccessAuditPolicyContentForm *self, SpecDocument *doc, const char *path);
+void data_access_audit_policy_content_form_free(DataAccessAuditPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_access_audit_policy_content_form_content(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_content(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_access_logging_enabled(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_access_logging_enabled(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_access_logging_scope(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_access_logging_scope(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_logged_operations(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_logged_operations(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_access_log_detail(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_access_log_detail(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_query_text_logging(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_query_text_logging(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_anomaly_detection_enabled(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_anomaly_detection_enabled(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_anomaly_signals(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_anomaly_signals(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_breach_detection(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_breach_detection(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_access_review_cycle(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_access_review_cycle(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_privileged_query_alerts(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_privileged_query_alerts(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_compliance_reporting_enabled(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_compliance_reporting_enabled(DataAccessAuditPolicyContentForm *self, const char *value);
+char *data_access_audit_policy_content_form_data_access_retention(const DataAccessAuditPolicyContentForm *self);
+void data_access_audit_policy_content_form_set_data_access_retention(DataAccessAuditPolicyContentForm *self, const char *value);
 
 // DataAccessEventPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void data_access_event_policy_content_form_init(DataAccessEventPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -40973,6 +41830,41 @@ void data_integration_points_integration_summary_form_set_known_bottlenecks(Data
 char *data_integration_points_integration_summary_form_integration_debt(const DataIntegrationPointsIntegrationSummaryForm *self);
 void data_integration_points_integration_summary_form_set_integration_debt(DataIntegrationPointsIntegrationSummaryForm *self, const char *value);
 
+// DataMaskingPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void data_masking_policy_content_form_init(DataMaskingPolicyContentForm *self, SpecDocument *doc, const char *path);
+void data_masking_policy_content_form_free(DataMaskingPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_masking_policy_content_form_content(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_content(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_dynamic_data_masking_enabled(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_dynamic_data_masking_enabled(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_dynamic_masking_rules(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_dynamic_masking_rules(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_dynamic_masking_scope(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_dynamic_masking_scope(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_static_masking_for_non_production(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_static_masking_for_non_production(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_static_masking_tool(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_static_masking_tool(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_masking_preserves_format(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_masking_preserves_format(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_masking_reversibility(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_masking_reversibility(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_pii_masking_policy(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_pii_masking_policy(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_email_masking_format(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_email_masking_format(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_phone_masking_format(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_phone_masking_format(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_address_masking_format(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_address_masking_format(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_financial_data_masking(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_financial_data_masking(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_masking_audit_trail(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_masking_audit_trail(DataMaskingPolicyContentForm *self, const char *value);
+char *data_masking_policy_content_form_development_data_strategy(const DataMaskingPolicyContentForm *self);
+void data_masking_policy_content_form_set_development_data_strategy(DataMaskingPolicyContentForm *self, const char *value);
+
 // DataMigrationStrategyApproachForm is the generated section facade for the `approach` @Form section: its own `content` text followed by one typed member per form field.
 void data_migration_strategy_approach_form_init(DataMigrationStrategyApproachForm *self, SpecDocument *doc, const char *path);
 void data_migration_strategy_approach_form_free(DataMigrationStrategyApproachForm *self);
@@ -41844,6 +42736,41 @@ void data_volume_summary_projection_form_set_projected_volume_three_years(DataVo
 char *data_volume_summary_projection_form_capacity_utilization(const DataVolumeSummaryProjectionForm *self);
 void data_volume_summary_projection_form_set_capacity_utilization(DataVolumeSummaryProjectionForm *self, const char *value);
 
+// DatabaseAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void database_access_policy_content_form_init(DatabaseAccessPolicyContentForm *self, SpecDocument *doc, const char *path);
+void database_access_policy_content_form_free(DatabaseAccessPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *database_access_policy_content_form_content(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_content(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_database_connection_security(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_database_connection_security(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_minimum_tls_version(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_minimum_tls_version(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_application_account_strategy(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_application_account_strategy(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_application_account_privileges(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_application_account_privileges(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_schema_ownership_separation(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_schema_ownership_separation(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_direct_table_access(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_direct_table_access(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_database_credential_storage(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_database_credential_storage(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_credential_rotation_policy(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_credential_rotation_policy(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_connection_pool_security(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_connection_pool_security(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_privileged_access_management(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_privileged_access_management(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_database_firewall_rules(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_database_firewall_rules(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_sql_injection_prevention(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_sql_injection_prevention(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_query_complexity_limits(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_query_complexity_limits(DatabaseAccessPolicyContentForm *self, const char *value);
+char *database_access_policy_content_form_database_activity_monitoring(const DatabaseAccessPolicyContentForm *self);
+void database_access_policy_content_form_set_database_activity_monitoring(DatabaseAccessPolicyContentForm *self, const char *value);
+
 // DatabaseCompatibilityEntryConnectionForm is the generated section facade for the `connection` @Form section: its own `content` text followed by one typed member per form field.
 void database_compatibility_entry_connection_form_init(DatabaseCompatibilityEntryConnectionForm *self, SpecDocument *doc, const char *path);
 void database_compatibility_entry_connection_form_free(DatabaseCompatibilityEntryConnectionForm *self);
@@ -41908,6 +42835,27 @@ char *database_compatibility_entry_support_form_support_level(const DatabaseComp
 void database_compatibility_entry_support_form_set_support_level(DatabaseCompatibilityEntrySupportForm *self, const char *value);
 char *database_compatibility_entry_support_form_cloud_variants(const DatabaseCompatibilityEntrySupportForm *self);
 void database_compatibility_entry_support_form_set_cloud_variants(DatabaseCompatibilityEntrySupportForm *self, const char *value);
+
+// DatabaseEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void database_encryption_policy_content_form_init(DatabaseEncryptionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void database_encryption_policy_content_form_free(DatabaseEncryptionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *database_encryption_policy_content_form_content(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_content(DatabaseEncryptionPolicyContentForm *self, const char *value);
+char *database_encryption_policy_content_form_database_encryption_method(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_database_encryption_method(DatabaseEncryptionPolicyContentForm *self, const char *value);
+char *database_encryption_policy_content_form_encrypted_column_strategy(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_encrypted_column_strategy(DatabaseEncryptionPolicyContentForm *self, const char *value);
+bool database_encryption_policy_content_form_index_on_encrypted_columns(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_index_on_encrypted_columns(DatabaseEncryptionPolicyContentForm *self, bool value);
+char *database_encryption_policy_content_form_search_on_encrypted_data(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_search_on_encrypted_data(DatabaseEncryptionPolicyContentForm *self, const char *value);
+bool database_encryption_policy_content_form_connection_encryption(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_connection_encryption(DatabaseEncryptionPolicyContentForm *self, bool value);
+char *database_encryption_policy_content_form_database_engine(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_database_engine(DatabaseEncryptionPolicyContentForm *self, const char *value);
+char *database_encryption_policy_content_form_notes(const DatabaseEncryptionPolicyContentForm *self);
+void database_encryption_policy_content_form_set_notes(DatabaseEncryptionPolicyContentForm *self, const char *value);
 
 // DebuggingConfigurationBreakpointsForm is the generated section facade for the `breakpoints` @Form section: its own `content` text followed by one typed member per form field.
 void debugging_configuration_breakpoints_form_init(DebuggingConfigurationBreakpointsForm *self, SpecDocument *doc, const char *path);
@@ -44729,6 +45677,33 @@ void encrypted_data_category_entry_content_form_set_data_retention_days(Encrypte
 char *encrypted_data_category_entry_content_form_notes(const EncryptedDataCategoryEntryContentForm *self);
 void encrypted_data_category_entry_content_form_set_notes(EncryptedDataCategoryEntryContentForm *self, const char *value);
 
+// EncryptionAtRestPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void encryption_at_rest_policy_content_form_init(EncryptionAtRestPolicyContentForm *self, SpecDocument *doc, const char *path);
+void encryption_at_rest_policy_content_form_free(EncryptionAtRestPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *encryption_at_rest_policy_content_form_content(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_content(EncryptionAtRestPolicyContentForm *self, const char *value);
+char *encryption_at_rest_policy_content_form_default_algorithm(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_default_algorithm(EncryptionAtRestPolicyContentForm *self, const char *value);
+long encryption_at_rest_policy_content_form_default_key_length(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_default_key_length(EncryptionAtRestPolicyContentForm *self, long value);
+char *encryption_at_rest_policy_content_form_cipher_mode(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_cipher_mode(EncryptionAtRestPolicyContentForm *self, const char *value);
+char *encryption_at_rest_policy_content_form_encryption_layer(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_encryption_layer(EncryptionAtRestPolicyContentForm *self, const char *value);
+bool encryption_at_rest_policy_content_form_field_level_encryption(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_field_level_encryption(EncryptionAtRestPolicyContentForm *self, bool value);
+bool encryption_at_rest_policy_content_form_transparent_data_encryption(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_transparent_data_encryption(EncryptionAtRestPolicyContentForm *self, bool value);
+bool encryption_at_rest_policy_content_form_full_disk_encryption(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_full_disk_encryption(EncryptionAtRestPolicyContentForm *self, bool value);
+bool encryption_at_rest_policy_content_form_minimize_sensitive_storage(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_minimize_sensitive_storage(EncryptionAtRestPolicyContentForm *self, bool value);
+char *encryption_at_rest_policy_content_form_compliance_framework(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_compliance_framework(EncryptionAtRestPolicyContentForm *self, const char *value);
+char *encryption_at_rest_policy_content_form_notes(const EncryptionAtRestPolicyContentForm *self);
+void encryption_at_rest_policy_content_form_set_notes(EncryptionAtRestPolicyContentForm *self, const char *value);
+
 // EnterpriseSystemCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void enterprise_system_compatibility_entry_content_form_init(EnterpriseSystemCompatibilityEntryContentForm *self, SpecDocument *doc, const char *path);
 void enterprise_system_compatibility_entry_content_form_free(EnterpriseSystemCompatibilityEntryContentForm *self);
@@ -47208,6 +48183,146 @@ char *field_validation_rule_content_form_severity(const FieldValidationRuleConte
 void field_validation_rule_content_form_set_severity(FieldValidationRuleContentForm *self, const char *value);
 char *field_validation_rule_content_form_trigger_event(const FieldValidationRuleContentForm *self);
 void field_validation_rule_content_form_set_trigger_event(FieldValidationRuleContentForm *self, const char *value);
+
+// FileAccessControlPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void file_access_control_policy_content_form_init(FileAccessControlPolicyContentForm *self, SpecDocument *doc, const char *path);
+void file_access_control_policy_content_form_free(FileAccessControlPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *file_access_control_policy_content_form_content(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_content(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_file_access_model(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_file_access_model(FileAccessControlPolicyContentForm *self, const char *value);
+bool file_access_control_policy_content_form_authentication_required(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_authentication_required(FileAccessControlPolicyContentForm *self, bool value);
+bool file_access_control_policy_content_form_anonymous_download_allowed(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_anonymous_download_allowed(FileAccessControlPolicyContentForm *self, bool value);
+char *file_access_control_policy_content_form_file_ownership_model(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_file_ownership_model(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_permission_granularity(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_permission_granularity(FileAccessControlPolicyContentForm *self, const char *value);
+bool file_access_control_policy_content_form_folder_level_permissions(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_folder_level_permissions(FileAccessControlPolicyContentForm *self, bool value);
+char *file_access_control_policy_content_form_permission_inheritance(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_permission_inheritance(FileAccessControlPolicyContentForm *self, const char *value);
+bool file_access_control_policy_content_form_sharing_enabled(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_sharing_enabled(FileAccessControlPolicyContentForm *self, bool value);
+bool file_access_control_policy_content_form_shareable_link_support(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_shareable_link_support(FileAccessControlPolicyContentForm *self, bool value);
+char *file_access_control_policy_content_form_shareable_link_expiration(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_shareable_link_expiration(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_external_sharing_policy(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_external_sharing_policy(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_storage_location_policy(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_storage_location_policy(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_tenant_storage_isolation(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_tenant_storage_isolation(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_filesystem_permissions(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_filesystem_permissions(FileAccessControlPolicyContentForm *self, const char *value);
+bool file_access_control_policy_content_form_presigned_url_support(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_presigned_url_support(FileAccessControlPolicyContentForm *self, bool value);
+char *file_access_control_policy_content_form_presigned_url_max_expiry(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_presigned_url_max_expiry(FileAccessControlPolicyContentForm *self, const char *value);
+char *file_access_control_policy_content_form_notes(const FileAccessControlPolicyContentForm *self);
+void file_access_control_policy_content_form_set_notes(FileAccessControlPolicyContentForm *self, const char *value);
+
+// FileDownloadSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void file_download_security_policy_content_form_init(FileDownloadSecurityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void file_download_security_policy_content_form_free(FileDownloadSecurityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *file_download_security_policy_content_form_content(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_content(FileDownloadSecurityPolicyContentForm *self, const char *value);
+bool file_download_security_policy_content_form_download_authentication_required(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_download_authentication_required(FileDownloadSecurityPolicyContentForm *self, bool value);
+bool file_download_security_policy_content_form_download_rate_limiting(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_download_rate_limiting(FileDownloadSecurityPolicyContentForm *self, bool value);
+char *file_download_security_policy_content_form_download_rate_limit(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_download_rate_limit(FileDownloadSecurityPolicyContentForm *self, const char *value);
+bool file_download_security_policy_content_form_bandwidth_throttling(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_bandwidth_throttling(FileDownloadSecurityPolicyContentForm *self, bool value);
+char *file_download_security_policy_content_form_content_disposition_policy(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_content_disposition_policy(FileDownloadSecurityPolicyContentForm *self, const char *value);
+bool file_download_security_policy_content_form_cdn_delivery(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_cdn_delivery(FileDownloadSecurityPolicyContentForm *self, bool value);
+bool file_download_security_policy_content_form_hotlink_prevention(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_hotlink_prevention(FileDownloadSecurityPolicyContentForm *self, bool value);
+char *file_download_security_policy_content_form_cache_control_policy(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_cache_control_policy(FileDownloadSecurityPolicyContentForm *self, const char *value);
+bool file_download_security_policy_content_form_download_audit_logging(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_download_audit_logging(FileDownloadSecurityPolicyContentForm *self, bool value);
+bool file_download_security_policy_content_form_download_alerts(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_download_alerts(FileDownloadSecurityPolicyContentForm *self, bool value);
+bool file_download_security_policy_content_form_watermarking(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_watermarking(FileDownloadSecurityPolicyContentForm *self, bool value);
+char *file_download_security_policy_content_form_notes(const FileDownloadSecurityPolicyContentForm *self);
+void file_download_security_policy_content_form_set_notes(FileDownloadSecurityPolicyContentForm *self, const char *value);
+
+// FileStorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void file_storage_encryption_policy_content_form_init(FileStorageEncryptionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void file_storage_encryption_policy_content_form_free(FileStorageEncryptionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *file_storage_encryption_policy_content_form_content(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_content(FileStorageEncryptionPolicyContentForm *self, const char *value);
+char *file_storage_encryption_policy_content_form_file_encryption_method(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_file_encryption_method(FileStorageEncryptionPolicyContentForm *self, const char *value);
+char *file_storage_encryption_policy_content_form_cloud_storage_encryption(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_cloud_storage_encryption(FileStorageEncryptionPolicyContentForm *self, const char *value);
+bool file_storage_encryption_policy_content_form_client_side_encryption(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_client_side_encryption(FileStorageEncryptionPolicyContentForm *self, bool value);
+char *file_storage_encryption_policy_content_form_encrypted_file_formats(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_encrypted_file_formats(FileStorageEncryptionPolicyContentForm *self, const char *value);
+bool file_storage_encryption_policy_content_form_local_device_encryption(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_local_device_encryption(FileStorageEncryptionPolicyContentForm *self, bool value);
+bool file_storage_encryption_policy_content_form_temporary_file_encryption(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_temporary_file_encryption(FileStorageEncryptionPolicyContentForm *self, bool value);
+char *file_storage_encryption_policy_content_form_notes(const FileStorageEncryptionPolicyContentForm *self);
+void file_storage_encryption_policy_content_form_set_notes(FileStorageEncryptionPolicyContentForm *self, const char *value);
+
+// FileUploadValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void file_upload_validation_policy_content_form_init(FileUploadValidationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void file_upload_validation_policy_content_form_free(FileUploadValidationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *file_upload_validation_policy_content_form_content(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_content(FileUploadValidationPolicyContentForm *self, const char *value);
+char *file_upload_validation_policy_content_form_extension_validation_strategy(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_extension_validation_strategy(FileUploadValidationPolicyContentForm *self, const char *value);
+char *file_upload_validation_policy_content_form_allowed_file_extensions(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_allowed_file_extensions(FileUploadValidationPolicyContentForm *self, const char *value);
+char *file_upload_validation_policy_content_form_blocked_file_extensions(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_blocked_file_extensions(FileUploadValidationPolicyContentForm *self, const char *value);
+bool file_upload_validation_policy_content_form_double_extension_prevention(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_double_extension_prevention(FileUploadValidationPolicyContentForm *self, bool value);
+bool file_upload_validation_policy_content_form_content_type_validation(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_content_type_validation(FileUploadValidationPolicyContentForm *self, bool value);
+bool file_upload_validation_policy_content_form_file_signature_validation(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_file_signature_validation(FileUploadValidationPolicyContentForm *self, bool value);
+char *file_upload_validation_policy_content_form_signature_mismatch_action(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_signature_mismatch_action(FileUploadValidationPolicyContentForm *self, const char *value);
+char *file_upload_validation_policy_content_form_filename_strategy(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_filename_strategy(FileUploadValidationPolicyContentForm *self, const char *value);
+long file_upload_validation_policy_content_form_filename_max_length(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_filename_max_length(FileUploadValidationPolicyContentForm *self, long value);
+char *file_upload_validation_policy_content_form_filename_allowed_characters(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_filename_allowed_characters(FileUploadValidationPolicyContentForm *self, const char *value);
+bool file_upload_validation_policy_content_form_path_traversal_prevention(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_path_traversal_prevention(FileUploadValidationPolicyContentForm *self, bool value);
+bool file_upload_validation_policy_content_form_null_byte_prevention(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_null_byte_prevention(FileUploadValidationPolicyContentForm *self, bool value);
+char *file_upload_validation_policy_content_form_max_file_size_bytes(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_max_file_size_bytes(FileUploadValidationPolicyContentForm *self, const char *value);
+char *file_upload_validation_policy_content_form_max_upload_batch_size(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_max_upload_batch_size(FileUploadValidationPolicyContentForm *self, const char *value);
+long file_upload_validation_policy_content_form_max_concurrent_uploads(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_max_concurrent_uploads(FileUploadValidationPolicyContentForm *self, long value);
+char *file_upload_validation_policy_content_form_compressed_file_size_limit(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_compressed_file_size_limit(FileUploadValidationPolicyContentForm *self, const char *value);
+bool file_upload_validation_policy_content_form_image_rewriting(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_image_rewriting(FileUploadValidationPolicyContentForm *self, bool value);
+bool file_upload_validation_policy_content_form_document_sanitization(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_document_sanitization(FileUploadValidationPolicyContentForm *self, bool value);
+bool file_upload_validation_policy_content_form_metadata_stripping(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_metadata_stripping(FileUploadValidationPolicyContentForm *self, bool value);
+char *file_upload_validation_policy_content_form_notes(const FileUploadValidationPolicyContentForm *self);
+void file_upload_validation_policy_content_form_set_notes(FileUploadValidationPolicyContentForm *self, const char *value);
 
 // FirewallRequirementsAdvancedForm is the generated section facade for the `advanced` @Form section: its own `content` text followed by one typed member per form field.
 void firewall_requirements_advanced_form_init(FirewallRequirementsAdvancedForm *self, SpecDocument *doc, const char *path);
@@ -51593,6 +52708,45 @@ void log_storage_policy_content_form_set_storage_encryption(LogStoragePolicyCont
 char *log_storage_policy_content_form_access_permissions(const LogStoragePolicyContentForm *self);
 void log_storage_policy_content_form_set_access_permissions(LogStoragePolicyContentForm *self, const char *value);
 
+// LoginFlowConfigurationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void login_flow_configuration_content_form_init(LoginFlowConfigurationContentForm *self, SpecDocument *doc, const char *path);
+void login_flow_configuration_content_form_free(LoginFlowConfigurationContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *login_flow_configuration_content_form_content(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_content(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_login_entry_point(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_login_entry_point(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_credential_submission_method(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_credential_submission_method(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_pre_authentication_checks(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_pre_authentication_checks(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_authentication_endpoint(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_authentication_endpoint(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_allowed_authentication_methods(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_allowed_authentication_methods(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_mfa_challenge_presentation(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_mfa_challenge_presentation(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_remember_me_enabled(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_remember_me_enabled(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_remember_me_duration(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_remember_me_duration(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_social_login_enabled(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_social_login_enabled(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_social_login_providers(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_social_login_providers(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_passwordless_login_enabled(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_passwordless_login_enabled(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_passwordless_login_methods(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_passwordless_login_methods(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_post_authentication_action(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_post_authentication_action(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_concurrent_login_policy(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_concurrent_login_policy(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_login_notification(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_login_notification(LoginFlowConfigurationContentForm *self, const char *value);
+char *login_flow_configuration_content_form_login_from_new_device_action(const LoginFlowConfigurationContentForm *self);
+void login_flow_configuration_content_form_set_login_from_new_device_action(LoginFlowConfigurationContentForm *self, const char *value);
+
 // LoginFlowStepEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void login_flow_step_entry_behavior_form_init(LoginFlowStepEntryBehaviorForm *self, SpecDocument *doc, const char *path);
 void login_flow_step_entry_behavior_form_free(LoginFlowStepEntryBehaviorForm *self);
@@ -52376,6 +53530,37 @@ char *mfa_category_requirement_entry_timing_form_remember_device_enabled(const M
 void mfa_category_requirement_entry_timing_form_set_remember_device_enabled(MfaCategoryRequirementEntryTimingForm *self, const char *value);
 char *mfa_category_requirement_entry_timing_form_remember_device_duration(const MfaCategoryRequirementEntryTimingForm *self);
 void mfa_category_requirement_entry_timing_form_set_remember_device_duration(MfaCategoryRequirementEntryTimingForm *self, const char *value);
+
+// MfaConfigurationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void mfa_configuration_content_form_init(MfaConfigurationContentForm *self, SpecDocument *doc, const char *path);
+void mfa_configuration_content_form_free(MfaConfigurationContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *mfa_configuration_content_form_content(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_content(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_mfa_required(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_mfa_required(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_mfa_enforcement_scope(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_mfa_enforcement_scope(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_default_second_factor(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_default_second_factor(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_allowed_second_factors(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_allowed_second_factors(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_assurance_level_target(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_assurance_level_target(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_phishing_resistance_required(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_phishing_resistance_required(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_step_up_authentication_enabled(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_step_up_authentication_enabled(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_step_up_triggers(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_step_up_triggers(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_remember_device_policy(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_remember_device_policy(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_recovery_code_policy(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_recovery_code_policy(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_enrollment_grace_period(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_enrollment_grace_period(MfaConfigurationContentForm *self, const char *value);
+char *mfa_configuration_content_form_mfa_bypass_policy(const MfaConfigurationContentForm *self);
+void mfa_configuration_content_form_set_mfa_bypass_policy(MfaConfigurationContentForm *self, const char *value);
 
 // MigrationConsiderationsStrategyContentForm is the generated section facade for the `strategyContent` @Form section: its own `content` text followed by one typed member per form field.
 void migration_considerations_strategy_content_form_init(MigrationConsiderationsStrategyContentForm *self, SpecDocument *doc, const char *path);
@@ -53697,6 +54882,27 @@ char *must_pass_criterion_entry_verification_form_measurement_method(const MustP
 void must_pass_criterion_entry_verification_form_set_measurement_method(MustPassCriterionEntryVerificationForm *self, const char *value);
 char *must_pass_criterion_entry_verification_form_tolerance_allowed(const MustPassCriterionEntryVerificationForm *self);
 void must_pass_criterion_entry_verification_form_set_tolerance_allowed(MustPassCriterionEntryVerificationForm *self, const char *value);
+
+// MutualTlsPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void mutual_tls_policy_content_form_init(MutualTlsPolicyContentForm *self, SpecDocument *doc, const char *path);
+void mutual_tls_policy_content_form_free(MutualTlsPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *mutual_tls_policy_content_form_content(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_content(MutualTlsPolicyContentForm *self, const char *value);
+bool mutual_tls_policy_content_form_mtls_enabled(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_mtls_enabled(MutualTlsPolicyContentForm *self, bool value);
+char *mutual_tls_policy_content_form_mtls_scope(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_mtls_scope(MutualTlsPolicyContentForm *self, const char *value);
+char *mutual_tls_policy_content_form_client_certificate_issuance(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_client_certificate_issuance(MutualTlsPolicyContentForm *self, const char *value);
+char *mutual_tls_policy_content_form_revocation_checking(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_revocation_checking(MutualTlsPolicyContentForm *self, const char *value);
+char *mutual_tls_policy_content_form_fallback_on_mtls_failure(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_fallback_on_mtls_failure(MutualTlsPolicyContentForm *self, const char *value);
+char *mutual_tls_policy_content_form_client_certificate_rotation(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_client_certificate_rotation(MutualTlsPolicyContentForm *self, const char *value);
+char *mutual_tls_policy_content_form_notes(const MutualTlsPolicyContentForm *self);
+void mutual_tls_policy_content_form_set_notes(MutualTlsPolicyContentForm *self, const char *value);
 
 // NativeAppRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void native_app_requirements_content_form_init(NativeAppRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -55714,6 +56920,107 @@ void participant_entry_content_form_set_target_entity_name(ParticipantEntryConte
 char *participant_entry_content_form_target_role(const ParticipantEntryContentForm *self);
 void participant_entry_content_form_set_target_role(ParticipantEntryContentForm *self, const char *value);
 
+// PasswordLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void password_lifecycle_policy_content_form_init(PasswordLifecyclePolicyContentForm *self, SpecDocument *doc, const char *path);
+void password_lifecycle_policy_content_form_free(PasswordLifecyclePolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *password_lifecycle_policy_content_form_content(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_content(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_periodic_rotation_required(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_periodic_rotation_required(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_rotation_period(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_rotation_period(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_force_change_on_compromise(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_force_change_on_compromise(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_password_history_depth(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_password_history_depth(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_minimum_password_age(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_minimum_password_age(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_initial_password_policy(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_initial_password_policy(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_temporary_password_expiry(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_temporary_password_expiry(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_password_expiry_warning(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_password_expiry_warning(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_password_change_notification(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_password_change_notification(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_password_change_requires_current(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_password_change_requires_current(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_administrator_reset_policy(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_administrator_reset_policy(PasswordLifecyclePolicyContentForm *self, const char *value);
+char *password_lifecycle_policy_content_form_password_inactivity_disable(const PasswordLifecyclePolicyContentForm *self);
+void password_lifecycle_policy_content_form_set_password_inactivity_disable(PasswordLifecyclePolicyContentForm *self, const char *value);
+
+// PasswordRequirementsPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void password_requirements_policy_content_form_init(PasswordRequirementsPolicyContentForm *self, SpecDocument *doc, const char *path);
+void password_requirements_policy_content_form_free(PasswordRequirementsPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *password_requirements_policy_content_form_content(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_content(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_minimum_length_single_factor(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_minimum_length_single_factor(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_minimum_length_multi_factor(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_minimum_length_multi_factor(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_maximum_length(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_maximum_length(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_allowed_character_sets(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_allowed_character_sets(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_composition_rules_enforced(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_composition_rules_enforced(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_passphrase_supported(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_passphrase_supported(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_unicode_normalization(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_unicode_normalization(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_password_blocklist_enabled(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_password_blocklist_enabled(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_blocklist_sources(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_blocklist_sources(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_password_strength_meter(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_password_strength_meter(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_password_hints_allowed(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_password_hints_allowed(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_security_questions_allowed(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_security_questions_allowed(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_show_password_option(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_show_password_option(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_password_manager_support(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_password_manager_support(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_truncation_policy(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_truncation_policy(PasswordRequirementsPolicyContentForm *self, const char *value);
+char *password_requirements_policy_content_form_typo_tolerance_policy(const PasswordRequirementsPolicyContentForm *self);
+void password_requirements_policy_content_form_set_typo_tolerance_policy(PasswordRequirementsPolicyContentForm *self, const char *value);
+
+// PasswordStoragePolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void password_storage_policy_content_form_init(PasswordStoragePolicyContentForm *self, SpecDocument *doc, const char *path);
+void password_storage_policy_content_form_free(PasswordStoragePolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *password_storage_policy_content_form_content(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_content(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_hashing_algorithm(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_hashing_algorithm(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_hashing_cost_factor(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_hashing_cost_factor(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_cost_factor_review_schedule(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_cost_factor_review_schedule(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_salt_length(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_salt_length(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_salt_generation(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_salt_generation(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_pepper_enabled(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_pepper_enabled(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_pepper_storage(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_pepper_storage(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_hash_versioning(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_hash_versioning(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_transmission_encryption(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_transmission_encryption(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_client_side_hashing(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_client_side_hashing(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_memory_hard_function(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_memory_hard_function(PasswordStoragePolicyContentForm *self, const char *value);
+char *password_storage_policy_content_form_output_length(const PasswordStoragePolicyContentForm *self);
+void password_storage_policy_content_form_set_output_length(PasswordStoragePolicyContentForm *self, const char *value);
+
 // PeakLoadPatternsCapacityForm is the generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
 void peak_load_patterns_capacity_form_init(PeakLoadPatternsCapacityForm *self, SpecDocument *doc, const char *path);
 void peak_load_patterns_capacity_form_free(PeakLoadPatternsCapacityForm *self);
@@ -55892,6 +57199,89 @@ long peripheral_equipment_entry_content_form_quantity_needed(const PeripheralEqu
 void peripheral_equipment_entry_content_form_set_quantity_needed(PeripheralEquipmentEntryContentForm *self, long value);
 char *peripheral_equipment_entry_content_form_justification(const PeripheralEquipmentEntryContentForm *self);
 void peripheral_equipment_entry_content_form_set_justification(PeripheralEquipmentEntryContentForm *self, const char *value);
+
+// PermissionCompositionStrategyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void permission_composition_strategy_content_form_init(PermissionCompositionStrategyContentForm *self, SpecDocument *doc, const char *path);
+void permission_composition_strategy_content_form_free(PermissionCompositionStrategyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *permission_composition_strategy_content_form_content(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_content(PermissionCompositionStrategyContentForm *self, const char *value);
+char *permission_composition_strategy_content_form_composition_model(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_composition_model(PermissionCompositionStrategyContentForm *self, const char *value);
+char *permission_composition_strategy_content_form_default_policy(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_default_policy(PermissionCompositionStrategyContentForm *self, const char *value);
+bool permission_composition_strategy_content_form_explicit_deny_override(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_explicit_deny_override(PermissionCompositionStrategyContentForm *self, bool value);
+bool permission_composition_strategy_content_form_role_permission_inheritance(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_role_permission_inheritance(PermissionCompositionStrategyContentForm *self, bool value);
+char *permission_composition_strategy_content_form_group_permission_aggregation(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_group_permission_aggregation(PermissionCompositionStrategyContentForm *self, const char *value);
+char *permission_composition_strategy_content_form_conflict_resolution(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_conflict_resolution(PermissionCompositionStrategyContentForm *self, const char *value);
+bool permission_composition_strategy_content_form_permission_boundary(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_permission_boundary(PermissionCompositionStrategyContentForm *self, bool value);
+bool permission_composition_strategy_content_form_scoped_permissions(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_scoped_permissions(PermissionCompositionStrategyContentForm *self, bool value);
+bool permission_composition_strategy_content_form_temporary_elevation(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_temporary_elevation(PermissionCompositionStrategyContentForm *self, bool value);
+char *permission_composition_strategy_content_form_notes(const PermissionCompositionStrategyContentForm *self);
+void permission_composition_strategy_content_form_set_notes(PermissionCompositionStrategyContentForm *self, const char *value);
+
+// PermissionEvaluationBehaviorContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void permission_evaluation_behavior_content_form_init(PermissionEvaluationBehaviorContentForm *self, SpecDocument *doc, const char *path);
+void permission_evaluation_behavior_content_form_free(PermissionEvaluationBehaviorContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *permission_evaluation_behavior_content_form_content(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_content(PermissionEvaluationBehaviorContentForm *self, const char *value);
+char *permission_evaluation_behavior_content_form_evaluation_location(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_evaluation_location(PermissionEvaluationBehaviorContentForm *self, const char *value);
+char *permission_evaluation_behavior_content_form_evaluation_frequency(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_evaluation_frequency(PermissionEvaluationBehaviorContentForm *self, const char *value);
+char *permission_evaluation_behavior_content_form_caching_strategy(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_caching_strategy(PermissionEvaluationBehaviorContentForm *self, const char *value);
+long permission_evaluation_behavior_content_form_cache_ttl_seconds(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_cache_ttl_seconds(PermissionEvaluationBehaviorContentForm *self, long value);
+char *permission_evaluation_behavior_content_form_failure_mode(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_failure_mode(PermissionEvaluationBehaviorContentForm *self, const char *value);
+bool permission_evaluation_behavior_content_form_authorization_logging(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_authorization_logging(PermissionEvaluationBehaviorContentForm *self, bool value);
+bool permission_evaluation_behavior_content_form_log_denied_requests(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_log_denied_requests(PermissionEvaluationBehaviorContentForm *self, bool value);
+bool permission_evaluation_behavior_content_form_log_successful_access(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_log_successful_access(PermissionEvaluationBehaviorContentForm *self, bool value);
+bool permission_evaluation_behavior_content_form_automated_testing(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_automated_testing(PermissionEvaluationBehaviorContentForm *self, bool value);
+bool permission_evaluation_behavior_content_form_client_side_hints(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_client_side_hints(PermissionEvaluationBehaviorContentForm *self, bool value);
+char *permission_evaluation_behavior_content_form_notes(const PermissionEvaluationBehaviorContentForm *self);
+void permission_evaluation_behavior_content_form_set_notes(PermissionEvaluationBehaviorContentForm *self, const char *value);
+
+// PermissionGranularityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void permission_granularity_policy_content_form_init(PermissionGranularityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void permission_granularity_policy_content_form_free(PermissionGranularityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *permission_granularity_policy_content_form_content(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_content(PermissionGranularityPolicyContentForm *self, const char *value);
+bool permission_granularity_policy_content_form_function_level_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_function_level_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_data_level_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_data_level_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_field_level_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_field_level_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_ui_element_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_ui_element_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_api_operation_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_api_operation_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_object_level_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_object_level_control(PermissionGranularityPolicyContentForm *self, bool value);
+bool permission_granularity_policy_content_form_tenant_level_control(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_tenant_level_control(PermissionGranularityPolicyContentForm *self, bool value);
+char *permission_granularity_policy_content_form_finest_granularity(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_finest_granularity(PermissionGranularityPolicyContentForm *self, const char *value);
+bool permission_granularity_policy_content_form_dynamic_permissions(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_dynamic_permissions(PermissionGranularityPolicyContentForm *self, bool value);
+char *permission_granularity_policy_content_form_notes(const PermissionGranularityPolicyContentForm *self);
+void permission_granularity_policy_content_form_set_notes(PermissionGranularityPolicyContentForm *self, const char *value);
 
 // PermissionMatrixEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void permission_matrix_entry_content_form_init(PermissionMatrixEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -58951,6 +60341,37 @@ void recovery_scenario_entry_content_form_set_time_to_recover(RecoveryScenarioEn
 char *recovery_scenario_entry_content_form_support_escalation(const RecoveryScenarioEntryContentForm *self);
 void recovery_scenario_entry_content_form_set_support_escalation(RecoveryScenarioEntryContentForm *self, const char *value);
 
+// RedirectHandlingPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void redirect_handling_policy_content_form_init(RedirectHandlingPolicyContentForm *self, SpecDocument *doc, const char *path);
+void redirect_handling_policy_content_form_free(RedirectHandlingPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *redirect_handling_policy_content_form_content(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_content(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_oauth_redirect_uri_policy(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_oauth_redirect_uri_policy(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_allowed_redirect_domains(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_allowed_redirect_domains(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_callback_url_validation(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_callback_url_validation(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_state_parameter_required(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_state_parameter_required(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_pkce_required(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_pkce_required(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_pkce_method(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_pkce_method(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_deep_link_handling(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_deep_link_handling(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_error_redirect_behavior(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_error_redirect_behavior(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_post_logout_redirect_uri(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_post_logout_redirect_uri(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_single_logout_redirect_chain(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_single_logout_redirect_chain(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_cors_policy(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_cors_policy(RedirectHandlingPolicyContentForm *self, const char *value);
+char *redirect_handling_policy_content_form_iframe_embedding_policy(const RedirectHandlingPolicyContentForm *self);
+void redirect_handling_policy_content_form_set_iframe_embedding_policy(RedirectHandlingPolicyContentForm *self, const char *value);
+
 // ReferenceDocumentEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void reference_document_entry_content_form_init(ReferenceDocumentEntryContentForm *self, SpecDocument *doc, const char *path);
 void reference_document_entry_content_form_free(ReferenceDocumentEntryContentForm *self);
@@ -59329,6 +60750,39 @@ char *reliability_verification_form_reliability_verification(const ReliabilityVe
 void reliability_verification_form_set_reliability_verification(ReliabilityVerificationForm *self, const char *value);
 char *reliability_verification_form_incident_postmortem(const ReliabilityVerificationForm *self);
 void reliability_verification_form_set_incident_postmortem(ReliabilityVerificationForm *self, const char *value);
+
+// RememberMePolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void remember_me_policy_content_form_init(RememberMePolicyContentForm *self, SpecDocument *doc, const char *path);
+void remember_me_policy_content_form_free(RememberMePolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *remember_me_policy_content_form_content(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_content(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_enabled(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_enabled(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_duration(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_duration(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_token_type(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_token_type(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_token_storage(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_token_storage(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_token_rotation(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_token_rotation(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_reuse_detection(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_reuse_detection(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_device_binding(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_device_binding(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_revocation(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_revocation(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_aal_reduction(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_aal_reduction(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_remember_me_restricted_operations(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_remember_me_restricted_operations(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_trusted_device_management(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_trusted_device_management(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_max_trusted_devices(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_max_trusted_devices(RememberMePolicyContentForm *self, const char *value);
+char *remember_me_policy_content_form_trusted_device_expiry(const RememberMePolicyContentForm *self);
+void remember_me_policy_content_form_set_trusted_device_expiry(RememberMePolicyContentForm *self, const char *value);
 
 // RemovedRoleEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void removed_role_entry_content_form_init(RemovedRoleEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -61627,6 +63081,31 @@ void role_adjustments_adjustment_summary_form_set_raci_matrix_compliance(RoleAdj
 char *role_adjustments_adjustment_summary_form_governance_impact(const RoleAdjustmentsAdjustmentSummaryForm *self);
 void role_adjustments_adjustment_summary_form_set_governance_impact(RoleAdjustmentsAdjustmentSummaryForm *self, const char *value);
 
+// RoleCertificationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void role_certification_policy_content_form_init(RoleCertificationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void role_certification_policy_content_form_free(RoleCertificationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *role_certification_policy_content_form_content(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_content(RoleCertificationPolicyContentForm *self, const char *value);
+bool role_certification_policy_content_form_certification_required(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_certification_required(RoleCertificationPolicyContentForm *self, bool value);
+char *role_certification_policy_content_form_certification_frequency(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_certification_frequency(RoleCertificationPolicyContentForm *self, const char *value);
+char *role_certification_policy_content_form_certifier(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_certifier(RoleCertificationPolicyContentForm *self, const char *value);
+char *role_certification_policy_content_form_non_response_action(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_non_response_action(RoleCertificationPolicyContentForm *self, const char *value);
+bool role_certification_policy_content_form_risk_based_scheduling(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_risk_based_scheduling(RoleCertificationPolicyContentForm *self, bool value);
+bool role_certification_policy_content_form_automated_detection(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_automated_detection(RoleCertificationPolicyContentForm *self, bool value);
+long role_certification_policy_content_form_dormant_role_threshold_days(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_dormant_role_threshold_days(RoleCertificationPolicyContentForm *self, long value);
+bool role_certification_policy_content_form_certification_audit_trail(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_certification_audit_trail(RoleCertificationPolicyContentForm *self, bool value);
+char *role_certification_policy_content_form_notes(const RoleCertificationPolicyContentForm *self);
+void role_certification_policy_content_form_set_notes(RoleCertificationPolicyContentForm *self, const char *value);
+
 // RoleCombinationConstraintEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void role_combination_constraint_entry_content_form_init(RoleCombinationConstraintEntryContentForm *self, SpecDocument *doc, const char *path);
 void role_combination_constraint_entry_content_form_free(RoleCombinationConstraintEntryContentForm *self);
@@ -61694,6 +63173,33 @@ char *role_exclusion_entry_content_form_exclusion_type(const RoleExclusionEntryC
 void role_exclusion_entry_content_form_set_exclusion_type(RoleExclusionEntryContentForm *self, const char *value);
 char *role_exclusion_entry_content_form_severity(const RoleExclusionEntryContentForm *self);
 void role_exclusion_entry_content_form_set_severity(RoleExclusionEntryContentForm *self, const char *value);
+
+// RoleHierarchyPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void role_hierarchy_policy_content_form_init(RoleHierarchyPolicyContentForm *self, SpecDocument *doc, const char *path);
+void role_hierarchy_policy_content_form_free(RoleHierarchyPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *role_hierarchy_policy_content_form_content(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_content(RoleHierarchyPolicyContentForm *self, const char *value);
+char *role_hierarchy_policy_content_form_hierarchy_model(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_hierarchy_model(RoleHierarchyPolicyContentForm *self, const char *value);
+long role_hierarchy_policy_content_form_max_hierarchy_depth(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_max_hierarchy_depth(RoleHierarchyPolicyContentForm *self, long value);
+char *role_hierarchy_policy_content_form_inheritance_mode(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_inheritance_mode(RoleHierarchyPolicyContentForm *self, const char *value);
+bool role_hierarchy_policy_content_form_multiple_inheritance(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_multiple_inheritance(RoleHierarchyPolicyContentForm *self, bool value);
+bool role_hierarchy_policy_content_form_permission_override(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_permission_override(RoleHierarchyPolicyContentForm *self, bool value);
+bool role_hierarchy_policy_content_form_activation_constraints(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_activation_constraints(RoleHierarchyPolicyContentForm *self, bool value);
+long role_hierarchy_policy_content_form_max_active_roles_per_user(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_max_active_roles_per_user(RoleHierarchyPolicyContentForm *self, long value);
+char *role_hierarchy_policy_content_form_role_priority_scheme(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_role_priority_scheme(RoleHierarchyPolicyContentForm *self, const char *value);
+bool role_hierarchy_policy_content_form_automatic_inheritance_revocation(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_automatic_inheritance_revocation(RoleHierarchyPolicyContentForm *self, bool value);
+char *role_hierarchy_policy_content_form_notes(const RoleHierarchyPolicyContentForm *self);
+void role_hierarchy_policy_content_form_set_notes(RoleHierarchyPolicyContentForm *self, const char *value);
 
 // RoleHolderEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void role_holder_entry_content_form_init(RoleHolderEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -61832,6 +63338,35 @@ char *rollback_strategy_triggers_form_rollback_triggers(const RollbackStrategyTr
 void rollback_strategy_triggers_form_set_rollback_triggers(RollbackStrategyTriggersForm *self, const char *value);
 char *rollback_strategy_triggers_form_rollback_time_target(const RollbackStrategyTriggersForm *self);
 void rollback_strategy_triggers_form_set_rollback_time_target(RollbackStrategyTriggersForm *self, const char *value);
+
+// RowLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void row_level_security_policy_content_form_init(RowLevelSecurityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void row_level_security_policy_content_form_free(RowLevelSecurityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *row_level_security_policy_content_form_content(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_content(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_row_level_security_enabled(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_row_level_security_enabled(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_rls_implementation(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_rls_implementation(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_rls_filtering_strategy(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_rls_filtering_strategy(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_rls_bypass_policy(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_rls_bypass_policy(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_hierarchical_visibility(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_hierarchical_visibility(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_hierarchy_depth_limit(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_hierarchy_depth_limit(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_cross_tenant_access(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_cross_tenant_access(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_data_owner_access(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_data_owner_access(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_shared_data_handling(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_shared_data_handling(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_rls_performance_strategy(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_rls_performance_strategy(RowLevelSecurityPolicyContentForm *self, const char *value);
+char *row_level_security_policy_content_form_rls_testing_strategy(const RowLevelSecurityPolicyContentForm *self);
+void row_level_security_policy_content_form_set_rls_testing_strategy(RowLevelSecurityPolicyContentForm *self, const char *value);
 
 // RpoRtoRequirementsByTierForm is the generated section facade for the `byTier` @Form section: its own `content` text followed by one typed member per form field.
 void rpo_rto_requirements_by_tier_form_init(RpoRtoRequirementsByTierForm *self, SpecDocument *doc, const char *path);
@@ -64130,6 +65665,41 @@ void self_registration_policy_verification_form_set_phone_verification_required(
 char *self_registration_policy_verification_form_phone_verification_method(const SelfRegistrationPolicyVerificationForm *self);
 void self_registration_policy_verification_form_set_phone_verification_method(SelfRegistrationPolicyVerificationForm *self, const char *value);
 
+// SelfServiceAccountManagementContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void self_service_account_management_content_form_init(SelfServiceAccountManagementContentForm *self, SpecDocument *doc, const char *path);
+void self_service_account_management_content_form_free(SelfServiceAccountManagementContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *self_service_account_management_content_form_content(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_content(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_profile_update_enabled(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_profile_update_enabled(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_password_change_enabled(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_password_change_enabled(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_password_reset_enabled(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_password_reset_enabled(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_password_reset_methods(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_password_reset_methods(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_mfa_enrollment_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_mfa_enrollment_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_account_deactivation_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_account_deactivation_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_account_deletion_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_account_deletion_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_data_export_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_data_export_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_session_management_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_session_management_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_api_key_management_self_service(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_api_key_management_self_service(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_notification_preferences(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_notification_preferences(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_delegation_enabled(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_delegation_enabled(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_delegation_scope(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_delegation_scope(SelfServiceAccountManagementContentForm *self, const char *value);
+char *self_service_account_management_content_form_account_recovery_process(const SelfServiceAccountManagementContentForm *self);
+void self_service_account_management_content_form_set_account_recovery_process(SelfServiceAccountManagementContentForm *self, const char *value);
+
 // ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void server_call_step_entry_content_form_init(ServerCallStepEntryContentForm *self, SpecDocument *doc, const char *path);
 void server_call_step_entry_content_form_free(ServerCallStepEntryContentForm *self);
@@ -64466,6 +66036,70 @@ void server_storage_requirements_performance_form_set_latency_requirement(Server
 char *server_storage_requirements_performance_form_notes(const ServerStorageRequirementsPerformanceForm *self);
 void server_storage_requirements_performance_form_set_notes(ServerStorageRequirementsPerformanceForm *self, const char *value);
 
+// ServiceAccountCredentialPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void service_account_credential_policy_content_form_init(ServiceAccountCredentialPolicyContentForm *self, SpecDocument *doc, const char *path);
+void service_account_credential_policy_content_form_free(ServiceAccountCredentialPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *service_account_credential_policy_content_form_content(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_content(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_service_account_password_policy(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_service_account_password_policy(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_service_account_rotation_period(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_service_account_rotation_period(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_api_key_lifetime(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_api_key_lifetime(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_api_key_rotation_policy(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_api_key_rotation_policy(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_secrets_management_tool(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_secrets_management_tool(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_machine_to_machine_auth(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_machine_to_machine_auth(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_service_account_mfa_required(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_service_account_mfa_required(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_shared_credential_prohibition(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_shared_credential_prohibition(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_credential_vault_integration(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_credential_vault_integration(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+char *service_account_credential_policy_content_form_hardcoded_credential_detection(const ServiceAccountCredentialPolicyContentForm *self);
+void service_account_credential_policy_content_form_set_hardcoded_credential_detection(ServiceAccountCredentialPolicyContentForm *self, const char *value);
+
+// ServiceAccountLifecycleContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void service_account_lifecycle_content_form_init(ServiceAccountLifecycleContentForm *self, SpecDocument *doc, const char *path);
+void service_account_lifecycle_content_form_free(ServiceAccountLifecycleContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *service_account_lifecycle_content_form_content(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_content(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_service_account_types(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_service_account_types(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_creation_process(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_creation_process(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_creation_approval(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_creation_approval(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_owner_assignment(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_owner_assignment(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_owner_review_frequency(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_owner_review_frequency(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_credential_rotation_policy(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_credential_rotation_policy(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_credential_storage_method(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_credential_storage_method(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_scope_limitation(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_scope_limitation(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_ip_restriction(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_ip_restriction(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_expiration_policy(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_expiration_policy(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_renewal_process(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_renewal_process(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_decommissioning_process(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_decommissioning_process(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_monitoring_requirements(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_monitoring_requirements(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_service_account_naming_convention(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_service_account_naming_convention(ServiceAccountLifecycleContentForm *self, const char *value);
+char *service_account_lifecycle_content_form_documentation_requirements(const ServiceAccountLifecycleContentForm *self);
+void service_account_lifecycle_content_form_set_documentation_requirements(ServiceAccountLifecycleContentForm *self, const char *value);
+
 // ServiceLevelAgreementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void service_level_agreement_entry_content_form_init(ServiceLevelAgreementEntryContentForm *self, SpecDocument *doc, const char *path);
 void service_level_agreement_entry_content_form_free(ServiceLevelAgreementEntryContentForm *self);
@@ -64666,6 +66300,70 @@ void service_mesh_and_gateway_mesh_form_set_traffic_policy(ServiceMeshAndGateway
 bool service_mesh_and_gateway_mesh_form_mtls_enabled(const ServiceMeshAndGatewayMeshForm *self);
 void service_mesh_and_gateway_mesh_form_set_mtls_enabled(ServiceMeshAndGatewayMeshForm *self, bool value);
 
+// SessionCreationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void session_creation_policy_content_form_init(SessionCreationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void session_creation_policy_content_form_free(SessionCreationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *session_creation_policy_content_form_content(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_content(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_mechanism(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_mechanism(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_id_generation(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_id_generation(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_id_entropy(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_id_entropy(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_binding_method(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_binding_method(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_http_only_cookies(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_http_only_cookies(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_secure_cookies(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_secure_cookies(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_same_site_policy(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_same_site_policy(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_cookie_domain(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_cookie_domain(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_device_binding(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_device_binding(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_data_storage(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_data_storage(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_session_replication_strategy(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_session_replication_strategy(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_csrf_protection(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_csrf_protection(SessionCreationPolicyContentForm *self, const char *value);
+char *session_creation_policy_content_form_post_login_redirect_validation(const SessionCreationPolicyContentForm *self);
+void session_creation_policy_content_form_set_post_login_redirect_validation(SessionCreationPolicyContentForm *self, const char *value);
+
+// SessionLifecycleMonitoringContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void session_lifecycle_monitoring_content_form_init(SessionLifecycleMonitoringContentForm *self, SpecDocument *doc, const char *path);
+void session_lifecycle_monitoring_content_form_free(SessionLifecycleMonitoringContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *session_lifecycle_monitoring_content_form_content(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_content(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_creation_logging(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_creation_logging(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_destruction_logging(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_destruction_logging(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_renewal_logging(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_renewal_logging(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_event_details(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_event_details(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_id_in_logs(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_id_in_logs(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_activity_tracking(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_activity_tracking(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_history_visible_to_user(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_history_visible_to_user(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_failed_session_access_logging(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_failed_session_access_logging(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_metrics_collection(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_metrics_collection(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_session_audit_retention(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_session_audit_retention(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_real_time_session_alerts(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_real_time_session_alerts(SessionLifecycleMonitoringContentForm *self, const char *value);
+char *session_lifecycle_monitoring_content_form_alert_triggers(const SessionLifecycleMonitoringContentForm *self);
+void session_lifecycle_monitoring_content_form_set_alert_triggers(SessionLifecycleMonitoringContentForm *self, const char *value);
+
 // SessionModelLifecycleForm is the generated section facade for the `lifecycle` @Form section: its own `content` text followed by one typed member per form field.
 void session_model_lifecycle_form_init(SessionModelLifecycleForm *self, SpecDocument *doc, const char *path);
 void session_model_lifecycle_form_free(SessionModelLifecycleForm *self);
@@ -64710,6 +66408,111 @@ char *session_model_session_configuration_form_session_timeout(const SessionMode
 void session_model_session_configuration_form_set_session_timeout(SessionModelSessionConfigurationForm *self, const char *value);
 char *session_model_session_configuration_form_absolute_timeout(const SessionModelSessionConfigurationForm *self);
 void session_model_session_configuration_form_set_absolute_timeout(SessionModelSessionConfigurationForm *self, const char *value);
+
+// SessionRevocationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void session_revocation_policy_content_form_init(SessionRevocationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void session_revocation_policy_content_form_free(SessionRevocationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *session_revocation_policy_content_form_content(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_content(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_logout_mechanism(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_logout_mechanism(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_logout_button_placement(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_logout_button_placement(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_logout_confirmation(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_logout_confirmation(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_post_logout_redirect(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_post_logout_redirect(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_post_logout_cache_clear(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_post_logout_cache_clear(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_single_logout_enabled(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_single_logout_enabled(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_single_logout_protocol(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_single_logout_protocol(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_privilege_change_revocation(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_privilege_change_revocation(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_password_change_revocation(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_password_change_revocation(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_compromise_revocation(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_compromise_revocation(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_admin_termination_enabled(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_admin_termination_enabled(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_bulk_revocation_enabled(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_bulk_revocation_enabled(SessionRevocationPolicyContentForm *self, const char *value);
+char *session_revocation_policy_content_form_revocation_propagation_delay(const SessionRevocationPolicyContentForm *self);
+void session_revocation_policy_content_form_set_revocation_propagation_delay(SessionRevocationPolicyContentForm *self, const char *value);
+
+// SessionSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void session_security_policy_content_form_init(SessionSecurityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void session_security_policy_content_form_free(SessionSecurityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *session_security_policy_content_form_content(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_content(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_fixation_protection(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_fixation_protection(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_id_regeneration_triggers(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_id_regeneration_triggers(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_binding_properties(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_binding_properties(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_binding_mismatch_action(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_binding_mismatch_action(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_anomaly_detection(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_anomaly_detection(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_anomaly_detection_signals(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_anomaly_detection_signals(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_cache_policy(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_cache_policy(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_clear_site_data_on_logout(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_clear_site_data_on_logout(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_transport_security(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_transport_security(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_id_in_url_prevention(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_id_in_url_prevention(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_cross_origin_session_protection(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_cross_origin_session_protection(SessionSecurityPolicyContentForm *self, const char *value);
+char *session_security_policy_content_form_session_data_minimization(const SessionSecurityPolicyContentForm *self);
+void session_security_policy_content_form_set_session_data_minimization(SessionSecurityPolicyContentForm *self, const char *value);
+
+// SessionTimeoutPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void session_timeout_policy_content_form_init(SessionTimeoutPolicyContentForm *self, SpecDocument *doc, const char *path);
+void session_timeout_policy_content_form_free(SessionTimeoutPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *session_timeout_policy_content_form_content(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_content(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_idle_timeout_default(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_idle_timeout_default(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_idle_timeout_high_value(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_idle_timeout_high_value(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_absolute_timeout(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_absolute_timeout(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_renewal_timeout(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_renewal_timeout(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_idle_timeout_aal1(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_idle_timeout_aal1(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_absolute_timeout_aal1(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_absolute_timeout_aal1(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_idle_timeout_aal2(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_idle_timeout_aal2(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_absolute_timeout_aal2(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_absolute_timeout_aal2(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_idle_timeout_aal3(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_idle_timeout_aal3(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_absolute_timeout_aal3(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_absolute_timeout_aal3(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_timeout_enforcement(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_timeout_enforcement(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_timeout_warning_enabled(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_timeout_warning_enabled(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_timeout_warning_lead_time(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_timeout_warning_lead_time(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_timeout_warning_action(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_timeout_warning_action(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_session_extension_allowed(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_session_extension_allowed(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_max_extensions(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_max_extensions(SessionTimeoutPolicyContentForm *self, const char *value);
+char *session_timeout_policy_content_form_grace_period_after_expiry(const SessionTimeoutPolicyContentForm *self);
+void session_timeout_policy_content_form_set_grace_period_after_expiry(SessionTimeoutPolicyContentForm *self, const char *value);
 
 // SharedInfrastructureEntryCapacityForm is the generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
 void shared_infrastructure_entry_capacity_form_init(SharedInfrastructureEntryCapacityForm *self, SpecDocument *doc, const char *path);
@@ -65287,6 +67090,37 @@ char *specialized_equipment_entry_technical_form_driver_software(const Specializ
 void specialized_equipment_entry_technical_form_set_driver_software(SpecializedEquipmentEntryTechnicalForm *self, const char *value);
 char *specialized_equipment_entry_technical_form_certifications(const SpecializedEquipmentEntryTechnicalForm *self);
 void specialized_equipment_entry_technical_form_set_certifications(SpecializedEquipmentEntryTechnicalForm *self, const char *value);
+
+// SsoPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void sso_policy_content_form_init(SsoPolicyContentForm *self, SpecDocument *doc, const char *path);
+void sso_policy_content_form_free(SsoPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *sso_policy_content_form_content(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_content(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_sso_enabled(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_sso_enabled(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_sso_protocol(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_sso_protocol(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_identity_provider_type(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_identity_provider_type(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_identity_provider_product(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_identity_provider_product(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_federation_protocol(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_federation_protocol(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_attribute_mapping(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_attribute_mapping(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_just_in_time_provisioning(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_just_in_time_provisioning(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_session_synchronization(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_session_synchronization(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_single_logout_enabled(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_single_logout_enabled(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_sso_fallback_method(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_sso_fallback_method(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_sso_scope_policy(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_sso_scope_policy(SsoPolicyContentForm *self, const char *value);
+char *sso_policy_content_form_external_idp_trust_policy(const SsoPolicyContentForm *self);
+void sso_policy_content_form_set_external_idp_trust_policy(SsoPolicyContentForm *self, const char *value);
 
 // StaffingBudgetAllocationsForm is the generated section facade for the `allocations` @Form section: its own `content` text followed by one typed member per form field.
 void staffing_budget_allocations_form_init(StaffingBudgetAllocationsForm *self, SpecDocument *doc, const char *path);
@@ -66620,6 +68454,111 @@ char *stakeholders_and_interests_content_form_support_staff_interest(const Stake
 void stakeholders_and_interests_content_form_set_support_staff_interest(StakeholdersAndInterestsContentForm *self, const char *value);
 char *stakeholders_and_interests_content_form_other_stakeholders(const StakeholdersAndInterestsContentForm *self);
 void stakeholders_and_interests_content_form_set_other_stakeholders(StakeholdersAndInterestsContentForm *self, const char *value);
+
+// StepUpAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void step_up_authentication_policy_content_form_init(StepUpAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void step_up_authentication_policy_content_form_free(StepUpAuthenticationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *step_up_authentication_policy_content_form_content(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_content(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_step_up_enabled(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_step_up_enabled(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_step_up_triggers(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_step_up_triggers(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_step_up_target_aal(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_step_up_target_aal(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_step_up_timeout(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_step_up_timeout(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_risk_based_auth_enabled(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_risk_based_auth_enabled(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_risk_signals(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_risk_signals(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_risk_scoring_method(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_risk_scoring_method(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_low_risk_action(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_low_risk_action(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_medium_risk_action(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_medium_risk_action(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_high_risk_action(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_high_risk_action(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_adaptive_auth_provider(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_adaptive_auth_provider(StepUpAuthenticationPolicyContentForm *self, const char *value);
+char *step_up_authentication_policy_content_form_continuous_auth_enabled(const StepUpAuthenticationPolicyContentForm *self);
+void step_up_authentication_policy_content_form_set_continuous_auth_enabled(StepUpAuthenticationPolicyContentForm *self, const char *value);
+
+// StorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void storage_encryption_policy_content_form_init(StorageEncryptionPolicyContentForm *self, SpecDocument *doc, const char *path);
+void storage_encryption_policy_content_form_free(StorageEncryptionPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *storage_encryption_policy_content_form_content(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_content(StorageEncryptionPolicyContentForm *self, const char *value);
+bool storage_encryption_policy_content_form_encryption_at_rest(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_encryption_at_rest(StorageEncryptionPolicyContentForm *self, bool value);
+char *storage_encryption_policy_content_form_encryption_algorithm(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_encryption_algorithm(StorageEncryptionPolicyContentForm *self, const char *value);
+char *storage_encryption_policy_content_form_encryption_scope(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_encryption_scope(StorageEncryptionPolicyContentForm *self, const char *value);
+char *storage_encryption_policy_content_form_server_side_encryption(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_server_side_encryption(StorageEncryptionPolicyContentForm *self, const char *value);
+bool storage_encryption_policy_content_form_client_side_encryption(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_client_side_encryption(StorageEncryptionPolicyContentForm *self, bool value);
+char *storage_encryption_policy_content_form_client_side_encryption_method(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_client_side_encryption_method(StorageEncryptionPolicyContentForm *self, const char *value);
+char *storage_encryption_policy_content_form_file_key_rotation(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_file_key_rotation(StorageEncryptionPolicyContentForm *self, const char *value);
+bool storage_encryption_policy_content_form_per_tenant_keys(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_per_tenant_keys(StorageEncryptionPolicyContentForm *self, bool value);
+bool storage_encryption_policy_content_form_key_deletion_on_tenant_removal(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_key_deletion_on_tenant_removal(StorageEncryptionPolicyContentForm *self, bool value);
+bool storage_encryption_policy_content_form_encryption_in_transit(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_encryption_in_transit(StorageEncryptionPolicyContentForm *self, bool value);
+char *storage_encryption_policy_content_form_minimum_tls_version(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_minimum_tls_version(StorageEncryptionPolicyContentForm *self, const char *value);
+bool storage_encryption_policy_content_form_backup_encryption(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_backup_encryption(StorageEncryptionPolicyContentForm *self, bool value);
+char *storage_encryption_policy_content_form_notes(const StorageEncryptionPolicyContentForm *self);
+void storage_encryption_policy_content_form_set_notes(StorageEncryptionPolicyContentForm *self, const char *value);
+
+// StorageLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void storage_lifecycle_policy_content_form_init(StorageLifecyclePolicyContentForm *self, SpecDocument *doc, const char *path);
+void storage_lifecycle_policy_content_form_free(StorageLifecyclePolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *storage_lifecycle_policy_content_form_content(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_content(StorageLifecyclePolicyContentForm *self, const char *value);
+char *storage_lifecycle_policy_content_form_retention_policy(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_retention_policy(StorageLifecyclePolicyContentForm *self, const char *value);
+char *storage_lifecycle_policy_content_form_default_retention_period(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_default_retention_period(StorageLifecyclePolicyContentForm *self, const char *value);
+bool storage_lifecycle_policy_content_form_retention_by_file_type(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_retention_by_file_type(StorageLifecyclePolicyContentForm *self, bool value);
+bool storage_lifecycle_policy_content_form_legal_hold_support(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_legal_hold_support(StorageLifecyclePolicyContentForm *self, bool value);
+bool storage_lifecycle_policy_content_form_archiving_enabled(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_archiving_enabled(StorageLifecyclePolicyContentForm *self, bool value);
+char *storage_lifecycle_policy_content_form_archival_storage_tier(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_archival_storage_tier(StorageLifecyclePolicyContentForm *self, const char *value);
+long storage_lifecycle_policy_content_form_archival_transition_days(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_archival_transition_days(StorageLifecyclePolicyContentForm *self, long value);
+bool storage_lifecycle_policy_content_form_versioning_enabled(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_versioning_enabled(StorageLifecyclePolicyContentForm *self, bool value);
+long storage_lifecycle_policy_content_form_max_versions(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_max_versions(StorageLifecyclePolicyContentForm *self, long value);
+long storage_lifecycle_policy_content_form_version_retention_days(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_version_retention_days(StorageLifecyclePolicyContentForm *self, long value);
+char *storage_lifecycle_policy_content_form_backup_schedule(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_backup_schedule(StorageLifecyclePolicyContentForm *self, const char *value);
+long storage_lifecycle_policy_content_form_backup_retention_days(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_backup_retention_days(StorageLifecyclePolicyContentForm *self, long value);
+bool storage_lifecycle_policy_content_form_cross_region_replication(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_cross_region_replication(StorageLifecyclePolicyContentForm *self, bool value);
+char *storage_lifecycle_policy_content_form_secure_deletion_method(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_secure_deletion_method(StorageLifecyclePolicyContentForm *self, const char *value);
+bool storage_lifecycle_policy_content_form_deletion_confirmation(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_deletion_confirmation(StorageLifecyclePolicyContentForm *self, bool value);
+bool storage_lifecycle_policy_content_form_deletion_audit_logging(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_deletion_audit_logging(StorageLifecyclePolicyContentForm *self, bool value);
+char *storage_lifecycle_policy_content_form_notes(const StorageLifecyclePolicyContentForm *self);
+void storage_lifecycle_policy_content_form_set_notes(StorageLifecyclePolicyContentForm *self, const char *value);
 
 // StrategicAlignmentAlignmentDetailsForm is the generated section facade for the `alignmentDetails` @Form section: its own `content` text followed by one typed member per form field.
 void strategic_alignment_alignment_details_form_init(StrategicAlignmentAlignmentDetailsForm *self, SpecDocument *doc, const char *path);
@@ -69011,6 +70950,52 @@ void technology_standard_entry_scope_form_set_exceptions(TechnologyStandardEntry
 char *technology_standard_entry_scope_form_exception_process(const TechnologyStandardEntryScopeForm *self);
 void technology_standard_entry_scope_form_set_exception_process(TechnologyStandardEntryScopeForm *self, const char *value);
 
+// TenantBoundaryEnforcementPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void tenant_boundary_enforcement_policy_content_form_init(TenantBoundaryEnforcementPolicyContentForm *self, SpecDocument *doc, const char *path);
+void tenant_boundary_enforcement_policy_content_form_free(TenantBoundaryEnforcementPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *tenant_boundary_enforcement_policy_content_form_content(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_content(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+char *tenant_boundary_enforcement_policy_content_form_enforcement_layer(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_enforcement_layer(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+char *tenant_boundary_enforcement_policy_content_form_authorization_filter_strategy(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_authorization_filter_strategy(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+bool tenant_boundary_enforcement_policy_content_form_implicit_tenant_filter(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_implicit_tenant_filter(TenantBoundaryEnforcementPolicyContentForm *self, bool value);
+char *tenant_boundary_enforcement_policy_content_form_escalation_prevention(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_escalation_prevention(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+char *tenant_boundary_enforcement_policy_content_form_shared_service_authorization(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_shared_service_authorization(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+char *tenant_boundary_enforcement_policy_content_form_tenant_switching_policy(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_tenant_switching_policy(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+bool tenant_boundary_enforcement_policy_content_form_multi_tenant_user_support(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_multi_tenant_user_support(TenantBoundaryEnforcementPolicyContentForm *self, bool value);
+char *tenant_boundary_enforcement_policy_content_form_authorization_caching(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_authorization_caching(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+char *tenant_boundary_enforcement_policy_content_form_notes(const TenantBoundaryEnforcementPolicyContentForm *self);
+void tenant_boundary_enforcement_policy_content_form_set_notes(TenantBoundaryEnforcementPolicyContentForm *self, const char *value);
+
+// TenantContextPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void tenant_context_policy_content_form_init(TenantContextPolicyContentForm *self, SpecDocument *doc, const char *path);
+void tenant_context_policy_content_form_free(TenantContextPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *tenant_context_policy_content_form_content(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_content(TenantContextPolicyContentForm *self, const char *value);
+char *tenant_context_policy_content_form_context_resolution_method(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_context_resolution_method(TenantContextPolicyContentForm *self, const char *value);
+char *tenant_context_policy_content_form_context_propagation(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_context_propagation(TenantContextPolicyContentForm *self, const char *value);
+char *tenant_context_policy_content_form_context_validation(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_context_validation(TenantContextPolicyContentForm *self, const char *value);
+bool tenant_context_policy_content_form_context_immutability(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_context_immutability(TenantContextPolicyContentForm *self, bool value);
+char *tenant_context_policy_content_form_cross_service_propagation(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_cross_service_propagation(TenantContextPolicyContentForm *self, const char *value);
+char *tenant_context_policy_content_form_missing_context_behavior(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_missing_context_behavior(TenantContextPolicyContentForm *self, const char *value);
+char *tenant_context_policy_content_form_notes(const TenantContextPolicyContentForm *self);
+void tenant_context_policy_content_form_set_notes(TenantContextPolicyContentForm *self, const char *value);
+
 // TenantCustomizationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void tenant_customization_entry_content_form_init(TenantCustomizationEntryContentForm *self, SpecDocument *doc, const char *path);
 void tenant_customization_entry_content_form_free(TenantCustomizationEntryContentForm *self);
@@ -69035,6 +71020,60 @@ bool tenant_customization_entry_content_form_customization_audit(const TenantCus
 void tenant_customization_entry_content_form_set_customization_audit(TenantCustomizationEntryContentForm *self, bool value);
 char *tenant_customization_entry_content_form_notes(const TenantCustomizationEntryContentForm *self);
 void tenant_customization_entry_content_form_set_notes(TenantCustomizationEntryContentForm *self, const char *value);
+
+// TenantDataIsolationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void tenant_data_isolation_policy_content_form_init(TenantDataIsolationPolicyContentForm *self, SpecDocument *doc, const char *path);
+void tenant_data_isolation_policy_content_form_free(TenantDataIsolationPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *tenant_data_isolation_policy_content_form_content(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_content(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_isolation_model(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_isolation_model(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_identifier_column(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_identifier_column(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_context_injection(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_context_injection(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_isolation_enforcement(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_isolation_enforcement(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_cross_tenant_query_prevention(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_cross_tenant_query_prevention(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_data_backup_isolation(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_data_backup_isolation(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_data_deletion(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_data_deletion(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_data_export(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_data_export(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_resource_quotas(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_resource_quotas(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_tenant_isolation_testing(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_tenant_isolation_testing(TenantDataIsolationPolicyContentForm *self, const char *value);
+char *tenant_data_isolation_policy_content_form_shared_reference_data_access(const TenantDataIsolationPolicyContentForm *self);
+void tenant_data_isolation_policy_content_form_set_shared_reference_data_access(TenantDataIsolationPolicyContentForm *self, const char *value);
+
+// TenantOnboardingPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void tenant_onboarding_policy_content_form_init(TenantOnboardingPolicyContentForm *self, SpecDocument *doc, const char *path);
+void tenant_onboarding_policy_content_form_free(TenantOnboardingPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *tenant_onboarding_policy_content_form_content(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_content(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_authorization_provisioning_model(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_authorization_provisioning_model(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_default_role_template(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_default_role_template(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_admin_role_provisioning(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_admin_role_provisioning(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_initial_permission_set(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_initial_permission_set(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_offboarding_strategy(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_offboarding_strategy(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_resource_cleanup_on_offboarding(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_resource_cleanup_on_offboarding(TenantOnboardingPolicyContentForm *self, const char *value);
+long tenant_onboarding_policy_content_form_data_retention_days(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_data_retention_days(TenantOnboardingPolicyContentForm *self, long value);
+char *tenant_onboarding_policy_content_form_offboarding_approval(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_offboarding_approval(TenantOnboardingPolicyContentForm *self, const char *value);
+char *tenant_onboarding_policy_content_form_notes(const TenantOnboardingPolicyContentForm *self);
+void tenant_onboarding_policy_content_form_set_notes(TenantOnboardingPolicyContentForm *self, const char *value);
 
 // TestScenarioEntryBusinessForm is the generated section facade for the `business` @Form section: its own `content` text followed by one typed member per form field.
 void test_scenario_entry_business_form_init(TestScenarioEntryBusinessForm *self, SpecDocument *doc, const char *path);
@@ -69507,6 +71546,31 @@ void throwaway_prototype_value_form_set_insights_captured(ThrowawayPrototypeValu
 char *throwaway_prototype_value_form_future_reference(const ThrowawayPrototypeValueForm *self);
 void throwaway_prototype_value_form_set_future_reference(ThrowawayPrototypeValueForm *self, const char *value);
 
+// TlsProtocolPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void tls_protocol_policy_content_form_init(TlsProtocolPolicyContentForm *self, SpecDocument *doc, const char *path);
+void tls_protocol_policy_content_form_free(TlsProtocolPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *tls_protocol_policy_content_form_content(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_content(TlsProtocolPolicyContentForm *self, const char *value);
+char *tls_protocol_policy_content_form_minimum_tls_version(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_minimum_tls_version(TlsProtocolPolicyContentForm *self, const char *value);
+char *tls_protocol_policy_content_form_preferred_tls_version(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_preferred_tls_version(TlsProtocolPolicyContentForm *self, const char *value);
+char *tls_protocol_policy_content_form_allowed_cipher_suites(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_allowed_cipher_suites(TlsProtocolPolicyContentForm *self, const char *value);
+bool tls_protocol_policy_content_form_prefer_authenticated_encryption(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_prefer_authenticated_encryption(TlsProtocolPolicyContentForm *self, bool value);
+char *tls_protocol_policy_content_form_dh_groups(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_dh_groups(TlsProtocolPolicyContentForm *self, const char *value);
+bool tls_protocol_policy_content_form_tls_compression_disabled(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_tls_compression_disabled(TlsProtocolPolicyContentForm *self, bool value);
+char *tls_protocol_policy_content_form_session_resumption(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_session_resumption(TlsProtocolPolicyContentForm *self, const char *value);
+char *tls_protocol_policy_content_form_compliance_framework(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_compliance_framework(TlsProtocolPolicyContentForm *self, const char *value);
+char *tls_protocol_policy_content_form_notes(const TlsProtocolPolicyContentForm *self);
+void tls_protocol_policy_content_form_set_notes(TlsProtocolPolicyContentForm *self, const char *value);
+
 // TlsRequirementsCertificateValidationForm is the generated section facade for the `certificateValidation` @Form section: its own `content` text followed by one typed member per form field.
 void tls_requirements_certificate_validation_form_init(TlsRequirementsCertificateValidationForm *self, SpecDocument *doc, const char *path);
 void tls_requirements_certificate_validation_form_free(TlsRequirementsCertificateValidationForm *self);
@@ -69573,6 +71637,45 @@ char *tls_requirements_termination_form_tls_termination(const TlsRequirementsTer
 void tls_requirements_termination_form_set_tls_termination(TlsRequirementsTerminationForm *self, const char *value);
 bool tls_requirements_termination_form_internal_tls(const TlsRequirementsTerminationForm *self);
 void tls_requirements_termination_form_set_internal_tls(TlsRequirementsTerminationForm *self, bool value);
+
+// TokenManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void token_management_policy_content_form_init(TokenManagementPolicyContentForm *self, SpecDocument *doc, const char *path);
+void token_management_policy_content_form_free(TokenManagementPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *token_management_policy_content_form_content(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_content(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_format(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_format(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_signing_algorithm(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_signing_algorithm(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_access_token_lifetime(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_access_token_lifetime(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_refresh_token_enabled(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_refresh_token_enabled(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_refresh_token_lifetime(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_refresh_token_lifetime(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_refresh_token_rotation(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_refresh_token_rotation(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_refresh_token_reuse_detection(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_refresh_token_reuse_detection(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_id_token_enabled(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_id_token_enabled(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_id_token_claims(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_id_token_claims(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_storage_client(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_storage_client(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_storage_server(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_storage_server(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_revocation_enabled(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_revocation_enabled(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_revocation_propagation(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_revocation_propagation(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_token_introspection_enabled(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_token_introspection_enabled(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_audience_restriction(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_audience_restriction(TokenManagementPolicyContentForm *self, const char *value);
+char *token_management_policy_content_form_scope_policy(const TokenManagementPolicyContentForm *self);
+void token_management_policy_content_form_set_scope_policy(TokenManagementPolicyContentForm *self, const char *value);
 
 // ToolEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 void tool_entry_access_form_init(ToolEntryAccessForm *self, SpecDocument *doc, const char *path);
@@ -70935,6 +73038,31 @@ void translation_vendor_entry_content_form_set_quality_rating(TranslationVendorE
 char *translation_vendor_entry_content_form_contact_info(const TranslationVendorEntryContentForm *self);
 void translation_vendor_entry_content_form_set_contact_info(TranslationVendorEntryContentForm *self, const char *value);
 
+// TransportSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void transport_security_policy_content_form_init(TransportSecurityPolicyContentForm *self, SpecDocument *doc, const char *path);
+void transport_security_policy_content_form_free(TransportSecurityPolicyContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *transport_security_policy_content_form_content(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_content(TransportSecurityPolicyContentForm *self, const char *value);
+bool transport_security_policy_content_form_hsts_enabled(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_hsts_enabled(TransportSecurityPolicyContentForm *self, bool value);
+long transport_security_policy_content_form_hsts_max_age_days(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_hsts_max_age_days(TransportSecurityPolicyContentForm *self, long value);
+bool transport_security_policy_content_form_hsts_include_subdomains(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_hsts_include_subdomains(TransportSecurityPolicyContentForm *self, bool value);
+bool transport_security_policy_content_form_hsts_preload(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_hsts_preload(TransportSecurityPolicyContentForm *self, bool value);
+bool transport_security_policy_content_form_http_to_https_redirect(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_http_to_https_redirect(TransportSecurityPolicyContentForm *self, bool value);
+bool transport_security_policy_content_form_secure_cookie_flag(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_secure_cookie_flag(TransportSecurityPolicyContentForm *self, bool value);
+bool transport_security_policy_content_form_prevent_mixed_content(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_prevent_mixed_content(TransportSecurityPolicyContentForm *self, bool value);
+char *transport_security_policy_content_form_sensitive_data_caching(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_sensitive_data_caching(TransportSecurityPolicyContentForm *self, const char *value);
+char *transport_security_policy_content_form_notes(const TransportSecurityPolicyContentForm *self);
+void transport_security_policy_content_form_set_notes(TransportSecurityPolicyContentForm *self, const char *value);
+
 // TroubleshootingCapabilitiesAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 void troubleshooting_capabilities_access_form_init(TroubleshootingCapabilitiesAccessForm *self, SpecDocument *doc, const char *path);
 void troubleshooting_capabilities_access_form_free(TroubleshootingCapabilitiesAccessForm *self);
@@ -71771,6 +73899,35 @@ void user_accessibility_needs_accessibility_form_form_set_wcag_level(UserAccessi
 char *user_accessibility_needs_accessibility_form_form_additional_standards(const UserAccessibilityNeedsAccessibilityFormForm *self);
 void user_accessibility_needs_accessibility_form_form_set_additional_standards(UserAccessibilityNeedsAccessibilityFormForm *self, const char *value);
 
+// UserAccountStatesDefinitionContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_account_states_definition_content_form_init(UserAccountStatesDefinitionContentForm *self, SpecDocument *doc, const char *path);
+void user_account_states_definition_content_form_free(UserAccountStatesDefinitionContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_account_states_definition_content_form_content(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_content(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_state_model(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_state_model(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_initial_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_initial_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_active_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_active_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_suspended_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_suspended_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_locked_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_locked_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_deactivated_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_deactivated_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_archived_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_archived_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_deleted_state(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_deleted_state(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_custom_states(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_custom_states(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_state_visibility(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_state_visibility(UserAccountStatesDefinitionContentForm *self, const char *value);
+char *user_account_states_definition_content_form_state_transition_diagram_ref(const UserAccountStatesDefinitionContentForm *self);
+void user_account_states_definition_content_form_set_state_transition_diagram_ref(UserAccountStatesDefinitionContentForm *self, const char *value);
+
 // UserAssistanceDeliveryForm is the generated section facade for the `delivery` @Form section: its own `content` text followed by one typed member per form field.
 void user_assistance_delivery_form_init(UserAssistanceDeliveryForm *self, SpecDocument *doc, const char *path);
 void user_assistance_delivery_form_free(UserAssistanceDeliveryForm *self);
@@ -72026,6 +74183,29 @@ void user_growth_projections_thresholds_form_set_hard_capacity_limit(UserGrowthP
 char *user_growth_projections_thresholds_form_notes(const UserGrowthProjectionsThresholdsForm *self);
 void user_growth_projections_thresholds_form_set_notes(UserGrowthProjectionsThresholdsForm *self, const char *value);
 
+// UserInteractionModelSummaryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_interaction_model_summary_content_form_init(UserInteractionModelSummaryContentForm *self, SpecDocument *doc, const char *path);
+void user_interaction_model_summary_content_form_free(UserInteractionModelSummaryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_interaction_model_summary_content_form_content(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_content(UserInteractionModelSummaryContentForm *self, const char *value);
+char *user_interaction_model_summary_content_form_primary_access_channel(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_primary_access_channel(UserInteractionModelSummaryContentForm *self, const char *value);
+long user_interaction_model_summary_content_form_channel_count(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_channel_count(UserInteractionModelSummaryContentForm *self, long value);
+long user_interaction_model_summary_content_form_interaction_pattern_count(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_interaction_pattern_count(UserInteractionModelSummaryContentForm *self, long value);
+long user_interaction_model_summary_content_form_access_level_count(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_access_level_count(UserInteractionModelSummaryContentForm *self, long value);
+char *user_interaction_model_summary_content_form_multi_channel_support(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_multi_channel_support(UserInteractionModelSummaryContentForm *self, const char *value);
+char *user_interaction_model_summary_content_form_offline_capability(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_offline_capability(UserInteractionModelSummaryContentForm *self, const char *value);
+char *user_interaction_model_summary_content_form_session_management(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_session_management(UserInteractionModelSummaryContentForm *self, const char *value);
+char *user_interaction_model_summary_content_form_notification_channels(const UserInteractionModelSummaryContentForm *self);
+void user_interaction_model_summary_content_form_set_notification_channels(UserInteractionModelSummaryContentForm *self, const char *value);
+
 // UserLifecycleTransitionEntryApprovalForm is the generated section facade for the `approval` @Form section: its own `content` text followed by one typed member per form field.
 void user_lifecycle_transition_entry_approval_form_init(UserLifecycleTransitionEntryApprovalForm *self, SpecDocument *doc, const char *path);
 void user_lifecycle_transition_entry_approval_form_free(UserLifecycleTransitionEntryApprovalForm *self);
@@ -72079,6 +74259,50 @@ char *user_lifecycle_transition_entry_effects_form_notification_recipients(const
 void user_lifecycle_transition_entry_effects_form_set_notification_recipients(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
 char *user_lifecycle_transition_entry_effects_form_notification_channels(const UserLifecycleTransitionEntryEffectsForm *self);
 void user_lifecycle_transition_entry_effects_form_set_notification_channels(UserLifecycleTransitionEntryEffectsForm *self, const char *value);
+
+// UserLifecycleTransitionsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_lifecycle_transitions_content_form_init(UserLifecycleTransitionsContentForm *self, SpecDocument *doc, const char *path);
+void user_lifecycle_transitions_content_form_free(UserLifecycleTransitionsContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_lifecycle_transitions_content_form_content(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_content(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_transition_model(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_transition_model(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_approval_policy_default(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_approval_policy_default(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_escalation_policy(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_escalation_policy(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_escalation_timeframe(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_escalation_timeframe(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_audit_trail_required(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_audit_trail_required(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_notification_on_transition(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_notification_on_transition(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_bulk_transition_support(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_bulk_transition_support(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_automated_transitions(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_automated_transitions(UserLifecycleTransitionsContentForm *self, const char *value);
+char *user_lifecycle_transitions_content_form_transition_undo_policy(const UserLifecycleTransitionsContentForm *self);
+void user_lifecycle_transitions_content_form_set_transition_undo_policy(UserLifecycleTransitionsContentForm *self, const char *value);
+
+// UserNotificationPreferencesContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_notification_preferences_content_form_init(UserNotificationPreferencesContentForm *self, SpecDocument *doc, const char *path);
+void user_notification_preferences_content_form_free(UserNotificationPreferencesContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_notification_preferences_content_form_content(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_content(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_global_opt_out(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_global_opt_out(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_per_type_control(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_per_type_control(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_channel_preferences(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_channel_preferences(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_frequency_control(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_frequency_control(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_quiet_hours(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_quiet_hours(UserNotificationPreferencesContentForm *self, const char *value);
+char *user_notification_preferences_content_form_digest_option(const UserNotificationPreferencesContentForm *self);
+void user_notification_preferences_content_form_set_digest_option(UserNotificationPreferencesContentForm *self, const char *value);
 
 // UserPersonaDetailsBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void user_persona_details_behavior_form_init(UserPersonaDetailsBehaviorForm *self, SpecDocument *doc, const char *path);
@@ -72197,6 +74421,47 @@ bool user_provisioning_tools_role_management_form_delegated_administration(const
 void user_provisioning_tools_role_management_form_set_delegated_administration(UserProvisioningToolsRoleManagementForm *self, bool value);
 char *user_provisioning_tools_role_management_form_access_review_process(const UserProvisioningToolsRoleManagementForm *self);
 void user_provisioning_tools_role_management_form_set_access_review_process(UserProvisioningToolsRoleManagementForm *self, const char *value);
+
+// UserRegistrationProcessContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_registration_process_content_form_init(UserRegistrationProcessContentForm *self, SpecDocument *doc, const char *path);
+void user_registration_process_content_form_free(UserRegistrationProcessContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_registration_process_content_form_content(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_content(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_registration_methods(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_registration_methods(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_self_registration_enabled(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_self_registration_enabled(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_identity_proofing_level(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_identity_proofing_level(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_email_verification_required(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_email_verification_required(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_phone_verification_required(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_phone_verification_required(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_captcha_required(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_captcha_required(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_invitation_expiry_period(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_invitation_expiry_period(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_approval_required(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_approval_required(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_approval_workflow(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_approval_workflow(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_approver_role(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_approver_role(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_required_fields_at_registration(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_required_fields_at_registration(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_optional_fields_at_registration(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_optional_fields_at_registration(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_terms_acceptance_required(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_terms_acceptance_required(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_duplicate_detection(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_duplicate_detection(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_welcome_notification(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_welcome_notification(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_initial_role_assignment(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_initial_role_assignment(UserRegistrationProcessContentForm *self, const char *value);
+char *user_registration_process_content_form_registration_rate_limiting(const UserRegistrationProcessContentForm *self);
+void user_registration_process_content_form_set_registration_rate_limiting(UserRegistrationProcessContentForm *self, const char *value);
 
 // UserSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void user_setting_entry_content_form_init(UserSettingEntryContentForm *self, SpecDocument *doc, const char *path);

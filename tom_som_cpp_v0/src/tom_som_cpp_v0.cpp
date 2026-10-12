@@ -727,11 +727,8 @@ som::SomList AccessChannels::channels() const {
 
 AccessConstraintPolicies::AccessConstraintPolicies(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccessConstraintPolicies::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccessConstraintPolicies::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccessConstraintPoliciesContentForm AccessConstraintPolicies::content() const {
+  return AccessConstraintPoliciesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccessControlModel::AccessControlModel(som::SpecDocument& doc, std::string path)
@@ -760,11 +757,8 @@ RoleMatrix AccessControlModel::roleMatrix() const {
 
 AccessControlModelSelection::AccessControlModelSelection(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccessControlModelSelection::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccessControlModelSelection::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccessControlModelSelectionContentForm AccessControlModelSelection::content() const {
+  return AccessControlModelSelectionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccessLevelEntry::AccessLevelEntry(som::SpecDocument& doc, std::string path)
@@ -901,47 +895,32 @@ AccessibilityStandardEntryDocumentationForm AccessibilityStandardEntry::document
 
 AccountActivationPolicy::AccountActivationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccountActivationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccountActivationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccountActivationPolicyContentForm AccountActivationPolicy::content() const {
+  return AccountActivationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccountDeactivationPolicy::AccountDeactivationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccountDeactivationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccountDeactivationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccountDeactivationPolicyContentForm AccountDeactivationPolicy::content() const {
+  return AccountDeactivationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccountDeletionPolicy::AccountDeletionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccountDeletionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccountDeletionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccountDeletionPolicyContentForm AccountDeletionPolicy::content() const {
+  return AccountDeletionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccountLockoutPolicy::AccountLockoutPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccountLockoutPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccountLockoutPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccountLockoutPolicyContentForm AccountLockoutPolicy::content() const {
+  return AccountLockoutPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AccountModificationPolicy::AccountModificationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AccountModificationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AccountModificationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AccountModificationPolicyContentForm AccountModificationPolicy::content() const {
+  return AccountModificationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ActionParameterEntry::ActionParameterEntry(som::SpecDocument& doc, std::string path)
@@ -1249,29 +1228,20 @@ AnomalyDetectionPolicyContentForm AnomalyDetectionPolicy::content() const {
 
 ApiAbuseProtection::ApiAbuseProtection(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiAbuseProtection::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiAbuseProtection::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiAbuseProtectionContentForm ApiAbuseProtection::content() const {
+  return ApiAbuseProtectionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiAuthenticationPolicy::ApiAuthenticationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiAuthenticationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiAuthenticationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiAuthenticationPolicyContentForm ApiAuthenticationPolicy::content() const {
+  return ApiAuthenticationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiAuthorizationPolicy::ApiAuthorizationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiAuthorizationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiAuthorizationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiAuthorizationPolicyContentForm ApiAuthorizationPolicy::content() const {
+  return ApiAuthorizationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiCompatibilityEntry::ApiCompatibilityEntry(som::SpecDocument& doc, std::string path)
@@ -1294,29 +1264,20 @@ ApiCompatibilityEntrySpecificationForm ApiCompatibilityEntry::specification() co
 
 ApiCorsSecurity::ApiCorsSecurity(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiCorsSecurity::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiCorsSecurity::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiCorsSecurityContentForm ApiCorsSecurity::content() const {
+  return ApiCorsSecurityContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiKeyManagementPolicy::ApiKeyManagementPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiKeyManagementPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiKeyManagementPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiKeyManagementPolicyContentForm ApiKeyManagementPolicy::content() const {
+  return ApiKeyManagementPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiRequestValidationPolicy::ApiRequestValidationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiRequestValidationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiRequestValidationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiRequestValidationPolicyContentForm ApiRequestValidationPolicy::content() const {
+  return ApiRequestValidationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiSecurity::ApiSecurity(som::SpecDocument& doc, std::string path)
@@ -1348,11 +1309,8 @@ ApiSecurityMonitoring ApiSecurity::apiSecurityMonitoring() const {
 
 ApiSecurityMonitoring::ApiSecurityMonitoring(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ApiSecurityMonitoring::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ApiSecurityMonitoring::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ApiSecurityMonitoringContentForm ApiSecurityMonitoring::content() const {
+  return ApiSecurityMonitoringContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ApiVersioningStrategy::ApiVersioningStrategy(som::SpecDocument& doc, std::string path)
@@ -1687,11 +1645,8 @@ SessionManagement Authentication::sessionManagement() const {
 
 AuthenticationErrorHandling::AuthenticationErrorHandling(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string AuthenticationErrorHandling::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void AuthenticationErrorHandling::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+AuthenticationErrorHandlingContentForm AuthenticationErrorHandling::content() const {
+  return AuthenticationErrorHandlingContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 AuthenticationEventPolicy::AuthenticationEventPolicy(som::SpecDocument& doc, std::string path)
@@ -1963,11 +1918,8 @@ BackupDataClassificationExclusionsForm BackupDataClassification::exclusions() co
 
 BackupEncryptionPolicy::BackupEncryptionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string BackupEncryptionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BackupEncryptionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+BackupEncryptionPolicyContentForm BackupEncryptionPolicy::content() const {
+  return BackupEncryptionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 BackupInfrastructure::BackupInfrastructure(som::SpecDocument& doc, std::string path)
@@ -2104,11 +2056,8 @@ BehaviorRuleEntryContentForm BehaviorRuleEntry::content() const {
 
 BiometricAuthenticationPolicy::BiometricAuthenticationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string BiometricAuthenticationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void BiometricAuthenticationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+BiometricAuthenticationPolicyContentForm BiometricAuthenticationPolicy::content() const {
+  return BiometricAuthenticationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 BoundaryAssumptionEntry::BoundaryAssumptionEntry(som::SpecDocument& doc, std::string path)
@@ -2641,11 +2590,8 @@ CcbMemberEntryContentForm CcbMemberEntry::content() const {
 
 CertificateAuthenticationPolicy::CertificateAuthenticationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CertificateAuthenticationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CertificateAuthenticationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+CertificateAuthenticationPolicyContentForm CertificateAuthenticationPolicy::content() const {
+  return CertificateAuthenticationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CertificateManagement::CertificateManagement(som::SpecDocument& doc, std::string path)
@@ -2668,11 +2614,8 @@ CertificateManagementMonitoringForm CertificateManagement::monitoring() const {
 
 CertificateManagementPolicy::CertificateManagementPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CertificateManagementPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CertificateManagementPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+CertificateManagementPolicyContentForm CertificateManagementPolicy::content() const {
+  return CertificateManagementPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CertificationEntry::CertificationEntry(som::SpecDocument& doc, std::string path)
@@ -2977,11 +2920,8 @@ som::SomList ChangesFromCurrentStructure::items() const {
 
 ChannelIntegrations::ChannelIntegrations(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ChannelIntegrations::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ChannelIntegrations::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ChannelIntegrationsContentForm ChannelIntegrations::content() const {
+  return ChannelIntegrationsContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CiCdPipelineConfiguration::CiCdPipelineConfiguration(som::SpecDocument& doc, std::string path)
@@ -3283,11 +3223,8 @@ ColorPaletteEntryContentForm ColorPaletteEntry::content() const {
 
 ColumnLevelSecurityPolicy::ColumnLevelSecurityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ColumnLevelSecurityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ColumnLevelSecurityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ColumnLevelSecurityPolicyContentForm ColumnLevelSecurityPolicy::content() const {
+  return ColumnLevelSecurityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CommitteeCharter::CommitteeCharter(som::SpecDocument& doc, std::string path)
@@ -3931,11 +3868,8 @@ ComputingEquipmentEntryPlanningForm ComputingEquipmentEntry::planning() const {
 
 ConcurrentSessionPolicy::ConcurrentSessionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ConcurrentSessionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ConcurrentSessionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ConcurrentSessionPolicyContentForm ConcurrentSessionPolicy::content() const {
+  return ConcurrentSessionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ConfidentialInfoCategoryEntry::ConfidentialInfoCategoryEntry(som::SpecDocument& doc, std::string path)
@@ -4018,11 +3952,8 @@ ConstraintRegisterEntryContentForm ConstraintRegisterEntry::content() const {
 
 ContentScanningPolicy::ContentScanningPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ContentScanningPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ContentScanningPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ContentScanningPolicyContentForm ContentScanningPolicy::content() const {
+  return ContentScanningPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ContextDiagram::ContextDiagram(som::SpecDocument& doc, std::string path)
@@ -4135,20 +4066,14 @@ CorrectnessVerificationForm Correctness::verification() const {
 
 CredentialCompromiseDetectionPolicy::CredentialCompromiseDetectionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CredentialCompromiseDetectionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CredentialCompromiseDetectionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+CredentialCompromiseDetectionPolicyContentForm CredentialCompromiseDetectionPolicy::content() const {
+  return CredentialCompromiseDetectionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CredentialRecoveryPolicy::CredentialRecoveryPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CredentialRecoveryPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CredentialRecoveryPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+CredentialRecoveryPolicyContentForm CredentialRecoveryPolicy::content() const {
+  return CredentialRecoveryPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CrossBoundaryErrorHandling::CrossBoundaryErrorHandling(som::SpecDocument& doc, std::string path)
@@ -4201,11 +4126,8 @@ void CrossProcessAnalysis::setContent(const std::string& value) {
 
 CrossTenantAccessPolicy::CrossTenantAccessPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string CrossTenantAccessPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void CrossTenantAccessPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+CrossTenantAccessPolicyContentForm CrossTenantAccessPolicy::content() const {
+  return CrossTenantAccessPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 CurrentArchitecture::CurrentArchitecture(som::SpecDocument& doc, std::string path)
@@ -5550,11 +5472,8 @@ DashboardTemplatesContentForm DashboardTemplates::content() const {
 
 DataAccessAuditPolicy::DataAccessAuditPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DataAccessAuditPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DataAccessAuditPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+DataAccessAuditPolicyContentForm DataAccessAuditPolicy::content() const {
+  return DataAccessAuditPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DataAccessEventPolicy::DataAccessEventPolicy(som::SpecDocument& doc, std::string path)
@@ -5928,11 +5847,8 @@ DataAccessAuditPolicy DataLevelSecurity::dataAccessAuditPolicy() const {
 
 DataMaskingPolicy::DataMaskingPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DataMaskingPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DataMaskingPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+DataMaskingPolicyContentForm DataMaskingPolicy::content() const {
+  return DataMaskingPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DataMigrationStrategy::DataMigrationStrategy(som::SpecDocument& doc, std::string path)
@@ -6324,11 +6240,8 @@ som::SomList DataVolumesAndGrowth::volumeBySource() const {
 
 DatabaseAccessPolicy::DatabaseAccessPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DatabaseAccessPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DatabaseAccessPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+DatabaseAccessPolicyContentForm DatabaseAccessPolicy::content() const {
+  return DatabaseAccessPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DatabaseCompatibilityEntry::DatabaseCompatibilityEntry(som::SpecDocument& doc, std::string path)
@@ -6351,11 +6264,8 @@ DatabaseCompatibilityEntryPerformanceForm DatabaseCompatibilityEntry::performanc
 
 DatabaseEncryptionPolicy::DatabaseEncryptionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string DatabaseEncryptionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void DatabaseEncryptionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+DatabaseEncryptionPolicyContentForm DatabaseEncryptionPolicy::content() const {
+  return DatabaseEncryptionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 DebuggingConfiguration::DebuggingConfiguration(som::SpecDocument& doc, std::string path)
@@ -7644,11 +7554,8 @@ BackupEncryptionPolicy EncryptionAtRest::backupEncryption() const {
 
 EncryptionAtRestPolicy::EncryptionAtRestPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string EncryptionAtRestPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void EncryptionAtRestPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+EncryptionAtRestPolicyContentForm EncryptionAtRestPolicy::content() const {
+  return EncryptionAtRestPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 EncryptionInTransit::EncryptionInTransit(som::SpecDocument& doc, std::string path)
@@ -8739,11 +8646,8 @@ FieldValidationRuleContentForm FieldValidationRule::content() const {
 
 FileAccessControlPolicy::FileAccessControlPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FileAccessControlPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FileAccessControlPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+FileAccessControlPolicyContentForm FileAccessControlPolicy::content() const {
+  return FileAccessControlPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FileAndStorageSecurity::FileAndStorageSecurity(som::SpecDocument& doc, std::string path)
@@ -8775,29 +8679,20 @@ StorageLifecyclePolicy FileAndStorageSecurity::storageLifecyclePolicy() const {
 
 FileDownloadSecurityPolicy::FileDownloadSecurityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FileDownloadSecurityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FileDownloadSecurityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+FileDownloadSecurityPolicyContentForm FileDownloadSecurityPolicy::content() const {
+  return FileDownloadSecurityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FileStorageEncryptionPolicy::FileStorageEncryptionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FileStorageEncryptionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FileStorageEncryptionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+FileStorageEncryptionPolicyContentForm FileStorageEncryptionPolicy::content() const {
+  return FileStorageEncryptionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FileUploadValidationPolicy::FileUploadValidationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string FileUploadValidationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void FileUploadValidationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+FileUploadValidationPolicyContentForm FileUploadValidationPolicy::content() const {
+  return FileUploadValidationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 FirewallRequirements::FirewallRequirements(som::SpecDocument& doc, std::string path)
@@ -10794,11 +10689,8 @@ LogStoragePolicyContentForm LogStoragePolicy::content() const {
 
 LoginFlowConfiguration::LoginFlowConfiguration(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string LoginFlowConfiguration::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void LoginFlowConfiguration::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+LoginFlowConfigurationContentForm LoginFlowConfiguration::content() const {
+  return LoginFlowConfigurationContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 LoginFlowStepEntry::LoginFlowStepEntry(som::SpecDocument& doc, std::string path)
@@ -11133,11 +11025,8 @@ MfaCategoryRequirementEntryOperationsForm MfaCategoryRequirementEntry::operation
 
 MfaConfiguration::MfaConfiguration(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MfaConfiguration::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MfaConfiguration::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+MfaConfigurationContentForm MfaConfiguration::content() const {
+  return MfaConfigurationContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList MfaConfiguration::mfaDetails() const {
   return som::SomList(doc(), som::joinPath(path(), "MC-MFAD-LST"), "MC-MFAD-xxx");
@@ -11646,11 +11535,8 @@ MustPassCriterionEntryStatusForm MustPassCriterionEntry::status() const {
 
 MutualTlsPolicy::MutualTlsPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string MutualTlsPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void MutualTlsPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+MutualTlsPolicyContentForm MutualTlsPolicy::content() const {
+  return MutualTlsPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 NativeAppRequirements::NativeAppRequirements(som::SpecDocument& doc, std::string path)
@@ -12654,29 +12540,20 @@ som::SomList PasswordAndCredentialPolicy::mfaCategoryRequirements() const {
 
 PasswordLifecyclePolicy::PasswordLifecyclePolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PasswordLifecyclePolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PasswordLifecyclePolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PasswordLifecyclePolicyContentForm PasswordLifecyclePolicy::content() const {
+  return PasswordLifecyclePolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PasswordRequirementsPolicy::PasswordRequirementsPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PasswordRequirementsPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PasswordRequirementsPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PasswordRequirementsPolicyContentForm PasswordRequirementsPolicy::content() const {
+  return PasswordRequirementsPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PasswordStoragePolicy::PasswordStoragePolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PasswordStoragePolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PasswordStoragePolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PasswordStoragePolicyContentForm PasswordStoragePolicy::content() const {
+  return PasswordStoragePolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PeakLoadPatterns::PeakLoadPatterns(som::SpecDocument& doc, std::string path)
@@ -12738,29 +12615,20 @@ PeripheralEquipmentEntryContentForm PeripheralEquipmentEntry::content() const {
 
 PermissionCompositionStrategy::PermissionCompositionStrategy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PermissionCompositionStrategy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PermissionCompositionStrategy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PermissionCompositionStrategyContentForm PermissionCompositionStrategy::content() const {
+  return PermissionCompositionStrategyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PermissionEvaluationBehavior::PermissionEvaluationBehavior(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PermissionEvaluationBehavior::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PermissionEvaluationBehavior::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PermissionEvaluationBehaviorContentForm PermissionEvaluationBehavior::content() const {
+  return PermissionEvaluationBehaviorContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PermissionGranularityPolicy::PermissionGranularityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string PermissionGranularityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void PermissionGranularityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+PermissionGranularityPolicyContentForm PermissionGranularityPolicy::content() const {
+  return PermissionGranularityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 PermissionMatrixEntry::PermissionMatrixEntry(som::SpecDocument& doc, std::string path)
@@ -14190,11 +14058,8 @@ RecoveryScenarioEntryContentForm RecoveryScenarioEntry::content() const {
 
 RedirectHandlingPolicy::RedirectHandlingPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string RedirectHandlingPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RedirectHandlingPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+RedirectHandlingPolicyContentForm RedirectHandlingPolicy::content() const {
+  return RedirectHandlingPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ReferenceDocumentEntry::ReferenceDocumentEntry(som::SpecDocument& doc, std::string path)
@@ -14367,11 +14232,8 @@ OperationalMonitoring ReliabilityCharacteristic::monitoringAndPrevention() const
 
 RememberMePolicy::RememberMePolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string RememberMePolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RememberMePolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+RememberMePolicyContentForm RememberMePolicy::content() const {
+  return RememberMePolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RemovedRoleEntry::RemovedRoleEntry(som::SpecDocument& doc, std::string path)
@@ -15357,11 +15219,8 @@ som::SomList RoleAdjustments::items() const {
 
 RoleCertificationPolicy::RoleCertificationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string RoleCertificationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RoleCertificationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+RoleCertificationPolicyContentForm RoleCertificationPolicy::content() const {
+  return RoleCertificationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RoleCombinationConstraintEntry::RoleCombinationConstraintEntry(som::SpecDocument& doc, std::string path)
@@ -15414,11 +15273,8 @@ RoleCertificationPolicy RoleHierarchy::roleCertification() const {
 
 RoleHierarchyPolicy::RoleHierarchyPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string RoleHierarchyPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RoleHierarchyPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+RoleHierarchyPolicyContentForm RoleHierarchyPolicy::content() const {
+  return RoleHierarchyPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RoleHolderEntry::RoleHolderEntry(som::SpecDocument& doc, std::string path)
@@ -15495,11 +15351,8 @@ void RolloutTrainingMaterial::setContent(const std::string& value) {
 
 RowLevelSecurityPolicy::RowLevelSecurityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string RowLevelSecurityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void RowLevelSecurityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+RowLevelSecurityPolicyContentForm RowLevelSecurityPolicy::content() const {
+  return RowLevelSecurityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RpoRtoRequirements::RpoRtoRequirements(som::SpecDocument& doc, std::string path)
@@ -16482,11 +16335,8 @@ SelfRegistrationPolicySecurityForm SelfRegistrationPolicy::security() const {
 
 SelfServiceAccountManagement::SelfServiceAccountManagement(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SelfServiceAccountManagement::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SelfServiceAccountManagement::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SelfServiceAccountManagementContentForm SelfServiceAccountManagement::content() const {
+  return SelfServiceAccountManagementContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SensitiveDataEncryption::SensitiveDataEncryption(som::SpecDocument& doc, std::string path)
@@ -16665,20 +16515,14 @@ ServerStorageRequirementsPerformanceForm ServerStorageRequirements::performance(
 
 ServiceAccountCredentialPolicy::ServiceAccountCredentialPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceAccountCredentialPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ServiceAccountCredentialPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ServiceAccountCredentialPolicyContentForm ServiceAccountCredentialPolicy::content() const {
+  return ServiceAccountCredentialPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ServiceAccountLifecycle::ServiceAccountLifecycle(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ServiceAccountLifecycle::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void ServiceAccountLifecycle::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+ServiceAccountLifecycleContentForm ServiceAccountLifecycle::content() const {
+  return ServiceAccountLifecycleContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ServiceLevel::ServiceLevel(som::SpecDocument& doc, std::string path)
@@ -16740,20 +16584,14 @@ ServiceMeshAndGatewayLoadBalancingForm ServiceMeshAndGateway::loadBalancing() co
 
 SessionCreationPolicy::SessionCreationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SessionCreationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SessionCreationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SessionCreationPolicyContentForm SessionCreationPolicy::content() const {
+  return SessionCreationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SessionLifecycleMonitoring::SessionLifecycleMonitoring(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SessionLifecycleMonitoring::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SessionLifecycleMonitoring::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SessionLifecycleMonitoringContentForm SessionLifecycleMonitoring::content() const {
+  return SessionLifecycleMonitoringContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SessionManagement::SessionManagement(som::SpecDocument& doc, std::string path)
@@ -16803,29 +16641,20 @@ SessionModelSecurityForm SessionModel::security() const {
 
 SessionRevocationPolicy::SessionRevocationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SessionRevocationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SessionRevocationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SessionRevocationPolicyContentForm SessionRevocationPolicy::content() const {
+  return SessionRevocationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SessionSecurityPolicy::SessionSecurityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SessionSecurityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SessionSecurityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SessionSecurityPolicyContentForm SessionSecurityPolicy::content() const {
+  return SessionSecurityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SessionTimeoutPolicy::SessionTimeoutPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SessionTimeoutPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SessionTimeoutPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SessionTimeoutPolicyContentForm SessionTimeoutPolicy::content() const {
+  return SessionTimeoutPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 SharedInfrastructureDependencies::SharedInfrastructureDependencies(som::SpecDocument& doc, std::string path)
@@ -17067,11 +16896,8 @@ SpecializedEquipmentEntryPlanningForm SpecializedEquipmentEntry::planning() cons
 
 SsoPolicy::SsoPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string SsoPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void SsoPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+SsoPolicyContentForm SsoPolicy::content() const {
+  return SsoPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 StaffingBudget::StaffingBudget(som::SpecDocument& doc, std::string path)
@@ -17559,11 +17385,8 @@ som::SomList SteeringCommittee::members() const {
 
 StepUpAuthenticationPolicy::StepUpAuthenticationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string StepUpAuthenticationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StepUpAuthenticationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+StepUpAuthenticationPolicyContentForm StepUpAuthenticationPolicy::content() const {
+  return StepUpAuthenticationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList StepUpAuthenticationPolicy::stepUpDetails() const {
   return som::SomList(doc(), som::joinPath(path(), "SUAP-STEP-LST"), "SUAP-STEP-xxx");
@@ -17571,20 +17394,14 @@ som::SomList StepUpAuthenticationPolicy::stepUpDetails() const {
 
 StorageEncryptionPolicy::StorageEncryptionPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string StorageEncryptionPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StorageEncryptionPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+StorageEncryptionPolicyContentForm StorageEncryptionPolicy::content() const {
+  return StorageEncryptionPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 StorageLifecyclePolicy::StorageLifecyclePolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string StorageLifecyclePolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void StorageLifecyclePolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+StorageLifecyclePolicyContentForm StorageLifecyclePolicy::content() const {
+  return StorageLifecyclePolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 StrategicAlignment::StrategicAlignment(som::SpecDocument& doc, std::string path)
@@ -18924,20 +18741,14 @@ TechnologyStandardEntryImpactForm TechnologyStandardEntry::impact() const {
 
 TenantBoundaryEnforcementPolicy::TenantBoundaryEnforcementPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TenantBoundaryEnforcementPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TenantBoundaryEnforcementPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TenantBoundaryEnforcementPolicyContentForm TenantBoundaryEnforcementPolicy::content() const {
+  return TenantBoundaryEnforcementPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TenantContextPolicy::TenantContextPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TenantContextPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TenantContextPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TenantContextPolicyContentForm TenantContextPolicy::content() const {
+  return TenantContextPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TenantCustomizationEntry::TenantCustomizationEntry(som::SpecDocument& doc, std::string path)
@@ -18948,11 +18759,8 @@ TenantCustomizationEntryContentForm TenantCustomizationEntry::content() const {
 
 TenantDataIsolationPolicy::TenantDataIsolationPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TenantDataIsolationPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TenantDataIsolationPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TenantDataIsolationPolicyContentForm TenantDataIsolationPolicy::content() const {
+  return TenantDataIsolationPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TenantIsolation::TenantIsolation(som::SpecDocument& doc, std::string path)
@@ -18981,11 +18789,8 @@ TenantBoundaryEnforcementPolicy TenantIsolation::boundaryEnforcement() const {
 
 TenantOnboardingPolicy::TenantOnboardingPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TenantOnboardingPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TenantOnboardingPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TenantOnboardingPolicyContentForm TenantOnboardingPolicy::content() const {
+  return TenantOnboardingPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TestScenarioEntry::TestScenarioEntry(som::SpecDocument& doc, std::string path)
@@ -19137,11 +18942,8 @@ ThrowawayPrototypeValueForm ThrowawayPrototype::value() const {
 
 TlsProtocolPolicy::TlsProtocolPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TlsProtocolPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TlsProtocolPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TlsProtocolPolicyContentForm TlsProtocolPolicy::content() const {
+  return TlsProtocolPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TlsRequirements::TlsRequirements(som::SpecDocument& doc, std::string path)
@@ -19164,11 +18966,8 @@ TlsRequirementsComplianceForm TlsRequirements::compliance() const {
 
 TokenManagementPolicy::TokenManagementPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TokenManagementPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TokenManagementPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TokenManagementPolicyContentForm TokenManagementPolicy::content() const {
+  return TokenManagementPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ToolEntry::ToolEntry(som::SpecDocument& doc, std::string path)
@@ -19644,11 +19443,8 @@ TranslationVendorEntryContentForm TranslationVendorEntry::content() const {
 
 TransportSecurityPolicy::TransportSecurityPolicy(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string TransportSecurityPolicy::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void TransportSecurityPolicy::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+TransportSecurityPolicyContentForm TransportSecurityPolicy::content() const {
+  return TransportSecurityPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 TroubleshootingCapabilities::TroubleshootingCapabilities(som::SpecDocument& doc, std::string path)
@@ -19944,11 +19740,8 @@ UserAccessibilityNeedsAccessibilityFormForm UserAccessibilityNeeds::accessibilit
 
 UserAccountStatesDefinition::UserAccountStatesDefinition(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UserAccountStatesDefinition::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserAccountStatesDefinition::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+UserAccountStatesDefinitionContentForm UserAccountStatesDefinition::content() const {
+  return UserAccountStatesDefinitionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 UserAssistance::UserAssistance(som::SpecDocument& doc, std::string path)
@@ -20136,11 +19929,8 @@ MultiChannelExperience UserInteractionModel::multiChannelExperience() const {
 
 UserInteractionModelSummary::UserInteractionModelSummary(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UserInteractionModelSummary::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserInteractionModelSummary::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+UserInteractionModelSummaryContentForm UserInteractionModelSummary::content() const {
+  return UserInteractionModelSummaryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 UserJourney::UserJourney(som::SpecDocument& doc, std::string path)
@@ -20226,11 +20016,8 @@ UserLifecycleTransitionEntryAutomationForm UserLifecycleTransitionEntry::automat
 
 UserLifecycleTransitions::UserLifecycleTransitions(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UserLifecycleTransitions::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserLifecycleTransitions::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+UserLifecycleTransitionsContentForm UserLifecycleTransitions::content() const {
+  return UserLifecycleTransitionsContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList UserLifecycleTransitions::items() const {
   return som::SomList(doc(), som::joinPath(path(), "ULTRE-ITEM-LST"), "ULTRE-ITEM-xxx");
@@ -20265,11 +20052,8 @@ void UserManual::setContent(const std::string& value) {
 
 UserNotificationPreferences::UserNotificationPreferences(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UserNotificationPreferences::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserNotificationPreferences::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+UserNotificationPreferencesContentForm UserNotificationPreferences::content() const {
+  return UserNotificationPreferencesContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 UserPersonaDetails::UserPersonaDetails(som::SpecDocument& doc, std::string path)
@@ -20331,11 +20115,8 @@ UserProvisioningToolsDirectoryIntegrationForm UserProvisioningTools::directoryIn
 
 UserRegistrationProcess::UserRegistrationProcess(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string UserRegistrationProcess::content() const {
-  return doc().content(som::joinPath(path(), "content"));
-}
-void UserRegistrationProcess::setContent(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "content"), value);
+UserRegistrationProcessContentForm UserRegistrationProcess::content() const {
+  return UserRegistrationProcessContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 UserSettingEntry::UserSettingEntry(som::SpecDocument& doc, std::string path)
@@ -21247,6 +21028,182 @@ void AcceptanceStepEntryOutcomeForm::setDecisionOptions(const std::string& value
   doc().setFormField(path(), "decisionOptions", value);
 }
 
+AccessConstraintPoliciesContentForm::AccessConstraintPoliciesContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccessConstraintPoliciesContentForm::content() const {
+  return doc().content(path());
+}
+void AccessConstraintPoliciesContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::separationOfDuties() const {
+  const std::string v = doc().formField(path(), "separationOfDuties");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setSeparationOfDuties(std::optional<bool> value) {
+  doc().setFormField(path(), "separationOfDuties", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string AccessConstraintPoliciesContentForm::sodEnforcement() const {
+  return doc().formField(path(), "sodEnforcement");
+}
+void AccessConstraintPoliciesContentForm::setSodEnforcement(const std::string& value) {
+  doc().setFormField(path(), "sodEnforcement", value);
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::temporalConstraints() const {
+  const std::string v = doc().formField(path(), "temporalConstraints");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setTemporalConstraints(std::optional<bool> value) {
+  doc().setFormField(path(), "temporalConstraints", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::locationConstraints() const {
+  const std::string v = doc().formField(path(), "locationConstraints");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setLocationConstraints(std::optional<bool> value) {
+  doc().setFormField(path(), "locationConstraints", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::deviceConstraints() const {
+  const std::string v = doc().formField(path(), "deviceConstraints");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setDeviceConstraints(std::optional<bool> value) {
+  doc().setFormField(path(), "deviceConstraints", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::riskAdaptiveAccess() const {
+  const std::string v = doc().formField(path(), "riskAdaptiveAccess");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setRiskAdaptiveAccess(std::optional<bool> value) {
+  doc().setFormField(path(), "riskAdaptiveAccess", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string AccessConstraintPoliciesContentForm::contextualAttributes() const {
+  return doc().formField(path(), "contextualAttributes");
+}
+void AccessConstraintPoliciesContentForm::setContextualAttributes(const std::string& value) {
+  doc().setFormField(path(), "contextualAttributes", value);
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::maxSessionPermissions() const {
+  const std::string v = doc().formField(path(), "maxSessionPermissions");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setMaxSessionPermissions(std::optional<bool> value) {
+  doc().setFormField(path(), "maxSessionPermissions", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string AccessConstraintPoliciesContentForm::leastPrivilegeEnforcement() const {
+  return doc().formField(path(), "leastPrivilegeEnforcement");
+}
+void AccessConstraintPoliciesContentForm::setLeastPrivilegeEnforcement(const std::string& value) {
+  doc().setFormField(path(), "leastPrivilegeEnforcement", value);
+}
+std::optional<bool> AccessConstraintPoliciesContentForm::privilegeCreepDetection() const {
+  const std::string v = doc().formField(path(), "privilegeCreepDetection");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessConstraintPoliciesContentForm::setPrivilegeCreepDetection(std::optional<bool> value) {
+  doc().setFormField(path(), "privilegeCreepDetection", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string AccessConstraintPoliciesContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void AccessConstraintPoliciesContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+AccessControlModelSelectionContentForm::AccessControlModelSelectionContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccessControlModelSelectionContentForm::content() const {
+  return doc().content(path());
+}
+void AccessControlModelSelectionContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccessControlModelSelectionContentForm::primaryModel() const {
+  return doc().formField(path(), "primaryModel");
+}
+void AccessControlModelSelectionContentForm::setPrimaryModel(const std::string& value) {
+  doc().setFormField(path(), "primaryModel", value);
+}
+std::string AccessControlModelSelectionContentForm::modelRationale() const {
+  return doc().formField(path(), "modelRationale");
+}
+void AccessControlModelSelectionContentForm::setModelRationale(const std::string& value) {
+  doc().setFormField(path(), "modelRationale", value);
+}
+std::optional<bool> AccessControlModelSelectionContentForm::rbacEnabled() const {
+  const std::string v = doc().formField(path(), "rbacEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessControlModelSelectionContentForm::setRbacEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "rbacEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> AccessControlModelSelectionContentForm::abacEnabled() const {
+  const std::string v = doc().formField(path(), "abacEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessControlModelSelectionContentForm::setAbacEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "abacEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> AccessControlModelSelectionContentForm::rebacEnabled() const {
+  const std::string v = doc().formField(path(), "rebacEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void AccessControlModelSelectionContentForm::setRebacEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "rebacEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string AccessControlModelSelectionContentForm::policyLanguage() const {
+  return doc().formField(path(), "policyLanguage");
+}
+void AccessControlModelSelectionContentForm::setPolicyLanguage(const std::string& value) {
+  doc().setFormField(path(), "policyLanguage", value);
+}
+std::string AccessControlModelSelectionContentForm::policyDecisionPoint() const {
+  return doc().formField(path(), "policyDecisionPoint");
+}
+void AccessControlModelSelectionContentForm::setPolicyDecisionPoint(const std::string& value) {
+  doc().setFormField(path(), "policyDecisionPoint", value);
+}
+std::string AccessControlModelSelectionContentForm::policyEnforcementPoint() const {
+  return doc().formField(path(), "policyEnforcementPoint");
+}
+void AccessControlModelSelectionContentForm::setPolicyEnforcementPoint(const std::string& value) {
+  doc().setFormField(path(), "policyEnforcementPoint", value);
+}
+std::string AccessControlModelSelectionContentForm::policyAdministrationPoint() const {
+  return doc().formField(path(), "policyAdministrationPoint");
+}
+void AccessControlModelSelectionContentForm::setPolicyAdministrationPoint(const std::string& value) {
+  doc().setFormField(path(), "policyAdministrationPoint", value);
+}
+std::string AccessControlModelSelectionContentForm::policyInformationPoint() const {
+  return doc().formField(path(), "policyInformationPoint");
+}
+void AccessControlModelSelectionContentForm::setPolicyInformationPoint(const std::string& value) {
+  doc().setFormField(path(), "policyInformationPoint", value);
+}
+std::string AccessControlModelSelectionContentForm::delegationModel() const {
+  return doc().formField(path(), "delegationModel");
+}
+void AccessControlModelSelectionContentForm::setDelegationModel(const std::string& value) {
+  doc().setFormField(path(), "delegationModel", value);
+}
+std::string AccessControlModelSelectionContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void AccessControlModelSelectionContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 AccessLevelEntryContentForm::AccessLevelEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AccessLevelEntryContentForm::content() const {
@@ -21824,6 +21781,461 @@ std::optional<bool> AccessibilityTestingForm::userTestingWithDisabilities() cons
 }
 void AccessibilityTestingForm::setUserTestingWithDisabilities(std::optional<bool> value) {
   doc().setFormField(path(), "userTestingWithDisabilities", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+AccountActivationPolicyContentForm::AccountActivationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccountActivationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void AccountActivationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccountActivationPolicyContentForm::activationMethod() const {
+  return doc().formField(path(), "activationMethod");
+}
+void AccountActivationPolicyContentForm::setActivationMethod(const std::string& value) {
+  doc().setFormField(path(), "activationMethod", value);
+}
+std::string AccountActivationPolicyContentForm::activationLinkExpiry() const {
+  return doc().formField(path(), "activationLinkExpiry");
+}
+void AccountActivationPolicyContentForm::setActivationLinkExpiry(const std::string& value) {
+  doc().setFormField(path(), "activationLinkExpiry", value);
+}
+std::optional<long> AccountActivationPolicyContentForm::maxActivationAttempts() const {
+  const std::string v = doc().formField(path(), "maxActivationAttempts");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void AccountActivationPolicyContentForm::setMaxActivationAttempts(std::optional<long> value) {
+  doc().setFormField(path(), "maxActivationAttempts", value.has_value() ? std::to_string(*value) : "");
+}
+std::string AccountActivationPolicyContentForm::activationPrerequisites() const {
+  return doc().formField(path(), "activationPrerequisites");
+}
+void AccountActivationPolicyContentForm::setActivationPrerequisites(const std::string& value) {
+  doc().setFormField(path(), "activationPrerequisites", value);
+}
+std::string AccountActivationPolicyContentForm::provisioningOnActivation() const {
+  return doc().formField(path(), "provisioningOnActivation");
+}
+void AccountActivationPolicyContentForm::setProvisioningOnActivation(const std::string& value) {
+  doc().setFormField(path(), "provisioningOnActivation", value);
+}
+std::string AccountActivationPolicyContentForm::activationNotification() const {
+  return doc().formField(path(), "activationNotification");
+}
+void AccountActivationPolicyContentForm::setActivationNotification(const std::string& value) {
+  doc().setFormField(path(), "activationNotification", value);
+}
+std::string AccountActivationPolicyContentForm::activationTimeout() const {
+  return doc().formField(path(), "activationTimeout");
+}
+void AccountActivationPolicyContentForm::setActivationTimeout(const std::string& value) {
+  doc().setFormField(path(), "activationTimeout", value);
+}
+std::string AccountActivationPolicyContentForm::activationTimeoutAction() const {
+  return doc().formField(path(), "activationTimeoutAction");
+}
+void AccountActivationPolicyContentForm::setActivationTimeoutAction(const std::string& value) {
+  doc().setFormField(path(), "activationTimeoutAction", value);
+}
+std::string AccountActivationPolicyContentForm::postActivationRedirect() const {
+  return doc().formField(path(), "postActivationRedirect");
+}
+void AccountActivationPolicyContentForm::setPostActivationRedirect(const std::string& value) {
+  doc().setFormField(path(), "postActivationRedirect", value);
+}
+std::string AccountActivationPolicyContentForm::onboardingRequired() const {
+  return doc().formField(path(), "onboardingRequired");
+}
+void AccountActivationPolicyContentForm::setOnboardingRequired(const std::string& value) {
+  doc().setFormField(path(), "onboardingRequired", value);
+}
+std::string AccountActivationPolicyContentForm::onboardingSteps() const {
+  return doc().formField(path(), "onboardingSteps");
+}
+void AccountActivationPolicyContentForm::setOnboardingSteps(const std::string& value) {
+  doc().setFormField(path(), "onboardingSteps", value);
+}
+
+AccountDeactivationPolicyContentForm::AccountDeactivationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccountDeactivationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void AccountDeactivationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccountDeactivationPolicyContentForm::deactivationTriggers() const {
+  return doc().formField(path(), "deactivationTriggers");
+}
+void AccountDeactivationPolicyContentForm::setDeactivationTriggers(const std::string& value) {
+  doc().setFormField(path(), "deactivationTriggers", value);
+}
+std::string AccountDeactivationPolicyContentForm::inactivityThreshold() const {
+  return doc().formField(path(), "inactivityThreshold");
+}
+void AccountDeactivationPolicyContentForm::setInactivityThreshold(const std::string& value) {
+  doc().setFormField(path(), "inactivityThreshold", value);
+}
+std::string AccountDeactivationPolicyContentForm::inactivityWarningPeriod() const {
+  return doc().formField(path(), "inactivityWarningPeriod");
+}
+void AccountDeactivationPolicyContentForm::setInactivityWarningPeriod(const std::string& value) {
+  doc().setFormField(path(), "inactivityWarningPeriod", value);
+}
+std::string AccountDeactivationPolicyContentForm::deactivationApproval() const {
+  return doc().formField(path(), "deactivationApproval");
+}
+void AccountDeactivationPolicyContentForm::setDeactivationApproval(const std::string& value) {
+  doc().setFormField(path(), "deactivationApproval", value);
+}
+std::string AccountDeactivationPolicyContentForm::immediateDeactivationCases() const {
+  return doc().formField(path(), "immediateDeactivationCases");
+}
+void AccountDeactivationPolicyContentForm::setImmediateDeactivationCases(const std::string& value) {
+  doc().setFormField(path(), "immediateDeactivationCases", value);
+}
+std::string AccountDeactivationPolicyContentForm::deactivatedAccountAccess() const {
+  return doc().formField(path(), "deactivatedAccountAccess");
+}
+void AccountDeactivationPolicyContentForm::setDeactivatedAccountAccess(const std::string& value) {
+  doc().setFormField(path(), "deactivatedAccountAccess", value);
+}
+std::string AccountDeactivationPolicyContentForm::deactivationEffects() const {
+  return doc().formField(path(), "deactivationEffects");
+}
+void AccountDeactivationPolicyContentForm::setDeactivationEffects(const std::string& value) {
+  doc().setFormField(path(), "deactivationEffects", value);
+}
+std::string AccountDeactivationPolicyContentForm::reactivationPolicy() const {
+  return doc().formField(path(), "reactivationPolicy");
+}
+void AccountDeactivationPolicyContentForm::setReactivationPolicy(const std::string& value) {
+  doc().setFormField(path(), "reactivationPolicy", value);
+}
+std::string AccountDeactivationPolicyContentForm::reactivationApproval() const {
+  return doc().formField(path(), "reactivationApproval");
+}
+void AccountDeactivationPolicyContentForm::setReactivationApproval(const std::string& value) {
+  doc().setFormField(path(), "reactivationApproval", value);
+}
+std::string AccountDeactivationPolicyContentForm::reactivationReverification() const {
+  return doc().formField(path(), "reactivationReverification");
+}
+void AccountDeactivationPolicyContentForm::setReactivationReverification(const std::string& value) {
+  doc().setFormField(path(), "reactivationReverification", value);
+}
+std::string AccountDeactivationPolicyContentForm::maxDeactivationPeriod() const {
+  return doc().formField(path(), "maxDeactivationPeriod");
+}
+void AccountDeactivationPolicyContentForm::setMaxDeactivationPeriod(const std::string& value) {
+  doc().setFormField(path(), "maxDeactivationPeriod", value);
+}
+std::string AccountDeactivationPolicyContentForm::deactivationNotification() const {
+  return doc().formField(path(), "deactivationNotification");
+}
+void AccountDeactivationPolicyContentForm::setDeactivationNotification(const std::string& value) {
+  doc().setFormField(path(), "deactivationNotification", value);
+}
+std::string AccountDeactivationPolicyContentForm::gracePeriodAfterDeactivation() const {
+  return doc().formField(path(), "gracePeriodAfterDeactivation");
+}
+void AccountDeactivationPolicyContentForm::setGracePeriodAfterDeactivation(const std::string& value) {
+  doc().setFormField(path(), "gracePeriodAfterDeactivation", value);
+}
+std::string AccountDeactivationPolicyContentForm::dataPreservationDuration() const {
+  return doc().formField(path(), "dataPreservationDuration");
+}
+void AccountDeactivationPolicyContentForm::setDataPreservationDuration(const std::string& value) {
+  doc().setFormField(path(), "dataPreservationDuration", value);
+}
+
+AccountDeletionPolicyContentForm::AccountDeletionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccountDeletionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void AccountDeletionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccountDeletionPolicyContentForm::deletionTriggers() const {
+  return doc().formField(path(), "deletionTriggers");
+}
+void AccountDeletionPolicyContentForm::setDeletionTriggers(const std::string& value) {
+  doc().setFormField(path(), "deletionTriggers", value);
+}
+std::string AccountDeletionPolicyContentForm::deletionApproval() const {
+  return doc().formField(path(), "deletionApproval");
+}
+void AccountDeletionPolicyContentForm::setDeletionApproval(const std::string& value) {
+  doc().setFormField(path(), "deletionApproval", value);
+}
+std::string AccountDeletionPolicyContentForm::softDeleteEnabled() const {
+  return doc().formField(path(), "softDeleteEnabled");
+}
+void AccountDeletionPolicyContentForm::setSoftDeleteEnabled(const std::string& value) {
+  doc().setFormField(path(), "softDeleteEnabled", value);
+}
+std::string AccountDeletionPolicyContentForm::softDeleteRetention() const {
+  return doc().formField(path(), "softDeleteRetention");
+}
+void AccountDeletionPolicyContentForm::setSoftDeleteRetention(const std::string& value) {
+  doc().setFormField(path(), "softDeleteRetention", value);
+}
+std::string AccountDeletionPolicyContentForm::permanentDeletionProcess() const {
+  return doc().formField(path(), "permanentDeletionProcess");
+}
+void AccountDeletionPolicyContentForm::setPermanentDeletionProcess(const std::string& value) {
+  doc().setFormField(path(), "permanentDeletionProcess", value);
+}
+std::string AccountDeletionPolicyContentForm::dataAnonymizationStrategy() const {
+  return doc().formField(path(), "dataAnonymizationStrategy");
+}
+void AccountDeletionPolicyContentForm::setDataAnonymizationStrategy(const std::string& value) {
+  doc().setFormField(path(), "dataAnonymizationStrategy", value);
+}
+std::string AccountDeletionPolicyContentForm::retainedDataAfterDeletion() const {
+  return doc().formField(path(), "retainedDataAfterDeletion");
+}
+void AccountDeletionPolicyContentForm::setRetainedDataAfterDeletion(const std::string& value) {
+  doc().setFormField(path(), "retainedDataAfterDeletion", value);
+}
+std::string AccountDeletionPolicyContentForm::retentionPeriodAfterDeletion() const {
+  return doc().formField(path(), "retentionPeriodAfterDeletion");
+}
+void AccountDeletionPolicyContentForm::setRetentionPeriodAfterDeletion(const std::string& value) {
+  doc().setFormField(path(), "retentionPeriodAfterDeletion", value);
+}
+std::string AccountDeletionPolicyContentForm::dataExportBeforeDeletion() const {
+  return doc().formField(path(), "dataExportBeforeDeletion");
+}
+void AccountDeletionPolicyContentForm::setDataExportBeforeDeletion(const std::string& value) {
+  doc().setFormField(path(), "dataExportBeforeDeletion", value);
+}
+std::string AccountDeletionPolicyContentForm::exportFormats() const {
+  return doc().formField(path(), "exportFormats");
+}
+void AccountDeletionPolicyContentForm::setExportFormats(const std::string& value) {
+  doc().setFormField(path(), "exportFormats", value);
+}
+std::string AccountDeletionPolicyContentForm::cascadeDeletionBehavior() const {
+  return doc().formField(path(), "cascadeDeletionBehavior");
+}
+void AccountDeletionPolicyContentForm::setCascadeDeletionBehavior(const std::string& value) {
+  doc().setFormField(path(), "cascadeDeletionBehavior", value);
+}
+std::string AccountDeletionPolicyContentForm::deletionConfirmation() const {
+  return doc().formField(path(), "deletionConfirmation");
+}
+void AccountDeletionPolicyContentForm::setDeletionConfirmation(const std::string& value) {
+  doc().setFormField(path(), "deletionConfirmation", value);
+}
+std::string AccountDeletionPolicyContentForm::deletionNotification() const {
+  return doc().formField(path(), "deletionNotification");
+}
+void AccountDeletionPolicyContentForm::setDeletionNotification(const std::string& value) {
+  doc().setFormField(path(), "deletionNotification", value);
+}
+std::string AccountDeletionPolicyContentForm::rightToErasureCompliance() const {
+  return doc().formField(path(), "rightToErasureCompliance");
+}
+void AccountDeletionPolicyContentForm::setRightToErasureCompliance(const std::string& value) {
+  doc().setFormField(path(), "rightToErasureCompliance", value);
+}
+std::string AccountDeletionPolicyContentForm::erasureResponseTime() const {
+  return doc().formField(path(), "erasureResponseTime");
+}
+void AccountDeletionPolicyContentForm::setErasureResponseTime(const std::string& value) {
+  doc().setFormField(path(), "erasureResponseTime", value);
+}
+std::string AccountDeletionPolicyContentForm::thirdPartyDataDeletion() const {
+  return doc().formField(path(), "thirdPartyDataDeletion");
+}
+void AccountDeletionPolicyContentForm::setThirdPartyDataDeletion(const std::string& value) {
+  doc().setFormField(path(), "thirdPartyDataDeletion", value);
+}
+
+AccountLockoutPolicyContentForm::AccountLockoutPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccountLockoutPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void AccountLockoutPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccountLockoutPolicyContentForm::lockoutThreshold() const {
+  return doc().formField(path(), "lockoutThreshold");
+}
+void AccountLockoutPolicyContentForm::setLockoutThreshold(const std::string& value) {
+  doc().setFormField(path(), "lockoutThreshold", value);
+}
+std::string AccountLockoutPolicyContentForm::lockoutDuration() const {
+  return doc().formField(path(), "lockoutDuration");
+}
+void AccountLockoutPolicyContentForm::setLockoutDuration(const std::string& value) {
+  doc().setFormField(path(), "lockoutDuration", value);
+}
+std::string AccountLockoutPolicyContentForm::lockoutEscalation() const {
+  return doc().formField(path(), "lockoutEscalation");
+}
+void AccountLockoutPolicyContentForm::setLockoutEscalation(const std::string& value) {
+  doc().setFormField(path(), "lockoutEscalation", value);
+}
+std::string AccountLockoutPolicyContentForm::rateLimitingMethod() const {
+  return doc().formField(path(), "rateLimitingMethod");
+}
+void AccountLockoutPolicyContentForm::setRateLimitingMethod(const std::string& value) {
+  doc().setFormField(path(), "rateLimitingMethod", value);
+}
+std::string AccountLockoutPolicyContentForm::delayProgression() const {
+  return doc().formField(path(), "delayProgression");
+}
+void AccountLockoutPolicyContentForm::setDelayProgression(const std::string& value) {
+  doc().setFormField(path(), "delayProgression", value);
+}
+std::string AccountLockoutPolicyContentForm::captchaTriggerThreshold() const {
+  return doc().formField(path(), "captchaTriggerThreshold");
+}
+void AccountLockoutPolicyContentForm::setCaptchaTriggerThreshold(const std::string& value) {
+  doc().setFormField(path(), "captchaTriggerThreshold", value);
+}
+std::string AccountLockoutPolicyContentForm::ipBasedRateLimiting() const {
+  return doc().formField(path(), "ipBasedRateLimiting");
+}
+void AccountLockoutPolicyContentForm::setIpBasedRateLimiting(const std::string& value) {
+  doc().setFormField(path(), "ipBasedRateLimiting", value);
+}
+std::string AccountLockoutPolicyContentForm::distributedAttackProtection() const {
+  return doc().formField(path(), "distributedAttackProtection");
+}
+void AccountLockoutPolicyContentForm::setDistributedAttackProtection(const std::string& value) {
+  doc().setFormField(path(), "distributedAttackProtection", value);
+}
+std::string AccountLockoutPolicyContentForm::unlockMechanism() const {
+  return doc().formField(path(), "unlockMechanism");
+}
+void AccountLockoutPolicyContentForm::setUnlockMechanism(const std::string& value) {
+  doc().setFormField(path(), "unlockMechanism", value);
+}
+std::string AccountLockoutPolicyContentForm::failedAttemptResetOnSuccess() const {
+  return doc().formField(path(), "failedAttemptResetOnSuccess");
+}
+void AccountLockoutPolicyContentForm::setFailedAttemptResetOnSuccess(const std::string& value) {
+  doc().setFormField(path(), "failedAttemptResetOnSuccess", value);
+}
+std::string AccountLockoutPolicyContentForm::lockoutNotification() const {
+  return doc().formField(path(), "lockoutNotification");
+}
+void AccountLockoutPolicyContentForm::setLockoutNotification(const std::string& value) {
+  doc().setFormField(path(), "lockoutNotification", value);
+}
+std::string AccountLockoutPolicyContentForm::permanentLockoutEnabled() const {
+  return doc().formField(path(), "permanentLockoutEnabled");
+}
+void AccountLockoutPolicyContentForm::setPermanentLockoutEnabled(const std::string& value) {
+  doc().setFormField(path(), "permanentLockoutEnabled", value);
+}
+std::string AccountLockoutPolicyContentForm::permanentLockoutThreshold() const {
+  return doc().formField(path(), "permanentLockoutThreshold");
+}
+void AccountLockoutPolicyContentForm::setPermanentLockoutThreshold(const std::string& value) {
+  doc().setFormField(path(), "permanentLockoutThreshold", value);
+}
+
+AccountModificationPolicyContentForm::AccountModificationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccountModificationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void AccountModificationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccountModificationPolicyContentForm::selfModifiableFields() const {
+  return doc().formField(path(), "selfModifiableFields");
+}
+void AccountModificationPolicyContentForm::setSelfModifiableFields(const std::string& value) {
+  doc().setFormField(path(), "selfModifiableFields", value);
+}
+std::string AccountModificationPolicyContentForm::adminModifiableFields() const {
+  return doc().formField(path(), "adminModifiableFields");
+}
+void AccountModificationPolicyContentForm::setAdminModifiableFields(const std::string& value) {
+  doc().setFormField(path(), "adminModifiableFields", value);
+}
+std::string AccountModificationPolicyContentForm::systemModifiableFields() const {
+  return doc().formField(path(), "systemModifiableFields");
+}
+void AccountModificationPolicyContentForm::setSystemModifiableFields(const std::string& value) {
+  doc().setFormField(path(), "systemModifiableFields", value);
+}
+std::string AccountModificationPolicyContentForm::emailChangePolicy() const {
+  return doc().formField(path(), "emailChangePolicy");
+}
+void AccountModificationPolicyContentForm::setEmailChangePolicy(const std::string& value) {
+  doc().setFormField(path(), "emailChangePolicy", value);
+}
+std::string AccountModificationPolicyContentForm::phoneChangePolicy() const {
+  return doc().formField(path(), "phoneChangePolicy");
+}
+void AccountModificationPolicyContentForm::setPhoneChangePolicy(const std::string& value) {
+  doc().setFormField(path(), "phoneChangePolicy", value);
+}
+std::string AccountModificationPolicyContentForm::nameChangePolicy() const {
+  return doc().formField(path(), "nameChangePolicy");
+}
+void AccountModificationPolicyContentForm::setNameChangePolicy(const std::string& value) {
+  doc().setFormField(path(), "nameChangePolicy", value);
+}
+std::string AccountModificationPolicyContentForm::roleChangeApproval() const {
+  return doc().formField(path(), "roleChangeApproval");
+}
+void AccountModificationPolicyContentForm::setRoleChangeApproval(const std::string& value) {
+  doc().setFormField(path(), "roleChangeApproval", value);
+}
+std::string AccountModificationPolicyContentForm::bulkModificationSupport() const {
+  return doc().formField(path(), "bulkModificationSupport");
+}
+void AccountModificationPolicyContentForm::setBulkModificationSupport(const std::string& value) {
+  doc().setFormField(path(), "bulkModificationSupport", value);
+}
+std::string AccountModificationPolicyContentForm::changeAuditLogging() const {
+  return doc().formField(path(), "changeAuditLogging");
+}
+void AccountModificationPolicyContentForm::setChangeAuditLogging(const std::string& value) {
+  doc().setFormField(path(), "changeAuditLogging", value);
+}
+std::string AccountModificationPolicyContentForm::changeNotification() const {
+  return doc().formField(path(), "changeNotification");
+}
+void AccountModificationPolicyContentForm::setChangeNotification(const std::string& value) {
+  doc().setFormField(path(), "changeNotification", value);
+}
+std::string AccountModificationPolicyContentForm::historicalVersioning() const {
+  return doc().formField(path(), "historicalVersioning");
+}
+void AccountModificationPolicyContentForm::setHistoricalVersioning(const std::string& value) {
+  doc().setFormField(path(), "historicalVersioning", value);
+}
+std::string AccountModificationPolicyContentForm::reverificationTriggers() const {
+  return doc().formField(path(), "reverificationTriggers");
+}
+void AccountModificationPolicyContentForm::setReverificationTriggers(const std::string& value) {
+  doc().setFormField(path(), "reverificationTriggers", value);
+}
+std::string AccountModificationPolicyContentForm::modificationRateLimiting() const {
+  return doc().formField(path(), "modificationRateLimiting");
+}
+void AccountModificationPolicyContentForm::setModificationRateLimiting(const std::string& value) {
+  doc().setFormField(path(), "modificationRateLimiting", value);
+}
+std::string AccountModificationPolicyContentForm::modificationCooldownPeriod() const {
+  return doc().formField(path(), "modificationCooldownPeriod");
+}
+void AccountModificationPolicyContentForm::setModificationCooldownPeriod(const std::string& value) {
+  doc().setFormField(path(), "modificationCooldownPeriod", value);
 }
 
 ActionParameterEntryContentForm::ActionParameterEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -23696,6 +24108,337 @@ void AnomalyDetectionPolicyContentForm::setResponseActions(const std::string& va
   doc().setFormField(path(), "responseActions", value);
 }
 
+ApiAbuseProtectionContentForm::ApiAbuseProtectionContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiAbuseProtectionContentForm::content() const {
+  return doc().content(path());
+}
+void ApiAbuseProtectionContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> ApiAbuseProtectionContentForm::rateLimitingEnabled() const {
+  const std::string v = doc().formField(path(), "rateLimitingEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAbuseProtectionContentForm::setRateLimitingEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "rateLimitingEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiAbuseProtectionContentForm::rateLimitScope() const {
+  return doc().formField(path(), "rateLimitScope");
+}
+void ApiAbuseProtectionContentForm::setRateLimitScope(const std::string& value) {
+  doc().setFormField(path(), "rateLimitScope", value);
+}
+std::string ApiAbuseProtectionContentForm::authenticationEndpointLimits() const {
+  return doc().formField(path(), "authenticationEndpointLimits");
+}
+void ApiAbuseProtectionContentForm::setAuthenticationEndpointLimits(const std::string& value) {
+  doc().setFormField(path(), "authenticationEndpointLimits", value);
+}
+std::string ApiAbuseProtectionContentForm::sensitiveEndpointLimits() const {
+  return doc().formField(path(), "sensitiveEndpointLimits");
+}
+void ApiAbuseProtectionContentForm::setSensitiveEndpointLimits(const std::string& value) {
+  doc().setFormField(path(), "sensitiveEndpointLimits", value);
+}
+std::string ApiAbuseProtectionContentForm::bruteForceProtection() const {
+  return doc().formField(path(), "bruteForceProtection");
+}
+void ApiAbuseProtectionContentForm::setBruteForceProtection(const std::string& value) {
+  doc().setFormField(path(), "bruteForceProtection", value);
+}
+std::string ApiAbuseProtectionContentForm::botDetectionPolicy() const {
+  return doc().formField(path(), "botDetectionPolicy");
+}
+void ApiAbuseProtectionContentForm::setBotDetectionPolicy(const std::string& value) {
+  doc().setFormField(path(), "botDetectionPolicy", value);
+}
+std::optional<bool> ApiAbuseProtectionContentForm::ipReputationFiltering() const {
+  const std::string v = doc().formField(path(), "ipReputationFiltering");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAbuseProtectionContentForm::setIpReputationFiltering(std::optional<bool> value) {
+  doc().setFormField(path(), "ipReputationFiltering", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiAbuseProtectionContentForm::automaticBlocking() const {
+  const std::string v = doc().formField(path(), "automaticBlocking");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAbuseProtectionContentForm::setAutomaticBlocking(std::optional<bool> value) {
+  doc().setFormField(path(), "automaticBlocking", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiAbuseProtectionContentForm::blockDuration() const {
+  return doc().formField(path(), "blockDuration");
+}
+void ApiAbuseProtectionContentForm::setBlockDuration(const std::string& value) {
+  doc().setFormField(path(), "blockDuration", value);
+}
+std::string ApiAbuseProtectionContentForm::geographicRestrictions() const {
+  return doc().formField(path(), "geographicRestrictions");
+}
+void ApiAbuseProtectionContentForm::setGeographicRestrictions(const std::string& value) {
+  doc().setFormField(path(), "geographicRestrictions", value);
+}
+std::string ApiAbuseProtectionContentForm::requestThrottlingOnFailure() const {
+  return doc().formField(path(), "requestThrottlingOnFailure");
+}
+void ApiAbuseProtectionContentForm::setRequestThrottlingOnFailure(const std::string& value) {
+  doc().setFormField(path(), "requestThrottlingOnFailure", value);
+}
+std::string ApiAbuseProtectionContentForm::businessFlowProtection() const {
+  return doc().formField(path(), "businessFlowProtection");
+}
+void ApiAbuseProtectionContentForm::setBusinessFlowProtection(const std::string& value) {
+  doc().setFormField(path(), "businessFlowProtection", value);
+}
+std::string ApiAbuseProtectionContentForm::webhookFloodProtection() const {
+  return doc().formField(path(), "webhookFloodProtection");
+}
+void ApiAbuseProtectionContentForm::setWebhookFloodProtection(const std::string& value) {
+  doc().setFormField(path(), "webhookFloodProtection", value);
+}
+std::string ApiAbuseProtectionContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiAbuseProtectionContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+ApiAuthenticationPolicyContentForm::ApiAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiAuthenticationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ApiAuthenticationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ApiAuthenticationPolicyContentForm::authenticationMethod() const {
+  return doc().formField(path(), "authenticationMethod");
+}
+void ApiAuthenticationPolicyContentForm::setAuthenticationMethod(const std::string& value) {
+  doc().setFormField(path(), "authenticationMethod", value);
+}
+std::optional<bool> ApiAuthenticationPolicyContentForm::multipleMethodsSupported() const {
+  const std::string v = doc().formField(path(), "multipleMethodsSupported");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAuthenticationPolicyContentForm::setMultipleMethodsSupported(std::optional<bool> value) {
+  doc().setFormField(path(), "multipleMethodsSupported", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiAuthenticationPolicyContentForm::apiKeyTransmission() const {
+  return doc().formField(path(), "apiKeyTransmission");
+}
+void ApiAuthenticationPolicyContentForm::setApiKeyTransmission(const std::string& value) {
+  doc().setFormField(path(), "apiKeyTransmission", value);
+}
+std::string ApiAuthenticationPolicyContentForm::apiKeyRotationPolicy() const {
+  return doc().formField(path(), "apiKeyRotationPolicy");
+}
+void ApiAuthenticationPolicyContentForm::setApiKeyRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "apiKeyRotationPolicy", value);
+}
+std::string ApiAuthenticationPolicyContentForm::apiKeyScoping() const {
+  return doc().formField(path(), "apiKeyScoping");
+}
+void ApiAuthenticationPolicyContentForm::setApiKeyScoping(const std::string& value) {
+  doc().setFormField(path(), "apiKeyScoping", value);
+}
+std::string ApiAuthenticationPolicyContentForm::jwtValidationPolicy() const {
+  return doc().formField(path(), "jwtValidationPolicy");
+}
+void ApiAuthenticationPolicyContentForm::setJwtValidationPolicy(const std::string& value) {
+  doc().setFormField(path(), "jwtValidationPolicy", value);
+}
+std::string ApiAuthenticationPolicyContentForm::jwtSigningAlgorithm() const {
+  return doc().formField(path(), "jwtSigningAlgorithm");
+}
+void ApiAuthenticationPolicyContentForm::setJwtSigningAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "jwtSigningAlgorithm", value);
+}
+std::string ApiAuthenticationPolicyContentForm::accessTokenLifetime() const {
+  return doc().formField(path(), "accessTokenLifetime");
+}
+void ApiAuthenticationPolicyContentForm::setAccessTokenLifetime(const std::string& value) {
+  doc().setFormField(path(), "accessTokenLifetime", value);
+}
+std::string ApiAuthenticationPolicyContentForm::refreshTokenPolicy() const {
+  return doc().formField(path(), "refreshTokenPolicy");
+}
+void ApiAuthenticationPolicyContentForm::setRefreshTokenPolicy(const std::string& value) {
+  doc().setFormField(path(), "refreshTokenPolicy", value);
+}
+std::optional<bool> ApiAuthenticationPolicyContentForm::clientCredentialsFlow() const {
+  const std::string v = doc().formField(path(), "clientCredentialsFlow");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAuthenticationPolicyContentForm::setClientCredentialsFlow(std::optional<bool> value) {
+  doc().setFormField(path(), "clientCredentialsFlow", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiAuthenticationPolicyContentForm::authorizationCodeFlow() const {
+  const std::string v = doc().formField(path(), "authorizationCodeFlow");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAuthenticationPolicyContentForm::setAuthorizationCodeFlow(std::optional<bool> value) {
+  doc().setFormField(path(), "authorizationCodeFlow", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiAuthenticationPolicyContentForm::tokenRevocationSupport() const {
+  const std::string v = doc().formField(path(), "tokenRevocationSupport");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAuthenticationPolicyContentForm::setTokenRevocationSupport(std::optional<bool> value) {
+  doc().setFormField(path(), "tokenRevocationSupport", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiAuthenticationPolicyContentForm::mutualTlsRequired() const {
+  const std::string v = doc().formField(path(), "mutualTlsRequired");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiAuthenticationPolicyContentForm::setMutualTlsRequired(std::optional<bool> value) {
+  doc().setFormField(path(), "mutualTlsRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiAuthenticationPolicyContentForm::serviceAccountPolicy() const {
+  return doc().formField(path(), "serviceAccountPolicy");
+}
+void ApiAuthenticationPolicyContentForm::setServiceAccountPolicy(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountPolicy", value);
+}
+std::string ApiAuthenticationPolicyContentForm::webhookSignatureVerification() const {
+  return doc().formField(path(), "webhookSignatureVerification");
+}
+void ApiAuthenticationPolicyContentForm::setWebhookSignatureVerification(const std::string& value) {
+  doc().setFormField(path(), "webhookSignatureVerification", value);
+}
+std::string ApiAuthenticationPolicyContentForm::thirdPartyApiConsumption() const {
+  return doc().formField(path(), "thirdPartyApiConsumption");
+}
+void ApiAuthenticationPolicyContentForm::setThirdPartyApiConsumption(const std::string& value) {
+  doc().setFormField(path(), "thirdPartyApiConsumption", value);
+}
+std::string ApiAuthenticationPolicyContentForm::credentialTransmission() const {
+  return doc().formField(path(), "credentialTransmission");
+}
+void ApiAuthenticationPolicyContentForm::setCredentialTransmission(const std::string& value) {
+  doc().setFormField(path(), "credentialTransmission", value);
+}
+std::string ApiAuthenticationPolicyContentForm::bearerTokenFormat() const {
+  return doc().formField(path(), "bearerTokenFormat");
+}
+void ApiAuthenticationPolicyContentForm::setBearerTokenFormat(const std::string& value) {
+  doc().setFormField(path(), "bearerTokenFormat", value);
+}
+std::string ApiAuthenticationPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiAuthenticationPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+ApiAuthorizationPolicyContentForm::ApiAuthorizationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiAuthorizationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ApiAuthorizationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ApiAuthorizationPolicyContentForm::objectLevelAuthorization() const {
+  return doc().formField(path(), "objectLevelAuthorization");
+}
+void ApiAuthorizationPolicyContentForm::setObjectLevelAuthorization(const std::string& value) {
+  doc().setFormField(path(), "objectLevelAuthorization", value);
+}
+std::string ApiAuthorizationPolicyContentForm::functionLevelAuthorization() const {
+  return doc().formField(path(), "functionLevelAuthorization");
+}
+void ApiAuthorizationPolicyContentForm::setFunctionLevelAuthorization(const std::string& value) {
+  doc().setFormField(path(), "functionLevelAuthorization", value);
+}
+std::string ApiAuthorizationPolicyContentForm::propertyLevelAuthorization() const {
+  return doc().formField(path(), "propertyLevelAuthorization");
+}
+void ApiAuthorizationPolicyContentForm::setPropertyLevelAuthorization(const std::string& value) {
+  doc().setFormField(path(), "propertyLevelAuthorization", value);
+}
+std::string ApiAuthorizationPolicyContentForm::permissionGranularity() const {
+  return doc().formField(path(), "permissionGranularity");
+}
+void ApiAuthorizationPolicyContentForm::setPermissionGranularity(const std::string& value) {
+  doc().setFormField(path(), "permissionGranularity", value);
+}
+std::string ApiAuthorizationPolicyContentForm::scopeDefinitions() const {
+  return doc().formField(path(), "scopeDefinitions");
+}
+void ApiAuthorizationPolicyContentForm::setScopeDefinitions(const std::string& value) {
+  doc().setFormField(path(), "scopeDefinitions", value);
+}
+std::string ApiAuthorizationPolicyContentForm::scopeEnforcementLevel() const {
+  return doc().formField(path(), "scopeEnforcementLevel");
+}
+void ApiAuthorizationPolicyContentForm::setScopeEnforcementLevel(const std::string& value) {
+  doc().setFormField(path(), "scopeEnforcementLevel", value);
+}
+std::string ApiAuthorizationPolicyContentForm::delegatedAccessPolicy() const {
+  return doc().formField(path(), "delegatedAccessPolicy");
+}
+void ApiAuthorizationPolicyContentForm::setDelegatedAccessPolicy(const std::string& value) {
+  doc().setFormField(path(), "delegatedAccessPolicy", value);
+}
+std::string ApiAuthorizationPolicyContentForm::bulkOperationAuthorization() const {
+  return doc().formField(path(), "bulkOperationAuthorization");
+}
+void ApiAuthorizationPolicyContentForm::setBulkOperationAuthorization(const std::string& value) {
+  doc().setFormField(path(), "bulkOperationAuthorization", value);
+}
+std::string ApiAuthorizationPolicyContentForm::contextualAuthorization() const {
+  return doc().formField(path(), "contextualAuthorization");
+}
+void ApiAuthorizationPolicyContentForm::setContextualAuthorization(const std::string& value) {
+  doc().setFormField(path(), "contextualAuthorization", value);
+}
+std::string ApiAuthorizationPolicyContentForm::massAssignmentPrevention() const {
+  return doc().formField(path(), "massAssignmentPrevention");
+}
+void ApiAuthorizationPolicyContentForm::setMassAssignmentPrevention(const std::string& value) {
+  doc().setFormField(path(), "massAssignmentPrevention", value);
+}
+std::string ApiAuthorizationPolicyContentForm::horizontalPrivilegeEscalation() const {
+  return doc().formField(path(), "horizontalPrivilegeEscalation");
+}
+void ApiAuthorizationPolicyContentForm::setHorizontalPrivilegeEscalation(const std::string& value) {
+  doc().setFormField(path(), "horizontalPrivilegeEscalation", value);
+}
+std::string ApiAuthorizationPolicyContentForm::verticalPrivilegeEscalation() const {
+  return doc().formField(path(), "verticalPrivilegeEscalation");
+}
+void ApiAuthorizationPolicyContentForm::setVerticalPrivilegeEscalation(const std::string& value) {
+  doc().setFormField(path(), "verticalPrivilegeEscalation", value);
+}
+std::string ApiAuthorizationPolicyContentForm::sensitiveBusinessFlowProtection() const {
+  return doc().formField(path(), "sensitiveBusinessFlowProtection");
+}
+void ApiAuthorizationPolicyContentForm::setSensitiveBusinessFlowProtection(const std::string& value) {
+  doc().setFormField(path(), "sensitiveBusinessFlowProtection", value);
+}
+std::string ApiAuthorizationPolicyContentForm::workflowStateValidation() const {
+  return doc().formField(path(), "workflowStateValidation");
+}
+void ApiAuthorizationPolicyContentForm::setWorkflowStateValidation(const std::string& value) {
+  doc().setFormField(path(), "workflowStateValidation", value);
+}
+std::string ApiAuthorizationPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiAuthorizationPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 ApiCompatibilityEntryContentForm::ApiCompatibilityEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ApiCompatibilityEntryContentForm::content() const {
@@ -23829,6 +24572,426 @@ std::string ApiCompatibilityEntryTransportDetailsForm::authentication() const {
 }
 void ApiCompatibilityEntryTransportDetailsForm::setAuthentication(const std::string& value) {
   doc().setFormField(path(), "authentication", value);
+}
+
+ApiCorsSecurityContentForm::ApiCorsSecurityContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiCorsSecurityContentForm::content() const {
+  return doc().content(path());
+}
+void ApiCorsSecurityContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> ApiCorsSecurityContentForm::corsEnabled() const {
+  const std::string v = doc().formField(path(), "corsEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiCorsSecurityContentForm::setCorsEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "corsEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiCorsSecurityContentForm::allowedOrigins() const {
+  return doc().formField(path(), "allowedOrigins");
+}
+void ApiCorsSecurityContentForm::setAllowedOrigins(const std::string& value) {
+  doc().setFormField(path(), "allowedOrigins", value);
+}
+std::string ApiCorsSecurityContentForm::allowedMethods() const {
+  return doc().formField(path(), "allowedMethods");
+}
+void ApiCorsSecurityContentForm::setAllowedMethods(const std::string& value) {
+  doc().setFormField(path(), "allowedMethods", value);
+}
+std::string ApiCorsSecurityContentForm::allowedHeaders() const {
+  return doc().formField(path(), "allowedHeaders");
+}
+void ApiCorsSecurityContentForm::setAllowedHeaders(const std::string& value) {
+  doc().setFormField(path(), "allowedHeaders", value);
+}
+std::string ApiCorsSecurityContentForm::exposedHeaders() const {
+  return doc().formField(path(), "exposedHeaders");
+}
+void ApiCorsSecurityContentForm::setExposedHeaders(const std::string& value) {
+  doc().setFormField(path(), "exposedHeaders", value);
+}
+std::optional<bool> ApiCorsSecurityContentForm::credentialsAllowed() const {
+  const std::string v = doc().formField(path(), "credentialsAllowed");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiCorsSecurityContentForm::setCredentialsAllowed(std::optional<bool> value) {
+  doc().setFormField(path(), "credentialsAllowed", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> ApiCorsSecurityContentForm::preflightCacheMaxAge() const {
+  const std::string v = doc().formField(path(), "preflightCacheMaxAge");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ApiCorsSecurityContentForm::setPreflightCacheMaxAge(std::optional<long> value) {
+  doc().setFormField(path(), "preflightCacheMaxAge", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> ApiCorsSecurityContentForm::wildcardRestriction() const {
+  const std::string v = doc().formField(path(), "wildcardRestriction");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiCorsSecurityContentForm::setWildcardRestriction(std::optional<bool> value) {
+  doc().setFormField(path(), "wildcardRestriction", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiCorsSecurityContentForm::contentSecurityPolicy() const {
+  return doc().formField(path(), "contentSecurityPolicy");
+}
+void ApiCorsSecurityContentForm::setContentSecurityPolicy(const std::string& value) {
+  doc().setFormField(path(), "contentSecurityPolicy", value);
+}
+std::string ApiCorsSecurityContentForm::strictTransportSecurity() const {
+  return doc().formField(path(), "strictTransportSecurity");
+}
+void ApiCorsSecurityContentForm::setStrictTransportSecurity(const std::string& value) {
+  doc().setFormField(path(), "strictTransportSecurity", value);
+}
+std::string ApiCorsSecurityContentForm::securityHeadersRequired() const {
+  return doc().formField(path(), "securityHeadersRequired");
+}
+void ApiCorsSecurityContentForm::setSecurityHeadersRequired(const std::string& value) {
+  doc().setFormField(path(), "securityHeadersRequired", value);
+}
+std::string ApiCorsSecurityContentForm::privateNetworkAccess() const {
+  return doc().formField(path(), "privateNetworkAccess");
+}
+void ApiCorsSecurityContentForm::setPrivateNetworkAccess(const std::string& value) {
+  doc().setFormField(path(), "privateNetworkAccess", value);
+}
+std::string ApiCorsSecurityContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiCorsSecurityContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+ApiKeyManagementPolicyContentForm::ApiKeyManagementPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiKeyManagementPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ApiKeyManagementPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ApiKeyManagementPolicyContentForm::apiKeyAuthEnabled() const {
+  return doc().formField(path(), "apiKeyAuthEnabled");
+}
+void ApiKeyManagementPolicyContentForm::setApiKeyAuthEnabled(const std::string& value) {
+  doc().setFormField(path(), "apiKeyAuthEnabled", value);
+}
+std::string ApiKeyManagementPolicyContentForm::apiKeyTypes() const {
+  return doc().formField(path(), "apiKeyTypes");
+}
+void ApiKeyManagementPolicyContentForm::setApiKeyTypes(const std::string& value) {
+  doc().setFormField(path(), "apiKeyTypes", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyGenerationMethod() const {
+  return doc().formField(path(), "keyGenerationMethod");
+}
+void ApiKeyManagementPolicyContentForm::setKeyGenerationMethod(const std::string& value) {
+  doc().setFormField(path(), "keyGenerationMethod", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyLength() const {
+  return doc().formField(path(), "keyLength");
+}
+void ApiKeyManagementPolicyContentForm::setKeyLength(const std::string& value) {
+  doc().setFormField(path(), "keyLength", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyRotationPolicy() const {
+  return doc().formField(path(), "keyRotationPolicy");
+}
+void ApiKeyManagementPolicyContentForm::setKeyRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "keyRotationPolicy", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyExpirationPolicy() const {
+  return doc().formField(path(), "keyExpirationPolicy");
+}
+void ApiKeyManagementPolicyContentForm::setKeyExpirationPolicy(const std::string& value) {
+  doc().setFormField(path(), "keyExpirationPolicy", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyScopeRestrictions() const {
+  return doc().formField(path(), "keyScopeRestrictions");
+}
+void ApiKeyManagementPolicyContentForm::setKeyScopeRestrictions(const std::string& value) {
+  doc().setFormField(path(), "keyScopeRestrictions", value);
+}
+std::string ApiKeyManagementPolicyContentForm::ipAllowlisting() const {
+  return doc().formField(path(), "ipAllowlisting");
+}
+void ApiKeyManagementPolicyContentForm::setIpAllowlisting(const std::string& value) {
+  doc().setFormField(path(), "ipAllowlisting", value);
+}
+std::string ApiKeyManagementPolicyContentForm::rateLimitingPerKey() const {
+  return doc().formField(path(), "rateLimitingPerKey");
+}
+void ApiKeyManagementPolicyContentForm::setRateLimitingPerKey(const std::string& value) {
+  doc().setFormField(path(), "rateLimitingPerKey", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyRevocationProcess() const {
+  return doc().formField(path(), "keyRevocationProcess");
+}
+void ApiKeyManagementPolicyContentForm::setKeyRevocationProcess(const std::string& value) {
+  doc().setFormField(path(), "keyRevocationProcess", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyStorageGuidance() const {
+  return doc().formField(path(), "keyStorageGuidance");
+}
+void ApiKeyManagementPolicyContentForm::setKeyStorageGuidance(const std::string& value) {
+  doc().setFormField(path(), "keyStorageGuidance", value);
+}
+std::string ApiKeyManagementPolicyContentForm::keyAuditLogging() const {
+  return doc().formField(path(), "keyAuditLogging");
+}
+void ApiKeyManagementPolicyContentForm::setKeyAuditLogging(const std::string& value) {
+  doc().setFormField(path(), "keyAuditLogging", value);
+}
+std::string ApiKeyManagementPolicyContentForm::serviceTokenSupport() const {
+  return doc().formField(path(), "serviceTokenSupport");
+}
+void ApiKeyManagementPolicyContentForm::setServiceTokenSupport(const std::string& value) {
+  doc().setFormField(path(), "serviceTokenSupport", value);
+}
+std::string ApiKeyManagementPolicyContentForm::tokenLifetime() const {
+  return doc().formField(path(), "tokenLifetime");
+}
+void ApiKeyManagementPolicyContentForm::setTokenLifetime(const std::string& value) {
+  doc().setFormField(path(), "tokenLifetime", value);
+}
+
+ApiRequestValidationPolicyContentForm::ApiRequestValidationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiRequestValidationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ApiRequestValidationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ApiRequestValidationPolicyContentForm::inputValidationStrategy() const {
+  return doc().formField(path(), "inputValidationStrategy");
+}
+void ApiRequestValidationPolicyContentForm::setInputValidationStrategy(const std::string& value) {
+  doc().setFormField(path(), "inputValidationStrategy", value);
+}
+std::optional<bool> ApiRequestValidationPolicyContentForm::schemaValidationEnforced() const {
+  const std::string v = doc().formField(path(), "schemaValidationEnforced");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiRequestValidationPolicyContentForm::setSchemaValidationEnforced(std::optional<bool> value) {
+  doc().setFormField(path(), "schemaValidationEnforced", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiRequestValidationPolicyContentForm::schemaValidationTool() const {
+  return doc().formField(path(), "schemaValidationTool");
+}
+void ApiRequestValidationPolicyContentForm::setSchemaValidationTool(const std::string& value) {
+  doc().setFormField(path(), "schemaValidationTool", value);
+}
+std::optional<bool> ApiRequestValidationPolicyContentForm::contentTypeValidation() const {
+  const std::string v = doc().formField(path(), "contentTypeValidation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiRequestValidationPolicyContentForm::setContentTypeValidation(std::optional<bool> value) {
+  doc().setFormField(path(), "contentTypeValidation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiRequestValidationPolicyContentForm::acceptedContentTypes() const {
+  return doc().formField(path(), "acceptedContentTypes");
+}
+void ApiRequestValidationPolicyContentForm::setAcceptedContentTypes(const std::string& value) {
+  doc().setFormField(path(), "acceptedContentTypes", value);
+}
+std::optional<bool> ApiRequestValidationPolicyContentForm::rejectUnexpectedContentType() const {
+  const std::string v = doc().formField(path(), "rejectUnexpectedContentType");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiRequestValidationPolicyContentForm::setRejectUnexpectedContentType(std::optional<bool> value) {
+  doc().setFormField(path(), "rejectUnexpectedContentType", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiRequestValidationPolicyContentForm::requestSizeLimit() const {
+  return doc().formField(path(), "requestSizeLimit");
+}
+void ApiRequestValidationPolicyContentForm::setRequestSizeLimit(const std::string& value) {
+  doc().setFormField(path(), "requestSizeLimit", value);
+}
+std::optional<long> ApiRequestValidationPolicyContentForm::arrayLengthLimit() const {
+  const std::string v = doc().formField(path(), "arrayLengthLimit");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ApiRequestValidationPolicyContentForm::setArrayLengthLimit(std::optional<long> value) {
+  doc().setFormField(path(), "arrayLengthLimit", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ApiRequestValidationPolicyContentForm::nestedObjectDepthLimit() const {
+  const std::string v = doc().formField(path(), "nestedObjectDepthLimit");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ApiRequestValidationPolicyContentForm::setNestedObjectDepthLimit(std::optional<long> value) {
+  doc().setFormField(path(), "nestedObjectDepthLimit", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ApiRequestValidationPolicyContentForm::stringFieldMaxLength() const {
+  const std::string v = doc().formField(path(), "stringFieldMaxLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ApiRequestValidationPolicyContentForm::setStringFieldMaxLength(std::optional<long> value) {
+  doc().setFormField(path(), "stringFieldMaxLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> ApiRequestValidationPolicyContentForm::parameterTypeEnforcement() const {
+  const std::string v = doc().formField(path(), "parameterTypeEnforcement");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiRequestValidationPolicyContentForm::setParameterTypeEnforcement(std::optional<bool> value) {
+  doc().setFormField(path(), "parameterTypeEnforcement", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiRequestValidationPolicyContentForm::numericRangeValidation() const {
+  const std::string v = doc().formField(path(), "numericRangeValidation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiRequestValidationPolicyContentForm::setNumericRangeValidation(std::optional<bool> value) {
+  doc().setFormField(path(), "numericRangeValidation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiRequestValidationPolicyContentForm::dateFormatValidation() const {
+  return doc().formField(path(), "dateFormatValidation");
+}
+void ApiRequestValidationPolicyContentForm::setDateFormatValidation(const std::string& value) {
+  doc().setFormField(path(), "dateFormatValidation", value);
+}
+std::string ApiRequestValidationPolicyContentForm::encodingValidation() const {
+  return doc().formField(path(), "encodingValidation");
+}
+void ApiRequestValidationPolicyContentForm::setEncodingValidation(const std::string& value) {
+  doc().setFormField(path(), "encodingValidation", value);
+}
+std::string ApiRequestValidationPolicyContentForm::fileUploadValidation() const {
+  return doc().formField(path(), "fileUploadValidation");
+}
+void ApiRequestValidationPolicyContentForm::setFileUploadValidation(const std::string& value) {
+  doc().setFormField(path(), "fileUploadValidation", value);
+}
+std::string ApiRequestValidationPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiRequestValidationPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+ApiSecurityMonitoringContentForm::ApiSecurityMonitoringContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ApiSecurityMonitoringContentForm::content() const {
+  return doc().content(path());
+}
+void ApiSecurityMonitoringContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::apiAccessLogging() const {
+  const std::string v = doc().formField(path(), "apiAccessLogging");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setApiAccessLogging(std::optional<bool> value) {
+  doc().setFormField(path(), "apiAccessLogging", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiSecurityMonitoringContentForm::loggedAttributes() const {
+  return doc().formField(path(), "loggedAttributes");
+}
+void ApiSecurityMonitoringContentForm::setLoggedAttributes(const std::string& value) {
+  doc().setFormField(path(), "loggedAttributes", value);
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::sensitiveEndpointMonitoring() const {
+  const std::string v = doc().formField(path(), "sensitiveEndpointMonitoring");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setSensitiveEndpointMonitoring(std::optional<bool> value) {
+  doc().setFormField(path(), "sensitiveEndpointMonitoring", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::sensitiveDataRedaction() const {
+  const std::string v = doc().formField(path(), "sensitiveDataRedaction");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setSensitiveDataRedaction(std::optional<bool> value) {
+  doc().setFormField(path(), "sensitiveDataRedaction", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::anomalyDetection() const {
+  const std::string v = doc().formField(path(), "anomalyDetection");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setAnomalyDetection(std::optional<bool> value) {
+  doc().setFormField(path(), "anomalyDetection", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiSecurityMonitoringContentForm::errorRateMonitoring() const {
+  return doc().formField(path(), "errorRateMonitoring");
+}
+void ApiSecurityMonitoringContentForm::setErrorRateMonitoring(const std::string& value) {
+  doc().setFormField(path(), "errorRateMonitoring", value);
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::authenticationFailureTracking() const {
+  const std::string v = doc().formField(path(), "authenticationFailureTracking");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setAuthenticationFailureTracking(std::optional<bool> value) {
+  doc().setFormField(path(), "authenticationFailureTracking", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::dataExfiltrationDetection() const {
+  const std::string v = doc().formField(path(), "dataExfiltrationDetection");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setDataExfiltrationDetection(std::optional<bool> value) {
+  doc().setFormField(path(), "dataExfiltrationDetection", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::apiVersionInventory() const {
+  const std::string v = doc().formField(path(), "apiVersionInventory");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setApiVersionInventory(std::optional<bool> value) {
+  doc().setFormField(path(), "apiVersionInventory", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::deprecatedEndpointMonitoring() const {
+  const std::string v = doc().formField(path(), "deprecatedEndpointMonitoring");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setDeprecatedEndpointMonitoring(std::optional<bool> value) {
+  doc().setFormField(path(), "deprecatedEndpointMonitoring", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> ApiSecurityMonitoringContentForm::realTimeAlerts() const {
+  const std::string v = doc().formField(path(), "realTimeAlerts");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ApiSecurityMonitoringContentForm::setRealTimeAlerts(std::optional<bool> value) {
+  doc().setFormField(path(), "realTimeAlerts", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ApiSecurityMonitoringContentForm::securityResponseAutomation() const {
+  return doc().formField(path(), "securityResponseAutomation");
+}
+void ApiSecurityMonitoringContentForm::setSecurityResponseAutomation(const std::string& value) {
+  doc().setFormField(path(), "securityResponseAutomation", value);
+}
+std::string ApiSecurityMonitoringContentForm::complianceReporting() const {
+  return doc().formField(path(), "complianceReporting");
+}
+void ApiSecurityMonitoringContentForm::setComplianceReporting(const std::string& value) {
+  doc().setFormField(path(), "complianceReporting", value);
+}
+std::string ApiSecurityMonitoringContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ApiSecurityMonitoringContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 ApiVersioningStrategyCompatibilityForm::ApiVersioningStrategyCompatibilityForm(som::SpecDocument& doc, std::string path)
@@ -25307,6 +26470,81 @@ void AuditEvidenceTypeEntryContentForm::setResponsibleRole(const std::string& va
   doc().setFormField(path(), "responsibleRole", value);
 }
 
+AuthenticationErrorHandlingContentForm::AuthenticationErrorHandlingContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthenticationErrorHandlingContentForm::content() const {
+  return doc().content(path());
+}
+void AuthenticationErrorHandlingContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthenticationErrorHandlingContentForm::invalidCredentialResponse() const {
+  return doc().formField(path(), "invalidCredentialResponse");
+}
+void AuthenticationErrorHandlingContentForm::setInvalidCredentialResponse(const std::string& value) {
+  doc().setFormField(path(), "invalidCredentialResponse", value);
+}
+std::string AuthenticationErrorHandlingContentForm::accountLockoutThreshold() const {
+  return doc().formField(path(), "accountLockoutThreshold");
+}
+void AuthenticationErrorHandlingContentForm::setAccountLockoutThreshold(const std::string& value) {
+  doc().setFormField(path(), "accountLockoutThreshold", value);
+}
+std::string AuthenticationErrorHandlingContentForm::lockoutDuration() const {
+  return doc().formField(path(), "lockoutDuration");
+}
+void AuthenticationErrorHandlingContentForm::setLockoutDuration(const std::string& value) {
+  doc().setFormField(path(), "lockoutDuration", value);
+}
+std::string AuthenticationErrorHandlingContentForm::lockoutEscalation() const {
+  return doc().formField(path(), "lockoutEscalation");
+}
+void AuthenticationErrorHandlingContentForm::setLockoutEscalation(const std::string& value) {
+  doc().setFormField(path(), "lockoutEscalation", value);
+}
+std::string AuthenticationErrorHandlingContentForm::bruteForceProtection() const {
+  return doc().formField(path(), "bruteForceProtection");
+}
+void AuthenticationErrorHandlingContentForm::setBruteForceProtection(const std::string& value) {
+  doc().setFormField(path(), "bruteForceProtection", value);
+}
+std::string AuthenticationErrorHandlingContentForm::credentialStuffingProtection() const {
+  return doc().formField(path(), "credentialStuffingProtection");
+}
+void AuthenticationErrorHandlingContentForm::setCredentialStuffingProtection(const std::string& value) {
+  doc().setFormField(path(), "credentialStuffingProtection", value);
+}
+std::string AuthenticationErrorHandlingContentForm::userNotificationOnFailure() const {
+  return doc().formField(path(), "userNotificationOnFailure");
+}
+void AuthenticationErrorHandlingContentForm::setUserNotificationOnFailure(const std::string& value) {
+  doc().setFormField(path(), "userNotificationOnFailure", value);
+}
+std::string AuthenticationErrorHandlingContentForm::adminAlertThreshold() const {
+  return doc().formField(path(), "adminAlertThreshold");
+}
+void AuthenticationErrorHandlingContentForm::setAdminAlertThreshold(const std::string& value) {
+  doc().setFormField(path(), "adminAlertThreshold", value);
+}
+std::string AuthenticationErrorHandlingContentForm::failedLoginAuditLogging() const {
+  return doc().formField(path(), "failedLoginAuditLogging");
+}
+void AuthenticationErrorHandlingContentForm::setFailedLoginAuditLogging(const std::string& value) {
+  doc().setFormField(path(), "failedLoginAuditLogging", value);
+}
+std::string AuthenticationErrorHandlingContentForm::suspiciousActivityResponse() const {
+  return doc().formField(path(), "suspiciousActivityResponse");
+}
+void AuthenticationErrorHandlingContentForm::setSuspiciousActivityResponse(const std::string& value) {
+  doc().setFormField(path(), "suspiciousActivityResponse", value);
+}
+std::string AuthenticationErrorHandlingContentForm::gracefulDegradation() const {
+  return doc().formField(path(), "gracefulDegradation");
+}
+void AuthenticationErrorHandlingContentForm::setGracefulDegradation(const std::string& value) {
+  doc().setFormField(path(), "gracefulDegradation", value);
+}
+
 AuthenticationEventPolicyContentForm::AuthenticationEventPolicyContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AuthenticationEventPolicyContentForm::content() const {
@@ -26220,6 +27458,65 @@ void BackupDataClassificationExclusionsForm::setNotes(const std::string& value) 
   doc().setFormField(path(), "notes", value);
 }
 
+BackupEncryptionPolicyContentForm::BackupEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string BackupEncryptionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void BackupEncryptionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> BackupEncryptionPolicyContentForm::backupEncryptionRequired() const {
+  const std::string v = doc().formField(path(), "backupEncryptionRequired");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void BackupEncryptionPolicyContentForm::setBackupEncryptionRequired(std::optional<bool> value) {
+  doc().setFormField(path(), "backupEncryptionRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string BackupEncryptionPolicyContentForm::backupEncryptionMethod() const {
+  return doc().formField(path(), "backupEncryptionMethod");
+}
+void BackupEncryptionPolicyContentForm::setBackupEncryptionMethod(const std::string& value) {
+  doc().setFormField(path(), "backupEncryptionMethod", value);
+}
+std::optional<bool> BackupEncryptionPolicyContentForm::separateBackupKeys() const {
+  const std::string v = doc().formField(path(), "separateBackupKeys");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void BackupEncryptionPolicyContentForm::setSeparateBackupKeys(std::optional<bool> value) {
+  doc().setFormField(path(), "separateBackupKeys", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string BackupEncryptionPolicyContentForm::backupKeyRotation() const {
+  return doc().formField(path(), "backupKeyRotation");
+}
+void BackupEncryptionPolicyContentForm::setBackupKeyRotation(const std::string& value) {
+  doc().setFormField(path(), "backupKeyRotation", value);
+}
+std::optional<bool> BackupEncryptionPolicyContentForm::encryptedBackupVerification() const {
+  const std::string v = doc().formField(path(), "encryptedBackupVerification");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void BackupEncryptionPolicyContentForm::setEncryptedBackupVerification(std::optional<bool> value) {
+  doc().setFormField(path(), "encryptedBackupVerification", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> BackupEncryptionPolicyContentForm::offSiteBackupEncryption() const {
+  const std::string v = doc().formField(path(), "offSiteBackupEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void BackupEncryptionPolicyContentForm::setOffSiteBackupEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "offSiteBackupEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string BackupEncryptionPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void BackupEncryptionPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 BackupInfrastructureContentForm::BackupInfrastructureContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string BackupInfrastructureContentForm::content() const {
@@ -27128,6 +28425,87 @@ std::string BehaviorRuleEntryContentForm::calculatedProperties() const {
 }
 void BehaviorRuleEntryContentForm::setCalculatedProperties(const std::string& value) {
   doc().setFormField(path(), "calculatedProperties", value);
+}
+
+BiometricAuthenticationPolicyContentForm::BiometricAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string BiometricAuthenticationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void BiometricAuthenticationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string BiometricAuthenticationPolicyContentForm::biometricAuthEnabled() const {
+  return doc().formField(path(), "biometricAuthEnabled");
+}
+void BiometricAuthenticationPolicyContentForm::setBiometricAuthEnabled(const std::string& value) {
+  doc().setFormField(path(), "biometricAuthEnabled", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::biometricModalities() const {
+  return doc().formField(path(), "biometricModalities");
+}
+void BiometricAuthenticationPolicyContentForm::setBiometricModalities(const std::string& value) {
+  doc().setFormField(path(), "biometricModalities", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::biometricUsageContext() const {
+  return doc().formField(path(), "biometricUsageContext");
+}
+void BiometricAuthenticationPolicyContentForm::setBiometricUsageContext(const std::string& value) {
+  doc().setFormField(path(), "biometricUsageContext", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::biometricAsActivationFactor() const {
+  return doc().formField(path(), "biometricAsActivationFactor");
+}
+void BiometricAuthenticationPolicyContentForm::setBiometricAsActivationFactor(const std::string& value) {
+  doc().setFormField(path(), "biometricAsActivationFactor", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::localVsCentralComparison() const {
+  return doc().formField(path(), "localVsCentralComparison");
+}
+void BiometricAuthenticationPolicyContentForm::setLocalVsCentralComparison(const std::string& value) {
+  doc().setFormField(path(), "localVsCentralComparison", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::falseMatchRateTarget() const {
+  return doc().formField(path(), "falseMatchRateTarget");
+}
+void BiometricAuthenticationPolicyContentForm::setFalseMatchRateTarget(const std::string& value) {
+  doc().setFormField(path(), "falseMatchRateTarget", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::presentationAttackDetection() const {
+  return doc().formField(path(), "presentationAttackDetection");
+}
+void BiometricAuthenticationPolicyContentForm::setPresentationAttackDetection(const std::string& value) {
+  doc().setFormField(path(), "presentationAttackDetection", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::maxConsecutiveFailures() const {
+  return doc().formField(path(), "maxConsecutiveFailures");
+}
+void BiometricAuthenticationPolicyContentForm::setMaxConsecutiveFailures(const std::string& value) {
+  doc().setFormField(path(), "maxConsecutiveFailures", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::fallbackMethod() const {
+  return doc().formField(path(), "fallbackMethod");
+}
+void BiometricAuthenticationPolicyContentForm::setFallbackMethod(const std::string& value) {
+  doc().setFormField(path(), "fallbackMethod", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::biometricDataStorage() const {
+  return doc().formField(path(), "biometricDataStorage");
+}
+void BiometricAuthenticationPolicyContentForm::setBiometricDataStorage(const std::string& value) {
+  doc().setFormField(path(), "biometricDataStorage", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::privacyConsiderations() const {
+  return doc().formField(path(), "privacyConsiderations");
+}
+void BiometricAuthenticationPolicyContentForm::setPrivacyConsiderations(const std::string& value) {
+  doc().setFormField(path(), "privacyConsiderations", value);
+}
+std::string BiometricAuthenticationPolicyContentForm::accessibilityAlternative() const {
+  return doc().formField(path(), "accessibilityAlternative");
+}
+void BiometricAuthenticationPolicyContentForm::setAccessibilityAlternative(const std::string& value) {
+  doc().setFormField(path(), "accessibilityAlternative", value);
 }
 
 BoundaryAssumptionEntryContentForm::BoundaryAssumptionEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -29343,6 +30721,87 @@ void CcbMemberEntryContentForm::setRequiredForQuorum(const std::string& value) {
   doc().setFormField(path(), "requiredForQuorum", value);
 }
 
+CertificateAuthenticationPolicyContentForm::CertificateAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CertificateAuthenticationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void CertificateAuthenticationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateAuthEnabled() const {
+  return doc().formField(path(), "certificateAuthEnabled");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateAuthEnabled(const std::string& value) {
+  doc().setFormField(path(), "certificateAuthEnabled", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateTypes() const {
+  return doc().formField(path(), "certificateTypes");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateTypes(const std::string& value) {
+  doc().setFormField(path(), "certificateTypes", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateIssuance() const {
+  return doc().formField(path(), "certificateIssuance");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateIssuance(const std::string& value) {
+  doc().setFormField(path(), "certificateIssuance", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateAuthority() const {
+  return doc().formField(path(), "certificateAuthority");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateAuthority(const std::string& value) {
+  doc().setFormField(path(), "certificateAuthority", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::keyStorageRequirement() const {
+  return doc().formField(path(), "keyStorageRequirement");
+}
+void CertificateAuthenticationPolicyContentForm::setKeyStorageRequirement(const std::string& value) {
+  doc().setFormField(path(), "keyStorageRequirement", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::mutualTlsRequired() const {
+  return doc().formField(path(), "mutualTlsRequired");
+}
+void CertificateAuthenticationPolicyContentForm::setMutualTlsRequired(const std::string& value) {
+  doc().setFormField(path(), "mutualTlsRequired", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateValidation() const {
+  return doc().formField(path(), "certificateValidation");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateValidation(const std::string& value) {
+  doc().setFormField(path(), "certificateValidation", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::certificateLifetime() const {
+  return doc().formField(path(), "certificateLifetime");
+}
+void CertificateAuthenticationPolicyContentForm::setCertificateLifetime(const std::string& value) {
+  doc().setFormField(path(), "certificateLifetime", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::renewalProcess() const {
+  return doc().formField(path(), "renewalProcess");
+}
+void CertificateAuthenticationPolicyContentForm::setRenewalProcess(const std::string& value) {
+  doc().setFormField(path(), "renewalProcess", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::revocationProcess() const {
+  return doc().formField(path(), "revocationProcess");
+}
+void CertificateAuthenticationPolicyContentForm::setRevocationProcess(const std::string& value) {
+  doc().setFormField(path(), "revocationProcess", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::minimumKeyStrength() const {
+  return doc().formField(path(), "minimumKeyStrength");
+}
+void CertificateAuthenticationPolicyContentForm::setMinimumKeyStrength(const std::string& value) {
+  doc().setFormField(path(), "minimumKeyStrength", value);
+}
+std::string CertificateAuthenticationPolicyContentForm::fipsComplianceRequired() const {
+  return doc().formField(path(), "fipsComplianceRequired");
+}
+void CertificateAuthenticationPolicyContentForm::setFipsComplianceRequired(const std::string& value) {
+  doc().setFormField(path(), "fipsComplianceRequired", value);
+}
+
 CertificateManagementContentForm::CertificateManagementContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CertificateManagementContentForm::content() const {
@@ -29458,6 +30917,91 @@ std::string CertificateManagementMonitoringForm::notes() const {
   return doc().formField(path(), "notes");
 }
 void CertificateManagementMonitoringForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+CertificateManagementPolicyContentForm::CertificateManagementPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CertificateManagementPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void CertificateManagementPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string CertificateManagementPolicyContentForm::certificateAuthority() const {
+  return doc().formField(path(), "certificateAuthority");
+}
+void CertificateManagementPolicyContentForm::setCertificateAuthority(const std::string& value) {
+  doc().setFormField(path(), "certificateAuthority", value);
+}
+std::string CertificateManagementPolicyContentForm::validationType() const {
+  return doc().formField(path(), "validationType");
+}
+void CertificateManagementPolicyContentForm::setValidationType(const std::string& value) {
+  doc().setFormField(path(), "validationType", value);
+}
+std::optional<long> CertificateManagementPolicyContentForm::minimumKeyLength() const {
+  const std::string v = doc().formField(path(), "minimumKeyLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void CertificateManagementPolicyContentForm::setMinimumKeyLength(std::optional<long> value) {
+  doc().setFormField(path(), "minimumKeyLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::string CertificateManagementPolicyContentForm::keyType() const {
+  return doc().formField(path(), "keyType");
+}
+void CertificateManagementPolicyContentForm::setKeyType(const std::string& value) {
+  doc().setFormField(path(), "keyType", value);
+}
+std::string CertificateManagementPolicyContentForm::hashingAlgorithm() const {
+  return doc().formField(path(), "hashingAlgorithm");
+}
+void CertificateManagementPolicyContentForm::setHashingAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "hashingAlgorithm", value);
+}
+std::string CertificateManagementPolicyContentForm::wildcardCertificatePolicy() const {
+  return doc().formField(path(), "wildcardCertificatePolicy");
+}
+void CertificateManagementPolicyContentForm::setWildcardCertificatePolicy(const std::string& value) {
+  doc().setFormField(path(), "wildcardCertificatePolicy", value);
+}
+std::optional<long> CertificateManagementPolicyContentForm::certificateLifetimeDays() const {
+  const std::string v = doc().formField(path(), "certificateLifetimeDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void CertificateManagementPolicyContentForm::setCertificateLifetimeDays(std::optional<long> value) {
+  doc().setFormField(path(), "certificateLifetimeDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> CertificateManagementPolicyContentForm::automatedRenewal() const {
+  const std::string v = doc().formField(path(), "automatedRenewal");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void CertificateManagementPolicyContentForm::setAutomatedRenewal(std::optional<bool> value) {
+  doc().setFormField(path(), "automatedRenewal", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> CertificateManagementPolicyContentForm::certificateTransparency() const {
+  const std::string v = doc().formField(path(), "certificateTransparency");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void CertificateManagementPolicyContentForm::setCertificateTransparency(std::optional<bool> value) {
+  doc().setFormField(path(), "certificateTransparency", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> CertificateManagementPolicyContentForm::caaRecords() const {
+  const std::string v = doc().formField(path(), "caaRecords");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void CertificateManagementPolicyContentForm::setCaaRecords(std::optional<bool> value) {
+  doc().setFormField(path(), "caaRecords", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string CertificateManagementPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void CertificateManagementPolicyContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
@@ -31034,6 +32578,57 @@ std::string ChangesFromCurrentStructureOverviewContentForm::collaborationModelCh
 }
 void ChangesFromCurrentStructureOverviewContentForm::setCollaborationModelChanges(const std::string& value) {
   doc().setFormField(path(), "collaborationModelChanges", value);
+}
+
+ChannelIntegrationsContentForm::ChannelIntegrationsContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ChannelIntegrationsContentForm::content() const {
+  return doc().content(path());
+}
+void ChannelIntegrationsContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ChannelIntegrationsContentForm::pushNotificationService() const {
+  return doc().formField(path(), "pushNotificationService");
+}
+void ChannelIntegrationsContentForm::setPushNotificationService(const std::string& value) {
+  doc().setFormField(path(), "pushNotificationService", value);
+}
+std::string ChannelIntegrationsContentForm::analyticsService() const {
+  return doc().formField(path(), "analyticsService");
+}
+void ChannelIntegrationsContentForm::setAnalyticsService(const std::string& value) {
+  doc().setFormField(path(), "analyticsService", value);
+}
+std::string ChannelIntegrationsContentForm::crashReporting() const {
+  return doc().formField(path(), "crashReporting");
+}
+void ChannelIntegrationsContentForm::setCrashReporting(const std::string& value) {
+  doc().setFormField(path(), "crashReporting", value);
+}
+std::string ChannelIntegrationsContentForm::deepLinking() const {
+  return doc().formField(path(), "deepLinking");
+}
+void ChannelIntegrationsContentForm::setDeepLinking(const std::string& value) {
+  doc().setFormField(path(), "deepLinking", value);
+}
+std::string ChannelIntegrationsContentForm::socialIntegration() const {
+  return doc().formField(path(), "socialIntegration");
+}
+void ChannelIntegrationsContentForm::setSocialIntegration(const std::string& value) {
+  doc().setFormField(path(), "socialIntegration", value);
+}
+std::string ChannelIntegrationsContentForm::paymentIntegration() const {
+  return doc().formField(path(), "paymentIntegration");
+}
+void ChannelIntegrationsContentForm::setPaymentIntegration(const std::string& value) {
+  doc().setFormField(path(), "paymentIntegration", value);
+}
+std::string ChannelIntegrationsContentForm::biometricIntegration() const {
+  return doc().formField(path(), "biometricIntegration");
+}
+void ChannelIntegrationsContentForm::setBiometricIntegration(const std::string& value) {
+  doc().setFormField(path(), "biometricIntegration", value);
 }
 
 CiCdPipelineConfigurationContentForm::CiCdPipelineConfigurationContentForm(som::SpecDocument& doc, std::string path)
@@ -32892,6 +34487,69 @@ std::string ColorPaletteEntryContentForm::usageGuidelines() const {
 }
 void ColorPaletteEntryContentForm::setUsageGuidelines(const std::string& value) {
   doc().setFormField(path(), "usageGuidelines", value);
+}
+
+ColumnLevelSecurityPolicyContentForm::ColumnLevelSecurityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ColumnLevelSecurityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ColumnLevelSecurityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::columnLevelSecurityEnabled() const {
+  return doc().formField(path(), "columnLevelSecurityEnabled");
+}
+void ColumnLevelSecurityPolicyContentForm::setColumnLevelSecurityEnabled(const std::string& value) {
+  doc().setFormField(path(), "columnLevelSecurityEnabled", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::columnAccessImplementation() const {
+  return doc().formField(path(), "columnAccessImplementation");
+}
+void ColumnLevelSecurityPolicyContentForm::setColumnAccessImplementation(const std::string& value) {
+  doc().setFormField(path(), "columnAccessImplementation", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::sensitiveColumnClassification() const {
+  return doc().formField(path(), "sensitiveColumnClassification");
+}
+void ColumnLevelSecurityPolicyContentForm::setSensitiveColumnClassification(const std::string& value) {
+  doc().setFormField(path(), "sensitiveColumnClassification", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::piiColumnAccess() const {
+  return doc().formField(path(), "piiColumnAccess");
+}
+void ColumnLevelSecurityPolicyContentForm::setPiiColumnAccess(const std::string& value) {
+  doc().setFormField(path(), "piiColumnAccess", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::financialDataColumnAccess() const {
+  return doc().formField(path(), "financialDataColumnAccess");
+}
+void ColumnLevelSecurityPolicyContentForm::setFinancialDataColumnAccess(const std::string& value) {
+  doc().setFormField(path(), "financialDataColumnAccess", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::healthDataColumnAccess() const {
+  return doc().formField(path(), "healthDataColumnAccess");
+}
+void ColumnLevelSecurityPolicyContentForm::setHealthDataColumnAccess(const std::string& value) {
+  doc().setFormField(path(), "healthDataColumnAccess", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::dynamicFieldVisibility() const {
+  return doc().formField(path(), "dynamicFieldVisibility");
+}
+void ColumnLevelSecurityPolicyContentForm::setDynamicFieldVisibility(const std::string& value) {
+  doc().setFormField(path(), "dynamicFieldVisibility", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::columnAccessAudit() const {
+  return doc().formField(path(), "columnAccessAudit");
+}
+void ColumnLevelSecurityPolicyContentForm::setColumnAccessAudit(const std::string& value) {
+  doc().setFormField(path(), "columnAccessAudit", value);
+}
+std::string ColumnLevelSecurityPolicyContentForm::columnEncryptionPolicy() const {
+  return doc().formField(path(), "columnEncryptionPolicy");
+}
+void ColumnLevelSecurityPolicyContentForm::setColumnEncryptionPolicy(const std::string& value) {
+  doc().setFormField(path(), "columnEncryptionPolicy", value);
 }
 
 CommitteeCharterContentForm::CommitteeCharterContentForm(som::SpecDocument& doc, std::string path)
@@ -36424,6 +38082,81 @@ void ComputingEquipmentEntryPlatformForm::setFormFactor(const std::string& value
   doc().setFormField(path(), "formFactor", value);
 }
 
+ConcurrentSessionPolicyContentForm::ConcurrentSessionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ConcurrentSessionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ConcurrentSessionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ConcurrentSessionPolicyContentForm::concurrentSessionsAllowed() const {
+  return doc().formField(path(), "concurrentSessionsAllowed");
+}
+void ConcurrentSessionPolicyContentForm::setConcurrentSessionsAllowed(const std::string& value) {
+  doc().setFormField(path(), "concurrentSessionsAllowed", value);
+}
+std::string ConcurrentSessionPolicyContentForm::maxConcurrentSessions() const {
+  return doc().formField(path(), "maxConcurrentSessions");
+}
+void ConcurrentSessionPolicyContentForm::setMaxConcurrentSessions(const std::string& value) {
+  doc().setFormField(path(), "maxConcurrentSessions", value);
+}
+std::string ConcurrentSessionPolicyContentForm::concurrentSessionScope() const {
+  return doc().formField(path(), "concurrentSessionScope");
+}
+void ConcurrentSessionPolicyContentForm::setConcurrentSessionScope(const std::string& value) {
+  doc().setFormField(path(), "concurrentSessionScope", value);
+}
+std::string ConcurrentSessionPolicyContentForm::conflictResolution() const {
+  return doc().formField(path(), "conflictResolution");
+}
+void ConcurrentSessionPolicyContentForm::setConflictResolution(const std::string& value) {
+  doc().setFormField(path(), "conflictResolution", value);
+}
+std::string ConcurrentSessionPolicyContentForm::sessionListVisible() const {
+  return doc().formField(path(), "sessionListVisible");
+}
+void ConcurrentSessionPolicyContentForm::setSessionListVisible(const std::string& value) {
+  doc().setFormField(path(), "sessionListVisible", value);
+}
+std::string ConcurrentSessionPolicyContentForm::remoteTerminationEnabled() const {
+  return doc().formField(path(), "remoteTerminationEnabled");
+}
+void ConcurrentSessionPolicyContentForm::setRemoteTerminationEnabled(const std::string& value) {
+  doc().setFormField(path(), "remoteTerminationEnabled", value);
+}
+std::string ConcurrentSessionPolicyContentForm::sessionDeviceInfo() const {
+  return doc().formField(path(), "sessionDeviceInfo");
+}
+void ConcurrentSessionPolicyContentForm::setSessionDeviceInfo(const std::string& value) {
+  doc().setFormField(path(), "sessionDeviceInfo", value);
+}
+std::string ConcurrentSessionPolicyContentForm::concurrentLoginNotification() const {
+  return doc().formField(path(), "concurrentLoginNotification");
+}
+void ConcurrentSessionPolicyContentForm::setConcurrentLoginNotification(const std::string& value) {
+  doc().setFormField(path(), "concurrentLoginNotification", value);
+}
+std::string ConcurrentSessionPolicyContentForm::suspiciousConcurrentLoginAction() const {
+  return doc().formField(path(), "suspiciousConcurrentLoginAction");
+}
+void ConcurrentSessionPolicyContentForm::setSuspiciousConcurrentLoginAction(const std::string& value) {
+  doc().setFormField(path(), "suspiciousConcurrentLoginAction", value);
+}
+std::string ConcurrentSessionPolicyContentForm::privilegedAccountSessionLimit() const {
+  return doc().formField(path(), "privilegedAccountSessionLimit");
+}
+void ConcurrentSessionPolicyContentForm::setPrivilegedAccountSessionLimit(const std::string& value) {
+  doc().setFormField(path(), "privilegedAccountSessionLimit", value);
+}
+std::string ConcurrentSessionPolicyContentForm::crossDeviceSessionHandling() const {
+  return doc().formField(path(), "crossDeviceSessionHandling");
+}
+void ConcurrentSessionPolicyContentForm::setCrossDeviceSessionHandling(const std::string& value) {
+  doc().setFormField(path(), "crossDeviceSessionHandling", value);
+}
+
 ConfidentialInfoCategoryEntryContentForm::ConfidentialInfoCategoryEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ConfidentialInfoCategoryEntryContentForm::content() const {
@@ -36977,6 +38710,117 @@ void ConstraintRegisterEntryContentForm::setImpact(const std::string& value) {
   doc().setFormField(path(), "impact", value);
 }
 
+ContentScanningPolicyContentForm::ContentScanningPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ContentScanningPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ContentScanningPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> ContentScanningPolicyContentForm::antivirusScanningEnabled() const {
+  const std::string v = doc().formField(path(), "antivirusScanningEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ContentScanningPolicyContentForm::setAntivirusScanningEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "antivirusScanningEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ContentScanningPolicyContentForm::scanTiming() const {
+  return doc().formField(path(), "scanTiming");
+}
+void ContentScanningPolicyContentForm::setScanTiming(const std::string& value) {
+  doc().setFormField(path(), "scanTiming", value);
+}
+std::string ContentScanningPolicyContentForm::scanEngine() const {
+  return doc().formField(path(), "scanEngine");
+}
+void ContentScanningPolicyContentForm::setScanEngine(const std::string& value) {
+  doc().setFormField(path(), "scanEngine", value);
+}
+std::string ContentScanningPolicyContentForm::quarantinePolicy() const {
+  return doc().formField(path(), "quarantinePolicy");
+}
+void ContentScanningPolicyContentForm::setQuarantinePolicy(const std::string& value) {
+  doc().setFormField(path(), "quarantinePolicy", value);
+}
+std::optional<long> ContentScanningPolicyContentForm::quarantineRetentionDays() const {
+  const std::string v = doc().formField(path(), "quarantineRetentionDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ContentScanningPolicyContentForm::setQuarantineRetentionDays(std::optional<long> value) {
+  doc().setFormField(path(), "quarantineRetentionDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::string ContentScanningPolicyContentForm::signatureUpdateFrequency() const {
+  return doc().formField(path(), "signatureUpdateFrequency");
+}
+void ContentScanningPolicyContentForm::setSignatureUpdateFrequency(const std::string& value) {
+  doc().setFormField(path(), "signatureUpdateFrequency", value);
+}
+std::optional<bool> ContentScanningPolicyContentForm::cdrEnabled() const {
+  const std::string v = doc().formField(path(), "cdrEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ContentScanningPolicyContentForm::setCdrEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "cdrEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ContentScanningPolicyContentForm::cdrApplicableTypes() const {
+  return doc().formField(path(), "cdrApplicableTypes");
+}
+void ContentScanningPolicyContentForm::setCdrApplicableTypes(const std::string& value) {
+  doc().setFormField(path(), "cdrApplicableTypes", value);
+}
+std::optional<bool> ContentScanningPolicyContentForm::dlpScanningEnabled() const {
+  const std::string v = doc().formField(path(), "dlpScanningEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ContentScanningPolicyContentForm::setDlpScanningEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "dlpScanningEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ContentScanningPolicyContentForm::dlpPolicies() const {
+  return doc().formField(path(), "dlpPolicies");
+}
+void ContentScanningPolicyContentForm::setDlpPolicies(const std::string& value) {
+  doc().setFormField(path(), "dlpPolicies", value);
+}
+std::string ContentScanningPolicyContentForm::dlpAction() const {
+  return doc().formField(path(), "dlpAction");
+}
+void ContentScanningPolicyContentForm::setDlpAction(const std::string& value) {
+  doc().setFormField(path(), "dlpAction", value);
+}
+std::optional<bool> ContentScanningPolicyContentForm::contentModeration() const {
+  const std::string v = doc().formField(path(), "contentModeration");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ContentScanningPolicyContentForm::setContentModeration(std::optional<bool> value) {
+  doc().setFormField(path(), "contentModeration", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ContentScanningPolicyContentForm::moderationMethod() const {
+  return doc().formField(path(), "moderationMethod");
+}
+void ContentScanningPolicyContentForm::setModerationMethod(const std::string& value) {
+  doc().setFormField(path(), "moderationMethod", value);
+}
+std::optional<bool> ContentScanningPolicyContentForm::hashBasedDetection() const {
+  const std::string v = doc().formField(path(), "hashBasedDetection");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void ContentScanningPolicyContentForm::setHashBasedDetection(std::optional<bool> value) {
+  doc().setFormField(path(), "hashBasedDetection", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string ContentScanningPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ContentScanningPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 ContextualHelpContextualHelpContentForm::ContextualHelpContextualHelpContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ContextualHelpContextualHelpContentForm::content() const {
@@ -37481,6 +39325,162 @@ void CorrectnessVerificationForm::setRegressionTestingApproach(const std::string
   doc().setFormField(path(), "regressionTestingApproach", value);
 }
 
+CredentialCompromiseDetectionPolicyContentForm::CredentialCompromiseDetectionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CredentialCompromiseDetectionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void CredentialCompromiseDetectionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::breachDatabaseMonitoring() const {
+  return doc().formField(path(), "breachDatabaseMonitoring");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setBreachDatabaseMonitoring(const std::string& value) {
+  doc().setFormField(path(), "breachDatabaseMonitoring", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::breachDatabaseSource() const {
+  return doc().formField(path(), "breachDatabaseSource");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setBreachDatabaseSource(const std::string& value) {
+  doc().setFormField(path(), "breachDatabaseSource", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::breachCheckFrequency() const {
+  return doc().formField(path(), "breachCheckFrequency");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setBreachCheckFrequency(const std::string& value) {
+  doc().setFormField(path(), "breachCheckFrequency", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::compromisedCredentialAction() const {
+  return doc().formField(path(), "compromisedCredentialAction");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setCompromisedCredentialAction(const std::string& value) {
+  doc().setFormField(path(), "compromisedCredentialAction", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::credentialStuffingDetection() const {
+  return doc().formField(path(), "credentialStuffingDetection");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setCredentialStuffingDetection(const std::string& value) {
+  doc().setFormField(path(), "credentialStuffingDetection", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::stuffingDetectionMethod() const {
+  return doc().formField(path(), "stuffingDetectionMethod");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setStuffingDetectionMethod(const std::string& value) {
+  doc().setFormField(path(), "stuffingDetectionMethod", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::darkWebMonitoring() const {
+  return doc().formField(path(), "darkWebMonitoring");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setDarkWebMonitoring(const std::string& value) {
+  doc().setFormField(path(), "darkWebMonitoring", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::userCompromiseNotification() const {
+  return doc().formField(path(), "userCompromiseNotification");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setUserCompromiseNotification(const std::string& value) {
+  doc().setFormField(path(), "userCompromiseNotification", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::adminCompromiseAlerts() const {
+  return doc().formField(path(), "adminCompromiseAlerts");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setAdminCompromiseAlerts(const std::string& value) {
+  doc().setFormField(path(), "adminCompromiseAlerts", value);
+}
+std::string CredentialCompromiseDetectionPolicyContentForm::compromiseResponseSla() const {
+  return doc().formField(path(), "compromiseResponseSla");
+}
+void CredentialCompromiseDetectionPolicyContentForm::setCompromiseResponseSla(const std::string& value) {
+  doc().setFormField(path(), "compromiseResponseSla", value);
+}
+
+CredentialRecoveryPolicyContentForm::CredentialRecoveryPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CredentialRecoveryPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void CredentialRecoveryPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string CredentialRecoveryPolicyContentForm::passwordResetMethod() const {
+  return doc().formField(path(), "passwordResetMethod");
+}
+void CredentialRecoveryPolicyContentForm::setPasswordResetMethod(const std::string& value) {
+  doc().setFormField(path(), "passwordResetMethod", value);
+}
+std::string CredentialRecoveryPolicyContentForm::resetLinkExpiry() const {
+  return doc().formField(path(), "resetLinkExpiry");
+}
+void CredentialRecoveryPolicyContentForm::setResetLinkExpiry(const std::string& value) {
+  doc().setFormField(path(), "resetLinkExpiry", value);
+}
+std::string CredentialRecoveryPolicyContentForm::resetLinkSingleUse() const {
+  return doc().formField(path(), "resetLinkSingleUse");
+}
+void CredentialRecoveryPolicyContentForm::setResetLinkSingleUse(const std::string& value) {
+  doc().setFormField(path(), "resetLinkSingleUse", value);
+}
+std::string CredentialRecoveryPolicyContentForm::resetRateLimiting() const {
+  return doc().formField(path(), "resetRateLimiting");
+}
+void CredentialRecoveryPolicyContentForm::setResetRateLimiting(const std::string& value) {
+  doc().setFormField(path(), "resetRateLimiting", value);
+}
+std::string CredentialRecoveryPolicyContentForm::savedRecoveryCodesEnabled() const {
+  return doc().formField(path(), "savedRecoveryCodesEnabled");
+}
+void CredentialRecoveryPolicyContentForm::setSavedRecoveryCodesEnabled(const std::string& value) {
+  doc().setFormField(path(), "savedRecoveryCodesEnabled", value);
+}
+std::string CredentialRecoveryPolicyContentForm::recoveryCodeCount() const {
+  return doc().formField(path(), "recoveryCodeCount");
+}
+void CredentialRecoveryPolicyContentForm::setRecoveryCodeCount(const std::string& value) {
+  doc().setFormField(path(), "recoveryCodeCount", value);
+}
+std::string CredentialRecoveryPolicyContentForm::recoveryCodeFormat() const {
+  return doc().formField(path(), "recoveryCodeFormat");
+}
+void CredentialRecoveryPolicyContentForm::setRecoveryCodeFormat(const std::string& value) {
+  doc().setFormField(path(), "recoveryCodeFormat", value);
+}
+std::string CredentialRecoveryPolicyContentForm::issuedRecoveryCodeChannels() const {
+  return doc().formField(path(), "issuedRecoveryCodeChannels");
+}
+void CredentialRecoveryPolicyContentForm::setIssuedRecoveryCodeChannels(const std::string& value) {
+  doc().setFormField(path(), "issuedRecoveryCodeChannels", value);
+}
+std::string CredentialRecoveryPolicyContentForm::recoveryCodeExpiry() const {
+  return doc().formField(path(), "recoveryCodeExpiry");
+}
+void CredentialRecoveryPolicyContentForm::setRecoveryCodeExpiry(const std::string& value) {
+  doc().setFormField(path(), "recoveryCodeExpiry", value);
+}
+std::string CredentialRecoveryPolicyContentForm::identityReverificationRequired() const {
+  return doc().formField(path(), "identityReverificationRequired");
+}
+void CredentialRecoveryPolicyContentForm::setIdentityReverificationRequired(const std::string& value) {
+  doc().setFormField(path(), "identityReverificationRequired", value);
+}
+std::string CredentialRecoveryPolicyContentForm::recoveryContactEnabled() const {
+  return doc().formField(path(), "recoveryContactEnabled");
+}
+void CredentialRecoveryPolicyContentForm::setRecoveryContactEnabled(const std::string& value) {
+  doc().setFormField(path(), "recoveryContactEnabled", value);
+}
+std::string CredentialRecoveryPolicyContentForm::multipleRecoveryAddresses() const {
+  return doc().formField(path(), "multipleRecoveryAddresses");
+}
+void CredentialRecoveryPolicyContentForm::setMultipleRecoveryAddresses(const std::string& value) {
+  doc().setFormField(path(), "multipleRecoveryAddresses", value);
+}
+std::string CredentialRecoveryPolicyContentForm::recoveryAuditLogging() const {
+  return doc().formField(path(), "recoveryAuditLogging");
+}
+void CredentialRecoveryPolicyContentForm::setRecoveryAuditLogging(const std::string& value) {
+  doc().setFormField(path(), "recoveryAuditLogging", value);
+}
+
 CrossCuttingConcernsCachingForm::CrossCuttingConcernsCachingForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string CrossCuttingConcernsCachingForm::content() const {
@@ -37640,6 +39640,65 @@ std::string CrossCuttingConcernsSharedForm::notes() const {
   return doc().formField(path(), "notes");
 }
 void CrossCuttingConcernsSharedForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+CrossTenantAccessPolicyContentForm::CrossTenantAccessPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string CrossTenantAccessPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void CrossTenantAccessPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> CrossTenantAccessPolicyContentForm::crossTenantAccessAllowed() const {
+  const std::string v = doc().formField(path(), "crossTenantAccessAllowed");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void CrossTenantAccessPolicyContentForm::setCrossTenantAccessAllowed(std::optional<bool> value) {
+  doc().setFormField(path(), "crossTenantAccessAllowed", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string CrossTenantAccessPolicyContentForm::crossTenantAccessModel() const {
+  return doc().formField(path(), "crossTenantAccessModel");
+}
+void CrossTenantAccessPolicyContentForm::setCrossTenantAccessModel(const std::string& value) {
+  doc().setFormField(path(), "crossTenantAccessModel", value);
+}
+std::string CrossTenantAccessPolicyContentForm::authorizationMechanism() const {
+  return doc().formField(path(), "authorizationMechanism");
+}
+void CrossTenantAccessPolicyContentForm::setAuthorizationMechanism(const std::string& value) {
+  doc().setFormField(path(), "authorizationMechanism", value);
+}
+std::string CrossTenantAccessPolicyContentForm::resourceSharingModel() const {
+  return doc().formField(path(), "resourceSharingModel");
+}
+void CrossTenantAccessPolicyContentForm::setResourceSharingModel(const std::string& value) {
+  doc().setFormField(path(), "resourceSharingModel", value);
+}
+std::string CrossTenantAccessPolicyContentForm::idorPreventionStrategy() const {
+  return doc().formField(path(), "idorPreventionStrategy");
+}
+void CrossTenantAccessPolicyContentForm::setIdorPreventionStrategy(const std::string& value) {
+  doc().setFormField(path(), "idorPreventionStrategy", value);
+}
+std::string CrossTenantAccessPolicyContentForm::crossTenantAuditRequirement() const {
+  return doc().formField(path(), "crossTenantAuditRequirement");
+}
+void CrossTenantAccessPolicyContentForm::setCrossTenantAuditRequirement(const std::string& value) {
+  doc().setFormField(path(), "crossTenantAuditRequirement", value);
+}
+std::string CrossTenantAccessPolicyContentForm::accessReviewFrequency() const {
+  return doc().formField(path(), "accessReviewFrequency");
+}
+void CrossTenantAccessPolicyContentForm::setAccessReviewFrequency(const std::string& value) {
+  doc().setFormField(path(), "accessReviewFrequency", value);
+}
+std::string CrossTenantAccessPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void CrossTenantAccessPolicyContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
@@ -38383,6 +40442,87 @@ std::string DashboardTemplatesContentForm::notes() const {
 }
 void DashboardTemplatesContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+DataAccessAuditPolicyContentForm::DataAccessAuditPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAccessAuditPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void DataAccessAuditPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAccessAuditPolicyContentForm::dataAccessLoggingEnabled() const {
+  return doc().formField(path(), "dataAccessLoggingEnabled");
+}
+void DataAccessAuditPolicyContentForm::setDataAccessLoggingEnabled(const std::string& value) {
+  doc().setFormField(path(), "dataAccessLoggingEnabled", value);
+}
+std::string DataAccessAuditPolicyContentForm::dataAccessLoggingScope() const {
+  return doc().formField(path(), "dataAccessLoggingScope");
+}
+void DataAccessAuditPolicyContentForm::setDataAccessLoggingScope(const std::string& value) {
+  doc().setFormField(path(), "dataAccessLoggingScope", value);
+}
+std::string DataAccessAuditPolicyContentForm::loggedOperations() const {
+  return doc().formField(path(), "loggedOperations");
+}
+void DataAccessAuditPolicyContentForm::setLoggedOperations(const std::string& value) {
+  doc().setFormField(path(), "loggedOperations", value);
+}
+std::string DataAccessAuditPolicyContentForm::dataAccessLogDetail() const {
+  return doc().formField(path(), "dataAccessLogDetail");
+}
+void DataAccessAuditPolicyContentForm::setDataAccessLogDetail(const std::string& value) {
+  doc().setFormField(path(), "dataAccessLogDetail", value);
+}
+std::string DataAccessAuditPolicyContentForm::queryTextLogging() const {
+  return doc().formField(path(), "queryTextLogging");
+}
+void DataAccessAuditPolicyContentForm::setQueryTextLogging(const std::string& value) {
+  doc().setFormField(path(), "queryTextLogging", value);
+}
+std::string DataAccessAuditPolicyContentForm::anomalyDetectionEnabled() const {
+  return doc().formField(path(), "anomalyDetectionEnabled");
+}
+void DataAccessAuditPolicyContentForm::setAnomalyDetectionEnabled(const std::string& value) {
+  doc().setFormField(path(), "anomalyDetectionEnabled", value);
+}
+std::string DataAccessAuditPolicyContentForm::anomalySignals() const {
+  return doc().formField(path(), "anomalySignals");
+}
+void DataAccessAuditPolicyContentForm::setAnomalySignals(const std::string& value) {
+  doc().setFormField(path(), "anomalySignals", value);
+}
+std::string DataAccessAuditPolicyContentForm::dataBreachDetection() const {
+  return doc().formField(path(), "dataBreachDetection");
+}
+void DataAccessAuditPolicyContentForm::setDataBreachDetection(const std::string& value) {
+  doc().setFormField(path(), "dataBreachDetection", value);
+}
+std::string DataAccessAuditPolicyContentForm::dataAccessReviewCycle() const {
+  return doc().formField(path(), "dataAccessReviewCycle");
+}
+void DataAccessAuditPolicyContentForm::setDataAccessReviewCycle(const std::string& value) {
+  doc().setFormField(path(), "dataAccessReviewCycle", value);
+}
+std::string DataAccessAuditPolicyContentForm::privilegedQueryAlerts() const {
+  return doc().formField(path(), "privilegedQueryAlerts");
+}
+void DataAccessAuditPolicyContentForm::setPrivilegedQueryAlerts(const std::string& value) {
+  doc().setFormField(path(), "privilegedQueryAlerts", value);
+}
+std::string DataAccessAuditPolicyContentForm::complianceReportingEnabled() const {
+  return doc().formField(path(), "complianceReportingEnabled");
+}
+void DataAccessAuditPolicyContentForm::setComplianceReportingEnabled(const std::string& value) {
+  doc().setFormField(path(), "complianceReportingEnabled", value);
+}
+std::string DataAccessAuditPolicyContentForm::dataAccessRetention() const {
+  return doc().formField(path(), "dataAccessRetention");
+}
+void DataAccessAuditPolicyContentForm::setDataAccessRetention(const std::string& value) {
+  doc().setFormField(path(), "dataAccessRetention", value);
 }
 
 DataAccessEventPolicyContentForm::DataAccessEventPolicyContentForm(som::SpecDocument& doc, std::string path)
@@ -40391,6 +42531,99 @@ void DataIntegrationPointsIntegrationSummaryForm::setIntegrationDebt(const std::
   doc().setFormField(path(), "integrationDebt", value);
 }
 
+DataMaskingPolicyContentForm::DataMaskingPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataMaskingPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void DataMaskingPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataMaskingPolicyContentForm::dynamicDataMaskingEnabled() const {
+  return doc().formField(path(), "dynamicDataMaskingEnabled");
+}
+void DataMaskingPolicyContentForm::setDynamicDataMaskingEnabled(const std::string& value) {
+  doc().setFormField(path(), "dynamicDataMaskingEnabled", value);
+}
+std::string DataMaskingPolicyContentForm::dynamicMaskingRules() const {
+  return doc().formField(path(), "dynamicMaskingRules");
+}
+void DataMaskingPolicyContentForm::setDynamicMaskingRules(const std::string& value) {
+  doc().setFormField(path(), "dynamicMaskingRules", value);
+}
+std::string DataMaskingPolicyContentForm::dynamicMaskingScope() const {
+  return doc().formField(path(), "dynamicMaskingScope");
+}
+void DataMaskingPolicyContentForm::setDynamicMaskingScope(const std::string& value) {
+  doc().setFormField(path(), "dynamicMaskingScope", value);
+}
+std::string DataMaskingPolicyContentForm::staticMaskingForNonProduction() const {
+  return doc().formField(path(), "staticMaskingForNonProduction");
+}
+void DataMaskingPolicyContentForm::setStaticMaskingForNonProduction(const std::string& value) {
+  doc().setFormField(path(), "staticMaskingForNonProduction", value);
+}
+std::string DataMaskingPolicyContentForm::staticMaskingTool() const {
+  return doc().formField(path(), "staticMaskingTool");
+}
+void DataMaskingPolicyContentForm::setStaticMaskingTool(const std::string& value) {
+  doc().setFormField(path(), "staticMaskingTool", value);
+}
+std::string DataMaskingPolicyContentForm::maskingPreservesFormat() const {
+  return doc().formField(path(), "maskingPreservesFormat");
+}
+void DataMaskingPolicyContentForm::setMaskingPreservesFormat(const std::string& value) {
+  doc().setFormField(path(), "maskingPreservesFormat", value);
+}
+std::string DataMaskingPolicyContentForm::maskingReversibility() const {
+  return doc().formField(path(), "maskingReversibility");
+}
+void DataMaskingPolicyContentForm::setMaskingReversibility(const std::string& value) {
+  doc().setFormField(path(), "maskingReversibility", value);
+}
+std::string DataMaskingPolicyContentForm::piiMaskingPolicy() const {
+  return doc().formField(path(), "piiMaskingPolicy");
+}
+void DataMaskingPolicyContentForm::setPiiMaskingPolicy(const std::string& value) {
+  doc().setFormField(path(), "piiMaskingPolicy", value);
+}
+std::string DataMaskingPolicyContentForm::emailMaskingFormat() const {
+  return doc().formField(path(), "emailMaskingFormat");
+}
+void DataMaskingPolicyContentForm::setEmailMaskingFormat(const std::string& value) {
+  doc().setFormField(path(), "emailMaskingFormat", value);
+}
+std::string DataMaskingPolicyContentForm::phoneMaskingFormat() const {
+  return doc().formField(path(), "phoneMaskingFormat");
+}
+void DataMaskingPolicyContentForm::setPhoneMaskingFormat(const std::string& value) {
+  doc().setFormField(path(), "phoneMaskingFormat", value);
+}
+std::string DataMaskingPolicyContentForm::addressMaskingFormat() const {
+  return doc().formField(path(), "addressMaskingFormat");
+}
+void DataMaskingPolicyContentForm::setAddressMaskingFormat(const std::string& value) {
+  doc().setFormField(path(), "addressMaskingFormat", value);
+}
+std::string DataMaskingPolicyContentForm::financialDataMasking() const {
+  return doc().formField(path(), "financialDataMasking");
+}
+void DataMaskingPolicyContentForm::setFinancialDataMasking(const std::string& value) {
+  doc().setFormField(path(), "financialDataMasking", value);
+}
+std::string DataMaskingPolicyContentForm::maskingAuditTrail() const {
+  return doc().formField(path(), "maskingAuditTrail");
+}
+void DataMaskingPolicyContentForm::setMaskingAuditTrail(const std::string& value) {
+  doc().setFormField(path(), "maskingAuditTrail", value);
+}
+std::string DataMaskingPolicyContentForm::developmentDataStrategy() const {
+  return doc().formField(path(), "developmentDataStrategy");
+}
+void DataMaskingPolicyContentForm::setDevelopmentDataStrategy(const std::string& value) {
+  doc().setFormField(path(), "developmentDataStrategy", value);
+}
+
 DataMigrationStrategyApproachForm::DataMigrationStrategyApproachForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DataMigrationStrategyApproachForm::content() const {
@@ -42326,6 +44559,99 @@ void DataVolumeSummaryProjectionForm::setCapacityUtilization(const std::string& 
   doc().setFormField(path(), "capacityUtilization", value);
 }
 
+DatabaseAccessPolicyContentForm::DatabaseAccessPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DatabaseAccessPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void DatabaseAccessPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DatabaseAccessPolicyContentForm::databaseConnectionSecurity() const {
+  return doc().formField(path(), "databaseConnectionSecurity");
+}
+void DatabaseAccessPolicyContentForm::setDatabaseConnectionSecurity(const std::string& value) {
+  doc().setFormField(path(), "databaseConnectionSecurity", value);
+}
+std::string DatabaseAccessPolicyContentForm::minimumTlsVersion() const {
+  return doc().formField(path(), "minimumTlsVersion");
+}
+void DatabaseAccessPolicyContentForm::setMinimumTlsVersion(const std::string& value) {
+  doc().setFormField(path(), "minimumTlsVersion", value);
+}
+std::string DatabaseAccessPolicyContentForm::applicationAccountStrategy() const {
+  return doc().formField(path(), "applicationAccountStrategy");
+}
+void DatabaseAccessPolicyContentForm::setApplicationAccountStrategy(const std::string& value) {
+  doc().setFormField(path(), "applicationAccountStrategy", value);
+}
+std::string DatabaseAccessPolicyContentForm::applicationAccountPrivileges() const {
+  return doc().formField(path(), "applicationAccountPrivileges");
+}
+void DatabaseAccessPolicyContentForm::setApplicationAccountPrivileges(const std::string& value) {
+  doc().setFormField(path(), "applicationAccountPrivileges", value);
+}
+std::string DatabaseAccessPolicyContentForm::schemaOwnershipSeparation() const {
+  return doc().formField(path(), "schemaOwnershipSeparation");
+}
+void DatabaseAccessPolicyContentForm::setSchemaOwnershipSeparation(const std::string& value) {
+  doc().setFormField(path(), "schemaOwnershipSeparation", value);
+}
+std::string DatabaseAccessPolicyContentForm::directTableAccess() const {
+  return doc().formField(path(), "directTableAccess");
+}
+void DatabaseAccessPolicyContentForm::setDirectTableAccess(const std::string& value) {
+  doc().setFormField(path(), "directTableAccess", value);
+}
+std::string DatabaseAccessPolicyContentForm::databaseCredentialStorage() const {
+  return doc().formField(path(), "databaseCredentialStorage");
+}
+void DatabaseAccessPolicyContentForm::setDatabaseCredentialStorage(const std::string& value) {
+  doc().setFormField(path(), "databaseCredentialStorage", value);
+}
+std::string DatabaseAccessPolicyContentForm::credentialRotationPolicy() const {
+  return doc().formField(path(), "credentialRotationPolicy");
+}
+void DatabaseAccessPolicyContentForm::setCredentialRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "credentialRotationPolicy", value);
+}
+std::string DatabaseAccessPolicyContentForm::connectionPoolSecurity() const {
+  return doc().formField(path(), "connectionPoolSecurity");
+}
+void DatabaseAccessPolicyContentForm::setConnectionPoolSecurity(const std::string& value) {
+  doc().setFormField(path(), "connectionPoolSecurity", value);
+}
+std::string DatabaseAccessPolicyContentForm::privilegedAccessManagement() const {
+  return doc().formField(path(), "privilegedAccessManagement");
+}
+void DatabaseAccessPolicyContentForm::setPrivilegedAccessManagement(const std::string& value) {
+  doc().setFormField(path(), "privilegedAccessManagement", value);
+}
+std::string DatabaseAccessPolicyContentForm::databaseFirewallRules() const {
+  return doc().formField(path(), "databaseFirewallRules");
+}
+void DatabaseAccessPolicyContentForm::setDatabaseFirewallRules(const std::string& value) {
+  doc().setFormField(path(), "databaseFirewallRules", value);
+}
+std::string DatabaseAccessPolicyContentForm::sqlInjectionPrevention() const {
+  return doc().formField(path(), "sqlInjectionPrevention");
+}
+void DatabaseAccessPolicyContentForm::setSqlInjectionPrevention(const std::string& value) {
+  doc().setFormField(path(), "sqlInjectionPrevention", value);
+}
+std::string DatabaseAccessPolicyContentForm::queryComplexityLimits() const {
+  return doc().formField(path(), "queryComplexityLimits");
+}
+void DatabaseAccessPolicyContentForm::setQueryComplexityLimits(const std::string& value) {
+  doc().setFormField(path(), "queryComplexityLimits", value);
+}
+std::string DatabaseAccessPolicyContentForm::databaseActivityMonitoring() const {
+  return doc().formField(path(), "databaseActivityMonitoring");
+}
+void DatabaseAccessPolicyContentForm::setDatabaseActivityMonitoring(const std::string& value) {
+  doc().setFormField(path(), "databaseActivityMonitoring", value);
+}
+
 DatabaseCompatibilityEntryConnectionForm::DatabaseCompatibilityEntryConnectionForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DatabaseCompatibilityEntryConnectionForm::content() const {
@@ -42459,6 +44785,61 @@ std::string DatabaseCompatibilityEntrySupportForm::cloudVariants() const {
 }
 void DatabaseCompatibilityEntrySupportForm::setCloudVariants(const std::string& value) {
   doc().setFormField(path(), "cloudVariants", value);
+}
+
+DatabaseEncryptionPolicyContentForm::DatabaseEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DatabaseEncryptionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void DatabaseEncryptionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DatabaseEncryptionPolicyContentForm::databaseEncryptionMethod() const {
+  return doc().formField(path(), "databaseEncryptionMethod");
+}
+void DatabaseEncryptionPolicyContentForm::setDatabaseEncryptionMethod(const std::string& value) {
+  doc().setFormField(path(), "databaseEncryptionMethod", value);
+}
+std::string DatabaseEncryptionPolicyContentForm::encryptedColumnStrategy() const {
+  return doc().formField(path(), "encryptedColumnStrategy");
+}
+void DatabaseEncryptionPolicyContentForm::setEncryptedColumnStrategy(const std::string& value) {
+  doc().setFormField(path(), "encryptedColumnStrategy", value);
+}
+std::optional<bool> DatabaseEncryptionPolicyContentForm::indexOnEncryptedColumns() const {
+  const std::string v = doc().formField(path(), "indexOnEncryptedColumns");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void DatabaseEncryptionPolicyContentForm::setIndexOnEncryptedColumns(std::optional<bool> value) {
+  doc().setFormField(path(), "indexOnEncryptedColumns", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string DatabaseEncryptionPolicyContentForm::searchOnEncryptedData() const {
+  return doc().formField(path(), "searchOnEncryptedData");
+}
+void DatabaseEncryptionPolicyContentForm::setSearchOnEncryptedData(const std::string& value) {
+  doc().setFormField(path(), "searchOnEncryptedData", value);
+}
+std::optional<bool> DatabaseEncryptionPolicyContentForm::connectionEncryption() const {
+  const std::string v = doc().formField(path(), "connectionEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void DatabaseEncryptionPolicyContentForm::setConnectionEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "connectionEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string DatabaseEncryptionPolicyContentForm::databaseEngine() const {
+  return doc().formField(path(), "databaseEngine");
+}
+void DatabaseEncryptionPolicyContentForm::setDatabaseEngine(const std::string& value) {
+  doc().setFormField(path(), "databaseEngine", value);
+}
+std::string DatabaseEncryptionPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void DatabaseEncryptionPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 DebuggingConfigurationBreakpointsForm::DebuggingConfigurationBreakpointsForm(som::SpecDocument& doc, std::string path)
@@ -48649,6 +51030,85 @@ void EncryptedDataCategoryEntryContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
+EncryptionAtRestPolicyContentForm::EncryptionAtRestPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string EncryptionAtRestPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void EncryptionAtRestPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string EncryptionAtRestPolicyContentForm::defaultAlgorithm() const {
+  return doc().formField(path(), "defaultAlgorithm");
+}
+void EncryptionAtRestPolicyContentForm::setDefaultAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "defaultAlgorithm", value);
+}
+std::optional<long> EncryptionAtRestPolicyContentForm::defaultKeyLength() const {
+  const std::string v = doc().formField(path(), "defaultKeyLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void EncryptionAtRestPolicyContentForm::setDefaultKeyLength(std::optional<long> value) {
+  doc().setFormField(path(), "defaultKeyLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::string EncryptionAtRestPolicyContentForm::cipherMode() const {
+  return doc().formField(path(), "cipherMode");
+}
+void EncryptionAtRestPolicyContentForm::setCipherMode(const std::string& value) {
+  doc().setFormField(path(), "cipherMode", value);
+}
+std::string EncryptionAtRestPolicyContentForm::encryptionLayer() const {
+  return doc().formField(path(), "encryptionLayer");
+}
+void EncryptionAtRestPolicyContentForm::setEncryptionLayer(const std::string& value) {
+  doc().setFormField(path(), "encryptionLayer", value);
+}
+std::optional<bool> EncryptionAtRestPolicyContentForm::fieldLevelEncryption() const {
+  const std::string v = doc().formField(path(), "fieldLevelEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void EncryptionAtRestPolicyContentForm::setFieldLevelEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "fieldLevelEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> EncryptionAtRestPolicyContentForm::transparentDataEncryption() const {
+  const std::string v = doc().formField(path(), "transparentDataEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void EncryptionAtRestPolicyContentForm::setTransparentDataEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "transparentDataEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> EncryptionAtRestPolicyContentForm::fullDiskEncryption() const {
+  const std::string v = doc().formField(path(), "fullDiskEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void EncryptionAtRestPolicyContentForm::setFullDiskEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "fullDiskEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> EncryptionAtRestPolicyContentForm::minimizeSensitiveStorage() const {
+  const std::string v = doc().formField(path(), "minimizeSensitiveStorage");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void EncryptionAtRestPolicyContentForm::setMinimizeSensitiveStorage(std::optional<bool> value) {
+  doc().setFormField(path(), "minimizeSensitiveStorage", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string EncryptionAtRestPolicyContentForm::complianceFramework() const {
+  return doc().formField(path(), "complianceFramework");
+}
+void EncryptionAtRestPolicyContentForm::setComplianceFramework(const std::string& value) {
+  doc().setFormField(path(), "complianceFramework", value);
+}
+std::string EncryptionAtRestPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void EncryptionAtRestPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 EnterpriseSystemCompatibilityEntryContentForm::EnterpriseSystemCompatibilityEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string EnterpriseSystemCompatibilityEntryContentForm::content() const {
@@ -54213,6 +56673,432 @@ std::string FieldValidationRuleContentForm::triggerEvent() const {
 }
 void FieldValidationRuleContentForm::setTriggerEvent(const std::string& value) {
   doc().setFormField(path(), "triggerEvent", value);
+}
+
+FileAccessControlPolicyContentForm::FileAccessControlPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FileAccessControlPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void FileAccessControlPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string FileAccessControlPolicyContentForm::fileAccessModel() const {
+  return doc().formField(path(), "fileAccessModel");
+}
+void FileAccessControlPolicyContentForm::setFileAccessModel(const std::string& value) {
+  doc().setFormField(path(), "fileAccessModel", value);
+}
+std::optional<bool> FileAccessControlPolicyContentForm::authenticationRequired() const {
+  const std::string v = doc().formField(path(), "authenticationRequired");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setAuthenticationRequired(std::optional<bool> value) {
+  doc().setFormField(path(), "authenticationRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileAccessControlPolicyContentForm::anonymousDownloadAllowed() const {
+  const std::string v = doc().formField(path(), "anonymousDownloadAllowed");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setAnonymousDownloadAllowed(std::optional<bool> value) {
+  doc().setFormField(path(), "anonymousDownloadAllowed", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileAccessControlPolicyContentForm::fileOwnershipModel() const {
+  return doc().formField(path(), "fileOwnershipModel");
+}
+void FileAccessControlPolicyContentForm::setFileOwnershipModel(const std::string& value) {
+  doc().setFormField(path(), "fileOwnershipModel", value);
+}
+std::string FileAccessControlPolicyContentForm::permissionGranularity() const {
+  return doc().formField(path(), "permissionGranularity");
+}
+void FileAccessControlPolicyContentForm::setPermissionGranularity(const std::string& value) {
+  doc().setFormField(path(), "permissionGranularity", value);
+}
+std::optional<bool> FileAccessControlPolicyContentForm::folderLevelPermissions() const {
+  const std::string v = doc().formField(path(), "folderLevelPermissions");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setFolderLevelPermissions(std::optional<bool> value) {
+  doc().setFormField(path(), "folderLevelPermissions", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileAccessControlPolicyContentForm::permissionInheritance() const {
+  return doc().formField(path(), "permissionInheritance");
+}
+void FileAccessControlPolicyContentForm::setPermissionInheritance(const std::string& value) {
+  doc().setFormField(path(), "permissionInheritance", value);
+}
+std::optional<bool> FileAccessControlPolicyContentForm::sharingEnabled() const {
+  const std::string v = doc().formField(path(), "sharingEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setSharingEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "sharingEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileAccessControlPolicyContentForm::shareableLinkSupport() const {
+  const std::string v = doc().formField(path(), "shareableLinkSupport");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setShareableLinkSupport(std::optional<bool> value) {
+  doc().setFormField(path(), "shareableLinkSupport", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileAccessControlPolicyContentForm::shareableLinkExpiration() const {
+  return doc().formField(path(), "shareableLinkExpiration");
+}
+void FileAccessControlPolicyContentForm::setShareableLinkExpiration(const std::string& value) {
+  doc().setFormField(path(), "shareableLinkExpiration", value);
+}
+std::string FileAccessControlPolicyContentForm::externalSharingPolicy() const {
+  return doc().formField(path(), "externalSharingPolicy");
+}
+void FileAccessControlPolicyContentForm::setExternalSharingPolicy(const std::string& value) {
+  doc().setFormField(path(), "externalSharingPolicy", value);
+}
+std::string FileAccessControlPolicyContentForm::storageLocationPolicy() const {
+  return doc().formField(path(), "storageLocationPolicy");
+}
+void FileAccessControlPolicyContentForm::setStorageLocationPolicy(const std::string& value) {
+  doc().setFormField(path(), "storageLocationPolicy", value);
+}
+std::string FileAccessControlPolicyContentForm::tenantStorageIsolation() const {
+  return doc().formField(path(), "tenantStorageIsolation");
+}
+void FileAccessControlPolicyContentForm::setTenantStorageIsolation(const std::string& value) {
+  doc().setFormField(path(), "tenantStorageIsolation", value);
+}
+std::string FileAccessControlPolicyContentForm::filesystemPermissions() const {
+  return doc().formField(path(), "filesystemPermissions");
+}
+void FileAccessControlPolicyContentForm::setFilesystemPermissions(const std::string& value) {
+  doc().setFormField(path(), "filesystemPermissions", value);
+}
+std::optional<bool> FileAccessControlPolicyContentForm::presignedUrlSupport() const {
+  const std::string v = doc().formField(path(), "presignedUrlSupport");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileAccessControlPolicyContentForm::setPresignedUrlSupport(std::optional<bool> value) {
+  doc().setFormField(path(), "presignedUrlSupport", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileAccessControlPolicyContentForm::presignedUrlMaxExpiry() const {
+  return doc().formField(path(), "presignedUrlMaxExpiry");
+}
+void FileAccessControlPolicyContentForm::setPresignedUrlMaxExpiry(const std::string& value) {
+  doc().setFormField(path(), "presignedUrlMaxExpiry", value);
+}
+std::string FileAccessControlPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void FileAccessControlPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+FileDownloadSecurityPolicyContentForm::FileDownloadSecurityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FileDownloadSecurityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void FileDownloadSecurityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::downloadAuthenticationRequired() const {
+  const std::string v = doc().formField(path(), "downloadAuthenticationRequired");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setDownloadAuthenticationRequired(std::optional<bool> value) {
+  doc().setFormField(path(), "downloadAuthenticationRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::downloadRateLimiting() const {
+  const std::string v = doc().formField(path(), "downloadRateLimiting");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setDownloadRateLimiting(std::optional<bool> value) {
+  doc().setFormField(path(), "downloadRateLimiting", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileDownloadSecurityPolicyContentForm::downloadRateLimit() const {
+  return doc().formField(path(), "downloadRateLimit");
+}
+void FileDownloadSecurityPolicyContentForm::setDownloadRateLimit(const std::string& value) {
+  doc().setFormField(path(), "downloadRateLimit", value);
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::bandwidthThrottling() const {
+  const std::string v = doc().formField(path(), "bandwidthThrottling");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setBandwidthThrottling(std::optional<bool> value) {
+  doc().setFormField(path(), "bandwidthThrottling", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileDownloadSecurityPolicyContentForm::contentDispositionPolicy() const {
+  return doc().formField(path(), "contentDispositionPolicy");
+}
+void FileDownloadSecurityPolicyContentForm::setContentDispositionPolicy(const std::string& value) {
+  doc().setFormField(path(), "contentDispositionPolicy", value);
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::cdnDelivery() const {
+  const std::string v = doc().formField(path(), "cdnDelivery");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setCdnDelivery(std::optional<bool> value) {
+  doc().setFormField(path(), "cdnDelivery", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::hotlinkPrevention() const {
+  const std::string v = doc().formField(path(), "hotlinkPrevention");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setHotlinkPrevention(std::optional<bool> value) {
+  doc().setFormField(path(), "hotlinkPrevention", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileDownloadSecurityPolicyContentForm::cacheControlPolicy() const {
+  return doc().formField(path(), "cacheControlPolicy");
+}
+void FileDownloadSecurityPolicyContentForm::setCacheControlPolicy(const std::string& value) {
+  doc().setFormField(path(), "cacheControlPolicy", value);
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::downloadAuditLogging() const {
+  const std::string v = doc().formField(path(), "downloadAuditLogging");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setDownloadAuditLogging(std::optional<bool> value) {
+  doc().setFormField(path(), "downloadAuditLogging", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::downloadAlerts() const {
+  const std::string v = doc().formField(path(), "downloadAlerts");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setDownloadAlerts(std::optional<bool> value) {
+  doc().setFormField(path(), "downloadAlerts", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileDownloadSecurityPolicyContentForm::watermarking() const {
+  const std::string v = doc().formField(path(), "watermarking");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileDownloadSecurityPolicyContentForm::setWatermarking(std::optional<bool> value) {
+  doc().setFormField(path(), "watermarking", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileDownloadSecurityPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void FileDownloadSecurityPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+FileStorageEncryptionPolicyContentForm::FileStorageEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FileStorageEncryptionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void FileStorageEncryptionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string FileStorageEncryptionPolicyContentForm::fileEncryptionMethod() const {
+  return doc().formField(path(), "fileEncryptionMethod");
+}
+void FileStorageEncryptionPolicyContentForm::setFileEncryptionMethod(const std::string& value) {
+  doc().setFormField(path(), "fileEncryptionMethod", value);
+}
+std::string FileStorageEncryptionPolicyContentForm::cloudStorageEncryption() const {
+  return doc().formField(path(), "cloudStorageEncryption");
+}
+void FileStorageEncryptionPolicyContentForm::setCloudStorageEncryption(const std::string& value) {
+  doc().setFormField(path(), "cloudStorageEncryption", value);
+}
+std::optional<bool> FileStorageEncryptionPolicyContentForm::clientSideEncryption() const {
+  const std::string v = doc().formField(path(), "clientSideEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileStorageEncryptionPolicyContentForm::setClientSideEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "clientSideEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileStorageEncryptionPolicyContentForm::encryptedFileFormats() const {
+  return doc().formField(path(), "encryptedFileFormats");
+}
+void FileStorageEncryptionPolicyContentForm::setEncryptedFileFormats(const std::string& value) {
+  doc().setFormField(path(), "encryptedFileFormats", value);
+}
+std::optional<bool> FileStorageEncryptionPolicyContentForm::localDeviceEncryption() const {
+  const std::string v = doc().formField(path(), "localDeviceEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileStorageEncryptionPolicyContentForm::setLocalDeviceEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "localDeviceEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileStorageEncryptionPolicyContentForm::temporaryFileEncryption() const {
+  const std::string v = doc().formField(path(), "temporaryFileEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileStorageEncryptionPolicyContentForm::setTemporaryFileEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "temporaryFileEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileStorageEncryptionPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void FileStorageEncryptionPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+FileUploadValidationPolicyContentForm::FileUploadValidationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FileUploadValidationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void FileUploadValidationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string FileUploadValidationPolicyContentForm::extensionValidationStrategy() const {
+  return doc().formField(path(), "extensionValidationStrategy");
+}
+void FileUploadValidationPolicyContentForm::setExtensionValidationStrategy(const std::string& value) {
+  doc().setFormField(path(), "extensionValidationStrategy", value);
+}
+std::string FileUploadValidationPolicyContentForm::allowedFileExtensions() const {
+  return doc().formField(path(), "allowedFileExtensions");
+}
+void FileUploadValidationPolicyContentForm::setAllowedFileExtensions(const std::string& value) {
+  doc().setFormField(path(), "allowedFileExtensions", value);
+}
+std::string FileUploadValidationPolicyContentForm::blockedFileExtensions() const {
+  return doc().formField(path(), "blockedFileExtensions");
+}
+void FileUploadValidationPolicyContentForm::setBlockedFileExtensions(const std::string& value) {
+  doc().setFormField(path(), "blockedFileExtensions", value);
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::doubleExtensionPrevention() const {
+  const std::string v = doc().formField(path(), "doubleExtensionPrevention");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setDoubleExtensionPrevention(std::optional<bool> value) {
+  doc().setFormField(path(), "doubleExtensionPrevention", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::contentTypeValidation() const {
+  const std::string v = doc().formField(path(), "contentTypeValidation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setContentTypeValidation(std::optional<bool> value) {
+  doc().setFormField(path(), "contentTypeValidation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::fileSignatureValidation() const {
+  const std::string v = doc().formField(path(), "fileSignatureValidation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setFileSignatureValidation(std::optional<bool> value) {
+  doc().setFormField(path(), "fileSignatureValidation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileUploadValidationPolicyContentForm::signatureMismatchAction() const {
+  return doc().formField(path(), "signatureMismatchAction");
+}
+void FileUploadValidationPolicyContentForm::setSignatureMismatchAction(const std::string& value) {
+  doc().setFormField(path(), "signatureMismatchAction", value);
+}
+std::string FileUploadValidationPolicyContentForm::filenameStrategy() const {
+  return doc().formField(path(), "filenameStrategy");
+}
+void FileUploadValidationPolicyContentForm::setFilenameStrategy(const std::string& value) {
+  doc().setFormField(path(), "filenameStrategy", value);
+}
+std::optional<long> FileUploadValidationPolicyContentForm::filenameMaxLength() const {
+  const std::string v = doc().formField(path(), "filenameMaxLength");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void FileUploadValidationPolicyContentForm::setFilenameMaxLength(std::optional<long> value) {
+  doc().setFormField(path(), "filenameMaxLength", value.has_value() ? std::to_string(*value) : "");
+}
+std::string FileUploadValidationPolicyContentForm::filenameAllowedCharacters() const {
+  return doc().formField(path(), "filenameAllowedCharacters");
+}
+void FileUploadValidationPolicyContentForm::setFilenameAllowedCharacters(const std::string& value) {
+  doc().setFormField(path(), "filenameAllowedCharacters", value);
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::pathTraversalPrevention() const {
+  const std::string v = doc().formField(path(), "pathTraversalPrevention");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setPathTraversalPrevention(std::optional<bool> value) {
+  doc().setFormField(path(), "pathTraversalPrevention", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::nullBytePrevention() const {
+  const std::string v = doc().formField(path(), "nullBytePrevention");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setNullBytePrevention(std::optional<bool> value) {
+  doc().setFormField(path(), "nullBytePrevention", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileUploadValidationPolicyContentForm::maxFileSizeBytes() const {
+  return doc().formField(path(), "maxFileSizeBytes");
+}
+void FileUploadValidationPolicyContentForm::setMaxFileSizeBytes(const std::string& value) {
+  doc().setFormField(path(), "maxFileSizeBytes", value);
+}
+std::string FileUploadValidationPolicyContentForm::maxUploadBatchSize() const {
+  return doc().formField(path(), "maxUploadBatchSize");
+}
+void FileUploadValidationPolicyContentForm::setMaxUploadBatchSize(const std::string& value) {
+  doc().setFormField(path(), "maxUploadBatchSize", value);
+}
+std::optional<long> FileUploadValidationPolicyContentForm::maxConcurrentUploads() const {
+  const std::string v = doc().formField(path(), "maxConcurrentUploads");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void FileUploadValidationPolicyContentForm::setMaxConcurrentUploads(std::optional<long> value) {
+  doc().setFormField(path(), "maxConcurrentUploads", value.has_value() ? std::to_string(*value) : "");
+}
+std::string FileUploadValidationPolicyContentForm::compressedFileSizeLimit() const {
+  return doc().formField(path(), "compressedFileSizeLimit");
+}
+void FileUploadValidationPolicyContentForm::setCompressedFileSizeLimit(const std::string& value) {
+  doc().setFormField(path(), "compressedFileSizeLimit", value);
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::imageRewriting() const {
+  const std::string v = doc().formField(path(), "imageRewriting");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setImageRewriting(std::optional<bool> value) {
+  doc().setFormField(path(), "imageRewriting", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::documentSanitization() const {
+  const std::string v = doc().formField(path(), "documentSanitization");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setDocumentSanitization(std::optional<bool> value) {
+  doc().setFormField(path(), "documentSanitization", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> FileUploadValidationPolicyContentForm::metadataStripping() const {
+  const std::string v = doc().formField(path(), "metadataStripping");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void FileUploadValidationPolicyContentForm::setMetadataStripping(std::optional<bool> value) {
+  doc().setFormField(path(), "metadataStripping", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FileUploadValidationPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void FileUploadValidationPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 FirewallRequirementsAdvancedForm::FirewallRequirementsAdvancedForm(som::SpecDocument& doc, std::string path)
@@ -63961,6 +66847,111 @@ void LogStoragePolicyContentForm::setAccessPermissions(const std::string& value)
   doc().setFormField(path(), "accessPermissions", value);
 }
 
+LoginFlowConfigurationContentForm::LoginFlowConfigurationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string LoginFlowConfigurationContentForm::content() const {
+  return doc().content(path());
+}
+void LoginFlowConfigurationContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string LoginFlowConfigurationContentForm::loginEntryPoint() const {
+  return doc().formField(path(), "loginEntryPoint");
+}
+void LoginFlowConfigurationContentForm::setLoginEntryPoint(const std::string& value) {
+  doc().setFormField(path(), "loginEntryPoint", value);
+}
+std::string LoginFlowConfigurationContentForm::credentialSubmissionMethod() const {
+  return doc().formField(path(), "credentialSubmissionMethod");
+}
+void LoginFlowConfigurationContentForm::setCredentialSubmissionMethod(const std::string& value) {
+  doc().setFormField(path(), "credentialSubmissionMethod", value);
+}
+std::string LoginFlowConfigurationContentForm::preAuthenticationChecks() const {
+  return doc().formField(path(), "preAuthenticationChecks");
+}
+void LoginFlowConfigurationContentForm::setPreAuthenticationChecks(const std::string& value) {
+  doc().setFormField(path(), "preAuthenticationChecks", value);
+}
+std::string LoginFlowConfigurationContentForm::authenticationEndpoint() const {
+  return doc().formField(path(), "authenticationEndpoint");
+}
+void LoginFlowConfigurationContentForm::setAuthenticationEndpoint(const std::string& value) {
+  doc().setFormField(path(), "authenticationEndpoint", value);
+}
+std::string LoginFlowConfigurationContentForm::allowedAuthenticationMethods() const {
+  return doc().formField(path(), "allowedAuthenticationMethods");
+}
+void LoginFlowConfigurationContentForm::setAllowedAuthenticationMethods(const std::string& value) {
+  doc().setFormField(path(), "allowedAuthenticationMethods", value);
+}
+std::string LoginFlowConfigurationContentForm::mfaChallengePresentation() const {
+  return doc().formField(path(), "mfaChallengePresentation");
+}
+void LoginFlowConfigurationContentForm::setMfaChallengePresentation(const std::string& value) {
+  doc().setFormField(path(), "mfaChallengePresentation", value);
+}
+std::string LoginFlowConfigurationContentForm::rememberMeEnabled() const {
+  return doc().formField(path(), "rememberMeEnabled");
+}
+void LoginFlowConfigurationContentForm::setRememberMeEnabled(const std::string& value) {
+  doc().setFormField(path(), "rememberMeEnabled", value);
+}
+std::string LoginFlowConfigurationContentForm::rememberMeDuration() const {
+  return doc().formField(path(), "rememberMeDuration");
+}
+void LoginFlowConfigurationContentForm::setRememberMeDuration(const std::string& value) {
+  doc().setFormField(path(), "rememberMeDuration", value);
+}
+std::string LoginFlowConfigurationContentForm::socialLoginEnabled() const {
+  return doc().formField(path(), "socialLoginEnabled");
+}
+void LoginFlowConfigurationContentForm::setSocialLoginEnabled(const std::string& value) {
+  doc().setFormField(path(), "socialLoginEnabled", value);
+}
+std::string LoginFlowConfigurationContentForm::socialLoginProviders() const {
+  return doc().formField(path(), "socialLoginProviders");
+}
+void LoginFlowConfigurationContentForm::setSocialLoginProviders(const std::string& value) {
+  doc().setFormField(path(), "socialLoginProviders", value);
+}
+std::string LoginFlowConfigurationContentForm::passwordlessLoginEnabled() const {
+  return doc().formField(path(), "passwordlessLoginEnabled");
+}
+void LoginFlowConfigurationContentForm::setPasswordlessLoginEnabled(const std::string& value) {
+  doc().setFormField(path(), "passwordlessLoginEnabled", value);
+}
+std::string LoginFlowConfigurationContentForm::passwordlessLoginMethods() const {
+  return doc().formField(path(), "passwordlessLoginMethods");
+}
+void LoginFlowConfigurationContentForm::setPasswordlessLoginMethods(const std::string& value) {
+  doc().setFormField(path(), "passwordlessLoginMethods", value);
+}
+std::string LoginFlowConfigurationContentForm::postAuthenticationAction() const {
+  return doc().formField(path(), "postAuthenticationAction");
+}
+void LoginFlowConfigurationContentForm::setPostAuthenticationAction(const std::string& value) {
+  doc().setFormField(path(), "postAuthenticationAction", value);
+}
+std::string LoginFlowConfigurationContentForm::concurrentLoginPolicy() const {
+  return doc().formField(path(), "concurrentLoginPolicy");
+}
+void LoginFlowConfigurationContentForm::setConcurrentLoginPolicy(const std::string& value) {
+  doc().setFormField(path(), "concurrentLoginPolicy", value);
+}
+std::string LoginFlowConfigurationContentForm::loginNotification() const {
+  return doc().formField(path(), "loginNotification");
+}
+void LoginFlowConfigurationContentForm::setLoginNotification(const std::string& value) {
+  doc().setFormField(path(), "loginNotification", value);
+}
+std::string LoginFlowConfigurationContentForm::loginFromNewDeviceAction() const {
+  return doc().formField(path(), "loginFromNewDeviceAction");
+}
+void LoginFlowConfigurationContentForm::setLoginFromNewDeviceAction(const std::string& value) {
+  doc().setFormField(path(), "loginFromNewDeviceAction", value);
+}
+
 LoginFlowStepEntryBehaviorForm::LoginFlowStepEntryBehaviorForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string LoginFlowStepEntryBehaviorForm::content() const {
@@ -65741,6 +68732,87 @@ std::string MfaCategoryRequirementEntryTimingForm::rememberDeviceDuration() cons
 }
 void MfaCategoryRequirementEntryTimingForm::setRememberDeviceDuration(const std::string& value) {
   doc().setFormField(path(), "rememberDeviceDuration", value);
+}
+
+MfaConfigurationContentForm::MfaConfigurationContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MfaConfigurationContentForm::content() const {
+  return doc().content(path());
+}
+void MfaConfigurationContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string MfaConfigurationContentForm::mfaRequired() const {
+  return doc().formField(path(), "mfaRequired");
+}
+void MfaConfigurationContentForm::setMfaRequired(const std::string& value) {
+  doc().setFormField(path(), "mfaRequired", value);
+}
+std::string MfaConfigurationContentForm::mfaEnforcementScope() const {
+  return doc().formField(path(), "mfaEnforcementScope");
+}
+void MfaConfigurationContentForm::setMfaEnforcementScope(const std::string& value) {
+  doc().setFormField(path(), "mfaEnforcementScope", value);
+}
+std::string MfaConfigurationContentForm::defaultSecondFactor() const {
+  return doc().formField(path(), "defaultSecondFactor");
+}
+void MfaConfigurationContentForm::setDefaultSecondFactor(const std::string& value) {
+  doc().setFormField(path(), "defaultSecondFactor", value);
+}
+std::string MfaConfigurationContentForm::allowedSecondFactors() const {
+  return doc().formField(path(), "allowedSecondFactors");
+}
+void MfaConfigurationContentForm::setAllowedSecondFactors(const std::string& value) {
+  doc().setFormField(path(), "allowedSecondFactors", value);
+}
+std::string MfaConfigurationContentForm::assuranceLevelTarget() const {
+  return doc().formField(path(), "assuranceLevelTarget");
+}
+void MfaConfigurationContentForm::setAssuranceLevelTarget(const std::string& value) {
+  doc().setFormField(path(), "assuranceLevelTarget", value);
+}
+std::string MfaConfigurationContentForm::phishingResistanceRequired() const {
+  return doc().formField(path(), "phishingResistanceRequired");
+}
+void MfaConfigurationContentForm::setPhishingResistanceRequired(const std::string& value) {
+  doc().setFormField(path(), "phishingResistanceRequired", value);
+}
+std::string MfaConfigurationContentForm::stepUpAuthenticationEnabled() const {
+  return doc().formField(path(), "stepUpAuthenticationEnabled");
+}
+void MfaConfigurationContentForm::setStepUpAuthenticationEnabled(const std::string& value) {
+  doc().setFormField(path(), "stepUpAuthenticationEnabled", value);
+}
+std::string MfaConfigurationContentForm::stepUpTriggers() const {
+  return doc().formField(path(), "stepUpTriggers");
+}
+void MfaConfigurationContentForm::setStepUpTriggers(const std::string& value) {
+  doc().setFormField(path(), "stepUpTriggers", value);
+}
+std::string MfaConfigurationContentForm::rememberDevicePolicy() const {
+  return doc().formField(path(), "rememberDevicePolicy");
+}
+void MfaConfigurationContentForm::setRememberDevicePolicy(const std::string& value) {
+  doc().setFormField(path(), "rememberDevicePolicy", value);
+}
+std::string MfaConfigurationContentForm::recoveryCodePolicy() const {
+  return doc().formField(path(), "recoveryCodePolicy");
+}
+void MfaConfigurationContentForm::setRecoveryCodePolicy(const std::string& value) {
+  doc().setFormField(path(), "recoveryCodePolicy", value);
+}
+std::string MfaConfigurationContentForm::enrollmentGracePeriod() const {
+  return doc().formField(path(), "enrollmentGracePeriod");
+}
+void MfaConfigurationContentForm::setEnrollmentGracePeriod(const std::string& value) {
+  doc().setFormField(path(), "enrollmentGracePeriod", value);
+}
+std::string MfaConfigurationContentForm::mfaBypassPolicy() const {
+  return doc().formField(path(), "mfaBypassPolicy");
+}
+void MfaConfigurationContentForm::setMfaBypassPolicy(const std::string& value) {
+  doc().setFormField(path(), "mfaBypassPolicy", value);
 }
 
 MigrationConsiderationsStrategyContentForm::MigrationConsiderationsStrategyContentForm(som::SpecDocument& doc, std::string path)
@@ -68772,6 +71844,59 @@ std::string MustPassCriterionEntryVerificationForm::toleranceAllowed() const {
 }
 void MustPassCriterionEntryVerificationForm::setToleranceAllowed(const std::string& value) {
   doc().setFormField(path(), "toleranceAllowed", value);
+}
+
+MutualTlsPolicyContentForm::MutualTlsPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MutualTlsPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void MutualTlsPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> MutualTlsPolicyContentForm::mtlsEnabled() const {
+  const std::string v = doc().formField(path(), "mtlsEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void MutualTlsPolicyContentForm::setMtlsEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "mtlsEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string MutualTlsPolicyContentForm::mtlsScope() const {
+  return doc().formField(path(), "mtlsScope");
+}
+void MutualTlsPolicyContentForm::setMtlsScope(const std::string& value) {
+  doc().setFormField(path(), "mtlsScope", value);
+}
+std::string MutualTlsPolicyContentForm::clientCertificateIssuance() const {
+  return doc().formField(path(), "clientCertificateIssuance");
+}
+void MutualTlsPolicyContentForm::setClientCertificateIssuance(const std::string& value) {
+  doc().setFormField(path(), "clientCertificateIssuance", value);
+}
+std::string MutualTlsPolicyContentForm::revocationChecking() const {
+  return doc().formField(path(), "revocationChecking");
+}
+void MutualTlsPolicyContentForm::setRevocationChecking(const std::string& value) {
+  doc().setFormField(path(), "revocationChecking", value);
+}
+std::string MutualTlsPolicyContentForm::fallbackOnMtlsFailure() const {
+  return doc().formField(path(), "fallbackOnMtlsFailure");
+}
+void MutualTlsPolicyContentForm::setFallbackOnMtlsFailure(const std::string& value) {
+  doc().setFormField(path(), "fallbackOnMtlsFailure", value);
+}
+std::string MutualTlsPolicyContentForm::clientCertificateRotation() const {
+  return doc().formField(path(), "clientCertificateRotation");
+}
+void MutualTlsPolicyContentForm::setClientCertificateRotation(const std::string& value) {
+  doc().setFormField(path(), "clientCertificateRotation", value);
+}
+std::string MutualTlsPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void MutualTlsPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 NativeAppRequirementsContentForm::NativeAppRequirementsContentForm(som::SpecDocument& doc, std::string path)
@@ -73346,6 +76471,273 @@ void ParticipantEntryContentForm::setTargetRole(const std::string& value) {
   doc().setFormField(path(), "targetRole", value);
 }
 
+PasswordLifecyclePolicyContentForm::PasswordLifecyclePolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PasswordLifecyclePolicyContentForm::content() const {
+  return doc().content(path());
+}
+void PasswordLifecyclePolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PasswordLifecyclePolicyContentForm::periodicRotationRequired() const {
+  return doc().formField(path(), "periodicRotationRequired");
+}
+void PasswordLifecyclePolicyContentForm::setPeriodicRotationRequired(const std::string& value) {
+  doc().setFormField(path(), "periodicRotationRequired", value);
+}
+std::string PasswordLifecyclePolicyContentForm::rotationPeriod() const {
+  return doc().formField(path(), "rotationPeriod");
+}
+void PasswordLifecyclePolicyContentForm::setRotationPeriod(const std::string& value) {
+  doc().setFormField(path(), "rotationPeriod", value);
+}
+std::string PasswordLifecyclePolicyContentForm::forceChangeOnCompromise() const {
+  return doc().formField(path(), "forceChangeOnCompromise");
+}
+void PasswordLifecyclePolicyContentForm::setForceChangeOnCompromise(const std::string& value) {
+  doc().setFormField(path(), "forceChangeOnCompromise", value);
+}
+std::string PasswordLifecyclePolicyContentForm::passwordHistoryDepth() const {
+  return doc().formField(path(), "passwordHistoryDepth");
+}
+void PasswordLifecyclePolicyContentForm::setPasswordHistoryDepth(const std::string& value) {
+  doc().setFormField(path(), "passwordHistoryDepth", value);
+}
+std::string PasswordLifecyclePolicyContentForm::minimumPasswordAge() const {
+  return doc().formField(path(), "minimumPasswordAge");
+}
+void PasswordLifecyclePolicyContentForm::setMinimumPasswordAge(const std::string& value) {
+  doc().setFormField(path(), "minimumPasswordAge", value);
+}
+std::string PasswordLifecyclePolicyContentForm::initialPasswordPolicy() const {
+  return doc().formField(path(), "initialPasswordPolicy");
+}
+void PasswordLifecyclePolicyContentForm::setInitialPasswordPolicy(const std::string& value) {
+  doc().setFormField(path(), "initialPasswordPolicy", value);
+}
+std::string PasswordLifecyclePolicyContentForm::temporaryPasswordExpiry() const {
+  return doc().formField(path(), "temporaryPasswordExpiry");
+}
+void PasswordLifecyclePolicyContentForm::setTemporaryPasswordExpiry(const std::string& value) {
+  doc().setFormField(path(), "temporaryPasswordExpiry", value);
+}
+std::string PasswordLifecyclePolicyContentForm::passwordExpiryWarning() const {
+  return doc().formField(path(), "passwordExpiryWarning");
+}
+void PasswordLifecyclePolicyContentForm::setPasswordExpiryWarning(const std::string& value) {
+  doc().setFormField(path(), "passwordExpiryWarning", value);
+}
+std::string PasswordLifecyclePolicyContentForm::passwordChangeNotification() const {
+  return doc().formField(path(), "passwordChangeNotification");
+}
+void PasswordLifecyclePolicyContentForm::setPasswordChangeNotification(const std::string& value) {
+  doc().setFormField(path(), "passwordChangeNotification", value);
+}
+std::string PasswordLifecyclePolicyContentForm::passwordChangeRequiresCurrent() const {
+  return doc().formField(path(), "passwordChangeRequiresCurrent");
+}
+void PasswordLifecyclePolicyContentForm::setPasswordChangeRequiresCurrent(const std::string& value) {
+  doc().setFormField(path(), "passwordChangeRequiresCurrent", value);
+}
+std::string PasswordLifecyclePolicyContentForm::administratorResetPolicy() const {
+  return doc().formField(path(), "administratorResetPolicy");
+}
+void PasswordLifecyclePolicyContentForm::setAdministratorResetPolicy(const std::string& value) {
+  doc().setFormField(path(), "administratorResetPolicy", value);
+}
+std::string PasswordLifecyclePolicyContentForm::passwordInactivityDisable() const {
+  return doc().formField(path(), "passwordInactivityDisable");
+}
+void PasswordLifecyclePolicyContentForm::setPasswordInactivityDisable(const std::string& value) {
+  doc().setFormField(path(), "passwordInactivityDisable", value);
+}
+
+PasswordRequirementsPolicyContentForm::PasswordRequirementsPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PasswordRequirementsPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void PasswordRequirementsPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PasswordRequirementsPolicyContentForm::minimumLengthSingleFactor() const {
+  return doc().formField(path(), "minimumLengthSingleFactor");
+}
+void PasswordRequirementsPolicyContentForm::setMinimumLengthSingleFactor(const std::string& value) {
+  doc().setFormField(path(), "minimumLengthSingleFactor", value);
+}
+std::string PasswordRequirementsPolicyContentForm::minimumLengthMultiFactor() const {
+  return doc().formField(path(), "minimumLengthMultiFactor");
+}
+void PasswordRequirementsPolicyContentForm::setMinimumLengthMultiFactor(const std::string& value) {
+  doc().setFormField(path(), "minimumLengthMultiFactor", value);
+}
+std::string PasswordRequirementsPolicyContentForm::maximumLength() const {
+  return doc().formField(path(), "maximumLength");
+}
+void PasswordRequirementsPolicyContentForm::setMaximumLength(const std::string& value) {
+  doc().setFormField(path(), "maximumLength", value);
+}
+std::string PasswordRequirementsPolicyContentForm::allowedCharacterSets() const {
+  return doc().formField(path(), "allowedCharacterSets");
+}
+void PasswordRequirementsPolicyContentForm::setAllowedCharacterSets(const std::string& value) {
+  doc().setFormField(path(), "allowedCharacterSets", value);
+}
+std::string PasswordRequirementsPolicyContentForm::compositionRulesEnforced() const {
+  return doc().formField(path(), "compositionRulesEnforced");
+}
+void PasswordRequirementsPolicyContentForm::setCompositionRulesEnforced(const std::string& value) {
+  doc().setFormField(path(), "compositionRulesEnforced", value);
+}
+std::string PasswordRequirementsPolicyContentForm::passphraseSupported() const {
+  return doc().formField(path(), "passphraseSupported");
+}
+void PasswordRequirementsPolicyContentForm::setPassphraseSupported(const std::string& value) {
+  doc().setFormField(path(), "passphraseSupported", value);
+}
+std::string PasswordRequirementsPolicyContentForm::unicodeNormalization() const {
+  return doc().formField(path(), "unicodeNormalization");
+}
+void PasswordRequirementsPolicyContentForm::setUnicodeNormalization(const std::string& value) {
+  doc().setFormField(path(), "unicodeNormalization", value);
+}
+std::string PasswordRequirementsPolicyContentForm::passwordBlocklistEnabled() const {
+  return doc().formField(path(), "passwordBlocklistEnabled");
+}
+void PasswordRequirementsPolicyContentForm::setPasswordBlocklistEnabled(const std::string& value) {
+  doc().setFormField(path(), "passwordBlocklistEnabled", value);
+}
+std::string PasswordRequirementsPolicyContentForm::blocklistSources() const {
+  return doc().formField(path(), "blocklistSources");
+}
+void PasswordRequirementsPolicyContentForm::setBlocklistSources(const std::string& value) {
+  doc().setFormField(path(), "blocklistSources", value);
+}
+std::string PasswordRequirementsPolicyContentForm::passwordStrengthMeter() const {
+  return doc().formField(path(), "passwordStrengthMeter");
+}
+void PasswordRequirementsPolicyContentForm::setPasswordStrengthMeter(const std::string& value) {
+  doc().setFormField(path(), "passwordStrengthMeter", value);
+}
+std::string PasswordRequirementsPolicyContentForm::passwordHintsAllowed() const {
+  return doc().formField(path(), "passwordHintsAllowed");
+}
+void PasswordRequirementsPolicyContentForm::setPasswordHintsAllowed(const std::string& value) {
+  doc().setFormField(path(), "passwordHintsAllowed", value);
+}
+std::string PasswordRequirementsPolicyContentForm::securityQuestionsAllowed() const {
+  return doc().formField(path(), "securityQuestionsAllowed");
+}
+void PasswordRequirementsPolicyContentForm::setSecurityQuestionsAllowed(const std::string& value) {
+  doc().setFormField(path(), "securityQuestionsAllowed", value);
+}
+std::string PasswordRequirementsPolicyContentForm::showPasswordOption() const {
+  return doc().formField(path(), "showPasswordOption");
+}
+void PasswordRequirementsPolicyContentForm::setShowPasswordOption(const std::string& value) {
+  doc().setFormField(path(), "showPasswordOption", value);
+}
+std::string PasswordRequirementsPolicyContentForm::passwordManagerSupport() const {
+  return doc().formField(path(), "passwordManagerSupport");
+}
+void PasswordRequirementsPolicyContentForm::setPasswordManagerSupport(const std::string& value) {
+  doc().setFormField(path(), "passwordManagerSupport", value);
+}
+std::string PasswordRequirementsPolicyContentForm::truncationPolicy() const {
+  return doc().formField(path(), "truncationPolicy");
+}
+void PasswordRequirementsPolicyContentForm::setTruncationPolicy(const std::string& value) {
+  doc().setFormField(path(), "truncationPolicy", value);
+}
+std::string PasswordRequirementsPolicyContentForm::typoTolerancePolicy() const {
+  return doc().formField(path(), "typoTolerancePolicy");
+}
+void PasswordRequirementsPolicyContentForm::setTypoTolerancePolicy(const std::string& value) {
+  doc().setFormField(path(), "typoTolerancePolicy", value);
+}
+
+PasswordStoragePolicyContentForm::PasswordStoragePolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PasswordStoragePolicyContentForm::content() const {
+  return doc().content(path());
+}
+void PasswordStoragePolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PasswordStoragePolicyContentForm::hashingAlgorithm() const {
+  return doc().formField(path(), "hashingAlgorithm");
+}
+void PasswordStoragePolicyContentForm::setHashingAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "hashingAlgorithm", value);
+}
+std::string PasswordStoragePolicyContentForm::hashingCostFactor() const {
+  return doc().formField(path(), "hashingCostFactor");
+}
+void PasswordStoragePolicyContentForm::setHashingCostFactor(const std::string& value) {
+  doc().setFormField(path(), "hashingCostFactor", value);
+}
+std::string PasswordStoragePolicyContentForm::costFactorReviewSchedule() const {
+  return doc().formField(path(), "costFactorReviewSchedule");
+}
+void PasswordStoragePolicyContentForm::setCostFactorReviewSchedule(const std::string& value) {
+  doc().setFormField(path(), "costFactorReviewSchedule", value);
+}
+std::string PasswordStoragePolicyContentForm::saltLength() const {
+  return doc().formField(path(), "saltLength");
+}
+void PasswordStoragePolicyContentForm::setSaltLength(const std::string& value) {
+  doc().setFormField(path(), "saltLength", value);
+}
+std::string PasswordStoragePolicyContentForm::saltGeneration() const {
+  return doc().formField(path(), "saltGeneration");
+}
+void PasswordStoragePolicyContentForm::setSaltGeneration(const std::string& value) {
+  doc().setFormField(path(), "saltGeneration", value);
+}
+std::string PasswordStoragePolicyContentForm::pepperEnabled() const {
+  return doc().formField(path(), "pepperEnabled");
+}
+void PasswordStoragePolicyContentForm::setPepperEnabled(const std::string& value) {
+  doc().setFormField(path(), "pepperEnabled", value);
+}
+std::string PasswordStoragePolicyContentForm::pepperStorage() const {
+  return doc().formField(path(), "pepperStorage");
+}
+void PasswordStoragePolicyContentForm::setPepperStorage(const std::string& value) {
+  doc().setFormField(path(), "pepperStorage", value);
+}
+std::string PasswordStoragePolicyContentForm::hashVersioning() const {
+  return doc().formField(path(), "hashVersioning");
+}
+void PasswordStoragePolicyContentForm::setHashVersioning(const std::string& value) {
+  doc().setFormField(path(), "hashVersioning", value);
+}
+std::string PasswordStoragePolicyContentForm::transmissionEncryption() const {
+  return doc().formField(path(), "transmissionEncryption");
+}
+void PasswordStoragePolicyContentForm::setTransmissionEncryption(const std::string& value) {
+  doc().setFormField(path(), "transmissionEncryption", value);
+}
+std::string PasswordStoragePolicyContentForm::clientSideHashing() const {
+  return doc().formField(path(), "clientSideHashing");
+}
+void PasswordStoragePolicyContentForm::setClientSideHashing(const std::string& value) {
+  doc().setFormField(path(), "clientSideHashing", value);
+}
+std::string PasswordStoragePolicyContentForm::memoryHardFunction() const {
+  return doc().formField(path(), "memoryHardFunction");
+}
+void PasswordStoragePolicyContentForm::setMemoryHardFunction(const std::string& value) {
+  doc().setFormField(path(), "memoryHardFunction", value);
+}
+std::string PasswordStoragePolicyContentForm::outputLength() const {
+  return doc().formField(path(), "outputLength");
+}
+void PasswordStoragePolicyContentForm::setOutputLength(const std::string& value) {
+  doc().setFormField(path(), "outputLength", value);
+}
+
 PeakLoadPatternsCapacityForm::PeakLoadPatternsCapacityForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string PeakLoadPatternsCapacityForm::content() const {
@@ -73755,6 +77147,257 @@ std::string PeripheralEquipmentEntryContentForm::justification() const {
 }
 void PeripheralEquipmentEntryContentForm::setJustification(const std::string& value) {
   doc().setFormField(path(), "justification", value);
+}
+
+PermissionCompositionStrategyContentForm::PermissionCompositionStrategyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PermissionCompositionStrategyContentForm::content() const {
+  return doc().content(path());
+}
+void PermissionCompositionStrategyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PermissionCompositionStrategyContentForm::compositionModel() const {
+  return doc().formField(path(), "compositionModel");
+}
+void PermissionCompositionStrategyContentForm::setCompositionModel(const std::string& value) {
+  doc().setFormField(path(), "compositionModel", value);
+}
+std::string PermissionCompositionStrategyContentForm::defaultPolicy() const {
+  return doc().formField(path(), "defaultPolicy");
+}
+void PermissionCompositionStrategyContentForm::setDefaultPolicy(const std::string& value) {
+  doc().setFormField(path(), "defaultPolicy", value);
+}
+std::optional<bool> PermissionCompositionStrategyContentForm::explicitDenyOverride() const {
+  const std::string v = doc().formField(path(), "explicitDenyOverride");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionCompositionStrategyContentForm::setExplicitDenyOverride(std::optional<bool> value) {
+  doc().setFormField(path(), "explicitDenyOverride", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionCompositionStrategyContentForm::rolePermissionInheritance() const {
+  const std::string v = doc().formField(path(), "rolePermissionInheritance");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionCompositionStrategyContentForm::setRolePermissionInheritance(std::optional<bool> value) {
+  doc().setFormField(path(), "rolePermissionInheritance", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string PermissionCompositionStrategyContentForm::groupPermissionAggregation() const {
+  return doc().formField(path(), "groupPermissionAggregation");
+}
+void PermissionCompositionStrategyContentForm::setGroupPermissionAggregation(const std::string& value) {
+  doc().setFormField(path(), "groupPermissionAggregation", value);
+}
+std::string PermissionCompositionStrategyContentForm::conflictResolution() const {
+  return doc().formField(path(), "conflictResolution");
+}
+void PermissionCompositionStrategyContentForm::setConflictResolution(const std::string& value) {
+  doc().setFormField(path(), "conflictResolution", value);
+}
+std::optional<bool> PermissionCompositionStrategyContentForm::permissionBoundary() const {
+  const std::string v = doc().formField(path(), "permissionBoundary");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionCompositionStrategyContentForm::setPermissionBoundary(std::optional<bool> value) {
+  doc().setFormField(path(), "permissionBoundary", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionCompositionStrategyContentForm::scopedPermissions() const {
+  const std::string v = doc().formField(path(), "scopedPermissions");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionCompositionStrategyContentForm::setScopedPermissions(std::optional<bool> value) {
+  doc().setFormField(path(), "scopedPermissions", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionCompositionStrategyContentForm::temporaryElevation() const {
+  const std::string v = doc().formField(path(), "temporaryElevation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionCompositionStrategyContentForm::setTemporaryElevation(std::optional<bool> value) {
+  doc().setFormField(path(), "temporaryElevation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string PermissionCompositionStrategyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void PermissionCompositionStrategyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+PermissionEvaluationBehaviorContentForm::PermissionEvaluationBehaviorContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PermissionEvaluationBehaviorContentForm::content() const {
+  return doc().content(path());
+}
+void PermissionEvaluationBehaviorContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PermissionEvaluationBehaviorContentForm::evaluationLocation() const {
+  return doc().formField(path(), "evaluationLocation");
+}
+void PermissionEvaluationBehaviorContentForm::setEvaluationLocation(const std::string& value) {
+  doc().setFormField(path(), "evaluationLocation", value);
+}
+std::string PermissionEvaluationBehaviorContentForm::evaluationFrequency() const {
+  return doc().formField(path(), "evaluationFrequency");
+}
+void PermissionEvaluationBehaviorContentForm::setEvaluationFrequency(const std::string& value) {
+  doc().setFormField(path(), "evaluationFrequency", value);
+}
+std::string PermissionEvaluationBehaviorContentForm::cachingStrategy() const {
+  return doc().formField(path(), "cachingStrategy");
+}
+void PermissionEvaluationBehaviorContentForm::setCachingStrategy(const std::string& value) {
+  doc().setFormField(path(), "cachingStrategy", value);
+}
+std::optional<long> PermissionEvaluationBehaviorContentForm::cacheTtlSeconds() const {
+  const std::string v = doc().formField(path(), "cacheTtlSeconds");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void PermissionEvaluationBehaviorContentForm::setCacheTtlSeconds(std::optional<long> value) {
+  doc().setFormField(path(), "cacheTtlSeconds", value.has_value() ? std::to_string(*value) : "");
+}
+std::string PermissionEvaluationBehaviorContentForm::failureMode() const {
+  return doc().formField(path(), "failureMode");
+}
+void PermissionEvaluationBehaviorContentForm::setFailureMode(const std::string& value) {
+  doc().setFormField(path(), "failureMode", value);
+}
+std::optional<bool> PermissionEvaluationBehaviorContentForm::authorizationLogging() const {
+  const std::string v = doc().formField(path(), "authorizationLogging");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionEvaluationBehaviorContentForm::setAuthorizationLogging(std::optional<bool> value) {
+  doc().setFormField(path(), "authorizationLogging", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionEvaluationBehaviorContentForm::logDeniedRequests() const {
+  const std::string v = doc().formField(path(), "logDeniedRequests");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionEvaluationBehaviorContentForm::setLogDeniedRequests(std::optional<bool> value) {
+  doc().setFormField(path(), "logDeniedRequests", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionEvaluationBehaviorContentForm::logSuccessfulAccess() const {
+  const std::string v = doc().formField(path(), "logSuccessfulAccess");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionEvaluationBehaviorContentForm::setLogSuccessfulAccess(std::optional<bool> value) {
+  doc().setFormField(path(), "logSuccessfulAccess", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionEvaluationBehaviorContentForm::automatedTesting() const {
+  const std::string v = doc().formField(path(), "automatedTesting");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionEvaluationBehaviorContentForm::setAutomatedTesting(std::optional<bool> value) {
+  doc().setFormField(path(), "automatedTesting", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionEvaluationBehaviorContentForm::clientSideHints() const {
+  const std::string v = doc().formField(path(), "clientSideHints");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionEvaluationBehaviorContentForm::setClientSideHints(std::optional<bool> value) {
+  doc().setFormField(path(), "clientSideHints", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string PermissionEvaluationBehaviorContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void PermissionEvaluationBehaviorContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+PermissionGranularityPolicyContentForm::PermissionGranularityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PermissionGranularityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void PermissionGranularityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::functionLevelControl() const {
+  const std::string v = doc().formField(path(), "functionLevelControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setFunctionLevelControl(std::optional<bool> value) {
+  doc().setFormField(path(), "functionLevelControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::dataLevelControl() const {
+  const std::string v = doc().formField(path(), "dataLevelControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setDataLevelControl(std::optional<bool> value) {
+  doc().setFormField(path(), "dataLevelControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::fieldLevelControl() const {
+  const std::string v = doc().formField(path(), "fieldLevelControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setFieldLevelControl(std::optional<bool> value) {
+  doc().setFormField(path(), "fieldLevelControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::uiElementControl() const {
+  const std::string v = doc().formField(path(), "uiElementControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setUiElementControl(std::optional<bool> value) {
+  doc().setFormField(path(), "uiElementControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::apiOperationControl() const {
+  const std::string v = doc().formField(path(), "apiOperationControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setApiOperationControl(std::optional<bool> value) {
+  doc().setFormField(path(), "apiOperationControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::objectLevelControl() const {
+  const std::string v = doc().formField(path(), "objectLevelControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setObjectLevelControl(std::optional<bool> value) {
+  doc().setFormField(path(), "objectLevelControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::tenantLevelControl() const {
+  const std::string v = doc().formField(path(), "tenantLevelControl");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setTenantLevelControl(std::optional<bool> value) {
+  doc().setFormField(path(), "tenantLevelControl", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string PermissionGranularityPolicyContentForm::finestGranularity() const {
+  return doc().formField(path(), "finestGranularity");
+}
+void PermissionGranularityPolicyContentForm::setFinestGranularity(const std::string& value) {
+  doc().setFormField(path(), "finestGranularity", value);
+}
+std::optional<bool> PermissionGranularityPolicyContentForm::dynamicPermissions() const {
+  const std::string v = doc().formField(path(), "dynamicPermissions");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void PermissionGranularityPolicyContentForm::setDynamicPermissions(std::optional<bool> value) {
+  doc().setFormField(path(), "dynamicPermissions", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string PermissionGranularityPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void PermissionGranularityPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 PermissionMatrixEntryContentForm::PermissionMatrixEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -80685,6 +84328,87 @@ void RecoveryScenarioEntryContentForm::setSupportEscalation(const std::string& v
   doc().setFormField(path(), "supportEscalation", value);
 }
 
+RedirectHandlingPolicyContentForm::RedirectHandlingPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RedirectHandlingPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void RedirectHandlingPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RedirectHandlingPolicyContentForm::oauthRedirectUriPolicy() const {
+  return doc().formField(path(), "oauthRedirectUriPolicy");
+}
+void RedirectHandlingPolicyContentForm::setOauthRedirectUriPolicy(const std::string& value) {
+  doc().setFormField(path(), "oauthRedirectUriPolicy", value);
+}
+std::string RedirectHandlingPolicyContentForm::allowedRedirectDomains() const {
+  return doc().formField(path(), "allowedRedirectDomains");
+}
+void RedirectHandlingPolicyContentForm::setAllowedRedirectDomains(const std::string& value) {
+  doc().setFormField(path(), "allowedRedirectDomains", value);
+}
+std::string RedirectHandlingPolicyContentForm::callbackUrlValidation() const {
+  return doc().formField(path(), "callbackUrlValidation");
+}
+void RedirectHandlingPolicyContentForm::setCallbackUrlValidation(const std::string& value) {
+  doc().setFormField(path(), "callbackUrlValidation", value);
+}
+std::string RedirectHandlingPolicyContentForm::stateParameterRequired() const {
+  return doc().formField(path(), "stateParameterRequired");
+}
+void RedirectHandlingPolicyContentForm::setStateParameterRequired(const std::string& value) {
+  doc().setFormField(path(), "stateParameterRequired", value);
+}
+std::string RedirectHandlingPolicyContentForm::pkceRequired() const {
+  return doc().formField(path(), "pkceRequired");
+}
+void RedirectHandlingPolicyContentForm::setPkceRequired(const std::string& value) {
+  doc().setFormField(path(), "pkceRequired", value);
+}
+std::string RedirectHandlingPolicyContentForm::pkceMethod() const {
+  return doc().formField(path(), "pkceMethod");
+}
+void RedirectHandlingPolicyContentForm::setPkceMethod(const std::string& value) {
+  doc().setFormField(path(), "pkceMethod", value);
+}
+std::string RedirectHandlingPolicyContentForm::deepLinkHandling() const {
+  return doc().formField(path(), "deepLinkHandling");
+}
+void RedirectHandlingPolicyContentForm::setDeepLinkHandling(const std::string& value) {
+  doc().setFormField(path(), "deepLinkHandling", value);
+}
+std::string RedirectHandlingPolicyContentForm::errorRedirectBehavior() const {
+  return doc().formField(path(), "errorRedirectBehavior");
+}
+void RedirectHandlingPolicyContentForm::setErrorRedirectBehavior(const std::string& value) {
+  doc().setFormField(path(), "errorRedirectBehavior", value);
+}
+std::string RedirectHandlingPolicyContentForm::postLogoutRedirectUri() const {
+  return doc().formField(path(), "postLogoutRedirectUri");
+}
+void RedirectHandlingPolicyContentForm::setPostLogoutRedirectUri(const std::string& value) {
+  doc().setFormField(path(), "postLogoutRedirectUri", value);
+}
+std::string RedirectHandlingPolicyContentForm::singleLogoutRedirectChain() const {
+  return doc().formField(path(), "singleLogoutRedirectChain");
+}
+void RedirectHandlingPolicyContentForm::setSingleLogoutRedirectChain(const std::string& value) {
+  doc().setFormField(path(), "singleLogoutRedirectChain", value);
+}
+std::string RedirectHandlingPolicyContentForm::corsPolicy() const {
+  return doc().formField(path(), "corsPolicy");
+}
+void RedirectHandlingPolicyContentForm::setCorsPolicy(const std::string& value) {
+  doc().setFormField(path(), "corsPolicy", value);
+}
+std::string RedirectHandlingPolicyContentForm::iframeEmbeddingPolicy() const {
+  return doc().formField(path(), "iframeEmbeddingPolicy");
+}
+void RedirectHandlingPolicyContentForm::setIframeEmbeddingPolicy(const std::string& value) {
+  doc().setFormField(path(), "iframeEmbeddingPolicy", value);
+}
+
 ReferenceDocumentEntryContentForm::ReferenceDocumentEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ReferenceDocumentEntryContentForm::content() const {
@@ -81528,6 +85252,93 @@ std::string ReliabilityVerificationForm::incidentPostmortem() const {
 }
 void ReliabilityVerificationForm::setIncidentPostmortem(const std::string& value) {
   doc().setFormField(path(), "incidentPostmortem", value);
+}
+
+RememberMePolicyContentForm::RememberMePolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RememberMePolicyContentForm::content() const {
+  return doc().content(path());
+}
+void RememberMePolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RememberMePolicyContentForm::rememberMeEnabled() const {
+  return doc().formField(path(), "rememberMeEnabled");
+}
+void RememberMePolicyContentForm::setRememberMeEnabled(const std::string& value) {
+  doc().setFormField(path(), "rememberMeEnabled", value);
+}
+std::string RememberMePolicyContentForm::rememberMeDuration() const {
+  return doc().formField(path(), "rememberMeDuration");
+}
+void RememberMePolicyContentForm::setRememberMeDuration(const std::string& value) {
+  doc().setFormField(path(), "rememberMeDuration", value);
+}
+std::string RememberMePolicyContentForm::rememberMeTokenType() const {
+  return doc().formField(path(), "rememberMeTokenType");
+}
+void RememberMePolicyContentForm::setRememberMeTokenType(const std::string& value) {
+  doc().setFormField(path(), "rememberMeTokenType", value);
+}
+std::string RememberMePolicyContentForm::rememberMeTokenStorage() const {
+  return doc().formField(path(), "rememberMeTokenStorage");
+}
+void RememberMePolicyContentForm::setRememberMeTokenStorage(const std::string& value) {
+  doc().setFormField(path(), "rememberMeTokenStorage", value);
+}
+std::string RememberMePolicyContentForm::rememberMeTokenRotation() const {
+  return doc().formField(path(), "rememberMeTokenRotation");
+}
+void RememberMePolicyContentForm::setRememberMeTokenRotation(const std::string& value) {
+  doc().setFormField(path(), "rememberMeTokenRotation", value);
+}
+std::string RememberMePolicyContentForm::rememberMeReuseDetection() const {
+  return doc().formField(path(), "rememberMeReuseDetection");
+}
+void RememberMePolicyContentForm::setRememberMeReuseDetection(const std::string& value) {
+  doc().setFormField(path(), "rememberMeReuseDetection", value);
+}
+std::string RememberMePolicyContentForm::rememberMeDeviceBinding() const {
+  return doc().formField(path(), "rememberMeDeviceBinding");
+}
+void RememberMePolicyContentForm::setRememberMeDeviceBinding(const std::string& value) {
+  doc().setFormField(path(), "rememberMeDeviceBinding", value);
+}
+std::string RememberMePolicyContentForm::rememberMeRevocation() const {
+  return doc().formField(path(), "rememberMeRevocation");
+}
+void RememberMePolicyContentForm::setRememberMeRevocation(const std::string& value) {
+  doc().setFormField(path(), "rememberMeRevocation", value);
+}
+std::string RememberMePolicyContentForm::rememberMeAalReduction() const {
+  return doc().formField(path(), "rememberMeAalReduction");
+}
+void RememberMePolicyContentForm::setRememberMeAalReduction(const std::string& value) {
+  doc().setFormField(path(), "rememberMeAalReduction", value);
+}
+std::string RememberMePolicyContentForm::rememberMeRestrictedOperations() const {
+  return doc().formField(path(), "rememberMeRestrictedOperations");
+}
+void RememberMePolicyContentForm::setRememberMeRestrictedOperations(const std::string& value) {
+  doc().setFormField(path(), "rememberMeRestrictedOperations", value);
+}
+std::string RememberMePolicyContentForm::trustedDeviceManagement() const {
+  return doc().formField(path(), "trustedDeviceManagement");
+}
+void RememberMePolicyContentForm::setTrustedDeviceManagement(const std::string& value) {
+  doc().setFormField(path(), "trustedDeviceManagement", value);
+}
+std::string RememberMePolicyContentForm::maxTrustedDevices() const {
+  return doc().formField(path(), "maxTrustedDevices");
+}
+void RememberMePolicyContentForm::setMaxTrustedDevices(const std::string& value) {
+  doc().setFormField(path(), "maxTrustedDevices", value);
+}
+std::string RememberMePolicyContentForm::trustedDeviceExpiry() const {
+  return doc().formField(path(), "trustedDeviceExpiry");
+}
+void RememberMePolicyContentForm::setTrustedDeviceExpiry(const std::string& value) {
+  doc().setFormField(path(), "trustedDeviceExpiry", value);
 }
 
 RemovedRoleEntryContentForm::RemovedRoleEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -86665,6 +90476,79 @@ void RoleAdjustmentsAdjustmentSummaryForm::setGovernanceImpact(const std::string
   doc().setFormField(path(), "governanceImpact", value);
 }
 
+RoleCertificationPolicyContentForm::RoleCertificationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RoleCertificationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void RoleCertificationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> RoleCertificationPolicyContentForm::certificationRequired() const {
+  const std::string v = doc().formField(path(), "certificationRequired");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleCertificationPolicyContentForm::setCertificationRequired(std::optional<bool> value) {
+  doc().setFormField(path(), "certificationRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string RoleCertificationPolicyContentForm::certificationFrequency() const {
+  return doc().formField(path(), "certificationFrequency");
+}
+void RoleCertificationPolicyContentForm::setCertificationFrequency(const std::string& value) {
+  doc().setFormField(path(), "certificationFrequency", value);
+}
+std::string RoleCertificationPolicyContentForm::certifier() const {
+  return doc().formField(path(), "certifier");
+}
+void RoleCertificationPolicyContentForm::setCertifier(const std::string& value) {
+  doc().setFormField(path(), "certifier", value);
+}
+std::string RoleCertificationPolicyContentForm::nonResponseAction() const {
+  return doc().formField(path(), "nonResponseAction");
+}
+void RoleCertificationPolicyContentForm::setNonResponseAction(const std::string& value) {
+  doc().setFormField(path(), "nonResponseAction", value);
+}
+std::optional<bool> RoleCertificationPolicyContentForm::riskBasedScheduling() const {
+  const std::string v = doc().formField(path(), "riskBasedScheduling");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleCertificationPolicyContentForm::setRiskBasedScheduling(std::optional<bool> value) {
+  doc().setFormField(path(), "riskBasedScheduling", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> RoleCertificationPolicyContentForm::automatedDetection() const {
+  const std::string v = doc().formField(path(), "automatedDetection");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleCertificationPolicyContentForm::setAutomatedDetection(std::optional<bool> value) {
+  doc().setFormField(path(), "automatedDetection", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> RoleCertificationPolicyContentForm::dormantRoleThresholdDays() const {
+  const std::string v = doc().formField(path(), "dormantRoleThresholdDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void RoleCertificationPolicyContentForm::setDormantRoleThresholdDays(std::optional<long> value) {
+  doc().setFormField(path(), "dormantRoleThresholdDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> RoleCertificationPolicyContentForm::certificationAuditTrail() const {
+  const std::string v = doc().formField(path(), "certificationAuditTrail");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleCertificationPolicyContentForm::setCertificationAuditTrail(std::optional<bool> value) {
+  doc().setFormField(path(), "certificationAuditTrail", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string RoleCertificationPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void RoleCertificationPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 RoleCombinationConstraintEntryContentForm::RoleCombinationConstraintEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string RoleCombinationConstraintEntryContentForm::content() const {
@@ -86819,6 +90703,87 @@ std::string RoleExclusionEntryContentForm::severity() const {
 }
 void RoleExclusionEntryContentForm::setSeverity(const std::string& value) {
   doc().setFormField(path(), "severity", value);
+}
+
+RoleHierarchyPolicyContentForm::RoleHierarchyPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RoleHierarchyPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void RoleHierarchyPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RoleHierarchyPolicyContentForm::hierarchyModel() const {
+  return doc().formField(path(), "hierarchyModel");
+}
+void RoleHierarchyPolicyContentForm::setHierarchyModel(const std::string& value) {
+  doc().setFormField(path(), "hierarchyModel", value);
+}
+std::optional<long> RoleHierarchyPolicyContentForm::maxHierarchyDepth() const {
+  const std::string v = doc().formField(path(), "maxHierarchyDepth");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void RoleHierarchyPolicyContentForm::setMaxHierarchyDepth(std::optional<long> value) {
+  doc().setFormField(path(), "maxHierarchyDepth", value.has_value() ? std::to_string(*value) : "");
+}
+std::string RoleHierarchyPolicyContentForm::inheritanceMode() const {
+  return doc().formField(path(), "inheritanceMode");
+}
+void RoleHierarchyPolicyContentForm::setInheritanceMode(const std::string& value) {
+  doc().setFormField(path(), "inheritanceMode", value);
+}
+std::optional<bool> RoleHierarchyPolicyContentForm::multipleInheritance() const {
+  const std::string v = doc().formField(path(), "multipleInheritance");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleHierarchyPolicyContentForm::setMultipleInheritance(std::optional<bool> value) {
+  doc().setFormField(path(), "multipleInheritance", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> RoleHierarchyPolicyContentForm::permissionOverride() const {
+  const std::string v = doc().formField(path(), "permissionOverride");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleHierarchyPolicyContentForm::setPermissionOverride(std::optional<bool> value) {
+  doc().setFormField(path(), "permissionOverride", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> RoleHierarchyPolicyContentForm::activationConstraints() const {
+  const std::string v = doc().formField(path(), "activationConstraints");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleHierarchyPolicyContentForm::setActivationConstraints(std::optional<bool> value) {
+  doc().setFormField(path(), "activationConstraints", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> RoleHierarchyPolicyContentForm::maxActiveRolesPerUser() const {
+  const std::string v = doc().formField(path(), "maxActiveRolesPerUser");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void RoleHierarchyPolicyContentForm::setMaxActiveRolesPerUser(std::optional<long> value) {
+  doc().setFormField(path(), "maxActiveRolesPerUser", value.has_value() ? std::to_string(*value) : "");
+}
+std::string RoleHierarchyPolicyContentForm::rolePriorityScheme() const {
+  return doc().formField(path(), "rolePriorityScheme");
+}
+void RoleHierarchyPolicyContentForm::setRolePriorityScheme(const std::string& value) {
+  doc().setFormField(path(), "rolePriorityScheme", value);
+}
+std::optional<bool> RoleHierarchyPolicyContentForm::automaticInheritanceRevocation() const {
+  const std::string v = doc().formField(path(), "automaticInheritanceRevocation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void RoleHierarchyPolicyContentForm::setAutomaticInheritanceRevocation(std::optional<bool> value) {
+  doc().setFormField(path(), "automaticInheritanceRevocation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string RoleHierarchyPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void RoleHierarchyPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 RoleHolderEntryContentForm::RoleHolderEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -87119,6 +91084,81 @@ std::string RollbackStrategyTriggersForm::rollbackTimeTarget() const {
 }
 void RollbackStrategyTriggersForm::setRollbackTimeTarget(const std::string& value) {
   doc().setFormField(path(), "rollbackTimeTarget", value);
+}
+
+RowLevelSecurityPolicyContentForm::RowLevelSecurityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RowLevelSecurityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void RowLevelSecurityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RowLevelSecurityPolicyContentForm::rowLevelSecurityEnabled() const {
+  return doc().formField(path(), "rowLevelSecurityEnabled");
+}
+void RowLevelSecurityPolicyContentForm::setRowLevelSecurityEnabled(const std::string& value) {
+  doc().setFormField(path(), "rowLevelSecurityEnabled", value);
+}
+std::string RowLevelSecurityPolicyContentForm::rlsImplementation() const {
+  return doc().formField(path(), "rlsImplementation");
+}
+void RowLevelSecurityPolicyContentForm::setRlsImplementation(const std::string& value) {
+  doc().setFormField(path(), "rlsImplementation", value);
+}
+std::string RowLevelSecurityPolicyContentForm::rlsFilteringStrategy() const {
+  return doc().formField(path(), "rlsFilteringStrategy");
+}
+void RowLevelSecurityPolicyContentForm::setRlsFilteringStrategy(const std::string& value) {
+  doc().setFormField(path(), "rlsFilteringStrategy", value);
+}
+std::string RowLevelSecurityPolicyContentForm::rlsBypassPolicy() const {
+  return doc().formField(path(), "rlsBypassPolicy");
+}
+void RowLevelSecurityPolicyContentForm::setRlsBypassPolicy(const std::string& value) {
+  doc().setFormField(path(), "rlsBypassPolicy", value);
+}
+std::string RowLevelSecurityPolicyContentForm::hierarchicalVisibility() const {
+  return doc().formField(path(), "hierarchicalVisibility");
+}
+void RowLevelSecurityPolicyContentForm::setHierarchicalVisibility(const std::string& value) {
+  doc().setFormField(path(), "hierarchicalVisibility", value);
+}
+std::string RowLevelSecurityPolicyContentForm::hierarchyDepthLimit() const {
+  return doc().formField(path(), "hierarchyDepthLimit");
+}
+void RowLevelSecurityPolicyContentForm::setHierarchyDepthLimit(const std::string& value) {
+  doc().setFormField(path(), "hierarchyDepthLimit", value);
+}
+std::string RowLevelSecurityPolicyContentForm::crossTenantAccess() const {
+  return doc().formField(path(), "crossTenantAccess");
+}
+void RowLevelSecurityPolicyContentForm::setCrossTenantAccess(const std::string& value) {
+  doc().setFormField(path(), "crossTenantAccess", value);
+}
+std::string RowLevelSecurityPolicyContentForm::dataOwnerAccess() const {
+  return doc().formField(path(), "dataOwnerAccess");
+}
+void RowLevelSecurityPolicyContentForm::setDataOwnerAccess(const std::string& value) {
+  doc().setFormField(path(), "dataOwnerAccess", value);
+}
+std::string RowLevelSecurityPolicyContentForm::sharedDataHandling() const {
+  return doc().formField(path(), "sharedDataHandling");
+}
+void RowLevelSecurityPolicyContentForm::setSharedDataHandling(const std::string& value) {
+  doc().setFormField(path(), "sharedDataHandling", value);
+}
+std::string RowLevelSecurityPolicyContentForm::rlsPerformanceStrategy() const {
+  return doc().formField(path(), "rlsPerformanceStrategy");
+}
+void RowLevelSecurityPolicyContentForm::setRlsPerformanceStrategy(const std::string& value) {
+  doc().setFormField(path(), "rlsPerformanceStrategy", value);
+}
+std::string RowLevelSecurityPolicyContentForm::rlsTestingStrategy() const {
+  return doc().formField(path(), "rlsTestingStrategy");
+}
+void RowLevelSecurityPolicyContentForm::setRlsTestingStrategy(const std::string& value) {
+  doc().setFormField(path(), "rlsTestingStrategy", value);
 }
 
 RpoRtoRequirementsByTierForm::RpoRtoRequirementsByTierForm(som::SpecDocument& doc, std::string path)
@@ -92114,6 +96154,99 @@ void SelfRegistrationPolicyVerificationForm::setPhoneVerificationMethod(const st
   doc().setFormField(path(), "phoneVerificationMethod", value);
 }
 
+SelfServiceAccountManagementContentForm::SelfServiceAccountManagementContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SelfServiceAccountManagementContentForm::content() const {
+  return doc().content(path());
+}
+void SelfServiceAccountManagementContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SelfServiceAccountManagementContentForm::profileUpdateEnabled() const {
+  return doc().formField(path(), "profileUpdateEnabled");
+}
+void SelfServiceAccountManagementContentForm::setProfileUpdateEnabled(const std::string& value) {
+  doc().setFormField(path(), "profileUpdateEnabled", value);
+}
+std::string SelfServiceAccountManagementContentForm::passwordChangeEnabled() const {
+  return doc().formField(path(), "passwordChangeEnabled");
+}
+void SelfServiceAccountManagementContentForm::setPasswordChangeEnabled(const std::string& value) {
+  doc().setFormField(path(), "passwordChangeEnabled", value);
+}
+std::string SelfServiceAccountManagementContentForm::passwordResetEnabled() const {
+  return doc().formField(path(), "passwordResetEnabled");
+}
+void SelfServiceAccountManagementContentForm::setPasswordResetEnabled(const std::string& value) {
+  doc().setFormField(path(), "passwordResetEnabled", value);
+}
+std::string SelfServiceAccountManagementContentForm::passwordResetMethods() const {
+  return doc().formField(path(), "passwordResetMethods");
+}
+void SelfServiceAccountManagementContentForm::setPasswordResetMethods(const std::string& value) {
+  doc().setFormField(path(), "passwordResetMethods", value);
+}
+std::string SelfServiceAccountManagementContentForm::mfaEnrollmentSelfService() const {
+  return doc().formField(path(), "mfaEnrollmentSelfService");
+}
+void SelfServiceAccountManagementContentForm::setMfaEnrollmentSelfService(const std::string& value) {
+  doc().setFormField(path(), "mfaEnrollmentSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::accountDeactivationSelfService() const {
+  return doc().formField(path(), "accountDeactivationSelfService");
+}
+void SelfServiceAccountManagementContentForm::setAccountDeactivationSelfService(const std::string& value) {
+  doc().setFormField(path(), "accountDeactivationSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::accountDeletionSelfService() const {
+  return doc().formField(path(), "accountDeletionSelfService");
+}
+void SelfServiceAccountManagementContentForm::setAccountDeletionSelfService(const std::string& value) {
+  doc().setFormField(path(), "accountDeletionSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::dataExportSelfService() const {
+  return doc().formField(path(), "dataExportSelfService");
+}
+void SelfServiceAccountManagementContentForm::setDataExportSelfService(const std::string& value) {
+  doc().setFormField(path(), "dataExportSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::sessionManagementSelfService() const {
+  return doc().formField(path(), "sessionManagementSelfService");
+}
+void SelfServiceAccountManagementContentForm::setSessionManagementSelfService(const std::string& value) {
+  doc().setFormField(path(), "sessionManagementSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::apiKeyManagementSelfService() const {
+  return doc().formField(path(), "apiKeyManagementSelfService");
+}
+void SelfServiceAccountManagementContentForm::setApiKeyManagementSelfService(const std::string& value) {
+  doc().setFormField(path(), "apiKeyManagementSelfService", value);
+}
+std::string SelfServiceAccountManagementContentForm::notificationPreferences() const {
+  return doc().formField(path(), "notificationPreferences");
+}
+void SelfServiceAccountManagementContentForm::setNotificationPreferences(const std::string& value) {
+  doc().setFormField(path(), "notificationPreferences", value);
+}
+std::string SelfServiceAccountManagementContentForm::delegationEnabled() const {
+  return doc().formField(path(), "delegationEnabled");
+}
+void SelfServiceAccountManagementContentForm::setDelegationEnabled(const std::string& value) {
+  doc().setFormField(path(), "delegationEnabled", value);
+}
+std::string SelfServiceAccountManagementContentForm::delegationScope() const {
+  return doc().formField(path(), "delegationScope");
+}
+void SelfServiceAccountManagementContentForm::setDelegationScope(const std::string& value) {
+  doc().setFormField(path(), "delegationScope", value);
+}
+std::string SelfServiceAccountManagementContentForm::accountRecoveryProcess() const {
+  return doc().formField(path(), "accountRecoveryProcess");
+}
+void SelfServiceAccountManagementContentForm::setAccountRecoveryProcess(const std::string& value) {
+  doc().setFormField(path(), "accountRecoveryProcess", value);
+}
+
 ServerCallStepEntryContentForm::ServerCallStepEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ServerCallStepEntryContentForm::content() const {
@@ -92854,6 +96987,174 @@ void ServerStorageRequirementsPerformanceForm::setNotes(const std::string& value
   doc().setFormField(path(), "notes", value);
 }
 
+ServiceAccountCredentialPolicyContentForm::ServiceAccountCredentialPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServiceAccountCredentialPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void ServiceAccountCredentialPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::serviceAccountPasswordPolicy() const {
+  return doc().formField(path(), "serviceAccountPasswordPolicy");
+}
+void ServiceAccountCredentialPolicyContentForm::setServiceAccountPasswordPolicy(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountPasswordPolicy", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::serviceAccountRotationPeriod() const {
+  return doc().formField(path(), "serviceAccountRotationPeriod");
+}
+void ServiceAccountCredentialPolicyContentForm::setServiceAccountRotationPeriod(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountRotationPeriod", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::apiKeyLifetime() const {
+  return doc().formField(path(), "apiKeyLifetime");
+}
+void ServiceAccountCredentialPolicyContentForm::setApiKeyLifetime(const std::string& value) {
+  doc().setFormField(path(), "apiKeyLifetime", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::apiKeyRotationPolicy() const {
+  return doc().formField(path(), "apiKeyRotationPolicy");
+}
+void ServiceAccountCredentialPolicyContentForm::setApiKeyRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "apiKeyRotationPolicy", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::secretsManagementTool() const {
+  return doc().formField(path(), "secretsManagementTool");
+}
+void ServiceAccountCredentialPolicyContentForm::setSecretsManagementTool(const std::string& value) {
+  doc().setFormField(path(), "secretsManagementTool", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::machineToMachineAuth() const {
+  return doc().formField(path(), "machineToMachineAuth");
+}
+void ServiceAccountCredentialPolicyContentForm::setMachineToMachineAuth(const std::string& value) {
+  doc().setFormField(path(), "machineToMachineAuth", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::serviceAccountMfaRequired() const {
+  return doc().formField(path(), "serviceAccountMfaRequired");
+}
+void ServiceAccountCredentialPolicyContentForm::setServiceAccountMfaRequired(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountMfaRequired", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::sharedCredentialProhibition() const {
+  return doc().formField(path(), "sharedCredentialProhibition");
+}
+void ServiceAccountCredentialPolicyContentForm::setSharedCredentialProhibition(const std::string& value) {
+  doc().setFormField(path(), "sharedCredentialProhibition", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::credentialVaultIntegration() const {
+  return doc().formField(path(), "credentialVaultIntegration");
+}
+void ServiceAccountCredentialPolicyContentForm::setCredentialVaultIntegration(const std::string& value) {
+  doc().setFormField(path(), "credentialVaultIntegration", value);
+}
+std::string ServiceAccountCredentialPolicyContentForm::hardcodedCredentialDetection() const {
+  return doc().formField(path(), "hardcodedCredentialDetection");
+}
+void ServiceAccountCredentialPolicyContentForm::setHardcodedCredentialDetection(const std::string& value) {
+  doc().setFormField(path(), "hardcodedCredentialDetection", value);
+}
+
+ServiceAccountLifecycleContentForm::ServiceAccountLifecycleContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServiceAccountLifecycleContentForm::content() const {
+  return doc().content(path());
+}
+void ServiceAccountLifecycleContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ServiceAccountLifecycleContentForm::serviceAccountTypes() const {
+  return doc().formField(path(), "serviceAccountTypes");
+}
+void ServiceAccountLifecycleContentForm::setServiceAccountTypes(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountTypes", value);
+}
+std::string ServiceAccountLifecycleContentForm::creationProcess() const {
+  return doc().formField(path(), "creationProcess");
+}
+void ServiceAccountLifecycleContentForm::setCreationProcess(const std::string& value) {
+  doc().setFormField(path(), "creationProcess", value);
+}
+std::string ServiceAccountLifecycleContentForm::creationApproval() const {
+  return doc().formField(path(), "creationApproval");
+}
+void ServiceAccountLifecycleContentForm::setCreationApproval(const std::string& value) {
+  doc().setFormField(path(), "creationApproval", value);
+}
+std::string ServiceAccountLifecycleContentForm::ownerAssignment() const {
+  return doc().formField(path(), "ownerAssignment");
+}
+void ServiceAccountLifecycleContentForm::setOwnerAssignment(const std::string& value) {
+  doc().setFormField(path(), "ownerAssignment", value);
+}
+std::string ServiceAccountLifecycleContentForm::ownerReviewFrequency() const {
+  return doc().formField(path(), "ownerReviewFrequency");
+}
+void ServiceAccountLifecycleContentForm::setOwnerReviewFrequency(const std::string& value) {
+  doc().setFormField(path(), "ownerReviewFrequency", value);
+}
+std::string ServiceAccountLifecycleContentForm::credentialRotationPolicy() const {
+  return doc().formField(path(), "credentialRotationPolicy");
+}
+void ServiceAccountLifecycleContentForm::setCredentialRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "credentialRotationPolicy", value);
+}
+std::string ServiceAccountLifecycleContentForm::credentialStorageMethod() const {
+  return doc().formField(path(), "credentialStorageMethod");
+}
+void ServiceAccountLifecycleContentForm::setCredentialStorageMethod(const std::string& value) {
+  doc().setFormField(path(), "credentialStorageMethod", value);
+}
+std::string ServiceAccountLifecycleContentForm::scopeLimitation() const {
+  return doc().formField(path(), "scopeLimitation");
+}
+void ServiceAccountLifecycleContentForm::setScopeLimitation(const std::string& value) {
+  doc().setFormField(path(), "scopeLimitation", value);
+}
+std::string ServiceAccountLifecycleContentForm::ipRestriction() const {
+  return doc().formField(path(), "ipRestriction");
+}
+void ServiceAccountLifecycleContentForm::setIpRestriction(const std::string& value) {
+  doc().setFormField(path(), "ipRestriction", value);
+}
+std::string ServiceAccountLifecycleContentForm::expirationPolicy() const {
+  return doc().formField(path(), "expirationPolicy");
+}
+void ServiceAccountLifecycleContentForm::setExpirationPolicy(const std::string& value) {
+  doc().setFormField(path(), "expirationPolicy", value);
+}
+std::string ServiceAccountLifecycleContentForm::renewalProcess() const {
+  return doc().formField(path(), "renewalProcess");
+}
+void ServiceAccountLifecycleContentForm::setRenewalProcess(const std::string& value) {
+  doc().setFormField(path(), "renewalProcess", value);
+}
+std::string ServiceAccountLifecycleContentForm::decommissioningProcess() const {
+  return doc().formField(path(), "decommissioningProcess");
+}
+void ServiceAccountLifecycleContentForm::setDecommissioningProcess(const std::string& value) {
+  doc().setFormField(path(), "decommissioningProcess", value);
+}
+std::string ServiceAccountLifecycleContentForm::monitoringRequirements() const {
+  return doc().formField(path(), "monitoringRequirements");
+}
+void ServiceAccountLifecycleContentForm::setMonitoringRequirements(const std::string& value) {
+  doc().setFormField(path(), "monitoringRequirements", value);
+}
+std::string ServiceAccountLifecycleContentForm::serviceAccountNamingConvention() const {
+  return doc().formField(path(), "serviceAccountNamingConvention");
+}
+void ServiceAccountLifecycleContentForm::setServiceAccountNamingConvention(const std::string& value) {
+  doc().setFormField(path(), "serviceAccountNamingConvention", value);
+}
+std::string ServiceAccountLifecycleContentForm::documentationRequirements() const {
+  return doc().formField(path(), "documentationRequirements");
+}
+void ServiceAccountLifecycleContentForm::setDocumentationRequirements(const std::string& value) {
+  doc().setFormField(path(), "documentationRequirements", value);
+}
+
 ServiceLevelAgreementEntryContentForm::ServiceLevelAgreementEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ServiceLevelAgreementEntryContentForm::content() const {
@@ -93290,6 +97591,174 @@ void ServiceMeshAndGatewayMeshForm::setMtlsEnabled(std::optional<bool> value) {
   doc().setFormField(path(), "mtlsEnabled", value.has_value() ? (*value ? "true" : "false") : "");
 }
 
+SessionCreationPolicyContentForm::SessionCreationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SessionCreationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void SessionCreationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SessionCreationPolicyContentForm::sessionMechanism() const {
+  return doc().formField(path(), "sessionMechanism");
+}
+void SessionCreationPolicyContentForm::setSessionMechanism(const std::string& value) {
+  doc().setFormField(path(), "sessionMechanism", value);
+}
+std::string SessionCreationPolicyContentForm::sessionIdGeneration() const {
+  return doc().formField(path(), "sessionIdGeneration");
+}
+void SessionCreationPolicyContentForm::setSessionIdGeneration(const std::string& value) {
+  doc().setFormField(path(), "sessionIdGeneration", value);
+}
+std::string SessionCreationPolicyContentForm::sessionIdEntropy() const {
+  return doc().formField(path(), "sessionIdEntropy");
+}
+void SessionCreationPolicyContentForm::setSessionIdEntropy(const std::string& value) {
+  doc().setFormField(path(), "sessionIdEntropy", value);
+}
+std::string SessionCreationPolicyContentForm::sessionBindingMethod() const {
+  return doc().formField(path(), "sessionBindingMethod");
+}
+void SessionCreationPolicyContentForm::setSessionBindingMethod(const std::string& value) {
+  doc().setFormField(path(), "sessionBindingMethod", value);
+}
+std::string SessionCreationPolicyContentForm::httpOnlyCookies() const {
+  return doc().formField(path(), "httpOnlyCookies");
+}
+void SessionCreationPolicyContentForm::setHttpOnlyCookies(const std::string& value) {
+  doc().setFormField(path(), "httpOnlyCookies", value);
+}
+std::string SessionCreationPolicyContentForm::secureCookies() const {
+  return doc().formField(path(), "secureCookies");
+}
+void SessionCreationPolicyContentForm::setSecureCookies(const std::string& value) {
+  doc().setFormField(path(), "secureCookies", value);
+}
+std::string SessionCreationPolicyContentForm::sameSitePolicy() const {
+  return doc().formField(path(), "sameSitePolicy");
+}
+void SessionCreationPolicyContentForm::setSameSitePolicy(const std::string& value) {
+  doc().setFormField(path(), "sameSitePolicy", value);
+}
+std::string SessionCreationPolicyContentForm::cookieDomain() const {
+  return doc().formField(path(), "cookieDomain");
+}
+void SessionCreationPolicyContentForm::setCookieDomain(const std::string& value) {
+  doc().setFormField(path(), "cookieDomain", value);
+}
+std::string SessionCreationPolicyContentForm::deviceBinding() const {
+  return doc().formField(path(), "deviceBinding");
+}
+void SessionCreationPolicyContentForm::setDeviceBinding(const std::string& value) {
+  doc().setFormField(path(), "deviceBinding", value);
+}
+std::string SessionCreationPolicyContentForm::sessionDataStorage() const {
+  return doc().formField(path(), "sessionDataStorage");
+}
+void SessionCreationPolicyContentForm::setSessionDataStorage(const std::string& value) {
+  doc().setFormField(path(), "sessionDataStorage", value);
+}
+std::string SessionCreationPolicyContentForm::sessionReplicationStrategy() const {
+  return doc().formField(path(), "sessionReplicationStrategy");
+}
+void SessionCreationPolicyContentForm::setSessionReplicationStrategy(const std::string& value) {
+  doc().setFormField(path(), "sessionReplicationStrategy", value);
+}
+std::string SessionCreationPolicyContentForm::csrfProtection() const {
+  return doc().formField(path(), "csrfProtection");
+}
+void SessionCreationPolicyContentForm::setCsrfProtection(const std::string& value) {
+  doc().setFormField(path(), "csrfProtection", value);
+}
+std::string SessionCreationPolicyContentForm::postLoginRedirectValidation() const {
+  return doc().formField(path(), "postLoginRedirectValidation");
+}
+void SessionCreationPolicyContentForm::setPostLoginRedirectValidation(const std::string& value) {
+  doc().setFormField(path(), "postLoginRedirectValidation", value);
+}
+
+SessionLifecycleMonitoringContentForm::SessionLifecycleMonitoringContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SessionLifecycleMonitoringContentForm::content() const {
+  return doc().content(path());
+}
+void SessionLifecycleMonitoringContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionCreationLogging() const {
+  return doc().formField(path(), "sessionCreationLogging");
+}
+void SessionLifecycleMonitoringContentForm::setSessionCreationLogging(const std::string& value) {
+  doc().setFormField(path(), "sessionCreationLogging", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionDestructionLogging() const {
+  return doc().formField(path(), "sessionDestructionLogging");
+}
+void SessionLifecycleMonitoringContentForm::setSessionDestructionLogging(const std::string& value) {
+  doc().setFormField(path(), "sessionDestructionLogging", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionRenewalLogging() const {
+  return doc().formField(path(), "sessionRenewalLogging");
+}
+void SessionLifecycleMonitoringContentForm::setSessionRenewalLogging(const std::string& value) {
+  doc().setFormField(path(), "sessionRenewalLogging", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionEventDetails() const {
+  return doc().formField(path(), "sessionEventDetails");
+}
+void SessionLifecycleMonitoringContentForm::setSessionEventDetails(const std::string& value) {
+  doc().setFormField(path(), "sessionEventDetails", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionIdInLogs() const {
+  return doc().formField(path(), "sessionIdInLogs");
+}
+void SessionLifecycleMonitoringContentForm::setSessionIdInLogs(const std::string& value) {
+  doc().setFormField(path(), "sessionIdInLogs", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionActivityTracking() const {
+  return doc().formField(path(), "sessionActivityTracking");
+}
+void SessionLifecycleMonitoringContentForm::setSessionActivityTracking(const std::string& value) {
+  doc().setFormField(path(), "sessionActivityTracking", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionHistoryVisibleToUser() const {
+  return doc().formField(path(), "sessionHistoryVisibleToUser");
+}
+void SessionLifecycleMonitoringContentForm::setSessionHistoryVisibleToUser(const std::string& value) {
+  doc().setFormField(path(), "sessionHistoryVisibleToUser", value);
+}
+std::string SessionLifecycleMonitoringContentForm::failedSessionAccessLogging() const {
+  return doc().formField(path(), "failedSessionAccessLogging");
+}
+void SessionLifecycleMonitoringContentForm::setFailedSessionAccessLogging(const std::string& value) {
+  doc().setFormField(path(), "failedSessionAccessLogging", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionMetricsCollection() const {
+  return doc().formField(path(), "sessionMetricsCollection");
+}
+void SessionLifecycleMonitoringContentForm::setSessionMetricsCollection(const std::string& value) {
+  doc().setFormField(path(), "sessionMetricsCollection", value);
+}
+std::string SessionLifecycleMonitoringContentForm::sessionAuditRetention() const {
+  return doc().formField(path(), "sessionAuditRetention");
+}
+void SessionLifecycleMonitoringContentForm::setSessionAuditRetention(const std::string& value) {
+  doc().setFormField(path(), "sessionAuditRetention", value);
+}
+std::string SessionLifecycleMonitoringContentForm::realTimeSessionAlerts() const {
+  return doc().formField(path(), "realTimeSessionAlerts");
+}
+void SessionLifecycleMonitoringContentForm::setRealTimeSessionAlerts(const std::string& value) {
+  doc().setFormField(path(), "realTimeSessionAlerts", value);
+}
+std::string SessionLifecycleMonitoringContentForm::alertTriggers() const {
+  return doc().formField(path(), "alertTriggers");
+}
+void SessionLifecycleMonitoringContentForm::setAlertTriggers(const std::string& value) {
+  doc().setFormField(path(), "alertTriggers", value);
+}
+
 SessionModelLifecycleForm::SessionModelLifecycleForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SessionModelLifecycleForm::content() const {
@@ -93389,6 +97858,285 @@ std::string SessionModelSessionConfigurationForm::absoluteTimeout() const {
 }
 void SessionModelSessionConfigurationForm::setAbsoluteTimeout(const std::string& value) {
   doc().setFormField(path(), "absoluteTimeout", value);
+}
+
+SessionRevocationPolicyContentForm::SessionRevocationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SessionRevocationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void SessionRevocationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SessionRevocationPolicyContentForm::logoutMechanism() const {
+  return doc().formField(path(), "logoutMechanism");
+}
+void SessionRevocationPolicyContentForm::setLogoutMechanism(const std::string& value) {
+  doc().setFormField(path(), "logoutMechanism", value);
+}
+std::string SessionRevocationPolicyContentForm::logoutButtonPlacement() const {
+  return doc().formField(path(), "logoutButtonPlacement");
+}
+void SessionRevocationPolicyContentForm::setLogoutButtonPlacement(const std::string& value) {
+  doc().setFormField(path(), "logoutButtonPlacement", value);
+}
+std::string SessionRevocationPolicyContentForm::logoutConfirmation() const {
+  return doc().formField(path(), "logoutConfirmation");
+}
+void SessionRevocationPolicyContentForm::setLogoutConfirmation(const std::string& value) {
+  doc().setFormField(path(), "logoutConfirmation", value);
+}
+std::string SessionRevocationPolicyContentForm::postLogoutRedirect() const {
+  return doc().formField(path(), "postLogoutRedirect");
+}
+void SessionRevocationPolicyContentForm::setPostLogoutRedirect(const std::string& value) {
+  doc().setFormField(path(), "postLogoutRedirect", value);
+}
+std::string SessionRevocationPolicyContentForm::postLogoutCacheClear() const {
+  return doc().formField(path(), "postLogoutCacheClear");
+}
+void SessionRevocationPolicyContentForm::setPostLogoutCacheClear(const std::string& value) {
+  doc().setFormField(path(), "postLogoutCacheClear", value);
+}
+std::string SessionRevocationPolicyContentForm::singleLogoutEnabled() const {
+  return doc().formField(path(), "singleLogoutEnabled");
+}
+void SessionRevocationPolicyContentForm::setSingleLogoutEnabled(const std::string& value) {
+  doc().setFormField(path(), "singleLogoutEnabled", value);
+}
+std::string SessionRevocationPolicyContentForm::singleLogoutProtocol() const {
+  return doc().formField(path(), "singleLogoutProtocol");
+}
+void SessionRevocationPolicyContentForm::setSingleLogoutProtocol(const std::string& value) {
+  doc().setFormField(path(), "singleLogoutProtocol", value);
+}
+std::string SessionRevocationPolicyContentForm::privilegeChangeRevocation() const {
+  return doc().formField(path(), "privilegeChangeRevocation");
+}
+void SessionRevocationPolicyContentForm::setPrivilegeChangeRevocation(const std::string& value) {
+  doc().setFormField(path(), "privilegeChangeRevocation", value);
+}
+std::string SessionRevocationPolicyContentForm::passwordChangeRevocation() const {
+  return doc().formField(path(), "passwordChangeRevocation");
+}
+void SessionRevocationPolicyContentForm::setPasswordChangeRevocation(const std::string& value) {
+  doc().setFormField(path(), "passwordChangeRevocation", value);
+}
+std::string SessionRevocationPolicyContentForm::compromiseRevocation() const {
+  return doc().formField(path(), "compromiseRevocation");
+}
+void SessionRevocationPolicyContentForm::setCompromiseRevocation(const std::string& value) {
+  doc().setFormField(path(), "compromiseRevocation", value);
+}
+std::string SessionRevocationPolicyContentForm::adminTerminationEnabled() const {
+  return doc().formField(path(), "adminTerminationEnabled");
+}
+void SessionRevocationPolicyContentForm::setAdminTerminationEnabled(const std::string& value) {
+  doc().setFormField(path(), "adminTerminationEnabled", value);
+}
+std::string SessionRevocationPolicyContentForm::bulkRevocationEnabled() const {
+  return doc().formField(path(), "bulkRevocationEnabled");
+}
+void SessionRevocationPolicyContentForm::setBulkRevocationEnabled(const std::string& value) {
+  doc().setFormField(path(), "bulkRevocationEnabled", value);
+}
+std::string SessionRevocationPolicyContentForm::revocationPropagationDelay() const {
+  return doc().formField(path(), "revocationPropagationDelay");
+}
+void SessionRevocationPolicyContentForm::setRevocationPropagationDelay(const std::string& value) {
+  doc().setFormField(path(), "revocationPropagationDelay", value);
+}
+
+SessionSecurityPolicyContentForm::SessionSecurityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SessionSecurityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void SessionSecurityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SessionSecurityPolicyContentForm::sessionFixationProtection() const {
+  return doc().formField(path(), "sessionFixationProtection");
+}
+void SessionSecurityPolicyContentForm::setSessionFixationProtection(const std::string& value) {
+  doc().setFormField(path(), "sessionFixationProtection", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionIdRegenerationTriggers() const {
+  return doc().formField(path(), "sessionIdRegenerationTriggers");
+}
+void SessionSecurityPolicyContentForm::setSessionIdRegenerationTriggers(const std::string& value) {
+  doc().setFormField(path(), "sessionIdRegenerationTriggers", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionBindingProperties() const {
+  return doc().formField(path(), "sessionBindingProperties");
+}
+void SessionSecurityPolicyContentForm::setSessionBindingProperties(const std::string& value) {
+  doc().setFormField(path(), "sessionBindingProperties", value);
+}
+std::string SessionSecurityPolicyContentForm::bindingMismatchAction() const {
+  return doc().formField(path(), "bindingMismatchAction");
+}
+void SessionSecurityPolicyContentForm::setBindingMismatchAction(const std::string& value) {
+  doc().setFormField(path(), "bindingMismatchAction", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionAnomalyDetection() const {
+  return doc().formField(path(), "sessionAnomalyDetection");
+}
+void SessionSecurityPolicyContentForm::setSessionAnomalyDetection(const std::string& value) {
+  doc().setFormField(path(), "sessionAnomalyDetection", value);
+}
+std::string SessionSecurityPolicyContentForm::anomalyDetectionSignals() const {
+  return doc().formField(path(), "anomalyDetectionSignals");
+}
+void SessionSecurityPolicyContentForm::setAnomalyDetectionSignals(const std::string& value) {
+  doc().setFormField(path(), "anomalyDetectionSignals", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionCachePolicy() const {
+  return doc().formField(path(), "sessionCachePolicy");
+}
+void SessionSecurityPolicyContentForm::setSessionCachePolicy(const std::string& value) {
+  doc().setFormField(path(), "sessionCachePolicy", value);
+}
+std::string SessionSecurityPolicyContentForm::clearSiteDataOnLogout() const {
+  return doc().formField(path(), "clearSiteDataOnLogout");
+}
+void SessionSecurityPolicyContentForm::setClearSiteDataOnLogout(const std::string& value) {
+  doc().setFormField(path(), "clearSiteDataOnLogout", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionTransportSecurity() const {
+  return doc().formField(path(), "sessionTransportSecurity");
+}
+void SessionSecurityPolicyContentForm::setSessionTransportSecurity(const std::string& value) {
+  doc().setFormField(path(), "sessionTransportSecurity", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionIdInUrlPrevention() const {
+  return doc().formField(path(), "sessionIdInUrlPrevention");
+}
+void SessionSecurityPolicyContentForm::setSessionIdInUrlPrevention(const std::string& value) {
+  doc().setFormField(path(), "sessionIdInUrlPrevention", value);
+}
+std::string SessionSecurityPolicyContentForm::crossOriginSessionProtection() const {
+  return doc().formField(path(), "crossOriginSessionProtection");
+}
+void SessionSecurityPolicyContentForm::setCrossOriginSessionProtection(const std::string& value) {
+  doc().setFormField(path(), "crossOriginSessionProtection", value);
+}
+std::string SessionSecurityPolicyContentForm::sessionDataMinimization() const {
+  return doc().formField(path(), "sessionDataMinimization");
+}
+void SessionSecurityPolicyContentForm::setSessionDataMinimization(const std::string& value) {
+  doc().setFormField(path(), "sessionDataMinimization", value);
+}
+
+SessionTimeoutPolicyContentForm::SessionTimeoutPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SessionTimeoutPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void SessionTimeoutPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SessionTimeoutPolicyContentForm::idleTimeoutDefault() const {
+  return doc().formField(path(), "idleTimeoutDefault");
+}
+void SessionTimeoutPolicyContentForm::setIdleTimeoutDefault(const std::string& value) {
+  doc().setFormField(path(), "idleTimeoutDefault", value);
+}
+std::string SessionTimeoutPolicyContentForm::idleTimeoutHighValue() const {
+  return doc().formField(path(), "idleTimeoutHighValue");
+}
+void SessionTimeoutPolicyContentForm::setIdleTimeoutHighValue(const std::string& value) {
+  doc().setFormField(path(), "idleTimeoutHighValue", value);
+}
+std::string SessionTimeoutPolicyContentForm::absoluteTimeout() const {
+  return doc().formField(path(), "absoluteTimeout");
+}
+void SessionTimeoutPolicyContentForm::setAbsoluteTimeout(const std::string& value) {
+  doc().setFormField(path(), "absoluteTimeout", value);
+}
+std::string SessionTimeoutPolicyContentForm::renewalTimeout() const {
+  return doc().formField(path(), "renewalTimeout");
+}
+void SessionTimeoutPolicyContentForm::setRenewalTimeout(const std::string& value) {
+  doc().setFormField(path(), "renewalTimeout", value);
+}
+std::string SessionTimeoutPolicyContentForm::idleTimeoutAal1() const {
+  return doc().formField(path(), "idleTimeoutAal1");
+}
+void SessionTimeoutPolicyContentForm::setIdleTimeoutAal1(const std::string& value) {
+  doc().setFormField(path(), "idleTimeoutAal1", value);
+}
+std::string SessionTimeoutPolicyContentForm::absoluteTimeoutAal1() const {
+  return doc().formField(path(), "absoluteTimeoutAal1");
+}
+void SessionTimeoutPolicyContentForm::setAbsoluteTimeoutAal1(const std::string& value) {
+  doc().setFormField(path(), "absoluteTimeoutAal1", value);
+}
+std::string SessionTimeoutPolicyContentForm::idleTimeoutAal2() const {
+  return doc().formField(path(), "idleTimeoutAal2");
+}
+void SessionTimeoutPolicyContentForm::setIdleTimeoutAal2(const std::string& value) {
+  doc().setFormField(path(), "idleTimeoutAal2", value);
+}
+std::string SessionTimeoutPolicyContentForm::absoluteTimeoutAal2() const {
+  return doc().formField(path(), "absoluteTimeoutAal2");
+}
+void SessionTimeoutPolicyContentForm::setAbsoluteTimeoutAal2(const std::string& value) {
+  doc().setFormField(path(), "absoluteTimeoutAal2", value);
+}
+std::string SessionTimeoutPolicyContentForm::idleTimeoutAal3() const {
+  return doc().formField(path(), "idleTimeoutAal3");
+}
+void SessionTimeoutPolicyContentForm::setIdleTimeoutAal3(const std::string& value) {
+  doc().setFormField(path(), "idleTimeoutAal3", value);
+}
+std::string SessionTimeoutPolicyContentForm::absoluteTimeoutAal3() const {
+  return doc().formField(path(), "absoluteTimeoutAal3");
+}
+void SessionTimeoutPolicyContentForm::setAbsoluteTimeoutAal3(const std::string& value) {
+  doc().setFormField(path(), "absoluteTimeoutAal3", value);
+}
+std::string SessionTimeoutPolicyContentForm::timeoutEnforcement() const {
+  return doc().formField(path(), "timeoutEnforcement");
+}
+void SessionTimeoutPolicyContentForm::setTimeoutEnforcement(const std::string& value) {
+  doc().setFormField(path(), "timeoutEnforcement", value);
+}
+std::string SessionTimeoutPolicyContentForm::timeoutWarningEnabled() const {
+  return doc().formField(path(), "timeoutWarningEnabled");
+}
+void SessionTimeoutPolicyContentForm::setTimeoutWarningEnabled(const std::string& value) {
+  doc().setFormField(path(), "timeoutWarningEnabled", value);
+}
+std::string SessionTimeoutPolicyContentForm::timeoutWarningLeadTime() const {
+  return doc().formField(path(), "timeoutWarningLeadTime");
+}
+void SessionTimeoutPolicyContentForm::setTimeoutWarningLeadTime(const std::string& value) {
+  doc().setFormField(path(), "timeoutWarningLeadTime", value);
+}
+std::string SessionTimeoutPolicyContentForm::timeoutWarningAction() const {
+  return doc().formField(path(), "timeoutWarningAction");
+}
+void SessionTimeoutPolicyContentForm::setTimeoutWarningAction(const std::string& value) {
+  doc().setFormField(path(), "timeoutWarningAction", value);
+}
+std::string SessionTimeoutPolicyContentForm::sessionExtensionAllowed() const {
+  return doc().formField(path(), "sessionExtensionAllowed");
+}
+void SessionTimeoutPolicyContentForm::setSessionExtensionAllowed(const std::string& value) {
+  doc().setFormField(path(), "sessionExtensionAllowed", value);
+}
+std::string SessionTimeoutPolicyContentForm::maxExtensions() const {
+  return doc().formField(path(), "maxExtensions");
+}
+void SessionTimeoutPolicyContentForm::setMaxExtensions(const std::string& value) {
+  doc().setFormField(path(), "maxExtensions", value);
+}
+std::string SessionTimeoutPolicyContentForm::gracePeriodAfterExpiry() const {
+  return doc().formField(path(), "gracePeriodAfterExpiry");
+}
+void SessionTimeoutPolicyContentForm::setGracePeriodAfterExpiry(const std::string& value) {
+  doc().setFormField(path(), "gracePeriodAfterExpiry", value);
 }
 
 SharedInfrastructureEntryCapacityForm::SharedInfrastructureEntryCapacityForm(som::SpecDocument& doc, std::string path)
@@ -94640,6 +99388,87 @@ std::string SpecializedEquipmentEntryTechnicalForm::certifications() const {
 }
 void SpecializedEquipmentEntryTechnicalForm::setCertifications(const std::string& value) {
   doc().setFormField(path(), "certifications", value);
+}
+
+SsoPolicyContentForm::SsoPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SsoPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void SsoPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SsoPolicyContentForm::ssoEnabled() const {
+  return doc().formField(path(), "ssoEnabled");
+}
+void SsoPolicyContentForm::setSsoEnabled(const std::string& value) {
+  doc().setFormField(path(), "ssoEnabled", value);
+}
+std::string SsoPolicyContentForm::ssoProtocol() const {
+  return doc().formField(path(), "ssoProtocol");
+}
+void SsoPolicyContentForm::setSsoProtocol(const std::string& value) {
+  doc().setFormField(path(), "ssoProtocol", value);
+}
+std::string SsoPolicyContentForm::identityProviderType() const {
+  return doc().formField(path(), "identityProviderType");
+}
+void SsoPolicyContentForm::setIdentityProviderType(const std::string& value) {
+  doc().setFormField(path(), "identityProviderType", value);
+}
+std::string SsoPolicyContentForm::identityProviderProduct() const {
+  return doc().formField(path(), "identityProviderProduct");
+}
+void SsoPolicyContentForm::setIdentityProviderProduct(const std::string& value) {
+  doc().setFormField(path(), "identityProviderProduct", value);
+}
+std::string SsoPolicyContentForm::federationProtocol() const {
+  return doc().formField(path(), "federationProtocol");
+}
+void SsoPolicyContentForm::setFederationProtocol(const std::string& value) {
+  doc().setFormField(path(), "federationProtocol", value);
+}
+std::string SsoPolicyContentForm::attributeMapping() const {
+  return doc().formField(path(), "attributeMapping");
+}
+void SsoPolicyContentForm::setAttributeMapping(const std::string& value) {
+  doc().setFormField(path(), "attributeMapping", value);
+}
+std::string SsoPolicyContentForm::justInTimeProvisioning() const {
+  return doc().formField(path(), "justInTimeProvisioning");
+}
+void SsoPolicyContentForm::setJustInTimeProvisioning(const std::string& value) {
+  doc().setFormField(path(), "justInTimeProvisioning", value);
+}
+std::string SsoPolicyContentForm::sessionSynchronization() const {
+  return doc().formField(path(), "sessionSynchronization");
+}
+void SsoPolicyContentForm::setSessionSynchronization(const std::string& value) {
+  doc().setFormField(path(), "sessionSynchronization", value);
+}
+std::string SsoPolicyContentForm::singleLogoutEnabled() const {
+  return doc().formField(path(), "singleLogoutEnabled");
+}
+void SsoPolicyContentForm::setSingleLogoutEnabled(const std::string& value) {
+  doc().setFormField(path(), "singleLogoutEnabled", value);
+}
+std::string SsoPolicyContentForm::ssoFallbackMethod() const {
+  return doc().formField(path(), "ssoFallbackMethod");
+}
+void SsoPolicyContentForm::setSsoFallbackMethod(const std::string& value) {
+  doc().setFormField(path(), "ssoFallbackMethod", value);
+}
+std::string SsoPolicyContentForm::ssoScopePolicy() const {
+  return doc().formField(path(), "ssoScopePolicy");
+}
+void SsoPolicyContentForm::setSsoScopePolicy(const std::string& value) {
+  doc().setFormField(path(), "ssoScopePolicy", value);
+}
+std::string SsoPolicyContentForm::externalIdpTrustPolicy() const {
+  return doc().formField(path(), "externalIdpTrustPolicy");
+}
+void SsoPolicyContentForm::setExternalIdpTrustPolicy(const std::string& value) {
+  doc().setFormField(path(), "externalIdpTrustPolicy", value);
 }
 
 StaffingBudgetAllocationsForm::StaffingBudgetAllocationsForm(som::SpecDocument& doc, std::string path)
@@ -97683,6 +102512,319 @@ std::string StakeholdersAndInterestsContentForm::otherStakeholders() const {
 }
 void StakeholdersAndInterestsContentForm::setOtherStakeholders(const std::string& value) {
   doc().setFormField(path(), "otherStakeholders", value);
+}
+
+StepUpAuthenticationPolicyContentForm::StepUpAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StepUpAuthenticationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void StepUpAuthenticationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string StepUpAuthenticationPolicyContentForm::stepUpEnabled() const {
+  return doc().formField(path(), "stepUpEnabled");
+}
+void StepUpAuthenticationPolicyContentForm::setStepUpEnabled(const std::string& value) {
+  doc().setFormField(path(), "stepUpEnabled", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::stepUpTriggers() const {
+  return doc().formField(path(), "stepUpTriggers");
+}
+void StepUpAuthenticationPolicyContentForm::setStepUpTriggers(const std::string& value) {
+  doc().setFormField(path(), "stepUpTriggers", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::stepUpTargetAal() const {
+  return doc().formField(path(), "stepUpTargetAal");
+}
+void StepUpAuthenticationPolicyContentForm::setStepUpTargetAal(const std::string& value) {
+  doc().setFormField(path(), "stepUpTargetAal", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::stepUpTimeout() const {
+  return doc().formField(path(), "stepUpTimeout");
+}
+void StepUpAuthenticationPolicyContentForm::setStepUpTimeout(const std::string& value) {
+  doc().setFormField(path(), "stepUpTimeout", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::riskBasedAuthEnabled() const {
+  return doc().formField(path(), "riskBasedAuthEnabled");
+}
+void StepUpAuthenticationPolicyContentForm::setRiskBasedAuthEnabled(const std::string& value) {
+  doc().setFormField(path(), "riskBasedAuthEnabled", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::riskSignals() const {
+  return doc().formField(path(), "riskSignals");
+}
+void StepUpAuthenticationPolicyContentForm::setRiskSignals(const std::string& value) {
+  doc().setFormField(path(), "riskSignals", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::riskScoringMethod() const {
+  return doc().formField(path(), "riskScoringMethod");
+}
+void StepUpAuthenticationPolicyContentForm::setRiskScoringMethod(const std::string& value) {
+  doc().setFormField(path(), "riskScoringMethod", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::lowRiskAction() const {
+  return doc().formField(path(), "lowRiskAction");
+}
+void StepUpAuthenticationPolicyContentForm::setLowRiskAction(const std::string& value) {
+  doc().setFormField(path(), "lowRiskAction", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::mediumRiskAction() const {
+  return doc().formField(path(), "mediumRiskAction");
+}
+void StepUpAuthenticationPolicyContentForm::setMediumRiskAction(const std::string& value) {
+  doc().setFormField(path(), "mediumRiskAction", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::highRiskAction() const {
+  return doc().formField(path(), "highRiskAction");
+}
+void StepUpAuthenticationPolicyContentForm::setHighRiskAction(const std::string& value) {
+  doc().setFormField(path(), "highRiskAction", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::adaptiveAuthProvider() const {
+  return doc().formField(path(), "adaptiveAuthProvider");
+}
+void StepUpAuthenticationPolicyContentForm::setAdaptiveAuthProvider(const std::string& value) {
+  doc().setFormField(path(), "adaptiveAuthProvider", value);
+}
+std::string StepUpAuthenticationPolicyContentForm::continuousAuthEnabled() const {
+  return doc().formField(path(), "continuousAuthEnabled");
+}
+void StepUpAuthenticationPolicyContentForm::setContinuousAuthEnabled(const std::string& value) {
+  doc().setFormField(path(), "continuousAuthEnabled", value);
+}
+
+StorageEncryptionPolicyContentForm::StorageEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StorageEncryptionPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void StorageEncryptionPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::encryptionAtRest() const {
+  const std::string v = doc().formField(path(), "encryptionAtRest");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setEncryptionAtRest(std::optional<bool> value) {
+  doc().setFormField(path(), "encryptionAtRest", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageEncryptionPolicyContentForm::encryptionAlgorithm() const {
+  return doc().formField(path(), "encryptionAlgorithm");
+}
+void StorageEncryptionPolicyContentForm::setEncryptionAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "encryptionAlgorithm", value);
+}
+std::string StorageEncryptionPolicyContentForm::encryptionScope() const {
+  return doc().formField(path(), "encryptionScope");
+}
+void StorageEncryptionPolicyContentForm::setEncryptionScope(const std::string& value) {
+  doc().setFormField(path(), "encryptionScope", value);
+}
+std::string StorageEncryptionPolicyContentForm::serverSideEncryption() const {
+  return doc().formField(path(), "serverSideEncryption");
+}
+void StorageEncryptionPolicyContentForm::setServerSideEncryption(const std::string& value) {
+  doc().setFormField(path(), "serverSideEncryption", value);
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::clientSideEncryption() const {
+  const std::string v = doc().formField(path(), "clientSideEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setClientSideEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "clientSideEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageEncryptionPolicyContentForm::clientSideEncryptionMethod() const {
+  return doc().formField(path(), "clientSideEncryptionMethod");
+}
+void StorageEncryptionPolicyContentForm::setClientSideEncryptionMethod(const std::string& value) {
+  doc().setFormField(path(), "clientSideEncryptionMethod", value);
+}
+std::string StorageEncryptionPolicyContentForm::fileKeyRotation() const {
+  return doc().formField(path(), "fileKeyRotation");
+}
+void StorageEncryptionPolicyContentForm::setFileKeyRotation(const std::string& value) {
+  doc().setFormField(path(), "fileKeyRotation", value);
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::perTenantKeys() const {
+  const std::string v = doc().formField(path(), "perTenantKeys");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setPerTenantKeys(std::optional<bool> value) {
+  doc().setFormField(path(), "perTenantKeys", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::keyDeletionOnTenantRemoval() const {
+  const std::string v = doc().formField(path(), "keyDeletionOnTenantRemoval");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setKeyDeletionOnTenantRemoval(std::optional<bool> value) {
+  doc().setFormField(path(), "keyDeletionOnTenantRemoval", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::encryptionInTransit() const {
+  const std::string v = doc().formField(path(), "encryptionInTransit");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setEncryptionInTransit(std::optional<bool> value) {
+  doc().setFormField(path(), "encryptionInTransit", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageEncryptionPolicyContentForm::minimumTlsVersion() const {
+  return doc().formField(path(), "minimumTlsVersion");
+}
+void StorageEncryptionPolicyContentForm::setMinimumTlsVersion(const std::string& value) {
+  doc().setFormField(path(), "minimumTlsVersion", value);
+}
+std::optional<bool> StorageEncryptionPolicyContentForm::backupEncryption() const {
+  const std::string v = doc().formField(path(), "backupEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageEncryptionPolicyContentForm::setBackupEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "backupEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageEncryptionPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void StorageEncryptionPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+StorageLifecyclePolicyContentForm::StorageLifecyclePolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string StorageLifecyclePolicyContentForm::content() const {
+  return doc().content(path());
+}
+void StorageLifecyclePolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string StorageLifecyclePolicyContentForm::retentionPolicy() const {
+  return doc().formField(path(), "retentionPolicy");
+}
+void StorageLifecyclePolicyContentForm::setRetentionPolicy(const std::string& value) {
+  doc().setFormField(path(), "retentionPolicy", value);
+}
+std::string StorageLifecyclePolicyContentForm::defaultRetentionPeriod() const {
+  return doc().formField(path(), "defaultRetentionPeriod");
+}
+void StorageLifecyclePolicyContentForm::setDefaultRetentionPeriod(const std::string& value) {
+  doc().setFormField(path(), "defaultRetentionPeriod", value);
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::retentionByFileType() const {
+  const std::string v = doc().formField(path(), "retentionByFileType");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setRetentionByFileType(std::optional<bool> value) {
+  doc().setFormField(path(), "retentionByFileType", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::legalHoldSupport() const {
+  const std::string v = doc().formField(path(), "legalHoldSupport");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setLegalHoldSupport(std::optional<bool> value) {
+  doc().setFormField(path(), "legalHoldSupport", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::archivingEnabled() const {
+  const std::string v = doc().formField(path(), "archivingEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setArchivingEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "archivingEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageLifecyclePolicyContentForm::archivalStorageTier() const {
+  return doc().formField(path(), "archivalStorageTier");
+}
+void StorageLifecyclePolicyContentForm::setArchivalStorageTier(const std::string& value) {
+  doc().setFormField(path(), "archivalStorageTier", value);
+}
+std::optional<long> StorageLifecyclePolicyContentForm::archivalTransitionDays() const {
+  const std::string v = doc().formField(path(), "archivalTransitionDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void StorageLifecyclePolicyContentForm::setArchivalTransitionDays(std::optional<long> value) {
+  doc().setFormField(path(), "archivalTransitionDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::versioningEnabled() const {
+  const std::string v = doc().formField(path(), "versioningEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setVersioningEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "versioningEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> StorageLifecyclePolicyContentForm::maxVersions() const {
+  const std::string v = doc().formField(path(), "maxVersions");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void StorageLifecyclePolicyContentForm::setMaxVersions(std::optional<long> value) {
+  doc().setFormField(path(), "maxVersions", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> StorageLifecyclePolicyContentForm::versionRetentionDays() const {
+  const std::string v = doc().formField(path(), "versionRetentionDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void StorageLifecyclePolicyContentForm::setVersionRetentionDays(std::optional<long> value) {
+  doc().setFormField(path(), "versionRetentionDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::string StorageLifecyclePolicyContentForm::backupSchedule() const {
+  return doc().formField(path(), "backupSchedule");
+}
+void StorageLifecyclePolicyContentForm::setBackupSchedule(const std::string& value) {
+  doc().setFormField(path(), "backupSchedule", value);
+}
+std::optional<long> StorageLifecyclePolicyContentForm::backupRetentionDays() const {
+  const std::string v = doc().formField(path(), "backupRetentionDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void StorageLifecyclePolicyContentForm::setBackupRetentionDays(std::optional<long> value) {
+  doc().setFormField(path(), "backupRetentionDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::crossRegionReplication() const {
+  const std::string v = doc().formField(path(), "crossRegionReplication");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setCrossRegionReplication(std::optional<bool> value) {
+  doc().setFormField(path(), "crossRegionReplication", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageLifecyclePolicyContentForm::secureDeletionMethod() const {
+  return doc().formField(path(), "secureDeletionMethod");
+}
+void StorageLifecyclePolicyContentForm::setSecureDeletionMethod(const std::string& value) {
+  doc().setFormField(path(), "secureDeletionMethod", value);
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::deletionConfirmation() const {
+  const std::string v = doc().formField(path(), "deletionConfirmation");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setDeletionConfirmation(std::optional<bool> value) {
+  doc().setFormField(path(), "deletionConfirmation", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> StorageLifecyclePolicyContentForm::deletionAuditLogging() const {
+  const std::string v = doc().formField(path(), "deletionAuditLogging");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void StorageLifecyclePolicyContentForm::setDeletionAuditLogging(std::optional<bool> value) {
+  doc().setFormField(path(), "deletionAuditLogging", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string StorageLifecyclePolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void StorageLifecyclePolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 StrategicAlignmentAlignmentDetailsForm::StrategicAlignmentAlignmentDetailsForm(som::SpecDocument& doc, std::string path)
@@ -103135,6 +108277,126 @@ void TechnologyStandardEntryScopeForm::setExceptionProcess(const std::string& va
   doc().setFormField(path(), "exceptionProcess", value);
 }
 
+TenantBoundaryEnforcementPolicyContentForm::TenantBoundaryEnforcementPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TenantBoundaryEnforcementPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TenantBoundaryEnforcementPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::enforcementLayer() const {
+  return doc().formField(path(), "enforcementLayer");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setEnforcementLayer(const std::string& value) {
+  doc().setFormField(path(), "enforcementLayer", value);
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::authorizationFilterStrategy() const {
+  return doc().formField(path(), "authorizationFilterStrategy");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setAuthorizationFilterStrategy(const std::string& value) {
+  doc().setFormField(path(), "authorizationFilterStrategy", value);
+}
+std::optional<bool> TenantBoundaryEnforcementPolicyContentForm::implicitTenantFilter() const {
+  const std::string v = doc().formField(path(), "implicitTenantFilter");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TenantBoundaryEnforcementPolicyContentForm::setImplicitTenantFilter(std::optional<bool> value) {
+  doc().setFormField(path(), "implicitTenantFilter", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::escalationPrevention() const {
+  return doc().formField(path(), "escalationPrevention");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setEscalationPrevention(const std::string& value) {
+  doc().setFormField(path(), "escalationPrevention", value);
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::sharedServiceAuthorization() const {
+  return doc().formField(path(), "sharedServiceAuthorization");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setSharedServiceAuthorization(const std::string& value) {
+  doc().setFormField(path(), "sharedServiceAuthorization", value);
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::tenantSwitchingPolicy() const {
+  return doc().formField(path(), "tenantSwitchingPolicy");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setTenantSwitchingPolicy(const std::string& value) {
+  doc().setFormField(path(), "tenantSwitchingPolicy", value);
+}
+std::optional<bool> TenantBoundaryEnforcementPolicyContentForm::multiTenantUserSupport() const {
+  const std::string v = doc().formField(path(), "multiTenantUserSupport");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TenantBoundaryEnforcementPolicyContentForm::setMultiTenantUserSupport(std::optional<bool> value) {
+  doc().setFormField(path(), "multiTenantUserSupport", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::authorizationCaching() const {
+  return doc().formField(path(), "authorizationCaching");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setAuthorizationCaching(const std::string& value) {
+  doc().setFormField(path(), "authorizationCaching", value);
+}
+std::string TenantBoundaryEnforcementPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void TenantBoundaryEnforcementPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+TenantContextPolicyContentForm::TenantContextPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TenantContextPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TenantContextPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TenantContextPolicyContentForm::contextResolutionMethod() const {
+  return doc().formField(path(), "contextResolutionMethod");
+}
+void TenantContextPolicyContentForm::setContextResolutionMethod(const std::string& value) {
+  doc().setFormField(path(), "contextResolutionMethod", value);
+}
+std::string TenantContextPolicyContentForm::contextPropagation() const {
+  return doc().formField(path(), "contextPropagation");
+}
+void TenantContextPolicyContentForm::setContextPropagation(const std::string& value) {
+  doc().setFormField(path(), "contextPropagation", value);
+}
+std::string TenantContextPolicyContentForm::contextValidation() const {
+  return doc().formField(path(), "contextValidation");
+}
+void TenantContextPolicyContentForm::setContextValidation(const std::string& value) {
+  doc().setFormField(path(), "contextValidation", value);
+}
+std::optional<bool> TenantContextPolicyContentForm::contextImmutability() const {
+  const std::string v = doc().formField(path(), "contextImmutability");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TenantContextPolicyContentForm::setContextImmutability(std::optional<bool> value) {
+  doc().setFormField(path(), "contextImmutability", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TenantContextPolicyContentForm::crossServicePropagation() const {
+  return doc().formField(path(), "crossServicePropagation");
+}
+void TenantContextPolicyContentForm::setCrossServicePropagation(const std::string& value) {
+  doc().setFormField(path(), "crossServicePropagation", value);
+}
+std::string TenantContextPolicyContentForm::missingContextBehavior() const {
+  return doc().formField(path(), "missingContextBehavior");
+}
+void TenantContextPolicyContentForm::setMissingContextBehavior(const std::string& value) {
+  doc().setFormField(path(), "missingContextBehavior", value);
+}
+std::string TenantContextPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void TenantContextPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 TenantCustomizationEntryContentForm::TenantCustomizationEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TenantCustomizationEntryContentForm::content() const {
@@ -103205,6 +108467,146 @@ std::string TenantCustomizationEntryContentForm::notes() const {
   return doc().formField(path(), "notes");
 }
 void TenantCustomizationEntryContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
+TenantDataIsolationPolicyContentForm::TenantDataIsolationPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TenantDataIsolationPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TenantDataIsolationPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantIsolationModel() const {
+  return doc().formField(path(), "tenantIsolationModel");
+}
+void TenantDataIsolationPolicyContentForm::setTenantIsolationModel(const std::string& value) {
+  doc().setFormField(path(), "tenantIsolationModel", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantIdentifierColumn() const {
+  return doc().formField(path(), "tenantIdentifierColumn");
+}
+void TenantDataIsolationPolicyContentForm::setTenantIdentifierColumn(const std::string& value) {
+  doc().setFormField(path(), "tenantIdentifierColumn", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantContextInjection() const {
+  return doc().formField(path(), "tenantContextInjection");
+}
+void TenantDataIsolationPolicyContentForm::setTenantContextInjection(const std::string& value) {
+  doc().setFormField(path(), "tenantContextInjection", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantIsolationEnforcement() const {
+  return doc().formField(path(), "tenantIsolationEnforcement");
+}
+void TenantDataIsolationPolicyContentForm::setTenantIsolationEnforcement(const std::string& value) {
+  doc().setFormField(path(), "tenantIsolationEnforcement", value);
+}
+std::string TenantDataIsolationPolicyContentForm::crossTenantQueryPrevention() const {
+  return doc().formField(path(), "crossTenantQueryPrevention");
+}
+void TenantDataIsolationPolicyContentForm::setCrossTenantQueryPrevention(const std::string& value) {
+  doc().setFormField(path(), "crossTenantQueryPrevention", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantDataBackupIsolation() const {
+  return doc().formField(path(), "tenantDataBackupIsolation");
+}
+void TenantDataIsolationPolicyContentForm::setTenantDataBackupIsolation(const std::string& value) {
+  doc().setFormField(path(), "tenantDataBackupIsolation", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantDataDeletion() const {
+  return doc().formField(path(), "tenantDataDeletion");
+}
+void TenantDataIsolationPolicyContentForm::setTenantDataDeletion(const std::string& value) {
+  doc().setFormField(path(), "tenantDataDeletion", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantDataExport() const {
+  return doc().formField(path(), "tenantDataExport");
+}
+void TenantDataIsolationPolicyContentForm::setTenantDataExport(const std::string& value) {
+  doc().setFormField(path(), "tenantDataExport", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantResourceQuotas() const {
+  return doc().formField(path(), "tenantResourceQuotas");
+}
+void TenantDataIsolationPolicyContentForm::setTenantResourceQuotas(const std::string& value) {
+  doc().setFormField(path(), "tenantResourceQuotas", value);
+}
+std::string TenantDataIsolationPolicyContentForm::tenantIsolationTesting() const {
+  return doc().formField(path(), "tenantIsolationTesting");
+}
+void TenantDataIsolationPolicyContentForm::setTenantIsolationTesting(const std::string& value) {
+  doc().setFormField(path(), "tenantIsolationTesting", value);
+}
+std::string TenantDataIsolationPolicyContentForm::sharedReferenceDataAccess() const {
+  return doc().formField(path(), "sharedReferenceDataAccess");
+}
+void TenantDataIsolationPolicyContentForm::setSharedReferenceDataAccess(const std::string& value) {
+  doc().setFormField(path(), "sharedReferenceDataAccess", value);
+}
+
+TenantOnboardingPolicyContentForm::TenantOnboardingPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TenantOnboardingPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TenantOnboardingPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TenantOnboardingPolicyContentForm::authorizationProvisioningModel() const {
+  return doc().formField(path(), "authorizationProvisioningModel");
+}
+void TenantOnboardingPolicyContentForm::setAuthorizationProvisioningModel(const std::string& value) {
+  doc().setFormField(path(), "authorizationProvisioningModel", value);
+}
+std::string TenantOnboardingPolicyContentForm::defaultRoleTemplate() const {
+  return doc().formField(path(), "defaultRoleTemplate");
+}
+void TenantOnboardingPolicyContentForm::setDefaultRoleTemplate(const std::string& value) {
+  doc().setFormField(path(), "defaultRoleTemplate", value);
+}
+std::string TenantOnboardingPolicyContentForm::adminRoleProvisioning() const {
+  return doc().formField(path(), "adminRoleProvisioning");
+}
+void TenantOnboardingPolicyContentForm::setAdminRoleProvisioning(const std::string& value) {
+  doc().setFormField(path(), "adminRoleProvisioning", value);
+}
+std::string TenantOnboardingPolicyContentForm::initialPermissionSet() const {
+  return doc().formField(path(), "initialPermissionSet");
+}
+void TenantOnboardingPolicyContentForm::setInitialPermissionSet(const std::string& value) {
+  doc().setFormField(path(), "initialPermissionSet", value);
+}
+std::string TenantOnboardingPolicyContentForm::offboardingStrategy() const {
+  return doc().formField(path(), "offboardingStrategy");
+}
+void TenantOnboardingPolicyContentForm::setOffboardingStrategy(const std::string& value) {
+  doc().setFormField(path(), "offboardingStrategy", value);
+}
+std::string TenantOnboardingPolicyContentForm::resourceCleanupOnOffboarding() const {
+  return doc().formField(path(), "resourceCleanupOnOffboarding");
+}
+void TenantOnboardingPolicyContentForm::setResourceCleanupOnOffboarding(const std::string& value) {
+  doc().setFormField(path(), "resourceCleanupOnOffboarding", value);
+}
+std::optional<long> TenantOnboardingPolicyContentForm::dataRetentionDays() const {
+  const std::string v = doc().formField(path(), "dataRetentionDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void TenantOnboardingPolicyContentForm::setDataRetentionDays(std::optional<long> value) {
+  doc().setFormField(path(), "dataRetentionDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::string TenantOnboardingPolicyContentForm::offboardingApproval() const {
+  return doc().formField(path(), "offboardingApproval");
+}
+void TenantOnboardingPolicyContentForm::setOffboardingApproval(const std::string& value) {
+  doc().setFormField(path(), "offboardingApproval", value);
+}
+std::string TenantOnboardingPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void TenantOnboardingPolicyContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
@@ -104219,6 +109621,73 @@ void ThrowawayPrototypeValueForm::setFutureReference(const std::string& value) {
   doc().setFormField(path(), "futureReference", value);
 }
 
+TlsProtocolPolicyContentForm::TlsProtocolPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TlsProtocolPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TlsProtocolPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TlsProtocolPolicyContentForm::minimumTlsVersion() const {
+  return doc().formField(path(), "minimumTlsVersion");
+}
+void TlsProtocolPolicyContentForm::setMinimumTlsVersion(const std::string& value) {
+  doc().setFormField(path(), "minimumTlsVersion", value);
+}
+std::string TlsProtocolPolicyContentForm::preferredTlsVersion() const {
+  return doc().formField(path(), "preferredTlsVersion");
+}
+void TlsProtocolPolicyContentForm::setPreferredTlsVersion(const std::string& value) {
+  doc().setFormField(path(), "preferredTlsVersion", value);
+}
+std::string TlsProtocolPolicyContentForm::allowedCipherSuites() const {
+  return doc().formField(path(), "allowedCipherSuites");
+}
+void TlsProtocolPolicyContentForm::setAllowedCipherSuites(const std::string& value) {
+  doc().setFormField(path(), "allowedCipherSuites", value);
+}
+std::optional<bool> TlsProtocolPolicyContentForm::preferAuthenticatedEncryption() const {
+  const std::string v = doc().formField(path(), "preferAuthenticatedEncryption");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TlsProtocolPolicyContentForm::setPreferAuthenticatedEncryption(std::optional<bool> value) {
+  doc().setFormField(path(), "preferAuthenticatedEncryption", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TlsProtocolPolicyContentForm::dhGroups() const {
+  return doc().formField(path(), "dhGroups");
+}
+void TlsProtocolPolicyContentForm::setDhGroups(const std::string& value) {
+  doc().setFormField(path(), "dhGroups", value);
+}
+std::optional<bool> TlsProtocolPolicyContentForm::tlsCompressionDisabled() const {
+  const std::string v = doc().formField(path(), "tlsCompressionDisabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TlsProtocolPolicyContentForm::setTlsCompressionDisabled(std::optional<bool> value) {
+  doc().setFormField(path(), "tlsCompressionDisabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TlsProtocolPolicyContentForm::sessionResumption() const {
+  return doc().formField(path(), "sessionResumption");
+}
+void TlsProtocolPolicyContentForm::setSessionResumption(const std::string& value) {
+  doc().setFormField(path(), "sessionResumption", value);
+}
+std::string TlsProtocolPolicyContentForm::complianceFramework() const {
+  return doc().formField(path(), "complianceFramework");
+}
+void TlsProtocolPolicyContentForm::setComplianceFramework(const std::string& value) {
+  doc().setFormField(path(), "complianceFramework", value);
+}
+std::string TlsProtocolPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void TlsProtocolPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 TlsRequirementsCertificateValidationForm::TlsRequirementsCertificateValidationForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TlsRequirementsCertificateValidationForm::content() const {
@@ -104370,6 +109839,111 @@ std::optional<bool> TlsRequirementsTerminationForm::internalTls() const {
 }
 void TlsRequirementsTerminationForm::setInternalTls(std::optional<bool> value) {
   doc().setFormField(path(), "internalTls", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+TokenManagementPolicyContentForm::TokenManagementPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TokenManagementPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TokenManagementPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TokenManagementPolicyContentForm::tokenFormat() const {
+  return doc().formField(path(), "tokenFormat");
+}
+void TokenManagementPolicyContentForm::setTokenFormat(const std::string& value) {
+  doc().setFormField(path(), "tokenFormat", value);
+}
+std::string TokenManagementPolicyContentForm::tokenSigningAlgorithm() const {
+  return doc().formField(path(), "tokenSigningAlgorithm");
+}
+void TokenManagementPolicyContentForm::setTokenSigningAlgorithm(const std::string& value) {
+  doc().setFormField(path(), "tokenSigningAlgorithm", value);
+}
+std::string TokenManagementPolicyContentForm::accessTokenLifetime() const {
+  return doc().formField(path(), "accessTokenLifetime");
+}
+void TokenManagementPolicyContentForm::setAccessTokenLifetime(const std::string& value) {
+  doc().setFormField(path(), "accessTokenLifetime", value);
+}
+std::string TokenManagementPolicyContentForm::refreshTokenEnabled() const {
+  return doc().formField(path(), "refreshTokenEnabled");
+}
+void TokenManagementPolicyContentForm::setRefreshTokenEnabled(const std::string& value) {
+  doc().setFormField(path(), "refreshTokenEnabled", value);
+}
+std::string TokenManagementPolicyContentForm::refreshTokenLifetime() const {
+  return doc().formField(path(), "refreshTokenLifetime");
+}
+void TokenManagementPolicyContentForm::setRefreshTokenLifetime(const std::string& value) {
+  doc().setFormField(path(), "refreshTokenLifetime", value);
+}
+std::string TokenManagementPolicyContentForm::refreshTokenRotation() const {
+  return doc().formField(path(), "refreshTokenRotation");
+}
+void TokenManagementPolicyContentForm::setRefreshTokenRotation(const std::string& value) {
+  doc().setFormField(path(), "refreshTokenRotation", value);
+}
+std::string TokenManagementPolicyContentForm::refreshTokenReuseDetection() const {
+  return doc().formField(path(), "refreshTokenReuseDetection");
+}
+void TokenManagementPolicyContentForm::setRefreshTokenReuseDetection(const std::string& value) {
+  doc().setFormField(path(), "refreshTokenReuseDetection", value);
+}
+std::string TokenManagementPolicyContentForm::idTokenEnabled() const {
+  return doc().formField(path(), "idTokenEnabled");
+}
+void TokenManagementPolicyContentForm::setIdTokenEnabled(const std::string& value) {
+  doc().setFormField(path(), "idTokenEnabled", value);
+}
+std::string TokenManagementPolicyContentForm::idTokenClaims() const {
+  return doc().formField(path(), "idTokenClaims");
+}
+void TokenManagementPolicyContentForm::setIdTokenClaims(const std::string& value) {
+  doc().setFormField(path(), "idTokenClaims", value);
+}
+std::string TokenManagementPolicyContentForm::tokenStorageClient() const {
+  return doc().formField(path(), "tokenStorageClient");
+}
+void TokenManagementPolicyContentForm::setTokenStorageClient(const std::string& value) {
+  doc().setFormField(path(), "tokenStorageClient", value);
+}
+std::string TokenManagementPolicyContentForm::tokenStorageServer() const {
+  return doc().formField(path(), "tokenStorageServer");
+}
+void TokenManagementPolicyContentForm::setTokenStorageServer(const std::string& value) {
+  doc().setFormField(path(), "tokenStorageServer", value);
+}
+std::string TokenManagementPolicyContentForm::tokenRevocationEnabled() const {
+  return doc().formField(path(), "tokenRevocationEnabled");
+}
+void TokenManagementPolicyContentForm::setTokenRevocationEnabled(const std::string& value) {
+  doc().setFormField(path(), "tokenRevocationEnabled", value);
+}
+std::string TokenManagementPolicyContentForm::tokenRevocationPropagation() const {
+  return doc().formField(path(), "tokenRevocationPropagation");
+}
+void TokenManagementPolicyContentForm::setTokenRevocationPropagation(const std::string& value) {
+  doc().setFormField(path(), "tokenRevocationPropagation", value);
+}
+std::string TokenManagementPolicyContentForm::tokenIntrospectionEnabled() const {
+  return doc().formField(path(), "tokenIntrospectionEnabled");
+}
+void TokenManagementPolicyContentForm::setTokenIntrospectionEnabled(const std::string& value) {
+  doc().setFormField(path(), "tokenIntrospectionEnabled", value);
+}
+std::string TokenManagementPolicyContentForm::audienceRestriction() const {
+  return doc().formField(path(), "audienceRestriction");
+}
+void TokenManagementPolicyContentForm::setAudienceRestriction(const std::string& value) {
+  doc().setFormField(path(), "audienceRestriction", value);
+}
+std::string TokenManagementPolicyContentForm::scopePolicy() const {
+  return doc().formField(path(), "scopePolicy");
+}
+void TokenManagementPolicyContentForm::setScopePolicy(const std::string& value) {
+  doc().setFormField(path(), "scopePolicy", value);
 }
 
 ToolEntryAccessForm::ToolEntryAccessForm(som::SpecDocument& doc, std::string path)
@@ -107517,6 +113091,83 @@ void TranslationVendorEntryContentForm::setContactInfo(const std::string& value)
   doc().setFormField(path(), "contactInfo", value);
 }
 
+TransportSecurityPolicyContentForm::TransportSecurityPolicyContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TransportSecurityPolicyContentForm::content() const {
+  return doc().content(path());
+}
+void TransportSecurityPolicyContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<bool> TransportSecurityPolicyContentForm::hstsEnabled() const {
+  const std::string v = doc().formField(path(), "hstsEnabled");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setHstsEnabled(std::optional<bool> value) {
+  doc().setFormField(path(), "hstsEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<long> TransportSecurityPolicyContentForm::hstsMaxAgeDays() const {
+  const std::string v = doc().formField(path(), "hstsMaxAgeDays");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void TransportSecurityPolicyContentForm::setHstsMaxAgeDays(std::optional<long> value) {
+  doc().setFormField(path(), "hstsMaxAgeDays", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<bool> TransportSecurityPolicyContentForm::hstsIncludeSubdomains() const {
+  const std::string v = doc().formField(path(), "hstsIncludeSubdomains");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setHstsIncludeSubdomains(std::optional<bool> value) {
+  doc().setFormField(path(), "hstsIncludeSubdomains", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> TransportSecurityPolicyContentForm::hstsPreload() const {
+  const std::string v = doc().formField(path(), "hstsPreload");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setHstsPreload(std::optional<bool> value) {
+  doc().setFormField(path(), "hstsPreload", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> TransportSecurityPolicyContentForm::httpToHttpsRedirect() const {
+  const std::string v = doc().formField(path(), "httpToHttpsRedirect");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setHttpToHttpsRedirect(std::optional<bool> value) {
+  doc().setFormField(path(), "httpToHttpsRedirect", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> TransportSecurityPolicyContentForm::secureCookieFlag() const {
+  const std::string v = doc().formField(path(), "secureCookieFlag");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setSecureCookieFlag(std::optional<bool> value) {
+  doc().setFormField(path(), "secureCookieFlag", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::optional<bool> TransportSecurityPolicyContentForm::preventMixedContent() const {
+  const std::string v = doc().formField(path(), "preventMixedContent");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
+}
+void TransportSecurityPolicyContentForm::setPreventMixedContent(std::optional<bool> value) {
+  doc().setFormField(path(), "preventMixedContent", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string TransportSecurityPolicyContentForm::sensitiveDataCaching() const {
+  return doc().formField(path(), "sensitiveDataCaching");
+}
+void TransportSecurityPolicyContentForm::setSensitiveDataCaching(const std::string& value) {
+  doc().setFormField(path(), "sensitiveDataCaching", value);
+}
+std::string TransportSecurityPolicyContentForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void TransportSecurityPolicyContentForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
+}
+
 TroubleshootingCapabilitiesAccessForm::TroubleshootingCapabilitiesAccessForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TroubleshootingCapabilitiesAccessForm::content() const {
@@ -109391,6 +115042,81 @@ void UserAccessibilityNeedsAccessibilityFormForm::setAdditionalStandards(const s
   doc().setFormField(path(), "additionalStandards", value);
 }
 
+UserAccountStatesDefinitionContentForm::UserAccountStatesDefinitionContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserAccountStatesDefinitionContentForm::content() const {
+  return doc().content(path());
+}
+void UserAccountStatesDefinitionContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserAccountStatesDefinitionContentForm::stateModel() const {
+  return doc().formField(path(), "stateModel");
+}
+void UserAccountStatesDefinitionContentForm::setStateModel(const std::string& value) {
+  doc().setFormField(path(), "stateModel", value);
+}
+std::string UserAccountStatesDefinitionContentForm::initialState() const {
+  return doc().formField(path(), "initialState");
+}
+void UserAccountStatesDefinitionContentForm::setInitialState(const std::string& value) {
+  doc().setFormField(path(), "initialState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::activeState() const {
+  return doc().formField(path(), "activeState");
+}
+void UserAccountStatesDefinitionContentForm::setActiveState(const std::string& value) {
+  doc().setFormField(path(), "activeState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::suspendedState() const {
+  return doc().formField(path(), "suspendedState");
+}
+void UserAccountStatesDefinitionContentForm::setSuspendedState(const std::string& value) {
+  doc().setFormField(path(), "suspendedState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::lockedState() const {
+  return doc().formField(path(), "lockedState");
+}
+void UserAccountStatesDefinitionContentForm::setLockedState(const std::string& value) {
+  doc().setFormField(path(), "lockedState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::deactivatedState() const {
+  return doc().formField(path(), "deactivatedState");
+}
+void UserAccountStatesDefinitionContentForm::setDeactivatedState(const std::string& value) {
+  doc().setFormField(path(), "deactivatedState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::archivedState() const {
+  return doc().formField(path(), "archivedState");
+}
+void UserAccountStatesDefinitionContentForm::setArchivedState(const std::string& value) {
+  doc().setFormField(path(), "archivedState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::deletedState() const {
+  return doc().formField(path(), "deletedState");
+}
+void UserAccountStatesDefinitionContentForm::setDeletedState(const std::string& value) {
+  doc().setFormField(path(), "deletedState", value);
+}
+std::string UserAccountStatesDefinitionContentForm::customStates() const {
+  return doc().formField(path(), "customStates");
+}
+void UserAccountStatesDefinitionContentForm::setCustomStates(const std::string& value) {
+  doc().setFormField(path(), "customStates", value);
+}
+std::string UserAccountStatesDefinitionContentForm::stateVisibility() const {
+  return doc().formField(path(), "stateVisibility");
+}
+void UserAccountStatesDefinitionContentForm::setStateVisibility(const std::string& value) {
+  doc().setFormField(path(), "stateVisibility", value);
+}
+std::string UserAccountStatesDefinitionContentForm::stateTransitionDiagramRef() const {
+  return doc().formField(path(), "stateTransitionDiagramRef");
+}
+void UserAccountStatesDefinitionContentForm::setStateTransitionDiagramRef(const std::string& value) {
+  doc().setFormField(path(), "stateTransitionDiagramRef", value);
+}
+
 UserAssistanceDeliveryForm::UserAssistanceDeliveryForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string UserAssistanceDeliveryForm::content() const {
@@ -109986,6 +115712,69 @@ void UserGrowthProjectionsThresholdsForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
+UserInteractionModelSummaryContentForm::UserInteractionModelSummaryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserInteractionModelSummaryContentForm::content() const {
+  return doc().content(path());
+}
+void UserInteractionModelSummaryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserInteractionModelSummaryContentForm::primaryAccessChannel() const {
+  return doc().formField(path(), "primaryAccessChannel");
+}
+void UserInteractionModelSummaryContentForm::setPrimaryAccessChannel(const std::string& value) {
+  doc().setFormField(path(), "primaryAccessChannel", value);
+}
+std::optional<long> UserInteractionModelSummaryContentForm::channelCount() const {
+  const std::string v = doc().formField(path(), "channelCount");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void UserInteractionModelSummaryContentForm::setChannelCount(std::optional<long> value) {
+  doc().setFormField(path(), "channelCount", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> UserInteractionModelSummaryContentForm::interactionPatternCount() const {
+  const std::string v = doc().formField(path(), "interactionPatternCount");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void UserInteractionModelSummaryContentForm::setInteractionPatternCount(std::optional<long> value) {
+  doc().setFormField(path(), "interactionPatternCount", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> UserInteractionModelSummaryContentForm::accessLevelCount() const {
+  const std::string v = doc().formField(path(), "accessLevelCount");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void UserInteractionModelSummaryContentForm::setAccessLevelCount(std::optional<long> value) {
+  doc().setFormField(path(), "accessLevelCount", value.has_value() ? std::to_string(*value) : "");
+}
+std::string UserInteractionModelSummaryContentForm::multiChannelSupport() const {
+  return doc().formField(path(), "multiChannelSupport");
+}
+void UserInteractionModelSummaryContentForm::setMultiChannelSupport(const std::string& value) {
+  doc().setFormField(path(), "multiChannelSupport", value);
+}
+std::string UserInteractionModelSummaryContentForm::offlineCapability() const {
+  return doc().formField(path(), "offlineCapability");
+}
+void UserInteractionModelSummaryContentForm::setOfflineCapability(const std::string& value) {
+  doc().setFormField(path(), "offlineCapability", value);
+}
+std::string UserInteractionModelSummaryContentForm::sessionManagement() const {
+  return doc().formField(path(), "sessionManagement");
+}
+void UserInteractionModelSummaryContentForm::setSessionManagement(const std::string& value) {
+  doc().setFormField(path(), "sessionManagement", value);
+}
+std::string UserInteractionModelSummaryContentForm::notificationChannels() const {
+  return doc().formField(path(), "notificationChannels");
+}
+void UserInteractionModelSummaryContentForm::setNotificationChannels(const std::string& value) {
+  doc().setFormField(path(), "notificationChannels", value);
+}
+
 UserLifecycleTransitionEntryApprovalForm::UserLifecycleTransitionEntryApprovalForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string UserLifecycleTransitionEntryApprovalForm::content() const {
@@ -110098,6 +115887,114 @@ std::string UserLifecycleTransitionEntryEffectsForm::notificationChannels() cons
 }
 void UserLifecycleTransitionEntryEffectsForm::setNotificationChannels(const std::string& value) {
   doc().setFormField(path(), "notificationChannels", value);
+}
+
+UserLifecycleTransitionsContentForm::UserLifecycleTransitionsContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserLifecycleTransitionsContentForm::content() const {
+  return doc().content(path());
+}
+void UserLifecycleTransitionsContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserLifecycleTransitionsContentForm::transitionModel() const {
+  return doc().formField(path(), "transitionModel");
+}
+void UserLifecycleTransitionsContentForm::setTransitionModel(const std::string& value) {
+  doc().setFormField(path(), "transitionModel", value);
+}
+std::string UserLifecycleTransitionsContentForm::approvalPolicyDefault() const {
+  return doc().formField(path(), "approvalPolicyDefault");
+}
+void UserLifecycleTransitionsContentForm::setApprovalPolicyDefault(const std::string& value) {
+  doc().setFormField(path(), "approvalPolicyDefault", value);
+}
+std::string UserLifecycleTransitionsContentForm::escalationPolicy() const {
+  return doc().formField(path(), "escalationPolicy");
+}
+void UserLifecycleTransitionsContentForm::setEscalationPolicy(const std::string& value) {
+  doc().setFormField(path(), "escalationPolicy", value);
+}
+std::string UserLifecycleTransitionsContentForm::escalationTimeframe() const {
+  return doc().formField(path(), "escalationTimeframe");
+}
+void UserLifecycleTransitionsContentForm::setEscalationTimeframe(const std::string& value) {
+  doc().setFormField(path(), "escalationTimeframe", value);
+}
+std::string UserLifecycleTransitionsContentForm::auditTrailRequired() const {
+  return doc().formField(path(), "auditTrailRequired");
+}
+void UserLifecycleTransitionsContentForm::setAuditTrailRequired(const std::string& value) {
+  doc().setFormField(path(), "auditTrailRequired", value);
+}
+std::string UserLifecycleTransitionsContentForm::notificationOnTransition() const {
+  return doc().formField(path(), "notificationOnTransition");
+}
+void UserLifecycleTransitionsContentForm::setNotificationOnTransition(const std::string& value) {
+  doc().setFormField(path(), "notificationOnTransition", value);
+}
+std::string UserLifecycleTransitionsContentForm::bulkTransitionSupport() const {
+  return doc().formField(path(), "bulkTransitionSupport");
+}
+void UserLifecycleTransitionsContentForm::setBulkTransitionSupport(const std::string& value) {
+  doc().setFormField(path(), "bulkTransitionSupport", value);
+}
+std::string UserLifecycleTransitionsContentForm::automatedTransitions() const {
+  return doc().formField(path(), "automatedTransitions");
+}
+void UserLifecycleTransitionsContentForm::setAutomatedTransitions(const std::string& value) {
+  doc().setFormField(path(), "automatedTransitions", value);
+}
+std::string UserLifecycleTransitionsContentForm::transitionUndoPolicy() const {
+  return doc().formField(path(), "transitionUndoPolicy");
+}
+void UserLifecycleTransitionsContentForm::setTransitionUndoPolicy(const std::string& value) {
+  doc().setFormField(path(), "transitionUndoPolicy", value);
+}
+
+UserNotificationPreferencesContentForm::UserNotificationPreferencesContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserNotificationPreferencesContentForm::content() const {
+  return doc().content(path());
+}
+void UserNotificationPreferencesContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserNotificationPreferencesContentForm::globalOptOut() const {
+  return doc().formField(path(), "globalOptOut");
+}
+void UserNotificationPreferencesContentForm::setGlobalOptOut(const std::string& value) {
+  doc().setFormField(path(), "globalOptOut", value);
+}
+std::string UserNotificationPreferencesContentForm::perTypeControl() const {
+  return doc().formField(path(), "perTypeControl");
+}
+void UserNotificationPreferencesContentForm::setPerTypeControl(const std::string& value) {
+  doc().setFormField(path(), "perTypeControl", value);
+}
+std::string UserNotificationPreferencesContentForm::channelPreferences() const {
+  return doc().formField(path(), "channelPreferences");
+}
+void UserNotificationPreferencesContentForm::setChannelPreferences(const std::string& value) {
+  doc().setFormField(path(), "channelPreferences", value);
+}
+std::string UserNotificationPreferencesContentForm::frequencyControl() const {
+  return doc().formField(path(), "frequencyControl");
+}
+void UserNotificationPreferencesContentForm::setFrequencyControl(const std::string& value) {
+  doc().setFormField(path(), "frequencyControl", value);
+}
+std::string UserNotificationPreferencesContentForm::quietHours() const {
+  return doc().formField(path(), "quietHours");
+}
+void UserNotificationPreferencesContentForm::setQuietHours(const std::string& value) {
+  doc().setFormField(path(), "quietHours", value);
+}
+std::string UserNotificationPreferencesContentForm::digestOption() const {
+  return doc().formField(path(), "digestOption");
+}
+void UserNotificationPreferencesContentForm::setDigestOption(const std::string& value) {
+  doc().setFormField(path(), "digestOption", value);
 }
 
 UserPersonaDetailsBehaviorForm::UserPersonaDetailsBehaviorForm(som::SpecDocument& doc, std::string path)
@@ -110366,6 +116263,117 @@ std::string UserProvisioningToolsRoleManagementForm::accessReviewProcess() const
 }
 void UserProvisioningToolsRoleManagementForm::setAccessReviewProcess(const std::string& value) {
   doc().setFormField(path(), "accessReviewProcess", value);
+}
+
+UserRegistrationProcessContentForm::UserRegistrationProcessContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserRegistrationProcessContentForm::content() const {
+  return doc().content(path());
+}
+void UserRegistrationProcessContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserRegistrationProcessContentForm::registrationMethods() const {
+  return doc().formField(path(), "registrationMethods");
+}
+void UserRegistrationProcessContentForm::setRegistrationMethods(const std::string& value) {
+  doc().setFormField(path(), "registrationMethods", value);
+}
+std::string UserRegistrationProcessContentForm::selfRegistrationEnabled() const {
+  return doc().formField(path(), "selfRegistrationEnabled");
+}
+void UserRegistrationProcessContentForm::setSelfRegistrationEnabled(const std::string& value) {
+  doc().setFormField(path(), "selfRegistrationEnabled", value);
+}
+std::string UserRegistrationProcessContentForm::identityProofingLevel() const {
+  return doc().formField(path(), "identityProofingLevel");
+}
+void UserRegistrationProcessContentForm::setIdentityProofingLevel(const std::string& value) {
+  doc().setFormField(path(), "identityProofingLevel", value);
+}
+std::string UserRegistrationProcessContentForm::emailVerificationRequired() const {
+  return doc().formField(path(), "emailVerificationRequired");
+}
+void UserRegistrationProcessContentForm::setEmailVerificationRequired(const std::string& value) {
+  doc().setFormField(path(), "emailVerificationRequired", value);
+}
+std::string UserRegistrationProcessContentForm::phoneVerificationRequired() const {
+  return doc().formField(path(), "phoneVerificationRequired");
+}
+void UserRegistrationProcessContentForm::setPhoneVerificationRequired(const std::string& value) {
+  doc().setFormField(path(), "phoneVerificationRequired", value);
+}
+std::string UserRegistrationProcessContentForm::captchaRequired() const {
+  return doc().formField(path(), "captchaRequired");
+}
+void UserRegistrationProcessContentForm::setCaptchaRequired(const std::string& value) {
+  doc().setFormField(path(), "captchaRequired", value);
+}
+std::string UserRegistrationProcessContentForm::invitationExpiryPeriod() const {
+  return doc().formField(path(), "invitationExpiryPeriod");
+}
+void UserRegistrationProcessContentForm::setInvitationExpiryPeriod(const std::string& value) {
+  doc().setFormField(path(), "invitationExpiryPeriod", value);
+}
+std::string UserRegistrationProcessContentForm::approvalRequired() const {
+  return doc().formField(path(), "approvalRequired");
+}
+void UserRegistrationProcessContentForm::setApprovalRequired(const std::string& value) {
+  doc().setFormField(path(), "approvalRequired", value);
+}
+std::string UserRegistrationProcessContentForm::approvalWorkflow() const {
+  return doc().formField(path(), "approvalWorkflow");
+}
+void UserRegistrationProcessContentForm::setApprovalWorkflow(const std::string& value) {
+  doc().setFormField(path(), "approvalWorkflow", value);
+}
+std::string UserRegistrationProcessContentForm::approverRole() const {
+  return doc().formField(path(), "approverRole");
+}
+void UserRegistrationProcessContentForm::setApproverRole(const std::string& value) {
+  doc().setFormField(path(), "approverRole", value);
+}
+std::string UserRegistrationProcessContentForm::requiredFieldsAtRegistration() const {
+  return doc().formField(path(), "requiredFieldsAtRegistration");
+}
+void UserRegistrationProcessContentForm::setRequiredFieldsAtRegistration(const std::string& value) {
+  doc().setFormField(path(), "requiredFieldsAtRegistration", value);
+}
+std::string UserRegistrationProcessContentForm::optionalFieldsAtRegistration() const {
+  return doc().formField(path(), "optionalFieldsAtRegistration");
+}
+void UserRegistrationProcessContentForm::setOptionalFieldsAtRegistration(const std::string& value) {
+  doc().setFormField(path(), "optionalFieldsAtRegistration", value);
+}
+std::string UserRegistrationProcessContentForm::termsAcceptanceRequired() const {
+  return doc().formField(path(), "termsAcceptanceRequired");
+}
+void UserRegistrationProcessContentForm::setTermsAcceptanceRequired(const std::string& value) {
+  doc().setFormField(path(), "termsAcceptanceRequired", value);
+}
+std::string UserRegistrationProcessContentForm::duplicateDetection() const {
+  return doc().formField(path(), "duplicateDetection");
+}
+void UserRegistrationProcessContentForm::setDuplicateDetection(const std::string& value) {
+  doc().setFormField(path(), "duplicateDetection", value);
+}
+std::string UserRegistrationProcessContentForm::welcomeNotification() const {
+  return doc().formField(path(), "welcomeNotification");
+}
+void UserRegistrationProcessContentForm::setWelcomeNotification(const std::string& value) {
+  doc().setFormField(path(), "welcomeNotification", value);
+}
+std::string UserRegistrationProcessContentForm::initialRoleAssignment() const {
+  return doc().formField(path(), "initialRoleAssignment");
+}
+void UserRegistrationProcessContentForm::setInitialRoleAssignment(const std::string& value) {
+  doc().setFormField(path(), "initialRoleAssignment", value);
+}
+std::string UserRegistrationProcessContentForm::registrationRateLimiting() const {
+  return doc().formField(path(), "registrationRateLimiting");
+}
+void UserRegistrationProcessContentForm::setRegistrationRateLimiting(const std::string& value) {
+  doc().setFormField(path(), "registrationRateLimiting", value);
 }
 
 UserSettingEntryContentForm::UserSettingEntryContentForm(som::SpecDocument& doc, std::string path)

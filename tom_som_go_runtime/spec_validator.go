@@ -75,7 +75,11 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 		// A form node is the one non-leaf that legitimately carries content: it
 		// is the form's preamble, the free text before the first field line
 		// (SOM §11.4 rule 7), in the same slot a plain section's body uses.
-		if !res.IsValueLeaf() && res.Kind != SpecNodeKindForm {
+		// A wrapper section (TextSection, ...) is the other: its class is not
+		// exported, so it resolves to no class and its text is stored at its
+		// own path, the way the YAML codec writes it.
+		isWrapperSection := res.Kind == SpecNodeKindSection && res.TargetClass == nil
+		if !res.IsValueLeaf() && res.Kind != SpecNodeKindForm && !isWrapperSection {
 			errors = append(errors, SpecValidationError{
 				Path:    path,
 				Code:    SpecValidationCodeKindMismatch,

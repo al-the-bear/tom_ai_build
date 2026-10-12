@@ -543,12 +543,14 @@ impl<'a> SpecDocumentMarkdown<'a> {
         if !node.section_id.is_empty() {
             return node.section_id.clone();
         }
-        if node.kind == SOM_META_KIND_SECTION || node.kind == SOM_META_KIND_COMPLEX {
-            if let Some(cls) = self.model.class_named(&node.class_name) {
-                if !cls.section_id.is_empty() {
-                    return cls.section_id.clone();
-                }
-            }
+        // The class id is the node's class_section_id, as the YAML key uses —
+        // never class_named(node.class_name): a wrapper section (TextSection,
+        // ...) carries its OWNER's class name, and that lookup returned the
+        // owner's id.
+        if (node.kind == SOM_META_KIND_SECTION || node.kind == SOM_META_KIND_COMPLEX)
+            && !node.class_section_id.is_empty()
+        {
+            return node.class_section_id.clone();
         }
         node.segment().to_string()
     }
@@ -585,10 +587,10 @@ impl<'a> SpecDocumentMarkdown<'a> {
         if !n.section_id.is_empty() {
             return false;
         }
-        match self.model.class_named(&n.class_name) {
-            Some(cls) => cls.section_id.is_empty(),
-            None => true,
-        }
+        // class_section_id, not class_named(n.class_name): see heading_id_of.
+        // A wrapper section (TextSection, ...) has neither id, so it is
+        // transparent (SOM §11.6).
+        n.class_section_id.is_empty()
     }
 
     /// The ordered *body slots* of `node`: every transparent value member and

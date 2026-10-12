@@ -112,6 +112,8 @@ Controlled summary
 
 ## <!--[NOTE]--> Notes
 
+Wrapper-section text
+
 ### <!--[NOTE-BDY]--> Body
 
 Section-kind body

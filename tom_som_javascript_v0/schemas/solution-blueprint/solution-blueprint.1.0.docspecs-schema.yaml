@@ -6964,7 +6964,6 @@ section-types:
     description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
   exsyco-data:
     prefix: EXSYCO_DATA
-    format: description
     description: Data mapping details.
   exten-exte:
     prefix: EXTEN_EXTE_
@@ -8911,7 +8910,6 @@ section-types:
     description: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions."
   carch-depl:
     prefix: CARCH_DEPL
-    format: description
     description: Deployment topology description.
   cboc-oper:
     prefix: CBOC_OPER_
@@ -9865,7 +9863,6 @@ section-types:
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
   sypup-visi:
     prefix: SYPUP_VISI
-    format: description
     description: Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.
   syqg-attr:
     prefix: SYQG_ATTR_
@@ -11040,23 +11037,18 @@ section-types:
     description: "The service-level regime — the framework, the error-budget policy, and"
   scbc-busi:
     prefix: SCBC_BUSI
-    format: description
     description: Describe how business outcomes will be measured.
   scbc-comp:
     prefix: SCBC_COMP
-    format: description
     description: Describe how compliance will be verified.
   scbc-proj:
     prefix: SCBC_PROJ
-    format: description
     description: Describe how project execution will be measured.
   scbc-tech:
     prefix: SCBC_TECH
-    format: description
     description: Describe how technical quality will be measured.
   scbc-user:
     prefix: SCBC_USER
-    format: description
     description: Describe how user satisfaction will be measured.
   sce-item:
     prefix: SCE_ITEM_
@@ -11761,7 +11753,6 @@ section-types:
     description: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation."
   rus-mock:
     prefix: RUS_MOCK
-    format: description
     description: UI mockup diagram (fallback if code not available).
   rus-uifo:
     prefix: RUS_UIFO
@@ -11898,7 +11889,6 @@ section-types:
     description: Persona Details Form.
   upd-visu:
     prefix: UPD_VISU
-    format: description
     description: Representative photo or avatar description.
   vpreenpe:
     prefix: VPREENPE
@@ -11910,7 +11900,6 @@ section-types:
     description: Create a diagram showing the access level hierarchy.
   al-perm:
     prefix: AL_PERM
-    format: description
     description: "Create a permission matrix showing the relationship between access levels, features, and permissions."
   bc-brea:
     prefix: BC_BREA
@@ -11922,7 +11911,6 @@ section-types:
     description: "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\")."
   cd-lege:
     prefix: CD_LEGE
-    format: description
     description: Diagram legend and conventions.
   db-cont:
     prefix: DB_CONT
@@ -11930,11 +11918,9 @@ section-types:
     description: Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.
   db-outs:
     prefix: DB_OUTS
-    format: description
     description: Outside-scope items.
   db-with:
     prefix: DB_WITH
-    format: description
     description: Within-scope items.
   dp-proc:
     prefix: DP_PROC
@@ -11950,7 +11936,6 @@ section-types:
     description: "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation."
   oc-busi:
     prefix: OC_BUSI
-    format: description
     description: Business process coverage.
   or-summ:
     prefix: OR_SUMM
@@ -11966,7 +11951,6 @@ section-types:
     description: Requirements overview form.
   ro-trac:
     prefix: RO_TRAC
-    format: description
     description: Provide a high-level view of requirement traceability.
   rt-trac:
     prefix: RT_TRAC
@@ -11974,7 +11958,6 @@ section-types:
     description: Traceability links form.
   sc-succ:
     prefix: SC_SUCC
-    format: description
     description: Create a summary matrix of all success criteria.
   sm-sess:
     prefix: SM_SESS
@@ -11990,7 +11973,6 @@ section-types:
     description: Create a journey map showing the user's experience from first contact through regular use.
   uj-oppo:
     prefix: UJ_OPPO
-    format: description
     description: Opportunities for delight.
   accasu:
     prefix: ACCASU
@@ -12703,7 +12685,6 @@ section-types:
     description: Client security requirements.
   coande:
     prefix: COANDE
-    format: description
     description: 4.6.4. Constraints and Dependencies — contains 0+×.
   coausc:
     prefix: COAUSC

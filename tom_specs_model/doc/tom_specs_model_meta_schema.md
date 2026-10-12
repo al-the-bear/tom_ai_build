@@ -180,7 +180,12 @@ emitter happened to have a fallback that hid it.
 
 ### `formFields[]` entry
 
-Present on `form`-kind fields only. Each entry always carries `name`, `label`
+Present on `form`-kind fields only. A field is `form`-kind when it carries a
+field-level `@Form`, and the `content` member is `form`-kind too when its
+**class** carries a class-level `@Form` and the member has none of its own
+(`tom_specs_model_rules.md` §5.3: an `@Form` class's content is the form) —
+the same rule the DocSpecs schema generator applies when it gives the section
+an `<id>-form` format. Each entry always carries `name`, `label`
 (the declared description, else the field name split on PascalCase), `type` (the
 Dart type name) and `required`; `hint`, `enumValues` and `refersTo` are omitted
 when empty.

@@ -80,3 +80,6 @@ document:
     NOTE notes:
       NOTE-BDY body: |2-
         Section-kind body
+      remarks:
+        content: |2-
+          Wrapper-section text

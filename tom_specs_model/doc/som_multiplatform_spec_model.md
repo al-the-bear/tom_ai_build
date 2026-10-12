@@ -1246,6 +1246,14 @@ target) is **transparent** — not a section of its own:
 - A transparent **section/complex** member emits no heading; its id-bearing
   descendants surface as the owner's direct child headings. Paths keep the
   transparent segments; only heading nesting collapses.
+- A **wrapper section** (`TextSection`, `FlowDiagramSection`, …: a `section`
+  member whose class is not exported, so it resolves to no class) is a
+  transparent section whose own path carries its text. That text is one of the
+  owner's body slots, and the instance tier accepts content there. A
+  member's ids are read from its meta node (`sectionId`, then
+  `classSectionId`), never by looking up the node's class name: a wrapper's
+  node carries its **owner's** class name, so that lookup returns the owner's
+  id.
 - **Lists are never transparent.**
 
 Three canonicalisation losses are accepted and normative:

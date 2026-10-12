@@ -2354,6 +2354,8 @@ class AcceptanceProcessTimelineForm;
 class AcceptanceStepEntryContentForm;
 class AcceptanceStepEntryFlowForm;
 class AcceptanceStepEntryOutcomeForm;
+class AccessConstraintPoliciesContentForm;
+class AccessControlModelSelectionContentForm;
 class AccessLevelEntryContentForm;
 class AccessLevelEntryGovernanceForm;
 class AccessLevelEntryPermissionsForm;
@@ -2373,6 +2375,11 @@ class AccessibilityStandardEntryTestingForm;
 class AccessibilityStrategyForm;
 class AccessibilitySupportForm;
 class AccessibilityTestingForm;
+class AccountActivationPolicyContentForm;
+class AccountDeactivationPolicyContentForm;
+class AccountDeletionPolicyContentForm;
+class AccountLockoutPolicyContentForm;
+class AccountModificationPolicyContentForm;
 class ActionParameterEntryContentForm;
 class ActorCharacteristicsContentForm;
 class ActorCharacteristicsSupportForm;
@@ -2421,11 +2428,18 @@ class AlternativeFlowEntryContentForm;
 class AlternativeFlowEntryResumePointForm;
 class AlternativeStepEntryContentForm;
 class AnomalyDetectionPolicyContentForm;
+class ApiAbuseProtectionContentForm;
+class ApiAuthenticationPolicyContentForm;
+class ApiAuthorizationPolicyContentForm;
 class ApiCompatibilityEntryContentForm;
 class ApiCompatibilityEntryFormatForm;
 class ApiCompatibilityEntryPolicyForm;
 class ApiCompatibilityEntrySpecificationForm;
 class ApiCompatibilityEntryTransportDetailsForm;
+class ApiCorsSecurityContentForm;
+class ApiKeyManagementPolicyContentForm;
+class ApiRequestValidationPolicyContentForm;
+class ApiSecurityMonitoringContentForm;
 class ApiVersioningStrategyCompatibilityForm;
 class ApiVersioningStrategyContentForm;
 class ApiVersioningStrategyDocumentationForm;
@@ -2472,6 +2486,7 @@ class AssumptionRegisterEntryContentForm;
 class AuditEntryContentForm;
 class AuditEvidenceRequirementsContentForm;
 class AuditEvidenceTypeEntryContentForm;
+class AuthenticationErrorHandlingContentForm;
 class AuthenticationEventPolicyContentForm;
 class AuthenticationMethodEntryApplicabilityForm;
 class AuthenticationMethodEntryContentForm;
@@ -2503,6 +2518,7 @@ class BackupComplianceReportingForm;
 class BackupDataClassificationCategoriesForm;
 class BackupDataClassificationContentForm;
 class BackupDataClassificationExclusionsForm;
+class BackupEncryptionPolicyContentForm;
 class BackupInfrastructureContentForm;
 class BackupInfrastructureNetworkForm;
 class BackupInfrastructureSecurityForm;
@@ -2531,6 +2547,7 @@ class BatchJobManagementContentForm;
 class BatchJobManagementExecutionForm;
 class BatchJobManagementMonitoringForm;
 class BehaviorRuleEntryContentForm;
+class BiometricAuthenticationPolicyContentForm;
 class BoundaryAssumptionEntryContentForm;
 class BoundaryAssumptionEntryRiskForm;
 class BoundaryAssumptionEntryValidationForm;
@@ -2602,10 +2619,12 @@ class CapacityReviewProcessEscalationForm;
 class CapacityReviewProcessMonitoringForm;
 class CapacityReviewProcessPlanningForm;
 class CcbMemberEntryContentForm;
+class CertificateAuthenticationPolicyContentForm;
 class CertificateManagementContentForm;
 class CertificateManagementKeysForm;
 class CertificateManagementLifecycleForm;
 class CertificateManagementMonitoringForm;
+class CertificateManagementPolicyContentForm;
 class CertificateManagementStorageForm;
 class CertificationEntryContentForm;
 class CertificationEntryExamForm;
@@ -2653,6 +2672,7 @@ class ChangedRoleTransitionContentForm;
 class ChangedRoleTransitionSupportForm;
 class ChangedRoleTransitionTrainingForm;
 class ChangesFromCurrentStructureOverviewContentForm;
+class ChannelIntegrationsContentForm;
 class CiCdPipelineConfigurationContentForm;
 class CiCdPipelineRequirementsBuildForm;
 class CiCdPipelineRequirementsContentForm;
@@ -2713,6 +2733,7 @@ class CodingStandardsSectionPracticesForm;
 class CodingStandardsSectionQualityForm;
 class CodingStandardsSectionReviewForm;
 class ColorPaletteEntryContentForm;
+class ColumnLevelSecurityPolicyContentForm;
 class CommitteeCharterContentForm;
 class CommitteeMemberEntryContentForm;
 class CommitteeResponsibilityEntryContentForm;
@@ -2825,6 +2846,7 @@ class ComputingEquipmentEntryContentForm;
 class ComputingEquipmentEntryHardwareForm;
 class ComputingEquipmentEntryPlanningForm;
 class ComputingEquipmentEntryPlatformForm;
+class ConcurrentSessionPolicyContentForm;
 class ConfidentialInfoCategoryEntryContentForm;
 class ConfidentialityRequirementsContentForm;
 class ConfidentialityRequirementsDataHandlingForm;
@@ -2844,6 +2866,7 @@ class ConsentManagementRequirementsManagementForm;
 class ConsentManagementRequirementsStorageForm;
 class ConsentManagementRequirementsTrackingForm;
 class ConstraintRegisterEntryContentForm;
+class ContentScanningPolicyContentForm;
 class ContextualHelpContextualHelpContentForm;
 class ContextualHelpInlineForm;
 class ContextualHelpPanelsForm;
@@ -2860,12 +2883,15 @@ class CorrectnessAccuracyForm;
 class CorrectnessContentForm;
 class CorrectnessIntegrityForm;
 class CorrectnessVerificationForm;
+class CredentialCompromiseDetectionPolicyContentForm;
+class CredentialRecoveryPolicyContentForm;
 class CrossCuttingConcernsCachingForm;
 class CrossCuttingConcernsContentForm;
 class CrossCuttingConcernsErrorsForm;
 class CrossCuttingConcernsObservabilityForm;
 class CrossCuttingConcernsSecurityForm;
 class CrossCuttingConcernsSharedForm;
+class CrossTenantAccessPolicyContentForm;
 class CurrentBusinessProcessContentForm;
 class CurrentBusinessProcessProcessContextForm;
 class CurrentDataClassificationClassificationSummaryForm;
@@ -2884,6 +2910,7 @@ class DashboardRequirementsFeaturesForm;
 class DashboardRequirementsMobileForm;
 class DashboardRequirementsStandardForm;
 class DashboardTemplatesContentForm;
+class DataAccessAuditPolicyContentForm;
 class DataAccessEventPolicyContentForm;
 class DataArchitectureAccessForm;
 class DataArchitectureConsistencyForm;
@@ -2942,6 +2969,7 @@ class DataIntegrationEntryOwnershipForm;
 class DataIntegrationEntryReliabilityInfoForm;
 class DataIntegrationEntryTransportForm;
 class DataIntegrationPointsIntegrationSummaryForm;
+class DataMaskingPolicyContentForm;
 class DataMigrationStrategyApproachForm;
 class DataMigrationStrategyComplianceForm;
 class DataMigrationStrategyContentForm;
@@ -2999,11 +3027,13 @@ class DataVolumeSummaryCapacityForm;
 class DataVolumeSummaryContentForm;
 class DataVolumeSummaryGrowthForm;
 class DataVolumeSummaryProjectionForm;
+class DatabaseAccessPolicyContentForm;
 class DatabaseCompatibilityEntryConnectionForm;
 class DatabaseCompatibilityEntryContentForm;
 class DatabaseCompatibilityEntryFeaturesForm;
 class DatabaseCompatibilityEntryPerformanceForm;
 class DatabaseCompatibilityEntrySupportForm;
+class DatabaseEncryptionPolicyContentForm;
 class DebuggingConfigurationBreakpointsForm;
 class DebuggingConfigurationContentForm;
 class DebuggingConfigurationErrorsForm;
@@ -3202,6 +3232,7 @@ class EmergencyMaintenanceProceduresContentForm;
 class EmergencyMaintenanceProceduresExecutionForm;
 class EmergencyMaintenanceProceduresGovernanceForm;
 class EncryptedDataCategoryEntryContentForm;
+class EncryptionAtRestPolicyContentForm;
 class EnterpriseSystemCompatibilityEntryContentForm;
 class EnterpriseSystemCompatibilityEntryIntegrationForm;
 class EnterpriseSystemCompatibilityEntryRequirementsForm;
@@ -3364,6 +3395,10 @@ class FeatureStakeholdersContentForm;
 class FeatureTourEntryContentForm;
 class FieldHelpEntryContentForm;
 class FieldValidationRuleContentForm;
+class FileAccessControlPolicyContentForm;
+class FileDownloadSecurityPolicyContentForm;
+class FileStorageEncryptionPolicyContentForm;
+class FileUploadValidationPolicyContentForm;
 class FirewallRequirementsAdvancedForm;
 class FirewallRequirementsContentForm;
 class FirewallRequirementsLoggingForm;
@@ -3662,6 +3697,7 @@ class LogManagementRequirementsStorageForm;
 class LogProtectionPolicyContentForm;
 class LogRetentionPolicyContentForm;
 class LogStoragePolicyContentForm;
+class LoginFlowConfigurationContentForm;
 class LoginFlowStepEntryBehaviorForm;
 class LoginFlowStepEntryContentForm;
 class LoginFlowStepEntryProtocolForm;
@@ -3716,6 +3752,7 @@ class MfaCategoryRequirementEntryAuthenticatorsForm;
 class MfaCategoryRequirementEntryContentForm;
 class MfaCategoryRequirementEntryOperationsForm;
 class MfaCategoryRequirementEntryTimingForm;
+class MfaConfigurationContentForm;
 class MigrationConsiderationsStrategyContentForm;
 class MigrationEnvironmentsContentForm;
 class MigrationMappingEntryContentForm;
@@ -3797,6 +3834,7 @@ class MustPassCriterionEntryDefinitionForm;
 class MustPassCriterionEntryGovernanceForm;
 class MustPassCriterionEntryStatusForm;
 class MustPassCriterionEntryVerificationForm;
+class MutualTlsPolicyContentForm;
 class NativeAppRequirementsContentForm;
 class NativeAppRequirementsLinkingForm;
 class NativeAppRequirementsPerformanceForm;
@@ -3927,6 +3965,9 @@ class PainPointGapCorrelationEntryContentForm;
 class PainPointRelationshipsContentForm;
 class PainPointsAndGapsPainPointsSummaryForm;
 class ParticipantEntryContentForm;
+class PasswordLifecyclePolicyContentForm;
+class PasswordRequirementsPolicyContentForm;
+class PasswordStoragePolicyContentForm;
 class PeakLoadPatternsCapacityForm;
 class PeakLoadPatternsContentForm;
 class PeakLoadPatternsMetricsForm;
@@ -3938,6 +3979,9 @@ class PenetrationTestingRequirementsSchedulingForm;
 class PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm;
 class PeriodicReviewPolicyContentForm;
 class PeripheralEquipmentEntryContentForm;
+class PermissionCompositionStrategyContentForm;
+class PermissionEvaluationBehaviorContentForm;
+class PermissionGranularityPolicyContentForm;
 class PermissionMatrixEntryContentForm;
 class PersonaEntryContentForm;
 class PersonaEntryContextForm;
@@ -4134,6 +4178,7 @@ class RecoveryProceduresContentForm;
 class RecoveryProceduresDatabaseForm;
 class RecoveryProceduresValidationForm;
 class RecoveryScenarioEntryContentForm;
+class RedirectHandlingPolicyContentForm;
 class ReferenceDocumentEntryContentForm;
 class ReferenceDocumentEntryGovernanceForm;
 class ReferenceDocumentEntryLifecycleForm;
@@ -4159,6 +4204,7 @@ class ReliabilityDurabilityForm;
 class ReliabilityFailoverForm;
 class ReliabilityRecoveryForm;
 class ReliabilityVerificationForm;
+class RememberMePolicyContentForm;
 class RemovedRoleEntryContentForm;
 class RemovedRoleEntryContinuityForm;
 class RemovedRoleEntryGovernanceForm;
@@ -4310,10 +4356,12 @@ class RoleAdjustmentEntryGovernanceForm;
 class RoleAdjustmentEntryRationaleForm;
 class RoleAdjustmentEntryRiskForm;
 class RoleAdjustmentsAdjustmentSummaryForm;
+class RoleCertificationPolicyContentForm;
 class RoleCombinationConstraintEntryContentForm;
 class RoleCompetencyEntryContentForm;
 class RoleDataScopeEntryContentForm;
 class RoleExclusionEntryContentForm;
+class RoleHierarchyPolicyContentForm;
 class RoleHolderEntryContentForm;
 class RoleInheritanceRuleEntryContentForm;
 class RolePermissionEntryContentForm;
@@ -4324,6 +4372,7 @@ class RollbackStrategyHealthForm;
 class RollbackStrategyOperationsForm;
 class RollbackStrategyTargetsForm;
 class RollbackStrategyTriggersForm;
+class RowLevelSecurityPolicyContentForm;
 class RpoRtoRequirementsByTierForm;
 class RpoRtoRequirementsContentForm;
 class RpoRtoRequirementsDegradedForm;
@@ -4487,6 +4536,7 @@ class SelfRegistrationPolicyContentForm;
 class SelfRegistrationPolicyFieldsForm;
 class SelfRegistrationPolicySecurityForm;
 class SelfRegistrationPolicyVerificationForm;
+class SelfServiceAccountManagementContentForm;
 class ServerCallStepEntryContentForm;
 class ServerConfigurationSettingEntryContentForm;
 class ServerEnvironmentEntryAccessForm;
@@ -4511,6 +4561,8 @@ class ServerStorageRequirementsContentForm;
 class ServerStorageRequirementsDatabaseForm;
 class ServerStorageRequirementsFileStorageForm;
 class ServerStorageRequirementsPerformanceForm;
+class ServiceAccountCredentialPolicyContentForm;
+class ServiceAccountLifecycleContentForm;
 class ServiceLevelAgreementEntryContentForm;
 class ServiceLevelContentForm;
 class ServiceLevelEscalationForm;
@@ -4525,9 +4577,14 @@ class ServiceLevelRestorationForm;
 class ServiceMeshAndGatewayContentForm;
 class ServiceMeshAndGatewayLoadBalancingForm;
 class ServiceMeshAndGatewayMeshForm;
+class SessionCreationPolicyContentForm;
+class SessionLifecycleMonitoringContentForm;
 class SessionModelLifecycleForm;
 class SessionModelSecurityForm;
 class SessionModelSessionConfigurationForm;
+class SessionRevocationPolicyContentForm;
+class SessionSecurityPolicyContentForm;
+class SessionTimeoutPolicyContentForm;
 class SharedInfrastructureEntryCapacityForm;
 class SharedInfrastructureEntryContentForm;
 class SharedInfrastructureEntryOperationsForm;
@@ -4569,6 +4626,7 @@ class SoftwareLayerEntryTechnologyForm;
 class SpecializedEquipmentEntryContentForm;
 class SpecializedEquipmentEntryPlanningForm;
 class SpecializedEquipmentEntryTechnicalForm;
+class SsoPolicyContentForm;
 class StaffingBudgetAllocationsForm;
 class StaffingBudgetContentForm;
 class StaffingBudgetGovernanceForm;
@@ -4650,6 +4708,9 @@ class StakeholderEntryContentForm;
 class StakeholderRegisterEntryContentForm;
 class StakeholdersAndGovernanceSummaryForm;
 class StakeholdersAndInterestsContentForm;
+class StepUpAuthenticationPolicyContentForm;
+class StorageEncryptionPolicyContentForm;
+class StorageLifecyclePolicyContentForm;
 class StrategicAlignmentAlignmentDetailsForm;
 class SubFunctionEntryContentForm;
 class SubStageEntryContentForm;
@@ -4806,7 +4867,11 @@ class TechnologyStandardEntryContentForm;
 class TechnologyStandardEntryDetailsForm;
 class TechnologyStandardEntryImpactForm;
 class TechnologyStandardEntryScopeForm;
+class TenantBoundaryEnforcementPolicyContentForm;
+class TenantContextPolicyContentForm;
 class TenantCustomizationEntryContentForm;
+class TenantDataIsolationPolicyContentForm;
+class TenantOnboardingPolicyContentForm;
 class TestScenarioEntryBusinessForm;
 class TestScenarioEntryContentForm;
 class TestScenarioEntryExecutionForm;
@@ -4842,11 +4907,13 @@ class ThrowawayPrototypeDispositionForm;
 class ThrowawayPrototypeFindingsForm;
 class ThrowawayPrototypeThrowawayContentForm;
 class ThrowawayPrototypeValueForm;
+class TlsProtocolPolicyContentForm;
 class TlsRequirementsCertificateValidationForm;
 class TlsRequirementsCipherSuitesForm;
 class TlsRequirementsComplianceForm;
 class TlsRequirementsContentForm;
 class TlsRequirementsTerminationForm;
+class TokenManagementPolicyContentForm;
 class ToolEntryAccessForm;
 class ToolEntryApprovalForm;
 class ToolEntryConfigurationForm;
@@ -4926,6 +4993,7 @@ class TranslationRequirementsTechnicalForm;
 class TranslationRequirementsTranslationRequirementsContentForm;
 class TranslationRequirementsVariantsForm;
 class TranslationVendorEntryContentForm;
+class TransportSecurityPolicyContentForm;
 class TroubleshootingCapabilitiesAccessForm;
 class TroubleshootingCapabilitiesCommunicationForm;
 class TroubleshootingCapabilitiesContentForm;
@@ -4980,6 +5048,7 @@ class UserAccessPermissionsGovernanceForm;
 class UserAccessPermissionsPermissionsFormForm;
 class UserAccessPermissionsRestrictionsProfileForm;
 class UserAccessibilityNeedsAccessibilityFormForm;
+class UserAccountStatesDefinitionContentForm;
 class UserAssistanceDeliveryForm;
 class UserAssistanceHelpOverviewContentForm;
 class UserAssistanceInsightsForm;
@@ -4997,10 +5066,13 @@ class UserGrowthProjectionsContentForm;
 class UserGrowthProjectionsForecastForm;
 class UserGrowthProjectionsSegmentationForm;
 class UserGrowthProjectionsThresholdsForm;
+class UserInteractionModelSummaryContentForm;
 class UserLifecycleTransitionEntryApprovalForm;
 class UserLifecycleTransitionEntryAutomationForm;
 class UserLifecycleTransitionEntryContentForm;
 class UserLifecycleTransitionEntryEffectsForm;
+class UserLifecycleTransitionsContentForm;
+class UserNotificationPreferencesContentForm;
 class UserPersonaDetailsBehaviorForm;
 class UserPersonaDetailsContextDetailsForm;
 class UserPersonaDetailsGoalsForm;
@@ -5009,6 +5081,7 @@ class UserProvisioningToolsContentForm;
 class UserProvisioningToolsDirectoryIntegrationForm;
 class UserProvisioningToolsLifecycleForm;
 class UserProvisioningToolsRoleManagementForm;
+class UserRegistrationProcessContentForm;
 class UserSettingEntryContentForm;
 class UserTrainingRequirementsTrainingFormForm;
 class UtilityMenuItemEntryActionForm;
@@ -5267,14 +5340,9 @@ class AccessConstraintPolicies : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccessConstraintPoliciesContentForm content() const;
   // Access Constraint Details (text).
   // (skipped: accessConstraintDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
@@ -5320,14 +5388,9 @@ class AccessControlModelSelection : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccessControlModelSelectionContentForm content() const;
   // Access Control Model Details (text).
   // (skipped: accessControlModelDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // An access level entry (form).
@@ -5516,14 +5579,9 @@ class AccountActivationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccountActivationPolicyContentForm content() const;
   // Activation Flow Description (text).
   // (skipped: activationFlowDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.1.2.5. Account Deactivation (form).
@@ -5537,14 +5595,9 @@ class AccountDeactivationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccountDeactivationPolicyContentForm content() const;
   // Deactivation Process Description (text).
   // (skipped: deactivationProcessDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.1.2.6. Account Deletion and Data Retention (form).
@@ -5557,14 +5610,9 @@ class AccountDeletionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccountDeletionPolicyContentForm content() const;
   // Deletion Process Description (text).
   // (skipped: deletionProcessDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Account lockout and throttling policy (form).
@@ -5578,14 +5626,9 @@ class AccountLockoutPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccountLockoutPolicyContentForm content() const;
   // Account Lockout Details (text).
   // (skipped: accountLockoutDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.1.2.4. Account Modification (form).
@@ -5598,14 +5641,9 @@ class AccountModificationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AccountModificationPolicyContentForm content() const;
   // Modification Rules Description (text).
   // (skipped: modificationRulesDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // An action parameter entry (form).
@@ -6057,14 +6095,9 @@ class ApiAbuseProtection : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiAbuseProtectionContentForm content() const;
   // Abuse Protection Details (text).
   // (skipped: abuseProtectionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API authentication policy — how API consumers prove their identity.
@@ -6077,14 +6110,9 @@ class ApiAuthenticationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiAuthenticationPolicyContentForm content() const;
   // API Authentication Details (text).
   // (skipped: apiAuthenticationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API authorization policy — how API access decisions are made.
@@ -6098,14 +6126,9 @@ class ApiAuthorizationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiAuthorizationPolicyContentForm content() const;
   // API Authorization Details (text).
   // (skipped: apiAuthorizationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API and protocol compatibility entry.
@@ -6138,14 +6161,9 @@ class ApiCorsSecurity : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiCorsSecurityContentForm content() const;
   // CORS Security Details (text).
   // (skipped: corsSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API key management policy (form).
@@ -6158,14 +6176,9 @@ class ApiKeyManagementPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiKeyManagementPolicyContentForm content() const;
   // API Key Management Details (text).
   // (skipped: apiKeyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API request validation policy — input validation, schema enforcement,
@@ -6180,14 +6193,9 @@ class ApiRequestValidationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiRequestValidationPolicyContentForm content() const;
   // Request Validation Details (text).
   // (skipped: requestValidationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.3.2. API Security.
@@ -6237,14 +6245,9 @@ class ApiSecurityMonitoring : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ApiSecurityMonitoringContentForm content() const;
   // API Security Monitoring Details (text).
   // (skipped: apiSecurityMonitoringDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // API versioning strategy.
@@ -6667,14 +6670,9 @@ class AuthenticationErrorHandling : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  AuthenticationErrorHandlingContentForm content() const;
   // Error Handling Details (text).
   // (skipped: errorHandlingDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Authentication event policy (form).
@@ -7035,14 +7033,9 @@ class BackupEncryptionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  BackupEncryptionPolicyContentForm content() const;
   // Backup Encryption Details (text).
   // (skipped: backupEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Backup infrastructure requirements.
@@ -7235,14 +7228,9 @@ class BiometricAuthenticationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  BiometricAuthenticationPolicyContentForm content() const;
   // Biometric Implementation Details (text).
   // (skipped: biometricDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A boundary assumption entry (form).
@@ -7988,14 +7976,9 @@ class CertificateAuthenticationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  CertificateAuthenticationPolicyContentForm content() const;
   // Certificate Authentication Details (text).
   // (skipped: certificateDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Certificate management.
@@ -8027,14 +8010,9 @@ class CertificateManagementPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  CertificateManagementPolicyContentForm content() const;
   // Certificate Management Details (text).
   // (skipped: certificateManagementDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Certification entry (form).
@@ -8434,12 +8412,7 @@ class ChannelIntegrations : public som::SomNode {
  public:
   ChannelIntegrations(som::SpecDocument& doc, std::string path);
   // Integration requirements content.
-  std::string content() const;
-  void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
+  ChannelIntegrationsContentForm content() const;
 };
 
 // CI/CD pipeline configuration.
@@ -8814,14 +8787,9 @@ class ColumnLevelSecurityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ColumnLevelSecurityPolicyContentForm content() const;
   // Column-Level Security Details (text).
   // (skipped: columnLevelSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Committee charter defining rules and procedures.
@@ -9666,14 +9634,9 @@ class ConcurrentSessionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ConcurrentSessionPolicyContentForm content() const;
   // Concurrent Session Details (text).
   // (skipped: concurrentSessionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A confidential information category.
@@ -9781,14 +9744,9 @@ class ContentScanningPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ContentScanningPolicyContentForm content() const;
   // Content Scanning Details (text).
   // (skipped: contentScanningDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 4.1.2.1. Context Diagram.
@@ -9943,14 +9901,9 @@ class CredentialCompromiseDetectionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  CredentialCompromiseDetectionPolicyContentForm content() const;
   // Compromise Detection Details (text).
   // (skipped: compromiseDetectionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Credential recovery policy (form).
@@ -9963,14 +9916,9 @@ class CredentialRecoveryPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  CredentialRecoveryPolicyContentForm content() const;
   // Credential Recovery Details (text).
   // (skipped: credentialRecoveryDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 4.5.10. Cross-Boundary Error Handling.
@@ -10060,14 +10008,9 @@ class CrossTenantAccessPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  CrossTenantAccessPolicyContentForm content() const;
   // Cross-Tenant Access Policy Details (text).
   // (skipped: crossTenantAccessPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 1.1.2. Current Architecture.
@@ -11535,14 +11478,9 @@ class DataAccessAuditPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  DataAccessAuditPolicyContentForm content() const;
   // Data Access Audit Details (text).
   // (skipped: dataAccessAuditDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Data access event policy (form).
@@ -12221,14 +12159,9 @@ class DataMaskingPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  DataMaskingPolicyContentForm content() const;
   // Data Masking Details (text).
   // (skipped: dataMaskingDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 13.5. Data Migration Strategy.
@@ -12707,14 +12640,9 @@ class DatabaseAccessPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  DatabaseAccessPolicyContentForm content() const;
   // Database Access Policy Details (text).
   // (skipped: databaseAccessDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Database compatibility entry.
@@ -12746,14 +12674,9 @@ class DatabaseEncryptionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  DatabaseEncryptionPolicyContentForm content() const;
   // Database Encryption Details (text).
   // (skipped: databaseEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Debugging configuration.
@@ -14460,14 +14383,9 @@ class EncryptionAtRestPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  EncryptionAtRestPolicyContentForm content() const;
   // Encryption At Rest Policy Details (text).
   // (skipped: encryptionAtRestPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.5.2. Encryption In Transit.
@@ -16083,14 +16001,9 @@ class FileAccessControlPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  FileAccessControlPolicyContentForm content() const;
   // File Access Control Details (text).
   // (skipped: fileAccessControlDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.3.3. File and Storage Security.
@@ -16138,14 +16051,9 @@ class FileDownloadSecurityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  FileDownloadSecurityPolicyContentForm content() const;
   // Download Security Details (text).
   // (skipped: downloadSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // File and Storage Encryption Policy (form).
@@ -16159,14 +16067,9 @@ class FileStorageEncryptionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  FileStorageEncryptionPolicyContentForm content() const;
   // File Storage Encryption Details (text).
   // (skipped: fileStorageEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // File upload validation policy — how uploaded files are validated before
@@ -16181,14 +16084,9 @@ class FileUploadValidationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  FileUploadValidationPolicyContentForm content() const;
   // Upload Validation Details (text).
   // (skipped: uploadValidationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Firewall requirements.
@@ -18953,14 +18851,9 @@ class LoginFlowConfiguration : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  LoginFlowConfigurationContentForm content() const;
   // Login Flow Details (text).
   // (skipped: loginFlowDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A login flow step entry (form).
@@ -19483,15 +19376,10 @@ class MfaConfiguration : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  MfaConfigurationContentForm content() const;
   // MFA Implementation Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList mfaDetails() const;
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 4.4.2. Migration Considerations (global).
@@ -20253,14 +20141,9 @@ class MutualTlsPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  MutualTlsPolicyContentForm content() const;
   // Mutual TLS Policy Details (text).
   // (skipped: mutualTlsPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Native app requirements.
@@ -21554,14 +21437,9 @@ class PasswordLifecyclePolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PasswordLifecyclePolicyContentForm content() const;
   // Password Lifecycle Details (text).
   // (skipped: passwordLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Password requirements policy (form).
@@ -21575,14 +21453,9 @@ class PasswordRequirementsPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PasswordRequirementsPolicyContentForm content() const;
   // Password Requirements Details (text).
   // (skipped: passwordRequirementsDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Password storage and verification policy (form).
@@ -21595,14 +21468,9 @@ class PasswordStoragePolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PasswordStoragePolicyContentForm content() const;
   // Password Storage Details (text).
   // (skipped: passwordStorageDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Peak load patterns.
@@ -21706,14 +21574,9 @@ class PermissionCompositionStrategy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PermissionCompositionStrategyContentForm content() const;
   // Permission Composition Details (text).
   // (skipped: permissionCompositionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Permission Evaluation Behavior (form).
@@ -21726,14 +21589,9 @@ class PermissionEvaluationBehavior : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PermissionEvaluationBehaviorContentForm content() const;
   // Permission Evaluation Details (text).
   // (skipped: permissionEvaluationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Permission Granularity Policy (form).
@@ -21746,14 +21604,9 @@ class PermissionGranularityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  PermissionGranularityPolicyContentForm content() const;
   // Permission Granularity Details (text).
   // (skipped: permissionGranularityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A permission matrix entry (form).
@@ -23675,14 +23528,9 @@ class RedirectHandlingPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  RedirectHandlingPolicyContentForm content() const;
   // Redirect Handling Details (text).
   // (skipped: redirectDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A reference document entry (form).
@@ -23938,14 +23786,9 @@ class RememberMePolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  RememberMePolicyContentForm content() const;
   // Remember-Me Policy Details (text).
   // (skipped: rememberMeDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A removed role entry (form).
@@ -25313,14 +25156,9 @@ class RoleCertificationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  RoleCertificationPolicyContentForm content() const;
   // Role Certification Details (text).
   // (skipped: roleCertificationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A role combination constraint entry (form).
@@ -25413,14 +25251,9 @@ class RoleHierarchyPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  RoleHierarchyPolicyContentForm content() const;
   // Role Hierarchy Policy Details (text).
   // (skipped: roleHierarchyPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A role holder entry (form).
@@ -25561,14 +25394,9 @@ class RowLevelSecurityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  RowLevelSecurityPolicyContentForm content() const;
   // Row-Level Security Details (text).
   // (skipped: rowLevelSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // RPO and RTO requirements.
@@ -27011,14 +26839,9 @@ class SelfServiceAccountManagement : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SelfServiceAccountManagementContentForm content() const;
   // Self-Service Capabilities Description (text).
   // (skipped: selfServiceDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.5. Sensitive Data Encryption.
@@ -27325,14 +27148,9 @@ class ServiceAccountCredentialPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ServiceAccountCredentialPolicyContentForm content() const;
   // Service Account Credential Details (text).
   // (skipped: serviceAccountDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.1.2.9. Service Account Lifecycle (form).
@@ -27345,14 +27163,9 @@ class ServiceAccountLifecycle : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  ServiceAccountLifecycleContentForm content() const;
   // Service Account Management Description (text).
   // (skipped: serviceAccountDescription has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 11.4.2. Service level quality.
@@ -27430,14 +27243,9 @@ class SessionCreationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SessionCreationPolicyContentForm content() const;
   // Session Creation Details (text).
   // (skipped: sessionCreationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Session lifecycle monitoring (form).
@@ -27451,14 +27259,9 @@ class SessionLifecycleMonitoring : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SessionLifecycleMonitoringContentForm content() const;
   // Session Lifecycle Monitoring Details (text).
   // (skipped: sessionLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.2.4. Session Management.
@@ -27531,14 +27334,9 @@ class SessionRevocationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SessionRevocationPolicyContentForm content() const;
   // Session Revocation Details (text).
   // (skipped: sessionRevocationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Session security hardening policy (form).
@@ -27552,14 +27350,9 @@ class SessionSecurityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SessionSecurityPolicyContentForm content() const;
   // Session Security Details (text).
   // (skipped: sessionSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Session timeout policy (form).
@@ -27574,14 +27367,9 @@ class SessionTimeoutPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SessionTimeoutPolicyContentForm content() const;
   // Session Timeout Details (text).
   // (skipped: sessionTimeoutDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 1.1.3.3. Shared Infrastructure Dependencies.
@@ -27903,14 +27691,9 @@ class SsoPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  SsoPolicyContentForm content() const;
   // SSO Implementation Details (text).
   // (skipped: ssoDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Staffing budget details.
@@ -28549,15 +28332,10 @@ class StepUpAuthenticationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  StepUpAuthenticationPolicyContentForm content() const;
   // Step-Up Authentication Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList stepUpDetails() const;
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Storage encryption policy — how files and storage volumes are encrypted
@@ -28571,14 +28349,9 @@ class StorageEncryptionPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  StorageEncryptionPolicyContentForm content() const;
   // Storage Encryption Details (text).
   // (skipped: storageEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Storage lifecycle policy — retention, archiving, versioning, and
@@ -28592,14 +28365,9 @@ class StorageLifecyclePolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  StorageLifecyclePolicyContentForm content() const;
   // Storage Lifecycle Details (text).
   // (skipped: storageLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 4.1.1.5. Strategic Alignment.
@@ -30312,14 +30080,9 @@ class TenantBoundaryEnforcementPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TenantBoundaryEnforcementPolicyContentForm content() const;
   // Tenant Boundary Enforcement Details (text).
   // (skipped: boundaryEnforcementDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Tenant Context Policy (form).
@@ -30335,14 +30098,9 @@ class TenantContextPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TenantContextPolicyContentForm content() const;
   // Tenant Context Policy Details (text).
   // (skipped: tenantContextPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A tenant customization entry (form).
@@ -30369,14 +30127,9 @@ class TenantDataIsolationPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TenantDataIsolationPolicyContentForm content() const;
   // Tenant Data Isolation Details (text).
   // (skipped: tenantDataIsolationDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.4.7. Tenant Isolation.
@@ -30427,14 +30180,9 @@ class TenantOnboardingPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TenantOnboardingPolicyContentForm content() const;
   // Tenant Onboarding Policy Details (text).
   // (skipped: tenantOnboardingPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A test scenario entry (form).
@@ -30616,14 +30364,9 @@ class TlsProtocolPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TlsProtocolPolicyContentForm content() const;
   // TLS Protocol Policy Details (text).
   // (skipped: tlsProtocolPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // TLS/SSL requirements.
@@ -30654,14 +30397,9 @@ class TokenManagementPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TokenManagementPolicyContentForm content() const;
   // Token Management Details (text).
   // (skipped: tokenManagementDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A tool entry (form).
@@ -31304,14 +31042,9 @@ class TransportSecurityPolicy : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  TransportSecurityPolicyContentForm content() const;
   // Transport Security Policy Details (text).
   // (skipped: transportSecurityPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // Troubleshooting capabilities.
@@ -31718,14 +31451,9 @@ class UserAccountStatesDefinition : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  UserAccountStatesDefinitionContentForm content() const;
   // State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 10.8. User Assistance.
@@ -31969,12 +31697,7 @@ class UserInteractionModelSummary : public som::SomNode {
  public:
   UserInteractionModelSummary(som::SpecDocument& doc, std::string path);
   // Summary content for interaction model.
-  std::string content() const;
-  void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
+  UserInteractionModelSummaryContentForm content() const;
 };
 
 // 4.1.4.n.7. User Journey.
@@ -32078,8 +31801,7 @@ class UserLifecycleTransitions : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  UserLifecycleTransitionsContentForm content() const;
   // Transition Rules Description (text).
   // (skipped: transitionRulesDescription has no target type)
   // Lifecycle State Transition Diagram (mermaid).
@@ -32087,10 +31809,6 @@ class UserLifecycleTransitions : public som::SomNode {
   // Contains 0+× UserLifecycleTransitionEntry.
   // Returns the list view; element type: UserLifecycleTransitionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // 9.1. User Management.
@@ -32142,12 +31860,7 @@ class UserNotificationPreferences : public som::SomNode {
  public:
   UserNotificationPreferences(som::SpecDocument& doc, std::string path);
   // Preferences content.
-  std::string content() const;
-  void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
+  UserNotificationPreferencesContentForm content() const;
 };
 
 // 4.1.4.n.1. User Persona Details.
@@ -32232,16 +31945,11 @@ class UserRegistrationProcess : public som::SomNode {
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  std::string content() const;
-  void setContent(const std::string& value);
+  UserRegistrationProcessContentForm content() const;
   // Registration Flow Description (text).
   // (skipped: registrationFlowDescription has no target type)
   // Registration Flow Diagram (mermaid-sequence).
   // (skipped: registrationFlowDiagram has no target type)
-  // This section type declares the standard `content` text leaf (SOM §21):
-  // a structural, document-independent override of the `som::SomNode`
-  // `canHaveContent` default (`false`).
-  bool canHaveContent() const override { return true; }
 };
 
 // A single declared user setting (CE-UP).
@@ -33200,6 +32908,72 @@ class AcceptanceStepEntryOutcomeForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccessConstraintPoliciesContentForm : public som::SomNode {
+ public:
+  AccessConstraintPoliciesContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> separationOfDuties() const;
+  void setSeparationOfDuties(std::optional<bool> value);
+  std::string sodEnforcement() const;
+  void setSodEnforcement(const std::string& value);
+  std::optional<bool> temporalConstraints() const;
+  void setTemporalConstraints(std::optional<bool> value);
+  std::optional<bool> locationConstraints() const;
+  void setLocationConstraints(std::optional<bool> value);
+  std::optional<bool> deviceConstraints() const;
+  void setDeviceConstraints(std::optional<bool> value);
+  std::optional<bool> riskAdaptiveAccess() const;
+  void setRiskAdaptiveAccess(std::optional<bool> value);
+  std::string contextualAttributes() const;
+  void setContextualAttributes(const std::string& value);
+  std::optional<bool> maxSessionPermissions() const;
+  void setMaxSessionPermissions(std::optional<bool> value);
+  std::string leastPrivilegeEnforcement() const;
+  void setLeastPrivilegeEnforcement(const std::string& value);
+  std::optional<bool> privilegeCreepDetection() const;
+  void setPrivilegeCreepDetection(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccessControlModelSelectionContentForm : public som::SomNode {
+ public:
+  AccessControlModelSelectionContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string primaryModel() const;
+  void setPrimaryModel(const std::string& value);
+  std::string modelRationale() const;
+  void setModelRationale(const std::string& value);
+  std::optional<bool> rbacEnabled() const;
+  void setRbacEnabled(std::optional<bool> value);
+  std::optional<bool> abacEnabled() const;
+  void setAbacEnabled(std::optional<bool> value);
+  std::optional<bool> rebacEnabled() const;
+  void setRebacEnabled(std::optional<bool> value);
+  std::string policyLanguage() const;
+  void setPolicyLanguage(const std::string& value);
+  std::string policyDecisionPoint() const;
+  void setPolicyDecisionPoint(const std::string& value);
+  std::string policyEnforcementPoint() const;
+  void setPolicyEnforcementPoint(const std::string& value);
+  std::string policyAdministrationPoint() const;
+  void setPolicyAdministrationPoint(const std::string& value);
+  std::string policyInformationPoint() const;
+  void setPolicyInformationPoint(const std::string& value);
+  std::string delegationModel() const;
+  void setDelegationModel(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class AccessLevelEntryContentForm : public som::SomNode {
  public:
   AccessLevelEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -33521,6 +33295,192 @@ class AccessibilityTestingForm : public som::SomNode {
   void setAssistiveTechTesting(const std::string& value);
   std::optional<bool> userTestingWithDisabilities() const;
   void setUserTestingWithDisabilities(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccountActivationPolicyContentForm : public som::SomNode {
+ public:
+  AccountActivationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string activationMethod() const;
+  void setActivationMethod(const std::string& value);
+  std::string activationLinkExpiry() const;
+  void setActivationLinkExpiry(const std::string& value);
+  std::optional<long> maxActivationAttempts() const;
+  void setMaxActivationAttempts(std::optional<long> value);
+  std::string activationPrerequisites() const;
+  void setActivationPrerequisites(const std::string& value);
+  std::string provisioningOnActivation() const;
+  void setProvisioningOnActivation(const std::string& value);
+  std::string activationNotification() const;
+  void setActivationNotification(const std::string& value);
+  std::string activationTimeout() const;
+  void setActivationTimeout(const std::string& value);
+  std::string activationTimeoutAction() const;
+  void setActivationTimeoutAction(const std::string& value);
+  std::string postActivationRedirect() const;
+  void setPostActivationRedirect(const std::string& value);
+  std::string onboardingRequired() const;
+  void setOnboardingRequired(const std::string& value);
+  std::string onboardingSteps() const;
+  void setOnboardingSteps(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccountDeactivationPolicyContentForm : public som::SomNode {
+ public:
+  AccountDeactivationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string deactivationTriggers() const;
+  void setDeactivationTriggers(const std::string& value);
+  std::string inactivityThreshold() const;
+  void setInactivityThreshold(const std::string& value);
+  std::string inactivityWarningPeriod() const;
+  void setInactivityWarningPeriod(const std::string& value);
+  std::string deactivationApproval() const;
+  void setDeactivationApproval(const std::string& value);
+  std::string immediateDeactivationCases() const;
+  void setImmediateDeactivationCases(const std::string& value);
+  std::string deactivatedAccountAccess() const;
+  void setDeactivatedAccountAccess(const std::string& value);
+  std::string deactivationEffects() const;
+  void setDeactivationEffects(const std::string& value);
+  std::string reactivationPolicy() const;
+  void setReactivationPolicy(const std::string& value);
+  std::string reactivationApproval() const;
+  void setReactivationApproval(const std::string& value);
+  std::string reactivationReverification() const;
+  void setReactivationReverification(const std::string& value);
+  std::string maxDeactivationPeriod() const;
+  void setMaxDeactivationPeriod(const std::string& value);
+  std::string deactivationNotification() const;
+  void setDeactivationNotification(const std::string& value);
+  std::string gracePeriodAfterDeactivation() const;
+  void setGracePeriodAfterDeactivation(const std::string& value);
+  std::string dataPreservationDuration() const;
+  void setDataPreservationDuration(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccountDeletionPolicyContentForm : public som::SomNode {
+ public:
+  AccountDeletionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string deletionTriggers() const;
+  void setDeletionTriggers(const std::string& value);
+  std::string deletionApproval() const;
+  void setDeletionApproval(const std::string& value);
+  std::string softDeleteEnabled() const;
+  void setSoftDeleteEnabled(const std::string& value);
+  std::string softDeleteRetention() const;
+  void setSoftDeleteRetention(const std::string& value);
+  std::string permanentDeletionProcess() const;
+  void setPermanentDeletionProcess(const std::string& value);
+  std::string dataAnonymizationStrategy() const;
+  void setDataAnonymizationStrategy(const std::string& value);
+  std::string retainedDataAfterDeletion() const;
+  void setRetainedDataAfterDeletion(const std::string& value);
+  std::string retentionPeriodAfterDeletion() const;
+  void setRetentionPeriodAfterDeletion(const std::string& value);
+  std::string dataExportBeforeDeletion() const;
+  void setDataExportBeforeDeletion(const std::string& value);
+  std::string exportFormats() const;
+  void setExportFormats(const std::string& value);
+  std::string cascadeDeletionBehavior() const;
+  void setCascadeDeletionBehavior(const std::string& value);
+  std::string deletionConfirmation() const;
+  void setDeletionConfirmation(const std::string& value);
+  std::string deletionNotification() const;
+  void setDeletionNotification(const std::string& value);
+  std::string rightToErasureCompliance() const;
+  void setRightToErasureCompliance(const std::string& value);
+  std::string erasureResponseTime() const;
+  void setErasureResponseTime(const std::string& value);
+  std::string thirdPartyDataDeletion() const;
+  void setThirdPartyDataDeletion(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccountLockoutPolicyContentForm : public som::SomNode {
+ public:
+  AccountLockoutPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string lockoutThreshold() const;
+  void setLockoutThreshold(const std::string& value);
+  std::string lockoutDuration() const;
+  void setLockoutDuration(const std::string& value);
+  std::string lockoutEscalation() const;
+  void setLockoutEscalation(const std::string& value);
+  std::string rateLimitingMethod() const;
+  void setRateLimitingMethod(const std::string& value);
+  std::string delayProgression() const;
+  void setDelayProgression(const std::string& value);
+  std::string captchaTriggerThreshold() const;
+  void setCaptchaTriggerThreshold(const std::string& value);
+  std::string ipBasedRateLimiting() const;
+  void setIpBasedRateLimiting(const std::string& value);
+  std::string distributedAttackProtection() const;
+  void setDistributedAttackProtection(const std::string& value);
+  std::string unlockMechanism() const;
+  void setUnlockMechanism(const std::string& value);
+  std::string failedAttemptResetOnSuccess() const;
+  void setFailedAttemptResetOnSuccess(const std::string& value);
+  std::string lockoutNotification() const;
+  void setLockoutNotification(const std::string& value);
+  std::string permanentLockoutEnabled() const;
+  void setPermanentLockoutEnabled(const std::string& value);
+  std::string permanentLockoutThreshold() const;
+  void setPermanentLockoutThreshold(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccountModificationPolicyContentForm : public som::SomNode {
+ public:
+  AccountModificationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string selfModifiableFields() const;
+  void setSelfModifiableFields(const std::string& value);
+  std::string adminModifiableFields() const;
+  void setAdminModifiableFields(const std::string& value);
+  std::string systemModifiableFields() const;
+  void setSystemModifiableFields(const std::string& value);
+  std::string emailChangePolicy() const;
+  void setEmailChangePolicy(const std::string& value);
+  std::string phoneChangePolicy() const;
+  void setPhoneChangePolicy(const std::string& value);
+  std::string nameChangePolicy() const;
+  void setNameChangePolicy(const std::string& value);
+  std::string roleChangeApproval() const;
+  void setRoleChangeApproval(const std::string& value);
+  std::string bulkModificationSupport() const;
+  void setBulkModificationSupport(const std::string& value);
+  std::string changeAuditLogging() const;
+  void setChangeAuditLogging(const std::string& value);
+  std::string changeNotification() const;
+  void setChangeNotification(const std::string& value);
+  std::string historicalVersioning() const;
+  void setHistoricalVersioning(const std::string& value);
+  std::string reverificationTriggers() const;
+  void setReverificationTriggers(const std::string& value);
+  std::string modificationRateLimiting() const;
+  void setModificationRateLimiting(const std::string& value);
+  std::string modificationCooldownPeriod() const;
+  void setModificationCooldownPeriod(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -34466,6 +34426,132 @@ class AnomalyDetectionPolicyContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiAbuseProtectionContentForm : public som::SomNode {
+ public:
+  ApiAbuseProtectionContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> rateLimitingEnabled() const;
+  void setRateLimitingEnabled(std::optional<bool> value);
+  std::string rateLimitScope() const;
+  void setRateLimitScope(const std::string& value);
+  std::string authenticationEndpointLimits() const;
+  void setAuthenticationEndpointLimits(const std::string& value);
+  std::string sensitiveEndpointLimits() const;
+  void setSensitiveEndpointLimits(const std::string& value);
+  std::string bruteForceProtection() const;
+  void setBruteForceProtection(const std::string& value);
+  std::string botDetectionPolicy() const;
+  void setBotDetectionPolicy(const std::string& value);
+  std::optional<bool> ipReputationFiltering() const;
+  void setIpReputationFiltering(std::optional<bool> value);
+  std::optional<bool> automaticBlocking() const;
+  void setAutomaticBlocking(std::optional<bool> value);
+  std::string blockDuration() const;
+  void setBlockDuration(const std::string& value);
+  std::string geographicRestrictions() const;
+  void setGeographicRestrictions(const std::string& value);
+  std::string requestThrottlingOnFailure() const;
+  void setRequestThrottlingOnFailure(const std::string& value);
+  std::string businessFlowProtection() const;
+  void setBusinessFlowProtection(const std::string& value);
+  std::string webhookFloodProtection() const;
+  void setWebhookFloodProtection(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiAuthenticationPolicyContentForm : public som::SomNode {
+ public:
+  ApiAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string authenticationMethod() const;
+  void setAuthenticationMethod(const std::string& value);
+  std::optional<bool> multipleMethodsSupported() const;
+  void setMultipleMethodsSupported(std::optional<bool> value);
+  std::string apiKeyTransmission() const;
+  void setApiKeyTransmission(const std::string& value);
+  std::string apiKeyRotationPolicy() const;
+  void setApiKeyRotationPolicy(const std::string& value);
+  std::string apiKeyScoping() const;
+  void setApiKeyScoping(const std::string& value);
+  std::string jwtValidationPolicy() const;
+  void setJwtValidationPolicy(const std::string& value);
+  std::string jwtSigningAlgorithm() const;
+  void setJwtSigningAlgorithm(const std::string& value);
+  std::string accessTokenLifetime() const;
+  void setAccessTokenLifetime(const std::string& value);
+  std::string refreshTokenPolicy() const;
+  void setRefreshTokenPolicy(const std::string& value);
+  std::optional<bool> clientCredentialsFlow() const;
+  void setClientCredentialsFlow(std::optional<bool> value);
+  std::optional<bool> authorizationCodeFlow() const;
+  void setAuthorizationCodeFlow(std::optional<bool> value);
+  std::optional<bool> tokenRevocationSupport() const;
+  void setTokenRevocationSupport(std::optional<bool> value);
+  std::optional<bool> mutualTlsRequired() const;
+  void setMutualTlsRequired(std::optional<bool> value);
+  std::string serviceAccountPolicy() const;
+  void setServiceAccountPolicy(const std::string& value);
+  std::string webhookSignatureVerification() const;
+  void setWebhookSignatureVerification(const std::string& value);
+  std::string thirdPartyApiConsumption() const;
+  void setThirdPartyApiConsumption(const std::string& value);
+  std::string credentialTransmission() const;
+  void setCredentialTransmission(const std::string& value);
+  std::string bearerTokenFormat() const;
+  void setBearerTokenFormat(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiAuthorizationPolicyContentForm : public som::SomNode {
+ public:
+  ApiAuthorizationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string objectLevelAuthorization() const;
+  void setObjectLevelAuthorization(const std::string& value);
+  std::string functionLevelAuthorization() const;
+  void setFunctionLevelAuthorization(const std::string& value);
+  std::string propertyLevelAuthorization() const;
+  void setPropertyLevelAuthorization(const std::string& value);
+  std::string permissionGranularity() const;
+  void setPermissionGranularity(const std::string& value);
+  std::string scopeDefinitions() const;
+  void setScopeDefinitions(const std::string& value);
+  std::string scopeEnforcementLevel() const;
+  void setScopeEnforcementLevel(const std::string& value);
+  std::string delegatedAccessPolicy() const;
+  void setDelegatedAccessPolicy(const std::string& value);
+  std::string bulkOperationAuthorization() const;
+  void setBulkOperationAuthorization(const std::string& value);
+  std::string contextualAuthorization() const;
+  void setContextualAuthorization(const std::string& value);
+  std::string massAssignmentPrevention() const;
+  void setMassAssignmentPrevention(const std::string& value);
+  std::string horizontalPrivilegeEscalation() const;
+  void setHorizontalPrivilegeEscalation(const std::string& value);
+  std::string verticalPrivilegeEscalation() const;
+  void setVerticalPrivilegeEscalation(const std::string& value);
+  std::string sensitiveBusinessFlowProtection() const;
+  void setSensitiveBusinessFlowProtection(const std::string& value);
+  std::string workflowStateValidation() const;
+  void setWorkflowStateValidation(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ApiCompatibilityEntryContentForm : public som::SomNode {
  public:
   ApiCompatibilityEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -34543,6 +34629,160 @@ class ApiCompatibilityEntryTransportDetailsForm : public som::SomNode {
   void setSecurity(const std::string& value);
   std::string authentication() const;
   void setAuthentication(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiCorsSecurityContentForm : public som::SomNode {
+ public:
+  ApiCorsSecurityContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> corsEnabled() const;
+  void setCorsEnabled(std::optional<bool> value);
+  std::string allowedOrigins() const;
+  void setAllowedOrigins(const std::string& value);
+  std::string allowedMethods() const;
+  void setAllowedMethods(const std::string& value);
+  std::string allowedHeaders() const;
+  void setAllowedHeaders(const std::string& value);
+  std::string exposedHeaders() const;
+  void setExposedHeaders(const std::string& value);
+  std::optional<bool> credentialsAllowed() const;
+  void setCredentialsAllowed(std::optional<bool> value);
+  std::optional<long> preflightCacheMaxAge() const;
+  void setPreflightCacheMaxAge(std::optional<long> value);
+  std::optional<bool> wildcardRestriction() const;
+  void setWildcardRestriction(std::optional<bool> value);
+  std::string contentSecurityPolicy() const;
+  void setContentSecurityPolicy(const std::string& value);
+  std::string strictTransportSecurity() const;
+  void setStrictTransportSecurity(const std::string& value);
+  std::string securityHeadersRequired() const;
+  void setSecurityHeadersRequired(const std::string& value);
+  std::string privateNetworkAccess() const;
+  void setPrivateNetworkAccess(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiKeyManagementPolicyContentForm : public som::SomNode {
+ public:
+  ApiKeyManagementPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string apiKeyAuthEnabled() const;
+  void setApiKeyAuthEnabled(const std::string& value);
+  std::string apiKeyTypes() const;
+  void setApiKeyTypes(const std::string& value);
+  std::string keyGenerationMethod() const;
+  void setKeyGenerationMethod(const std::string& value);
+  std::string keyLength() const;
+  void setKeyLength(const std::string& value);
+  std::string keyRotationPolicy() const;
+  void setKeyRotationPolicy(const std::string& value);
+  std::string keyExpirationPolicy() const;
+  void setKeyExpirationPolicy(const std::string& value);
+  std::string keyScopeRestrictions() const;
+  void setKeyScopeRestrictions(const std::string& value);
+  std::string ipAllowlisting() const;
+  void setIpAllowlisting(const std::string& value);
+  std::string rateLimitingPerKey() const;
+  void setRateLimitingPerKey(const std::string& value);
+  std::string keyRevocationProcess() const;
+  void setKeyRevocationProcess(const std::string& value);
+  std::string keyStorageGuidance() const;
+  void setKeyStorageGuidance(const std::string& value);
+  std::string keyAuditLogging() const;
+  void setKeyAuditLogging(const std::string& value);
+  std::string serviceTokenSupport() const;
+  void setServiceTokenSupport(const std::string& value);
+  std::string tokenLifetime() const;
+  void setTokenLifetime(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiRequestValidationPolicyContentForm : public som::SomNode {
+ public:
+  ApiRequestValidationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string inputValidationStrategy() const;
+  void setInputValidationStrategy(const std::string& value);
+  std::optional<bool> schemaValidationEnforced() const;
+  void setSchemaValidationEnforced(std::optional<bool> value);
+  std::string schemaValidationTool() const;
+  void setSchemaValidationTool(const std::string& value);
+  std::optional<bool> contentTypeValidation() const;
+  void setContentTypeValidation(std::optional<bool> value);
+  std::string acceptedContentTypes() const;
+  void setAcceptedContentTypes(const std::string& value);
+  std::optional<bool> rejectUnexpectedContentType() const;
+  void setRejectUnexpectedContentType(std::optional<bool> value);
+  std::string requestSizeLimit() const;
+  void setRequestSizeLimit(const std::string& value);
+  std::optional<long> arrayLengthLimit() const;
+  void setArrayLengthLimit(std::optional<long> value);
+  std::optional<long> nestedObjectDepthLimit() const;
+  void setNestedObjectDepthLimit(std::optional<long> value);
+  std::optional<long> stringFieldMaxLength() const;
+  void setStringFieldMaxLength(std::optional<long> value);
+  std::optional<bool> parameterTypeEnforcement() const;
+  void setParameterTypeEnforcement(std::optional<bool> value);
+  std::optional<bool> numericRangeValidation() const;
+  void setNumericRangeValidation(std::optional<bool> value);
+  std::string dateFormatValidation() const;
+  void setDateFormatValidation(const std::string& value);
+  std::string encodingValidation() const;
+  void setEncodingValidation(const std::string& value);
+  std::string fileUploadValidation() const;
+  void setFileUploadValidation(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ApiSecurityMonitoringContentForm : public som::SomNode {
+ public:
+  ApiSecurityMonitoringContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> apiAccessLogging() const;
+  void setApiAccessLogging(std::optional<bool> value);
+  std::string loggedAttributes() const;
+  void setLoggedAttributes(const std::string& value);
+  std::optional<bool> sensitiveEndpointMonitoring() const;
+  void setSensitiveEndpointMonitoring(std::optional<bool> value);
+  std::optional<bool> sensitiveDataRedaction() const;
+  void setSensitiveDataRedaction(std::optional<bool> value);
+  std::optional<bool> anomalyDetection() const;
+  void setAnomalyDetection(std::optional<bool> value);
+  std::string errorRateMonitoring() const;
+  void setErrorRateMonitoring(const std::string& value);
+  std::optional<bool> authenticationFailureTracking() const;
+  void setAuthenticationFailureTracking(std::optional<bool> value);
+  std::optional<bool> dataExfiltrationDetection() const;
+  void setDataExfiltrationDetection(std::optional<bool> value);
+  std::optional<bool> apiVersionInventory() const;
+  void setApiVersionInventory(std::optional<bool> value);
+  std::optional<bool> deprecatedEndpointMonitoring() const;
+  void setDeprecatedEndpointMonitoring(std::optional<bool> value);
+  std::optional<bool> realTimeAlerts() const;
+  void setRealTimeAlerts(std::optional<bool> value);
+  std::string securityResponseAutomation() const;
+  void setSecurityResponseAutomation(const std::string& value);
+  std::string complianceReporting() const;
+  void setComplianceReporting(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `compatibility` @Form section: its own `content` text followed by one typed member per form field.
@@ -35340,6 +35580,38 @@ class AuditEvidenceTypeEntryContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AuthenticationErrorHandlingContentForm : public som::SomNode {
+ public:
+  AuthenticationErrorHandlingContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string invalidCredentialResponse() const;
+  void setInvalidCredentialResponse(const std::string& value);
+  std::string accountLockoutThreshold() const;
+  void setAccountLockoutThreshold(const std::string& value);
+  std::string lockoutDuration() const;
+  void setLockoutDuration(const std::string& value);
+  std::string lockoutEscalation() const;
+  void setLockoutEscalation(const std::string& value);
+  std::string bruteForceProtection() const;
+  void setBruteForceProtection(const std::string& value);
+  std::string credentialStuffingProtection() const;
+  void setCredentialStuffingProtection(const std::string& value);
+  std::string userNotificationOnFailure() const;
+  void setUserNotificationOnFailure(const std::string& value);
+  std::string adminAlertThreshold() const;
+  void setAdminAlertThreshold(const std::string& value);
+  std::string failedLoginAuditLogging() const;
+  void setFailedLoginAuditLogging(const std::string& value);
+  std::string suspiciousActivityResponse() const;
+  void setSuspiciousActivityResponse(const std::string& value);
+  std::string gracefulDegradation() const;
+  void setGracefulDegradation(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class AuthenticationEventPolicyContentForm : public som::SomNode {
  public:
   AuthenticationEventPolicyContentForm(som::SpecDocument& doc, std::string path);
@@ -35856,6 +36128,30 @@ class BackupDataClassificationExclusionsForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class BackupEncryptionPolicyContentForm : public som::SomNode {
+ public:
+  BackupEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> backupEncryptionRequired() const;
+  void setBackupEncryptionRequired(std::optional<bool> value);
+  std::string backupEncryptionMethod() const;
+  void setBackupEncryptionMethod(const std::string& value);
+  std::optional<bool> separateBackupKeys() const;
+  void setSeparateBackupKeys(std::optional<bool> value);
+  std::string backupKeyRotation() const;
+  void setBackupKeyRotation(const std::string& value);
+  std::optional<bool> encryptedBackupVerification() const;
+  void setEncryptedBackupVerification(std::optional<bool> value);
+  std::optional<bool> offSiteBackupEncryption() const;
+  void setOffSiteBackupEncryption(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class BackupInfrastructureContentForm : public som::SomNode {
  public:
   BackupInfrastructureContentForm(som::SpecDocument& doc, std::string path);
@@ -36341,6 +36637,40 @@ class BehaviorRuleEntryContentForm : public som::SomNode {
   void setValidationRules(const std::string& value);
   std::string calculatedProperties() const;
   void setCalculatedProperties(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class BiometricAuthenticationPolicyContentForm : public som::SomNode {
+ public:
+  BiometricAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string biometricAuthEnabled() const;
+  void setBiometricAuthEnabled(const std::string& value);
+  std::string biometricModalities() const;
+  void setBiometricModalities(const std::string& value);
+  std::string biometricUsageContext() const;
+  void setBiometricUsageContext(const std::string& value);
+  std::string biometricAsActivationFactor() const;
+  void setBiometricAsActivationFactor(const std::string& value);
+  std::string localVsCentralComparison() const;
+  void setLocalVsCentralComparison(const std::string& value);
+  std::string falseMatchRateTarget() const;
+  void setFalseMatchRateTarget(const std::string& value);
+  std::string presentationAttackDetection() const;
+  void setPresentationAttackDetection(const std::string& value);
+  std::string maxConsecutiveFailures() const;
+  void setMaxConsecutiveFailures(const std::string& value);
+  std::string fallbackMethod() const;
+  void setFallbackMethod(const std::string& value);
+  std::string biometricDataStorage() const;
+  void setBiometricDataStorage(const std::string& value);
+  std::string privacyConsiderations() const;
+  void setPrivacyConsiderations(const std::string& value);
+  std::string accessibilityAlternative() const;
+  void setAccessibilityAlternative(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -37566,6 +37896,40 @@ class CcbMemberEntryContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class CertificateAuthenticationPolicyContentForm : public som::SomNode {
+ public:
+  CertificateAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string certificateAuthEnabled() const;
+  void setCertificateAuthEnabled(const std::string& value);
+  std::string certificateTypes() const;
+  void setCertificateTypes(const std::string& value);
+  std::string certificateIssuance() const;
+  void setCertificateIssuance(const std::string& value);
+  std::string certificateAuthority() const;
+  void setCertificateAuthority(const std::string& value);
+  std::string keyStorageRequirement() const;
+  void setKeyStorageRequirement(const std::string& value);
+  std::string mutualTlsRequired() const;
+  void setMutualTlsRequired(const std::string& value);
+  std::string certificateValidation() const;
+  void setCertificateValidation(const std::string& value);
+  std::string certificateLifetime() const;
+  void setCertificateLifetime(const std::string& value);
+  std::string renewalProcess() const;
+  void setRenewalProcess(const std::string& value);
+  std::string revocationProcess() const;
+  void setRevocationProcess(const std::string& value);
+  std::string minimumKeyStrength() const;
+  void setMinimumKeyStrength(const std::string& value);
+  std::string fipsComplianceRequired() const;
+  void setFipsComplianceRequired(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class CertificateManagementContentForm : public som::SomNode {
  public:
   CertificateManagementContentForm(som::SpecDocument& doc, std::string path);
@@ -37627,6 +37991,38 @@ class CertificateManagementMonitoringForm : public som::SomNode {
   void setExpiryMonitoring(std::optional<bool> value);
   std::string expiryAlertThreshold() const;
   void setExpiryAlertThreshold(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class CertificateManagementPolicyContentForm : public som::SomNode {
+ public:
+  CertificateManagementPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string certificateAuthority() const;
+  void setCertificateAuthority(const std::string& value);
+  std::string validationType() const;
+  void setValidationType(const std::string& value);
+  std::optional<long> minimumKeyLength() const;
+  void setMinimumKeyLength(std::optional<long> value);
+  std::string keyType() const;
+  void setKeyType(const std::string& value);
+  std::string hashingAlgorithm() const;
+  void setHashingAlgorithm(const std::string& value);
+  std::string wildcardCertificatePolicy() const;
+  void setWildcardCertificatePolicy(const std::string& value);
+  std::optional<long> certificateLifetimeDays() const;
+  void setCertificateLifetimeDays(std::optional<long> value);
+  std::optional<bool> automatedRenewal() const;
+  void setAutomatedRenewal(std::optional<bool> value);
+  std::optional<bool> certificateTransparency() const;
+  void setCertificateTransparency(std::optional<bool> value);
+  std::optional<bool> caaRecords() const;
+  void setCaaRecords(std::optional<bool> value);
   std::string notes() const;
   void setNotes(const std::string& value);
 };
@@ -38477,6 +38873,30 @@ class ChangesFromCurrentStructureOverviewContentForm : public som::SomNode {
   void setCommunicationChannelChanges(const std::string& value);
   std::string collaborationModelChanges() const;
   void setCollaborationModelChanges(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ChannelIntegrationsContentForm : public som::SomNode {
+ public:
+  ChannelIntegrationsContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string pushNotificationService() const;
+  void setPushNotificationService(const std::string& value);
+  std::string analyticsService() const;
+  void setAnalyticsService(const std::string& value);
+  std::string crashReporting() const;
+  void setCrashReporting(const std::string& value);
+  std::string deepLinking() const;
+  void setDeepLinking(const std::string& value);
+  std::string socialIntegration() const;
+  void setSocialIntegration(const std::string& value);
+  std::string paymentIntegration() const;
+  void setPaymentIntegration(const std::string& value);
+  std::string biometricIntegration() const;
+  void setBiometricIntegration(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -39495,6 +39915,34 @@ class ColorPaletteEntryContentForm : public som::SomNode {
   void setWcagCompliance(const std::string& value);
   std::string usageGuidelines() const;
   void setUsageGuidelines(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ColumnLevelSecurityPolicyContentForm : public som::SomNode {
+ public:
+  ColumnLevelSecurityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string columnLevelSecurityEnabled() const;
+  void setColumnLevelSecurityEnabled(const std::string& value);
+  std::string columnAccessImplementation() const;
+  void setColumnAccessImplementation(const std::string& value);
+  std::string sensitiveColumnClassification() const;
+  void setSensitiveColumnClassification(const std::string& value);
+  std::string piiColumnAccess() const;
+  void setPiiColumnAccess(const std::string& value);
+  std::string financialDataColumnAccess() const;
+  void setFinancialDataColumnAccess(const std::string& value);
+  std::string healthDataColumnAccess() const;
+  void setHealthDataColumnAccess(const std::string& value);
+  std::string dynamicFieldVisibility() const;
+  void setDynamicFieldVisibility(const std::string& value);
+  std::string columnAccessAudit() const;
+  void setColumnAccessAudit(const std::string& value);
+  std::string columnEncryptionPolicy() const;
+  void setColumnEncryptionPolicy(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -41444,6 +41892,38 @@ class ComputingEquipmentEntryPlatformForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ConcurrentSessionPolicyContentForm : public som::SomNode {
+ public:
+  ConcurrentSessionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string concurrentSessionsAllowed() const;
+  void setConcurrentSessionsAllowed(const std::string& value);
+  std::string maxConcurrentSessions() const;
+  void setMaxConcurrentSessions(const std::string& value);
+  std::string concurrentSessionScope() const;
+  void setConcurrentSessionScope(const std::string& value);
+  std::string conflictResolution() const;
+  void setConflictResolution(const std::string& value);
+  std::string sessionListVisible() const;
+  void setSessionListVisible(const std::string& value);
+  std::string remoteTerminationEnabled() const;
+  void setRemoteTerminationEnabled(const std::string& value);
+  std::string sessionDeviceInfo() const;
+  void setSessionDeviceInfo(const std::string& value);
+  std::string concurrentLoginNotification() const;
+  void setConcurrentLoginNotification(const std::string& value);
+  std::string suspiciousConcurrentLoginAction() const;
+  void setSuspiciousConcurrentLoginAction(const std::string& value);
+  std::string privilegedAccountSessionLimit() const;
+  void setPrivilegedAccountSessionLimit(const std::string& value);
+  std::string crossDeviceSessionHandling() const;
+  void setCrossDeviceSessionHandling(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ConfidentialInfoCategoryEntryContentForm : public som::SomNode {
  public:
   ConfidentialInfoCategoryEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -41757,6 +42237,46 @@ class ConstraintRegisterEntryContentForm : public som::SomNode {
   void setImpact(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ContentScanningPolicyContentForm : public som::SomNode {
+ public:
+  ContentScanningPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> antivirusScanningEnabled() const;
+  void setAntivirusScanningEnabled(std::optional<bool> value);
+  std::string scanTiming() const;
+  void setScanTiming(const std::string& value);
+  std::string scanEngine() const;
+  void setScanEngine(const std::string& value);
+  std::string quarantinePolicy() const;
+  void setQuarantinePolicy(const std::string& value);
+  std::optional<long> quarantineRetentionDays() const;
+  void setQuarantineRetentionDays(std::optional<long> value);
+  std::string signatureUpdateFrequency() const;
+  void setSignatureUpdateFrequency(const std::string& value);
+  std::optional<bool> cdrEnabled() const;
+  void setCdrEnabled(std::optional<bool> value);
+  std::string cdrApplicableTypes() const;
+  void setCdrApplicableTypes(const std::string& value);
+  std::optional<bool> dlpScanningEnabled() const;
+  void setDlpScanningEnabled(std::optional<bool> value);
+  std::string dlpPolicies() const;
+  void setDlpPolicies(const std::string& value);
+  std::string dlpAction() const;
+  void setDlpAction(const std::string& value);
+  std::optional<bool> contentModeration() const;
+  void setContentModeration(std::optional<bool> value);
+  std::string moderationMethod() const;
+  void setModerationMethod(const std::string& value);
+  std::optional<bool> hashBasedDetection() const;
+  void setHashBasedDetection(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
 // Generated section facade for the `contextualHelpContent` @Form section: its own `content` text followed by one typed member per form field.
 class ContextualHelpContextualHelpContentForm : public som::SomNode {
  public:
@@ -42033,6 +42553,72 @@ class CorrectnessVerificationForm : public som::SomNode {
   void setRegressionTestingApproach(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class CredentialCompromiseDetectionPolicyContentForm : public som::SomNode {
+ public:
+  CredentialCompromiseDetectionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string breachDatabaseMonitoring() const;
+  void setBreachDatabaseMonitoring(const std::string& value);
+  std::string breachDatabaseSource() const;
+  void setBreachDatabaseSource(const std::string& value);
+  std::string breachCheckFrequency() const;
+  void setBreachCheckFrequency(const std::string& value);
+  std::string compromisedCredentialAction() const;
+  void setCompromisedCredentialAction(const std::string& value);
+  std::string credentialStuffingDetection() const;
+  void setCredentialStuffingDetection(const std::string& value);
+  std::string stuffingDetectionMethod() const;
+  void setStuffingDetectionMethod(const std::string& value);
+  std::string darkWebMonitoring() const;
+  void setDarkWebMonitoring(const std::string& value);
+  std::string userCompromiseNotification() const;
+  void setUserCompromiseNotification(const std::string& value);
+  std::string adminCompromiseAlerts() const;
+  void setAdminCompromiseAlerts(const std::string& value);
+  std::string compromiseResponseSla() const;
+  void setCompromiseResponseSla(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class CredentialRecoveryPolicyContentForm : public som::SomNode {
+ public:
+  CredentialRecoveryPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string passwordResetMethod() const;
+  void setPasswordResetMethod(const std::string& value);
+  std::string resetLinkExpiry() const;
+  void setResetLinkExpiry(const std::string& value);
+  std::string resetLinkSingleUse() const;
+  void setResetLinkSingleUse(const std::string& value);
+  std::string resetRateLimiting() const;
+  void setResetRateLimiting(const std::string& value);
+  std::string savedRecoveryCodesEnabled() const;
+  void setSavedRecoveryCodesEnabled(const std::string& value);
+  std::string recoveryCodeCount() const;
+  void setRecoveryCodeCount(const std::string& value);
+  std::string recoveryCodeFormat() const;
+  void setRecoveryCodeFormat(const std::string& value);
+  std::string issuedRecoveryCodeChannels() const;
+  void setIssuedRecoveryCodeChannels(const std::string& value);
+  std::string recoveryCodeExpiry() const;
+  void setRecoveryCodeExpiry(const std::string& value);
+  std::string identityReverificationRequired() const;
+  void setIdentityReverificationRequired(const std::string& value);
+  std::string recoveryContactEnabled() const;
+  void setRecoveryContactEnabled(const std::string& value);
+  std::string multipleRecoveryAddresses() const;
+  void setMultipleRecoveryAddresses(const std::string& value);
+  std::string recoveryAuditLogging() const;
+  void setRecoveryAuditLogging(const std::string& value);
+};
+
 // Generated section facade for the `caching` @Form section: its own `content` text followed by one typed member per form field.
 class CrossCuttingConcernsCachingForm : public som::SomNode {
  public:
@@ -42125,6 +42711,32 @@ class CrossCuttingConcernsSharedForm : public som::SomNode {
   void setLocalization(const std::string& value);
   std::string validation() const;
   void setValidation(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class CrossTenantAccessPolicyContentForm : public som::SomNode {
+ public:
+  CrossTenantAccessPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> crossTenantAccessAllowed() const;
+  void setCrossTenantAccessAllowed(std::optional<bool> value);
+  std::string crossTenantAccessModel() const;
+  void setCrossTenantAccessModel(const std::string& value);
+  std::string authorizationMechanism() const;
+  void setAuthorizationMechanism(const std::string& value);
+  std::string resourceSharingModel() const;
+  void setResourceSharingModel(const std::string& value);
+  std::string idorPreventionStrategy() const;
+  void setIdorPreventionStrategy(const std::string& value);
+  std::string crossTenantAuditRequirement() const;
+  void setCrossTenantAuditRequirement(const std::string& value);
+  std::string accessReviewFrequency() const;
+  void setAccessReviewFrequency(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
 };
@@ -42491,6 +43103,40 @@ class DashboardTemplatesContentForm : public som::SomNode {
   void setTemplateVersioning(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DataAccessAuditPolicyContentForm : public som::SomNode {
+ public:
+  DataAccessAuditPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string dataAccessLoggingEnabled() const;
+  void setDataAccessLoggingEnabled(const std::string& value);
+  std::string dataAccessLoggingScope() const;
+  void setDataAccessLoggingScope(const std::string& value);
+  std::string loggedOperations() const;
+  void setLoggedOperations(const std::string& value);
+  std::string dataAccessLogDetail() const;
+  void setDataAccessLogDetail(const std::string& value);
+  std::string queryTextLogging() const;
+  void setQueryTextLogging(const std::string& value);
+  std::string anomalyDetectionEnabled() const;
+  void setAnomalyDetectionEnabled(const std::string& value);
+  std::string anomalySignals() const;
+  void setAnomalySignals(const std::string& value);
+  std::string dataBreachDetection() const;
+  void setDataBreachDetection(const std::string& value);
+  std::string dataAccessReviewCycle() const;
+  void setDataAccessReviewCycle(const std::string& value);
+  std::string privilegedQueryAlerts() const;
+  void setPrivilegedQueryAlerts(const std::string& value);
+  std::string complianceReportingEnabled() const;
+  void setComplianceReportingEnabled(const std::string& value);
+  std::string dataAccessRetention() const;
+  void setDataAccessRetention(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -43561,6 +44207,44 @@ class DataIntegrationPointsIntegrationSummaryForm : public som::SomNode {
   void setIntegrationDebt(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DataMaskingPolicyContentForm : public som::SomNode {
+ public:
+  DataMaskingPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string dynamicDataMaskingEnabled() const;
+  void setDynamicDataMaskingEnabled(const std::string& value);
+  std::string dynamicMaskingRules() const;
+  void setDynamicMaskingRules(const std::string& value);
+  std::string dynamicMaskingScope() const;
+  void setDynamicMaskingScope(const std::string& value);
+  std::string staticMaskingForNonProduction() const;
+  void setStaticMaskingForNonProduction(const std::string& value);
+  std::string staticMaskingTool() const;
+  void setStaticMaskingTool(const std::string& value);
+  std::string maskingPreservesFormat() const;
+  void setMaskingPreservesFormat(const std::string& value);
+  std::string maskingReversibility() const;
+  void setMaskingReversibility(const std::string& value);
+  std::string piiMaskingPolicy() const;
+  void setPiiMaskingPolicy(const std::string& value);
+  std::string emailMaskingFormat() const;
+  void setEmailMaskingFormat(const std::string& value);
+  std::string phoneMaskingFormat() const;
+  void setPhoneMaskingFormat(const std::string& value);
+  std::string addressMaskingFormat() const;
+  void setAddressMaskingFormat(const std::string& value);
+  std::string financialDataMasking() const;
+  void setFinancialDataMasking(const std::string& value);
+  std::string maskingAuditTrail() const;
+  void setMaskingAuditTrail(const std::string& value);
+  std::string developmentDataStrategy() const;
+  void setDevelopmentDataStrategy(const std::string& value);
+};
+
 // Generated section facade for the `approach` @Form section: its own `content` text followed by one typed member per form field.
 class DataMigrationStrategyApproachForm : public som::SomNode {
  public:
@@ -44603,6 +45287,44 @@ class DataVolumeSummaryProjectionForm : public som::SomNode {
   void setCapacityUtilization(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DatabaseAccessPolicyContentForm : public som::SomNode {
+ public:
+  DatabaseAccessPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string databaseConnectionSecurity() const;
+  void setDatabaseConnectionSecurity(const std::string& value);
+  std::string minimumTlsVersion() const;
+  void setMinimumTlsVersion(const std::string& value);
+  std::string applicationAccountStrategy() const;
+  void setApplicationAccountStrategy(const std::string& value);
+  std::string applicationAccountPrivileges() const;
+  void setApplicationAccountPrivileges(const std::string& value);
+  std::string schemaOwnershipSeparation() const;
+  void setSchemaOwnershipSeparation(const std::string& value);
+  std::string directTableAccess() const;
+  void setDirectTableAccess(const std::string& value);
+  std::string databaseCredentialStorage() const;
+  void setDatabaseCredentialStorage(const std::string& value);
+  std::string credentialRotationPolicy() const;
+  void setCredentialRotationPolicy(const std::string& value);
+  std::string connectionPoolSecurity() const;
+  void setConnectionPoolSecurity(const std::string& value);
+  std::string privilegedAccessManagement() const;
+  void setPrivilegedAccessManagement(const std::string& value);
+  std::string databaseFirewallRules() const;
+  void setDatabaseFirewallRules(const std::string& value);
+  std::string sqlInjectionPrevention() const;
+  void setSqlInjectionPrevention(const std::string& value);
+  std::string queryComplexityLimits() const;
+  void setQueryComplexityLimits(const std::string& value);
+  std::string databaseActivityMonitoring() const;
+  void setDatabaseActivityMonitoring(const std::string& value);
+};
+
 // Generated section facade for the `connection` @Form section: its own `content` text followed by one typed member per form field.
 class DatabaseCompatibilityEntryConnectionForm : public som::SomNode {
  public:
@@ -44681,6 +45403,30 @@ class DatabaseCompatibilityEntrySupportForm : public som::SomNode {
   void setSupportLevel(const std::string& value);
   std::string cloudVariants() const;
   void setCloudVariants(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class DatabaseEncryptionPolicyContentForm : public som::SomNode {
+ public:
+  DatabaseEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string databaseEncryptionMethod() const;
+  void setDatabaseEncryptionMethod(const std::string& value);
+  std::string encryptedColumnStrategy() const;
+  void setEncryptedColumnStrategy(const std::string& value);
+  std::optional<bool> indexOnEncryptedColumns() const;
+  void setIndexOnEncryptedColumns(std::optional<bool> value);
+  std::string searchOnEncryptedData() const;
+  void setSearchOnEncryptedData(const std::string& value);
+  std::optional<bool> connectionEncryption() const;
+  void setConnectionEncryption(std::optional<bool> value);
+  std::string databaseEngine() const;
+  void setDatabaseEngine(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `breakpoints` @Form section: its own `content` text followed by one typed member per form field.
@@ -48098,6 +48844,36 @@ class EncryptedDataCategoryEntryContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class EncryptionAtRestPolicyContentForm : public som::SomNode {
+ public:
+  EncryptionAtRestPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string defaultAlgorithm() const;
+  void setDefaultAlgorithm(const std::string& value);
+  std::optional<long> defaultKeyLength() const;
+  void setDefaultKeyLength(std::optional<long> value);
+  std::string cipherMode() const;
+  void setCipherMode(const std::string& value);
+  std::string encryptionLayer() const;
+  void setEncryptionLayer(const std::string& value);
+  std::optional<bool> fieldLevelEncryption() const;
+  void setFieldLevelEncryption(std::optional<bool> value);
+  std::optional<bool> transparentDataEncryption() const;
+  void setTransparentDataEncryption(std::optional<bool> value);
+  std::optional<bool> fullDiskEncryption() const;
+  void setFullDiskEncryption(std::optional<bool> value);
+  std::optional<bool> minimizeSensitiveStorage() const;
+  void setMinimizeSensitiveStorage(std::optional<bool> value);
+  std::string complianceFramework() const;
+  void setComplianceFramework(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class EnterpriseSystemCompatibilityEntryContentForm : public som::SomNode {
  public:
   EnterpriseSystemCompatibilityEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -51061,6 +51837,158 @@ class FieldValidationRuleContentForm : public som::SomNode {
   void setSeverity(const std::string& value);
   std::string triggerEvent() const;
   void setTriggerEvent(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FileAccessControlPolicyContentForm : public som::SomNode {
+ public:
+  FileAccessControlPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string fileAccessModel() const;
+  void setFileAccessModel(const std::string& value);
+  std::optional<bool> authenticationRequired() const;
+  void setAuthenticationRequired(std::optional<bool> value);
+  std::optional<bool> anonymousDownloadAllowed() const;
+  void setAnonymousDownloadAllowed(std::optional<bool> value);
+  std::string fileOwnershipModel() const;
+  void setFileOwnershipModel(const std::string& value);
+  std::string permissionGranularity() const;
+  void setPermissionGranularity(const std::string& value);
+  std::optional<bool> folderLevelPermissions() const;
+  void setFolderLevelPermissions(std::optional<bool> value);
+  std::string permissionInheritance() const;
+  void setPermissionInheritance(const std::string& value);
+  std::optional<bool> sharingEnabled() const;
+  void setSharingEnabled(std::optional<bool> value);
+  std::optional<bool> shareableLinkSupport() const;
+  void setShareableLinkSupport(std::optional<bool> value);
+  std::string shareableLinkExpiration() const;
+  void setShareableLinkExpiration(const std::string& value);
+  std::string externalSharingPolicy() const;
+  void setExternalSharingPolicy(const std::string& value);
+  std::string storageLocationPolicy() const;
+  void setStorageLocationPolicy(const std::string& value);
+  std::string tenantStorageIsolation() const;
+  void setTenantStorageIsolation(const std::string& value);
+  std::string filesystemPermissions() const;
+  void setFilesystemPermissions(const std::string& value);
+  std::optional<bool> presignedUrlSupport() const;
+  void setPresignedUrlSupport(std::optional<bool> value);
+  std::string presignedUrlMaxExpiry() const;
+  void setPresignedUrlMaxExpiry(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FileDownloadSecurityPolicyContentForm : public som::SomNode {
+ public:
+  FileDownloadSecurityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> downloadAuthenticationRequired() const;
+  void setDownloadAuthenticationRequired(std::optional<bool> value);
+  std::optional<bool> downloadRateLimiting() const;
+  void setDownloadRateLimiting(std::optional<bool> value);
+  std::string downloadRateLimit() const;
+  void setDownloadRateLimit(const std::string& value);
+  std::optional<bool> bandwidthThrottling() const;
+  void setBandwidthThrottling(std::optional<bool> value);
+  std::string contentDispositionPolicy() const;
+  void setContentDispositionPolicy(const std::string& value);
+  std::optional<bool> cdnDelivery() const;
+  void setCdnDelivery(std::optional<bool> value);
+  std::optional<bool> hotlinkPrevention() const;
+  void setHotlinkPrevention(std::optional<bool> value);
+  std::string cacheControlPolicy() const;
+  void setCacheControlPolicy(const std::string& value);
+  std::optional<bool> downloadAuditLogging() const;
+  void setDownloadAuditLogging(std::optional<bool> value);
+  std::optional<bool> downloadAlerts() const;
+  void setDownloadAlerts(std::optional<bool> value);
+  std::optional<bool> watermarking() const;
+  void setWatermarking(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FileStorageEncryptionPolicyContentForm : public som::SomNode {
+ public:
+  FileStorageEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string fileEncryptionMethod() const;
+  void setFileEncryptionMethod(const std::string& value);
+  std::string cloudStorageEncryption() const;
+  void setCloudStorageEncryption(const std::string& value);
+  std::optional<bool> clientSideEncryption() const;
+  void setClientSideEncryption(std::optional<bool> value);
+  std::string encryptedFileFormats() const;
+  void setEncryptedFileFormats(const std::string& value);
+  std::optional<bool> localDeviceEncryption() const;
+  void setLocalDeviceEncryption(std::optional<bool> value);
+  std::optional<bool> temporaryFileEncryption() const;
+  void setTemporaryFileEncryption(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FileUploadValidationPolicyContentForm : public som::SomNode {
+ public:
+  FileUploadValidationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string extensionValidationStrategy() const;
+  void setExtensionValidationStrategy(const std::string& value);
+  std::string allowedFileExtensions() const;
+  void setAllowedFileExtensions(const std::string& value);
+  std::string blockedFileExtensions() const;
+  void setBlockedFileExtensions(const std::string& value);
+  std::optional<bool> doubleExtensionPrevention() const;
+  void setDoubleExtensionPrevention(std::optional<bool> value);
+  std::optional<bool> contentTypeValidation() const;
+  void setContentTypeValidation(std::optional<bool> value);
+  std::optional<bool> fileSignatureValidation() const;
+  void setFileSignatureValidation(std::optional<bool> value);
+  std::string signatureMismatchAction() const;
+  void setSignatureMismatchAction(const std::string& value);
+  std::string filenameStrategy() const;
+  void setFilenameStrategy(const std::string& value);
+  std::optional<long> filenameMaxLength() const;
+  void setFilenameMaxLength(std::optional<long> value);
+  std::string filenameAllowedCharacters() const;
+  void setFilenameAllowedCharacters(const std::string& value);
+  std::optional<bool> pathTraversalPrevention() const;
+  void setPathTraversalPrevention(std::optional<bool> value);
+  std::optional<bool> nullBytePrevention() const;
+  void setNullBytePrevention(std::optional<bool> value);
+  std::string maxFileSizeBytes() const;
+  void setMaxFileSizeBytes(const std::string& value);
+  std::string maxUploadBatchSize() const;
+  void setMaxUploadBatchSize(const std::string& value);
+  std::optional<long> maxConcurrentUploads() const;
+  void setMaxConcurrentUploads(std::optional<long> value);
+  std::string compressedFileSizeLimit() const;
+  void setCompressedFileSizeLimit(const std::string& value);
+  std::optional<bool> imageRewriting() const;
+  void setImageRewriting(std::optional<bool> value);
+  std::optional<bool> documentSanitization() const;
+  void setDocumentSanitization(std::optional<bool> value);
+  std::optional<bool> metadataStripping() const;
+  void setMetadataStripping(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `advanced` @Form section: its own `content` text followed by one typed member per form field.
@@ -56341,6 +57269,48 @@ class LogStoragePolicyContentForm : public som::SomNode {
   void setAccessPermissions(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class LoginFlowConfigurationContentForm : public som::SomNode {
+ public:
+  LoginFlowConfigurationContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string loginEntryPoint() const;
+  void setLoginEntryPoint(const std::string& value);
+  std::string credentialSubmissionMethod() const;
+  void setCredentialSubmissionMethod(const std::string& value);
+  std::string preAuthenticationChecks() const;
+  void setPreAuthenticationChecks(const std::string& value);
+  std::string authenticationEndpoint() const;
+  void setAuthenticationEndpoint(const std::string& value);
+  std::string allowedAuthenticationMethods() const;
+  void setAllowedAuthenticationMethods(const std::string& value);
+  std::string mfaChallengePresentation() const;
+  void setMfaChallengePresentation(const std::string& value);
+  std::string rememberMeEnabled() const;
+  void setRememberMeEnabled(const std::string& value);
+  std::string rememberMeDuration() const;
+  void setRememberMeDuration(const std::string& value);
+  std::string socialLoginEnabled() const;
+  void setSocialLoginEnabled(const std::string& value);
+  std::string socialLoginProviders() const;
+  void setSocialLoginProviders(const std::string& value);
+  std::string passwordlessLoginEnabled() const;
+  void setPasswordlessLoginEnabled(const std::string& value);
+  std::string passwordlessLoginMethods() const;
+  void setPasswordlessLoginMethods(const std::string& value);
+  std::string postAuthenticationAction() const;
+  void setPostAuthenticationAction(const std::string& value);
+  std::string concurrentLoginPolicy() const;
+  void setConcurrentLoginPolicy(const std::string& value);
+  std::string loginNotification() const;
+  void setLoginNotification(const std::string& value);
+  std::string loginFromNewDeviceAction() const;
+  void setLoginFromNewDeviceAction(const std::string& value);
+};
+
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 class LoginFlowStepEntryBehaviorForm : public som::SomNode {
  public:
@@ -57285,6 +58255,40 @@ class MfaCategoryRequirementEntryTimingForm : public som::SomNode {
   void setRememberDeviceEnabled(const std::string& value);
   std::string rememberDeviceDuration() const;
   void setRememberDeviceDuration(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MfaConfigurationContentForm : public som::SomNode {
+ public:
+  MfaConfigurationContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string mfaRequired() const;
+  void setMfaRequired(const std::string& value);
+  std::string mfaEnforcementScope() const;
+  void setMfaEnforcementScope(const std::string& value);
+  std::string defaultSecondFactor() const;
+  void setDefaultSecondFactor(const std::string& value);
+  std::string allowedSecondFactors() const;
+  void setAllowedSecondFactors(const std::string& value);
+  std::string assuranceLevelTarget() const;
+  void setAssuranceLevelTarget(const std::string& value);
+  std::string phishingResistanceRequired() const;
+  void setPhishingResistanceRequired(const std::string& value);
+  std::string stepUpAuthenticationEnabled() const;
+  void setStepUpAuthenticationEnabled(const std::string& value);
+  std::string stepUpTriggers() const;
+  void setStepUpTriggers(const std::string& value);
+  std::string rememberDevicePolicy() const;
+  void setRememberDevicePolicy(const std::string& value);
+  std::string recoveryCodePolicy() const;
+  void setRecoveryCodePolicy(const std::string& value);
+  std::string enrollmentGracePeriod() const;
+  void setEnrollmentGracePeriod(const std::string& value);
+  std::string mfaBypassPolicy() const;
+  void setMfaBypassPolicy(const std::string& value);
 };
 
 // Generated section facade for the `strategyContent` @Form section: its own `content` text followed by one typed member per form field.
@@ -58849,6 +59853,30 @@ class MustPassCriterionEntryVerificationForm : public som::SomNode {
   void setMeasurementMethod(const std::string& value);
   std::string toleranceAllowed() const;
   void setToleranceAllowed(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MutualTlsPolicyContentForm : public som::SomNode {
+ public:
+  MutualTlsPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> mtlsEnabled() const;
+  void setMtlsEnabled(std::optional<bool> value);
+  std::string mtlsScope() const;
+  void setMtlsScope(const std::string& value);
+  std::string clientCertificateIssuance() const;
+  void setClientCertificateIssuance(const std::string& value);
+  std::string revocationChecking() const;
+  void setRevocationChecking(const std::string& value);
+  std::string fallbackOnMtlsFailure() const;
+  void setFallbackOnMtlsFailure(const std::string& value);
+  std::string clientCertificateRotation() const;
+  void setClientCertificateRotation(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -61257,6 +62285,116 @@ class ParticipantEntryContentForm : public som::SomNode {
   void setTargetRole(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PasswordLifecyclePolicyContentForm : public som::SomNode {
+ public:
+  PasswordLifecyclePolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string periodicRotationRequired() const;
+  void setPeriodicRotationRequired(const std::string& value);
+  std::string rotationPeriod() const;
+  void setRotationPeriod(const std::string& value);
+  std::string forceChangeOnCompromise() const;
+  void setForceChangeOnCompromise(const std::string& value);
+  std::string passwordHistoryDepth() const;
+  void setPasswordHistoryDepth(const std::string& value);
+  std::string minimumPasswordAge() const;
+  void setMinimumPasswordAge(const std::string& value);
+  std::string initialPasswordPolicy() const;
+  void setInitialPasswordPolicy(const std::string& value);
+  std::string temporaryPasswordExpiry() const;
+  void setTemporaryPasswordExpiry(const std::string& value);
+  std::string passwordExpiryWarning() const;
+  void setPasswordExpiryWarning(const std::string& value);
+  std::string passwordChangeNotification() const;
+  void setPasswordChangeNotification(const std::string& value);
+  std::string passwordChangeRequiresCurrent() const;
+  void setPasswordChangeRequiresCurrent(const std::string& value);
+  std::string administratorResetPolicy() const;
+  void setAdministratorResetPolicy(const std::string& value);
+  std::string passwordInactivityDisable() const;
+  void setPasswordInactivityDisable(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PasswordRequirementsPolicyContentForm : public som::SomNode {
+ public:
+  PasswordRequirementsPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string minimumLengthSingleFactor() const;
+  void setMinimumLengthSingleFactor(const std::string& value);
+  std::string minimumLengthMultiFactor() const;
+  void setMinimumLengthMultiFactor(const std::string& value);
+  std::string maximumLength() const;
+  void setMaximumLength(const std::string& value);
+  std::string allowedCharacterSets() const;
+  void setAllowedCharacterSets(const std::string& value);
+  std::string compositionRulesEnforced() const;
+  void setCompositionRulesEnforced(const std::string& value);
+  std::string passphraseSupported() const;
+  void setPassphraseSupported(const std::string& value);
+  std::string unicodeNormalization() const;
+  void setUnicodeNormalization(const std::string& value);
+  std::string passwordBlocklistEnabled() const;
+  void setPasswordBlocklistEnabled(const std::string& value);
+  std::string blocklistSources() const;
+  void setBlocklistSources(const std::string& value);
+  std::string passwordStrengthMeter() const;
+  void setPasswordStrengthMeter(const std::string& value);
+  std::string passwordHintsAllowed() const;
+  void setPasswordHintsAllowed(const std::string& value);
+  std::string securityQuestionsAllowed() const;
+  void setSecurityQuestionsAllowed(const std::string& value);
+  std::string showPasswordOption() const;
+  void setShowPasswordOption(const std::string& value);
+  std::string passwordManagerSupport() const;
+  void setPasswordManagerSupport(const std::string& value);
+  std::string truncationPolicy() const;
+  void setTruncationPolicy(const std::string& value);
+  std::string typoTolerancePolicy() const;
+  void setTypoTolerancePolicy(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PasswordStoragePolicyContentForm : public som::SomNode {
+ public:
+  PasswordStoragePolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string hashingAlgorithm() const;
+  void setHashingAlgorithm(const std::string& value);
+  std::string hashingCostFactor() const;
+  void setHashingCostFactor(const std::string& value);
+  std::string costFactorReviewSchedule() const;
+  void setCostFactorReviewSchedule(const std::string& value);
+  std::string saltLength() const;
+  void setSaltLength(const std::string& value);
+  std::string saltGeneration() const;
+  void setSaltGeneration(const std::string& value);
+  std::string pepperEnabled() const;
+  void setPepperEnabled(const std::string& value);
+  std::string pepperStorage() const;
+  void setPepperStorage(const std::string& value);
+  std::string hashVersioning() const;
+  void setHashVersioning(const std::string& value);
+  std::string transmissionEncryption() const;
+  void setTransmissionEncryption(const std::string& value);
+  std::string clientSideHashing() const;
+  void setClientSideHashing(const std::string& value);
+  std::string memoryHardFunction() const;
+  void setMemoryHardFunction(const std::string& value);
+  std::string outputLength() const;
+  void setOutputLength(const std::string& value);
+};
+
 // Generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
 class PeakLoadPatternsCapacityForm : public som::SomNode {
  public:
@@ -61467,6 +62605,98 @@ class PeripheralEquipmentEntryContentForm : public som::SomNode {
   void setQuantityNeeded(std::optional<long> value);
   std::string justification() const;
   void setJustification(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PermissionCompositionStrategyContentForm : public som::SomNode {
+ public:
+  PermissionCompositionStrategyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string compositionModel() const;
+  void setCompositionModel(const std::string& value);
+  std::string defaultPolicy() const;
+  void setDefaultPolicy(const std::string& value);
+  std::optional<bool> explicitDenyOverride() const;
+  void setExplicitDenyOverride(std::optional<bool> value);
+  std::optional<bool> rolePermissionInheritance() const;
+  void setRolePermissionInheritance(std::optional<bool> value);
+  std::string groupPermissionAggregation() const;
+  void setGroupPermissionAggregation(const std::string& value);
+  std::string conflictResolution() const;
+  void setConflictResolution(const std::string& value);
+  std::optional<bool> permissionBoundary() const;
+  void setPermissionBoundary(std::optional<bool> value);
+  std::optional<bool> scopedPermissions() const;
+  void setScopedPermissions(std::optional<bool> value);
+  std::optional<bool> temporaryElevation() const;
+  void setTemporaryElevation(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PermissionEvaluationBehaviorContentForm : public som::SomNode {
+ public:
+  PermissionEvaluationBehaviorContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string evaluationLocation() const;
+  void setEvaluationLocation(const std::string& value);
+  std::string evaluationFrequency() const;
+  void setEvaluationFrequency(const std::string& value);
+  std::string cachingStrategy() const;
+  void setCachingStrategy(const std::string& value);
+  std::optional<long> cacheTtlSeconds() const;
+  void setCacheTtlSeconds(std::optional<long> value);
+  std::string failureMode() const;
+  void setFailureMode(const std::string& value);
+  std::optional<bool> authorizationLogging() const;
+  void setAuthorizationLogging(std::optional<bool> value);
+  std::optional<bool> logDeniedRequests() const;
+  void setLogDeniedRequests(std::optional<bool> value);
+  std::optional<bool> logSuccessfulAccess() const;
+  void setLogSuccessfulAccess(std::optional<bool> value);
+  std::optional<bool> automatedTesting() const;
+  void setAutomatedTesting(std::optional<bool> value);
+  std::optional<bool> clientSideHints() const;
+  void setClientSideHints(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PermissionGranularityPolicyContentForm : public som::SomNode {
+ public:
+  PermissionGranularityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> functionLevelControl() const;
+  void setFunctionLevelControl(std::optional<bool> value);
+  std::optional<bool> dataLevelControl() const;
+  void setDataLevelControl(std::optional<bool> value);
+  std::optional<bool> fieldLevelControl() const;
+  void setFieldLevelControl(std::optional<bool> value);
+  std::optional<bool> uiElementControl() const;
+  void setUiElementControl(std::optional<bool> value);
+  std::optional<bool> apiOperationControl() const;
+  void setApiOperationControl(std::optional<bool> value);
+  std::optional<bool> objectLevelControl() const;
+  void setObjectLevelControl(std::optional<bool> value);
+  std::optional<bool> tenantLevelControl() const;
+  void setTenantLevelControl(std::optional<bool> value);
+  std::string finestGranularity() const;
+  void setFinestGranularity(const std::string& value);
+  std::optional<bool> dynamicPermissions() const;
+  void setDynamicPermissions(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -65116,6 +66346,40 @@ class RecoveryScenarioEntryContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RedirectHandlingPolicyContentForm : public som::SomNode {
+ public:
+  RedirectHandlingPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string oauthRedirectUriPolicy() const;
+  void setOauthRedirectUriPolicy(const std::string& value);
+  std::string allowedRedirectDomains() const;
+  void setAllowedRedirectDomains(const std::string& value);
+  std::string callbackUrlValidation() const;
+  void setCallbackUrlValidation(const std::string& value);
+  std::string stateParameterRequired() const;
+  void setStateParameterRequired(const std::string& value);
+  std::string pkceRequired() const;
+  void setPkceRequired(const std::string& value);
+  std::string pkceMethod() const;
+  void setPkceMethod(const std::string& value);
+  std::string deepLinkHandling() const;
+  void setDeepLinkHandling(const std::string& value);
+  std::string errorRedirectBehavior() const;
+  void setErrorRedirectBehavior(const std::string& value);
+  std::string postLogoutRedirectUri() const;
+  void setPostLogoutRedirectUri(const std::string& value);
+  std::string singleLogoutRedirectChain() const;
+  void setSingleLogoutRedirectChain(const std::string& value);
+  std::string corsPolicy() const;
+  void setCorsPolicy(const std::string& value);
+  std::string iframeEmbeddingPolicy() const;
+  void setIframeEmbeddingPolicy(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ReferenceDocumentEntryContentForm : public som::SomNode {
  public:
   ReferenceDocumentEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -65567,6 +66831,42 @@ class ReliabilityVerificationForm : public som::SomNode {
   void setReliabilityVerification(const std::string& value);
   std::string incidentPostmortem() const;
   void setIncidentPostmortem(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RememberMePolicyContentForm : public som::SomNode {
+ public:
+  RememberMePolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string rememberMeEnabled() const;
+  void setRememberMeEnabled(const std::string& value);
+  std::string rememberMeDuration() const;
+  void setRememberMeDuration(const std::string& value);
+  std::string rememberMeTokenType() const;
+  void setRememberMeTokenType(const std::string& value);
+  std::string rememberMeTokenStorage() const;
+  void setRememberMeTokenStorage(const std::string& value);
+  std::string rememberMeTokenRotation() const;
+  void setRememberMeTokenRotation(const std::string& value);
+  std::string rememberMeReuseDetection() const;
+  void setRememberMeReuseDetection(const std::string& value);
+  std::string rememberMeDeviceBinding() const;
+  void setRememberMeDeviceBinding(const std::string& value);
+  std::string rememberMeRevocation() const;
+  void setRememberMeRevocation(const std::string& value);
+  std::string rememberMeAalReduction() const;
+  void setRememberMeAalReduction(const std::string& value);
+  std::string rememberMeRestrictedOperations() const;
+  void setRememberMeRestrictedOperations(const std::string& value);
+  std::string trustedDeviceManagement() const;
+  void setTrustedDeviceManagement(const std::string& value);
+  std::string maxTrustedDevices() const;
+  void setMaxTrustedDevices(const std::string& value);
+  std::string trustedDeviceExpiry() const;
+  void setTrustedDeviceExpiry(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -68320,6 +69620,34 @@ class RoleAdjustmentsAdjustmentSummaryForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RoleCertificationPolicyContentForm : public som::SomNode {
+ public:
+  RoleCertificationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> certificationRequired() const;
+  void setCertificationRequired(std::optional<bool> value);
+  std::string certificationFrequency() const;
+  void setCertificationFrequency(const std::string& value);
+  std::string certifier() const;
+  void setCertifier(const std::string& value);
+  std::string nonResponseAction() const;
+  void setNonResponseAction(const std::string& value);
+  std::optional<bool> riskBasedScheduling() const;
+  void setRiskBasedScheduling(std::optional<bool> value);
+  std::optional<bool> automatedDetection() const;
+  void setAutomatedDetection(std::optional<bool> value);
+  std::optional<long> dormantRoleThresholdDays() const;
+  void setDormantRoleThresholdDays(std::optional<long> value);
+  std::optional<bool> certificationAuditTrail() const;
+  void setCertificationAuditTrail(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class RoleCombinationConstraintEntryContentForm : public som::SomNode {
  public:
   RoleCombinationConstraintEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -68397,6 +69725,36 @@ class RoleExclusionEntryContentForm : public som::SomNode {
   void setExclusionType(const std::string& value);
   std::string severity() const;
   void setSeverity(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RoleHierarchyPolicyContentForm : public som::SomNode {
+ public:
+  RoleHierarchyPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string hierarchyModel() const;
+  void setHierarchyModel(const std::string& value);
+  std::optional<long> maxHierarchyDepth() const;
+  void setMaxHierarchyDepth(std::optional<long> value);
+  std::string inheritanceMode() const;
+  void setInheritanceMode(const std::string& value);
+  std::optional<bool> multipleInheritance() const;
+  void setMultipleInheritance(std::optional<bool> value);
+  std::optional<bool> permissionOverride() const;
+  void setPermissionOverride(std::optional<bool> value);
+  std::optional<bool> activationConstraints() const;
+  void setActivationConstraints(std::optional<bool> value);
+  std::optional<long> maxActiveRolesPerUser() const;
+  void setMaxActiveRolesPerUser(std::optional<long> value);
+  std::string rolePriorityScheme() const;
+  void setRolePriorityScheme(const std::string& value);
+  std::optional<bool> automaticInheritanceRevocation() const;
+  void setAutomaticInheritanceRevocation(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -68565,6 +69923,38 @@ class RollbackStrategyTriggersForm : public som::SomNode {
   void setRollbackTriggers(const std::string& value);
   std::string rollbackTimeTarget() const;
   void setRollbackTimeTarget(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RowLevelSecurityPolicyContentForm : public som::SomNode {
+ public:
+  RowLevelSecurityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string rowLevelSecurityEnabled() const;
+  void setRowLevelSecurityEnabled(const std::string& value);
+  std::string rlsImplementation() const;
+  void setRlsImplementation(const std::string& value);
+  std::string rlsFilteringStrategy() const;
+  void setRlsFilteringStrategy(const std::string& value);
+  std::string rlsBypassPolicy() const;
+  void setRlsBypassPolicy(const std::string& value);
+  std::string hierarchicalVisibility() const;
+  void setHierarchicalVisibility(const std::string& value);
+  std::string hierarchyDepthLimit() const;
+  void setHierarchyDepthLimit(const std::string& value);
+  std::string crossTenantAccess() const;
+  void setCrossTenantAccess(const std::string& value);
+  std::string dataOwnerAccess() const;
+  void setDataOwnerAccess(const std::string& value);
+  std::string sharedDataHandling() const;
+  void setSharedDataHandling(const std::string& value);
+  std::string rlsPerformanceStrategy() const;
+  void setRlsPerformanceStrategy(const std::string& value);
+  std::string rlsTestingStrategy() const;
+  void setRlsTestingStrategy(const std::string& value);
 };
 
 // Generated section facade for the `byTier` @Form section: its own `content` text followed by one typed member per form field.
@@ -71354,6 +72744,44 @@ class SelfRegistrationPolicyVerificationForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SelfServiceAccountManagementContentForm : public som::SomNode {
+ public:
+  SelfServiceAccountManagementContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string profileUpdateEnabled() const;
+  void setProfileUpdateEnabled(const std::string& value);
+  std::string passwordChangeEnabled() const;
+  void setPasswordChangeEnabled(const std::string& value);
+  std::string passwordResetEnabled() const;
+  void setPasswordResetEnabled(const std::string& value);
+  std::string passwordResetMethods() const;
+  void setPasswordResetMethods(const std::string& value);
+  std::string mfaEnrollmentSelfService() const;
+  void setMfaEnrollmentSelfService(const std::string& value);
+  std::string accountDeactivationSelfService() const;
+  void setAccountDeactivationSelfService(const std::string& value);
+  std::string accountDeletionSelfService() const;
+  void setAccountDeletionSelfService(const std::string& value);
+  std::string dataExportSelfService() const;
+  void setDataExportSelfService(const std::string& value);
+  std::string sessionManagementSelfService() const;
+  void setSessionManagementSelfService(const std::string& value);
+  std::string apiKeyManagementSelfService() const;
+  void setApiKeyManagementSelfService(const std::string& value);
+  std::string notificationPreferences() const;
+  void setNotificationPreferences(const std::string& value);
+  std::string delegationEnabled() const;
+  void setDelegationEnabled(const std::string& value);
+  std::string delegationScope() const;
+  void setDelegationScope(const std::string& value);
+  std::string accountRecoveryProcess() const;
+  void setAccountRecoveryProcess(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ServerCallStepEntryContentForm : public som::SomNode {
  public:
   ServerCallStepEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -71762,6 +73190,76 @@ class ServerStorageRequirementsPerformanceForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServiceAccountCredentialPolicyContentForm : public som::SomNode {
+ public:
+  ServiceAccountCredentialPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string serviceAccountPasswordPolicy() const;
+  void setServiceAccountPasswordPolicy(const std::string& value);
+  std::string serviceAccountRotationPeriod() const;
+  void setServiceAccountRotationPeriod(const std::string& value);
+  std::string apiKeyLifetime() const;
+  void setApiKeyLifetime(const std::string& value);
+  std::string apiKeyRotationPolicy() const;
+  void setApiKeyRotationPolicy(const std::string& value);
+  std::string secretsManagementTool() const;
+  void setSecretsManagementTool(const std::string& value);
+  std::string machineToMachineAuth() const;
+  void setMachineToMachineAuth(const std::string& value);
+  std::string serviceAccountMfaRequired() const;
+  void setServiceAccountMfaRequired(const std::string& value);
+  std::string sharedCredentialProhibition() const;
+  void setSharedCredentialProhibition(const std::string& value);
+  std::string credentialVaultIntegration() const;
+  void setCredentialVaultIntegration(const std::string& value);
+  std::string hardcodedCredentialDetection() const;
+  void setHardcodedCredentialDetection(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServiceAccountLifecycleContentForm : public som::SomNode {
+ public:
+  ServiceAccountLifecycleContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string serviceAccountTypes() const;
+  void setServiceAccountTypes(const std::string& value);
+  std::string creationProcess() const;
+  void setCreationProcess(const std::string& value);
+  std::string creationApproval() const;
+  void setCreationApproval(const std::string& value);
+  std::string ownerAssignment() const;
+  void setOwnerAssignment(const std::string& value);
+  std::string ownerReviewFrequency() const;
+  void setOwnerReviewFrequency(const std::string& value);
+  std::string credentialRotationPolicy() const;
+  void setCredentialRotationPolicy(const std::string& value);
+  std::string credentialStorageMethod() const;
+  void setCredentialStorageMethod(const std::string& value);
+  std::string scopeLimitation() const;
+  void setScopeLimitation(const std::string& value);
+  std::string ipRestriction() const;
+  void setIpRestriction(const std::string& value);
+  std::string expirationPolicy() const;
+  void setExpirationPolicy(const std::string& value);
+  std::string renewalProcess() const;
+  void setRenewalProcess(const std::string& value);
+  std::string decommissioningProcess() const;
+  void setDecommissioningProcess(const std::string& value);
+  std::string monitoringRequirements() const;
+  void setMonitoringRequirements(const std::string& value);
+  std::string serviceAccountNamingConvention() const;
+  void setServiceAccountNamingConvention(const std::string& value);
+  std::string documentationRequirements() const;
+  void setDocumentationRequirements(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ServiceLevelAgreementEntryContentForm : public som::SomNode {
  public:
   ServiceLevelAgreementEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -72003,6 +73501,76 @@ class ServiceMeshAndGatewayMeshForm : public som::SomNode {
   void setMtlsEnabled(std::optional<bool> value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SessionCreationPolicyContentForm : public som::SomNode {
+ public:
+  SessionCreationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string sessionMechanism() const;
+  void setSessionMechanism(const std::string& value);
+  std::string sessionIdGeneration() const;
+  void setSessionIdGeneration(const std::string& value);
+  std::string sessionIdEntropy() const;
+  void setSessionIdEntropy(const std::string& value);
+  std::string sessionBindingMethod() const;
+  void setSessionBindingMethod(const std::string& value);
+  std::string httpOnlyCookies() const;
+  void setHttpOnlyCookies(const std::string& value);
+  std::string secureCookies() const;
+  void setSecureCookies(const std::string& value);
+  std::string sameSitePolicy() const;
+  void setSameSitePolicy(const std::string& value);
+  std::string cookieDomain() const;
+  void setCookieDomain(const std::string& value);
+  std::string deviceBinding() const;
+  void setDeviceBinding(const std::string& value);
+  std::string sessionDataStorage() const;
+  void setSessionDataStorage(const std::string& value);
+  std::string sessionReplicationStrategy() const;
+  void setSessionReplicationStrategy(const std::string& value);
+  std::string csrfProtection() const;
+  void setCsrfProtection(const std::string& value);
+  std::string postLoginRedirectValidation() const;
+  void setPostLoginRedirectValidation(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SessionLifecycleMonitoringContentForm : public som::SomNode {
+ public:
+  SessionLifecycleMonitoringContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string sessionCreationLogging() const;
+  void setSessionCreationLogging(const std::string& value);
+  std::string sessionDestructionLogging() const;
+  void setSessionDestructionLogging(const std::string& value);
+  std::string sessionRenewalLogging() const;
+  void setSessionRenewalLogging(const std::string& value);
+  std::string sessionEventDetails() const;
+  void setSessionEventDetails(const std::string& value);
+  std::string sessionIdInLogs() const;
+  void setSessionIdInLogs(const std::string& value);
+  std::string sessionActivityTracking() const;
+  void setSessionActivityTracking(const std::string& value);
+  std::string sessionHistoryVisibleToUser() const;
+  void setSessionHistoryVisibleToUser(const std::string& value);
+  std::string failedSessionAccessLogging() const;
+  void setFailedSessionAccessLogging(const std::string& value);
+  std::string sessionMetricsCollection() const;
+  void setSessionMetricsCollection(const std::string& value);
+  std::string sessionAuditRetention() const;
+  void setSessionAuditRetention(const std::string& value);
+  std::string realTimeSessionAlerts() const;
+  void setRealTimeSessionAlerts(const std::string& value);
+  std::string alertTriggers() const;
+  void setAlertTriggers(const std::string& value);
+};
+
 // Generated section facade for the `lifecycle` @Form section: its own `content` text followed by one typed member per form field.
 class SessionModelLifecycleForm : public som::SomNode {
  public:
@@ -72055,6 +73623,120 @@ class SessionModelSessionConfigurationForm : public som::SomNode {
   void setSessionTimeout(const std::string& value);
   std::string absoluteTimeout() const;
   void setAbsoluteTimeout(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SessionRevocationPolicyContentForm : public som::SomNode {
+ public:
+  SessionRevocationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string logoutMechanism() const;
+  void setLogoutMechanism(const std::string& value);
+  std::string logoutButtonPlacement() const;
+  void setLogoutButtonPlacement(const std::string& value);
+  std::string logoutConfirmation() const;
+  void setLogoutConfirmation(const std::string& value);
+  std::string postLogoutRedirect() const;
+  void setPostLogoutRedirect(const std::string& value);
+  std::string postLogoutCacheClear() const;
+  void setPostLogoutCacheClear(const std::string& value);
+  std::string singleLogoutEnabled() const;
+  void setSingleLogoutEnabled(const std::string& value);
+  std::string singleLogoutProtocol() const;
+  void setSingleLogoutProtocol(const std::string& value);
+  std::string privilegeChangeRevocation() const;
+  void setPrivilegeChangeRevocation(const std::string& value);
+  std::string passwordChangeRevocation() const;
+  void setPasswordChangeRevocation(const std::string& value);
+  std::string compromiseRevocation() const;
+  void setCompromiseRevocation(const std::string& value);
+  std::string adminTerminationEnabled() const;
+  void setAdminTerminationEnabled(const std::string& value);
+  std::string bulkRevocationEnabled() const;
+  void setBulkRevocationEnabled(const std::string& value);
+  std::string revocationPropagationDelay() const;
+  void setRevocationPropagationDelay(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SessionSecurityPolicyContentForm : public som::SomNode {
+ public:
+  SessionSecurityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string sessionFixationProtection() const;
+  void setSessionFixationProtection(const std::string& value);
+  std::string sessionIdRegenerationTriggers() const;
+  void setSessionIdRegenerationTriggers(const std::string& value);
+  std::string sessionBindingProperties() const;
+  void setSessionBindingProperties(const std::string& value);
+  std::string bindingMismatchAction() const;
+  void setBindingMismatchAction(const std::string& value);
+  std::string sessionAnomalyDetection() const;
+  void setSessionAnomalyDetection(const std::string& value);
+  std::string anomalyDetectionSignals() const;
+  void setAnomalyDetectionSignals(const std::string& value);
+  std::string sessionCachePolicy() const;
+  void setSessionCachePolicy(const std::string& value);
+  std::string clearSiteDataOnLogout() const;
+  void setClearSiteDataOnLogout(const std::string& value);
+  std::string sessionTransportSecurity() const;
+  void setSessionTransportSecurity(const std::string& value);
+  std::string sessionIdInUrlPrevention() const;
+  void setSessionIdInUrlPrevention(const std::string& value);
+  std::string crossOriginSessionProtection() const;
+  void setCrossOriginSessionProtection(const std::string& value);
+  std::string sessionDataMinimization() const;
+  void setSessionDataMinimization(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SessionTimeoutPolicyContentForm : public som::SomNode {
+ public:
+  SessionTimeoutPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string idleTimeoutDefault() const;
+  void setIdleTimeoutDefault(const std::string& value);
+  std::string idleTimeoutHighValue() const;
+  void setIdleTimeoutHighValue(const std::string& value);
+  std::string absoluteTimeout() const;
+  void setAbsoluteTimeout(const std::string& value);
+  std::string renewalTimeout() const;
+  void setRenewalTimeout(const std::string& value);
+  std::string idleTimeoutAal1() const;
+  void setIdleTimeoutAal1(const std::string& value);
+  std::string absoluteTimeoutAal1() const;
+  void setAbsoluteTimeoutAal1(const std::string& value);
+  std::string idleTimeoutAal2() const;
+  void setIdleTimeoutAal2(const std::string& value);
+  std::string absoluteTimeoutAal2() const;
+  void setAbsoluteTimeoutAal2(const std::string& value);
+  std::string idleTimeoutAal3() const;
+  void setIdleTimeoutAal3(const std::string& value);
+  std::string absoluteTimeoutAal3() const;
+  void setAbsoluteTimeoutAal3(const std::string& value);
+  std::string timeoutEnforcement() const;
+  void setTimeoutEnforcement(const std::string& value);
+  std::string timeoutWarningEnabled() const;
+  void setTimeoutWarningEnabled(const std::string& value);
+  std::string timeoutWarningLeadTime() const;
+  void setTimeoutWarningLeadTime(const std::string& value);
+  std::string timeoutWarningAction() const;
+  void setTimeoutWarningAction(const std::string& value);
+  std::string sessionExtensionAllowed() const;
+  void setSessionExtensionAllowed(const std::string& value);
+  std::string maxExtensions() const;
+  void setMaxExtensions(const std::string& value);
+  std::string gracePeriodAfterExpiry() const;
+  void setGracePeriodAfterExpiry(const std::string& value);
 };
 
 // Generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
@@ -72755,6 +74437,40 @@ class SpecializedEquipmentEntryTechnicalForm : public som::SomNode {
   void setDriverSoftware(const std::string& value);
   std::string certifications() const;
   void setCertifications(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class SsoPolicyContentForm : public som::SomNode {
+ public:
+  SsoPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ssoEnabled() const;
+  void setSsoEnabled(const std::string& value);
+  std::string ssoProtocol() const;
+  void setSsoProtocol(const std::string& value);
+  std::string identityProviderType() const;
+  void setIdentityProviderType(const std::string& value);
+  std::string identityProviderProduct() const;
+  void setIdentityProviderProduct(const std::string& value);
+  std::string federationProtocol() const;
+  void setFederationProtocol(const std::string& value);
+  std::string attributeMapping() const;
+  void setAttributeMapping(const std::string& value);
+  std::string justInTimeProvisioning() const;
+  void setJustInTimeProvisioning(const std::string& value);
+  std::string sessionSynchronization() const;
+  void setSessionSynchronization(const std::string& value);
+  std::string singleLogoutEnabled() const;
+  void setSingleLogoutEnabled(const std::string& value);
+  std::string ssoFallbackMethod() const;
+  void setSsoFallbackMethod(const std::string& value);
+  std::string ssoScopePolicy() const;
+  void setSsoScopePolicy(const std::string& value);
+  std::string externalIdpTrustPolicy() const;
+  void setExternalIdpTrustPolicy(const std::string& value);
 };
 
 // Generated section facade for the `allocations` @Form section: its own `content` text followed by one typed member per form field.
@@ -74331,6 +76047,120 @@ class StakeholdersAndInterestsContentForm : public som::SomNode {
   void setSupportStaffInterest(const std::string& value);
   std::string otherStakeholders() const;
   void setOtherStakeholders(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class StepUpAuthenticationPolicyContentForm : public som::SomNode {
+ public:
+  StepUpAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string stepUpEnabled() const;
+  void setStepUpEnabled(const std::string& value);
+  std::string stepUpTriggers() const;
+  void setStepUpTriggers(const std::string& value);
+  std::string stepUpTargetAal() const;
+  void setStepUpTargetAal(const std::string& value);
+  std::string stepUpTimeout() const;
+  void setStepUpTimeout(const std::string& value);
+  std::string riskBasedAuthEnabled() const;
+  void setRiskBasedAuthEnabled(const std::string& value);
+  std::string riskSignals() const;
+  void setRiskSignals(const std::string& value);
+  std::string riskScoringMethod() const;
+  void setRiskScoringMethod(const std::string& value);
+  std::string lowRiskAction() const;
+  void setLowRiskAction(const std::string& value);
+  std::string mediumRiskAction() const;
+  void setMediumRiskAction(const std::string& value);
+  std::string highRiskAction() const;
+  void setHighRiskAction(const std::string& value);
+  std::string adaptiveAuthProvider() const;
+  void setAdaptiveAuthProvider(const std::string& value);
+  std::string continuousAuthEnabled() const;
+  void setContinuousAuthEnabled(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class StorageEncryptionPolicyContentForm : public som::SomNode {
+ public:
+  StorageEncryptionPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> encryptionAtRest() const;
+  void setEncryptionAtRest(std::optional<bool> value);
+  std::string encryptionAlgorithm() const;
+  void setEncryptionAlgorithm(const std::string& value);
+  std::string encryptionScope() const;
+  void setEncryptionScope(const std::string& value);
+  std::string serverSideEncryption() const;
+  void setServerSideEncryption(const std::string& value);
+  std::optional<bool> clientSideEncryption() const;
+  void setClientSideEncryption(std::optional<bool> value);
+  std::string clientSideEncryptionMethod() const;
+  void setClientSideEncryptionMethod(const std::string& value);
+  std::string fileKeyRotation() const;
+  void setFileKeyRotation(const std::string& value);
+  std::optional<bool> perTenantKeys() const;
+  void setPerTenantKeys(std::optional<bool> value);
+  std::optional<bool> keyDeletionOnTenantRemoval() const;
+  void setKeyDeletionOnTenantRemoval(std::optional<bool> value);
+  std::optional<bool> encryptionInTransit() const;
+  void setEncryptionInTransit(std::optional<bool> value);
+  std::string minimumTlsVersion() const;
+  void setMinimumTlsVersion(const std::string& value);
+  std::optional<bool> backupEncryption() const;
+  void setBackupEncryption(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class StorageLifecyclePolicyContentForm : public som::SomNode {
+ public:
+  StorageLifecyclePolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string retentionPolicy() const;
+  void setRetentionPolicy(const std::string& value);
+  std::string defaultRetentionPeriod() const;
+  void setDefaultRetentionPeriod(const std::string& value);
+  std::optional<bool> retentionByFileType() const;
+  void setRetentionByFileType(std::optional<bool> value);
+  std::optional<bool> legalHoldSupport() const;
+  void setLegalHoldSupport(std::optional<bool> value);
+  std::optional<bool> archivingEnabled() const;
+  void setArchivingEnabled(std::optional<bool> value);
+  std::string archivalStorageTier() const;
+  void setArchivalStorageTier(const std::string& value);
+  std::optional<long> archivalTransitionDays() const;
+  void setArchivalTransitionDays(std::optional<long> value);
+  std::optional<bool> versioningEnabled() const;
+  void setVersioningEnabled(std::optional<bool> value);
+  std::optional<long> maxVersions() const;
+  void setMaxVersions(std::optional<long> value);
+  std::optional<long> versionRetentionDays() const;
+  void setVersionRetentionDays(std::optional<long> value);
+  std::string backupSchedule() const;
+  void setBackupSchedule(const std::string& value);
+  std::optional<long> backupRetentionDays() const;
+  void setBackupRetentionDays(std::optional<long> value);
+  std::optional<bool> crossRegionReplication() const;
+  void setCrossRegionReplication(std::optional<bool> value);
+  std::string secureDeletionMethod() const;
+  void setSecureDeletionMethod(const std::string& value);
+  std::optional<bool> deletionConfirmation() const;
+  void setDeletionConfirmation(std::optional<bool> value);
+  std::optional<bool> deletionAuditLogging() const;
+  void setDeletionAuditLogging(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `alignmentDetails` @Form section: its own `content` text followed by one typed member per form field.
@@ -77192,6 +79022,58 @@ class TechnologyStandardEntryScopeForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TenantBoundaryEnforcementPolicyContentForm : public som::SomNode {
+ public:
+  TenantBoundaryEnforcementPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string enforcementLayer() const;
+  void setEnforcementLayer(const std::string& value);
+  std::string authorizationFilterStrategy() const;
+  void setAuthorizationFilterStrategy(const std::string& value);
+  std::optional<bool> implicitTenantFilter() const;
+  void setImplicitTenantFilter(std::optional<bool> value);
+  std::string escalationPrevention() const;
+  void setEscalationPrevention(const std::string& value);
+  std::string sharedServiceAuthorization() const;
+  void setSharedServiceAuthorization(const std::string& value);
+  std::string tenantSwitchingPolicy() const;
+  void setTenantSwitchingPolicy(const std::string& value);
+  std::optional<bool> multiTenantUserSupport() const;
+  void setMultiTenantUserSupport(std::optional<bool> value);
+  std::string authorizationCaching() const;
+  void setAuthorizationCaching(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TenantContextPolicyContentForm : public som::SomNode {
+ public:
+  TenantContextPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string contextResolutionMethod() const;
+  void setContextResolutionMethod(const std::string& value);
+  std::string contextPropagation() const;
+  void setContextPropagation(const std::string& value);
+  std::string contextValidation() const;
+  void setContextValidation(const std::string& value);
+  std::optional<bool> contextImmutability() const;
+  void setContextImmutability(std::optional<bool> value);
+  std::string crossServicePropagation() const;
+  void setCrossServicePropagation(const std::string& value);
+  std::string missingContextBehavior() const;
+  void setMissingContextBehavior(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class TenantCustomizationEntryContentForm : public som::SomNode {
  public:
   TenantCustomizationEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -77215,6 +79097,66 @@ class TenantCustomizationEntryContentForm : public som::SomNode {
   void setCustomizationApproval(const std::string& value);
   std::optional<bool> customizationAudit() const;
   void setCustomizationAudit(std::optional<bool> value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TenantDataIsolationPolicyContentForm : public som::SomNode {
+ public:
+  TenantDataIsolationPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string tenantIsolationModel() const;
+  void setTenantIsolationModel(const std::string& value);
+  std::string tenantIdentifierColumn() const;
+  void setTenantIdentifierColumn(const std::string& value);
+  std::string tenantContextInjection() const;
+  void setTenantContextInjection(const std::string& value);
+  std::string tenantIsolationEnforcement() const;
+  void setTenantIsolationEnforcement(const std::string& value);
+  std::string crossTenantQueryPrevention() const;
+  void setCrossTenantQueryPrevention(const std::string& value);
+  std::string tenantDataBackupIsolation() const;
+  void setTenantDataBackupIsolation(const std::string& value);
+  std::string tenantDataDeletion() const;
+  void setTenantDataDeletion(const std::string& value);
+  std::string tenantDataExport() const;
+  void setTenantDataExport(const std::string& value);
+  std::string tenantResourceQuotas() const;
+  void setTenantResourceQuotas(const std::string& value);
+  std::string tenantIsolationTesting() const;
+  void setTenantIsolationTesting(const std::string& value);
+  std::string sharedReferenceDataAccess() const;
+  void setSharedReferenceDataAccess(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TenantOnboardingPolicyContentForm : public som::SomNode {
+ public:
+  TenantOnboardingPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string authorizationProvisioningModel() const;
+  void setAuthorizationProvisioningModel(const std::string& value);
+  std::string defaultRoleTemplate() const;
+  void setDefaultRoleTemplate(const std::string& value);
+  std::string adminRoleProvisioning() const;
+  void setAdminRoleProvisioning(const std::string& value);
+  std::string initialPermissionSet() const;
+  void setInitialPermissionSet(const std::string& value);
+  std::string offboardingStrategy() const;
+  void setOffboardingStrategy(const std::string& value);
+  std::string resourceCleanupOnOffboarding() const;
+  void setResourceCleanupOnOffboarding(const std::string& value);
+  std::optional<long> dataRetentionDays() const;
+  void setDataRetentionDays(std::optional<long> value);
+  std::string offboardingApproval() const;
+  void setOffboardingApproval(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
 };
@@ -77795,6 +79737,34 @@ class ThrowawayPrototypeValueForm : public som::SomNode {
   void setFutureReference(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TlsProtocolPolicyContentForm : public som::SomNode {
+ public:
+  TlsProtocolPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string minimumTlsVersion() const;
+  void setMinimumTlsVersion(const std::string& value);
+  std::string preferredTlsVersion() const;
+  void setPreferredTlsVersion(const std::string& value);
+  std::string allowedCipherSuites() const;
+  void setAllowedCipherSuites(const std::string& value);
+  std::optional<bool> preferAuthenticatedEncryption() const;
+  void setPreferAuthenticatedEncryption(std::optional<bool> value);
+  std::string dhGroups() const;
+  void setDhGroups(const std::string& value);
+  std::optional<bool> tlsCompressionDisabled() const;
+  void setTlsCompressionDisabled(std::optional<bool> value);
+  std::string sessionResumption() const;
+  void setSessionResumption(const std::string& value);
+  std::string complianceFramework() const;
+  void setComplianceFramework(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
 // Generated section facade for the `certificateValidation` @Form section: its own `content` text followed by one typed member per form field.
 class TlsRequirementsCertificateValidationForm : public som::SomNode {
  public:
@@ -77875,6 +79845,48 @@ class TlsRequirementsTerminationForm : public som::SomNode {
   void setTlsTermination(const std::string& value);
   std::optional<bool> internalTls() const;
   void setInternalTls(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TokenManagementPolicyContentForm : public som::SomNode {
+ public:
+  TokenManagementPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string tokenFormat() const;
+  void setTokenFormat(const std::string& value);
+  std::string tokenSigningAlgorithm() const;
+  void setTokenSigningAlgorithm(const std::string& value);
+  std::string accessTokenLifetime() const;
+  void setAccessTokenLifetime(const std::string& value);
+  std::string refreshTokenEnabled() const;
+  void setRefreshTokenEnabled(const std::string& value);
+  std::string refreshTokenLifetime() const;
+  void setRefreshTokenLifetime(const std::string& value);
+  std::string refreshTokenRotation() const;
+  void setRefreshTokenRotation(const std::string& value);
+  std::string refreshTokenReuseDetection() const;
+  void setRefreshTokenReuseDetection(const std::string& value);
+  std::string idTokenEnabled() const;
+  void setIdTokenEnabled(const std::string& value);
+  std::string idTokenClaims() const;
+  void setIdTokenClaims(const std::string& value);
+  std::string tokenStorageClient() const;
+  void setTokenStorageClient(const std::string& value);
+  std::string tokenStorageServer() const;
+  void setTokenStorageServer(const std::string& value);
+  std::string tokenRevocationEnabled() const;
+  void setTokenRevocationEnabled(const std::string& value);
+  std::string tokenRevocationPropagation() const;
+  void setTokenRevocationPropagation(const std::string& value);
+  std::string tokenIntrospectionEnabled() const;
+  void setTokenIntrospectionEnabled(const std::string& value);
+  std::string audienceRestriction() const;
+  void setAudienceRestriction(const std::string& value);
+  std::string scopePolicy() const;
+  void setScopePolicy(const std::string& value);
 };
 
 // Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
@@ -79475,6 +81487,34 @@ class TranslationVendorEntryContentForm : public som::SomNode {
   void setContactInfo(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TransportSecurityPolicyContentForm : public som::SomNode {
+ public:
+  TransportSecurityPolicyContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<bool> hstsEnabled() const;
+  void setHstsEnabled(std::optional<bool> value);
+  std::optional<long> hstsMaxAgeDays() const;
+  void setHstsMaxAgeDays(std::optional<long> value);
+  std::optional<bool> hstsIncludeSubdomains() const;
+  void setHstsIncludeSubdomains(std::optional<bool> value);
+  std::optional<bool> hstsPreload() const;
+  void setHstsPreload(std::optional<bool> value);
+  std::optional<bool> httpToHttpsRedirect() const;
+  void setHttpToHttpsRedirect(std::optional<bool> value);
+  std::optional<bool> secureCookieFlag() const;
+  void setSecureCookieFlag(std::optional<bool> value);
+  std::optional<bool> preventMixedContent() const;
+  void setPreventMixedContent(std::optional<bool> value);
+  std::string sensitiveDataCaching() const;
+  void setSensitiveDataCaching(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
+};
+
 // Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 class TroubleshootingCapabilitiesAccessForm : public som::SomNode {
  public:
@@ -80473,6 +82513,38 @@ class UserAccessibilityNeedsAccessibilityFormForm : public som::SomNode {
   void setAdditionalStandards(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserAccountStatesDefinitionContentForm : public som::SomNode {
+ public:
+  UserAccountStatesDefinitionContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string stateModel() const;
+  void setStateModel(const std::string& value);
+  std::string initialState() const;
+  void setInitialState(const std::string& value);
+  std::string activeState() const;
+  void setActiveState(const std::string& value);
+  std::string suspendedState() const;
+  void setSuspendedState(const std::string& value);
+  std::string lockedState() const;
+  void setLockedState(const std::string& value);
+  std::string deactivatedState() const;
+  void setDeactivatedState(const std::string& value);
+  std::string archivedState() const;
+  void setArchivedState(const std::string& value);
+  std::string deletedState() const;
+  void setDeletedState(const std::string& value);
+  std::string customStates() const;
+  void setCustomStates(const std::string& value);
+  std::string stateVisibility() const;
+  void setStateVisibility(const std::string& value);
+  std::string stateTransitionDiagramRef() const;
+  void setStateTransitionDiagramRef(const std::string& value);
+};
+
 // Generated section facade for the `delivery` @Form section: its own `content` text followed by one typed member per form field.
 class UserAssistanceDeliveryForm : public som::SomNode {
  public:
@@ -80779,6 +82851,32 @@ class UserGrowthProjectionsThresholdsForm : public som::SomNode {
   void setNotes(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserInteractionModelSummaryContentForm : public som::SomNode {
+ public:
+  UserInteractionModelSummaryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string primaryAccessChannel() const;
+  void setPrimaryAccessChannel(const std::string& value);
+  std::optional<long> channelCount() const;
+  void setChannelCount(std::optional<long> value);
+  std::optional<long> interactionPatternCount() const;
+  void setInteractionPatternCount(std::optional<long> value);
+  std::optional<long> accessLevelCount() const;
+  void setAccessLevelCount(std::optional<long> value);
+  std::string multiChannelSupport() const;
+  void setMultiChannelSupport(const std::string& value);
+  std::string offlineCapability() const;
+  void setOfflineCapability(const std::string& value);
+  std::string sessionManagement() const;
+  void setSessionManagement(const std::string& value);
+  std::string notificationChannels() const;
+  void setNotificationChannels(const std::string& value);
+};
+
 // Generated section facade for the `approval` @Form section: its own `content` text followed by one typed member per form field.
 class UserLifecycleTransitionEntryApprovalForm : public som::SomNode {
  public:
@@ -80843,6 +82941,56 @@ class UserLifecycleTransitionEntryEffectsForm : public som::SomNode {
   void setNotificationRecipients(const std::string& value);
   std::string notificationChannels() const;
   void setNotificationChannels(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserLifecycleTransitionsContentForm : public som::SomNode {
+ public:
+  UserLifecycleTransitionsContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string transitionModel() const;
+  void setTransitionModel(const std::string& value);
+  std::string approvalPolicyDefault() const;
+  void setApprovalPolicyDefault(const std::string& value);
+  std::string escalationPolicy() const;
+  void setEscalationPolicy(const std::string& value);
+  std::string escalationTimeframe() const;
+  void setEscalationTimeframe(const std::string& value);
+  std::string auditTrailRequired() const;
+  void setAuditTrailRequired(const std::string& value);
+  std::string notificationOnTransition() const;
+  void setNotificationOnTransition(const std::string& value);
+  std::string bulkTransitionSupport() const;
+  void setBulkTransitionSupport(const std::string& value);
+  std::string automatedTransitions() const;
+  void setAutomatedTransitions(const std::string& value);
+  std::string transitionUndoPolicy() const;
+  void setTransitionUndoPolicy(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserNotificationPreferencesContentForm : public som::SomNode {
+ public:
+  UserNotificationPreferencesContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string globalOptOut() const;
+  void setGlobalOptOut(const std::string& value);
+  std::string perTypeControl() const;
+  void setPerTypeControl(const std::string& value);
+  std::string channelPreferences() const;
+  void setChannelPreferences(const std::string& value);
+  std::string frequencyControl() const;
+  void setFrequencyControl(const std::string& value);
+  std::string quietHours() const;
+  void setQuietHours(const std::string& value);
+  std::string digestOption() const;
+  void setDigestOption(const std::string& value);
 };
 
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
@@ -80985,6 +83133,50 @@ class UserProvisioningToolsRoleManagementForm : public som::SomNode {
   void setDelegatedAdministration(std::optional<bool> value);
   std::string accessReviewProcess() const;
   void setAccessReviewProcess(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserRegistrationProcessContentForm : public som::SomNode {
+ public:
+  UserRegistrationProcessContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string registrationMethods() const;
+  void setRegistrationMethods(const std::string& value);
+  std::string selfRegistrationEnabled() const;
+  void setSelfRegistrationEnabled(const std::string& value);
+  std::string identityProofingLevel() const;
+  void setIdentityProofingLevel(const std::string& value);
+  std::string emailVerificationRequired() const;
+  void setEmailVerificationRequired(const std::string& value);
+  std::string phoneVerificationRequired() const;
+  void setPhoneVerificationRequired(const std::string& value);
+  std::string captchaRequired() const;
+  void setCaptchaRequired(const std::string& value);
+  std::string invitationExpiryPeriod() const;
+  void setInvitationExpiryPeriod(const std::string& value);
+  std::string approvalRequired() const;
+  void setApprovalRequired(const std::string& value);
+  std::string approvalWorkflow() const;
+  void setApprovalWorkflow(const std::string& value);
+  std::string approverRole() const;
+  void setApproverRole(const std::string& value);
+  std::string requiredFieldsAtRegistration() const;
+  void setRequiredFieldsAtRegistration(const std::string& value);
+  std::string optionalFieldsAtRegistration() const;
+  void setOptionalFieldsAtRegistration(const std::string& value);
+  std::string termsAcceptanceRequired() const;
+  void setTermsAcceptanceRequired(const std::string& value);
+  std::string duplicateDetection() const;
+  void setDuplicateDetection(const std::string& value);
+  std::string welcomeNotification() const;
+  void setWelcomeNotification(const std::string& value);
+  std::string initialRoleAssignment() const;
+  void setInitialRoleAssignment(const std::string& value);
+  std::string registrationRateLimiting() const;
+  void setRegistrationRateLimiting(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

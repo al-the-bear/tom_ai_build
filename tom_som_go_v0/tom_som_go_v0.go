@@ -1734,21 +1734,11 @@ func NewAccessConstraintPolicies(doc *som.SpecDocument, path string) *AccessCons
 	return &AccessConstraintPolicies{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccessConstraintPolicies) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccessConstraintPolicies) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccessConstraintPolicies) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccessConstraintPolicies) Content() *AccessConstraintPoliciesContentForm {
+	return NewAccessConstraintPoliciesContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Access Constraint Details (text).
@@ -1827,21 +1817,11 @@ func NewAccessControlModelSelection(doc *som.SpecDocument, path string) *AccessC
 	return &AccessControlModelSelection{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccessControlModelSelection) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccessControlModelSelection) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccessControlModelSelection) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccessControlModelSelection) Content() *AccessControlModelSelectionContentForm {
+	return NewAccessControlModelSelectionContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Access Control Model Details (text).
@@ -2192,21 +2172,11 @@ func NewAccountActivationPolicy(doc *som.SpecDocument, path string) *AccountActi
 	return &AccountActivationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccountActivationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccountActivationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccountActivationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccountActivationPolicy) Content() *AccountActivationPolicyContentForm {
+	return NewAccountActivationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Activation Flow Description (text).
@@ -2226,21 +2196,11 @@ func NewAccountDeactivationPolicy(doc *som.SpecDocument, path string) *AccountDe
 	return &AccountDeactivationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccountDeactivationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccountDeactivationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccountDeactivationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccountDeactivationPolicy) Content() *AccountDeactivationPolicyContentForm {
+	return NewAccountDeactivationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Deactivation Process Description (text).
@@ -2259,21 +2219,11 @@ func NewAccountDeletionPolicy(doc *som.SpecDocument, path string) *AccountDeleti
 	return &AccountDeletionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccountDeletionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccountDeletionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccountDeletionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccountDeletionPolicy) Content() *AccountDeletionPolicyContentForm {
+	return NewAccountDeletionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Deletion Process Description (text).
@@ -2293,21 +2243,11 @@ func NewAccountLockoutPolicy(doc *som.SpecDocument, path string) *AccountLockout
 	return &AccountLockoutPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccountLockoutPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccountLockoutPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccountLockoutPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccountLockoutPolicy) Content() *AccountLockoutPolicyContentForm {
+	return NewAccountLockoutPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Account Lockout Details (text).
@@ -2326,21 +2266,11 @@ func NewAccountModificationPolicy(doc *som.SpecDocument, path string) *AccountMo
 	return &AccountModificationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AccountModificationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AccountModificationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AccountModificationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AccountModificationPolicy) Content() *AccountModificationPolicyContentForm {
+	return NewAccountModificationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Modification Rules Description (text).
@@ -3147,21 +3077,11 @@ func NewApiAbuseProtection(doc *som.SpecDocument, path string) *ApiAbuseProtecti
 	return &ApiAbuseProtection{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiAbuseProtection) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiAbuseProtection) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiAbuseProtection) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiAbuseProtection) Content() *ApiAbuseProtectionContentForm {
+	return NewApiAbuseProtectionContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Abuse Protection Details (text).
@@ -3180,21 +3100,11 @@ func NewApiAuthenticationPolicy(doc *som.SpecDocument, path string) *ApiAuthenti
 	return &ApiAuthenticationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiAuthenticationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiAuthenticationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiAuthenticationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiAuthenticationPolicy) Content() *ApiAuthenticationPolicyContentForm {
+	return NewApiAuthenticationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // API Authentication Details (text).
@@ -3214,21 +3124,11 @@ func NewApiAuthorizationPolicy(doc *som.SpecDocument, path string) *ApiAuthoriza
 	return &ApiAuthorizationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiAuthorizationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiAuthorizationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiAuthorizationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiAuthorizationPolicy) Content() *ApiAuthorizationPolicyContentForm {
+	return NewApiAuthorizationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // API Authorization Details (text).
@@ -3286,21 +3186,11 @@ func NewApiCorsSecurity(doc *som.SpecDocument, path string) *ApiCorsSecurity {
 	return &ApiCorsSecurity{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiCorsSecurity) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiCorsSecurity) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiCorsSecurity) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiCorsSecurity) Content() *ApiCorsSecurityContentForm {
+	return NewApiCorsSecurityContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // CORS Security Details (text).
@@ -3319,21 +3209,11 @@ func NewApiKeyManagementPolicy(doc *som.SpecDocument, path string) *ApiKeyManage
 	return &ApiKeyManagementPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiKeyManagementPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiKeyManagementPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiKeyManagementPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiKeyManagementPolicy) Content() *ApiKeyManagementPolicyContentForm {
+	return NewApiKeyManagementPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // API Key Management Details (text).
@@ -3354,21 +3234,11 @@ func NewApiRequestValidationPolicy(doc *som.SpecDocument, path string) *ApiReque
 	return &ApiRequestValidationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiRequestValidationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiRequestValidationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiRequestValidationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiRequestValidationPolicy) Content() *ApiRequestValidationPolicyContentForm {
+	return NewApiRequestValidationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Request Validation Details (text).
@@ -3455,21 +3325,11 @@ func NewApiSecurityMonitoring(doc *som.SpecDocument, path string) *ApiSecurityMo
 	return &ApiSecurityMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ApiSecurityMonitoring) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ApiSecurityMonitoring) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ApiSecurityMonitoring) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ApiSecurityMonitoring) Content() *ApiSecurityMonitoringContentForm {
+	return NewApiSecurityMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // API Security Monitoring Details (text).
@@ -4274,21 +4134,11 @@ func NewAuthenticationErrorHandling(doc *som.SpecDocument, path string) *Authent
 	return &AuthenticationErrorHandling{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *AuthenticationErrorHandling) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *AuthenticationErrorHandling) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *AuthenticationErrorHandling) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *AuthenticationErrorHandling) Content() *AuthenticationErrorHandlingContentForm {
+	return NewAuthenticationErrorHandlingContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Error Handling Details (text).
@@ -4965,21 +4815,11 @@ func NewBackupEncryptionPolicy(doc *som.SpecDocument, path string) *BackupEncryp
 	return &BackupEncryptionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *BackupEncryptionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *BackupEncryptionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BackupEncryptionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *BackupEncryptionPolicy) Content() *BackupEncryptionPolicyContentForm {
+	return NewBackupEncryptionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Backup Encryption Details (text).
@@ -5321,21 +5161,11 @@ func NewBiometricAuthenticationPolicy(doc *som.SpecDocument, path string) *Biome
 	return &BiometricAuthenticationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *BiometricAuthenticationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *BiometricAuthenticationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *BiometricAuthenticationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *BiometricAuthenticationPolicy) Content() *BiometricAuthenticationPolicyContentForm {
+	return NewBiometricAuthenticationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Biometric Implementation Details (text).
@@ -6687,21 +6517,11 @@ func NewCertificateAuthenticationPolicy(doc *som.SpecDocument, path string) *Cer
 	return &CertificateAuthenticationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *CertificateAuthenticationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *CertificateAuthenticationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CertificateAuthenticationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *CertificateAuthenticationPolicy) Content() *CertificateAuthenticationPolicyContentForm {
+	return NewCertificateAuthenticationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Certificate Authentication Details (text).
@@ -6758,21 +6578,11 @@ func NewCertificateManagementPolicy(doc *som.SpecDocument, path string) *Certifi
 	return &CertificateManagementPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *CertificateManagementPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *CertificateManagementPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CertificateManagementPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *CertificateManagementPolicy) Content() *CertificateManagementPolicyContentForm {
+	return NewCertificateManagementPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Certificate Management Details (text).
@@ -7531,19 +7341,9 @@ func NewChannelIntegrations(doc *som.SpecDocument, path string) *ChannelIntegrat
 	return &ChannelIntegrations{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ChannelIntegrations) CanHaveContent() bool {
-	return true
-}
-
 // Integration requirements content.
-func (x *ChannelIntegrations) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ChannelIntegrations) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ChannelIntegrations) Content() *ChannelIntegrationsContentForm {
+	return NewChannelIntegrationsContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // CI/CD pipeline configuration.
@@ -8248,21 +8048,11 @@ func NewColumnLevelSecurityPolicy(doc *som.SpecDocument, path string) *ColumnLev
 	return &ColumnLevelSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ColumnLevelSecurityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ColumnLevelSecurityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ColumnLevelSecurityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ColumnLevelSecurityPolicy) Content() *ColumnLevelSecurityPolicyContentForm {
+	return NewColumnLevelSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Column-Level Security Details (text).
@@ -9845,21 +9635,11 @@ func NewConcurrentSessionPolicy(doc *som.SpecDocument, path string) *ConcurrentS
 	return &ConcurrentSessionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ConcurrentSessionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ConcurrentSessionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ConcurrentSessionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ConcurrentSessionPolicy) Content() *ConcurrentSessionPolicyContentForm {
+	return NewConcurrentSessionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Concurrent Session Details (text).
@@ -10058,21 +9838,11 @@ func NewContentScanningPolicy(doc *som.SpecDocument, path string) *ContentScanni
 	return &ContentScanningPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ContentScanningPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ContentScanningPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ContentScanningPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ContentScanningPolicy) Content() *ContentScanningPolicyContentForm {
+	return NewContentScanningPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Content Scanning Details (text).
@@ -10361,21 +10131,11 @@ func NewCredentialCompromiseDetectionPolicy(doc *som.SpecDocument, path string) 
 	return &CredentialCompromiseDetectionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *CredentialCompromiseDetectionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *CredentialCompromiseDetectionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CredentialCompromiseDetectionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *CredentialCompromiseDetectionPolicy) Content() *CredentialCompromiseDetectionPolicyContentForm {
+	return NewCredentialCompromiseDetectionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Compromise Detection Details (text).
@@ -10394,21 +10154,11 @@ func NewCredentialRecoveryPolicy(doc *som.SpecDocument, path string) *Credential
 	return &CredentialRecoveryPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *CredentialRecoveryPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *CredentialRecoveryPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CredentialRecoveryPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *CredentialRecoveryPolicy) Content() *CredentialRecoveryPolicyContentForm {
+	return NewCredentialRecoveryPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Credential Recovery Details (text).
@@ -10562,21 +10312,11 @@ func NewCrossTenantAccessPolicy(doc *som.SpecDocument, path string) *CrossTenant
 	return &CrossTenantAccessPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *CrossTenantAccessPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *CrossTenantAccessPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *CrossTenantAccessPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *CrossTenantAccessPolicy) Content() *CrossTenantAccessPolicyContentForm {
+	return NewCrossTenantAccessPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Cross-Tenant Access Policy Details (text).
@@ -13479,21 +13219,11 @@ func NewDataAccessAuditPolicy(doc *som.SpecDocument, path string) *DataAccessAud
 	return &DataAccessAuditPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DataAccessAuditPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *DataAccessAuditPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DataAccessAuditPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *DataAccessAuditPolicy) Content() *DataAccessAuditPolicyContentForm {
+	return NewDataAccessAuditPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Data Access Audit Details (text).
@@ -14600,21 +14330,11 @@ func NewDataMaskingPolicy(doc *som.SpecDocument, path string) *DataMaskingPolicy
 	return &DataMaskingPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DataMaskingPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *DataMaskingPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DataMaskingPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *DataMaskingPolicy) Content() *DataMaskingPolicyContentForm {
+	return NewDataMaskingPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Data Masking Details (text).
@@ -15538,21 +15258,11 @@ func NewDatabaseAccessPolicy(doc *som.SpecDocument, path string) *DatabaseAccess
 	return &DatabaseAccessPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DatabaseAccessPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *DatabaseAccessPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DatabaseAccessPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *DatabaseAccessPolicy) Content() *DatabaseAccessPolicyContentForm {
+	return NewDatabaseAccessPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Database Access Policy Details (text).
@@ -15609,21 +15319,11 @@ func NewDatabaseEncryptionPolicy(doc *som.SpecDocument, path string) *DatabaseEn
 	return &DatabaseEncryptionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DatabaseEncryptionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *DatabaseEncryptionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *DatabaseEncryptionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *DatabaseEncryptionPolicy) Content() *DatabaseEncryptionPolicyContentForm {
+	return NewDatabaseEncryptionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Database Encryption Details (text).
@@ -18803,21 +18503,11 @@ func NewEncryptionAtRestPolicy(doc *som.SpecDocument, path string) *EncryptionAt
 	return &EncryptionAtRestPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *EncryptionAtRestPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *EncryptionAtRestPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *EncryptionAtRestPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *EncryptionAtRestPolicy) Content() *EncryptionAtRestPolicyContentForm {
+	return NewEncryptionAtRestPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Encryption At Rest Policy Details (text).
@@ -21685,21 +21375,11 @@ func NewFileAccessControlPolicy(doc *som.SpecDocument, path string) *FileAccessC
 	return &FileAccessControlPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *FileAccessControlPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *FileAccessControlPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FileAccessControlPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *FileAccessControlPolicy) Content() *FileAccessControlPolicyContentForm {
+	return NewFileAccessControlPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // File Access Control Details (text).
@@ -21784,21 +21464,11 @@ func NewFileDownloadSecurityPolicy(doc *som.SpecDocument, path string) *FileDown
 	return &FileDownloadSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *FileDownloadSecurityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *FileDownloadSecurityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FileDownloadSecurityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *FileDownloadSecurityPolicy) Content() *FileDownloadSecurityPolicyContentForm {
+	return NewFileDownloadSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Download Security Details (text).
@@ -21818,21 +21488,11 @@ func NewFileStorageEncryptionPolicy(doc *som.SpecDocument, path string) *FileSto
 	return &FileStorageEncryptionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *FileStorageEncryptionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *FileStorageEncryptionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FileStorageEncryptionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *FileStorageEncryptionPolicy) Content() *FileStorageEncryptionPolicyContentForm {
+	return NewFileStorageEncryptionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // File Storage Encryption Details (text).
@@ -21853,21 +21513,11 @@ func NewFileUploadValidationPolicy(doc *som.SpecDocument, path string) *FileUplo
 	return &FileUploadValidationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *FileUploadValidationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *FileUploadValidationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *FileUploadValidationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *FileUploadValidationPolicy) Content() *FileUploadValidationPolicyContentForm {
+	return NewFileUploadValidationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Upload Validation Details (text).
@@ -26941,21 +26591,11 @@ func NewLoginFlowConfiguration(doc *som.SpecDocument, path string) *LoginFlowCon
 	return &LoginFlowConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *LoginFlowConfiguration) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *LoginFlowConfiguration) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *LoginFlowConfiguration) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *LoginFlowConfiguration) Content() *LoginFlowConfigurationContentForm {
+	return NewLoginFlowConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Login Flow Details (text).
@@ -27864,21 +27504,11 @@ func NewMfaConfiguration(doc *som.SpecDocument, path string) *MfaConfiguration {
 	return &MfaConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *MfaConfiguration) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *MfaConfiguration) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MfaConfiguration) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *MfaConfiguration) Content() *MfaConfigurationContentForm {
+	return NewMfaConfigurationContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // MFA Implementation Details (text).
@@ -29243,21 +28873,11 @@ func NewMutualTlsPolicy(doc *som.SpecDocument, path string) *MutualTlsPolicy {
 	return &MutualTlsPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *MutualTlsPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *MutualTlsPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *MutualTlsPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *MutualTlsPolicy) Content() *MutualTlsPolicyContentForm {
+	return NewMutualTlsPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Mutual TLS Policy Details (text).
@@ -31709,21 +31329,11 @@ func NewPasswordLifecyclePolicy(doc *som.SpecDocument, path string) *PasswordLif
 	return &PasswordLifecyclePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PasswordLifecyclePolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PasswordLifecyclePolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PasswordLifecyclePolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PasswordLifecyclePolicy) Content() *PasswordLifecyclePolicyContentForm {
+	return NewPasswordLifecyclePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Password Lifecycle Details (text).
@@ -31743,21 +31353,11 @@ func NewPasswordRequirementsPolicy(doc *som.SpecDocument, path string) *Password
 	return &PasswordRequirementsPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PasswordRequirementsPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PasswordRequirementsPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PasswordRequirementsPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PasswordRequirementsPolicy) Content() *PasswordRequirementsPolicyContentForm {
+	return NewPasswordRequirementsPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Password Requirements Details (text).
@@ -31776,21 +31376,11 @@ func NewPasswordStoragePolicy(doc *som.SpecDocument, path string) *PasswordStora
 	return &PasswordStoragePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PasswordStoragePolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PasswordStoragePolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PasswordStoragePolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PasswordStoragePolicy) Content() *PasswordStoragePolicyContentForm {
+	return NewPasswordStoragePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Password Storage Details (text).
@@ -31966,21 +31556,11 @@ func NewPermissionCompositionStrategy(doc *som.SpecDocument, path string) *Permi
 	return &PermissionCompositionStrategy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PermissionCompositionStrategy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PermissionCompositionStrategy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PermissionCompositionStrategy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PermissionCompositionStrategy) Content() *PermissionCompositionStrategyContentForm {
+	return NewPermissionCompositionStrategyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Permission Composition Details (text).
@@ -31999,21 +31579,11 @@ func NewPermissionEvaluationBehavior(doc *som.SpecDocument, path string) *Permis
 	return &PermissionEvaluationBehavior{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PermissionEvaluationBehavior) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PermissionEvaluationBehavior) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PermissionEvaluationBehavior) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PermissionEvaluationBehavior) Content() *PermissionEvaluationBehaviorContentForm {
+	return NewPermissionEvaluationBehaviorContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Permission Evaluation Details (text).
@@ -32032,21 +31602,11 @@ func NewPermissionGranularityPolicy(doc *som.SpecDocument, path string) *Permiss
 	return &PermissionGranularityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *PermissionGranularityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *PermissionGranularityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *PermissionGranularityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *PermissionGranularityPolicy) Content() *PermissionGranularityPolicyContentForm {
+	return NewPermissionGranularityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Permission Granularity Details (text).
@@ -35654,21 +35214,11 @@ func NewRedirectHandlingPolicy(doc *som.SpecDocument, path string) *RedirectHand
 	return &RedirectHandlingPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *RedirectHandlingPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *RedirectHandlingPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RedirectHandlingPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *RedirectHandlingPolicy) Content() *RedirectHandlingPolicyContentForm {
+	return NewRedirectHandlingPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Redirect Handling Details (text).
@@ -36126,21 +35676,11 @@ func NewRememberMePolicy(doc *som.SpecDocument, path string) *RememberMePolicy {
 	return &RememberMePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *RememberMePolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *RememberMePolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RememberMePolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *RememberMePolicy) Content() *RememberMePolicyContentForm {
+	return NewRememberMePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Remember-Me Policy Details (text).
@@ -38643,21 +38183,11 @@ func NewRoleCertificationPolicy(doc *som.SpecDocument, path string) *RoleCertifi
 	return &RoleCertificationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *RoleCertificationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *RoleCertificationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RoleCertificationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *RoleCertificationPolicy) Content() *RoleCertificationPolicyContentForm {
+	return NewRoleCertificationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Role Certification Details (text).
@@ -38815,21 +38345,11 @@ func NewRoleHierarchyPolicy(doc *som.SpecDocument, path string) *RoleHierarchyPo
 	return &RoleHierarchyPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *RoleHierarchyPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *RoleHierarchyPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RoleHierarchyPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *RoleHierarchyPolicy) Content() *RoleHierarchyPolicyContentForm {
+	return NewRoleHierarchyPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Role Hierarchy Policy Details (text).
@@ -39062,21 +38582,11 @@ func NewRowLevelSecurityPolicy(doc *som.SpecDocument, path string) *RowLevelSecu
 	return &RowLevelSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *RowLevelSecurityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *RowLevelSecurityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *RowLevelSecurityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *RowLevelSecurityPolicy) Content() *RowLevelSecurityPolicyContentForm {
+	return NewRowLevelSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Row-Level Security Details (text).
@@ -41640,21 +41150,11 @@ func NewSelfServiceAccountManagement(doc *som.SpecDocument, path string) *SelfSe
 	return &SelfServiceAccountManagement{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SelfServiceAccountManagement) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SelfServiceAccountManagement) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SelfServiceAccountManagement) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SelfServiceAccountManagement) Content() *SelfServiceAccountManagementContentForm {
+	return NewSelfServiceAccountManagementContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Self-Service Capabilities Description (text).
@@ -42164,21 +41664,11 @@ func NewServiceAccountCredentialPolicy(doc *som.SpecDocument, path string) *Serv
 	return &ServiceAccountCredentialPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ServiceAccountCredentialPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ServiceAccountCredentialPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ServiceAccountCredentialPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ServiceAccountCredentialPolicy) Content() *ServiceAccountCredentialPolicyContentForm {
+	return NewServiceAccountCredentialPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Service Account Credential Details (text).
@@ -42197,21 +41687,11 @@ func NewServiceAccountLifecycle(doc *som.SpecDocument, path string) *ServiceAcco
 	return &ServiceAccountLifecycle{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ServiceAccountLifecycle) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *ServiceAccountLifecycle) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *ServiceAccountLifecycle) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *ServiceAccountLifecycle) Content() *ServiceAccountLifecycleContentForm {
+	return NewServiceAccountLifecycleContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Service Account Management Description (text).
@@ -42358,21 +41838,11 @@ func NewSessionCreationPolicy(doc *som.SpecDocument, path string) *SessionCreati
 	return &SessionCreationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SessionCreationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SessionCreationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SessionCreationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SessionCreationPolicy) Content() *SessionCreationPolicyContentForm {
+	return NewSessionCreationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Session Creation Details (text).
@@ -42392,21 +41862,11 @@ func NewSessionLifecycleMonitoring(doc *som.SpecDocument, path string) *SessionL
 	return &SessionLifecycleMonitoring{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SessionLifecycleMonitoring) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SessionLifecycleMonitoring) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SessionLifecycleMonitoring) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SessionLifecycleMonitoring) Content() *SessionLifecycleMonitoringContentForm {
+	return NewSessionLifecycleMonitoringContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Session Lifecycle Monitoring Details (text).
@@ -42537,21 +41997,11 @@ func NewSessionRevocationPolicy(doc *som.SpecDocument, path string) *SessionRevo
 	return &SessionRevocationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SessionRevocationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SessionRevocationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SessionRevocationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SessionRevocationPolicy) Content() *SessionRevocationPolicyContentForm {
+	return NewSessionRevocationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Session Revocation Details (text).
@@ -42571,21 +42021,11 @@ func NewSessionSecurityPolicy(doc *som.SpecDocument, path string) *SessionSecuri
 	return &SessionSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SessionSecurityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SessionSecurityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SessionSecurityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SessionSecurityPolicy) Content() *SessionSecurityPolicyContentForm {
+	return NewSessionSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Session Security Details (text).
@@ -42606,21 +42046,11 @@ func NewSessionTimeoutPolicy(doc *som.SpecDocument, path string) *SessionTimeout
 	return &SessionTimeoutPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SessionTimeoutPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SessionTimeoutPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SessionTimeoutPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SessionTimeoutPolicy) Content() *SessionTimeoutPolicyContentForm {
+	return NewSessionTimeoutPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Session Timeout Details (text).
@@ -43218,21 +42648,11 @@ func NewSsoPolicy(doc *som.SpecDocument, path string) *SsoPolicy {
 	return &SsoPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *SsoPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *SsoPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *SsoPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *SsoPolicy) Content() *SsoPolicyContentForm {
+	return NewSsoPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // SSO Implementation Details (text).
@@ -44437,21 +43857,11 @@ func NewStepUpAuthenticationPolicy(doc *som.SpecDocument, path string) *StepUpAu
 	return &StepUpAuthenticationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *StepUpAuthenticationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *StepUpAuthenticationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StepUpAuthenticationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *StepUpAuthenticationPolicy) Content() *StepUpAuthenticationPolicyContentForm {
+	return NewStepUpAuthenticationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Step-Up Authentication Details (text).
@@ -44475,21 +43885,11 @@ func NewStorageEncryptionPolicy(doc *som.SpecDocument, path string) *StorageEncr
 	return &StorageEncryptionPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *StorageEncryptionPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *StorageEncryptionPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StorageEncryptionPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *StorageEncryptionPolicy) Content() *StorageEncryptionPolicyContentForm {
+	return NewStorageEncryptionPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Storage Encryption Details (text).
@@ -44509,21 +43909,11 @@ func NewStorageLifecyclePolicy(doc *som.SpecDocument, path string) *StorageLifec
 	return &StorageLifecyclePolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *StorageLifecyclePolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *StorageLifecyclePolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *StorageLifecyclePolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *StorageLifecyclePolicy) Content() *StorageLifecyclePolicyContentForm {
+	return NewStorageLifecyclePolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Storage Lifecycle Details (text).
@@ -47771,21 +47161,11 @@ func NewTenantBoundaryEnforcementPolicy(doc *som.SpecDocument, path string) *Ten
 	return &TenantBoundaryEnforcementPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TenantBoundaryEnforcementPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TenantBoundaryEnforcementPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TenantBoundaryEnforcementPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TenantBoundaryEnforcementPolicy) Content() *TenantBoundaryEnforcementPolicyContentForm {
+	return NewTenantBoundaryEnforcementPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Tenant Boundary Enforcement Details (text).
@@ -47807,21 +47187,11 @@ func NewTenantContextPolicy(doc *som.SpecDocument, path string) *TenantContextPo
 	return &TenantContextPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TenantContextPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TenantContextPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TenantContextPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TenantContextPolicy) Content() *TenantContextPolicyContentForm {
+	return NewTenantContextPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Tenant Context Policy Details (text).
@@ -47861,21 +47231,11 @@ func NewTenantDataIsolationPolicy(doc *som.SpecDocument, path string) *TenantDat
 	return &TenantDataIsolationPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TenantDataIsolationPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TenantDataIsolationPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TenantDataIsolationPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TenantDataIsolationPolicy) Content() *TenantDataIsolationPolicyContentForm {
+	return NewTenantDataIsolationPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Tenant Data Isolation Details (text).
@@ -47961,21 +47321,11 @@ func NewTenantOnboardingPolicy(doc *som.SpecDocument, path string) *TenantOnboar
 	return &TenantOnboardingPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TenantOnboardingPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TenantOnboardingPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TenantOnboardingPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TenantOnboardingPolicy) Content() *TenantOnboardingPolicyContentForm {
+	return NewTenantOnboardingPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Tenant Onboarding Policy Details (text).
@@ -48325,21 +47675,11 @@ func NewTlsProtocolPolicy(doc *som.SpecDocument, path string) *TlsProtocolPolicy
 	return &TlsProtocolPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TlsProtocolPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TlsProtocolPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TlsProtocolPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TlsProtocolPolicy) Content() *TlsProtocolPolicyContentForm {
+	return NewTlsProtocolPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // TLS Protocol Policy Details (text).
@@ -48395,21 +47735,11 @@ func NewTokenManagementPolicy(doc *som.SpecDocument, path string) *TokenManageme
 	return &TokenManagementPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TokenManagementPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TokenManagementPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TokenManagementPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TokenManagementPolicy) Content() *TokenManagementPolicyContentForm {
+	return NewTokenManagementPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Token Management Details (text).
@@ -49609,21 +48939,11 @@ func NewTransportSecurityPolicy(doc *som.SpecDocument, path string) *TransportSe
 	return &TransportSecurityPolicy{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *TransportSecurityPolicy) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *TransportSecurityPolicy) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *TransportSecurityPolicy) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *TransportSecurityPolicy) Content() *TransportSecurityPolicyContentForm {
+	return NewTransportSecurityPolicyContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Transport Security Policy Details (text).
@@ -50374,21 +49694,11 @@ func NewUserAccountStatesDefinition(doc *som.SpecDocument, path string) *UserAcc
 	return &UserAccountStatesDefinition{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *UserAccountStatesDefinition) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *UserAccountStatesDefinition) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserAccountStatesDefinition) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *UserAccountStatesDefinition) Content() *UserAccountStatesDefinitionContentForm {
+	return NewUserAccountStatesDefinitionContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // State Transition Diagram (mermaid).
@@ -50852,19 +50162,9 @@ func NewUserInteractionModelSummary(doc *som.SpecDocument, path string) *UserInt
 	return &UserInteractionModelSummary{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *UserInteractionModelSummary) CanHaveContent() bool {
-	return true
-}
-
 // Summary content for interaction model.
-func (x *UserInteractionModelSummary) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserInteractionModelSummary) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *UserInteractionModelSummary) Content() *UserInteractionModelSummaryContentForm {
+	return NewUserInteractionModelSummaryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 4.1.4.n.7. User Journey.
@@ -51064,21 +50364,11 @@ func NewUserLifecycleTransitions(doc *som.SpecDocument, path string) *UserLifecy
 	return &UserLifecycleTransitions{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *UserLifecycleTransitions) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *UserLifecycleTransitions) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserLifecycleTransitions) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *UserLifecycleTransitions) Content() *UserLifecycleTransitionsContentForm {
+	return NewUserLifecycleTransitionsContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Transition Rules Description (text).
@@ -51181,19 +50471,9 @@ func NewUserNotificationPreferences(doc *som.SpecDocument, path string) *UserNot
 	return &UserNotificationPreferences{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *UserNotificationPreferences) CanHaveContent() bool {
-	return true
-}
-
 // Preferences content.
-func (x *UserNotificationPreferences) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserNotificationPreferences) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *UserNotificationPreferences) Content() *UserNotificationPreferencesContentForm {
+	return NewUserNotificationPreferencesContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 4.1.4.n.1. User Persona Details.
@@ -51348,21 +50628,11 @@ func NewUserRegistrationProcess(doc *som.SpecDocument, path string) *UserRegistr
 	return &UserRegistrationProcess{SomNode: som.NewSomNode(doc, path)}
 }
 
-// CanHaveContent reports that this section type declares the standard `content`
-// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *UserRegistrationProcess) CanHaveContent() bool {
-	return true
-}
-
 // The section's body content. For a `@Form`-annotated member this is the
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
-func (x *UserRegistrationProcess) Content() string {
-	return x.Doc().ContentOr(x.Path() + "/content")
-}
-
-func (x *UserRegistrationProcess) SetContent(value string) {
-	x.Doc().SetContent(x.Path()+"/content", value)
+func (x *UserRegistrationProcess) Content() *UserRegistrationProcessContentForm {
+	return NewUserRegistrationProcessContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Registration Flow Description (text).
@@ -53414,6 +52684,372 @@ func (x *AcceptanceStepEntryOutcomeForm) SetDecisionOptions(value string) {
 	x.Doc().SetFormField(x.Path(), "decisionOptions", value)
 }
 
+// AccessConstraintPoliciesContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccessConstraintPoliciesContentForm struct {
+	som.SomNode
+}
+
+// NewAccessConstraintPoliciesContentForm binds a AccessConstraintPoliciesContentForm facade to a document and a path.
+func NewAccessConstraintPoliciesContentForm(doc *som.SpecDocument, path string) *AccessConstraintPoliciesContentForm {
+	return &AccessConstraintPoliciesContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccessConstraintPoliciesContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccessConstraintPoliciesContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccessConstraintPoliciesContentForm) SeparationOfDuties() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "separationOfDuties")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetSeparationOfDuties(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "separationOfDuties", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "separationOfDuties", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "separationOfDuties", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) SodEnforcement() string {
+	return x.Doc().FormFieldOr(x.Path(), "sodEnforcement")
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetSodEnforcement(value string) {
+	x.Doc().SetFormField(x.Path(), "sodEnforcement", value)
+}
+
+func (x *AccessConstraintPoliciesContentForm) TemporalConstraints() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "temporalConstraints")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetTemporalConstraints(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "temporalConstraints", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "temporalConstraints", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "temporalConstraints", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) LocationConstraints() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "locationConstraints")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetLocationConstraints(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "locationConstraints", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "locationConstraints", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "locationConstraints", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) DeviceConstraints() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "deviceConstraints")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetDeviceConstraints(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "deviceConstraints", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "deviceConstraints", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "deviceConstraints", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) RiskAdaptiveAccess() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "riskAdaptiveAccess")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetRiskAdaptiveAccess(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "riskAdaptiveAccess", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "riskAdaptiveAccess", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "riskAdaptiveAccess", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) ContextualAttributes() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextualAttributes")
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetContextualAttributes(value string) {
+	x.Doc().SetFormField(x.Path(), "contextualAttributes", value)
+}
+
+func (x *AccessConstraintPoliciesContentForm) MaxSessionPermissions() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "maxSessionPermissions")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetMaxSessionPermissions(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxSessionPermissions", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "maxSessionPermissions", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "maxSessionPermissions", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) LeastPrivilegeEnforcement() string {
+	return x.Doc().FormFieldOr(x.Path(), "leastPrivilegeEnforcement")
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetLeastPrivilegeEnforcement(value string) {
+	x.Doc().SetFormField(x.Path(), "leastPrivilegeEnforcement", value)
+}
+
+func (x *AccessConstraintPoliciesContentForm) PrivilegeCreepDetection() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "privilegeCreepDetection")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetPrivilegeCreepDetection(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "privilegeCreepDetection", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "privilegeCreepDetection", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "privilegeCreepDetection", "false")
+	}
+}
+
+func (x *AccessConstraintPoliciesContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *AccessConstraintPoliciesContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// AccessControlModelSelectionContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccessControlModelSelectionContentForm struct {
+	som.SomNode
+}
+
+// NewAccessControlModelSelectionContentForm binds a AccessControlModelSelectionContentForm facade to a document and a path.
+func NewAccessControlModelSelectionContentForm(doc *som.SpecDocument, path string) *AccessControlModelSelectionContentForm {
+	return &AccessControlModelSelectionContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccessControlModelSelectionContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccessControlModelSelectionContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccessControlModelSelectionContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccessControlModelSelectionContentForm) PrimaryModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "primaryModel")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPrimaryModel(value string) {
+	x.Doc().SetFormField(x.Path(), "primaryModel", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) ModelRationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "modelRationale")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetModelRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "modelRationale", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) RbacEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "rbacEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessControlModelSelectionContentForm) SetRbacEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "rbacEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "rbacEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "rbacEnabled", "false")
+	}
+}
+
+func (x *AccessControlModelSelectionContentForm) AbacEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "abacEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessControlModelSelectionContentForm) SetAbacEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "abacEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "abacEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "abacEnabled", "false")
+	}
+}
+
+func (x *AccessControlModelSelectionContentForm) RebacEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "rebacEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *AccessControlModelSelectionContentForm) SetRebacEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "rebacEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "rebacEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "rebacEnabled", "false")
+	}
+}
+
+func (x *AccessControlModelSelectionContentForm) PolicyLanguage() string {
+	return x.Doc().FormFieldOr(x.Path(), "policyLanguage")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPolicyLanguage(value string) {
+	x.Doc().SetFormField(x.Path(), "policyLanguage", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) PolicyDecisionPoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "policyDecisionPoint")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPolicyDecisionPoint(value string) {
+	x.Doc().SetFormField(x.Path(), "policyDecisionPoint", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) PolicyEnforcementPoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "policyEnforcementPoint")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPolicyEnforcementPoint(value string) {
+	x.Doc().SetFormField(x.Path(), "policyEnforcementPoint", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) PolicyAdministrationPoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "policyAdministrationPoint")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPolicyAdministrationPoint(value string) {
+	x.Doc().SetFormField(x.Path(), "policyAdministrationPoint", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) PolicyInformationPoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "policyInformationPoint")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetPolicyInformationPoint(value string) {
+	x.Doc().SetFormField(x.Path(), "policyInformationPoint", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) DelegationModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "delegationModel")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetDelegationModel(value string) {
+	x.Doc().SetFormField(x.Path(), "delegationModel", value)
+}
+
+func (x *AccessControlModelSelectionContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *AccessControlModelSelectionContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // AccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type AccessLevelEntryContentForm struct {
@@ -54480,6 +54116,692 @@ func (x *AccessibilityTestingForm) SetUserTestingWithDisabilities(value *bool) {
 	} else {
 		x.Doc().SetFormField(x.Path(), "userTestingWithDisabilities", "false")
 	}
+}
+
+// AccountActivationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccountActivationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewAccountActivationPolicyContentForm binds a AccountActivationPolicyContentForm facade to a document and a path.
+func NewAccountActivationPolicyContentForm(doc *som.SpecDocument, path string) *AccountActivationPolicyContentForm {
+	return &AccountActivationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccountActivationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccountActivationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccountActivationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationMethod")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "activationMethod", value)
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationLinkExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationLinkExpiry")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationLinkExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "activationLinkExpiry", value)
+}
+
+func (x *AccountActivationPolicyContentForm) MaxActivationAttempts() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxActivationAttempts")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *AccountActivationPolicyContentForm) SetMaxActivationAttempts(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxActivationAttempts", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxActivationAttempts", strconv.Itoa(*value))
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationPrerequisites() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationPrerequisites")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationPrerequisites(value string) {
+	x.Doc().SetFormField(x.Path(), "activationPrerequisites", value)
+}
+
+func (x *AccountActivationPolicyContentForm) ProvisioningOnActivation() string {
+	return x.Doc().FormFieldOr(x.Path(), "provisioningOnActivation")
+}
+
+func (x *AccountActivationPolicyContentForm) SetProvisioningOnActivation(value string) {
+	x.Doc().SetFormField(x.Path(), "provisioningOnActivation", value)
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationNotification")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "activationNotification", value)
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationTimeout() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationTimeout")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationTimeout(value string) {
+	x.Doc().SetFormField(x.Path(), "activationTimeout", value)
+}
+
+func (x *AccountActivationPolicyContentForm) ActivationTimeoutAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "activationTimeoutAction")
+}
+
+func (x *AccountActivationPolicyContentForm) SetActivationTimeoutAction(value string) {
+	x.Doc().SetFormField(x.Path(), "activationTimeoutAction", value)
+}
+
+func (x *AccountActivationPolicyContentForm) PostActivationRedirect() string {
+	return x.Doc().FormFieldOr(x.Path(), "postActivationRedirect")
+}
+
+func (x *AccountActivationPolicyContentForm) SetPostActivationRedirect(value string) {
+	x.Doc().SetFormField(x.Path(), "postActivationRedirect", value)
+}
+
+func (x *AccountActivationPolicyContentForm) OnboardingRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "onboardingRequired")
+}
+
+func (x *AccountActivationPolicyContentForm) SetOnboardingRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "onboardingRequired", value)
+}
+
+func (x *AccountActivationPolicyContentForm) OnboardingSteps() string {
+	return x.Doc().FormFieldOr(x.Path(), "onboardingSteps")
+}
+
+func (x *AccountActivationPolicyContentForm) SetOnboardingSteps(value string) {
+	x.Doc().SetFormField(x.Path(), "onboardingSteps", value)
+}
+
+// AccountDeactivationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccountDeactivationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewAccountDeactivationPolicyContentForm binds a AccountDeactivationPolicyContentForm facade to a document and a path.
+func NewAccountDeactivationPolicyContentForm(doc *som.SpecDocument, path string) *AccountDeactivationPolicyContentForm {
+	return &AccountDeactivationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccountDeactivationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccountDeactivationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DeactivationTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivationTriggers")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDeactivationTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivationTriggers", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) InactivityThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "inactivityThreshold")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetInactivityThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "inactivityThreshold", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) InactivityWarningPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "inactivityWarningPeriod")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetInactivityWarningPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "inactivityWarningPeriod", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DeactivationApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivationApproval")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDeactivationApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivationApproval", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) ImmediateDeactivationCases() string {
+	return x.Doc().FormFieldOr(x.Path(), "immediateDeactivationCases")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetImmediateDeactivationCases(value string) {
+	x.Doc().SetFormField(x.Path(), "immediateDeactivationCases", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DeactivatedAccountAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivatedAccountAccess")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDeactivatedAccountAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivatedAccountAccess", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DeactivationEffects() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivationEffects")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDeactivationEffects(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivationEffects", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) ReactivationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "reactivationPolicy")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetReactivationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "reactivationPolicy", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) ReactivationApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "reactivationApproval")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetReactivationApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "reactivationApproval", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) ReactivationReverification() string {
+	return x.Doc().FormFieldOr(x.Path(), "reactivationReverification")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetReactivationReverification(value string) {
+	x.Doc().SetFormField(x.Path(), "reactivationReverification", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) MaxDeactivationPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxDeactivationPeriod")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetMaxDeactivationPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "maxDeactivationPeriod", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DeactivationNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivationNotification")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDeactivationNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivationNotification", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) GracePeriodAfterDeactivation() string {
+	return x.Doc().FormFieldOr(x.Path(), "gracePeriodAfterDeactivation")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetGracePeriodAfterDeactivation(value string) {
+	x.Doc().SetFormField(x.Path(), "gracePeriodAfterDeactivation", value)
+}
+
+func (x *AccountDeactivationPolicyContentForm) DataPreservationDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataPreservationDuration")
+}
+
+func (x *AccountDeactivationPolicyContentForm) SetDataPreservationDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "dataPreservationDuration", value)
+}
+
+// AccountDeletionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccountDeletionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewAccountDeletionPolicyContentForm binds a AccountDeletionPolicyContentForm facade to a document and a path.
+func NewAccountDeletionPolicyContentForm(doc *som.SpecDocument, path string) *AccountDeletionPolicyContentForm {
+	return &AccountDeletionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccountDeletionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccountDeletionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccountDeletionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DeletionTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "deletionTriggers")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDeletionTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "deletionTriggers", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DeletionApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "deletionApproval")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDeletionApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "deletionApproval", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) SoftDeleteEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "softDeleteEnabled")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetSoftDeleteEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "softDeleteEnabled", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) SoftDeleteRetention() string {
+	return x.Doc().FormFieldOr(x.Path(), "softDeleteRetention")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetSoftDeleteRetention(value string) {
+	x.Doc().SetFormField(x.Path(), "softDeleteRetention", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) PermanentDeletionProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "permanentDeletionProcess")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetPermanentDeletionProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "permanentDeletionProcess", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DataAnonymizationStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAnonymizationStrategy")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDataAnonymizationStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAnonymizationStrategy", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) RetainedDataAfterDeletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "retainedDataAfterDeletion")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetRetainedDataAfterDeletion(value string) {
+	x.Doc().SetFormField(x.Path(), "retainedDataAfterDeletion", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) RetentionPeriodAfterDeletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "retentionPeriodAfterDeletion")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetRetentionPeriodAfterDeletion(value string) {
+	x.Doc().SetFormField(x.Path(), "retentionPeriodAfterDeletion", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DataExportBeforeDeletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataExportBeforeDeletion")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDataExportBeforeDeletion(value string) {
+	x.Doc().SetFormField(x.Path(), "dataExportBeforeDeletion", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) ExportFormats() string {
+	return x.Doc().FormFieldOr(x.Path(), "exportFormats")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetExportFormats(value string) {
+	x.Doc().SetFormField(x.Path(), "exportFormats", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) CascadeDeletionBehavior() string {
+	return x.Doc().FormFieldOr(x.Path(), "cascadeDeletionBehavior")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetCascadeDeletionBehavior(value string) {
+	x.Doc().SetFormField(x.Path(), "cascadeDeletionBehavior", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DeletionConfirmation() string {
+	return x.Doc().FormFieldOr(x.Path(), "deletionConfirmation")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDeletionConfirmation(value string) {
+	x.Doc().SetFormField(x.Path(), "deletionConfirmation", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) DeletionNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "deletionNotification")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetDeletionNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "deletionNotification", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) RightToErasureCompliance() string {
+	return x.Doc().FormFieldOr(x.Path(), "rightToErasureCompliance")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetRightToErasureCompliance(value string) {
+	x.Doc().SetFormField(x.Path(), "rightToErasureCompliance", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) ErasureResponseTime() string {
+	return x.Doc().FormFieldOr(x.Path(), "erasureResponseTime")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetErasureResponseTime(value string) {
+	x.Doc().SetFormField(x.Path(), "erasureResponseTime", value)
+}
+
+func (x *AccountDeletionPolicyContentForm) ThirdPartyDataDeletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "thirdPartyDataDeletion")
+}
+
+func (x *AccountDeletionPolicyContentForm) SetThirdPartyDataDeletion(value string) {
+	x.Doc().SetFormField(x.Path(), "thirdPartyDataDeletion", value)
+}
+
+// AccountLockoutPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccountLockoutPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewAccountLockoutPolicyContentForm binds a AccountLockoutPolicyContentForm facade to a document and a path.
+func NewAccountLockoutPolicyContentForm(doc *som.SpecDocument, path string) *AccountLockoutPolicyContentForm {
+	return &AccountLockoutPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccountLockoutPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccountLockoutPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccountLockoutPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccountLockoutPolicyContentForm) LockoutThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutThreshold")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetLockoutThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutThreshold", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) LockoutDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutDuration")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetLockoutDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutDuration", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) LockoutEscalation() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutEscalation")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetLockoutEscalation(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutEscalation", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) RateLimitingMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "rateLimitingMethod")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetRateLimitingMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "rateLimitingMethod", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) DelayProgression() string {
+	return x.Doc().FormFieldOr(x.Path(), "delayProgression")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetDelayProgression(value string) {
+	x.Doc().SetFormField(x.Path(), "delayProgression", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) CaptchaTriggerThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "captchaTriggerThreshold")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetCaptchaTriggerThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "captchaTriggerThreshold", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) IpBasedRateLimiting() string {
+	return x.Doc().FormFieldOr(x.Path(), "ipBasedRateLimiting")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetIpBasedRateLimiting(value string) {
+	x.Doc().SetFormField(x.Path(), "ipBasedRateLimiting", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) DistributedAttackProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "distributedAttackProtection")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetDistributedAttackProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "distributedAttackProtection", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) UnlockMechanism() string {
+	return x.Doc().FormFieldOr(x.Path(), "unlockMechanism")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetUnlockMechanism(value string) {
+	x.Doc().SetFormField(x.Path(), "unlockMechanism", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) FailedAttemptResetOnSuccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "failedAttemptResetOnSuccess")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetFailedAttemptResetOnSuccess(value string) {
+	x.Doc().SetFormField(x.Path(), "failedAttemptResetOnSuccess", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) LockoutNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutNotification")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetLockoutNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutNotification", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) PermanentLockoutEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "permanentLockoutEnabled")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetPermanentLockoutEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "permanentLockoutEnabled", value)
+}
+
+func (x *AccountLockoutPolicyContentForm) PermanentLockoutThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "permanentLockoutThreshold")
+}
+
+func (x *AccountLockoutPolicyContentForm) SetPermanentLockoutThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "permanentLockoutThreshold", value)
+}
+
+// AccountModificationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccountModificationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewAccountModificationPolicyContentForm binds a AccountModificationPolicyContentForm facade to a document and a path.
+func NewAccountModificationPolicyContentForm(doc *som.SpecDocument, path string) *AccountModificationPolicyContentForm {
+	return &AccountModificationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccountModificationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccountModificationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccountModificationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccountModificationPolicyContentForm) SelfModifiableFields() string {
+	return x.Doc().FormFieldOr(x.Path(), "selfModifiableFields")
+}
+
+func (x *AccountModificationPolicyContentForm) SetSelfModifiableFields(value string) {
+	x.Doc().SetFormField(x.Path(), "selfModifiableFields", value)
+}
+
+func (x *AccountModificationPolicyContentForm) AdminModifiableFields() string {
+	return x.Doc().FormFieldOr(x.Path(), "adminModifiableFields")
+}
+
+func (x *AccountModificationPolicyContentForm) SetAdminModifiableFields(value string) {
+	x.Doc().SetFormField(x.Path(), "adminModifiableFields", value)
+}
+
+func (x *AccountModificationPolicyContentForm) SystemModifiableFields() string {
+	return x.Doc().FormFieldOr(x.Path(), "systemModifiableFields")
+}
+
+func (x *AccountModificationPolicyContentForm) SetSystemModifiableFields(value string) {
+	x.Doc().SetFormField(x.Path(), "systemModifiableFields", value)
+}
+
+func (x *AccountModificationPolicyContentForm) EmailChangePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "emailChangePolicy")
+}
+
+func (x *AccountModificationPolicyContentForm) SetEmailChangePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "emailChangePolicy", value)
+}
+
+func (x *AccountModificationPolicyContentForm) PhoneChangePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "phoneChangePolicy")
+}
+
+func (x *AccountModificationPolicyContentForm) SetPhoneChangePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "phoneChangePolicy", value)
+}
+
+func (x *AccountModificationPolicyContentForm) NameChangePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "nameChangePolicy")
+}
+
+func (x *AccountModificationPolicyContentForm) SetNameChangePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "nameChangePolicy", value)
+}
+
+func (x *AccountModificationPolicyContentForm) RoleChangeApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "roleChangeApproval")
+}
+
+func (x *AccountModificationPolicyContentForm) SetRoleChangeApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "roleChangeApproval", value)
+}
+
+func (x *AccountModificationPolicyContentForm) BulkModificationSupport() string {
+	return x.Doc().FormFieldOr(x.Path(), "bulkModificationSupport")
+}
+
+func (x *AccountModificationPolicyContentForm) SetBulkModificationSupport(value string) {
+	x.Doc().SetFormField(x.Path(), "bulkModificationSupport", value)
+}
+
+func (x *AccountModificationPolicyContentForm) ChangeAuditLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeAuditLogging")
+}
+
+func (x *AccountModificationPolicyContentForm) SetChangeAuditLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "changeAuditLogging", value)
+}
+
+func (x *AccountModificationPolicyContentForm) ChangeNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "changeNotification")
+}
+
+func (x *AccountModificationPolicyContentForm) SetChangeNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "changeNotification", value)
+}
+
+func (x *AccountModificationPolicyContentForm) HistoricalVersioning() string {
+	return x.Doc().FormFieldOr(x.Path(), "historicalVersioning")
+}
+
+func (x *AccountModificationPolicyContentForm) SetHistoricalVersioning(value string) {
+	x.Doc().SetFormField(x.Path(), "historicalVersioning", value)
+}
+
+func (x *AccountModificationPolicyContentForm) ReverificationTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "reverificationTriggers")
+}
+
+func (x *AccountModificationPolicyContentForm) SetReverificationTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "reverificationTriggers", value)
+}
+
+func (x *AccountModificationPolicyContentForm) ModificationRateLimiting() string {
+	return x.Doc().FormFieldOr(x.Path(), "modificationRateLimiting")
+}
+
+func (x *AccountModificationPolicyContentForm) SetModificationRateLimiting(value string) {
+	x.Doc().SetFormField(x.Path(), "modificationRateLimiting", value)
+}
+
+func (x *AccountModificationPolicyContentForm) ModificationCooldownPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "modificationCooldownPeriod")
+}
+
+func (x *AccountModificationPolicyContentForm) SetModificationCooldownPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "modificationCooldownPeriod", value)
 }
 
 // ActionParameterEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -57911,6 +58233,572 @@ func (x *AnomalyDetectionPolicyContentForm) SetResponseActions(value string) {
 	x.Doc().SetFormField(x.Path(), "responseActions", value)
 }
 
+// ApiAbuseProtectionContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiAbuseProtectionContentForm struct {
+	som.SomNode
+}
+
+// NewApiAbuseProtectionContentForm binds a ApiAbuseProtectionContentForm facade to a document and a path.
+func NewApiAbuseProtectionContentForm(doc *som.SpecDocument, path string) *ApiAbuseProtectionContentForm {
+	return &ApiAbuseProtectionContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiAbuseProtectionContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiAbuseProtectionContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiAbuseProtectionContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiAbuseProtectionContentForm) RateLimitingEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "rateLimitingEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAbuseProtectionContentForm) SetRateLimitingEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "rateLimitingEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "rateLimitingEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "rateLimitingEnabled", "false")
+	}
+}
+
+func (x *ApiAbuseProtectionContentForm) RateLimitScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "rateLimitScope")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetRateLimitScope(value string) {
+	x.Doc().SetFormField(x.Path(), "rateLimitScope", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) AuthenticationEndpointLimits() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationEndpointLimits")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetAuthenticationEndpointLimits(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationEndpointLimits", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) SensitiveEndpointLimits() string {
+	return x.Doc().FormFieldOr(x.Path(), "sensitiveEndpointLimits")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetSensitiveEndpointLimits(value string) {
+	x.Doc().SetFormField(x.Path(), "sensitiveEndpointLimits", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) BruteForceProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "bruteForceProtection")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetBruteForceProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "bruteForceProtection", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) BotDetectionPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "botDetectionPolicy")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetBotDetectionPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "botDetectionPolicy", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) IpReputationFiltering() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "ipReputationFiltering")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAbuseProtectionContentForm) SetIpReputationFiltering(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "ipReputationFiltering", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "ipReputationFiltering", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "ipReputationFiltering", "false")
+	}
+}
+
+func (x *ApiAbuseProtectionContentForm) AutomaticBlocking() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "automaticBlocking")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAbuseProtectionContentForm) SetAutomaticBlocking(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "automaticBlocking", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "automaticBlocking", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "automaticBlocking", "false")
+	}
+}
+
+func (x *ApiAbuseProtectionContentForm) BlockDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "blockDuration")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetBlockDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "blockDuration", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) GeographicRestrictions() string {
+	return x.Doc().FormFieldOr(x.Path(), "geographicRestrictions")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetGeographicRestrictions(value string) {
+	x.Doc().SetFormField(x.Path(), "geographicRestrictions", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) RequestThrottlingOnFailure() string {
+	return x.Doc().FormFieldOr(x.Path(), "requestThrottlingOnFailure")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetRequestThrottlingOnFailure(value string) {
+	x.Doc().SetFormField(x.Path(), "requestThrottlingOnFailure", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) BusinessFlowProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "businessFlowProtection")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetBusinessFlowProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "businessFlowProtection", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) WebhookFloodProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "webhookFloodProtection")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetWebhookFloodProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "webhookFloodProtection", value)
+}
+
+func (x *ApiAbuseProtectionContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiAbuseProtectionContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ApiAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiAuthenticationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewApiAuthenticationPolicyContentForm binds a ApiAuthenticationPolicyContentForm facade to a document and a path.
+func NewApiAuthenticationPolicyContentForm(doc *som.SpecDocument, path string) *ApiAuthenticationPolicyContentForm {
+	return &ApiAuthenticationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiAuthenticationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiAuthenticationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) AuthenticationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationMethod")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetAuthenticationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) MultipleMethodsSupported() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "multipleMethodsSupported")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetMultipleMethodsSupported(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "multipleMethodsSupported", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "multipleMethodsSupported", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "multipleMethodsSupported", "false")
+	}
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ApiKeyTransmission() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyTransmission")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetApiKeyTransmission(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyTransmission", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ApiKeyRotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyRotationPolicy")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetApiKeyRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyRotationPolicy", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ApiKeyScoping() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyScoping")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetApiKeyScoping(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyScoping", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) JwtValidationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "jwtValidationPolicy")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetJwtValidationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "jwtValidationPolicy", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) JwtSigningAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "jwtSigningAlgorithm")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetJwtSigningAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "jwtSigningAlgorithm", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) AccessTokenLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessTokenLifetime")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetAccessTokenLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "accessTokenLifetime", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) RefreshTokenPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "refreshTokenPolicy")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetRefreshTokenPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "refreshTokenPolicy", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ClientCredentialsFlow() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "clientCredentialsFlow")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetClientCredentialsFlow(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "clientCredentialsFlow", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "clientCredentialsFlow", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "clientCredentialsFlow", "false")
+	}
+}
+
+func (x *ApiAuthenticationPolicyContentForm) AuthorizationCodeFlow() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "authorizationCodeFlow")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetAuthorizationCodeFlow(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "authorizationCodeFlow", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "authorizationCodeFlow", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "authorizationCodeFlow", "false")
+	}
+}
+
+func (x *ApiAuthenticationPolicyContentForm) TokenRevocationSupport() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "tokenRevocationSupport")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetTokenRevocationSupport(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "tokenRevocationSupport", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "tokenRevocationSupport", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "tokenRevocationSupport", "false")
+	}
+}
+
+func (x *ApiAuthenticationPolicyContentForm) MutualTlsRequired() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "mutualTlsRequired")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetMutualTlsRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "mutualTlsRequired", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "mutualTlsRequired", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "mutualTlsRequired", "false")
+	}
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ServiceAccountPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountPolicy")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetServiceAccountPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountPolicy", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) WebhookSignatureVerification() string {
+	return x.Doc().FormFieldOr(x.Path(), "webhookSignatureVerification")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetWebhookSignatureVerification(value string) {
+	x.Doc().SetFormField(x.Path(), "webhookSignatureVerification", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) ThirdPartyApiConsumption() string {
+	return x.Doc().FormFieldOr(x.Path(), "thirdPartyApiConsumption")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetThirdPartyApiConsumption(value string) {
+	x.Doc().SetFormField(x.Path(), "thirdPartyApiConsumption", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) CredentialTransmission() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialTransmission")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetCredentialTransmission(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialTransmission", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) BearerTokenFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "bearerTokenFormat")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetBearerTokenFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "bearerTokenFormat", value)
+}
+
+func (x *ApiAuthenticationPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiAuthenticationPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ApiAuthorizationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiAuthorizationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewApiAuthorizationPolicyContentForm binds a ApiAuthorizationPolicyContentForm facade to a document and a path.
+func NewApiAuthorizationPolicyContentForm(doc *som.SpecDocument, path string) *ApiAuthorizationPolicyContentForm {
+	return &ApiAuthorizationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiAuthorizationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiAuthorizationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) ObjectLevelAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "objectLevelAuthorization")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetObjectLevelAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "objectLevelAuthorization", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) FunctionLevelAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionLevelAuthorization")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetFunctionLevelAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "functionLevelAuthorization", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) PropertyLevelAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "propertyLevelAuthorization")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetPropertyLevelAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "propertyLevelAuthorization", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) PermissionGranularity() string {
+	return x.Doc().FormFieldOr(x.Path(), "permissionGranularity")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetPermissionGranularity(value string) {
+	x.Doc().SetFormField(x.Path(), "permissionGranularity", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) ScopeDefinitions() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopeDefinitions")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetScopeDefinitions(value string) {
+	x.Doc().SetFormField(x.Path(), "scopeDefinitions", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) ScopeEnforcementLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopeEnforcementLevel")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetScopeEnforcementLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "scopeEnforcementLevel", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) DelegatedAccessPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "delegatedAccessPolicy")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetDelegatedAccessPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "delegatedAccessPolicy", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) BulkOperationAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "bulkOperationAuthorization")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetBulkOperationAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "bulkOperationAuthorization", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) ContextualAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextualAuthorization")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetContextualAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "contextualAuthorization", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) MassAssignmentPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "massAssignmentPrevention")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetMassAssignmentPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "massAssignmentPrevention", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) HorizontalPrivilegeEscalation() string {
+	return x.Doc().FormFieldOr(x.Path(), "horizontalPrivilegeEscalation")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetHorizontalPrivilegeEscalation(value string) {
+	x.Doc().SetFormField(x.Path(), "horizontalPrivilegeEscalation", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) VerticalPrivilegeEscalation() string {
+	return x.Doc().FormFieldOr(x.Path(), "verticalPrivilegeEscalation")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetVerticalPrivilegeEscalation(value string) {
+	x.Doc().SetFormField(x.Path(), "verticalPrivilegeEscalation", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SensitiveBusinessFlowProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "sensitiveBusinessFlowProtection")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetSensitiveBusinessFlowProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "sensitiveBusinessFlowProtection", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) WorkflowStateValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "workflowStateValidation")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetWorkflowStateValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "workflowStateValidation", value)
+}
+
+func (x *ApiAuthorizationPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiAuthorizationPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // ApiCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ApiCompatibilityEntryContentForm struct {
@@ -58159,6 +59047,835 @@ func (x *ApiCompatibilityEntryTransportDetailsForm) Authentication() string {
 
 func (x *ApiCompatibilityEntryTransportDetailsForm) SetAuthentication(value string) {
 	x.Doc().SetFormField(x.Path(), "authentication", value)
+}
+
+// ApiCorsSecurityContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiCorsSecurityContentForm struct {
+	som.SomNode
+}
+
+// NewApiCorsSecurityContentForm binds a ApiCorsSecurityContentForm facade to a document and a path.
+func NewApiCorsSecurityContentForm(doc *som.SpecDocument, path string) *ApiCorsSecurityContentForm {
+	return &ApiCorsSecurityContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiCorsSecurityContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiCorsSecurityContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiCorsSecurityContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiCorsSecurityContentForm) CorsEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "corsEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiCorsSecurityContentForm) SetCorsEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "corsEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "corsEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "corsEnabled", "false")
+	}
+}
+
+func (x *ApiCorsSecurityContentForm) AllowedOrigins() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedOrigins")
+}
+
+func (x *ApiCorsSecurityContentForm) SetAllowedOrigins(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedOrigins", value)
+}
+
+func (x *ApiCorsSecurityContentForm) AllowedMethods() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedMethods")
+}
+
+func (x *ApiCorsSecurityContentForm) SetAllowedMethods(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedMethods", value)
+}
+
+func (x *ApiCorsSecurityContentForm) AllowedHeaders() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedHeaders")
+}
+
+func (x *ApiCorsSecurityContentForm) SetAllowedHeaders(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedHeaders", value)
+}
+
+func (x *ApiCorsSecurityContentForm) ExposedHeaders() string {
+	return x.Doc().FormFieldOr(x.Path(), "exposedHeaders")
+}
+
+func (x *ApiCorsSecurityContentForm) SetExposedHeaders(value string) {
+	x.Doc().SetFormField(x.Path(), "exposedHeaders", value)
+}
+
+func (x *ApiCorsSecurityContentForm) CredentialsAllowed() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "credentialsAllowed")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiCorsSecurityContentForm) SetCredentialsAllowed(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "credentialsAllowed", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "credentialsAllowed", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "credentialsAllowed", "false")
+	}
+}
+
+func (x *ApiCorsSecurityContentForm) PreflightCacheMaxAge() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "preflightCacheMaxAge")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ApiCorsSecurityContentForm) SetPreflightCacheMaxAge(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "preflightCacheMaxAge", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "preflightCacheMaxAge", strconv.Itoa(*value))
+}
+
+func (x *ApiCorsSecurityContentForm) WildcardRestriction() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "wildcardRestriction")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiCorsSecurityContentForm) SetWildcardRestriction(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "wildcardRestriction", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "wildcardRestriction", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "wildcardRestriction", "false")
+	}
+}
+
+func (x *ApiCorsSecurityContentForm) ContentSecurityPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "contentSecurityPolicy")
+}
+
+func (x *ApiCorsSecurityContentForm) SetContentSecurityPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "contentSecurityPolicy", value)
+}
+
+func (x *ApiCorsSecurityContentForm) StrictTransportSecurity() string {
+	return x.Doc().FormFieldOr(x.Path(), "strictTransportSecurity")
+}
+
+func (x *ApiCorsSecurityContentForm) SetStrictTransportSecurity(value string) {
+	x.Doc().SetFormField(x.Path(), "strictTransportSecurity", value)
+}
+
+func (x *ApiCorsSecurityContentForm) SecurityHeadersRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityHeadersRequired")
+}
+
+func (x *ApiCorsSecurityContentForm) SetSecurityHeadersRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "securityHeadersRequired", value)
+}
+
+func (x *ApiCorsSecurityContentForm) PrivateNetworkAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "privateNetworkAccess")
+}
+
+func (x *ApiCorsSecurityContentForm) SetPrivateNetworkAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "privateNetworkAccess", value)
+}
+
+func (x *ApiCorsSecurityContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiCorsSecurityContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ApiKeyManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiKeyManagementPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewApiKeyManagementPolicyContentForm binds a ApiKeyManagementPolicyContentForm facade to a document and a path.
+func NewApiKeyManagementPolicyContentForm(doc *som.SpecDocument, path string) *ApiKeyManagementPolicyContentForm {
+	return &ApiKeyManagementPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiKeyManagementPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiKeyManagementPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) ApiKeyAuthEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyAuthEnabled")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetApiKeyAuthEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyAuthEnabled", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) ApiKeyTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyTypes")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetApiKeyTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyTypes", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyGenerationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyGenerationMethod")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyGenerationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "keyGenerationMethod", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyLength")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyLength(value string) {
+	x.Doc().SetFormField(x.Path(), "keyLength", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyRotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRotationPolicy")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRotationPolicy", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyExpirationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyExpirationPolicy")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyExpirationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "keyExpirationPolicy", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyScopeRestrictions() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyScopeRestrictions")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyScopeRestrictions(value string) {
+	x.Doc().SetFormField(x.Path(), "keyScopeRestrictions", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) IpAllowlisting() string {
+	return x.Doc().FormFieldOr(x.Path(), "ipAllowlisting")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetIpAllowlisting(value string) {
+	x.Doc().SetFormField(x.Path(), "ipAllowlisting", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) RateLimitingPerKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "rateLimitingPerKey")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetRateLimitingPerKey(value string) {
+	x.Doc().SetFormField(x.Path(), "rateLimitingPerKey", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyRevocationProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyRevocationProcess")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyRevocationProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "keyRevocationProcess", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyStorageGuidance() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyStorageGuidance")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyStorageGuidance(value string) {
+	x.Doc().SetFormField(x.Path(), "keyStorageGuidance", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) KeyAuditLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyAuditLogging")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetKeyAuditLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "keyAuditLogging", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) ServiceTokenSupport() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceTokenSupport")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetServiceTokenSupport(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceTokenSupport", value)
+}
+
+func (x *ApiKeyManagementPolicyContentForm) TokenLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenLifetime")
+}
+
+func (x *ApiKeyManagementPolicyContentForm) SetTokenLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenLifetime", value)
+}
+
+// ApiRequestValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiRequestValidationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewApiRequestValidationPolicyContentForm binds a ApiRequestValidationPolicyContentForm facade to a document and a path.
+func NewApiRequestValidationPolicyContentForm(doc *som.SpecDocument, path string) *ApiRequestValidationPolicyContentForm {
+	return &ApiRequestValidationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiRequestValidationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiRequestValidationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) InputValidationStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputValidationStrategy")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetInputValidationStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "inputValidationStrategy", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SchemaValidationEnforced() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "schemaValidationEnforced")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetSchemaValidationEnforced(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "schemaValidationEnforced", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "schemaValidationEnforced", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "schemaValidationEnforced", "false")
+	}
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SchemaValidationTool() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaValidationTool")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetSchemaValidationTool(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaValidationTool", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) ContentTypeValidation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "contentTypeValidation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetContentTypeValidation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "false")
+	}
+}
+
+func (x *ApiRequestValidationPolicyContentForm) AcceptedContentTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "acceptedContentTypes")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetAcceptedContentTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "acceptedContentTypes", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) RejectUnexpectedContentType() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "rejectUnexpectedContentType")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetRejectUnexpectedContentType(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "rejectUnexpectedContentType", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "rejectUnexpectedContentType", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "rejectUnexpectedContentType", "false")
+	}
+}
+
+func (x *ApiRequestValidationPolicyContentForm) RequestSizeLimit() string {
+	return x.Doc().FormFieldOr(x.Path(), "requestSizeLimit")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetRequestSizeLimit(value string) {
+	x.Doc().SetFormField(x.Path(), "requestSizeLimit", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) ArrayLengthLimit() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "arrayLengthLimit")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetArrayLengthLimit(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "arrayLengthLimit", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "arrayLengthLimit", strconv.Itoa(*value))
+}
+
+func (x *ApiRequestValidationPolicyContentForm) NestedObjectDepthLimit() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "nestedObjectDepthLimit")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetNestedObjectDepthLimit(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "nestedObjectDepthLimit", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "nestedObjectDepthLimit", strconv.Itoa(*value))
+}
+
+func (x *ApiRequestValidationPolicyContentForm) StringFieldMaxLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "stringFieldMaxLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetStringFieldMaxLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "stringFieldMaxLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "stringFieldMaxLength", strconv.Itoa(*value))
+}
+
+func (x *ApiRequestValidationPolicyContentForm) ParameterTypeEnforcement() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "parameterTypeEnforcement")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetParameterTypeEnforcement(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "parameterTypeEnforcement", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "parameterTypeEnforcement", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "parameterTypeEnforcement", "false")
+	}
+}
+
+func (x *ApiRequestValidationPolicyContentForm) NumericRangeValidation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "numericRangeValidation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetNumericRangeValidation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "numericRangeValidation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "numericRangeValidation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "numericRangeValidation", "false")
+	}
+}
+
+func (x *ApiRequestValidationPolicyContentForm) DateFormatValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "dateFormatValidation")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetDateFormatValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "dateFormatValidation", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) EncodingValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "encodingValidation")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetEncodingValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "encodingValidation", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) FileUploadValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "fileUploadValidation")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetFileUploadValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "fileUploadValidation", value)
+}
+
+func (x *ApiRequestValidationPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiRequestValidationPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ApiSecurityMonitoringContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ApiSecurityMonitoringContentForm struct {
+	som.SomNode
+}
+
+// NewApiSecurityMonitoringContentForm binds a ApiSecurityMonitoringContentForm facade to a document and a path.
+func NewApiSecurityMonitoringContentForm(doc *som.SpecDocument, path string) *ApiSecurityMonitoringContentForm {
+	return &ApiSecurityMonitoringContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ApiSecurityMonitoringContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ApiSecurityMonitoringContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ApiSecurityMonitoringContentForm) ApiAccessLogging() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "apiAccessLogging")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetApiAccessLogging(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "apiAccessLogging", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "apiAccessLogging", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "apiAccessLogging", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) LoggedAttributes() string {
+	return x.Doc().FormFieldOr(x.Path(), "loggedAttributes")
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetLoggedAttributes(value string) {
+	x.Doc().SetFormField(x.Path(), "loggedAttributes", value)
+}
+
+func (x *ApiSecurityMonitoringContentForm) SensitiveEndpointMonitoring() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "sensitiveEndpointMonitoring")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetSensitiveEndpointMonitoring(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "sensitiveEndpointMonitoring", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "sensitiveEndpointMonitoring", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "sensitiveEndpointMonitoring", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) SensitiveDataRedaction() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "sensitiveDataRedaction")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetSensitiveDataRedaction(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "sensitiveDataRedaction", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "sensitiveDataRedaction", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "sensitiveDataRedaction", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) AnomalyDetection() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "anomalyDetection")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetAnomalyDetection(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "anomalyDetection", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "anomalyDetection", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "anomalyDetection", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) ErrorRateMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorRateMonitoring")
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetErrorRateMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "errorRateMonitoring", value)
+}
+
+func (x *ApiSecurityMonitoringContentForm) AuthenticationFailureTracking() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "authenticationFailureTracking")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetAuthenticationFailureTracking(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "authenticationFailureTracking", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "authenticationFailureTracking", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "authenticationFailureTracking", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) DataExfiltrationDetection() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "dataExfiltrationDetection")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetDataExfiltrationDetection(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dataExfiltrationDetection", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "dataExfiltrationDetection", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "dataExfiltrationDetection", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) ApiVersionInventory() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "apiVersionInventory")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetApiVersionInventory(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "apiVersionInventory", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "apiVersionInventory", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "apiVersionInventory", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) DeprecatedEndpointMonitoring() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "deprecatedEndpointMonitoring")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetDeprecatedEndpointMonitoring(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "deprecatedEndpointMonitoring", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "deprecatedEndpointMonitoring", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "deprecatedEndpointMonitoring", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) RealTimeAlerts() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "realTimeAlerts")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetRealTimeAlerts(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "realTimeAlerts", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "realTimeAlerts", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "realTimeAlerts", "false")
+	}
+}
+
+func (x *ApiSecurityMonitoringContentForm) SecurityResponseAutomation() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityResponseAutomation")
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetSecurityResponseAutomation(value string) {
+	x.Doc().SetFormField(x.Path(), "securityResponseAutomation", value)
+}
+
+func (x *ApiSecurityMonitoringContentForm) ComplianceReporting() string {
+	return x.Doc().FormFieldOr(x.Path(), "complianceReporting")
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetComplianceReporting(value string) {
+	x.Doc().SetFormField(x.Path(), "complianceReporting", value)
+}
+
+func (x *ApiSecurityMonitoringContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ApiSecurityMonitoringContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // ApiVersioningStrategyCompatibilityForm is the generated section facade for the `compatibility` @Form section: its own
@@ -61083,6 +62800,120 @@ func (x *AuditEvidenceTypeEntryContentForm) SetResponsibleRole(value string) {
 	x.Doc().SetFormField(x.Path(), "responsibleRole", value)
 }
 
+// AuthenticationErrorHandlingContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthenticationErrorHandlingContentForm struct {
+	som.SomNode
+}
+
+// NewAuthenticationErrorHandlingContentForm binds a AuthenticationErrorHandlingContentForm facade to a document and a path.
+func NewAuthenticationErrorHandlingContentForm(doc *som.SpecDocument, path string) *AuthenticationErrorHandlingContentForm {
+	return &AuthenticationErrorHandlingContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthenticationErrorHandlingContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthenticationErrorHandlingContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) InvalidCredentialResponse() string {
+	return x.Doc().FormFieldOr(x.Path(), "invalidCredentialResponse")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetInvalidCredentialResponse(value string) {
+	x.Doc().SetFormField(x.Path(), "invalidCredentialResponse", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) AccountLockoutThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "accountLockoutThreshold")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetAccountLockoutThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "accountLockoutThreshold", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) LockoutDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutDuration")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetLockoutDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutDuration", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) LockoutEscalation() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockoutEscalation")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetLockoutEscalation(value string) {
+	x.Doc().SetFormField(x.Path(), "lockoutEscalation", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) BruteForceProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "bruteForceProtection")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetBruteForceProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "bruteForceProtection", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) CredentialStuffingProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialStuffingProtection")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetCredentialStuffingProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialStuffingProtection", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) UserNotificationOnFailure() string {
+	return x.Doc().FormFieldOr(x.Path(), "userNotificationOnFailure")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetUserNotificationOnFailure(value string) {
+	x.Doc().SetFormField(x.Path(), "userNotificationOnFailure", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) AdminAlertThreshold() string {
+	return x.Doc().FormFieldOr(x.Path(), "adminAlertThreshold")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetAdminAlertThreshold(value string) {
+	x.Doc().SetFormField(x.Path(), "adminAlertThreshold", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) FailedLoginAuditLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "failedLoginAuditLogging")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetFailedLoginAuditLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "failedLoginAuditLogging", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SuspiciousActivityResponse() string {
+	return x.Doc().FormFieldOr(x.Path(), "suspiciousActivityResponse")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetSuspiciousActivityResponse(value string) {
+	x.Doc().SetFormField(x.Path(), "suspiciousActivityResponse", value)
+}
+
+func (x *AuthenticationErrorHandlingContentForm) GracefulDegradation() string {
+	return x.Doc().FormFieldOr(x.Path(), "gracefulDegradation")
+}
+
+func (x *AuthenticationErrorHandlingContentForm) SetGracefulDegradation(value string) {
+	x.Doc().SetFormField(x.Path(), "gracefulDegradation", value)
+}
+
 // AuthenticationEventPolicyContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type AuthenticationEventPolicyContentForm struct {
@@ -62813,6 +64644,140 @@ func (x *BackupDataClassificationExclusionsForm) Notes() string {
 }
 
 func (x *BackupDataClassificationExclusionsForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// BackupEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type BackupEncryptionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewBackupEncryptionPolicyContentForm binds a BackupEncryptionPolicyContentForm facade to a document and a path.
+func NewBackupEncryptionPolicyContentForm(doc *som.SpecDocument, path string) *BackupEncryptionPolicyContentForm {
+	return &BackupEncryptionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BackupEncryptionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *BackupEncryptionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *BackupEncryptionPolicyContentForm) BackupEncryptionRequired() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "backupEncryptionRequired")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetBackupEncryptionRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "backupEncryptionRequired", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "backupEncryptionRequired", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "backupEncryptionRequired", "false")
+	}
+}
+
+func (x *BackupEncryptionPolicyContentForm) BackupEncryptionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "backupEncryptionMethod")
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetBackupEncryptionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "backupEncryptionMethod", value)
+}
+
+func (x *BackupEncryptionPolicyContentForm) SeparateBackupKeys() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "separateBackupKeys")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetSeparateBackupKeys(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "separateBackupKeys", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "separateBackupKeys", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "separateBackupKeys", "false")
+	}
+}
+
+func (x *BackupEncryptionPolicyContentForm) BackupKeyRotation() string {
+	return x.Doc().FormFieldOr(x.Path(), "backupKeyRotation")
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetBackupKeyRotation(value string) {
+	x.Doc().SetFormField(x.Path(), "backupKeyRotation", value)
+}
+
+func (x *BackupEncryptionPolicyContentForm) EncryptedBackupVerification() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "encryptedBackupVerification")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetEncryptedBackupVerification(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "encryptedBackupVerification", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "encryptedBackupVerification", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "encryptedBackupVerification", "false")
+	}
+}
+
+func (x *BackupEncryptionPolicyContentForm) OffSiteBackupEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "offSiteBackupEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetOffSiteBackupEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "offSiteBackupEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "offSiteBackupEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "offSiteBackupEncryption", "false")
+	}
+}
+
+func (x *BackupEncryptionPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *BackupEncryptionPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
@@ -64595,6 +66560,128 @@ func (x *BehaviorRuleEntryContentForm) CalculatedProperties() string {
 
 func (x *BehaviorRuleEntryContentForm) SetCalculatedProperties(value string) {
 	x.Doc().SetFormField(x.Path(), "calculatedProperties", value)
+}
+
+// BiometricAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type BiometricAuthenticationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewBiometricAuthenticationPolicyContentForm binds a BiometricAuthenticationPolicyContentForm facade to a document and a path.
+func NewBiometricAuthenticationPolicyContentForm(doc *som.SpecDocument, path string) *BiometricAuthenticationPolicyContentForm {
+	return &BiometricAuthenticationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BiometricAuthenticationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *BiometricAuthenticationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) BiometricAuthEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricAuthEnabled")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetBiometricAuthEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricAuthEnabled", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) BiometricModalities() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricModalities")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetBiometricModalities(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricModalities", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) BiometricUsageContext() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricUsageContext")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetBiometricUsageContext(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricUsageContext", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) BiometricAsActivationFactor() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricAsActivationFactor")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetBiometricAsActivationFactor(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricAsActivationFactor", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) LocalVsCentralComparison() string {
+	return x.Doc().FormFieldOr(x.Path(), "localVsCentralComparison")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetLocalVsCentralComparison(value string) {
+	x.Doc().SetFormField(x.Path(), "localVsCentralComparison", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) FalseMatchRateTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "falseMatchRateTarget")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetFalseMatchRateTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "falseMatchRateTarget", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) PresentationAttackDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "presentationAttackDetection")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetPresentationAttackDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "presentationAttackDetection", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) MaxConsecutiveFailures() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxConsecutiveFailures")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetMaxConsecutiveFailures(value string) {
+	x.Doc().SetFormField(x.Path(), "maxConsecutiveFailures", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) FallbackMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "fallbackMethod")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetFallbackMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "fallbackMethod", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) BiometricDataStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricDataStorage")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetBiometricDataStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricDataStorage", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) PrivacyConsiderations() string {
+	return x.Doc().FormFieldOr(x.Path(), "privacyConsiderations")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetPrivacyConsiderations(value string) {
+	x.Doc().SetFormField(x.Path(), "privacyConsiderations", value)
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) AccessibilityAlternative() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessibilityAlternative")
+}
+
+func (x *BiometricAuthenticationPolicyContentForm) SetAccessibilityAlternative(value string) {
+	x.Doc().SetFormField(x.Path(), "accessibilityAlternative", value)
 }
 
 // BoundaryAssumptionEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -68737,6 +70824,128 @@ func (x *CcbMemberEntryContentForm) SetRequiredForQuorum(value string) {
 	x.Doc().SetFormField(x.Path(), "requiredForQuorum", value)
 }
 
+// CertificateAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type CertificateAuthenticationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewCertificateAuthenticationPolicyContentForm binds a CertificateAuthenticationPolicyContentForm facade to a document and a path.
+func NewCertificateAuthenticationPolicyContentForm(doc *som.SpecDocument, path string) *CertificateAuthenticationPolicyContentForm {
+	return &CertificateAuthenticationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CertificateAuthenticationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *CertificateAuthenticationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateAuthEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateAuthEnabled")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateAuthEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateAuthEnabled", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateTypes")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateTypes", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateIssuance() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateIssuance")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateIssuance(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateIssuance", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateAuthority() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateAuthority")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateAuthority(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateAuthority", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) KeyStorageRequirement() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyStorageRequirement")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetKeyStorageRequirement(value string) {
+	x.Doc().SetFormField(x.Path(), "keyStorageRequirement", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) MutualTlsRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "mutualTlsRequired")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetMutualTlsRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "mutualTlsRequired", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateValidation")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateValidation", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) CertificateLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateLifetime")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetCertificateLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateLifetime", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) RenewalProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "renewalProcess")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetRenewalProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "renewalProcess", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) RevocationProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "revocationProcess")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetRevocationProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "revocationProcess", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) MinimumKeyStrength() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumKeyStrength")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetMinimumKeyStrength(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumKeyStrength", value)
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) FipsComplianceRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "fipsComplianceRequired")
+}
+
+func (x *CertificateAuthenticationPolicyContentForm) SetFipsComplianceRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "fipsComplianceRequired", value)
+}
+
 // CertificateManagementContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type CertificateManagementContentForm struct {
@@ -68968,6 +71177,183 @@ func (x *CertificateManagementMonitoringForm) Notes() string {
 }
 
 func (x *CertificateManagementMonitoringForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// CertificateManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type CertificateManagementPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewCertificateManagementPolicyContentForm binds a CertificateManagementPolicyContentForm facade to a document and a path.
+func NewCertificateManagementPolicyContentForm(doc *som.SpecDocument, path string) *CertificateManagementPolicyContentForm {
+	return &CertificateManagementPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CertificateManagementPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *CertificateManagementPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *CertificateManagementPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *CertificateManagementPolicyContentForm) CertificateAuthority() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificateAuthority")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetCertificateAuthority(value string) {
+	x.Doc().SetFormField(x.Path(), "certificateAuthority", value)
+}
+
+func (x *CertificateManagementPolicyContentForm) ValidationType() string {
+	return x.Doc().FormFieldOr(x.Path(), "validationType")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetValidationType(value string) {
+	x.Doc().SetFormField(x.Path(), "validationType", value)
+}
+
+func (x *CertificateManagementPolicyContentForm) MinimumKeyLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "minimumKeyLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *CertificateManagementPolicyContentForm) SetMinimumKeyLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "minimumKeyLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "minimumKeyLength", strconv.Itoa(*value))
+}
+
+func (x *CertificateManagementPolicyContentForm) KeyType() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyType")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetKeyType(value string) {
+	x.Doc().SetFormField(x.Path(), "keyType", value)
+}
+
+func (x *CertificateManagementPolicyContentForm) HashingAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "hashingAlgorithm")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetHashingAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "hashingAlgorithm", value)
+}
+
+func (x *CertificateManagementPolicyContentForm) WildcardCertificatePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "wildcardCertificatePolicy")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetWildcardCertificatePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "wildcardCertificatePolicy", value)
+}
+
+func (x *CertificateManagementPolicyContentForm) CertificateLifetimeDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "certificateLifetimeDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *CertificateManagementPolicyContentForm) SetCertificateLifetimeDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "certificateLifetimeDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "certificateLifetimeDays", strconv.Itoa(*value))
+}
+
+func (x *CertificateManagementPolicyContentForm) AutomatedRenewal() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "automatedRenewal")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *CertificateManagementPolicyContentForm) SetAutomatedRenewal(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "automatedRenewal", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "automatedRenewal", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "automatedRenewal", "false")
+	}
+}
+
+func (x *CertificateManagementPolicyContentForm) CertificateTransparency() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "certificateTransparency")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *CertificateManagementPolicyContentForm) SetCertificateTransparency(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "certificateTransparency", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "certificateTransparency", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "certificateTransparency", "false")
+	}
+}
+
+func (x *CertificateManagementPolicyContentForm) CaaRecords() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "caaRecords")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *CertificateManagementPolicyContentForm) SetCaaRecords(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "caaRecords", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "caaRecords", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "caaRecords", "false")
+	}
+}
+
+func (x *CertificateManagementPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *CertificateManagementPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
@@ -71811,6 +74197,88 @@ func (x *ChangesFromCurrentStructureOverviewContentForm) CollaborationModelChang
 
 func (x *ChangesFromCurrentStructureOverviewContentForm) SetCollaborationModelChanges(value string) {
 	x.Doc().SetFormField(x.Path(), "collaborationModelChanges", value)
+}
+
+// ChannelIntegrationsContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ChannelIntegrationsContentForm struct {
+	som.SomNode
+}
+
+// NewChannelIntegrationsContentForm binds a ChannelIntegrationsContentForm facade to a document and a path.
+func NewChannelIntegrationsContentForm(doc *som.SpecDocument, path string) *ChannelIntegrationsContentForm {
+	return &ChannelIntegrationsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ChannelIntegrationsContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ChannelIntegrationsContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ChannelIntegrationsContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ChannelIntegrationsContentForm) PushNotificationService() string {
+	return x.Doc().FormFieldOr(x.Path(), "pushNotificationService")
+}
+
+func (x *ChannelIntegrationsContentForm) SetPushNotificationService(value string) {
+	x.Doc().SetFormField(x.Path(), "pushNotificationService", value)
+}
+
+func (x *ChannelIntegrationsContentForm) AnalyticsService() string {
+	return x.Doc().FormFieldOr(x.Path(), "analyticsService")
+}
+
+func (x *ChannelIntegrationsContentForm) SetAnalyticsService(value string) {
+	x.Doc().SetFormField(x.Path(), "analyticsService", value)
+}
+
+func (x *ChannelIntegrationsContentForm) CrashReporting() string {
+	return x.Doc().FormFieldOr(x.Path(), "crashReporting")
+}
+
+func (x *ChannelIntegrationsContentForm) SetCrashReporting(value string) {
+	x.Doc().SetFormField(x.Path(), "crashReporting", value)
+}
+
+func (x *ChannelIntegrationsContentForm) DeepLinking() string {
+	return x.Doc().FormFieldOr(x.Path(), "deepLinking")
+}
+
+func (x *ChannelIntegrationsContentForm) SetDeepLinking(value string) {
+	x.Doc().SetFormField(x.Path(), "deepLinking", value)
+}
+
+func (x *ChannelIntegrationsContentForm) SocialIntegration() string {
+	return x.Doc().FormFieldOr(x.Path(), "socialIntegration")
+}
+
+func (x *ChannelIntegrationsContentForm) SetSocialIntegration(value string) {
+	x.Doc().SetFormField(x.Path(), "socialIntegration", value)
+}
+
+func (x *ChannelIntegrationsContentForm) PaymentIntegration() string {
+	return x.Doc().FormFieldOr(x.Path(), "paymentIntegration")
+}
+
+func (x *ChannelIntegrationsContentForm) SetPaymentIntegration(value string) {
+	x.Doc().SetFormField(x.Path(), "paymentIntegration", value)
+}
+
+func (x *ChannelIntegrationsContentForm) BiometricIntegration() string {
+	return x.Doc().FormFieldOr(x.Path(), "biometricIntegration")
+}
+
+func (x *ChannelIntegrationsContentForm) SetBiometricIntegration(value string) {
+	x.Doc().SetFormField(x.Path(), "biometricIntegration", value)
 }
 
 // CiCdPipelineConfigurationContentForm is the generated section facade for the `content` @Form section: its own
@@ -75458,6 +77926,104 @@ func (x *ColorPaletteEntryContentForm) UsageGuidelines() string {
 
 func (x *ColorPaletteEntryContentForm) SetUsageGuidelines(value string) {
 	x.Doc().SetFormField(x.Path(), "usageGuidelines", value)
+}
+
+// ColumnLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ColumnLevelSecurityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewColumnLevelSecurityPolicyContentForm binds a ColumnLevelSecurityPolicyContentForm facade to a document and a path.
+func NewColumnLevelSecurityPolicyContentForm(doc *som.SpecDocument, path string) *ColumnLevelSecurityPolicyContentForm {
+	return &ColumnLevelSecurityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ColumnLevelSecurityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ColumnLevelSecurityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) ColumnLevelSecurityEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "columnLevelSecurityEnabled")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetColumnLevelSecurityEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "columnLevelSecurityEnabled", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) ColumnAccessImplementation() string {
+	return x.Doc().FormFieldOr(x.Path(), "columnAccessImplementation")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetColumnAccessImplementation(value string) {
+	x.Doc().SetFormField(x.Path(), "columnAccessImplementation", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SensitiveColumnClassification() string {
+	return x.Doc().FormFieldOr(x.Path(), "sensitiveColumnClassification")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetSensitiveColumnClassification(value string) {
+	x.Doc().SetFormField(x.Path(), "sensitiveColumnClassification", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) PiiColumnAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "piiColumnAccess")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetPiiColumnAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "piiColumnAccess", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) FinancialDataColumnAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "financialDataColumnAccess")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetFinancialDataColumnAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "financialDataColumnAccess", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) HealthDataColumnAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "healthDataColumnAccess")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetHealthDataColumnAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "healthDataColumnAccess", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) DynamicFieldVisibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "dynamicFieldVisibility")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetDynamicFieldVisibility(value string) {
+	x.Doc().SetFormField(x.Path(), "dynamicFieldVisibility", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) ColumnAccessAudit() string {
+	return x.Doc().FormFieldOr(x.Path(), "columnAccessAudit")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetColumnAccessAudit(value string) {
+	x.Doc().SetFormField(x.Path(), "columnAccessAudit", value)
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) ColumnEncryptionPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "columnEncryptionPolicy")
+}
+
+func (x *ColumnLevelSecurityPolicyContentForm) SetColumnEncryptionPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "columnEncryptionPolicy", value)
 }
 
 // CommitteeCharterContentForm is the generated section facade for the `content` @Form section: its own
@@ -81954,6 +84520,120 @@ func (x *ComputingEquipmentEntryPlatformForm) SetFormFactor(value string) {
 	x.Doc().SetFormField(x.Path(), "formFactor", value)
 }
 
+// ConcurrentSessionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ConcurrentSessionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewConcurrentSessionPolicyContentForm binds a ConcurrentSessionPolicyContentForm facade to a document and a path.
+func NewConcurrentSessionPolicyContentForm(doc *som.SpecDocument, path string) *ConcurrentSessionPolicyContentForm {
+	return &ConcurrentSessionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ConcurrentSessionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ConcurrentSessionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) ConcurrentSessionsAllowed() string {
+	return x.Doc().FormFieldOr(x.Path(), "concurrentSessionsAllowed")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetConcurrentSessionsAllowed(value string) {
+	x.Doc().SetFormField(x.Path(), "concurrentSessionsAllowed", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) MaxConcurrentSessions() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxConcurrentSessions")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetMaxConcurrentSessions(value string) {
+	x.Doc().SetFormField(x.Path(), "maxConcurrentSessions", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) ConcurrentSessionScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "concurrentSessionScope")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetConcurrentSessionScope(value string) {
+	x.Doc().SetFormField(x.Path(), "concurrentSessionScope", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) ConflictResolution() string {
+	return x.Doc().FormFieldOr(x.Path(), "conflictResolution")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetConflictResolution(value string) {
+	x.Doc().SetFormField(x.Path(), "conflictResolution", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SessionListVisible() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionListVisible")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetSessionListVisible(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionListVisible", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) RemoteTerminationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "remoteTerminationEnabled")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetRemoteTerminationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "remoteTerminationEnabled", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SessionDeviceInfo() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionDeviceInfo")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetSessionDeviceInfo(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionDeviceInfo", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) ConcurrentLoginNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "concurrentLoginNotification")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetConcurrentLoginNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "concurrentLoginNotification", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SuspiciousConcurrentLoginAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "suspiciousConcurrentLoginAction")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetSuspiciousConcurrentLoginAction(value string) {
+	x.Doc().SetFormField(x.Path(), "suspiciousConcurrentLoginAction", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) PrivilegedAccountSessionLimit() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegedAccountSessionLimit")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetPrivilegedAccountSessionLimit(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegedAccountSessionLimit", value)
+}
+
+func (x *ConcurrentSessionPolicyContentForm) CrossDeviceSessionHandling() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossDeviceSessionHandling")
+}
+
+func (x *ConcurrentSessionPolicyContentForm) SetCrossDeviceSessionHandling(value string) {
+	x.Doc().SetFormField(x.Path(), "crossDeviceSessionHandling", value)
+}
+
 // ConfidentialInfoCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ConfidentialInfoCategoryEntryContentForm struct {
@@ -83009,6 +85689,229 @@ func (x *ConstraintRegisterEntryContentForm) SetImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "impact", value)
 }
 
+// ContentScanningPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ContentScanningPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewContentScanningPolicyContentForm binds a ContentScanningPolicyContentForm facade to a document and a path.
+func NewContentScanningPolicyContentForm(doc *som.SpecDocument, path string) *ContentScanningPolicyContentForm {
+	return &ContentScanningPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ContentScanningPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ContentScanningPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ContentScanningPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ContentScanningPolicyContentForm) AntivirusScanningEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "antivirusScanningEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ContentScanningPolicyContentForm) SetAntivirusScanningEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "antivirusScanningEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "antivirusScanningEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "antivirusScanningEnabled", "false")
+	}
+}
+
+func (x *ContentScanningPolicyContentForm) ScanTiming() string {
+	return x.Doc().FormFieldOr(x.Path(), "scanTiming")
+}
+
+func (x *ContentScanningPolicyContentForm) SetScanTiming(value string) {
+	x.Doc().SetFormField(x.Path(), "scanTiming", value)
+}
+
+func (x *ContentScanningPolicyContentForm) ScanEngine() string {
+	return x.Doc().FormFieldOr(x.Path(), "scanEngine")
+}
+
+func (x *ContentScanningPolicyContentForm) SetScanEngine(value string) {
+	x.Doc().SetFormField(x.Path(), "scanEngine", value)
+}
+
+func (x *ContentScanningPolicyContentForm) QuarantinePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "quarantinePolicy")
+}
+
+func (x *ContentScanningPolicyContentForm) SetQuarantinePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "quarantinePolicy", value)
+}
+
+func (x *ContentScanningPolicyContentForm) QuarantineRetentionDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "quarantineRetentionDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ContentScanningPolicyContentForm) SetQuarantineRetentionDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "quarantineRetentionDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "quarantineRetentionDays", strconv.Itoa(*value))
+}
+
+func (x *ContentScanningPolicyContentForm) SignatureUpdateFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "signatureUpdateFrequency")
+}
+
+func (x *ContentScanningPolicyContentForm) SetSignatureUpdateFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "signatureUpdateFrequency", value)
+}
+
+func (x *ContentScanningPolicyContentForm) CdrEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "cdrEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ContentScanningPolicyContentForm) SetCdrEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "cdrEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "cdrEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "cdrEnabled", "false")
+	}
+}
+
+func (x *ContentScanningPolicyContentForm) CdrApplicableTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "cdrApplicableTypes")
+}
+
+func (x *ContentScanningPolicyContentForm) SetCdrApplicableTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "cdrApplicableTypes", value)
+}
+
+func (x *ContentScanningPolicyContentForm) DlpScanningEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "dlpScanningEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ContentScanningPolicyContentForm) SetDlpScanningEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dlpScanningEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "dlpScanningEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "dlpScanningEnabled", "false")
+	}
+}
+
+func (x *ContentScanningPolicyContentForm) DlpPolicies() string {
+	return x.Doc().FormFieldOr(x.Path(), "dlpPolicies")
+}
+
+func (x *ContentScanningPolicyContentForm) SetDlpPolicies(value string) {
+	x.Doc().SetFormField(x.Path(), "dlpPolicies", value)
+}
+
+func (x *ContentScanningPolicyContentForm) DlpAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "dlpAction")
+}
+
+func (x *ContentScanningPolicyContentForm) SetDlpAction(value string) {
+	x.Doc().SetFormField(x.Path(), "dlpAction", value)
+}
+
+func (x *ContentScanningPolicyContentForm) ContentModeration() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "contentModeration")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ContentScanningPolicyContentForm) SetContentModeration(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "contentModeration", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "contentModeration", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "contentModeration", "false")
+	}
+}
+
+func (x *ContentScanningPolicyContentForm) ModerationMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "moderationMethod")
+}
+
+func (x *ContentScanningPolicyContentForm) SetModerationMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "moderationMethod", value)
+}
+
+func (x *ContentScanningPolicyContentForm) HashBasedDetection() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "hashBasedDetection")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ContentScanningPolicyContentForm) SetHashBasedDetection(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hashBasedDetection", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "hashBasedDetection", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "hashBasedDetection", "false")
+	}
+}
+
+func (x *ContentScanningPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ContentScanningPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // ContextualHelpContextualHelpContentForm is the generated section facade for the `contextualHelpContent` @Form section: its own
 // content text followed by one typed member per form field.
 type ContextualHelpContextualHelpContentForm struct {
@@ -83966,6 +86869,242 @@ func (x *CorrectnessVerificationForm) SetRegressionTestingApproach(value string)
 	x.Doc().SetFormField(x.Path(), "regressionTestingApproach", value)
 }
 
+// CredentialCompromiseDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type CredentialCompromiseDetectionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewCredentialCompromiseDetectionPolicyContentForm binds a CredentialCompromiseDetectionPolicyContentForm facade to a document and a path.
+func NewCredentialCompromiseDetectionPolicyContentForm(doc *som.SpecDocument, path string) *CredentialCompromiseDetectionPolicyContentForm {
+	return &CredentialCompromiseDetectionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CredentialCompromiseDetectionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *CredentialCompromiseDetectionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) BreachDatabaseMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "breachDatabaseMonitoring")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetBreachDatabaseMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "breachDatabaseMonitoring", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) BreachDatabaseSource() string {
+	return x.Doc().FormFieldOr(x.Path(), "breachDatabaseSource")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetBreachDatabaseSource(value string) {
+	x.Doc().SetFormField(x.Path(), "breachDatabaseSource", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) BreachCheckFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "breachCheckFrequency")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetBreachCheckFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "breachCheckFrequency", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) CompromisedCredentialAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "compromisedCredentialAction")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetCompromisedCredentialAction(value string) {
+	x.Doc().SetFormField(x.Path(), "compromisedCredentialAction", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) CredentialStuffingDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialStuffingDetection")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetCredentialStuffingDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialStuffingDetection", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) StuffingDetectionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "stuffingDetectionMethod")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetStuffingDetectionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "stuffingDetectionMethod", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) DarkWebMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "darkWebMonitoring")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetDarkWebMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "darkWebMonitoring", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) UserCompromiseNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "userCompromiseNotification")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetUserCompromiseNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "userCompromiseNotification", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) AdminCompromiseAlerts() string {
+	return x.Doc().FormFieldOr(x.Path(), "adminCompromiseAlerts")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetAdminCompromiseAlerts(value string) {
+	x.Doc().SetFormField(x.Path(), "adminCompromiseAlerts", value)
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) CompromiseResponseSla() string {
+	return x.Doc().FormFieldOr(x.Path(), "compromiseResponseSla")
+}
+
+func (x *CredentialCompromiseDetectionPolicyContentForm) SetCompromiseResponseSla(value string) {
+	x.Doc().SetFormField(x.Path(), "compromiseResponseSla", value)
+}
+
+// CredentialRecoveryPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type CredentialRecoveryPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewCredentialRecoveryPolicyContentForm binds a CredentialRecoveryPolicyContentForm facade to a document and a path.
+func NewCredentialRecoveryPolicyContentForm(doc *som.SpecDocument, path string) *CredentialRecoveryPolicyContentForm {
+	return &CredentialRecoveryPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CredentialRecoveryPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *CredentialRecoveryPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) PasswordResetMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordResetMethod")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetPasswordResetMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordResetMethod", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) ResetLinkExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "resetLinkExpiry")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetResetLinkExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "resetLinkExpiry", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) ResetLinkSingleUse() string {
+	return x.Doc().FormFieldOr(x.Path(), "resetLinkSingleUse")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetResetLinkSingleUse(value string) {
+	x.Doc().SetFormField(x.Path(), "resetLinkSingleUse", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) ResetRateLimiting() string {
+	return x.Doc().FormFieldOr(x.Path(), "resetRateLimiting")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetResetRateLimiting(value string) {
+	x.Doc().SetFormField(x.Path(), "resetRateLimiting", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SavedRecoveryCodesEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "savedRecoveryCodesEnabled")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetSavedRecoveryCodesEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "savedRecoveryCodesEnabled", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) RecoveryCodeCount() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryCodeCount")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetRecoveryCodeCount(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryCodeCount", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) RecoveryCodeFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryCodeFormat")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetRecoveryCodeFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryCodeFormat", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) IssuedRecoveryCodeChannels() string {
+	return x.Doc().FormFieldOr(x.Path(), "issuedRecoveryCodeChannels")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetIssuedRecoveryCodeChannels(value string) {
+	x.Doc().SetFormField(x.Path(), "issuedRecoveryCodeChannels", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) RecoveryCodeExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryCodeExpiry")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetRecoveryCodeExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryCodeExpiry", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) IdentityReverificationRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "identityReverificationRequired")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetIdentityReverificationRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "identityReverificationRequired", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) RecoveryContactEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryContactEnabled")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetRecoveryContactEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryContactEnabled", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) MultipleRecoveryAddresses() string {
+	return x.Doc().FormFieldOr(x.Path(), "multipleRecoveryAddresses")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetMultipleRecoveryAddresses(value string) {
+	x.Doc().SetFormField(x.Path(), "multipleRecoveryAddresses", value)
+}
+
+func (x *CredentialRecoveryPolicyContentForm) RecoveryAuditLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryAuditLogging")
+}
+
+func (x *CredentialRecoveryPolicyContentForm) SetRecoveryAuditLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryAuditLogging", value)
+}
+
 // CrossCuttingConcernsCachingForm is the generated section facade for the `caching` @Form section: its own
 // content text followed by one typed member per form field.
 type CrossCuttingConcernsCachingForm struct {
@@ -84263,6 +87402,109 @@ func (x *CrossCuttingConcernsSharedForm) Notes() string {
 }
 
 func (x *CrossCuttingConcernsSharedForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// CrossTenantAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type CrossTenantAccessPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewCrossTenantAccessPolicyContentForm binds a CrossTenantAccessPolicyContentForm facade to a document and a path.
+func NewCrossTenantAccessPolicyContentForm(doc *som.SpecDocument, path string) *CrossTenantAccessPolicyContentForm {
+	return &CrossTenantAccessPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *CrossTenantAccessPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *CrossTenantAccessPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) CrossTenantAccessAllowed() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "crossTenantAccessAllowed")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetCrossTenantAccessAllowed(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "crossTenantAccessAllowed", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "crossTenantAccessAllowed", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "crossTenantAccessAllowed", "false")
+	}
+}
+
+func (x *CrossTenantAccessPolicyContentForm) CrossTenantAccessModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossTenantAccessModel")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetCrossTenantAccessModel(value string) {
+	x.Doc().SetFormField(x.Path(), "crossTenantAccessModel", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) AuthorizationMechanism() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationMechanism")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetAuthorizationMechanism(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationMechanism", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) ResourceSharingModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceSharingModel")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetResourceSharingModel(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceSharingModel", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) IdorPreventionStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "idorPreventionStrategy")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetIdorPreventionStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "idorPreventionStrategy", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) CrossTenantAuditRequirement() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossTenantAuditRequirement")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetCrossTenantAuditRequirement(value string) {
+	x.Doc().SetFormField(x.Path(), "crossTenantAuditRequirement", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) AccessReviewFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessReviewFrequency")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetAccessReviewFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "accessReviewFrequency", value)
+}
+
+func (x *CrossTenantAccessPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *CrossTenantAccessPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
@@ -85647,6 +88889,128 @@ func (x *DashboardTemplatesContentForm) Notes() string {
 
 func (x *DashboardTemplatesContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// DataAccessAuditPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAccessAuditPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewDataAccessAuditPolicyContentForm binds a DataAccessAuditPolicyContentForm facade to a document and a path.
+func NewDataAccessAuditPolicyContentForm(doc *som.SpecDocument, path string) *DataAccessAuditPolicyContentForm {
+	return &DataAccessAuditPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataAccessAuditPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAccessAuditPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataAccessLoggingEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAccessLoggingEnabled")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataAccessLoggingEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAccessLoggingEnabled", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataAccessLoggingScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAccessLoggingScope")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataAccessLoggingScope(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAccessLoggingScope", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) LoggedOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "loggedOperations")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetLoggedOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "loggedOperations", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataAccessLogDetail() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAccessLogDetail")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataAccessLogDetail(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAccessLogDetail", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) QueryTextLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "queryTextLogging")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetQueryTextLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "queryTextLogging", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) AnomalyDetectionEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "anomalyDetectionEnabled")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetAnomalyDetectionEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "anomalyDetectionEnabled", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) AnomalySignals() string {
+	return x.Doc().FormFieldOr(x.Path(), "anomalySignals")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetAnomalySignals(value string) {
+	x.Doc().SetFormField(x.Path(), "anomalySignals", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataBreachDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataBreachDetection")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataBreachDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "dataBreachDetection", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataAccessReviewCycle() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAccessReviewCycle")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataAccessReviewCycle(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAccessReviewCycle", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) PrivilegedQueryAlerts() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegedQueryAlerts")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetPrivilegedQueryAlerts(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegedQueryAlerts", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) ComplianceReportingEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "complianceReportingEnabled")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetComplianceReportingEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "complianceReportingEnabled", value)
+}
+
+func (x *DataAccessAuditPolicyContentForm) DataAccessRetention() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataAccessRetention")
+}
+
+func (x *DataAccessAuditPolicyContentForm) SetDataAccessRetention(value string) {
+	x.Doc().SetFormField(x.Path(), "dataAccessRetention", value)
 }
 
 // DataAccessEventPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -89230,6 +92594,144 @@ func (x *DataIntegrationPointsIntegrationSummaryForm) SetIntegrationDebt(value s
 	x.Doc().SetFormField(x.Path(), "integrationDebt", value)
 }
 
+// DataMaskingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DataMaskingPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewDataMaskingPolicyContentForm binds a DataMaskingPolicyContentForm facade to a document and a path.
+func NewDataMaskingPolicyContentForm(doc *som.SpecDocument, path string) *DataMaskingPolicyContentForm {
+	return &DataMaskingPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataMaskingPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataMaskingPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataMaskingPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataMaskingPolicyContentForm) DynamicDataMaskingEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "dynamicDataMaskingEnabled")
+}
+
+func (x *DataMaskingPolicyContentForm) SetDynamicDataMaskingEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "dynamicDataMaskingEnabled", value)
+}
+
+func (x *DataMaskingPolicyContentForm) DynamicMaskingRules() string {
+	return x.Doc().FormFieldOr(x.Path(), "dynamicMaskingRules")
+}
+
+func (x *DataMaskingPolicyContentForm) SetDynamicMaskingRules(value string) {
+	x.Doc().SetFormField(x.Path(), "dynamicMaskingRules", value)
+}
+
+func (x *DataMaskingPolicyContentForm) DynamicMaskingScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "dynamicMaskingScope")
+}
+
+func (x *DataMaskingPolicyContentForm) SetDynamicMaskingScope(value string) {
+	x.Doc().SetFormField(x.Path(), "dynamicMaskingScope", value)
+}
+
+func (x *DataMaskingPolicyContentForm) StaticMaskingForNonProduction() string {
+	return x.Doc().FormFieldOr(x.Path(), "staticMaskingForNonProduction")
+}
+
+func (x *DataMaskingPolicyContentForm) SetStaticMaskingForNonProduction(value string) {
+	x.Doc().SetFormField(x.Path(), "staticMaskingForNonProduction", value)
+}
+
+func (x *DataMaskingPolicyContentForm) StaticMaskingTool() string {
+	return x.Doc().FormFieldOr(x.Path(), "staticMaskingTool")
+}
+
+func (x *DataMaskingPolicyContentForm) SetStaticMaskingTool(value string) {
+	x.Doc().SetFormField(x.Path(), "staticMaskingTool", value)
+}
+
+func (x *DataMaskingPolicyContentForm) MaskingPreservesFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "maskingPreservesFormat")
+}
+
+func (x *DataMaskingPolicyContentForm) SetMaskingPreservesFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "maskingPreservesFormat", value)
+}
+
+func (x *DataMaskingPolicyContentForm) MaskingReversibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "maskingReversibility")
+}
+
+func (x *DataMaskingPolicyContentForm) SetMaskingReversibility(value string) {
+	x.Doc().SetFormField(x.Path(), "maskingReversibility", value)
+}
+
+func (x *DataMaskingPolicyContentForm) PiiMaskingPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "piiMaskingPolicy")
+}
+
+func (x *DataMaskingPolicyContentForm) SetPiiMaskingPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "piiMaskingPolicy", value)
+}
+
+func (x *DataMaskingPolicyContentForm) EmailMaskingFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "emailMaskingFormat")
+}
+
+func (x *DataMaskingPolicyContentForm) SetEmailMaskingFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "emailMaskingFormat", value)
+}
+
+func (x *DataMaskingPolicyContentForm) PhoneMaskingFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "phoneMaskingFormat")
+}
+
+func (x *DataMaskingPolicyContentForm) SetPhoneMaskingFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "phoneMaskingFormat", value)
+}
+
+func (x *DataMaskingPolicyContentForm) AddressMaskingFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "addressMaskingFormat")
+}
+
+func (x *DataMaskingPolicyContentForm) SetAddressMaskingFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "addressMaskingFormat", value)
+}
+
+func (x *DataMaskingPolicyContentForm) FinancialDataMasking() string {
+	return x.Doc().FormFieldOr(x.Path(), "financialDataMasking")
+}
+
+func (x *DataMaskingPolicyContentForm) SetFinancialDataMasking(value string) {
+	x.Doc().SetFormField(x.Path(), "financialDataMasking", value)
+}
+
+func (x *DataMaskingPolicyContentForm) MaskingAuditTrail() string {
+	return x.Doc().FormFieldOr(x.Path(), "maskingAuditTrail")
+}
+
+func (x *DataMaskingPolicyContentForm) SetMaskingAuditTrail(value string) {
+	x.Doc().SetFormField(x.Path(), "maskingAuditTrail", value)
+}
+
+func (x *DataMaskingPolicyContentForm) DevelopmentDataStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "developmentDataStrategy")
+}
+
+func (x *DataMaskingPolicyContentForm) SetDevelopmentDataStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "developmentDataStrategy", value)
+}
+
 // DataMigrationStrategyApproachForm is the generated section facade for the `approach` @Form section: its own
 // content text followed by one typed member per form field.
 type DataMigrationStrategyApproachForm struct {
@@ -92636,6 +96138,144 @@ func (x *DataVolumeSummaryProjectionForm) SetCapacityUtilization(value string) {
 	x.Doc().SetFormField(x.Path(), "capacityUtilization", value)
 }
 
+// DatabaseAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DatabaseAccessPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewDatabaseAccessPolicyContentForm binds a DatabaseAccessPolicyContentForm facade to a document and a path.
+func NewDatabaseAccessPolicyContentForm(doc *som.SpecDocument, path string) *DatabaseAccessPolicyContentForm {
+	return &DatabaseAccessPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DatabaseAccessPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DatabaseAccessPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) DatabaseConnectionSecurity() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseConnectionSecurity")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetDatabaseConnectionSecurity(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseConnectionSecurity", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) MinimumTlsVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumTlsVersion")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetMinimumTlsVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumTlsVersion", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) ApplicationAccountStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "applicationAccountStrategy")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetApplicationAccountStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "applicationAccountStrategy", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) ApplicationAccountPrivileges() string {
+	return x.Doc().FormFieldOr(x.Path(), "applicationAccountPrivileges")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetApplicationAccountPrivileges(value string) {
+	x.Doc().SetFormField(x.Path(), "applicationAccountPrivileges", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) SchemaOwnershipSeparation() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaOwnershipSeparation")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetSchemaOwnershipSeparation(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaOwnershipSeparation", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) DirectTableAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "directTableAccess")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetDirectTableAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "directTableAccess", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) DatabaseCredentialStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseCredentialStorage")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetDatabaseCredentialStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseCredentialStorage", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) CredentialRotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialRotationPolicy")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetCredentialRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialRotationPolicy", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) ConnectionPoolSecurity() string {
+	return x.Doc().FormFieldOr(x.Path(), "connectionPoolSecurity")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetConnectionPoolSecurity(value string) {
+	x.Doc().SetFormField(x.Path(), "connectionPoolSecurity", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) PrivilegedAccessManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegedAccessManagement")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetPrivilegedAccessManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegedAccessManagement", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) DatabaseFirewallRules() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseFirewallRules")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetDatabaseFirewallRules(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseFirewallRules", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) SqlInjectionPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "sqlInjectionPrevention")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetSqlInjectionPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "sqlInjectionPrevention", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) QueryComplexityLimits() string {
+	return x.Doc().FormFieldOr(x.Path(), "queryComplexityLimits")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetQueryComplexityLimits(value string) {
+	x.Doc().SetFormField(x.Path(), "queryComplexityLimits", value)
+}
+
+func (x *DatabaseAccessPolicyContentForm) DatabaseActivityMonitoring() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseActivityMonitoring")
+}
+
+func (x *DatabaseAccessPolicyContentForm) SetDatabaseActivityMonitoring(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseActivityMonitoring", value)
+}
+
 // DatabaseCompatibilityEntryConnectionForm is the generated section facade for the `connection` @Form section: its own
 // content text followed by one typed member per form field.
 type DatabaseCompatibilityEntryConnectionForm struct {
@@ -92884,6 +96524,114 @@ func (x *DatabaseCompatibilityEntrySupportForm) CloudVariants() string {
 
 func (x *DatabaseCompatibilityEntrySupportForm) SetCloudVariants(value string) {
 	x.Doc().SetFormField(x.Path(), "cloudVariants", value)
+}
+
+// DatabaseEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type DatabaseEncryptionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewDatabaseEncryptionPolicyContentForm binds a DatabaseEncryptionPolicyContentForm facade to a document and a path.
+func NewDatabaseEncryptionPolicyContentForm(doc *som.SpecDocument, path string) *DatabaseEncryptionPolicyContentForm {
+	return &DatabaseEncryptionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DatabaseEncryptionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DatabaseEncryptionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) DatabaseEncryptionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseEncryptionMethod")
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetDatabaseEncryptionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseEncryptionMethod", value)
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) EncryptedColumnStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptedColumnStrategy")
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetEncryptedColumnStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptedColumnStrategy", value)
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) IndexOnEncryptedColumns() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "indexOnEncryptedColumns")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetIndexOnEncryptedColumns(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "indexOnEncryptedColumns", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "indexOnEncryptedColumns", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "indexOnEncryptedColumns", "false")
+	}
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SearchOnEncryptedData() string {
+	return x.Doc().FormFieldOr(x.Path(), "searchOnEncryptedData")
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetSearchOnEncryptedData(value string) {
+	x.Doc().SetFormField(x.Path(), "searchOnEncryptedData", value)
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) ConnectionEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "connectionEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetConnectionEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "connectionEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "connectionEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "connectionEncryption", "false")
+	}
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) DatabaseEngine() string {
+	return x.Doc().FormFieldOr(x.Path(), "databaseEngine")
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetDatabaseEngine(value string) {
+	x.Doc().SetFormField(x.Path(), "databaseEngine", value)
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *DatabaseEncryptionPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // DebuggingConfigurationBreakpointsForm is the generated section facade for the `breakpoints` @Form section: its own
@@ -104441,6 +108189,176 @@ func (x *EncryptedDataCategoryEntryContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// EncryptionAtRestPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type EncryptionAtRestPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewEncryptionAtRestPolicyContentForm binds a EncryptionAtRestPolicyContentForm facade to a document and a path.
+func NewEncryptionAtRestPolicyContentForm(doc *som.SpecDocument, path string) *EncryptionAtRestPolicyContentForm {
+	return &EncryptionAtRestPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EncryptionAtRestPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *EncryptionAtRestPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *EncryptionAtRestPolicyContentForm) DefaultAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultAlgorithm")
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetDefaultAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultAlgorithm", value)
+}
+
+func (x *EncryptionAtRestPolicyContentForm) DefaultKeyLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "defaultKeyLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetDefaultKeyLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "defaultKeyLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "defaultKeyLength", strconv.Itoa(*value))
+}
+
+func (x *EncryptionAtRestPolicyContentForm) CipherMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "cipherMode")
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetCipherMode(value string) {
+	x.Doc().SetFormField(x.Path(), "cipherMode", value)
+}
+
+func (x *EncryptionAtRestPolicyContentForm) EncryptionLayer() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptionLayer")
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetEncryptionLayer(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptionLayer", value)
+}
+
+func (x *EncryptionAtRestPolicyContentForm) FieldLevelEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "fieldLevelEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetFieldLevelEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "fieldLevelEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "fieldLevelEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "fieldLevelEncryption", "false")
+	}
+}
+
+func (x *EncryptionAtRestPolicyContentForm) TransparentDataEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "transparentDataEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetTransparentDataEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "transparentDataEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "transparentDataEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "transparentDataEncryption", "false")
+	}
+}
+
+func (x *EncryptionAtRestPolicyContentForm) FullDiskEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "fullDiskEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetFullDiskEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "fullDiskEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "fullDiskEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "fullDiskEncryption", "false")
+	}
+}
+
+func (x *EncryptionAtRestPolicyContentForm) MinimizeSensitiveStorage() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "minimizeSensitiveStorage")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetMinimizeSensitiveStorage(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "minimizeSensitiveStorage", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "minimizeSensitiveStorage", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "minimizeSensitiveStorage", "false")
+	}
+}
+
+func (x *EncryptionAtRestPolicyContentForm) ComplianceFramework() string {
+	return x.Doc().FormFieldOr(x.Path(), "complianceFramework")
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetComplianceFramework(value string) {
+	x.Doc().SetFormField(x.Path(), "complianceFramework", value)
+}
+
+func (x *EncryptionAtRestPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *EncryptionAtRestPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // EnterpriseSystemCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type EnterpriseSystemCompatibilityEntryContentForm struct {
@@ -114476,6 +118394,907 @@ func (x *FieldValidationRuleContentForm) TriggerEvent() string {
 
 func (x *FieldValidationRuleContentForm) SetTriggerEvent(value string) {
 	x.Doc().SetFormField(x.Path(), "triggerEvent", value)
+}
+
+// FileAccessControlPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FileAccessControlPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewFileAccessControlPolicyContentForm binds a FileAccessControlPolicyContentForm facade to a document and a path.
+func NewFileAccessControlPolicyContentForm(doc *som.SpecDocument, path string) *FileAccessControlPolicyContentForm {
+	return &FileAccessControlPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FileAccessControlPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FileAccessControlPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FileAccessControlPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FileAccessControlPolicyContentForm) FileAccessModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "fileAccessModel")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetFileAccessModel(value string) {
+	x.Doc().SetFormField(x.Path(), "fileAccessModel", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) AuthenticationRequired() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "authenticationRequired")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetAuthenticationRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "authenticationRequired", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "authenticationRequired", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "authenticationRequired", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) AnonymousDownloadAllowed() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "anonymousDownloadAllowed")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetAnonymousDownloadAllowed(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "anonymousDownloadAllowed", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "anonymousDownloadAllowed", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "anonymousDownloadAllowed", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) FileOwnershipModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "fileOwnershipModel")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetFileOwnershipModel(value string) {
+	x.Doc().SetFormField(x.Path(), "fileOwnershipModel", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) PermissionGranularity() string {
+	return x.Doc().FormFieldOr(x.Path(), "permissionGranularity")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetPermissionGranularity(value string) {
+	x.Doc().SetFormField(x.Path(), "permissionGranularity", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) FolderLevelPermissions() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "folderLevelPermissions")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetFolderLevelPermissions(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "folderLevelPermissions", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "folderLevelPermissions", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "folderLevelPermissions", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) PermissionInheritance() string {
+	return x.Doc().FormFieldOr(x.Path(), "permissionInheritance")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetPermissionInheritance(value string) {
+	x.Doc().SetFormField(x.Path(), "permissionInheritance", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) SharingEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "sharingEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetSharingEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "sharingEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "sharingEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "sharingEnabled", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) ShareableLinkSupport() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "shareableLinkSupport")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetShareableLinkSupport(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "shareableLinkSupport", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "shareableLinkSupport", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "shareableLinkSupport", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) ShareableLinkExpiration() string {
+	return x.Doc().FormFieldOr(x.Path(), "shareableLinkExpiration")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetShareableLinkExpiration(value string) {
+	x.Doc().SetFormField(x.Path(), "shareableLinkExpiration", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) ExternalSharingPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "externalSharingPolicy")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetExternalSharingPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "externalSharingPolicy", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) StorageLocationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "storageLocationPolicy")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetStorageLocationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "storageLocationPolicy", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) TenantStorageIsolation() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantStorageIsolation")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetTenantStorageIsolation(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantStorageIsolation", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) FilesystemPermissions() string {
+	return x.Doc().FormFieldOr(x.Path(), "filesystemPermissions")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetFilesystemPermissions(value string) {
+	x.Doc().SetFormField(x.Path(), "filesystemPermissions", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) PresignedUrlSupport() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "presignedUrlSupport")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileAccessControlPolicyContentForm) SetPresignedUrlSupport(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "presignedUrlSupport", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "presignedUrlSupport", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "presignedUrlSupport", "false")
+	}
+}
+
+func (x *FileAccessControlPolicyContentForm) PresignedUrlMaxExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "presignedUrlMaxExpiry")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetPresignedUrlMaxExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "presignedUrlMaxExpiry", value)
+}
+
+func (x *FileAccessControlPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *FileAccessControlPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// FileDownloadSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FileDownloadSecurityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewFileDownloadSecurityPolicyContentForm binds a FileDownloadSecurityPolicyContentForm facade to a document and a path.
+func NewFileDownloadSecurityPolicyContentForm(doc *som.SpecDocument, path string) *FileDownloadSecurityPolicyContentForm {
+	return &FileDownloadSecurityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FileDownloadSecurityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FileDownloadSecurityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) DownloadAuthenticationRequired() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "downloadAuthenticationRequired")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetDownloadAuthenticationRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "downloadAuthenticationRequired", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "downloadAuthenticationRequired", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "downloadAuthenticationRequired", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) DownloadRateLimiting() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "downloadRateLimiting")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetDownloadRateLimiting(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "downloadRateLimiting", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "downloadRateLimiting", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "downloadRateLimiting", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) DownloadRateLimit() string {
+	return x.Doc().FormFieldOr(x.Path(), "downloadRateLimit")
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetDownloadRateLimit(value string) {
+	x.Doc().SetFormField(x.Path(), "downloadRateLimit", value)
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) BandwidthThrottling() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "bandwidthThrottling")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetBandwidthThrottling(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "bandwidthThrottling", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "bandwidthThrottling", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "bandwidthThrottling", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) ContentDispositionPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "contentDispositionPolicy")
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetContentDispositionPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "contentDispositionPolicy", value)
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) CdnDelivery() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "cdnDelivery")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetCdnDelivery(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "cdnDelivery", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "cdnDelivery", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "cdnDelivery", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) HotlinkPrevention() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "hotlinkPrevention")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetHotlinkPrevention(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hotlinkPrevention", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "hotlinkPrevention", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "hotlinkPrevention", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) CacheControlPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "cacheControlPolicy")
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetCacheControlPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "cacheControlPolicy", value)
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) DownloadAuditLogging() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "downloadAuditLogging")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetDownloadAuditLogging(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "downloadAuditLogging", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "downloadAuditLogging", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "downloadAuditLogging", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) DownloadAlerts() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "downloadAlerts")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetDownloadAlerts(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "downloadAlerts", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "downloadAlerts", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "downloadAlerts", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) Watermarking() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "watermarking")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetWatermarking(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "watermarking", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "watermarking", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "watermarking", "false")
+	}
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *FileDownloadSecurityPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// FileStorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FileStorageEncryptionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewFileStorageEncryptionPolicyContentForm binds a FileStorageEncryptionPolicyContentForm facade to a document and a path.
+func NewFileStorageEncryptionPolicyContentForm(doc *som.SpecDocument, path string) *FileStorageEncryptionPolicyContentForm {
+	return &FileStorageEncryptionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FileStorageEncryptionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FileStorageEncryptionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) FileEncryptionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "fileEncryptionMethod")
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetFileEncryptionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "fileEncryptionMethod", value)
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) CloudStorageEncryption() string {
+	return x.Doc().FormFieldOr(x.Path(), "cloudStorageEncryption")
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetCloudStorageEncryption(value string) {
+	x.Doc().SetFormField(x.Path(), "cloudStorageEncryption", value)
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) ClientSideEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "clientSideEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetClientSideEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "false")
+	}
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) EncryptedFileFormats() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptedFileFormats")
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetEncryptedFileFormats(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptedFileFormats", value)
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) LocalDeviceEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "localDeviceEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetLocalDeviceEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "localDeviceEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "localDeviceEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "localDeviceEncryption", "false")
+	}
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) TemporaryFileEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "temporaryFileEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetTemporaryFileEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "temporaryFileEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "temporaryFileEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "temporaryFileEncryption", "false")
+	}
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *FileStorageEncryptionPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// FileUploadValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FileUploadValidationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewFileUploadValidationPolicyContentForm binds a FileUploadValidationPolicyContentForm facade to a document and a path.
+func NewFileUploadValidationPolicyContentForm(doc *som.SpecDocument, path string) *FileUploadValidationPolicyContentForm {
+	return &FileUploadValidationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FileUploadValidationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FileUploadValidationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) ExtensionValidationStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "extensionValidationStrategy")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetExtensionValidationStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "extensionValidationStrategy", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) AllowedFileExtensions() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedFileExtensions")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetAllowedFileExtensions(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedFileExtensions", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) BlockedFileExtensions() string {
+	return x.Doc().FormFieldOr(x.Path(), "blockedFileExtensions")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetBlockedFileExtensions(value string) {
+	x.Doc().SetFormField(x.Path(), "blockedFileExtensions", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) DoubleExtensionPrevention() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "doubleExtensionPrevention")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetDoubleExtensionPrevention(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "doubleExtensionPrevention", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "doubleExtensionPrevention", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "doubleExtensionPrevention", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) ContentTypeValidation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "contentTypeValidation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetContentTypeValidation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "contentTypeValidation", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) FileSignatureValidation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "fileSignatureValidation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetFileSignatureValidation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "fileSignatureValidation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "fileSignatureValidation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "fileSignatureValidation", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) SignatureMismatchAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "signatureMismatchAction")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetSignatureMismatchAction(value string) {
+	x.Doc().SetFormField(x.Path(), "signatureMismatchAction", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) FilenameStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "filenameStrategy")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetFilenameStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "filenameStrategy", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) FilenameMaxLength() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "filenameMaxLength")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetFilenameMaxLength(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "filenameMaxLength", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "filenameMaxLength", strconv.Itoa(*value))
+}
+
+func (x *FileUploadValidationPolicyContentForm) FilenameAllowedCharacters() string {
+	return x.Doc().FormFieldOr(x.Path(), "filenameAllowedCharacters")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetFilenameAllowedCharacters(value string) {
+	x.Doc().SetFormField(x.Path(), "filenameAllowedCharacters", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) PathTraversalPrevention() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "pathTraversalPrevention")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetPathTraversalPrevention(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "pathTraversalPrevention", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "pathTraversalPrevention", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "pathTraversalPrevention", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) NullBytePrevention() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "nullBytePrevention")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetNullBytePrevention(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "nullBytePrevention", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "nullBytePrevention", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "nullBytePrevention", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) MaxFileSizeBytes() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxFileSizeBytes")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetMaxFileSizeBytes(value string) {
+	x.Doc().SetFormField(x.Path(), "maxFileSizeBytes", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) MaxUploadBatchSize() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxUploadBatchSize")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetMaxUploadBatchSize(value string) {
+	x.Doc().SetFormField(x.Path(), "maxUploadBatchSize", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) MaxConcurrentUploads() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxConcurrentUploads")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetMaxConcurrentUploads(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxConcurrentUploads", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxConcurrentUploads", strconv.Itoa(*value))
+}
+
+func (x *FileUploadValidationPolicyContentForm) CompressedFileSizeLimit() string {
+	return x.Doc().FormFieldOr(x.Path(), "compressedFileSizeLimit")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetCompressedFileSizeLimit(value string) {
+	x.Doc().SetFormField(x.Path(), "compressedFileSizeLimit", value)
+}
+
+func (x *FileUploadValidationPolicyContentForm) ImageRewriting() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "imageRewriting")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetImageRewriting(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "imageRewriting", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "imageRewriting", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "imageRewriting", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) DocumentSanitization() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "documentSanitization")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetDocumentSanitization(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "documentSanitization", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "documentSanitization", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "documentSanitization", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) MetadataStripping() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "metadataStripping")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetMetadataStripping(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "metadataStripping", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "metadataStripping", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "metadataStripping", "false")
+	}
+}
+
+func (x *FileUploadValidationPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *FileUploadValidationPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // FirewallRequirementsAdvancedForm is the generated section facade for the `advanced` @Form section: its own
@@ -132502,6 +137321,160 @@ func (x *LogStoragePolicyContentForm) SetAccessPermissions(value string) {
 	x.Doc().SetFormField(x.Path(), "accessPermissions", value)
 }
 
+// LoginFlowConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type LoginFlowConfigurationContentForm struct {
+	som.SomNode
+}
+
+// NewLoginFlowConfigurationContentForm binds a LoginFlowConfigurationContentForm facade to a document and a path.
+func NewLoginFlowConfigurationContentForm(doc *som.SpecDocument, path string) *LoginFlowConfigurationContentForm {
+	return &LoginFlowConfigurationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *LoginFlowConfigurationContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *LoginFlowConfigurationContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *LoginFlowConfigurationContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *LoginFlowConfigurationContentForm) LoginEntryPoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "loginEntryPoint")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetLoginEntryPoint(value string) {
+	x.Doc().SetFormField(x.Path(), "loginEntryPoint", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) CredentialSubmissionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialSubmissionMethod")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetCredentialSubmissionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialSubmissionMethod", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) PreAuthenticationChecks() string {
+	return x.Doc().FormFieldOr(x.Path(), "preAuthenticationChecks")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetPreAuthenticationChecks(value string) {
+	x.Doc().SetFormField(x.Path(), "preAuthenticationChecks", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) AuthenticationEndpoint() string {
+	return x.Doc().FormFieldOr(x.Path(), "authenticationEndpoint")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetAuthenticationEndpoint(value string) {
+	x.Doc().SetFormField(x.Path(), "authenticationEndpoint", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) AllowedAuthenticationMethods() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedAuthenticationMethods")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetAllowedAuthenticationMethods(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedAuthenticationMethods", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) MfaChallengePresentation() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaChallengePresentation")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetMfaChallengePresentation(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaChallengePresentation", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) RememberMeEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeEnabled")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetRememberMeEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeEnabled", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) RememberMeDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeDuration")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetRememberMeDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeDuration", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) SocialLoginEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "socialLoginEnabled")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetSocialLoginEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "socialLoginEnabled", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) SocialLoginProviders() string {
+	return x.Doc().FormFieldOr(x.Path(), "socialLoginProviders")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetSocialLoginProviders(value string) {
+	x.Doc().SetFormField(x.Path(), "socialLoginProviders", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) PasswordlessLoginEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordlessLoginEnabled")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetPasswordlessLoginEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordlessLoginEnabled", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) PasswordlessLoginMethods() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordlessLoginMethods")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetPasswordlessLoginMethods(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordlessLoginMethods", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) PostAuthenticationAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "postAuthenticationAction")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetPostAuthenticationAction(value string) {
+	x.Doc().SetFormField(x.Path(), "postAuthenticationAction", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) ConcurrentLoginPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "concurrentLoginPolicy")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetConcurrentLoginPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "concurrentLoginPolicy", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) LoginNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "loginNotification")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetLoginNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "loginNotification", value)
+}
+
+func (x *LoginFlowConfigurationContentForm) LoginFromNewDeviceAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "loginFromNewDeviceAction")
+}
+
+func (x *LoginFlowConfigurationContentForm) SetLoginFromNewDeviceAction(value string) {
+	x.Doc().SetFormField(x.Path(), "loginFromNewDeviceAction", value)
+}
+
 // LoginFlowStepEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own
 // content text followed by one typed member per form field.
 type LoginFlowStepEntryBehaviorForm struct {
@@ -136032,6 +141005,128 @@ func (x *MfaCategoryRequirementEntryTimingForm) RememberDeviceDuration() string 
 
 func (x *MfaCategoryRequirementEntryTimingForm) SetRememberDeviceDuration(value string) {
 	x.Doc().SetFormField(x.Path(), "rememberDeviceDuration", value)
+}
+
+// MfaConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MfaConfigurationContentForm struct {
+	som.SomNode
+}
+
+// NewMfaConfigurationContentForm binds a MfaConfigurationContentForm facade to a document and a path.
+func NewMfaConfigurationContentForm(doc *som.SpecDocument, path string) *MfaConfigurationContentForm {
+	return &MfaConfigurationContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MfaConfigurationContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MfaConfigurationContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MfaConfigurationContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MfaConfigurationContentForm) MfaRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaRequired")
+}
+
+func (x *MfaConfigurationContentForm) SetMfaRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaRequired", value)
+}
+
+func (x *MfaConfigurationContentForm) MfaEnforcementScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaEnforcementScope")
+}
+
+func (x *MfaConfigurationContentForm) SetMfaEnforcementScope(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaEnforcementScope", value)
+}
+
+func (x *MfaConfigurationContentForm) DefaultSecondFactor() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultSecondFactor")
+}
+
+func (x *MfaConfigurationContentForm) SetDefaultSecondFactor(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultSecondFactor", value)
+}
+
+func (x *MfaConfigurationContentForm) AllowedSecondFactors() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedSecondFactors")
+}
+
+func (x *MfaConfigurationContentForm) SetAllowedSecondFactors(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedSecondFactors", value)
+}
+
+func (x *MfaConfigurationContentForm) AssuranceLevelTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "assuranceLevelTarget")
+}
+
+func (x *MfaConfigurationContentForm) SetAssuranceLevelTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "assuranceLevelTarget", value)
+}
+
+func (x *MfaConfigurationContentForm) PhishingResistanceRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "phishingResistanceRequired")
+}
+
+func (x *MfaConfigurationContentForm) SetPhishingResistanceRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "phishingResistanceRequired", value)
+}
+
+func (x *MfaConfigurationContentForm) StepUpAuthenticationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpAuthenticationEnabled")
+}
+
+func (x *MfaConfigurationContentForm) SetStepUpAuthenticationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpAuthenticationEnabled", value)
+}
+
+func (x *MfaConfigurationContentForm) StepUpTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpTriggers")
+}
+
+func (x *MfaConfigurationContentForm) SetStepUpTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpTriggers", value)
+}
+
+func (x *MfaConfigurationContentForm) RememberDevicePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberDevicePolicy")
+}
+
+func (x *MfaConfigurationContentForm) SetRememberDevicePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberDevicePolicy", value)
+}
+
+func (x *MfaConfigurationContentForm) RecoveryCodePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "recoveryCodePolicy")
+}
+
+func (x *MfaConfigurationContentForm) SetRecoveryCodePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "recoveryCodePolicy", value)
+}
+
+func (x *MfaConfigurationContentForm) EnrollmentGracePeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "enrollmentGracePeriod")
+}
+
+func (x *MfaConfigurationContentForm) SetEnrollmentGracePeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "enrollmentGracePeriod", value)
+}
+
+func (x *MfaConfigurationContentForm) MfaBypassPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaBypassPolicy")
+}
+
+func (x *MfaConfigurationContentForm) SetMfaBypassPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaBypassPolicy", value)
 }
 
 // MigrationConsiderationsStrategyContentForm is the generated section facade for the `strategyContent` @Form section: its own
@@ -141405,6 +146500,101 @@ func (x *MustPassCriterionEntryVerificationForm) ToleranceAllowed() string {
 
 func (x *MustPassCriterionEntryVerificationForm) SetToleranceAllowed(value string) {
 	x.Doc().SetFormField(x.Path(), "toleranceAllowed", value)
+}
+
+// MutualTlsPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MutualTlsPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewMutualTlsPolicyContentForm binds a MutualTlsPolicyContentForm facade to a document and a path.
+func NewMutualTlsPolicyContentForm(doc *som.SpecDocument, path string) *MutualTlsPolicyContentForm {
+	return &MutualTlsPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MutualTlsPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MutualTlsPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MutualTlsPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MutualTlsPolicyContentForm) MtlsEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "mtlsEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *MutualTlsPolicyContentForm) SetMtlsEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "mtlsEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "mtlsEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "mtlsEnabled", "false")
+	}
+}
+
+func (x *MutualTlsPolicyContentForm) MtlsScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "mtlsScope")
+}
+
+func (x *MutualTlsPolicyContentForm) SetMtlsScope(value string) {
+	x.Doc().SetFormField(x.Path(), "mtlsScope", value)
+}
+
+func (x *MutualTlsPolicyContentForm) ClientCertificateIssuance() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientCertificateIssuance")
+}
+
+func (x *MutualTlsPolicyContentForm) SetClientCertificateIssuance(value string) {
+	x.Doc().SetFormField(x.Path(), "clientCertificateIssuance", value)
+}
+
+func (x *MutualTlsPolicyContentForm) RevocationChecking() string {
+	return x.Doc().FormFieldOr(x.Path(), "revocationChecking")
+}
+
+func (x *MutualTlsPolicyContentForm) SetRevocationChecking(value string) {
+	x.Doc().SetFormField(x.Path(), "revocationChecking", value)
+}
+
+func (x *MutualTlsPolicyContentForm) FallbackOnMtlsFailure() string {
+	return x.Doc().FormFieldOr(x.Path(), "fallbackOnMtlsFailure")
+}
+
+func (x *MutualTlsPolicyContentForm) SetFallbackOnMtlsFailure(value string) {
+	x.Doc().SetFormField(x.Path(), "fallbackOnMtlsFailure", value)
+}
+
+func (x *MutualTlsPolicyContentForm) ClientCertificateRotation() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientCertificateRotation")
+}
+
+func (x *MutualTlsPolicyContentForm) SetClientCertificateRotation(value string) {
+	x.Doc().SetFormField(x.Path(), "clientCertificateRotation", value)
+}
+
+func (x *MutualTlsPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *MutualTlsPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // NativeAppRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -149740,6 +154930,404 @@ func (x *ParticipantEntryContentForm) SetTargetRole(value string) {
 	x.Doc().SetFormField(x.Path(), "targetRole", value)
 }
 
+// PasswordLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PasswordLifecyclePolicyContentForm struct {
+	som.SomNode
+}
+
+// NewPasswordLifecyclePolicyContentForm binds a PasswordLifecyclePolicyContentForm facade to a document and a path.
+func NewPasswordLifecyclePolicyContentForm(doc *som.SpecDocument, path string) *PasswordLifecyclePolicyContentForm {
+	return &PasswordLifecyclePolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PasswordLifecyclePolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PasswordLifecyclePolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PeriodicRotationRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "periodicRotationRequired")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPeriodicRotationRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "periodicRotationRequired", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) RotationPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "rotationPeriod")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetRotationPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "rotationPeriod", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) ForceChangeOnCompromise() string {
+	return x.Doc().FormFieldOr(x.Path(), "forceChangeOnCompromise")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetForceChangeOnCompromise(value string) {
+	x.Doc().SetFormField(x.Path(), "forceChangeOnCompromise", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PasswordHistoryDepth() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordHistoryDepth")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPasswordHistoryDepth(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordHistoryDepth", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) MinimumPasswordAge() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumPasswordAge")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetMinimumPasswordAge(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumPasswordAge", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) InitialPasswordPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "initialPasswordPolicy")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetInitialPasswordPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "initialPasswordPolicy", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) TemporaryPasswordExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "temporaryPasswordExpiry")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetTemporaryPasswordExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "temporaryPasswordExpiry", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PasswordExpiryWarning() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordExpiryWarning")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPasswordExpiryWarning(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordExpiryWarning", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PasswordChangeNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordChangeNotification")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPasswordChangeNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordChangeNotification", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PasswordChangeRequiresCurrent() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordChangeRequiresCurrent")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPasswordChangeRequiresCurrent(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordChangeRequiresCurrent", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) AdministratorResetPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "administratorResetPolicy")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetAdministratorResetPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "administratorResetPolicy", value)
+}
+
+func (x *PasswordLifecyclePolicyContentForm) PasswordInactivityDisable() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordInactivityDisable")
+}
+
+func (x *PasswordLifecyclePolicyContentForm) SetPasswordInactivityDisable(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordInactivityDisable", value)
+}
+
+// PasswordRequirementsPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PasswordRequirementsPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewPasswordRequirementsPolicyContentForm binds a PasswordRequirementsPolicyContentForm facade to a document and a path.
+func NewPasswordRequirementsPolicyContentForm(doc *som.SpecDocument, path string) *PasswordRequirementsPolicyContentForm {
+	return &PasswordRequirementsPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PasswordRequirementsPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PasswordRequirementsPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) MinimumLengthSingleFactor() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumLengthSingleFactor")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetMinimumLengthSingleFactor(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumLengthSingleFactor", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) MinimumLengthMultiFactor() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumLengthMultiFactor")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetMinimumLengthMultiFactor(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumLengthMultiFactor", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) MaximumLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "maximumLength")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetMaximumLength(value string) {
+	x.Doc().SetFormField(x.Path(), "maximumLength", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) AllowedCharacterSets() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedCharacterSets")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetAllowedCharacterSets(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedCharacterSets", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) CompositionRulesEnforced() string {
+	return x.Doc().FormFieldOr(x.Path(), "compositionRulesEnforced")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetCompositionRulesEnforced(value string) {
+	x.Doc().SetFormField(x.Path(), "compositionRulesEnforced", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) PassphraseSupported() string {
+	return x.Doc().FormFieldOr(x.Path(), "passphraseSupported")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetPassphraseSupported(value string) {
+	x.Doc().SetFormField(x.Path(), "passphraseSupported", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) UnicodeNormalization() string {
+	return x.Doc().FormFieldOr(x.Path(), "unicodeNormalization")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetUnicodeNormalization(value string) {
+	x.Doc().SetFormField(x.Path(), "unicodeNormalization", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) PasswordBlocklistEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordBlocklistEnabled")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetPasswordBlocklistEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordBlocklistEnabled", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) BlocklistSources() string {
+	return x.Doc().FormFieldOr(x.Path(), "blocklistSources")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetBlocklistSources(value string) {
+	x.Doc().SetFormField(x.Path(), "blocklistSources", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) PasswordStrengthMeter() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordStrengthMeter")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetPasswordStrengthMeter(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordStrengthMeter", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) PasswordHintsAllowed() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordHintsAllowed")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetPasswordHintsAllowed(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordHintsAllowed", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SecurityQuestionsAllowed() string {
+	return x.Doc().FormFieldOr(x.Path(), "securityQuestionsAllowed")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetSecurityQuestionsAllowed(value string) {
+	x.Doc().SetFormField(x.Path(), "securityQuestionsAllowed", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) ShowPasswordOption() string {
+	return x.Doc().FormFieldOr(x.Path(), "showPasswordOption")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetShowPasswordOption(value string) {
+	x.Doc().SetFormField(x.Path(), "showPasswordOption", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) PasswordManagerSupport() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordManagerSupport")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetPasswordManagerSupport(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordManagerSupport", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) TruncationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "truncationPolicy")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetTruncationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "truncationPolicy", value)
+}
+
+func (x *PasswordRequirementsPolicyContentForm) TypoTolerancePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "typoTolerancePolicy")
+}
+
+func (x *PasswordRequirementsPolicyContentForm) SetTypoTolerancePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "typoTolerancePolicy", value)
+}
+
+// PasswordStoragePolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PasswordStoragePolicyContentForm struct {
+	som.SomNode
+}
+
+// NewPasswordStoragePolicyContentForm binds a PasswordStoragePolicyContentForm facade to a document and a path.
+func NewPasswordStoragePolicyContentForm(doc *som.SpecDocument, path string) *PasswordStoragePolicyContentForm {
+	return &PasswordStoragePolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PasswordStoragePolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PasswordStoragePolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PasswordStoragePolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PasswordStoragePolicyContentForm) HashingAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "hashingAlgorithm")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetHashingAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "hashingAlgorithm", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) HashingCostFactor() string {
+	return x.Doc().FormFieldOr(x.Path(), "hashingCostFactor")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetHashingCostFactor(value string) {
+	x.Doc().SetFormField(x.Path(), "hashingCostFactor", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) CostFactorReviewSchedule() string {
+	return x.Doc().FormFieldOr(x.Path(), "costFactorReviewSchedule")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetCostFactorReviewSchedule(value string) {
+	x.Doc().SetFormField(x.Path(), "costFactorReviewSchedule", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) SaltLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "saltLength")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetSaltLength(value string) {
+	x.Doc().SetFormField(x.Path(), "saltLength", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) SaltGeneration() string {
+	return x.Doc().FormFieldOr(x.Path(), "saltGeneration")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetSaltGeneration(value string) {
+	x.Doc().SetFormField(x.Path(), "saltGeneration", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) PepperEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "pepperEnabled")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetPepperEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "pepperEnabled", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) PepperStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "pepperStorage")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetPepperStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "pepperStorage", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) HashVersioning() string {
+	return x.Doc().FormFieldOr(x.Path(), "hashVersioning")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetHashVersioning(value string) {
+	x.Doc().SetFormField(x.Path(), "hashVersioning", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) TransmissionEncryption() string {
+	return x.Doc().FormFieldOr(x.Path(), "transmissionEncryption")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetTransmissionEncryption(value string) {
+	x.Doc().SetFormField(x.Path(), "transmissionEncryption", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) ClientSideHashing() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientSideHashing")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetClientSideHashing(value string) {
+	x.Doc().SetFormField(x.Path(), "clientSideHashing", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) MemoryHardFunction() string {
+	return x.Doc().FormFieldOr(x.Path(), "memoryHardFunction")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetMemoryHardFunction(value string) {
+	x.Doc().SetFormField(x.Path(), "memoryHardFunction", value)
+}
+
+func (x *PasswordStoragePolicyContentForm) OutputLength() string {
+	return x.Doc().FormFieldOr(x.Path(), "outputLength")
+}
+
+func (x *PasswordStoragePolicyContentForm) SetOutputLength(value string) {
+	x.Doc().SetFormField(x.Path(), "outputLength", value)
+}
+
 // PeakLoadPatternsCapacityForm is the generated section facade for the `capacity` @Form section: its own
 // content text followed by one typed member per form field.
 type PeakLoadPatternsCapacityForm struct {
@@ -150468,6 +156056,578 @@ func (x *PeripheralEquipmentEntryContentForm) Justification() string {
 
 func (x *PeripheralEquipmentEntryContentForm) SetJustification(value string) {
 	x.Doc().SetFormField(x.Path(), "justification", value)
+}
+
+// PermissionCompositionStrategyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PermissionCompositionStrategyContentForm struct {
+	som.SomNode
+}
+
+// NewPermissionCompositionStrategyContentForm binds a PermissionCompositionStrategyContentForm facade to a document and a path.
+func NewPermissionCompositionStrategyContentForm(doc *som.SpecDocument, path string) *PermissionCompositionStrategyContentForm {
+	return &PermissionCompositionStrategyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PermissionCompositionStrategyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PermissionCompositionStrategyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PermissionCompositionStrategyContentForm) CompositionModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "compositionModel")
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetCompositionModel(value string) {
+	x.Doc().SetFormField(x.Path(), "compositionModel", value)
+}
+
+func (x *PermissionCompositionStrategyContentForm) DefaultPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultPolicy")
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetDefaultPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultPolicy", value)
+}
+
+func (x *PermissionCompositionStrategyContentForm) ExplicitDenyOverride() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "explicitDenyOverride")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetExplicitDenyOverride(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "explicitDenyOverride", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "explicitDenyOverride", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "explicitDenyOverride", "false")
+	}
+}
+
+func (x *PermissionCompositionStrategyContentForm) RolePermissionInheritance() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "rolePermissionInheritance")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetRolePermissionInheritance(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "rolePermissionInheritance", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "rolePermissionInheritance", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "rolePermissionInheritance", "false")
+	}
+}
+
+func (x *PermissionCompositionStrategyContentForm) GroupPermissionAggregation() string {
+	return x.Doc().FormFieldOr(x.Path(), "groupPermissionAggregation")
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetGroupPermissionAggregation(value string) {
+	x.Doc().SetFormField(x.Path(), "groupPermissionAggregation", value)
+}
+
+func (x *PermissionCompositionStrategyContentForm) ConflictResolution() string {
+	return x.Doc().FormFieldOr(x.Path(), "conflictResolution")
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetConflictResolution(value string) {
+	x.Doc().SetFormField(x.Path(), "conflictResolution", value)
+}
+
+func (x *PermissionCompositionStrategyContentForm) PermissionBoundary() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "permissionBoundary")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetPermissionBoundary(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "permissionBoundary", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "permissionBoundary", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "permissionBoundary", "false")
+	}
+}
+
+func (x *PermissionCompositionStrategyContentForm) ScopedPermissions() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "scopedPermissions")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetScopedPermissions(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "scopedPermissions", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "scopedPermissions", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "scopedPermissions", "false")
+	}
+}
+
+func (x *PermissionCompositionStrategyContentForm) TemporaryElevation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "temporaryElevation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetTemporaryElevation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "temporaryElevation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "temporaryElevation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "temporaryElevation", "false")
+	}
+}
+
+func (x *PermissionCompositionStrategyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *PermissionCompositionStrategyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// PermissionEvaluationBehaviorContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PermissionEvaluationBehaviorContentForm struct {
+	som.SomNode
+}
+
+// NewPermissionEvaluationBehaviorContentForm binds a PermissionEvaluationBehaviorContentForm facade to a document and a path.
+func NewPermissionEvaluationBehaviorContentForm(doc *som.SpecDocument, path string) *PermissionEvaluationBehaviorContentForm {
+	return &PermissionEvaluationBehaviorContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PermissionEvaluationBehaviorContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PermissionEvaluationBehaviorContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) EvaluationLocation() string {
+	return x.Doc().FormFieldOr(x.Path(), "evaluationLocation")
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetEvaluationLocation(value string) {
+	x.Doc().SetFormField(x.Path(), "evaluationLocation", value)
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) EvaluationFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "evaluationFrequency")
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetEvaluationFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "evaluationFrequency", value)
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) CachingStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "cachingStrategy")
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetCachingStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "cachingStrategy", value)
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) CacheTtlSeconds() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "cacheTtlSeconds")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetCacheTtlSeconds(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "cacheTtlSeconds", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "cacheTtlSeconds", strconv.Itoa(*value))
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) FailureMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "failureMode")
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetFailureMode(value string) {
+	x.Doc().SetFormField(x.Path(), "failureMode", value)
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) AuthorizationLogging() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "authorizationLogging")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetAuthorizationLogging(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "authorizationLogging", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "authorizationLogging", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "authorizationLogging", "false")
+	}
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) LogDeniedRequests() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "logDeniedRequests")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetLogDeniedRequests(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "logDeniedRequests", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "logDeniedRequests", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "logDeniedRequests", "false")
+	}
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) LogSuccessfulAccess() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "logSuccessfulAccess")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetLogSuccessfulAccess(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "logSuccessfulAccess", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "logSuccessfulAccess", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "logSuccessfulAccess", "false")
+	}
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) AutomatedTesting() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "automatedTesting")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetAutomatedTesting(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "automatedTesting", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "automatedTesting", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "automatedTesting", "false")
+	}
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) ClientSideHints() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "clientSideHints")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetClientSideHints(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "clientSideHints", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "clientSideHints", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "clientSideHints", "false")
+	}
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *PermissionEvaluationBehaviorContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// PermissionGranularityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PermissionGranularityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewPermissionGranularityPolicyContentForm binds a PermissionGranularityPolicyContentForm facade to a document and a path.
+func NewPermissionGranularityPolicyContentForm(doc *som.SpecDocument, path string) *PermissionGranularityPolicyContentForm {
+	return &PermissionGranularityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PermissionGranularityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PermissionGranularityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PermissionGranularityPolicyContentForm) FunctionLevelControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "functionLevelControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetFunctionLevelControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "functionLevelControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "functionLevelControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "functionLevelControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) DataLevelControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "dataLevelControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetDataLevelControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dataLevelControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "dataLevelControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "dataLevelControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) FieldLevelControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "fieldLevelControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetFieldLevelControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "fieldLevelControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "fieldLevelControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "fieldLevelControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) UiElementControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "uiElementControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetUiElementControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "uiElementControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "uiElementControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "uiElementControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) ApiOperationControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "apiOperationControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetApiOperationControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "apiOperationControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "apiOperationControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "apiOperationControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) ObjectLevelControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "objectLevelControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetObjectLevelControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "objectLevelControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "objectLevelControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "objectLevelControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) TenantLevelControl() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "tenantLevelControl")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetTenantLevelControl(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "tenantLevelControl", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "tenantLevelControl", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "tenantLevelControl", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) FinestGranularity() string {
+	return x.Doc().FormFieldOr(x.Path(), "finestGranularity")
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetFinestGranularity(value string) {
+	x.Doc().SetFormField(x.Path(), "finestGranularity", value)
+}
+
+func (x *PermissionGranularityPolicyContentForm) DynamicPermissions() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "dynamicPermissions")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetDynamicPermissions(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dynamicPermissions", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "dynamicPermissions", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "dynamicPermissions", "false")
+	}
+}
+
+func (x *PermissionGranularityPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *PermissionGranularityPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // PermissionMatrixEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -162973,6 +169133,128 @@ func (x *RecoveryScenarioEntryContentForm) SetSupportEscalation(value string) {
 	x.Doc().SetFormField(x.Path(), "supportEscalation", value)
 }
 
+// RedirectHandlingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RedirectHandlingPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewRedirectHandlingPolicyContentForm binds a RedirectHandlingPolicyContentForm facade to a document and a path.
+func NewRedirectHandlingPolicyContentForm(doc *som.SpecDocument, path string) *RedirectHandlingPolicyContentForm {
+	return &RedirectHandlingPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RedirectHandlingPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RedirectHandlingPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) OauthRedirectUriPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "oauthRedirectUriPolicy")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetOauthRedirectUriPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "oauthRedirectUriPolicy", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) AllowedRedirectDomains() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedRedirectDomains")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetAllowedRedirectDomains(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedRedirectDomains", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) CallbackUrlValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "callbackUrlValidation")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetCallbackUrlValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "callbackUrlValidation", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) StateParameterRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "stateParameterRequired")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetStateParameterRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "stateParameterRequired", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) PkceRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "pkceRequired")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetPkceRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "pkceRequired", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) PkceMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "pkceMethod")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetPkceMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "pkceMethod", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) DeepLinkHandling() string {
+	return x.Doc().FormFieldOr(x.Path(), "deepLinkHandling")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetDeepLinkHandling(value string) {
+	x.Doc().SetFormField(x.Path(), "deepLinkHandling", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) ErrorRedirectBehavior() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorRedirectBehavior")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetErrorRedirectBehavior(value string) {
+	x.Doc().SetFormField(x.Path(), "errorRedirectBehavior", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) PostLogoutRedirectUri() string {
+	return x.Doc().FormFieldOr(x.Path(), "postLogoutRedirectUri")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetPostLogoutRedirectUri(value string) {
+	x.Doc().SetFormField(x.Path(), "postLogoutRedirectUri", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) SingleLogoutRedirectChain() string {
+	return x.Doc().FormFieldOr(x.Path(), "singleLogoutRedirectChain")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetSingleLogoutRedirectChain(value string) {
+	x.Doc().SetFormField(x.Path(), "singleLogoutRedirectChain", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) CorsPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "corsPolicy")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetCorsPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "corsPolicy", value)
+}
+
+func (x *RedirectHandlingPolicyContentForm) IframeEmbeddingPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "iframeEmbeddingPolicy")
+}
+
+func (x *RedirectHandlingPolicyContentForm) SetIframeEmbeddingPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "iframeEmbeddingPolicy", value)
+}
+
 // ReferenceDocumentEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ReferenceDocumentEntryContentForm struct {
@@ -164489,6 +170771,136 @@ func (x *ReliabilityVerificationForm) IncidentPostmortem() string {
 
 func (x *ReliabilityVerificationForm) SetIncidentPostmortem(value string) {
 	x.Doc().SetFormField(x.Path(), "incidentPostmortem", value)
+}
+
+// RememberMePolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RememberMePolicyContentForm struct {
+	som.SomNode
+}
+
+// NewRememberMePolicyContentForm binds a RememberMePolicyContentForm facade to a document and a path.
+func NewRememberMePolicyContentForm(doc *som.SpecDocument, path string) *RememberMePolicyContentForm {
+	return &RememberMePolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RememberMePolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RememberMePolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RememberMePolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeEnabled")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeEnabled", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeDuration() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeDuration")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeDuration(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeDuration", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeTokenType() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeTokenType")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeTokenType(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeTokenType", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeTokenStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeTokenStorage")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeTokenStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeTokenStorage", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeTokenRotation() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeTokenRotation")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeTokenRotation(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeTokenRotation", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeReuseDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeReuseDetection")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeReuseDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeReuseDetection", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeDeviceBinding() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeDeviceBinding")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeDeviceBinding(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeDeviceBinding", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeRevocation() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeRevocation")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeRevocation(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeRevocation", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeAalReduction() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeAalReduction")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeAalReduction(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeAalReduction", value)
+}
+
+func (x *RememberMePolicyContentForm) RememberMeRestrictedOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "rememberMeRestrictedOperations")
+}
+
+func (x *RememberMePolicyContentForm) SetRememberMeRestrictedOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "rememberMeRestrictedOperations", value)
+}
+
+func (x *RememberMePolicyContentForm) TrustedDeviceManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "trustedDeviceManagement")
+}
+
+func (x *RememberMePolicyContentForm) SetTrustedDeviceManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "trustedDeviceManagement", value)
+}
+
+func (x *RememberMePolicyContentForm) MaxTrustedDevices() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxTrustedDevices")
+}
+
+func (x *RememberMePolicyContentForm) SetMaxTrustedDevices(value string) {
+	x.Doc().SetFormField(x.Path(), "maxTrustedDevices", value)
+}
+
+func (x *RememberMePolicyContentForm) TrustedDeviceExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "trustedDeviceExpiry")
+}
+
+func (x *RememberMePolicyContentForm) SetTrustedDeviceExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "trustedDeviceExpiry", value)
 }
 
 // RemovedRoleEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -173717,6 +180129,168 @@ func (x *RoleAdjustmentsAdjustmentSummaryForm) SetGovernanceImpact(value Importa
 	x.Doc().SetFormField(x.Path(), "governanceImpact", string(value))
 }
 
+// RoleCertificationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RoleCertificationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewRoleCertificationPolicyContentForm binds a RoleCertificationPolicyContentForm facade to a document and a path.
+func NewRoleCertificationPolicyContentForm(doc *som.SpecDocument, path string) *RoleCertificationPolicyContentForm {
+	return &RoleCertificationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RoleCertificationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RoleCertificationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RoleCertificationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RoleCertificationPolicyContentForm) CertificationRequired() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "certificationRequired")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleCertificationPolicyContentForm) SetCertificationRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "certificationRequired", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "certificationRequired", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "certificationRequired", "false")
+	}
+}
+
+func (x *RoleCertificationPolicyContentForm) CertificationFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "certificationFrequency")
+}
+
+func (x *RoleCertificationPolicyContentForm) SetCertificationFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "certificationFrequency", value)
+}
+
+func (x *RoleCertificationPolicyContentForm) Certifier() string {
+	return x.Doc().FormFieldOr(x.Path(), "certifier")
+}
+
+func (x *RoleCertificationPolicyContentForm) SetCertifier(value string) {
+	x.Doc().SetFormField(x.Path(), "certifier", value)
+}
+
+func (x *RoleCertificationPolicyContentForm) NonResponseAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "nonResponseAction")
+}
+
+func (x *RoleCertificationPolicyContentForm) SetNonResponseAction(value string) {
+	x.Doc().SetFormField(x.Path(), "nonResponseAction", value)
+}
+
+func (x *RoleCertificationPolicyContentForm) RiskBasedScheduling() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "riskBasedScheduling")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleCertificationPolicyContentForm) SetRiskBasedScheduling(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "riskBasedScheduling", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "riskBasedScheduling", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "riskBasedScheduling", "false")
+	}
+}
+
+func (x *RoleCertificationPolicyContentForm) AutomatedDetection() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "automatedDetection")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleCertificationPolicyContentForm) SetAutomatedDetection(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "automatedDetection", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "automatedDetection", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "automatedDetection", "false")
+	}
+}
+
+func (x *RoleCertificationPolicyContentForm) DormantRoleThresholdDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "dormantRoleThresholdDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *RoleCertificationPolicyContentForm) SetDormantRoleThresholdDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dormantRoleThresholdDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "dormantRoleThresholdDays", strconv.Itoa(*value))
+}
+
+func (x *RoleCertificationPolicyContentForm) CertificationAuditTrail() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "certificationAuditTrail")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleCertificationPolicyContentForm) SetCertificationAuditTrail(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "certificationAuditTrail", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "certificationAuditTrail", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "certificationAuditTrail", "false")
+	}
+}
+
+func (x *RoleCertificationPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *RoleCertificationPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // RoleCombinationConstraintEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type RoleCombinationConstraintEntryContentForm struct {
@@ -173979,6 +180553,188 @@ func (x *RoleExclusionEntryContentForm) Severity() string {
 
 func (x *RoleExclusionEntryContentForm) SetSeverity(value string) {
 	x.Doc().SetFormField(x.Path(), "severity", value)
+}
+
+// RoleHierarchyPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RoleHierarchyPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewRoleHierarchyPolicyContentForm binds a RoleHierarchyPolicyContentForm facade to a document and a path.
+func NewRoleHierarchyPolicyContentForm(doc *som.SpecDocument, path string) *RoleHierarchyPolicyContentForm {
+	return &RoleHierarchyPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RoleHierarchyPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RoleHierarchyPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RoleHierarchyPolicyContentForm) HierarchyModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "hierarchyModel")
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetHierarchyModel(value string) {
+	x.Doc().SetFormField(x.Path(), "hierarchyModel", value)
+}
+
+func (x *RoleHierarchyPolicyContentForm) MaxHierarchyDepth() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxHierarchyDepth")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetMaxHierarchyDepth(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxHierarchyDepth", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxHierarchyDepth", strconv.Itoa(*value))
+}
+
+func (x *RoleHierarchyPolicyContentForm) InheritanceMode() string {
+	return x.Doc().FormFieldOr(x.Path(), "inheritanceMode")
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetInheritanceMode(value string) {
+	x.Doc().SetFormField(x.Path(), "inheritanceMode", value)
+}
+
+func (x *RoleHierarchyPolicyContentForm) MultipleInheritance() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "multipleInheritance")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetMultipleInheritance(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "multipleInheritance", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "multipleInheritance", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "multipleInheritance", "false")
+	}
+}
+
+func (x *RoleHierarchyPolicyContentForm) PermissionOverride() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "permissionOverride")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetPermissionOverride(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "permissionOverride", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "permissionOverride", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "permissionOverride", "false")
+	}
+}
+
+func (x *RoleHierarchyPolicyContentForm) ActivationConstraints() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "activationConstraints")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetActivationConstraints(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "activationConstraints", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "activationConstraints", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "activationConstraints", "false")
+	}
+}
+
+func (x *RoleHierarchyPolicyContentForm) MaxActiveRolesPerUser() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxActiveRolesPerUser")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetMaxActiveRolesPerUser(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxActiveRolesPerUser", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxActiveRolesPerUser", strconv.Itoa(*value))
+}
+
+func (x *RoleHierarchyPolicyContentForm) RolePriorityScheme() string {
+	return x.Doc().FormFieldOr(x.Path(), "rolePriorityScheme")
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetRolePriorityScheme(value string) {
+	x.Doc().SetFormField(x.Path(), "rolePriorityScheme", value)
+}
+
+func (x *RoleHierarchyPolicyContentForm) AutomaticInheritanceRevocation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "automaticInheritanceRevocation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetAutomaticInheritanceRevocation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "automaticInheritanceRevocation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "automaticInheritanceRevocation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "automaticInheritanceRevocation", "false")
+	}
+}
+
+func (x *RoleHierarchyPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *RoleHierarchyPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // RoleHolderEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -174549,6 +181305,120 @@ func (x *RollbackStrategyTriggersForm) RollbackTimeTarget() string {
 
 func (x *RollbackStrategyTriggersForm) SetRollbackTimeTarget(value string) {
 	x.Doc().SetFormField(x.Path(), "rollbackTimeTarget", value)
+}
+
+// RowLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RowLevelSecurityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewRowLevelSecurityPolicyContentForm binds a RowLevelSecurityPolicyContentForm facade to a document and a path.
+func NewRowLevelSecurityPolicyContentForm(doc *som.SpecDocument, path string) *RowLevelSecurityPolicyContentForm {
+	return &RowLevelSecurityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RowLevelSecurityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RowLevelSecurityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RowLevelSecurityEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "rowLevelSecurityEnabled")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRowLevelSecurityEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "rowLevelSecurityEnabled", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RlsImplementation() string {
+	return x.Doc().FormFieldOr(x.Path(), "rlsImplementation")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRlsImplementation(value string) {
+	x.Doc().SetFormField(x.Path(), "rlsImplementation", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RlsFilteringStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rlsFilteringStrategy")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRlsFilteringStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rlsFilteringStrategy", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RlsBypassPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rlsBypassPolicy")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRlsBypassPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "rlsBypassPolicy", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) HierarchicalVisibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "hierarchicalVisibility")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetHierarchicalVisibility(value string) {
+	x.Doc().SetFormField(x.Path(), "hierarchicalVisibility", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) HierarchyDepthLimit() string {
+	return x.Doc().FormFieldOr(x.Path(), "hierarchyDepthLimit")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetHierarchyDepthLimit(value string) {
+	x.Doc().SetFormField(x.Path(), "hierarchyDepthLimit", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) CrossTenantAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossTenantAccess")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetCrossTenantAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "crossTenantAccess", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) DataOwnerAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataOwnerAccess")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetDataOwnerAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "dataOwnerAccess", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SharedDataHandling() string {
+	return x.Doc().FormFieldOr(x.Path(), "sharedDataHandling")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetSharedDataHandling(value string) {
+	x.Doc().SetFormField(x.Path(), "sharedDataHandling", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RlsPerformanceStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rlsPerformanceStrategy")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRlsPerformanceStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rlsPerformanceStrategy", value)
+}
+
+func (x *RowLevelSecurityPolicyContentForm) RlsTestingStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rlsTestingStrategy")
+}
+
+func (x *RowLevelSecurityPolicyContentForm) SetRlsTestingStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "rlsTestingStrategy", value)
 }
 
 // RpoRtoRequirementsByTierForm is the generated section facade for the `byTier` @Form section: its own
@@ -183775,6 +190645,144 @@ func (x *SelfRegistrationPolicyVerificationForm) SetPhoneVerificationMethod(valu
 	x.Doc().SetFormField(x.Path(), "phoneVerificationMethod", value)
 }
 
+// SelfServiceAccountManagementContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SelfServiceAccountManagementContentForm struct {
+	som.SomNode
+}
+
+// NewSelfServiceAccountManagementContentForm binds a SelfServiceAccountManagementContentForm facade to a document and a path.
+func NewSelfServiceAccountManagementContentForm(doc *som.SpecDocument, path string) *SelfServiceAccountManagementContentForm {
+	return &SelfServiceAccountManagementContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SelfServiceAccountManagementContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SelfServiceAccountManagementContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) ProfileUpdateEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "profileUpdateEnabled")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetProfileUpdateEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "profileUpdateEnabled", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) PasswordChangeEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordChangeEnabled")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetPasswordChangeEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordChangeEnabled", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) PasswordResetEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordResetEnabled")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetPasswordResetEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordResetEnabled", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) PasswordResetMethods() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordResetMethods")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetPasswordResetMethods(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordResetMethods", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) MfaEnrollmentSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "mfaEnrollmentSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetMfaEnrollmentSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "mfaEnrollmentSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) AccountDeactivationSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "accountDeactivationSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetAccountDeactivationSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "accountDeactivationSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) AccountDeletionSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "accountDeletionSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetAccountDeletionSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "accountDeletionSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) DataExportSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataExportSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetDataExportSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "dataExportSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) SessionManagementSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionManagementSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetSessionManagementSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionManagementSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) ApiKeyManagementSelfService() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyManagementSelfService")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetApiKeyManagementSelfService(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyManagementSelfService", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) NotificationPreferences() string {
+	return x.Doc().FormFieldOr(x.Path(), "notificationPreferences")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetNotificationPreferences(value string) {
+	x.Doc().SetFormField(x.Path(), "notificationPreferences", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) DelegationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "delegationEnabled")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetDelegationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "delegationEnabled", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) DelegationScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "delegationScope")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetDelegationScope(value string) {
+	x.Doc().SetFormField(x.Path(), "delegationScope", value)
+}
+
+func (x *SelfServiceAccountManagementContentForm) AccountRecoveryProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "accountRecoveryProcess")
+}
+
+func (x *SelfServiceAccountManagementContentForm) SetAccountRecoveryProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "accountRecoveryProcess", value)
+}
+
 // ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ServerCallStepEntryContentForm struct {
@@ -185196,6 +192204,258 @@ func (x *ServerStorageRequirementsPerformanceForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// ServiceAccountCredentialPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServiceAccountCredentialPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewServiceAccountCredentialPolicyContentForm binds a ServiceAccountCredentialPolicyContentForm facade to a document and a path.
+func NewServiceAccountCredentialPolicyContentForm(doc *som.SpecDocument, path string) *ServiceAccountCredentialPolicyContentForm {
+	return &ServiceAccountCredentialPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServiceAccountCredentialPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServiceAccountCredentialPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) ServiceAccountPasswordPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountPasswordPolicy")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetServiceAccountPasswordPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountPasswordPolicy", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) ServiceAccountRotationPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountRotationPeriod")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetServiceAccountRotationPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountRotationPeriod", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) ApiKeyLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyLifetime")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetApiKeyLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyLifetime", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) ApiKeyRotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "apiKeyRotationPolicy")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetApiKeyRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "apiKeyRotationPolicy", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SecretsManagementTool() string {
+	return x.Doc().FormFieldOr(x.Path(), "secretsManagementTool")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetSecretsManagementTool(value string) {
+	x.Doc().SetFormField(x.Path(), "secretsManagementTool", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) MachineToMachineAuth() string {
+	return x.Doc().FormFieldOr(x.Path(), "machineToMachineAuth")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetMachineToMachineAuth(value string) {
+	x.Doc().SetFormField(x.Path(), "machineToMachineAuth", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) ServiceAccountMfaRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountMfaRequired")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetServiceAccountMfaRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountMfaRequired", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SharedCredentialProhibition() string {
+	return x.Doc().FormFieldOr(x.Path(), "sharedCredentialProhibition")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetSharedCredentialProhibition(value string) {
+	x.Doc().SetFormField(x.Path(), "sharedCredentialProhibition", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) CredentialVaultIntegration() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialVaultIntegration")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetCredentialVaultIntegration(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialVaultIntegration", value)
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) HardcodedCredentialDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "hardcodedCredentialDetection")
+}
+
+func (x *ServiceAccountCredentialPolicyContentForm) SetHardcodedCredentialDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "hardcodedCredentialDetection", value)
+}
+
+// ServiceAccountLifecycleContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServiceAccountLifecycleContentForm struct {
+	som.SomNode
+}
+
+// NewServiceAccountLifecycleContentForm binds a ServiceAccountLifecycleContentForm facade to a document and a path.
+func NewServiceAccountLifecycleContentForm(doc *som.SpecDocument, path string) *ServiceAccountLifecycleContentForm {
+	return &ServiceAccountLifecycleContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServiceAccountLifecycleContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServiceAccountLifecycleContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) ServiceAccountTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountTypes")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetServiceAccountTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountTypes", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) CreationProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "creationProcess")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetCreationProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "creationProcess", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) CreationApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "creationApproval")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetCreationApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "creationApproval", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) OwnerAssignment() string {
+	return x.Doc().FormFieldOr(x.Path(), "ownerAssignment")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetOwnerAssignment(value string) {
+	x.Doc().SetFormField(x.Path(), "ownerAssignment", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) OwnerReviewFrequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "ownerReviewFrequency")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetOwnerReviewFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "ownerReviewFrequency", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) CredentialRotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialRotationPolicy")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetCredentialRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialRotationPolicy", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) CredentialStorageMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "credentialStorageMethod")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetCredentialStorageMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "credentialStorageMethod", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) ScopeLimitation() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopeLimitation")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetScopeLimitation(value string) {
+	x.Doc().SetFormField(x.Path(), "scopeLimitation", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) IpRestriction() string {
+	return x.Doc().FormFieldOr(x.Path(), "ipRestriction")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetIpRestriction(value string) {
+	x.Doc().SetFormField(x.Path(), "ipRestriction", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) ExpirationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "expirationPolicy")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetExpirationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "expirationPolicy", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) RenewalProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "renewalProcess")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetRenewalProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "renewalProcess", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) DecommissioningProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "decommissioningProcess")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetDecommissioningProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "decommissioningProcess", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) MonitoringRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "monitoringRequirements")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetMonitoringRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "monitoringRequirements", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) ServiceAccountNamingConvention() string {
+	return x.Doc().FormFieldOr(x.Path(), "serviceAccountNamingConvention")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetServiceAccountNamingConvention(value string) {
+	x.Doc().SetFormField(x.Path(), "serviceAccountNamingConvention", value)
+}
+
+func (x *ServiceAccountLifecycleContentForm) DocumentationRequirements() string {
+	return x.Doc().FormFieldOr(x.Path(), "documentationRequirements")
+}
+
+func (x *ServiceAccountLifecycleContentForm) SetDocumentationRequirements(value string) {
+	x.Doc().SetFormField(x.Path(), "documentationRequirements", value)
+}
+
 // ServiceLevelAgreementEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ServiceLevelAgreementEntryContentForm struct {
@@ -185994,6 +193254,258 @@ func (x *ServiceMeshAndGatewayMeshForm) SetMtlsEnabled(value *bool) {
 	}
 }
 
+// SessionCreationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SessionCreationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewSessionCreationPolicyContentForm binds a SessionCreationPolicyContentForm facade to a document and a path.
+func NewSessionCreationPolicyContentForm(doc *som.SpecDocument, path string) *SessionCreationPolicyContentForm {
+	return &SessionCreationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SessionCreationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SessionCreationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SessionCreationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionMechanism() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionMechanism")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionMechanism(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionMechanism", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionIdGeneration() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionIdGeneration")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionIdGeneration(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionIdGeneration", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionIdEntropy() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionIdEntropy")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionIdEntropy(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionIdEntropy", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionBindingMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionBindingMethod")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionBindingMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionBindingMethod", value)
+}
+
+func (x *SessionCreationPolicyContentForm) HttpOnlyCookies() string {
+	return x.Doc().FormFieldOr(x.Path(), "httpOnlyCookies")
+}
+
+func (x *SessionCreationPolicyContentForm) SetHttpOnlyCookies(value string) {
+	x.Doc().SetFormField(x.Path(), "httpOnlyCookies", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SecureCookies() string {
+	return x.Doc().FormFieldOr(x.Path(), "secureCookies")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSecureCookies(value string) {
+	x.Doc().SetFormField(x.Path(), "secureCookies", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SameSitePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "sameSitePolicy")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSameSitePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "sameSitePolicy", value)
+}
+
+func (x *SessionCreationPolicyContentForm) CookieDomain() string {
+	return x.Doc().FormFieldOr(x.Path(), "cookieDomain")
+}
+
+func (x *SessionCreationPolicyContentForm) SetCookieDomain(value string) {
+	x.Doc().SetFormField(x.Path(), "cookieDomain", value)
+}
+
+func (x *SessionCreationPolicyContentForm) DeviceBinding() string {
+	return x.Doc().FormFieldOr(x.Path(), "deviceBinding")
+}
+
+func (x *SessionCreationPolicyContentForm) SetDeviceBinding(value string) {
+	x.Doc().SetFormField(x.Path(), "deviceBinding", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionDataStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionDataStorage")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionDataStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionDataStorage", value)
+}
+
+func (x *SessionCreationPolicyContentForm) SessionReplicationStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionReplicationStrategy")
+}
+
+func (x *SessionCreationPolicyContentForm) SetSessionReplicationStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionReplicationStrategy", value)
+}
+
+func (x *SessionCreationPolicyContentForm) CsrfProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "csrfProtection")
+}
+
+func (x *SessionCreationPolicyContentForm) SetCsrfProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "csrfProtection", value)
+}
+
+func (x *SessionCreationPolicyContentForm) PostLoginRedirectValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "postLoginRedirectValidation")
+}
+
+func (x *SessionCreationPolicyContentForm) SetPostLoginRedirectValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "postLoginRedirectValidation", value)
+}
+
+// SessionLifecycleMonitoringContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SessionLifecycleMonitoringContentForm struct {
+	som.SomNode
+}
+
+// NewSessionLifecycleMonitoringContentForm binds a SessionLifecycleMonitoringContentForm facade to a document and a path.
+func NewSessionLifecycleMonitoringContentForm(doc *som.SpecDocument, path string) *SessionLifecycleMonitoringContentForm {
+	return &SessionLifecycleMonitoringContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SessionLifecycleMonitoringContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SessionLifecycleMonitoringContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionCreationLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionCreationLogging")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionCreationLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionCreationLogging", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionDestructionLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionDestructionLogging")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionDestructionLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionDestructionLogging", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionRenewalLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionRenewalLogging")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionRenewalLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionRenewalLogging", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionEventDetails() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionEventDetails")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionEventDetails(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionEventDetails", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionIdInLogs() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionIdInLogs")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionIdInLogs(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionIdInLogs", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionActivityTracking() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionActivityTracking")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionActivityTracking(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionActivityTracking", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionHistoryVisibleToUser() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionHistoryVisibleToUser")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionHistoryVisibleToUser(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionHistoryVisibleToUser", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) FailedSessionAccessLogging() string {
+	return x.Doc().FormFieldOr(x.Path(), "failedSessionAccessLogging")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetFailedSessionAccessLogging(value string) {
+	x.Doc().SetFormField(x.Path(), "failedSessionAccessLogging", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionMetricsCollection() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionMetricsCollection")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionMetricsCollection(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionMetricsCollection", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SessionAuditRetention() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionAuditRetention")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetSessionAuditRetention(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionAuditRetention", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) RealTimeSessionAlerts() string {
+	return x.Doc().FormFieldOr(x.Path(), "realTimeSessionAlerts")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetRealTimeSessionAlerts(value string) {
+	x.Doc().SetFormField(x.Path(), "realTimeSessionAlerts", value)
+}
+
+func (x *SessionLifecycleMonitoringContentForm) AlertTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "alertTriggers")
+}
+
+func (x *SessionLifecycleMonitoringContentForm) SetAlertTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "alertTriggers", value)
+}
+
 // SessionModelLifecycleForm is the generated section facade for the `lifecycle` @Form section: its own
 // content text followed by one typed member per form field.
 type SessionModelLifecycleForm struct {
@@ -186178,6 +193690,420 @@ func (x *SessionModelSessionConfigurationForm) AbsoluteTimeout() string {
 
 func (x *SessionModelSessionConfigurationForm) SetAbsoluteTimeout(value string) {
 	x.Doc().SetFormField(x.Path(), "absoluteTimeout", value)
+}
+
+// SessionRevocationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SessionRevocationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewSessionRevocationPolicyContentForm binds a SessionRevocationPolicyContentForm facade to a document and a path.
+func NewSessionRevocationPolicyContentForm(doc *som.SpecDocument, path string) *SessionRevocationPolicyContentForm {
+	return &SessionRevocationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SessionRevocationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SessionRevocationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SessionRevocationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SessionRevocationPolicyContentForm) LogoutMechanism() string {
+	return x.Doc().FormFieldOr(x.Path(), "logoutMechanism")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetLogoutMechanism(value string) {
+	x.Doc().SetFormField(x.Path(), "logoutMechanism", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) LogoutButtonPlacement() string {
+	return x.Doc().FormFieldOr(x.Path(), "logoutButtonPlacement")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetLogoutButtonPlacement(value string) {
+	x.Doc().SetFormField(x.Path(), "logoutButtonPlacement", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) LogoutConfirmation() string {
+	return x.Doc().FormFieldOr(x.Path(), "logoutConfirmation")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetLogoutConfirmation(value string) {
+	x.Doc().SetFormField(x.Path(), "logoutConfirmation", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) PostLogoutRedirect() string {
+	return x.Doc().FormFieldOr(x.Path(), "postLogoutRedirect")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetPostLogoutRedirect(value string) {
+	x.Doc().SetFormField(x.Path(), "postLogoutRedirect", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) PostLogoutCacheClear() string {
+	return x.Doc().FormFieldOr(x.Path(), "postLogoutCacheClear")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetPostLogoutCacheClear(value string) {
+	x.Doc().SetFormField(x.Path(), "postLogoutCacheClear", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) SingleLogoutEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "singleLogoutEnabled")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetSingleLogoutEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "singleLogoutEnabled", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) SingleLogoutProtocol() string {
+	return x.Doc().FormFieldOr(x.Path(), "singleLogoutProtocol")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetSingleLogoutProtocol(value string) {
+	x.Doc().SetFormField(x.Path(), "singleLogoutProtocol", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) PrivilegeChangeRevocation() string {
+	return x.Doc().FormFieldOr(x.Path(), "privilegeChangeRevocation")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetPrivilegeChangeRevocation(value string) {
+	x.Doc().SetFormField(x.Path(), "privilegeChangeRevocation", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) PasswordChangeRevocation() string {
+	return x.Doc().FormFieldOr(x.Path(), "passwordChangeRevocation")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetPasswordChangeRevocation(value string) {
+	x.Doc().SetFormField(x.Path(), "passwordChangeRevocation", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) CompromiseRevocation() string {
+	return x.Doc().FormFieldOr(x.Path(), "compromiseRevocation")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetCompromiseRevocation(value string) {
+	x.Doc().SetFormField(x.Path(), "compromiseRevocation", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) AdminTerminationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "adminTerminationEnabled")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetAdminTerminationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "adminTerminationEnabled", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) BulkRevocationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "bulkRevocationEnabled")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetBulkRevocationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "bulkRevocationEnabled", value)
+}
+
+func (x *SessionRevocationPolicyContentForm) RevocationPropagationDelay() string {
+	return x.Doc().FormFieldOr(x.Path(), "revocationPropagationDelay")
+}
+
+func (x *SessionRevocationPolicyContentForm) SetRevocationPropagationDelay(value string) {
+	x.Doc().SetFormField(x.Path(), "revocationPropagationDelay", value)
+}
+
+// SessionSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SessionSecurityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewSessionSecurityPolicyContentForm binds a SessionSecurityPolicyContentForm facade to a document and a path.
+func NewSessionSecurityPolicyContentForm(doc *som.SpecDocument, path string) *SessionSecurityPolicyContentForm {
+	return &SessionSecurityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SessionSecurityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SessionSecurityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SessionSecurityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionFixationProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionFixationProtection")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionFixationProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionFixationProtection", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionIdRegenerationTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionIdRegenerationTriggers")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionIdRegenerationTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionIdRegenerationTriggers", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionBindingProperties() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionBindingProperties")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionBindingProperties(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionBindingProperties", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) BindingMismatchAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "bindingMismatchAction")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetBindingMismatchAction(value string) {
+	x.Doc().SetFormField(x.Path(), "bindingMismatchAction", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionAnomalyDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionAnomalyDetection")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionAnomalyDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionAnomalyDetection", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) AnomalyDetectionSignals() string {
+	return x.Doc().FormFieldOr(x.Path(), "anomalyDetectionSignals")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetAnomalyDetectionSignals(value string) {
+	x.Doc().SetFormField(x.Path(), "anomalyDetectionSignals", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionCachePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionCachePolicy")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionCachePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionCachePolicy", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) ClearSiteDataOnLogout() string {
+	return x.Doc().FormFieldOr(x.Path(), "clearSiteDataOnLogout")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetClearSiteDataOnLogout(value string) {
+	x.Doc().SetFormField(x.Path(), "clearSiteDataOnLogout", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionTransportSecurity() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionTransportSecurity")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionTransportSecurity(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionTransportSecurity", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionIdInUrlPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionIdInUrlPrevention")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionIdInUrlPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionIdInUrlPrevention", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) CrossOriginSessionProtection() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossOriginSessionProtection")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetCrossOriginSessionProtection(value string) {
+	x.Doc().SetFormField(x.Path(), "crossOriginSessionProtection", value)
+}
+
+func (x *SessionSecurityPolicyContentForm) SessionDataMinimization() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionDataMinimization")
+}
+
+func (x *SessionSecurityPolicyContentForm) SetSessionDataMinimization(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionDataMinimization", value)
+}
+
+// SessionTimeoutPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SessionTimeoutPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewSessionTimeoutPolicyContentForm binds a SessionTimeoutPolicyContentForm facade to a document and a path.
+func NewSessionTimeoutPolicyContentForm(doc *som.SpecDocument, path string) *SessionTimeoutPolicyContentForm {
+	return &SessionTimeoutPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SessionTimeoutPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SessionTimeoutPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) IdleTimeoutDefault() string {
+	return x.Doc().FormFieldOr(x.Path(), "idleTimeoutDefault")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetIdleTimeoutDefault(value string) {
+	x.Doc().SetFormField(x.Path(), "idleTimeoutDefault", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) IdleTimeoutHighValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "idleTimeoutHighValue")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetIdleTimeoutHighValue(value string) {
+	x.Doc().SetFormField(x.Path(), "idleTimeoutHighValue", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) AbsoluteTimeout() string {
+	return x.Doc().FormFieldOr(x.Path(), "absoluteTimeout")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetAbsoluteTimeout(value string) {
+	x.Doc().SetFormField(x.Path(), "absoluteTimeout", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) RenewalTimeout() string {
+	return x.Doc().FormFieldOr(x.Path(), "renewalTimeout")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetRenewalTimeout(value string) {
+	x.Doc().SetFormField(x.Path(), "renewalTimeout", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) IdleTimeoutAal1() string {
+	return x.Doc().FormFieldOr(x.Path(), "idleTimeoutAal1")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetIdleTimeoutAal1(value string) {
+	x.Doc().SetFormField(x.Path(), "idleTimeoutAal1", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) AbsoluteTimeoutAal1() string {
+	return x.Doc().FormFieldOr(x.Path(), "absoluteTimeoutAal1")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetAbsoluteTimeoutAal1(value string) {
+	x.Doc().SetFormField(x.Path(), "absoluteTimeoutAal1", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) IdleTimeoutAal2() string {
+	return x.Doc().FormFieldOr(x.Path(), "idleTimeoutAal2")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetIdleTimeoutAal2(value string) {
+	x.Doc().SetFormField(x.Path(), "idleTimeoutAal2", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) AbsoluteTimeoutAal2() string {
+	return x.Doc().FormFieldOr(x.Path(), "absoluteTimeoutAal2")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetAbsoluteTimeoutAal2(value string) {
+	x.Doc().SetFormField(x.Path(), "absoluteTimeoutAal2", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) IdleTimeoutAal3() string {
+	return x.Doc().FormFieldOr(x.Path(), "idleTimeoutAal3")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetIdleTimeoutAal3(value string) {
+	x.Doc().SetFormField(x.Path(), "idleTimeoutAal3", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) AbsoluteTimeoutAal3() string {
+	return x.Doc().FormFieldOr(x.Path(), "absoluteTimeoutAal3")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetAbsoluteTimeoutAal3(value string) {
+	x.Doc().SetFormField(x.Path(), "absoluteTimeoutAal3", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) TimeoutEnforcement() string {
+	return x.Doc().FormFieldOr(x.Path(), "timeoutEnforcement")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetTimeoutEnforcement(value string) {
+	x.Doc().SetFormField(x.Path(), "timeoutEnforcement", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) TimeoutWarningEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "timeoutWarningEnabled")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetTimeoutWarningEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "timeoutWarningEnabled", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) TimeoutWarningLeadTime() string {
+	return x.Doc().FormFieldOr(x.Path(), "timeoutWarningLeadTime")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetTimeoutWarningLeadTime(value string) {
+	x.Doc().SetFormField(x.Path(), "timeoutWarningLeadTime", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) TimeoutWarningAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "timeoutWarningAction")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetTimeoutWarningAction(value string) {
+	x.Doc().SetFormField(x.Path(), "timeoutWarningAction", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) SessionExtensionAllowed() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionExtensionAllowed")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetSessionExtensionAllowed(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionExtensionAllowed", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) MaxExtensions() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxExtensions")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetMaxExtensions(value string) {
+	x.Doc().SetFormField(x.Path(), "maxExtensions", value)
+}
+
+func (x *SessionTimeoutPolicyContentForm) GracePeriodAfterExpiry() string {
+	return x.Doc().FormFieldOr(x.Path(), "gracePeriodAfterExpiry")
+}
+
+func (x *SessionTimeoutPolicyContentForm) SetGracePeriodAfterExpiry(value string) {
+	x.Doc().SetFormField(x.Path(), "gracePeriodAfterExpiry", value)
 }
 
 // SharedInfrastructureEntryCapacityForm is the generated section facade for the `capacity` @Form section: its own
@@ -188480,6 +196406,128 @@ func (x *SpecializedEquipmentEntryTechnicalForm) Certifications() string {
 
 func (x *SpecializedEquipmentEntryTechnicalForm) SetCertifications(value string) {
 	x.Doc().SetFormField(x.Path(), "certifications", value)
+}
+
+// SsoPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type SsoPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewSsoPolicyContentForm binds a SsoPolicyContentForm facade to a document and a path.
+func NewSsoPolicyContentForm(doc *som.SpecDocument, path string) *SsoPolicyContentForm {
+	return &SsoPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SsoPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SsoPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SsoPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SsoPolicyContentForm) SsoEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "ssoEnabled")
+}
+
+func (x *SsoPolicyContentForm) SetSsoEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "ssoEnabled", value)
+}
+
+func (x *SsoPolicyContentForm) SsoProtocol() string {
+	return x.Doc().FormFieldOr(x.Path(), "ssoProtocol")
+}
+
+func (x *SsoPolicyContentForm) SetSsoProtocol(value string) {
+	x.Doc().SetFormField(x.Path(), "ssoProtocol", value)
+}
+
+func (x *SsoPolicyContentForm) IdentityProviderType() string {
+	return x.Doc().FormFieldOr(x.Path(), "identityProviderType")
+}
+
+func (x *SsoPolicyContentForm) SetIdentityProviderType(value string) {
+	x.Doc().SetFormField(x.Path(), "identityProviderType", value)
+}
+
+func (x *SsoPolicyContentForm) IdentityProviderProduct() string {
+	return x.Doc().FormFieldOr(x.Path(), "identityProviderProduct")
+}
+
+func (x *SsoPolicyContentForm) SetIdentityProviderProduct(value string) {
+	x.Doc().SetFormField(x.Path(), "identityProviderProduct", value)
+}
+
+func (x *SsoPolicyContentForm) FederationProtocol() string {
+	return x.Doc().FormFieldOr(x.Path(), "federationProtocol")
+}
+
+func (x *SsoPolicyContentForm) SetFederationProtocol(value string) {
+	x.Doc().SetFormField(x.Path(), "federationProtocol", value)
+}
+
+func (x *SsoPolicyContentForm) AttributeMapping() string {
+	return x.Doc().FormFieldOr(x.Path(), "attributeMapping")
+}
+
+func (x *SsoPolicyContentForm) SetAttributeMapping(value string) {
+	x.Doc().SetFormField(x.Path(), "attributeMapping", value)
+}
+
+func (x *SsoPolicyContentForm) JustInTimeProvisioning() string {
+	return x.Doc().FormFieldOr(x.Path(), "justInTimeProvisioning")
+}
+
+func (x *SsoPolicyContentForm) SetJustInTimeProvisioning(value string) {
+	x.Doc().SetFormField(x.Path(), "justInTimeProvisioning", value)
+}
+
+func (x *SsoPolicyContentForm) SessionSynchronization() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionSynchronization")
+}
+
+func (x *SsoPolicyContentForm) SetSessionSynchronization(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionSynchronization", value)
+}
+
+func (x *SsoPolicyContentForm) SingleLogoutEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "singleLogoutEnabled")
+}
+
+func (x *SsoPolicyContentForm) SetSingleLogoutEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "singleLogoutEnabled", value)
+}
+
+func (x *SsoPolicyContentForm) SsoFallbackMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "ssoFallbackMethod")
+}
+
+func (x *SsoPolicyContentForm) SetSsoFallbackMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "ssoFallbackMethod", value)
+}
+
+func (x *SsoPolicyContentForm) SsoScopePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "ssoScopePolicy")
+}
+
+func (x *SsoPolicyContentForm) SetSsoScopePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "ssoScopePolicy", value)
+}
+
+func (x *SsoPolicyContentForm) ExternalIdpTrustPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "externalIdpTrustPolicy")
+}
+
+func (x *SsoPolicyContentForm) SetExternalIdpTrustPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "externalIdpTrustPolicy", value)
 }
 
 // StaffingBudgetAllocationsForm is the generated section facade for the `allocations` @Form section: its own
@@ -193746,6 +201794,637 @@ func (x *StakeholdersAndInterestsContentForm) OtherStakeholders() string {
 
 func (x *StakeholdersAndInterestsContentForm) SetOtherStakeholders(value string) {
 	x.Doc().SetFormField(x.Path(), "otherStakeholders", value)
+}
+
+// StepUpAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type StepUpAuthenticationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewStepUpAuthenticationPolicyContentForm binds a StepUpAuthenticationPolicyContentForm facade to a document and a path.
+func NewStepUpAuthenticationPolicyContentForm(doc *som.SpecDocument, path string) *StepUpAuthenticationPolicyContentForm {
+	return &StepUpAuthenticationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *StepUpAuthenticationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *StepUpAuthenticationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) StepUpEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpEnabled")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetStepUpEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpEnabled", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) StepUpTriggers() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpTriggers")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetStepUpTriggers(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpTriggers", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) StepUpTargetAal() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpTargetAal")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetStepUpTargetAal(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpTargetAal", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) StepUpTimeout() string {
+	return x.Doc().FormFieldOr(x.Path(), "stepUpTimeout")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetStepUpTimeout(value string) {
+	x.Doc().SetFormField(x.Path(), "stepUpTimeout", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) RiskBasedAuthEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "riskBasedAuthEnabled")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetRiskBasedAuthEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "riskBasedAuthEnabled", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) RiskSignals() string {
+	return x.Doc().FormFieldOr(x.Path(), "riskSignals")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetRiskSignals(value string) {
+	x.Doc().SetFormField(x.Path(), "riskSignals", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) RiskScoringMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "riskScoringMethod")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetRiskScoringMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "riskScoringMethod", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) LowRiskAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "lowRiskAction")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetLowRiskAction(value string) {
+	x.Doc().SetFormField(x.Path(), "lowRiskAction", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) MediumRiskAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "mediumRiskAction")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetMediumRiskAction(value string) {
+	x.Doc().SetFormField(x.Path(), "mediumRiskAction", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) HighRiskAction() string {
+	return x.Doc().FormFieldOr(x.Path(), "highRiskAction")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetHighRiskAction(value string) {
+	x.Doc().SetFormField(x.Path(), "highRiskAction", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) AdaptiveAuthProvider() string {
+	return x.Doc().FormFieldOr(x.Path(), "adaptiveAuthProvider")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetAdaptiveAuthProvider(value string) {
+	x.Doc().SetFormField(x.Path(), "adaptiveAuthProvider", value)
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) ContinuousAuthEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "continuousAuthEnabled")
+}
+
+func (x *StepUpAuthenticationPolicyContentForm) SetContinuousAuthEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "continuousAuthEnabled", value)
+}
+
+// StorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type StorageEncryptionPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewStorageEncryptionPolicyContentForm binds a StorageEncryptionPolicyContentForm facade to a document and a path.
+func NewStorageEncryptionPolicyContentForm(doc *som.SpecDocument, path string) *StorageEncryptionPolicyContentForm {
+	return &StorageEncryptionPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *StorageEncryptionPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *StorageEncryptionPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) EncryptionAtRest() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "encryptionAtRest")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetEncryptionAtRest(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "encryptionAtRest", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "encryptionAtRest", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "encryptionAtRest", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) EncryptionAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptionAlgorithm")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetEncryptionAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptionAlgorithm", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) EncryptionScope() string {
+	return x.Doc().FormFieldOr(x.Path(), "encryptionScope")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetEncryptionScope(value string) {
+	x.Doc().SetFormField(x.Path(), "encryptionScope", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) ServerSideEncryption() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverSideEncryption")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetServerSideEncryption(value string) {
+	x.Doc().SetFormField(x.Path(), "serverSideEncryption", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) ClientSideEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "clientSideEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetClientSideEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "clientSideEncryption", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) ClientSideEncryptionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientSideEncryptionMethod")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetClientSideEncryptionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "clientSideEncryptionMethod", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) FileKeyRotation() string {
+	return x.Doc().FormFieldOr(x.Path(), "fileKeyRotation")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetFileKeyRotation(value string) {
+	x.Doc().SetFormField(x.Path(), "fileKeyRotation", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) PerTenantKeys() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "perTenantKeys")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetPerTenantKeys(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "perTenantKeys", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "perTenantKeys", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "perTenantKeys", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) KeyDeletionOnTenantRemoval() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "keyDeletionOnTenantRemoval")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetKeyDeletionOnTenantRemoval(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "keyDeletionOnTenantRemoval", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "keyDeletionOnTenantRemoval", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "keyDeletionOnTenantRemoval", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) EncryptionInTransit() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "encryptionInTransit")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetEncryptionInTransit(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "encryptionInTransit", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "encryptionInTransit", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "encryptionInTransit", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) MinimumTlsVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumTlsVersion")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetMinimumTlsVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumTlsVersion", value)
+}
+
+func (x *StorageEncryptionPolicyContentForm) BackupEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "backupEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetBackupEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "backupEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "backupEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "backupEncryption", "false")
+	}
+}
+
+func (x *StorageEncryptionPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *StorageEncryptionPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// StorageLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type StorageLifecyclePolicyContentForm struct {
+	som.SomNode
+}
+
+// NewStorageLifecyclePolicyContentForm binds a StorageLifecyclePolicyContentForm facade to a document and a path.
+func NewStorageLifecyclePolicyContentForm(doc *som.SpecDocument, path string) *StorageLifecyclePolicyContentForm {
+	return &StorageLifecyclePolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *StorageLifecyclePolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *StorageLifecyclePolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) RetentionPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "retentionPolicy")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetRetentionPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "retentionPolicy", value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) DefaultRetentionPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultRetentionPeriod")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetDefaultRetentionPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultRetentionPeriod", value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) RetentionByFileType() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "retentionByFileType")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetRetentionByFileType(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "retentionByFileType", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "retentionByFileType", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "retentionByFileType", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) LegalHoldSupport() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "legalHoldSupport")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetLegalHoldSupport(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "legalHoldSupport", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "legalHoldSupport", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "legalHoldSupport", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) ArchivingEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "archivingEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetArchivingEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "archivingEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "archivingEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "archivingEnabled", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) ArchivalStorageTier() string {
+	return x.Doc().FormFieldOr(x.Path(), "archivalStorageTier")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetArchivalStorageTier(value string) {
+	x.Doc().SetFormField(x.Path(), "archivalStorageTier", value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) ArchivalTransitionDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "archivalTransitionDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetArchivalTransitionDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "archivalTransitionDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "archivalTransitionDays", strconv.Itoa(*value))
+}
+
+func (x *StorageLifecyclePolicyContentForm) VersioningEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "versioningEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetVersioningEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "versioningEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "versioningEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "versioningEnabled", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) MaxVersions() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxVersions")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetMaxVersions(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxVersions", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxVersions", strconv.Itoa(*value))
+}
+
+func (x *StorageLifecyclePolicyContentForm) VersionRetentionDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "versionRetentionDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetVersionRetentionDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "versionRetentionDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "versionRetentionDays", strconv.Itoa(*value))
+}
+
+func (x *StorageLifecyclePolicyContentForm) BackupSchedule() string {
+	return x.Doc().FormFieldOr(x.Path(), "backupSchedule")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetBackupSchedule(value string) {
+	x.Doc().SetFormField(x.Path(), "backupSchedule", value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) BackupRetentionDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "backupRetentionDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetBackupRetentionDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "backupRetentionDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "backupRetentionDays", strconv.Itoa(*value))
+}
+
+func (x *StorageLifecyclePolicyContentForm) CrossRegionReplication() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "crossRegionReplication")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetCrossRegionReplication(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "crossRegionReplication", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "crossRegionReplication", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "crossRegionReplication", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) SecureDeletionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "secureDeletionMethod")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetSecureDeletionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "secureDeletionMethod", value)
+}
+
+func (x *StorageLifecyclePolicyContentForm) DeletionConfirmation() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "deletionConfirmation")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetDeletionConfirmation(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "deletionConfirmation", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "deletionConfirmation", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "deletionConfirmation", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) DeletionAuditLogging() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "deletionAuditLogging")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetDeletionAuditLogging(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "deletionAuditLogging", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "deletionAuditLogging", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "deletionAuditLogging", "false")
+	}
+}
+
+func (x *StorageLifecyclePolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *StorageLifecyclePolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // StrategicAlignmentAlignmentDetailsForm is the generated section facade for the `alignmentDetails` @Form section: its own
@@ -203947,6 +212626,225 @@ func (x *TechnologyStandardEntryScopeForm) SetExceptionProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "exceptionProcess", value)
 }
 
+// TenantBoundaryEnforcementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TenantBoundaryEnforcementPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTenantBoundaryEnforcementPolicyContentForm binds a TenantBoundaryEnforcementPolicyContentForm facade to a document and a path.
+func NewTenantBoundaryEnforcementPolicyContentForm(doc *som.SpecDocument, path string) *TenantBoundaryEnforcementPolicyContentForm {
+	return &TenantBoundaryEnforcementPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TenantBoundaryEnforcementPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TenantBoundaryEnforcementPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) EnforcementLayer() string {
+	return x.Doc().FormFieldOr(x.Path(), "enforcementLayer")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetEnforcementLayer(value string) {
+	x.Doc().SetFormField(x.Path(), "enforcementLayer", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) AuthorizationFilterStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationFilterStrategy")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetAuthorizationFilterStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationFilterStrategy", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) ImplicitTenantFilter() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "implicitTenantFilter")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetImplicitTenantFilter(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "implicitTenantFilter", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "implicitTenantFilter", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "implicitTenantFilter", "false")
+	}
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) EscalationPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "escalationPrevention")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetEscalationPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "escalationPrevention", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SharedServiceAuthorization() string {
+	return x.Doc().FormFieldOr(x.Path(), "sharedServiceAuthorization")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetSharedServiceAuthorization(value string) {
+	x.Doc().SetFormField(x.Path(), "sharedServiceAuthorization", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) TenantSwitchingPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantSwitchingPolicy")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetTenantSwitchingPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantSwitchingPolicy", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) MultiTenantUserSupport() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "multiTenantUserSupport")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetMultiTenantUserSupport(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "multiTenantUserSupport", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "multiTenantUserSupport", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "multiTenantUserSupport", "false")
+	}
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) AuthorizationCaching() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationCaching")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetAuthorizationCaching(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationCaching", value)
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *TenantBoundaryEnforcementPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// TenantContextPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TenantContextPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTenantContextPolicyContentForm binds a TenantContextPolicyContentForm facade to a document and a path.
+func NewTenantContextPolicyContentForm(doc *som.SpecDocument, path string) *TenantContextPolicyContentForm {
+	return &TenantContextPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TenantContextPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TenantContextPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TenantContextPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TenantContextPolicyContentForm) ContextResolutionMethod() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextResolutionMethod")
+}
+
+func (x *TenantContextPolicyContentForm) SetContextResolutionMethod(value string) {
+	x.Doc().SetFormField(x.Path(), "contextResolutionMethod", value)
+}
+
+func (x *TenantContextPolicyContentForm) ContextPropagation() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextPropagation")
+}
+
+func (x *TenantContextPolicyContentForm) SetContextPropagation(value string) {
+	x.Doc().SetFormField(x.Path(), "contextPropagation", value)
+}
+
+func (x *TenantContextPolicyContentForm) ContextValidation() string {
+	return x.Doc().FormFieldOr(x.Path(), "contextValidation")
+}
+
+func (x *TenantContextPolicyContentForm) SetContextValidation(value string) {
+	x.Doc().SetFormField(x.Path(), "contextValidation", value)
+}
+
+func (x *TenantContextPolicyContentForm) ContextImmutability() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "contextImmutability")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TenantContextPolicyContentForm) SetContextImmutability(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "contextImmutability", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "contextImmutability", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "contextImmutability", "false")
+	}
+}
+
+func (x *TenantContextPolicyContentForm) CrossServicePropagation() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossServicePropagation")
+}
+
+func (x *TenantContextPolicyContentForm) SetCrossServicePropagation(value string) {
+	x.Doc().SetFormField(x.Path(), "crossServicePropagation", value)
+}
+
+func (x *TenantContextPolicyContentForm) MissingContextBehavior() string {
+	return x.Doc().FormFieldOr(x.Path(), "missingContextBehavior")
+}
+
+func (x *TenantContextPolicyContentForm) SetMissingContextBehavior(value string) {
+	x.Doc().SetFormField(x.Path(), "missingContextBehavior", value)
+}
+
+func (x *TenantContextPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *TenantContextPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // TenantCustomizationEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type TenantCustomizationEntryContentForm struct {
@@ -204107,6 +213005,230 @@ func (x *TenantCustomizationEntryContentForm) Notes() string {
 }
 
 func (x *TenantCustomizationEntryContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// TenantDataIsolationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TenantDataIsolationPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTenantDataIsolationPolicyContentForm binds a TenantDataIsolationPolicyContentForm facade to a document and a path.
+func NewTenantDataIsolationPolicyContentForm(doc *som.SpecDocument, path string) *TenantDataIsolationPolicyContentForm {
+	return &TenantDataIsolationPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TenantDataIsolationPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TenantDataIsolationPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantIsolationModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantIsolationModel")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantIsolationModel(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantIsolationModel", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantIdentifierColumn() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantIdentifierColumn")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantIdentifierColumn(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantIdentifierColumn", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantContextInjection() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantContextInjection")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantContextInjection(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantContextInjection", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantIsolationEnforcement() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantIsolationEnforcement")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantIsolationEnforcement(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantIsolationEnforcement", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) CrossTenantQueryPrevention() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossTenantQueryPrevention")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetCrossTenantQueryPrevention(value string) {
+	x.Doc().SetFormField(x.Path(), "crossTenantQueryPrevention", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantDataBackupIsolation() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantDataBackupIsolation")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantDataBackupIsolation(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantDataBackupIsolation", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantDataDeletion() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantDataDeletion")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantDataDeletion(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantDataDeletion", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantDataExport() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantDataExport")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantDataExport(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantDataExport", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantResourceQuotas() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantResourceQuotas")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantResourceQuotas(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantResourceQuotas", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) TenantIsolationTesting() string {
+	return x.Doc().FormFieldOr(x.Path(), "tenantIsolationTesting")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetTenantIsolationTesting(value string) {
+	x.Doc().SetFormField(x.Path(), "tenantIsolationTesting", value)
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SharedReferenceDataAccess() string {
+	return x.Doc().FormFieldOr(x.Path(), "sharedReferenceDataAccess")
+}
+
+func (x *TenantDataIsolationPolicyContentForm) SetSharedReferenceDataAccess(value string) {
+	x.Doc().SetFormField(x.Path(), "sharedReferenceDataAccess", value)
+}
+
+// TenantOnboardingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TenantOnboardingPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTenantOnboardingPolicyContentForm binds a TenantOnboardingPolicyContentForm facade to a document and a path.
+func NewTenantOnboardingPolicyContentForm(doc *som.SpecDocument, path string) *TenantOnboardingPolicyContentForm {
+	return &TenantOnboardingPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TenantOnboardingPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TenantOnboardingPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) AuthorizationProvisioningModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationProvisioningModel")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetAuthorizationProvisioningModel(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationProvisioningModel", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) DefaultRoleTemplate() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultRoleTemplate")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetDefaultRoleTemplate(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultRoleTemplate", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) AdminRoleProvisioning() string {
+	return x.Doc().FormFieldOr(x.Path(), "adminRoleProvisioning")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetAdminRoleProvisioning(value string) {
+	x.Doc().SetFormField(x.Path(), "adminRoleProvisioning", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) InitialPermissionSet() string {
+	return x.Doc().FormFieldOr(x.Path(), "initialPermissionSet")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetInitialPermissionSet(value string) {
+	x.Doc().SetFormField(x.Path(), "initialPermissionSet", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) OffboardingStrategy() string {
+	return x.Doc().FormFieldOr(x.Path(), "offboardingStrategy")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetOffboardingStrategy(value string) {
+	x.Doc().SetFormField(x.Path(), "offboardingStrategy", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) ResourceCleanupOnOffboarding() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceCleanupOnOffboarding")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetResourceCleanupOnOffboarding(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceCleanupOnOffboarding", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) DataRetentionDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "dataRetentionDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetDataRetentionDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "dataRetentionDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "dataRetentionDays", strconv.Itoa(*value))
+}
+
+func (x *TenantOnboardingPolicyContentForm) OffboardingApproval() string {
+	return x.Doc().FormFieldOr(x.Path(), "offboardingApproval")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetOffboardingApproval(value string) {
+	x.Doc().SetFormField(x.Path(), "offboardingApproval", value)
+}
+
+func (x *TenantOnboardingPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *TenantOnboardingPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
@@ -206041,6 +215163,130 @@ func (x *ThrowawayPrototypeValueForm) SetFutureReference(value string) {
 	x.Doc().SetFormField(x.Path(), "futureReference", value)
 }
 
+// TlsProtocolPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TlsProtocolPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTlsProtocolPolicyContentForm binds a TlsProtocolPolicyContentForm facade to a document and a path.
+func NewTlsProtocolPolicyContentForm(doc *som.SpecDocument, path string) *TlsProtocolPolicyContentForm {
+	return &TlsProtocolPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TlsProtocolPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TlsProtocolPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TlsProtocolPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TlsProtocolPolicyContentForm) MinimumTlsVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "minimumTlsVersion")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetMinimumTlsVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "minimumTlsVersion", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) PreferredTlsVersion() string {
+	return x.Doc().FormFieldOr(x.Path(), "preferredTlsVersion")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetPreferredTlsVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "preferredTlsVersion", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) AllowedCipherSuites() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedCipherSuites")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetAllowedCipherSuites(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedCipherSuites", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) PreferAuthenticatedEncryption() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "preferAuthenticatedEncryption")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TlsProtocolPolicyContentForm) SetPreferAuthenticatedEncryption(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "preferAuthenticatedEncryption", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "preferAuthenticatedEncryption", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "preferAuthenticatedEncryption", "false")
+	}
+}
+
+func (x *TlsProtocolPolicyContentForm) DhGroups() string {
+	return x.Doc().FormFieldOr(x.Path(), "dhGroups")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetDhGroups(value string) {
+	x.Doc().SetFormField(x.Path(), "dhGroups", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) TlsCompressionDisabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "tlsCompressionDisabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TlsProtocolPolicyContentForm) SetTlsCompressionDisabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "tlsCompressionDisabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "tlsCompressionDisabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "tlsCompressionDisabled", "false")
+	}
+}
+
+func (x *TlsProtocolPolicyContentForm) SessionResumption() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionResumption")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetSessionResumption(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionResumption", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) ComplianceFramework() string {
+	return x.Doc().FormFieldOr(x.Path(), "complianceFramework")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetComplianceFramework(value string) {
+	x.Doc().SetFormField(x.Path(), "complianceFramework", value)
+}
+
+func (x *TlsProtocolPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *TlsProtocolPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // TlsRequirementsCertificateValidationForm is the generated section facade for the `certificateValidation` @Form section: its own
 // content text followed by one typed member per form field.
 type TlsRequirementsCertificateValidationForm struct {
@@ -206375,6 +215621,160 @@ func (x *TlsRequirementsTerminationForm) SetInternalTls(value *bool) {
 	} else {
 		x.Doc().SetFormField(x.Path(), "internalTls", "false")
 	}
+}
+
+// TokenManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TokenManagementPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTokenManagementPolicyContentForm binds a TokenManagementPolicyContentForm facade to a document and a path.
+func NewTokenManagementPolicyContentForm(doc *som.SpecDocument, path string) *TokenManagementPolicyContentForm {
+	return &TokenManagementPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TokenManagementPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TokenManagementPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TokenManagementPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenFormat() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenFormat")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenFormat(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenFormat", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenSigningAlgorithm() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenSigningAlgorithm")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenSigningAlgorithm(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenSigningAlgorithm", value)
+}
+
+func (x *TokenManagementPolicyContentForm) AccessTokenLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessTokenLifetime")
+}
+
+func (x *TokenManagementPolicyContentForm) SetAccessTokenLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "accessTokenLifetime", value)
+}
+
+func (x *TokenManagementPolicyContentForm) RefreshTokenEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "refreshTokenEnabled")
+}
+
+func (x *TokenManagementPolicyContentForm) SetRefreshTokenEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "refreshTokenEnabled", value)
+}
+
+func (x *TokenManagementPolicyContentForm) RefreshTokenLifetime() string {
+	return x.Doc().FormFieldOr(x.Path(), "refreshTokenLifetime")
+}
+
+func (x *TokenManagementPolicyContentForm) SetRefreshTokenLifetime(value string) {
+	x.Doc().SetFormField(x.Path(), "refreshTokenLifetime", value)
+}
+
+func (x *TokenManagementPolicyContentForm) RefreshTokenRotation() string {
+	return x.Doc().FormFieldOr(x.Path(), "refreshTokenRotation")
+}
+
+func (x *TokenManagementPolicyContentForm) SetRefreshTokenRotation(value string) {
+	x.Doc().SetFormField(x.Path(), "refreshTokenRotation", value)
+}
+
+func (x *TokenManagementPolicyContentForm) RefreshTokenReuseDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "refreshTokenReuseDetection")
+}
+
+func (x *TokenManagementPolicyContentForm) SetRefreshTokenReuseDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "refreshTokenReuseDetection", value)
+}
+
+func (x *TokenManagementPolicyContentForm) IdTokenEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "idTokenEnabled")
+}
+
+func (x *TokenManagementPolicyContentForm) SetIdTokenEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "idTokenEnabled", value)
+}
+
+func (x *TokenManagementPolicyContentForm) IdTokenClaims() string {
+	return x.Doc().FormFieldOr(x.Path(), "idTokenClaims")
+}
+
+func (x *TokenManagementPolicyContentForm) SetIdTokenClaims(value string) {
+	x.Doc().SetFormField(x.Path(), "idTokenClaims", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenStorageClient() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenStorageClient")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenStorageClient(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenStorageClient", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenStorageServer() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenStorageServer")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenStorageServer(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenStorageServer", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenRevocationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenRevocationEnabled")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenRevocationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenRevocationEnabled", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenRevocationPropagation() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenRevocationPropagation")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenRevocationPropagation(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenRevocationPropagation", value)
+}
+
+func (x *TokenManagementPolicyContentForm) TokenIntrospectionEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "tokenIntrospectionEnabled")
+}
+
+func (x *TokenManagementPolicyContentForm) SetTokenIntrospectionEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "tokenIntrospectionEnabled", value)
+}
+
+func (x *TokenManagementPolicyContentForm) AudienceRestriction() string {
+	return x.Doc().FormFieldOr(x.Path(), "audienceRestriction")
+}
+
+func (x *TokenManagementPolicyContentForm) SetAudienceRestriction(value string) {
+	x.Doc().SetFormField(x.Path(), "audienceRestriction", value)
+}
+
+func (x *TokenManagementPolicyContentForm) ScopePolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "scopePolicy")
+}
+
+func (x *TokenManagementPolicyContentForm) SetScopePolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "scopePolicy", value)
 }
 
 // ToolEntryAccessForm is the generated section facade for the `access` @Form section: its own
@@ -211726,6 +221126,194 @@ func (x *TranslationVendorEntryContentForm) SetContactInfo(value string) {
 	x.Doc().SetFormField(x.Path(), "contactInfo", value)
 }
 
+// TransportSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TransportSecurityPolicyContentForm struct {
+	som.SomNode
+}
+
+// NewTransportSecurityPolicyContentForm binds a TransportSecurityPolicyContentForm facade to a document and a path.
+func NewTransportSecurityPolicyContentForm(doc *som.SpecDocument, path string) *TransportSecurityPolicyContentForm {
+	return &TransportSecurityPolicyContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TransportSecurityPolicyContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TransportSecurityPolicyContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TransportSecurityPolicyContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TransportSecurityPolicyContentForm) HstsEnabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "hstsEnabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetHstsEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hstsEnabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "hstsEnabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "hstsEnabled", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) HstsMaxAgeDays() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "hstsMaxAgeDays")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *TransportSecurityPolicyContentForm) SetHstsMaxAgeDays(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hstsMaxAgeDays", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "hstsMaxAgeDays", strconv.Itoa(*value))
+}
+
+func (x *TransportSecurityPolicyContentForm) HstsIncludeSubdomains() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "hstsIncludeSubdomains")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetHstsIncludeSubdomains(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) HstsPreload() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "hstsPreload")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetHstsPreload(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "hstsPreload", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "hstsPreload", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "hstsPreload", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) HttpToHttpsRedirect() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "httpToHttpsRedirect")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetHttpToHttpsRedirect(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "httpToHttpsRedirect", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "httpToHttpsRedirect", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "httpToHttpsRedirect", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) SecureCookieFlag() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "secureCookieFlag")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetSecureCookieFlag(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "secureCookieFlag", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "secureCookieFlag", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "secureCookieFlag", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) PreventMixedContent() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "preventMixedContent")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *TransportSecurityPolicyContentForm) SetPreventMixedContent(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "preventMixedContent", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "preventMixedContent", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "preventMixedContent", "false")
+	}
+}
+
+func (x *TransportSecurityPolicyContentForm) SensitiveDataCaching() string {
+	return x.Doc().FormFieldOr(x.Path(), "sensitiveDataCaching")
+}
+
+func (x *TransportSecurityPolicyContentForm) SetSensitiveDataCaching(value string) {
+	x.Doc().SetFormField(x.Path(), "sensitiveDataCaching", value)
+}
+
+func (x *TransportSecurityPolicyContentForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *TransportSecurityPolicyContentForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
 // TroubleshootingCapabilitiesAccessForm is the generated section facade for the `access` @Form section: its own
 // content text followed by one typed member per form field.
 type TroubleshootingCapabilitiesAccessForm struct {
@@ -215052,6 +224640,120 @@ func (x *UserAccessibilityNeedsAccessibilityFormForm) SetAdditionalStandards(val
 	x.Doc().SetFormField(x.Path(), "additionalStandards", value)
 }
 
+// UserAccountStatesDefinitionContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserAccountStatesDefinitionContentForm struct {
+	som.SomNode
+}
+
+// NewUserAccountStatesDefinitionContentForm binds a UserAccountStatesDefinitionContentForm facade to a document and a path.
+func NewUserAccountStatesDefinitionContentForm(doc *som.SpecDocument, path string) *UserAccountStatesDefinitionContentForm {
+	return &UserAccountStatesDefinitionContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserAccountStatesDefinitionContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserAccountStatesDefinitionContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) StateModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "stateModel")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetStateModel(value string) {
+	x.Doc().SetFormField(x.Path(), "stateModel", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) InitialState() string {
+	return x.Doc().FormFieldOr(x.Path(), "initialState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetInitialState(value string) {
+	x.Doc().SetFormField(x.Path(), "initialState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) ActiveState() string {
+	return x.Doc().FormFieldOr(x.Path(), "activeState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetActiveState(value string) {
+	x.Doc().SetFormField(x.Path(), "activeState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SuspendedState() string {
+	return x.Doc().FormFieldOr(x.Path(), "suspendedState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetSuspendedState(value string) {
+	x.Doc().SetFormField(x.Path(), "suspendedState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) LockedState() string {
+	return x.Doc().FormFieldOr(x.Path(), "lockedState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetLockedState(value string) {
+	x.Doc().SetFormField(x.Path(), "lockedState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) DeactivatedState() string {
+	return x.Doc().FormFieldOr(x.Path(), "deactivatedState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetDeactivatedState(value string) {
+	x.Doc().SetFormField(x.Path(), "deactivatedState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) ArchivedState() string {
+	return x.Doc().FormFieldOr(x.Path(), "archivedState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetArchivedState(value string) {
+	x.Doc().SetFormField(x.Path(), "archivedState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) DeletedState() string {
+	return x.Doc().FormFieldOr(x.Path(), "deletedState")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetDeletedState(value string) {
+	x.Doc().SetFormField(x.Path(), "deletedState", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) CustomStates() string {
+	return x.Doc().FormFieldOr(x.Path(), "customStates")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetCustomStates(value string) {
+	x.Doc().SetFormField(x.Path(), "customStates", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) StateVisibility() string {
+	return x.Doc().FormFieldOr(x.Path(), "stateVisibility")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetStateVisibility(value string) {
+	x.Doc().SetFormField(x.Path(), "stateVisibility", value)
+}
+
+func (x *UserAccountStatesDefinitionContentForm) StateTransitionDiagramRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "stateTransitionDiagramRef")
+}
+
+func (x *UserAccountStatesDefinitionContentForm) SetStateTransitionDiagramRef(value string) {
+	x.Doc().SetFormField(x.Path(), "stateTransitionDiagramRef", value)
+}
+
 // UserAssistanceDeliveryForm is the generated section facade for the `delivery` @Form section: its own
 // content text followed by one typed member per form field.
 type UserAssistanceDeliveryForm struct {
@@ -216249,6 +225951,132 @@ func (x *UserGrowthProjectionsThresholdsForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// UserInteractionModelSummaryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserInteractionModelSummaryContentForm struct {
+	som.SomNode
+}
+
+// NewUserInteractionModelSummaryContentForm binds a UserInteractionModelSummaryContentForm facade to a document and a path.
+func NewUserInteractionModelSummaryContentForm(doc *som.SpecDocument, path string) *UserInteractionModelSummaryContentForm {
+	return &UserInteractionModelSummaryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserInteractionModelSummaryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserInteractionModelSummaryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserInteractionModelSummaryContentForm) PrimaryAccessChannel() string {
+	return x.Doc().FormFieldOr(x.Path(), "primaryAccessChannel")
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetPrimaryAccessChannel(value string) {
+	x.Doc().SetFormField(x.Path(), "primaryAccessChannel", value)
+}
+
+func (x *UserInteractionModelSummaryContentForm) ChannelCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "channelCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetChannelCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "channelCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "channelCount", strconv.Itoa(*value))
+}
+
+func (x *UserInteractionModelSummaryContentForm) InteractionPatternCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "interactionPatternCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetInteractionPatternCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "interactionPatternCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "interactionPatternCount", strconv.Itoa(*value))
+}
+
+func (x *UserInteractionModelSummaryContentForm) AccessLevelCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "accessLevelCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetAccessLevelCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "accessLevelCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "accessLevelCount", strconv.Itoa(*value))
+}
+
+func (x *UserInteractionModelSummaryContentForm) MultiChannelSupport() string {
+	return x.Doc().FormFieldOr(x.Path(), "multiChannelSupport")
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetMultiChannelSupport(value string) {
+	x.Doc().SetFormField(x.Path(), "multiChannelSupport", value)
+}
+
+func (x *UserInteractionModelSummaryContentForm) OfflineCapability() string {
+	return x.Doc().FormFieldOr(x.Path(), "offlineCapability")
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetOfflineCapability(value string) {
+	x.Doc().SetFormField(x.Path(), "offlineCapability", value)
+}
+
+func (x *UserInteractionModelSummaryContentForm) SessionManagement() string {
+	return x.Doc().FormFieldOr(x.Path(), "sessionManagement")
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetSessionManagement(value string) {
+	x.Doc().SetFormField(x.Path(), "sessionManagement", value)
+}
+
+func (x *UserInteractionModelSummaryContentForm) NotificationChannels() string {
+	return x.Doc().FormFieldOr(x.Path(), "notificationChannels")
+}
+
+func (x *UserInteractionModelSummaryContentForm) SetNotificationChannels(value string) {
+	x.Doc().SetFormField(x.Path(), "notificationChannels", value)
+}
+
 // UserLifecycleTransitionEntryApprovalForm is the generated section facade for the `approval` @Form section: its own
 // content text followed by one typed member per form field.
 type UserLifecycleTransitionEntryApprovalForm struct {
@@ -216455,6 +226283,178 @@ func (x *UserLifecycleTransitionEntryEffectsForm) NotificationChannels() string 
 
 func (x *UserLifecycleTransitionEntryEffectsForm) SetNotificationChannels(value string) {
 	x.Doc().SetFormField(x.Path(), "notificationChannels", value)
+}
+
+// UserLifecycleTransitionsContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserLifecycleTransitionsContentForm struct {
+	som.SomNode
+}
+
+// NewUserLifecycleTransitionsContentForm binds a UserLifecycleTransitionsContentForm facade to a document and a path.
+func NewUserLifecycleTransitionsContentForm(doc *som.SpecDocument, path string) *UserLifecycleTransitionsContentForm {
+	return &UserLifecycleTransitionsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserLifecycleTransitionsContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserLifecycleTransitionsContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) TransitionModel() string {
+	return x.Doc().FormFieldOr(x.Path(), "transitionModel")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetTransitionModel(value string) {
+	x.Doc().SetFormField(x.Path(), "transitionModel", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) ApprovalPolicyDefault() string {
+	return x.Doc().FormFieldOr(x.Path(), "approvalPolicyDefault")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetApprovalPolicyDefault(value string) {
+	x.Doc().SetFormField(x.Path(), "approvalPolicyDefault", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) EscalationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "escalationPolicy")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetEscalationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "escalationPolicy", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) EscalationTimeframe() string {
+	return x.Doc().FormFieldOr(x.Path(), "escalationTimeframe")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetEscalationTimeframe(value string) {
+	x.Doc().SetFormField(x.Path(), "escalationTimeframe", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) AuditTrailRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "auditTrailRequired")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetAuditTrailRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "auditTrailRequired", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) NotificationOnTransition() string {
+	return x.Doc().FormFieldOr(x.Path(), "notificationOnTransition")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetNotificationOnTransition(value string) {
+	x.Doc().SetFormField(x.Path(), "notificationOnTransition", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) BulkTransitionSupport() string {
+	return x.Doc().FormFieldOr(x.Path(), "bulkTransitionSupport")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetBulkTransitionSupport(value string) {
+	x.Doc().SetFormField(x.Path(), "bulkTransitionSupport", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) AutomatedTransitions() string {
+	return x.Doc().FormFieldOr(x.Path(), "automatedTransitions")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetAutomatedTransitions(value string) {
+	x.Doc().SetFormField(x.Path(), "automatedTransitions", value)
+}
+
+func (x *UserLifecycleTransitionsContentForm) TransitionUndoPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "transitionUndoPolicy")
+}
+
+func (x *UserLifecycleTransitionsContentForm) SetTransitionUndoPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "transitionUndoPolicy", value)
+}
+
+// UserNotificationPreferencesContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserNotificationPreferencesContentForm struct {
+	som.SomNode
+}
+
+// NewUserNotificationPreferencesContentForm binds a UserNotificationPreferencesContentForm facade to a document and a path.
+func NewUserNotificationPreferencesContentForm(doc *som.SpecDocument, path string) *UserNotificationPreferencesContentForm {
+	return &UserNotificationPreferencesContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserNotificationPreferencesContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserNotificationPreferencesContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserNotificationPreferencesContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserNotificationPreferencesContentForm) GlobalOptOut() string {
+	return x.Doc().FormFieldOr(x.Path(), "globalOptOut")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetGlobalOptOut(value string) {
+	x.Doc().SetFormField(x.Path(), "globalOptOut", value)
+}
+
+func (x *UserNotificationPreferencesContentForm) PerTypeControl() string {
+	return x.Doc().FormFieldOr(x.Path(), "perTypeControl")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetPerTypeControl(value string) {
+	x.Doc().SetFormField(x.Path(), "perTypeControl", value)
+}
+
+func (x *UserNotificationPreferencesContentForm) ChannelPreferences() string {
+	return x.Doc().FormFieldOr(x.Path(), "channelPreferences")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetChannelPreferences(value string) {
+	x.Doc().SetFormField(x.Path(), "channelPreferences", value)
+}
+
+func (x *UserNotificationPreferencesContentForm) FrequencyControl() string {
+	return x.Doc().FormFieldOr(x.Path(), "frequencyControl")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetFrequencyControl(value string) {
+	x.Doc().SetFormField(x.Path(), "frequencyControl", value)
+}
+
+func (x *UserNotificationPreferencesContentForm) QuietHours() string {
+	return x.Doc().FormFieldOr(x.Path(), "quietHours")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetQuietHours(value string) {
+	x.Doc().SetFormField(x.Path(), "quietHours", value)
+}
+
+func (x *UserNotificationPreferencesContentForm) DigestOption() string {
+	return x.Doc().FormFieldOr(x.Path(), "digestOption")
+}
+
+func (x *UserNotificationPreferencesContentForm) SetDigestOption(value string) {
+	x.Doc().SetFormField(x.Path(), "digestOption", value)
 }
 
 // UserPersonaDetailsBehaviorForm is the generated section facade for the `behavior` @Form section: its own
@@ -216976,6 +226976,168 @@ func (x *UserProvisioningToolsRoleManagementForm) AccessReviewProcess() string {
 
 func (x *UserProvisioningToolsRoleManagementForm) SetAccessReviewProcess(value string) {
 	x.Doc().SetFormField(x.Path(), "accessReviewProcess", value)
+}
+
+// UserRegistrationProcessContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserRegistrationProcessContentForm struct {
+	som.SomNode
+}
+
+// NewUserRegistrationProcessContentForm binds a UserRegistrationProcessContentForm facade to a document and a path.
+func NewUserRegistrationProcessContentForm(doc *som.SpecDocument, path string) *UserRegistrationProcessContentForm {
+	return &UserRegistrationProcessContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserRegistrationProcessContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserRegistrationProcessContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserRegistrationProcessContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserRegistrationProcessContentForm) RegistrationMethods() string {
+	return x.Doc().FormFieldOr(x.Path(), "registrationMethods")
+}
+
+func (x *UserRegistrationProcessContentForm) SetRegistrationMethods(value string) {
+	x.Doc().SetFormField(x.Path(), "registrationMethods", value)
+}
+
+func (x *UserRegistrationProcessContentForm) SelfRegistrationEnabled() string {
+	return x.Doc().FormFieldOr(x.Path(), "selfRegistrationEnabled")
+}
+
+func (x *UserRegistrationProcessContentForm) SetSelfRegistrationEnabled(value string) {
+	x.Doc().SetFormField(x.Path(), "selfRegistrationEnabled", value)
+}
+
+func (x *UserRegistrationProcessContentForm) IdentityProofingLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "identityProofingLevel")
+}
+
+func (x *UserRegistrationProcessContentForm) SetIdentityProofingLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "identityProofingLevel", value)
+}
+
+func (x *UserRegistrationProcessContentForm) EmailVerificationRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "emailVerificationRequired")
+}
+
+func (x *UserRegistrationProcessContentForm) SetEmailVerificationRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "emailVerificationRequired", value)
+}
+
+func (x *UserRegistrationProcessContentForm) PhoneVerificationRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "phoneVerificationRequired")
+}
+
+func (x *UserRegistrationProcessContentForm) SetPhoneVerificationRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "phoneVerificationRequired", value)
+}
+
+func (x *UserRegistrationProcessContentForm) CaptchaRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "captchaRequired")
+}
+
+func (x *UserRegistrationProcessContentForm) SetCaptchaRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "captchaRequired", value)
+}
+
+func (x *UserRegistrationProcessContentForm) InvitationExpiryPeriod() string {
+	return x.Doc().FormFieldOr(x.Path(), "invitationExpiryPeriod")
+}
+
+func (x *UserRegistrationProcessContentForm) SetInvitationExpiryPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "invitationExpiryPeriod", value)
+}
+
+func (x *UserRegistrationProcessContentForm) ApprovalRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "approvalRequired")
+}
+
+func (x *UserRegistrationProcessContentForm) SetApprovalRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "approvalRequired", value)
+}
+
+func (x *UserRegistrationProcessContentForm) ApprovalWorkflow() string {
+	return x.Doc().FormFieldOr(x.Path(), "approvalWorkflow")
+}
+
+func (x *UserRegistrationProcessContentForm) SetApprovalWorkflow(value string) {
+	x.Doc().SetFormField(x.Path(), "approvalWorkflow", value)
+}
+
+func (x *UserRegistrationProcessContentForm) ApproverRole() string {
+	return x.Doc().FormFieldOr(x.Path(), "approverRole")
+}
+
+func (x *UserRegistrationProcessContentForm) SetApproverRole(value string) {
+	x.Doc().SetFormField(x.Path(), "approverRole", value)
+}
+
+func (x *UserRegistrationProcessContentForm) RequiredFieldsAtRegistration() string {
+	return x.Doc().FormFieldOr(x.Path(), "requiredFieldsAtRegistration")
+}
+
+func (x *UserRegistrationProcessContentForm) SetRequiredFieldsAtRegistration(value string) {
+	x.Doc().SetFormField(x.Path(), "requiredFieldsAtRegistration", value)
+}
+
+func (x *UserRegistrationProcessContentForm) OptionalFieldsAtRegistration() string {
+	return x.Doc().FormFieldOr(x.Path(), "optionalFieldsAtRegistration")
+}
+
+func (x *UserRegistrationProcessContentForm) SetOptionalFieldsAtRegistration(value string) {
+	x.Doc().SetFormField(x.Path(), "optionalFieldsAtRegistration", value)
+}
+
+func (x *UserRegistrationProcessContentForm) TermsAcceptanceRequired() string {
+	return x.Doc().FormFieldOr(x.Path(), "termsAcceptanceRequired")
+}
+
+func (x *UserRegistrationProcessContentForm) SetTermsAcceptanceRequired(value string) {
+	x.Doc().SetFormField(x.Path(), "termsAcceptanceRequired", value)
+}
+
+func (x *UserRegistrationProcessContentForm) DuplicateDetection() string {
+	return x.Doc().FormFieldOr(x.Path(), "duplicateDetection")
+}
+
+func (x *UserRegistrationProcessContentForm) SetDuplicateDetection(value string) {
+	x.Doc().SetFormField(x.Path(), "duplicateDetection", value)
+}
+
+func (x *UserRegistrationProcessContentForm) WelcomeNotification() string {
+	return x.Doc().FormFieldOr(x.Path(), "welcomeNotification")
+}
+
+func (x *UserRegistrationProcessContentForm) SetWelcomeNotification(value string) {
+	x.Doc().SetFormField(x.Path(), "welcomeNotification", value)
+}
+
+func (x *UserRegistrationProcessContentForm) InitialRoleAssignment() string {
+	return x.Doc().FormFieldOr(x.Path(), "initialRoleAssignment")
+}
+
+func (x *UserRegistrationProcessContentForm) SetInitialRoleAssignment(value string) {
+	x.Doc().SetFormField(x.Path(), "initialRoleAssignment", value)
+}
+
+func (x *UserRegistrationProcessContentForm) RegistrationRateLimiting() string {
+	return x.Doc().FormFieldOr(x.Path(), "registrationRateLimiting")
+}
+
+func (x *UserRegistrationProcessContentForm) SetRegistrationRateLimiting(value string) {
+	x.Doc().SetFormField(x.Path(), "registrationRateLimiting", value)
 }
 
 // UserSettingEntryContentForm is the generated section facade for the `content` @Form section: its own

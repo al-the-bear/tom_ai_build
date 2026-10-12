@@ -96,7 +96,12 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
     // A form node is the one non-leaf that legitimately carries content: it is
     // the form's preamble, the free text before the first field line (SOM §11.4
     // rule 7), stored in the same `content` slot a plain section's body uses.
-    if (!res.isValueLeaf && res.kind != SpecNodeKind.form) {
+    // A wrapper section (`TextSection`, …) is the other: its class is not
+    // exported, so it resolves to no class and its text is stored at its own
+    // path, the way the YAML codec writes it (SpecFieldKind.section).
+    final isWrapperSection =
+        res.kind == SpecNodeKind.section && res.targetClass == null;
+    if (!res.isValueLeaf && res.kind != SpecNodeKind.form && !isWrapperSection) {
       errors.add(
         SpecValidationError(
           path: path,

@@ -373,7 +373,6 @@ section-types:
     description: Define each field in the UI.
   rsp-trac:
     prefix: RSP_TRAC
-    format: description
     description: Traceability matrix overview.
   rus-layo:
     prefix: RUS_LAYO
@@ -381,7 +380,6 @@ section-types:
     description: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation."
   rus-mock:
     prefix: RUS_MOCK
-    format: description
     description: UI mockup diagram (fallback if code not available).
   rus-uifo:
     prefix: RUS_UIFO

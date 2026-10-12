@@ -526,11 +526,14 @@ std::string headingIdOf(MdCodec& c, const SomMetaNode& node) {
   if (!node.sectionId.empty()) {
     return node.sectionId;
   }
+  // The class id is the node's classSectionId, as the YAML key uses — never
+  // classNamed(node.className): a wrapper section (TextSection, ...) carries
+  // its OWNER's class name, and that lookup returned the owner's id.
+  (void)c;
   if (kindEq(node.kind, kSomMetaKindSection) ||
       kindEq(node.kind, kSomMetaKindComplex)) {
-    const SpecClass* cls = c.classNamed(node.className);
-    if (cls != nullptr && !cls->sectionId.empty()) {
-      return cls->sectionId;
+    if (!node.classSectionId.empty()) {
+      return node.classSectionId;
     }
   }
   return node.segment();
@@ -544,8 +547,10 @@ bool isTransparentSection(MdCodec& c, const SomMetaNode& n) {
   if (!n.sectionId.empty()) {
     return false;
   }
-  const SpecClass* cls = c.classNamed(n.className);
-  return cls == nullptr || cls->sectionId.empty();
+  // classSectionId, not classNamed(n.className): see headingIdOf. A wrapper
+  // section (TextSection, ...) has neither id, so it is transparent (SOM §11.6).
+  (void)c;
+  return n.classSectionId.empty();
 }
 
 bool isTransparentValue(const SomMetaNode& n) {

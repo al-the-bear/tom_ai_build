@@ -538,6 +538,12 @@
           "name": "body",
           "kind": "content",
           "sectionId": "NOTE-BDY"
+        },
+        {
+          "name": "remarks",
+          "kind": "section",
+          "contentType": "text",
+          "sectionType": "TextSection"
         }
       ]
     },

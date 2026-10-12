@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- Markdown codec: a member's heading id and its transparency are read from its
+  meta node (`sectionId`, then `classSectionId`), no longer by looking up the
+  node's class name. A wrapper section (`TextSection`, …) carries its owner's
+  class name, so the lookup returned the owner's id: the text rendered under a
+  heading the DocSpecs schema rejects (the owner nested in itself). It is now
+  transparent (SOM §11.6) and its text goes into the owner's body.
+- Validator: content stored on a wrapper section (a `section` member that
+  resolves to no class) is accepted, as the YAML codec writes it there; it was
+  reported as `kindMismatch`.
+- Both were found authoring a real Solution Blueprint, where such sections
+  could not be written in any form that passed every tier. A new corpus case
+  (`Notes.remarks`) pins them in all nine runtimes.
+
 ## 1.3.3
 
 - Markdown export (SOM §11.4 rule 2): consecutive `@Form` field groups are now

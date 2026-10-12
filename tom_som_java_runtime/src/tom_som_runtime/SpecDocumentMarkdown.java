@@ -213,10 +213,12 @@ public final class SpecDocumentMarkdown {
     if (node.sectionId != null && !node.sectionId.isEmpty()) {
       return node.sectionId;
     }
+    // The class id is the node's classSectionId, as the YAML key uses — never
+    // classNamed(node.className): a wrapper section (TextSection, ...) carries
+    // its OWNER's class name, and that lookup returned the owner's id.
     if (SomMetaKind.SECTION.equals(node.kind) || SomMetaKind.COMPLEX.equals(node.kind)) {
-      SpecClass cls = model.classNamed(node.className);
-      if (cls != null && cls.sectionId != null && !cls.sectionId.isEmpty()) {
-        return cls.sectionId;
+      if (node.classSectionId != null && !node.classSectionId.isEmpty()) {
+        return node.classSectionId;
       }
     }
     return node.segment();
@@ -268,8 +270,9 @@ public final class SpecDocumentMarkdown {
     if (n.sectionId != null && !n.sectionId.isEmpty()) {
       return false;
     }
-    SpecClass cls = model.classNamed(n.className);
-    return cls == null || cls.sectionId == null || cls.sectionId.isEmpty();
+    // classSectionId, not classNamed(n.className): see headingIdOf. A wrapper
+    // section (TextSection, ...) has neither id, so it is transparent (SOM §11.6).
+    return n.classSectionId == null || n.classSectionId.isEmpty();
   }
 
   /**

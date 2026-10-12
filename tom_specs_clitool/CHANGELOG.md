@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- **The model JSON export honours a class-level `@Form`.** A class's `content`
+  member is exported as a form carrying the class's form fields, as
+  `tom_specs_model_rules.md` §5.3 states and the DocSpecs schema generator
+  already did. All 73 such classes reached the nine runtimes as plain text, so
+  a document could satisfy the schema tier or the instance tier, never both.
+- **`@ContentType('description', …)` is prose.** The schema generator gives
+  `text` and `description` no `format` (`proseContentTypes`); `description`
+  used to become a format, which made the validator demand a fenced code
+  block around a sentence.
+
 ## 0.4.0
 
 - **`bin/check_som_parity.dart`** — asks whether a capability reached all nine

@@ -9,7 +9,9 @@
 
 use crate::spec_document::SpecDocument;
 use crate::spec_model::{SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM};
-use crate::spec_reflection::{SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST};
+use crate::spec_reflection::{
+    SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SECTION,
+};
 use crate::spec_section_id::{effective_list_item_section_id, K_SECTION_ID_SLOT};
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -72,7 +74,12 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                 // content: it is the form's preamble, the free text before the
                 // first field line (SOM §11.4 rule 7), in the same slot a plain
                 // section's body uses.
-                if !res.is_value_leaf() && res.kind != SPEC_NODE_KIND_FORM {
+                // A wrapper section (TextSection, ...) is the other: its class
+                // is not exported, so it resolves to no class and its text is
+                // stored at its own path, the way the YAML codec writes it.
+                let is_wrapper_section =
+                    res.kind == SPEC_NODE_KIND_SECTION && res.target_class.is_none();
+                if !res.is_value_leaf() && res.kind != SPEC_NODE_KIND_FORM && !is_wrapper_section {
                     errors.push(SpecValidationError {
                         path: path.clone(),
                         code: SPEC_VALIDATION_CODE_KIND_MISMATCH.to_string(),

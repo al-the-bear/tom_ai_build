@@ -210,6 +210,7 @@ def _build_document() -> SpecDocument:
     # section collapses into its target class exactly as a complex member does,
     # and keys on the target class's id when the field carries none.
     d.set_content("DEMO/notes/NOTE-BDY", "Section-kind body")
+    d.set_content("DEMO/notes/remarks", "Wrapper-section text")
     return d
 
 

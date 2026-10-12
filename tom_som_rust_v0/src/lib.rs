@@ -3433,19 +3433,14 @@ impl AccessConstraintPolicies {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccessConstraintPoliciesContentForm {
+        AccessConstraintPoliciesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Access Constraint Details (text).
@@ -3534,19 +3529,14 @@ impl AccessControlModelSelection {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccessControlModelSelectionContentForm {
+        AccessControlModelSelectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Access Control Model Details (text).
@@ -3966,19 +3956,14 @@ impl AccountActivationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccountActivationPolicyContentForm {
+        AccountActivationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Activation Flow Description (text).
@@ -4004,19 +3989,14 @@ impl AccountDeactivationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccountDeactivationPolicyContentForm {
+        AccountDeactivationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Deactivation Process Description (text).
@@ -4041,19 +4021,14 @@ impl AccountDeletionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccountDeletionPolicyContentForm {
+        AccountDeletionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Deletion Process Description (text).
@@ -4079,19 +4054,14 @@ impl AccountLockoutPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccountLockoutPolicyContentForm {
+        AccountLockoutPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Account Lockout Details (text).
@@ -4116,19 +4086,14 @@ impl AccountModificationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AccountModificationPolicyContentForm {
+        AccountModificationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Modification Rules Description (text).
@@ -5146,19 +5111,14 @@ impl ApiAbuseProtection {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiAbuseProtectionContentForm {
+        ApiAbuseProtectionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Abuse Protection Details (text).
@@ -5183,19 +5143,14 @@ impl ApiAuthenticationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiAuthenticationPolicyContentForm {
+        ApiAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // API Authentication Details (text).
@@ -5221,19 +5176,14 @@ impl ApiAuthorizationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiAuthorizationPolicyContentForm {
+        ApiAuthorizationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // API Authorization Details (text).
@@ -5306,19 +5256,14 @@ impl ApiCorsSecurity {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiCorsSecurityContentForm {
+        ApiCorsSecurityContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // CORS Security Details (text).
@@ -5343,19 +5288,14 @@ impl ApiKeyManagementPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiKeyManagementPolicyContentForm {
+        ApiKeyManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // API Key Management Details (text).
@@ -5382,19 +5322,14 @@ impl ApiRequestValidationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiRequestValidationPolicyContentForm {
+        ApiRequestValidationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Request Validation Details (text).
@@ -5491,19 +5426,14 @@ impl ApiSecurityMonitoring {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ApiSecurityMonitoringContentForm {
+        ApiSecurityMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // API Security Monitoring Details (text).
@@ -6504,19 +6434,14 @@ impl AuthenticationErrorHandling {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> AuthenticationErrorHandlingContentForm {
+        AuthenticationErrorHandlingContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Error Handling Details (text).
@@ -7330,19 +7255,14 @@ impl BackupEncryptionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> BackupEncryptionPolicyContentForm {
+        BackupEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Backup Encryption Details (text).
@@ -7761,19 +7681,14 @@ impl BiometricAuthenticationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> BiometricAuthenticationPolicyContentForm {
+        BiometricAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Biometric Implementation Details (text).
@@ -9360,19 +9275,14 @@ impl CertificateAuthenticationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> CertificateAuthenticationPolicyContentForm {
+        CertificateAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Certificate Authentication Details (text).
@@ -9444,19 +9354,14 @@ impl CertificateManagementPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> CertificateManagementPolicyContentForm {
+        CertificateManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Certificate Management Details (text).
@@ -10393,17 +10298,12 @@ impl ChannelIntegrations {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// Integration requirements content.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ChannelIntegrationsContentForm {
+        ChannelIntegrationsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -11281,19 +11181,14 @@ impl ColumnLevelSecurityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ColumnLevelSecurityPolicyContentForm {
+        ColumnLevelSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Column-Level Security Details (text).
@@ -13285,19 +13180,14 @@ impl ConcurrentSessionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ConcurrentSessionPolicyContentForm {
+        ConcurrentSessionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Concurrent Session Details (text).
@@ -13559,19 +13449,14 @@ impl ContentScanningPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ContentScanningPolicyContentForm {
+        ContentScanningPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Content Scanning Details (text).
@@ -13908,19 +13793,14 @@ impl CredentialCompromiseDetectionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> CredentialCompromiseDetectionPolicyContentForm {
+        CredentialCompromiseDetectionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Compromise Detection Details (text).
@@ -13945,19 +13825,14 @@ impl CredentialRecoveryPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> CredentialRecoveryPolicyContentForm {
+        CredentialRecoveryPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Credential Recovery Details (text).
@@ -14138,19 +14013,14 @@ impl CrossTenantAccessPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> CrossTenantAccessPolicyContentForm {
+        CrossTenantAccessPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Cross-Tenant Access Policy Details (text).
@@ -17181,19 +17051,14 @@ impl DataAccessAuditPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> DataAccessAuditPolicyContentForm {
+        DataAccessAuditPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Data Access Audit Details (text).
@@ -18490,19 +18355,14 @@ impl DataMaskingPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> DataMaskingPolicyContentForm {
+        DataMaskingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Data Masking Details (text).
@@ -19615,19 +19475,14 @@ impl DatabaseAccessPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> DatabaseAccessPolicyContentForm {
+        DatabaseAccessPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Database Access Policy Details (text).
@@ -19699,19 +19554,14 @@ impl DatabaseEncryptionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> DatabaseEncryptionPolicyContentForm {
+        DatabaseEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Database Encryption Details (text).
@@ -23622,19 +23472,14 @@ impl EncryptionAtRestPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> EncryptionAtRestPolicyContentForm {
+        EncryptionAtRestPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Encryption At Rest Policy Details (text).
@@ -27091,19 +26936,14 @@ impl FileAccessControlPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> FileAccessControlPolicyContentForm {
+        FileAccessControlPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // File Access Control Details (text).
@@ -27198,19 +27038,14 @@ impl FileDownloadSecurityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> FileDownloadSecurityPolicyContentForm {
+        FileDownloadSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Download Security Details (text).
@@ -27236,19 +27071,14 @@ impl FileStorageEncryptionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> FileStorageEncryptionPolicyContentForm {
+        FileStorageEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // File Storage Encryption Details (text).
@@ -27275,19 +27105,14 @@ impl FileUploadValidationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> FileUploadValidationPolicyContentForm {
+        FileUploadValidationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Upload Validation Details (text).
@@ -33535,19 +33360,14 @@ impl LoginFlowConfiguration {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> LoginFlowConfigurationContentForm {
+        LoginFlowConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Login Flow Details (text).
@@ -34661,19 +34481,14 @@ impl MfaConfiguration {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> MfaConfigurationContentForm {
+        MfaConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// MFA Implementation Details (text).
@@ -36336,19 +36151,14 @@ impl MutualTlsPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> MutualTlsPolicyContentForm {
+        MutualTlsPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Mutual TLS Policy Details (text).
@@ -39298,19 +39108,14 @@ impl PasswordLifecyclePolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PasswordLifecyclePolicyContentForm {
+        PasswordLifecyclePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Password Lifecycle Details (text).
@@ -39336,19 +39141,14 @@ impl PasswordRequirementsPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PasswordRequirementsPolicyContentForm {
+        PasswordRequirementsPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Password Requirements Details (text).
@@ -39373,19 +39173,14 @@ impl PasswordStoragePolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PasswordStoragePolicyContentForm {
+        PasswordStoragePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Password Storage Details (text).
@@ -39607,19 +39402,14 @@ impl PermissionCompositionStrategy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PermissionCompositionStrategyContentForm {
+        PermissionCompositionStrategyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Permission Composition Details (text).
@@ -39644,19 +39434,14 @@ impl PermissionEvaluationBehavior {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PermissionEvaluationBehaviorContentForm {
+        PermissionEvaluationBehaviorContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Permission Evaluation Details (text).
@@ -39681,19 +39466,14 @@ impl PermissionGranularityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> PermissionGranularityPolicyContentForm {
+        PermissionGranularityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Permission Granularity Details (text).
@@ -44170,19 +43950,14 @@ impl RedirectHandlingPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> RedirectHandlingPolicyContentForm {
+        RedirectHandlingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Redirect Handling Details (text).
@@ -44755,19 +44530,14 @@ impl RememberMePolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> RememberMePolicyContentForm {
+        RememberMePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Remember-Me Policy Details (text).
@@ -47856,19 +47626,14 @@ impl RoleCertificationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> RoleCertificationPolicyContentForm {
+        RoleCertificationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Role Certification Details (text).
@@ -48081,19 +47846,14 @@ impl RoleHierarchyPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> RoleHierarchyPolicyContentForm {
+        RoleHierarchyPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Role Hierarchy Policy Details (text).
@@ -48389,19 +48149,14 @@ impl RowLevelSecurityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> RowLevelSecurityPolicyContentForm {
+        RowLevelSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Row-Level Security Details (text).
@@ -51503,19 +51258,14 @@ impl SelfServiceAccountManagement {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SelfServiceAccountManagementContentForm {
+        SelfServiceAccountManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Self-Service Capabilities Description (text).
@@ -52130,19 +51880,14 @@ impl ServiceAccountCredentialPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ServiceAccountCredentialPolicyContentForm {
+        ServiceAccountCredentialPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Service Account Credential Details (text).
@@ -52167,19 +51912,14 @@ impl ServiceAccountLifecycle {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> ServiceAccountLifecycleContentForm {
+        ServiceAccountLifecycleContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Service Account Management Description (text).
@@ -52371,19 +52111,14 @@ impl SessionCreationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SessionCreationPolicyContentForm {
+        SessionCreationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Session Creation Details (text).
@@ -52409,19 +52144,14 @@ impl SessionLifecycleMonitoring {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SessionLifecycleMonitoringContentForm {
+        SessionLifecycleMonitoringContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Session Lifecycle Monitoring Details (text).
@@ -52566,19 +52296,14 @@ impl SessionRevocationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SessionRevocationPolicyContentForm {
+        SessionRevocationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Session Revocation Details (text).
@@ -52604,19 +52329,14 @@ impl SessionSecurityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SessionSecurityPolicyContentForm {
+        SessionSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Session Security Details (text).
@@ -52643,19 +52363,14 @@ impl SessionTimeoutPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SessionTimeoutPolicyContentForm {
+        SessionTimeoutPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Session Timeout Details (text).
@@ -53373,19 +53088,14 @@ impl SsoPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> SsoPolicyContentForm {
+        SsoPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // SSO Implementation Details (text).
@@ -54884,19 +54594,14 @@ impl StepUpAuthenticationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> StepUpAuthenticationPolicyContentForm {
+        StepUpAuthenticationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     /// Step-Up Authentication Details (text).
@@ -54929,19 +54634,14 @@ impl StorageEncryptionPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> StorageEncryptionPolicyContentForm {
+        StorageEncryptionPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Storage Encryption Details (text).
@@ -54967,19 +54667,14 @@ impl StorageLifecyclePolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> StorageLifecyclePolicyContentForm {
+        StorageLifecyclePolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Storage Lifecycle Details (text).
@@ -58872,19 +58567,14 @@ impl TenantBoundaryEnforcementPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TenantBoundaryEnforcementPolicyContentForm {
+        TenantBoundaryEnforcementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Tenant Boundary Enforcement Details (text).
@@ -58912,19 +58602,14 @@ impl TenantContextPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TenantContextPolicyContentForm {
+        TenantContextPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Tenant Context Policy Details (text).
@@ -58979,19 +58664,14 @@ impl TenantDataIsolationPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TenantDataIsolationPolicyContentForm {
+        TenantDataIsolationPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Tenant Data Isolation Details (text).
@@ -59090,19 +58770,14 @@ impl TenantOnboardingPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TenantOnboardingPolicyContentForm {
+        TenantOnboardingPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Tenant Onboarding Policy Details (text).
@@ -59526,19 +59201,14 @@ impl TlsProtocolPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TlsProtocolPolicyContentForm {
+        TlsProtocolPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // TLS Protocol Policy Details (text).
@@ -59609,19 +59279,14 @@ impl TokenManagementPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TokenManagementPolicyContentForm {
+        TokenManagementPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Token Management Details (text).
@@ -61103,19 +60768,14 @@ impl TransportSecurityPolicy {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> TransportSecurityPolicyContentForm {
+        TransportSecurityPolicyContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Transport Security Policy Details (text).
@@ -62017,19 +61677,14 @@ impl UserAccountStatesDefinition {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> UserAccountStatesDefinitionContentForm {
+        UserAccountStatesDefinitionContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // State Transition Diagram (mermaid).
@@ -62582,17 +62237,12 @@ impl UserInteractionModelSummary {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// Summary content for interaction model.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> UserInteractionModelSummaryContentForm {
+        UserInteractionModelSummaryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -62829,19 +62479,14 @@ impl UserLifecycleTransitions {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> UserLifecycleTransitionsContentForm {
+        UserLifecycleTransitionsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Transition Rules Description (text).
@@ -62961,17 +62606,12 @@ impl UserNotificationPreferences {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// Preferences content.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> UserNotificationPreferencesContentForm {
+        UserNotificationPreferencesContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -63156,19 +62796,14 @@ impl UserRegistrationProcess {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        true
+        false
     }
 
     /// The section's body content. For a `@Form`-annotated member this is the
     /// form's **preamble** — the free text before the first field line (SOM
     /// §11.4 rule 7); the field values themselves live in [form].
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "content");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn content(&self) -> UserRegistrationProcessContentForm {
+        UserRegistrationProcessContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
     // Registration Flow Description (text).
@@ -65665,6 +65300,293 @@ impl AcceptanceStepEntryOutcomeForm {
     }
 }
 
+/// AccessConstraintPoliciesContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccessConstraintPoliciesContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccessConstraintPoliciesContentForm {
+    /// Binds a AccessConstraintPoliciesContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccessConstraintPoliciesContentForm {
+        AccessConstraintPoliciesContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn separation_of_duties(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "separationOfDuties");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_separation_of_duties(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "separationOfDuties", &text);
+    }
+
+    pub fn sod_enforcement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sodEnforcement")
+    }
+
+    pub fn set_sod_enforcement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sodEnforcement", value);
+    }
+
+    pub fn temporal_constraints(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "temporalConstraints");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_temporal_constraints(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "temporalConstraints", &text);
+    }
+
+    pub fn location_constraints(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "locationConstraints");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_location_constraints(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "locationConstraints", &text);
+    }
+
+    pub fn device_constraints(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deviceConstraints");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_device_constraints(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "deviceConstraints", &text);
+    }
+
+    pub fn risk_adaptive_access(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "riskAdaptiveAccess");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_risk_adaptive_access(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskAdaptiveAccess", &text);
+    }
+
+    pub fn contextual_attributes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextualAttributes")
+    }
+
+    pub fn set_contextual_attributes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextualAttributes", value);
+    }
+
+    pub fn max_session_permissions(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxSessionPermissions");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_max_session_permissions(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxSessionPermissions", &text);
+    }
+
+    pub fn least_privilege_enforcement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "leastPrivilegeEnforcement")
+    }
+
+    pub fn set_least_privilege_enforcement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "leastPrivilegeEnforcement", value);
+    }
+
+    pub fn privilege_creep_detection(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "privilegeCreepDetection");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_privilege_creep_detection(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegeCreepDetection", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// AccessControlModelSelectionContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccessControlModelSelectionContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccessControlModelSelectionContentForm {
+    /// Binds a AccessControlModelSelectionContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccessControlModelSelectionContentForm {
+        AccessControlModelSelectionContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn primary_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "primaryModel")
+    }
+
+    pub fn set_primary_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "primaryModel", value);
+    }
+
+    pub fn model_rationale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "modelRationale")
+    }
+
+    pub fn set_model_rationale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "modelRationale", value);
+    }
+
+    pub fn rbac_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "rbacEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_rbac_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "rbacEnabled", &text);
+    }
+
+    pub fn abac_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "abacEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_abac_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "abacEnabled", &text);
+    }
+
+    pub fn rebac_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "rebacEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_rebac_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "rebacEnabled", &text);
+    }
+
+    pub fn policy_language(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policyLanguage")
+    }
+
+    pub fn set_policy_language(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policyLanguage", value);
+    }
+
+    pub fn policy_decision_point(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policyDecisionPoint")
+    }
+
+    pub fn set_policy_decision_point(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policyDecisionPoint", value);
+    }
+
+    pub fn policy_enforcement_point(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policyEnforcementPoint")
+    }
+
+    pub fn set_policy_enforcement_point(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policyEnforcementPoint", value);
+    }
+
+    pub fn policy_administration_point(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policyAdministrationPoint")
+    }
+
+    pub fn set_policy_administration_point(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policyAdministrationPoint", value);
+    }
+
+    pub fn policy_information_point(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policyInformationPoint")
+    }
+
+    pub fn set_policy_information_point(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policyInformationPoint", value);
+    }
+
+    pub fn delegation_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "delegationModel")
+    }
+
+    pub fn set_delegation_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "delegationModel", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// AccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct AccessLevelEntryContentForm {
@@ -66841,6 +66763,770 @@ impl AccessibilityTestingForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "userTestingWithDisabilities", &text);
+    }
+}
+
+/// AccountActivationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccountActivationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccountActivationPolicyContentForm {
+    /// Binds a AccountActivationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccountActivationPolicyContentForm {
+        AccountActivationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn activation_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationMethod")
+    }
+
+    pub fn set_activation_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationMethod", value);
+    }
+
+    pub fn activation_link_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationLinkExpiry")
+    }
+
+    pub fn set_activation_link_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationLinkExpiry", value);
+    }
+
+    pub fn max_activation_attempts(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxActivationAttempts");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_activation_attempts(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxActivationAttempts", &text);
+    }
+
+    pub fn activation_prerequisites(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationPrerequisites")
+    }
+
+    pub fn set_activation_prerequisites(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationPrerequisites", value);
+    }
+
+    pub fn provisioning_on_activation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "provisioningOnActivation")
+    }
+
+    pub fn set_provisioning_on_activation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "provisioningOnActivation", value);
+    }
+
+    pub fn activation_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationNotification")
+    }
+
+    pub fn set_activation_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationNotification", value);
+    }
+
+    pub fn activation_timeout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationTimeout")
+    }
+
+    pub fn set_activation_timeout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationTimeout", value);
+    }
+
+    pub fn activation_timeout_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activationTimeoutAction")
+    }
+
+    pub fn set_activation_timeout_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activationTimeoutAction", value);
+    }
+
+    pub fn post_activation_redirect(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postActivationRedirect")
+    }
+
+    pub fn set_post_activation_redirect(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postActivationRedirect", value);
+    }
+
+    pub fn onboarding_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "onboardingRequired")
+    }
+
+    pub fn set_onboarding_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "onboardingRequired", value);
+    }
+
+    pub fn onboarding_steps(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "onboardingSteps")
+    }
+
+    pub fn set_onboarding_steps(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "onboardingSteps", value);
+    }
+}
+
+/// AccountDeactivationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccountDeactivationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccountDeactivationPolicyContentForm {
+    /// Binds a AccountDeactivationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccountDeactivationPolicyContentForm {
+        AccountDeactivationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn deactivation_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivationTriggers")
+    }
+
+    pub fn set_deactivation_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivationTriggers", value);
+    }
+
+    pub fn inactivity_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inactivityThreshold")
+    }
+
+    pub fn set_inactivity_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inactivityThreshold", value);
+    }
+
+    pub fn inactivity_warning_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inactivityWarningPeriod")
+    }
+
+    pub fn set_inactivity_warning_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inactivityWarningPeriod", value);
+    }
+
+    pub fn deactivation_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivationApproval")
+    }
+
+    pub fn set_deactivation_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivationApproval", value);
+    }
+
+    pub fn immediate_deactivation_cases(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "immediateDeactivationCases")
+    }
+
+    pub fn set_immediate_deactivation_cases(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "immediateDeactivationCases", value);
+    }
+
+    pub fn deactivated_account_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivatedAccountAccess")
+    }
+
+    pub fn set_deactivated_account_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivatedAccountAccess", value);
+    }
+
+    pub fn deactivation_effects(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivationEffects")
+    }
+
+    pub fn set_deactivation_effects(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivationEffects", value);
+    }
+
+    pub fn reactivation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reactivationPolicy")
+    }
+
+    pub fn set_reactivation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reactivationPolicy", value);
+    }
+
+    pub fn reactivation_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reactivationApproval")
+    }
+
+    pub fn set_reactivation_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reactivationApproval", value);
+    }
+
+    pub fn reactivation_reverification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reactivationReverification")
+    }
+
+    pub fn set_reactivation_reverification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reactivationReverification", value);
+    }
+
+    pub fn max_deactivation_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxDeactivationPeriod")
+    }
+
+    pub fn set_max_deactivation_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxDeactivationPeriod", value);
+    }
+
+    pub fn deactivation_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivationNotification")
+    }
+
+    pub fn set_deactivation_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivationNotification", value);
+    }
+
+    pub fn grace_period_after_deactivation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "gracePeriodAfterDeactivation")
+    }
+
+    pub fn set_grace_period_after_deactivation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "gracePeriodAfterDeactivation", value);
+    }
+
+    pub fn data_preservation_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataPreservationDuration")
+    }
+
+    pub fn set_data_preservation_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataPreservationDuration", value);
+    }
+}
+
+/// AccountDeletionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccountDeletionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccountDeletionPolicyContentForm {
+    /// Binds a AccountDeletionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccountDeletionPolicyContentForm {
+        AccountDeletionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn deletion_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deletionTriggers")
+    }
+
+    pub fn set_deletion_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionTriggers", value);
+    }
+
+    pub fn deletion_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deletionApproval")
+    }
+
+    pub fn set_deletion_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionApproval", value);
+    }
+
+    pub fn soft_delete_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "softDeleteEnabled")
+    }
+
+    pub fn set_soft_delete_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "softDeleteEnabled", value);
+    }
+
+    pub fn soft_delete_retention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "softDeleteRetention")
+    }
+
+    pub fn set_soft_delete_retention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "softDeleteRetention", value);
+    }
+
+    pub fn permanent_deletion_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permanentDeletionProcess")
+    }
+
+    pub fn set_permanent_deletion_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permanentDeletionProcess", value);
+    }
+
+    pub fn data_anonymization_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAnonymizationStrategy")
+    }
+
+    pub fn set_data_anonymization_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAnonymizationStrategy", value);
+    }
+
+    pub fn retained_data_after_deletion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "retainedDataAfterDeletion")
+    }
+
+    pub fn set_retained_data_after_deletion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "retainedDataAfterDeletion", value);
+    }
+
+    pub fn retention_period_after_deletion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "retentionPeriodAfterDeletion")
+    }
+
+    pub fn set_retention_period_after_deletion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "retentionPeriodAfterDeletion", value);
+    }
+
+    pub fn data_export_before_deletion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataExportBeforeDeletion")
+    }
+
+    pub fn set_data_export_before_deletion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataExportBeforeDeletion", value);
+    }
+
+    pub fn export_formats(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "exportFormats")
+    }
+
+    pub fn set_export_formats(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "exportFormats", value);
+    }
+
+    pub fn cascade_deletion_behavior(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cascadeDeletionBehavior")
+    }
+
+    pub fn set_cascade_deletion_behavior(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cascadeDeletionBehavior", value);
+    }
+
+    pub fn deletion_confirmation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deletionConfirmation")
+    }
+
+    pub fn set_deletion_confirmation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionConfirmation", value);
+    }
+
+    pub fn deletion_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deletionNotification")
+    }
+
+    pub fn set_deletion_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionNotification", value);
+    }
+
+    pub fn right_to_erasure_compliance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rightToErasureCompliance")
+    }
+
+    pub fn set_right_to_erasure_compliance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rightToErasureCompliance", value);
+    }
+
+    pub fn erasure_response_time(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "erasureResponseTime")
+    }
+
+    pub fn set_erasure_response_time(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "erasureResponseTime", value);
+    }
+
+    pub fn third_party_data_deletion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "thirdPartyDataDeletion")
+    }
+
+    pub fn set_third_party_data_deletion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "thirdPartyDataDeletion", value);
+    }
+}
+
+/// AccountLockoutPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccountLockoutPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccountLockoutPolicyContentForm {
+    /// Binds a AccountLockoutPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccountLockoutPolicyContentForm {
+        AccountLockoutPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn lockout_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutThreshold")
+    }
+
+    pub fn set_lockout_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutThreshold", value);
+    }
+
+    pub fn lockout_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutDuration")
+    }
+
+    pub fn set_lockout_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutDuration", value);
+    }
+
+    pub fn lockout_escalation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutEscalation")
+    }
+
+    pub fn set_lockout_escalation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutEscalation", value);
+    }
+
+    pub fn rate_limiting_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rateLimitingMethod")
+    }
+
+    pub fn set_rate_limiting_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rateLimitingMethod", value);
+    }
+
+    pub fn delay_progression(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "delayProgression")
+    }
+
+    pub fn set_delay_progression(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "delayProgression", value);
+    }
+
+    pub fn captcha_trigger_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "captchaTriggerThreshold")
+    }
+
+    pub fn set_captcha_trigger_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "captchaTriggerThreshold", value);
+    }
+
+    pub fn ip_based_rate_limiting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ipBasedRateLimiting")
+    }
+
+    pub fn set_ip_based_rate_limiting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ipBasedRateLimiting", value);
+    }
+
+    pub fn distributed_attack_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "distributedAttackProtection")
+    }
+
+    pub fn set_distributed_attack_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "distributedAttackProtection", value);
+    }
+
+    pub fn unlock_mechanism(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "unlockMechanism")
+    }
+
+    pub fn set_unlock_mechanism(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "unlockMechanism", value);
+    }
+
+    pub fn failed_attempt_reset_on_success(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failedAttemptResetOnSuccess")
+    }
+
+    pub fn set_failed_attempt_reset_on_success(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failedAttemptResetOnSuccess", value);
+    }
+
+    pub fn lockout_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutNotification")
+    }
+
+    pub fn set_lockout_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutNotification", value);
+    }
+
+    pub fn permanent_lockout_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permanentLockoutEnabled")
+    }
+
+    pub fn set_permanent_lockout_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permanentLockoutEnabled", value);
+    }
+
+    pub fn permanent_lockout_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permanentLockoutThreshold")
+    }
+
+    pub fn set_permanent_lockout_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permanentLockoutThreshold", value);
+    }
+}
+
+/// AccountModificationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccountModificationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccountModificationPolicyContentForm {
+    /// Binds a AccountModificationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccountModificationPolicyContentForm {
+        AccountModificationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn self_modifiable_fields(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "selfModifiableFields")
+    }
+
+    pub fn set_self_modifiable_fields(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "selfModifiableFields", value);
+    }
+
+    pub fn admin_modifiable_fields(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adminModifiableFields")
+    }
+
+    pub fn set_admin_modifiable_fields(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adminModifiableFields", value);
+    }
+
+    pub fn system_modifiable_fields(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "systemModifiableFields")
+    }
+
+    pub fn set_system_modifiable_fields(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "systemModifiableFields", value);
+    }
+
+    pub fn email_change_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "emailChangePolicy")
+    }
+
+    pub fn set_email_change_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "emailChangePolicy", value);
+    }
+
+    pub fn phone_change_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "phoneChangePolicy")
+    }
+
+    pub fn set_phone_change_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "phoneChangePolicy", value);
+    }
+
+    pub fn name_change_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "nameChangePolicy")
+    }
+
+    pub fn set_name_change_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "nameChangePolicy", value);
+    }
+
+    pub fn role_change_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "roleChangeApproval")
+    }
+
+    pub fn set_role_change_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "roleChangeApproval", value);
+    }
+
+    pub fn bulk_modification_support(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bulkModificationSupport")
+    }
+
+    pub fn set_bulk_modification_support(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bulkModificationSupport", value);
+    }
+
+    pub fn change_audit_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "changeAuditLogging")
+    }
+
+    pub fn set_change_audit_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "changeAuditLogging", value);
+    }
+
+    pub fn change_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "changeNotification")
+    }
+
+    pub fn set_change_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "changeNotification", value);
+    }
+
+    pub fn historical_versioning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "historicalVersioning")
+    }
+
+    pub fn set_historical_versioning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "historicalVersioning", value);
+    }
+
+    pub fn reverification_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reverificationTriggers")
+    }
+
+    pub fn set_reverification_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reverificationTriggers", value);
+    }
+
+    pub fn modification_rate_limiting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "modificationRateLimiting")
+    }
+
+    pub fn set_modification_rate_limiting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "modificationRateLimiting", value);
+    }
+
+    pub fn modification_cooldown_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "modificationCooldownPeriod")
+    }
+
+    pub fn set_modification_cooldown_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "modificationCooldownPeriod", value);
     }
 }
 
@@ -70418,6 +71104,544 @@ impl AnomalyDetectionPolicyContentForm {
     }
 }
 
+/// ApiAbuseProtectionContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiAbuseProtectionContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiAbuseProtectionContentForm {
+    /// Binds a ApiAbuseProtectionContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiAbuseProtectionContentForm {
+        ApiAbuseProtectionContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn rate_limiting_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "rateLimitingEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_rate_limiting_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "rateLimitingEnabled", &text);
+    }
+
+    pub fn rate_limit_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rateLimitScope")
+    }
+
+    pub fn set_rate_limit_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rateLimitScope", value);
+    }
+
+    pub fn authentication_endpoint_limits(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationEndpointLimits")
+    }
+
+    pub fn set_authentication_endpoint_limits(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationEndpointLimits", value);
+    }
+
+    pub fn sensitive_endpoint_limits(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveEndpointLimits")
+    }
+
+    pub fn set_sensitive_endpoint_limits(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveEndpointLimits", value);
+    }
+
+    pub fn brute_force_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bruteForceProtection")
+    }
+
+    pub fn set_brute_force_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bruteForceProtection", value);
+    }
+
+    pub fn bot_detection_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "botDetectionPolicy")
+    }
+
+    pub fn set_bot_detection_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "botDetectionPolicy", value);
+    }
+
+    pub fn ip_reputation_filtering(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "ipReputationFiltering");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_ip_reputation_filtering(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "ipReputationFiltering", &text);
+    }
+
+    pub fn automatic_blocking(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "automaticBlocking");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_automatic_blocking(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "automaticBlocking", &text);
+    }
+
+    pub fn block_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "blockDuration")
+    }
+
+    pub fn set_block_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "blockDuration", value);
+    }
+
+    pub fn geographic_restrictions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "geographicRestrictions")
+    }
+
+    pub fn set_geographic_restrictions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "geographicRestrictions", value);
+    }
+
+    pub fn request_throttling_on_failure(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requestThrottlingOnFailure")
+    }
+
+    pub fn set_request_throttling_on_failure(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requestThrottlingOnFailure", value);
+    }
+
+    pub fn business_flow_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "businessFlowProtection")
+    }
+
+    pub fn set_business_flow_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "businessFlowProtection", value);
+    }
+
+    pub fn webhook_flood_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "webhookFloodProtection")
+    }
+
+    pub fn set_webhook_flood_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "webhookFloodProtection", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ApiAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiAuthenticationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiAuthenticationPolicyContentForm {
+    /// Binds a ApiAuthenticationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiAuthenticationPolicyContentForm {
+        ApiAuthenticationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn authentication_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationMethod")
+    }
+
+    pub fn set_authentication_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationMethod", value);
+    }
+
+    pub fn multiple_methods_supported(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "multipleMethodsSupported");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_multiple_methods_supported(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "multipleMethodsSupported", &text);
+    }
+
+    pub fn api_key_transmission(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyTransmission")
+    }
+
+    pub fn set_api_key_transmission(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyTransmission", value);
+    }
+
+    pub fn api_key_rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyRotationPolicy")
+    }
+
+    pub fn set_api_key_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyRotationPolicy", value);
+    }
+
+    pub fn api_key_scoping(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyScoping")
+    }
+
+    pub fn set_api_key_scoping(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyScoping", value);
+    }
+
+    pub fn jwt_validation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "jwtValidationPolicy")
+    }
+
+    pub fn set_jwt_validation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "jwtValidationPolicy", value);
+    }
+
+    pub fn jwt_signing_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "jwtSigningAlgorithm")
+    }
+
+    pub fn set_jwt_signing_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "jwtSigningAlgorithm", value);
+    }
+
+    pub fn access_token_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessTokenLifetime")
+    }
+
+    pub fn set_access_token_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessTokenLifetime", value);
+    }
+
+    pub fn refresh_token_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refreshTokenPolicy")
+    }
+
+    pub fn set_refresh_token_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refreshTokenPolicy", value);
+    }
+
+    pub fn client_credentials_flow(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "clientCredentialsFlow");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_client_credentials_flow(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "clientCredentialsFlow", &text);
+    }
+
+    pub fn authorization_code_flow(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "authorizationCodeFlow");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_authorization_code_flow(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationCodeFlow", &text);
+    }
+
+    pub fn token_revocation_support(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "tokenRevocationSupport");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_token_revocation_support(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenRevocationSupport", &text);
+    }
+
+    pub fn mutual_tls_required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "mutualTlsRequired");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_mutual_tls_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "mutualTlsRequired", &text);
+    }
+
+    pub fn service_account_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountPolicy")
+    }
+
+    pub fn set_service_account_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountPolicy", value);
+    }
+
+    pub fn webhook_signature_verification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "webhookSignatureVerification")
+    }
+
+    pub fn set_webhook_signature_verification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "webhookSignatureVerification", value);
+    }
+
+    pub fn third_party_api_consumption(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "thirdPartyApiConsumption")
+    }
+
+    pub fn set_third_party_api_consumption(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "thirdPartyApiConsumption", value);
+    }
+
+    pub fn credential_transmission(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialTransmission")
+    }
+
+    pub fn set_credential_transmission(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialTransmission", value);
+    }
+
+    pub fn bearer_token_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bearerTokenFormat")
+    }
+
+    pub fn set_bearer_token_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bearerTokenFormat", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ApiAuthorizationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiAuthorizationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiAuthorizationPolicyContentForm {
+    /// Binds a ApiAuthorizationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiAuthorizationPolicyContentForm {
+        ApiAuthorizationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn object_level_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "objectLevelAuthorization")
+    }
+
+    pub fn set_object_level_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "objectLevelAuthorization", value);
+    }
+
+    pub fn function_level_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionLevelAuthorization")
+    }
+
+    pub fn set_function_level_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "functionLevelAuthorization", value);
+    }
+
+    pub fn property_level_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "propertyLevelAuthorization")
+    }
+
+    pub fn set_property_level_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "propertyLevelAuthorization", value);
+    }
+
+    pub fn permission_granularity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permissionGranularity")
+    }
+
+    pub fn set_permission_granularity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permissionGranularity", value);
+    }
+
+    pub fn scope_definitions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scopeDefinitions")
+    }
+
+    pub fn set_scope_definitions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scopeDefinitions", value);
+    }
+
+    pub fn scope_enforcement_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scopeEnforcementLevel")
+    }
+
+    pub fn set_scope_enforcement_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scopeEnforcementLevel", value);
+    }
+
+    pub fn delegated_access_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "delegatedAccessPolicy")
+    }
+
+    pub fn set_delegated_access_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "delegatedAccessPolicy", value);
+    }
+
+    pub fn bulk_operation_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bulkOperationAuthorization")
+    }
+
+    pub fn set_bulk_operation_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bulkOperationAuthorization", value);
+    }
+
+    pub fn contextual_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextualAuthorization")
+    }
+
+    pub fn set_contextual_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextualAuthorization", value);
+    }
+
+    pub fn mass_assignment_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "massAssignmentPrevention")
+    }
+
+    pub fn set_mass_assignment_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "massAssignmentPrevention", value);
+    }
+
+    pub fn horizontal_privilege_escalation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "horizontalPrivilegeEscalation")
+    }
+
+    pub fn set_horizontal_privilege_escalation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "horizontalPrivilegeEscalation", value);
+    }
+
+    pub fn vertical_privilege_escalation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "verticalPrivilegeEscalation")
+    }
+
+    pub fn set_vertical_privilege_escalation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "verticalPrivilegeEscalation", value);
+    }
+
+    pub fn sensitive_business_flow_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveBusinessFlowProtection")
+    }
+
+    pub fn set_sensitive_business_flow_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveBusinessFlowProtection", value);
+    }
+
+    pub fn workflow_state_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "workflowStateValidation")
+    }
+
+    pub fn set_workflow_state_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "workflowStateValidation", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// ApiCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ApiCompatibilityEntryContentForm {
@@ -70700,6 +71924,681 @@ impl ApiCompatibilityEntryTransportDetailsForm {
     pub fn set_authentication(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "authentication", value);
+    }
+}
+
+/// ApiCorsSecurityContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiCorsSecurityContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiCorsSecurityContentForm {
+    /// Binds a ApiCorsSecurityContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiCorsSecurityContentForm {
+        ApiCorsSecurityContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn cors_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "corsEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_cors_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "corsEnabled", &text);
+    }
+
+    pub fn allowed_origins(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedOrigins")
+    }
+
+    pub fn set_allowed_origins(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedOrigins", value);
+    }
+
+    pub fn allowed_methods(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedMethods")
+    }
+
+    pub fn set_allowed_methods(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedMethods", value);
+    }
+
+    pub fn allowed_headers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedHeaders")
+    }
+
+    pub fn set_allowed_headers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedHeaders", value);
+    }
+
+    pub fn exposed_headers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "exposedHeaders")
+    }
+
+    pub fn set_exposed_headers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "exposedHeaders", value);
+    }
+
+    pub fn credentials_allowed(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "credentialsAllowed");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_credentials_allowed(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialsAllowed", &text);
+    }
+
+    pub fn preflight_cache_max_age(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "preflightCacheMaxAge");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_preflight_cache_max_age(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "preflightCacheMaxAge", &text);
+    }
+
+    pub fn wildcard_restriction(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "wildcardRestriction");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_wildcard_restriction(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "wildcardRestriction", &text);
+    }
+
+    pub fn content_security_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contentSecurityPolicy")
+    }
+
+    pub fn set_content_security_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contentSecurityPolicy", value);
+    }
+
+    pub fn strict_transport_security(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "strictTransportSecurity")
+    }
+
+    pub fn set_strict_transport_security(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "strictTransportSecurity", value);
+    }
+
+    pub fn security_headers_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityHeadersRequired")
+    }
+
+    pub fn set_security_headers_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityHeadersRequired", value);
+    }
+
+    pub fn private_network_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privateNetworkAccess")
+    }
+
+    pub fn set_private_network_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privateNetworkAccess", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ApiKeyManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiKeyManagementPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiKeyManagementPolicyContentForm {
+    /// Binds a ApiKeyManagementPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiKeyManagementPolicyContentForm {
+        ApiKeyManagementPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn api_key_auth_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyAuthEnabled")
+    }
+
+    pub fn set_api_key_auth_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyAuthEnabled", value);
+    }
+
+    pub fn api_key_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyTypes")
+    }
+
+    pub fn set_api_key_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyTypes", value);
+    }
+
+    pub fn key_generation_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyGenerationMethod")
+    }
+
+    pub fn set_key_generation_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyGenerationMethod", value);
+    }
+
+    pub fn key_length(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyLength")
+    }
+
+    pub fn set_key_length(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyLength", value);
+    }
+
+    pub fn key_rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRotationPolicy")
+    }
+
+    pub fn set_key_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRotationPolicy", value);
+    }
+
+    pub fn key_expiration_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyExpirationPolicy")
+    }
+
+    pub fn set_key_expiration_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyExpirationPolicy", value);
+    }
+
+    pub fn key_scope_restrictions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyScopeRestrictions")
+    }
+
+    pub fn set_key_scope_restrictions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyScopeRestrictions", value);
+    }
+
+    pub fn ip_allowlisting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ipAllowlisting")
+    }
+
+    pub fn set_ip_allowlisting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ipAllowlisting", value);
+    }
+
+    pub fn rate_limiting_per_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rateLimitingPerKey")
+    }
+
+    pub fn set_rate_limiting_per_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rateLimitingPerKey", value);
+    }
+
+    pub fn key_revocation_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyRevocationProcess")
+    }
+
+    pub fn set_key_revocation_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyRevocationProcess", value);
+    }
+
+    pub fn key_storage_guidance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyStorageGuidance")
+    }
+
+    pub fn set_key_storage_guidance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyStorageGuidance", value);
+    }
+
+    pub fn key_audit_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyAuditLogging")
+    }
+
+    pub fn set_key_audit_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyAuditLogging", value);
+    }
+
+    pub fn service_token_support(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceTokenSupport")
+    }
+
+    pub fn set_service_token_support(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceTokenSupport", value);
+    }
+
+    pub fn token_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenLifetime")
+    }
+
+    pub fn set_token_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenLifetime", value);
+    }
+}
+
+/// ApiRequestValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiRequestValidationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiRequestValidationPolicyContentForm {
+    /// Binds a ApiRequestValidationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiRequestValidationPolicyContentForm {
+        ApiRequestValidationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn input_validation_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputValidationStrategy")
+    }
+
+    pub fn set_input_validation_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputValidationStrategy", value);
+    }
+
+    pub fn schema_validation_enforced(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "schemaValidationEnforced");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_schema_validation_enforced(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaValidationEnforced", &text);
+    }
+
+    pub fn schema_validation_tool(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaValidationTool")
+    }
+
+    pub fn set_schema_validation_tool(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaValidationTool", value);
+    }
+
+    pub fn content_type_validation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "contentTypeValidation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_content_type_validation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "contentTypeValidation", &text);
+    }
+
+    pub fn accepted_content_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "acceptedContentTypes")
+    }
+
+    pub fn set_accepted_content_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "acceptedContentTypes", value);
+    }
+
+    pub fn reject_unexpected_content_type(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "rejectUnexpectedContentType");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_reject_unexpected_content_type(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "rejectUnexpectedContentType", &text);
+    }
+
+    pub fn request_size_limit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requestSizeLimit")
+    }
+
+    pub fn set_request_size_limit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requestSizeLimit", value);
+    }
+
+    pub fn array_length_limit(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "arrayLengthLimit");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_array_length_limit(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "arrayLengthLimit", &text);
+    }
+
+    pub fn nested_object_depth_limit(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "nestedObjectDepthLimit");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_nested_object_depth_limit(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "nestedObjectDepthLimit", &text);
+    }
+
+    pub fn string_field_max_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "stringFieldMaxLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_string_field_max_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "stringFieldMaxLength", &text);
+    }
+
+    pub fn parameter_type_enforcement(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "parameterTypeEnforcement");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_parameter_type_enforcement(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "parameterTypeEnforcement", &text);
+    }
+
+    pub fn numeric_range_validation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "numericRangeValidation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_numeric_range_validation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "numericRangeValidation", &text);
+    }
+
+    pub fn date_format_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dateFormatValidation")
+    }
+
+    pub fn set_date_format_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dateFormatValidation", value);
+    }
+
+    pub fn encoding_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encodingValidation")
+    }
+
+    pub fn set_encoding_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encodingValidation", value);
+    }
+
+    pub fn file_upload_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fileUploadValidation")
+    }
+
+    pub fn set_file_upload_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fileUploadValidation", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ApiSecurityMonitoringContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ApiSecurityMonitoringContentForm {
+    pub node: som::SomNode,
+}
+
+impl ApiSecurityMonitoringContentForm {
+    /// Binds a ApiSecurityMonitoringContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ApiSecurityMonitoringContentForm {
+        ApiSecurityMonitoringContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn api_access_logging(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "apiAccessLogging");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_api_access_logging(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "apiAccessLogging", &text);
+    }
+
+    pub fn logged_attributes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "loggedAttributes")
+    }
+
+    pub fn set_logged_attributes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "loggedAttributes", value);
+    }
+
+    pub fn sensitive_endpoint_monitoring(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveEndpointMonitoring");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_sensitive_endpoint_monitoring(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveEndpointMonitoring", &text);
+    }
+
+    pub fn sensitive_data_redaction(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveDataRedaction");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_sensitive_data_redaction(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveDataRedaction", &text);
+    }
+
+    pub fn anomaly_detection(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "anomalyDetection");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_anomaly_detection(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "anomalyDetection", &text);
+    }
+
+    pub fn error_rate_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorRateMonitoring")
+    }
+
+    pub fn set_error_rate_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorRateMonitoring", value);
+    }
+
+    pub fn authentication_failure_tracking(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "authenticationFailureTracking");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_authentication_failure_tracking(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationFailureTracking", &text);
+    }
+
+    pub fn data_exfiltration_detection(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dataExfiltrationDetection");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_data_exfiltration_detection(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataExfiltrationDetection", &text);
+    }
+
+    pub fn api_version_inventory(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "apiVersionInventory");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_api_version_inventory(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "apiVersionInventory", &text);
+    }
+
+    pub fn deprecated_endpoint_monitoring(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deprecatedEndpointMonitoring");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_deprecated_endpoint_monitoring(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "deprecatedEndpointMonitoring", &text);
+    }
+
+    pub fn real_time_alerts(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "realTimeAlerts");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_real_time_alerts(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "realTimeAlerts", &text);
+    }
+
+    pub fn security_response_automation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityResponseAutomation")
+    }
+
+    pub fn set_security_response_automation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityResponseAutomation", value);
+    }
+
+    pub fn compliance_reporting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "complianceReporting")
+    }
+
+    pub fn set_compliance_reporting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "complianceReporting", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -73646,6 +75545,135 @@ impl AuditEvidenceTypeEntryContentForm {
     }
 }
 
+/// AuthenticationErrorHandlingContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthenticationErrorHandlingContentForm {
+    pub node: som::SomNode,
+}
+
+impl AuthenticationErrorHandlingContentForm {
+    /// Binds a AuthenticationErrorHandlingContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthenticationErrorHandlingContentForm {
+        AuthenticationErrorHandlingContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn invalid_credential_response(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "invalidCredentialResponse")
+    }
+
+    pub fn set_invalid_credential_response(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "invalidCredentialResponse", value);
+    }
+
+    pub fn account_lockout_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accountLockoutThreshold")
+    }
+
+    pub fn set_account_lockout_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accountLockoutThreshold", value);
+    }
+
+    pub fn lockout_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutDuration")
+    }
+
+    pub fn set_lockout_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutDuration", value);
+    }
+
+    pub fn lockout_escalation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockoutEscalation")
+    }
+
+    pub fn set_lockout_escalation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockoutEscalation", value);
+    }
+
+    pub fn brute_force_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bruteForceProtection")
+    }
+
+    pub fn set_brute_force_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bruteForceProtection", value);
+    }
+
+    pub fn credential_stuffing_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialStuffingProtection")
+    }
+
+    pub fn set_credential_stuffing_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialStuffingProtection", value);
+    }
+
+    pub fn user_notification_on_failure(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userNotificationOnFailure")
+    }
+
+    pub fn set_user_notification_on_failure(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userNotificationOnFailure", value);
+    }
+
+    pub fn admin_alert_threshold(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adminAlertThreshold")
+    }
+
+    pub fn set_admin_alert_threshold(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adminAlertThreshold", value);
+    }
+
+    pub fn failed_login_audit_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failedLoginAuditLogging")
+    }
+
+    pub fn set_failed_login_audit_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failedLoginAuditLogging", value);
+    }
+
+    pub fn suspicious_activity_response(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "suspiciousActivityResponse")
+    }
+
+    pub fn set_suspicious_activity_response(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "suspiciousActivityResponse", value);
+    }
+
+    pub fn graceful_degradation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "gracefulDegradation")
+    }
+
+    pub fn set_graceful_degradation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "gracefulDegradation", value);
+    }
+}
+
 /// AuthenticationEventPolicyContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct AuthenticationEventPolicyContentForm {
@@ -75522,6 +77550,107 @@ impl BackupDataClassificationExclusionsForm {
     }
 }
 
+/// BackupEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct BackupEncryptionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl BackupEncryptionPolicyContentForm {
+    /// Binds a BackupEncryptionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BackupEncryptionPolicyContentForm {
+        BackupEncryptionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn backup_encryption_required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "backupEncryptionRequired");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_backup_encryption_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "backupEncryptionRequired", &text);
+    }
+
+    pub fn backup_encryption_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backupEncryptionMethod")
+    }
+
+    pub fn set_backup_encryption_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backupEncryptionMethod", value);
+    }
+
+    pub fn separate_backup_keys(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "separateBackupKeys");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_separate_backup_keys(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "separateBackupKeys", &text);
+    }
+
+    pub fn backup_key_rotation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backupKeyRotation")
+    }
+
+    pub fn set_backup_key_rotation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backupKeyRotation", value);
+    }
+
+    pub fn encrypted_backup_verification(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "encryptedBackupVerification");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_encrypted_backup_verification(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptedBackupVerification", &text);
+    }
+
+    pub fn off_site_backup_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "offSiteBackupEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_off_site_backup_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "offSiteBackupEncryption", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// BackupInfrastructureContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct BackupInfrastructureContentForm {
@@ -77330,6 +79459,144 @@ impl BehaviorRuleEntryContentForm {
     pub fn set_calculated_properties(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "calculatedProperties", value);
+    }
+}
+
+/// BiometricAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct BiometricAuthenticationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl BiometricAuthenticationPolicyContentForm {
+    /// Binds a BiometricAuthenticationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BiometricAuthenticationPolicyContentForm {
+        BiometricAuthenticationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn biometric_auth_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricAuthEnabled")
+    }
+
+    pub fn set_biometric_auth_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricAuthEnabled", value);
+    }
+
+    pub fn biometric_modalities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricModalities")
+    }
+
+    pub fn set_biometric_modalities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricModalities", value);
+    }
+
+    pub fn biometric_usage_context(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricUsageContext")
+    }
+
+    pub fn set_biometric_usage_context(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricUsageContext", value);
+    }
+
+    pub fn biometric_as_activation_factor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricAsActivationFactor")
+    }
+
+    pub fn set_biometric_as_activation_factor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricAsActivationFactor", value);
+    }
+
+    pub fn local_vs_central_comparison(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "localVsCentralComparison")
+    }
+
+    pub fn set_local_vs_central_comparison(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "localVsCentralComparison", value);
+    }
+
+    pub fn false_match_rate_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "falseMatchRateTarget")
+    }
+
+    pub fn set_false_match_rate_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "falseMatchRateTarget", value);
+    }
+
+    pub fn presentation_attack_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "presentationAttackDetection")
+    }
+
+    pub fn set_presentation_attack_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "presentationAttackDetection", value);
+    }
+
+    pub fn max_consecutive_failures(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxConsecutiveFailures")
+    }
+
+    pub fn set_max_consecutive_failures(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxConsecutiveFailures", value);
+    }
+
+    pub fn fallback_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fallbackMethod")
+    }
+
+    pub fn set_fallback_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fallbackMethod", value);
+    }
+
+    pub fn biometric_data_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricDataStorage")
+    }
+
+    pub fn set_biometric_data_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricDataStorage", value);
+    }
+
+    pub fn privacy_considerations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privacyConsiderations")
+    }
+
+    pub fn set_privacy_considerations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privacyConsiderations", value);
+    }
+
+    pub fn accessibility_alternative(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessibilityAlternative")
+    }
+
+    pub fn set_accessibility_alternative(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessibilityAlternative", value);
     }
 }
 
@@ -81808,6 +84075,144 @@ impl CcbMemberEntryContentForm {
     }
 }
 
+/// CertificateAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct CertificateAuthenticationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl CertificateAuthenticationPolicyContentForm {
+    /// Binds a CertificateAuthenticationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CertificateAuthenticationPolicyContentForm {
+        CertificateAuthenticationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn certificate_auth_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateAuthEnabled")
+    }
+
+    pub fn set_certificate_auth_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateAuthEnabled", value);
+    }
+
+    pub fn certificate_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateTypes")
+    }
+
+    pub fn set_certificate_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateTypes", value);
+    }
+
+    pub fn certificate_issuance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateIssuance")
+    }
+
+    pub fn set_certificate_issuance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateIssuance", value);
+    }
+
+    pub fn certificate_authority(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateAuthority")
+    }
+
+    pub fn set_certificate_authority(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateAuthority", value);
+    }
+
+    pub fn key_storage_requirement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyStorageRequirement")
+    }
+
+    pub fn set_key_storage_requirement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyStorageRequirement", value);
+    }
+
+    pub fn mutual_tls_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mutualTlsRequired")
+    }
+
+    pub fn set_mutual_tls_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mutualTlsRequired", value);
+    }
+
+    pub fn certificate_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateValidation")
+    }
+
+    pub fn set_certificate_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateValidation", value);
+    }
+
+    pub fn certificate_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateLifetime")
+    }
+
+    pub fn set_certificate_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateLifetime", value);
+    }
+
+    pub fn renewal_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "renewalProcess")
+    }
+
+    pub fn set_renewal_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "renewalProcess", value);
+    }
+
+    pub fn revocation_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "revocationProcess")
+    }
+
+    pub fn set_revocation_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "revocationProcess", value);
+    }
+
+    pub fn minimum_key_strength(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumKeyStrength")
+    }
+
+    pub fn set_minimum_key_strength(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumKeyStrength", value);
+    }
+
+    pub fn fips_compliance_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fipsComplianceRequired")
+    }
+
+    pub fn set_fips_compliance_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fipsComplianceRequired", value);
+    }
+}
+
 /// CertificateManagementContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct CertificateManagementContentForm {
@@ -82037,6 +84442,145 @@ impl CertificateManagementMonitoringForm {
     pub fn set_expiry_alert_threshold(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expiryAlertThreshold", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// CertificateManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct CertificateManagementPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl CertificateManagementPolicyContentForm {
+    /// Binds a CertificateManagementPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CertificateManagementPolicyContentForm {
+        CertificateManagementPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn certificate_authority(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificateAuthority")
+    }
+
+    pub fn set_certificate_authority(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateAuthority", value);
+    }
+
+    pub fn validation_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "validationType")
+    }
+
+    pub fn set_validation_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "validationType", value);
+    }
+
+    pub fn minimum_key_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "minimumKeyLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_minimum_key_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumKeyLength", &text);
+    }
+
+    pub fn key_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyType")
+    }
+
+    pub fn set_key_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyType", value);
+    }
+
+    pub fn hashing_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hashingAlgorithm")
+    }
+
+    pub fn set_hashing_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hashingAlgorithm", value);
+    }
+
+    pub fn wildcard_certificate_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "wildcardCertificatePolicy")
+    }
+
+    pub fn set_wildcard_certificate_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "wildcardCertificatePolicy", value);
+    }
+
+    pub fn certificate_lifetime_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "certificateLifetimeDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_certificate_lifetime_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateLifetimeDays", &text);
+    }
+
+    pub fn automated_renewal(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "automatedRenewal");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_automated_renewal(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "automatedRenewal", &text);
+    }
+
+    pub fn certificate_transparency(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "certificateTransparency");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_certificate_transparency(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "certificateTransparency", &text);
+    }
+
+    pub fn caa_records(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "caaRecords");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_caa_records(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "caaRecords", &text);
     }
 
     pub fn notes(&self) -> String {
@@ -85176,6 +87720,99 @@ impl ChangesFromCurrentStructureOverviewContentForm {
     pub fn set_collaboration_model_changes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "collaborationModelChanges", value);
+    }
+}
+
+/// ChannelIntegrationsContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ChannelIntegrationsContentForm {
+    pub node: som::SomNode,
+}
+
+impl ChannelIntegrationsContentForm {
+    /// Binds a ChannelIntegrationsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ChannelIntegrationsContentForm {
+        ChannelIntegrationsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn push_notification_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pushNotificationService")
+    }
+
+    pub fn set_push_notification_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pushNotificationService", value);
+    }
+
+    pub fn analytics_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "analyticsService")
+    }
+
+    pub fn set_analytics_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "analyticsService", value);
+    }
+
+    pub fn crash_reporting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crashReporting")
+    }
+
+    pub fn set_crash_reporting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crashReporting", value);
+    }
+
+    pub fn deep_linking(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deepLinking")
+    }
+
+    pub fn set_deep_linking(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deepLinking", value);
+    }
+
+    pub fn social_integration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "socialIntegration")
+    }
+
+    pub fn set_social_integration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "socialIntegration", value);
+    }
+
+    pub fn payment_integration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "paymentIntegration")
+    }
+
+    pub fn set_payment_integration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "paymentIntegration", value);
+    }
+
+    pub fn biometric_integration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "biometricIntegration")
+    }
+
+    pub fn set_biometric_integration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "biometricIntegration", value);
     }
 }
 
@@ -88922,6 +91559,117 @@ impl ColorPaletteEntryContentForm {
     pub fn set_usage_guidelines(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "usageGuidelines", value);
+    }
+}
+
+/// ColumnLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ColumnLevelSecurityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ColumnLevelSecurityPolicyContentForm {
+    /// Binds a ColumnLevelSecurityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ColumnLevelSecurityPolicyContentForm {
+        ColumnLevelSecurityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn column_level_security_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "columnLevelSecurityEnabled")
+    }
+
+    pub fn set_column_level_security_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "columnLevelSecurityEnabled", value);
+    }
+
+    pub fn column_access_implementation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "columnAccessImplementation")
+    }
+
+    pub fn set_column_access_implementation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "columnAccessImplementation", value);
+    }
+
+    pub fn sensitive_column_classification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveColumnClassification")
+    }
+
+    pub fn set_sensitive_column_classification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveColumnClassification", value);
+    }
+
+    pub fn pii_column_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "piiColumnAccess")
+    }
+
+    pub fn set_pii_column_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "piiColumnAccess", value);
+    }
+
+    pub fn financial_data_column_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "financialDataColumnAccess")
+    }
+
+    pub fn set_financial_data_column_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "financialDataColumnAccess", value);
+    }
+
+    pub fn health_data_column_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "healthDataColumnAccess")
+    }
+
+    pub fn set_health_data_column_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "healthDataColumnAccess", value);
+    }
+
+    pub fn dynamic_field_visibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dynamicFieldVisibility")
+    }
+
+    pub fn set_dynamic_field_visibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dynamicFieldVisibility", value);
+    }
+
+    pub fn column_access_audit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "columnAccessAudit")
+    }
+
+    pub fn set_column_access_audit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "columnAccessAudit", value);
+    }
+
+    pub fn column_encryption_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "columnEncryptionPolicy")
+    }
+
+    pub fn set_column_encryption_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "columnEncryptionPolicy", value);
     }
 }
 
@@ -96050,6 +98798,135 @@ impl ComputingEquipmentEntryPlatformForm {
     }
 }
 
+/// ConcurrentSessionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ConcurrentSessionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ConcurrentSessionPolicyContentForm {
+    /// Binds a ConcurrentSessionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ConcurrentSessionPolicyContentForm {
+        ConcurrentSessionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn concurrent_sessions_allowed(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "concurrentSessionsAllowed")
+    }
+
+    pub fn set_concurrent_sessions_allowed(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "concurrentSessionsAllowed", value);
+    }
+
+    pub fn max_concurrent_sessions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxConcurrentSessions")
+    }
+
+    pub fn set_max_concurrent_sessions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxConcurrentSessions", value);
+    }
+
+    pub fn concurrent_session_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "concurrentSessionScope")
+    }
+
+    pub fn set_concurrent_session_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "concurrentSessionScope", value);
+    }
+
+    pub fn conflict_resolution(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "conflictResolution")
+    }
+
+    pub fn set_conflict_resolution(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "conflictResolution", value);
+    }
+
+    pub fn session_list_visible(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionListVisible")
+    }
+
+    pub fn set_session_list_visible(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionListVisible", value);
+    }
+
+    pub fn remote_termination_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "remoteTerminationEnabled")
+    }
+
+    pub fn set_remote_termination_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "remoteTerminationEnabled", value);
+    }
+
+    pub fn session_device_info(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionDeviceInfo")
+    }
+
+    pub fn set_session_device_info(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionDeviceInfo", value);
+    }
+
+    pub fn concurrent_login_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "concurrentLoginNotification")
+    }
+
+    pub fn set_concurrent_login_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "concurrentLoginNotification", value);
+    }
+
+    pub fn suspicious_concurrent_login_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "suspiciousConcurrentLoginAction")
+    }
+
+    pub fn set_suspicious_concurrent_login_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "suspiciousConcurrentLoginAction", value);
+    }
+
+    pub fn privileged_account_session_limit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privilegedAccountSessionLimit")
+    }
+
+    pub fn set_privileged_account_session_limit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegedAccountSessionLimit", value);
+    }
+
+    pub fn cross_device_session_handling(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossDeviceSessionHandling")
+    }
+
+    pub fn set_cross_device_session_handling(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossDeviceSessionHandling", value);
+    }
+}
+
 /// ConfidentialInfoCategoryEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ConfidentialInfoCategoryEntryContentForm {
@@ -97188,6 +100065,183 @@ impl ConstraintRegisterEntryContentForm {
     }
 }
 
+/// ContentScanningPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ContentScanningPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ContentScanningPolicyContentForm {
+    /// Binds a ContentScanningPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ContentScanningPolicyContentForm {
+        ContentScanningPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn antivirus_scanning_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "antivirusScanningEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_antivirus_scanning_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "antivirusScanningEnabled", &text);
+    }
+
+    pub fn scan_timing(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scanTiming")
+    }
+
+    pub fn set_scan_timing(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scanTiming", value);
+    }
+
+    pub fn scan_engine(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scanEngine")
+    }
+
+    pub fn set_scan_engine(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scanEngine", value);
+    }
+
+    pub fn quarantine_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "quarantinePolicy")
+    }
+
+    pub fn set_quarantine_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "quarantinePolicy", value);
+    }
+
+    pub fn quarantine_retention_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "quarantineRetentionDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_quarantine_retention_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "quarantineRetentionDays", &text);
+    }
+
+    pub fn signature_update_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "signatureUpdateFrequency")
+    }
+
+    pub fn set_signature_update_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "signatureUpdateFrequency", value);
+    }
+
+    pub fn cdr_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "cdrEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_cdr_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "cdrEnabled", &text);
+    }
+
+    pub fn cdr_applicable_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cdrApplicableTypes")
+    }
+
+    pub fn set_cdr_applicable_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cdrApplicableTypes", value);
+    }
+
+    pub fn dlp_scanning_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dlpScanningEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_dlp_scanning_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dlpScanningEnabled", &text);
+    }
+
+    pub fn dlp_policies(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dlpPolicies")
+    }
+
+    pub fn set_dlp_policies(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dlpPolicies", value);
+    }
+
+    pub fn dlp_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dlpAction")
+    }
+
+    pub fn set_dlp_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dlpAction", value);
+    }
+
+    pub fn content_moderation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "contentModeration");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_content_moderation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "contentModeration", &text);
+    }
+
+    pub fn moderation_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "moderationMethod")
+    }
+
+    pub fn set_moderation_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "moderationMethod", value);
+    }
+
+    pub fn hash_based_detection(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hashBasedDetection");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_hash_based_detection(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hashBasedDetection", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// ContextualHelpContextualHelpContentForm is the generated section facade for the `contextualHelpContent` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ContextualHelpContextualHelpContentForm {
@@ -98202,6 +101256,273 @@ impl CorrectnessVerificationForm {
     }
 }
 
+/// CredentialCompromiseDetectionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct CredentialCompromiseDetectionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl CredentialCompromiseDetectionPolicyContentForm {
+    /// Binds a CredentialCompromiseDetectionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CredentialCompromiseDetectionPolicyContentForm {
+        CredentialCompromiseDetectionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn breach_database_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "breachDatabaseMonitoring")
+    }
+
+    pub fn set_breach_database_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "breachDatabaseMonitoring", value);
+    }
+
+    pub fn breach_database_source(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "breachDatabaseSource")
+    }
+
+    pub fn set_breach_database_source(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "breachDatabaseSource", value);
+    }
+
+    pub fn breach_check_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "breachCheckFrequency")
+    }
+
+    pub fn set_breach_check_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "breachCheckFrequency", value);
+    }
+
+    pub fn compromised_credential_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compromisedCredentialAction")
+    }
+
+    pub fn set_compromised_credential_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compromisedCredentialAction", value);
+    }
+
+    pub fn credential_stuffing_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialStuffingDetection")
+    }
+
+    pub fn set_credential_stuffing_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialStuffingDetection", value);
+    }
+
+    pub fn stuffing_detection_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stuffingDetectionMethod")
+    }
+
+    pub fn set_stuffing_detection_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stuffingDetectionMethod", value);
+    }
+
+    pub fn dark_web_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "darkWebMonitoring")
+    }
+
+    pub fn set_dark_web_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "darkWebMonitoring", value);
+    }
+
+    pub fn user_compromise_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "userCompromiseNotification")
+    }
+
+    pub fn set_user_compromise_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "userCompromiseNotification", value);
+    }
+
+    pub fn admin_compromise_alerts(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adminCompromiseAlerts")
+    }
+
+    pub fn set_admin_compromise_alerts(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adminCompromiseAlerts", value);
+    }
+
+    pub fn compromise_response_sla(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compromiseResponseSla")
+    }
+
+    pub fn set_compromise_response_sla(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compromiseResponseSla", value);
+    }
+}
+
+/// CredentialRecoveryPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct CredentialRecoveryPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl CredentialRecoveryPolicyContentForm {
+    /// Binds a CredentialRecoveryPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CredentialRecoveryPolicyContentForm {
+        CredentialRecoveryPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn password_reset_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordResetMethod")
+    }
+
+    pub fn set_password_reset_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordResetMethod", value);
+    }
+
+    pub fn reset_link_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resetLinkExpiry")
+    }
+
+    pub fn set_reset_link_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resetLinkExpiry", value);
+    }
+
+    pub fn reset_link_single_use(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resetLinkSingleUse")
+    }
+
+    pub fn set_reset_link_single_use(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resetLinkSingleUse", value);
+    }
+
+    pub fn reset_rate_limiting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resetRateLimiting")
+    }
+
+    pub fn set_reset_rate_limiting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resetRateLimiting", value);
+    }
+
+    pub fn saved_recovery_codes_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "savedRecoveryCodesEnabled")
+    }
+
+    pub fn set_saved_recovery_codes_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "savedRecoveryCodesEnabled", value);
+    }
+
+    pub fn recovery_code_count(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryCodeCount")
+    }
+
+    pub fn set_recovery_code_count(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryCodeCount", value);
+    }
+
+    pub fn recovery_code_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryCodeFormat")
+    }
+
+    pub fn set_recovery_code_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryCodeFormat", value);
+    }
+
+    pub fn issued_recovery_code_channels(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "issuedRecoveryCodeChannels")
+    }
+
+    pub fn set_issued_recovery_code_channels(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "issuedRecoveryCodeChannels", value);
+    }
+
+    pub fn recovery_code_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryCodeExpiry")
+    }
+
+    pub fn set_recovery_code_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryCodeExpiry", value);
+    }
+
+    pub fn identity_reverification_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "identityReverificationRequired")
+    }
+
+    pub fn set_identity_reverification_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "identityReverificationRequired", value);
+    }
+
+    pub fn recovery_contact_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryContactEnabled")
+    }
+
+    pub fn set_recovery_contact_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryContactEnabled", value);
+    }
+
+    pub fn multiple_recovery_addresses(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "multipleRecoveryAddresses")
+    }
+
+    pub fn set_multiple_recovery_addresses(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "multipleRecoveryAddresses", value);
+    }
+
+    pub fn recovery_audit_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryAuditLogging")
+    }
+
+    pub fn set_recovery_audit_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryAuditLogging", value);
+    }
+}
+
 /// CrossCuttingConcernsCachingForm is the generated section facade for the `caching` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct CrossCuttingConcernsCachingForm {
@@ -98532,6 +101853,110 @@ impl CrossCuttingConcernsSharedForm {
     pub fn set_validation(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "validation", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// CrossTenantAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct CrossTenantAccessPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl CrossTenantAccessPolicyContentForm {
+    /// Binds a CrossTenantAccessPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> CrossTenantAccessPolicyContentForm {
+        CrossTenantAccessPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn cross_tenant_access_allowed(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "crossTenantAccessAllowed");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_cross_tenant_access_allowed(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "crossTenantAccessAllowed", &text);
+    }
+
+    pub fn cross_tenant_access_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossTenantAccessModel")
+    }
+
+    pub fn set_cross_tenant_access_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossTenantAccessModel", value);
+    }
+
+    pub fn authorization_mechanism(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationMechanism")
+    }
+
+    pub fn set_authorization_mechanism(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationMechanism", value);
+    }
+
+    pub fn resource_sharing_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceSharingModel")
+    }
+
+    pub fn set_resource_sharing_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceSharingModel", value);
+    }
+
+    pub fn idor_prevention_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idorPreventionStrategy")
+    }
+
+    pub fn set_idor_prevention_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idorPreventionStrategy", value);
+    }
+
+    pub fn cross_tenant_audit_requirement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossTenantAuditRequirement")
+    }
+
+    pub fn set_cross_tenant_audit_requirement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossTenantAuditRequirement", value);
+    }
+
+    pub fn access_review_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessReviewFrequency")
+    }
+
+    pub fn set_access_review_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessReviewFrequency", value);
     }
 
     pub fn notes(&self) -> String {
@@ -99939,6 +103364,144 @@ impl DashboardTemplatesContentForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// DataAccessAuditPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAccessAuditPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl DataAccessAuditPolicyContentForm {
+    /// Binds a DataAccessAuditPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAccessAuditPolicyContentForm {
+        DataAccessAuditPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn data_access_logging_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAccessLoggingEnabled")
+    }
+
+    pub fn set_data_access_logging_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAccessLoggingEnabled", value);
+    }
+
+    pub fn data_access_logging_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAccessLoggingScope")
+    }
+
+    pub fn set_data_access_logging_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAccessLoggingScope", value);
+    }
+
+    pub fn logged_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "loggedOperations")
+    }
+
+    pub fn set_logged_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "loggedOperations", value);
+    }
+
+    pub fn data_access_log_detail(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAccessLogDetail")
+    }
+
+    pub fn set_data_access_log_detail(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAccessLogDetail", value);
+    }
+
+    pub fn query_text_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "queryTextLogging")
+    }
+
+    pub fn set_query_text_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "queryTextLogging", value);
+    }
+
+    pub fn anomaly_detection_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "anomalyDetectionEnabled")
+    }
+
+    pub fn set_anomaly_detection_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "anomalyDetectionEnabled", value);
+    }
+
+    pub fn anomaly_signals(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "anomalySignals")
+    }
+
+    pub fn set_anomaly_signals(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "anomalySignals", value);
+    }
+
+    pub fn data_breach_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataBreachDetection")
+    }
+
+    pub fn set_data_breach_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataBreachDetection", value);
+    }
+
+    pub fn data_access_review_cycle(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAccessReviewCycle")
+    }
+
+    pub fn set_data_access_review_cycle(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAccessReviewCycle", value);
+    }
+
+    pub fn privileged_query_alerts(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privilegedQueryAlerts")
+    }
+
+    pub fn set_privileged_query_alerts(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegedQueryAlerts", value);
+    }
+
+    pub fn compliance_reporting_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "complianceReportingEnabled")
+    }
+
+    pub fn set_compliance_reporting_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "complianceReportingEnabled", value);
+    }
+
+    pub fn data_access_retention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataAccessRetention")
+    }
+
+    pub fn set_data_access_retention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataAccessRetention", value);
     }
 }
 
@@ -103901,6 +107464,162 @@ impl DataIntegrationPointsIntegrationSummaryForm {
     }
 }
 
+/// DataMaskingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataMaskingPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl DataMaskingPolicyContentForm {
+    /// Binds a DataMaskingPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataMaskingPolicyContentForm {
+        DataMaskingPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn dynamic_data_masking_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dynamicDataMaskingEnabled")
+    }
+
+    pub fn set_dynamic_data_masking_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dynamicDataMaskingEnabled", value);
+    }
+
+    pub fn dynamic_masking_rules(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dynamicMaskingRules")
+    }
+
+    pub fn set_dynamic_masking_rules(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dynamicMaskingRules", value);
+    }
+
+    pub fn dynamic_masking_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dynamicMaskingScope")
+    }
+
+    pub fn set_dynamic_masking_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dynamicMaskingScope", value);
+    }
+
+    pub fn static_masking_for_non_production(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "staticMaskingForNonProduction")
+    }
+
+    pub fn set_static_masking_for_non_production(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "staticMaskingForNonProduction", value);
+    }
+
+    pub fn static_masking_tool(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "staticMaskingTool")
+    }
+
+    pub fn set_static_masking_tool(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "staticMaskingTool", value);
+    }
+
+    pub fn masking_preserves_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maskingPreservesFormat")
+    }
+
+    pub fn set_masking_preserves_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maskingPreservesFormat", value);
+    }
+
+    pub fn masking_reversibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maskingReversibility")
+    }
+
+    pub fn set_masking_reversibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maskingReversibility", value);
+    }
+
+    pub fn pii_masking_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "piiMaskingPolicy")
+    }
+
+    pub fn set_pii_masking_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "piiMaskingPolicy", value);
+    }
+
+    pub fn email_masking_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "emailMaskingFormat")
+    }
+
+    pub fn set_email_masking_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "emailMaskingFormat", value);
+    }
+
+    pub fn phone_masking_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "phoneMaskingFormat")
+    }
+
+    pub fn set_phone_masking_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "phoneMaskingFormat", value);
+    }
+
+    pub fn address_masking_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "addressMaskingFormat")
+    }
+
+    pub fn set_address_masking_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "addressMaskingFormat", value);
+    }
+
+    pub fn financial_data_masking(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "financialDataMasking")
+    }
+
+    pub fn set_financial_data_masking(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "financialDataMasking", value);
+    }
+
+    pub fn masking_audit_trail(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maskingAuditTrail")
+    }
+
+    pub fn set_masking_audit_trail(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maskingAuditTrail", value);
+    }
+
+    pub fn development_data_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "developmentDataStrategy")
+    }
+
+    pub fn set_development_data_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "developmentDataStrategy", value);
+    }
+}
+
 /// DataMigrationStrategyApproachForm is the generated section facade for the `approach` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DataMigrationStrategyApproachForm {
@@ -107743,6 +111462,162 @@ impl DataVolumeSummaryProjectionForm {
     }
 }
 
+/// DatabaseAccessPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DatabaseAccessPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl DatabaseAccessPolicyContentForm {
+    /// Binds a DatabaseAccessPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DatabaseAccessPolicyContentForm {
+        DatabaseAccessPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn database_connection_security(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseConnectionSecurity")
+    }
+
+    pub fn set_database_connection_security(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseConnectionSecurity", value);
+    }
+
+    pub fn minimum_tls_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumTlsVersion")
+    }
+
+    pub fn set_minimum_tls_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumTlsVersion", value);
+    }
+
+    pub fn application_account_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "applicationAccountStrategy")
+    }
+
+    pub fn set_application_account_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "applicationAccountStrategy", value);
+    }
+
+    pub fn application_account_privileges(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "applicationAccountPrivileges")
+    }
+
+    pub fn set_application_account_privileges(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "applicationAccountPrivileges", value);
+    }
+
+    pub fn schema_ownership_separation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaOwnershipSeparation")
+    }
+
+    pub fn set_schema_ownership_separation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaOwnershipSeparation", value);
+    }
+
+    pub fn direct_table_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "directTableAccess")
+    }
+
+    pub fn set_direct_table_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "directTableAccess", value);
+    }
+
+    pub fn database_credential_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseCredentialStorage")
+    }
+
+    pub fn set_database_credential_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseCredentialStorage", value);
+    }
+
+    pub fn credential_rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialRotationPolicy")
+    }
+
+    pub fn set_credential_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialRotationPolicy", value);
+    }
+
+    pub fn connection_pool_security(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "connectionPoolSecurity")
+    }
+
+    pub fn set_connection_pool_security(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "connectionPoolSecurity", value);
+    }
+
+    pub fn privileged_access_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privilegedAccessManagement")
+    }
+
+    pub fn set_privileged_access_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegedAccessManagement", value);
+    }
+
+    pub fn database_firewall_rules(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseFirewallRules")
+    }
+
+    pub fn set_database_firewall_rules(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseFirewallRules", value);
+    }
+
+    pub fn sql_injection_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sqlInjectionPrevention")
+    }
+
+    pub fn set_sql_injection_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sqlInjectionPrevention", value);
+    }
+
+    pub fn query_complexity_limits(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "queryComplexityLimits")
+    }
+
+    pub fn set_query_complexity_limits(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "queryComplexityLimits", value);
+    }
+
+    pub fn database_activity_monitoring(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseActivityMonitoring")
+    }
+
+    pub fn set_database_activity_monitoring(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseActivityMonitoring", value);
+    }
+}
+
 /// DatabaseCompatibilityEntryConnectionForm is the generated section facade for the `connection` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DatabaseCompatibilityEntryConnectionForm {
@@ -108025,6 +111900,103 @@ impl DatabaseCompatibilityEntrySupportForm {
     pub fn set_cloud_variants(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "cloudVariants", value);
+    }
+}
+
+/// DatabaseEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DatabaseEncryptionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl DatabaseEncryptionPolicyContentForm {
+    /// Binds a DatabaseEncryptionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DatabaseEncryptionPolicyContentForm {
+        DatabaseEncryptionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn database_encryption_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseEncryptionMethod")
+    }
+
+    pub fn set_database_encryption_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseEncryptionMethod", value);
+    }
+
+    pub fn encrypted_column_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptedColumnStrategy")
+    }
+
+    pub fn set_encrypted_column_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptedColumnStrategy", value);
+    }
+
+    pub fn index_on_encrypted_columns(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "indexOnEncryptedColumns");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_index_on_encrypted_columns(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "indexOnEncryptedColumns", &text);
+    }
+
+    pub fn search_on_encrypted_data(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "searchOnEncryptedData")
+    }
+
+    pub fn set_search_on_encrypted_data(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "searchOnEncryptedData", value);
+    }
+
+    pub fn connection_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "connectionEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_connection_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "connectionEncryption", &text);
+    }
+
+    pub fn database_engine(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "databaseEngine")
+    }
+
+    pub fn set_database_engine(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseEngine", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -120530,6 +124502,136 @@ impl EncryptedDataCategoryEntryContentForm {
     }
 }
 
+/// EncryptionAtRestPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct EncryptionAtRestPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl EncryptionAtRestPolicyContentForm {
+    /// Binds a EncryptionAtRestPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EncryptionAtRestPolicyContentForm {
+        EncryptionAtRestPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn default_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultAlgorithm")
+    }
+
+    pub fn set_default_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultAlgorithm", value);
+    }
+
+    pub fn default_key_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "defaultKeyLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_default_key_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultKeyLength", &text);
+    }
+
+    pub fn cipher_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cipherMode")
+    }
+
+    pub fn set_cipher_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cipherMode", value);
+    }
+
+    pub fn encryption_layer(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionLayer")
+    }
+
+    pub fn set_encryption_layer(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionLayer", value);
+    }
+
+    pub fn field_level_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "fieldLevelEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_field_level_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "fieldLevelEncryption", &text);
+    }
+
+    pub fn transparent_data_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "transparentDataEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_transparent_data_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "transparentDataEncryption", &text);
+    }
+
+    pub fn full_disk_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "fullDiskEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_full_disk_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "fullDiskEncryption", &text);
+    }
+
+    pub fn minimize_sensitive_storage(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "minimizeSensitiveStorage");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_minimize_sensitive_storage(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "minimizeSensitiveStorage", &text);
+    }
+
+    pub fn compliance_framework(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "complianceFramework")
+    }
+
+    pub fn set_compliance_framework(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "complianceFramework", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// EnterpriseSystemCompatibilityEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct EnterpriseSystemCompatibilityEntryContentForm {
@@ -131525,6 +135627,684 @@ impl FieldValidationRuleContentForm {
     pub fn set_trigger_event(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "triggerEvent", value);
+    }
+}
+
+/// FileAccessControlPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FileAccessControlPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl FileAccessControlPolicyContentForm {
+    /// Binds a FileAccessControlPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FileAccessControlPolicyContentForm {
+        FileAccessControlPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn file_access_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fileAccessModel")
+    }
+
+    pub fn set_file_access_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fileAccessModel", value);
+    }
+
+    pub fn authentication_required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "authenticationRequired");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_authentication_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationRequired", &text);
+    }
+
+    pub fn anonymous_download_allowed(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "anonymousDownloadAllowed");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_anonymous_download_allowed(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "anonymousDownloadAllowed", &text);
+    }
+
+    pub fn file_ownership_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fileOwnershipModel")
+    }
+
+    pub fn set_file_ownership_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fileOwnershipModel", value);
+    }
+
+    pub fn permission_granularity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permissionGranularity")
+    }
+
+    pub fn set_permission_granularity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permissionGranularity", value);
+    }
+
+    pub fn folder_level_permissions(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "folderLevelPermissions");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_folder_level_permissions(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "folderLevelPermissions", &text);
+    }
+
+    pub fn permission_inheritance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "permissionInheritance")
+    }
+
+    pub fn set_permission_inheritance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "permissionInheritance", value);
+    }
+
+    pub fn sharing_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "sharingEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_sharing_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "sharingEnabled", &text);
+    }
+
+    pub fn shareable_link_support(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "shareableLinkSupport");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_shareable_link_support(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "shareableLinkSupport", &text);
+    }
+
+    pub fn shareable_link_expiration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "shareableLinkExpiration")
+    }
+
+    pub fn set_shareable_link_expiration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "shareableLinkExpiration", value);
+    }
+
+    pub fn external_sharing_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "externalSharingPolicy")
+    }
+
+    pub fn set_external_sharing_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "externalSharingPolicy", value);
+    }
+
+    pub fn storage_location_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "storageLocationPolicy")
+    }
+
+    pub fn set_storage_location_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "storageLocationPolicy", value);
+    }
+
+    pub fn tenant_storage_isolation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantStorageIsolation")
+    }
+
+    pub fn set_tenant_storage_isolation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantStorageIsolation", value);
+    }
+
+    pub fn filesystem_permissions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "filesystemPermissions")
+    }
+
+    pub fn set_filesystem_permissions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "filesystemPermissions", value);
+    }
+
+    pub fn presigned_url_support(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "presignedUrlSupport");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_presigned_url_support(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "presignedUrlSupport", &text);
+    }
+
+    pub fn presigned_url_max_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "presignedUrlMaxExpiry")
+    }
+
+    pub fn set_presigned_url_max_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "presignedUrlMaxExpiry", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// FileDownloadSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FileDownloadSecurityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl FileDownloadSecurityPolicyContentForm {
+    /// Binds a FileDownloadSecurityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FileDownloadSecurityPolicyContentForm {
+        FileDownloadSecurityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn download_authentication_required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "downloadAuthenticationRequired");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_download_authentication_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "downloadAuthenticationRequired", &text);
+    }
+
+    pub fn download_rate_limiting(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "downloadRateLimiting");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_download_rate_limiting(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "downloadRateLimiting", &text);
+    }
+
+    pub fn download_rate_limit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "downloadRateLimit")
+    }
+
+    pub fn set_download_rate_limit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "downloadRateLimit", value);
+    }
+
+    pub fn bandwidth_throttling(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "bandwidthThrottling");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_bandwidth_throttling(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "bandwidthThrottling", &text);
+    }
+
+    pub fn content_disposition_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contentDispositionPolicy")
+    }
+
+    pub fn set_content_disposition_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contentDispositionPolicy", value);
+    }
+
+    pub fn cdn_delivery(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "cdnDelivery");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_cdn_delivery(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "cdnDelivery", &text);
+    }
+
+    pub fn hotlink_prevention(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hotlinkPrevention");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_hotlink_prevention(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hotlinkPrevention", &text);
+    }
+
+    pub fn cache_control_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cacheControlPolicy")
+    }
+
+    pub fn set_cache_control_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cacheControlPolicy", value);
+    }
+
+    pub fn download_audit_logging(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "downloadAuditLogging");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_download_audit_logging(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "downloadAuditLogging", &text);
+    }
+
+    pub fn download_alerts(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "downloadAlerts");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_download_alerts(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "downloadAlerts", &text);
+    }
+
+    pub fn watermarking(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "watermarking");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_watermarking(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "watermarking", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// FileStorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FileStorageEncryptionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl FileStorageEncryptionPolicyContentForm {
+    /// Binds a FileStorageEncryptionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FileStorageEncryptionPolicyContentForm {
+        FileStorageEncryptionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn file_encryption_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fileEncryptionMethod")
+    }
+
+    pub fn set_file_encryption_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fileEncryptionMethod", value);
+    }
+
+    pub fn cloud_storage_encryption(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cloudStorageEncryption")
+    }
+
+    pub fn set_cloud_storage_encryption(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cloudStorageEncryption", value);
+    }
+
+    pub fn client_side_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "clientSideEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_client_side_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "clientSideEncryption", &text);
+    }
+
+    pub fn encrypted_file_formats(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptedFileFormats")
+    }
+
+    pub fn set_encrypted_file_formats(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptedFileFormats", value);
+    }
+
+    pub fn local_device_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "localDeviceEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_local_device_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "localDeviceEncryption", &text);
+    }
+
+    pub fn temporary_file_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "temporaryFileEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_temporary_file_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "temporaryFileEncryption", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// FileUploadValidationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FileUploadValidationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl FileUploadValidationPolicyContentForm {
+    /// Binds a FileUploadValidationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FileUploadValidationPolicyContentForm {
+        FileUploadValidationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn extension_validation_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "extensionValidationStrategy")
+    }
+
+    pub fn set_extension_validation_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "extensionValidationStrategy", value);
+    }
+
+    pub fn allowed_file_extensions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedFileExtensions")
+    }
+
+    pub fn set_allowed_file_extensions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedFileExtensions", value);
+    }
+
+    pub fn blocked_file_extensions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "blockedFileExtensions")
+    }
+
+    pub fn set_blocked_file_extensions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "blockedFileExtensions", value);
+    }
+
+    pub fn double_extension_prevention(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "doubleExtensionPrevention");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_double_extension_prevention(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "doubleExtensionPrevention", &text);
+    }
+
+    pub fn content_type_validation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "contentTypeValidation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_content_type_validation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "contentTypeValidation", &text);
+    }
+
+    pub fn file_signature_validation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "fileSignatureValidation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_file_signature_validation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "fileSignatureValidation", &text);
+    }
+
+    pub fn signature_mismatch_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "signatureMismatchAction")
+    }
+
+    pub fn set_signature_mismatch_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "signatureMismatchAction", value);
+    }
+
+    pub fn filename_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "filenameStrategy")
+    }
+
+    pub fn set_filename_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "filenameStrategy", value);
+    }
+
+    pub fn filename_max_length(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "filenameMaxLength");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_filename_max_length(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "filenameMaxLength", &text);
+    }
+
+    pub fn filename_allowed_characters(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "filenameAllowedCharacters")
+    }
+
+    pub fn set_filename_allowed_characters(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "filenameAllowedCharacters", value);
+    }
+
+    pub fn path_traversal_prevention(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "pathTraversalPrevention");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_path_traversal_prevention(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "pathTraversalPrevention", &text);
+    }
+
+    pub fn null_byte_prevention(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "nullBytePrevention");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_null_byte_prevention(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "nullBytePrevention", &text);
+    }
+
+    pub fn max_file_size_bytes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxFileSizeBytes")
+    }
+
+    pub fn set_max_file_size_bytes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxFileSizeBytes", value);
+    }
+
+    pub fn max_upload_batch_size(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxUploadBatchSize")
+    }
+
+    pub fn set_max_upload_batch_size(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxUploadBatchSize", value);
+    }
+
+    pub fn max_concurrent_uploads(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxConcurrentUploads");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_concurrent_uploads(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxConcurrentUploads", &text);
+    }
+
+    pub fn compressed_file_size_limit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compressedFileSizeLimit")
+    }
+
+    pub fn set_compressed_file_size_limit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compressedFileSizeLimit", value);
+    }
+
+    pub fn image_rewriting(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "imageRewriting");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_image_rewriting(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "imageRewriting", &text);
+    }
+
+    pub fn document_sanitization(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "documentSanitization");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_document_sanitization(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "documentSanitization", &text);
+    }
+
+    pub fn metadata_stripping(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "metadataStripping");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_metadata_stripping(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "metadataStripping", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -150994,6 +155774,180 @@ impl LogStoragePolicyContentForm {
     }
 }
 
+/// LoginFlowConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct LoginFlowConfigurationContentForm {
+    pub node: som::SomNode,
+}
+
+impl LoginFlowConfigurationContentForm {
+    /// Binds a LoginFlowConfigurationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> LoginFlowConfigurationContentForm {
+        LoginFlowConfigurationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn login_entry_point(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "loginEntryPoint")
+    }
+
+    pub fn set_login_entry_point(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "loginEntryPoint", value);
+    }
+
+    pub fn credential_submission_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialSubmissionMethod")
+    }
+
+    pub fn set_credential_submission_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialSubmissionMethod", value);
+    }
+
+    pub fn pre_authentication_checks(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "preAuthenticationChecks")
+    }
+
+    pub fn set_pre_authentication_checks(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "preAuthenticationChecks", value);
+    }
+
+    pub fn authentication_endpoint(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationEndpoint")
+    }
+
+    pub fn set_authentication_endpoint(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authenticationEndpoint", value);
+    }
+
+    pub fn allowed_authentication_methods(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedAuthenticationMethods")
+    }
+
+    pub fn set_allowed_authentication_methods(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedAuthenticationMethods", value);
+    }
+
+    pub fn mfa_challenge_presentation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaChallengePresentation")
+    }
+
+    pub fn set_mfa_challenge_presentation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaChallengePresentation", value);
+    }
+
+    pub fn remember_me_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeEnabled")
+    }
+
+    pub fn set_remember_me_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeEnabled", value);
+    }
+
+    pub fn remember_me_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeDuration")
+    }
+
+    pub fn set_remember_me_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeDuration", value);
+    }
+
+    pub fn social_login_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "socialLoginEnabled")
+    }
+
+    pub fn set_social_login_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "socialLoginEnabled", value);
+    }
+
+    pub fn social_login_providers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "socialLoginProviders")
+    }
+
+    pub fn set_social_login_providers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "socialLoginProviders", value);
+    }
+
+    pub fn passwordless_login_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordlessLoginEnabled")
+    }
+
+    pub fn set_passwordless_login_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordlessLoginEnabled", value);
+    }
+
+    pub fn passwordless_login_methods(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordlessLoginMethods")
+    }
+
+    pub fn set_passwordless_login_methods(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordlessLoginMethods", value);
+    }
+
+    pub fn post_authentication_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postAuthenticationAction")
+    }
+
+    pub fn set_post_authentication_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postAuthenticationAction", value);
+    }
+
+    pub fn concurrent_login_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "concurrentLoginPolicy")
+    }
+
+    pub fn set_concurrent_login_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "concurrentLoginPolicy", value);
+    }
+
+    pub fn login_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "loginNotification")
+    }
+
+    pub fn set_login_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "loginNotification", value);
+    }
+
+    pub fn login_from_new_device_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "loginFromNewDeviceAction")
+    }
+
+    pub fn set_login_from_new_device_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "loginFromNewDeviceAction", value);
+    }
+}
+
 /// LoginFlowStepEntryBehaviorForm is the generated section facade for the `behavior` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct LoginFlowStepEntryBehaviorForm {
@@ -154518,6 +159472,144 @@ impl MfaCategoryRequirementEntryTimingForm {
     pub fn set_remember_device_duration(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "rememberDeviceDuration", value);
+    }
+}
+
+/// MfaConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MfaConfigurationContentForm {
+    pub node: som::SomNode,
+}
+
+impl MfaConfigurationContentForm {
+    /// Binds a MfaConfigurationContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MfaConfigurationContentForm {
+        MfaConfigurationContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn mfa_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaRequired")
+    }
+
+    pub fn set_mfa_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaRequired", value);
+    }
+
+    pub fn mfa_enforcement_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaEnforcementScope")
+    }
+
+    pub fn set_mfa_enforcement_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaEnforcementScope", value);
+    }
+
+    pub fn default_second_factor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultSecondFactor")
+    }
+
+    pub fn set_default_second_factor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultSecondFactor", value);
+    }
+
+    pub fn allowed_second_factors(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedSecondFactors")
+    }
+
+    pub fn set_allowed_second_factors(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedSecondFactors", value);
+    }
+
+    pub fn assurance_level_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "assuranceLevelTarget")
+    }
+
+    pub fn set_assurance_level_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "assuranceLevelTarget", value);
+    }
+
+    pub fn phishing_resistance_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "phishingResistanceRequired")
+    }
+
+    pub fn set_phishing_resistance_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "phishingResistanceRequired", value);
+    }
+
+    pub fn step_up_authentication_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpAuthenticationEnabled")
+    }
+
+    pub fn set_step_up_authentication_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpAuthenticationEnabled", value);
+    }
+
+    pub fn step_up_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpTriggers")
+    }
+
+    pub fn set_step_up_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpTriggers", value);
+    }
+
+    pub fn remember_device_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberDevicePolicy")
+    }
+
+    pub fn set_remember_device_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberDevicePolicy", value);
+    }
+
+    pub fn recovery_code_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "recoveryCodePolicy")
+    }
+
+    pub fn set_recovery_code_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "recoveryCodePolicy", value);
+    }
+
+    pub fn enrollment_grace_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "enrollmentGracePeriod")
+    }
+
+    pub fn set_enrollment_grace_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "enrollmentGracePeriod", value);
+    }
+
+    pub fn mfa_bypass_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaBypassPolicy")
+    }
+
+    pub fn set_mfa_bypass_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaBypassPolicy", value);
     }
 }
 
@@ -160386,6 +165478,101 @@ impl MustPassCriterionEntryVerificationForm {
     pub fn set_tolerance_allowed(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "toleranceAllowed", value);
+    }
+}
+
+/// MutualTlsPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MutualTlsPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl MutualTlsPolicyContentForm {
+    /// Binds a MutualTlsPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MutualTlsPolicyContentForm {
+        MutualTlsPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn mtls_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "mtlsEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_mtls_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "mtlsEnabled", &text);
+    }
+
+    pub fn mtls_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mtlsScope")
+    }
+
+    pub fn set_mtls_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mtlsScope", value);
+    }
+
+    pub fn client_certificate_issuance(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientCertificateIssuance")
+    }
+
+    pub fn set_client_certificate_issuance(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "clientCertificateIssuance", value);
+    }
+
+    pub fn revocation_checking(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "revocationChecking")
+    }
+
+    pub fn set_revocation_checking(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "revocationChecking", value);
+    }
+
+    pub fn fallback_on_mtls_failure(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fallbackOnMtlsFailure")
+    }
+
+    pub fn set_fallback_on_mtls_failure(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fallbackOnMtlsFailure", value);
+    }
+
+    pub fn client_certificate_rotation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientCertificateRotation")
+    }
+
+    pub fn set_client_certificate_rotation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "clientCertificateRotation", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -169359,6 +174546,456 @@ impl ParticipantEntryContentForm {
     }
 }
 
+/// PasswordLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PasswordLifecyclePolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PasswordLifecyclePolicyContentForm {
+    /// Binds a PasswordLifecyclePolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PasswordLifecyclePolicyContentForm {
+        PasswordLifecyclePolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn periodic_rotation_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "periodicRotationRequired")
+    }
+
+    pub fn set_periodic_rotation_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "periodicRotationRequired", value);
+    }
+
+    pub fn rotation_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rotationPeriod")
+    }
+
+    pub fn set_rotation_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rotationPeriod", value);
+    }
+
+    pub fn force_change_on_compromise(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "forceChangeOnCompromise")
+    }
+
+    pub fn set_force_change_on_compromise(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "forceChangeOnCompromise", value);
+    }
+
+    pub fn password_history_depth(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordHistoryDepth")
+    }
+
+    pub fn set_password_history_depth(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordHistoryDepth", value);
+    }
+
+    pub fn minimum_password_age(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumPasswordAge")
+    }
+
+    pub fn set_minimum_password_age(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumPasswordAge", value);
+    }
+
+    pub fn initial_password_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "initialPasswordPolicy")
+    }
+
+    pub fn set_initial_password_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "initialPasswordPolicy", value);
+    }
+
+    pub fn temporary_password_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "temporaryPasswordExpiry")
+    }
+
+    pub fn set_temporary_password_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "temporaryPasswordExpiry", value);
+    }
+
+    pub fn password_expiry_warning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordExpiryWarning")
+    }
+
+    pub fn set_password_expiry_warning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordExpiryWarning", value);
+    }
+
+    pub fn password_change_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordChangeNotification")
+    }
+
+    pub fn set_password_change_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordChangeNotification", value);
+    }
+
+    pub fn password_change_requires_current(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordChangeRequiresCurrent")
+    }
+
+    pub fn set_password_change_requires_current(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordChangeRequiresCurrent", value);
+    }
+
+    pub fn administrator_reset_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "administratorResetPolicy")
+    }
+
+    pub fn set_administrator_reset_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "administratorResetPolicy", value);
+    }
+
+    pub fn password_inactivity_disable(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordInactivityDisable")
+    }
+
+    pub fn set_password_inactivity_disable(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordInactivityDisable", value);
+    }
+}
+
+/// PasswordRequirementsPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PasswordRequirementsPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PasswordRequirementsPolicyContentForm {
+    /// Binds a PasswordRequirementsPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PasswordRequirementsPolicyContentForm {
+        PasswordRequirementsPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn minimum_length_single_factor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumLengthSingleFactor")
+    }
+
+    pub fn set_minimum_length_single_factor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumLengthSingleFactor", value);
+    }
+
+    pub fn minimum_length_multi_factor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumLengthMultiFactor")
+    }
+
+    pub fn set_minimum_length_multi_factor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumLengthMultiFactor", value);
+    }
+
+    pub fn maximum_length(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maximumLength")
+    }
+
+    pub fn set_maximum_length(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maximumLength", value);
+    }
+
+    pub fn allowed_character_sets(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedCharacterSets")
+    }
+
+    pub fn set_allowed_character_sets(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedCharacterSets", value);
+    }
+
+    pub fn composition_rules_enforced(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compositionRulesEnforced")
+    }
+
+    pub fn set_composition_rules_enforced(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compositionRulesEnforced", value);
+    }
+
+    pub fn passphrase_supported(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passphraseSupported")
+    }
+
+    pub fn set_passphrase_supported(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passphraseSupported", value);
+    }
+
+    pub fn unicode_normalization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "unicodeNormalization")
+    }
+
+    pub fn set_unicode_normalization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "unicodeNormalization", value);
+    }
+
+    pub fn password_blocklist_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordBlocklistEnabled")
+    }
+
+    pub fn set_password_blocklist_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordBlocklistEnabled", value);
+    }
+
+    pub fn blocklist_sources(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "blocklistSources")
+    }
+
+    pub fn set_blocklist_sources(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "blocklistSources", value);
+    }
+
+    pub fn password_strength_meter(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordStrengthMeter")
+    }
+
+    pub fn set_password_strength_meter(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordStrengthMeter", value);
+    }
+
+    pub fn password_hints_allowed(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordHintsAllowed")
+    }
+
+    pub fn set_password_hints_allowed(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordHintsAllowed", value);
+    }
+
+    pub fn security_questions_allowed(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "securityQuestionsAllowed")
+    }
+
+    pub fn set_security_questions_allowed(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "securityQuestionsAllowed", value);
+    }
+
+    pub fn show_password_option(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "showPasswordOption")
+    }
+
+    pub fn set_show_password_option(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "showPasswordOption", value);
+    }
+
+    pub fn password_manager_support(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordManagerSupport")
+    }
+
+    pub fn set_password_manager_support(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordManagerSupport", value);
+    }
+
+    pub fn truncation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "truncationPolicy")
+    }
+
+    pub fn set_truncation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "truncationPolicy", value);
+    }
+
+    pub fn typo_tolerance_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "typoTolerancePolicy")
+    }
+
+    pub fn set_typo_tolerance_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "typoTolerancePolicy", value);
+    }
+}
+
+/// PasswordStoragePolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PasswordStoragePolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PasswordStoragePolicyContentForm {
+    /// Binds a PasswordStoragePolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PasswordStoragePolicyContentForm {
+        PasswordStoragePolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn hashing_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hashingAlgorithm")
+    }
+
+    pub fn set_hashing_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hashingAlgorithm", value);
+    }
+
+    pub fn hashing_cost_factor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hashingCostFactor")
+    }
+
+    pub fn set_hashing_cost_factor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hashingCostFactor", value);
+    }
+
+    pub fn cost_factor_review_schedule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "costFactorReviewSchedule")
+    }
+
+    pub fn set_cost_factor_review_schedule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "costFactorReviewSchedule", value);
+    }
+
+    pub fn salt_length(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "saltLength")
+    }
+
+    pub fn set_salt_length(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "saltLength", value);
+    }
+
+    pub fn salt_generation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "saltGeneration")
+    }
+
+    pub fn set_salt_generation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "saltGeneration", value);
+    }
+
+    pub fn pepper_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pepperEnabled")
+    }
+
+    pub fn set_pepper_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pepperEnabled", value);
+    }
+
+    pub fn pepper_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pepperStorage")
+    }
+
+    pub fn set_pepper_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pepperStorage", value);
+    }
+
+    pub fn hash_versioning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hashVersioning")
+    }
+
+    pub fn set_hash_versioning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hashVersioning", value);
+    }
+
+    pub fn transmission_encryption(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "transmissionEncryption")
+    }
+
+    pub fn set_transmission_encryption(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "transmissionEncryption", value);
+    }
+
+    pub fn client_side_hashing(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientSideHashing")
+    }
+
+    pub fn set_client_side_hashing(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "clientSideHashing", value);
+    }
+
+    pub fn memory_hard_function(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "memoryHardFunction")
+    }
+
+    pub fn set_memory_hard_function(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "memoryHardFunction", value);
+    }
+
+    pub fn output_length(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "outputLength")
+    }
+
+    pub fn set_output_length(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "outputLength", value);
+    }
+}
+
 /// PeakLoadPatternsCapacityForm is the generated section facade for the `capacity` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct PeakLoadPatternsCapacityForm {
@@ -170151,6 +175788,413 @@ impl PeripheralEquipmentEntryContentForm {
     pub fn set_justification(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "justification", value);
+    }
+}
+
+/// PermissionCompositionStrategyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PermissionCompositionStrategyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PermissionCompositionStrategyContentForm {
+    /// Binds a PermissionCompositionStrategyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PermissionCompositionStrategyContentForm {
+        PermissionCompositionStrategyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn composition_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compositionModel")
+    }
+
+    pub fn set_composition_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compositionModel", value);
+    }
+
+    pub fn default_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultPolicy")
+    }
+
+    pub fn set_default_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultPolicy", value);
+    }
+
+    pub fn explicit_deny_override(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "explicitDenyOverride");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_explicit_deny_override(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "explicitDenyOverride", &text);
+    }
+
+    pub fn role_permission_inheritance(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "rolePermissionInheritance");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_role_permission_inheritance(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "rolePermissionInheritance", &text);
+    }
+
+    pub fn group_permission_aggregation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "groupPermissionAggregation")
+    }
+
+    pub fn set_group_permission_aggregation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "groupPermissionAggregation", value);
+    }
+
+    pub fn conflict_resolution(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "conflictResolution")
+    }
+
+    pub fn set_conflict_resolution(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "conflictResolution", value);
+    }
+
+    pub fn permission_boundary(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "permissionBoundary");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_permission_boundary(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "permissionBoundary", &text);
+    }
+
+    pub fn scoped_permissions(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "scopedPermissions");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_scoped_permissions(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "scopedPermissions", &text);
+    }
+
+    pub fn temporary_elevation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "temporaryElevation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_temporary_elevation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "temporaryElevation", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// PermissionEvaluationBehaviorContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PermissionEvaluationBehaviorContentForm {
+    pub node: som::SomNode,
+}
+
+impl PermissionEvaluationBehaviorContentForm {
+    /// Binds a PermissionEvaluationBehaviorContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PermissionEvaluationBehaviorContentForm {
+        PermissionEvaluationBehaviorContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn evaluation_location(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "evaluationLocation")
+    }
+
+    pub fn set_evaluation_location(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "evaluationLocation", value);
+    }
+
+    pub fn evaluation_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "evaluationFrequency")
+    }
+
+    pub fn set_evaluation_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "evaluationFrequency", value);
+    }
+
+    pub fn caching_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cachingStrategy")
+    }
+
+    pub fn set_caching_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cachingStrategy", value);
+    }
+
+    pub fn cache_ttl_seconds(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "cacheTtlSeconds");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_cache_ttl_seconds(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "cacheTtlSeconds", &text);
+    }
+
+    pub fn failure_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failureMode")
+    }
+
+    pub fn set_failure_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failureMode", value);
+    }
+
+    pub fn authorization_logging(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "authorizationLogging");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_authorization_logging(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationLogging", &text);
+    }
+
+    pub fn log_denied_requests(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "logDeniedRequests");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_log_denied_requests(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "logDeniedRequests", &text);
+    }
+
+    pub fn log_successful_access(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "logSuccessfulAccess");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_log_successful_access(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "logSuccessfulAccess", &text);
+    }
+
+    pub fn automated_testing(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "automatedTesting");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_automated_testing(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "automatedTesting", &text);
+    }
+
+    pub fn client_side_hints(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "clientSideHints");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_client_side_hints(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "clientSideHints", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// PermissionGranularityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PermissionGranularityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl PermissionGranularityPolicyContentForm {
+    /// Binds a PermissionGranularityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PermissionGranularityPolicyContentForm {
+        PermissionGranularityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn function_level_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "functionLevelControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_function_level_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "functionLevelControl", &text);
+    }
+
+    pub fn data_level_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dataLevelControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_data_level_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataLevelControl", &text);
+    }
+
+    pub fn field_level_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "fieldLevelControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_field_level_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "fieldLevelControl", &text);
+    }
+
+    pub fn ui_element_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "uiElementControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_ui_element_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "uiElementControl", &text);
+    }
+
+    pub fn api_operation_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "apiOperationControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_api_operation_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "apiOperationControl", &text);
+    }
+
+    pub fn object_level_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "objectLevelControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_object_level_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "objectLevelControl", &text);
+    }
+
+    pub fn tenant_level_control(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "tenantLevelControl");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_tenant_level_control(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantLevelControl", &text);
+    }
+
+    pub fn finest_granularity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "finestGranularity")
+    }
+
+    pub fn set_finest_granularity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "finestGranularity", value);
+    }
+
+    pub fn dynamic_permissions(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dynamicPermissions");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_dynamic_permissions(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dynamicPermissions", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -183740,6 +189784,144 @@ impl RecoveryScenarioEntryContentForm {
     }
 }
 
+/// RedirectHandlingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RedirectHandlingPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl RedirectHandlingPolicyContentForm {
+    /// Binds a RedirectHandlingPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RedirectHandlingPolicyContentForm {
+        RedirectHandlingPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn oauth_redirect_uri_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "oauthRedirectUriPolicy")
+    }
+
+    pub fn set_oauth_redirect_uri_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "oauthRedirectUriPolicy", value);
+    }
+
+    pub fn allowed_redirect_domains(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedRedirectDomains")
+    }
+
+    pub fn set_allowed_redirect_domains(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedRedirectDomains", value);
+    }
+
+    pub fn callback_url_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "callbackUrlValidation")
+    }
+
+    pub fn set_callback_url_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "callbackUrlValidation", value);
+    }
+
+    pub fn state_parameter_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stateParameterRequired")
+    }
+
+    pub fn set_state_parameter_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stateParameterRequired", value);
+    }
+
+    pub fn pkce_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pkceRequired")
+    }
+
+    pub fn set_pkce_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pkceRequired", value);
+    }
+
+    pub fn pkce_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pkceMethod")
+    }
+
+    pub fn set_pkce_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pkceMethod", value);
+    }
+
+    pub fn deep_link_handling(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deepLinkHandling")
+    }
+
+    pub fn set_deep_link_handling(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deepLinkHandling", value);
+    }
+
+    pub fn error_redirect_behavior(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorRedirectBehavior")
+    }
+
+    pub fn set_error_redirect_behavior(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorRedirectBehavior", value);
+    }
+
+    pub fn post_logout_redirect_uri(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postLogoutRedirectUri")
+    }
+
+    pub fn set_post_logout_redirect_uri(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postLogoutRedirectUri", value);
+    }
+
+    pub fn single_logout_redirect_chain(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "singleLogoutRedirectChain")
+    }
+
+    pub fn set_single_logout_redirect_chain(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "singleLogoutRedirectChain", value);
+    }
+
+    pub fn cors_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "corsPolicy")
+    }
+
+    pub fn set_cors_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "corsPolicy", value);
+    }
+
+    pub fn iframe_embedding_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "iframeEmbeddingPolicy")
+    }
+
+    pub fn set_iframe_embedding_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "iframeEmbeddingPolicy", value);
+    }
+}
+
 /// ReferenceDocumentEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ReferenceDocumentEntryContentForm {
@@ -185413,6 +191595,153 @@ impl ReliabilityVerificationForm {
     pub fn set_incident_postmortem(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "incidentPostmortem", value);
+    }
+}
+
+/// RememberMePolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RememberMePolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl RememberMePolicyContentForm {
+    /// Binds a RememberMePolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RememberMePolicyContentForm {
+        RememberMePolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn remember_me_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeEnabled")
+    }
+
+    pub fn set_remember_me_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeEnabled", value);
+    }
+
+    pub fn remember_me_duration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeDuration")
+    }
+
+    pub fn set_remember_me_duration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeDuration", value);
+    }
+
+    pub fn remember_me_token_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeTokenType")
+    }
+
+    pub fn set_remember_me_token_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeTokenType", value);
+    }
+
+    pub fn remember_me_token_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeTokenStorage")
+    }
+
+    pub fn set_remember_me_token_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeTokenStorage", value);
+    }
+
+    pub fn remember_me_token_rotation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeTokenRotation")
+    }
+
+    pub fn set_remember_me_token_rotation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeTokenRotation", value);
+    }
+
+    pub fn remember_me_reuse_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeReuseDetection")
+    }
+
+    pub fn set_remember_me_reuse_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeReuseDetection", value);
+    }
+
+    pub fn remember_me_device_binding(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeDeviceBinding")
+    }
+
+    pub fn set_remember_me_device_binding(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeDeviceBinding", value);
+    }
+
+    pub fn remember_me_revocation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeRevocation")
+    }
+
+    pub fn set_remember_me_revocation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeRevocation", value);
+    }
+
+    pub fn remember_me_aal_reduction(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeAalReduction")
+    }
+
+    pub fn set_remember_me_aal_reduction(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeAalReduction", value);
+    }
+
+    pub fn remember_me_restricted_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rememberMeRestrictedOperations")
+    }
+
+    pub fn set_remember_me_restricted_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rememberMeRestrictedOperations", value);
+    }
+
+    pub fn trusted_device_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trustedDeviceManagement")
+    }
+
+    pub fn set_trusted_device_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trustedDeviceManagement", value);
+    }
+
+    pub fn max_trusted_devices(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxTrustedDevices")
+    }
+
+    pub fn set_max_trusted_devices(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxTrustedDevices", value);
+    }
+
+    pub fn trusted_device_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trustedDeviceExpiry")
+    }
+
+    pub fn set_trusted_device_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trustedDeviceExpiry", value);
     }
 }
 
@@ -195598,6 +201927,127 @@ impl RoleAdjustmentsAdjustmentSummaryForm {
     }
 }
 
+/// RoleCertificationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RoleCertificationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl RoleCertificationPolicyContentForm {
+    /// Binds a RoleCertificationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RoleCertificationPolicyContentForm {
+        RoleCertificationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn certification_required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "certificationRequired");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_certification_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "certificationRequired", &text);
+    }
+
+    pub fn certification_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certificationFrequency")
+    }
+
+    pub fn set_certification_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certificationFrequency", value);
+    }
+
+    pub fn certifier(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "certifier")
+    }
+
+    pub fn set_certifier(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "certifier", value);
+    }
+
+    pub fn non_response_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "nonResponseAction")
+    }
+
+    pub fn set_non_response_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "nonResponseAction", value);
+    }
+
+    pub fn risk_based_scheduling(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "riskBasedScheduling");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_risk_based_scheduling(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "riskBasedScheduling", &text);
+    }
+
+    pub fn automated_detection(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "automatedDetection");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_automated_detection(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "automatedDetection", &text);
+    }
+
+    pub fn dormant_role_threshold_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dormantRoleThresholdDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_dormant_role_threshold_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dormantRoleThresholdDays", &text);
+    }
+
+    pub fn certification_audit_trail(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "certificationAuditTrail");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_certification_audit_trail(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "certificationAuditTrail", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// RoleCombinationConstraintEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct RoleCombinationConstraintEntryContentForm {
@@ -195895,6 +202345,138 @@ impl RoleExclusionEntryContentForm {
     pub fn set_severity(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+    }
+}
+
+/// RoleHierarchyPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RoleHierarchyPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl RoleHierarchyPolicyContentForm {
+    /// Binds a RoleHierarchyPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RoleHierarchyPolicyContentForm {
+        RoleHierarchyPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn hierarchy_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hierarchyModel")
+    }
+
+    pub fn set_hierarchy_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hierarchyModel", value);
+    }
+
+    pub fn max_hierarchy_depth(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxHierarchyDepth");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_hierarchy_depth(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxHierarchyDepth", &text);
+    }
+
+    pub fn inheritance_mode(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inheritanceMode")
+    }
+
+    pub fn set_inheritance_mode(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inheritanceMode", value);
+    }
+
+    pub fn multiple_inheritance(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "multipleInheritance");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_multiple_inheritance(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "multipleInheritance", &text);
+    }
+
+    pub fn permission_override(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "permissionOverride");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_permission_override(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "permissionOverride", &text);
+    }
+
+    pub fn activation_constraints(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "activationConstraints");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_activation_constraints(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "activationConstraints", &text);
+    }
+
+    pub fn max_active_roles_per_user(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxActiveRolesPerUser");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_active_roles_per_user(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxActiveRolesPerUser", &text);
+    }
+
+    pub fn role_priority_scheme(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rolePriorityScheme")
+    }
+
+    pub fn set_role_priority_scheme(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rolePriorityScheme", value);
+    }
+
+    pub fn automatic_inheritance_revocation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "automaticInheritanceRevocation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_automatic_inheritance_revocation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "automaticInheritanceRevocation", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -196507,6 +203089,135 @@ impl RollbackStrategyTriggersForm {
     pub fn set_rollback_time_target(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "rollbackTimeTarget", value);
+    }
+}
+
+/// RowLevelSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RowLevelSecurityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl RowLevelSecurityPolicyContentForm {
+    /// Binds a RowLevelSecurityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RowLevelSecurityPolicyContentForm {
+        RowLevelSecurityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn row_level_security_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rowLevelSecurityEnabled")
+    }
+
+    pub fn set_row_level_security_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rowLevelSecurityEnabled", value);
+    }
+
+    pub fn rls_implementation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rlsImplementation")
+    }
+
+    pub fn set_rls_implementation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rlsImplementation", value);
+    }
+
+    pub fn rls_filtering_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rlsFilteringStrategy")
+    }
+
+    pub fn set_rls_filtering_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rlsFilteringStrategy", value);
+    }
+
+    pub fn rls_bypass_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rlsBypassPolicy")
+    }
+
+    pub fn set_rls_bypass_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rlsBypassPolicy", value);
+    }
+
+    pub fn hierarchical_visibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hierarchicalVisibility")
+    }
+
+    pub fn set_hierarchical_visibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hierarchicalVisibility", value);
+    }
+
+    pub fn hierarchy_depth_limit(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hierarchyDepthLimit")
+    }
+
+    pub fn set_hierarchy_depth_limit(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hierarchyDepthLimit", value);
+    }
+
+    pub fn cross_tenant_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossTenantAccess")
+    }
+
+    pub fn set_cross_tenant_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossTenantAccess", value);
+    }
+
+    pub fn data_owner_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataOwnerAccess")
+    }
+
+    pub fn set_data_owner_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataOwnerAccess", value);
+    }
+
+    pub fn shared_data_handling(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sharedDataHandling")
+    }
+
+    pub fn set_shared_data_handling(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sharedDataHandling", value);
+    }
+
+    pub fn rls_performance_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rlsPerformanceStrategy")
+    }
+
+    pub fn set_rls_performance_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rlsPerformanceStrategy", value);
+    }
+
+    pub fn rls_testing_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rlsTestingStrategy")
+    }
+
+    pub fn set_rls_testing_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rlsTestingStrategy", value);
     }
 }
 
@@ -206671,6 +213382,162 @@ impl SelfRegistrationPolicyVerificationForm {
     }
 }
 
+/// SelfServiceAccountManagementContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SelfServiceAccountManagementContentForm {
+    pub node: som::SomNode,
+}
+
+impl SelfServiceAccountManagementContentForm {
+    /// Binds a SelfServiceAccountManagementContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SelfServiceAccountManagementContentForm {
+        SelfServiceAccountManagementContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn profile_update_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "profileUpdateEnabled")
+    }
+
+    pub fn set_profile_update_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "profileUpdateEnabled", value);
+    }
+
+    pub fn password_change_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordChangeEnabled")
+    }
+
+    pub fn set_password_change_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordChangeEnabled", value);
+    }
+
+    pub fn password_reset_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordResetEnabled")
+    }
+
+    pub fn set_password_reset_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordResetEnabled", value);
+    }
+
+    pub fn password_reset_methods(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordResetMethods")
+    }
+
+    pub fn set_password_reset_methods(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordResetMethods", value);
+    }
+
+    pub fn mfa_enrollment_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mfaEnrollmentSelfService")
+    }
+
+    pub fn set_mfa_enrollment_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mfaEnrollmentSelfService", value);
+    }
+
+    pub fn account_deactivation_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accountDeactivationSelfService")
+    }
+
+    pub fn set_account_deactivation_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accountDeactivationSelfService", value);
+    }
+
+    pub fn account_deletion_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accountDeletionSelfService")
+    }
+
+    pub fn set_account_deletion_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accountDeletionSelfService", value);
+    }
+
+    pub fn data_export_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataExportSelfService")
+    }
+
+    pub fn set_data_export_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataExportSelfService", value);
+    }
+
+    pub fn session_management_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionManagementSelfService")
+    }
+
+    pub fn set_session_management_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionManagementSelfService", value);
+    }
+
+    pub fn api_key_management_self_service(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyManagementSelfService")
+    }
+
+    pub fn set_api_key_management_self_service(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyManagementSelfService", value);
+    }
+
+    pub fn notification_preferences(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notificationPreferences")
+    }
+
+    pub fn set_notification_preferences(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notificationPreferences", value);
+    }
+
+    pub fn delegation_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "delegationEnabled")
+    }
+
+    pub fn set_delegation_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "delegationEnabled", value);
+    }
+
+    pub fn delegation_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "delegationScope")
+    }
+
+    pub fn set_delegation_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "delegationScope", value);
+    }
+
+    pub fn account_recovery_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accountRecoveryProcess")
+    }
+
+    pub fn set_account_recovery_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accountRecoveryProcess", value);
+    }
+}
+
 /// ServerCallStepEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ServerCallStepEntryContentForm {
@@ -208168,6 +215035,291 @@ impl ServerStorageRequirementsPerformanceForm {
     }
 }
 
+/// ServiceAccountCredentialPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServiceAccountCredentialPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServiceAccountCredentialPolicyContentForm {
+    /// Binds a ServiceAccountCredentialPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceAccountCredentialPolicyContentForm {
+        ServiceAccountCredentialPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn service_account_password_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountPasswordPolicy")
+    }
+
+    pub fn set_service_account_password_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountPasswordPolicy", value);
+    }
+
+    pub fn service_account_rotation_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountRotationPeriod")
+    }
+
+    pub fn set_service_account_rotation_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountRotationPeriod", value);
+    }
+
+    pub fn api_key_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyLifetime")
+    }
+
+    pub fn set_api_key_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyLifetime", value);
+    }
+
+    pub fn api_key_rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "apiKeyRotationPolicy")
+    }
+
+    pub fn set_api_key_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "apiKeyRotationPolicy", value);
+    }
+
+    pub fn secrets_management_tool(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "secretsManagementTool")
+    }
+
+    pub fn set_secrets_management_tool(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "secretsManagementTool", value);
+    }
+
+    pub fn machine_to_machine_auth(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "machineToMachineAuth")
+    }
+
+    pub fn set_machine_to_machine_auth(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "machineToMachineAuth", value);
+    }
+
+    pub fn service_account_mfa_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountMfaRequired")
+    }
+
+    pub fn set_service_account_mfa_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountMfaRequired", value);
+    }
+
+    pub fn shared_credential_prohibition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sharedCredentialProhibition")
+    }
+
+    pub fn set_shared_credential_prohibition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sharedCredentialProhibition", value);
+    }
+
+    pub fn credential_vault_integration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialVaultIntegration")
+    }
+
+    pub fn set_credential_vault_integration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialVaultIntegration", value);
+    }
+
+    pub fn hardcoded_credential_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hardcodedCredentialDetection")
+    }
+
+    pub fn set_hardcoded_credential_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hardcodedCredentialDetection", value);
+    }
+}
+
+/// ServiceAccountLifecycleContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServiceAccountLifecycleContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServiceAccountLifecycleContentForm {
+    /// Binds a ServiceAccountLifecycleContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServiceAccountLifecycleContentForm {
+        ServiceAccountLifecycleContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn service_account_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountTypes")
+    }
+
+    pub fn set_service_account_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountTypes", value);
+    }
+
+    pub fn creation_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "creationProcess")
+    }
+
+    pub fn set_creation_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "creationProcess", value);
+    }
+
+    pub fn creation_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "creationApproval")
+    }
+
+    pub fn set_creation_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "creationApproval", value);
+    }
+
+    pub fn owner_assignment(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ownerAssignment")
+    }
+
+    pub fn set_owner_assignment(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ownerAssignment", value);
+    }
+
+    pub fn owner_review_frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ownerReviewFrequency")
+    }
+
+    pub fn set_owner_review_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ownerReviewFrequency", value);
+    }
+
+    pub fn credential_rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialRotationPolicy")
+    }
+
+    pub fn set_credential_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialRotationPolicy", value);
+    }
+
+    pub fn credential_storage_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "credentialStorageMethod")
+    }
+
+    pub fn set_credential_storage_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "credentialStorageMethod", value);
+    }
+
+    pub fn scope_limitation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scopeLimitation")
+    }
+
+    pub fn set_scope_limitation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scopeLimitation", value);
+    }
+
+    pub fn ip_restriction(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ipRestriction")
+    }
+
+    pub fn set_ip_restriction(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ipRestriction", value);
+    }
+
+    pub fn expiration_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "expirationPolicy")
+    }
+
+    pub fn set_expiration_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "expirationPolicy", value);
+    }
+
+    pub fn renewal_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "renewalProcess")
+    }
+
+    pub fn set_renewal_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "renewalProcess", value);
+    }
+
+    pub fn decommissioning_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "decommissioningProcess")
+    }
+
+    pub fn set_decommissioning_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "decommissioningProcess", value);
+    }
+
+    pub fn monitoring_requirements(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "monitoringRequirements")
+    }
+
+    pub fn set_monitoring_requirements(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "monitoringRequirements", value);
+    }
+
+    pub fn service_account_naming_convention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serviceAccountNamingConvention")
+    }
+
+    pub fn set_service_account_naming_convention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serviceAccountNamingConvention", value);
+    }
+
+    pub fn documentation_requirements(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "documentationRequirements")
+    }
+
+    pub fn set_documentation_requirements(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "documentationRequirements", value);
+    }
+}
+
 /// ServiceLevelAgreementEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ServiceLevelAgreementEntryContentForm {
@@ -209051,6 +216203,291 @@ impl ServiceMeshAndGatewayMeshForm {
     }
 }
 
+/// SessionCreationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SessionCreationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl SessionCreationPolicyContentForm {
+    /// Binds a SessionCreationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SessionCreationPolicyContentForm {
+        SessionCreationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn session_mechanism(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionMechanism")
+    }
+
+    pub fn set_session_mechanism(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionMechanism", value);
+    }
+
+    pub fn session_id_generation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionIdGeneration")
+    }
+
+    pub fn set_session_id_generation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionIdGeneration", value);
+    }
+
+    pub fn session_id_entropy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionIdEntropy")
+    }
+
+    pub fn set_session_id_entropy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionIdEntropy", value);
+    }
+
+    pub fn session_binding_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionBindingMethod")
+    }
+
+    pub fn set_session_binding_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionBindingMethod", value);
+    }
+
+    pub fn http_only_cookies(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "httpOnlyCookies")
+    }
+
+    pub fn set_http_only_cookies(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "httpOnlyCookies", value);
+    }
+
+    pub fn secure_cookies(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "secureCookies")
+    }
+
+    pub fn set_secure_cookies(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "secureCookies", value);
+    }
+
+    pub fn same_site_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sameSitePolicy")
+    }
+
+    pub fn set_same_site_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sameSitePolicy", value);
+    }
+
+    pub fn cookie_domain(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cookieDomain")
+    }
+
+    pub fn set_cookie_domain(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cookieDomain", value);
+    }
+
+    pub fn device_binding(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deviceBinding")
+    }
+
+    pub fn set_device_binding(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deviceBinding", value);
+    }
+
+    pub fn session_data_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionDataStorage")
+    }
+
+    pub fn set_session_data_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionDataStorage", value);
+    }
+
+    pub fn session_replication_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionReplicationStrategy")
+    }
+
+    pub fn set_session_replication_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionReplicationStrategy", value);
+    }
+
+    pub fn csrf_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "csrfProtection")
+    }
+
+    pub fn set_csrf_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "csrfProtection", value);
+    }
+
+    pub fn post_login_redirect_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postLoginRedirectValidation")
+    }
+
+    pub fn set_post_login_redirect_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postLoginRedirectValidation", value);
+    }
+}
+
+/// SessionLifecycleMonitoringContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SessionLifecycleMonitoringContentForm {
+    pub node: som::SomNode,
+}
+
+impl SessionLifecycleMonitoringContentForm {
+    /// Binds a SessionLifecycleMonitoringContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SessionLifecycleMonitoringContentForm {
+        SessionLifecycleMonitoringContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn session_creation_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionCreationLogging")
+    }
+
+    pub fn set_session_creation_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionCreationLogging", value);
+    }
+
+    pub fn session_destruction_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionDestructionLogging")
+    }
+
+    pub fn set_session_destruction_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionDestructionLogging", value);
+    }
+
+    pub fn session_renewal_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionRenewalLogging")
+    }
+
+    pub fn set_session_renewal_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionRenewalLogging", value);
+    }
+
+    pub fn session_event_details(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionEventDetails")
+    }
+
+    pub fn set_session_event_details(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionEventDetails", value);
+    }
+
+    pub fn session_id_in_logs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionIdInLogs")
+    }
+
+    pub fn set_session_id_in_logs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionIdInLogs", value);
+    }
+
+    pub fn session_activity_tracking(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionActivityTracking")
+    }
+
+    pub fn set_session_activity_tracking(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionActivityTracking", value);
+    }
+
+    pub fn session_history_visible_to_user(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionHistoryVisibleToUser")
+    }
+
+    pub fn set_session_history_visible_to_user(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionHistoryVisibleToUser", value);
+    }
+
+    pub fn failed_session_access_logging(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failedSessionAccessLogging")
+    }
+
+    pub fn set_failed_session_access_logging(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failedSessionAccessLogging", value);
+    }
+
+    pub fn session_metrics_collection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionMetricsCollection")
+    }
+
+    pub fn set_session_metrics_collection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionMetricsCollection", value);
+    }
+
+    pub fn session_audit_retention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionAuditRetention")
+    }
+
+    pub fn set_session_audit_retention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionAuditRetention", value);
+    }
+
+    pub fn real_time_session_alerts(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "realTimeSessionAlerts")
+    }
+
+    pub fn set_real_time_session_alerts(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "realTimeSessionAlerts", value);
+    }
+
+    pub fn alert_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "alertTriggers")
+    }
+
+    pub fn set_alert_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "alertTriggers", value);
+    }
+}
+
 /// SessionModelLifecycleForm is the generated section facade for the `lifecycle` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct SessionModelLifecycleForm {
@@ -209248,6 +216685,474 @@ impl SessionModelSessionConfigurationForm {
     pub fn set_absolute_timeout(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "absoluteTimeout", value);
+    }
+}
+
+/// SessionRevocationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SessionRevocationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl SessionRevocationPolicyContentForm {
+    /// Binds a SessionRevocationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SessionRevocationPolicyContentForm {
+        SessionRevocationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn logout_mechanism(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "logoutMechanism")
+    }
+
+    pub fn set_logout_mechanism(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "logoutMechanism", value);
+    }
+
+    pub fn logout_button_placement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "logoutButtonPlacement")
+    }
+
+    pub fn set_logout_button_placement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "logoutButtonPlacement", value);
+    }
+
+    pub fn logout_confirmation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "logoutConfirmation")
+    }
+
+    pub fn set_logout_confirmation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "logoutConfirmation", value);
+    }
+
+    pub fn post_logout_redirect(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postLogoutRedirect")
+    }
+
+    pub fn set_post_logout_redirect(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postLogoutRedirect", value);
+    }
+
+    pub fn post_logout_cache_clear(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "postLogoutCacheClear")
+    }
+
+    pub fn set_post_logout_cache_clear(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "postLogoutCacheClear", value);
+    }
+
+    pub fn single_logout_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "singleLogoutEnabled")
+    }
+
+    pub fn set_single_logout_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "singleLogoutEnabled", value);
+    }
+
+    pub fn single_logout_protocol(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "singleLogoutProtocol")
+    }
+
+    pub fn set_single_logout_protocol(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "singleLogoutProtocol", value);
+    }
+
+    pub fn privilege_change_revocation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "privilegeChangeRevocation")
+    }
+
+    pub fn set_privilege_change_revocation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "privilegeChangeRevocation", value);
+    }
+
+    pub fn password_change_revocation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "passwordChangeRevocation")
+    }
+
+    pub fn set_password_change_revocation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "passwordChangeRevocation", value);
+    }
+
+    pub fn compromise_revocation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "compromiseRevocation")
+    }
+
+    pub fn set_compromise_revocation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "compromiseRevocation", value);
+    }
+
+    pub fn admin_termination_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adminTerminationEnabled")
+    }
+
+    pub fn set_admin_termination_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adminTerminationEnabled", value);
+    }
+
+    pub fn bulk_revocation_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bulkRevocationEnabled")
+    }
+
+    pub fn set_bulk_revocation_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bulkRevocationEnabled", value);
+    }
+
+    pub fn revocation_propagation_delay(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "revocationPropagationDelay")
+    }
+
+    pub fn set_revocation_propagation_delay(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "revocationPropagationDelay", value);
+    }
+}
+
+/// SessionSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SessionSecurityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl SessionSecurityPolicyContentForm {
+    /// Binds a SessionSecurityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SessionSecurityPolicyContentForm {
+        SessionSecurityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn session_fixation_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionFixationProtection")
+    }
+
+    pub fn set_session_fixation_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionFixationProtection", value);
+    }
+
+    pub fn session_id_regeneration_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionIdRegenerationTriggers")
+    }
+
+    pub fn set_session_id_regeneration_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionIdRegenerationTriggers", value);
+    }
+
+    pub fn session_binding_properties(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionBindingProperties")
+    }
+
+    pub fn set_session_binding_properties(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionBindingProperties", value);
+    }
+
+    pub fn binding_mismatch_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bindingMismatchAction")
+    }
+
+    pub fn set_binding_mismatch_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bindingMismatchAction", value);
+    }
+
+    pub fn session_anomaly_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionAnomalyDetection")
+    }
+
+    pub fn set_session_anomaly_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionAnomalyDetection", value);
+    }
+
+    pub fn anomaly_detection_signals(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "anomalyDetectionSignals")
+    }
+
+    pub fn set_anomaly_detection_signals(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "anomalyDetectionSignals", value);
+    }
+
+    pub fn session_cache_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionCachePolicy")
+    }
+
+    pub fn set_session_cache_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionCachePolicy", value);
+    }
+
+    pub fn clear_site_data_on_logout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clearSiteDataOnLogout")
+    }
+
+    pub fn set_clear_site_data_on_logout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "clearSiteDataOnLogout", value);
+    }
+
+    pub fn session_transport_security(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionTransportSecurity")
+    }
+
+    pub fn set_session_transport_security(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionTransportSecurity", value);
+    }
+
+    pub fn session_id_in_url_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionIdInUrlPrevention")
+    }
+
+    pub fn set_session_id_in_url_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionIdInUrlPrevention", value);
+    }
+
+    pub fn cross_origin_session_protection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossOriginSessionProtection")
+    }
+
+    pub fn set_cross_origin_session_protection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossOriginSessionProtection", value);
+    }
+
+    pub fn session_data_minimization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionDataMinimization")
+    }
+
+    pub fn set_session_data_minimization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionDataMinimization", value);
+    }
+}
+
+/// SessionTimeoutPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SessionTimeoutPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl SessionTimeoutPolicyContentForm {
+    /// Binds a SessionTimeoutPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SessionTimeoutPolicyContentForm {
+        SessionTimeoutPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn idle_timeout_default(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idleTimeoutDefault")
+    }
+
+    pub fn set_idle_timeout_default(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idleTimeoutDefault", value);
+    }
+
+    pub fn idle_timeout_high_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idleTimeoutHighValue")
+    }
+
+    pub fn set_idle_timeout_high_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idleTimeoutHighValue", value);
+    }
+
+    pub fn absolute_timeout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "absoluteTimeout")
+    }
+
+    pub fn set_absolute_timeout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "absoluteTimeout", value);
+    }
+
+    pub fn renewal_timeout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "renewalTimeout")
+    }
+
+    pub fn set_renewal_timeout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "renewalTimeout", value);
+    }
+
+    pub fn idle_timeout_aal1(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idleTimeoutAal1")
+    }
+
+    pub fn set_idle_timeout_aal1(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idleTimeoutAal1", value);
+    }
+
+    pub fn absolute_timeout_aal1(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "absoluteTimeoutAal1")
+    }
+
+    pub fn set_absolute_timeout_aal1(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "absoluteTimeoutAal1", value);
+    }
+
+    pub fn idle_timeout_aal2(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idleTimeoutAal2")
+    }
+
+    pub fn set_idle_timeout_aal2(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idleTimeoutAal2", value);
+    }
+
+    pub fn absolute_timeout_aal2(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "absoluteTimeoutAal2")
+    }
+
+    pub fn set_absolute_timeout_aal2(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "absoluteTimeoutAal2", value);
+    }
+
+    pub fn idle_timeout_aal3(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idleTimeoutAal3")
+    }
+
+    pub fn set_idle_timeout_aal3(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idleTimeoutAal3", value);
+    }
+
+    pub fn absolute_timeout_aal3(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "absoluteTimeoutAal3")
+    }
+
+    pub fn set_absolute_timeout_aal3(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "absoluteTimeoutAal3", value);
+    }
+
+    pub fn timeout_enforcement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timeoutEnforcement")
+    }
+
+    pub fn set_timeout_enforcement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timeoutEnforcement", value);
+    }
+
+    pub fn timeout_warning_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timeoutWarningEnabled")
+    }
+
+    pub fn set_timeout_warning_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timeoutWarningEnabled", value);
+    }
+
+    pub fn timeout_warning_lead_time(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timeoutWarningLeadTime")
+    }
+
+    pub fn set_timeout_warning_lead_time(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timeoutWarningLeadTime", value);
+    }
+
+    pub fn timeout_warning_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timeoutWarningAction")
+    }
+
+    pub fn set_timeout_warning_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timeoutWarningAction", value);
+    }
+
+    pub fn session_extension_allowed(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionExtensionAllowed")
+    }
+
+    pub fn set_session_extension_allowed(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionExtensionAllowed", value);
+    }
+
+    pub fn max_extensions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxExtensions")
+    }
+
+    pub fn set_max_extensions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxExtensions", value);
+    }
+
+    pub fn grace_period_after_expiry(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "gracePeriodAfterExpiry")
+    }
+
+    pub fn set_grace_period_after_expiry(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "gracePeriodAfterExpiry", value);
     }
 }
 
@@ -211796,6 +219701,144 @@ impl SpecializedEquipmentEntryTechnicalForm {
     pub fn set_certifications(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "certifications", value);
+    }
+}
+
+/// SsoPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SsoPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl SsoPolicyContentForm {
+    /// Binds a SsoPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SsoPolicyContentForm {
+        SsoPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn sso_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ssoEnabled")
+    }
+
+    pub fn set_sso_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ssoEnabled", value);
+    }
+
+    pub fn sso_protocol(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ssoProtocol")
+    }
+
+    pub fn set_sso_protocol(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ssoProtocol", value);
+    }
+
+    pub fn identity_provider_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "identityProviderType")
+    }
+
+    pub fn set_identity_provider_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "identityProviderType", value);
+    }
+
+    pub fn identity_provider_product(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "identityProviderProduct")
+    }
+
+    pub fn set_identity_provider_product(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "identityProviderProduct", value);
+    }
+
+    pub fn federation_protocol(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "federationProtocol")
+    }
+
+    pub fn set_federation_protocol(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "federationProtocol", value);
+    }
+
+    pub fn attribute_mapping(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "attributeMapping")
+    }
+
+    pub fn set_attribute_mapping(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "attributeMapping", value);
+    }
+
+    pub fn just_in_time_provisioning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "justInTimeProvisioning")
+    }
+
+    pub fn set_just_in_time_provisioning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "justInTimeProvisioning", value);
+    }
+
+    pub fn session_synchronization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionSynchronization")
+    }
+
+    pub fn set_session_synchronization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionSynchronization", value);
+    }
+
+    pub fn single_logout_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "singleLogoutEnabled")
+    }
+
+    pub fn set_single_logout_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "singleLogoutEnabled", value);
+    }
+
+    pub fn sso_fallback_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ssoFallbackMethod")
+    }
+
+    pub fn set_sso_fallback_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ssoFallbackMethod", value);
+    }
+
+    pub fn sso_scope_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ssoScopePolicy")
+    }
+
+    pub fn set_sso_scope_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ssoScopePolicy", value);
+    }
+
+    pub fn external_idp_trust_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "externalIdpTrustPolicy")
+    }
+
+    pub fn set_external_idp_trust_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "externalIdpTrustPolicy", value);
     }
 }
 
@@ -217704,6 +225747,508 @@ impl StakeholdersAndInterestsContentForm {
     pub fn set_other_stakeholders(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "otherStakeholders", value);
+    }
+}
+
+/// StepUpAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct StepUpAuthenticationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl StepUpAuthenticationPolicyContentForm {
+    /// Binds a StepUpAuthenticationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StepUpAuthenticationPolicyContentForm {
+        StepUpAuthenticationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn step_up_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpEnabled")
+    }
+
+    pub fn set_step_up_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpEnabled", value);
+    }
+
+    pub fn step_up_triggers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpTriggers")
+    }
+
+    pub fn set_step_up_triggers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpTriggers", value);
+    }
+
+    pub fn step_up_target_aal(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpTargetAal")
+    }
+
+    pub fn set_step_up_target_aal(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpTargetAal", value);
+    }
+
+    pub fn step_up_timeout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stepUpTimeout")
+    }
+
+    pub fn set_step_up_timeout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stepUpTimeout", value);
+    }
+
+    pub fn risk_based_auth_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "riskBasedAuthEnabled")
+    }
+
+    pub fn set_risk_based_auth_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "riskBasedAuthEnabled", value);
+    }
+
+    pub fn risk_signals(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "riskSignals")
+    }
+
+    pub fn set_risk_signals(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "riskSignals", value);
+    }
+
+    pub fn risk_scoring_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "riskScoringMethod")
+    }
+
+    pub fn set_risk_scoring_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "riskScoringMethod", value);
+    }
+
+    pub fn low_risk_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lowRiskAction")
+    }
+
+    pub fn set_low_risk_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lowRiskAction", value);
+    }
+
+    pub fn medium_risk_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "mediumRiskAction")
+    }
+
+    pub fn set_medium_risk_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "mediumRiskAction", value);
+    }
+
+    pub fn high_risk_action(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "highRiskAction")
+    }
+
+    pub fn set_high_risk_action(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "highRiskAction", value);
+    }
+
+    pub fn adaptive_auth_provider(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adaptiveAuthProvider")
+    }
+
+    pub fn set_adaptive_auth_provider(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adaptiveAuthProvider", value);
+    }
+
+    pub fn continuous_auth_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "continuousAuthEnabled")
+    }
+
+    pub fn set_continuous_auth_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "continuousAuthEnabled", value);
+    }
+}
+
+/// StorageEncryptionPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct StorageEncryptionPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl StorageEncryptionPolicyContentForm {
+    /// Binds a StorageEncryptionPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StorageEncryptionPolicyContentForm {
+        StorageEncryptionPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn encryption_at_rest(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "encryptionAtRest");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_encryption_at_rest(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionAtRest", &text);
+    }
+
+    pub fn encryption_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionAlgorithm")
+    }
+
+    pub fn set_encryption_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionAlgorithm", value);
+    }
+
+    pub fn encryption_scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "encryptionScope")
+    }
+
+    pub fn set_encryption_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionScope", value);
+    }
+
+    pub fn server_side_encryption(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverSideEncryption")
+    }
+
+    pub fn set_server_side_encryption(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverSideEncryption", value);
+    }
+
+    pub fn client_side_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "clientSideEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_client_side_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "clientSideEncryption", &text);
+    }
+
+    pub fn client_side_encryption_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientSideEncryptionMethod")
+    }
+
+    pub fn set_client_side_encryption_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "clientSideEncryptionMethod", value);
+    }
+
+    pub fn file_key_rotation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "fileKeyRotation")
+    }
+
+    pub fn set_file_key_rotation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "fileKeyRotation", value);
+    }
+
+    pub fn per_tenant_keys(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "perTenantKeys");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_per_tenant_keys(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "perTenantKeys", &text);
+    }
+
+    pub fn key_deletion_on_tenant_removal(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "keyDeletionOnTenantRemoval");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_key_deletion_on_tenant_removal(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "keyDeletionOnTenantRemoval", &text);
+    }
+
+    pub fn encryption_in_transit(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "encryptionInTransit");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_encryption_in_transit(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "encryptionInTransit", &text);
+    }
+
+    pub fn minimum_tls_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumTlsVersion")
+    }
+
+    pub fn set_minimum_tls_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumTlsVersion", value);
+    }
+
+    pub fn backup_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "backupEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_backup_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "backupEncryption", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// StorageLifecyclePolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct StorageLifecyclePolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl StorageLifecyclePolicyContentForm {
+    /// Binds a StorageLifecyclePolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> StorageLifecyclePolicyContentForm {
+        StorageLifecyclePolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn retention_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "retentionPolicy")
+    }
+
+    pub fn set_retention_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "retentionPolicy", value);
+    }
+
+    pub fn default_retention_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultRetentionPeriod")
+    }
+
+    pub fn set_default_retention_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultRetentionPeriod", value);
+    }
+
+    pub fn retention_by_file_type(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "retentionByFileType");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_retention_by_file_type(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "retentionByFileType", &text);
+    }
+
+    pub fn legal_hold_support(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "legalHoldSupport");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_legal_hold_support(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "legalHoldSupport", &text);
+    }
+
+    pub fn archiving_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "archivingEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_archiving_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "archivingEnabled", &text);
+    }
+
+    pub fn archival_storage_tier(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "archivalStorageTier")
+    }
+
+    pub fn set_archival_storage_tier(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "archivalStorageTier", value);
+    }
+
+    pub fn archival_transition_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "archivalTransitionDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_archival_transition_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "archivalTransitionDays", &text);
+    }
+
+    pub fn versioning_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "versioningEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_versioning_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "versioningEnabled", &text);
+    }
+
+    pub fn max_versions(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxVersions");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_versions(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxVersions", &text);
+    }
+
+    pub fn version_retention_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "versionRetentionDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_version_retention_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "versionRetentionDays", &text);
+    }
+
+    pub fn backup_schedule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backupSchedule")
+    }
+
+    pub fn set_backup_schedule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backupSchedule", value);
+    }
+
+    pub fn backup_retention_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "backupRetentionDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_backup_retention_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "backupRetentionDays", &text);
+    }
+
+    pub fn cross_region_replication(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "crossRegionReplication");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_cross_region_replication(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "crossRegionReplication", &text);
+    }
+
+    pub fn secure_deletion_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "secureDeletionMethod")
+    }
+
+    pub fn set_secure_deletion_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "secureDeletionMethod", value);
+    }
+
+    pub fn deletion_confirmation(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deletionConfirmation");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_deletion_confirmation(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionConfirmation", &text);
+    }
+
+    pub fn deletion_audit_logging(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deletionAuditLogging");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_deletion_audit_logging(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "deletionAuditLogging", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -228392,6 +236937,216 @@ impl TechnologyStandardEntryScopeForm {
     }
 }
 
+/// TenantBoundaryEnforcementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TenantBoundaryEnforcementPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TenantBoundaryEnforcementPolicyContentForm {
+    /// Binds a TenantBoundaryEnforcementPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TenantBoundaryEnforcementPolicyContentForm {
+        TenantBoundaryEnforcementPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn enforcement_layer(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "enforcementLayer")
+    }
+
+    pub fn set_enforcement_layer(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "enforcementLayer", value);
+    }
+
+    pub fn authorization_filter_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationFilterStrategy")
+    }
+
+    pub fn set_authorization_filter_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationFilterStrategy", value);
+    }
+
+    pub fn implicit_tenant_filter(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "implicitTenantFilter");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_implicit_tenant_filter(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "implicitTenantFilter", &text);
+    }
+
+    pub fn escalation_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "escalationPrevention")
+    }
+
+    pub fn set_escalation_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "escalationPrevention", value);
+    }
+
+    pub fn shared_service_authorization(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sharedServiceAuthorization")
+    }
+
+    pub fn set_shared_service_authorization(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sharedServiceAuthorization", value);
+    }
+
+    pub fn tenant_switching_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantSwitchingPolicy")
+    }
+
+    pub fn set_tenant_switching_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantSwitchingPolicy", value);
+    }
+
+    pub fn multi_tenant_user_support(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "multiTenantUserSupport");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_multi_tenant_user_support(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "multiTenantUserSupport", &text);
+    }
+
+    pub fn authorization_caching(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationCaching")
+    }
+
+    pub fn set_authorization_caching(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationCaching", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// TenantContextPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TenantContextPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TenantContextPolicyContentForm {
+    /// Binds a TenantContextPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TenantContextPolicyContentForm {
+        TenantContextPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn context_resolution_method(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextResolutionMethod")
+    }
+
+    pub fn set_context_resolution_method(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextResolutionMethod", value);
+    }
+
+    pub fn context_propagation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextPropagation")
+    }
+
+    pub fn set_context_propagation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextPropagation", value);
+    }
+
+    pub fn context_validation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "contextValidation")
+    }
+
+    pub fn set_context_validation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "contextValidation", value);
+    }
+
+    pub fn context_immutability(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "contextImmutability");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_context_immutability(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "contextImmutability", &text);
+    }
+
+    pub fn cross_service_propagation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossServicePropagation")
+    }
+
+    pub fn set_cross_service_propagation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossServicePropagation", value);
+    }
+
+    pub fn missing_context_behavior(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "missingContextBehavior")
+    }
+
+    pub fn set_missing_context_behavior(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "missingContextBehavior", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// TenantCustomizationEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct TenantCustomizationEntryContentForm {
@@ -228501,6 +237256,248 @@ impl TenantCustomizationEntryContentForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "customizationAudit", &text);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// TenantDataIsolationPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TenantDataIsolationPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TenantDataIsolationPolicyContentForm {
+    /// Binds a TenantDataIsolationPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TenantDataIsolationPolicyContentForm {
+        TenantDataIsolationPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn tenant_isolation_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantIsolationModel")
+    }
+
+    pub fn set_tenant_isolation_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantIsolationModel", value);
+    }
+
+    pub fn tenant_identifier_column(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantIdentifierColumn")
+    }
+
+    pub fn set_tenant_identifier_column(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantIdentifierColumn", value);
+    }
+
+    pub fn tenant_context_injection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantContextInjection")
+    }
+
+    pub fn set_tenant_context_injection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantContextInjection", value);
+    }
+
+    pub fn tenant_isolation_enforcement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantIsolationEnforcement")
+    }
+
+    pub fn set_tenant_isolation_enforcement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantIsolationEnforcement", value);
+    }
+
+    pub fn cross_tenant_query_prevention(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossTenantQueryPrevention")
+    }
+
+    pub fn set_cross_tenant_query_prevention(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossTenantQueryPrevention", value);
+    }
+
+    pub fn tenant_data_backup_isolation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantDataBackupIsolation")
+    }
+
+    pub fn set_tenant_data_backup_isolation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantDataBackupIsolation", value);
+    }
+
+    pub fn tenant_data_deletion(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantDataDeletion")
+    }
+
+    pub fn set_tenant_data_deletion(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantDataDeletion", value);
+    }
+
+    pub fn tenant_data_export(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantDataExport")
+    }
+
+    pub fn set_tenant_data_export(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantDataExport", value);
+    }
+
+    pub fn tenant_resource_quotas(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantResourceQuotas")
+    }
+
+    pub fn set_tenant_resource_quotas(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantResourceQuotas", value);
+    }
+
+    pub fn tenant_isolation_testing(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tenantIsolationTesting")
+    }
+
+    pub fn set_tenant_isolation_testing(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tenantIsolationTesting", value);
+    }
+
+    pub fn shared_reference_data_access(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sharedReferenceDataAccess")
+    }
+
+    pub fn set_shared_reference_data_access(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sharedReferenceDataAccess", value);
+    }
+}
+
+/// TenantOnboardingPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TenantOnboardingPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TenantOnboardingPolicyContentForm {
+    /// Binds a TenantOnboardingPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TenantOnboardingPolicyContentForm {
+        TenantOnboardingPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn authorization_provisioning_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationProvisioningModel")
+    }
+
+    pub fn set_authorization_provisioning_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationProvisioningModel", value);
+    }
+
+    pub fn default_role_template(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultRoleTemplate")
+    }
+
+    pub fn set_default_role_template(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultRoleTemplate", value);
+    }
+
+    pub fn admin_role_provisioning(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "adminRoleProvisioning")
+    }
+
+    pub fn set_admin_role_provisioning(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "adminRoleProvisioning", value);
+    }
+
+    pub fn initial_permission_set(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "initialPermissionSet")
+    }
+
+    pub fn set_initial_permission_set(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "initialPermissionSet", value);
+    }
+
+    pub fn offboarding_strategy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "offboardingStrategy")
+    }
+
+    pub fn set_offboarding_strategy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "offboardingStrategy", value);
+    }
+
+    pub fn resource_cleanup_on_offboarding(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceCleanupOnOffboarding")
+    }
+
+    pub fn set_resource_cleanup_on_offboarding(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceCleanupOnOffboarding", value);
+    }
+
+    pub fn data_retention_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dataRetentionDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_data_retention_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "dataRetentionDays", &text);
+    }
+
+    pub fn offboarding_approval(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "offboardingApproval")
+    }
+
+    pub fn set_offboarding_approval(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "offboardingApproval", value);
     }
 
     pub fn notes(&self) -> String {
@@ -230599,6 +239596,121 @@ impl ThrowawayPrototypeValueForm {
     }
 }
 
+/// TlsProtocolPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TlsProtocolPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TlsProtocolPolicyContentForm {
+    /// Binds a TlsProtocolPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TlsProtocolPolicyContentForm {
+        TlsProtocolPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn minimum_tls_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "minimumTlsVersion")
+    }
+
+    pub fn set_minimum_tls_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "minimumTlsVersion", value);
+    }
+
+    pub fn preferred_tls_version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "preferredTlsVersion")
+    }
+
+    pub fn set_preferred_tls_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "preferredTlsVersion", value);
+    }
+
+    pub fn allowed_cipher_suites(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedCipherSuites")
+    }
+
+    pub fn set_allowed_cipher_suites(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedCipherSuites", value);
+    }
+
+    pub fn prefer_authenticated_encryption(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "preferAuthenticatedEncryption");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_prefer_authenticated_encryption(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "preferAuthenticatedEncryption", &text);
+    }
+
+    pub fn dh_groups(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dhGroups")
+    }
+
+    pub fn set_dh_groups(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dhGroups", value);
+    }
+
+    pub fn tls_compression_disabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "tlsCompressionDisabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_tls_compression_disabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "tlsCompressionDisabled", &text);
+    }
+
+    pub fn session_resumption(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionResumption")
+    }
+
+    pub fn set_session_resumption(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionResumption", value);
+    }
+
+    pub fn compliance_framework(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "complianceFramework")
+    }
+
+    pub fn set_compliance_framework(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "complianceFramework", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// TlsRequirementsCertificateValidationForm is the generated section facade for the `certificateValidation` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct TlsRequirementsCertificateValidationForm {
@@ -230902,6 +240014,180 @@ impl TlsRequirementsTerminationForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "internalTls", &text);
+    }
+}
+
+/// TokenManagementPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TokenManagementPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TokenManagementPolicyContentForm {
+    /// Binds a TokenManagementPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TokenManagementPolicyContentForm {
+        TokenManagementPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn token_format(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenFormat")
+    }
+
+    pub fn set_token_format(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenFormat", value);
+    }
+
+    pub fn token_signing_algorithm(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenSigningAlgorithm")
+    }
+
+    pub fn set_token_signing_algorithm(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenSigningAlgorithm", value);
+    }
+
+    pub fn access_token_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessTokenLifetime")
+    }
+
+    pub fn set_access_token_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessTokenLifetime", value);
+    }
+
+    pub fn refresh_token_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refreshTokenEnabled")
+    }
+
+    pub fn set_refresh_token_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refreshTokenEnabled", value);
+    }
+
+    pub fn refresh_token_lifetime(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refreshTokenLifetime")
+    }
+
+    pub fn set_refresh_token_lifetime(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refreshTokenLifetime", value);
+    }
+
+    pub fn refresh_token_rotation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refreshTokenRotation")
+    }
+
+    pub fn set_refresh_token_rotation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refreshTokenRotation", value);
+    }
+
+    pub fn refresh_token_reuse_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refreshTokenReuseDetection")
+    }
+
+    pub fn set_refresh_token_reuse_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refreshTokenReuseDetection", value);
+    }
+
+    pub fn id_token_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idTokenEnabled")
+    }
+
+    pub fn set_id_token_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idTokenEnabled", value);
+    }
+
+    pub fn id_token_claims(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "idTokenClaims")
+    }
+
+    pub fn set_id_token_claims(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "idTokenClaims", value);
+    }
+
+    pub fn token_storage_client(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenStorageClient")
+    }
+
+    pub fn set_token_storage_client(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenStorageClient", value);
+    }
+
+    pub fn token_storage_server(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenStorageServer")
+    }
+
+    pub fn set_token_storage_server(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenStorageServer", value);
+    }
+
+    pub fn token_revocation_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenRevocationEnabled")
+    }
+
+    pub fn set_token_revocation_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenRevocationEnabled", value);
+    }
+
+    pub fn token_revocation_propagation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenRevocationPropagation")
+    }
+
+    pub fn set_token_revocation_propagation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenRevocationPropagation", value);
+    }
+
+    pub fn token_introspection_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tokenIntrospectionEnabled")
+    }
+
+    pub fn set_token_introspection_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tokenIntrospectionEnabled", value);
+    }
+
+    pub fn audience_restriction(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "audienceRestriction")
+    }
+
+    pub fn set_audience_restriction(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "audienceRestriction", value);
+    }
+
+    pub fn scope_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scopePolicy")
+    }
+
+    pub fn set_scope_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scopePolicy", value);
     }
 }
 
@@ -236925,6 +246211,131 @@ impl TranslationVendorEntryContentForm {
     }
 }
 
+/// TransportSecurityPolicyContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TransportSecurityPolicyContentForm {
+    pub node: som::SomNode,
+}
+
+impl TransportSecurityPolicyContentForm {
+    /// Binds a TransportSecurityPolicyContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TransportSecurityPolicyContentForm {
+        TransportSecurityPolicyContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn hsts_enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hstsEnabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_hsts_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hstsEnabled", &text);
+    }
+
+    pub fn hsts_max_age_days(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hstsMaxAgeDays");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_hsts_max_age_days(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hstsMaxAgeDays", &text);
+    }
+
+    pub fn hsts_include_subdomains(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hstsIncludeSubdomains");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_hsts_include_subdomains(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hstsIncludeSubdomains", &text);
+    }
+
+    pub fn hsts_preload(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hstsPreload");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_hsts_preload(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "hstsPreload", &text);
+    }
+
+    pub fn http_to_https_redirect(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "httpToHttpsRedirect");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_http_to_https_redirect(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "httpToHttpsRedirect", &text);
+    }
+
+    pub fn secure_cookie_flag(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "secureCookieFlag");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_secure_cookie_flag(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "secureCookieFlag", &text);
+    }
+
+    pub fn prevent_mixed_content(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "preventMixedContent");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_prevent_mixed_content(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "preventMixedContent", &text);
+    }
+
+    pub fn sensitive_data_caching(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sensitiveDataCaching")
+    }
+
+    pub fn set_sensitive_data_caching(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sensitiveDataCaching", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
 /// TroubleshootingCapabilitiesAccessForm is the generated section facade for the `access` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct TroubleshootingCapabilitiesAccessForm {
@@ -240620,6 +250031,135 @@ impl UserAccessibilityNeedsAccessibilityFormForm {
     }
 }
 
+/// UserAccountStatesDefinitionContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserAccountStatesDefinitionContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserAccountStatesDefinitionContentForm {
+    /// Binds a UserAccountStatesDefinitionContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAccountStatesDefinitionContentForm {
+        UserAccountStatesDefinitionContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn state_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stateModel")
+    }
+
+    pub fn set_state_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stateModel", value);
+    }
+
+    pub fn initial_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "initialState")
+    }
+
+    pub fn set_initial_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "initialState", value);
+    }
+
+    pub fn active_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activeState")
+    }
+
+    pub fn set_active_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activeState", value);
+    }
+
+    pub fn suspended_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "suspendedState")
+    }
+
+    pub fn set_suspended_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "suspendedState", value);
+    }
+
+    pub fn locked_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "lockedState")
+    }
+
+    pub fn set_locked_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "lockedState", value);
+    }
+
+    pub fn deactivated_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deactivatedState")
+    }
+
+    pub fn set_deactivated_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deactivatedState", value);
+    }
+
+    pub fn archived_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "archivedState")
+    }
+
+    pub fn set_archived_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "archivedState", value);
+    }
+
+    pub fn deleted_state(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "deletedState")
+    }
+
+    pub fn set_deleted_state(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "deletedState", value);
+    }
+
+    pub fn custom_states(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "customStates")
+    }
+
+    pub fn set_custom_states(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "customStates", value);
+    }
+
+    pub fn state_visibility(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stateVisibility")
+    }
+
+    pub fn set_state_visibility(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stateVisibility", value);
+    }
+
+    pub fn state_transition_diagram_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "stateTransitionDiagramRef")
+    }
+
+    pub fn set_state_transition_diagram_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "stateTransitionDiagramRef", value);
+    }
+}
+
 /// UserAssistanceDeliveryForm is the generated section facade for the `delivery` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct UserAssistanceDeliveryForm {
@@ -241779,6 +251319,114 @@ impl UserGrowthProjectionsThresholdsForm {
     }
 }
 
+/// UserInteractionModelSummaryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserInteractionModelSummaryContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserInteractionModelSummaryContentForm {
+    /// Binds a UserInteractionModelSummaryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserInteractionModelSummaryContentForm {
+        UserInteractionModelSummaryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn primary_access_channel(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "primaryAccessChannel")
+    }
+
+    pub fn set_primary_access_channel(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "primaryAccessChannel", value);
+    }
+
+    pub fn channel_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "channelCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_channel_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "channelCount", &text);
+    }
+
+    pub fn interaction_pattern_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "interactionPatternCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_interaction_pattern_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "interactionPatternCount", &text);
+    }
+
+    pub fn access_level_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "accessLevelCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_access_level_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "accessLevelCount", &text);
+    }
+
+    pub fn multi_channel_support(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "multiChannelSupport")
+    }
+
+    pub fn set_multi_channel_support(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "multiChannelSupport", value);
+    }
+
+    pub fn offline_capability(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "offlineCapability")
+    }
+
+    pub fn set_offline_capability(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "offlineCapability", value);
+    }
+
+    pub fn session_management(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "sessionManagement")
+    }
+
+    pub fn set_session_management(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "sessionManagement", value);
+    }
+
+    pub fn notification_channels(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notificationChannels")
+    }
+
+    pub fn set_notification_channels(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notificationChannels", value);
+    }
+}
+
 /// UserLifecycleTransitionEntryApprovalForm is the generated section facade for the `approval` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct UserLifecycleTransitionEntryApprovalForm {
@@ -242013,6 +251661,201 @@ impl UserLifecycleTransitionEntryEffectsForm {
     pub fn set_notification_channels(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notificationChannels", value);
+    }
+}
+
+/// UserLifecycleTransitionsContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserLifecycleTransitionsContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserLifecycleTransitionsContentForm {
+    /// Binds a UserLifecycleTransitionsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserLifecycleTransitionsContentForm {
+        UserLifecycleTransitionsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn transition_model(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "transitionModel")
+    }
+
+    pub fn set_transition_model(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "transitionModel", value);
+    }
+
+    pub fn approval_policy_default(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "approvalPolicyDefault")
+    }
+
+    pub fn set_approval_policy_default(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "approvalPolicyDefault", value);
+    }
+
+    pub fn escalation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "escalationPolicy")
+    }
+
+    pub fn set_escalation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "escalationPolicy", value);
+    }
+
+    pub fn escalation_timeframe(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "escalationTimeframe")
+    }
+
+    pub fn set_escalation_timeframe(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "escalationTimeframe", value);
+    }
+
+    pub fn audit_trail_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "auditTrailRequired")
+    }
+
+    pub fn set_audit_trail_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "auditTrailRequired", value);
+    }
+
+    pub fn notification_on_transition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notificationOnTransition")
+    }
+
+    pub fn set_notification_on_transition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notificationOnTransition", value);
+    }
+
+    pub fn bulk_transition_support(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bulkTransitionSupport")
+    }
+
+    pub fn set_bulk_transition_support(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bulkTransitionSupport", value);
+    }
+
+    pub fn automated_transitions(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "automatedTransitions")
+    }
+
+    pub fn set_automated_transitions(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "automatedTransitions", value);
+    }
+
+    pub fn transition_undo_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "transitionUndoPolicy")
+    }
+
+    pub fn set_transition_undo_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "transitionUndoPolicy", value);
+    }
+}
+
+/// UserNotificationPreferencesContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserNotificationPreferencesContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserNotificationPreferencesContentForm {
+    /// Binds a UserNotificationPreferencesContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserNotificationPreferencesContentForm {
+        UserNotificationPreferencesContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn global_opt_out(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "globalOptOut")
+    }
+
+    pub fn set_global_opt_out(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "globalOptOut", value);
+    }
+
+    pub fn per_type_control(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "perTypeControl")
+    }
+
+    pub fn set_per_type_control(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "perTypeControl", value);
+    }
+
+    pub fn channel_preferences(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "channelPreferences")
+    }
+
+    pub fn set_channel_preferences(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "channelPreferences", value);
+    }
+
+    pub fn frequency_control(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "frequencyControl")
+    }
+
+    pub fn set_frequency_control(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "frequencyControl", value);
+    }
+
+    pub fn quiet_hours(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "quietHours")
+    }
+
+    pub fn set_quiet_hours(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "quietHours", value);
+    }
+
+    pub fn digest_option(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "digestOption")
+    }
+
+    pub fn set_digest_option(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "digestOption", value);
     }
 }
 
@@ -242542,6 +252385,189 @@ impl UserProvisioningToolsRoleManagementForm {
     pub fn set_access_review_process(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "accessReviewProcess", value);
+    }
+}
+
+/// UserRegistrationProcessContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserRegistrationProcessContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserRegistrationProcessContentForm {
+    /// Binds a UserRegistrationProcessContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserRegistrationProcessContentForm {
+        UserRegistrationProcessContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn registration_methods(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "registrationMethods")
+    }
+
+    pub fn set_registration_methods(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "registrationMethods", value);
+    }
+
+    pub fn self_registration_enabled(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "selfRegistrationEnabled")
+    }
+
+    pub fn set_self_registration_enabled(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "selfRegistrationEnabled", value);
+    }
+
+    pub fn identity_proofing_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "identityProofingLevel")
+    }
+
+    pub fn set_identity_proofing_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "identityProofingLevel", value);
+    }
+
+    pub fn email_verification_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "emailVerificationRequired")
+    }
+
+    pub fn set_email_verification_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "emailVerificationRequired", value);
+    }
+
+    pub fn phone_verification_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "phoneVerificationRequired")
+    }
+
+    pub fn set_phone_verification_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "phoneVerificationRequired", value);
+    }
+
+    pub fn captcha_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "captchaRequired")
+    }
+
+    pub fn set_captcha_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "captchaRequired", value);
+    }
+
+    pub fn invitation_expiry_period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "invitationExpiryPeriod")
+    }
+
+    pub fn set_invitation_expiry_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "invitationExpiryPeriod", value);
+    }
+
+    pub fn approval_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "approvalRequired")
+    }
+
+    pub fn set_approval_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "approvalRequired", value);
+    }
+
+    pub fn approval_workflow(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "approvalWorkflow")
+    }
+
+    pub fn set_approval_workflow(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "approvalWorkflow", value);
+    }
+
+    pub fn approver_role(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "approverRole")
+    }
+
+    pub fn set_approver_role(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "approverRole", value);
+    }
+
+    pub fn required_fields_at_registration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requiredFieldsAtRegistration")
+    }
+
+    pub fn set_required_fields_at_registration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requiredFieldsAtRegistration", value);
+    }
+
+    pub fn optional_fields_at_registration(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "optionalFieldsAtRegistration")
+    }
+
+    pub fn set_optional_fields_at_registration(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "optionalFieldsAtRegistration", value);
+    }
+
+    pub fn terms_acceptance_required(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "termsAcceptanceRequired")
+    }
+
+    pub fn set_terms_acceptance_required(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "termsAcceptanceRequired", value);
+    }
+
+    pub fn duplicate_detection(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "duplicateDetection")
+    }
+
+    pub fn set_duplicate_detection(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "duplicateDetection", value);
+    }
+
+    pub fn welcome_notification(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "welcomeNotification")
+    }
+
+    pub fn set_welcome_notification(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "welcomeNotification", value);
+    }
+
+    pub fn initial_role_assignment(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "initialRoleAssignment")
+    }
+
+    pub fn set_initial_role_assignment(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "initialRoleAssignment", value);
+    }
+
+    pub fn registration_rate_limiting(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "registrationRateLimiting")
+    }
+
+    pub fn set_registration_rate_limiting(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "registrationRateLimiting", value);
     }
 }
 

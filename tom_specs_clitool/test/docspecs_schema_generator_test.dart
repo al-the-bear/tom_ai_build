@@ -321,6 +321,41 @@ void main() {
       }
     });
 
+    test('a prose content type (text, description) carries no format; a '
+        'code/diagram one does', () {
+      // `@ContentType('description', …)` is how the model marks prose on about
+      // ninety members. A format makes the DocSpecs validator demand a fenced
+      // block, so emitting `description` as one made those sections
+      // unwritable without wrapping a sentence in a fence.
+      ModelField contentField(String id, String type) => ModelField(
+        name: id.toLowerCase(),
+        typeName: 'String',
+        annotations: [
+          _a('SectionId', {'id': id}),
+          _a('ContentType', {'type': type, 'description': 'x'}),
+        ],
+      );
+      final model = {
+        'ProseDoc': ModelClass(
+          name: 'ProseDoc',
+          annotations: [
+            _a('Document', {'name': 'Prose Doc'}),
+            _a('SectionId', {'id': 'PD'}),
+          ],
+          fields: [
+            contentField('PD-TXT', 'text'),
+            contentField('PD-DSC', 'description'),
+            contentField('PD-MMD', 'mermaid-flowchart'),
+          ],
+        ),
+      };
+      final schema = DocSpecsSchemaGenerator(model).generateFor('ProseDoc');
+      expect(schema.sectionTypes['pd-txt']!.format, isNull);
+      expect(schema.sectionTypes['pd-dsc']!.format, isNull);
+      expect(schema.sectionTypes['pd-mmd']!.format, 'mermaid-flowchart');
+      expect(proseContentTypes, {'text', 'description'});
+    });
+
     test('SOM §13: @Form sections get format <type>-form; fields keep model '
         'field names with required/description/pattern-check', () {
       final schema = gen.generateFor('DemoDoc');

@@ -1535,20 +1535,12 @@ class AccessConstraintPolicies(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccessConstraintPoliciesContentForm(self.doc, f"{self.path}/content")
 
     # Access Constraint Details (text).
     @property
@@ -1618,20 +1610,12 @@ class AccessControlModelSelection(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccessControlModelSelectionContentForm(self.doc, f"{self.path}/content")
 
     # Access Control Model Details (text).
     @property
@@ -1939,20 +1923,12 @@ class AccountActivationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccountActivationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Activation Flow Description (text).
     @property
@@ -1969,20 +1945,12 @@ class AccountDeactivationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccountDeactivationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Deactivation Process Description (text).
     @property
@@ -1998,20 +1966,12 @@ class AccountDeletionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccountDeletionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Deletion Process Description (text).
     @property
@@ -2028,20 +1988,12 @@ class AccountLockoutPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccountLockoutPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Account Lockout Details (text).
     @property
@@ -2057,20 +2009,12 @@ class AccountModificationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AccountModificationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Modification Rules Description (text).
     @property
@@ -2754,20 +2698,12 @@ class ApiAbuseProtection(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiAbuseProtectionContentForm(self.doc, f"{self.path}/content")
 
     # Abuse Protection Details (text).
     @property
@@ -2783,20 +2719,12 @@ class ApiAuthenticationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # API Authentication Details (text).
     @property
@@ -2813,20 +2741,12 @@ class ApiAuthorizationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiAuthorizationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # API Authorization Details (text).
     @property
@@ -2876,20 +2796,12 @@ class ApiCorsSecurity(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiCorsSecurityContentForm(self.doc, f"{self.path}/content")
 
     # CORS Security Details (text).
     @property
@@ -2905,20 +2817,12 @@ class ApiKeyManagementPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiKeyManagementPolicyContentForm(self.doc, f"{self.path}/content")
 
     # API Key Management Details (text).
     @property
@@ -2936,20 +2840,12 @@ class ApiRequestValidationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiRequestValidationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Request Validation Details (text).
     @property
@@ -3029,20 +2925,12 @@ class ApiSecurityMonitoring(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ApiSecurityMonitoringContentForm(self.doc, f"{self.path}/content")
 
     # API Security Monitoring Details (text).
     @property
@@ -3709,20 +3597,12 @@ class AuthenticationErrorHandling(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return AuthenticationErrorHandlingContentForm(self.doc, f"{self.path}/content")
 
     # Error Handling Details (text).
     @property
@@ -4324,20 +4204,12 @@ class BackupEncryptionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return BackupEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Backup Encryption Details (text).
     @property
@@ -4633,20 +4505,12 @@ class BiometricAuthenticationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return BiometricAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Biometric Implementation Details (text).
     @property
@@ -5827,20 +5691,12 @@ class CertificateAuthenticationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return CertificateAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Certificate Authentication Details (text).
     @property
@@ -5889,20 +5745,12 @@ class CertificateManagementPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return CertificateManagementPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Certificate Management Details (text).
     @property
@@ -6540,18 +6388,10 @@ class ChannelIntegrations(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # Integration requirements content.
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ChannelIntegrationsContentForm(self.doc, f"{self.path}/content")
 
 class CiCdPipelineConfiguration(SomNode):
     """CI/CD pipeline configuration."""
@@ -7152,20 +6992,12 @@ class ColumnLevelSecurityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ColumnLevelSecurityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Column-Level Security Details (text).
     @property
@@ -8512,20 +8344,12 @@ class ConcurrentSessionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ConcurrentSessionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Concurrent Session Details (text).
     @property
@@ -8691,20 +8515,12 @@ class ContentScanningPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ContentScanningPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Content Scanning Details (text).
     @property
@@ -8960,20 +8776,12 @@ class CredentialCompromiseDetectionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return CredentialCompromiseDetectionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Compromise Detection Details (text).
     @property
@@ -8989,20 +8797,12 @@ class CredentialRecoveryPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return CredentialRecoveryPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Credential Recovery Details (text).
     @property
@@ -9130,20 +8930,12 @@ class CrossTenantAccessPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return CrossTenantAccessPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Cross-Tenant Access Policy Details (text).
     @property
@@ -11585,20 +11377,12 @@ class DataAccessAuditPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return DataAccessAuditPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Data Access Audit Details (text).
     @property
@@ -12568,20 +12352,12 @@ class DataMaskingPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return DataMaskingPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Data Masking Details (text).
     @property
@@ -13377,20 +13153,12 @@ class DatabaseAccessPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return DatabaseAccessPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Database Access Policy Details (text).
     @property
@@ -13439,20 +13207,12 @@ class DatabaseEncryptionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return DatabaseEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Database Encryption Details (text).
     @property
@@ -16161,20 +15921,12 @@ class EncryptionAtRestPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return EncryptionAtRestPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Encryption At Rest Policy Details (text).
     @property
@@ -18662,20 +18414,12 @@ class FileAccessControlPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return FileAccessControlPolicyContentForm(self.doc, f"{self.path}/content")
 
     # File Access Control Details (text).
     @property
@@ -18753,20 +18497,12 @@ class FileDownloadSecurityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return FileDownloadSecurityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Download Security Details (text).
     @property
@@ -18783,20 +18519,12 @@ class FileStorageEncryptionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return FileStorageEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # File Storage Encryption Details (text).
     @property
@@ -18814,20 +18542,12 @@ class FileUploadValidationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return FileUploadValidationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Upload Validation Details (text).
     @property
@@ -23156,20 +22876,12 @@ class LoginFlowConfiguration(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return LoginFlowConfigurationContentForm(self.doc, f"{self.path}/content")
 
     # Login Flow Details (text).
     @property
@@ -23947,20 +23659,12 @@ class MfaConfiguration(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return MfaConfigurationContentForm(self.doc, f"{self.path}/content")
 
     # MFA Implementation Details (text).
     @property
@@ -25167,20 +24871,12 @@ class MutualTlsPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return MutualTlsPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Mutual TLS Policy Details (text).
     @property
@@ -27288,20 +26984,12 @@ class PasswordLifecyclePolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PasswordLifecyclePolicyContentForm(self.doc, f"{self.path}/content")
 
     # Password Lifecycle Details (text).
     @property
@@ -27318,20 +27006,12 @@ class PasswordRequirementsPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PasswordRequirementsPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Password Requirements Details (text).
     @property
@@ -27347,20 +27027,12 @@ class PasswordStoragePolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PasswordStoragePolicyContentForm(self.doc, f"{self.path}/content")
 
     # Password Storage Details (text).
     @property
@@ -27512,20 +27184,12 @@ class PermissionCompositionStrategy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PermissionCompositionStrategyContentForm(self.doc, f"{self.path}/content")
 
     # Permission Composition Details (text).
     @property
@@ -27541,20 +27205,12 @@ class PermissionEvaluationBehavior(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PermissionEvaluationBehaviorContentForm(self.doc, f"{self.path}/content")
 
     # Permission Evaluation Details (text).
     @property
@@ -27570,20 +27226,12 @@ class PermissionGranularityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return PermissionGranularityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Permission Granularity Details (text).
     @property
@@ -30580,20 +30228,12 @@ class RedirectHandlingPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return RedirectHandlingPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Redirect Handling Details (text).
     @property
@@ -30979,20 +30619,12 @@ class RememberMePolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return RememberMePolicyContentForm(self.doc, f"{self.path}/content")
 
     # Remember-Me Policy Details (text).
     @property
@@ -33102,20 +32734,12 @@ class RoleCertificationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return RoleCertificationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Role Certification Details (text).
     @property
@@ -33242,20 +32866,12 @@ class RoleHierarchyPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return RoleHierarchyPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Role Hierarchy Policy Details (text).
     @property
@@ -33444,20 +33060,12 @@ class RowLevelSecurityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return RowLevelSecurityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Row-Level Security Details (text).
     @property
@@ -35681,20 +35289,12 @@ class SelfServiceAccountManagement(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SelfServiceAccountManagementContentForm(self.doc, f"{self.path}/content")
 
     # Self-Service Capabilities Description (text).
     @property
@@ -36138,20 +35738,12 @@ class ServiceAccountCredentialPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ServiceAccountCredentialPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Service Account Credential Details (text).
     @property
@@ -36167,20 +35759,12 @@ class ServiceAccountLifecycle(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return ServiceAccountLifecycleContentForm(self.doc, f"{self.path}/content")
 
     # Service Account Management Description (text).
     @property
@@ -36304,20 +35888,12 @@ class SessionCreationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SessionCreationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Session Creation Details (text).
     @property
@@ -36334,20 +35910,12 @@ class SessionLifecycleMonitoring(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SessionLifecycleMonitoringContentForm(self.doc, f"{self.path}/content")
 
     # Session Lifecycle Monitoring Details (text).
     @property
@@ -36465,20 +36033,12 @@ class SessionRevocationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SessionRevocationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Session Revocation Details (text).
     @property
@@ -36495,20 +36055,12 @@ class SessionSecurityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SessionSecurityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Session Security Details (text).
     @property
@@ -36526,20 +36078,12 @@ class SessionTimeoutPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SessionTimeoutPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Session Timeout Details (text).
     @property
@@ -37053,20 +36597,12 @@ class SsoPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return SsoPolicyContentForm(self.doc, f"{self.path}/content")
 
     # SSO Implementation Details (text).
     @property
@@ -38111,20 +37647,12 @@ class StepUpAuthenticationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return StepUpAuthenticationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Step-Up Authentication Details (text).
     @property
@@ -38141,20 +37669,12 @@ class StorageEncryptionPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return StorageEncryptionPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Storage Encryption Details (text).
     @property
@@ -38171,20 +37691,12 @@ class StorageLifecyclePolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return StorageLifecyclePolicyContentForm(self.doc, f"{self.path}/content")
 
     # Storage Lifecycle Details (text).
     @property
@@ -40993,20 +40505,12 @@ class TenantBoundaryEnforcementPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TenantBoundaryEnforcementPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Tenant Boundary Enforcement Details (text).
     @property
@@ -41025,20 +40529,12 @@ class TenantContextPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TenantContextPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Tenant Context Policy Details (text).
     @property
@@ -41071,20 +40567,12 @@ class TenantDataIsolationPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TenantDataIsolationPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Tenant Data Isolation Details (text).
     @property
@@ -41161,20 +40649,12 @@ class TenantOnboardingPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TenantOnboardingPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Tenant Onboarding Policy Details (text).
     @property
@@ -41478,20 +40958,12 @@ class TlsProtocolPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TlsProtocolPolicyContentForm(self.doc, f"{self.path}/content")
 
     # TLS Protocol Policy Details (text).
     @property
@@ -41539,20 +41011,12 @@ class TokenManagementPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TokenManagementPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Token Management Details (text).
     @property
@@ -42559,20 +42023,12 @@ class TransportSecurityPolicy(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return TransportSecurityPolicyContentForm(self.doc, f"{self.path}/content")
 
     # Transport Security Policy Details (text).
     @property
@@ -43222,20 +42678,12 @@ class UserAccountStatesDefinition(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return UserAccountStatesDefinitionContentForm(self.doc, f"{self.path}/content")
 
     # State Transition Diagram (mermaid).
     @property
@@ -43634,18 +43082,10 @@ class UserInteractionModelSummary(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # Summary content for interaction model.
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return UserInteractionModelSummaryContentForm(self.doc, f"{self.path}/content")
 
 class UserJourney(SomNode):
     """4.1.4.n.7. User Journey.
@@ -43818,20 +43258,12 @@ class UserLifecycleTransitions(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return UserLifecycleTransitionsContentForm(self.doc, f"{self.path}/content")
 
     # Transition Rules Description (text).
     @property
@@ -43917,18 +43349,10 @@ class UserNotificationPreferences(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # Preferences content.
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return UserNotificationPreferencesContentForm(self.doc, f"{self.path}/content")
 
 class UserPersonaDetails(SomNode):
     """4.1.4.n.1. User Persona Details.
@@ -44059,20 +43483,12 @@ class UserRegistrationProcess(SomNode):
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
-    @property
-    def can_have_content(self):
-        return True
-
     # The section's body content. For a `@Form`-annotated member this is the
     # form's **preamble** — the free text before the first field line (SOM
     # §11.4 rule 7); the field values themselves live in [form].
     @property
     def content(self):
-        return self.doc.content(f"{self.path}/content") or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(f"{self.path}/content", value)
+        return UserRegistrationProcessContentForm(self.doc, f"{self.path}/content")
 
     # Registration Flow Description (text).
     @property
@@ -45775,6 +45191,234 @@ class AcceptanceStepEntryOutcomeForm(SomNode):
     def decisionOptions(self, value):
         self.doc.set_form_field(self.path, "decisionOptions", value)
 
+class AccessConstraintPoliciesContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def separationOfDuties(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "separationOfDuties")
+        return None if v is None else (v == "true")
+
+    @separationOfDuties.setter
+    def separationOfDuties(self, value):
+        self.doc.set_form_field(self.path, "separationOfDuties", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def sodEnforcement(self) -> str:
+        return self.doc.form_field(self.path, "sodEnforcement") or ""
+
+    @sodEnforcement.setter
+    def sodEnforcement(self, value):
+        self.doc.set_form_field(self.path, "sodEnforcement", value)
+
+    @property
+    def temporalConstraints(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "temporalConstraints")
+        return None if v is None else (v == "true")
+
+    @temporalConstraints.setter
+    def temporalConstraints(self, value):
+        self.doc.set_form_field(self.path, "temporalConstraints", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def locationConstraints(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "locationConstraints")
+        return None if v is None else (v == "true")
+
+    @locationConstraints.setter
+    def locationConstraints(self, value):
+        self.doc.set_form_field(self.path, "locationConstraints", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def deviceConstraints(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "deviceConstraints")
+        return None if v is None else (v == "true")
+
+    @deviceConstraints.setter
+    def deviceConstraints(self, value):
+        self.doc.set_form_field(self.path, "deviceConstraints", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def riskAdaptiveAccess(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "riskAdaptiveAccess")
+        return None if v is None else (v == "true")
+
+    @riskAdaptiveAccess.setter
+    def riskAdaptiveAccess(self, value):
+        self.doc.set_form_field(self.path, "riskAdaptiveAccess", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def contextualAttributes(self) -> str:
+        return self.doc.form_field(self.path, "contextualAttributes") or ""
+
+    @contextualAttributes.setter
+    def contextualAttributes(self, value):
+        self.doc.set_form_field(self.path, "contextualAttributes", value)
+
+    @property
+    def maxSessionPermissions(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "maxSessionPermissions")
+        return None if v is None else (v == "true")
+
+    @maxSessionPermissions.setter
+    def maxSessionPermissions(self, value):
+        self.doc.set_form_field(self.path, "maxSessionPermissions", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def leastPrivilegeEnforcement(self) -> str:
+        return self.doc.form_field(self.path, "leastPrivilegeEnforcement") or ""
+
+    @leastPrivilegeEnforcement.setter
+    def leastPrivilegeEnforcement(self, value):
+        self.doc.set_form_field(self.path, "leastPrivilegeEnforcement", value)
+
+    @property
+    def privilegeCreepDetection(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "privilegeCreepDetection")
+        return None if v is None else (v == "true")
+
+    @privilegeCreepDetection.setter
+    def privilegeCreepDetection(self, value):
+        self.doc.set_form_field(self.path, "privilegeCreepDetection", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class AccessControlModelSelectionContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def primaryModel(self) -> str:
+        return self.doc.form_field(self.path, "primaryModel") or ""
+
+    @primaryModel.setter
+    def primaryModel(self, value):
+        self.doc.set_form_field(self.path, "primaryModel", value)
+
+    @property
+    def modelRationale(self) -> str:
+        return self.doc.form_field(self.path, "modelRationale") or ""
+
+    @modelRationale.setter
+    def modelRationale(self, value):
+        self.doc.set_form_field(self.path, "modelRationale", value)
+
+    @property
+    def rbacEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "rbacEnabled")
+        return None if v is None else (v == "true")
+
+    @rbacEnabled.setter
+    def rbacEnabled(self, value):
+        self.doc.set_form_field(self.path, "rbacEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def abacEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "abacEnabled")
+        return None if v is None else (v == "true")
+
+    @abacEnabled.setter
+    def abacEnabled(self, value):
+        self.doc.set_form_field(self.path, "abacEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def rebacEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "rebacEnabled")
+        return None if v is None else (v == "true")
+
+    @rebacEnabled.setter
+    def rebacEnabled(self, value):
+        self.doc.set_form_field(self.path, "rebacEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def policyLanguage(self) -> str:
+        return self.doc.form_field(self.path, "policyLanguage") or ""
+
+    @policyLanguage.setter
+    def policyLanguage(self, value):
+        self.doc.set_form_field(self.path, "policyLanguage", value)
+
+    @property
+    def policyDecisionPoint(self) -> str:
+        return self.doc.form_field(self.path, "policyDecisionPoint") or ""
+
+    @policyDecisionPoint.setter
+    def policyDecisionPoint(self, value):
+        self.doc.set_form_field(self.path, "policyDecisionPoint", value)
+
+    @property
+    def policyEnforcementPoint(self) -> str:
+        return self.doc.form_field(self.path, "policyEnforcementPoint") or ""
+
+    @policyEnforcementPoint.setter
+    def policyEnforcementPoint(self, value):
+        self.doc.set_form_field(self.path, "policyEnforcementPoint", value)
+
+    @property
+    def policyAdministrationPoint(self) -> str:
+        return self.doc.form_field(self.path, "policyAdministrationPoint") or ""
+
+    @policyAdministrationPoint.setter
+    def policyAdministrationPoint(self, value):
+        self.doc.set_form_field(self.path, "policyAdministrationPoint", value)
+
+    @property
+    def policyInformationPoint(self) -> str:
+        return self.doc.form_field(self.path, "policyInformationPoint") or ""
+
+    @policyInformationPoint.setter
+    def policyInformationPoint(self, value):
+        self.doc.set_form_field(self.path, "policyInformationPoint", value)
+
+    @property
+    def delegationModel(self) -> str:
+        return self.doc.form_field(self.path, "delegationModel") or ""
+
+    @delegationModel.setter
+    def delegationModel(self, value):
+        self.doc.set_form_field(self.path, "delegationModel", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class AccessLevelEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -46641,6 +46285,641 @@ class AccessibilityTestingForm(SomNode):
     @userTestingWithDisabilities.setter
     def userTestingWithDisabilities(self, value):
         self.doc.set_form_field(self.path, "userTestingWithDisabilities", "" if value is None else ("true" if value else "false"))
+
+class AccountActivationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def activationMethod(self) -> str:
+        return self.doc.form_field(self.path, "activationMethod") or ""
+
+    @activationMethod.setter
+    def activationMethod(self, value):
+        self.doc.set_form_field(self.path, "activationMethod", value)
+
+    @property
+    def activationLinkExpiry(self) -> str:
+        return self.doc.form_field(self.path, "activationLinkExpiry") or ""
+
+    @activationLinkExpiry.setter
+    def activationLinkExpiry(self, value):
+        self.doc.set_form_field(self.path, "activationLinkExpiry", value)
+
+    @property
+    def maxActivationAttempts(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxActivationAttempts")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxActivationAttempts.setter
+    def maxActivationAttempts(self, value):
+        self.doc.set_form_field(self.path, "maxActivationAttempts", "" if value is None else str(value))
+
+    @property
+    def activationPrerequisites(self) -> str:
+        return self.doc.form_field(self.path, "activationPrerequisites") or ""
+
+    @activationPrerequisites.setter
+    def activationPrerequisites(self, value):
+        self.doc.set_form_field(self.path, "activationPrerequisites", value)
+
+    @property
+    def provisioningOnActivation(self) -> str:
+        return self.doc.form_field(self.path, "provisioningOnActivation") or ""
+
+    @provisioningOnActivation.setter
+    def provisioningOnActivation(self, value):
+        self.doc.set_form_field(self.path, "provisioningOnActivation", value)
+
+    @property
+    def activationNotification(self) -> str:
+        return self.doc.form_field(self.path, "activationNotification") or ""
+
+    @activationNotification.setter
+    def activationNotification(self, value):
+        self.doc.set_form_field(self.path, "activationNotification", value)
+
+    @property
+    def activationTimeout(self) -> str:
+        return self.doc.form_field(self.path, "activationTimeout") or ""
+
+    @activationTimeout.setter
+    def activationTimeout(self, value):
+        self.doc.set_form_field(self.path, "activationTimeout", value)
+
+    @property
+    def activationTimeoutAction(self) -> str:
+        return self.doc.form_field(self.path, "activationTimeoutAction") or ""
+
+    @activationTimeoutAction.setter
+    def activationTimeoutAction(self, value):
+        self.doc.set_form_field(self.path, "activationTimeoutAction", value)
+
+    @property
+    def postActivationRedirect(self) -> str:
+        return self.doc.form_field(self.path, "postActivationRedirect") or ""
+
+    @postActivationRedirect.setter
+    def postActivationRedirect(self, value):
+        self.doc.set_form_field(self.path, "postActivationRedirect", value)
+
+    @property
+    def onboardingRequired(self) -> str:
+        return self.doc.form_field(self.path, "onboardingRequired") or ""
+
+    @onboardingRequired.setter
+    def onboardingRequired(self, value):
+        self.doc.set_form_field(self.path, "onboardingRequired", value)
+
+    @property
+    def onboardingSteps(self) -> str:
+        return self.doc.form_field(self.path, "onboardingSteps") or ""
+
+    @onboardingSteps.setter
+    def onboardingSteps(self, value):
+        self.doc.set_form_field(self.path, "onboardingSteps", value)
+
+class AccountDeactivationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def deactivationTriggers(self) -> str:
+        return self.doc.form_field(self.path, "deactivationTriggers") or ""
+
+    @deactivationTriggers.setter
+    def deactivationTriggers(self, value):
+        self.doc.set_form_field(self.path, "deactivationTriggers", value)
+
+    @property
+    def inactivityThreshold(self) -> str:
+        return self.doc.form_field(self.path, "inactivityThreshold") or ""
+
+    @inactivityThreshold.setter
+    def inactivityThreshold(self, value):
+        self.doc.set_form_field(self.path, "inactivityThreshold", value)
+
+    @property
+    def inactivityWarningPeriod(self) -> str:
+        return self.doc.form_field(self.path, "inactivityWarningPeriod") or ""
+
+    @inactivityWarningPeriod.setter
+    def inactivityWarningPeriod(self, value):
+        self.doc.set_form_field(self.path, "inactivityWarningPeriod", value)
+
+    @property
+    def deactivationApproval(self) -> str:
+        return self.doc.form_field(self.path, "deactivationApproval") or ""
+
+    @deactivationApproval.setter
+    def deactivationApproval(self, value):
+        self.doc.set_form_field(self.path, "deactivationApproval", value)
+
+    @property
+    def immediateDeactivationCases(self) -> str:
+        return self.doc.form_field(self.path, "immediateDeactivationCases") or ""
+
+    @immediateDeactivationCases.setter
+    def immediateDeactivationCases(self, value):
+        self.doc.set_form_field(self.path, "immediateDeactivationCases", value)
+
+    @property
+    def deactivatedAccountAccess(self) -> str:
+        return self.doc.form_field(self.path, "deactivatedAccountAccess") or ""
+
+    @deactivatedAccountAccess.setter
+    def deactivatedAccountAccess(self, value):
+        self.doc.set_form_field(self.path, "deactivatedAccountAccess", value)
+
+    @property
+    def deactivationEffects(self) -> str:
+        return self.doc.form_field(self.path, "deactivationEffects") or ""
+
+    @deactivationEffects.setter
+    def deactivationEffects(self, value):
+        self.doc.set_form_field(self.path, "deactivationEffects", value)
+
+    @property
+    def reactivationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "reactivationPolicy") or ""
+
+    @reactivationPolicy.setter
+    def reactivationPolicy(self, value):
+        self.doc.set_form_field(self.path, "reactivationPolicy", value)
+
+    @property
+    def reactivationApproval(self) -> str:
+        return self.doc.form_field(self.path, "reactivationApproval") or ""
+
+    @reactivationApproval.setter
+    def reactivationApproval(self, value):
+        self.doc.set_form_field(self.path, "reactivationApproval", value)
+
+    @property
+    def reactivationReverification(self) -> str:
+        return self.doc.form_field(self.path, "reactivationReverification") or ""
+
+    @reactivationReverification.setter
+    def reactivationReverification(self, value):
+        self.doc.set_form_field(self.path, "reactivationReverification", value)
+
+    @property
+    def maxDeactivationPeriod(self) -> str:
+        return self.doc.form_field(self.path, "maxDeactivationPeriod") or ""
+
+    @maxDeactivationPeriod.setter
+    def maxDeactivationPeriod(self, value):
+        self.doc.set_form_field(self.path, "maxDeactivationPeriod", value)
+
+    @property
+    def deactivationNotification(self) -> str:
+        return self.doc.form_field(self.path, "deactivationNotification") or ""
+
+    @deactivationNotification.setter
+    def deactivationNotification(self, value):
+        self.doc.set_form_field(self.path, "deactivationNotification", value)
+
+    @property
+    def gracePeriodAfterDeactivation(self) -> str:
+        return self.doc.form_field(self.path, "gracePeriodAfterDeactivation") or ""
+
+    @gracePeriodAfterDeactivation.setter
+    def gracePeriodAfterDeactivation(self, value):
+        self.doc.set_form_field(self.path, "gracePeriodAfterDeactivation", value)
+
+    @property
+    def dataPreservationDuration(self) -> str:
+        return self.doc.form_field(self.path, "dataPreservationDuration") or ""
+
+    @dataPreservationDuration.setter
+    def dataPreservationDuration(self, value):
+        self.doc.set_form_field(self.path, "dataPreservationDuration", value)
+
+class AccountDeletionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def deletionTriggers(self) -> str:
+        return self.doc.form_field(self.path, "deletionTriggers") or ""
+
+    @deletionTriggers.setter
+    def deletionTriggers(self, value):
+        self.doc.set_form_field(self.path, "deletionTriggers", value)
+
+    @property
+    def deletionApproval(self) -> str:
+        return self.doc.form_field(self.path, "deletionApproval") or ""
+
+    @deletionApproval.setter
+    def deletionApproval(self, value):
+        self.doc.set_form_field(self.path, "deletionApproval", value)
+
+    @property
+    def softDeleteEnabled(self) -> str:
+        return self.doc.form_field(self.path, "softDeleteEnabled") or ""
+
+    @softDeleteEnabled.setter
+    def softDeleteEnabled(self, value):
+        self.doc.set_form_field(self.path, "softDeleteEnabled", value)
+
+    @property
+    def softDeleteRetention(self) -> str:
+        return self.doc.form_field(self.path, "softDeleteRetention") or ""
+
+    @softDeleteRetention.setter
+    def softDeleteRetention(self, value):
+        self.doc.set_form_field(self.path, "softDeleteRetention", value)
+
+    @property
+    def permanentDeletionProcess(self) -> str:
+        return self.doc.form_field(self.path, "permanentDeletionProcess") or ""
+
+    @permanentDeletionProcess.setter
+    def permanentDeletionProcess(self, value):
+        self.doc.set_form_field(self.path, "permanentDeletionProcess", value)
+
+    @property
+    def dataAnonymizationStrategy(self) -> str:
+        return self.doc.form_field(self.path, "dataAnonymizationStrategy") or ""
+
+    @dataAnonymizationStrategy.setter
+    def dataAnonymizationStrategy(self, value):
+        self.doc.set_form_field(self.path, "dataAnonymizationStrategy", value)
+
+    @property
+    def retainedDataAfterDeletion(self) -> str:
+        return self.doc.form_field(self.path, "retainedDataAfterDeletion") or ""
+
+    @retainedDataAfterDeletion.setter
+    def retainedDataAfterDeletion(self, value):
+        self.doc.set_form_field(self.path, "retainedDataAfterDeletion", value)
+
+    @property
+    def retentionPeriodAfterDeletion(self) -> str:
+        return self.doc.form_field(self.path, "retentionPeriodAfterDeletion") or ""
+
+    @retentionPeriodAfterDeletion.setter
+    def retentionPeriodAfterDeletion(self, value):
+        self.doc.set_form_field(self.path, "retentionPeriodAfterDeletion", value)
+
+    @property
+    def dataExportBeforeDeletion(self) -> str:
+        return self.doc.form_field(self.path, "dataExportBeforeDeletion") or ""
+
+    @dataExportBeforeDeletion.setter
+    def dataExportBeforeDeletion(self, value):
+        self.doc.set_form_field(self.path, "dataExportBeforeDeletion", value)
+
+    @property
+    def exportFormats(self) -> str:
+        return self.doc.form_field(self.path, "exportFormats") or ""
+
+    @exportFormats.setter
+    def exportFormats(self, value):
+        self.doc.set_form_field(self.path, "exportFormats", value)
+
+    @property
+    def cascadeDeletionBehavior(self) -> str:
+        return self.doc.form_field(self.path, "cascadeDeletionBehavior") or ""
+
+    @cascadeDeletionBehavior.setter
+    def cascadeDeletionBehavior(self, value):
+        self.doc.set_form_field(self.path, "cascadeDeletionBehavior", value)
+
+    @property
+    def deletionConfirmation(self) -> str:
+        return self.doc.form_field(self.path, "deletionConfirmation") or ""
+
+    @deletionConfirmation.setter
+    def deletionConfirmation(self, value):
+        self.doc.set_form_field(self.path, "deletionConfirmation", value)
+
+    @property
+    def deletionNotification(self) -> str:
+        return self.doc.form_field(self.path, "deletionNotification") or ""
+
+    @deletionNotification.setter
+    def deletionNotification(self, value):
+        self.doc.set_form_field(self.path, "deletionNotification", value)
+
+    @property
+    def rightToErasureCompliance(self) -> str:
+        return self.doc.form_field(self.path, "rightToErasureCompliance") or ""
+
+    @rightToErasureCompliance.setter
+    def rightToErasureCompliance(self, value):
+        self.doc.set_form_field(self.path, "rightToErasureCompliance", value)
+
+    @property
+    def erasureResponseTime(self) -> str:
+        return self.doc.form_field(self.path, "erasureResponseTime") or ""
+
+    @erasureResponseTime.setter
+    def erasureResponseTime(self, value):
+        self.doc.set_form_field(self.path, "erasureResponseTime", value)
+
+    @property
+    def thirdPartyDataDeletion(self) -> str:
+        return self.doc.form_field(self.path, "thirdPartyDataDeletion") or ""
+
+    @thirdPartyDataDeletion.setter
+    def thirdPartyDataDeletion(self, value):
+        self.doc.set_form_field(self.path, "thirdPartyDataDeletion", value)
+
+class AccountLockoutPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def lockoutThreshold(self) -> str:
+        return self.doc.form_field(self.path, "lockoutThreshold") or ""
+
+    @lockoutThreshold.setter
+    def lockoutThreshold(self, value):
+        self.doc.set_form_field(self.path, "lockoutThreshold", value)
+
+    @property
+    def lockoutDuration(self) -> str:
+        return self.doc.form_field(self.path, "lockoutDuration") or ""
+
+    @lockoutDuration.setter
+    def lockoutDuration(self, value):
+        self.doc.set_form_field(self.path, "lockoutDuration", value)
+
+    @property
+    def lockoutEscalation(self) -> str:
+        return self.doc.form_field(self.path, "lockoutEscalation") or ""
+
+    @lockoutEscalation.setter
+    def lockoutEscalation(self, value):
+        self.doc.set_form_field(self.path, "lockoutEscalation", value)
+
+    @property
+    def rateLimitingMethod(self) -> str:
+        return self.doc.form_field(self.path, "rateLimitingMethod") or ""
+
+    @rateLimitingMethod.setter
+    def rateLimitingMethod(self, value):
+        self.doc.set_form_field(self.path, "rateLimitingMethod", value)
+
+    @property
+    def delayProgression(self) -> str:
+        return self.doc.form_field(self.path, "delayProgression") or ""
+
+    @delayProgression.setter
+    def delayProgression(self, value):
+        self.doc.set_form_field(self.path, "delayProgression", value)
+
+    @property
+    def captchaTriggerThreshold(self) -> str:
+        return self.doc.form_field(self.path, "captchaTriggerThreshold") or ""
+
+    @captchaTriggerThreshold.setter
+    def captchaTriggerThreshold(self, value):
+        self.doc.set_form_field(self.path, "captchaTriggerThreshold", value)
+
+    @property
+    def ipBasedRateLimiting(self) -> str:
+        return self.doc.form_field(self.path, "ipBasedRateLimiting") or ""
+
+    @ipBasedRateLimiting.setter
+    def ipBasedRateLimiting(self, value):
+        self.doc.set_form_field(self.path, "ipBasedRateLimiting", value)
+
+    @property
+    def distributedAttackProtection(self) -> str:
+        return self.doc.form_field(self.path, "distributedAttackProtection") or ""
+
+    @distributedAttackProtection.setter
+    def distributedAttackProtection(self, value):
+        self.doc.set_form_field(self.path, "distributedAttackProtection", value)
+
+    @property
+    def unlockMechanism(self) -> str:
+        return self.doc.form_field(self.path, "unlockMechanism") or ""
+
+    @unlockMechanism.setter
+    def unlockMechanism(self, value):
+        self.doc.set_form_field(self.path, "unlockMechanism", value)
+
+    @property
+    def failedAttemptResetOnSuccess(self) -> str:
+        return self.doc.form_field(self.path, "failedAttemptResetOnSuccess") or ""
+
+    @failedAttemptResetOnSuccess.setter
+    def failedAttemptResetOnSuccess(self, value):
+        self.doc.set_form_field(self.path, "failedAttemptResetOnSuccess", value)
+
+    @property
+    def lockoutNotification(self) -> str:
+        return self.doc.form_field(self.path, "lockoutNotification") or ""
+
+    @lockoutNotification.setter
+    def lockoutNotification(self, value):
+        self.doc.set_form_field(self.path, "lockoutNotification", value)
+
+    @property
+    def permanentLockoutEnabled(self) -> str:
+        return self.doc.form_field(self.path, "permanentLockoutEnabled") or ""
+
+    @permanentLockoutEnabled.setter
+    def permanentLockoutEnabled(self, value):
+        self.doc.set_form_field(self.path, "permanentLockoutEnabled", value)
+
+    @property
+    def permanentLockoutThreshold(self) -> str:
+        return self.doc.form_field(self.path, "permanentLockoutThreshold") or ""
+
+    @permanentLockoutThreshold.setter
+    def permanentLockoutThreshold(self, value):
+        self.doc.set_form_field(self.path, "permanentLockoutThreshold", value)
+
+class AccountModificationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def selfModifiableFields(self) -> str:
+        return self.doc.form_field(self.path, "selfModifiableFields") or ""
+
+    @selfModifiableFields.setter
+    def selfModifiableFields(self, value):
+        self.doc.set_form_field(self.path, "selfModifiableFields", value)
+
+    @property
+    def adminModifiableFields(self) -> str:
+        return self.doc.form_field(self.path, "adminModifiableFields") or ""
+
+    @adminModifiableFields.setter
+    def adminModifiableFields(self, value):
+        self.doc.set_form_field(self.path, "adminModifiableFields", value)
+
+    @property
+    def systemModifiableFields(self) -> str:
+        return self.doc.form_field(self.path, "systemModifiableFields") or ""
+
+    @systemModifiableFields.setter
+    def systemModifiableFields(self, value):
+        self.doc.set_form_field(self.path, "systemModifiableFields", value)
+
+    @property
+    def emailChangePolicy(self) -> str:
+        return self.doc.form_field(self.path, "emailChangePolicy") or ""
+
+    @emailChangePolicy.setter
+    def emailChangePolicy(self, value):
+        self.doc.set_form_field(self.path, "emailChangePolicy", value)
+
+    @property
+    def phoneChangePolicy(self) -> str:
+        return self.doc.form_field(self.path, "phoneChangePolicy") or ""
+
+    @phoneChangePolicy.setter
+    def phoneChangePolicy(self, value):
+        self.doc.set_form_field(self.path, "phoneChangePolicy", value)
+
+    @property
+    def nameChangePolicy(self) -> str:
+        return self.doc.form_field(self.path, "nameChangePolicy") or ""
+
+    @nameChangePolicy.setter
+    def nameChangePolicy(self, value):
+        self.doc.set_form_field(self.path, "nameChangePolicy", value)
+
+    @property
+    def roleChangeApproval(self) -> str:
+        return self.doc.form_field(self.path, "roleChangeApproval") or ""
+
+    @roleChangeApproval.setter
+    def roleChangeApproval(self, value):
+        self.doc.set_form_field(self.path, "roleChangeApproval", value)
+
+    @property
+    def bulkModificationSupport(self) -> str:
+        return self.doc.form_field(self.path, "bulkModificationSupport") or ""
+
+    @bulkModificationSupport.setter
+    def bulkModificationSupport(self, value):
+        self.doc.set_form_field(self.path, "bulkModificationSupport", value)
+
+    @property
+    def changeAuditLogging(self) -> str:
+        return self.doc.form_field(self.path, "changeAuditLogging") or ""
+
+    @changeAuditLogging.setter
+    def changeAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "changeAuditLogging", value)
+
+    @property
+    def changeNotification(self) -> str:
+        return self.doc.form_field(self.path, "changeNotification") or ""
+
+    @changeNotification.setter
+    def changeNotification(self, value):
+        self.doc.set_form_field(self.path, "changeNotification", value)
+
+    @property
+    def historicalVersioning(self) -> str:
+        return self.doc.form_field(self.path, "historicalVersioning") or ""
+
+    @historicalVersioning.setter
+    def historicalVersioning(self, value):
+        self.doc.set_form_field(self.path, "historicalVersioning", value)
+
+    @property
+    def reverificationTriggers(self) -> str:
+        return self.doc.form_field(self.path, "reverificationTriggers") or ""
+
+    @reverificationTriggers.setter
+    def reverificationTriggers(self, value):
+        self.doc.set_form_field(self.path, "reverificationTriggers", value)
+
+    @property
+    def modificationRateLimiting(self) -> str:
+        return self.doc.form_field(self.path, "modificationRateLimiting") or ""
+
+    @modificationRateLimiting.setter
+    def modificationRateLimiting(self, value):
+        self.doc.set_form_field(self.path, "modificationRateLimiting", value)
+
+    @property
+    def modificationCooldownPeriod(self) -> str:
+        return self.doc.form_field(self.path, "modificationCooldownPeriod") or ""
+
+    @modificationCooldownPeriod.setter
+    def modificationCooldownPeriod(self, value):
+        self.doc.set_form_field(self.path, "modificationCooldownPeriod", value)
 
 class ActionParameterEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -49357,6 +49636,449 @@ class AnomalyDetectionPolicyContentForm(SomNode):
     def responseActions(self, value):
         self.doc.set_form_field(self.path, "responseActions", value)
 
+class ApiAbuseProtectionContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def rateLimitingEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "rateLimitingEnabled")
+        return None if v is None else (v == "true")
+
+    @rateLimitingEnabled.setter
+    def rateLimitingEnabled(self, value):
+        self.doc.set_form_field(self.path, "rateLimitingEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def rateLimitScope(self) -> str:
+        return self.doc.form_field(self.path, "rateLimitScope") or ""
+
+    @rateLimitScope.setter
+    def rateLimitScope(self, value):
+        self.doc.set_form_field(self.path, "rateLimitScope", value)
+
+    @property
+    def authenticationEndpointLimits(self) -> str:
+        return self.doc.form_field(self.path, "authenticationEndpointLimits") or ""
+
+    @authenticationEndpointLimits.setter
+    def authenticationEndpointLimits(self, value):
+        self.doc.set_form_field(self.path, "authenticationEndpointLimits", value)
+
+    @property
+    def sensitiveEndpointLimits(self) -> str:
+        return self.doc.form_field(self.path, "sensitiveEndpointLimits") or ""
+
+    @sensitiveEndpointLimits.setter
+    def sensitiveEndpointLimits(self, value):
+        self.doc.set_form_field(self.path, "sensitiveEndpointLimits", value)
+
+    @property
+    def bruteForceProtection(self) -> str:
+        return self.doc.form_field(self.path, "bruteForceProtection") or ""
+
+    @bruteForceProtection.setter
+    def bruteForceProtection(self, value):
+        self.doc.set_form_field(self.path, "bruteForceProtection", value)
+
+    @property
+    def botDetectionPolicy(self) -> str:
+        return self.doc.form_field(self.path, "botDetectionPolicy") or ""
+
+    @botDetectionPolicy.setter
+    def botDetectionPolicy(self, value):
+        self.doc.set_form_field(self.path, "botDetectionPolicy", value)
+
+    @property
+    def ipReputationFiltering(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "ipReputationFiltering")
+        return None if v is None else (v == "true")
+
+    @ipReputationFiltering.setter
+    def ipReputationFiltering(self, value):
+        self.doc.set_form_field(self.path, "ipReputationFiltering", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def automaticBlocking(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "automaticBlocking")
+        return None if v is None else (v == "true")
+
+    @automaticBlocking.setter
+    def automaticBlocking(self, value):
+        self.doc.set_form_field(self.path, "automaticBlocking", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def blockDuration(self) -> str:
+        return self.doc.form_field(self.path, "blockDuration") or ""
+
+    @blockDuration.setter
+    def blockDuration(self, value):
+        self.doc.set_form_field(self.path, "blockDuration", value)
+
+    @property
+    def geographicRestrictions(self) -> str:
+        return self.doc.form_field(self.path, "geographicRestrictions") or ""
+
+    @geographicRestrictions.setter
+    def geographicRestrictions(self, value):
+        self.doc.set_form_field(self.path, "geographicRestrictions", value)
+
+    @property
+    def requestThrottlingOnFailure(self) -> str:
+        return self.doc.form_field(self.path, "requestThrottlingOnFailure") or ""
+
+    @requestThrottlingOnFailure.setter
+    def requestThrottlingOnFailure(self, value):
+        self.doc.set_form_field(self.path, "requestThrottlingOnFailure", value)
+
+    @property
+    def businessFlowProtection(self) -> str:
+        return self.doc.form_field(self.path, "businessFlowProtection") or ""
+
+    @businessFlowProtection.setter
+    def businessFlowProtection(self, value):
+        self.doc.set_form_field(self.path, "businessFlowProtection", value)
+
+    @property
+    def webhookFloodProtection(self) -> str:
+        return self.doc.form_field(self.path, "webhookFloodProtection") or ""
+
+    @webhookFloodProtection.setter
+    def webhookFloodProtection(self, value):
+        self.doc.set_form_field(self.path, "webhookFloodProtection", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class ApiAuthenticationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def authenticationMethod(self) -> str:
+        return self.doc.form_field(self.path, "authenticationMethod") or ""
+
+    @authenticationMethod.setter
+    def authenticationMethod(self, value):
+        self.doc.set_form_field(self.path, "authenticationMethod", value)
+
+    @property
+    def multipleMethodsSupported(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "multipleMethodsSupported")
+        return None if v is None else (v == "true")
+
+    @multipleMethodsSupported.setter
+    def multipleMethodsSupported(self, value):
+        self.doc.set_form_field(self.path, "multipleMethodsSupported", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def apiKeyTransmission(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyTransmission") or ""
+
+    @apiKeyTransmission.setter
+    def apiKeyTransmission(self, value):
+        self.doc.set_form_field(self.path, "apiKeyTransmission", value)
+
+    @property
+    def apiKeyRotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyRotationPolicy") or ""
+
+    @apiKeyRotationPolicy.setter
+    def apiKeyRotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "apiKeyRotationPolicy", value)
+
+    @property
+    def apiKeyScoping(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyScoping") or ""
+
+    @apiKeyScoping.setter
+    def apiKeyScoping(self, value):
+        self.doc.set_form_field(self.path, "apiKeyScoping", value)
+
+    @property
+    def jwtValidationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "jwtValidationPolicy") or ""
+
+    @jwtValidationPolicy.setter
+    def jwtValidationPolicy(self, value):
+        self.doc.set_form_field(self.path, "jwtValidationPolicy", value)
+
+    @property
+    def jwtSigningAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "jwtSigningAlgorithm") or ""
+
+    @jwtSigningAlgorithm.setter
+    def jwtSigningAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "jwtSigningAlgorithm", value)
+
+    @property
+    def accessTokenLifetime(self) -> str:
+        return self.doc.form_field(self.path, "accessTokenLifetime") or ""
+
+    @accessTokenLifetime.setter
+    def accessTokenLifetime(self, value):
+        self.doc.set_form_field(self.path, "accessTokenLifetime", value)
+
+    @property
+    def refreshTokenPolicy(self) -> str:
+        return self.doc.form_field(self.path, "refreshTokenPolicy") or ""
+
+    @refreshTokenPolicy.setter
+    def refreshTokenPolicy(self, value):
+        self.doc.set_form_field(self.path, "refreshTokenPolicy", value)
+
+    @property
+    def clientCredentialsFlow(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "clientCredentialsFlow")
+        return None if v is None else (v == "true")
+
+    @clientCredentialsFlow.setter
+    def clientCredentialsFlow(self, value):
+        self.doc.set_form_field(self.path, "clientCredentialsFlow", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def authorizationCodeFlow(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "authorizationCodeFlow")
+        return None if v is None else (v == "true")
+
+    @authorizationCodeFlow.setter
+    def authorizationCodeFlow(self, value):
+        self.doc.set_form_field(self.path, "authorizationCodeFlow", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def tokenRevocationSupport(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "tokenRevocationSupport")
+        return None if v is None else (v == "true")
+
+    @tokenRevocationSupport.setter
+    def tokenRevocationSupport(self, value):
+        self.doc.set_form_field(self.path, "tokenRevocationSupport", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def mutualTlsRequired(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "mutualTlsRequired")
+        return None if v is None else (v == "true")
+
+    @mutualTlsRequired.setter
+    def mutualTlsRequired(self, value):
+        self.doc.set_form_field(self.path, "mutualTlsRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def serviceAccountPolicy(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountPolicy") or ""
+
+    @serviceAccountPolicy.setter
+    def serviceAccountPolicy(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountPolicy", value)
+
+    @property
+    def webhookSignatureVerification(self) -> str:
+        return self.doc.form_field(self.path, "webhookSignatureVerification") or ""
+
+    @webhookSignatureVerification.setter
+    def webhookSignatureVerification(self, value):
+        self.doc.set_form_field(self.path, "webhookSignatureVerification", value)
+
+    @property
+    def thirdPartyApiConsumption(self) -> str:
+        return self.doc.form_field(self.path, "thirdPartyApiConsumption") or ""
+
+    @thirdPartyApiConsumption.setter
+    def thirdPartyApiConsumption(self, value):
+        self.doc.set_form_field(self.path, "thirdPartyApiConsumption", value)
+
+    @property
+    def credentialTransmission(self) -> str:
+        return self.doc.form_field(self.path, "credentialTransmission") or ""
+
+    @credentialTransmission.setter
+    def credentialTransmission(self, value):
+        self.doc.set_form_field(self.path, "credentialTransmission", value)
+
+    @property
+    def bearerTokenFormat(self) -> str:
+        return self.doc.form_field(self.path, "bearerTokenFormat") or ""
+
+    @bearerTokenFormat.setter
+    def bearerTokenFormat(self, value):
+        self.doc.set_form_field(self.path, "bearerTokenFormat", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class ApiAuthorizationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def objectLevelAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "objectLevelAuthorization") or ""
+
+    @objectLevelAuthorization.setter
+    def objectLevelAuthorization(self, value):
+        self.doc.set_form_field(self.path, "objectLevelAuthorization", value)
+
+    @property
+    def functionLevelAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "functionLevelAuthorization") or ""
+
+    @functionLevelAuthorization.setter
+    def functionLevelAuthorization(self, value):
+        self.doc.set_form_field(self.path, "functionLevelAuthorization", value)
+
+    @property
+    def propertyLevelAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "propertyLevelAuthorization") or ""
+
+    @propertyLevelAuthorization.setter
+    def propertyLevelAuthorization(self, value):
+        self.doc.set_form_field(self.path, "propertyLevelAuthorization", value)
+
+    @property
+    def permissionGranularity(self) -> str:
+        return self.doc.form_field(self.path, "permissionGranularity") or ""
+
+    @permissionGranularity.setter
+    def permissionGranularity(self, value):
+        self.doc.set_form_field(self.path, "permissionGranularity", value)
+
+    @property
+    def scopeDefinitions(self) -> str:
+        return self.doc.form_field(self.path, "scopeDefinitions") or ""
+
+    @scopeDefinitions.setter
+    def scopeDefinitions(self, value):
+        self.doc.set_form_field(self.path, "scopeDefinitions", value)
+
+    @property
+    def scopeEnforcementLevel(self) -> str:
+        return self.doc.form_field(self.path, "scopeEnforcementLevel") or ""
+
+    @scopeEnforcementLevel.setter
+    def scopeEnforcementLevel(self, value):
+        self.doc.set_form_field(self.path, "scopeEnforcementLevel", value)
+
+    @property
+    def delegatedAccessPolicy(self) -> str:
+        return self.doc.form_field(self.path, "delegatedAccessPolicy") or ""
+
+    @delegatedAccessPolicy.setter
+    def delegatedAccessPolicy(self, value):
+        self.doc.set_form_field(self.path, "delegatedAccessPolicy", value)
+
+    @property
+    def bulkOperationAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "bulkOperationAuthorization") or ""
+
+    @bulkOperationAuthorization.setter
+    def bulkOperationAuthorization(self, value):
+        self.doc.set_form_field(self.path, "bulkOperationAuthorization", value)
+
+    @property
+    def contextualAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "contextualAuthorization") or ""
+
+    @contextualAuthorization.setter
+    def contextualAuthorization(self, value):
+        self.doc.set_form_field(self.path, "contextualAuthorization", value)
+
+    @property
+    def massAssignmentPrevention(self) -> str:
+        return self.doc.form_field(self.path, "massAssignmentPrevention") or ""
+
+    @massAssignmentPrevention.setter
+    def massAssignmentPrevention(self, value):
+        self.doc.set_form_field(self.path, "massAssignmentPrevention", value)
+
+    @property
+    def horizontalPrivilegeEscalation(self) -> str:
+        return self.doc.form_field(self.path, "horizontalPrivilegeEscalation") or ""
+
+    @horizontalPrivilegeEscalation.setter
+    def horizontalPrivilegeEscalation(self, value):
+        self.doc.set_form_field(self.path, "horizontalPrivilegeEscalation", value)
+
+    @property
+    def verticalPrivilegeEscalation(self) -> str:
+        return self.doc.form_field(self.path, "verticalPrivilegeEscalation") or ""
+
+    @verticalPrivilegeEscalation.setter
+    def verticalPrivilegeEscalation(self, value):
+        self.doc.set_form_field(self.path, "verticalPrivilegeEscalation", value)
+
+    @property
+    def sensitiveBusinessFlowProtection(self) -> str:
+        return self.doc.form_field(self.path, "sensitiveBusinessFlowProtection") or ""
+
+    @sensitiveBusinessFlowProtection.setter
+    def sensitiveBusinessFlowProtection(self, value):
+        self.doc.set_form_field(self.path, "sensitiveBusinessFlowProtection", value)
+
+    @property
+    def workflowStateValidation(self) -> str:
+        return self.doc.form_field(self.path, "workflowStateValidation") or ""
+
+    @workflowStateValidation.setter
+    def workflowStateValidation(self, value):
+        self.doc.set_form_field(self.path, "workflowStateValidation", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class ApiCompatibilityEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -49561,6 +50283,571 @@ class ApiCompatibilityEntryTransportDetailsForm(SomNode):
     @authentication.setter
     def authentication(self, value):
         self.doc.set_form_field(self.path, "authentication", value)
+
+class ApiCorsSecurityContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def corsEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "corsEnabled")
+        return None if v is None else (v == "true")
+
+    @corsEnabled.setter
+    def corsEnabled(self, value):
+        self.doc.set_form_field(self.path, "corsEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def allowedOrigins(self) -> str:
+        return self.doc.form_field(self.path, "allowedOrigins") or ""
+
+    @allowedOrigins.setter
+    def allowedOrigins(self, value):
+        self.doc.set_form_field(self.path, "allowedOrigins", value)
+
+    @property
+    def allowedMethods(self) -> str:
+        return self.doc.form_field(self.path, "allowedMethods") or ""
+
+    @allowedMethods.setter
+    def allowedMethods(self, value):
+        self.doc.set_form_field(self.path, "allowedMethods", value)
+
+    @property
+    def allowedHeaders(self) -> str:
+        return self.doc.form_field(self.path, "allowedHeaders") or ""
+
+    @allowedHeaders.setter
+    def allowedHeaders(self, value):
+        self.doc.set_form_field(self.path, "allowedHeaders", value)
+
+    @property
+    def exposedHeaders(self) -> str:
+        return self.doc.form_field(self.path, "exposedHeaders") or ""
+
+    @exposedHeaders.setter
+    def exposedHeaders(self, value):
+        self.doc.set_form_field(self.path, "exposedHeaders", value)
+
+    @property
+    def credentialsAllowed(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "credentialsAllowed")
+        return None if v is None else (v == "true")
+
+    @credentialsAllowed.setter
+    def credentialsAllowed(self, value):
+        self.doc.set_form_field(self.path, "credentialsAllowed", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def preflightCacheMaxAge(self) -> "int | None":
+        v = self.doc.form_field(self.path, "preflightCacheMaxAge")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @preflightCacheMaxAge.setter
+    def preflightCacheMaxAge(self, value):
+        self.doc.set_form_field(self.path, "preflightCacheMaxAge", "" if value is None else str(value))
+
+    @property
+    def wildcardRestriction(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "wildcardRestriction")
+        return None if v is None else (v == "true")
+
+    @wildcardRestriction.setter
+    def wildcardRestriction(self, value):
+        self.doc.set_form_field(self.path, "wildcardRestriction", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def contentSecurityPolicy(self) -> str:
+        return self.doc.form_field(self.path, "contentSecurityPolicy") or ""
+
+    @contentSecurityPolicy.setter
+    def contentSecurityPolicy(self, value):
+        self.doc.set_form_field(self.path, "contentSecurityPolicy", value)
+
+    @property
+    def strictTransportSecurity(self) -> str:
+        return self.doc.form_field(self.path, "strictTransportSecurity") or ""
+
+    @strictTransportSecurity.setter
+    def strictTransportSecurity(self, value):
+        self.doc.set_form_field(self.path, "strictTransportSecurity", value)
+
+    @property
+    def securityHeadersRequired(self) -> str:
+        return self.doc.form_field(self.path, "securityHeadersRequired") or ""
+
+    @securityHeadersRequired.setter
+    def securityHeadersRequired(self, value):
+        self.doc.set_form_field(self.path, "securityHeadersRequired", value)
+
+    @property
+    def privateNetworkAccess(self) -> str:
+        return self.doc.form_field(self.path, "privateNetworkAccess") or ""
+
+    @privateNetworkAccess.setter
+    def privateNetworkAccess(self, value):
+        self.doc.set_form_field(self.path, "privateNetworkAccess", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class ApiKeyManagementPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def apiKeyAuthEnabled(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyAuthEnabled") or ""
+
+    @apiKeyAuthEnabled.setter
+    def apiKeyAuthEnabled(self, value):
+        self.doc.set_form_field(self.path, "apiKeyAuthEnabled", value)
+
+    @property
+    def apiKeyTypes(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyTypes") or ""
+
+    @apiKeyTypes.setter
+    def apiKeyTypes(self, value):
+        self.doc.set_form_field(self.path, "apiKeyTypes", value)
+
+    @property
+    def keyGenerationMethod(self) -> str:
+        return self.doc.form_field(self.path, "keyGenerationMethod") or ""
+
+    @keyGenerationMethod.setter
+    def keyGenerationMethod(self, value):
+        self.doc.set_form_field(self.path, "keyGenerationMethod", value)
+
+    @property
+    def keyLength(self) -> str:
+        return self.doc.form_field(self.path, "keyLength") or ""
+
+    @keyLength.setter
+    def keyLength(self, value):
+        self.doc.set_form_field(self.path, "keyLength", value)
+
+    @property
+    def keyRotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "keyRotationPolicy") or ""
+
+    @keyRotationPolicy.setter
+    def keyRotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "keyRotationPolicy", value)
+
+    @property
+    def keyExpirationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "keyExpirationPolicy") or ""
+
+    @keyExpirationPolicy.setter
+    def keyExpirationPolicy(self, value):
+        self.doc.set_form_field(self.path, "keyExpirationPolicy", value)
+
+    @property
+    def keyScopeRestrictions(self) -> str:
+        return self.doc.form_field(self.path, "keyScopeRestrictions") or ""
+
+    @keyScopeRestrictions.setter
+    def keyScopeRestrictions(self, value):
+        self.doc.set_form_field(self.path, "keyScopeRestrictions", value)
+
+    @property
+    def ipAllowlisting(self) -> str:
+        return self.doc.form_field(self.path, "ipAllowlisting") or ""
+
+    @ipAllowlisting.setter
+    def ipAllowlisting(self, value):
+        self.doc.set_form_field(self.path, "ipAllowlisting", value)
+
+    @property
+    def rateLimitingPerKey(self) -> str:
+        return self.doc.form_field(self.path, "rateLimitingPerKey") or ""
+
+    @rateLimitingPerKey.setter
+    def rateLimitingPerKey(self, value):
+        self.doc.set_form_field(self.path, "rateLimitingPerKey", value)
+
+    @property
+    def keyRevocationProcess(self) -> str:
+        return self.doc.form_field(self.path, "keyRevocationProcess") or ""
+
+    @keyRevocationProcess.setter
+    def keyRevocationProcess(self, value):
+        self.doc.set_form_field(self.path, "keyRevocationProcess", value)
+
+    @property
+    def keyStorageGuidance(self) -> str:
+        return self.doc.form_field(self.path, "keyStorageGuidance") or ""
+
+    @keyStorageGuidance.setter
+    def keyStorageGuidance(self, value):
+        self.doc.set_form_field(self.path, "keyStorageGuidance", value)
+
+    @property
+    def keyAuditLogging(self) -> str:
+        return self.doc.form_field(self.path, "keyAuditLogging") or ""
+
+    @keyAuditLogging.setter
+    def keyAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "keyAuditLogging", value)
+
+    @property
+    def serviceTokenSupport(self) -> str:
+        return self.doc.form_field(self.path, "serviceTokenSupport") or ""
+
+    @serviceTokenSupport.setter
+    def serviceTokenSupport(self, value):
+        self.doc.set_form_field(self.path, "serviceTokenSupport", value)
+
+    @property
+    def tokenLifetime(self) -> str:
+        return self.doc.form_field(self.path, "tokenLifetime") or ""
+
+    @tokenLifetime.setter
+    def tokenLifetime(self, value):
+        self.doc.set_form_field(self.path, "tokenLifetime", value)
+
+class ApiRequestValidationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def inputValidationStrategy(self) -> str:
+        return self.doc.form_field(self.path, "inputValidationStrategy") or ""
+
+    @inputValidationStrategy.setter
+    def inputValidationStrategy(self, value):
+        self.doc.set_form_field(self.path, "inputValidationStrategy", value)
+
+    @property
+    def schemaValidationEnforced(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "schemaValidationEnforced")
+        return None if v is None else (v == "true")
+
+    @schemaValidationEnforced.setter
+    def schemaValidationEnforced(self, value):
+        self.doc.set_form_field(self.path, "schemaValidationEnforced", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def schemaValidationTool(self) -> str:
+        return self.doc.form_field(self.path, "schemaValidationTool") or ""
+
+    @schemaValidationTool.setter
+    def schemaValidationTool(self, value):
+        self.doc.set_form_field(self.path, "schemaValidationTool", value)
+
+    @property
+    def contentTypeValidation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "contentTypeValidation")
+        return None if v is None else (v == "true")
+
+    @contentTypeValidation.setter
+    def contentTypeValidation(self, value):
+        self.doc.set_form_field(self.path, "contentTypeValidation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def acceptedContentTypes(self) -> str:
+        return self.doc.form_field(self.path, "acceptedContentTypes") or ""
+
+    @acceptedContentTypes.setter
+    def acceptedContentTypes(self, value):
+        self.doc.set_form_field(self.path, "acceptedContentTypes", value)
+
+    @property
+    def rejectUnexpectedContentType(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "rejectUnexpectedContentType")
+        return None if v is None else (v == "true")
+
+    @rejectUnexpectedContentType.setter
+    def rejectUnexpectedContentType(self, value):
+        self.doc.set_form_field(self.path, "rejectUnexpectedContentType", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def requestSizeLimit(self) -> str:
+        return self.doc.form_field(self.path, "requestSizeLimit") or ""
+
+    @requestSizeLimit.setter
+    def requestSizeLimit(self, value):
+        self.doc.set_form_field(self.path, "requestSizeLimit", value)
+
+    @property
+    def arrayLengthLimit(self) -> "int | None":
+        v = self.doc.form_field(self.path, "arrayLengthLimit")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @arrayLengthLimit.setter
+    def arrayLengthLimit(self, value):
+        self.doc.set_form_field(self.path, "arrayLengthLimit", "" if value is None else str(value))
+
+    @property
+    def nestedObjectDepthLimit(self) -> "int | None":
+        v = self.doc.form_field(self.path, "nestedObjectDepthLimit")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @nestedObjectDepthLimit.setter
+    def nestedObjectDepthLimit(self, value):
+        self.doc.set_form_field(self.path, "nestedObjectDepthLimit", "" if value is None else str(value))
+
+    @property
+    def stringFieldMaxLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "stringFieldMaxLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @stringFieldMaxLength.setter
+    def stringFieldMaxLength(self, value):
+        self.doc.set_form_field(self.path, "stringFieldMaxLength", "" if value is None else str(value))
+
+    @property
+    def parameterTypeEnforcement(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "parameterTypeEnforcement")
+        return None if v is None else (v == "true")
+
+    @parameterTypeEnforcement.setter
+    def parameterTypeEnforcement(self, value):
+        self.doc.set_form_field(self.path, "parameterTypeEnforcement", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def numericRangeValidation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "numericRangeValidation")
+        return None if v is None else (v == "true")
+
+    @numericRangeValidation.setter
+    def numericRangeValidation(self, value):
+        self.doc.set_form_field(self.path, "numericRangeValidation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dateFormatValidation(self) -> str:
+        return self.doc.form_field(self.path, "dateFormatValidation") or ""
+
+    @dateFormatValidation.setter
+    def dateFormatValidation(self, value):
+        self.doc.set_form_field(self.path, "dateFormatValidation", value)
+
+    @property
+    def encodingValidation(self) -> str:
+        return self.doc.form_field(self.path, "encodingValidation") or ""
+
+    @encodingValidation.setter
+    def encodingValidation(self, value):
+        self.doc.set_form_field(self.path, "encodingValidation", value)
+
+    @property
+    def fileUploadValidation(self) -> str:
+        return self.doc.form_field(self.path, "fileUploadValidation") or ""
+
+    @fileUploadValidation.setter
+    def fileUploadValidation(self, value):
+        self.doc.set_form_field(self.path, "fileUploadValidation", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class ApiSecurityMonitoringContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def apiAccessLogging(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "apiAccessLogging")
+        return None if v is None else (v == "true")
+
+    @apiAccessLogging.setter
+    def apiAccessLogging(self, value):
+        self.doc.set_form_field(self.path, "apiAccessLogging", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def loggedAttributes(self) -> str:
+        return self.doc.form_field(self.path, "loggedAttributes") or ""
+
+    @loggedAttributes.setter
+    def loggedAttributes(self, value):
+        self.doc.set_form_field(self.path, "loggedAttributes", value)
+
+    @property
+    def sensitiveEndpointMonitoring(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "sensitiveEndpointMonitoring")
+        return None if v is None else (v == "true")
+
+    @sensitiveEndpointMonitoring.setter
+    def sensitiveEndpointMonitoring(self, value):
+        self.doc.set_form_field(self.path, "sensitiveEndpointMonitoring", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def sensitiveDataRedaction(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "sensitiveDataRedaction")
+        return None if v is None else (v == "true")
+
+    @sensitiveDataRedaction.setter
+    def sensitiveDataRedaction(self, value):
+        self.doc.set_form_field(self.path, "sensitiveDataRedaction", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def anomalyDetection(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "anomalyDetection")
+        return None if v is None else (v == "true")
+
+    @anomalyDetection.setter
+    def anomalyDetection(self, value):
+        self.doc.set_form_field(self.path, "anomalyDetection", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def errorRateMonitoring(self) -> str:
+        return self.doc.form_field(self.path, "errorRateMonitoring") or ""
+
+    @errorRateMonitoring.setter
+    def errorRateMonitoring(self, value):
+        self.doc.set_form_field(self.path, "errorRateMonitoring", value)
+
+    @property
+    def authenticationFailureTracking(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "authenticationFailureTracking")
+        return None if v is None else (v == "true")
+
+    @authenticationFailureTracking.setter
+    def authenticationFailureTracking(self, value):
+        self.doc.set_form_field(self.path, "authenticationFailureTracking", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dataExfiltrationDetection(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "dataExfiltrationDetection")
+        return None if v is None else (v == "true")
+
+    @dataExfiltrationDetection.setter
+    def dataExfiltrationDetection(self, value):
+        self.doc.set_form_field(self.path, "dataExfiltrationDetection", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def apiVersionInventory(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "apiVersionInventory")
+        return None if v is None else (v == "true")
+
+    @apiVersionInventory.setter
+    def apiVersionInventory(self, value):
+        self.doc.set_form_field(self.path, "apiVersionInventory", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def deprecatedEndpointMonitoring(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "deprecatedEndpointMonitoring")
+        return None if v is None else (v == "true")
+
+    @deprecatedEndpointMonitoring.setter
+    def deprecatedEndpointMonitoring(self, value):
+        self.doc.set_form_field(self.path, "deprecatedEndpointMonitoring", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def realTimeAlerts(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "realTimeAlerts")
+        return None if v is None else (v == "true")
+
+    @realTimeAlerts.setter
+    def realTimeAlerts(self, value):
+        self.doc.set_form_field(self.path, "realTimeAlerts", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def securityResponseAutomation(self) -> str:
+        return self.doc.form_field(self.path, "securityResponseAutomation") or ""
+
+    @securityResponseAutomation.setter
+    def securityResponseAutomation(self, value):
+        self.doc.set_form_field(self.path, "securityResponseAutomation", value)
+
+    @property
+    def complianceReporting(self) -> str:
+        return self.doc.form_field(self.path, "complianceReporting") or ""
+
+    @complianceReporting.setter
+    def complianceReporting(self, value):
+        self.doc.set_form_field(self.path, "complianceReporting", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class ApiVersioningStrategyCompatibilityForm(SomNode):
     """Generated section facade for the `compatibility` @Form section: its own content text followed by one typed member per form field."""
@@ -51710,6 +52997,111 @@ class AuditEvidenceTypeEntryContentForm(SomNode):
     def responsibleRole(self, value):
         self.doc.set_form_field(self.path, "responsibleRole", value)
 
+class AuthenticationErrorHandlingContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def invalidCredentialResponse(self) -> str:
+        return self.doc.form_field(self.path, "invalidCredentialResponse") or ""
+
+    @invalidCredentialResponse.setter
+    def invalidCredentialResponse(self, value):
+        self.doc.set_form_field(self.path, "invalidCredentialResponse", value)
+
+    @property
+    def accountLockoutThreshold(self) -> str:
+        return self.doc.form_field(self.path, "accountLockoutThreshold") or ""
+
+    @accountLockoutThreshold.setter
+    def accountLockoutThreshold(self, value):
+        self.doc.set_form_field(self.path, "accountLockoutThreshold", value)
+
+    @property
+    def lockoutDuration(self) -> str:
+        return self.doc.form_field(self.path, "lockoutDuration") or ""
+
+    @lockoutDuration.setter
+    def lockoutDuration(self, value):
+        self.doc.set_form_field(self.path, "lockoutDuration", value)
+
+    @property
+    def lockoutEscalation(self) -> str:
+        return self.doc.form_field(self.path, "lockoutEscalation") or ""
+
+    @lockoutEscalation.setter
+    def lockoutEscalation(self, value):
+        self.doc.set_form_field(self.path, "lockoutEscalation", value)
+
+    @property
+    def bruteForceProtection(self) -> str:
+        return self.doc.form_field(self.path, "bruteForceProtection") or ""
+
+    @bruteForceProtection.setter
+    def bruteForceProtection(self, value):
+        self.doc.set_form_field(self.path, "bruteForceProtection", value)
+
+    @property
+    def credentialStuffingProtection(self) -> str:
+        return self.doc.form_field(self.path, "credentialStuffingProtection") or ""
+
+    @credentialStuffingProtection.setter
+    def credentialStuffingProtection(self, value):
+        self.doc.set_form_field(self.path, "credentialStuffingProtection", value)
+
+    @property
+    def userNotificationOnFailure(self) -> str:
+        return self.doc.form_field(self.path, "userNotificationOnFailure") or ""
+
+    @userNotificationOnFailure.setter
+    def userNotificationOnFailure(self, value):
+        self.doc.set_form_field(self.path, "userNotificationOnFailure", value)
+
+    @property
+    def adminAlertThreshold(self) -> str:
+        return self.doc.form_field(self.path, "adminAlertThreshold") or ""
+
+    @adminAlertThreshold.setter
+    def adminAlertThreshold(self, value):
+        self.doc.set_form_field(self.path, "adminAlertThreshold", value)
+
+    @property
+    def failedLoginAuditLogging(self) -> str:
+        return self.doc.form_field(self.path, "failedLoginAuditLogging") or ""
+
+    @failedLoginAuditLogging.setter
+    def failedLoginAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "failedLoginAuditLogging", value)
+
+    @property
+    def suspiciousActivityResponse(self) -> str:
+        return self.doc.form_field(self.path, "suspiciousActivityResponse") or ""
+
+    @suspiciousActivityResponse.setter
+    def suspiciousActivityResponse(self, value):
+        self.doc.set_form_field(self.path, "suspiciousActivityResponse", value)
+
+    @property
+    def gracefulDegradation(self) -> str:
+        return self.doc.form_field(self.path, "gracefulDegradation") or ""
+
+    @gracefulDegradation.setter
+    def gracefulDegradation(self, value):
+        self.doc.set_form_field(self.path, "gracefulDegradation", value)
+
 class AuthenticationEventPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -53074,6 +54466,83 @@ class BackupDataClassificationExclusionsForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class BackupEncryptionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def backupEncryptionRequired(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "backupEncryptionRequired")
+        return None if v is None else (v == "true")
+
+    @backupEncryptionRequired.setter
+    def backupEncryptionRequired(self, value):
+        self.doc.set_form_field(self.path, "backupEncryptionRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def backupEncryptionMethod(self) -> str:
+        return self.doc.form_field(self.path, "backupEncryptionMethod") or ""
+
+    @backupEncryptionMethod.setter
+    def backupEncryptionMethod(self, value):
+        self.doc.set_form_field(self.path, "backupEncryptionMethod", value)
+
+    @property
+    def separateBackupKeys(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "separateBackupKeys")
+        return None if v is None else (v == "true")
+
+    @separateBackupKeys.setter
+    def separateBackupKeys(self, value):
+        self.doc.set_form_field(self.path, "separateBackupKeys", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def backupKeyRotation(self) -> str:
+        return self.doc.form_field(self.path, "backupKeyRotation") or ""
+
+    @backupKeyRotation.setter
+    def backupKeyRotation(self, value):
+        self.doc.set_form_field(self.path, "backupKeyRotation", value)
+
+    @property
+    def encryptedBackupVerification(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "encryptedBackupVerification")
+        return None if v is None else (v == "true")
+
+    @encryptedBackupVerification.setter
+    def encryptedBackupVerification(self, value):
+        self.doc.set_form_field(self.path, "encryptedBackupVerification", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def offSiteBackupEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "offSiteBackupEncryption")
+        return None if v is None else (v == "true")
+
+    @offSiteBackupEncryption.setter
+    def offSiteBackupEncryption(self, value):
+        self.doc.set_form_field(self.path, "offSiteBackupEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class BackupInfrastructureContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -54398,6 +55867,119 @@ class BehaviorRuleEntryContentForm(SomNode):
     @calculatedProperties.setter
     def calculatedProperties(self, value):
         self.doc.set_form_field(self.path, "calculatedProperties", value)
+
+class BiometricAuthenticationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def biometricAuthEnabled(self) -> str:
+        return self.doc.form_field(self.path, "biometricAuthEnabled") or ""
+
+    @biometricAuthEnabled.setter
+    def biometricAuthEnabled(self, value):
+        self.doc.set_form_field(self.path, "biometricAuthEnabled", value)
+
+    @property
+    def biometricModalities(self) -> str:
+        return self.doc.form_field(self.path, "biometricModalities") or ""
+
+    @biometricModalities.setter
+    def biometricModalities(self, value):
+        self.doc.set_form_field(self.path, "biometricModalities", value)
+
+    @property
+    def biometricUsageContext(self) -> str:
+        return self.doc.form_field(self.path, "biometricUsageContext") or ""
+
+    @biometricUsageContext.setter
+    def biometricUsageContext(self, value):
+        self.doc.set_form_field(self.path, "biometricUsageContext", value)
+
+    @property
+    def biometricAsActivationFactor(self) -> str:
+        return self.doc.form_field(self.path, "biometricAsActivationFactor") or ""
+
+    @biometricAsActivationFactor.setter
+    def biometricAsActivationFactor(self, value):
+        self.doc.set_form_field(self.path, "biometricAsActivationFactor", value)
+
+    @property
+    def localVsCentralComparison(self) -> str:
+        return self.doc.form_field(self.path, "localVsCentralComparison") or ""
+
+    @localVsCentralComparison.setter
+    def localVsCentralComparison(self, value):
+        self.doc.set_form_field(self.path, "localVsCentralComparison", value)
+
+    @property
+    def falseMatchRateTarget(self) -> str:
+        return self.doc.form_field(self.path, "falseMatchRateTarget") or ""
+
+    @falseMatchRateTarget.setter
+    def falseMatchRateTarget(self, value):
+        self.doc.set_form_field(self.path, "falseMatchRateTarget", value)
+
+    @property
+    def presentationAttackDetection(self) -> str:
+        return self.doc.form_field(self.path, "presentationAttackDetection") or ""
+
+    @presentationAttackDetection.setter
+    def presentationAttackDetection(self, value):
+        self.doc.set_form_field(self.path, "presentationAttackDetection", value)
+
+    @property
+    def maxConsecutiveFailures(self) -> str:
+        return self.doc.form_field(self.path, "maxConsecutiveFailures") or ""
+
+    @maxConsecutiveFailures.setter
+    def maxConsecutiveFailures(self, value):
+        self.doc.set_form_field(self.path, "maxConsecutiveFailures", value)
+
+    @property
+    def fallbackMethod(self) -> str:
+        return self.doc.form_field(self.path, "fallbackMethod") or ""
+
+    @fallbackMethod.setter
+    def fallbackMethod(self, value):
+        self.doc.set_form_field(self.path, "fallbackMethod", value)
+
+    @property
+    def biometricDataStorage(self) -> str:
+        return self.doc.form_field(self.path, "biometricDataStorage") or ""
+
+    @biometricDataStorage.setter
+    def biometricDataStorage(self, value):
+        self.doc.set_form_field(self.path, "biometricDataStorage", value)
+
+    @property
+    def privacyConsiderations(self) -> str:
+        return self.doc.form_field(self.path, "privacyConsiderations") or ""
+
+    @privacyConsiderations.setter
+    def privacyConsiderations(self, value):
+        self.doc.set_form_field(self.path, "privacyConsiderations", value)
+
+    @property
+    def accessibilityAlternative(self) -> str:
+        return self.doc.form_field(self.path, "accessibilityAlternative") or ""
+
+    @accessibilityAlternative.setter
+    def accessibilityAlternative(self, value):
+        self.doc.set_form_field(self.path, "accessibilityAlternative", value)
 
 class BoundaryAssumptionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -57678,6 +59260,119 @@ class CcbMemberEntryContentForm(SomNode):
     def requiredForQuorum(self, value):
         self.doc.set_form_field(self.path, "requiredForQuorum", value)
 
+class CertificateAuthenticationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def certificateAuthEnabled(self) -> str:
+        return self.doc.form_field(self.path, "certificateAuthEnabled") or ""
+
+    @certificateAuthEnabled.setter
+    def certificateAuthEnabled(self, value):
+        self.doc.set_form_field(self.path, "certificateAuthEnabled", value)
+
+    @property
+    def certificateTypes(self) -> str:
+        return self.doc.form_field(self.path, "certificateTypes") or ""
+
+    @certificateTypes.setter
+    def certificateTypes(self, value):
+        self.doc.set_form_field(self.path, "certificateTypes", value)
+
+    @property
+    def certificateIssuance(self) -> str:
+        return self.doc.form_field(self.path, "certificateIssuance") or ""
+
+    @certificateIssuance.setter
+    def certificateIssuance(self, value):
+        self.doc.set_form_field(self.path, "certificateIssuance", value)
+
+    @property
+    def certificateAuthority(self) -> str:
+        return self.doc.form_field(self.path, "certificateAuthority") or ""
+
+    @certificateAuthority.setter
+    def certificateAuthority(self, value):
+        self.doc.set_form_field(self.path, "certificateAuthority", value)
+
+    @property
+    def keyStorageRequirement(self) -> str:
+        return self.doc.form_field(self.path, "keyStorageRequirement") or ""
+
+    @keyStorageRequirement.setter
+    def keyStorageRequirement(self, value):
+        self.doc.set_form_field(self.path, "keyStorageRequirement", value)
+
+    @property
+    def mutualTlsRequired(self) -> str:
+        return self.doc.form_field(self.path, "mutualTlsRequired") or ""
+
+    @mutualTlsRequired.setter
+    def mutualTlsRequired(self, value):
+        self.doc.set_form_field(self.path, "mutualTlsRequired", value)
+
+    @property
+    def certificateValidation(self) -> str:
+        return self.doc.form_field(self.path, "certificateValidation") or ""
+
+    @certificateValidation.setter
+    def certificateValidation(self, value):
+        self.doc.set_form_field(self.path, "certificateValidation", value)
+
+    @property
+    def certificateLifetime(self) -> str:
+        return self.doc.form_field(self.path, "certificateLifetime") or ""
+
+    @certificateLifetime.setter
+    def certificateLifetime(self, value):
+        self.doc.set_form_field(self.path, "certificateLifetime", value)
+
+    @property
+    def renewalProcess(self) -> str:
+        return self.doc.form_field(self.path, "renewalProcess") or ""
+
+    @renewalProcess.setter
+    def renewalProcess(self, value):
+        self.doc.set_form_field(self.path, "renewalProcess", value)
+
+    @property
+    def revocationProcess(self) -> str:
+        return self.doc.form_field(self.path, "revocationProcess") or ""
+
+    @revocationProcess.setter
+    def revocationProcess(self, value):
+        self.doc.set_form_field(self.path, "revocationProcess", value)
+
+    @property
+    def minimumKeyStrength(self) -> str:
+        return self.doc.form_field(self.path, "minimumKeyStrength") or ""
+
+    @minimumKeyStrength.setter
+    def minimumKeyStrength(self, value):
+        self.doc.set_form_field(self.path, "minimumKeyStrength", value)
+
+    @property
+    def fipsComplianceRequired(self) -> str:
+        return self.doc.form_field(self.path, "fipsComplianceRequired") or ""
+
+    @fipsComplianceRequired.setter
+    def fipsComplianceRequired(self, value):
+        self.doc.set_form_field(self.path, "fipsComplianceRequired", value)
+
 class CertificateManagementContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -57843,6 +59538,126 @@ class CertificateManagementMonitoringForm(SomNode):
     @expiryAlertThreshold.setter
     def expiryAlertThreshold(self, value):
         self.doc.set_form_field(self.path, "expiryAlertThreshold", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class CertificateManagementPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def certificateAuthority(self) -> str:
+        return self.doc.form_field(self.path, "certificateAuthority") or ""
+
+    @certificateAuthority.setter
+    def certificateAuthority(self, value):
+        self.doc.set_form_field(self.path, "certificateAuthority", value)
+
+    @property
+    def validationType(self) -> str:
+        return self.doc.form_field(self.path, "validationType") or ""
+
+    @validationType.setter
+    def validationType(self, value):
+        self.doc.set_form_field(self.path, "validationType", value)
+
+    @property
+    def minimumKeyLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "minimumKeyLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @minimumKeyLength.setter
+    def minimumKeyLength(self, value):
+        self.doc.set_form_field(self.path, "minimumKeyLength", "" if value is None else str(value))
+
+    @property
+    def keyType(self) -> str:
+        return self.doc.form_field(self.path, "keyType") or ""
+
+    @keyType.setter
+    def keyType(self, value):
+        self.doc.set_form_field(self.path, "keyType", value)
+
+    @property
+    def hashingAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "hashingAlgorithm") or ""
+
+    @hashingAlgorithm.setter
+    def hashingAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "hashingAlgorithm", value)
+
+    @property
+    def wildcardCertificatePolicy(self) -> str:
+        return self.doc.form_field(self.path, "wildcardCertificatePolicy") or ""
+
+    @wildcardCertificatePolicy.setter
+    def wildcardCertificatePolicy(self, value):
+        self.doc.set_form_field(self.path, "wildcardCertificatePolicy", value)
+
+    @property
+    def certificateLifetimeDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "certificateLifetimeDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @certificateLifetimeDays.setter
+    def certificateLifetimeDays(self, value):
+        self.doc.set_form_field(self.path, "certificateLifetimeDays", "" if value is None else str(value))
+
+    @property
+    def automatedRenewal(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "automatedRenewal")
+        return None if v is None else (v == "true")
+
+    @automatedRenewal.setter
+    def automatedRenewal(self, value):
+        self.doc.set_form_field(self.path, "automatedRenewal", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def certificateTransparency(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "certificateTransparency")
+        return None if v is None else (v == "true")
+
+    @certificateTransparency.setter
+    def certificateTransparency(self, value):
+        self.doc.set_form_field(self.path, "certificateTransparency", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def caaRecords(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "caaRecords")
+        return None if v is None else (v == "true")
+
+    @caaRecords.setter
+    def caaRecords(self, value):
+        self.doc.set_form_field(self.path, "caaRecords", "" if value is None else ("true" if value else "false"))
 
     @property
     def notes(self) -> str:
@@ -60216,6 +62031,79 @@ class ChangesFromCurrentStructureOverviewContentForm(SomNode):
     @collaborationModelChanges.setter
     def collaborationModelChanges(self, value):
         self.doc.set_form_field(self.path, "collaborationModelChanges", value)
+
+class ChannelIntegrationsContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def pushNotificationService(self) -> str:
+        return self.doc.form_field(self.path, "pushNotificationService") or ""
+
+    @pushNotificationService.setter
+    def pushNotificationService(self, value):
+        self.doc.set_form_field(self.path, "pushNotificationService", value)
+
+    @property
+    def analyticsService(self) -> str:
+        return self.doc.form_field(self.path, "analyticsService") or ""
+
+    @analyticsService.setter
+    def analyticsService(self, value):
+        self.doc.set_form_field(self.path, "analyticsService", value)
+
+    @property
+    def crashReporting(self) -> str:
+        return self.doc.form_field(self.path, "crashReporting") or ""
+
+    @crashReporting.setter
+    def crashReporting(self, value):
+        self.doc.set_form_field(self.path, "crashReporting", value)
+
+    @property
+    def deepLinking(self) -> str:
+        return self.doc.form_field(self.path, "deepLinking") or ""
+
+    @deepLinking.setter
+    def deepLinking(self, value):
+        self.doc.set_form_field(self.path, "deepLinking", value)
+
+    @property
+    def socialIntegration(self) -> str:
+        return self.doc.form_field(self.path, "socialIntegration") or ""
+
+    @socialIntegration.setter
+    def socialIntegration(self, value):
+        self.doc.set_form_field(self.path, "socialIntegration", value)
+
+    @property
+    def paymentIntegration(self) -> str:
+        return self.doc.form_field(self.path, "paymentIntegration") or ""
+
+    @paymentIntegration.setter
+    def paymentIntegration(self, value):
+        self.doc.set_form_field(self.path, "paymentIntegration", value)
+
+    @property
+    def biometricIntegration(self) -> str:
+        return self.doc.form_field(self.path, "biometricIntegration") or ""
+
+    @biometricIntegration.setter
+    def biometricIntegration(self, value):
+        self.doc.set_form_field(self.path, "biometricIntegration", value)
 
 class CiCdPipelineConfigurationContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -62945,6 +64833,95 @@ class ColorPaletteEntryContentForm(SomNode):
     @usageGuidelines.setter
     def usageGuidelines(self, value):
         self.doc.set_form_field(self.path, "usageGuidelines", value)
+
+class ColumnLevelSecurityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def columnLevelSecurityEnabled(self) -> str:
+        return self.doc.form_field(self.path, "columnLevelSecurityEnabled") or ""
+
+    @columnLevelSecurityEnabled.setter
+    def columnLevelSecurityEnabled(self, value):
+        self.doc.set_form_field(self.path, "columnLevelSecurityEnabled", value)
+
+    @property
+    def columnAccessImplementation(self) -> str:
+        return self.doc.form_field(self.path, "columnAccessImplementation") or ""
+
+    @columnAccessImplementation.setter
+    def columnAccessImplementation(self, value):
+        self.doc.set_form_field(self.path, "columnAccessImplementation", value)
+
+    @property
+    def sensitiveColumnClassification(self) -> str:
+        return self.doc.form_field(self.path, "sensitiveColumnClassification") or ""
+
+    @sensitiveColumnClassification.setter
+    def sensitiveColumnClassification(self, value):
+        self.doc.set_form_field(self.path, "sensitiveColumnClassification", value)
+
+    @property
+    def piiColumnAccess(self) -> str:
+        return self.doc.form_field(self.path, "piiColumnAccess") or ""
+
+    @piiColumnAccess.setter
+    def piiColumnAccess(self, value):
+        self.doc.set_form_field(self.path, "piiColumnAccess", value)
+
+    @property
+    def financialDataColumnAccess(self) -> str:
+        return self.doc.form_field(self.path, "financialDataColumnAccess") or ""
+
+    @financialDataColumnAccess.setter
+    def financialDataColumnAccess(self, value):
+        self.doc.set_form_field(self.path, "financialDataColumnAccess", value)
+
+    @property
+    def healthDataColumnAccess(self) -> str:
+        return self.doc.form_field(self.path, "healthDataColumnAccess") or ""
+
+    @healthDataColumnAccess.setter
+    def healthDataColumnAccess(self, value):
+        self.doc.set_form_field(self.path, "healthDataColumnAccess", value)
+
+    @property
+    def dynamicFieldVisibility(self) -> str:
+        return self.doc.form_field(self.path, "dynamicFieldVisibility") or ""
+
+    @dynamicFieldVisibility.setter
+    def dynamicFieldVisibility(self, value):
+        self.doc.set_form_field(self.path, "dynamicFieldVisibility", value)
+
+    @property
+    def columnAccessAudit(self) -> str:
+        return self.doc.form_field(self.path, "columnAccessAudit") or ""
+
+    @columnAccessAudit.setter
+    def columnAccessAudit(self, value):
+        self.doc.set_form_field(self.path, "columnAccessAudit", value)
+
+    @property
+    def columnEncryptionPolicy(self) -> str:
+        return self.doc.form_field(self.path, "columnEncryptionPolicy") or ""
+
+    @columnEncryptionPolicy.setter
+    def columnEncryptionPolicy(self, value):
+        self.doc.set_form_field(self.path, "columnEncryptionPolicy", value)
 
 class CommitteeCharterContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -68216,6 +70193,111 @@ class ComputingEquipmentEntryPlatformForm(SomNode):
     def formFactor(self, value):
         self.doc.set_form_field(self.path, "formFactor", value)
 
+class ConcurrentSessionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def concurrentSessionsAllowed(self) -> str:
+        return self.doc.form_field(self.path, "concurrentSessionsAllowed") or ""
+
+    @concurrentSessionsAllowed.setter
+    def concurrentSessionsAllowed(self, value):
+        self.doc.set_form_field(self.path, "concurrentSessionsAllowed", value)
+
+    @property
+    def maxConcurrentSessions(self) -> str:
+        return self.doc.form_field(self.path, "maxConcurrentSessions") or ""
+
+    @maxConcurrentSessions.setter
+    def maxConcurrentSessions(self, value):
+        self.doc.set_form_field(self.path, "maxConcurrentSessions", value)
+
+    @property
+    def concurrentSessionScope(self) -> str:
+        return self.doc.form_field(self.path, "concurrentSessionScope") or ""
+
+    @concurrentSessionScope.setter
+    def concurrentSessionScope(self, value):
+        self.doc.set_form_field(self.path, "concurrentSessionScope", value)
+
+    @property
+    def conflictResolution(self) -> str:
+        return self.doc.form_field(self.path, "conflictResolution") or ""
+
+    @conflictResolution.setter
+    def conflictResolution(self, value):
+        self.doc.set_form_field(self.path, "conflictResolution", value)
+
+    @property
+    def sessionListVisible(self) -> str:
+        return self.doc.form_field(self.path, "sessionListVisible") or ""
+
+    @sessionListVisible.setter
+    def sessionListVisible(self, value):
+        self.doc.set_form_field(self.path, "sessionListVisible", value)
+
+    @property
+    def remoteTerminationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "remoteTerminationEnabled") or ""
+
+    @remoteTerminationEnabled.setter
+    def remoteTerminationEnabled(self, value):
+        self.doc.set_form_field(self.path, "remoteTerminationEnabled", value)
+
+    @property
+    def sessionDeviceInfo(self) -> str:
+        return self.doc.form_field(self.path, "sessionDeviceInfo") or ""
+
+    @sessionDeviceInfo.setter
+    def sessionDeviceInfo(self, value):
+        self.doc.set_form_field(self.path, "sessionDeviceInfo", value)
+
+    @property
+    def concurrentLoginNotification(self) -> str:
+        return self.doc.form_field(self.path, "concurrentLoginNotification") or ""
+
+    @concurrentLoginNotification.setter
+    def concurrentLoginNotification(self, value):
+        self.doc.set_form_field(self.path, "concurrentLoginNotification", value)
+
+    @property
+    def suspiciousConcurrentLoginAction(self) -> str:
+        return self.doc.form_field(self.path, "suspiciousConcurrentLoginAction") or ""
+
+    @suspiciousConcurrentLoginAction.setter
+    def suspiciousConcurrentLoginAction(self, value):
+        self.doc.set_form_field(self.path, "suspiciousConcurrentLoginAction", value)
+
+    @property
+    def privilegedAccountSessionLimit(self) -> str:
+        return self.doc.form_field(self.path, "privilegedAccountSessionLimit") or ""
+
+    @privilegedAccountSessionLimit.setter
+    def privilegedAccountSessionLimit(self, value):
+        self.doc.set_form_field(self.path, "privilegedAccountSessionLimit", value)
+
+    @property
+    def crossDeviceSessionHandling(self) -> str:
+        return self.doc.form_field(self.path, "crossDeviceSessionHandling") or ""
+
+    @crossDeviceSessionHandling.setter
+    def crossDeviceSessionHandling(self, value):
+        self.doc.set_form_field(self.path, "crossDeviceSessionHandling", value)
+
 class ConfidentialInfoCategoryEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -69040,6 +71122,154 @@ class ConstraintRegisterEntryContentForm(SomNode):
     def impact(self, value):
         self.doc.set_form_field(self.path, "impact", value)
 
+class ContentScanningPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def antivirusScanningEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "antivirusScanningEnabled")
+        return None if v is None else (v == "true")
+
+    @antivirusScanningEnabled.setter
+    def antivirusScanningEnabled(self, value):
+        self.doc.set_form_field(self.path, "antivirusScanningEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def scanTiming(self) -> str:
+        return self.doc.form_field(self.path, "scanTiming") or ""
+
+    @scanTiming.setter
+    def scanTiming(self, value):
+        self.doc.set_form_field(self.path, "scanTiming", value)
+
+    @property
+    def scanEngine(self) -> str:
+        return self.doc.form_field(self.path, "scanEngine") or ""
+
+    @scanEngine.setter
+    def scanEngine(self, value):
+        self.doc.set_form_field(self.path, "scanEngine", value)
+
+    @property
+    def quarantinePolicy(self) -> str:
+        return self.doc.form_field(self.path, "quarantinePolicy") or ""
+
+    @quarantinePolicy.setter
+    def quarantinePolicy(self, value):
+        self.doc.set_form_field(self.path, "quarantinePolicy", value)
+
+    @property
+    def quarantineRetentionDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "quarantineRetentionDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @quarantineRetentionDays.setter
+    def quarantineRetentionDays(self, value):
+        self.doc.set_form_field(self.path, "quarantineRetentionDays", "" if value is None else str(value))
+
+    @property
+    def signatureUpdateFrequency(self) -> str:
+        return self.doc.form_field(self.path, "signatureUpdateFrequency") or ""
+
+    @signatureUpdateFrequency.setter
+    def signatureUpdateFrequency(self, value):
+        self.doc.set_form_field(self.path, "signatureUpdateFrequency", value)
+
+    @property
+    def cdrEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "cdrEnabled")
+        return None if v is None else (v == "true")
+
+    @cdrEnabled.setter
+    def cdrEnabled(self, value):
+        self.doc.set_form_field(self.path, "cdrEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def cdrApplicableTypes(self) -> str:
+        return self.doc.form_field(self.path, "cdrApplicableTypes") or ""
+
+    @cdrApplicableTypes.setter
+    def cdrApplicableTypes(self, value):
+        self.doc.set_form_field(self.path, "cdrApplicableTypes", value)
+
+    @property
+    def dlpScanningEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "dlpScanningEnabled")
+        return None if v is None else (v == "true")
+
+    @dlpScanningEnabled.setter
+    def dlpScanningEnabled(self, value):
+        self.doc.set_form_field(self.path, "dlpScanningEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dlpPolicies(self) -> str:
+        return self.doc.form_field(self.path, "dlpPolicies") or ""
+
+    @dlpPolicies.setter
+    def dlpPolicies(self, value):
+        self.doc.set_form_field(self.path, "dlpPolicies", value)
+
+    @property
+    def dlpAction(self) -> str:
+        return self.doc.form_field(self.path, "dlpAction") or ""
+
+    @dlpAction.setter
+    def dlpAction(self, value):
+        self.doc.set_form_field(self.path, "dlpAction", value)
+
+    @property
+    def contentModeration(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "contentModeration")
+        return None if v is None else (v == "true")
+
+    @contentModeration.setter
+    def contentModeration(self, value):
+        self.doc.set_form_field(self.path, "contentModeration", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def moderationMethod(self) -> str:
+        return self.doc.form_field(self.path, "moderationMethod") or ""
+
+    @moderationMethod.setter
+    def moderationMethod(self, value):
+        self.doc.set_form_field(self.path, "moderationMethod", value)
+
+    @property
+    def hashBasedDetection(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "hashBasedDetection")
+        return None if v is None else (v == "true")
+
+    @hashBasedDetection.setter
+    def hashBasedDetection(self, value):
+        self.doc.set_form_field(self.path, "hashBasedDetection", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class ContextualHelpContextualHelpContentForm(SomNode):
     """Generated section facade for the `contextualHelpContent` @Form section: its own content text followed by one typed member per form field."""
 
@@ -69787,6 +72017,224 @@ class CorrectnessVerificationForm(SomNode):
     def regressionTestingApproach(self, value):
         self.doc.set_form_field(self.path, "regressionTestingApproach", value)
 
+class CredentialCompromiseDetectionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def breachDatabaseMonitoring(self) -> str:
+        return self.doc.form_field(self.path, "breachDatabaseMonitoring") or ""
+
+    @breachDatabaseMonitoring.setter
+    def breachDatabaseMonitoring(self, value):
+        self.doc.set_form_field(self.path, "breachDatabaseMonitoring", value)
+
+    @property
+    def breachDatabaseSource(self) -> str:
+        return self.doc.form_field(self.path, "breachDatabaseSource") or ""
+
+    @breachDatabaseSource.setter
+    def breachDatabaseSource(self, value):
+        self.doc.set_form_field(self.path, "breachDatabaseSource", value)
+
+    @property
+    def breachCheckFrequency(self) -> str:
+        return self.doc.form_field(self.path, "breachCheckFrequency") or ""
+
+    @breachCheckFrequency.setter
+    def breachCheckFrequency(self, value):
+        self.doc.set_form_field(self.path, "breachCheckFrequency", value)
+
+    @property
+    def compromisedCredentialAction(self) -> str:
+        return self.doc.form_field(self.path, "compromisedCredentialAction") or ""
+
+    @compromisedCredentialAction.setter
+    def compromisedCredentialAction(self, value):
+        self.doc.set_form_field(self.path, "compromisedCredentialAction", value)
+
+    @property
+    def credentialStuffingDetection(self) -> str:
+        return self.doc.form_field(self.path, "credentialStuffingDetection") or ""
+
+    @credentialStuffingDetection.setter
+    def credentialStuffingDetection(self, value):
+        self.doc.set_form_field(self.path, "credentialStuffingDetection", value)
+
+    @property
+    def stuffingDetectionMethod(self) -> str:
+        return self.doc.form_field(self.path, "stuffingDetectionMethod") or ""
+
+    @stuffingDetectionMethod.setter
+    def stuffingDetectionMethod(self, value):
+        self.doc.set_form_field(self.path, "stuffingDetectionMethod", value)
+
+    @property
+    def darkWebMonitoring(self) -> str:
+        return self.doc.form_field(self.path, "darkWebMonitoring") or ""
+
+    @darkWebMonitoring.setter
+    def darkWebMonitoring(self, value):
+        self.doc.set_form_field(self.path, "darkWebMonitoring", value)
+
+    @property
+    def userCompromiseNotification(self) -> str:
+        return self.doc.form_field(self.path, "userCompromiseNotification") or ""
+
+    @userCompromiseNotification.setter
+    def userCompromiseNotification(self, value):
+        self.doc.set_form_field(self.path, "userCompromiseNotification", value)
+
+    @property
+    def adminCompromiseAlerts(self) -> str:
+        return self.doc.form_field(self.path, "adminCompromiseAlerts") or ""
+
+    @adminCompromiseAlerts.setter
+    def adminCompromiseAlerts(self, value):
+        self.doc.set_form_field(self.path, "adminCompromiseAlerts", value)
+
+    @property
+    def compromiseResponseSla(self) -> str:
+        return self.doc.form_field(self.path, "compromiseResponseSla") or ""
+
+    @compromiseResponseSla.setter
+    def compromiseResponseSla(self, value):
+        self.doc.set_form_field(self.path, "compromiseResponseSla", value)
+
+class CredentialRecoveryPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def passwordResetMethod(self) -> str:
+        return self.doc.form_field(self.path, "passwordResetMethod") or ""
+
+    @passwordResetMethod.setter
+    def passwordResetMethod(self, value):
+        self.doc.set_form_field(self.path, "passwordResetMethod", value)
+
+    @property
+    def resetLinkExpiry(self) -> str:
+        return self.doc.form_field(self.path, "resetLinkExpiry") or ""
+
+    @resetLinkExpiry.setter
+    def resetLinkExpiry(self, value):
+        self.doc.set_form_field(self.path, "resetLinkExpiry", value)
+
+    @property
+    def resetLinkSingleUse(self) -> str:
+        return self.doc.form_field(self.path, "resetLinkSingleUse") or ""
+
+    @resetLinkSingleUse.setter
+    def resetLinkSingleUse(self, value):
+        self.doc.set_form_field(self.path, "resetLinkSingleUse", value)
+
+    @property
+    def resetRateLimiting(self) -> str:
+        return self.doc.form_field(self.path, "resetRateLimiting") or ""
+
+    @resetRateLimiting.setter
+    def resetRateLimiting(self, value):
+        self.doc.set_form_field(self.path, "resetRateLimiting", value)
+
+    @property
+    def savedRecoveryCodesEnabled(self) -> str:
+        return self.doc.form_field(self.path, "savedRecoveryCodesEnabled") or ""
+
+    @savedRecoveryCodesEnabled.setter
+    def savedRecoveryCodesEnabled(self, value):
+        self.doc.set_form_field(self.path, "savedRecoveryCodesEnabled", value)
+
+    @property
+    def recoveryCodeCount(self) -> str:
+        return self.doc.form_field(self.path, "recoveryCodeCount") or ""
+
+    @recoveryCodeCount.setter
+    def recoveryCodeCount(self, value):
+        self.doc.set_form_field(self.path, "recoveryCodeCount", value)
+
+    @property
+    def recoveryCodeFormat(self) -> str:
+        return self.doc.form_field(self.path, "recoveryCodeFormat") or ""
+
+    @recoveryCodeFormat.setter
+    def recoveryCodeFormat(self, value):
+        self.doc.set_form_field(self.path, "recoveryCodeFormat", value)
+
+    @property
+    def issuedRecoveryCodeChannels(self) -> str:
+        return self.doc.form_field(self.path, "issuedRecoveryCodeChannels") or ""
+
+    @issuedRecoveryCodeChannels.setter
+    def issuedRecoveryCodeChannels(self, value):
+        self.doc.set_form_field(self.path, "issuedRecoveryCodeChannels", value)
+
+    @property
+    def recoveryCodeExpiry(self) -> str:
+        return self.doc.form_field(self.path, "recoveryCodeExpiry") or ""
+
+    @recoveryCodeExpiry.setter
+    def recoveryCodeExpiry(self, value):
+        self.doc.set_form_field(self.path, "recoveryCodeExpiry", value)
+
+    @property
+    def identityReverificationRequired(self) -> str:
+        return self.doc.form_field(self.path, "identityReverificationRequired") or ""
+
+    @identityReverificationRequired.setter
+    def identityReverificationRequired(self, value):
+        self.doc.set_form_field(self.path, "identityReverificationRequired", value)
+
+    @property
+    def recoveryContactEnabled(self) -> str:
+        return self.doc.form_field(self.path, "recoveryContactEnabled") or ""
+
+    @recoveryContactEnabled.setter
+    def recoveryContactEnabled(self, value):
+        self.doc.set_form_field(self.path, "recoveryContactEnabled", value)
+
+    @property
+    def multipleRecoveryAddresses(self) -> str:
+        return self.doc.form_field(self.path, "multipleRecoveryAddresses") or ""
+
+    @multipleRecoveryAddresses.setter
+    def multipleRecoveryAddresses(self, value):
+        self.doc.set_form_field(self.path, "multipleRecoveryAddresses", value)
+
+    @property
+    def recoveryAuditLogging(self) -> str:
+        return self.doc.form_field(self.path, "recoveryAuditLogging") or ""
+
+    @recoveryAuditLogging.setter
+    def recoveryAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "recoveryAuditLogging", value)
+
 class CrossCuttingConcernsCachingForm(SomNode):
     """Generated section facade for the `caching` @Form section: its own content text followed by one typed member per form field."""
 
@@ -70024,6 +72472,88 @@ class CrossCuttingConcernsSharedForm(SomNode):
     @validation.setter
     def validation(self, value):
         self.doc.set_form_field(self.path, "validation", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class CrossTenantAccessPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def crossTenantAccessAllowed(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "crossTenantAccessAllowed")
+        return None if v is None else (v == "true")
+
+    @crossTenantAccessAllowed.setter
+    def crossTenantAccessAllowed(self, value):
+        self.doc.set_form_field(self.path, "crossTenantAccessAllowed", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def crossTenantAccessModel(self) -> str:
+        return self.doc.form_field(self.path, "crossTenantAccessModel") or ""
+
+    @crossTenantAccessModel.setter
+    def crossTenantAccessModel(self, value):
+        self.doc.set_form_field(self.path, "crossTenantAccessModel", value)
+
+    @property
+    def authorizationMechanism(self) -> str:
+        return self.doc.form_field(self.path, "authorizationMechanism") or ""
+
+    @authorizationMechanism.setter
+    def authorizationMechanism(self, value):
+        self.doc.set_form_field(self.path, "authorizationMechanism", value)
+
+    @property
+    def resourceSharingModel(self) -> str:
+        return self.doc.form_field(self.path, "resourceSharingModel") or ""
+
+    @resourceSharingModel.setter
+    def resourceSharingModel(self, value):
+        self.doc.set_form_field(self.path, "resourceSharingModel", value)
+
+    @property
+    def idorPreventionStrategy(self) -> str:
+        return self.doc.form_field(self.path, "idorPreventionStrategy") or ""
+
+    @idorPreventionStrategy.setter
+    def idorPreventionStrategy(self, value):
+        self.doc.set_form_field(self.path, "idorPreventionStrategy", value)
+
+    @property
+    def crossTenantAuditRequirement(self) -> str:
+        return self.doc.form_field(self.path, "crossTenantAuditRequirement") or ""
+
+    @crossTenantAuditRequirement.setter
+    def crossTenantAuditRequirement(self, value):
+        self.doc.set_form_field(self.path, "crossTenantAuditRequirement", value)
+
+    @property
+    def accessReviewFrequency(self) -> str:
+        return self.doc.form_field(self.path, "accessReviewFrequency") or ""
+
+    @accessReviewFrequency.setter
+    def accessReviewFrequency(self, value):
+        self.doc.set_form_field(self.path, "accessReviewFrequency", value)
 
     @property
     def notes(self) -> str:
@@ -71103,6 +73633,119 @@ class DashboardTemplatesContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class DataAccessAuditPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def dataAccessLoggingEnabled(self) -> str:
+        return self.doc.form_field(self.path, "dataAccessLoggingEnabled") or ""
+
+    @dataAccessLoggingEnabled.setter
+    def dataAccessLoggingEnabled(self, value):
+        self.doc.set_form_field(self.path, "dataAccessLoggingEnabled", value)
+
+    @property
+    def dataAccessLoggingScope(self) -> str:
+        return self.doc.form_field(self.path, "dataAccessLoggingScope") or ""
+
+    @dataAccessLoggingScope.setter
+    def dataAccessLoggingScope(self, value):
+        self.doc.set_form_field(self.path, "dataAccessLoggingScope", value)
+
+    @property
+    def loggedOperations(self) -> str:
+        return self.doc.form_field(self.path, "loggedOperations") or ""
+
+    @loggedOperations.setter
+    def loggedOperations(self, value):
+        self.doc.set_form_field(self.path, "loggedOperations", value)
+
+    @property
+    def dataAccessLogDetail(self) -> str:
+        return self.doc.form_field(self.path, "dataAccessLogDetail") or ""
+
+    @dataAccessLogDetail.setter
+    def dataAccessLogDetail(self, value):
+        self.doc.set_form_field(self.path, "dataAccessLogDetail", value)
+
+    @property
+    def queryTextLogging(self) -> str:
+        return self.doc.form_field(self.path, "queryTextLogging") or ""
+
+    @queryTextLogging.setter
+    def queryTextLogging(self, value):
+        self.doc.set_form_field(self.path, "queryTextLogging", value)
+
+    @property
+    def anomalyDetectionEnabled(self) -> str:
+        return self.doc.form_field(self.path, "anomalyDetectionEnabled") or ""
+
+    @anomalyDetectionEnabled.setter
+    def anomalyDetectionEnabled(self, value):
+        self.doc.set_form_field(self.path, "anomalyDetectionEnabled", value)
+
+    @property
+    def anomalySignals(self) -> str:
+        return self.doc.form_field(self.path, "anomalySignals") or ""
+
+    @anomalySignals.setter
+    def anomalySignals(self, value):
+        self.doc.set_form_field(self.path, "anomalySignals", value)
+
+    @property
+    def dataBreachDetection(self) -> str:
+        return self.doc.form_field(self.path, "dataBreachDetection") or ""
+
+    @dataBreachDetection.setter
+    def dataBreachDetection(self, value):
+        self.doc.set_form_field(self.path, "dataBreachDetection", value)
+
+    @property
+    def dataAccessReviewCycle(self) -> str:
+        return self.doc.form_field(self.path, "dataAccessReviewCycle") or ""
+
+    @dataAccessReviewCycle.setter
+    def dataAccessReviewCycle(self, value):
+        self.doc.set_form_field(self.path, "dataAccessReviewCycle", value)
+
+    @property
+    def privilegedQueryAlerts(self) -> str:
+        return self.doc.form_field(self.path, "privilegedQueryAlerts") or ""
+
+    @privilegedQueryAlerts.setter
+    def privilegedQueryAlerts(self, value):
+        self.doc.set_form_field(self.path, "privilegedQueryAlerts", value)
+
+    @property
+    def complianceReportingEnabled(self) -> str:
+        return self.doc.form_field(self.path, "complianceReportingEnabled") or ""
+
+    @complianceReportingEnabled.setter
+    def complianceReportingEnabled(self, value):
+        self.doc.set_form_field(self.path, "complianceReportingEnabled", value)
+
+    @property
+    def dataAccessRetention(self) -> str:
+        return self.doc.form_field(self.path, "dataAccessRetention") or ""
+
+    @dataAccessRetention.setter
+    def dataAccessRetention(self, value):
+        self.doc.set_form_field(self.path, "dataAccessRetention", value)
 
 class DataAccessEventPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -74097,6 +76740,135 @@ class DataIntegrationPointsIntegrationSummaryForm(SomNode):
     def integrationDebt(self, value):
         self.doc.set_form_field(self.path, "integrationDebt", value)
 
+class DataMaskingPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def dynamicDataMaskingEnabled(self) -> str:
+        return self.doc.form_field(self.path, "dynamicDataMaskingEnabled") or ""
+
+    @dynamicDataMaskingEnabled.setter
+    def dynamicDataMaskingEnabled(self, value):
+        self.doc.set_form_field(self.path, "dynamicDataMaskingEnabled", value)
+
+    @property
+    def dynamicMaskingRules(self) -> str:
+        return self.doc.form_field(self.path, "dynamicMaskingRules") or ""
+
+    @dynamicMaskingRules.setter
+    def dynamicMaskingRules(self, value):
+        self.doc.set_form_field(self.path, "dynamicMaskingRules", value)
+
+    @property
+    def dynamicMaskingScope(self) -> str:
+        return self.doc.form_field(self.path, "dynamicMaskingScope") or ""
+
+    @dynamicMaskingScope.setter
+    def dynamicMaskingScope(self, value):
+        self.doc.set_form_field(self.path, "dynamicMaskingScope", value)
+
+    @property
+    def staticMaskingForNonProduction(self) -> str:
+        return self.doc.form_field(self.path, "staticMaskingForNonProduction") or ""
+
+    @staticMaskingForNonProduction.setter
+    def staticMaskingForNonProduction(self, value):
+        self.doc.set_form_field(self.path, "staticMaskingForNonProduction", value)
+
+    @property
+    def staticMaskingTool(self) -> str:
+        return self.doc.form_field(self.path, "staticMaskingTool") or ""
+
+    @staticMaskingTool.setter
+    def staticMaskingTool(self, value):
+        self.doc.set_form_field(self.path, "staticMaskingTool", value)
+
+    @property
+    def maskingPreservesFormat(self) -> str:
+        return self.doc.form_field(self.path, "maskingPreservesFormat") or ""
+
+    @maskingPreservesFormat.setter
+    def maskingPreservesFormat(self, value):
+        self.doc.set_form_field(self.path, "maskingPreservesFormat", value)
+
+    @property
+    def maskingReversibility(self) -> str:
+        return self.doc.form_field(self.path, "maskingReversibility") or ""
+
+    @maskingReversibility.setter
+    def maskingReversibility(self, value):
+        self.doc.set_form_field(self.path, "maskingReversibility", value)
+
+    @property
+    def piiMaskingPolicy(self) -> str:
+        return self.doc.form_field(self.path, "piiMaskingPolicy") or ""
+
+    @piiMaskingPolicy.setter
+    def piiMaskingPolicy(self, value):
+        self.doc.set_form_field(self.path, "piiMaskingPolicy", value)
+
+    @property
+    def emailMaskingFormat(self) -> str:
+        return self.doc.form_field(self.path, "emailMaskingFormat") or ""
+
+    @emailMaskingFormat.setter
+    def emailMaskingFormat(self, value):
+        self.doc.set_form_field(self.path, "emailMaskingFormat", value)
+
+    @property
+    def phoneMaskingFormat(self) -> str:
+        return self.doc.form_field(self.path, "phoneMaskingFormat") or ""
+
+    @phoneMaskingFormat.setter
+    def phoneMaskingFormat(self, value):
+        self.doc.set_form_field(self.path, "phoneMaskingFormat", value)
+
+    @property
+    def addressMaskingFormat(self) -> str:
+        return self.doc.form_field(self.path, "addressMaskingFormat") or ""
+
+    @addressMaskingFormat.setter
+    def addressMaskingFormat(self, value):
+        self.doc.set_form_field(self.path, "addressMaskingFormat", value)
+
+    @property
+    def financialDataMasking(self) -> str:
+        return self.doc.form_field(self.path, "financialDataMasking") or ""
+
+    @financialDataMasking.setter
+    def financialDataMasking(self, value):
+        self.doc.set_form_field(self.path, "financialDataMasking", value)
+
+    @property
+    def maskingAuditTrail(self) -> str:
+        return self.doc.form_field(self.path, "maskingAuditTrail") or ""
+
+    @maskingAuditTrail.setter
+    def maskingAuditTrail(self, value):
+        self.doc.set_form_field(self.path, "maskingAuditTrail", value)
+
+    @property
+    def developmentDataStrategy(self) -> str:
+        return self.doc.form_field(self.path, "developmentDataStrategy") or ""
+
+    @developmentDataStrategy.setter
+    def developmentDataStrategy(self, value):
+        self.doc.set_form_field(self.path, "developmentDataStrategy", value)
+
 class DataMigrationStrategyApproachForm(SomNode):
     """Generated section facade for the `approach` @Form section: its own content text followed by one typed member per form field."""
 
@@ -76972,6 +79744,135 @@ class DataVolumeSummaryProjectionForm(SomNode):
     def capacityUtilization(self, value):
         self.doc.set_form_field(self.path, "capacityUtilization", value)
 
+class DatabaseAccessPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def databaseConnectionSecurity(self) -> str:
+        return self.doc.form_field(self.path, "databaseConnectionSecurity") or ""
+
+    @databaseConnectionSecurity.setter
+    def databaseConnectionSecurity(self, value):
+        self.doc.set_form_field(self.path, "databaseConnectionSecurity", value)
+
+    @property
+    def minimumTlsVersion(self) -> str:
+        return self.doc.form_field(self.path, "minimumTlsVersion") or ""
+
+    @minimumTlsVersion.setter
+    def minimumTlsVersion(self, value):
+        self.doc.set_form_field(self.path, "minimumTlsVersion", value)
+
+    @property
+    def applicationAccountStrategy(self) -> str:
+        return self.doc.form_field(self.path, "applicationAccountStrategy") or ""
+
+    @applicationAccountStrategy.setter
+    def applicationAccountStrategy(self, value):
+        self.doc.set_form_field(self.path, "applicationAccountStrategy", value)
+
+    @property
+    def applicationAccountPrivileges(self) -> str:
+        return self.doc.form_field(self.path, "applicationAccountPrivileges") or ""
+
+    @applicationAccountPrivileges.setter
+    def applicationAccountPrivileges(self, value):
+        self.doc.set_form_field(self.path, "applicationAccountPrivileges", value)
+
+    @property
+    def schemaOwnershipSeparation(self) -> str:
+        return self.doc.form_field(self.path, "schemaOwnershipSeparation") or ""
+
+    @schemaOwnershipSeparation.setter
+    def schemaOwnershipSeparation(self, value):
+        self.doc.set_form_field(self.path, "schemaOwnershipSeparation", value)
+
+    @property
+    def directTableAccess(self) -> str:
+        return self.doc.form_field(self.path, "directTableAccess") or ""
+
+    @directTableAccess.setter
+    def directTableAccess(self, value):
+        self.doc.set_form_field(self.path, "directTableAccess", value)
+
+    @property
+    def databaseCredentialStorage(self) -> str:
+        return self.doc.form_field(self.path, "databaseCredentialStorage") or ""
+
+    @databaseCredentialStorage.setter
+    def databaseCredentialStorage(self, value):
+        self.doc.set_form_field(self.path, "databaseCredentialStorage", value)
+
+    @property
+    def credentialRotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "credentialRotationPolicy") or ""
+
+    @credentialRotationPolicy.setter
+    def credentialRotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "credentialRotationPolicy", value)
+
+    @property
+    def connectionPoolSecurity(self) -> str:
+        return self.doc.form_field(self.path, "connectionPoolSecurity") or ""
+
+    @connectionPoolSecurity.setter
+    def connectionPoolSecurity(self, value):
+        self.doc.set_form_field(self.path, "connectionPoolSecurity", value)
+
+    @property
+    def privilegedAccessManagement(self) -> str:
+        return self.doc.form_field(self.path, "privilegedAccessManagement") or ""
+
+    @privilegedAccessManagement.setter
+    def privilegedAccessManagement(self, value):
+        self.doc.set_form_field(self.path, "privilegedAccessManagement", value)
+
+    @property
+    def databaseFirewallRules(self) -> str:
+        return self.doc.form_field(self.path, "databaseFirewallRules") or ""
+
+    @databaseFirewallRules.setter
+    def databaseFirewallRules(self, value):
+        self.doc.set_form_field(self.path, "databaseFirewallRules", value)
+
+    @property
+    def sqlInjectionPrevention(self) -> str:
+        return self.doc.form_field(self.path, "sqlInjectionPrevention") or ""
+
+    @sqlInjectionPrevention.setter
+    def sqlInjectionPrevention(self, value):
+        self.doc.set_form_field(self.path, "sqlInjectionPrevention", value)
+
+    @property
+    def queryComplexityLimits(self) -> str:
+        return self.doc.form_field(self.path, "queryComplexityLimits") or ""
+
+    @queryComplexityLimits.setter
+    def queryComplexityLimits(self, value):
+        self.doc.set_form_field(self.path, "queryComplexityLimits", value)
+
+    @property
+    def databaseActivityMonitoring(self) -> str:
+        return self.doc.form_field(self.path, "databaseActivityMonitoring") or ""
+
+    @databaseActivityMonitoring.setter
+    def databaseActivityMonitoring(self, value):
+        self.doc.set_form_field(self.path, "databaseActivityMonitoring", value)
+
 class DatabaseCompatibilityEntryConnectionForm(SomNode):
     """Generated section facade for the `connection` @Form section: its own content text followed by one typed member per form field."""
 
@@ -77176,6 +80077,81 @@ class DatabaseCompatibilityEntrySupportForm(SomNode):
     @cloudVariants.setter
     def cloudVariants(self, value):
         self.doc.set_form_field(self.path, "cloudVariants", value)
+
+class DatabaseEncryptionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def databaseEncryptionMethod(self) -> str:
+        return self.doc.form_field(self.path, "databaseEncryptionMethod") or ""
+
+    @databaseEncryptionMethod.setter
+    def databaseEncryptionMethod(self, value):
+        self.doc.set_form_field(self.path, "databaseEncryptionMethod", value)
+
+    @property
+    def encryptedColumnStrategy(self) -> str:
+        return self.doc.form_field(self.path, "encryptedColumnStrategy") or ""
+
+    @encryptedColumnStrategy.setter
+    def encryptedColumnStrategy(self, value):
+        self.doc.set_form_field(self.path, "encryptedColumnStrategy", value)
+
+    @property
+    def indexOnEncryptedColumns(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "indexOnEncryptedColumns")
+        return None if v is None else (v == "true")
+
+    @indexOnEncryptedColumns.setter
+    def indexOnEncryptedColumns(self, value):
+        self.doc.set_form_field(self.path, "indexOnEncryptedColumns", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def searchOnEncryptedData(self) -> str:
+        return self.doc.form_field(self.path, "searchOnEncryptedData") or ""
+
+    @searchOnEncryptedData.setter
+    def searchOnEncryptedData(self, value):
+        self.doc.set_form_field(self.path, "searchOnEncryptedData", value)
+
+    @property
+    def connectionEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "connectionEncryption")
+        return None if v is None else (v == "true")
+
+    @connectionEncryption.setter
+    def connectionEncryption(self, value):
+        self.doc.set_form_field(self.path, "connectionEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def databaseEngine(self) -> str:
+        return self.doc.form_field(self.path, "databaseEngine") or ""
+
+    @databaseEngine.setter
+    def databaseEngine(self, value):
+        self.doc.set_form_field(self.path, "databaseEngine", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class DebuggingConfigurationBreakpointsForm(SomNode):
     """Generated section facade for the `breakpoints` @Form section: its own content text followed by one typed member per form field."""
@@ -86356,6 +89332,113 @@ class EncryptedDataCategoryEntryContentForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class EncryptionAtRestPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def defaultAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "defaultAlgorithm") or ""
+
+    @defaultAlgorithm.setter
+    def defaultAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "defaultAlgorithm", value)
+
+    @property
+    def defaultKeyLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "defaultKeyLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @defaultKeyLength.setter
+    def defaultKeyLength(self, value):
+        self.doc.set_form_field(self.path, "defaultKeyLength", "" if value is None else str(value))
+
+    @property
+    def cipherMode(self) -> str:
+        return self.doc.form_field(self.path, "cipherMode") or ""
+
+    @cipherMode.setter
+    def cipherMode(self, value):
+        self.doc.set_form_field(self.path, "cipherMode", value)
+
+    @property
+    def encryptionLayer(self) -> str:
+        return self.doc.form_field(self.path, "encryptionLayer") or ""
+
+    @encryptionLayer.setter
+    def encryptionLayer(self, value):
+        self.doc.set_form_field(self.path, "encryptionLayer", value)
+
+    @property
+    def fieldLevelEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "fieldLevelEncryption")
+        return None if v is None else (v == "true")
+
+    @fieldLevelEncryption.setter
+    def fieldLevelEncryption(self, value):
+        self.doc.set_form_field(self.path, "fieldLevelEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def transparentDataEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "transparentDataEncryption")
+        return None if v is None else (v == "true")
+
+    @transparentDataEncryption.setter
+    def transparentDataEncryption(self, value):
+        self.doc.set_form_field(self.path, "transparentDataEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def fullDiskEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "fullDiskEncryption")
+        return None if v is None else (v == "true")
+
+    @fullDiskEncryption.setter
+    def fullDiskEncryption(self, value):
+        self.doc.set_form_field(self.path, "fullDiskEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def minimizeSensitiveStorage(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "minimizeSensitiveStorage")
+        return None if v is None else (v == "true")
+
+    @minimizeSensitiveStorage.setter
+    def minimizeSensitiveStorage(self, value):
+        self.doc.set_form_field(self.path, "minimizeSensitiveStorage", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def complianceFramework(self) -> str:
+        return self.doc.form_field(self.path, "complianceFramework") or ""
+
+    @complianceFramework.setter
+    def complianceFramework(self, value):
+        self.doc.set_form_field(self.path, "complianceFramework", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class EnterpriseSystemCompatibilityEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -94598,6 +97681,559 @@ class FieldValidationRuleContentForm(SomNode):
     @triggerEvent.setter
     def triggerEvent(self, value):
         self.doc.set_form_field(self.path, "triggerEvent", value)
+
+class FileAccessControlPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def fileAccessModel(self) -> str:
+        return self.doc.form_field(self.path, "fileAccessModel") or ""
+
+    @fileAccessModel.setter
+    def fileAccessModel(self, value):
+        self.doc.set_form_field(self.path, "fileAccessModel", value)
+
+    @property
+    def authenticationRequired(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "authenticationRequired")
+        return None if v is None else (v == "true")
+
+    @authenticationRequired.setter
+    def authenticationRequired(self, value):
+        self.doc.set_form_field(self.path, "authenticationRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def anonymousDownloadAllowed(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "anonymousDownloadAllowed")
+        return None if v is None else (v == "true")
+
+    @anonymousDownloadAllowed.setter
+    def anonymousDownloadAllowed(self, value):
+        self.doc.set_form_field(self.path, "anonymousDownloadAllowed", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def fileOwnershipModel(self) -> str:
+        return self.doc.form_field(self.path, "fileOwnershipModel") or ""
+
+    @fileOwnershipModel.setter
+    def fileOwnershipModel(self, value):
+        self.doc.set_form_field(self.path, "fileOwnershipModel", value)
+
+    @property
+    def permissionGranularity(self) -> str:
+        return self.doc.form_field(self.path, "permissionGranularity") or ""
+
+    @permissionGranularity.setter
+    def permissionGranularity(self, value):
+        self.doc.set_form_field(self.path, "permissionGranularity", value)
+
+    @property
+    def folderLevelPermissions(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "folderLevelPermissions")
+        return None if v is None else (v == "true")
+
+    @folderLevelPermissions.setter
+    def folderLevelPermissions(self, value):
+        self.doc.set_form_field(self.path, "folderLevelPermissions", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def permissionInheritance(self) -> str:
+        return self.doc.form_field(self.path, "permissionInheritance") or ""
+
+    @permissionInheritance.setter
+    def permissionInheritance(self, value):
+        self.doc.set_form_field(self.path, "permissionInheritance", value)
+
+    @property
+    def sharingEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "sharingEnabled")
+        return None if v is None else (v == "true")
+
+    @sharingEnabled.setter
+    def sharingEnabled(self, value):
+        self.doc.set_form_field(self.path, "sharingEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def shareableLinkSupport(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "shareableLinkSupport")
+        return None if v is None else (v == "true")
+
+    @shareableLinkSupport.setter
+    def shareableLinkSupport(self, value):
+        self.doc.set_form_field(self.path, "shareableLinkSupport", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def shareableLinkExpiration(self) -> str:
+        return self.doc.form_field(self.path, "shareableLinkExpiration") or ""
+
+    @shareableLinkExpiration.setter
+    def shareableLinkExpiration(self, value):
+        self.doc.set_form_field(self.path, "shareableLinkExpiration", value)
+
+    @property
+    def externalSharingPolicy(self) -> str:
+        return self.doc.form_field(self.path, "externalSharingPolicy") or ""
+
+    @externalSharingPolicy.setter
+    def externalSharingPolicy(self, value):
+        self.doc.set_form_field(self.path, "externalSharingPolicy", value)
+
+    @property
+    def storageLocationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "storageLocationPolicy") or ""
+
+    @storageLocationPolicy.setter
+    def storageLocationPolicy(self, value):
+        self.doc.set_form_field(self.path, "storageLocationPolicy", value)
+
+    @property
+    def tenantStorageIsolation(self) -> str:
+        return self.doc.form_field(self.path, "tenantStorageIsolation") or ""
+
+    @tenantStorageIsolation.setter
+    def tenantStorageIsolation(self, value):
+        self.doc.set_form_field(self.path, "tenantStorageIsolation", value)
+
+    @property
+    def filesystemPermissions(self) -> str:
+        return self.doc.form_field(self.path, "filesystemPermissions") or ""
+
+    @filesystemPermissions.setter
+    def filesystemPermissions(self, value):
+        self.doc.set_form_field(self.path, "filesystemPermissions", value)
+
+    @property
+    def presignedUrlSupport(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "presignedUrlSupport")
+        return None if v is None else (v == "true")
+
+    @presignedUrlSupport.setter
+    def presignedUrlSupport(self, value):
+        self.doc.set_form_field(self.path, "presignedUrlSupport", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def presignedUrlMaxExpiry(self) -> str:
+        return self.doc.form_field(self.path, "presignedUrlMaxExpiry") or ""
+
+    @presignedUrlMaxExpiry.setter
+    def presignedUrlMaxExpiry(self, value):
+        self.doc.set_form_field(self.path, "presignedUrlMaxExpiry", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class FileDownloadSecurityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def downloadAuthenticationRequired(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "downloadAuthenticationRequired")
+        return None if v is None else (v == "true")
+
+    @downloadAuthenticationRequired.setter
+    def downloadAuthenticationRequired(self, value):
+        self.doc.set_form_field(self.path, "downloadAuthenticationRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def downloadRateLimiting(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "downloadRateLimiting")
+        return None if v is None else (v == "true")
+
+    @downloadRateLimiting.setter
+    def downloadRateLimiting(self, value):
+        self.doc.set_form_field(self.path, "downloadRateLimiting", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def downloadRateLimit(self) -> str:
+        return self.doc.form_field(self.path, "downloadRateLimit") or ""
+
+    @downloadRateLimit.setter
+    def downloadRateLimit(self, value):
+        self.doc.set_form_field(self.path, "downloadRateLimit", value)
+
+    @property
+    def bandwidthThrottling(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "bandwidthThrottling")
+        return None if v is None else (v == "true")
+
+    @bandwidthThrottling.setter
+    def bandwidthThrottling(self, value):
+        self.doc.set_form_field(self.path, "bandwidthThrottling", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def contentDispositionPolicy(self) -> str:
+        return self.doc.form_field(self.path, "contentDispositionPolicy") or ""
+
+    @contentDispositionPolicy.setter
+    def contentDispositionPolicy(self, value):
+        self.doc.set_form_field(self.path, "contentDispositionPolicy", value)
+
+    @property
+    def cdnDelivery(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "cdnDelivery")
+        return None if v is None else (v == "true")
+
+    @cdnDelivery.setter
+    def cdnDelivery(self, value):
+        self.doc.set_form_field(self.path, "cdnDelivery", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def hotlinkPrevention(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "hotlinkPrevention")
+        return None if v is None else (v == "true")
+
+    @hotlinkPrevention.setter
+    def hotlinkPrevention(self, value):
+        self.doc.set_form_field(self.path, "hotlinkPrevention", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def cacheControlPolicy(self) -> str:
+        return self.doc.form_field(self.path, "cacheControlPolicy") or ""
+
+    @cacheControlPolicy.setter
+    def cacheControlPolicy(self, value):
+        self.doc.set_form_field(self.path, "cacheControlPolicy", value)
+
+    @property
+    def downloadAuditLogging(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "downloadAuditLogging")
+        return None if v is None else (v == "true")
+
+    @downloadAuditLogging.setter
+    def downloadAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "downloadAuditLogging", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def downloadAlerts(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "downloadAlerts")
+        return None if v is None else (v == "true")
+
+    @downloadAlerts.setter
+    def downloadAlerts(self, value):
+        self.doc.set_form_field(self.path, "downloadAlerts", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def watermarking(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "watermarking")
+        return None if v is None else (v == "true")
+
+    @watermarking.setter
+    def watermarking(self, value):
+        self.doc.set_form_field(self.path, "watermarking", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class FileStorageEncryptionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def fileEncryptionMethod(self) -> str:
+        return self.doc.form_field(self.path, "fileEncryptionMethod") or ""
+
+    @fileEncryptionMethod.setter
+    def fileEncryptionMethod(self, value):
+        self.doc.set_form_field(self.path, "fileEncryptionMethod", value)
+
+    @property
+    def cloudStorageEncryption(self) -> str:
+        return self.doc.form_field(self.path, "cloudStorageEncryption") or ""
+
+    @cloudStorageEncryption.setter
+    def cloudStorageEncryption(self, value):
+        self.doc.set_form_field(self.path, "cloudStorageEncryption", value)
+
+    @property
+    def clientSideEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "clientSideEncryption")
+        return None if v is None else (v == "true")
+
+    @clientSideEncryption.setter
+    def clientSideEncryption(self, value):
+        self.doc.set_form_field(self.path, "clientSideEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def encryptedFileFormats(self) -> str:
+        return self.doc.form_field(self.path, "encryptedFileFormats") or ""
+
+    @encryptedFileFormats.setter
+    def encryptedFileFormats(self, value):
+        self.doc.set_form_field(self.path, "encryptedFileFormats", value)
+
+    @property
+    def localDeviceEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "localDeviceEncryption")
+        return None if v is None else (v == "true")
+
+    @localDeviceEncryption.setter
+    def localDeviceEncryption(self, value):
+        self.doc.set_form_field(self.path, "localDeviceEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def temporaryFileEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "temporaryFileEncryption")
+        return None if v is None else (v == "true")
+
+    @temporaryFileEncryption.setter
+    def temporaryFileEncryption(self, value):
+        self.doc.set_form_field(self.path, "temporaryFileEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class FileUploadValidationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def extensionValidationStrategy(self) -> str:
+        return self.doc.form_field(self.path, "extensionValidationStrategy") or ""
+
+    @extensionValidationStrategy.setter
+    def extensionValidationStrategy(self, value):
+        self.doc.set_form_field(self.path, "extensionValidationStrategy", value)
+
+    @property
+    def allowedFileExtensions(self) -> str:
+        return self.doc.form_field(self.path, "allowedFileExtensions") or ""
+
+    @allowedFileExtensions.setter
+    def allowedFileExtensions(self, value):
+        self.doc.set_form_field(self.path, "allowedFileExtensions", value)
+
+    @property
+    def blockedFileExtensions(self) -> str:
+        return self.doc.form_field(self.path, "blockedFileExtensions") or ""
+
+    @blockedFileExtensions.setter
+    def blockedFileExtensions(self, value):
+        self.doc.set_form_field(self.path, "blockedFileExtensions", value)
+
+    @property
+    def doubleExtensionPrevention(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "doubleExtensionPrevention")
+        return None if v is None else (v == "true")
+
+    @doubleExtensionPrevention.setter
+    def doubleExtensionPrevention(self, value):
+        self.doc.set_form_field(self.path, "doubleExtensionPrevention", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def contentTypeValidation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "contentTypeValidation")
+        return None if v is None else (v == "true")
+
+    @contentTypeValidation.setter
+    def contentTypeValidation(self, value):
+        self.doc.set_form_field(self.path, "contentTypeValidation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def fileSignatureValidation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "fileSignatureValidation")
+        return None if v is None else (v == "true")
+
+    @fileSignatureValidation.setter
+    def fileSignatureValidation(self, value):
+        self.doc.set_form_field(self.path, "fileSignatureValidation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def signatureMismatchAction(self) -> str:
+        return self.doc.form_field(self.path, "signatureMismatchAction") or ""
+
+    @signatureMismatchAction.setter
+    def signatureMismatchAction(self, value):
+        self.doc.set_form_field(self.path, "signatureMismatchAction", value)
+
+    @property
+    def filenameStrategy(self) -> str:
+        return self.doc.form_field(self.path, "filenameStrategy") or ""
+
+    @filenameStrategy.setter
+    def filenameStrategy(self, value):
+        self.doc.set_form_field(self.path, "filenameStrategy", value)
+
+    @property
+    def filenameMaxLength(self) -> "int | None":
+        v = self.doc.form_field(self.path, "filenameMaxLength")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @filenameMaxLength.setter
+    def filenameMaxLength(self, value):
+        self.doc.set_form_field(self.path, "filenameMaxLength", "" if value is None else str(value))
+
+    @property
+    def filenameAllowedCharacters(self) -> str:
+        return self.doc.form_field(self.path, "filenameAllowedCharacters") or ""
+
+    @filenameAllowedCharacters.setter
+    def filenameAllowedCharacters(self, value):
+        self.doc.set_form_field(self.path, "filenameAllowedCharacters", value)
+
+    @property
+    def pathTraversalPrevention(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "pathTraversalPrevention")
+        return None if v is None else (v == "true")
+
+    @pathTraversalPrevention.setter
+    def pathTraversalPrevention(self, value):
+        self.doc.set_form_field(self.path, "pathTraversalPrevention", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def nullBytePrevention(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "nullBytePrevention")
+        return None if v is None else (v == "true")
+
+    @nullBytePrevention.setter
+    def nullBytePrevention(self, value):
+        self.doc.set_form_field(self.path, "nullBytePrevention", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def maxFileSizeBytes(self) -> str:
+        return self.doc.form_field(self.path, "maxFileSizeBytes") or ""
+
+    @maxFileSizeBytes.setter
+    def maxFileSizeBytes(self, value):
+        self.doc.set_form_field(self.path, "maxFileSizeBytes", value)
+
+    @property
+    def maxUploadBatchSize(self) -> str:
+        return self.doc.form_field(self.path, "maxUploadBatchSize") or ""
+
+    @maxUploadBatchSize.setter
+    def maxUploadBatchSize(self, value):
+        self.doc.set_form_field(self.path, "maxUploadBatchSize", value)
+
+    @property
+    def maxConcurrentUploads(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxConcurrentUploads")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxConcurrentUploads.setter
+    def maxConcurrentUploads(self, value):
+        self.doc.set_form_field(self.path, "maxConcurrentUploads", "" if value is None else str(value))
+
+    @property
+    def compressedFileSizeLimit(self) -> str:
+        return self.doc.form_field(self.path, "compressedFileSizeLimit") or ""
+
+    @compressedFileSizeLimit.setter
+    def compressedFileSizeLimit(self, value):
+        self.doc.set_form_field(self.path, "compressedFileSizeLimit", value)
+
+    @property
+    def imageRewriting(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "imageRewriting")
+        return None if v is None else (v == "true")
+
+    @imageRewriting.setter
+    def imageRewriting(self, value):
+        self.doc.set_form_field(self.path, "imageRewriting", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def documentSanitization(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "documentSanitization")
+        return None if v is None else (v == "true")
+
+    @documentSanitization.setter
+    def documentSanitization(self, value):
+        self.doc.set_form_field(self.path, "documentSanitization", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def metadataStripping(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "metadataStripping")
+        return None if v is None else (v == "true")
+
+    @metadataStripping.setter
+    def metadataStripping(self, value):
+        self.doc.set_form_field(self.path, "metadataStripping", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class FirewallRequirementsAdvancedForm(SomNode):
     """Generated section facade for the `advanced` @Form section: its own content text followed by one typed member per form field."""
@@ -109047,6 +112683,151 @@ class LogStoragePolicyContentForm(SomNode):
     def accessPermissions(self, value):
         self.doc.set_form_field(self.path, "accessPermissions", value)
 
+class LoginFlowConfigurationContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def loginEntryPoint(self) -> str:
+        return self.doc.form_field(self.path, "loginEntryPoint") or ""
+
+    @loginEntryPoint.setter
+    def loginEntryPoint(self, value):
+        self.doc.set_form_field(self.path, "loginEntryPoint", value)
+
+    @property
+    def credentialSubmissionMethod(self) -> str:
+        return self.doc.form_field(self.path, "credentialSubmissionMethod") or ""
+
+    @credentialSubmissionMethod.setter
+    def credentialSubmissionMethod(self, value):
+        self.doc.set_form_field(self.path, "credentialSubmissionMethod", value)
+
+    @property
+    def preAuthenticationChecks(self) -> str:
+        return self.doc.form_field(self.path, "preAuthenticationChecks") or ""
+
+    @preAuthenticationChecks.setter
+    def preAuthenticationChecks(self, value):
+        self.doc.set_form_field(self.path, "preAuthenticationChecks", value)
+
+    @property
+    def authenticationEndpoint(self) -> str:
+        return self.doc.form_field(self.path, "authenticationEndpoint") or ""
+
+    @authenticationEndpoint.setter
+    def authenticationEndpoint(self, value):
+        self.doc.set_form_field(self.path, "authenticationEndpoint", value)
+
+    @property
+    def allowedAuthenticationMethods(self) -> str:
+        return self.doc.form_field(self.path, "allowedAuthenticationMethods") or ""
+
+    @allowedAuthenticationMethods.setter
+    def allowedAuthenticationMethods(self, value):
+        self.doc.set_form_field(self.path, "allowedAuthenticationMethods", value)
+
+    @property
+    def mfaChallengePresentation(self) -> str:
+        return self.doc.form_field(self.path, "mfaChallengePresentation") or ""
+
+    @mfaChallengePresentation.setter
+    def mfaChallengePresentation(self, value):
+        self.doc.set_form_field(self.path, "mfaChallengePresentation", value)
+
+    @property
+    def rememberMeEnabled(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeEnabled") or ""
+
+    @rememberMeEnabled.setter
+    def rememberMeEnabled(self, value):
+        self.doc.set_form_field(self.path, "rememberMeEnabled", value)
+
+    @property
+    def rememberMeDuration(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeDuration") or ""
+
+    @rememberMeDuration.setter
+    def rememberMeDuration(self, value):
+        self.doc.set_form_field(self.path, "rememberMeDuration", value)
+
+    @property
+    def socialLoginEnabled(self) -> str:
+        return self.doc.form_field(self.path, "socialLoginEnabled") or ""
+
+    @socialLoginEnabled.setter
+    def socialLoginEnabled(self, value):
+        self.doc.set_form_field(self.path, "socialLoginEnabled", value)
+
+    @property
+    def socialLoginProviders(self) -> str:
+        return self.doc.form_field(self.path, "socialLoginProviders") or ""
+
+    @socialLoginProviders.setter
+    def socialLoginProviders(self, value):
+        self.doc.set_form_field(self.path, "socialLoginProviders", value)
+
+    @property
+    def passwordlessLoginEnabled(self) -> str:
+        return self.doc.form_field(self.path, "passwordlessLoginEnabled") or ""
+
+    @passwordlessLoginEnabled.setter
+    def passwordlessLoginEnabled(self, value):
+        self.doc.set_form_field(self.path, "passwordlessLoginEnabled", value)
+
+    @property
+    def passwordlessLoginMethods(self) -> str:
+        return self.doc.form_field(self.path, "passwordlessLoginMethods") or ""
+
+    @passwordlessLoginMethods.setter
+    def passwordlessLoginMethods(self, value):
+        self.doc.set_form_field(self.path, "passwordlessLoginMethods", value)
+
+    @property
+    def postAuthenticationAction(self) -> str:
+        return self.doc.form_field(self.path, "postAuthenticationAction") or ""
+
+    @postAuthenticationAction.setter
+    def postAuthenticationAction(self, value):
+        self.doc.set_form_field(self.path, "postAuthenticationAction", value)
+
+    @property
+    def concurrentLoginPolicy(self) -> str:
+        return self.doc.form_field(self.path, "concurrentLoginPolicy") or ""
+
+    @concurrentLoginPolicy.setter
+    def concurrentLoginPolicy(self, value):
+        self.doc.set_form_field(self.path, "concurrentLoginPolicy", value)
+
+    @property
+    def loginNotification(self) -> str:
+        return self.doc.form_field(self.path, "loginNotification") or ""
+
+    @loginNotification.setter
+    def loginNotification(self, value):
+        self.doc.set_form_field(self.path, "loginNotification", value)
+
+    @property
+    def loginFromNewDeviceAction(self) -> str:
+        return self.doc.form_field(self.path, "loginFromNewDeviceAction") or ""
+
+    @loginFromNewDeviceAction.setter
+    def loginFromNewDeviceAction(self, value):
+        self.doc.set_form_field(self.path, "loginFromNewDeviceAction", value)
+
 class LoginFlowStepEntryBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""
 
@@ -111642,6 +115423,119 @@ class MfaCategoryRequirementEntryTimingForm(SomNode):
     @rememberDeviceDuration.setter
     def rememberDeviceDuration(self, value):
         self.doc.set_form_field(self.path, "rememberDeviceDuration", value)
+
+class MfaConfigurationContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def mfaRequired(self) -> str:
+        return self.doc.form_field(self.path, "mfaRequired") or ""
+
+    @mfaRequired.setter
+    def mfaRequired(self, value):
+        self.doc.set_form_field(self.path, "mfaRequired", value)
+
+    @property
+    def mfaEnforcementScope(self) -> str:
+        return self.doc.form_field(self.path, "mfaEnforcementScope") or ""
+
+    @mfaEnforcementScope.setter
+    def mfaEnforcementScope(self, value):
+        self.doc.set_form_field(self.path, "mfaEnforcementScope", value)
+
+    @property
+    def defaultSecondFactor(self) -> str:
+        return self.doc.form_field(self.path, "defaultSecondFactor") or ""
+
+    @defaultSecondFactor.setter
+    def defaultSecondFactor(self, value):
+        self.doc.set_form_field(self.path, "defaultSecondFactor", value)
+
+    @property
+    def allowedSecondFactors(self) -> str:
+        return self.doc.form_field(self.path, "allowedSecondFactors") or ""
+
+    @allowedSecondFactors.setter
+    def allowedSecondFactors(self, value):
+        self.doc.set_form_field(self.path, "allowedSecondFactors", value)
+
+    @property
+    def assuranceLevelTarget(self) -> str:
+        return self.doc.form_field(self.path, "assuranceLevelTarget") or ""
+
+    @assuranceLevelTarget.setter
+    def assuranceLevelTarget(self, value):
+        self.doc.set_form_field(self.path, "assuranceLevelTarget", value)
+
+    @property
+    def phishingResistanceRequired(self) -> str:
+        return self.doc.form_field(self.path, "phishingResistanceRequired") or ""
+
+    @phishingResistanceRequired.setter
+    def phishingResistanceRequired(self, value):
+        self.doc.set_form_field(self.path, "phishingResistanceRequired", value)
+
+    @property
+    def stepUpAuthenticationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "stepUpAuthenticationEnabled") or ""
+
+    @stepUpAuthenticationEnabled.setter
+    def stepUpAuthenticationEnabled(self, value):
+        self.doc.set_form_field(self.path, "stepUpAuthenticationEnabled", value)
+
+    @property
+    def stepUpTriggers(self) -> str:
+        return self.doc.form_field(self.path, "stepUpTriggers") or ""
+
+    @stepUpTriggers.setter
+    def stepUpTriggers(self, value):
+        self.doc.set_form_field(self.path, "stepUpTriggers", value)
+
+    @property
+    def rememberDevicePolicy(self) -> str:
+        return self.doc.form_field(self.path, "rememberDevicePolicy") or ""
+
+    @rememberDevicePolicy.setter
+    def rememberDevicePolicy(self, value):
+        self.doc.set_form_field(self.path, "rememberDevicePolicy", value)
+
+    @property
+    def recoveryCodePolicy(self) -> str:
+        return self.doc.form_field(self.path, "recoveryCodePolicy") or ""
+
+    @recoveryCodePolicy.setter
+    def recoveryCodePolicy(self, value):
+        self.doc.set_form_field(self.path, "recoveryCodePolicy", value)
+
+    @property
+    def enrollmentGracePeriod(self) -> str:
+        return self.doc.form_field(self.path, "enrollmentGracePeriod") or ""
+
+    @enrollmentGracePeriod.setter
+    def enrollmentGracePeriod(self, value):
+        self.doc.set_form_field(self.path, "enrollmentGracePeriod", value)
+
+    @property
+    def mfaBypassPolicy(self) -> str:
+        return self.doc.form_field(self.path, "mfaBypassPolicy") or ""
+
+    @mfaBypassPolicy.setter
+    def mfaBypassPolicy(self, value):
+        self.doc.set_form_field(self.path, "mfaBypassPolicy", value)
 
 class MigrationConsiderationsStrategyContentForm(SomNode):
     """Generated section facade for the `strategyContent` @Form section: its own content text followed by one typed member per form field."""
@@ -116100,6 +119994,80 @@ class MustPassCriterionEntryVerificationForm(SomNode):
     @toleranceAllowed.setter
     def toleranceAllowed(self, value):
         self.doc.set_form_field(self.path, "toleranceAllowed", value)
+
+class MutualTlsPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def mtlsEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "mtlsEnabled")
+        return None if v is None else (v == "true")
+
+    @mtlsEnabled.setter
+    def mtlsEnabled(self, value):
+        self.doc.set_form_field(self.path, "mtlsEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def mtlsScope(self) -> str:
+        return self.doc.form_field(self.path, "mtlsScope") or ""
+
+    @mtlsScope.setter
+    def mtlsScope(self, value):
+        self.doc.set_form_field(self.path, "mtlsScope", value)
+
+    @property
+    def clientCertificateIssuance(self) -> str:
+        return self.doc.form_field(self.path, "clientCertificateIssuance") or ""
+
+    @clientCertificateIssuance.setter
+    def clientCertificateIssuance(self, value):
+        self.doc.set_form_field(self.path, "clientCertificateIssuance", value)
+
+    @property
+    def revocationChecking(self) -> str:
+        return self.doc.form_field(self.path, "revocationChecking") or ""
+
+    @revocationChecking.setter
+    def revocationChecking(self, value):
+        self.doc.set_form_field(self.path, "revocationChecking", value)
+
+    @property
+    def fallbackOnMtlsFailure(self) -> str:
+        return self.doc.form_field(self.path, "fallbackOnMtlsFailure") or ""
+
+    @fallbackOnMtlsFailure.setter
+    def fallbackOnMtlsFailure(self, value):
+        self.doc.set_form_field(self.path, "fallbackOnMtlsFailure", value)
+
+    @property
+    def clientCertificateRotation(self) -> str:
+        return self.doc.form_field(self.path, "clientCertificateRotation") or ""
+
+    @clientCertificateRotation.setter
+    def clientCertificateRotation(self, value):
+        self.doc.set_form_field(self.path, "clientCertificateRotation", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class NativeAppRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -122862,6 +126830,377 @@ class ParticipantEntryContentForm(SomNode):
     def targetRole(self, value):
         self.doc.set_form_field(self.path, "targetRole", value)
 
+class PasswordLifecyclePolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def periodicRotationRequired(self) -> str:
+        return self.doc.form_field(self.path, "periodicRotationRequired") or ""
+
+    @periodicRotationRequired.setter
+    def periodicRotationRequired(self, value):
+        self.doc.set_form_field(self.path, "periodicRotationRequired", value)
+
+    @property
+    def rotationPeriod(self) -> str:
+        return self.doc.form_field(self.path, "rotationPeriod") or ""
+
+    @rotationPeriod.setter
+    def rotationPeriod(self, value):
+        self.doc.set_form_field(self.path, "rotationPeriod", value)
+
+    @property
+    def forceChangeOnCompromise(self) -> str:
+        return self.doc.form_field(self.path, "forceChangeOnCompromise") or ""
+
+    @forceChangeOnCompromise.setter
+    def forceChangeOnCompromise(self, value):
+        self.doc.set_form_field(self.path, "forceChangeOnCompromise", value)
+
+    @property
+    def passwordHistoryDepth(self) -> str:
+        return self.doc.form_field(self.path, "passwordHistoryDepth") or ""
+
+    @passwordHistoryDepth.setter
+    def passwordHistoryDepth(self, value):
+        self.doc.set_form_field(self.path, "passwordHistoryDepth", value)
+
+    @property
+    def minimumPasswordAge(self) -> str:
+        return self.doc.form_field(self.path, "minimumPasswordAge") or ""
+
+    @minimumPasswordAge.setter
+    def minimumPasswordAge(self, value):
+        self.doc.set_form_field(self.path, "minimumPasswordAge", value)
+
+    @property
+    def initialPasswordPolicy(self) -> str:
+        return self.doc.form_field(self.path, "initialPasswordPolicy") or ""
+
+    @initialPasswordPolicy.setter
+    def initialPasswordPolicy(self, value):
+        self.doc.set_form_field(self.path, "initialPasswordPolicy", value)
+
+    @property
+    def temporaryPasswordExpiry(self) -> str:
+        return self.doc.form_field(self.path, "temporaryPasswordExpiry") or ""
+
+    @temporaryPasswordExpiry.setter
+    def temporaryPasswordExpiry(self, value):
+        self.doc.set_form_field(self.path, "temporaryPasswordExpiry", value)
+
+    @property
+    def passwordExpiryWarning(self) -> str:
+        return self.doc.form_field(self.path, "passwordExpiryWarning") or ""
+
+    @passwordExpiryWarning.setter
+    def passwordExpiryWarning(self, value):
+        self.doc.set_form_field(self.path, "passwordExpiryWarning", value)
+
+    @property
+    def passwordChangeNotification(self) -> str:
+        return self.doc.form_field(self.path, "passwordChangeNotification") or ""
+
+    @passwordChangeNotification.setter
+    def passwordChangeNotification(self, value):
+        self.doc.set_form_field(self.path, "passwordChangeNotification", value)
+
+    @property
+    def passwordChangeRequiresCurrent(self) -> str:
+        return self.doc.form_field(self.path, "passwordChangeRequiresCurrent") or ""
+
+    @passwordChangeRequiresCurrent.setter
+    def passwordChangeRequiresCurrent(self, value):
+        self.doc.set_form_field(self.path, "passwordChangeRequiresCurrent", value)
+
+    @property
+    def administratorResetPolicy(self) -> str:
+        return self.doc.form_field(self.path, "administratorResetPolicy") or ""
+
+    @administratorResetPolicy.setter
+    def administratorResetPolicy(self, value):
+        self.doc.set_form_field(self.path, "administratorResetPolicy", value)
+
+    @property
+    def passwordInactivityDisable(self) -> str:
+        return self.doc.form_field(self.path, "passwordInactivityDisable") or ""
+
+    @passwordInactivityDisable.setter
+    def passwordInactivityDisable(self, value):
+        self.doc.set_form_field(self.path, "passwordInactivityDisable", value)
+
+class PasswordRequirementsPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def minimumLengthSingleFactor(self) -> str:
+        return self.doc.form_field(self.path, "minimumLengthSingleFactor") or ""
+
+    @minimumLengthSingleFactor.setter
+    def minimumLengthSingleFactor(self, value):
+        self.doc.set_form_field(self.path, "minimumLengthSingleFactor", value)
+
+    @property
+    def minimumLengthMultiFactor(self) -> str:
+        return self.doc.form_field(self.path, "minimumLengthMultiFactor") or ""
+
+    @minimumLengthMultiFactor.setter
+    def minimumLengthMultiFactor(self, value):
+        self.doc.set_form_field(self.path, "minimumLengthMultiFactor", value)
+
+    @property
+    def maximumLength(self) -> str:
+        return self.doc.form_field(self.path, "maximumLength") or ""
+
+    @maximumLength.setter
+    def maximumLength(self, value):
+        self.doc.set_form_field(self.path, "maximumLength", value)
+
+    @property
+    def allowedCharacterSets(self) -> str:
+        return self.doc.form_field(self.path, "allowedCharacterSets") or ""
+
+    @allowedCharacterSets.setter
+    def allowedCharacterSets(self, value):
+        self.doc.set_form_field(self.path, "allowedCharacterSets", value)
+
+    @property
+    def compositionRulesEnforced(self) -> str:
+        return self.doc.form_field(self.path, "compositionRulesEnforced") or ""
+
+    @compositionRulesEnforced.setter
+    def compositionRulesEnforced(self, value):
+        self.doc.set_form_field(self.path, "compositionRulesEnforced", value)
+
+    @property
+    def passphraseSupported(self) -> str:
+        return self.doc.form_field(self.path, "passphraseSupported") or ""
+
+    @passphraseSupported.setter
+    def passphraseSupported(self, value):
+        self.doc.set_form_field(self.path, "passphraseSupported", value)
+
+    @property
+    def unicodeNormalization(self) -> str:
+        return self.doc.form_field(self.path, "unicodeNormalization") or ""
+
+    @unicodeNormalization.setter
+    def unicodeNormalization(self, value):
+        self.doc.set_form_field(self.path, "unicodeNormalization", value)
+
+    @property
+    def passwordBlocklistEnabled(self) -> str:
+        return self.doc.form_field(self.path, "passwordBlocklistEnabled") or ""
+
+    @passwordBlocklistEnabled.setter
+    def passwordBlocklistEnabled(self, value):
+        self.doc.set_form_field(self.path, "passwordBlocklistEnabled", value)
+
+    @property
+    def blocklistSources(self) -> str:
+        return self.doc.form_field(self.path, "blocklistSources") or ""
+
+    @blocklistSources.setter
+    def blocklistSources(self, value):
+        self.doc.set_form_field(self.path, "blocklistSources", value)
+
+    @property
+    def passwordStrengthMeter(self) -> str:
+        return self.doc.form_field(self.path, "passwordStrengthMeter") or ""
+
+    @passwordStrengthMeter.setter
+    def passwordStrengthMeter(self, value):
+        self.doc.set_form_field(self.path, "passwordStrengthMeter", value)
+
+    @property
+    def passwordHintsAllowed(self) -> str:
+        return self.doc.form_field(self.path, "passwordHintsAllowed") or ""
+
+    @passwordHintsAllowed.setter
+    def passwordHintsAllowed(self, value):
+        self.doc.set_form_field(self.path, "passwordHintsAllowed", value)
+
+    @property
+    def securityQuestionsAllowed(self) -> str:
+        return self.doc.form_field(self.path, "securityQuestionsAllowed") or ""
+
+    @securityQuestionsAllowed.setter
+    def securityQuestionsAllowed(self, value):
+        self.doc.set_form_field(self.path, "securityQuestionsAllowed", value)
+
+    @property
+    def showPasswordOption(self) -> str:
+        return self.doc.form_field(self.path, "showPasswordOption") or ""
+
+    @showPasswordOption.setter
+    def showPasswordOption(self, value):
+        self.doc.set_form_field(self.path, "showPasswordOption", value)
+
+    @property
+    def passwordManagerSupport(self) -> str:
+        return self.doc.form_field(self.path, "passwordManagerSupport") or ""
+
+    @passwordManagerSupport.setter
+    def passwordManagerSupport(self, value):
+        self.doc.set_form_field(self.path, "passwordManagerSupport", value)
+
+    @property
+    def truncationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "truncationPolicy") or ""
+
+    @truncationPolicy.setter
+    def truncationPolicy(self, value):
+        self.doc.set_form_field(self.path, "truncationPolicy", value)
+
+    @property
+    def typoTolerancePolicy(self) -> str:
+        return self.doc.form_field(self.path, "typoTolerancePolicy") or ""
+
+    @typoTolerancePolicy.setter
+    def typoTolerancePolicy(self, value):
+        self.doc.set_form_field(self.path, "typoTolerancePolicy", value)
+
+class PasswordStoragePolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def hashingAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "hashingAlgorithm") or ""
+
+    @hashingAlgorithm.setter
+    def hashingAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "hashingAlgorithm", value)
+
+    @property
+    def hashingCostFactor(self) -> str:
+        return self.doc.form_field(self.path, "hashingCostFactor") or ""
+
+    @hashingCostFactor.setter
+    def hashingCostFactor(self, value):
+        self.doc.set_form_field(self.path, "hashingCostFactor", value)
+
+    @property
+    def costFactorReviewSchedule(self) -> str:
+        return self.doc.form_field(self.path, "costFactorReviewSchedule") or ""
+
+    @costFactorReviewSchedule.setter
+    def costFactorReviewSchedule(self, value):
+        self.doc.set_form_field(self.path, "costFactorReviewSchedule", value)
+
+    @property
+    def saltLength(self) -> str:
+        return self.doc.form_field(self.path, "saltLength") or ""
+
+    @saltLength.setter
+    def saltLength(self, value):
+        self.doc.set_form_field(self.path, "saltLength", value)
+
+    @property
+    def saltGeneration(self) -> str:
+        return self.doc.form_field(self.path, "saltGeneration") or ""
+
+    @saltGeneration.setter
+    def saltGeneration(self, value):
+        self.doc.set_form_field(self.path, "saltGeneration", value)
+
+    @property
+    def pepperEnabled(self) -> str:
+        return self.doc.form_field(self.path, "pepperEnabled") or ""
+
+    @pepperEnabled.setter
+    def pepperEnabled(self, value):
+        self.doc.set_form_field(self.path, "pepperEnabled", value)
+
+    @property
+    def pepperStorage(self) -> str:
+        return self.doc.form_field(self.path, "pepperStorage") or ""
+
+    @pepperStorage.setter
+    def pepperStorage(self, value):
+        self.doc.set_form_field(self.path, "pepperStorage", value)
+
+    @property
+    def hashVersioning(self) -> str:
+        return self.doc.form_field(self.path, "hashVersioning") or ""
+
+    @hashVersioning.setter
+    def hashVersioning(self, value):
+        self.doc.set_form_field(self.path, "hashVersioning", value)
+
+    @property
+    def transmissionEncryption(self) -> str:
+        return self.doc.form_field(self.path, "transmissionEncryption") or ""
+
+    @transmissionEncryption.setter
+    def transmissionEncryption(self, value):
+        self.doc.set_form_field(self.path, "transmissionEncryption", value)
+
+    @property
+    def clientSideHashing(self) -> str:
+        return self.doc.form_field(self.path, "clientSideHashing") or ""
+
+    @clientSideHashing.setter
+    def clientSideHashing(self, value):
+        self.doc.set_form_field(self.path, "clientSideHashing", value)
+
+    @property
+    def memoryHardFunction(self) -> str:
+        return self.doc.form_field(self.path, "memoryHardFunction") or ""
+
+    @memoryHardFunction.setter
+    def memoryHardFunction(self, value):
+        self.doc.set_form_field(self.path, "memoryHardFunction", value)
+
+    @property
+    def outputLength(self) -> str:
+        return self.doc.form_field(self.path, "outputLength") or ""
+
+    @outputLength.setter
+    def outputLength(self, value):
+        self.doc.set_form_field(self.path, "outputLength", value)
+
 class PeakLoadPatternsCapacityForm(SomNode):
     """Generated section facade for the `capacity` @Form section: its own content text followed by one typed member per form field."""
 
@@ -123474,6 +127813,329 @@ class PeripheralEquipmentEntryContentForm(SomNode):
     @justification.setter
     def justification(self, value):
         self.doc.set_form_field(self.path, "justification", value)
+
+class PermissionCompositionStrategyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def compositionModel(self) -> str:
+        return self.doc.form_field(self.path, "compositionModel") or ""
+
+    @compositionModel.setter
+    def compositionModel(self, value):
+        self.doc.set_form_field(self.path, "compositionModel", value)
+
+    @property
+    def defaultPolicy(self) -> str:
+        return self.doc.form_field(self.path, "defaultPolicy") or ""
+
+    @defaultPolicy.setter
+    def defaultPolicy(self, value):
+        self.doc.set_form_field(self.path, "defaultPolicy", value)
+
+    @property
+    def explicitDenyOverride(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "explicitDenyOverride")
+        return None if v is None else (v == "true")
+
+    @explicitDenyOverride.setter
+    def explicitDenyOverride(self, value):
+        self.doc.set_form_field(self.path, "explicitDenyOverride", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def rolePermissionInheritance(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "rolePermissionInheritance")
+        return None if v is None else (v == "true")
+
+    @rolePermissionInheritance.setter
+    def rolePermissionInheritance(self, value):
+        self.doc.set_form_field(self.path, "rolePermissionInheritance", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def groupPermissionAggregation(self) -> str:
+        return self.doc.form_field(self.path, "groupPermissionAggregation") or ""
+
+    @groupPermissionAggregation.setter
+    def groupPermissionAggregation(self, value):
+        self.doc.set_form_field(self.path, "groupPermissionAggregation", value)
+
+    @property
+    def conflictResolution(self) -> str:
+        return self.doc.form_field(self.path, "conflictResolution") or ""
+
+    @conflictResolution.setter
+    def conflictResolution(self, value):
+        self.doc.set_form_field(self.path, "conflictResolution", value)
+
+    @property
+    def permissionBoundary(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "permissionBoundary")
+        return None if v is None else (v == "true")
+
+    @permissionBoundary.setter
+    def permissionBoundary(self, value):
+        self.doc.set_form_field(self.path, "permissionBoundary", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def scopedPermissions(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "scopedPermissions")
+        return None if v is None else (v == "true")
+
+    @scopedPermissions.setter
+    def scopedPermissions(self, value):
+        self.doc.set_form_field(self.path, "scopedPermissions", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def temporaryElevation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "temporaryElevation")
+        return None if v is None else (v == "true")
+
+    @temporaryElevation.setter
+    def temporaryElevation(self, value):
+        self.doc.set_form_field(self.path, "temporaryElevation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class PermissionEvaluationBehaviorContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def evaluationLocation(self) -> str:
+        return self.doc.form_field(self.path, "evaluationLocation") or ""
+
+    @evaluationLocation.setter
+    def evaluationLocation(self, value):
+        self.doc.set_form_field(self.path, "evaluationLocation", value)
+
+    @property
+    def evaluationFrequency(self) -> str:
+        return self.doc.form_field(self.path, "evaluationFrequency") or ""
+
+    @evaluationFrequency.setter
+    def evaluationFrequency(self, value):
+        self.doc.set_form_field(self.path, "evaluationFrequency", value)
+
+    @property
+    def cachingStrategy(self) -> str:
+        return self.doc.form_field(self.path, "cachingStrategy") or ""
+
+    @cachingStrategy.setter
+    def cachingStrategy(self, value):
+        self.doc.set_form_field(self.path, "cachingStrategy", value)
+
+    @property
+    def cacheTtlSeconds(self) -> "int | None":
+        v = self.doc.form_field(self.path, "cacheTtlSeconds")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @cacheTtlSeconds.setter
+    def cacheTtlSeconds(self, value):
+        self.doc.set_form_field(self.path, "cacheTtlSeconds", "" if value is None else str(value))
+
+    @property
+    def failureMode(self) -> str:
+        return self.doc.form_field(self.path, "failureMode") or ""
+
+    @failureMode.setter
+    def failureMode(self, value):
+        self.doc.set_form_field(self.path, "failureMode", value)
+
+    @property
+    def authorizationLogging(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "authorizationLogging")
+        return None if v is None else (v == "true")
+
+    @authorizationLogging.setter
+    def authorizationLogging(self, value):
+        self.doc.set_form_field(self.path, "authorizationLogging", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def logDeniedRequests(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "logDeniedRequests")
+        return None if v is None else (v == "true")
+
+    @logDeniedRequests.setter
+    def logDeniedRequests(self, value):
+        self.doc.set_form_field(self.path, "logDeniedRequests", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def logSuccessfulAccess(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "logSuccessfulAccess")
+        return None if v is None else (v == "true")
+
+    @logSuccessfulAccess.setter
+    def logSuccessfulAccess(self, value):
+        self.doc.set_form_field(self.path, "logSuccessfulAccess", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def automatedTesting(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "automatedTesting")
+        return None if v is None else (v == "true")
+
+    @automatedTesting.setter
+    def automatedTesting(self, value):
+        self.doc.set_form_field(self.path, "automatedTesting", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def clientSideHints(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "clientSideHints")
+        return None if v is None else (v == "true")
+
+    @clientSideHints.setter
+    def clientSideHints(self, value):
+        self.doc.set_form_field(self.path, "clientSideHints", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class PermissionGranularityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def functionLevelControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "functionLevelControl")
+        return None if v is None else (v == "true")
+
+    @functionLevelControl.setter
+    def functionLevelControl(self, value):
+        self.doc.set_form_field(self.path, "functionLevelControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dataLevelControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "dataLevelControl")
+        return None if v is None else (v == "true")
+
+    @dataLevelControl.setter
+    def dataLevelControl(self, value):
+        self.doc.set_form_field(self.path, "dataLevelControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def fieldLevelControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "fieldLevelControl")
+        return None if v is None else (v == "true")
+
+    @fieldLevelControl.setter
+    def fieldLevelControl(self, value):
+        self.doc.set_form_field(self.path, "fieldLevelControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def uiElementControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "uiElementControl")
+        return None if v is None else (v == "true")
+
+    @uiElementControl.setter
+    def uiElementControl(self, value):
+        self.doc.set_form_field(self.path, "uiElementControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def apiOperationControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "apiOperationControl")
+        return None if v is None else (v == "true")
+
+    @apiOperationControl.setter
+    def apiOperationControl(self, value):
+        self.doc.set_form_field(self.path, "apiOperationControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def objectLevelControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "objectLevelControl")
+        return None if v is None else (v == "true")
+
+    @objectLevelControl.setter
+    def objectLevelControl(self, value):
+        self.doc.set_form_field(self.path, "objectLevelControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def tenantLevelControl(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "tenantLevelControl")
+        return None if v is None else (v == "true")
+
+    @tenantLevelControl.setter
+    def tenantLevelControl(self, value):
+        self.doc.set_form_field(self.path, "tenantLevelControl", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def finestGranularity(self) -> str:
+        return self.doc.form_field(self.path, "finestGranularity") or ""
+
+    @finestGranularity.setter
+    def finestGranularity(self, value):
+        self.doc.set_form_field(self.path, "finestGranularity", value)
+
+    @property
+    def dynamicPermissions(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "dynamicPermissions")
+        return None if v is None else (v == "true")
+
+    @dynamicPermissions.setter
+    def dynamicPermissions(self, value):
+        self.doc.set_form_field(self.path, "dynamicPermissions", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class PermissionMatrixEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -133734,6 +138396,119 @@ class RecoveryScenarioEntryContentForm(SomNode):
     def supportEscalation(self, value):
         self.doc.set_form_field(self.path, "supportEscalation", value)
 
+class RedirectHandlingPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def oauthRedirectUriPolicy(self) -> str:
+        return self.doc.form_field(self.path, "oauthRedirectUriPolicy") or ""
+
+    @oauthRedirectUriPolicy.setter
+    def oauthRedirectUriPolicy(self, value):
+        self.doc.set_form_field(self.path, "oauthRedirectUriPolicy", value)
+
+    @property
+    def allowedRedirectDomains(self) -> str:
+        return self.doc.form_field(self.path, "allowedRedirectDomains") or ""
+
+    @allowedRedirectDomains.setter
+    def allowedRedirectDomains(self, value):
+        self.doc.set_form_field(self.path, "allowedRedirectDomains", value)
+
+    @property
+    def callbackUrlValidation(self) -> str:
+        return self.doc.form_field(self.path, "callbackUrlValidation") or ""
+
+    @callbackUrlValidation.setter
+    def callbackUrlValidation(self, value):
+        self.doc.set_form_field(self.path, "callbackUrlValidation", value)
+
+    @property
+    def stateParameterRequired(self) -> str:
+        return self.doc.form_field(self.path, "stateParameterRequired") or ""
+
+    @stateParameterRequired.setter
+    def stateParameterRequired(self, value):
+        self.doc.set_form_field(self.path, "stateParameterRequired", value)
+
+    @property
+    def pkceRequired(self) -> str:
+        return self.doc.form_field(self.path, "pkceRequired") or ""
+
+    @pkceRequired.setter
+    def pkceRequired(self, value):
+        self.doc.set_form_field(self.path, "pkceRequired", value)
+
+    @property
+    def pkceMethod(self) -> str:
+        return self.doc.form_field(self.path, "pkceMethod") or ""
+
+    @pkceMethod.setter
+    def pkceMethod(self, value):
+        self.doc.set_form_field(self.path, "pkceMethod", value)
+
+    @property
+    def deepLinkHandling(self) -> str:
+        return self.doc.form_field(self.path, "deepLinkHandling") or ""
+
+    @deepLinkHandling.setter
+    def deepLinkHandling(self, value):
+        self.doc.set_form_field(self.path, "deepLinkHandling", value)
+
+    @property
+    def errorRedirectBehavior(self) -> str:
+        return self.doc.form_field(self.path, "errorRedirectBehavior") or ""
+
+    @errorRedirectBehavior.setter
+    def errorRedirectBehavior(self, value):
+        self.doc.set_form_field(self.path, "errorRedirectBehavior", value)
+
+    @property
+    def postLogoutRedirectUri(self) -> str:
+        return self.doc.form_field(self.path, "postLogoutRedirectUri") or ""
+
+    @postLogoutRedirectUri.setter
+    def postLogoutRedirectUri(self, value):
+        self.doc.set_form_field(self.path, "postLogoutRedirectUri", value)
+
+    @property
+    def singleLogoutRedirectChain(self) -> str:
+        return self.doc.form_field(self.path, "singleLogoutRedirectChain") or ""
+
+    @singleLogoutRedirectChain.setter
+    def singleLogoutRedirectChain(self, value):
+        self.doc.set_form_field(self.path, "singleLogoutRedirectChain", value)
+
+    @property
+    def corsPolicy(self) -> str:
+        return self.doc.form_field(self.path, "corsPolicy") or ""
+
+    @corsPolicy.setter
+    def corsPolicy(self, value):
+        self.doc.set_form_field(self.path, "corsPolicy", value)
+
+    @property
+    def iframeEmbeddingPolicy(self) -> str:
+        return self.doc.form_field(self.path, "iframeEmbeddingPolicy") or ""
+
+    @iframeEmbeddingPolicy.setter
+    def iframeEmbeddingPolicy(self, value):
+        self.doc.set_form_field(self.path, "iframeEmbeddingPolicy", value)
+
 class ReferenceDocumentEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -134978,6 +139753,127 @@ class ReliabilityVerificationForm(SomNode):
     @incidentPostmortem.setter
     def incidentPostmortem(self, value):
         self.doc.set_form_field(self.path, "incidentPostmortem", value)
+
+class RememberMePolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def rememberMeEnabled(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeEnabled") or ""
+
+    @rememberMeEnabled.setter
+    def rememberMeEnabled(self, value):
+        self.doc.set_form_field(self.path, "rememberMeEnabled", value)
+
+    @property
+    def rememberMeDuration(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeDuration") or ""
+
+    @rememberMeDuration.setter
+    def rememberMeDuration(self, value):
+        self.doc.set_form_field(self.path, "rememberMeDuration", value)
+
+    @property
+    def rememberMeTokenType(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeTokenType") or ""
+
+    @rememberMeTokenType.setter
+    def rememberMeTokenType(self, value):
+        self.doc.set_form_field(self.path, "rememberMeTokenType", value)
+
+    @property
+    def rememberMeTokenStorage(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeTokenStorage") or ""
+
+    @rememberMeTokenStorage.setter
+    def rememberMeTokenStorage(self, value):
+        self.doc.set_form_field(self.path, "rememberMeTokenStorage", value)
+
+    @property
+    def rememberMeTokenRotation(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeTokenRotation") or ""
+
+    @rememberMeTokenRotation.setter
+    def rememberMeTokenRotation(self, value):
+        self.doc.set_form_field(self.path, "rememberMeTokenRotation", value)
+
+    @property
+    def rememberMeReuseDetection(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeReuseDetection") or ""
+
+    @rememberMeReuseDetection.setter
+    def rememberMeReuseDetection(self, value):
+        self.doc.set_form_field(self.path, "rememberMeReuseDetection", value)
+
+    @property
+    def rememberMeDeviceBinding(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeDeviceBinding") or ""
+
+    @rememberMeDeviceBinding.setter
+    def rememberMeDeviceBinding(self, value):
+        self.doc.set_form_field(self.path, "rememberMeDeviceBinding", value)
+
+    @property
+    def rememberMeRevocation(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeRevocation") or ""
+
+    @rememberMeRevocation.setter
+    def rememberMeRevocation(self, value):
+        self.doc.set_form_field(self.path, "rememberMeRevocation", value)
+
+    @property
+    def rememberMeAalReduction(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeAalReduction") or ""
+
+    @rememberMeAalReduction.setter
+    def rememberMeAalReduction(self, value):
+        self.doc.set_form_field(self.path, "rememberMeAalReduction", value)
+
+    @property
+    def rememberMeRestrictedOperations(self) -> str:
+        return self.doc.form_field(self.path, "rememberMeRestrictedOperations") or ""
+
+    @rememberMeRestrictedOperations.setter
+    def rememberMeRestrictedOperations(self, value):
+        self.doc.set_form_field(self.path, "rememberMeRestrictedOperations", value)
+
+    @property
+    def trustedDeviceManagement(self) -> str:
+        return self.doc.form_field(self.path, "trustedDeviceManagement") or ""
+
+    @trustedDeviceManagement.setter
+    def trustedDeviceManagement(self, value):
+        self.doc.set_form_field(self.path, "trustedDeviceManagement", value)
+
+    @property
+    def maxTrustedDevices(self) -> str:
+        return self.doc.form_field(self.path, "maxTrustedDevices") or ""
+
+    @maxTrustedDevices.setter
+    def maxTrustedDevices(self, value):
+        self.doc.set_form_field(self.path, "maxTrustedDevices", value)
+
+    @property
+    def trustedDeviceExpiry(self) -> str:
+        return self.doc.form_field(self.path, "trustedDeviceExpiry") or ""
+
+    @trustedDeviceExpiry.setter
+    def trustedDeviceExpiry(self, value):
+        self.doc.set_form_field(self.path, "trustedDeviceExpiry", value)
 
 class RemovedRoleEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -142654,6 +147550,105 @@ class RoleAdjustmentsAdjustmentSummaryForm(SomNode):
     def governanceImpact(self, value):
         self.doc.set_form_field(self.path, "governanceImpact", "" if value is None else value.value)
 
+class RoleCertificationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def certificationRequired(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "certificationRequired")
+        return None if v is None else (v == "true")
+
+    @certificationRequired.setter
+    def certificationRequired(self, value):
+        self.doc.set_form_field(self.path, "certificationRequired", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def certificationFrequency(self) -> str:
+        return self.doc.form_field(self.path, "certificationFrequency") or ""
+
+    @certificationFrequency.setter
+    def certificationFrequency(self, value):
+        self.doc.set_form_field(self.path, "certificationFrequency", value)
+
+    @property
+    def certifier(self) -> str:
+        return self.doc.form_field(self.path, "certifier") or ""
+
+    @certifier.setter
+    def certifier(self, value):
+        self.doc.set_form_field(self.path, "certifier", value)
+
+    @property
+    def nonResponseAction(self) -> str:
+        return self.doc.form_field(self.path, "nonResponseAction") or ""
+
+    @nonResponseAction.setter
+    def nonResponseAction(self, value):
+        self.doc.set_form_field(self.path, "nonResponseAction", value)
+
+    @property
+    def riskBasedScheduling(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "riskBasedScheduling")
+        return None if v is None else (v == "true")
+
+    @riskBasedScheduling.setter
+    def riskBasedScheduling(self, value):
+        self.doc.set_form_field(self.path, "riskBasedScheduling", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def automatedDetection(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "automatedDetection")
+        return None if v is None else (v == "true")
+
+    @automatedDetection.setter
+    def automatedDetection(self, value):
+        self.doc.set_form_field(self.path, "automatedDetection", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dormantRoleThresholdDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "dormantRoleThresholdDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @dormantRoleThresholdDays.setter
+    def dormantRoleThresholdDays(self, value):
+        self.doc.set_form_field(self.path, "dormantRoleThresholdDays", "" if value is None else str(value))
+
+    @property
+    def certificationAuditTrail(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "certificationAuditTrail")
+        return None if v is None else (v == "true")
+
+    @certificationAuditTrail.setter
+    def certificationAuditTrail(self, value):
+        self.doc.set_form_field(self.path, "certificationAuditTrail", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class RoleCombinationConstraintEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -142881,6 +147876,119 @@ class RoleExclusionEntryContentForm(SomNode):
     @severity.setter
     def severity(self, value):
         self.doc.set_form_field(self.path, "severity", value)
+
+class RoleHierarchyPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def hierarchyModel(self) -> str:
+        return self.doc.form_field(self.path, "hierarchyModel") or ""
+
+    @hierarchyModel.setter
+    def hierarchyModel(self, value):
+        self.doc.set_form_field(self.path, "hierarchyModel", value)
+
+    @property
+    def maxHierarchyDepth(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxHierarchyDepth")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxHierarchyDepth.setter
+    def maxHierarchyDepth(self, value):
+        self.doc.set_form_field(self.path, "maxHierarchyDepth", "" if value is None else str(value))
+
+    @property
+    def inheritanceMode(self) -> str:
+        return self.doc.form_field(self.path, "inheritanceMode") or ""
+
+    @inheritanceMode.setter
+    def inheritanceMode(self, value):
+        self.doc.set_form_field(self.path, "inheritanceMode", value)
+
+    @property
+    def multipleInheritance(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "multipleInheritance")
+        return None if v is None else (v == "true")
+
+    @multipleInheritance.setter
+    def multipleInheritance(self, value):
+        self.doc.set_form_field(self.path, "multipleInheritance", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def permissionOverride(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "permissionOverride")
+        return None if v is None else (v == "true")
+
+    @permissionOverride.setter
+    def permissionOverride(self, value):
+        self.doc.set_form_field(self.path, "permissionOverride", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def activationConstraints(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "activationConstraints")
+        return None if v is None else (v == "true")
+
+    @activationConstraints.setter
+    def activationConstraints(self, value):
+        self.doc.set_form_field(self.path, "activationConstraints", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def maxActiveRolesPerUser(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxActiveRolesPerUser")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxActiveRolesPerUser.setter
+    def maxActiveRolesPerUser(self, value):
+        self.doc.set_form_field(self.path, "maxActiveRolesPerUser", "" if value is None else str(value))
+
+    @property
+    def rolePriorityScheme(self) -> str:
+        return self.doc.form_field(self.path, "rolePriorityScheme") or ""
+
+    @rolePriorityScheme.setter
+    def rolePriorityScheme(self, value):
+        self.doc.set_form_field(self.path, "rolePriorityScheme", value)
+
+    @property
+    def automaticInheritanceRevocation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "automaticInheritanceRevocation")
+        return None if v is None else (v == "true")
+
+    @automaticInheritanceRevocation.setter
+    def automaticInheritanceRevocation(self, value):
+        self.doc.set_form_field(self.path, "automaticInheritanceRevocation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class RoleHolderEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -143331,6 +148439,111 @@ class RollbackStrategyTriggersForm(SomNode):
     @rollbackTimeTarget.setter
     def rollbackTimeTarget(self, value):
         self.doc.set_form_field(self.path, "rollbackTimeTarget", value)
+
+class RowLevelSecurityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def rowLevelSecurityEnabled(self) -> str:
+        return self.doc.form_field(self.path, "rowLevelSecurityEnabled") or ""
+
+    @rowLevelSecurityEnabled.setter
+    def rowLevelSecurityEnabled(self, value):
+        self.doc.set_form_field(self.path, "rowLevelSecurityEnabled", value)
+
+    @property
+    def rlsImplementation(self) -> str:
+        return self.doc.form_field(self.path, "rlsImplementation") or ""
+
+    @rlsImplementation.setter
+    def rlsImplementation(self, value):
+        self.doc.set_form_field(self.path, "rlsImplementation", value)
+
+    @property
+    def rlsFilteringStrategy(self) -> str:
+        return self.doc.form_field(self.path, "rlsFilteringStrategy") or ""
+
+    @rlsFilteringStrategy.setter
+    def rlsFilteringStrategy(self, value):
+        self.doc.set_form_field(self.path, "rlsFilteringStrategy", value)
+
+    @property
+    def rlsBypassPolicy(self) -> str:
+        return self.doc.form_field(self.path, "rlsBypassPolicy") or ""
+
+    @rlsBypassPolicy.setter
+    def rlsBypassPolicy(self, value):
+        self.doc.set_form_field(self.path, "rlsBypassPolicy", value)
+
+    @property
+    def hierarchicalVisibility(self) -> str:
+        return self.doc.form_field(self.path, "hierarchicalVisibility") or ""
+
+    @hierarchicalVisibility.setter
+    def hierarchicalVisibility(self, value):
+        self.doc.set_form_field(self.path, "hierarchicalVisibility", value)
+
+    @property
+    def hierarchyDepthLimit(self) -> str:
+        return self.doc.form_field(self.path, "hierarchyDepthLimit") or ""
+
+    @hierarchyDepthLimit.setter
+    def hierarchyDepthLimit(self, value):
+        self.doc.set_form_field(self.path, "hierarchyDepthLimit", value)
+
+    @property
+    def crossTenantAccess(self) -> str:
+        return self.doc.form_field(self.path, "crossTenantAccess") or ""
+
+    @crossTenantAccess.setter
+    def crossTenantAccess(self, value):
+        self.doc.set_form_field(self.path, "crossTenantAccess", value)
+
+    @property
+    def dataOwnerAccess(self) -> str:
+        return self.doc.form_field(self.path, "dataOwnerAccess") or ""
+
+    @dataOwnerAccess.setter
+    def dataOwnerAccess(self, value):
+        self.doc.set_form_field(self.path, "dataOwnerAccess", value)
+
+    @property
+    def sharedDataHandling(self) -> str:
+        return self.doc.form_field(self.path, "sharedDataHandling") or ""
+
+    @sharedDataHandling.setter
+    def sharedDataHandling(self, value):
+        self.doc.set_form_field(self.path, "sharedDataHandling", value)
+
+    @property
+    def rlsPerformanceStrategy(self) -> str:
+        return self.doc.form_field(self.path, "rlsPerformanceStrategy") or ""
+
+    @rlsPerformanceStrategy.setter
+    def rlsPerformanceStrategy(self, value):
+        self.doc.set_form_field(self.path, "rlsPerformanceStrategy", value)
+
+    @property
+    def rlsTestingStrategy(self) -> str:
+        return self.doc.form_field(self.path, "rlsTestingStrategy") or ""
+
+    @rlsTestingStrategy.setter
+    def rlsTestingStrategy(self, value):
+        self.doc.set_form_field(self.path, "rlsTestingStrategy", value)
 
 class RpoRtoRequirementsByTierForm(SomNode):
     """Generated section facade for the `byTier` @Form section: its own content text followed by one typed member per form field."""
@@ -150831,6 +156044,135 @@ class SelfRegistrationPolicyVerificationForm(SomNode):
     def phoneVerificationMethod(self, value):
         self.doc.set_form_field(self.path, "phoneVerificationMethod", value)
 
+class SelfServiceAccountManagementContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def profileUpdateEnabled(self) -> str:
+        return self.doc.form_field(self.path, "profileUpdateEnabled") or ""
+
+    @profileUpdateEnabled.setter
+    def profileUpdateEnabled(self, value):
+        self.doc.set_form_field(self.path, "profileUpdateEnabled", value)
+
+    @property
+    def passwordChangeEnabled(self) -> str:
+        return self.doc.form_field(self.path, "passwordChangeEnabled") or ""
+
+    @passwordChangeEnabled.setter
+    def passwordChangeEnabled(self, value):
+        self.doc.set_form_field(self.path, "passwordChangeEnabled", value)
+
+    @property
+    def passwordResetEnabled(self) -> str:
+        return self.doc.form_field(self.path, "passwordResetEnabled") or ""
+
+    @passwordResetEnabled.setter
+    def passwordResetEnabled(self, value):
+        self.doc.set_form_field(self.path, "passwordResetEnabled", value)
+
+    @property
+    def passwordResetMethods(self) -> str:
+        return self.doc.form_field(self.path, "passwordResetMethods") or ""
+
+    @passwordResetMethods.setter
+    def passwordResetMethods(self, value):
+        self.doc.set_form_field(self.path, "passwordResetMethods", value)
+
+    @property
+    def mfaEnrollmentSelfService(self) -> str:
+        return self.doc.form_field(self.path, "mfaEnrollmentSelfService") or ""
+
+    @mfaEnrollmentSelfService.setter
+    def mfaEnrollmentSelfService(self, value):
+        self.doc.set_form_field(self.path, "mfaEnrollmentSelfService", value)
+
+    @property
+    def accountDeactivationSelfService(self) -> str:
+        return self.doc.form_field(self.path, "accountDeactivationSelfService") or ""
+
+    @accountDeactivationSelfService.setter
+    def accountDeactivationSelfService(self, value):
+        self.doc.set_form_field(self.path, "accountDeactivationSelfService", value)
+
+    @property
+    def accountDeletionSelfService(self) -> str:
+        return self.doc.form_field(self.path, "accountDeletionSelfService") or ""
+
+    @accountDeletionSelfService.setter
+    def accountDeletionSelfService(self, value):
+        self.doc.set_form_field(self.path, "accountDeletionSelfService", value)
+
+    @property
+    def dataExportSelfService(self) -> str:
+        return self.doc.form_field(self.path, "dataExportSelfService") or ""
+
+    @dataExportSelfService.setter
+    def dataExportSelfService(self, value):
+        self.doc.set_form_field(self.path, "dataExportSelfService", value)
+
+    @property
+    def sessionManagementSelfService(self) -> str:
+        return self.doc.form_field(self.path, "sessionManagementSelfService") or ""
+
+    @sessionManagementSelfService.setter
+    def sessionManagementSelfService(self, value):
+        self.doc.set_form_field(self.path, "sessionManagementSelfService", value)
+
+    @property
+    def apiKeyManagementSelfService(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyManagementSelfService") or ""
+
+    @apiKeyManagementSelfService.setter
+    def apiKeyManagementSelfService(self, value):
+        self.doc.set_form_field(self.path, "apiKeyManagementSelfService", value)
+
+    @property
+    def notificationPreferences(self) -> str:
+        return self.doc.form_field(self.path, "notificationPreferences") or ""
+
+    @notificationPreferences.setter
+    def notificationPreferences(self, value):
+        self.doc.set_form_field(self.path, "notificationPreferences", value)
+
+    @property
+    def delegationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "delegationEnabled") or ""
+
+    @delegationEnabled.setter
+    def delegationEnabled(self, value):
+        self.doc.set_form_field(self.path, "delegationEnabled", value)
+
+    @property
+    def delegationScope(self) -> str:
+        return self.doc.form_field(self.path, "delegationScope") or ""
+
+    @delegationScope.setter
+    def delegationScope(self, value):
+        self.doc.set_form_field(self.path, "delegationScope", value)
+
+    @property
+    def accountRecoveryProcess(self) -> str:
+        return self.doc.form_field(self.path, "accountRecoveryProcess") or ""
+
+    @accountRecoveryProcess.setter
+    def accountRecoveryProcess(self, value):
+        self.doc.set_form_field(self.path, "accountRecoveryProcess", value)
+
 class ServerCallStepEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -151946,6 +157288,240 @@ class ServerStorageRequirementsPerformanceForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class ServiceAccountCredentialPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def serviceAccountPasswordPolicy(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountPasswordPolicy") or ""
+
+    @serviceAccountPasswordPolicy.setter
+    def serviceAccountPasswordPolicy(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountPasswordPolicy", value)
+
+    @property
+    def serviceAccountRotationPeriod(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountRotationPeriod") or ""
+
+    @serviceAccountRotationPeriod.setter
+    def serviceAccountRotationPeriod(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountRotationPeriod", value)
+
+    @property
+    def apiKeyLifetime(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyLifetime") or ""
+
+    @apiKeyLifetime.setter
+    def apiKeyLifetime(self, value):
+        self.doc.set_form_field(self.path, "apiKeyLifetime", value)
+
+    @property
+    def apiKeyRotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "apiKeyRotationPolicy") or ""
+
+    @apiKeyRotationPolicy.setter
+    def apiKeyRotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "apiKeyRotationPolicy", value)
+
+    @property
+    def secretsManagementTool(self) -> str:
+        return self.doc.form_field(self.path, "secretsManagementTool") or ""
+
+    @secretsManagementTool.setter
+    def secretsManagementTool(self, value):
+        self.doc.set_form_field(self.path, "secretsManagementTool", value)
+
+    @property
+    def machineToMachineAuth(self) -> str:
+        return self.doc.form_field(self.path, "machineToMachineAuth") or ""
+
+    @machineToMachineAuth.setter
+    def machineToMachineAuth(self, value):
+        self.doc.set_form_field(self.path, "machineToMachineAuth", value)
+
+    @property
+    def serviceAccountMfaRequired(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountMfaRequired") or ""
+
+    @serviceAccountMfaRequired.setter
+    def serviceAccountMfaRequired(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountMfaRequired", value)
+
+    @property
+    def sharedCredentialProhibition(self) -> str:
+        return self.doc.form_field(self.path, "sharedCredentialProhibition") or ""
+
+    @sharedCredentialProhibition.setter
+    def sharedCredentialProhibition(self, value):
+        self.doc.set_form_field(self.path, "sharedCredentialProhibition", value)
+
+    @property
+    def credentialVaultIntegration(self) -> str:
+        return self.doc.form_field(self.path, "credentialVaultIntegration") or ""
+
+    @credentialVaultIntegration.setter
+    def credentialVaultIntegration(self, value):
+        self.doc.set_form_field(self.path, "credentialVaultIntegration", value)
+
+    @property
+    def hardcodedCredentialDetection(self) -> str:
+        return self.doc.form_field(self.path, "hardcodedCredentialDetection") or ""
+
+    @hardcodedCredentialDetection.setter
+    def hardcodedCredentialDetection(self, value):
+        self.doc.set_form_field(self.path, "hardcodedCredentialDetection", value)
+
+class ServiceAccountLifecycleContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def serviceAccountTypes(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountTypes") or ""
+
+    @serviceAccountTypes.setter
+    def serviceAccountTypes(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountTypes", value)
+
+    @property
+    def creationProcess(self) -> str:
+        return self.doc.form_field(self.path, "creationProcess") or ""
+
+    @creationProcess.setter
+    def creationProcess(self, value):
+        self.doc.set_form_field(self.path, "creationProcess", value)
+
+    @property
+    def creationApproval(self) -> str:
+        return self.doc.form_field(self.path, "creationApproval") or ""
+
+    @creationApproval.setter
+    def creationApproval(self, value):
+        self.doc.set_form_field(self.path, "creationApproval", value)
+
+    @property
+    def ownerAssignment(self) -> str:
+        return self.doc.form_field(self.path, "ownerAssignment") or ""
+
+    @ownerAssignment.setter
+    def ownerAssignment(self, value):
+        self.doc.set_form_field(self.path, "ownerAssignment", value)
+
+    @property
+    def ownerReviewFrequency(self) -> str:
+        return self.doc.form_field(self.path, "ownerReviewFrequency") or ""
+
+    @ownerReviewFrequency.setter
+    def ownerReviewFrequency(self, value):
+        self.doc.set_form_field(self.path, "ownerReviewFrequency", value)
+
+    @property
+    def credentialRotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "credentialRotationPolicy") or ""
+
+    @credentialRotationPolicy.setter
+    def credentialRotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "credentialRotationPolicy", value)
+
+    @property
+    def credentialStorageMethod(self) -> str:
+        return self.doc.form_field(self.path, "credentialStorageMethod") or ""
+
+    @credentialStorageMethod.setter
+    def credentialStorageMethod(self, value):
+        self.doc.set_form_field(self.path, "credentialStorageMethod", value)
+
+    @property
+    def scopeLimitation(self) -> str:
+        return self.doc.form_field(self.path, "scopeLimitation") or ""
+
+    @scopeLimitation.setter
+    def scopeLimitation(self, value):
+        self.doc.set_form_field(self.path, "scopeLimitation", value)
+
+    @property
+    def ipRestriction(self) -> str:
+        return self.doc.form_field(self.path, "ipRestriction") or ""
+
+    @ipRestriction.setter
+    def ipRestriction(self, value):
+        self.doc.set_form_field(self.path, "ipRestriction", value)
+
+    @property
+    def expirationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "expirationPolicy") or ""
+
+    @expirationPolicy.setter
+    def expirationPolicy(self, value):
+        self.doc.set_form_field(self.path, "expirationPolicy", value)
+
+    @property
+    def renewalProcess(self) -> str:
+        return self.doc.form_field(self.path, "renewalProcess") or ""
+
+    @renewalProcess.setter
+    def renewalProcess(self, value):
+        self.doc.set_form_field(self.path, "renewalProcess", value)
+
+    @property
+    def decommissioningProcess(self) -> str:
+        return self.doc.form_field(self.path, "decommissioningProcess") or ""
+
+    @decommissioningProcess.setter
+    def decommissioningProcess(self, value):
+        self.doc.set_form_field(self.path, "decommissioningProcess", value)
+
+    @property
+    def monitoringRequirements(self) -> str:
+        return self.doc.form_field(self.path, "monitoringRequirements") or ""
+
+    @monitoringRequirements.setter
+    def monitoringRequirements(self, value):
+        self.doc.set_form_field(self.path, "monitoringRequirements", value)
+
+    @property
+    def serviceAccountNamingConvention(self) -> str:
+        return self.doc.form_field(self.path, "serviceAccountNamingConvention") or ""
+
+    @serviceAccountNamingConvention.setter
+    def serviceAccountNamingConvention(self, value):
+        self.doc.set_form_field(self.path, "serviceAccountNamingConvention", value)
+
+    @property
+    def documentationRequirements(self) -> str:
+        return self.doc.form_field(self.path, "documentationRequirements") or ""
+
+    @documentationRequirements.setter
+    def documentationRequirements(self, value):
+        self.doc.set_form_field(self.path, "documentationRequirements", value)
+
 class ServiceLevelAgreementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -152594,6 +158170,240 @@ class ServiceMeshAndGatewayMeshForm(SomNode):
     def mtlsEnabled(self, value):
         self.doc.set_form_field(self.path, "mtlsEnabled", "" if value is None else ("true" if value else "false"))
 
+class SessionCreationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def sessionMechanism(self) -> str:
+        return self.doc.form_field(self.path, "sessionMechanism") or ""
+
+    @sessionMechanism.setter
+    def sessionMechanism(self, value):
+        self.doc.set_form_field(self.path, "sessionMechanism", value)
+
+    @property
+    def sessionIdGeneration(self) -> str:
+        return self.doc.form_field(self.path, "sessionIdGeneration") or ""
+
+    @sessionIdGeneration.setter
+    def sessionIdGeneration(self, value):
+        self.doc.set_form_field(self.path, "sessionIdGeneration", value)
+
+    @property
+    def sessionIdEntropy(self) -> str:
+        return self.doc.form_field(self.path, "sessionIdEntropy") or ""
+
+    @sessionIdEntropy.setter
+    def sessionIdEntropy(self, value):
+        self.doc.set_form_field(self.path, "sessionIdEntropy", value)
+
+    @property
+    def sessionBindingMethod(self) -> str:
+        return self.doc.form_field(self.path, "sessionBindingMethod") or ""
+
+    @sessionBindingMethod.setter
+    def sessionBindingMethod(self, value):
+        self.doc.set_form_field(self.path, "sessionBindingMethod", value)
+
+    @property
+    def httpOnlyCookies(self) -> str:
+        return self.doc.form_field(self.path, "httpOnlyCookies") or ""
+
+    @httpOnlyCookies.setter
+    def httpOnlyCookies(self, value):
+        self.doc.set_form_field(self.path, "httpOnlyCookies", value)
+
+    @property
+    def secureCookies(self) -> str:
+        return self.doc.form_field(self.path, "secureCookies") or ""
+
+    @secureCookies.setter
+    def secureCookies(self, value):
+        self.doc.set_form_field(self.path, "secureCookies", value)
+
+    @property
+    def sameSitePolicy(self) -> str:
+        return self.doc.form_field(self.path, "sameSitePolicy") or ""
+
+    @sameSitePolicy.setter
+    def sameSitePolicy(self, value):
+        self.doc.set_form_field(self.path, "sameSitePolicy", value)
+
+    @property
+    def cookieDomain(self) -> str:
+        return self.doc.form_field(self.path, "cookieDomain") or ""
+
+    @cookieDomain.setter
+    def cookieDomain(self, value):
+        self.doc.set_form_field(self.path, "cookieDomain", value)
+
+    @property
+    def deviceBinding(self) -> str:
+        return self.doc.form_field(self.path, "deviceBinding") or ""
+
+    @deviceBinding.setter
+    def deviceBinding(self, value):
+        self.doc.set_form_field(self.path, "deviceBinding", value)
+
+    @property
+    def sessionDataStorage(self) -> str:
+        return self.doc.form_field(self.path, "sessionDataStorage") or ""
+
+    @sessionDataStorage.setter
+    def sessionDataStorage(self, value):
+        self.doc.set_form_field(self.path, "sessionDataStorage", value)
+
+    @property
+    def sessionReplicationStrategy(self) -> str:
+        return self.doc.form_field(self.path, "sessionReplicationStrategy") or ""
+
+    @sessionReplicationStrategy.setter
+    def sessionReplicationStrategy(self, value):
+        self.doc.set_form_field(self.path, "sessionReplicationStrategy", value)
+
+    @property
+    def csrfProtection(self) -> str:
+        return self.doc.form_field(self.path, "csrfProtection") or ""
+
+    @csrfProtection.setter
+    def csrfProtection(self, value):
+        self.doc.set_form_field(self.path, "csrfProtection", value)
+
+    @property
+    def postLoginRedirectValidation(self) -> str:
+        return self.doc.form_field(self.path, "postLoginRedirectValidation") or ""
+
+    @postLoginRedirectValidation.setter
+    def postLoginRedirectValidation(self, value):
+        self.doc.set_form_field(self.path, "postLoginRedirectValidation", value)
+
+class SessionLifecycleMonitoringContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def sessionCreationLogging(self) -> str:
+        return self.doc.form_field(self.path, "sessionCreationLogging") or ""
+
+    @sessionCreationLogging.setter
+    def sessionCreationLogging(self, value):
+        self.doc.set_form_field(self.path, "sessionCreationLogging", value)
+
+    @property
+    def sessionDestructionLogging(self) -> str:
+        return self.doc.form_field(self.path, "sessionDestructionLogging") or ""
+
+    @sessionDestructionLogging.setter
+    def sessionDestructionLogging(self, value):
+        self.doc.set_form_field(self.path, "sessionDestructionLogging", value)
+
+    @property
+    def sessionRenewalLogging(self) -> str:
+        return self.doc.form_field(self.path, "sessionRenewalLogging") or ""
+
+    @sessionRenewalLogging.setter
+    def sessionRenewalLogging(self, value):
+        self.doc.set_form_field(self.path, "sessionRenewalLogging", value)
+
+    @property
+    def sessionEventDetails(self) -> str:
+        return self.doc.form_field(self.path, "sessionEventDetails") or ""
+
+    @sessionEventDetails.setter
+    def sessionEventDetails(self, value):
+        self.doc.set_form_field(self.path, "sessionEventDetails", value)
+
+    @property
+    def sessionIdInLogs(self) -> str:
+        return self.doc.form_field(self.path, "sessionIdInLogs") or ""
+
+    @sessionIdInLogs.setter
+    def sessionIdInLogs(self, value):
+        self.doc.set_form_field(self.path, "sessionIdInLogs", value)
+
+    @property
+    def sessionActivityTracking(self) -> str:
+        return self.doc.form_field(self.path, "sessionActivityTracking") or ""
+
+    @sessionActivityTracking.setter
+    def sessionActivityTracking(self, value):
+        self.doc.set_form_field(self.path, "sessionActivityTracking", value)
+
+    @property
+    def sessionHistoryVisibleToUser(self) -> str:
+        return self.doc.form_field(self.path, "sessionHistoryVisibleToUser") or ""
+
+    @sessionHistoryVisibleToUser.setter
+    def sessionHistoryVisibleToUser(self, value):
+        self.doc.set_form_field(self.path, "sessionHistoryVisibleToUser", value)
+
+    @property
+    def failedSessionAccessLogging(self) -> str:
+        return self.doc.form_field(self.path, "failedSessionAccessLogging") or ""
+
+    @failedSessionAccessLogging.setter
+    def failedSessionAccessLogging(self, value):
+        self.doc.set_form_field(self.path, "failedSessionAccessLogging", value)
+
+    @property
+    def sessionMetricsCollection(self) -> str:
+        return self.doc.form_field(self.path, "sessionMetricsCollection") or ""
+
+    @sessionMetricsCollection.setter
+    def sessionMetricsCollection(self, value):
+        self.doc.set_form_field(self.path, "sessionMetricsCollection", value)
+
+    @property
+    def sessionAuditRetention(self) -> str:
+        return self.doc.form_field(self.path, "sessionAuditRetention") or ""
+
+    @sessionAuditRetention.setter
+    def sessionAuditRetention(self, value):
+        self.doc.set_form_field(self.path, "sessionAuditRetention", value)
+
+    @property
+    def realTimeSessionAlerts(self) -> str:
+        return self.doc.form_field(self.path, "realTimeSessionAlerts") or ""
+
+    @realTimeSessionAlerts.setter
+    def realTimeSessionAlerts(self, value):
+        self.doc.set_form_field(self.path, "realTimeSessionAlerts", value)
+
+    @property
+    def alertTriggers(self) -> str:
+        return self.doc.form_field(self.path, "alertTriggers") or ""
+
+    @alertTriggers.setter
+    def alertTriggers(self, value):
+        self.doc.set_form_field(self.path, "alertTriggers", value)
+
 class SessionModelLifecycleForm(SomNode):
     """Generated section facade for the `lifecycle` @Form section: its own content text followed by one typed member per form field."""
 
@@ -152746,6 +158556,393 @@ class SessionModelSessionConfigurationForm(SomNode):
     @absoluteTimeout.setter
     def absoluteTimeout(self, value):
         self.doc.set_form_field(self.path, "absoluteTimeout", value)
+
+class SessionRevocationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def logoutMechanism(self) -> str:
+        return self.doc.form_field(self.path, "logoutMechanism") or ""
+
+    @logoutMechanism.setter
+    def logoutMechanism(self, value):
+        self.doc.set_form_field(self.path, "logoutMechanism", value)
+
+    @property
+    def logoutButtonPlacement(self) -> str:
+        return self.doc.form_field(self.path, "logoutButtonPlacement") or ""
+
+    @logoutButtonPlacement.setter
+    def logoutButtonPlacement(self, value):
+        self.doc.set_form_field(self.path, "logoutButtonPlacement", value)
+
+    @property
+    def logoutConfirmation(self) -> str:
+        return self.doc.form_field(self.path, "logoutConfirmation") or ""
+
+    @logoutConfirmation.setter
+    def logoutConfirmation(self, value):
+        self.doc.set_form_field(self.path, "logoutConfirmation", value)
+
+    @property
+    def postLogoutRedirect(self) -> str:
+        return self.doc.form_field(self.path, "postLogoutRedirect") or ""
+
+    @postLogoutRedirect.setter
+    def postLogoutRedirect(self, value):
+        self.doc.set_form_field(self.path, "postLogoutRedirect", value)
+
+    @property
+    def postLogoutCacheClear(self) -> str:
+        return self.doc.form_field(self.path, "postLogoutCacheClear") or ""
+
+    @postLogoutCacheClear.setter
+    def postLogoutCacheClear(self, value):
+        self.doc.set_form_field(self.path, "postLogoutCacheClear", value)
+
+    @property
+    def singleLogoutEnabled(self) -> str:
+        return self.doc.form_field(self.path, "singleLogoutEnabled") or ""
+
+    @singleLogoutEnabled.setter
+    def singleLogoutEnabled(self, value):
+        self.doc.set_form_field(self.path, "singleLogoutEnabled", value)
+
+    @property
+    def singleLogoutProtocol(self) -> str:
+        return self.doc.form_field(self.path, "singleLogoutProtocol") or ""
+
+    @singleLogoutProtocol.setter
+    def singleLogoutProtocol(self, value):
+        self.doc.set_form_field(self.path, "singleLogoutProtocol", value)
+
+    @property
+    def privilegeChangeRevocation(self) -> str:
+        return self.doc.form_field(self.path, "privilegeChangeRevocation") or ""
+
+    @privilegeChangeRevocation.setter
+    def privilegeChangeRevocation(self, value):
+        self.doc.set_form_field(self.path, "privilegeChangeRevocation", value)
+
+    @property
+    def passwordChangeRevocation(self) -> str:
+        return self.doc.form_field(self.path, "passwordChangeRevocation") or ""
+
+    @passwordChangeRevocation.setter
+    def passwordChangeRevocation(self, value):
+        self.doc.set_form_field(self.path, "passwordChangeRevocation", value)
+
+    @property
+    def compromiseRevocation(self) -> str:
+        return self.doc.form_field(self.path, "compromiseRevocation") or ""
+
+    @compromiseRevocation.setter
+    def compromiseRevocation(self, value):
+        self.doc.set_form_field(self.path, "compromiseRevocation", value)
+
+    @property
+    def adminTerminationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "adminTerminationEnabled") or ""
+
+    @adminTerminationEnabled.setter
+    def adminTerminationEnabled(self, value):
+        self.doc.set_form_field(self.path, "adminTerminationEnabled", value)
+
+    @property
+    def bulkRevocationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "bulkRevocationEnabled") or ""
+
+    @bulkRevocationEnabled.setter
+    def bulkRevocationEnabled(self, value):
+        self.doc.set_form_field(self.path, "bulkRevocationEnabled", value)
+
+    @property
+    def revocationPropagationDelay(self) -> str:
+        return self.doc.form_field(self.path, "revocationPropagationDelay") or ""
+
+    @revocationPropagationDelay.setter
+    def revocationPropagationDelay(self, value):
+        self.doc.set_form_field(self.path, "revocationPropagationDelay", value)
+
+class SessionSecurityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def sessionFixationProtection(self) -> str:
+        return self.doc.form_field(self.path, "sessionFixationProtection") or ""
+
+    @sessionFixationProtection.setter
+    def sessionFixationProtection(self, value):
+        self.doc.set_form_field(self.path, "sessionFixationProtection", value)
+
+    @property
+    def sessionIdRegenerationTriggers(self) -> str:
+        return self.doc.form_field(self.path, "sessionIdRegenerationTriggers") or ""
+
+    @sessionIdRegenerationTriggers.setter
+    def sessionIdRegenerationTriggers(self, value):
+        self.doc.set_form_field(self.path, "sessionIdRegenerationTriggers", value)
+
+    @property
+    def sessionBindingProperties(self) -> str:
+        return self.doc.form_field(self.path, "sessionBindingProperties") or ""
+
+    @sessionBindingProperties.setter
+    def sessionBindingProperties(self, value):
+        self.doc.set_form_field(self.path, "sessionBindingProperties", value)
+
+    @property
+    def bindingMismatchAction(self) -> str:
+        return self.doc.form_field(self.path, "bindingMismatchAction") or ""
+
+    @bindingMismatchAction.setter
+    def bindingMismatchAction(self, value):
+        self.doc.set_form_field(self.path, "bindingMismatchAction", value)
+
+    @property
+    def sessionAnomalyDetection(self) -> str:
+        return self.doc.form_field(self.path, "sessionAnomalyDetection") or ""
+
+    @sessionAnomalyDetection.setter
+    def sessionAnomalyDetection(self, value):
+        self.doc.set_form_field(self.path, "sessionAnomalyDetection", value)
+
+    @property
+    def anomalyDetectionSignals(self) -> str:
+        return self.doc.form_field(self.path, "anomalyDetectionSignals") or ""
+
+    @anomalyDetectionSignals.setter
+    def anomalyDetectionSignals(self, value):
+        self.doc.set_form_field(self.path, "anomalyDetectionSignals", value)
+
+    @property
+    def sessionCachePolicy(self) -> str:
+        return self.doc.form_field(self.path, "sessionCachePolicy") or ""
+
+    @sessionCachePolicy.setter
+    def sessionCachePolicy(self, value):
+        self.doc.set_form_field(self.path, "sessionCachePolicy", value)
+
+    @property
+    def clearSiteDataOnLogout(self) -> str:
+        return self.doc.form_field(self.path, "clearSiteDataOnLogout") or ""
+
+    @clearSiteDataOnLogout.setter
+    def clearSiteDataOnLogout(self, value):
+        self.doc.set_form_field(self.path, "clearSiteDataOnLogout", value)
+
+    @property
+    def sessionTransportSecurity(self) -> str:
+        return self.doc.form_field(self.path, "sessionTransportSecurity") or ""
+
+    @sessionTransportSecurity.setter
+    def sessionTransportSecurity(self, value):
+        self.doc.set_form_field(self.path, "sessionTransportSecurity", value)
+
+    @property
+    def sessionIdInUrlPrevention(self) -> str:
+        return self.doc.form_field(self.path, "sessionIdInUrlPrevention") or ""
+
+    @sessionIdInUrlPrevention.setter
+    def sessionIdInUrlPrevention(self, value):
+        self.doc.set_form_field(self.path, "sessionIdInUrlPrevention", value)
+
+    @property
+    def crossOriginSessionProtection(self) -> str:
+        return self.doc.form_field(self.path, "crossOriginSessionProtection") or ""
+
+    @crossOriginSessionProtection.setter
+    def crossOriginSessionProtection(self, value):
+        self.doc.set_form_field(self.path, "crossOriginSessionProtection", value)
+
+    @property
+    def sessionDataMinimization(self) -> str:
+        return self.doc.form_field(self.path, "sessionDataMinimization") or ""
+
+    @sessionDataMinimization.setter
+    def sessionDataMinimization(self, value):
+        self.doc.set_form_field(self.path, "sessionDataMinimization", value)
+
+class SessionTimeoutPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def idleTimeoutDefault(self) -> str:
+        return self.doc.form_field(self.path, "idleTimeoutDefault") or ""
+
+    @idleTimeoutDefault.setter
+    def idleTimeoutDefault(self, value):
+        self.doc.set_form_field(self.path, "idleTimeoutDefault", value)
+
+    @property
+    def idleTimeoutHighValue(self) -> str:
+        return self.doc.form_field(self.path, "idleTimeoutHighValue") or ""
+
+    @idleTimeoutHighValue.setter
+    def idleTimeoutHighValue(self, value):
+        self.doc.set_form_field(self.path, "idleTimeoutHighValue", value)
+
+    @property
+    def absoluteTimeout(self) -> str:
+        return self.doc.form_field(self.path, "absoluteTimeout") or ""
+
+    @absoluteTimeout.setter
+    def absoluteTimeout(self, value):
+        self.doc.set_form_field(self.path, "absoluteTimeout", value)
+
+    @property
+    def renewalTimeout(self) -> str:
+        return self.doc.form_field(self.path, "renewalTimeout") or ""
+
+    @renewalTimeout.setter
+    def renewalTimeout(self, value):
+        self.doc.set_form_field(self.path, "renewalTimeout", value)
+
+    @property
+    def idleTimeoutAal1(self) -> str:
+        return self.doc.form_field(self.path, "idleTimeoutAal1") or ""
+
+    @idleTimeoutAal1.setter
+    def idleTimeoutAal1(self, value):
+        self.doc.set_form_field(self.path, "idleTimeoutAal1", value)
+
+    @property
+    def absoluteTimeoutAal1(self) -> str:
+        return self.doc.form_field(self.path, "absoluteTimeoutAal1") or ""
+
+    @absoluteTimeoutAal1.setter
+    def absoluteTimeoutAal1(self, value):
+        self.doc.set_form_field(self.path, "absoluteTimeoutAal1", value)
+
+    @property
+    def idleTimeoutAal2(self) -> str:
+        return self.doc.form_field(self.path, "idleTimeoutAal2") or ""
+
+    @idleTimeoutAal2.setter
+    def idleTimeoutAal2(self, value):
+        self.doc.set_form_field(self.path, "idleTimeoutAal2", value)
+
+    @property
+    def absoluteTimeoutAal2(self) -> str:
+        return self.doc.form_field(self.path, "absoluteTimeoutAal2") or ""
+
+    @absoluteTimeoutAal2.setter
+    def absoluteTimeoutAal2(self, value):
+        self.doc.set_form_field(self.path, "absoluteTimeoutAal2", value)
+
+    @property
+    def idleTimeoutAal3(self) -> str:
+        return self.doc.form_field(self.path, "idleTimeoutAal3") or ""
+
+    @idleTimeoutAal3.setter
+    def idleTimeoutAal3(self, value):
+        self.doc.set_form_field(self.path, "idleTimeoutAal3", value)
+
+    @property
+    def absoluteTimeoutAal3(self) -> str:
+        return self.doc.form_field(self.path, "absoluteTimeoutAal3") or ""
+
+    @absoluteTimeoutAal3.setter
+    def absoluteTimeoutAal3(self, value):
+        self.doc.set_form_field(self.path, "absoluteTimeoutAal3", value)
+
+    @property
+    def timeoutEnforcement(self) -> str:
+        return self.doc.form_field(self.path, "timeoutEnforcement") or ""
+
+    @timeoutEnforcement.setter
+    def timeoutEnforcement(self, value):
+        self.doc.set_form_field(self.path, "timeoutEnforcement", value)
+
+    @property
+    def timeoutWarningEnabled(self) -> str:
+        return self.doc.form_field(self.path, "timeoutWarningEnabled") or ""
+
+    @timeoutWarningEnabled.setter
+    def timeoutWarningEnabled(self, value):
+        self.doc.set_form_field(self.path, "timeoutWarningEnabled", value)
+
+    @property
+    def timeoutWarningLeadTime(self) -> str:
+        return self.doc.form_field(self.path, "timeoutWarningLeadTime") or ""
+
+    @timeoutWarningLeadTime.setter
+    def timeoutWarningLeadTime(self, value):
+        self.doc.set_form_field(self.path, "timeoutWarningLeadTime", value)
+
+    @property
+    def timeoutWarningAction(self) -> str:
+        return self.doc.form_field(self.path, "timeoutWarningAction") or ""
+
+    @timeoutWarningAction.setter
+    def timeoutWarningAction(self, value):
+        self.doc.set_form_field(self.path, "timeoutWarningAction", value)
+
+    @property
+    def sessionExtensionAllowed(self) -> str:
+        return self.doc.form_field(self.path, "sessionExtensionAllowed") or ""
+
+    @sessionExtensionAllowed.setter
+    def sessionExtensionAllowed(self, value):
+        self.doc.set_form_field(self.path, "sessionExtensionAllowed", value)
+
+    @property
+    def maxExtensions(self) -> str:
+        return self.doc.form_field(self.path, "maxExtensions") or ""
+
+    @maxExtensions.setter
+    def maxExtensions(self, value):
+        self.doc.set_form_field(self.path, "maxExtensions", value)
+
+    @property
+    def gracePeriodAfterExpiry(self) -> str:
+        return self.doc.form_field(self.path, "gracePeriodAfterExpiry") or ""
+
+    @gracePeriodAfterExpiry.setter
+    def gracePeriodAfterExpiry(self, value):
+        self.doc.set_form_field(self.path, "gracePeriodAfterExpiry", value)
 
 class SharedInfrastructureEntryCapacityForm(SomNode):
     """Generated section facade for the `capacity` @Form section: its own content text followed by one typed member per form field."""
@@ -154619,6 +160816,119 @@ class SpecializedEquipmentEntryTechnicalForm(SomNode):
     @certifications.setter
     def certifications(self, value):
         self.doc.set_form_field(self.path, "certifications", value)
+
+class SsoPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ssoEnabled(self) -> str:
+        return self.doc.form_field(self.path, "ssoEnabled") or ""
+
+    @ssoEnabled.setter
+    def ssoEnabled(self, value):
+        self.doc.set_form_field(self.path, "ssoEnabled", value)
+
+    @property
+    def ssoProtocol(self) -> str:
+        return self.doc.form_field(self.path, "ssoProtocol") or ""
+
+    @ssoProtocol.setter
+    def ssoProtocol(self, value):
+        self.doc.set_form_field(self.path, "ssoProtocol", value)
+
+    @property
+    def identityProviderType(self) -> str:
+        return self.doc.form_field(self.path, "identityProviderType") or ""
+
+    @identityProviderType.setter
+    def identityProviderType(self, value):
+        self.doc.set_form_field(self.path, "identityProviderType", value)
+
+    @property
+    def identityProviderProduct(self) -> str:
+        return self.doc.form_field(self.path, "identityProviderProduct") or ""
+
+    @identityProviderProduct.setter
+    def identityProviderProduct(self, value):
+        self.doc.set_form_field(self.path, "identityProviderProduct", value)
+
+    @property
+    def federationProtocol(self) -> str:
+        return self.doc.form_field(self.path, "federationProtocol") or ""
+
+    @federationProtocol.setter
+    def federationProtocol(self, value):
+        self.doc.set_form_field(self.path, "federationProtocol", value)
+
+    @property
+    def attributeMapping(self) -> str:
+        return self.doc.form_field(self.path, "attributeMapping") or ""
+
+    @attributeMapping.setter
+    def attributeMapping(self, value):
+        self.doc.set_form_field(self.path, "attributeMapping", value)
+
+    @property
+    def justInTimeProvisioning(self) -> str:
+        return self.doc.form_field(self.path, "justInTimeProvisioning") or ""
+
+    @justInTimeProvisioning.setter
+    def justInTimeProvisioning(self, value):
+        self.doc.set_form_field(self.path, "justInTimeProvisioning", value)
+
+    @property
+    def sessionSynchronization(self) -> str:
+        return self.doc.form_field(self.path, "sessionSynchronization") or ""
+
+    @sessionSynchronization.setter
+    def sessionSynchronization(self, value):
+        self.doc.set_form_field(self.path, "sessionSynchronization", value)
+
+    @property
+    def singleLogoutEnabled(self) -> str:
+        return self.doc.form_field(self.path, "singleLogoutEnabled") or ""
+
+    @singleLogoutEnabled.setter
+    def singleLogoutEnabled(self, value):
+        self.doc.set_form_field(self.path, "singleLogoutEnabled", value)
+
+    @property
+    def ssoFallbackMethod(self) -> str:
+        return self.doc.form_field(self.path, "ssoFallbackMethod") or ""
+
+    @ssoFallbackMethod.setter
+    def ssoFallbackMethod(self, value):
+        self.doc.set_form_field(self.path, "ssoFallbackMethod", value)
+
+    @property
+    def ssoScopePolicy(self) -> str:
+        return self.doc.form_field(self.path, "ssoScopePolicy") or ""
+
+    @ssoScopePolicy.setter
+    def ssoScopePolicy(self, value):
+        self.doc.set_form_field(self.path, "ssoScopePolicy", value)
+
+    @property
+    def externalIdpTrustPolicy(self) -> str:
+        return self.doc.form_field(self.path, "externalIdpTrustPolicy") or ""
+
+    @externalIdpTrustPolicy.setter
+    def externalIdpTrustPolicy(self, value):
+        self.doc.set_form_field(self.path, "externalIdpTrustPolicy", value)
 
 class StaffingBudgetAllocationsForm(SomNode):
     """Generated section facade for the `allocations` @Form section: its own content text followed by one typed member per form field."""
@@ -159108,6 +165418,430 @@ class StakeholdersAndInterestsContentForm(SomNode):
     @otherStakeholders.setter
     def otherStakeholders(self, value):
         self.doc.set_form_field(self.path, "otherStakeholders", value)
+
+class StepUpAuthenticationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def stepUpEnabled(self) -> str:
+        return self.doc.form_field(self.path, "stepUpEnabled") or ""
+
+    @stepUpEnabled.setter
+    def stepUpEnabled(self, value):
+        self.doc.set_form_field(self.path, "stepUpEnabled", value)
+
+    @property
+    def stepUpTriggers(self) -> str:
+        return self.doc.form_field(self.path, "stepUpTriggers") or ""
+
+    @stepUpTriggers.setter
+    def stepUpTriggers(self, value):
+        self.doc.set_form_field(self.path, "stepUpTriggers", value)
+
+    @property
+    def stepUpTargetAal(self) -> str:
+        return self.doc.form_field(self.path, "stepUpTargetAal") or ""
+
+    @stepUpTargetAal.setter
+    def stepUpTargetAal(self, value):
+        self.doc.set_form_field(self.path, "stepUpTargetAal", value)
+
+    @property
+    def stepUpTimeout(self) -> str:
+        return self.doc.form_field(self.path, "stepUpTimeout") or ""
+
+    @stepUpTimeout.setter
+    def stepUpTimeout(self, value):
+        self.doc.set_form_field(self.path, "stepUpTimeout", value)
+
+    @property
+    def riskBasedAuthEnabled(self) -> str:
+        return self.doc.form_field(self.path, "riskBasedAuthEnabled") or ""
+
+    @riskBasedAuthEnabled.setter
+    def riskBasedAuthEnabled(self, value):
+        self.doc.set_form_field(self.path, "riskBasedAuthEnabled", value)
+
+    @property
+    def riskSignals(self) -> str:
+        return self.doc.form_field(self.path, "riskSignals") or ""
+
+    @riskSignals.setter
+    def riskSignals(self, value):
+        self.doc.set_form_field(self.path, "riskSignals", value)
+
+    @property
+    def riskScoringMethod(self) -> str:
+        return self.doc.form_field(self.path, "riskScoringMethod") or ""
+
+    @riskScoringMethod.setter
+    def riskScoringMethod(self, value):
+        self.doc.set_form_field(self.path, "riskScoringMethod", value)
+
+    @property
+    def lowRiskAction(self) -> str:
+        return self.doc.form_field(self.path, "lowRiskAction") or ""
+
+    @lowRiskAction.setter
+    def lowRiskAction(self, value):
+        self.doc.set_form_field(self.path, "lowRiskAction", value)
+
+    @property
+    def mediumRiskAction(self) -> str:
+        return self.doc.form_field(self.path, "mediumRiskAction") or ""
+
+    @mediumRiskAction.setter
+    def mediumRiskAction(self, value):
+        self.doc.set_form_field(self.path, "mediumRiskAction", value)
+
+    @property
+    def highRiskAction(self) -> str:
+        return self.doc.form_field(self.path, "highRiskAction") or ""
+
+    @highRiskAction.setter
+    def highRiskAction(self, value):
+        self.doc.set_form_field(self.path, "highRiskAction", value)
+
+    @property
+    def adaptiveAuthProvider(self) -> str:
+        return self.doc.form_field(self.path, "adaptiveAuthProvider") or ""
+
+    @adaptiveAuthProvider.setter
+    def adaptiveAuthProvider(self, value):
+        self.doc.set_form_field(self.path, "adaptiveAuthProvider", value)
+
+    @property
+    def continuousAuthEnabled(self) -> str:
+        return self.doc.form_field(self.path, "continuousAuthEnabled") or ""
+
+    @continuousAuthEnabled.setter
+    def continuousAuthEnabled(self, value):
+        self.doc.set_form_field(self.path, "continuousAuthEnabled", value)
+
+class StorageEncryptionPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def encryptionAtRest(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "encryptionAtRest")
+        return None if v is None else (v == "true")
+
+    @encryptionAtRest.setter
+    def encryptionAtRest(self, value):
+        self.doc.set_form_field(self.path, "encryptionAtRest", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def encryptionAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "encryptionAlgorithm") or ""
+
+    @encryptionAlgorithm.setter
+    def encryptionAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "encryptionAlgorithm", value)
+
+    @property
+    def encryptionScope(self) -> str:
+        return self.doc.form_field(self.path, "encryptionScope") or ""
+
+    @encryptionScope.setter
+    def encryptionScope(self, value):
+        self.doc.set_form_field(self.path, "encryptionScope", value)
+
+    @property
+    def serverSideEncryption(self) -> str:
+        return self.doc.form_field(self.path, "serverSideEncryption") or ""
+
+    @serverSideEncryption.setter
+    def serverSideEncryption(self, value):
+        self.doc.set_form_field(self.path, "serverSideEncryption", value)
+
+    @property
+    def clientSideEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "clientSideEncryption")
+        return None if v is None else (v == "true")
+
+    @clientSideEncryption.setter
+    def clientSideEncryption(self, value):
+        self.doc.set_form_field(self.path, "clientSideEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def clientSideEncryptionMethod(self) -> str:
+        return self.doc.form_field(self.path, "clientSideEncryptionMethod") or ""
+
+    @clientSideEncryptionMethod.setter
+    def clientSideEncryptionMethod(self, value):
+        self.doc.set_form_field(self.path, "clientSideEncryptionMethod", value)
+
+    @property
+    def fileKeyRotation(self) -> str:
+        return self.doc.form_field(self.path, "fileKeyRotation") or ""
+
+    @fileKeyRotation.setter
+    def fileKeyRotation(self, value):
+        self.doc.set_form_field(self.path, "fileKeyRotation", value)
+
+    @property
+    def perTenantKeys(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "perTenantKeys")
+        return None if v is None else (v == "true")
+
+    @perTenantKeys.setter
+    def perTenantKeys(self, value):
+        self.doc.set_form_field(self.path, "perTenantKeys", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def keyDeletionOnTenantRemoval(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "keyDeletionOnTenantRemoval")
+        return None if v is None else (v == "true")
+
+    @keyDeletionOnTenantRemoval.setter
+    def keyDeletionOnTenantRemoval(self, value):
+        self.doc.set_form_field(self.path, "keyDeletionOnTenantRemoval", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def encryptionInTransit(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "encryptionInTransit")
+        return None if v is None else (v == "true")
+
+    @encryptionInTransit.setter
+    def encryptionInTransit(self, value):
+        self.doc.set_form_field(self.path, "encryptionInTransit", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def minimumTlsVersion(self) -> str:
+        return self.doc.form_field(self.path, "minimumTlsVersion") or ""
+
+    @minimumTlsVersion.setter
+    def minimumTlsVersion(self, value):
+        self.doc.set_form_field(self.path, "minimumTlsVersion", value)
+
+    @property
+    def backupEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "backupEncryption")
+        return None if v is None else (v == "true")
+
+    @backupEncryption.setter
+    def backupEncryption(self, value):
+        self.doc.set_form_field(self.path, "backupEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class StorageLifecyclePolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def retentionPolicy(self) -> str:
+        return self.doc.form_field(self.path, "retentionPolicy") or ""
+
+    @retentionPolicy.setter
+    def retentionPolicy(self, value):
+        self.doc.set_form_field(self.path, "retentionPolicy", value)
+
+    @property
+    def defaultRetentionPeriod(self) -> str:
+        return self.doc.form_field(self.path, "defaultRetentionPeriod") or ""
+
+    @defaultRetentionPeriod.setter
+    def defaultRetentionPeriod(self, value):
+        self.doc.set_form_field(self.path, "defaultRetentionPeriod", value)
+
+    @property
+    def retentionByFileType(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "retentionByFileType")
+        return None if v is None else (v == "true")
+
+    @retentionByFileType.setter
+    def retentionByFileType(self, value):
+        self.doc.set_form_field(self.path, "retentionByFileType", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def legalHoldSupport(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "legalHoldSupport")
+        return None if v is None else (v == "true")
+
+    @legalHoldSupport.setter
+    def legalHoldSupport(self, value):
+        self.doc.set_form_field(self.path, "legalHoldSupport", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def archivingEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "archivingEnabled")
+        return None if v is None else (v == "true")
+
+    @archivingEnabled.setter
+    def archivingEnabled(self, value):
+        self.doc.set_form_field(self.path, "archivingEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def archivalStorageTier(self) -> str:
+        return self.doc.form_field(self.path, "archivalStorageTier") or ""
+
+    @archivalStorageTier.setter
+    def archivalStorageTier(self, value):
+        self.doc.set_form_field(self.path, "archivalStorageTier", value)
+
+    @property
+    def archivalTransitionDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "archivalTransitionDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @archivalTransitionDays.setter
+    def archivalTransitionDays(self, value):
+        self.doc.set_form_field(self.path, "archivalTransitionDays", "" if value is None else str(value))
+
+    @property
+    def versioningEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "versioningEnabled")
+        return None if v is None else (v == "true")
+
+    @versioningEnabled.setter
+    def versioningEnabled(self, value):
+        self.doc.set_form_field(self.path, "versioningEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def maxVersions(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxVersions")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxVersions.setter
+    def maxVersions(self, value):
+        self.doc.set_form_field(self.path, "maxVersions", "" if value is None else str(value))
+
+    @property
+    def versionRetentionDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "versionRetentionDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @versionRetentionDays.setter
+    def versionRetentionDays(self, value):
+        self.doc.set_form_field(self.path, "versionRetentionDays", "" if value is None else str(value))
+
+    @property
+    def backupSchedule(self) -> str:
+        return self.doc.form_field(self.path, "backupSchedule") or ""
+
+    @backupSchedule.setter
+    def backupSchedule(self, value):
+        self.doc.set_form_field(self.path, "backupSchedule", value)
+
+    @property
+    def backupRetentionDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "backupRetentionDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @backupRetentionDays.setter
+    def backupRetentionDays(self, value):
+        self.doc.set_form_field(self.path, "backupRetentionDays", "" if value is None else str(value))
+
+    @property
+    def crossRegionReplication(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "crossRegionReplication")
+        return None if v is None else (v == "true")
+
+    @crossRegionReplication.setter
+    def crossRegionReplication(self, value):
+        self.doc.set_form_field(self.path, "crossRegionReplication", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def secureDeletionMethod(self) -> str:
+        return self.doc.form_field(self.path, "secureDeletionMethod") or ""
+
+    @secureDeletionMethod.setter
+    def secureDeletionMethod(self, value):
+        self.doc.set_form_field(self.path, "secureDeletionMethod", value)
+
+    @property
+    def deletionConfirmation(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "deletionConfirmation")
+        return None if v is None else (v == "true")
+
+    @deletionConfirmation.setter
+    def deletionConfirmation(self, value):
+        self.doc.set_form_field(self.path, "deletionConfirmation", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def deletionAuditLogging(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "deletionAuditLogging")
+        return None if v is None else (v == "true")
+
+    @deletionAuditLogging.setter
+    def deletionAuditLogging(self, value):
+        self.doc.set_form_field(self.path, "deletionAuditLogging", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class StrategicAlignmentAlignmentDetailsForm(SomNode):
     """Generated section facade for the `alignmentDetails` @Form section: its own content text followed by one typed member per form field."""
@@ -167214,6 +173948,171 @@ class TechnologyStandardEntryScopeForm(SomNode):
     def exceptionProcess(self, value):
         self.doc.set_form_field(self.path, "exceptionProcess", value)
 
+class TenantBoundaryEnforcementPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def enforcementLayer(self) -> str:
+        return self.doc.form_field(self.path, "enforcementLayer") or ""
+
+    @enforcementLayer.setter
+    def enforcementLayer(self, value):
+        self.doc.set_form_field(self.path, "enforcementLayer", value)
+
+    @property
+    def authorizationFilterStrategy(self) -> str:
+        return self.doc.form_field(self.path, "authorizationFilterStrategy") or ""
+
+    @authorizationFilterStrategy.setter
+    def authorizationFilterStrategy(self, value):
+        self.doc.set_form_field(self.path, "authorizationFilterStrategy", value)
+
+    @property
+    def implicitTenantFilter(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "implicitTenantFilter")
+        return None if v is None else (v == "true")
+
+    @implicitTenantFilter.setter
+    def implicitTenantFilter(self, value):
+        self.doc.set_form_field(self.path, "implicitTenantFilter", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def escalationPrevention(self) -> str:
+        return self.doc.form_field(self.path, "escalationPrevention") or ""
+
+    @escalationPrevention.setter
+    def escalationPrevention(self, value):
+        self.doc.set_form_field(self.path, "escalationPrevention", value)
+
+    @property
+    def sharedServiceAuthorization(self) -> str:
+        return self.doc.form_field(self.path, "sharedServiceAuthorization") or ""
+
+    @sharedServiceAuthorization.setter
+    def sharedServiceAuthorization(self, value):
+        self.doc.set_form_field(self.path, "sharedServiceAuthorization", value)
+
+    @property
+    def tenantSwitchingPolicy(self) -> str:
+        return self.doc.form_field(self.path, "tenantSwitchingPolicy") or ""
+
+    @tenantSwitchingPolicy.setter
+    def tenantSwitchingPolicy(self, value):
+        self.doc.set_form_field(self.path, "tenantSwitchingPolicy", value)
+
+    @property
+    def multiTenantUserSupport(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "multiTenantUserSupport")
+        return None if v is None else (v == "true")
+
+    @multiTenantUserSupport.setter
+    def multiTenantUserSupport(self, value):
+        self.doc.set_form_field(self.path, "multiTenantUserSupport", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def authorizationCaching(self) -> str:
+        return self.doc.form_field(self.path, "authorizationCaching") or ""
+
+    @authorizationCaching.setter
+    def authorizationCaching(self, value):
+        self.doc.set_form_field(self.path, "authorizationCaching", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class TenantContextPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def contextResolutionMethod(self) -> str:
+        return self.doc.form_field(self.path, "contextResolutionMethod") or ""
+
+    @contextResolutionMethod.setter
+    def contextResolutionMethod(self, value):
+        self.doc.set_form_field(self.path, "contextResolutionMethod", value)
+
+    @property
+    def contextPropagation(self) -> str:
+        return self.doc.form_field(self.path, "contextPropagation") or ""
+
+    @contextPropagation.setter
+    def contextPropagation(self, value):
+        self.doc.set_form_field(self.path, "contextPropagation", value)
+
+    @property
+    def contextValidation(self) -> str:
+        return self.doc.form_field(self.path, "contextValidation") or ""
+
+    @contextValidation.setter
+    def contextValidation(self, value):
+        self.doc.set_form_field(self.path, "contextValidation", value)
+
+    @property
+    def contextImmutability(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "contextImmutability")
+        return None if v is None else (v == "true")
+
+    @contextImmutability.setter
+    def contextImmutability(self, value):
+        self.doc.set_form_field(self.path, "contextImmutability", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def crossServicePropagation(self) -> str:
+        return self.doc.form_field(self.path, "crossServicePropagation") or ""
+
+    @crossServicePropagation.setter
+    def crossServicePropagation(self, value):
+        self.doc.set_form_field(self.path, "crossServicePropagation", value)
+
+    @property
+    def missingContextBehavior(self) -> str:
+        return self.doc.form_field(self.path, "missingContextBehavior") or ""
+
+    @missingContextBehavior.setter
+    def missingContextBehavior(self, value):
+        self.doc.set_form_field(self.path, "missingContextBehavior", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class TenantCustomizationEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -167299,6 +174198,206 @@ class TenantCustomizationEntryContentForm(SomNode):
     @customizationAudit.setter
     def customizationAudit(self, value):
         self.doc.set_form_field(self.path, "customizationAudit", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
+class TenantDataIsolationPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def tenantIsolationModel(self) -> str:
+        return self.doc.form_field(self.path, "tenantIsolationModel") or ""
+
+    @tenantIsolationModel.setter
+    def tenantIsolationModel(self, value):
+        self.doc.set_form_field(self.path, "tenantIsolationModel", value)
+
+    @property
+    def tenantIdentifierColumn(self) -> str:
+        return self.doc.form_field(self.path, "tenantIdentifierColumn") or ""
+
+    @tenantIdentifierColumn.setter
+    def tenantIdentifierColumn(self, value):
+        self.doc.set_form_field(self.path, "tenantIdentifierColumn", value)
+
+    @property
+    def tenantContextInjection(self) -> str:
+        return self.doc.form_field(self.path, "tenantContextInjection") or ""
+
+    @tenantContextInjection.setter
+    def tenantContextInjection(self, value):
+        self.doc.set_form_field(self.path, "tenantContextInjection", value)
+
+    @property
+    def tenantIsolationEnforcement(self) -> str:
+        return self.doc.form_field(self.path, "tenantIsolationEnforcement") or ""
+
+    @tenantIsolationEnforcement.setter
+    def tenantIsolationEnforcement(self, value):
+        self.doc.set_form_field(self.path, "tenantIsolationEnforcement", value)
+
+    @property
+    def crossTenantQueryPrevention(self) -> str:
+        return self.doc.form_field(self.path, "crossTenantQueryPrevention") or ""
+
+    @crossTenantQueryPrevention.setter
+    def crossTenantQueryPrevention(self, value):
+        self.doc.set_form_field(self.path, "crossTenantQueryPrevention", value)
+
+    @property
+    def tenantDataBackupIsolation(self) -> str:
+        return self.doc.form_field(self.path, "tenantDataBackupIsolation") or ""
+
+    @tenantDataBackupIsolation.setter
+    def tenantDataBackupIsolation(self, value):
+        self.doc.set_form_field(self.path, "tenantDataBackupIsolation", value)
+
+    @property
+    def tenantDataDeletion(self) -> str:
+        return self.doc.form_field(self.path, "tenantDataDeletion") or ""
+
+    @tenantDataDeletion.setter
+    def tenantDataDeletion(self, value):
+        self.doc.set_form_field(self.path, "tenantDataDeletion", value)
+
+    @property
+    def tenantDataExport(self) -> str:
+        return self.doc.form_field(self.path, "tenantDataExport") or ""
+
+    @tenantDataExport.setter
+    def tenantDataExport(self, value):
+        self.doc.set_form_field(self.path, "tenantDataExport", value)
+
+    @property
+    def tenantResourceQuotas(self) -> str:
+        return self.doc.form_field(self.path, "tenantResourceQuotas") or ""
+
+    @tenantResourceQuotas.setter
+    def tenantResourceQuotas(self, value):
+        self.doc.set_form_field(self.path, "tenantResourceQuotas", value)
+
+    @property
+    def tenantIsolationTesting(self) -> str:
+        return self.doc.form_field(self.path, "tenantIsolationTesting") or ""
+
+    @tenantIsolationTesting.setter
+    def tenantIsolationTesting(self, value):
+        self.doc.set_form_field(self.path, "tenantIsolationTesting", value)
+
+    @property
+    def sharedReferenceDataAccess(self) -> str:
+        return self.doc.form_field(self.path, "sharedReferenceDataAccess") or ""
+
+    @sharedReferenceDataAccess.setter
+    def sharedReferenceDataAccess(self, value):
+        self.doc.set_form_field(self.path, "sharedReferenceDataAccess", value)
+
+class TenantOnboardingPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def authorizationProvisioningModel(self) -> str:
+        return self.doc.form_field(self.path, "authorizationProvisioningModel") or ""
+
+    @authorizationProvisioningModel.setter
+    def authorizationProvisioningModel(self, value):
+        self.doc.set_form_field(self.path, "authorizationProvisioningModel", value)
+
+    @property
+    def defaultRoleTemplate(self) -> str:
+        return self.doc.form_field(self.path, "defaultRoleTemplate") or ""
+
+    @defaultRoleTemplate.setter
+    def defaultRoleTemplate(self, value):
+        self.doc.set_form_field(self.path, "defaultRoleTemplate", value)
+
+    @property
+    def adminRoleProvisioning(self) -> str:
+        return self.doc.form_field(self.path, "adminRoleProvisioning") or ""
+
+    @adminRoleProvisioning.setter
+    def adminRoleProvisioning(self, value):
+        self.doc.set_form_field(self.path, "adminRoleProvisioning", value)
+
+    @property
+    def initialPermissionSet(self) -> str:
+        return self.doc.form_field(self.path, "initialPermissionSet") or ""
+
+    @initialPermissionSet.setter
+    def initialPermissionSet(self, value):
+        self.doc.set_form_field(self.path, "initialPermissionSet", value)
+
+    @property
+    def offboardingStrategy(self) -> str:
+        return self.doc.form_field(self.path, "offboardingStrategy") or ""
+
+    @offboardingStrategy.setter
+    def offboardingStrategy(self, value):
+        self.doc.set_form_field(self.path, "offboardingStrategy", value)
+
+    @property
+    def resourceCleanupOnOffboarding(self) -> str:
+        return self.doc.form_field(self.path, "resourceCleanupOnOffboarding") or ""
+
+    @resourceCleanupOnOffboarding.setter
+    def resourceCleanupOnOffboarding(self, value):
+        self.doc.set_form_field(self.path, "resourceCleanupOnOffboarding", value)
+
+    @property
+    def dataRetentionDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "dataRetentionDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @dataRetentionDays.setter
+    def dataRetentionDays(self, value):
+        self.doc.set_form_field(self.path, "dataRetentionDays", "" if value is None else str(value))
+
+    @property
+    def offboardingApproval(self) -> str:
+        return self.doc.form_field(self.path, "offboardingApproval") or ""
+
+    @offboardingApproval.setter
+    def offboardingApproval(self, value):
+        self.doc.set_form_field(self.path, "offboardingApproval", value)
 
     @property
     def notes(self) -> str:
@@ -168816,6 +175915,97 @@ class ThrowawayPrototypeValueForm(SomNode):
     def futureReference(self, value):
         self.doc.set_form_field(self.path, "futureReference", value)
 
+class TlsProtocolPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def minimumTlsVersion(self) -> str:
+        return self.doc.form_field(self.path, "minimumTlsVersion") or ""
+
+    @minimumTlsVersion.setter
+    def minimumTlsVersion(self, value):
+        self.doc.set_form_field(self.path, "minimumTlsVersion", value)
+
+    @property
+    def preferredTlsVersion(self) -> str:
+        return self.doc.form_field(self.path, "preferredTlsVersion") or ""
+
+    @preferredTlsVersion.setter
+    def preferredTlsVersion(self, value):
+        self.doc.set_form_field(self.path, "preferredTlsVersion", value)
+
+    @property
+    def allowedCipherSuites(self) -> str:
+        return self.doc.form_field(self.path, "allowedCipherSuites") or ""
+
+    @allowedCipherSuites.setter
+    def allowedCipherSuites(self, value):
+        self.doc.set_form_field(self.path, "allowedCipherSuites", value)
+
+    @property
+    def preferAuthenticatedEncryption(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "preferAuthenticatedEncryption")
+        return None if v is None else (v == "true")
+
+    @preferAuthenticatedEncryption.setter
+    def preferAuthenticatedEncryption(self, value):
+        self.doc.set_form_field(self.path, "preferAuthenticatedEncryption", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dhGroups(self) -> str:
+        return self.doc.form_field(self.path, "dhGroups") or ""
+
+    @dhGroups.setter
+    def dhGroups(self, value):
+        self.doc.set_form_field(self.path, "dhGroups", value)
+
+    @property
+    def tlsCompressionDisabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "tlsCompressionDisabled")
+        return None if v is None else (v == "true")
+
+    @tlsCompressionDisabled.setter
+    def tlsCompressionDisabled(self, value):
+        self.doc.set_form_field(self.path, "tlsCompressionDisabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def sessionResumption(self) -> str:
+        return self.doc.form_field(self.path, "sessionResumption") or ""
+
+    @sessionResumption.setter
+    def sessionResumption(self, value):
+        self.doc.set_form_field(self.path, "sessionResumption", value)
+
+    @property
+    def complianceFramework(self) -> str:
+        return self.doc.form_field(self.path, "complianceFramework") or ""
+
+    @complianceFramework.setter
+    def complianceFramework(self, value):
+        self.doc.set_form_field(self.path, "complianceFramework", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class TlsRequirementsCertificateValidationForm(SomNode):
     """Generated section facade for the `certificateValidation` @Form section: its own content text followed by one typed member per form field."""
 
@@ -169034,6 +176224,151 @@ class TlsRequirementsTerminationForm(SomNode):
     @internalTls.setter
     def internalTls(self, value):
         self.doc.set_form_field(self.path, "internalTls", "" if value is None else ("true" if value else "false"))
+
+class TokenManagementPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def tokenFormat(self) -> str:
+        return self.doc.form_field(self.path, "tokenFormat") or ""
+
+    @tokenFormat.setter
+    def tokenFormat(self, value):
+        self.doc.set_form_field(self.path, "tokenFormat", value)
+
+    @property
+    def tokenSigningAlgorithm(self) -> str:
+        return self.doc.form_field(self.path, "tokenSigningAlgorithm") or ""
+
+    @tokenSigningAlgorithm.setter
+    def tokenSigningAlgorithm(self, value):
+        self.doc.set_form_field(self.path, "tokenSigningAlgorithm", value)
+
+    @property
+    def accessTokenLifetime(self) -> str:
+        return self.doc.form_field(self.path, "accessTokenLifetime") or ""
+
+    @accessTokenLifetime.setter
+    def accessTokenLifetime(self, value):
+        self.doc.set_form_field(self.path, "accessTokenLifetime", value)
+
+    @property
+    def refreshTokenEnabled(self) -> str:
+        return self.doc.form_field(self.path, "refreshTokenEnabled") or ""
+
+    @refreshTokenEnabled.setter
+    def refreshTokenEnabled(self, value):
+        self.doc.set_form_field(self.path, "refreshTokenEnabled", value)
+
+    @property
+    def refreshTokenLifetime(self) -> str:
+        return self.doc.form_field(self.path, "refreshTokenLifetime") or ""
+
+    @refreshTokenLifetime.setter
+    def refreshTokenLifetime(self, value):
+        self.doc.set_form_field(self.path, "refreshTokenLifetime", value)
+
+    @property
+    def refreshTokenRotation(self) -> str:
+        return self.doc.form_field(self.path, "refreshTokenRotation") or ""
+
+    @refreshTokenRotation.setter
+    def refreshTokenRotation(self, value):
+        self.doc.set_form_field(self.path, "refreshTokenRotation", value)
+
+    @property
+    def refreshTokenReuseDetection(self) -> str:
+        return self.doc.form_field(self.path, "refreshTokenReuseDetection") or ""
+
+    @refreshTokenReuseDetection.setter
+    def refreshTokenReuseDetection(self, value):
+        self.doc.set_form_field(self.path, "refreshTokenReuseDetection", value)
+
+    @property
+    def idTokenEnabled(self) -> str:
+        return self.doc.form_field(self.path, "idTokenEnabled") or ""
+
+    @idTokenEnabled.setter
+    def idTokenEnabled(self, value):
+        self.doc.set_form_field(self.path, "idTokenEnabled", value)
+
+    @property
+    def idTokenClaims(self) -> str:
+        return self.doc.form_field(self.path, "idTokenClaims") or ""
+
+    @idTokenClaims.setter
+    def idTokenClaims(self, value):
+        self.doc.set_form_field(self.path, "idTokenClaims", value)
+
+    @property
+    def tokenStorageClient(self) -> str:
+        return self.doc.form_field(self.path, "tokenStorageClient") or ""
+
+    @tokenStorageClient.setter
+    def tokenStorageClient(self, value):
+        self.doc.set_form_field(self.path, "tokenStorageClient", value)
+
+    @property
+    def tokenStorageServer(self) -> str:
+        return self.doc.form_field(self.path, "tokenStorageServer") or ""
+
+    @tokenStorageServer.setter
+    def tokenStorageServer(self, value):
+        self.doc.set_form_field(self.path, "tokenStorageServer", value)
+
+    @property
+    def tokenRevocationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "tokenRevocationEnabled") or ""
+
+    @tokenRevocationEnabled.setter
+    def tokenRevocationEnabled(self, value):
+        self.doc.set_form_field(self.path, "tokenRevocationEnabled", value)
+
+    @property
+    def tokenRevocationPropagation(self) -> str:
+        return self.doc.form_field(self.path, "tokenRevocationPropagation") or ""
+
+    @tokenRevocationPropagation.setter
+    def tokenRevocationPropagation(self, value):
+        self.doc.set_form_field(self.path, "tokenRevocationPropagation", value)
+
+    @property
+    def tokenIntrospectionEnabled(self) -> str:
+        return self.doc.form_field(self.path, "tokenIntrospectionEnabled") or ""
+
+    @tokenIntrospectionEnabled.setter
+    def tokenIntrospectionEnabled(self, value):
+        self.doc.set_form_field(self.path, "tokenIntrospectionEnabled", value)
+
+    @property
+    def audienceRestriction(self) -> str:
+        return self.doc.form_field(self.path, "audienceRestriction") or ""
+
+    @audienceRestriction.setter
+    def audienceRestriction(self, value):
+        self.doc.set_form_field(self.path, "audienceRestriction", value)
+
+    @property
+    def scopePolicy(self) -> str:
+        return self.doc.form_field(self.path, "scopePolicy") or ""
+
+    @scopePolicy.setter
+    def scopePolicy(self, value):
+        self.doc.set_form_field(self.path, "scopePolicy", value)
 
 class ToolEntryAccessForm(SomNode):
     """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
@@ -173625,6 +180960,107 @@ class TranslationVendorEntryContentForm(SomNode):
     def contactInfo(self, value):
         self.doc.set_form_field(self.path, "contactInfo", value)
 
+class TransportSecurityPolicyContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def hstsEnabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "hstsEnabled")
+        return None if v is None else (v == "true")
+
+    @hstsEnabled.setter
+    def hstsEnabled(self, value):
+        self.doc.set_form_field(self.path, "hstsEnabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def hstsMaxAgeDays(self) -> "int | None":
+        v = self.doc.form_field(self.path, "hstsMaxAgeDays")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @hstsMaxAgeDays.setter
+    def hstsMaxAgeDays(self, value):
+        self.doc.set_form_field(self.path, "hstsMaxAgeDays", "" if value is None else str(value))
+
+    @property
+    def hstsIncludeSubdomains(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "hstsIncludeSubdomains")
+        return None if v is None else (v == "true")
+
+    @hstsIncludeSubdomains.setter
+    def hstsIncludeSubdomains(self, value):
+        self.doc.set_form_field(self.path, "hstsIncludeSubdomains", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def hstsPreload(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "hstsPreload")
+        return None if v is None else (v == "true")
+
+    @hstsPreload.setter
+    def hstsPreload(self, value):
+        self.doc.set_form_field(self.path, "hstsPreload", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def httpToHttpsRedirect(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "httpToHttpsRedirect")
+        return None if v is None else (v == "true")
+
+    @httpToHttpsRedirect.setter
+    def httpToHttpsRedirect(self, value):
+        self.doc.set_form_field(self.path, "httpToHttpsRedirect", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def secureCookieFlag(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "secureCookieFlag")
+        return None if v is None else (v == "true")
+
+    @secureCookieFlag.setter
+    def secureCookieFlag(self, value):
+        self.doc.set_form_field(self.path, "secureCookieFlag", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def preventMixedContent(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "preventMixedContent")
+        return None if v is None else (v == "true")
+
+    @preventMixedContent.setter
+    def preventMixedContent(self, value):
+        self.doc.set_form_field(self.path, "preventMixedContent", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def sensitiveDataCaching(self) -> str:
+        return self.doc.form_field(self.path, "sensitiveDataCaching") or ""
+
+    @sensitiveDataCaching.setter
+    def sensitiveDataCaching(self, value):
+        self.doc.set_form_field(self.path, "sensitiveDataCaching", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
+
 class TroubleshootingCapabilitiesAccessForm(SomNode):
     """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
 
@@ -176387,6 +183823,111 @@ class UserAccessibilityNeedsAccessibilityFormForm(SomNode):
     def additionalStandards(self, value):
         self.doc.set_form_field(self.path, "additionalStandards", value)
 
+class UserAccountStatesDefinitionContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def stateModel(self) -> str:
+        return self.doc.form_field(self.path, "stateModel") or ""
+
+    @stateModel.setter
+    def stateModel(self, value):
+        self.doc.set_form_field(self.path, "stateModel", value)
+
+    @property
+    def initialState(self) -> str:
+        return self.doc.form_field(self.path, "initialState") or ""
+
+    @initialState.setter
+    def initialState(self, value):
+        self.doc.set_form_field(self.path, "initialState", value)
+
+    @property
+    def activeState(self) -> str:
+        return self.doc.form_field(self.path, "activeState") or ""
+
+    @activeState.setter
+    def activeState(self, value):
+        self.doc.set_form_field(self.path, "activeState", value)
+
+    @property
+    def suspendedState(self) -> str:
+        return self.doc.form_field(self.path, "suspendedState") or ""
+
+    @suspendedState.setter
+    def suspendedState(self, value):
+        self.doc.set_form_field(self.path, "suspendedState", value)
+
+    @property
+    def lockedState(self) -> str:
+        return self.doc.form_field(self.path, "lockedState") or ""
+
+    @lockedState.setter
+    def lockedState(self, value):
+        self.doc.set_form_field(self.path, "lockedState", value)
+
+    @property
+    def deactivatedState(self) -> str:
+        return self.doc.form_field(self.path, "deactivatedState") or ""
+
+    @deactivatedState.setter
+    def deactivatedState(self, value):
+        self.doc.set_form_field(self.path, "deactivatedState", value)
+
+    @property
+    def archivedState(self) -> str:
+        return self.doc.form_field(self.path, "archivedState") or ""
+
+    @archivedState.setter
+    def archivedState(self, value):
+        self.doc.set_form_field(self.path, "archivedState", value)
+
+    @property
+    def deletedState(self) -> str:
+        return self.doc.form_field(self.path, "deletedState") or ""
+
+    @deletedState.setter
+    def deletedState(self, value):
+        self.doc.set_form_field(self.path, "deletedState", value)
+
+    @property
+    def customStates(self) -> str:
+        return self.doc.form_field(self.path, "customStates") or ""
+
+    @customStates.setter
+    def customStates(self, value):
+        self.doc.set_form_field(self.path, "customStates", value)
+
+    @property
+    def stateVisibility(self) -> str:
+        return self.doc.form_field(self.path, "stateVisibility") or ""
+
+    @stateVisibility.setter
+    def stateVisibility(self, value):
+        self.doc.set_form_field(self.path, "stateVisibility", value)
+
+    @property
+    def stateTransitionDiagramRef(self) -> str:
+        return self.doc.form_field(self.path, "stateTransitionDiagramRef") or ""
+
+    @stateTransitionDiagramRef.setter
+    def stateTransitionDiagramRef(self, value):
+        self.doc.set_form_field(self.path, "stateTransitionDiagramRef", value)
+
 class UserAssistanceDeliveryForm(SomNode):
     """Generated section facade for the `delivery` @Form section: its own content text followed by one typed member per form field."""
 
@@ -177287,6 +184828,105 @@ class UserGrowthProjectionsThresholdsForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class UserInteractionModelSummaryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def primaryAccessChannel(self) -> str:
+        return self.doc.form_field(self.path, "primaryAccessChannel") or ""
+
+    @primaryAccessChannel.setter
+    def primaryAccessChannel(self, value):
+        self.doc.set_form_field(self.path, "primaryAccessChannel", value)
+
+    @property
+    def channelCount(self) -> "int | None":
+        v = self.doc.form_field(self.path, "channelCount")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @channelCount.setter
+    def channelCount(self, value):
+        self.doc.set_form_field(self.path, "channelCount", "" if value is None else str(value))
+
+    @property
+    def interactionPatternCount(self) -> "int | None":
+        v = self.doc.form_field(self.path, "interactionPatternCount")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @interactionPatternCount.setter
+    def interactionPatternCount(self, value):
+        self.doc.set_form_field(self.path, "interactionPatternCount", "" if value is None else str(value))
+
+    @property
+    def accessLevelCount(self) -> "int | None":
+        v = self.doc.form_field(self.path, "accessLevelCount")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @accessLevelCount.setter
+    def accessLevelCount(self, value):
+        self.doc.set_form_field(self.path, "accessLevelCount", "" if value is None else str(value))
+
+    @property
+    def multiChannelSupport(self) -> str:
+        return self.doc.form_field(self.path, "multiChannelSupport") or ""
+
+    @multiChannelSupport.setter
+    def multiChannelSupport(self, value):
+        self.doc.set_form_field(self.path, "multiChannelSupport", value)
+
+    @property
+    def offlineCapability(self) -> str:
+        return self.doc.form_field(self.path, "offlineCapability") or ""
+
+    @offlineCapability.setter
+    def offlineCapability(self, value):
+        self.doc.set_form_field(self.path, "offlineCapability", value)
+
+    @property
+    def sessionManagement(self) -> str:
+        return self.doc.form_field(self.path, "sessionManagement") or ""
+
+    @sessionManagement.setter
+    def sessionManagement(self, value):
+        self.doc.set_form_field(self.path, "sessionManagement", value)
+
+    @property
+    def notificationChannels(self) -> str:
+        return self.doc.form_field(self.path, "notificationChannels") or ""
+
+    @notificationChannels.setter
+    def notificationChannels(self, value):
+        self.doc.set_form_field(self.path, "notificationChannels", value)
+
 class UserLifecycleTransitionEntryApprovalForm(SomNode):
     """Generated section facade for the `approval` @Form section: its own content text followed by one typed member per form field."""
 
@@ -177458,6 +185098,160 @@ class UserLifecycleTransitionEntryEffectsForm(SomNode):
     @notificationChannels.setter
     def notificationChannels(self, value):
         self.doc.set_form_field(self.path, "notificationChannels", value)
+
+class UserLifecycleTransitionsContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def transitionModel(self) -> str:
+        return self.doc.form_field(self.path, "transitionModel") or ""
+
+    @transitionModel.setter
+    def transitionModel(self, value):
+        self.doc.set_form_field(self.path, "transitionModel", value)
+
+    @property
+    def approvalPolicyDefault(self) -> str:
+        return self.doc.form_field(self.path, "approvalPolicyDefault") or ""
+
+    @approvalPolicyDefault.setter
+    def approvalPolicyDefault(self, value):
+        self.doc.set_form_field(self.path, "approvalPolicyDefault", value)
+
+    @property
+    def escalationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "escalationPolicy") or ""
+
+    @escalationPolicy.setter
+    def escalationPolicy(self, value):
+        self.doc.set_form_field(self.path, "escalationPolicy", value)
+
+    @property
+    def escalationTimeframe(self) -> str:
+        return self.doc.form_field(self.path, "escalationTimeframe") or ""
+
+    @escalationTimeframe.setter
+    def escalationTimeframe(self, value):
+        self.doc.set_form_field(self.path, "escalationTimeframe", value)
+
+    @property
+    def auditTrailRequired(self) -> str:
+        return self.doc.form_field(self.path, "auditTrailRequired") or ""
+
+    @auditTrailRequired.setter
+    def auditTrailRequired(self, value):
+        self.doc.set_form_field(self.path, "auditTrailRequired", value)
+
+    @property
+    def notificationOnTransition(self) -> str:
+        return self.doc.form_field(self.path, "notificationOnTransition") or ""
+
+    @notificationOnTransition.setter
+    def notificationOnTransition(self, value):
+        self.doc.set_form_field(self.path, "notificationOnTransition", value)
+
+    @property
+    def bulkTransitionSupport(self) -> str:
+        return self.doc.form_field(self.path, "bulkTransitionSupport") or ""
+
+    @bulkTransitionSupport.setter
+    def bulkTransitionSupport(self, value):
+        self.doc.set_form_field(self.path, "bulkTransitionSupport", value)
+
+    @property
+    def automatedTransitions(self) -> str:
+        return self.doc.form_field(self.path, "automatedTransitions") or ""
+
+    @automatedTransitions.setter
+    def automatedTransitions(self, value):
+        self.doc.set_form_field(self.path, "automatedTransitions", value)
+
+    @property
+    def transitionUndoPolicy(self) -> str:
+        return self.doc.form_field(self.path, "transitionUndoPolicy") or ""
+
+    @transitionUndoPolicy.setter
+    def transitionUndoPolicy(self, value):
+        self.doc.set_form_field(self.path, "transitionUndoPolicy", value)
+
+class UserNotificationPreferencesContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def globalOptOut(self) -> str:
+        return self.doc.form_field(self.path, "globalOptOut") or ""
+
+    @globalOptOut.setter
+    def globalOptOut(self, value):
+        self.doc.set_form_field(self.path, "globalOptOut", value)
+
+    @property
+    def perTypeControl(self) -> str:
+        return self.doc.form_field(self.path, "perTypeControl") or ""
+
+    @perTypeControl.setter
+    def perTypeControl(self, value):
+        self.doc.set_form_field(self.path, "perTypeControl", value)
+
+    @property
+    def channelPreferences(self) -> str:
+        return self.doc.form_field(self.path, "channelPreferences") or ""
+
+    @channelPreferences.setter
+    def channelPreferences(self, value):
+        self.doc.set_form_field(self.path, "channelPreferences", value)
+
+    @property
+    def frequencyControl(self) -> str:
+        return self.doc.form_field(self.path, "frequencyControl") or ""
+
+    @frequencyControl.setter
+    def frequencyControl(self, value):
+        self.doc.set_form_field(self.path, "frequencyControl", value)
+
+    @property
+    def quietHours(self) -> str:
+        return self.doc.form_field(self.path, "quietHours") or ""
+
+    @quietHours.setter
+    def quietHours(self, value):
+        self.doc.set_form_field(self.path, "quietHours", value)
+
+    @property
+    def digestOption(self) -> str:
+        return self.doc.form_field(self.path, "digestOption") or ""
+
+    @digestOption.setter
+    def digestOption(self, value):
+        self.doc.set_form_field(self.path, "digestOption", value)
 
 class UserPersonaDetailsBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""
@@ -177847,6 +185641,159 @@ class UserProvisioningToolsRoleManagementForm(SomNode):
     @accessReviewProcess.setter
     def accessReviewProcess(self, value):
         self.doc.set_form_field(self.path, "accessReviewProcess", value)
+
+class UserRegistrationProcessContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def registrationMethods(self) -> str:
+        return self.doc.form_field(self.path, "registrationMethods") or ""
+
+    @registrationMethods.setter
+    def registrationMethods(self, value):
+        self.doc.set_form_field(self.path, "registrationMethods", value)
+
+    @property
+    def selfRegistrationEnabled(self) -> str:
+        return self.doc.form_field(self.path, "selfRegistrationEnabled") or ""
+
+    @selfRegistrationEnabled.setter
+    def selfRegistrationEnabled(self, value):
+        self.doc.set_form_field(self.path, "selfRegistrationEnabled", value)
+
+    @property
+    def identityProofingLevel(self) -> str:
+        return self.doc.form_field(self.path, "identityProofingLevel") or ""
+
+    @identityProofingLevel.setter
+    def identityProofingLevel(self, value):
+        self.doc.set_form_field(self.path, "identityProofingLevel", value)
+
+    @property
+    def emailVerificationRequired(self) -> str:
+        return self.doc.form_field(self.path, "emailVerificationRequired") or ""
+
+    @emailVerificationRequired.setter
+    def emailVerificationRequired(self, value):
+        self.doc.set_form_field(self.path, "emailVerificationRequired", value)
+
+    @property
+    def phoneVerificationRequired(self) -> str:
+        return self.doc.form_field(self.path, "phoneVerificationRequired") or ""
+
+    @phoneVerificationRequired.setter
+    def phoneVerificationRequired(self, value):
+        self.doc.set_form_field(self.path, "phoneVerificationRequired", value)
+
+    @property
+    def captchaRequired(self) -> str:
+        return self.doc.form_field(self.path, "captchaRequired") or ""
+
+    @captchaRequired.setter
+    def captchaRequired(self, value):
+        self.doc.set_form_field(self.path, "captchaRequired", value)
+
+    @property
+    def invitationExpiryPeriod(self) -> str:
+        return self.doc.form_field(self.path, "invitationExpiryPeriod") or ""
+
+    @invitationExpiryPeriod.setter
+    def invitationExpiryPeriod(self, value):
+        self.doc.set_form_field(self.path, "invitationExpiryPeriod", value)
+
+    @property
+    def approvalRequired(self) -> str:
+        return self.doc.form_field(self.path, "approvalRequired") or ""
+
+    @approvalRequired.setter
+    def approvalRequired(self, value):
+        self.doc.set_form_field(self.path, "approvalRequired", value)
+
+    @property
+    def approvalWorkflow(self) -> str:
+        return self.doc.form_field(self.path, "approvalWorkflow") or ""
+
+    @approvalWorkflow.setter
+    def approvalWorkflow(self, value):
+        self.doc.set_form_field(self.path, "approvalWorkflow", value)
+
+    @property
+    def approverRole(self) -> str:
+        return self.doc.form_field(self.path, "approverRole") or ""
+
+    @approverRole.setter
+    def approverRole(self, value):
+        self.doc.set_form_field(self.path, "approverRole", value)
+
+    @property
+    def requiredFieldsAtRegistration(self) -> str:
+        return self.doc.form_field(self.path, "requiredFieldsAtRegistration") or ""
+
+    @requiredFieldsAtRegistration.setter
+    def requiredFieldsAtRegistration(self, value):
+        self.doc.set_form_field(self.path, "requiredFieldsAtRegistration", value)
+
+    @property
+    def optionalFieldsAtRegistration(self) -> str:
+        return self.doc.form_field(self.path, "optionalFieldsAtRegistration") or ""
+
+    @optionalFieldsAtRegistration.setter
+    def optionalFieldsAtRegistration(self, value):
+        self.doc.set_form_field(self.path, "optionalFieldsAtRegistration", value)
+
+    @property
+    def termsAcceptanceRequired(self) -> str:
+        return self.doc.form_field(self.path, "termsAcceptanceRequired") or ""
+
+    @termsAcceptanceRequired.setter
+    def termsAcceptanceRequired(self, value):
+        self.doc.set_form_field(self.path, "termsAcceptanceRequired", value)
+
+    @property
+    def duplicateDetection(self) -> str:
+        return self.doc.form_field(self.path, "duplicateDetection") or ""
+
+    @duplicateDetection.setter
+    def duplicateDetection(self, value):
+        self.doc.set_form_field(self.path, "duplicateDetection", value)
+
+    @property
+    def welcomeNotification(self) -> str:
+        return self.doc.form_field(self.path, "welcomeNotification") or ""
+
+    @welcomeNotification.setter
+    def welcomeNotification(self, value):
+        self.doc.set_form_field(self.path, "welcomeNotification", value)
+
+    @property
+    def initialRoleAssignment(self) -> str:
+        return self.doc.form_field(self.path, "initialRoleAssignment") or ""
+
+    @initialRoleAssignment.setter
+    def initialRoleAssignment(self, value):
+        self.doc.set_form_field(self.path, "initialRoleAssignment", value)
+
+    @property
+    def registrationRateLimiting(self) -> str:
+        return self.doc.form_field(self.path, "registrationRateLimiting") or ""
+
+    @registrationRateLimiting.setter
+    def registrationRateLimiting(self, value):
+        self.doc.set_form_field(self.path, "registrationRateLimiting", value)
 
 class UserSettingEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

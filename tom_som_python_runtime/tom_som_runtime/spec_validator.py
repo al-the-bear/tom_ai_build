@@ -78,7 +78,17 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
         # A form node is the one non-leaf that legitimately carries content: it
         # is the form's preamble, the free text before the first field line
         # (SOM §11.4 rule 7), in the same slot a plain section's body uses.
-        if not res.is_value_leaf and res.kind != SpecNodeKind.FORM:
+        # A wrapper section (TextSection, ...) is the other: its class is not
+        # exported, so it resolves to no class and its text is stored at its
+        # own path, the way the YAML codec writes it.
+        is_wrapper_section = (
+            res.kind == SpecNodeKind.SECTION and res.target_class is None
+        )
+        if (
+            not res.is_value_leaf
+            and res.kind != SpecNodeKind.FORM
+            and not is_wrapper_section
+        ):
             errors.append(
                 SpecValidationError(
                     path=path,

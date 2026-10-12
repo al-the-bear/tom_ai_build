@@ -225,7 +225,8 @@ export 'src/spec_ops_build.dart'
         specOpsOutputFor,
         SpecOpsResult,
         generateSpecOpsRegistry;
-export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
+export 'src/docspecs_schema_generator.dart'
+    show DocSpecsSchemaGenerator, proseContentTypes;
 // The both-directions gate between tom_specs_core's annotation catalogue and
 // the DocSpecs schema surface: an annotation cannot be declared without a
 // destination, and a declared destination must actually be emitted.

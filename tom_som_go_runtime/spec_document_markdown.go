@@ -358,9 +358,12 @@ func (c *SpecDocumentMarkdown) headingIdOf(node *SomMetaNode) string {
 	if node.SectionID != "" {
 		return node.SectionID
 	}
+	// The class id is the node's ClassSectionID, as the YAML key uses — never
+	// ClassNamed(node.ClassName): a wrapper section (TextSection, ...) carries
+	// its OWNER's class name, and that lookup returned the owner's id.
 	if node.Kind == SomMetaKindSection || node.Kind == SomMetaKindComplex {
-		if cls := c.Model.ClassNamed(node.ClassName); cls != nil && cls.SectionID != "" {
-			return cls.SectionID
+		if node.ClassSectionID != "" {
+			return node.ClassSectionID
 		}
 	}
 	return node.Segment()
@@ -398,8 +401,9 @@ func (c *SpecDocumentMarkdown) isTransparentSection(n *SomMetaNode) bool {
 	if n.SectionID != "" {
 		return false
 	}
-	cls := c.Model.ClassNamed(n.ClassName)
-	return cls == nil || cls.SectionID == ""
+	// ClassSectionID, not ClassNamed(n.ClassName): see headingIdOf. A wrapper
+	// section (TextSection, ...) has neither id, so it is transparent (SOM §11.6).
+	return n.ClassSectionID == ""
 }
 
 // mdIsTransparentValue reports a value member (content/scalar/enum/form) with

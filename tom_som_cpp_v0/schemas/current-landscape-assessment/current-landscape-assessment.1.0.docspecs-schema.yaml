@@ -1229,7 +1229,6 @@ section-types:
     description: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions."
   carch-depl:
     prefix: CARCH_DEPL
-    format: description
     description: Deployment topology description.
   cpie-impr:
     prefix: CPIE_IMPR_

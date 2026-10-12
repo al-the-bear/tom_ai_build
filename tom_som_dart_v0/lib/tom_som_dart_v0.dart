@@ -1650,16 +1650,12 @@ class AccessConstraintPolicies extends SomNode {
   /// document does not yet carry.
   AccessConstraintPolicies(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccessConstraintPoliciesContentForm get content => AccessConstraintPoliciesContentForm(doc, '$path/content');
 
   /// Access Constraint Details (text).
   // (skipped: accessConstraintDetails has no target type)
@@ -1719,16 +1715,12 @@ class AccessControlModelSelection extends SomNode {
   /// document does not yet carry.
   AccessControlModelSelection(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccessControlModelSelectionContentForm get content => AccessControlModelSelectionContentForm(doc, '$path/content');
 
   /// Access Control Model Details (text).
   // (skipped: accessControlModelDetails has no target type)
@@ -2028,16 +2020,12 @@ class AccountActivationPolicy extends SomNode {
   /// document does not yet carry.
   AccountActivationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccountActivationPolicyContentForm get content => AccountActivationPolicyContentForm(doc, '$path/content');
 
   /// Activation Flow Description (text).
   // (skipped: activationFlowDescription has no target type)
@@ -2056,16 +2044,12 @@ class AccountDeactivationPolicy extends SomNode {
   /// document does not yet carry.
   AccountDeactivationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccountDeactivationPolicyContentForm get content => AccountDeactivationPolicyContentForm(doc, '$path/content');
 
   /// Deactivation Process Description (text).
   // (skipped: deactivationProcessDescription has no target type)
@@ -2083,16 +2067,12 @@ class AccountDeletionPolicy extends SomNode {
   /// document does not yet carry.
   AccountDeletionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccountDeletionPolicyContentForm get content => AccountDeletionPolicyContentForm(doc, '$path/content');
 
   /// Deletion Process Description (text).
   // (skipped: deletionProcessDescription has no target type)
@@ -2111,16 +2091,12 @@ class AccountLockoutPolicy extends SomNode {
   /// document does not yet carry.
   AccountLockoutPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccountLockoutPolicyContentForm get content => AccountLockoutPolicyContentForm(doc, '$path/content');
 
   /// Account Lockout Details (text).
   // (skipped: accountLockoutDetails has no target type)
@@ -2138,16 +2114,12 @@ class AccountModificationPolicy extends SomNode {
   /// document does not yet carry.
   AccountModificationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AccountModificationPolicyContentForm get content => AccountModificationPolicyContentForm(doc, '$path/content');
 
   /// Modification Rules Description (text).
   // (skipped: modificationRulesDescription has no target type)
@@ -2852,16 +2824,12 @@ class ApiAbuseProtection extends SomNode {
   /// document does not yet carry.
   ApiAbuseProtection(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiAbuseProtectionContentForm get content => ApiAbuseProtectionContentForm(doc, '$path/content');
 
   /// Abuse Protection Details (text).
   // (skipped: abuseProtectionDetails has no target type)
@@ -2879,16 +2847,12 @@ class ApiAuthenticationPolicy extends SomNode {
   /// document does not yet carry.
   ApiAuthenticationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiAuthenticationPolicyContentForm get content => ApiAuthenticationPolicyContentForm(doc, '$path/content');
 
   /// API Authentication Details (text).
   // (skipped: apiAuthenticationDetails has no target type)
@@ -2907,16 +2871,12 @@ class ApiAuthorizationPolicy extends SomNode {
   /// document does not yet carry.
   ApiAuthorizationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiAuthorizationPolicyContentForm get content => ApiAuthorizationPolicyContentForm(doc, '$path/content');
 
   /// API Authorization Details (text).
   // (skipped: apiAuthorizationDetails has no target type)
@@ -2963,16 +2923,12 @@ class ApiCorsSecurity extends SomNode {
   /// document does not yet carry.
   ApiCorsSecurity(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiCorsSecurityContentForm get content => ApiCorsSecurityContentForm(doc, '$path/content');
 
   /// CORS Security Details (text).
   // (skipped: corsSecurityDetails has no target type)
@@ -2990,16 +2946,12 @@ class ApiKeyManagementPolicy extends SomNode {
   /// document does not yet carry.
   ApiKeyManagementPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiKeyManagementPolicyContentForm get content => ApiKeyManagementPolicyContentForm(doc, '$path/content');
 
   /// API Key Management Details (text).
   // (skipped: apiKeyDetails has no target type)
@@ -3019,16 +2971,12 @@ class ApiRequestValidationPolicy extends SomNode {
   /// document does not yet carry.
   ApiRequestValidationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiRequestValidationPolicyContentForm get content => ApiRequestValidationPolicyContentForm(doc, '$path/content');
 
   /// Request Validation Details (text).
   // (skipped: requestValidationDetails has no target type)
@@ -3128,16 +3076,12 @@ class ApiSecurityMonitoring extends SomNode {
   /// document does not yet carry.
   ApiSecurityMonitoring(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ApiSecurityMonitoringContentForm get content => ApiSecurityMonitoringContentForm(doc, '$path/content');
 
   /// API Security Monitoring Details (text).
   // (skipped: apiSecurityMonitoringDetails has no target type)
@@ -3882,16 +3826,12 @@ class AuthenticationErrorHandling extends SomNode {
   /// document does not yet carry.
   AuthenticationErrorHandling(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  AuthenticationErrorHandlingContentForm get content => AuthenticationErrorHandlingContentForm(doc, '$path/content');
 
   /// Error Handling Details (text).
   // (skipped: errorHandlingDetails has no target type)
@@ -4545,16 +4485,12 @@ class BackupEncryptionPolicy extends SomNode {
   /// document does not yet carry.
   BackupEncryptionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  BackupEncryptionPolicyContentForm get content => BackupEncryptionPolicyContentForm(doc, '$path/content');
 
   /// Backup Encryption Details (text).
   // (skipped: backupEncryptionDetails has no target type)
@@ -4873,16 +4809,12 @@ class BiometricAuthenticationPolicy extends SomNode {
   /// document does not yet carry.
   BiometricAuthenticationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  BiometricAuthenticationPolicyContentForm get content => BiometricAuthenticationPolicyContentForm(doc, '$path/content');
 
   /// Biometric Implementation Details (text).
   // (skipped: biometricDetails has no target type)
@@ -6006,16 +5938,12 @@ class CertificateAuthenticationPolicy extends SomNode {
   /// document does not yet carry.
   CertificateAuthenticationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  CertificateAuthenticationPolicyContentForm get content => CertificateAuthenticationPolicyContentForm(doc, '$path/content');
 
   /// Certificate Authentication Details (text).
   // (skipped: certificateDetails has no target type)
@@ -6061,16 +5989,12 @@ class CertificateManagementPolicy extends SomNode {
   /// document does not yet carry.
   CertificateManagementPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  CertificateManagementPolicyContentForm get content => CertificateManagementPolicyContentForm(doc, '$path/content');
 
   /// Certificate Management Details (text).
   // (skipped: certificateManagementDetails has no target type)
@@ -6666,12 +6590,8 @@ class ChannelIntegrations extends SomNode {
   /// document does not yet carry.
   ChannelIntegrations(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// Integration requirements content.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ChannelIntegrationsContentForm get content => ChannelIntegrationsContentForm(doc, '$path/content');
 }
 
 /// CI/CD pipeline configuration.
@@ -7275,16 +7195,12 @@ class ColumnLevelSecurityPolicy extends SomNode {
   /// document does not yet carry.
   ColumnLevelSecurityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ColumnLevelSecurityPolicyContentForm get content => ColumnLevelSecurityPolicyContentForm(doc, '$path/content');
 
   /// Column-Level Security Details (text).
   // (skipped: columnLevelSecurityDetails has no target type)
@@ -8684,16 +8600,12 @@ class ConcurrentSessionPolicy extends SomNode {
   /// document does not yet carry.
   ConcurrentSessionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ConcurrentSessionPolicyContentForm get content => ConcurrentSessionPolicyContentForm(doc, '$path/content');
 
   /// Concurrent Session Details (text).
   // (skipped: concurrentSessionDetails has no target type)
@@ -8853,16 +8765,12 @@ class ContentScanningPolicy extends SomNode {
   /// document does not yet carry.
   ContentScanningPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ContentScanningPolicyContentForm get content => ContentScanningPolicyContentForm(doc, '$path/content');
 
   /// Content Scanning Details (text).
   // (skipped: contentScanningDetails has no target type)
@@ -9118,16 +9026,12 @@ class CredentialCompromiseDetectionPolicy extends SomNode {
   /// document does not yet carry.
   CredentialCompromiseDetectionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  CredentialCompromiseDetectionPolicyContentForm get content => CredentialCompromiseDetectionPolicyContentForm(doc, '$path/content');
 
   /// Compromise Detection Details (text).
   // (skipped: compromiseDetectionDetails has no target type)
@@ -9145,16 +9049,12 @@ class CredentialRecoveryPolicy extends SomNode {
   /// document does not yet carry.
   CredentialRecoveryPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  CredentialRecoveryPolicyContentForm get content => CredentialRecoveryPolicyContentForm(doc, '$path/content');
 
   /// Credential Recovery Details (text).
   // (skipped: credentialRecoveryDetails has no target type)
@@ -9305,16 +9205,12 @@ class CrossTenantAccessPolicy extends SomNode {
   /// document does not yet carry.
   CrossTenantAccessPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  CrossTenantAccessPolicyContentForm get content => CrossTenantAccessPolicyContentForm(doc, '$path/content');
 
   /// Cross-Tenant Access Policy Details (text).
   // (skipped: crossTenantAccessPolicyDetails has no target type)
@@ -11321,16 +11217,12 @@ class DataAccessAuditPolicy extends SomNode {
   /// document does not yet carry.
   DataAccessAuditPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  DataAccessAuditPolicyContentForm get content => DataAccessAuditPolicyContentForm(doc, '$path/content');
 
   /// Data Access Audit Details (text).
   // (skipped: dataAccessAuditDetails has no target type)
@@ -12252,16 +12144,12 @@ class DataMaskingPolicy extends SomNode {
   /// document does not yet carry.
   DataMaskingPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  DataMaskingPolicyContentForm get content => DataMaskingPolicyContentForm(doc, '$path/content');
 
   /// Data Masking Details (text).
   // (skipped: dataMaskingDetails has no target type)
@@ -13030,16 +12918,12 @@ class DatabaseAccessPolicy extends SomNode {
   /// document does not yet carry.
   DatabaseAccessPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  DatabaseAccessPolicyContentForm get content => DatabaseAccessPolicyContentForm(doc, '$path/content');
 
   /// Database Access Policy Details (text).
   // (skipped: databaseAccessDetails has no target type)
@@ -13085,16 +12969,12 @@ class DatabaseEncryptionPolicy extends SomNode {
   /// document does not yet carry.
   DatabaseEncryptionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  DatabaseEncryptionPolicyContentForm get content => DatabaseEncryptionPolicyContentForm(doc, '$path/content');
 
   /// Database Encryption Details (text).
   // (skipped: databaseEncryptionDetails has no target type)
@@ -15841,16 +15721,12 @@ class EncryptionAtRestPolicy extends SomNode {
   /// document does not yet carry.
   EncryptionAtRestPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  EncryptionAtRestPolicyContentForm get content => EncryptionAtRestPolicyContentForm(doc, '$path/content');
 
   /// Encryption At Rest Policy Details (text).
   // (skipped: encryptionAtRestPolicyDetails has no target type)
@@ -18253,16 +18129,12 @@ class FileAccessControlPolicy extends SomNode {
   /// document does not yet carry.
   FileAccessControlPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  FileAccessControlPolicyContentForm get content => FileAccessControlPolicyContentForm(doc, '$path/content');
 
   /// File Access Control Details (text).
   // (skipped: fileAccessControlDetails has no target type)
@@ -18364,16 +18236,12 @@ class FileDownloadSecurityPolicy extends SomNode {
   /// document does not yet carry.
   FileDownloadSecurityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  FileDownloadSecurityPolicyContentForm get content => FileDownloadSecurityPolicyContentForm(doc, '$path/content');
 
   /// Download Security Details (text).
   // (skipped: downloadSecurityDetails has no target type)
@@ -18392,16 +18260,12 @@ class FileStorageEncryptionPolicy extends SomNode {
   /// document does not yet carry.
   FileStorageEncryptionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  FileStorageEncryptionPolicyContentForm get content => FileStorageEncryptionPolicyContentForm(doc, '$path/content');
 
   /// File Storage Encryption Details (text).
   // (skipped: fileStorageEncryptionDetails has no target type)
@@ -18421,16 +18285,12 @@ class FileUploadValidationPolicy extends SomNode {
   /// document does not yet carry.
   FileUploadValidationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  FileUploadValidationPolicyContentForm get content => FileUploadValidationPolicyContentForm(doc, '$path/content');
 
   /// Upload Validation Details (text).
   // (skipped: uploadValidationDetails has no target type)
@@ -22756,16 +22616,12 @@ class LoginFlowConfiguration extends SomNode {
   /// document does not yet carry.
   LoginFlowConfiguration(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  LoginFlowConfigurationContentForm get content => LoginFlowConfigurationContentForm(doc, '$path/content');
 
   /// Login Flow Details (text).
   // (skipped: loginFlowDetails has no target type)
@@ -23568,16 +23424,12 @@ class MfaConfiguration extends SomNode {
   /// document does not yet carry.
   MfaConfiguration(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  MfaConfigurationContentForm get content => MfaConfigurationContentForm(doc, '$path/content');
 
   /// MFA Implementation Details (text).
   ///
@@ -24749,16 +24601,12 @@ class MutualTlsPolicy extends SomNode {
   /// document does not yet carry.
   MutualTlsPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  MutualTlsPolicyContentForm get content => MutualTlsPolicyContentForm(doc, '$path/content');
 
   /// Mutual TLS Policy Details (text).
   // (skipped: mutualTlsPolicyDetails has no target type)
@@ -26815,16 +26663,12 @@ class PasswordLifecyclePolicy extends SomNode {
   /// document does not yet carry.
   PasswordLifecyclePolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PasswordLifecyclePolicyContentForm get content => PasswordLifecyclePolicyContentForm(doc, '$path/content');
 
   /// Password Lifecycle Details (text).
   // (skipped: passwordLifecycleDetails has no target type)
@@ -26843,16 +26687,12 @@ class PasswordRequirementsPolicy extends SomNode {
   /// document does not yet carry.
   PasswordRequirementsPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PasswordRequirementsPolicyContentForm get content => PasswordRequirementsPolicyContentForm(doc, '$path/content');
 
   /// Password Requirements Details (text).
   // (skipped: passwordRequirementsDetails has no target type)
@@ -26870,16 +26710,12 @@ class PasswordStoragePolicy extends SomNode {
   /// document does not yet carry.
   PasswordStoragePolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PasswordStoragePolicyContentForm get content => PasswordStoragePolicyContentForm(doc, '$path/content');
 
   /// Password Storage Details (text).
   // (skipped: passwordStorageDetails has no target type)
@@ -27026,16 +26862,12 @@ class PermissionCompositionStrategy extends SomNode {
   /// document does not yet carry.
   PermissionCompositionStrategy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PermissionCompositionStrategyContentForm get content => PermissionCompositionStrategyContentForm(doc, '$path/content');
 
   /// Permission Composition Details (text).
   // (skipped: permissionCompositionDetails has no target type)
@@ -27053,16 +26885,12 @@ class PermissionEvaluationBehavior extends SomNode {
   /// document does not yet carry.
   PermissionEvaluationBehavior(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PermissionEvaluationBehaviorContentForm get content => PermissionEvaluationBehaviorContentForm(doc, '$path/content');
 
   /// Permission Evaluation Details (text).
   // (skipped: permissionEvaluationDetails has no target type)
@@ -27080,16 +26908,12 @@ class PermissionGranularityPolicy extends SomNode {
   /// document does not yet carry.
   PermissionGranularityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  PermissionGranularityPolicyContentForm get content => PermissionGranularityPolicyContentForm(doc, '$path/content');
 
   /// Permission Granularity Details (text).
   // (skipped: permissionGranularityDetails has no target type)
@@ -30092,16 +29916,12 @@ class RedirectHandlingPolicy extends SomNode {
   /// document does not yet carry.
   RedirectHandlingPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  RedirectHandlingPolicyContentForm get content => RedirectHandlingPolicyContentForm(doc, '$path/content');
 
   /// Redirect Handling Details (text).
   // (skipped: redirectDetails has no target type)
@@ -30466,16 +30286,12 @@ class RememberMePolicy extends SomNode {
   /// document does not yet carry.
   RememberMePolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  RememberMePolicyContentForm get content => RememberMePolicyContentForm(doc, '$path/content');
 
   /// Remember-Me Policy Details (text).
   // (skipped: rememberMeDetails has no target type)
@@ -32503,16 +32319,12 @@ class RoleCertificationPolicy extends SomNode {
   /// document does not yet carry.
   RoleCertificationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  RoleCertificationPolicyContentForm get content => RoleCertificationPolicyContentForm(doc, '$path/content');
 
   /// Role Certification Details (text).
   // (skipped: roleCertificationDetails has no target type)
@@ -32675,16 +32487,12 @@ class RoleHierarchyPolicy extends SomNode {
   /// document does not yet carry.
   RoleHierarchyPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  RoleHierarchyPolicyContentForm get content => RoleHierarchyPolicyContentForm(doc, '$path/content');
 
   /// Role Hierarchy Policy Details (text).
   // (skipped: roleHierarchyPolicyDetails has no target type)
@@ -32908,16 +32716,12 @@ class RowLevelSecurityPolicy extends SomNode {
   /// document does not yet carry.
   RowLevelSecurityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  RowLevelSecurityPolicyContentForm get content => RowLevelSecurityPolicyContentForm(doc, '$path/content');
 
   /// Row-Level Security Details (text).
   // (skipped: rowLevelSecurityDetails has no target type)
@@ -35266,16 +35070,12 @@ class SelfServiceAccountManagement extends SomNode {
   /// document does not yet carry.
   SelfServiceAccountManagement(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SelfServiceAccountManagementContentForm get content => SelfServiceAccountManagementContentForm(doc, '$path/content');
 
   /// Self-Service Capabilities Description (text).
   // (skipped: selfServiceDescription has no target type)
@@ -35777,16 +35577,12 @@ class ServiceAccountCredentialPolicy extends SomNode {
   /// document does not yet carry.
   ServiceAccountCredentialPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ServiceAccountCredentialPolicyContentForm get content => ServiceAccountCredentialPolicyContentForm(doc, '$path/content');
 
   /// Service Account Credential Details (text).
   // (skipped: serviceAccountDetails has no target type)
@@ -35804,16 +35600,12 @@ class ServiceAccountLifecycle extends SomNode {
   /// document does not yet carry.
   ServiceAccountLifecycle(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  ServiceAccountLifecycleContentForm get content => ServiceAccountLifecycleContentForm(doc, '$path/content');
 
   /// Service Account Management Description (text).
   // (skipped: serviceAccountDescription has no target type)
@@ -35929,16 +35721,12 @@ class SessionCreationPolicy extends SomNode {
   /// document does not yet carry.
   SessionCreationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SessionCreationPolicyContentForm get content => SessionCreationPolicyContentForm(doc, '$path/content');
 
   /// Session Creation Details (text).
   // (skipped: sessionCreationDetails has no target type)
@@ -35957,16 +35745,12 @@ class SessionLifecycleMonitoring extends SomNode {
   /// document does not yet carry.
   SessionLifecycleMonitoring(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SessionLifecycleMonitoringContentForm get content => SessionLifecycleMonitoringContentForm(doc, '$path/content');
 
   /// Session Lifecycle Monitoring Details (text).
   // (skipped: sessionLifecycleDetails has no target type)
@@ -36097,16 +35881,12 @@ class SessionRevocationPolicy extends SomNode {
   /// document does not yet carry.
   SessionRevocationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SessionRevocationPolicyContentForm get content => SessionRevocationPolicyContentForm(doc, '$path/content');
 
   /// Session Revocation Details (text).
   // (skipped: sessionRevocationDetails has no target type)
@@ -36125,16 +35905,12 @@ class SessionSecurityPolicy extends SomNode {
   /// document does not yet carry.
   SessionSecurityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SessionSecurityPolicyContentForm get content => SessionSecurityPolicyContentForm(doc, '$path/content');
 
   /// Session Security Details (text).
   // (skipped: sessionSecurityDetails has no target type)
@@ -36154,16 +35930,12 @@ class SessionTimeoutPolicy extends SomNode {
   /// document does not yet carry.
   SessionTimeoutPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SessionTimeoutPolicyContentForm get content => SessionTimeoutPolicyContentForm(doc, '$path/content');
 
   /// Session Timeout Details (text).
   // (skipped: sessionTimeoutDetails has no target type)
@@ -36660,16 +36432,12 @@ class SsoPolicy extends SomNode {
   /// document does not yet carry.
   SsoPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  SsoPolicyContentForm get content => SsoPolicyContentForm(doc, '$path/content');
 
   /// SSO Implementation Details (text).
   // (skipped: ssoDetails has no target type)
@@ -37687,16 +37455,12 @@ class StepUpAuthenticationPolicy extends SomNode {
   /// document does not yet carry.
   StepUpAuthenticationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  StepUpAuthenticationPolicyContentForm get content => StepUpAuthenticationPolicyContentForm(doc, '$path/content');
 
   /// Step-Up Authentication Details (text).
   ///
@@ -37717,16 +37481,12 @@ class StorageEncryptionPolicy extends SomNode {
   /// document does not yet carry.
   StorageEncryptionPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  StorageEncryptionPolicyContentForm get content => StorageEncryptionPolicyContentForm(doc, '$path/content');
 
   /// Storage Encryption Details (text).
   // (skipped: storageEncryptionDetails has no target type)
@@ -37745,16 +37505,12 @@ class StorageLifecyclePolicy extends SomNode {
   /// document does not yet carry.
   StorageLifecyclePolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  StorageLifecyclePolicyContentForm get content => StorageLifecyclePolicyContentForm(doc, '$path/content');
 
   /// Storage Lifecycle Details (text).
   // (skipped: storageLifecycleDetails has no target type)
@@ -40454,16 +40210,12 @@ class TenantBoundaryEnforcementPolicy extends SomNode {
   /// document does not yet carry.
   TenantBoundaryEnforcementPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TenantBoundaryEnforcementPolicyContentForm get content => TenantBoundaryEnforcementPolicyContentForm(doc, '$path/content');
 
   /// Tenant Boundary Enforcement Details (text).
   // (skipped: boundaryEnforcementDetails has no target type)
@@ -40484,16 +40236,12 @@ class TenantContextPolicy extends SomNode {
   /// document does not yet carry.
   TenantContextPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TenantContextPolicyContentForm get content => TenantContextPolicyContentForm(doc, '$path/content');
 
   /// Tenant Context Policy Details (text).
   // (skipped: tenantContextPolicyDetails has no target type)
@@ -40530,16 +40278,12 @@ class TenantDataIsolationPolicy extends SomNode {
   /// document does not yet carry.
   TenantDataIsolationPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TenantDataIsolationPolicyContentForm get content => TenantDataIsolationPolicyContentForm(doc, '$path/content');
 
   /// Tenant Data Isolation Details (text).
   // (skipped: tenantDataIsolationDetails has no target type)
@@ -40638,16 +40382,12 @@ class TenantOnboardingPolicy extends SomNode {
   /// document does not yet carry.
   TenantOnboardingPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TenantOnboardingPolicyContentForm get content => TenantOnboardingPolicyContentForm(doc, '$path/content');
 
   /// Tenant Onboarding Policy Details (text).
   // (skipped: tenantOnboardingPolicyDetails has no target type)
@@ -40923,16 +40663,12 @@ class TlsProtocolPolicy extends SomNode {
   /// document does not yet carry.
   TlsProtocolPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TlsProtocolPolicyContentForm get content => TlsProtocolPolicyContentForm(doc, '$path/content');
 
   /// TLS Protocol Policy Details (text).
   // (skipped: tlsProtocolPolicyDetails has no target type)
@@ -40977,16 +40713,12 @@ class TokenManagementPolicy extends SomNode {
   /// document does not yet carry.
   TokenManagementPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TokenManagementPolicyContentForm get content => TokenManagementPolicyContentForm(doc, '$path/content');
 
   /// Token Management Details (text).
   // (skipped: tokenManagementDetails has no target type)
@@ -41910,16 +41642,12 @@ class TransportSecurityPolicy extends SomNode {
   /// document does not yet carry.
   TransportSecurityPolicy(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  TransportSecurityPolicyContentForm get content => TransportSecurityPolicyContentForm(doc, '$path/content');
 
   /// Transport Security Policy Details (text).
   // (skipped: transportSecurityPolicyDetails has no target type)
@@ -42522,16 +42250,12 @@ class UserAccountStatesDefinition extends SomNode {
   /// document does not yet carry.
   UserAccountStatesDefinition(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  UserAccountStatesDefinitionContentForm get content => UserAccountStatesDefinitionContentForm(doc, '$path/content');
 
   /// State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
@@ -42937,12 +42661,8 @@ class UserInteractionModelSummary extends SomNode {
   /// document does not yet carry.
   UserInteractionModelSummary(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// Summary content for interaction model.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  UserInteractionModelSummaryContentForm get content => UserInteractionModelSummaryContentForm(doc, '$path/content');
 }
 
 /// 4.1.4.n.7. User Journey.
@@ -43110,16 +42830,12 @@ class UserLifecycleTransitions extends SomNode {
   /// document does not yet carry.
   UserLifecycleTransitions(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  UserLifecycleTransitionsContentForm get content => UserLifecycleTransitionsContentForm(doc, '$path/content');
 
   /// Transition Rules Description (text).
   // (skipped: transitionRulesDescription has no target type)
@@ -43226,12 +42942,8 @@ class UserNotificationPreferences extends SomNode {
   /// document does not yet carry.
   UserNotificationPreferences(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// Preferences content.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  UserNotificationPreferencesContentForm get content => UserNotificationPreferencesContentForm(doc, '$path/content');
 }
 
 /// 4.1.4.n.1. User Persona Details.
@@ -43373,16 +43085,12 @@ class UserRegistrationProcess extends SomNode {
   /// document does not yet carry.
   UserRegistrationProcess(super.doc, super.path);
 
-  @override
-  bool get canHaveContent => true;
-
   /// The section's body content. For a `@Form`-annotated member this is the
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ///
   /// **Authoring guidance.** Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.
-  String get content => doc.content('$path/content') ?? '';
-  set content(String value) => doc.setContent('$path/content', value);
+  UserRegistrationProcessContentForm get content => UserRegistrationProcessContentForm(doc, '$path/content');
 
   /// Registration Flow Description (text).
   // (skipped: registrationFlowDescription has no target type)
@@ -44985,6 +44693,174 @@ class AcceptanceStepEntryOutcomeForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class AccessConstraintPoliciesContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccessConstraintPoliciesContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Separation of Duties.
+  ///
+  /// Yes | No — enforce static or dynamic separation of duties to prevent conflicts of interest (e.g. creator cannot approve)
+  bool? get separationOfDuties => somParseBool(doc.formField(path, 'separationOfDuties'));
+  set separationOfDuties(bool? value) => doc.setFormField(path, 'separationOfDuties', somFormatBool(value));
+
+  /// SoD Enforcement.
+  ///
+  /// Static | Dynamic | Both — whether separation of duties is enforced at role-assignment time (static) or at runtime (dynamic)
+  String get sodEnforcement => doc.formField(path, 'sodEnforcement') ?? '';
+  set sodEnforcement(String value) => doc.setFormField(path, 'sodEnforcement', value);
+
+  /// Temporal Constraints.
+  ///
+  /// Yes | No — time-based access restrictions (business hours, maintenance windows, embargo periods)
+  bool? get temporalConstraints => somParseBool(doc.formField(path, 'temporalConstraints'));
+  set temporalConstraints(bool? value) => doc.setFormField(path, 'temporalConstraints', somFormatBool(value));
+
+  /// Location Constraints.
+  ///
+  /// Yes | No — geographic or network-based access restrictions (IP range, geofencing, VPN requirement)
+  bool? get locationConstraints => somParseBool(doc.formField(path, 'locationConstraints'));
+  set locationConstraints(bool? value) => doc.setFormField(path, 'locationConstraints', somFormatBool(value));
+
+  /// Device Constraints.
+  ///
+  /// Yes | No — device-based access restrictions (managed devices, compliance status, device type)
+  bool? get deviceConstraints => somParseBool(doc.formField(path, 'deviceConstraints'));
+  set deviceConstraints(bool? value) => doc.setFormField(path, 'deviceConstraints', somFormatBool(value));
+
+  /// Risk-Adaptive Access.
+  ///
+  /// Yes | No — access decisions consider real-time risk scores (user behavior, threat intelligence, anomaly detection)
+  bool? get riskAdaptiveAccess => somParseBool(doc.formField(path, 'riskAdaptiveAccess'));
+  set riskAdaptiveAccess(bool? value) => doc.setFormField(path, 'riskAdaptiveAccess', somFormatBool(value));
+
+  /// Contextual Attributes.
+  ///
+  /// Comma-separated list of contextual attributes used in access decisions (e.g. time, location, device, riskScore, authenticationLevel, networkZone)
+  String get contextualAttributes => doc.formField(path, 'contextualAttributes') ?? '';
+  set contextualAttributes(String value) => doc.setFormField(path, 'contextualAttributes', value);
+
+  /// Max Session Permissions.
+  ///
+  /// Yes | No — limit the maximum number of active permissions per session to reduce exposure from compromised sessions
+  bool? get maxSessionPermissions => somParseBool(doc.formField(path, 'maxSessionPermissions'));
+  set maxSessionPermissions(bool? value) => doc.setFormField(path, 'maxSessionPermissions', somFormatBool(value));
+
+  /// Least Privilege Enforcement.
+  ///
+  /// Manual | Automated | ContinuousReview — how least privilege principle is enforced and verified over time
+  String get leastPrivilegeEnforcement => doc.formField(path, 'leastPrivilegeEnforcement') ?? '';
+  set leastPrivilegeEnforcement(String value) => doc.setFormField(path, 'leastPrivilegeEnforcement', value);
+
+  /// Privilege Creep Detection.
+  ///
+  /// Yes | No — automatically detect users who accumulate excessive permissions over time through role changes
+  bool? get privilegeCreepDetection => somParseBool(doc.formField(path, 'privilegeCreepDetection'));
+  set privilegeCreepDetection(bool? value) => doc.setFormField(path, 'privilegeCreepDetection', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional access constraint notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccessControlModelSelectionContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccessControlModelSelectionContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Primary Model.
+  ///
+  /// RBAC | ABAC | ReBAC | Hybrid-RBAC-ABAC | Hybrid-RBAC-ReBAC | Hybrid-ABAC-ReBAC | Hybrid-All — primary access control paradigm
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get primaryModel => doc.formField(path, 'primaryModel') ?? '';
+  set primaryModel(String value) => doc.setFormField(path, 'primaryModel', value);
+
+  /// Model Rationale.
+  ///
+  /// Why this model was chosen over alternatives
+  String get modelRationale => doc.formField(path, 'modelRationale') ?? '';
+  set modelRationale(String value) => doc.setFormField(path, 'modelRationale', value);
+
+  /// RBAC Enabled.
+  ///
+  /// Yes | No — role-based access control with permissions assigned to roles rather than directly to users
+  bool? get rbacEnabled => somParseBool(doc.formField(path, 'rbacEnabled'));
+  set rbacEnabled(bool? value) => doc.setFormField(path, 'rbacEnabled', somFormatBool(value));
+
+  /// ABAC Enabled.
+  ///
+  /// Yes | No — attribute-based access control using subject, resource, action, and environment attributes per NIST SP 800-162
+  bool? get abacEnabled => somParseBool(doc.formField(path, 'abacEnabled'));
+  set abacEnabled(bool? value) => doc.setFormField(path, 'abacEnabled', somFormatBool(value));
+
+  /// ReBAC Enabled.
+  ///
+  /// Yes | No — relationship-based access control granting access based on relationships between resources and users (e.g. Zanzibar model)
+  bool? get rebacEnabled => somParseBool(doc.formField(path, 'rebacEnabled'));
+  set rebacEnabled(bool? value) => doc.setFormField(path, 'rebacEnabled', somFormatBool(value));
+
+  /// Policy Language.
+  ///
+  /// XACML | OPA-Rego | CedarPolicy | CustomDSL | None — formal policy language for expressing access control rules
+  String get policyLanguage => doc.formField(path, 'policyLanguage') ?? '';
+  set policyLanguage(String value) => doc.setFormField(path, 'policyLanguage', value);
+
+  /// Policy Decision Point.
+  ///
+  /// Embedded | ExternalPDP | Sidecar | CloudService — where access control decisions are evaluated
+  String get policyDecisionPoint => doc.formField(path, 'policyDecisionPoint') ?? '';
+  set policyDecisionPoint(String value) => doc.setFormField(path, 'policyDecisionPoint', value);
+
+  /// Policy Enforcement Point.
+  ///
+  /// APIGateway | Middleware | ServiceMesh | InApplication — where access control decisions are enforced
+  String get policyEnforcementPoint => doc.formField(path, 'policyEnforcementPoint') ?? '';
+  set policyEnforcementPoint(String value) => doc.setFormField(path, 'policyEnforcementPoint', value);
+
+  /// Policy Administration Point.
+  ///
+  /// AdminUI | ConfigFile | PolicyRepository | ExternalService — where policies are managed and maintained
+  String get policyAdministrationPoint => doc.formField(path, 'policyAdministrationPoint') ?? '';
+  set policyAdministrationPoint(String value) => doc.setFormField(path, 'policyAdministrationPoint', value);
+
+  /// Policy Information Point.
+  ///
+  /// UserDirectory | AttributeStore | ExternalIdP | Database — source of attributes used in access decisions
+  String get policyInformationPoint => doc.formField(path, 'policyInformationPoint') ?? '';
+  set policyInformationPoint(String value) => doc.setFormField(path, 'policyInformationPoint', value);
+
+  /// Delegation Model.
+  ///
+  /// None | Administrative | UserInitiated | Hierarchical — whether and how permissions can be delegated between users
+  String get delegationModel => doc.formField(path, 'delegationModel') ?? '';
+  set delegationModel(String value) => doc.setFormField(path, 'delegationModel', value);
+
+  /// Notes.
+  ///
+  /// Additional access control model selection notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class AccessLevelEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   AccessLevelEntryContentForm(super.doc, super.path);
@@ -45657,6 +45533,484 @@ class AccessibilityTestingForm extends SomNode {
   /// Include users with disabilities
   bool? get userTestingWithDisabilities => somParseBool(doc.formField(path, 'userTestingWithDisabilities'));
   set userTestingWithDisabilities(bool? value) => doc.setFormField(path, 'userTestingWithDisabilities', somFormatBool(value));
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccountActivationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccountActivationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Activation Method.
+  ///
+  /// EmailLink | AdminApproval | Automatic | PhoneVerification | Combined
+  String get activationMethod => doc.formField(path, 'activationMethod') ?? '';
+  set activationMethod(String value) => doc.setFormField(path, 'activationMethod', value);
+
+  /// Activation Link Expiry.
+  ///
+  /// Duration before activation link expires (e.g., 24h)
+  String get activationLinkExpiry => doc.formField(path, 'activationLinkExpiry') ?? '';
+  set activationLinkExpiry(String value) => doc.setFormField(path, 'activationLinkExpiry', value);
+
+  /// Max Activation Attempts.
+  ///
+  /// Number of times user can request re-activation
+  int? get maxActivationAttempts => somParseInt(doc.formField(path, 'maxActivationAttempts'));
+  set maxActivationAttempts(int? value) => doc.setFormField(path, 'maxActivationAttempts', somFormatInt(value));
+
+  /// Activation Prerequisites.
+  ///
+  /// Conditions that must be met before activation (e.g., email verified, approved)
+  String get activationPrerequisites => doc.formField(path, 'activationPrerequisites') ?? '';
+  set activationPrerequisites(String value) => doc.setFormField(path, 'activationPrerequisites', value);
+
+  /// Provisioning on Activation.
+  ///
+  /// Resources provisioned when account becomes active (workspace, storage, etc.)
+  String get provisioningOnActivation => doc.formField(path, 'provisioningOnActivation') ?? '';
+  set provisioningOnActivation(String value) => doc.setFormField(path, 'provisioningOnActivation', value);
+
+  /// Activation Notification.
+  ///
+  /// Channels notified on activation (email, SMS, admin alert)
+  String get activationNotification => doc.formField(path, 'activationNotification') ?? '';
+  set activationNotification(String value) => doc.setFormField(path, 'activationNotification', value);
+
+  /// Activation Timeout.
+  ///
+  /// Time after which unactivated accounts are purged or flagged
+  String get activationTimeout => doc.formField(path, 'activationTimeout') ?? '';
+  set activationTimeout(String value) => doc.setFormField(path, 'activationTimeout', value);
+
+  /// Activation Timeout Action.
+  ///
+  /// Delete | Flag | Remind | Escalate — action on timeout
+  String get activationTimeoutAction => doc.formField(path, 'activationTimeoutAction') ?? '';
+  set activationTimeoutAction(String value) => doc.setFormField(path, 'activationTimeoutAction', value);
+
+  /// Post-Activation Redirect.
+  ///
+  /// Where the user is directed after activation (dashboard, onboarding wizard)
+  String get postActivationRedirect => doc.formField(path, 'postActivationRedirect') ?? '';
+  set postActivationRedirect(String value) => doc.setFormField(path, 'postActivationRedirect', value);
+
+  /// Onboarding Required.
+  ///
+  /// Yes | No — whether guided onboarding follows activation
+  String get onboardingRequired => doc.formField(path, 'onboardingRequired') ?? '';
+  set onboardingRequired(String value) => doc.setFormField(path, 'onboardingRequired', value);
+
+  /// Onboarding Steps.
+  ///
+  /// Steps in onboarding flow (profile completion, tutorial, preference setup)
+  String get onboardingSteps => doc.formField(path, 'onboardingSteps') ?? '';
+  set onboardingSteps(String value) => doc.setFormField(path, 'onboardingSteps', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccountDeactivationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccountDeactivationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Deactivation Triggers.
+  ///
+  /// Manual | Inactivity | PolicyViolation | ContractEnd | SecurityIncident
+  String get deactivationTriggers => doc.formField(path, 'deactivationTriggers') ?? '';
+  set deactivationTriggers(String value) => doc.setFormField(path, 'deactivationTriggers', value);
+
+  /// Inactivity Threshold.
+  ///
+  /// Period of inactivity before automatic deactivation (e.g., 90d, 180d)
+  String get inactivityThreshold => doc.formField(path, 'inactivityThreshold') ?? '';
+  set inactivityThreshold(String value) => doc.setFormField(path, 'inactivityThreshold', value);
+
+  /// Inactivity Warning Period.
+  ///
+  /// Advance notice before deactivation (e.g., warn 14d before deactivation)
+  String get inactivityWarningPeriod => doc.formField(path, 'inactivityWarningPeriod') ?? '';
+  set inactivityWarningPeriod(String value) => doc.setFormField(path, 'inactivityWarningPeriod', value);
+
+  /// Deactivation Approval.
+  ///
+  /// Who can deactivate accounts (admin, manager, system, self)
+  String get deactivationApproval => doc.formField(path, 'deactivationApproval') ?? '';
+  set deactivationApproval(String value) => doc.setFormField(path, 'deactivationApproval', value);
+
+  /// Immediate Deactivation Cases.
+  ///
+  /// Cases where deactivation is immediate without warning (security breach, termination)
+  String get immediateDeactivationCases => doc.formField(path, 'immediateDeactivationCases') ?? '';
+  set immediateDeactivationCases(String value) => doc.setFormField(path, 'immediateDeactivationCases', value);
+
+  /// Deactivated Account Data Access.
+  ///
+  /// Whether deactivated account data remains accessible to admins
+  String get deactivatedAccountAccess => doc.formField(path, 'deactivatedAccountAccess') ?? '';
+  set deactivatedAccountAccess(String value) => doc.setFormField(path, 'deactivatedAccountAccess', value);
+
+  /// Deactivation Effects.
+  ///
+  /// LoginBlocked | ApiKeysRevoked | SessionsTerminated | DataPreserved
+  String get deactivationEffects => doc.formField(path, 'deactivationEffects') ?? '';
+  set deactivationEffects(String value) => doc.setFormField(path, 'deactivationEffects', value);
+
+  /// Reactivation Policy.
+  ///
+  /// UserRequest | AdminOnly | AutoOnLogin | NotAllowed — how accounts are reactivated
+  String get reactivationPolicy => doc.formField(path, 'reactivationPolicy') ?? '';
+  set reactivationPolicy(String value) => doc.setFormField(path, 'reactivationPolicy', value);
+
+  /// Reactivation Approval.
+  ///
+  /// Who approves reactivation (original approver, admin, manager)
+  String get reactivationApproval => doc.formField(path, 'reactivationApproval') ?? '';
+  set reactivationApproval(String value) => doc.setFormField(path, 'reactivationApproval', value);
+
+  /// Reactivation Re-verification.
+  ///
+  /// PasswordReset | MFA | IdentityProofing — verification at reactivation
+  String get reactivationReverification => doc.formField(path, 'reactivationReverification') ?? '';
+  set reactivationReverification(String value) => doc.setFormField(path, 'reactivationReverification', value);
+
+  /// Max Deactivation Period.
+  ///
+  /// Maximum time an account can stay deactivated before escalation to deletion
+  String get maxDeactivationPeriod => doc.formField(path, 'maxDeactivationPeriod') ?? '';
+  set maxDeactivationPeriod(String value) => doc.setFormField(path, 'maxDeactivationPeriod', value);
+
+  /// Deactivation Notification.
+  ///
+  /// User | Admin | Manager | All — channels notified on deactivation
+  String get deactivationNotification => doc.formField(path, 'deactivationNotification') ?? '';
+  set deactivationNotification(String value) => doc.setFormField(path, 'deactivationNotification', value);
+
+  /// Grace Period After Deactivation.
+  ///
+  /// Window during which deactivation is easily reversible
+  String get gracePeriodAfterDeactivation => doc.formField(path, 'gracePeriodAfterDeactivation') ?? '';
+  set gracePeriodAfterDeactivation(String value) => doc.setFormField(path, 'gracePeriodAfterDeactivation', value);
+
+  /// Data Preservation Duration.
+  ///
+  /// How long deactivated account data is preserved (30d, 1y, indefinitely)
+  String get dataPreservationDuration => doc.formField(path, 'dataPreservationDuration') ?? '';
+  set dataPreservationDuration(String value) => doc.setFormField(path, 'dataPreservationDuration', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccountDeletionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccountDeletionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Deletion Triggers.
+  ///
+  /// UserRequest | RetentionExpiry | AdminDecision | RegulatoryOrder
+  String get deletionTriggers => doc.formField(path, 'deletionTriggers') ?? '';
+  set deletionTriggers(String value) => doc.setFormField(path, 'deletionTriggers', value);
+
+  /// Deletion Approval.
+  ///
+  /// Who approves deletion (admin, data protection officer, auto-approved)
+  String get deletionApproval => doc.formField(path, 'deletionApproval') ?? '';
+  set deletionApproval(String value) => doc.setFormField(path, 'deletionApproval', value);
+
+  /// Soft Delete Enabled.
+  ///
+  /// Yes | No — whether accounts are soft-deleted before hard deletion
+  String get softDeleteEnabled => doc.formField(path, 'softDeleteEnabled') ?? '';
+  set softDeleteEnabled(String value) => doc.setFormField(path, 'softDeleteEnabled', value);
+
+  /// Soft Delete Retention Period.
+  ///
+  /// Duration in soft-deleted state before permanent removal (e.g., 30d, 90d)
+  String get softDeleteRetention => doc.formField(path, 'softDeleteRetention') ?? '';
+  set softDeleteRetention(String value) => doc.setFormField(path, 'softDeleteRetention', value);
+
+  /// Permanent Deletion Process.
+  ///
+  /// Anonymize | Purge | Archive — what happens to data on permanent deletion
+  String get permanentDeletionProcess => doc.formField(path, 'permanentDeletionProcess') ?? '';
+  set permanentDeletionProcess(String value) => doc.setFormField(path, 'permanentDeletionProcess', value);
+
+  /// Data Anonymization Strategy.
+  ///
+  /// Fields anonymized, pseudonymization method, referential integrity handling
+  String get dataAnonymizationStrategy => doc.formField(path, 'dataAnonymizationStrategy') ?? '';
+  set dataAnonymizationStrategy(String value) => doc.setFormField(path, 'dataAnonymizationStrategy', value);
+
+  /// Retained Data After Deletion.
+  ///
+  /// Data kept for legal/audit reasons (transaction logs, audit trails)
+  String get retainedDataAfterDeletion => doc.formField(path, 'retainedDataAfterDeletion') ?? '';
+  set retainedDataAfterDeletion(String value) => doc.setFormField(path, 'retainedDataAfterDeletion', value);
+
+  /// Retention Period After Deletion.
+  ///
+  /// How long retained data is kept post-deletion
+  String get retentionPeriodAfterDeletion => doc.formField(path, 'retentionPeriodAfterDeletion') ?? '';
+  set retentionPeriodAfterDeletion(String value) => doc.setFormField(path, 'retentionPeriodAfterDeletion', value);
+
+  /// Data Export Before Deletion.
+  ///
+  /// Yes | No — whether users can export their data before deletion
+  String get dataExportBeforeDeletion => doc.formField(path, 'dataExportBeforeDeletion') ?? '';
+  set dataExportBeforeDeletion(String value) => doc.setFormField(path, 'dataExportBeforeDeletion', value);
+
+  /// Export Formats.
+  ///
+  /// JSON | CSV | XML | PDF — formats for data export
+  String get exportFormats => doc.formField(path, 'exportFormats') ?? '';
+  set exportFormats(String value) => doc.setFormField(path, 'exportFormats', value);
+
+  /// Cascade Deletion Behavior.
+  ///
+  /// What happens to associated content (posts, files, records) on user deletion
+  String get cascadeDeletionBehavior => doc.formField(path, 'cascadeDeletionBehavior') ?? '';
+  set cascadeDeletionBehavior(String value) => doc.setFormField(path, 'cascadeDeletionBehavior', value);
+
+  /// Deletion Confirmation.
+  ///
+  /// PasswordEntry | EmailConfirmation | WaitingPeriod — confirmation method
+  String get deletionConfirmation => doc.formField(path, 'deletionConfirmation') ?? '';
+  set deletionConfirmation(String value) => doc.setFormField(path, 'deletionConfirmation', value);
+
+  /// Deletion Notification.
+  ///
+  /// User | Admin | DPO | All — who is notified on deletion
+  String get deletionNotification => doc.formField(path, 'deletionNotification') ?? '';
+  set deletionNotification(String value) => doc.setFormField(path, 'deletionNotification', value);
+
+  /// Right to Erasure Compliance.
+  ///
+  /// GDPR Art.17 | CCPA | None — applicable right-to-be-forgotten regulations
+  String get rightToErasureCompliance => doc.formField(path, 'rightToErasureCompliance') ?? '';
+  set rightToErasureCompliance(String value) => doc.setFormField(path, 'rightToErasureCompliance', value);
+
+  /// Erasure Response Time.
+  ///
+  /// Maximum time to fulfill an erasure request (e.g., 30 days per GDPR)
+  String get erasureResponseTime => doc.formField(path, 'erasureResponseTime') ?? '';
+  set erasureResponseTime(String value) => doc.setFormField(path, 'erasureResponseTime', value);
+
+  /// Third-Party Data Deletion.
+  ///
+  /// How data shared with third parties is removed or anonymized
+  String get thirdPartyDataDeletion => doc.formField(path, 'thirdPartyDataDeletion') ?? '';
+  set thirdPartyDataDeletion(String value) => doc.setFormField(path, 'thirdPartyDataDeletion', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccountLockoutPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccountLockoutPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Lockout Threshold.
+  ///
+  /// Number of consecutive failed attempts before lockout (NIST max: 100, typical: 5-10)
+  String get lockoutThreshold => doc.formField(path, 'lockoutThreshold') ?? '';
+  set lockoutThreshold(String value) => doc.setFormField(path, 'lockoutThreshold', value);
+
+  /// Lockout Duration.
+  ///
+  /// Duration of lockout (e.g., 15min, 30min, UntilAdminUnlock, Progressive)
+  String get lockoutDuration => doc.formField(path, 'lockoutDuration') ?? '';
+  set lockoutDuration(String value) => doc.setFormField(path, 'lockoutDuration', value);
+
+  /// Lockout Escalation.
+  ///
+  /// Fixed | Progressive | Exponential — whether lockout duration increases
+  String get lockoutEscalation => doc.formField(path, 'lockoutEscalation') ?? '';
+  set lockoutEscalation(String value) => doc.setFormField(path, 'lockoutEscalation', value);
+
+  /// Rate Limiting Method.
+  ///
+  /// Delay | CAPTCHA | Lockout | IPBlock | Combination — rate-limiting strategy
+  String get rateLimitingMethod => doc.formField(path, 'rateLimitingMethod') ?? '';
+  set rateLimitingMethod(String value) => doc.setFormField(path, 'rateLimitingMethod', value);
+
+  /// Delay Progression.
+  ///
+  /// Delay schedule for progressive throttling (e.g., 30s after 3rd, 1min after 5th)
+  String get delayProgression => doc.formField(path, 'delayProgression') ?? '';
+  set delayProgression(String value) => doc.setFormField(path, 'delayProgression', value);
+
+  /// CAPTCHA Trigger Threshold.
+  ///
+  /// Number of failed attempts before CAPTCHA is required
+  String get captchaTriggerThreshold => doc.formField(path, 'captchaTriggerThreshold') ?? '';
+  set captchaTriggerThreshold(String value) => doc.setFormField(path, 'captchaTriggerThreshold', value);
+
+  /// IP-Based Rate Limiting.
+  ///
+  /// Yes | No — whether rate limiting also applies per IP address
+  String get ipBasedRateLimiting => doc.formField(path, 'ipBasedRateLimiting') ?? '';
+  set ipBasedRateLimiting(String value) => doc.setFormField(path, 'ipBasedRateLimiting', value);
+
+  /// Distributed Attack Protection.
+  ///
+  /// Yes | No — whether protection against credential stuffing across IPs is implemented
+  String get distributedAttackProtection => doc.formField(path, 'distributedAttackProtection') ?? '';
+  set distributedAttackProtection(String value) => doc.setFormField(path, 'distributedAttackProtection', value);
+
+  /// Unlock Mechanism.
+  ///
+  /// TimeBasedAutoUnlock | AdminUnlock | SelfServiceWithMFA | EmailVerification
+  String get unlockMechanism => doc.formField(path, 'unlockMechanism') ?? '';
+  set unlockMechanism(String value) => doc.setFormField(path, 'unlockMechanism', value);
+
+  /// Failed Attempt Reset On Success.
+  ///
+  /// Yes | No — whether the failed attempt counter resets after successful login
+  String get failedAttemptResetOnSuccess => doc.formField(path, 'failedAttemptResetOnSuccess') ?? '';
+  set failedAttemptResetOnSuccess(String value) => doc.setFormField(path, 'failedAttemptResetOnSuccess', value);
+
+  /// Lockout Notification.
+  ///
+  /// User | Admin | Both | None — who is notified when lockout occurs
+  String get lockoutNotification => doc.formField(path, 'lockoutNotification') ?? '';
+  set lockoutNotification(String value) => doc.setFormField(path, 'lockoutNotification', value);
+
+  /// Permanent Lockout Enabled.
+  ///
+  /// Yes | No — whether accounts are permanently locked after extreme abuse
+  String get permanentLockoutEnabled => doc.formField(path, 'permanentLockoutEnabled') ?? '';
+  set permanentLockoutEnabled(String value) => doc.setFormField(path, 'permanentLockoutEnabled', value);
+
+  /// Permanent Lockout Threshold.
+  ///
+  /// Number of lockout cycles before permanent lock (e.g., 5, 10)
+  String get permanentLockoutThreshold => doc.formField(path, 'permanentLockoutThreshold') ?? '';
+  set permanentLockoutThreshold(String value) => doc.setFormField(path, 'permanentLockoutThreshold', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccountModificationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccountModificationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Self-Modifiable Fields.
+  ///
+  /// Fields the user can change themselves (display name, avatar, preferences)
+  String get selfModifiableFields => doc.formField(path, 'selfModifiableFields') ?? '';
+  set selfModifiableFields(String value) => doc.setFormField(path, 'selfModifiableFields', value);
+
+  /// Admin-Modifiable Fields.
+  ///
+  /// Fields only an administrator can change (role, status, organization)
+  String get adminModifiableFields => doc.formField(path, 'adminModifiableFields') ?? '';
+  set adminModifiableFields(String value) => doc.setFormField(path, 'adminModifiableFields', value);
+
+  /// System-Modifiable Fields.
+  ///
+  /// Fields updated automatically (last login, login count, risk score)
+  String get systemModifiableFields => doc.formField(path, 'systemModifiableFields') ?? '';
+  set systemModifiableFields(String value) => doc.setFormField(path, 'systemModifiableFields', value);
+
+  /// Email Change Policy.
+  ///
+  /// Re-verification required | Admin approval | Confirmation to old+new email
+  String get emailChangePolicy => doc.formField(path, 'emailChangePolicy') ?? '';
+  set emailChangePolicy(String value) => doc.setFormField(path, 'emailChangePolicy', value);
+
+  /// Phone Change Policy.
+  ///
+  /// Verification via old number | Admin approval
+  String get phoneChangePolicy => doc.formField(path, 'phoneChangePolicy') ?? '';
+  set phoneChangePolicy(String value) => doc.setFormField(path, 'phoneChangePolicy', value);
+
+  /// Name Change Policy.
+  ///
+  /// Self-service | RequiresVerification | AdminOnly
+  String get nameChangePolicy => doc.formField(path, 'nameChangePolicy') ?? '';
+  set nameChangePolicy(String value) => doc.setFormField(path, 'nameChangePolicy', value);
+
+  /// Role Change Approval.
+  ///
+  /// Who approves role changes (manager, admin, auto-approved for certain changes)
+  String get roleChangeApproval => doc.formField(path, 'roleChangeApproval') ?? '';
+  set roleChangeApproval(String value) => doc.setFormField(path, 'roleChangeApproval', value);
+
+  /// Bulk Modification Support.
+  ///
+  /// Yes | No — whether batch attribute updates are supported
+  String get bulkModificationSupport => doc.formField(path, 'bulkModificationSupport') ?? '';
+  set bulkModificationSupport(String value) => doc.setFormField(path, 'bulkModificationSupport', value);
+
+  /// Change Audit Logging.
+  ///
+  /// All changes | SensitiveOnly | None — audit trail granularity
+  String get changeAuditLogging => doc.formField(path, 'changeAuditLogging') ?? '';
+  set changeAuditLogging(String value) => doc.setFormField(path, 'changeAuditLogging', value);
+
+  /// Change Notification.
+  ///
+  /// User | Admin | Both | None — who receives notification of changes
+  String get changeNotification => doc.formField(path, 'changeNotification') ?? '';
+  set changeNotification(String value) => doc.setFormField(path, 'changeNotification', value);
+
+  /// Historical Versioning.
+  ///
+  /// Yes | No — whether previous attribute values are preserved
+  String get historicalVersioning => doc.formField(path, 'historicalVersioning') ?? '';
+  set historicalVersioning(String value) => doc.setFormField(path, 'historicalVersioning', value);
+
+  /// Re-verification Triggers.
+  ///
+  /// Which changes trigger re-verification (email, password, security question)
+  String get reverificationTriggers => doc.formField(path, 'reverificationTriggers') ?? '';
+  set reverificationTriggers(String value) => doc.setFormField(path, 'reverificationTriggers', value);
+
+  /// Modification Rate Limiting.
+  ///
+  /// Limits on how frequently attributes can be changed (e.g., email max 1/30d)
+  String get modificationRateLimiting => doc.formField(path, 'modificationRateLimiting') ?? '';
+  set modificationRateLimiting(String value) => doc.setFormField(path, 'modificationRateLimiting', value);
+
+  /// Modification Cooldown Period.
+  ///
+  /// Waiting period after sensitive changes before full access resumes
+  String get modificationCooldownPeriod => doc.formField(path, 'modificationCooldownPeriod') ?? '';
+  set modificationCooldownPeriod(String value) => doc.setFormField(path, 'modificationCooldownPeriod', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -47735,6 +48089,342 @@ class AnomalyDetectionPolicyContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class ApiAbuseProtectionContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiAbuseProtectionContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Rate Limiting Enabled.
+  ///
+  /// Yes | No — whether security-focused rate limiting is enforced
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get rateLimitingEnabled => somParseBool(doc.formField(path, 'rateLimitingEnabled'));
+  set rateLimitingEnabled(bool? value) => doc.setFormField(path, 'rateLimitingEnabled', somFormatBool(value));
+
+  /// Rate Limit Scope.
+  ///
+  /// PerClient | PerEndpoint | PerTenant | Global — at what level limits are applied
+  String get rateLimitScope => doc.formField(path, 'rateLimitScope') ?? '';
+  set rateLimitScope(String value) => doc.setFormField(path, 'rateLimitScope', value);
+
+  /// Authentication Endpoint Limits.
+  ///
+  /// Stricter rate limits for login/token endpoints to prevent brute-force attacks
+  String get authenticationEndpointLimits => doc.formField(path, 'authenticationEndpointLimits') ?? '';
+  set authenticationEndpointLimits(String value) => doc.setFormField(path, 'authenticationEndpointLimits', value);
+
+  /// Sensitive Endpoint Limits.
+  ///
+  /// Additional rate limits for password reset, MFA enrolment, payment endpoints
+  String get sensitiveEndpointLimits => doc.formField(path, 'sensitiveEndpointLimits') ?? '';
+  set sensitiveEndpointLimits(String value) => doc.setFormField(path, 'sensitiveEndpointLimits', value);
+
+  /// Brute Force Protection.
+  ///
+  /// Account lockout, progressive delays, CAPTCHA — how brute force authentication attacks are mitigated
+  String get bruteForceProtection => doc.formField(path, 'bruteForceProtection') ?? '';
+  set bruteForceProtection(String value) => doc.setFormField(path, 'bruteForceProtection', value);
+
+  /// Bot Detection Policy.
+  ///
+  /// CAPTCHA | BehavioralAnalysis | DeviceFingerprint | None — automated request detection
+  String get botDetectionPolicy => doc.formField(path, 'botDetectionPolicy') ?? '';
+  set botDetectionPolicy(String value) => doc.setFormField(path, 'botDetectionPolicy', value);
+
+  /// IP Reputation Filtering.
+  ///
+  /// Yes | No — use IP reputation databases to filter known-malicious sources
+  bool? get ipReputationFiltering => somParseBool(doc.formField(path, 'ipReputationFiltering'));
+  set ipReputationFiltering(bool? value) => doc.setFormField(path, 'ipReputationFiltering', somFormatBool(value));
+
+  /// Automatic Blocking.
+  ///
+  /// Yes | No — automatically block clients exceeding abuse thresholds
+  bool? get automaticBlocking => somParseBool(doc.formField(path, 'automaticBlocking'));
+  set automaticBlocking(bool? value) => doc.setFormField(path, 'automaticBlocking', somFormatBool(value));
+
+  /// Block Duration.
+  ///
+  /// Temporary (minutes/hours) or permanent — duration of automatic blocks
+  String get blockDuration => doc.formField(path, 'blockDuration') ?? '';
+  set blockDuration(String value) => doc.setFormField(path, 'blockDuration', value);
+
+  /// Geographic Restrictions.
+  ///
+  /// Region or country-based access restrictions for API endpoints
+  String get geographicRestrictions => doc.formField(path, 'geographicRestrictions') ?? '';
+  set geographicRestrictions(String value) => doc.setFormField(path, 'geographicRestrictions', value);
+
+  /// Request Throttling on Failure.
+  ///
+  /// Progressive delay or backoff on repeated authentication or validation failures
+  String get requestThrottlingOnFailure => doc.formField(path, 'requestThrottlingOnFailure') ?? '';
+  set requestThrottlingOnFailure(String value) => doc.setFormField(path, 'requestThrottlingOnFailure', value);
+
+  /// Business Flow Protection.
+  ///
+  /// How automated abuse of business-critical flows is detected and prevented (OWASP API6)
+  String get businessFlowProtection => doc.formField(path, 'businessFlowProtection') ?? '';
+  set businessFlowProtection(String value) => doc.setFormField(path, 'businessFlowProtection', value);
+
+  /// Webhook Flood Protection.
+  ///
+  /// How webhook replay attacks and flood scenarios are prevented
+  String get webhookFloodProtection => doc.formField(path, 'webhookFloodProtection') ?? '';
+  set webhookFloodProtection(String value) => doc.setFormField(path, 'webhookFloodProtection', value);
+
+  /// Notes.
+  ///
+  /// Additional abuse protection notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiAuthenticationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiAuthenticationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Primary Authentication Method.
+  ///
+  /// OAuth2 | APIKey | JWT | mTLS | HMAC | Basic — primary API authentication mechanism
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
+  set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
+
+  /// Multiple Methods Supported.
+  ///
+  /// Yes | No — whether the API supports multiple authentication methods simultaneously
+  bool? get multipleMethodsSupported => somParseBool(doc.formField(path, 'multipleMethodsSupported'));
+  set multipleMethodsSupported(bool? value) => doc.setFormField(path, 'multipleMethodsSupported', somFormatBool(value));
+
+  /// API Key Transmission.
+  ///
+  /// Header | QueryParam | Cookie — where API keys are transmitted (Header recommended)
+  String get apiKeyTransmission => doc.formField(path, 'apiKeyTransmission') ?? '';
+  set apiKeyTransmission(String value) => doc.setFormField(path, 'apiKeyTransmission', value);
+
+  /// API Key Rotation Policy.
+  ///
+  /// Automatic periodic rotation interval and overlap/grace period for old keys
+  String get apiKeyRotationPolicy => doc.formField(path, 'apiKeyRotationPolicy') ?? '';
+  set apiKeyRotationPolicy(String value) => doc.setFormField(path, 'apiKeyRotationPolicy', value);
+
+  /// API Key Scoping.
+  ///
+  /// Global | PerEnvironment | PerService — whether keys are scoped to specific environments or services
+  String get apiKeyScoping => doc.formField(path, 'apiKeyScoping') ?? '';
+  set apiKeyScoping(String value) => doc.setFormField(path, 'apiKeyScoping', value);
+
+  /// JWT Validation Policy.
+  ///
+  /// iss, aud, exp, nbf — required JWT claims to validate on every request
+  String get jwtValidationPolicy => doc.formField(path, 'jwtValidationPolicy') ?? '';
+  set jwtValidationPolicy(String value) => doc.setFormField(path, 'jwtValidationPolicy', value);
+
+  /// JWT Signing Algorithm.
+  ///
+  /// RS256 | ES256 | EdDSA — required JWT signing algorithm (HS256 discouraged for APIs)
+  String get jwtSigningAlgorithm => doc.formField(path, 'jwtSigningAlgorithm') ?? '';
+  set jwtSigningAlgorithm(String value) => doc.setFormField(path, 'jwtSigningAlgorithm', value);
+
+  /// Access Token Lifetime.
+  ///
+  /// Maximum access token validity duration (e.g. 15 min, 1 hour)
+  String get accessTokenLifetime => doc.formField(path, 'accessTokenLifetime') ?? '';
+  set accessTokenLifetime(String value) => doc.setFormField(path, 'accessTokenLifetime', value);
+
+  /// Refresh Token Policy.
+  ///
+  /// Rotation | Reuse | None — refresh token handling and lifetime
+  String get refreshTokenPolicy => doc.formField(path, 'refreshTokenPolicy') ?? '';
+  set refreshTokenPolicy(String value) => doc.setFormField(path, 'refreshTokenPolicy', value);
+
+  /// Client Credentials Flow.
+  ///
+  /// Yes | No — whether OAuth2 client credentials flow is supported for service-to-service
+  bool? get clientCredentialsFlow => somParseBool(doc.formField(path, 'clientCredentialsFlow'));
+  set clientCredentialsFlow(bool? value) => doc.setFormField(path, 'clientCredentialsFlow', somFormatBool(value));
+
+  /// Authorization Code Flow.
+  ///
+  /// Yes | No — whether OAuth2 authorization code flow with PKCE is supported
+  bool? get authorizationCodeFlow => somParseBool(doc.formField(path, 'authorizationCodeFlow'));
+  set authorizationCodeFlow(bool? value) => doc.setFormField(path, 'authorizationCodeFlow', somFormatBool(value));
+
+  /// Token Revocation Support.
+  ///
+  /// Yes | No — whether explicit token revocation is supported (RFC 7009)
+  bool? get tokenRevocationSupport => somParseBool(doc.formField(path, 'tokenRevocationSupport'));
+  set tokenRevocationSupport(bool? value) => doc.setFormField(path, 'tokenRevocationSupport', somFormatBool(value));
+
+  /// Mutual TLS Required.
+  ///
+  /// Yes | No — require client certificate authentication for service-to-service communication
+  bool? get mutualTlsRequired => somParseBool(doc.formField(path, 'mutualTlsRequired'));
+  set mutualTlsRequired(bool? value) => doc.setFormField(path, 'mutualTlsRequired', somFormatBool(value));
+
+  /// Service Account Policy.
+  ///
+  /// How service accounts authenticate and what credential types they use
+  String get serviceAccountPolicy => doc.formField(path, 'serviceAccountPolicy') ?? '';
+  set serviceAccountPolicy(String value) => doc.setFormField(path, 'serviceAccountPolicy', value);
+
+  /// Webhook Signature Verification.
+  ///
+  /// HMAC-SHA256 | RSA | EdDSA — method used to verify incoming webhook requests
+  String get webhookSignatureVerification => doc.formField(path, 'webhookSignatureVerification') ?? '';
+  set webhookSignatureVerification(String value) => doc.setFormField(path, 'webhookSignatureVerification', value);
+
+  /// Third-Party API Consumption Security.
+  ///
+  /// Security requirements when consuming external third-party APIs (OWASP API10)
+  String get thirdPartyApiConsumption => doc.formField(path, 'thirdPartyApiConsumption') ?? '';
+  set thirdPartyApiConsumption(String value) => doc.setFormField(path, 'thirdPartyApiConsumption', value);
+
+  /// Credential Transmission.
+  ///
+  /// Header | Body — where credentials are transmitted (Header via Authorization recommended)
+  String get credentialTransmission => doc.formField(path, 'credentialTransmission') ?? '';
+  set credentialTransmission(String value) => doc.setFormField(path, 'credentialTransmission', value);
+
+  /// Bearer Token Format.
+  ///
+  /// JWT | Opaque | Reference — format used for bearer tokens
+  String get bearerTokenFormat => doc.formField(path, 'bearerTokenFormat') ?? '';
+  set bearerTokenFormat(String value) => doc.setFormField(path, 'bearerTokenFormat', value);
+
+  /// Notes.
+  ///
+  /// Additional API authentication notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiAuthorizationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiAuthorizationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Object-Level Authorization.
+  ///
+  /// How every API endpoint verifies the caller owns or may access the requested object (OWASP API1)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get objectLevelAuthorization => doc.formField(path, 'objectLevelAuthorization') ?? '';
+  set objectLevelAuthorization(String value) => doc.setFormField(path, 'objectLevelAuthorization', value);
+
+  /// Function-Level Authorization.
+  ///
+  /// How administrative vs. regular functions are separated and access-controlled (OWASP API5)
+  String get functionLevelAuthorization => doc.formField(path, 'functionLevelAuthorization') ?? '';
+  set functionLevelAuthorization(String value) => doc.setFormField(path, 'functionLevelAuthorization', value);
+
+  /// Property-Level Authorization.
+  ///
+  /// How field-level exposure is controlled — preventing excessive data exposure and mass assignment (OWASP API3)
+  String get propertyLevelAuthorization => doc.formField(path, 'propertyLevelAuthorization') ?? '';
+  set propertyLevelAuthorization(String value) => doc.setFormField(path, 'propertyLevelAuthorization', value);
+
+  /// Permission Granularity.
+  ///
+  /// Endpoint | Resource | Field — granularity at which permissions are evaluated
+  String get permissionGranularity => doc.formField(path, 'permissionGranularity') ?? '';
+  set permissionGranularity(String value) => doc.setFormField(path, 'permissionGranularity', value);
+
+  /// OAuth2 Scope Definitions.
+  ///
+  /// OAuth2 scopes required for API access (e.g. read:users, write:orders)
+  String get scopeDefinitions => doc.formField(path, 'scopeDefinitions') ?? '';
+  set scopeDefinitions(String value) => doc.setFormField(path, 'scopeDefinitions', value);
+
+  /// Scope Enforcement Level.
+  ///
+  /// Gateway | Service | Both — where scope checks are enforced
+  String get scopeEnforcementLevel => doc.formField(path, 'scopeEnforcementLevel') ?? '';
+  set scopeEnforcementLevel(String value) => doc.setFormField(path, 'scopeEnforcementLevel', value);
+
+  /// Delegated Access Policy.
+  ///
+  /// How delegation or impersonation is controlled (on-behalf-of flows)
+  String get delegatedAccessPolicy => doc.formField(path, 'delegatedAccessPolicy') ?? '';
+  set delegatedAccessPolicy(String value) => doc.setFormField(path, 'delegatedAccessPolicy', value);
+
+  /// Bulk Operation Authorization.
+  ///
+  /// How batch/bulk API operations are authorized — per-item or at collection level
+  String get bulkOperationAuthorization => doc.formField(path, 'bulkOperationAuthorization') ?? '';
+  set bulkOperationAuthorization(String value) => doc.setFormField(path, 'bulkOperationAuthorization', value);
+
+  /// Contextual Authorization.
+  ///
+  /// IP, time-of-day, device, or geolocation-based access decisions
+  String get contextualAuthorization => doc.formField(path, 'contextualAuthorization') ?? '';
+  set contextualAuthorization(String value) => doc.setFormField(path, 'contextualAuthorization', value);
+
+  /// Mass Assignment Prevention.
+  ///
+  /// How mass assignment attacks are prevented — allowlisted fields, DTOs, read-only markers
+  String get massAssignmentPrevention => doc.formField(path, 'massAssignmentPrevention') ?? '';
+  set massAssignmentPrevention(String value) => doc.setFormField(path, 'massAssignmentPrevention', value);
+
+  /// Horizontal Privilege Escalation Prevention.
+  ///
+  /// Controls preventing a user from accessing another user's data via direct object reference
+  String get horizontalPrivilegeEscalation => doc.formField(path, 'horizontalPrivilegeEscalation') ?? '';
+  set horizontalPrivilegeEscalation(String value) => doc.setFormField(path, 'horizontalPrivilegeEscalation', value);
+
+  /// Vertical Privilege Escalation Prevention.
+  ///
+  /// Controls preventing regular users from accessing administrative functions
+  String get verticalPrivilegeEscalation => doc.formField(path, 'verticalPrivilegeEscalation') ?? '';
+  set verticalPrivilegeEscalation(String value) => doc.setFormField(path, 'verticalPrivilegeEscalation', value);
+
+  /// Sensitive Business Flow Protection.
+  ///
+  /// How sensitive workflows (checkout, transfer) are protected from automated abuse (OWASP API6)
+  String get sensitiveBusinessFlowProtection => doc.formField(path, 'sensitiveBusinessFlowProtection') ?? '';
+  set sensitiveBusinessFlowProtection(String value) => doc.setFormField(path, 'sensitiveBusinessFlowProtection', value);
+
+  /// Workflow State Validation.
+  ///
+  /// How out-of-order API execution is prevented (server-side state machine enforcement)
+  String get workflowStateValidation => doc.formField(path, 'workflowStateValidation') ?? '';
+  set workflowStateValidation(String value) => doc.setFormField(path, 'workflowStateValidation', value);
+
+  /// Notes.
+  ///
+  /// Additional API authorization notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class ApiCompatibilityEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   ApiCompatibilityEntryContentForm(super.doc, super.path);
@@ -47893,6 +48583,410 @@ class ApiCompatibilityEntryTransportDetailsForm extends SomNode {
   /// OAuth, API key, JWT
   String get authentication => doc.formField(path, 'authentication') ?? '';
   set authentication(String value) => doc.setFormField(path, 'authentication', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiCorsSecurityContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiCorsSecurityContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// CORS Enabled.
+  ///
+  /// Yes | No — whether CORS is enabled for the API
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get corsEnabled => somParseBool(doc.formField(path, 'corsEnabled'));
+  set corsEnabled(bool? value) => doc.setFormField(path, 'corsEnabled', somFormatBool(value));
+
+  /// Allowed Origins.
+  ///
+  /// Explicit domain list or pattern — avoid wildcard * with credentials
+  String get allowedOrigins => doc.formField(path, 'allowedOrigins') ?? '';
+  set allowedOrigins(String value) => doc.setFormField(path, 'allowedOrigins', value);
+
+  /// Allowed HTTP Methods.
+  ///
+  /// GET | POST | PUT | DELETE | PATCH — permitted HTTP methods
+  String get allowedMethods => doc.formField(path, 'allowedMethods') ?? '';
+  set allowedMethods(String value) => doc.setFormField(path, 'allowedMethods', value);
+
+  /// Allowed Request Headers.
+  ///
+  /// Authorization, Content-Type, X-Request-ID — allowed request headers
+  String get allowedHeaders => doc.formField(path, 'allowedHeaders') ?? '';
+  set allowedHeaders(String value) => doc.setFormField(path, 'allowedHeaders', value);
+
+  /// Exposed Response Headers.
+  ///
+  /// X-RateLimit-Remaining, X-Request-ID — response headers visible to client JavaScript
+  String get exposedHeaders => doc.formField(path, 'exposedHeaders') ?? '';
+  set exposedHeaders(String value) => doc.setFormField(path, 'exposedHeaders', value);
+
+  /// Credentials Allowed.
+  ///
+  /// Yes | No — Access-Control-Allow-Credentials (mutually exclusive with wildcard origin)
+  bool? get credentialsAllowed => somParseBool(doc.formField(path, 'credentialsAllowed'));
+  set credentialsAllowed(bool? value) => doc.setFormField(path, 'credentialsAllowed', somFormatBool(value));
+
+  /// Preflight Cache Max-Age.
+  ///
+  /// Maximum time in seconds that preflight responses can be cached (e.g. 3600)
+  int? get preflightCacheMaxAge => somParseInt(doc.formField(path, 'preflightCacheMaxAge'));
+  set preflightCacheMaxAge(int? value) => doc.setFormField(path, 'preflightCacheMaxAge', somFormatInt(value));
+
+  /// Wildcard Restriction.
+  ///
+  /// Yes | No — whether wildcard * origin is explicitly prohibited when credentials are used
+  bool? get wildcardRestriction => somParseBool(doc.formField(path, 'wildcardRestriction'));
+  set wildcardRestriction(bool? value) => doc.setFormField(path, 'wildcardRestriction', somFormatBool(value));
+
+  /// Content Security Policy.
+  ///
+  /// CSP directives for API responses (e.g. default-src none, frame-ancestors none)
+  String get contentSecurityPolicy => doc.formField(path, 'contentSecurityPolicy') ?? '';
+  set contentSecurityPolicy(String value) => doc.setFormField(path, 'contentSecurityPolicy', value);
+
+  /// Strict Transport Security.
+  ///
+  /// HSTS max-age and includeSubDomains directive for API endpoints
+  String get strictTransportSecurity => doc.formField(path, 'strictTransportSecurity') ?? '';
+  set strictTransportSecurity(String value) => doc.setFormField(path, 'strictTransportSecurity', value);
+
+  /// Required Security Headers.
+  ///
+  /// X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: no-referrer
+  String get securityHeadersRequired => doc.formField(path, 'securityHeadersRequired') ?? '';
+  set securityHeadersRequired(String value) => doc.setFormField(path, 'securityHeadersRequired', value);
+
+  /// Private Network Access Policy.
+  ///
+  /// How CORS private network access requests are handled (Access-Control-Request-Private-Network)
+  String get privateNetworkAccess => doc.formField(path, 'privateNetworkAccess') ?? '';
+  set privateNetworkAccess(String value) => doc.setFormField(path, 'privateNetworkAccess', value);
+
+  /// Notes.
+  ///
+  /// Additional CORS security notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiKeyManagementPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiKeyManagementPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// API Key Auth Enabled.
+  ///
+  /// Yes | No — whether API key authentication is supported
+  String get apiKeyAuthEnabled => doc.formField(path, 'apiKeyAuthEnabled') ?? '';
+  set apiKeyAuthEnabled(String value) => doc.setFormField(path, 'apiKeyAuthEnabled', value);
+
+  /// API Key Types.
+  ///
+  /// Static | Rotating | Scoped | ShortLived — types of API keys supported
+  String get apiKeyTypes => doc.formField(path, 'apiKeyTypes') ?? '';
+  set apiKeyTypes(String value) => doc.setFormField(path, 'apiKeyTypes', value);
+
+  /// Key Generation Method.
+  ///
+  /// Cryptographic random | UUID | JWT — how API keys are generated
+  String get keyGenerationMethod => doc.formField(path, 'keyGenerationMethod') ?? '';
+  set keyGenerationMethod(String value) => doc.setFormField(path, 'keyGenerationMethod', value);
+
+  /// Key Length.
+  ///
+  /// Minimum key length or entropy (e.g., 256-bit, 32 bytes)
+  String get keyLength => doc.formField(path, 'keyLength') ?? '';
+  set keyLength(String value) => doc.setFormField(path, 'keyLength', value);
+
+  /// Key Rotation Policy.
+  ///
+  /// Rotation frequency and method (e.g., 90d, automatic, manual)
+  String get keyRotationPolicy => doc.formField(path, 'keyRotationPolicy') ?? '';
+  set keyRotationPolicy(String value) => doc.setFormField(path, 'keyRotationPolicy', value);
+
+  /// Key Expiration Policy.
+  ///
+  /// Maximum key lifetime (e.g., 1y, never, custom)
+  String get keyExpirationPolicy => doc.formField(path, 'keyExpirationPolicy') ?? '';
+  set keyExpirationPolicy(String value) => doc.setFormField(path, 'keyExpirationPolicy', value);
+
+  /// Key Scope Restrictions.
+  ///
+  /// Yes | No — whether API keys can be limited to specific resources/actions
+  String get keyScopeRestrictions => doc.formField(path, 'keyScopeRestrictions') ?? '';
+  set keyScopeRestrictions(String value) => doc.setFormField(path, 'keyScopeRestrictions', value);
+
+  /// IP Allowlisting.
+  ///
+  /// Yes | No — whether API keys can be restricted to specific IP addresses
+  String get ipAllowlisting => doc.formField(path, 'ipAllowlisting') ?? '';
+  set ipAllowlisting(String value) => doc.setFormField(path, 'ipAllowlisting', value);
+
+  /// Rate Limiting Per Key.
+  ///
+  /// Yes | No — whether rate limiting is enforced per API key
+  String get rateLimitingPerKey => doc.formField(path, 'rateLimitingPerKey') ?? '';
+  set rateLimitingPerKey(String value) => doc.setFormField(path, 'rateLimitingPerKey', value);
+
+  /// Key Revocation Process.
+  ///
+  /// Immediate | Graceful — how revoked keys stop working
+  String get keyRevocationProcess => doc.formField(path, 'keyRevocationProcess') ?? '';
+  set keyRevocationProcess(String value) => doc.setFormField(path, 'keyRevocationProcess', value);
+
+  /// Key Storage Guidance.
+  ///
+  /// VaultService | EnvironmentVariable | SecretManager — recommended storage
+  String get keyStorageGuidance => doc.formField(path, 'keyStorageGuidance') ?? '';
+  set keyStorageGuidance(String value) => doc.setFormField(path, 'keyStorageGuidance', value);
+
+  /// Key Audit Logging.
+  ///
+  /// Yes | No — whether API key usage is logged for audit purposes
+  String get keyAuditLogging => doc.formField(path, 'keyAuditLogging') ?? '';
+  set keyAuditLogging(String value) => doc.setFormField(path, 'keyAuditLogging', value);
+
+  /// Service Token Support.
+  ///
+  /// OAuth2ClientCredentials | JWT | Custom — machine-to-machine token types
+  String get serviceTokenSupport => doc.formField(path, 'serviceTokenSupport') ?? '';
+  set serviceTokenSupport(String value) => doc.setFormField(path, 'serviceTokenSupport', value);
+
+  /// Token Lifetime.
+  ///
+  /// Default lifetime for service tokens (e.g., 1h, 24h)
+  String get tokenLifetime => doc.formField(path, 'tokenLifetime') ?? '';
+  set tokenLifetime(String value) => doc.setFormField(path, 'tokenLifetime', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiRequestValidationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiRequestValidationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Input Validation Strategy.
+  ///
+  /// Allowlist | Blocklist | SchemaValidation — primary validation approach (Allowlist recommended)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get inputValidationStrategy => doc.formField(path, 'inputValidationStrategy') ?? '';
+  set inputValidationStrategy(String value) => doc.setFormField(path, 'inputValidationStrategy', value);
+
+  /// Schema Validation Enforced.
+  ///
+  /// Yes | No — whether JSON Schema or OpenAPI schema validation is enforced on all requests
+  bool? get schemaValidationEnforced => somParseBool(doc.formField(path, 'schemaValidationEnforced'));
+  set schemaValidationEnforced(bool? value) => doc.setFormField(path, 'schemaValidationEnforced', somFormatBool(value));
+
+  /// Schema Validation Tool.
+  ///
+  /// Library or framework used for request schema validation
+  String get schemaValidationTool => doc.formField(path, 'schemaValidationTool') ?? '';
+  set schemaValidationTool(String value) => doc.setFormField(path, 'schemaValidationTool', value);
+
+  /// Content-Type Validation.
+  ///
+  /// Yes | No — whether Content-Type header is validated against expected types
+  bool? get contentTypeValidation => somParseBool(doc.formField(path, 'contentTypeValidation'));
+  set contentTypeValidation(bool? value) => doc.setFormField(path, 'contentTypeValidation', somFormatBool(value));
+
+  /// Accepted Content Types.
+  ///
+  /// application/json | application/xml — comma-separated list of accepted content types
+  String get acceptedContentTypes => doc.formField(path, 'acceptedContentTypes') ?? '';
+  set acceptedContentTypes(String value) => doc.setFormField(path, 'acceptedContentTypes', value);
+
+  /// Reject Unexpected Content-Type.
+  ///
+  /// Yes | No — respond with HTTP 415 for unsupported media types
+  bool? get rejectUnexpectedContentType => somParseBool(doc.formField(path, 'rejectUnexpectedContentType'));
+  set rejectUnexpectedContentType(bool? value) => doc.setFormField(path, 'rejectUnexpectedContentType', somFormatBool(value));
+
+  /// Request Size Limit.
+  ///
+  /// Maximum request body size (e.g. 1 MB, 10 MB) — reject with HTTP 413
+  String get requestSizeLimit => doc.formField(path, 'requestSizeLimit') ?? '';
+  set requestSizeLimit(String value) => doc.setFormField(path, 'requestSizeLimit', value);
+
+  /// Array Length Limit.
+  ///
+  /// Maximum number of elements allowed in any JSON array in request body
+  int? get arrayLengthLimit => somParseInt(doc.formField(path, 'arrayLengthLimit'));
+  set arrayLengthLimit(int? value) => doc.setFormField(path, 'arrayLengthLimit', somFormatInt(value));
+
+  /// Nested Object Depth Limit.
+  ///
+  /// Maximum nesting depth for JSON objects to prevent DoS via deep nesting
+  int? get nestedObjectDepthLimit => somParseInt(doc.formField(path, 'nestedObjectDepthLimit'));
+  set nestedObjectDepthLimit(int? value) => doc.setFormField(path, 'nestedObjectDepthLimit', somFormatInt(value));
+
+  /// String Field Max Length.
+  ///
+  /// Default maximum character length for string fields unless overridden per field
+  int? get stringFieldMaxLength => somParseInt(doc.formField(path, 'stringFieldMaxLength'));
+  set stringFieldMaxLength(int? value) => doc.setFormField(path, 'stringFieldMaxLength', somFormatInt(value));
+
+  /// Parameter Type Enforcement.
+  ///
+  /// Yes | No — enforce strong typing (number, boolean, date) on query/path parameters
+  bool? get parameterTypeEnforcement => somParseBool(doc.formField(path, 'parameterTypeEnforcement'));
+  set parameterTypeEnforcement(bool? value) => doc.setFormField(path, 'parameterTypeEnforcement', somFormatBool(value));
+
+  /// Numeric Range Validation.
+  ///
+  /// Yes | No — enforce min/max bounds on numeric parameters
+  bool? get numericRangeValidation => somParseBool(doc.formField(path, 'numericRangeValidation'));
+  set numericRangeValidation(bool? value) => doc.setFormField(path, 'numericRangeValidation', somFormatBool(value));
+
+  /// Date Format Validation.
+  ///
+  /// ISO 8601 | RFC 3339 | Custom — required date/time format for all date fields
+  String get dateFormatValidation => doc.formField(path, 'dateFormatValidation') ?? '';
+  set dateFormatValidation(String value) => doc.setFormField(path, 'dateFormatValidation', value);
+
+  /// Encoding Validation.
+  ///
+  /// UTF-8 | ASCII — accepted character encoding for request bodies
+  String get encodingValidation => doc.formField(path, 'encodingValidation') ?? '';
+  set encodingValidation(String value) => doc.setFormField(path, 'encodingValidation', value);
+
+  /// File Upload Validation.
+  ///
+  /// Allowed extensions, MIME types, max file size, and content scanning requirements
+  String get fileUploadValidation => doc.formField(path, 'fileUploadValidation') ?? '';
+  set fileUploadValidation(String value) => doc.setFormField(path, 'fileUploadValidation', value);
+
+  /// Notes.
+  ///
+  /// Additional request validation notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ApiSecurityMonitoringContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ApiSecurityMonitoringContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// API Access Logging.
+  ///
+  /// Yes | No — whether all API access is logged with caller identity and action
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get apiAccessLogging => somParseBool(doc.formField(path, 'apiAccessLogging'));
+  set apiAccessLogging(bool? value) => doc.setFormField(path, 'apiAccessLogging', somFormatBool(value));
+
+  /// Logged Request Attributes.
+  ///
+  /// Timestamp, clientId, endpoint, method, statusCode, responseTime, sourceIP — attributes captured per request
+  String get loggedAttributes => doc.formField(path, 'loggedAttributes') ?? '';
+  set loggedAttributes(String value) => doc.setFormField(path, 'loggedAttributes', value);
+
+  /// Sensitive Endpoint Monitoring.
+  ///
+  /// Yes | No — enhanced logging for authentication, payment, and admin endpoints
+  bool? get sensitiveEndpointMonitoring => somParseBool(doc.formField(path, 'sensitiveEndpointMonitoring'));
+  set sensitiveEndpointMonitoring(bool? value) => doc.setFormField(path, 'sensitiveEndpointMonitoring', somFormatBool(value));
+
+  /// Sensitive Data Redaction.
+  ///
+  /// Yes | No — redact PII, credentials, and tokens from API logs
+  bool? get sensitiveDataRedaction => somParseBool(doc.formField(path, 'sensitiveDataRedaction'));
+  set sensitiveDataRedaction(bool? value) => doc.setFormField(path, 'sensitiveDataRedaction', somFormatBool(value));
+
+  /// Anomaly Detection.
+  ///
+  /// Yes | No — detect anomalous API usage patterns (unusual volume, timing, geography)
+  bool? get anomalyDetection => somParseBool(doc.formField(path, 'anomalyDetection'));
+  set anomalyDetection(bool? value) => doc.setFormField(path, 'anomalyDetection', somFormatBool(value));
+
+  /// Error Rate Monitoring.
+  ///
+  /// Threshold and window for error-rate alerting (e.g. >5% 4xx in 5-min window)
+  String get errorRateMonitoring => doc.formField(path, 'errorRateMonitoring') ?? '';
+  set errorRateMonitoring(String value) => doc.setFormField(path, 'errorRateMonitoring', value);
+
+  /// Authentication Failure Tracking.
+  ///
+  /// Yes | No — track and alert on authentication failure patterns per client/IP
+  bool? get authenticationFailureTracking => somParseBool(doc.formField(path, 'authenticationFailureTracking'));
+  set authenticationFailureTracking(bool? value) => doc.setFormField(path, 'authenticationFailureTracking', somFormatBool(value));
+
+  /// Data Exfiltration Detection.
+  ///
+  /// Yes | No — detect unusual data volume patterns that may indicate exfiltration
+  bool? get dataExfiltrationDetection => somParseBool(doc.formField(path, 'dataExfiltrationDetection'));
+  set dataExfiltrationDetection(bool? value) => doc.setFormField(path, 'dataExfiltrationDetection', somFormatBool(value));
+
+  /// API Version Inventory.
+  ///
+  /// Yes | No — maintain a current inventory of all API versions and endpoints (OWASP API9)
+  bool? get apiVersionInventory => somParseBool(doc.formField(path, 'apiVersionInventory'));
+  set apiVersionInventory(bool? value) => doc.setFormField(path, 'apiVersionInventory', somFormatBool(value));
+
+  /// Deprecated Endpoint Monitoring.
+  ///
+  /// Yes | No — monitor and alert on usage of deprecated API endpoints or versions
+  bool? get deprecatedEndpointMonitoring => somParseBool(doc.formField(path, 'deprecatedEndpointMonitoring'));
+  set deprecatedEndpointMonitoring(bool? value) => doc.setFormField(path, 'deprecatedEndpointMonitoring', somFormatBool(value));
+
+  /// Real-Time Alerts.
+  ///
+  /// Yes | No — trigger real-time security alerts on threshold breaches
+  bool? get realTimeAlerts => somParseBool(doc.formField(path, 'realTimeAlerts'));
+  set realTimeAlerts(bool? value) => doc.setFormField(path, 'realTimeAlerts', somFormatBool(value));
+
+  /// Security Response Automation.
+  ///
+  /// Automated actions on security events — block, throttle, escalate, notify
+  String get securityResponseAutomation => doc.formField(path, 'securityResponseAutomation') ?? '';
+  set securityResponseAutomation(String value) => doc.setFormField(path, 'securityResponseAutomation', value);
+
+  /// Compliance Reporting.
+  ///
+  /// Frequency and format of API security compliance reports
+  String get complianceReporting => doc.formField(path, 'complianceReporting') ?? '';
+  set complianceReporting(String value) => doc.setFormField(path, 'complianceReporting', value);
+
+  /// Notes.
+  ///
+  /// Additional API security monitoring notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `compatibility` `@Form` section:
@@ -49567,6 +50661,86 @@ class AuditEvidenceTypeEntryContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class AuthenticationErrorHandlingContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AuthenticationErrorHandlingContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Invalid Credential Response.
+  ///
+  /// GenericError | SpecificError — response to invalid credentials (generic preferred)
+  String get invalidCredentialResponse => doc.formField(path, 'invalidCredentialResponse') ?? '';
+  set invalidCredentialResponse(String value) => doc.setFormField(path, 'invalidCredentialResponse', value);
+
+  /// Account Lockout Threshold.
+  ///
+  /// Number of failed attempts before lockout (e.g., 5, 10, configurable)
+  String get accountLockoutThreshold => doc.formField(path, 'accountLockoutThreshold') ?? '';
+  set accountLockoutThreshold(String value) => doc.setFormField(path, 'accountLockoutThreshold', value);
+
+  /// Lockout Duration.
+  ///
+  /// Duration of lockout (e.g., 15min, 30min, progressive, permanent)
+  String get lockoutDuration => doc.formField(path, 'lockoutDuration') ?? '';
+  set lockoutDuration(String value) => doc.setFormField(path, 'lockoutDuration', value);
+
+  /// Lockout Escalation.
+  ///
+  /// Fixed | Progressive | Exponential — whether lockout duration increases
+  String get lockoutEscalation => doc.formField(path, 'lockoutEscalation') ?? '';
+  set lockoutEscalation(String value) => doc.setFormField(path, 'lockoutEscalation', value);
+
+  /// Brute Force Protection.
+  ///
+  /// RateLimiting | CAPTCHA | IPBlock | AccountLock — brute-force mitigation
+  String get bruteForceProtection => doc.formField(path, 'bruteForceProtection') ?? '';
+  set bruteForceProtection(String value) => doc.setFormField(path, 'bruteForceProtection', value);
+
+  /// Credential Stuffing Protection.
+  ///
+  /// BreachDatabase | DeviceFingerprint | BehaviorAnalysis | None
+  String get credentialStuffingProtection => doc.formField(path, 'credentialStuffingProtection') ?? '';
+  set credentialStuffingProtection(String value) => doc.setFormField(path, 'credentialStuffingProtection', value);
+
+  /// User Notification On Failure.
+  ///
+  /// Yes | No — whether users are notified of failed login attempts
+  String get userNotificationOnFailure => doc.formField(path, 'userNotificationOnFailure') ?? '';
+  set userNotificationOnFailure(String value) => doc.setFormField(path, 'userNotificationOnFailure', value);
+
+  /// Admin Alert Threshold.
+  ///
+  /// Number of failures before admin alert (e.g., 10, 50, per-minute rate)
+  String get adminAlertThreshold => doc.formField(path, 'adminAlertThreshold') ?? '';
+  set adminAlertThreshold(String value) => doc.setFormField(path, 'adminAlertThreshold', value);
+
+  /// Failed Login Audit Logging.
+  ///
+  /// Yes | No — whether failed login attempts are logged for audit
+  String get failedLoginAuditLogging => doc.formField(path, 'failedLoginAuditLogging') ?? '';
+  set failedLoginAuditLogging(String value) => doc.setFormField(path, 'failedLoginAuditLogging', value);
+
+  /// Suspicious Activity Response.
+  ///
+  /// RequireMFA | TemporaryBlock | CAPTCHA | ManualReview — response to anomalies
+  String get suspiciousActivityResponse => doc.formField(path, 'suspiciousActivityResponse') ?? '';
+  set suspiciousActivityResponse(String value) => doc.setFormField(path, 'suspiciousActivityResponse', value);
+
+  /// Graceful Degradation.
+  ///
+  /// Behavior when authentication service is partially unavailable (queue, fallback, deny)
+  String get gracefulDegradation => doc.formField(path, 'gracefulDegradation') ?? '';
+  set gracefulDegradation(String value) => doc.setFormField(path, 'gracefulDegradation', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class AuthenticationEventPolicyContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   AuthenticationEventPolicyContentForm(super.doc, super.path);
@@ -50641,6 +51815,64 @@ class BackupDataClassificationExclusionsForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class BackupEncryptionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  BackupEncryptionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Backup Encryption Required.
+  ///
+  /// Yes | No — whether all backups (database, file, system) must be encrypted
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get backupEncryptionRequired => somParseBool(doc.formField(path, 'backupEncryptionRequired'));
+  set backupEncryptionRequired(bool? value) => doc.setFormField(path, 'backupEncryptionRequired', somFormatBool(value));
+
+  /// Backup Encryption Method.
+  ///
+  /// SameAsSource | SeparateKey | EnvelopeEncryption | CloudProviderManaged — how backup data is encrypted (SameAsSource = same keys as live data)
+  String get backupEncryptionMethod => doc.formField(path, 'backupEncryptionMethod') ?? '';
+  set backupEncryptionMethod(String value) => doc.setFormField(path, 'backupEncryptionMethod', value);
+
+  /// Separate Backup Keys.
+  ///
+  /// Yes | No — whether backups use separate encryption keys from production data (recommended for key rotation independence)
+  bool? get separateBackupKeys => somParseBool(doc.formField(path, 'separateBackupKeys'));
+  set separateBackupKeys(bool? value) => doc.setFormField(path, 'separateBackupKeys', somFormatBool(value));
+
+  /// Backup Key Rotation.
+  ///
+  /// OnEveryBackup | Monthly | Quarterly | Annual | OnKeyChange — how often backup encryption keys are rotated
+  String get backupKeyRotation => doc.formField(path, 'backupKeyRotation') ?? '';
+  set backupKeyRotation(String value) => doc.setFormField(path, 'backupKeyRotation', value);
+
+  /// Encrypted Backup Verification.
+  ///
+  /// Yes | No — whether backup integrity and encryption are periodically verified through test restores
+  bool? get encryptedBackupVerification => somParseBool(doc.formField(path, 'encryptedBackupVerification'));
+  set encryptedBackupVerification(bool? value) => doc.setFormField(path, 'encryptedBackupVerification', somFormatBool(value));
+
+  /// Off-Site Backup Encryption.
+  ///
+  /// Yes | No — whether off-site or disaster recovery backups have additional encryption requirements
+  bool? get offSiteBackupEncryption => somParseBool(doc.formField(path, 'offSiteBackupEncryption'));
+  set offSiteBackupEncryption(bool? value) => doc.setFormField(path, 'offSiteBackupEncryption', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional backup encryption notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class BackupInfrastructureContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   BackupInfrastructureContentForm(super.doc, super.path);
@@ -51657,6 +52889,92 @@ class BehaviorRuleEntryContentForm extends SomNode {
   /// Derived/calculated attributes (e.g., orderTotal, age)
   String get calculatedProperties => doc.formField(path, 'calculatedProperties') ?? '';
   set calculatedProperties(String value) => doc.setFormField(path, 'calculatedProperties', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class BiometricAuthenticationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  BiometricAuthenticationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Biometric Auth Enabled.
+  ///
+  /// Yes | No — whether biometric authentication is supported
+  String get biometricAuthEnabled => doc.formField(path, 'biometricAuthEnabled') ?? '';
+  set biometricAuthEnabled(String value) => doc.setFormField(path, 'biometricAuthEnabled', value);
+
+  /// Biometric Modalities.
+  ///
+  /// Fingerprint | FacialRecognition | IrisScan | VoicePrint — supported modalities
+  String get biometricModalities => doc.formField(path, 'biometricModalities') ?? '';
+  set biometricModalities(String value) => doc.setFormField(path, 'biometricModalities', value);
+
+  /// Biometric Usage Context.
+  ///
+  /// DeviceUnlock | TransactionApproval | MfaActivation — when biometrics are used
+  String get biometricUsageContext => doc.formField(path, 'biometricUsageContext') ?? '';
+  set biometricUsageContext(String value) => doc.setFormField(path, 'biometricUsageContext', value);
+
+  /// Biometric As Activation Factor.
+  ///
+  /// Yes | No — whether biometric is used as MFA activation factor per NIST guidance
+  String get biometricAsActivationFactor => doc.formField(path, 'biometricAsActivationFactor') ?? '';
+  set biometricAsActivationFactor(String value) => doc.setFormField(path, 'biometricAsActivationFactor', value);
+
+  /// Local vs Central Comparison.
+  ///
+  /// Local | Central — where biometric comparison is performed (local preferred)
+  String get localVsCentralComparison => doc.formField(path, 'localVsCentralComparison') ?? '';
+  set localVsCentralComparison(String value) => doc.setFormField(path, 'localVsCentralComparison', value);
+
+  /// False Match Rate Target.
+  ///
+  /// Target FMR (e.g., 1:10000 per NIST SP 800-63B)
+  String get falseMatchRateTarget => doc.formField(path, 'falseMatchRateTarget') ?? '';
+  set falseMatchRateTarget(String value) => doc.setFormField(path, 'falseMatchRateTarget', value);
+
+  /// Presentation Attack Detection.
+  ///
+  /// Yes | No — whether PAD is implemented (required for facial recognition)
+  String get presentationAttackDetection => doc.formField(path, 'presentationAttackDetection') ?? '';
+  set presentationAttackDetection(String value) => doc.setFormField(path, 'presentationAttackDetection', value);
+
+  /// Max Consecutive Failures.
+  ///
+  /// Maximum failed biometric attempts before fallback (e.g., 5 without PAD, 10 with PAD)
+  String get maxConsecutiveFailures => doc.formField(path, 'maxConsecutiveFailures') ?? '';
+  set maxConsecutiveFailures(String value) => doc.setFormField(path, 'maxConsecutiveFailures', value);
+
+  /// Fallback Method.
+  ///
+  /// PIN | Password | AlternateModality — fallback when biometric fails
+  String get fallbackMethod => doc.formField(path, 'fallbackMethod') ?? '';
+  set fallbackMethod(String value) => doc.setFormField(path, 'fallbackMethod', value);
+
+  /// Biometric Data Storage.
+  ///
+  /// DeviceOnly | EncryptedCentral | Never — where biometric templates are stored
+  String get biometricDataStorage => doc.formField(path, 'biometricDataStorage') ?? '';
+  set biometricDataStorage(String value) => doc.setFormField(path, 'biometricDataStorage', value);
+
+  /// Privacy Considerations.
+  ///
+  /// Consent requirements, data retention policy, right to withdraw
+  String get privacyConsiderations => doc.formField(path, 'privacyConsiderations') ?? '';
+  set privacyConsiderations(String value) => doc.setFormField(path, 'privacyConsiderations', value);
+
+  /// Accessibility Alternative.
+  ///
+  /// Alternative authentication for users unable to use biometric modalities
+  String get accessibilityAlternative => doc.formField(path, 'accessibilityAlternative') ?? '';
+  set accessibilityAlternative(String value) => doc.setFormField(path, 'accessibilityAlternative', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -54227,6 +55545,92 @@ class CcbMemberEntryContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class CertificateAuthenticationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  CertificateAuthenticationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Certificate Auth Enabled.
+  ///
+  /// Yes | No — whether certificate-based authentication is supported
+  String get certificateAuthEnabled => doc.formField(path, 'certificateAuthEnabled') ?? '';
+  set certificateAuthEnabled(String value) => doc.setFormField(path, 'certificateAuthEnabled', value);
+
+  /// Certificate Types.
+  ///
+  /// X.509 | PIV | CAC | SmartCard — types of certificates accepted
+  String get certificateTypes => doc.formField(path, 'certificateTypes') ?? '';
+  set certificateTypes(String value) => doc.setFormField(path, 'certificateTypes', value);
+
+  /// Certificate Issuance.
+  ///
+  /// InternalCA | ExternalCA | SelfSigned — who issues the certificates
+  String get certificateIssuance => doc.formField(path, 'certificateIssuance') ?? '';
+  set certificateIssuance(String value) => doc.setFormField(path, 'certificateIssuance', value);
+
+  /// Certificate Authority.
+  ///
+  /// CA product or service used for certificate issuance
+  String get certificateAuthority => doc.formField(path, 'certificateAuthority') ?? '';
+  set certificateAuthority(String value) => doc.setFormField(path, 'certificateAuthority', value);
+
+  /// Key Storage Requirement.
+  ///
+  /// TPM | HSM | SmartCard | SoftwareKeystore — where private keys must be stored
+  String get keyStorageRequirement => doc.formField(path, 'keyStorageRequirement') ?? '';
+  set keyStorageRequirement(String value) => doc.setFormField(path, 'keyStorageRequirement', value);
+
+  /// Mutual TLS Required.
+  ///
+  /// Yes | No — whether mTLS (client certificate) is required for API access
+  String get mutualTlsRequired => doc.formField(path, 'mutualTlsRequired') ?? '';
+  set mutualTlsRequired(String value) => doc.setFormField(path, 'mutualTlsRequired', value);
+
+  /// Certificate Validation.
+  ///
+  /// OCSP | CRL | OCSP-Stapling — certificate revocation checking method
+  String get certificateValidation => doc.formField(path, 'certificateValidation') ?? '';
+  set certificateValidation(String value) => doc.setFormField(path, 'certificateValidation', value);
+
+  /// Certificate Lifetime.
+  ///
+  /// Maximum validity period for certificates (e.g., 1y, 2y)
+  String get certificateLifetime => doc.formField(path, 'certificateLifetime') ?? '';
+  set certificateLifetime(String value) => doc.setFormField(path, 'certificateLifetime', value);
+
+  /// Renewal Process.
+  ///
+  /// Automatic | Manual | AdminApproval — certificate renewal method
+  String get renewalProcess => doc.formField(path, 'renewalProcess') ?? '';
+  set renewalProcess(String value) => doc.setFormField(path, 'renewalProcess', value);
+
+  /// Revocation Process.
+  ///
+  /// How compromised certificates are revoked and propagated
+  String get revocationProcess => doc.formField(path, 'revocationProcess') ?? '';
+  set revocationProcess(String value) => doc.setFormField(path, 'revocationProcess', value);
+
+  /// Minimum Key Strength.
+  ///
+  /// RSA-2048 | RSA-4096 | EC-P256 | EC-P384 — minimum key requirements
+  String get minimumKeyStrength => doc.formField(path, 'minimumKeyStrength') ?? '';
+  set minimumKeyStrength(String value) => doc.setFormField(path, 'minimumKeyStrength', value);
+
+  /// FIPS Compliance Required.
+  ///
+  /// Yes | No — whether FIPS 140-2/3 validated modules are required
+  String get fipsComplianceRequired => doc.formField(path, 'fipsComplianceRequired') ?? '';
+  set fipsComplianceRequired(String value) => doc.setFormField(path, 'fipsComplianceRequired', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class CertificateManagementContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   CertificateManagementContentForm(super.doc, super.path);
@@ -54351,6 +55755,88 @@ class CertificateManagementMonitoringForm extends SomNode {
   /// Days before expiry to alert (e.g. 30, 14, 7)
   String get expiryAlertThreshold => doc.formField(path, 'expiryAlertThreshold') ?? '';
   set expiryAlertThreshold(String value) => doc.setFormField(path, 'expiryAlertThreshold', value);
+
+  /// Notes.
+  ///
+  /// Additional certificate management notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class CertificateManagementPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  CertificateManagementPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Certificate Authority.
+  ///
+  /// LetsEncrypt | DigiCert | GlobalSign | InternalCA | Other — certificate authority used for issuing TLS certificates
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get certificateAuthority => doc.formField(path, 'certificateAuthority') ?? '';
+  set certificateAuthority(String value) => doc.setFormField(path, 'certificateAuthority', value);
+
+  /// Validation Type.
+  ///
+  /// DV | OV | EV — Domain Validated, Organization Validated, or Extended Validation (DV is sufficient for most applications; EV provides no additional browser security benefits)
+  String get validationType => doc.formField(path, 'validationType') ?? '';
+  set validationType(String value) => doc.setFormField(path, 'validationType', value);
+
+  /// Minimum Key Length (bits).
+  ///
+  /// 2048 | 3072 | 4096 — minimum RSA key length in bits for certificates (2048 minimum per NIST; 3072+ recommended)
+  int? get minimumKeyLength => somParseInt(doc.formField(path, 'minimumKeyLength'));
+  set minimumKeyLength(int? value) => doc.setFormField(path, 'minimumKeyLength', somFormatInt(value));
+
+  /// Key Type.
+  ///
+  /// RSA | ECDSA | Ed25519 — certificate key type (ECDSA with P-256/P-384 or Ed25519 preferred for performance; RSA for broadest compatibility)
+  String get keyType => doc.formField(path, 'keyType') ?? '';
+  set keyType(String value) => doc.setFormField(path, 'keyType', value);
+
+  /// Hashing Algorithm.
+  ///
+  /// SHA-256 | SHA-384 | SHA-512 — certificate hashing algorithm (SHA-256 minimum; MD5 and SHA-1 must not be used)
+  String get hashingAlgorithm => doc.formField(path, 'hashingAlgorithm') ?? '';
+  set hashingAlgorithm(String value) => doc.setFormField(path, 'hashingAlgorithm', value);
+
+  /// Wildcard Certificate Policy.
+  ///
+  /// Allowed | Restricted | Prohibited — policy on wildcard certificates (* certs; use with caution per OWASP — violates least privilege principle)
+  String get wildcardCertificatePolicy => doc.formField(path, 'wildcardCertificatePolicy') ?? '';
+  set wildcardCertificatePolicy(String value) => doc.setFormField(path, 'wildcardCertificatePolicy', value);
+
+  /// Certificate Lifetime (Days).
+  ///
+  /// Maximum certificate validity in days (e.g. 90 for LetsEncrypt auto-renewal, 365 for annual, 730 for 2-year)
+  int? get certificateLifetimeDays => somParseInt(doc.formField(path, 'certificateLifetimeDays'));
+  set certificateLifetimeDays(int? value) => doc.setFormField(path, 'certificateLifetimeDays', somFormatInt(value));
+
+  /// Automated Renewal.
+  ///
+  /// Yes | No — whether certificates are automatically renewed via ACME or similar protocol before expiration
+  bool? get automatedRenewal => somParseBool(doc.formField(path, 'automatedRenewal'));
+  set automatedRenewal(bool? value) => doc.setFormField(path, 'automatedRenewal', somFormatBool(value));
+
+  /// Certificate Transparency.
+  ///
+  /// Yes | No — whether certificates are logged in Certificate Transparency logs for public auditability
+  bool? get certificateTransparency => somParseBool(doc.formField(path, 'certificateTransparency'));
+  set certificateTransparency(bool? value) => doc.setFormField(path, 'certificateTransparency', somFormatBool(value));
+
+  /// CAA DNS Records.
+  ///
+  /// Yes | No — whether CAA DNS records restrict which CAs can issue certificates for the domain
+  bool? get caaRecords => somParseBool(doc.formField(path, 'caaRecords'));
+  set caaRecords(bool? value) => doc.setFormField(path, 'caaRecords', somFormatBool(value));
 
   /// Notes.
   ///
@@ -56123,6 +57609,62 @@ class ChangesFromCurrentStructureOverviewContentForm extends SomNode {
   /// How teams will work together differently
   String get collaborationModelChanges => doc.formField(path, 'collaborationModelChanges') ?? '';
   set collaborationModelChanges(String value) => doc.setFormField(path, 'collaborationModelChanges', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ChannelIntegrationsContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ChannelIntegrationsContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Push Notification Service.
+  ///
+  /// FCM, APNs, Web Push
+  String get pushNotificationService => doc.formField(path, 'pushNotificationService') ?? '';
+  set pushNotificationService(String value) => doc.setFormField(path, 'pushNotificationService', value);
+
+  /// Analytics Service.
+  ///
+  /// Firebase Analytics, Mixpanel, etc.
+  String get analyticsService => doc.formField(path, 'analyticsService') ?? '';
+  set analyticsService(String value) => doc.setFormField(path, 'analyticsService', value);
+
+  /// Crash Reporting.
+  ///
+  /// Crashlytics, Sentry, etc.
+  String get crashReporting => doc.formField(path, 'crashReporting') ?? '';
+  set crashReporting(String value) => doc.setFormField(path, 'crashReporting', value);
+
+  /// Deep Linking.
+  ///
+  /// URL scheme, Universal Links, App Links
+  String get deepLinking => doc.formField(path, 'deepLinking') ?? '';
+  set deepLinking(String value) => doc.setFormField(path, 'deepLinking', value);
+
+  /// Social Integration.
+  ///
+  /// Social login, sharing capabilities
+  String get socialIntegration => doc.formField(path, 'socialIntegration') ?? '';
+  set socialIntegration(String value) => doc.setFormField(path, 'socialIntegration', value);
+
+  /// Payment Integration.
+  ///
+  /// Apple Pay, Google Pay, Stripe, etc.
+  String get paymentIntegration => doc.formField(path, 'paymentIntegration') ?? '';
+  set paymentIntegration(String value) => doc.setFormField(path, 'paymentIntegration', value);
+
+  /// Biometric Integration.
+  ///
+  /// Face ID, Touch ID, Fingerprint
+  String get biometricIntegration => doc.formField(path, 'biometricIntegration') ?? '';
+  set biometricIntegration(String value) => doc.setFormField(path, 'biometricIntegration', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -58233,6 +59775,74 @@ class ColorPaletteEntryContentForm extends SomNode {
   /// When and where to apply this palette
   String get usageGuidelines => doc.formField(path, 'usageGuidelines') ?? '';
   set usageGuidelines(String value) => doc.setFormField(path, 'usageGuidelines', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ColumnLevelSecurityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ColumnLevelSecurityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Column-Level Security Enabled.
+  ///
+  /// Yes | No — whether column-level access control is implemented
+  String get columnLevelSecurityEnabled => doc.formField(path, 'columnLevelSecurityEnabled') ?? '';
+  set columnLevelSecurityEnabled(String value) => doc.setFormField(path, 'columnLevelSecurityEnabled', value);
+
+  /// Column Access Implementation.
+  ///
+  /// DatabaseGrants | ViewRestriction | ApplicationLayer | FieldProjection — enforcement mechanism
+  String get columnAccessImplementation => doc.formField(path, 'columnAccessImplementation') ?? '';
+  set columnAccessImplementation(String value) => doc.setFormField(path, 'columnAccessImplementation', value);
+
+  /// Sensitive Column Classification.
+  ///
+  /// PII | Financial | Health | Confidential | Internal | Public — classification scheme for columns
+  String get sensitiveColumnClassification => doc.formField(path, 'sensitiveColumnClassification') ?? '';
+  set sensitiveColumnClassification(String value) => doc.setFormField(path, 'sensitiveColumnClassification', value);
+
+  /// PII Column Access.
+  ///
+  /// RestrictedByRole | MaskedByDefault | EncryptedAtRest — access policy for PII columns
+  String get piiColumnAccess => doc.formField(path, 'piiColumnAccess') ?? '';
+  set piiColumnAccess(String value) => doc.setFormField(path, 'piiColumnAccess', value);
+
+  /// Financial Data Column Access.
+  ///
+  /// RestrictedByRole | AuditedAccess | Masked — access policy for financial data columns
+  String get financialDataColumnAccess => doc.formField(path, 'financialDataColumnAccess') ?? '';
+  set financialDataColumnAccess(String value) => doc.setFormField(path, 'financialDataColumnAccess', value);
+
+  /// Health Data Column Access.
+  ///
+  /// HipaaCompliant | StrictRole | Encrypted — access policy for health/medical data
+  String get healthDataColumnAccess => doc.formField(path, 'healthDataColumnAccess') ?? '';
+  set healthDataColumnAccess(String value) => doc.setFormField(path, 'healthDataColumnAccess', value);
+
+  /// Dynamic Field Visibility.
+  ///
+  /// Yes | No — whether field visibility varies dynamically based on user role or context
+  String get dynamicFieldVisibility => doc.formField(path, 'dynamicFieldVisibility') ?? '';
+  set dynamicFieldVisibility(String value) => doc.setFormField(path, 'dynamicFieldVisibility', value);
+
+  /// Column Access Audit.
+  ///
+  /// Yes | No — whether access to sensitive columns is individually audited
+  String get columnAccessAudit => doc.formField(path, 'columnAccessAudit') ?? '';
+  set columnAccessAudit(String value) => doc.setFormField(path, 'columnAccessAudit', value);
+
+  /// Column Encryption Policy.
+  ///
+  /// None | SelectedColumns | AllSensitive | AlwaysEncrypted — column-level encryption approach
+  String get columnEncryptionPolicy => doc.formField(path, 'columnEncryptionPolicy') ?? '';
+  set columnEncryptionPolicy(String value) => doc.setFormField(path, 'columnEncryptionPolicy', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -62263,6 +63873,86 @@ class ComputingEquipmentEntryPlatformForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class ConcurrentSessionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ConcurrentSessionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Concurrent Sessions Allowed.
+  ///
+  /// Yes | No | Limited — whether multiple simultaneous sessions are permitted
+  String get concurrentSessionsAllowed => doc.formField(path, 'concurrentSessionsAllowed') ?? '';
+  set concurrentSessionsAllowed(String value) => doc.setFormField(path, 'concurrentSessionsAllowed', value);
+
+  /// Maximum Concurrent Sessions.
+  ///
+  /// Maximum number of active sessions per user (e.g., 1, 3, 5, unlimited)
+  String get maxConcurrentSessions => doc.formField(path, 'maxConcurrentSessions') ?? '';
+  set maxConcurrentSessions(String value) => doc.setFormField(path, 'maxConcurrentSessions', value);
+
+  /// Concurrent Session Scope.
+  ///
+  /// PerAccount | PerDeviceType | PerApplication — scope for counting sessions
+  String get concurrentSessionScope => doc.formField(path, 'concurrentSessionScope') ?? '';
+  set concurrentSessionScope(String value) => doc.setFormField(path, 'concurrentSessionScope', value);
+
+  /// Session Conflict Resolution.
+  ///
+  /// TerminateOldest | TerminateNewest | DenyNew | AskUser — action when limit exceeded
+  String get conflictResolution => doc.formField(path, 'conflictResolution') ?? '';
+  set conflictResolution(String value) => doc.setFormField(path, 'conflictResolution', value);
+
+  /// Session List Visible to User.
+  ///
+  /// Yes | No — whether users can see a list of their active sessions
+  String get sessionListVisible => doc.formField(path, 'sessionListVisible') ?? '';
+  set sessionListVisible(String value) => doc.setFormField(path, 'sessionListVisible', value);
+
+  /// Remote Termination Enabled.
+  ///
+  /// Yes | No — whether users can terminate other sessions remotely
+  String get remoteTerminationEnabled => doc.formField(path, 'remoteTerminationEnabled') ?? '';
+  set remoteTerminationEnabled(String value) => doc.setFormField(path, 'remoteTerminationEnabled', value);
+
+  /// Session Device Information.
+  ///
+  /// IPAddress | DeviceType | Browser | Location | All — info shown per session
+  String get sessionDeviceInfo => doc.formField(path, 'sessionDeviceInfo') ?? '';
+  set sessionDeviceInfo(String value) => doc.setFormField(path, 'sessionDeviceInfo', value);
+
+  /// Concurrent Login Notification.
+  ///
+  /// None | Email | Push | InApp | All — notification when new session starts
+  String get concurrentLoginNotification => doc.formField(path, 'concurrentLoginNotification') ?? '';
+  set concurrentLoginNotification(String value) => doc.setFormField(path, 'concurrentLoginNotification', value);
+
+  /// Suspicious Concurrent Login Action.
+  ///
+  /// Notify | RequireMFA | TerminateAll | LockAccount — action for suspicious simultaneous access
+  String get suspiciousConcurrentLoginAction => doc.formField(path, 'suspiciousConcurrentLoginAction') ?? '';
+  set suspiciousConcurrentLoginAction(String value) => doc.setFormField(path, 'suspiciousConcurrentLoginAction', value);
+
+  /// Privileged Account Session Limit.
+  ///
+  /// Maximum sessions for admin/privileged accounts (typically stricter, e.g., 1)
+  String get privilegedAccountSessionLimit => doc.formField(path, 'privilegedAccountSessionLimit') ?? '';
+  set privilegedAccountSessionLimit(String value) => doc.setFormField(path, 'privilegedAccountSessionLimit', value);
+
+  /// Cross-Device Session Handling.
+  ///
+  /// Independent | Synchronized | SingleDevice — how sessions relate across devices
+  String get crossDeviceSessionHandling => doc.formField(path, 'crossDeviceSessionHandling') ?? '';
+  set crossDeviceSessionHandling(String value) => doc.setFormField(path, 'crossDeviceSessionHandling', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class ConfidentialInfoCategoryEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   ConfidentialInfoCategoryEntryContentForm(super.doc, super.path);
@@ -62901,6 +64591,112 @@ class ConstraintRegisterEntryContentForm extends SomNode {
   set impact(String value) => doc.setFormField(path, 'impact', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ContentScanningPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ContentScanningPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Antivirus Scanning Enabled.
+  ///
+  /// Yes | No — whether uploaded files are scanned by antivirus before acceptance
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get antivirusScanningEnabled => somParseBool(doc.formField(path, 'antivirusScanningEnabled'));
+  set antivirusScanningEnabled(bool? value) => doc.setFormField(path, 'antivirusScanningEnabled', somFormatBool(value));
+
+  /// Scan Timing.
+  ///
+  /// OnUpload | Asynchronous | OnAccess | Periodic — when scanning occurs
+  String get scanTiming => doc.formField(path, 'scanTiming') ?? '';
+  set scanTiming(String value) => doc.setFormField(path, 'scanTiming', value);
+
+  /// Scan Engine.
+  ///
+  /// ClamAV | CloudProvider | ThirdPartyAPI | Multiple — scanning engine or service used
+  String get scanEngine => doc.formField(path, 'scanEngine') ?? '';
+  set scanEngine(String value) => doc.setFormField(path, 'scanEngine', value);
+
+  /// Quarantine Policy.
+  ///
+  /// Quarantine | Reject | NotifyAndQuarantine — action when malicious content is detected
+  String get quarantinePolicy => doc.formField(path, 'quarantinePolicy') ?? '';
+  set quarantinePolicy(String value) => doc.setFormField(path, 'quarantinePolicy', value);
+
+  /// Quarantine Retention Days.
+  ///
+  /// Number of days quarantined files are retained before permanent deletion
+  int? get quarantineRetentionDays => somParseInt(doc.formField(path, 'quarantineRetentionDays'));
+  set quarantineRetentionDays(int? value) => doc.setFormField(path, 'quarantineRetentionDays', somFormatInt(value));
+
+  /// Signature Update Frequency.
+  ///
+  /// Hourly | Daily | RealTime — how often antivirus signatures are updated
+  String get signatureUpdateFrequency => doc.formField(path, 'signatureUpdateFrequency') ?? '';
+  set signatureUpdateFrequency(String value) => doc.setFormField(path, 'signatureUpdateFrequency', value);
+
+  /// CDR (Content Disarm & Reconstruct) Enabled.
+  ///
+  /// Yes | No — whether CDR is applied to office documents, PDFs, and similar file types
+  bool? get cdrEnabled => somParseBool(doc.formField(path, 'cdrEnabled'));
+  set cdrEnabled(bool? value) => doc.setFormField(path, 'cdrEnabled', somFormatBool(value));
+
+  /// CDR Applicable File Types.
+  ///
+  /// PDF | DOCX | XLSX | Images — file types processed by CDR
+  String get cdrApplicableTypes => doc.formField(path, 'cdrApplicableTypes') ?? '';
+  set cdrApplicableTypes(String value) => doc.setFormField(path, 'cdrApplicableTypes', value);
+
+  /// DLP Scanning Enabled.
+  ///
+  /// Yes | No — scan file contents for sensitive data (PII, credit cards, health records)
+  bool? get dlpScanningEnabled => somParseBool(doc.formField(path, 'dlpScanningEnabled'));
+  set dlpScanningEnabled(bool? value) => doc.setFormField(path, 'dlpScanningEnabled', somFormatBool(value));
+
+  /// DLP Policies.
+  ///
+  /// Regex patterns, trained classifiers, keyword lists — methods for detecting sensitive data in files
+  String get dlpPolicies => doc.formField(path, 'dlpPolicies') ?? '';
+  set dlpPolicies(String value) => doc.setFormField(path, 'dlpPolicies', value);
+
+  /// DLP Action on Detection.
+  ///
+  /// Block | Redact | Notify | Quarantine — action when DLP detects sensitive content
+  String get dlpAction => doc.formField(path, 'dlpAction') ?? '';
+  set dlpAction(String value) => doc.setFormField(path, 'dlpAction', value);
+
+  /// Content Moderation.
+  ///
+  /// Yes | No — scan for illegal, offensive, or policy-violating content
+  bool? get contentModeration => somParseBool(doc.formField(path, 'contentModeration'));
+  set contentModeration(bool? value) => doc.setFormField(path, 'contentModeration', somFormatBool(value));
+
+  /// Moderation Method.
+  ///
+  /// Automated | ManualReview | Hybrid — approach to content moderation
+  String get moderationMethod => doc.formField(path, 'moderationMethod') ?? '';
+  set moderationMethod(String value) => doc.setFormField(path, 'moderationMethod', value);
+
+  /// Hash-Based Detection.
+  ///
+  /// Yes | No — use file hash databases (e.g. VirusTotal) to detect known-malicious files
+  bool? get hashBasedDetection => somParseBool(doc.formField(path, 'hashBasedDetection'));
+  set hashBasedDetection(bool? value) => doc.setFormField(path, 'hashBasedDetection', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional content scanning notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
 /// Generated section facade for the `contextualHelpContent` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ContextualHelpContextualHelpContentForm extends SomNode {
@@ -63473,6 +65269,172 @@ class CorrectnessVerificationForm extends SomNode {
   set regressionTestingApproach(String value) => doc.setFormField(path, 'regressionTestingApproach', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class CredentialCompromiseDetectionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  CredentialCompromiseDetectionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Breach Database Monitoring.
+  ///
+  /// Yes | No — whether passwords are checked against known breach databases
+  String get breachDatabaseMonitoring => doc.formField(path, 'breachDatabaseMonitoring') ?? '';
+  set breachDatabaseMonitoring(String value) => doc.setFormField(path, 'breachDatabaseMonitoring', value);
+
+  /// Breach Database Source.
+  ///
+  /// HaveIBeenPwned | Internal | CommercialFeed | Multiple — source of breach data
+  String get breachDatabaseSource => doc.formField(path, 'breachDatabaseSource') ?? '';
+  set breachDatabaseSource(String value) => doc.setFormField(path, 'breachDatabaseSource', value);
+
+  /// Breach Check Frequency.
+  ///
+  /// AtCreation | AtLogin | Periodic | RealTime — when breach checks are performed
+  String get breachCheckFrequency => doc.formField(path, 'breachCheckFrequency') ?? '';
+  set breachCheckFrequency(String value) => doc.setFormField(path, 'breachCheckFrequency', value);
+
+  /// Compromised Credential Action.
+  ///
+  /// ForceChange | NotifyAndRecommend | DisableAccount — action when credential is found compromised
+  String get compromisedCredentialAction => doc.formField(path, 'compromisedCredentialAction') ?? '';
+  set compromisedCredentialAction(String value) => doc.setFormField(path, 'compromisedCredentialAction', value);
+
+  /// Credential Stuffing Detection.
+  ///
+  /// Yes | No — whether automated credential stuffing attacks are detected
+  String get credentialStuffingDetection => doc.formField(path, 'credentialStuffingDetection') ?? '';
+  set credentialStuffingDetection(String value) => doc.setFormField(path, 'credentialStuffingDetection', value);
+
+  /// Stuffing Detection Method.
+  ///
+  /// BehaviorAnalysis | IPReputation | VelocityChecks | DeviceFingerprint — detection methods
+  String get stuffingDetectionMethod => doc.formField(path, 'stuffingDetectionMethod') ?? '';
+  set stuffingDetectionMethod(String value) => doc.setFormField(path, 'stuffingDetectionMethod', value);
+
+  /// Dark Web Monitoring.
+  ///
+  /// Yes | No — whether organizational credentials are monitored on dark web
+  String get darkWebMonitoring => doc.formField(path, 'darkWebMonitoring') ?? '';
+  set darkWebMonitoring(String value) => doc.setFormField(path, 'darkWebMonitoring', value);
+
+  /// User Compromise Notification.
+  ///
+  /// Email | InApp | Push | SMS — how users are notified of credential compromise
+  String get userCompromiseNotification => doc.formField(path, 'userCompromiseNotification') ?? '';
+  set userCompromiseNotification(String value) => doc.setFormField(path, 'userCompromiseNotification', value);
+
+  /// Admin Compromise Alerts.
+  ///
+  /// Yes | No — whether administrators receive alerts for mass compromise events
+  String get adminCompromiseAlerts => doc.formField(path, 'adminCompromiseAlerts') ?? '';
+  set adminCompromiseAlerts(String value) => doc.setFormField(path, 'adminCompromiseAlerts', value);
+
+  /// Compromise Response SLA.
+  ///
+  /// Time to force credential change after detection (e.g., Immediate, 24h, 72h)
+  String get compromiseResponseSla => doc.formField(path, 'compromiseResponseSla') ?? '';
+  set compromiseResponseSla(String value) => doc.setFormField(path, 'compromiseResponseSla', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class CredentialRecoveryPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  CredentialRecoveryPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Password Reset Method.
+  ///
+  /// EmailLink | SMSCode | SecurityQuestions | MfaVerification | AdminAssisted — how users reset passwords
+  String get passwordResetMethod => doc.formField(path, 'passwordResetMethod') ?? '';
+  set passwordResetMethod(String value) => doc.setFormField(path, 'passwordResetMethod', value);
+
+  /// Reset Link Expiry.
+  ///
+  /// Duration before a password reset link expires (e.g., 15min, 1h, 24h)
+  String get resetLinkExpiry => doc.formField(path, 'resetLinkExpiry') ?? '';
+  set resetLinkExpiry(String value) => doc.setFormField(path, 'resetLinkExpiry', value);
+
+  /// Reset Link Single Use.
+  ///
+  /// Yes | No — whether reset links can only be used once
+  String get resetLinkSingleUse => doc.formField(path, 'resetLinkSingleUse') ?? '';
+  set resetLinkSingleUse(String value) => doc.setFormField(path, 'resetLinkSingleUse', value);
+
+  /// Reset Rate Limiting.
+  ///
+  /// Requests per period allowed (e.g., 3 per hour, 5 per day)
+  String get resetRateLimiting => doc.formField(path, 'resetRateLimiting') ?? '';
+  set resetRateLimiting(String value) => doc.setFormField(path, 'resetRateLimiting', value);
+
+  /// Saved Recovery Codes Enabled.
+  ///
+  /// Yes | No — whether one-time recovery codes are provided at enrollment
+  String get savedRecoveryCodesEnabled => doc.formField(path, 'savedRecoveryCodesEnabled') ?? '';
+  set savedRecoveryCodesEnabled(String value) => doc.setFormField(path, 'savedRecoveryCodesEnabled', value);
+
+  /// Recovery Code Count.
+  ///
+  /// Number of recovery codes generated (e.g., 8, 10, 16)
+  String get recoveryCodeCount => doc.formField(path, 'recoveryCodeCount') ?? '';
+  set recoveryCodeCount(String value) => doc.setFormField(path, 'recoveryCodeCount', value);
+
+  /// Recovery Code Format.
+  ///
+  /// AlphaNumeric | NumericOnly | Words — format of recovery codes
+  String get recoveryCodeFormat => doc.formField(path, 'recoveryCodeFormat') ?? '';
+  set recoveryCodeFormat(String value) => doc.setFormField(path, 'recoveryCodeFormat', value);
+
+  /// Issued Recovery Code Channels.
+  ///
+  /// Email | SMS | PostalMail | InPerson — channels for sending issued recovery codes
+  String get issuedRecoveryCodeChannels => doc.formField(path, 'issuedRecoveryCodeChannels') ?? '';
+  set issuedRecoveryCodeChannels(String value) => doc.setFormField(path, 'issuedRecoveryCodeChannels', value);
+
+  /// Recovery Code Expiry.
+  ///
+  /// Duration before issued recovery codes expire (NIST: 10min SMS, 24h email)
+  String get recoveryCodeExpiry => doc.formField(path, 'recoveryCodeExpiry') ?? '';
+  set recoveryCodeExpiry(String value) => doc.setFormField(path, 'recoveryCodeExpiry', value);
+
+  /// Identity Reverification Required.
+  ///
+  /// Yes | No — whether identity re-verification is required for recovery at higher AALs
+  String get identityReverificationRequired => doc.formField(path, 'identityReverificationRequired') ?? '';
+  set identityReverificationRequired(String value) => doc.setFormField(path, 'identityReverificationRequired', value);
+
+  /// Recovery Contact Enabled.
+  ///
+  /// Yes | No — whether a trusted contact can initiate recovery
+  String get recoveryContactEnabled => doc.formField(path, 'recoveryContactEnabled') ?? '';
+  set recoveryContactEnabled(String value) => doc.setFormField(path, 'recoveryContactEnabled', value);
+
+  /// Multiple Recovery Addresses.
+  ///
+  /// Yes | No — whether subscribers can register multiple recovery addresses (NIST: at least 2)
+  String get multipleRecoveryAddresses => doc.formField(path, 'multipleRecoveryAddresses') ?? '';
+  set multipleRecoveryAddresses(String value) => doc.setFormField(path, 'multipleRecoveryAddresses', value);
+
+  /// Recovery Audit Logging.
+  ///
+  /// Yes | No — whether all recovery attempts are logged for audit
+  String get recoveryAuditLogging => doc.formField(path, 'recoveryAuditLogging') ?? '';
+  set recoveryAuditLogging(String value) => doc.setFormField(path, 'recoveryAuditLogging', value);
+}
+
 /// Generated section facade for the `caching` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class CrossCuttingConcernsCachingForm extends SomNode {
@@ -63661,6 +65623,70 @@ class CrossCuttingConcernsSharedForm extends SomNode {
   /// Notes.
   ///
   /// Additional cross-cutting notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class CrossTenantAccessPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  CrossTenantAccessPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Cross-Tenant Access Allowed.
+  ///
+  /// Yes | No — whether any form of cross-tenant access is permitted in the system
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get crossTenantAccessAllowed => somParseBool(doc.formField(path, 'crossTenantAccessAllowed'));
+  set crossTenantAccessAllowed(bool? value) => doc.setFormField(path, 'crossTenantAccessAllowed', somFormatBool(value));
+
+  /// Cross-Tenant Access Model.
+  ///
+  /// GlobalAdmin | ServiceAccount | ExplicitGrant | Federation | None — model governing how cross-tenant access is structured
+  String get crossTenantAccessModel => doc.formField(path, 'crossTenantAccessModel') ?? '';
+  set crossTenantAccessModel(String value) => doc.setFormField(path, 'crossTenantAccessModel', value);
+
+  /// Authorization Mechanism.
+  ///
+  /// SuperAdminRole | ServiceAccountToken | ExplicitGrant | FederationAgreement — how cross-tenant operations are authorized when allowed
+  String get authorizationMechanism => doc.formField(path, 'authorizationMechanism') ?? '';
+  set authorizationMechanism(String value) => doc.setFormField(path, 'authorizationMechanism', value);
+
+  /// Resource Sharing Model.
+  ///
+  /// None | ReferenceOnly | Copy | SharedOwnership | Linked — how resources can be shared across tenant boundaries
+  String get resourceSharingModel => doc.formField(path, 'resourceSharingModel') ?? '';
+  set resourceSharingModel(String value) => doc.setFormField(path, 'resourceSharingModel', value);
+
+  /// IDOR Prevention Strategy.
+  ///
+  /// CompositeKeys | QueryFilter | RLS | ScopedTokens — strategy to prevent insecure direct object references across tenants
+  String get idorPreventionStrategy => doc.formField(path, 'idorPreventionStrategy') ?? '';
+  set idorPreventionStrategy(String value) => doc.setFormField(path, 'idorPreventionStrategy', value);
+
+  /// Cross-Tenant Audit Requirement.
+  ///
+  /// All | AdminOnly | None — level of audit logging required for cross-tenant operations
+  String get crossTenantAuditRequirement => doc.formField(path, 'crossTenantAuditRequirement') ?? '';
+  set crossTenantAuditRequirement(String value) => doc.setFormField(path, 'crossTenantAuditRequirement', value);
+
+  /// Access Review Frequency.
+  ///
+  /// Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often cross-tenant access grants are reviewed
+  String get accessReviewFrequency => doc.formField(path, 'accessReviewFrequency') ?? '';
+  set accessReviewFrequency(String value) => doc.setFormField(path, 'accessReviewFrequency', value);
+
+  /// Notes.
+  ///
+  /// Additional cross-tenant access policy notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
@@ -64421,6 +66447,92 @@ class DashboardTemplatesContentForm extends SomNode {
   /// Additional template notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAccessAuditPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  DataAccessAuditPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Data Access Logging Enabled.
+  ///
+  /// Yes | No — whether data access events are logged
+  String get dataAccessLoggingEnabled => doc.formField(path, 'dataAccessLoggingEnabled') ?? '';
+  set dataAccessLoggingEnabled(String value) => doc.setFormField(path, 'dataAccessLoggingEnabled', value);
+
+  /// Data Access Logging Scope.
+  ///
+  /// AllTables | SensitiveTablesOnly | ByClassification — which data access is logged
+  String get dataAccessLoggingScope => doc.formField(path, 'dataAccessLoggingScope') ?? '';
+  set dataAccessLoggingScope(String value) => doc.setFormField(path, 'dataAccessLoggingScope', value);
+
+  /// Logged Operations.
+  ///
+  /// Read | Write | Delete | SchemaChange | All — which operations are captured
+  String get loggedOperations => doc.formField(path, 'loggedOperations') ?? '';
+  set loggedOperations(String value) => doc.setFormField(path, 'loggedOperations', value);
+
+  /// Data Access Log Detail.
+  ///
+  /// QueryText | AffectedRows | ColumnAccess | Minimal — what detail is recorded per event
+  String get dataAccessLogDetail => doc.formField(path, 'dataAccessLogDetail') ?? '';
+  set dataAccessLogDetail(String value) => doc.setFormField(path, 'dataAccessLogDetail', value);
+
+  /// Query Text Logging.
+  ///
+  /// Full | Sanitized | HashOnly | Disabled — whether executed query text is logged
+  String get queryTextLogging => doc.formField(path, 'queryTextLogging') ?? '';
+  set queryTextLogging(String value) => doc.setFormField(path, 'queryTextLogging', value);
+
+  /// Anomaly Detection Enabled.
+  ///
+  /// Yes | No — whether unusual data access patterns trigger alerts
+  String get anomalyDetectionEnabled => doc.formField(path, 'anomalyDetectionEnabled') ?? '';
+  set anomalyDetectionEnabled(String value) => doc.setFormField(path, 'anomalyDetectionEnabled', value);
+
+  /// Anomaly Detection Signals.
+  ///
+  /// BulkExport | OffHoursAccess | UnusualVolume | NewAccessPattern — signals monitored
+  String get anomalySignals => doc.formField(path, 'anomalySignals') ?? '';
+  set anomalySignals(String value) => doc.setFormField(path, 'anomalySignals', value);
+
+  /// Data Breach Detection.
+  ///
+  /// RealTime | BatchReview | ThirdPartyDLP — how potential data exfiltration is detected
+  String get dataBreachDetection => doc.formField(path, 'dataBreachDetection') ?? '';
+  set dataBreachDetection(String value) => doc.setFormField(path, 'dataBreachDetection', value);
+
+  /// Data Access Review Cycle.
+  ///
+  /// Monthly | Quarterly | Annually — how often data access permissions are reviewed
+  String get dataAccessReviewCycle => doc.formField(path, 'dataAccessReviewCycle') ?? '';
+  set dataAccessReviewCycle(String value) => doc.setFormField(path, 'dataAccessReviewCycle', value);
+
+  /// Privileged Query Alerts.
+  ///
+  /// Yes | No — whether queries by privileged accounts trigger real-time alerts
+  String get privilegedQueryAlerts => doc.formField(path, 'privilegedQueryAlerts') ?? '';
+  set privilegedQueryAlerts(String value) => doc.setFormField(path, 'privilegedQueryAlerts', value);
+
+  /// Compliance Reporting Enabled.
+  ///
+  /// Yes | No — whether automated compliance reports are generated from access logs
+  String get complianceReportingEnabled => doc.formField(path, 'complianceReportingEnabled') ?? '';
+  set complianceReportingEnabled(String value) => doc.setFormField(path, 'complianceReportingEnabled', value);
+
+  /// Data Access Log Retention.
+  ///
+  /// Duration data access logs are retained (e.g., 90d, 1y, 7y)
+  String get dataAccessRetention => doc.formField(path, 'dataAccessRetention') ?? '';
+  set dataAccessRetention(String value) => doc.setFormField(path, 'dataAccessRetention', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -66721,6 +68833,104 @@ class DataIntegrationPointsIntegrationSummaryForm extends SomNode {
   set integrationDebt(String value) => doc.setFormField(path, 'integrationDebt', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataMaskingPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  DataMaskingPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Dynamic Data Masking Enabled.
+  ///
+  /// Yes | No — whether dynamic data masking is implemented in production
+  String get dynamicDataMaskingEnabled => doc.formField(path, 'dynamicDataMaskingEnabled') ?? '';
+  set dynamicDataMaskingEnabled(String value) => doc.setFormField(path, 'dynamicDataMaskingEnabled', value);
+
+  /// Dynamic Masking Rules.
+  ///
+  /// FullMask | PartialMask | Redact | Tokenize — available masking transformations
+  String get dynamicMaskingRules => doc.formField(path, 'dynamicMaskingRules') ?? '';
+  set dynamicMaskingRules(String value) => doc.setFormField(path, 'dynamicMaskingRules', value);
+
+  /// Dynamic Masking Scope.
+  ///
+  /// RoleBased | QueryBased | ColumnBased — how masking rules are applied
+  String get dynamicMaskingScope => doc.formField(path, 'dynamicMaskingScope') ?? '';
+  set dynamicMaskingScope(String value) => doc.setFormField(path, 'dynamicMaskingScope', value);
+
+  /// Static Masking for Non-Production.
+  ///
+  /// Yes | No — whether production data is statically masked before copying to test/dev
+  String get staticMaskingForNonProduction => doc.formField(path, 'staticMaskingForNonProduction') ?? '';
+  set staticMaskingForNonProduction(String value) => doc.setFormField(path, 'staticMaskingForNonProduction', value);
+
+  /// Static Masking Tool.
+  ///
+  /// BuiltIn | ThirdParty | CustomScript — tool used for static data masking
+  String get staticMaskingTool => doc.formField(path, 'staticMaskingTool') ?? '';
+  set staticMaskingTool(String value) => doc.setFormField(path, 'staticMaskingTool', value);
+
+  /// Masking Preserves Format.
+  ///
+  /// Yes | No — whether masked data maintains original format and referential integrity
+  String get maskingPreservesFormat => doc.formField(path, 'maskingPreservesFormat') ?? '';
+  set maskingPreservesFormat(String value) => doc.setFormField(path, 'maskingPreservesFormat', value);
+
+  /// Masking Reversibility.
+  ///
+  /// Irreversible | Tokenized | Deterministic — whether masking can be reversed
+  String get maskingReversibility => doc.formField(path, 'maskingReversibility') ?? '';
+  set maskingReversibility(String value) => doc.setFormField(path, 'maskingReversibility', value);
+
+  /// PII Masking Policy.
+  ///
+  /// FullRedact | PartialMask | Pseudonymize — specific masking approach for PII fields
+  String get piiMaskingPolicy => doc.formField(path, 'piiMaskingPolicy') ?? '';
+  set piiMaskingPolicy(String value) => doc.setFormField(path, 'piiMaskingPolicy', value);
+
+  /// Email Masking Format.
+  ///
+  /// e.g., j***@example.com or completely redacted — how email addresses are masked
+  String get emailMaskingFormat => doc.formField(path, 'emailMaskingFormat') ?? '';
+  set emailMaskingFormat(String value) => doc.setFormField(path, 'emailMaskingFormat', value);
+
+  /// Phone Masking Format.
+  ///
+  /// e.g., ***-***-1234 or fully redacted — how phone numbers are masked
+  String get phoneMaskingFormat => doc.formField(path, 'phoneMaskingFormat') ?? '';
+  set phoneMaskingFormat(String value) => doc.setFormField(path, 'phoneMaskingFormat', value);
+
+  /// Address Masking Format.
+  ///
+  /// CityOnly | ZipCodeOnly | FullRedact — how addresses are masked
+  String get addressMaskingFormat => doc.formField(path, 'addressMaskingFormat') ?? '';
+  set addressMaskingFormat(String value) => doc.setFormField(path, 'addressMaskingFormat', value);
+
+  /// Financial Data Masking.
+  ///
+  /// FullRedact | Last4Digits | Tokenized — how financial data (credit cards, bank accounts) is masked
+  String get financialDataMasking => doc.formField(path, 'financialDataMasking') ?? '';
+  set financialDataMasking(String value) => doc.setFormField(path, 'financialDataMasking', value);
+
+  /// Masking Audit Trail.
+  ///
+  /// Yes | No — whether masking/unmasking operations are audited
+  String get maskingAuditTrail => doc.formField(path, 'maskingAuditTrail') ?? '';
+  set maskingAuditTrail(String value) => doc.setFormField(path, 'maskingAuditTrail', value);
+
+  /// Development Data Strategy.
+  ///
+  /// MaskedCopy | SyntheticData | SubsetExtract | SeedData — strategy for development/test environments
+  String get developmentDataStrategy => doc.formField(path, 'developmentDataStrategy') ?? '';
+  set developmentDataStrategy(String value) => doc.setFormField(path, 'developmentDataStrategy', value);
+}
+
 /// Generated section facade for the `approach` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DataMigrationStrategyApproachForm extends SomNode {
@@ -69001,6 +71211,104 @@ class DataVolumeSummaryProjectionForm extends SomNode {
   set capacityUtilization(String value) => doc.setFormField(path, 'capacityUtilization', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DatabaseAccessPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  DatabaseAccessPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Database Connection Security.
+  ///
+  /// TlsRequired | TlsOptional | LocalSocketOnly — transport security for DB connections
+  String get databaseConnectionSecurity => doc.formField(path, 'databaseConnectionSecurity') ?? '';
+  set databaseConnectionSecurity(String value) => doc.setFormField(path, 'databaseConnectionSecurity', value);
+
+  /// Minimum TLS Version.
+  ///
+  /// TLS 1.2 | TLS 1.3 — minimum TLS version for database connections
+  String get minimumTlsVersion => doc.formField(path, 'minimumTlsVersion') ?? '';
+  set minimumTlsVersion(String value) => doc.setFormField(path, 'minimumTlsVersion', value);
+
+  /// Application Account Strategy.
+  ///
+  /// PerService | PerModule | SharedPool — how application-level DB accounts are organized
+  String get applicationAccountStrategy => doc.formField(path, 'applicationAccountStrategy') ?? '';
+  set applicationAccountStrategy(String value) => doc.setFormField(path, 'applicationAccountStrategy', value);
+
+  /// Application Account Privileges.
+  ///
+  /// SelectUpdateDelete | ReadOnly | Custom — default permissions for application accounts
+  String get applicationAccountPrivileges => doc.formField(path, 'applicationAccountPrivileges') ?? '';
+  set applicationAccountPrivileges(String value) => doc.setFormField(path, 'applicationAccountPrivileges', value);
+
+  /// Schema Ownership Separation.
+  ///
+  /// Yes | No — whether schema owner accounts are separate from application accounts
+  String get schemaOwnershipSeparation => doc.formField(path, 'schemaOwnershipSeparation') ?? '';
+  set schemaOwnershipSeparation(String value) => doc.setFormField(path, 'schemaOwnershipSeparation', value);
+
+  /// Direct Table Access.
+  ///
+  /// Allowed | ViewsOnly | StoredProceduresOnly — whether direct table access is permitted
+  String get directTableAccess => doc.formField(path, 'directTableAccess') ?? '';
+  set directTableAccess(String value) => doc.setFormField(path, 'directTableAccess', value);
+
+  /// Database Credential Storage.
+  ///
+  /// SecretsVault | EnvironmentVariable | EncryptedConfig — where DB credentials are stored
+  String get databaseCredentialStorage => doc.formField(path, 'databaseCredentialStorage') ?? '';
+  set databaseCredentialStorage(String value) => doc.setFormField(path, 'databaseCredentialStorage', value);
+
+  /// Credential Rotation Policy.
+  ///
+  /// Automatic | Manual | Interval — how DB credentials are rotated (e.g., every 90d)
+  String get credentialRotationPolicy => doc.formField(path, 'credentialRotationPolicy') ?? '';
+  set credentialRotationPolicy(String value) => doc.setFormField(path, 'credentialRotationPolicy', value);
+
+  /// Connection Pool Security.
+  ///
+  /// PerUser | PerService | Shared — connection pool isolation level
+  String get connectionPoolSecurity => doc.formField(path, 'connectionPoolSecurity') ?? '';
+  set connectionPoolSecurity(String value) => doc.setFormField(path, 'connectionPoolSecurity', value);
+
+  /// Privileged Access Management.
+  ///
+  /// JustInTime | PermanentWithApproval | BreakGlass — how DBA access is managed
+  String get privilegedAccessManagement => doc.formField(path, 'privilegedAccessManagement') ?? '';
+  set privilegedAccessManagement(String value) => doc.setFormField(path, 'privilegedAccessManagement', value);
+
+  /// Database Firewall Rules.
+  ///
+  /// AllowlistOnly | VpcInternal | SubnetRestricted — network access restrictions
+  String get databaseFirewallRules => doc.formField(path, 'databaseFirewallRules') ?? '';
+  set databaseFirewallRules(String value) => doc.setFormField(path, 'databaseFirewallRules', value);
+
+  /// SQL Injection Prevention.
+  ///
+  /// ParameterizedQueries | OrmOnly | PreparedStatements — SQL injection mitigation strategy
+  String get sqlInjectionPrevention => doc.formField(path, 'sqlInjectionPrevention') ?? '';
+  set sqlInjectionPrevention(String value) => doc.setFormField(path, 'sqlInjectionPrevention', value);
+
+  /// Query Complexity Limits.
+  ///
+  /// Yes | No — whether query complexity or execution time limits are enforced
+  String get queryComplexityLimits => doc.formField(path, 'queryComplexityLimits') ?? '';
+  set queryComplexityLimits(String value) => doc.setFormField(path, 'queryComplexityLimits', value);
+
+  /// Database Activity Monitoring.
+  ///
+  /// DamEnabled | NativeAudit | None — database activity monitoring tool usage
+  String get databaseActivityMonitoring => doc.formField(path, 'databaseActivityMonitoring') ?? '';
+  set databaseActivityMonitoring(String value) => doc.setFormField(path, 'databaseActivityMonitoring', value);
+}
+
 /// Generated section facade for the `connection` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DatabaseCompatibilityEntryConnectionForm extends SomNode {
@@ -69161,6 +71469,64 @@ class DatabaseCompatibilityEntrySupportForm extends SomNode {
   /// AWS RDS, Azure SQL, Cloud SQL
   String get cloudVariants => doc.formField(path, 'cloudVariants') ?? '';
   set cloudVariants(String value) => doc.setFormField(path, 'cloudVariants', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DatabaseEncryptionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  DatabaseEncryptionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Database Encryption Method.
+  ///
+  /// TDE | ColumnLevel | CellLevel | ApplicationLayer | None — method of encrypting data within the database
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get databaseEncryptionMethod => doc.formField(path, 'databaseEncryptionMethod') ?? '';
+  set databaseEncryptionMethod(String value) => doc.setFormField(path, 'databaseEncryptionMethod', value);
+
+  /// Encrypted Column Strategy.
+  ///
+  /// Deterministic | Randomized | Homomorphic | Envelope — how individual columns are encrypted (deterministic allows equality search; randomized provides stronger security)
+  String get encryptedColumnStrategy => doc.formField(path, 'encryptedColumnStrategy') ?? '';
+  set encryptedColumnStrategy(String value) => doc.setFormField(path, 'encryptedColumnStrategy', value);
+
+  /// Index on Encrypted Columns.
+  ///
+  /// Yes | No — whether indexes are maintained on encrypted columns (requires deterministic encryption or specialized schemes)
+  bool? get indexOnEncryptedColumns => somParseBool(doc.formField(path, 'indexOnEncryptedColumns'));
+  set indexOnEncryptedColumns(bool? value) => doc.setFormField(path, 'indexOnEncryptedColumns', somFormatBool(value));
+
+  /// Search on Encrypted Data.
+  ///
+  /// None | DeterministicMatch | BlindIndex | Searchable Encryption | DecryptThenSearch — strategy for querying encrypted data without full decryption
+  String get searchOnEncryptedData => doc.formField(path, 'searchOnEncryptedData') ?? '';
+  set searchOnEncryptedData(String value) => doc.setFormField(path, 'searchOnEncryptedData', value);
+
+  /// Connection Encryption.
+  ///
+  /// Yes | No — whether database connections use TLS/SSL for data in transit to/from the database
+  bool? get connectionEncryption => somParseBool(doc.formField(path, 'connectionEncryption'));
+  set connectionEncryption(bool? value) => doc.setFormField(path, 'connectionEncryption', somFormatBool(value));
+
+  /// Database Engine.
+  ///
+  /// PostgreSQL | MySQL | SQLServer | Oracle | MongoDB | Other — target database engine (encryption capabilities vary by engine)
+  String get databaseEngine => doc.formField(path, 'databaseEngine') ?? '';
+  set databaseEngine(String value) => doc.setFormField(path, 'databaseEngine', value);
+
+  /// Notes.
+  ///
+  /// Additional database encryption notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `breakpoints` `@Form` section:
@@ -76277,6 +78643,84 @@ class EncryptedDataCategoryEntryContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class EncryptionAtRestPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  EncryptionAtRestPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Default Algorithm.
+  ///
+  /// AES-256 | AES-128 | ChaCha20 | 3DES | Other — symmetric encryption algorithm used as the default for data at rest (AES-256 recommended per OWASP/NIST)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get defaultAlgorithm => doc.formField(path, 'defaultAlgorithm') ?? '';
+  set defaultAlgorithm(String value) => doc.setFormField(path, 'defaultAlgorithm', value);
+
+  /// Default Key Length (bits).
+  ///
+  /// 128 | 192 | 256 — minimum key length in bits for symmetric encryption (256-bit recommended for sensitive data)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  int? get defaultKeyLength => somParseInt(doc.formField(path, 'defaultKeyLength'));
+  set defaultKeyLength(int? value) => doc.setFormField(path, 'defaultKeyLength', somFormatInt(value));
+
+  /// Cipher Mode.
+  ///
+  /// GCM | CCM | CTR | CBC | XTS — block cipher mode of operation (GCM or CCM recommended for authenticated encryption; XTS for full-disk encryption)
+  String get cipherMode => doc.formField(path, 'cipherMode') ?? '';
+  set cipherMode(String value) => doc.setFormField(path, 'cipherMode', value);
+
+  /// Encryption Layer.
+  ///
+  /// Application | Database | Filesystem | Hardware | Multiple — at which architectural layer encryption is primarily applied (multiple = defense-in-depth across layers)
+  String get encryptionLayer => doc.formField(path, 'encryptionLayer') ?? '';
+  set encryptionLayer(String value) => doc.setFormField(path, 'encryptionLayer', value);
+
+  /// Field-Level Encryption.
+  ///
+  /// Yes | No — whether individual sensitive fields (e.g. SSN, credit card) are encrypted at the application level beyond database/disk encryption
+  bool? get fieldLevelEncryption => somParseBool(doc.formField(path, 'fieldLevelEncryption'));
+  set fieldLevelEncryption(bool? value) => doc.setFormField(path, 'fieldLevelEncryption', somFormatBool(value));
+
+  /// Transparent Data Encryption.
+  ///
+  /// Yes | No — whether TDE (Transparent Data Encryption) is used at the database engine level (e.g. SQL Server TDE, Oracle TDE, PostgreSQL pgcrypto)
+  bool? get transparentDataEncryption => somParseBool(doc.formField(path, 'transparentDataEncryption'));
+  set transparentDataEncryption(bool? value) => doc.setFormField(path, 'transparentDataEncryption', somFormatBool(value));
+
+  /// Full-Disk Encryption.
+  ///
+  /// Yes | No — whether full-disk or volume-level encryption is required (e.g. LUKS, BitLocker, AWS EBS encryption)
+  bool? get fullDiskEncryption => somParseBool(doc.formField(path, 'fullDiskEncryption'));
+  set fullDiskEncryption(bool? value) => doc.setFormField(path, 'fullDiskEncryption', somFormatBool(value));
+
+  /// Minimize Sensitive Storage.
+  ///
+  /// Yes | No — whether the system actively minimizes storage of sensitive data (e.g. tokenization, truncation, avoiding unnecessary PII retention)
+  bool? get minimizeSensitiveStorage => somParseBool(doc.formField(path, 'minimizeSensitiveStorage'));
+  set minimizeSensitiveStorage(bool? value) => doc.setFormField(path, 'minimizeSensitiveStorage', somFormatBool(value));
+
+  /// Compliance Framework.
+  ///
+  /// FIPS-140-2 | PCI-DSS | HIPAA | GDPR | SOC2 | None — regulatory or compliance framework dictating encryption requirements
+  String get complianceFramework => doc.formField(path, 'complianceFramework') ?? '';
+  set complianceFramework(String value) => doc.setFormField(path, 'complianceFramework', value);
+
+  /// Notes.
+  ///
+  /// Additional encryption at rest policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class EnterpriseSystemCompatibilityEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   EnterpriseSystemCompatibilityEntryContentForm(super.doc, super.path);
@@ -82667,6 +85111,406 @@ class FieldValidationRuleContentForm extends SomNode {
   /// OnBlur, OnChange, or OnSubmit
   String get triggerEvent => doc.formField(path, 'triggerEvent') ?? '';
   set triggerEvent(String value) => doc.setFormField(path, 'triggerEvent', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FileAccessControlPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  FileAccessControlPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// File Access Model.
+  ///
+  /// OwnerBased | RoleBased | ACL | Capability — how file access permissions are determined
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get fileAccessModel => doc.formField(path, 'fileAccessModel') ?? '';
+  set fileAccessModel(String value) => doc.setFormField(path, 'fileAccessModel', value);
+
+  /// Authentication Required.
+  ///
+  /// Yes | No — whether authentication is required for all file access
+  bool? get authenticationRequired => somParseBool(doc.formField(path, 'authenticationRequired'));
+  set authenticationRequired(bool? value) => doc.setFormField(path, 'authenticationRequired', somFormatBool(value));
+
+  /// Anonymous Download Allowed.
+  ///
+  /// Yes | No — whether any files can be downloaded without authentication (public files)
+  bool? get anonymousDownloadAllowed => somParseBool(doc.formField(path, 'anonymousDownloadAllowed'));
+  set anonymousDownloadAllowed(bool? value) => doc.setFormField(path, 'anonymousDownloadAllowed', somFormatBool(value));
+
+  /// File Ownership Model.
+  ///
+  /// User | Tenant | SharedOwnership — who owns uploaded files by default
+  String get fileOwnershipModel => doc.formField(path, 'fileOwnershipModel') ?? '';
+  set fileOwnershipModel(String value) => doc.setFormField(path, 'fileOwnershipModel', value);
+
+  /// Permission Granularity.
+  ///
+  /// Read | Write | Delete | Share | Admin — permission types supported on files
+  String get permissionGranularity => doc.formField(path, 'permissionGranularity') ?? '';
+  set permissionGranularity(String value) => doc.setFormField(path, 'permissionGranularity', value);
+
+  /// Folder-Level Permissions.
+  ///
+  /// Yes | No — whether permissions can be set at folder/directory level with inheritance
+  bool? get folderLevelPermissions => somParseBool(doc.formField(path, 'folderLevelPermissions'));
+  set folderLevelPermissions(bool? value) => doc.setFormField(path, 'folderLevelPermissions', somFormatBool(value));
+
+  /// Permission Inheritance.
+  ///
+  /// Inherit | Override | None — how folder permissions propagate to contained files
+  String get permissionInheritance => doc.formField(path, 'permissionInheritance') ?? '';
+  set permissionInheritance(String value) => doc.setFormField(path, 'permissionInheritance', value);
+
+  /// Sharing Enabled.
+  ///
+  /// Yes | No — whether files can be shared with other users or externally
+  bool? get sharingEnabled => somParseBool(doc.formField(path, 'sharingEnabled'));
+  set sharingEnabled(bool? value) => doc.setFormField(path, 'sharingEnabled', somFormatBool(value));
+
+  /// Shareable Link Support.
+  ///
+  /// Yes | No — support for time-limited or password-protected shareable URLs
+  bool? get shareableLinkSupport => somParseBool(doc.formField(path, 'shareableLinkSupport'));
+  set shareableLinkSupport(bool? value) => doc.setFormField(path, 'shareableLinkSupport', somFormatBool(value));
+
+  /// Shareable Link Default Expiration.
+  ///
+  /// Default expiration time for shareable links (e.g. 24 hours, 7 days, never)
+  String get shareableLinkExpiration => doc.formField(path, 'shareableLinkExpiration') ?? '';
+  set shareableLinkExpiration(String value) => doc.setFormField(path, 'shareableLinkExpiration', value);
+
+  /// External Sharing Policy.
+  ///
+  /// Allowed | RestrictedDomains | Disabled — whether files can be shared outside the tenant
+  String get externalSharingPolicy => doc.formField(path, 'externalSharingPolicy') ?? '';
+  set externalSharingPolicy(String value) => doc.setFormField(path, 'externalSharingPolicy', value);
+
+  /// Storage Location Policy.
+  ///
+  /// SeparateServer | OutsideWebroot | CloudBucket — where files are stored relative to application
+  String get storageLocationPolicy => doc.formField(path, 'storageLocationPolicy') ?? '';
+  set storageLocationPolicy(String value) => doc.setFormField(path, 'storageLocationPolicy', value);
+
+  /// Tenant Storage Isolation.
+  ///
+  /// SeparateBucket | PrefixPartition | SharedWithACL — how tenant files are isolated in storage
+  String get tenantStorageIsolation => doc.formField(path, 'tenantStorageIsolation') ?? '';
+  set tenantStorageIsolation(String value) => doc.setFormField(path, 'tenantStorageIsolation', value);
+
+  /// Filesystem Permissions.
+  ///
+  /// Least-privilege file permission policy (read-only for web server, write for upload service)
+  String get filesystemPermissions => doc.formField(path, 'filesystemPermissions') ?? '';
+  set filesystemPermissions(String value) => doc.setFormField(path, 'filesystemPermissions', value);
+
+  /// Pre-signed URL Support.
+  ///
+  /// Yes | No — use pre-signed URLs for time-limited direct file access
+  bool? get presignedUrlSupport => somParseBool(doc.formField(path, 'presignedUrlSupport'));
+  set presignedUrlSupport(bool? value) => doc.setFormField(path, 'presignedUrlSupport', somFormatBool(value));
+
+  /// Pre-signed URL Max Expiry.
+  ///
+  /// Maximum validity period for pre-signed URLs (e.g. 15 min, 1 hour)
+  String get presignedUrlMaxExpiry => doc.formField(path, 'presignedUrlMaxExpiry') ?? '';
+  set presignedUrlMaxExpiry(String value) => doc.setFormField(path, 'presignedUrlMaxExpiry', value);
+
+  /// Notes.
+  ///
+  /// Additional file access control notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FileDownloadSecurityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  FileDownloadSecurityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Download Authentication Required.
+  ///
+  /// Yes | No — whether authentication is required for file downloads
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get downloadAuthenticationRequired => somParseBool(doc.formField(path, 'downloadAuthenticationRequired'));
+  set downloadAuthenticationRequired(bool? value) => doc.setFormField(path, 'downloadAuthenticationRequired', somFormatBool(value));
+
+  /// Download Rate Limiting.
+  ///
+  /// Yes | No — rate limit file downloads per user/IP to prevent DoS
+  bool? get downloadRateLimiting => somParseBool(doc.formField(path, 'downloadRateLimiting'));
+  set downloadRateLimiting(bool? value) => doc.setFormField(path, 'downloadRateLimiting', somFormatBool(value));
+
+  /// Download Rate Limit.
+  ///
+  /// Maximum downloads per minute/hour/day per user or IP
+  String get downloadRateLimit => doc.formField(path, 'downloadRateLimit') ?? '';
+  set downloadRateLimit(String value) => doc.setFormField(path, 'downloadRateLimit', value);
+
+  /// Bandwidth Throttling.
+  ///
+  /// Yes | No — throttle download bandwidth per user to prevent abuse
+  bool? get bandwidthThrottling => somParseBool(doc.formField(path, 'bandwidthThrottling'));
+  set bandwidthThrottling(bool? value) => doc.setFormField(path, 'bandwidthThrottling', somFormatBool(value));
+
+  /// Content-Disposition Policy.
+  ///
+  /// Attachment | Inline | PerType — how Content-Disposition header is set (Attachment recommended for untrusted content)
+  String get contentDispositionPolicy => doc.formField(path, 'contentDispositionPolicy') ?? '';
+  set contentDispositionPolicy(String value) => doc.setFormField(path, 'contentDispositionPolicy', value);
+
+  /// CDN Delivery.
+  ///
+  /// Yes | No — serve files through a CDN for performance and DDoS protection
+  bool? get cdnDelivery => somParseBool(doc.formField(path, 'cdnDelivery'));
+  set cdnDelivery(bool? value) => doc.setFormField(path, 'cdnDelivery', somFormatBool(value));
+
+  /// Hotlink Prevention.
+  ///
+  /// Yes | No — prevent direct linking to files from external sites
+  bool? get hotlinkPrevention => somParseBool(doc.formField(path, 'hotlinkPrevention'));
+  set hotlinkPrevention(bool? value) => doc.setFormField(path, 'hotlinkPrevention', somFormatBool(value));
+
+  /// Cache-Control Policy.
+  ///
+  /// NoStore | Private | PublicShortTTL — cache directives for file download responses
+  String get cacheControlPolicy => doc.formField(path, 'cacheControlPolicy') ?? '';
+  set cacheControlPolicy(String value) => doc.setFormField(path, 'cacheControlPolicy', value);
+
+  /// Download Audit Logging.
+  ///
+  /// Yes | No — log all file download events with user, timestamp, file, and IP
+  bool? get downloadAuditLogging => somParseBool(doc.formField(path, 'downloadAuditLogging'));
+  set downloadAuditLogging(bool? value) => doc.setFormField(path, 'downloadAuditLogging', somFormatBool(value));
+
+  /// Download Alerts.
+  ///
+  /// Yes | No — alert on unusual download patterns (bulk downloads, sensitive files)
+  bool? get downloadAlerts => somParseBool(doc.formField(path, 'downloadAlerts'));
+  set downloadAlerts(bool? value) => doc.setFormField(path, 'downloadAlerts', somFormatBool(value));
+
+  /// File Watermarking.
+  ///
+  /// Yes | No — apply invisible watermarks to downloaded files for traceability
+  bool? get watermarking => somParseBool(doc.formField(path, 'watermarking'));
+  set watermarking(bool? value) => doc.setFormField(path, 'watermarking', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional file download security notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FileStorageEncryptionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  FileStorageEncryptionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// File Encryption Method.
+  ///
+  /// FileLevel | VolumeLevel | ObjectLevel | ClientSide | ServerSide | None — how files and blobs are encrypted at rest
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get fileEncryptionMethod => doc.formField(path, 'fileEncryptionMethod') ?? '';
+  set fileEncryptionMethod(String value) => doc.setFormField(path, 'fileEncryptionMethod', value);
+
+  /// Cloud Storage Encryption.
+  ///
+  /// SSE-S3 | SSE-KMS | SSE-C | AzureSSE | GCS-CMEK | None — cloud provider server-side encryption method if applicable
+  String get cloudStorageEncryption => doc.formField(path, 'cloudStorageEncryption') ?? '';
+  set cloudStorageEncryption(String value) => doc.setFormField(path, 'cloudStorageEncryption', value);
+
+  /// Client-Side Encryption.
+  ///
+  /// Yes | No — whether files are encrypted before upload (client-side encryption for defense-in-depth)
+  bool? get clientSideEncryption => somParseBool(doc.formField(path, 'clientSideEncryption'));
+  set clientSideEncryption(bool? value) => doc.setFormField(path, 'clientSideEncryption', somFormatBool(value));
+
+  /// Encrypted File Formats.
+  ///
+  /// Comma-separated list of file types that must be encrypted (e.g. PDF, XLSX, CSV, backup dumps, log archives)
+  String get encryptedFileFormats => doc.formField(path, 'encryptedFileFormats') ?? '';
+  set encryptedFileFormats(String value) => doc.setFormField(path, 'encryptedFileFormats', value);
+
+  /// Local Device Encryption.
+  ///
+  /// Yes | No — whether local device storage (mobile, desktop) must be encrypted for cached or offline data
+  bool? get localDeviceEncryption => somParseBool(doc.formField(path, 'localDeviceEncryption'));
+  set localDeviceEncryption(bool? value) => doc.setFormField(path, 'localDeviceEncryption', somFormatBool(value));
+
+  /// Temporary File Encryption.
+  ///
+  /// Yes | No — whether temporary files and caches must be encrypted (prevents data leakage through temp files)
+  bool? get temporaryFileEncryption => somParseBool(doc.formField(path, 'temporaryFileEncryption'));
+  set temporaryFileEncryption(bool? value) => doc.setFormField(path, 'temporaryFileEncryption', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional file and storage encryption notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FileUploadValidationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  FileUploadValidationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Extension Validation Strategy.
+  ///
+  /// Allowlist | Blocklist | Both — approach to file extension validation (Allowlist recommended)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get extensionValidationStrategy => doc.formField(path, 'extensionValidationStrategy') ?? '';
+  set extensionValidationStrategy(String value) => doc.setFormField(path, 'extensionValidationStrategy', value);
+
+  /// Allowed File Extensions.
+  ///
+  /// Comma-separated list of permitted extensions (e.g. jpg, png, pdf, docx)
+  String get allowedFileExtensions => doc.formField(path, 'allowedFileExtensions') ?? '';
+  set allowedFileExtensions(String value) => doc.setFormField(path, 'allowedFileExtensions', value);
+
+  /// Blocked File Extensions.
+  ///
+  /// Comma-separated list of explicitly blocked extensions (e.g. exe, bat, sh, php, js)
+  String get blockedFileExtensions => doc.formField(path, 'blockedFileExtensions') ?? '';
+  set blockedFileExtensions(String value) => doc.setFormField(path, 'blockedFileExtensions', value);
+
+  /// Double Extension Prevention.
+  ///
+  /// Yes | No — prevent bypass via double extensions like .jpg.php
+  bool? get doubleExtensionPrevention => somParseBool(doc.formField(path, 'doubleExtensionPrevention'));
+  set doubleExtensionPrevention(bool? value) => doc.setFormField(path, 'doubleExtensionPrevention', somFormatBool(value));
+
+  /// Content-Type Validation.
+  ///
+  /// Yes | No — validate MIME type from Content-Type header against allowed types
+  bool? get contentTypeValidation => somParseBool(doc.formField(path, 'contentTypeValidation'));
+  set contentTypeValidation(bool? value) => doc.setFormField(path, 'contentTypeValidation', somFormatBool(value));
+
+  /// File Signature (Magic Byte) Validation.
+  ///
+  /// Yes | No — validate file magic bytes match the declared content type
+  bool? get fileSignatureValidation => somParseBool(doc.formField(path, 'fileSignatureValidation'));
+  set fileSignatureValidation(bool? value) => doc.setFormField(path, 'fileSignatureValidation', somFormatBool(value));
+
+  /// Signature Mismatch Action.
+  ///
+  /// Reject | Quarantine | Log — action when file signature does not match extension
+  String get signatureMismatchAction => doc.formField(path, 'signatureMismatchAction') ?? '';
+  set signatureMismatchAction(String value) => doc.setFormField(path, 'signatureMismatchAction', value);
+
+  /// Filename Strategy.
+  ///
+  /// GenerateUUID | SanitizeOriginal | Preserve — how filenames are handled on upload
+  String get filenameStrategy => doc.formField(path, 'filenameStrategy') ?? '';
+  set filenameStrategy(String value) => doc.setFormField(path, 'filenameStrategy', value);
+
+  /// Filename Max Length.
+  ///
+  /// Maximum allowed filename length in characters
+  int? get filenameMaxLength => somParseInt(doc.formField(path, 'filenameMaxLength'));
+  set filenameMaxLength(int? value) => doc.setFormField(path, 'filenameMaxLength', somFormatInt(value));
+
+  /// Filename Allowed Characters.
+  ///
+  /// Alphanumeric, hyphen, underscore, period — allowed characters in filenames
+  String get filenameAllowedCharacters => doc.formField(path, 'filenameAllowedCharacters') ?? '';
+  set filenameAllowedCharacters(String value) => doc.setFormField(path, 'filenameAllowedCharacters', value);
+
+  /// Path Traversal Prevention.
+  ///
+  /// Yes | No — strip or reject path components (../, /) in filenames
+  bool? get pathTraversalPrevention => somParseBool(doc.formField(path, 'pathTraversalPrevention'));
+  set pathTraversalPrevention(bool? value) => doc.setFormField(path, 'pathTraversalPrevention', somFormatBool(value));
+
+  /// Null Byte Prevention.
+  ///
+  /// Yes | No — reject filenames containing null bytes (%00)
+  bool? get nullBytePrevention => somParseBool(doc.formField(path, 'nullBytePrevention'));
+  set nullBytePrevention(bool? value) => doc.setFormField(path, 'nullBytePrevention', somFormatBool(value));
+
+  /// Max File Size.
+  ///
+  /// Maximum individual file size (e.g. 10 MB, 50 MB, 1 GB)
+  String get maxFileSizeBytes => doc.formField(path, 'maxFileSizeBytes') ?? '';
+  set maxFileSizeBytes(String value) => doc.setFormField(path, 'maxFileSizeBytes', value);
+
+  /// Max Upload Batch Size.
+  ///
+  /// Maximum total size for multi-file uploads in a single request
+  String get maxUploadBatchSize => doc.formField(path, 'maxUploadBatchSize') ?? '';
+  set maxUploadBatchSize(String value) => doc.setFormField(path, 'maxUploadBatchSize', value);
+
+  /// Max Concurrent Uploads.
+  ///
+  /// Maximum number of simultaneous file uploads per user
+  int? get maxConcurrentUploads => somParseInt(doc.formField(path, 'maxConcurrentUploads'));
+  set maxConcurrentUploads(int? value) => doc.setFormField(path, 'maxConcurrentUploads', somFormatInt(value));
+
+  /// Compressed File Size Limit.
+  ///
+  /// Maximum decompressed size for ZIP/archive files to prevent ZIP bombs
+  String get compressedFileSizeLimit => doc.formField(path, 'compressedFileSizeLimit') ?? '';
+  set compressedFileSizeLimit(String value) => doc.setFormField(path, 'compressedFileSizeLimit', value);
+
+  /// Image Rewriting.
+  ///
+  /// Yes | No — rewrite/re-encode images to strip embedded metadata and malicious payloads
+  bool? get imageRewriting => somParseBool(doc.formField(path, 'imageRewriting'));
+  set imageRewriting(bool? value) => doc.setFormField(path, 'imageRewriting', somFormatBool(value));
+
+  /// Document Sanitization.
+  ///
+  /// Yes | No — apply Content Disarm & Reconstruct (CDR) to office documents and PDFs
+  bool? get documentSanitization => somParseBool(doc.formField(path, 'documentSanitization'));
+  set documentSanitization(bool? value) => doc.setFormField(path, 'documentSanitization', somFormatBool(value));
+
+  /// Metadata Stripping.
+  ///
+  /// Yes | No — remove EXIF, XMP, and other embedded metadata from uploaded files
+  bool? get metadataStripping => somParseBool(doc.formField(path, 'metadataStripping'));
+  set metadataStripping(bool? value) => doc.setFormField(path, 'metadataStripping', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional file upload validation notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `advanced` `@Form` section:
@@ -93789,6 +96633,116 @@ class LogStoragePolicyContentForm extends SomNode {
   set accessPermissions(String value) => doc.setFormField(path, 'accessPermissions', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class LoginFlowConfigurationContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  LoginFlowConfigurationContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Login Entry Point.
+  ///
+  /// LoginPage | Modal | InlineWidget | ApiEndpoint — where users initiate login
+  String get loginEntryPoint => doc.formField(path, 'loginEntryPoint') ?? '';
+  set loginEntryPoint(String value) => doc.setFormField(path, 'loginEntryPoint', value);
+
+  /// Credential Submission Method.
+  ///
+  /// FormPost | Ajax | OAuth2AuthCode | OAuth2PKCE | SAMLRequest
+  String get credentialSubmissionMethod => doc.formField(path, 'credentialSubmissionMethod') ?? '';
+  set credentialSubmissionMethod(String value) => doc.setFormField(path, 'credentialSubmissionMethod', value);
+
+  /// Pre-Authentication Checks.
+  ///
+  /// CAPTCHA | DeviceFingerprint | GeoIP | RiskScore | None
+  String get preAuthenticationChecks => doc.formField(path, 'preAuthenticationChecks') ?? '';
+  set preAuthenticationChecks(String value) => doc.setFormField(path, 'preAuthenticationChecks', value);
+
+  /// Authentication Endpoint.
+  ///
+  /// URL or path of the authentication API endpoint
+  String get authenticationEndpoint => doc.formField(path, 'authenticationEndpoint') ?? '';
+  set authenticationEndpoint(String value) => doc.setFormField(path, 'authenticationEndpoint', value);
+
+  /// Allowed Authentication Methods.
+  ///
+  /// Comma-separated list of allowed methods for this login flow
+  String get allowedAuthenticationMethods => doc.formField(path, 'allowedAuthenticationMethods') ?? '';
+  set allowedAuthenticationMethods(String value) => doc.setFormField(path, 'allowedAuthenticationMethods', value);
+
+  /// MFA Challenge Presentation.
+  ///
+  /// SamePage | SeparateStep | PushNotification — how MFA is presented
+  String get mfaChallengePresentation => doc.formField(path, 'mfaChallengePresentation') ?? '';
+  set mfaChallengePresentation(String value) => doc.setFormField(path, 'mfaChallengePresentation', value);
+
+  /// Remember Me Enabled.
+  ///
+  /// Yes | No — whether Remember Me option is available
+  String get rememberMeEnabled => doc.formField(path, 'rememberMeEnabled') ?? '';
+  set rememberMeEnabled(String value) => doc.setFormField(path, 'rememberMeEnabled', value);
+
+  /// Remember Me Duration.
+  ///
+  /// Duration the device is remembered (e.g., 30d, 90d)
+  String get rememberMeDuration => doc.formField(path, 'rememberMeDuration') ?? '';
+  set rememberMeDuration(String value) => doc.setFormField(path, 'rememberMeDuration', value);
+
+  /// Social Login Enabled.
+  ///
+  /// Yes | No — whether social identity providers are supported
+  String get socialLoginEnabled => doc.formField(path, 'socialLoginEnabled') ?? '';
+  set socialLoginEnabled(String value) => doc.setFormField(path, 'socialLoginEnabled', value);
+
+  /// Social Login Providers.
+  ///
+  /// Google | Apple | Microsoft | GitHub | Facebook — supported providers
+  String get socialLoginProviders => doc.formField(path, 'socialLoginProviders') ?? '';
+  set socialLoginProviders(String value) => doc.setFormField(path, 'socialLoginProviders', value);
+
+  /// Passwordless Login Enabled.
+  ///
+  /// Yes | No — whether passwordless options (magic link, WebAuthn) are offered
+  String get passwordlessLoginEnabled => doc.formField(path, 'passwordlessLoginEnabled') ?? '';
+  set passwordlessLoginEnabled(String value) => doc.setFormField(path, 'passwordlessLoginEnabled', value);
+
+  /// Passwordless Login Methods.
+  ///
+  /// MagicLink | WebAuthn | FIDO2 | Passkey — available passwordless methods
+  String get passwordlessLoginMethods => doc.formField(path, 'passwordlessLoginMethods') ?? '';
+  set passwordlessLoginMethods(String value) => doc.setFormField(path, 'passwordlessLoginMethods', value);
+
+  /// Post-Authentication Action.
+  ///
+  /// RedirectToOriginal | Dashboard | ConsentScreen | ProfileCompletion
+  String get postAuthenticationAction => doc.formField(path, 'postAuthenticationAction') ?? '';
+  set postAuthenticationAction(String value) => doc.setFormField(path, 'postAuthenticationAction', value);
+
+  /// Concurrent Login Policy.
+  ///
+  /// Allow | DenyNew | TerminateOldest | TerminateAll — behavior for concurrent logins
+  String get concurrentLoginPolicy => doc.formField(path, 'concurrentLoginPolicy') ?? '';
+  set concurrentLoginPolicy(String value) => doc.setFormField(path, 'concurrentLoginPolicy', value);
+
+  /// Login Notification.
+  ///
+  /// Yes | No — whether users are notified of successful logins
+  String get loginNotification => doc.formField(path, 'loginNotification') ?? '';
+  set loginNotification(String value) => doc.setFormField(path, 'loginNotification', value);
+
+  /// Login From New Device Action.
+  ///
+  /// Notify | RequireMFA | Block | VerifyEmail — action for unrecognized devices
+  String get loginFromNewDeviceAction => doc.formField(path, 'loginFromNewDeviceAction') ?? '';
+  set loginFromNewDeviceAction(String value) => doc.setFormField(path, 'loginFromNewDeviceAction', value);
+}
+
 /// Generated section facade for the `behavior` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class LoginFlowStepEntryBehaviorForm extends SomNode {
@@ -95771,6 +98725,92 @@ class MfaCategoryRequirementEntryTimingForm extends SomNode {
   /// Duration the device is trusted (e.g., 7d, 30d, 90d)
   String get rememberDeviceDuration => doc.formField(path, 'rememberDeviceDuration') ?? '';
   set rememberDeviceDuration(String value) => doc.setFormField(path, 'rememberDeviceDuration', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class MfaConfigurationContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  MfaConfigurationContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// MFA Required.
+  ///
+  /// Yes | No | Conditional — whether MFA is mandatory
+  String get mfaRequired => doc.formField(path, 'mfaRequired') ?? '';
+  set mfaRequired(String value) => doc.setFormField(path, 'mfaRequired', value);
+
+  /// MFA Enforcement Scope.
+  ///
+  /// AllUsers | AdminOnly | PrivilegedRoles | ExternalAccess | Conditional
+  String get mfaEnforcementScope => doc.formField(path, 'mfaEnforcementScope') ?? '';
+  set mfaEnforcementScope(String value) => doc.setFormField(path, 'mfaEnforcementScope', value);
+
+  /// Default Second Factor.
+  ///
+  /// TOTP | Push | FIDO2 | SMS | Email | HardwareToken
+  String get defaultSecondFactor => doc.formField(path, 'defaultSecondFactor') ?? '';
+  set defaultSecondFactor(String value) => doc.setFormField(path, 'defaultSecondFactor', value);
+
+  /// Allowed Second Factors.
+  ///
+  /// Comma-separated list of permitted second-factor types
+  String get allowedSecondFactors => doc.formField(path, 'allowedSecondFactors') ?? '';
+  set allowedSecondFactors(String value) => doc.setFormField(path, 'allowedSecondFactors', value);
+
+  /// Assurance Level Target.
+  ///
+  /// AAL1 | AAL2 | AAL3 — target NIST authentication assurance level
+  String get assuranceLevelTarget => doc.formField(path, 'assuranceLevelTarget') ?? '';
+  set assuranceLevelTarget(String value) => doc.setFormField(path, 'assuranceLevelTarget', value);
+
+  /// Phishing Resistance Required.
+  ///
+  /// Yes | No — whether phishing-resistant authenticators are required (AAL3)
+  String get phishingResistanceRequired => doc.formField(path, 'phishingResistanceRequired') ?? '';
+  set phishingResistanceRequired(String value) => doc.setFormField(path, 'phishingResistanceRequired', value);
+
+  /// Step-Up Authentication Enabled.
+  ///
+  /// Yes | No — whether sensitive operations trigger higher AAL re-authentication
+  String get stepUpAuthenticationEnabled => doc.formField(path, 'stepUpAuthenticationEnabled') ?? '';
+  set stepUpAuthenticationEnabled(String value) => doc.setFormField(path, 'stepUpAuthenticationEnabled', value);
+
+  /// Step-Up Triggers.
+  ///
+  /// Operations that trigger step-up (payment, admin actions, data export)
+  String get stepUpTriggers => doc.formField(path, 'stepUpTriggers') ?? '';
+  set stepUpTriggers(String value) => doc.setFormField(path, 'stepUpTriggers', value);
+
+  /// Remember Device Policy.
+  ///
+  /// Duration a device is remembered before MFA re-prompt (e.g., 30d, never)
+  String get rememberDevicePolicy => doc.formField(path, 'rememberDevicePolicy') ?? '';
+  set rememberDevicePolicy(String value) => doc.setFormField(path, 'rememberDevicePolicy', value);
+
+  /// Recovery Code Policy.
+  ///
+  /// How many one-time recovery codes are issued and their validity
+  String get recoveryCodePolicy => doc.formField(path, 'recoveryCodePolicy') ?? '';
+  set recoveryCodePolicy(String value) => doc.setFormField(path, 'recoveryCodePolicy', value);
+
+  /// Enrollment Grace Period.
+  ///
+  /// Time allowed for users to enroll MFA after it becomes required (e.g., 14d)
+  String get enrollmentGracePeriod => doc.formField(path, 'enrollmentGracePeriod') ?? '';
+  set enrollmentGracePeriod(String value) => doc.setFormField(path, 'enrollmentGracePeriod', value);
+
+  /// MFA Bypass Policy.
+  ///
+  /// Conditions under which MFA can be bypassed (break-glass, service accounts)
+  String get mfaBypassPolicy => doc.formField(path, 'mfaBypassPolicy') ?? '';
+  set mfaBypassPolicy(String value) => doc.setFormField(path, 'mfaBypassPolicy', value);
 }
 
 /// Generated section facade for the `strategyContent` `@Form` section:
@@ -99223,6 +102263,64 @@ class MustPassCriterionEntryVerificationForm extends SomNode {
   /// Any acceptable variance
   String get toleranceAllowed => doc.formField(path, 'toleranceAllowed') ?? '';
   set toleranceAllowed(String value) => doc.setFormField(path, 'toleranceAllowed', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class MutualTlsPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  MutualTlsPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// mTLS Enabled.
+  ///
+  /// Yes | No — whether mutual TLS is used anywhere in the system (client certificates for authentication)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get mtlsEnabled => somParseBool(doc.formField(path, 'mtlsEnabled'));
+  set mtlsEnabled(bool? value) => doc.setFormField(path, 'mtlsEnabled', somFormatBool(value));
+
+  /// mTLS Scope.
+  ///
+  /// AllServices | InternalOnly | HighValueAPIs | SpecificEndpoints — which communication paths require mTLS
+  String get mtlsScope => doc.formField(path, 'mtlsScope') ?? '';
+  set mtlsScope(String value) => doc.setFormField(path, 'mtlsScope', value);
+
+  /// Client Certificate Issuance.
+  ///
+  /// InternalCA | ExternalCA | SelfSigned | Automated — how client certificates are issued and distributed
+  String get clientCertificateIssuance => doc.formField(path, 'clientCertificateIssuance') ?? '';
+  set clientCertificateIssuance(String value) => doc.setFormField(path, 'clientCertificateIssuance', value);
+
+  /// Revocation Checking.
+  ///
+  /// CRL | OCSP | OCSPStapling | None — how certificate revocation status is verified
+  String get revocationChecking => doc.formField(path, 'revocationChecking') ?? '';
+  set revocationChecking(String value) => doc.setFormField(path, 'revocationChecking', value);
+
+  /// Fallback on mTLS Failure.
+  ///
+  /// Reject | FallbackToTLS | DegradeWithWarning — behavior when mTLS handshake fails (Reject recommended for high-security channels)
+  String get fallbackOnMtlsFailure => doc.formField(path, 'fallbackOnMtlsFailure') ?? '';
+  set fallbackOnMtlsFailure(String value) => doc.setFormField(path, 'fallbackOnMtlsFailure', value);
+
+  /// Client Certificate Rotation.
+  ///
+  /// Automated | Manual | OnExpiry — how client certificates are rotated
+  String get clientCertificateRotation => doc.formField(path, 'clientCertificateRotation') ?? '';
+  set clientCertificateRotation(String value) => doc.setFormField(path, 'clientCertificateRotation', value);
+
+  /// Notes.
+  ///
+  /// Additional mutual TLS policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -104387,6 +107485,288 @@ class ParticipantEntryContentForm extends SomNode {
   set targetRole(String value) => doc.setFormField(path, 'targetRole', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PasswordLifecyclePolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PasswordLifecyclePolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Periodic Rotation Required.
+  ///
+  /// Yes | No — whether periodic password changes are required (NIST: No)
+  String get periodicRotationRequired => doc.formField(path, 'periodicRotationRequired') ?? '';
+  set periodicRotationRequired(String value) => doc.setFormField(path, 'periodicRotationRequired', value);
+
+  /// Rotation Period.
+  ///
+  /// If rotation is required: period in days (e.g., 90, 180, 365)
+  String get rotationPeriod => doc.formField(path, 'rotationPeriod') ?? '';
+  set rotationPeriod(String value) => doc.setFormField(path, 'rotationPeriod', value);
+
+  /// Force Change On Compromise.
+  ///
+  /// Yes | No — whether password change is forced on evidence of compromise
+  String get forceChangeOnCompromise => doc.formField(path, 'forceChangeOnCompromise') ?? '';
+  set forceChangeOnCompromise(String value) => doc.setFormField(path, 'forceChangeOnCompromise', value);
+
+  /// Password History Depth.
+  ///
+  /// Number of previous passwords stored to prevent reuse (e.g., 0, 5, 12, 24)
+  String get passwordHistoryDepth => doc.formField(path, 'passwordHistoryDepth') ?? '';
+  set passwordHistoryDepth(String value) => doc.setFormField(path, 'passwordHistoryDepth', value);
+
+  /// Minimum Password Age.
+  ///
+  /// Minimum time before a password can be changed again (e.g., 0, 1d) to prevent rapid cycling
+  String get minimumPasswordAge => doc.formField(path, 'minimumPasswordAge') ?? '';
+  set minimumPasswordAge(String value) => doc.setFormField(path, 'minimumPasswordAge', value);
+
+  /// Initial Password Policy.
+  ///
+  /// SystemGenerated | UserChosen | TemporaryWithForceChange — policy for initial passwords
+  String get initialPasswordPolicy => doc.formField(path, 'initialPasswordPolicy') ?? '';
+  set initialPasswordPolicy(String value) => doc.setFormField(path, 'initialPasswordPolicy', value);
+
+  /// Temporary Password Expiry.
+  ///
+  /// Duration before a temporary/initial password expires (e.g., 24h, 72h)
+  String get temporaryPasswordExpiry => doc.formField(path, 'temporaryPasswordExpiry') ?? '';
+  set temporaryPasswordExpiry(String value) => doc.setFormField(path, 'temporaryPasswordExpiry', value);
+
+  /// Password Expiry Warning.
+  ///
+  /// Number of days before expiry that users are warned (e.g., 14, 30)
+  String get passwordExpiryWarning => doc.formField(path, 'passwordExpiryWarning') ?? '';
+  set passwordExpiryWarning(String value) => doc.setFormField(path, 'passwordExpiryWarning', value);
+
+  /// Password Change Notification.
+  ///
+  /// Yes | No — whether users are notified when their password is changed
+  String get passwordChangeNotification => doc.formField(path, 'passwordChangeNotification') ?? '';
+  set passwordChangeNotification(String value) => doc.setFormField(path, 'passwordChangeNotification', value);
+
+  /// Password Change Requires Current.
+  ///
+  /// Yes | No — whether current password must be verified before setting a new one
+  String get passwordChangeRequiresCurrent => doc.formField(path, 'passwordChangeRequiresCurrent') ?? '';
+  set passwordChangeRequiresCurrent(String value) => doc.setFormField(path, 'passwordChangeRequiresCurrent', value);
+
+  /// Administrator Reset Policy.
+  ///
+  /// TemporaryPassword | ResetLink | MfaVerification — how admins reset user passwords
+  String get administratorResetPolicy => doc.formField(path, 'administratorResetPolicy') ?? '';
+  set administratorResetPolicy(String value) => doc.setFormField(path, 'administratorResetPolicy', value);
+
+  /// Password Inactivity Disable.
+  ///
+  /// Duration of inactivity before account is disabled (e.g., 90d, 180d, Never)
+  String get passwordInactivityDisable => doc.formField(path, 'passwordInactivityDisable') ?? '';
+  set passwordInactivityDisable(String value) => doc.setFormField(path, 'passwordInactivityDisable', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PasswordRequirementsPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PasswordRequirementsPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Minimum Length Single Factor.
+  ///
+  /// Minimum password length when used as single factor (NIST: 15 characters)
+  String get minimumLengthSingleFactor => doc.formField(path, 'minimumLengthSingleFactor') ?? '';
+  set minimumLengthSingleFactor(String value) => doc.setFormField(path, 'minimumLengthSingleFactor', value);
+
+  /// Minimum Length Multi Factor.
+  ///
+  /// Minimum password length when used as part of MFA (NIST: 8 characters)
+  String get minimumLengthMultiFactor => doc.formField(path, 'minimumLengthMultiFactor') ?? '';
+  set minimumLengthMultiFactor(String value) => doc.setFormField(path, 'minimumLengthMultiFactor', value);
+
+  /// Maximum Length.
+  ///
+  /// Maximum allowed password length (NIST: at least 64 characters)
+  String get maximumLength => doc.formField(path, 'maximumLength') ?? '';
+  set maximumLength(String value) => doc.setFormField(path, 'maximumLength', value);
+
+  /// Allowed Character Sets.
+  ///
+  /// ASCII | Unicode | ASCIIPlusSpace — character sets accepted in passwords
+  String get allowedCharacterSets => doc.formField(path, 'allowedCharacterSets') ?? '';
+  set allowedCharacterSets(String value) => doc.setFormField(path, 'allowedCharacterSets', value);
+
+  /// Composition Rules Enforced.
+  ///
+  /// Yes | No — whether mixed-case/digit/symbol rules are enforced (NIST: No)
+  String get compositionRulesEnforced => doc.formField(path, 'compositionRulesEnforced') ?? '';
+  set compositionRulesEnforced(String value) => doc.setFormField(path, 'compositionRulesEnforced', value);
+
+  /// Passphrase Supported.
+  ///
+  /// Yes | No — whether multi-word passphrases with spaces are supported
+  String get passphraseSupported => doc.formField(path, 'passphraseSupported') ?? '';
+  set passphraseSupported(String value) => doc.setFormField(path, 'passphraseSupported', value);
+
+  /// Unicode Normalization.
+  ///
+  /// NFC | NFD | None — Unicode normalization form applied before hashing
+  String get unicodeNormalization => doc.formField(path, 'unicodeNormalization') ?? '';
+  set unicodeNormalization(String value) => doc.setFormField(path, 'unicodeNormalization', value);
+
+  /// Password Blocklist Enabled.
+  ///
+  /// Yes | No — whether passwords are compared against a blocklist
+  String get passwordBlocklistEnabled => doc.formField(path, 'passwordBlocklistEnabled') ?? '';
+  set passwordBlocklistEnabled(String value) => doc.setFormField(path, 'passwordBlocklistEnabled', value);
+
+  /// Blocklist Sources.
+  ///
+  /// BreachCorpus | DictionaryWords | ContextSpecific | HaveIBeenPwned — sources for blocklist
+  String get blocklistSources => doc.formField(path, 'blocklistSources') ?? '';
+  set blocklistSources(String value) => doc.setFormField(path, 'blocklistSources', value);
+
+  /// Password Strength Meter.
+  ///
+  /// Yes | No — whether a real-time strength indicator is displayed during creation
+  String get passwordStrengthMeter => doc.formField(path, 'passwordStrengthMeter') ?? '';
+  set passwordStrengthMeter(String value) => doc.setFormField(path, 'passwordStrengthMeter', value);
+
+  /// Password Hints Allowed.
+  ///
+  /// Yes | No — whether password hints are stored (NIST: No)
+  String get passwordHintsAllowed => doc.formField(path, 'passwordHintsAllowed') ?? '';
+  set passwordHintsAllowed(String value) => doc.setFormField(path, 'passwordHintsAllowed', value);
+
+  /// Security Questions Allowed.
+  ///
+  /// Yes | No — whether KBA/security questions are used (NIST: No)
+  String get securityQuestionsAllowed => doc.formField(path, 'securityQuestionsAllowed') ?? '';
+  set securityQuestionsAllowed(String value) => doc.setFormField(path, 'securityQuestionsAllowed', value);
+
+  /// Show Password Option.
+  ///
+  /// Yes | No — whether users can toggle password visibility during entry
+  String get showPasswordOption => doc.formField(path, 'showPasswordOption') ?? '';
+  set showPasswordOption(String value) => doc.setFormField(path, 'showPasswordOption', value);
+
+  /// Password Manager Support.
+  ///
+  /// Yes | No — whether autofill and paste are supported for password entry
+  String get passwordManagerSupport => doc.formField(path, 'passwordManagerSupport') ?? '';
+  set passwordManagerSupport(String value) => doc.setFormField(path, 'passwordManagerSupport', value);
+
+  /// Truncation Policy.
+  ///
+  /// None | Trim — whether leading/trailing whitespace is trimmed (NIST: verify entire password)
+  String get truncationPolicy => doc.formField(path, 'truncationPolicy') ?? '';
+  set truncationPolicy(String value) => doc.setFormField(path, 'truncationPolicy', value);
+
+  /// Typo Tolerance Policy.
+  ///
+  /// None | CaseFirstChar | TrimWhitespace — whether minor typo corrections are attempted
+  String get typoTolerancePolicy => doc.formField(path, 'typoTolerancePolicy') ?? '';
+  set typoTolerancePolicy(String value) => doc.setFormField(path, 'typoTolerancePolicy', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PasswordStoragePolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PasswordStoragePolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Hashing Algorithm.
+  ///
+  /// Argon2id | bcrypt | scrypt | PBKDF2 — password hashing algorithm
+  String get hashingAlgorithm => doc.formField(path, 'hashingAlgorithm') ?? '';
+  set hashingAlgorithm(String value) => doc.setFormField(path, 'hashingAlgorithm', value);
+
+  /// Hashing Cost Factor.
+  ///
+  /// Work factor/iteration count for the hashing algorithm (e.g., bcrypt cost 12)
+  String get hashingCostFactor => doc.formField(path, 'hashingCostFactor') ?? '';
+  set hashingCostFactor(String value) => doc.setFormField(path, 'hashingCostFactor', value);
+
+  /// Cost Factor Review Schedule.
+  ///
+  /// Annual | Biannual | OnHardwareUpgrade — when cost factor is re-evaluated
+  String get costFactorReviewSchedule => doc.formField(path, 'costFactorReviewSchedule') ?? '';
+  set costFactorReviewSchedule(String value) => doc.setFormField(path, 'costFactorReviewSchedule', value);
+
+  /// Salt Length.
+  ///
+  /// Minimum salt length in bits (NIST: at least 32 bits)
+  String get saltLength => doc.formField(path, 'saltLength') ?? '';
+  set saltLength(String value) => doc.setFormField(path, 'saltLength', value);
+
+  /// Salt Generation.
+  ///
+  /// CryptoRandom | CSPRNG — method for generating salt values
+  String get saltGeneration => doc.formField(path, 'saltGeneration') ?? '';
+  set saltGeneration(String value) => doc.setFormField(path, 'saltGeneration', value);
+
+  /// Pepper Enabled.
+  ///
+  /// Yes | No — whether a server-side secret key (pepper) is used for additional hashing
+  String get pepperEnabled => doc.formField(path, 'pepperEnabled') ?? '';
+  set pepperEnabled(String value) => doc.setFormField(path, 'pepperEnabled', value);
+
+  /// Pepper Storage.
+  ///
+  /// HSM | TEE | EncryptedConfig | SecretManager — where the pepper key is stored
+  String get pepperStorage => doc.formField(path, 'pepperStorage') ?? '';
+  set pepperStorage(String value) => doc.setFormField(path, 'pepperStorage', value);
+
+  /// Hash Versioning.
+  ///
+  /// Yes | No — whether the hash algorithm and cost factor are stored per password for migration
+  String get hashVersioning => doc.formField(path, 'hashVersioning') ?? '';
+  set hashVersioning(String value) => doc.setFormField(path, 'hashVersioning', value);
+
+  /// Transmission Encryption.
+  ///
+  /// TLS1.3 | TLS1.2 — encryption for password transmission
+  String get transmissionEncryption => doc.formField(path, 'transmissionEncryption') ?? '';
+  set transmissionEncryption(String value) => doc.setFormField(path, 'transmissionEncryption', value);
+
+  /// Client-Side Hashing.
+  ///
+  /// Yes | No — whether passwords are pre-hashed on the client before transmission
+  String get clientSideHashing => doc.formField(path, 'clientSideHashing') ?? '';
+  set clientSideHashing(String value) => doc.setFormField(path, 'clientSideHashing', value);
+
+  /// Memory-Hard Function.
+  ///
+  /// Yes | No — whether the hashing function is memory-hard to resist GPU attacks
+  String get memoryHardFunction => doc.formField(path, 'memoryHardFunction') ?? '';
+  set memoryHardFunction(String value) => doc.setFormField(path, 'memoryHardFunction', value);
+
+  /// Output Length.
+  ///
+  /// Hash output length in bits (should match underlying scheme output length)
+  String get outputLength => doc.formField(path, 'outputLength') ?? '';
+  set outputLength(String value) => doc.setFormField(path, 'outputLength', value);
+}
+
 /// Generated section facade for the `capacity` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class PeakLoadPatternsCapacityForm extends SomNode {
@@ -104837,6 +108217,244 @@ class PeripheralEquipmentEntryContentForm extends SomNode {
   /// Justification.
   String get justification => doc.formField(path, 'justification') ?? '';
   set justification(String value) => doc.setFormField(path, 'justification', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PermissionCompositionStrategyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PermissionCompositionStrategyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Composition Model.
+  ///
+  /// Additive | Subtractive | MostRestrictive | LeastRestrictive | OrderedPrecedence | WeightedPriority — how permissions compose
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get compositionModel => doc.formField(path, 'compositionModel') ?? '';
+  set compositionModel(String value) => doc.setFormField(path, 'compositionModel', value);
+
+  /// Default Policy.
+  ///
+  /// DenyByDefault | AllowByDefault — action when no explicit rule matches (OWASP: always deny by default)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get defaultPolicy => doc.formField(path, 'defaultPolicy') ?? '';
+  set defaultPolicy(String value) => doc.setFormField(path, 'defaultPolicy', value);
+
+  /// Explicit Deny Override.
+  ///
+  /// Yes | No — whether explicit deny always overrides any allow (deny-trumps-allow semantics)
+  bool? get explicitDenyOverride => somParseBool(doc.formField(path, 'explicitDenyOverride'));
+  set explicitDenyOverride(bool? value) => doc.setFormField(path, 'explicitDenyOverride', somFormatBool(value));
+
+  /// Role Permission Inheritance.
+  ///
+  /// Yes | No — whether child roles inherit permissions from parent roles in a hierarchy
+  bool? get rolePermissionInheritance => somParseBool(doc.formField(path, 'rolePermissionInheritance'));
+  set rolePermissionInheritance(bool? value) => doc.setFormField(path, 'rolePermissionInheritance', somFormatBool(value));
+
+  /// Group Permission Aggregation.
+  ///
+  /// Union | Intersection | FirstMatch — how permissions from multiple group memberships combine
+  String get groupPermissionAggregation => doc.formField(path, 'groupPermissionAggregation') ?? '';
+  set groupPermissionAggregation(String value) => doc.setFormField(path, 'groupPermissionAggregation', value);
+
+  /// Conflict Resolution.
+  ///
+  /// DenyWins | AllowWins | MostSpecificWins | ExplicitWins | PriorityBased — how conflicting permissions are resolved
+  String get conflictResolution => doc.formField(path, 'conflictResolution') ?? '';
+  set conflictResolution(String value) => doc.setFormField(path, 'conflictResolution', value);
+
+  /// Permission Boundary.
+  ///
+  /// Yes | No — whether a maximum permission boundary constrains effective permissions regardless of assigned roles
+  bool? get permissionBoundary => somParseBool(doc.formField(path, 'permissionBoundary'));
+  set permissionBoundary(bool? value) => doc.setFormField(path, 'permissionBoundary', somFormatBool(value));
+
+  /// Scoped Permissions.
+  ///
+  /// Yes | No — whether permissions can be scoped to specific contexts (e.g. project, department, time window)
+  bool? get scopedPermissions => somParseBool(doc.formField(path, 'scopedPermissions'));
+  set scopedPermissions(bool? value) => doc.setFormField(path, 'scopedPermissions', somFormatBool(value));
+
+  /// Temporary Elevation.
+  ///
+  /// Yes | No — whether time-limited permission elevation is supported (just-in-time access, break-glass procedures)
+  bool? get temporaryElevation => somParseBool(doc.formField(path, 'temporaryElevation'));
+  set temporaryElevation(bool? value) => doc.setFormField(path, 'temporaryElevation', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional permission composition notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PermissionEvaluationBehaviorContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PermissionEvaluationBehaviorContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Evaluation Location.
+  ///
+  /// ServerSide | Gateway | ServiceMesh | Serverless — where permission checks are performed (OWASP: never client-side only)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get evaluationLocation => doc.formField(path, 'evaluationLocation') ?? '';
+  set evaluationLocation(String value) => doc.setFormField(path, 'evaluationLocation', value);
+
+  /// Evaluation Frequency.
+  ///
+  /// EveryRequest | SessionStart | Cached | Lazy — how often permissions are re-evaluated (OWASP: validate on every request)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get evaluationFrequency => doc.formField(path, 'evaluationFrequency') ?? '';
+  set evaluationFrequency(String value) => doc.setFormField(path, 'evaluationFrequency', value);
+
+  /// Caching Strategy.
+  ///
+  /// None | ShortLived | SessionBound | DistributedCache — permission decision caching approach and TTL
+  String get cachingStrategy => doc.formField(path, 'cachingStrategy') ?? '';
+  set cachingStrategy(String value) => doc.setFormField(path, 'cachingStrategy', value);
+
+  /// Cache TTL (Seconds).
+  ///
+  /// Maximum time in seconds before cached permission decisions expire
+  int? get cacheTtlSeconds => somParseInt(doc.formField(path, 'cacheTtlSeconds'));
+  set cacheTtlSeconds(int? value) => doc.setFormField(path, 'cacheTtlSeconds', somFormatInt(value));
+
+  /// Failure Mode.
+  ///
+  /// DenyOnFailure | LastKnownGood | DegradedAccess — behavior when the authorization service is unavailable (OWASP: exit safely)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get failureMode => doc.formField(path, 'failureMode') ?? '';
+  set failureMode(String value) => doc.setFormField(path, 'failureMode', value);
+
+  /// Authorization Logging.
+  ///
+  /// Yes | No — log all access control decisions including grants and denials for audit and incident response
+  bool? get authorizationLogging => somParseBool(doc.formField(path, 'authorizationLogging'));
+  set authorizationLogging(bool? value) => doc.setFormField(path, 'authorizationLogging', somFormatBool(value));
+
+  /// Log Denied Requests.
+  ///
+  /// Yes | No — log details of all denied access attempts
+  bool? get logDeniedRequests => somParseBool(doc.formField(path, 'logDeniedRequests'));
+  set logDeniedRequests(bool? value) => doc.setFormField(path, 'logDeniedRequests', somFormatBool(value));
+
+  /// Log Successful Access.
+  ///
+  /// Yes | No — log successful access to sensitive resources for forensic analysis
+  bool? get logSuccessfulAccess => somParseBool(doc.formField(path, 'logSuccessfulAccess'));
+  set logSuccessfulAccess(bool? value) => doc.setFormField(path, 'logSuccessfulAccess', somFormatBool(value));
+
+  /// Automated Testing.
+  ///
+  /// Yes | No — unit and integration tests verify authorization logic (OWASP: catch low-hanging security issues early)
+  bool? get automatedTesting => somParseBool(doc.formField(path, 'automatedTesting'));
+  set automatedTesting(bool? value) => doc.setFormField(path, 'automatedTesting', somFormatBool(value));
+
+  /// Client-Side Hints.
+  ///
+  /// Yes | No — provide permission hints to UI for UX purposes while enforcing all checks server-side
+  bool? get clientSideHints => somParseBool(doc.formField(path, 'clientSideHints'));
+  set clientSideHints(bool? value) => doc.setFormField(path, 'clientSideHints', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional permission evaluation behavior notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class PermissionGranularityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PermissionGranularityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Function-Level Control.
+  ///
+  /// Yes | No — permissions control access to entire functions, operations, or API endpoints
+  bool? get functionLevelControl => somParseBool(doc.formField(path, 'functionLevelControl'));
+  set functionLevelControl(bool? value) => doc.setFormField(path, 'functionLevelControl', somFormatBool(value));
+
+  /// Data-Level Control.
+  ///
+  /// Yes | No — permissions control access to specific data records, rows, or resource instances (horizontal access control)
+  bool? get dataLevelControl => somParseBool(doc.formField(path, 'dataLevelControl'));
+  set dataLevelControl(bool? value) => doc.setFormField(path, 'dataLevelControl', somFormatBool(value));
+
+  /// Field-Level Control.
+  ///
+  /// Yes | No — permissions control access to individual fields or attributes within a record (column-level security)
+  bool? get fieldLevelControl => somParseBool(doc.formField(path, 'fieldLevelControl'));
+  set fieldLevelControl(bool? value) => doc.setFormField(path, 'fieldLevelControl', somFormatBool(value));
+
+  /// UI Element Control.
+  ///
+  /// Yes | No — permissions control visibility or availability of UI components, menus, or actions
+  bool? get uiElementControl => somParseBool(doc.formField(path, 'uiElementControl'));
+  set uiElementControl(bool? value) => doc.setFormField(path, 'uiElementControl', somFormatBool(value));
+
+  /// API Operation Control.
+  ///
+  /// Yes | No — permissions are specific to individual API operations (GET, POST, PUT, DELETE on specific resources)
+  bool? get apiOperationControl => somParseBool(doc.formField(path, 'apiOperationControl'));
+  set apiOperationControl(bool? value) => doc.setFormField(path, 'apiOperationControl', somFormatBool(value));
+
+  /// Object-Level Control.
+  ///
+  /// Yes | No — permissions apply to individual business object instances (IDOR prevention through ownership checks)
+  bool? get objectLevelControl => somParseBool(doc.formField(path, 'objectLevelControl'));
+  set objectLevelControl(bool? value) => doc.setFormField(path, 'objectLevelControl', somFormatBool(value));
+
+  /// Tenant-Level Control.
+  ///
+  /// Yes | No — permissions provide isolation between tenants in a multi-tenant system
+  bool? get tenantLevelControl => somParseBool(doc.formField(path, 'tenantLevelControl'));
+  set tenantLevelControl(bool? value) => doc.setFormField(path, 'tenantLevelControl', somFormatBool(value));
+
+  /// Finest Granularity.
+  ///
+  /// Function | Data | Field | UIElement | APIOperation | Object — the finest level of permission granularity supported
+  String get finestGranularity => doc.formField(path, 'finestGranularity') ?? '';
+  set finestGranularity(String value) => doc.setFormField(path, 'finestGranularity', value);
+
+  /// Dynamic Permissions.
+  ///
+  /// Yes | No — permissions can change dynamically based on runtime context (time, location, device, risk score)
+  bool? get dynamicPermissions => somParseBool(doc.formField(path, 'dynamicPermissions'));
+  set dynamicPermissions(bool? value) => doc.setFormField(path, 'dynamicPermissions', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional permission granularity notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -112673,6 +116291,92 @@ class RecoveryScenarioEntryContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class RedirectHandlingPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RedirectHandlingPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// OAuth Redirect URI Policy.
+  ///
+  /// ExactMatch | WildcardSubdomain | DynamicRegistration — redirect URI validation
+  String get oauthRedirectUriPolicy => doc.formField(path, 'oauthRedirectUriPolicy') ?? '';
+  set oauthRedirectUriPolicy(String value) => doc.setFormField(path, 'oauthRedirectUriPolicy', value);
+
+  /// Allowed Redirect Domains.
+  ///
+  /// Comma-separated list of allowed redirect domains
+  String get allowedRedirectDomains => doc.formField(path, 'allowedRedirectDomains') ?? '';
+  set allowedRedirectDomains(String value) => doc.setFormField(path, 'allowedRedirectDomains', value);
+
+  /// Callback URL Validation.
+  ///
+  /// StrictMatch | PathPrefix | OriginOnly — how callback URLs are validated
+  String get callbackUrlValidation => doc.formField(path, 'callbackUrlValidation') ?? '';
+  set callbackUrlValidation(String value) => doc.setFormField(path, 'callbackUrlValidation', value);
+
+  /// State Parameter Required.
+  ///
+  /// Yes | No — whether OAuth state parameter is required for CSRF protection
+  String get stateParameterRequired => doc.formField(path, 'stateParameterRequired') ?? '';
+  set stateParameterRequired(String value) => doc.setFormField(path, 'stateParameterRequired', value);
+
+  /// PKCE Required.
+  ///
+  /// Yes | No — whether PKCE (Proof Key for Code Exchange) is mandatory
+  String get pkceRequired => doc.formField(path, 'pkceRequired') ?? '';
+  set pkceRequired(String value) => doc.setFormField(path, 'pkceRequired', value);
+
+  /// PKCE Method.
+  ///
+  /// S256 | Plain — PKCE code challenge method (S256 recommended)
+  String get pkceMethod => doc.formField(path, 'pkceMethod') ?? '';
+  set pkceMethod(String value) => doc.setFormField(path, 'pkceMethod', value);
+
+  /// Deep Link Handling.
+  ///
+  /// UniversalLinks | AppLinks | CustomScheme — mobile deep link strategy
+  String get deepLinkHandling => doc.formField(path, 'deepLinkHandling') ?? '';
+  set deepLinkHandling(String value) => doc.setFormField(path, 'deepLinkHandling', value);
+
+  /// Error Redirect Behavior.
+  ///
+  /// RedirectWithError | ErrorPage | OriginalPage — behavior on auth errors
+  String get errorRedirectBehavior => doc.formField(path, 'errorRedirectBehavior') ?? '';
+  set errorRedirectBehavior(String value) => doc.setFormField(path, 'errorRedirectBehavior', value);
+
+  /// Post-Logout Redirect URI.
+  ///
+  /// Where users are redirected after logout
+  String get postLogoutRedirectUri => doc.formField(path, 'postLogoutRedirectUri') ?? '';
+  set postLogoutRedirectUri(String value) => doc.setFormField(path, 'postLogoutRedirectUri', value);
+
+  /// Single Logout Redirect Chain.
+  ///
+  /// Yes | No — whether SLO propagates logouts across all connected services
+  String get singleLogoutRedirectChain => doc.formField(path, 'singleLogoutRedirectChain') ?? '';
+  set singleLogoutRedirectChain(String value) => doc.setFormField(path, 'singleLogoutRedirectChain', value);
+
+  /// CORS Policy.
+  ///
+  /// AllowedOrigins for authentication endpoints (exact list or pattern)
+  String get corsPolicy => doc.formField(path, 'corsPolicy') ?? '';
+  set corsPolicy(String value) => doc.setFormField(path, 'corsPolicy', value);
+
+  /// Iframe Embedding Policy.
+  ///
+  /// Deny | SameOrigin | AllowSpecific — X-Frame-Options / CSP frame-ancestors
+  String get iframeEmbeddingPolicy => doc.formField(path, 'iframeEmbeddingPolicy') ?? '';
+  set iframeEmbeddingPolicy(String value) => doc.setFormField(path, 'iframeEmbeddingPolicy', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class ReferenceDocumentEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   ReferenceDocumentEntryContentForm(super.doc, super.path);
@@ -113641,6 +117345,98 @@ class ReliabilityVerificationForm extends SomNode {
   /// Blameless postmortem process
   String get incidentPostmortem => doc.formField(path, 'incidentPostmortem') ?? '';
   set incidentPostmortem(String value) => doc.setFormField(path, 'incidentPostmortem', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RememberMePolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RememberMePolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Remember-Me Enabled.
+  ///
+  /// Yes | No — whether remember-me / keep-me-signed-in is offered
+  String get rememberMeEnabled => doc.formField(path, 'rememberMeEnabled') ?? '';
+  set rememberMeEnabled(String value) => doc.setFormField(path, 'rememberMeEnabled', value);
+
+  /// Remember-Me Duration.
+  ///
+  /// Duration of persistent session (e.g., 7d, 30d, 90d)
+  String get rememberMeDuration => doc.formField(path, 'rememberMeDuration') ?? '';
+  set rememberMeDuration(String value) => doc.setFormField(path, 'rememberMeDuration', value);
+
+  /// Remember-Me Token Type.
+  ///
+  /// PersistentCookie | DeviceToken | RefreshToken — mechanism for persistent login
+  String get rememberMeTokenType => doc.formField(path, 'rememberMeTokenType') ?? '';
+  set rememberMeTokenType(String value) => doc.setFormField(path, 'rememberMeTokenType', value);
+
+  /// Remember-Me Token Storage.
+  ///
+  /// HttpOnlyCookie | SecureStorage | EncryptedLocalStorage — client-side storage
+  String get rememberMeTokenStorage => doc.formField(path, 'rememberMeTokenStorage') ?? '';
+  set rememberMeTokenStorage(String value) => doc.setFormField(path, 'rememberMeTokenStorage', value);
+
+  /// Remember-Me Token Rotation.
+  ///
+  /// Yes | No — whether persistent tokens are rotated on each use
+  String get rememberMeTokenRotation => doc.formField(path, 'rememberMeTokenRotation') ?? '';
+  set rememberMeTokenRotation(String value) => doc.setFormField(path, 'rememberMeTokenRotation', value);
+
+  /// Remember-Me Reuse Detection.
+  ///
+  /// Yes | No — whether reuse of old persistent tokens triggers revocation
+  String get rememberMeReuseDetection => doc.formField(path, 'rememberMeReuseDetection') ?? '';
+  set rememberMeReuseDetection(String value) => doc.setFormField(path, 'rememberMeReuseDetection', value);
+
+  /// Remember-Me Device Binding.
+  ///
+  /// None | Fingerprint | CertificateBound — how persistent tokens are bound to devices
+  String get rememberMeDeviceBinding => doc.formField(path, 'rememberMeDeviceBinding') ?? '';
+  set rememberMeDeviceBinding(String value) => doc.setFormField(path, 'rememberMeDeviceBinding', value);
+
+  /// Remember-Me Revocation.
+  ///
+  /// ManualOnly | OnPasswordChange | OnSecurityEvent | All — when persistent tokens are revoked
+  String get rememberMeRevocation => doc.formField(path, 'rememberMeRevocation') ?? '';
+  set rememberMeRevocation(String value) => doc.setFormField(path, 'rememberMeRevocation', value);
+
+  /// Remember-Me AAL Reduction.
+  ///
+  /// Yes | No — whether remember-me reduces effective AAL (e.g., AAL2 to AAL1)
+  String get rememberMeAalReduction => doc.formField(path, 'rememberMeAalReduction') ?? '';
+  set rememberMeAalReduction(String value) => doc.setFormField(path, 'rememberMeAalReduction', value);
+
+  /// Restricted Operations with Remember-Me.
+  ///
+  /// Operations requiring full reauthentication even with active remember-me (e.g., password change, payment)
+  String get rememberMeRestrictedOperations => doc.formField(path, 'rememberMeRestrictedOperations') ?? '';
+  set rememberMeRestrictedOperations(String value) => doc.setFormField(path, 'rememberMeRestrictedOperations', value);
+
+  /// Trusted Device Management.
+  ///
+  /// Yes | No — whether users can manage a list of trusted/remembered devices
+  String get trustedDeviceManagement => doc.formField(path, 'trustedDeviceManagement') ?? '';
+  set trustedDeviceManagement(String value) => doc.setFormField(path, 'trustedDeviceManagement', value);
+
+  /// Maximum Trusted Devices.
+  ///
+  /// Maximum number of devices in the trusted device list (e.g., 5, 10)
+  String get maxTrustedDevices => doc.formField(path, 'maxTrustedDevices') ?? '';
+  set maxTrustedDevices(String value) => doc.setFormField(path, 'maxTrustedDevices', value);
+
+  /// Trusted Device Expiry.
+  ///
+  /// Duration a device stays trusted (e.g., 30d, 90d, indefinite)
+  String get trustedDeviceExpiry => doc.formField(path, 'trustedDeviceExpiry') ?? '';
+  set trustedDeviceExpiry(String value) => doc.setFormField(path, 'trustedDeviceExpiry', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -119587,6 +123383,74 @@ class RoleAdjustmentsAdjustmentSummaryForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class RoleCertificationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RoleCertificationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Certification Required.
+  ///
+  /// Yes | No — whether periodic role certification (access review) is mandated
+  bool? get certificationRequired => somParseBool(doc.formField(path, 'certificationRequired'));
+  set certificationRequired(bool? value) => doc.setFormField(path, 'certificationRequired', somFormatBool(value));
+
+  /// Certification Frequency.
+  ///
+  /// Monthly | Quarterly | SemiAnnual | Annual | OnChange — how often role certifications are conducted
+  String get certificationFrequency => doc.formField(path, 'certificationFrequency') ?? '';
+  set certificationFrequency(String value) => doc.setFormField(path, 'certificationFrequency', value);
+
+  /// Certifier.
+  ///
+  /// Manager | RoleOwner | SecurityOfficer | Automated — who performs the certification review
+  String get certifier => doc.formField(path, 'certifier') ?? '';
+  set certifier(String value) => doc.setFormField(path, 'certifier', value);
+
+  /// Non-Response Action.
+  ///
+  /// Revoke | Escalate | Extend | NoAction — what happens if the certifier does not respond within the deadline
+  String get nonResponseAction => doc.formField(path, 'nonResponseAction') ?? '';
+  set nonResponseAction(String value) => doc.setFormField(path, 'nonResponseAction', value);
+
+  /// Risk-Based Scheduling.
+  ///
+  /// Yes | No — whether high-risk role assignments are reviewed more frequently than low-risk ones
+  bool? get riskBasedScheduling => somParseBool(doc.formField(path, 'riskBasedScheduling'));
+  set riskBasedScheduling(bool? value) => doc.setFormField(path, 'riskBasedScheduling', somFormatBool(value));
+
+  /// Automated Detection.
+  ///
+  /// Yes | No — whether the system automatically detects and flags anomalous or dormant role assignments
+  bool? get automatedDetection => somParseBool(doc.formField(path, 'automatedDetection'));
+  set automatedDetection(bool? value) => doc.setFormField(path, 'automatedDetection', somFormatBool(value));
+
+  /// Dormant Role Threshold (Days).
+  ///
+  /// Number of days after which an unused role assignment is flagged as dormant (e.g. 90)
+  int? get dormantRoleThresholdDays => somParseInt(doc.formField(path, 'dormantRoleThresholdDays'));
+  set dormantRoleThresholdDays(int? value) => doc.setFormField(path, 'dormantRoleThresholdDays', somFormatInt(value));
+
+  /// Certification Audit Trail.
+  ///
+  /// Yes | No — whether certification decisions are logged for compliance and audit purposes
+  bool? get certificationAuditTrail => somParseBool(doc.formField(path, 'certificationAuditTrail'));
+  set certificationAuditTrail(bool? value) => doc.setFormField(path, 'certificationAuditTrail', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional role certification notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class RoleCombinationConstraintEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   RoleCombinationConstraintEntryContentForm(super.doc, super.path);
@@ -119769,6 +123633,82 @@ class RoleExclusionEntryContentForm extends SomNode {
   /// Hard | Soft — hard = system-enforced block, soft = warning with override option
   String get severity => doc.formField(path, 'severity') ?? '';
   set severity(String value) => doc.setFormField(path, 'severity', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RoleHierarchyPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RoleHierarchyPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Hierarchy Model.
+  ///
+  /// Tree | DAG | Flat | Layered — structure of the role hierarchy (tree = single parent, DAG = multiple parents, flat = no inheritance, layered = tiered levels)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get hierarchyModel => doc.formField(path, 'hierarchyModel') ?? '';
+  set hierarchyModel(String value) => doc.setFormField(path, 'hierarchyModel', value);
+
+  /// Maximum Hierarchy Depth.
+  ///
+  /// Maximum number of inheritance levels allowed (e.g. 5); 0 = unlimited depth
+  int? get maxHierarchyDepth => somParseInt(doc.formField(path, 'maxHierarchyDepth'));
+  set maxHierarchyDepth(int? value) => doc.setFormField(path, 'maxHierarchyDepth', somFormatInt(value));
+
+  /// Inheritance Mode.
+  ///
+  /// Full | Selective | None — whether child roles automatically inherit all parent permissions (full), selected permissions (selective), or none
+  String get inheritanceMode => doc.formField(path, 'inheritanceMode') ?? '';
+  set inheritanceMode(String value) => doc.setFormField(path, 'inheritanceMode', value);
+
+  /// Multiple Inheritance.
+  ///
+  /// Yes | No — whether a role can inherit from more than one parent role (DAG model)
+  bool? get multipleInheritance => somParseBool(doc.formField(path, 'multipleInheritance'));
+  set multipleInheritance(bool? value) => doc.setFormField(path, 'multipleInheritance', somFormatBool(value));
+
+  /// Permission Override.
+  ///
+  /// Yes | No — whether child roles can override (restrict or extend) inherited permissions from parent roles
+  bool? get permissionOverride => somParseBool(doc.formField(path, 'permissionOverride'));
+  set permissionOverride(bool? value) => doc.setFormField(path, 'permissionOverride', somFormatBool(value));
+
+  /// Activation Constraints.
+  ///
+  /// Yes | No — whether role activation is subject to constraints (time-based, prerequisite roles, approval workflows)
+  bool? get activationConstraints => somParseBool(doc.formField(path, 'activationConstraints'));
+  set activationConstraints(bool? value) => doc.setFormField(path, 'activationConstraints', somFormatBool(value));
+
+  /// Max Active Roles Per User.
+  ///
+  /// Maximum number of roles a single user can hold simultaneously; 0 = unlimited
+  int? get maxActiveRolesPerUser => somParseInt(doc.formField(path, 'maxActiveRolesPerUser'));
+  set maxActiveRolesPerUser(int? value) => doc.setFormField(path, 'maxActiveRolesPerUser', somFormatInt(value));
+
+  /// Role Priority Scheme.
+  ///
+  /// HierarchyLevel | ExplicitWeight | None — how conflicts between equal-level roles are resolved
+  String get rolePriorityScheme => doc.formField(path, 'rolePriorityScheme') ?? '';
+  set rolePriorityScheme(String value) => doc.setFormField(path, 'rolePriorityScheme', value);
+
+  /// Automatic Inheritance Revocation.
+  ///
+  /// Yes | No — whether removing a parent role automatically revokes inherited child-role permissions
+  bool? get automaticInheritanceRevocation => somParseBool(doc.formField(path, 'automaticInheritanceRevocation'));
+  set automaticInheritanceRevocation(bool? value) => doc.setFormField(path, 'automaticInheritanceRevocation', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional role hierarchy policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -120123,6 +124063,86 @@ class RollbackStrategyTriggersForm extends SomNode {
   /// Max time to complete rollback
   String get rollbackTimeTarget => doc.formField(path, 'rollbackTimeTarget') ?? '';
   set rollbackTimeTarget(String value) => doc.setFormField(path, 'rollbackTimeTarget', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RowLevelSecurityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RowLevelSecurityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Row-Level Security Enabled.
+  ///
+  /// Yes | No — whether row-level security (RLS) is implemented
+  String get rowLevelSecurityEnabled => doc.formField(path, 'rowLevelSecurityEnabled') ?? '';
+  set rowLevelSecurityEnabled(String value) => doc.setFormField(path, 'rowLevelSecurityEnabled', value);
+
+  /// RLS Implementation.
+  ///
+  /// DatabaseNative | ApplicationLayer | OrmFilter | Hybrid — where RLS is enforced
+  String get rlsImplementation => doc.formField(path, 'rlsImplementation') ?? '';
+  set rlsImplementation(String value) => doc.setFormField(path, 'rlsImplementation', value);
+
+  /// RLS Filtering Strategy.
+  ///
+  /// TenantId | UserId | OrganizationId | CustomPredicate — primary filtering dimension
+  String get rlsFilteringStrategy => doc.formField(path, 'rlsFilteringStrategy') ?? '';
+  set rlsFilteringStrategy(String value) => doc.setFormField(path, 'rlsFilteringStrategy', value);
+
+  /// RLS Bypass Policy.
+  ///
+  /// NeverBypass | SuperAdminOnly | ServiceAccountOnly — who can bypass RLS
+  String get rlsBypassPolicy => doc.formField(path, 'rlsBypassPolicy') ?? '';
+  set rlsBypassPolicy(String value) => doc.setFormField(path, 'rlsBypassPolicy', value);
+
+  /// Hierarchical Data Visibility.
+  ///
+  /// Yes | No — whether managers see subordinate data (organizational hierarchy)
+  String get hierarchicalVisibility => doc.formField(path, 'hierarchicalVisibility') ?? '';
+  set hierarchicalVisibility(String value) => doc.setFormField(path, 'hierarchicalVisibility', value);
+
+  /// Hierarchy Depth Limit.
+  ///
+  /// Unlimited | DirectReports | NLevels — how deep hierarchical visibility extends
+  String get hierarchyDepthLimit => doc.formField(path, 'hierarchyDepthLimit') ?? '';
+  set hierarchyDepthLimit(String value) => doc.setFormField(path, 'hierarchyDepthLimit', value);
+
+  /// Cross-Tenant Data Access.
+  ///
+  /// Denied | PlatformAdminOnly | ConsentBased — cross-tenant data access rules
+  String get crossTenantAccess => doc.formField(path, 'crossTenantAccess') ?? '';
+  set crossTenantAccess(String value) => doc.setFormField(path, 'crossTenantAccess', value);
+
+  /// Data Owner Access.
+  ///
+  /// FullAccess | ReadOnly | Delegated — access level for the data owner/creator
+  String get dataOwnerAccess => doc.formField(path, 'dataOwnerAccess') ?? '';
+  set dataOwnerAccess(String value) => doc.setFormField(path, 'dataOwnerAccess', value);
+
+  /// Shared Data Handling.
+  ///
+  /// ExplicitGrant | GroupBased | LinkSharing — how shared records are authorized
+  String get sharedDataHandling => doc.formField(path, 'sharedDataHandling') ?? '';
+  set sharedDataHandling(String value) => doc.setFormField(path, 'sharedDataHandling', value);
+
+  /// RLS Performance Strategy.
+  ///
+  /// IndexedFilterColumn | PartitionedByTenant | MaterializedViews — performance optimization for RLS
+  String get rlsPerformanceStrategy => doc.formField(path, 'rlsPerformanceStrategy') ?? '';
+  set rlsPerformanceStrategy(String value) => doc.setFormField(path, 'rlsPerformanceStrategy', value);
+
+  /// RLS Testing Strategy.
+  ///
+  /// AutomatedTests | PenetrationTesting | Both — how RLS enforcement is verified
+  String get rlsTestingStrategy => doc.formField(path, 'rlsTestingStrategy') ?? '';
+  set rlsTestingStrategy(String value) => doc.setFormField(path, 'rlsTestingStrategy', value);
 }
 
 /// Generated section facade for the `byTier` `@Form` section:
@@ -126001,6 +130021,104 @@ class SelfRegistrationPolicyVerificationForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class SelfServiceAccountManagementContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SelfServiceAccountManagementContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Profile Update Enabled.
+  ///
+  /// Yes | No — users can update their own profile information
+  String get profileUpdateEnabled => doc.formField(path, 'profileUpdateEnabled') ?? '';
+  set profileUpdateEnabled(String value) => doc.setFormField(path, 'profileUpdateEnabled', value);
+
+  /// Password Change Enabled.
+  ///
+  /// Yes | No — users can change their own password
+  String get passwordChangeEnabled => doc.formField(path, 'passwordChangeEnabled') ?? '';
+  set passwordChangeEnabled(String value) => doc.setFormField(path, 'passwordChangeEnabled', value);
+
+  /// Password Reset Enabled.
+  ///
+  /// Yes | No — users can reset forgotten passwords
+  String get passwordResetEnabled => doc.formField(path, 'passwordResetEnabled') ?? '';
+  set passwordResetEnabled(String value) => doc.setFormField(path, 'passwordResetEnabled', value);
+
+  /// Password Reset Methods.
+  ///
+  /// Email | SMS | SecurityQuestions | AdminAssisted
+  String get passwordResetMethods => doc.formField(path, 'passwordResetMethods') ?? '';
+  set passwordResetMethods(String value) => doc.setFormField(path, 'passwordResetMethods', value);
+
+  /// MFA Enrollment Self-Service.
+  ///
+  /// Yes | No — users can enroll/change MFA devices
+  String get mfaEnrollmentSelfService => doc.formField(path, 'mfaEnrollmentSelfService') ?? '';
+  set mfaEnrollmentSelfService(String value) => doc.setFormField(path, 'mfaEnrollmentSelfService', value);
+
+  /// Account Deactivation Self-Service.
+  ///
+  /// Yes | No — users can deactivate their own account
+  String get accountDeactivationSelfService => doc.formField(path, 'accountDeactivationSelfService') ?? '';
+  set accountDeactivationSelfService(String value) => doc.setFormField(path, 'accountDeactivationSelfService', value);
+
+  /// Account Deletion Self-Service.
+  ///
+  /// Yes | No — users can request deletion of their own account
+  String get accountDeletionSelfService => doc.formField(path, 'accountDeletionSelfService') ?? '';
+  set accountDeletionSelfService(String value) => doc.setFormField(path, 'accountDeletionSelfService', value);
+
+  /// Data Export Self-Service.
+  ///
+  /// Yes | No — users can export their own data
+  String get dataExportSelfService => doc.formField(path, 'dataExportSelfService') ?? '';
+  set dataExportSelfService(String value) => doc.setFormField(path, 'dataExportSelfService', value);
+
+  /// Session Management Self-Service.
+  ///
+  /// Yes | No — users can view and terminate their active sessions
+  String get sessionManagementSelfService => doc.formField(path, 'sessionManagementSelfService') ?? '';
+  set sessionManagementSelfService(String value) => doc.setFormField(path, 'sessionManagementSelfService', value);
+
+  /// API Key Management Self-Service.
+  ///
+  /// Yes | No — users can create/revoke their own API keys
+  String get apiKeyManagementSelfService => doc.formField(path, 'apiKeyManagementSelfService') ?? '';
+  set apiKeyManagementSelfService(String value) => doc.setFormField(path, 'apiKeyManagementSelfService', value);
+
+  /// Notification Preferences.
+  ///
+  /// Yes | No — users can configure their notification preferences
+  String get notificationPreferences => doc.formField(path, 'notificationPreferences') ?? '';
+  set notificationPreferences(String value) => doc.setFormField(path, 'notificationPreferences', value);
+
+  /// Delegation Enabled.
+  ///
+  /// Yes | No — users can delegate account actions to another user
+  String get delegationEnabled => doc.formField(path, 'delegationEnabled') ?? '';
+  set delegationEnabled(String value) => doc.setFormField(path, 'delegationEnabled', value);
+
+  /// Delegation Scope.
+  ///
+  /// What actions can be delegated (read, write, approve)
+  String get delegationScope => doc.formField(path, 'delegationScope') ?? '';
+  set delegationScope(String value) => doc.setFormField(path, 'delegationScope', value);
+
+  /// Account Recovery Process.
+  ///
+  /// Steps when a user loses all credentials (identity re-proofing, admin reset)
+  String get accountRecoveryProcess => doc.formField(path, 'accountRecoveryProcess') ?? '';
+  set accountRecoveryProcess(String value) => doc.setFormField(path, 'accountRecoveryProcess', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class ServerCallStepEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   ServerCallStepEntryContentForm(super.doc, super.path);
@@ -126857,6 +130975,184 @@ class ServerStorageRequirementsPerformanceForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class ServiceAccountCredentialPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ServiceAccountCredentialPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Service Account Password Policy.
+  ///
+  /// AutoGenerated | ManagedByVault | CertificateBased — how service account credentials are managed
+  String get serviceAccountPasswordPolicy => doc.formField(path, 'serviceAccountPasswordPolicy') ?? '';
+  set serviceAccountPasswordPolicy(String value) => doc.setFormField(path, 'serviceAccountPasswordPolicy', value);
+
+  /// Service Account Rotation Period.
+  ///
+  /// Rotation period for service account credentials (e.g., 30d, 90d, OnDemand)
+  String get serviceAccountRotationPeriod => doc.formField(path, 'serviceAccountRotationPeriod') ?? '';
+  set serviceAccountRotationPeriod(String value) => doc.setFormField(path, 'serviceAccountRotationPeriod', value);
+
+  /// API Key Lifetime.
+  ///
+  /// Maximum lifetime for API keys (e.g., 90d, 365d, NoExpiry)
+  String get apiKeyLifetime => doc.formField(path, 'apiKeyLifetime') ?? '';
+  set apiKeyLifetime(String value) => doc.setFormField(path, 'apiKeyLifetime', value);
+
+  /// API Key Rotation Policy.
+  ///
+  /// Automatic | Manual | GracePeriodOverlap — how API keys are rotated
+  String get apiKeyRotationPolicy => doc.formField(path, 'apiKeyRotationPolicy') ?? '';
+  set apiKeyRotationPolicy(String value) => doc.setFormField(path, 'apiKeyRotationPolicy', value);
+
+  /// Secrets Management Tool.
+  ///
+  /// HashiCorpVault | AWSSecretsManager | AzureKeyVault | GCPSecretManager | None
+  String get secretsManagementTool => doc.formField(path, 'secretsManagementTool') ?? '';
+  set secretsManagementTool(String value) => doc.setFormField(path, 'secretsManagementTool', value);
+
+  /// Machine-to-Machine Auth.
+  ///
+  /// OAuth2ClientCredentials | mTLS | JWTBearer | APIKey — authentication method
+  String get machineToMachineAuth => doc.formField(path, 'machineToMachineAuth') ?? '';
+  set machineToMachineAuth(String value) => doc.setFormField(path, 'machineToMachineAuth', value);
+
+  /// Service Account MFA Required.
+  ///
+  /// Yes | No — whether service accounts require MFA for interactive login
+  String get serviceAccountMfaRequired => doc.formField(path, 'serviceAccountMfaRequired') ?? '';
+  set serviceAccountMfaRequired(String value) => doc.setFormField(path, 'serviceAccountMfaRequired', value);
+
+  /// Shared Credential Prohibition.
+  ///
+  /// Yes | No — whether shared/group credentials are prohibited
+  String get sharedCredentialProhibition => doc.formField(path, 'sharedCredentialProhibition') ?? '';
+  set sharedCredentialProhibition(String value) => doc.setFormField(path, 'sharedCredentialProhibition', value);
+
+  /// Credential Vault Integration.
+  ///
+  /// Yes | No — whether application credentials are injected from a secrets vault at runtime
+  String get credentialVaultIntegration => doc.formField(path, 'credentialVaultIntegration') ?? '';
+  set credentialVaultIntegration(String value) => doc.setFormField(path, 'credentialVaultIntegration', value);
+
+  /// Hardcoded Credential Detection.
+  ///
+  /// Yes | No — whether CI/CD scans for hardcoded credentials in source code
+  String get hardcodedCredentialDetection => doc.formField(path, 'hardcodedCredentialDetection') ?? '';
+  set hardcodedCredentialDetection(String value) => doc.setFormField(path, 'hardcodedCredentialDetection', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServiceAccountLifecycleContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ServiceAccountLifecycleContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Service Account Types.
+  ///
+  /// API Client | Bot | SystemIntegration | ScheduledJob | DeviceIdentity
+  String get serviceAccountTypes => doc.formField(path, 'serviceAccountTypes') ?? '';
+  set serviceAccountTypes(String value) => doc.setFormField(path, 'serviceAccountTypes', value);
+
+  /// Creation Process.
+  ///
+  /// How service accounts are created (admin, DevOps pipeline, self-service)
+  String get creationProcess => doc.formField(path, 'creationProcess') ?? '';
+  set creationProcess(String value) => doc.setFormField(path, 'creationProcess', value);
+
+  /// Creation Approval.
+  ///
+  /// Who approves service account creation (security team, admin)
+  String get creationApproval => doc.formField(path, 'creationApproval') ?? '';
+  set creationApproval(String value) => doc.setFormField(path, 'creationApproval', value);
+
+  /// Owner Assignment.
+  ///
+  /// Yes | No — whether each service account must have a human owner
+  String get ownerAssignment => doc.formField(path, 'ownerAssignment') ?? '';
+  set ownerAssignment(String value) => doc.setFormField(path, 'ownerAssignment', value);
+
+  /// Owner Review Frequency.
+  ///
+  /// How often owners must recertify service accounts (quarterly, annually)
+  String get ownerReviewFrequency => doc.formField(path, 'ownerReviewFrequency') ?? '';
+  set ownerReviewFrequency(String value) => doc.setFormField(path, 'ownerReviewFrequency', value);
+
+  /// Credential Rotation Policy.
+  ///
+  /// How often credentials (keys, secrets, certificates) must be rotated
+  String get credentialRotationPolicy => doc.formField(path, 'credentialRotationPolicy') ?? '';
+  set credentialRotationPolicy(String value) => doc.setFormField(path, 'credentialRotationPolicy', value);
+
+  /// Credential Storage Method.
+  ///
+  /// VaultService | EnvironmentVariable | SecretManager | HSM
+  String get credentialStorageMethod => doc.formField(path, 'credentialStorageMethod') ?? '';
+  set credentialStorageMethod(String value) => doc.setFormField(path, 'credentialStorageMethod', value);
+
+  /// Scope Limitation.
+  ///
+  /// Principle of least privilege — minimum permissions for service accounts
+  String get scopeLimitation => doc.formField(path, 'scopeLimitation') ?? '';
+  set scopeLimitation(String value) => doc.setFormField(path, 'scopeLimitation', value);
+
+  /// IP Restriction.
+  ///
+  /// Yes | No — whether service accounts are restricted to specific IPs
+  String get ipRestriction => doc.formField(path, 'ipRestriction') ?? '';
+  set ipRestriction(String value) => doc.setFormField(path, 'ipRestriction', value);
+
+  /// Expiration Policy.
+  ///
+  /// Whether service accounts expire and after how long (e.g., 1y, never)
+  String get expirationPolicy => doc.formField(path, 'expirationPolicy') ?? '';
+  set expirationPolicy(String value) => doc.setFormField(path, 'expirationPolicy', value);
+
+  /// Renewal Process.
+  ///
+  /// Steps to renew an expiring service account
+  String get renewalProcess => doc.formField(path, 'renewalProcess') ?? '';
+  set renewalProcess(String value) => doc.setFormField(path, 'renewalProcess', value);
+
+  /// Decommissioning Process.
+  ///
+  /// How service accounts are retired (revoke, archive, delete)
+  String get decommissioningProcess => doc.formField(path, 'decommissioningProcess') ?? '';
+  set decommissioningProcess(String value) => doc.setFormField(path, 'decommissioningProcess', value);
+
+  /// Monitoring Requirements.
+  ///
+  /// Anomaly detection, usage thresholds, alerting for service accounts
+  String get monitoringRequirements => doc.formField(path, 'monitoringRequirements') ?? '';
+  set monitoringRequirements(String value) => doc.setFormField(path, 'monitoringRequirements', value);
+
+  /// Naming Convention.
+  ///
+  /// Naming pattern for service accounts (e.g., svc-{app}-{environment})
+  String get serviceAccountNamingConvention => doc.formField(path, 'serviceAccountNamingConvention') ?? '';
+  set serviceAccountNamingConvention(String value) => doc.setFormField(path, 'serviceAccountNamingConvention', value);
+
+  /// Documentation Requirements.
+  ///
+  /// What must be documented for each service account (purpose, owner, scope)
+  String get documentationRequirements => doc.formField(path, 'documentationRequirements') ?? '';
+  set documentationRequirements(String value) => doc.setFormField(path, 'documentationRequirements', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class ServiceLevelAgreementEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   ServiceLevelAgreementEntryContentForm(super.doc, super.path);
@@ -127359,6 +131655,184 @@ class ServiceMeshAndGatewayMeshForm extends SomNode {
   set mtlsEnabled(bool? value) => doc.setFormField(path, 'mtlsEnabled', somFormatBool(value));
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SessionCreationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SessionCreationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Session Mechanism.
+  ///
+  /// ServerSideCookie | JwtBearer | OpaqueToken — primary session mechanism
+  String get sessionMechanism => doc.formField(path, 'sessionMechanism') ?? '';
+  set sessionMechanism(String value) => doc.setFormField(path, 'sessionMechanism', value);
+
+  /// Session ID Generation.
+  ///
+  /// CryptoRandom | UUID | HMAC — method for session identifier generation
+  String get sessionIdGeneration => doc.formField(path, 'sessionIdGeneration') ?? '';
+  set sessionIdGeneration(String value) => doc.setFormField(path, 'sessionIdGeneration', value);
+
+  /// Session ID Entropy.
+  ///
+  /// Minimum entropy for session identifiers (e.g., 128-bit, 256-bit)
+  String get sessionIdEntropy => doc.formField(path, 'sessionIdEntropy') ?? '';
+  set sessionIdEntropy(String value) => doc.setFormField(path, 'sessionIdEntropy', value);
+
+  /// Session Binding Method.
+  ///
+  /// Cookie | Header | TokenBound — how sessions are bound to requests
+  String get sessionBindingMethod => doc.formField(path, 'sessionBindingMethod') ?? '';
+  set sessionBindingMethod(String value) => doc.setFormField(path, 'sessionBindingMethod', value);
+
+  /// HttpOnly Cookies.
+  ///
+  /// Yes | No — whether session cookies use HttpOnly flag
+  String get httpOnlyCookies => doc.formField(path, 'httpOnlyCookies') ?? '';
+  set httpOnlyCookies(String value) => doc.setFormField(path, 'httpOnlyCookies', value);
+
+  /// Secure Cookies.
+  ///
+  /// Yes | No — whether session cookies use Secure flag (HTTPS only)
+  String get secureCookies => doc.formField(path, 'secureCookies') ?? '';
+  set secureCookies(String value) => doc.setFormField(path, 'secureCookies', value);
+
+  /// SameSite Policy.
+  ///
+  /// Strict | Lax | None — SameSite cookie attribute policy
+  String get sameSitePolicy => doc.formField(path, 'sameSitePolicy') ?? '';
+  set sameSitePolicy(String value) => doc.setFormField(path, 'sameSitePolicy', value);
+
+  /// Cookie Domain.
+  ///
+  /// Domain scope for session cookies (exact domain or parent domain)
+  String get cookieDomain => doc.formField(path, 'cookieDomain') ?? '';
+  set cookieDomain(String value) => doc.setFormField(path, 'cookieDomain', value);
+
+  /// Device Binding.
+  ///
+  /// None | Fingerprint | CertificateBound | DPoP — session-to-device binding
+  String get deviceBinding => doc.formField(path, 'deviceBinding') ?? '';
+  set deviceBinding(String value) => doc.setFormField(path, 'deviceBinding', value);
+
+  /// Session Data Storage.
+  ///
+  /// ServerSide | ClientSide | Hybrid — where full session data is stored
+  String get sessionDataStorage => doc.formField(path, 'sessionDataStorage') ?? '';
+  set sessionDataStorage(String value) => doc.setFormField(path, 'sessionDataStorage', value);
+
+  /// Session Replication Strategy.
+  ///
+  /// StickySession | Distributed | Stateless — strategy for multi-node deployments
+  String get sessionReplicationStrategy => doc.formField(path, 'sessionReplicationStrategy') ?? '';
+  set sessionReplicationStrategy(String value) => doc.setFormField(path, 'sessionReplicationStrategy', value);
+
+  /// CSRF Protection.
+  ///
+  /// SynchronizerToken | DoubleSubmit | SameSite | None — CSRF mitigation method
+  String get csrfProtection => doc.formField(path, 'csrfProtection') ?? '';
+  set csrfProtection(String value) => doc.setFormField(path, 'csrfProtection', value);
+
+  /// Post-Login Redirect Validation.
+  ///
+  /// Allowlist | SameOrigin | None — validation of post-login redirect targets
+  String get postLoginRedirectValidation => doc.formField(path, 'postLoginRedirectValidation') ?? '';
+  set postLoginRedirectValidation(String value) => doc.setFormField(path, 'postLoginRedirectValidation', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SessionLifecycleMonitoringContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SessionLifecycleMonitoringContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Session Creation Logging.
+  ///
+  /// Yes | No — whether session creation events are logged
+  String get sessionCreationLogging => doc.formField(path, 'sessionCreationLogging') ?? '';
+  set sessionCreationLogging(String value) => doc.setFormField(path, 'sessionCreationLogging', value);
+
+  /// Session Destruction Logging.
+  ///
+  /// Yes | No — whether session termination events are logged
+  String get sessionDestructionLogging => doc.formField(path, 'sessionDestructionLogging') ?? '';
+  set sessionDestructionLogging(String value) => doc.setFormField(path, 'sessionDestructionLogging', value);
+
+  /// Session Renewal Logging.
+  ///
+  /// Yes | No — whether session ID renewal events are logged
+  String get sessionRenewalLogging => doc.formField(path, 'sessionRenewalLogging') ?? '';
+  set sessionRenewalLogging(String value) => doc.setFormField(path, 'sessionRenewalLogging', value);
+
+  /// Session Event Details.
+  ///
+  /// Timestamp | SourceIP | UserAgent | GeoLocation | SessionAction — details captured per event
+  String get sessionEventDetails => doc.formField(path, 'sessionEventDetails') ?? '';
+  set sessionEventDetails(String value) => doc.setFormField(path, 'sessionEventDetails', value);
+
+  /// Session ID in Logs.
+  ///
+  /// SaltedHash | Truncated | Never — how session IDs appear in logs (never in plaintext)
+  String get sessionIdInLogs => doc.formField(path, 'sessionIdInLogs') ?? '';
+  set sessionIdInLogs(String value) => doc.setFormField(path, 'sessionIdInLogs', value);
+
+  /// Session Activity Tracking.
+  ///
+  /// Yes | No — whether per-session activity (page visits, actions) is tracked
+  String get sessionActivityTracking => doc.formField(path, 'sessionActivityTracking') ?? '';
+  set sessionActivityTracking(String value) => doc.setFormField(path, 'sessionActivityTracking', value);
+
+  /// Session History Visible to User.
+  ///
+  /// Yes | No — whether users can view their session activity history
+  String get sessionHistoryVisibleToUser => doc.formField(path, 'sessionHistoryVisibleToUser') ?? '';
+  set sessionHistoryVisibleToUser(String value) => doc.setFormField(path, 'sessionHistoryVisibleToUser', value);
+
+  /// Failed Session Access Logging.
+  ///
+  /// Yes | No — whether invalid/expired session access attempts are logged
+  String get failedSessionAccessLogging => doc.formField(path, 'failedSessionAccessLogging') ?? '';
+  set failedSessionAccessLogging(String value) => doc.setFormField(path, 'failedSessionAccessLogging', value);
+
+  /// Session Metrics Collection.
+  ///
+  /// Yes | No — whether session duration, count, and patterns are collected as metrics
+  String get sessionMetricsCollection => doc.formField(path, 'sessionMetricsCollection') ?? '';
+  set sessionMetricsCollection(String value) => doc.setFormField(path, 'sessionMetricsCollection', value);
+
+  /// Session Audit Log Retention.
+  ///
+  /// Duration session audit logs are retained (e.g., 90d, 1y, 7y)
+  String get sessionAuditRetention => doc.formField(path, 'sessionAuditRetention') ?? '';
+  set sessionAuditRetention(String value) => doc.setFormField(path, 'sessionAuditRetention', value);
+
+  /// Real-Time Session Alerts.
+  ///
+  /// Yes | No — whether suspicious session events trigger real-time alerts
+  String get realTimeSessionAlerts => doc.formField(path, 'realTimeSessionAlerts') ?? '';
+  set realTimeSessionAlerts(String value) => doc.setFormField(path, 'realTimeSessionAlerts', value);
+
+  /// Session Alert Triggers.
+  ///
+  /// BruteForce | AnomalousAccess | MassLogout | SessionHijack — events triggering alerts
+  String get alertTriggers => doc.formField(path, 'alertTriggers') ?? '';
+  set alertTriggers(String value) => doc.setFormField(path, 'alertTriggers', value);
+}
+
 /// Generated section facade for the `lifecycle` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class SessionModelLifecycleForm extends SomNode {
@@ -127471,6 +131945,300 @@ class SessionModelSessionConfigurationForm extends SomNode {
   /// Maximum session duration
   String get absoluteTimeout => doc.formField(path, 'absoluteTimeout') ?? '';
   set absoluteTimeout(String value) => doc.setFormField(path, 'absoluteTimeout', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SessionRevocationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SessionRevocationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Logout Mechanism.
+  ///
+  /// ServerSideInvalidation | TokenBlacklist | CookieClear | All — how sessions are terminated
+  String get logoutMechanism => doc.formField(path, 'logoutMechanism') ?? '';
+  set logoutMechanism(String value) => doc.setFormField(path, 'logoutMechanism', value);
+
+  /// Logout Button Placement.
+  ///
+  /// Header | Menu | Both | EveryPage — where the logout action is accessible
+  String get logoutButtonPlacement => doc.formField(path, 'logoutButtonPlacement') ?? '';
+  set logoutButtonPlacement(String value) => doc.setFormField(path, 'logoutButtonPlacement', value);
+
+  /// Logout Confirmation.
+  ///
+  /// Immediate | ConfirmDialog | None — whether logout requires confirmation
+  String get logoutConfirmation => doc.formField(path, 'logoutConfirmation') ?? '';
+  set logoutConfirmation(String value) => doc.setFormField(path, 'logoutConfirmation', value);
+
+  /// Post-Logout Redirect.
+  ///
+  /// LoginPage | HomePage | GoodbyePage | CustomUrl — where users go after logout
+  String get postLogoutRedirect => doc.formField(path, 'postLogoutRedirect') ?? '';
+  set postLogoutRedirect(String value) => doc.setFormField(path, 'postLogoutRedirect', value);
+
+  /// Post-Logout Cache Clear.
+  ///
+  /// Yes | No — whether Clear-Site-Data header is sent on logout
+  String get postLogoutCacheClear => doc.formField(path, 'postLogoutCacheClear') ?? '';
+  set postLogoutCacheClear(String value) => doc.setFormField(path, 'postLogoutCacheClear', value);
+
+  /// Single Logout (SLO) Enabled.
+  ///
+  /// Yes | No — whether logout propagates to all connected IdPs and services
+  String get singleLogoutEnabled => doc.formField(path, 'singleLogoutEnabled') ?? '';
+  set singleLogoutEnabled(String value) => doc.setFormField(path, 'singleLogoutEnabled', value);
+
+  /// Single Logout Protocol.
+  ///
+  /// FrontChannel | BackChannel | Both — SLO propagation method
+  String get singleLogoutProtocol => doc.formField(path, 'singleLogoutProtocol') ?? '';
+  set singleLogoutProtocol(String value) => doc.setFormField(path, 'singleLogoutProtocol', value);
+
+  /// Session Revocation on Privilege Change.
+  ///
+  /// Regenerate | Terminate | NoAction — session handling when user roles change
+  String get privilegeChangeRevocation => doc.formField(path, 'privilegeChangeRevocation') ?? '';
+  set privilegeChangeRevocation(String value) => doc.setFormField(path, 'privilegeChangeRevocation', value);
+
+  /// Session Revocation on Password Change.
+  ///
+  /// TerminateAll | TerminateOthers | KeepCurrent — session handling after password change
+  String get passwordChangeRevocation => doc.formField(path, 'passwordChangeRevocation') ?? '';
+  set passwordChangeRevocation(String value) => doc.setFormField(path, 'passwordChangeRevocation', value);
+
+  /// Session Revocation on Compromise Detection.
+  ///
+  /// TerminateAll | TerminateOthers | RequireReauth — action when account compromise suspected
+  String get compromiseRevocation => doc.formField(path, 'compromiseRevocation') ?? '';
+  set compromiseRevocation(String value) => doc.setFormField(path, 'compromiseRevocation', value);
+
+  /// Admin Session Termination Enabled.
+  ///
+  /// Yes | No — whether administrators can terminate user sessions
+  String get adminTerminationEnabled => doc.formField(path, 'adminTerminationEnabled') ?? '';
+  set adminTerminationEnabled(String value) => doc.setFormField(path, 'adminTerminationEnabled', value);
+
+  /// Bulk Session Revocation Enabled.
+  ///
+  /// Yes | No — whether mass session invalidation is supported (e.g., security incident)
+  String get bulkRevocationEnabled => doc.formField(path, 'bulkRevocationEnabled') ?? '';
+  set bulkRevocationEnabled(String value) => doc.setFormField(path, 'bulkRevocationEnabled', value);
+
+  /// Revocation Propagation Delay.
+  ///
+  /// Immediate | EventualConsistency | MaxDelay — how quickly revocation takes effect across nodes
+  String get revocationPropagationDelay => doc.formField(path, 'revocationPropagationDelay') ?? '';
+  set revocationPropagationDelay(String value) => doc.setFormField(path, 'revocationPropagationDelay', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SessionSecurityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SessionSecurityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Session Fixation Protection.
+  ///
+  /// RegenerateOnLogin | RegenerateOnPrivilegeChange | Both — session ID regeneration strategy
+  String get sessionFixationProtection => doc.formField(path, 'sessionFixationProtection') ?? '';
+  set sessionFixationProtection(String value) => doc.setFormField(path, 'sessionFixationProtection', value);
+
+  /// Session ID Regeneration Triggers.
+  ///
+  /// Login | PrivilegeChange | PasswordChange | MfaStep | All — events triggering session ID renewal
+  String get sessionIdRegenerationTriggers => doc.formField(path, 'sessionIdRegenerationTriggers') ?? '';
+  set sessionIdRegenerationTriggers(String value) => doc.setFormField(path, 'sessionIdRegenerationTriggers', value);
+
+  /// Session Binding Properties.
+  ///
+  /// None | IPAddress | UserAgent | DeviceFingerprint | TlsCertificate — properties bound to session
+  String get sessionBindingProperties => doc.formField(path, 'sessionBindingProperties') ?? '';
+  set sessionBindingProperties(String value) => doc.setFormField(path, 'sessionBindingProperties', value);
+
+  /// Binding Mismatch Action.
+  ///
+  /// Terminate | RequireReauth | LogAndContinue | StepUpAuth — action on session binding violation
+  String get bindingMismatchAction => doc.formField(path, 'bindingMismatchAction') ?? '';
+  set bindingMismatchAction(String value) => doc.setFormField(path, 'bindingMismatchAction', value);
+
+  /// Session Anomaly Detection.
+  ///
+  /// Yes | No — whether session anomalies (IP change, user-agent change) are monitored
+  String get sessionAnomalyDetection => doc.formField(path, 'sessionAnomalyDetection') ?? '';
+  set sessionAnomalyDetection(String value) => doc.setFormField(path, 'sessionAnomalyDetection', value);
+
+  /// Anomaly Detection Signals.
+  ///
+  /// IPChange | UserAgentChange | GeoLocationJump | ConcurrentAccess — signals monitored
+  String get anomalyDetectionSignals => doc.formField(path, 'anomalyDetectionSignals') ?? '';
+  set anomalyDetectionSignals(String value) => doc.setFormField(path, 'anomalyDetectionSignals', value);
+
+  /// Session Cache Policy.
+  ///
+  /// NoStore | NoCache | Private — Cache-Control directive for pages with session data
+  String get sessionCachePolicy => doc.formField(path, 'sessionCachePolicy') ?? '';
+  set sessionCachePolicy(String value) => doc.setFormField(path, 'sessionCachePolicy', value);
+
+  /// Clear-Site-Data on Logout.
+  ///
+  /// Yes | No — whether Clear-Site-Data header clears cache, cookies, storage on logout
+  String get clearSiteDataOnLogout => doc.formField(path, 'clearSiteDataOnLogout') ?? '';
+  set clearSiteDataOnLogout(String value) => doc.setFormField(path, 'clearSiteDataOnLogout', value);
+
+  /// Session Transport Security.
+  ///
+  /// HttpsOnly | HstsEnabled | CertificatePinning — transport layer requirements for sessions
+  String get sessionTransportSecurity => doc.formField(path, 'sessionTransportSecurity') ?? '';
+  set sessionTransportSecurity(String value) => doc.setFormField(path, 'sessionTransportSecurity', value);
+
+  /// Session ID in URL Prevention.
+  ///
+  /// Yes | No — whether session IDs in URL parameters are explicitly blocked
+  String get sessionIdInUrlPrevention => doc.formField(path, 'sessionIdInUrlPrevention') ?? '';
+  set sessionIdInUrlPrevention(String value) => doc.setFormField(path, 'sessionIdInUrlPrevention', value);
+
+  /// Cross-Origin Session Protection.
+  ///
+  /// SameSiteCookies | CorsRestriction | Both — cross-origin session protection mechanisms
+  String get crossOriginSessionProtection => doc.formField(path, 'crossOriginSessionProtection') ?? '';
+  set crossOriginSessionProtection(String value) => doc.setFormField(path, 'crossOriginSessionProtection', value);
+
+  /// Session Data Minimization.
+  ///
+  /// Yes | No — whether session stores only essential data (minimize sensitive data in session)
+  String get sessionDataMinimization => doc.formField(path, 'sessionDataMinimization') ?? '';
+  set sessionDataMinimization(String value) => doc.setFormField(path, 'sessionDataMinimization', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SessionTimeoutPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SessionTimeoutPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Default Idle Timeout.
+  ///
+  /// Duration of inactivity before session expires (e.g., 15min, 30min, 1h)
+  String get idleTimeoutDefault => doc.formField(path, 'idleTimeoutDefault') ?? '';
+  set idleTimeoutDefault(String value) => doc.setFormField(path, 'idleTimeoutDefault', value);
+
+  /// Idle Timeout — High-Value Operations.
+  ///
+  /// Shorter idle timeout for sensitive operations (e.g., 2min, 5min)
+  String get idleTimeoutHighValue => doc.formField(path, 'idleTimeoutHighValue') ?? '';
+  set idleTimeoutHighValue(String value) => doc.setFormField(path, 'idleTimeoutHighValue', value);
+
+  /// Absolute Session Timeout.
+  ///
+  /// Maximum session duration regardless of activity (e.g., 4h, 8h, 24h)
+  String get absoluteTimeout => doc.formField(path, 'absoluteTimeout') ?? '';
+  set absoluteTimeout(String value) => doc.setFormField(path, 'absoluteTimeout', value);
+
+  /// Session ID Renewal Timeout.
+  ///
+  /// Interval at which the session ID is transparently rotated (e.g., 15min, 30min)
+  String get renewalTimeout => doc.formField(path, 'renewalTimeout') ?? '';
+  set renewalTimeout(String value) => doc.setFormField(path, 'renewalTimeout', value);
+
+  /// Idle Timeout — AAL1.
+  ///
+  /// Idle timeout for AAL1 sessions (NIST default: 30 days)
+  String get idleTimeoutAal1 => doc.formField(path, 'idleTimeoutAal1') ?? '';
+  set idleTimeoutAal1(String value) => doc.setFormField(path, 'idleTimeoutAal1', value);
+
+  /// Absolute Timeout — AAL1.
+  ///
+  /// Maximum session duration for AAL1 (NIST default: 30 days)
+  String get absoluteTimeoutAal1 => doc.formField(path, 'absoluteTimeoutAal1') ?? '';
+  set absoluteTimeoutAal1(String value) => doc.setFormField(path, 'absoluteTimeoutAal1', value);
+
+  /// Idle Timeout — AAL2.
+  ///
+  /// Idle timeout for AAL2 sessions (NIST default: 1 hour)
+  String get idleTimeoutAal2 => doc.formField(path, 'idleTimeoutAal2') ?? '';
+  set idleTimeoutAal2(String value) => doc.setFormField(path, 'idleTimeoutAal2', value);
+
+  /// Absolute Timeout — AAL2.
+  ///
+  /// Maximum session duration for AAL2 (NIST default: 24 hours)
+  String get absoluteTimeoutAal2 => doc.formField(path, 'absoluteTimeoutAal2') ?? '';
+  set absoluteTimeoutAal2(String value) => doc.setFormField(path, 'absoluteTimeoutAal2', value);
+
+  /// Idle Timeout — AAL3.
+  ///
+  /// Idle timeout for AAL3 sessions (NIST default: 15 minutes)
+  String get idleTimeoutAal3 => doc.formField(path, 'idleTimeoutAal3') ?? '';
+  set idleTimeoutAal3(String value) => doc.setFormField(path, 'idleTimeoutAal3', value);
+
+  /// Absolute Timeout — AAL3.
+  ///
+  /// Maximum session duration for AAL3 (NIST default: 12 hours)
+  String get absoluteTimeoutAal3 => doc.formField(path, 'absoluteTimeoutAal3') ?? '';
+  set absoluteTimeoutAal3(String value) => doc.setFormField(path, 'absoluteTimeoutAal3', value);
+
+  /// Timeout Enforcement.
+  ///
+  /// ServerSide | ClientSide | Both — where session timeout is enforced (server-side mandatory)
+  String get timeoutEnforcement => doc.formField(path, 'timeoutEnforcement') ?? '';
+  set timeoutEnforcement(String value) => doc.setFormField(path, 'timeoutEnforcement', value);
+
+  /// Timeout Warning Enabled.
+  ///
+  /// Yes | No — whether users receive a warning before session expiry
+  String get timeoutWarningEnabled => doc.formField(path, 'timeoutWarningEnabled') ?? '';
+  set timeoutWarningEnabled(String value) => doc.setFormField(path, 'timeoutWarningEnabled', value);
+
+  /// Timeout Warning Lead Time.
+  ///
+  /// Time before expiry to show warning (e.g., 2min, 5min)
+  String get timeoutWarningLeadTime => doc.formField(path, 'timeoutWarningLeadTime') ?? '';
+  set timeoutWarningLeadTime(String value) => doc.setFormField(path, 'timeoutWarningLeadTime', value);
+
+  /// Timeout Warning Action.
+  ///
+  /// ExtendSession | SaveDraft | RedirectToLogin — action offered to user
+  String get timeoutWarningAction => doc.formField(path, 'timeoutWarningAction') ?? '';
+  set timeoutWarningAction(String value) => doc.setFormField(path, 'timeoutWarningAction', value);
+
+  /// Session Extension Allowed.
+  ///
+  /// Yes | No | Limited — whether users can extend an expiring session
+  String get sessionExtensionAllowed => doc.formField(path, 'sessionExtensionAllowed') ?? '';
+  set sessionExtensionAllowed(String value) => doc.setFormField(path, 'sessionExtensionAllowed', value);
+
+  /// Maximum Session Extensions.
+  ///
+  /// Maximum number of consecutive session extensions (e.g., 3, unlimited)
+  String get maxExtensions => doc.formField(path, 'maxExtensions') ?? '';
+  set maxExtensions(String value) => doc.setFormField(path, 'maxExtensions', value);
+
+  /// Grace Period After Expiry.
+  ///
+  /// Brief window after expiry for saving work (e.g., 0s, 30s, 2min)
+  String get gracePeriodAfterExpiry => doc.formField(path, 'gracePeriodAfterExpiry') ?? '';
+  set gracePeriodAfterExpiry(String value) => doc.setFormField(path, 'gracePeriodAfterExpiry', value);
 }
 
 /// Generated section facade for the `capacity` `@Form` section:
@@ -128905,6 +133673,92 @@ class SpecializedEquipmentEntryTechnicalForm extends SomNode {
   /// Certifications — PCI, EMV, etc..
   String get certifications => doc.formField(path, 'certifications') ?? '';
   set certifications(String value) => doc.setFormField(path, 'certifications', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SsoPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  SsoPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// SSO Enabled.
+  ///
+  /// Yes | No — whether SSO is implemented
+  String get ssoEnabled => doc.formField(path, 'ssoEnabled') ?? '';
+  set ssoEnabled(String value) => doc.setFormField(path, 'ssoEnabled', value);
+
+  /// SSO Protocol.
+  ///
+  /// SAML2.0 | OIDC | OAuth2 | WS-Federation | Kerberos
+  String get ssoProtocol => doc.formField(path, 'ssoProtocol') ?? '';
+  set ssoProtocol(String value) => doc.setFormField(path, 'ssoProtocol', value);
+
+  /// Identity Provider Type.
+  ///
+  /// Internal | External | Hybrid — where the IdP is hosted
+  String get identityProviderType => doc.formField(path, 'identityProviderType') ?? '';
+  set identityProviderType(String value) => doc.setFormField(path, 'identityProviderType', value);
+
+  /// Identity Provider Product.
+  ///
+  /// Specific IdP product or service (e.g., Keycloak, Azure AD, Okta, Auth0)
+  String get identityProviderProduct => doc.formField(path, 'identityProviderProduct') ?? '';
+  set identityProviderProduct(String value) => doc.setFormField(path, 'identityProviderProduct', value);
+
+  /// Federation Protocol.
+  ///
+  /// Protocol for cross-organization federation (SAML, OIDC, SCIM)
+  String get federationProtocol => doc.formField(path, 'federationProtocol') ?? '';
+  set federationProtocol(String value) => doc.setFormField(path, 'federationProtocol', value);
+
+  /// Attribute Mapping.
+  ///
+  /// How IdP attributes map to application roles and permissions
+  String get attributeMapping => doc.formField(path, 'attributeMapping') ?? '';
+  set attributeMapping(String value) => doc.setFormField(path, 'attributeMapping', value);
+
+  /// Just-In-Time Provisioning.
+  ///
+  /// Yes | No — whether accounts are auto-created on first SSO login
+  String get justInTimeProvisioning => doc.formField(path, 'justInTimeProvisioning') ?? '';
+  set justInTimeProvisioning(String value) => doc.setFormField(path, 'justInTimeProvisioning', value);
+
+  /// Session Synchronization.
+  ///
+  /// Yes | No — whether logout from one app logs out all SSO-connected apps
+  String get sessionSynchronization => doc.formField(path, 'sessionSynchronization') ?? '';
+  set sessionSynchronization(String value) => doc.setFormField(path, 'sessionSynchronization', value);
+
+  /// Single Logout Enabled.
+  ///
+  /// Yes | No — whether SLO (Single Logout) is implemented across services
+  String get singleLogoutEnabled => doc.formField(path, 'singleLogoutEnabled') ?? '';
+  set singleLogoutEnabled(String value) => doc.setFormField(path, 'singleLogoutEnabled', value);
+
+  /// SSO Fallback Method.
+  ///
+  /// Local password | Backup IdP | None — fallback when IdP is unavailable
+  String get ssoFallbackMethod => doc.formField(path, 'ssoFallbackMethod') ?? '';
+  set ssoFallbackMethod(String value) => doc.setFormField(path, 'ssoFallbackMethod', value);
+
+  /// SSO Scope Policy.
+  ///
+  /// Which applications are included in SSO (all, internal only, selected)
+  String get ssoScopePolicy => doc.formField(path, 'ssoScopePolicy') ?? '';
+  set ssoScopePolicy(String value) => doc.setFormField(path, 'ssoScopePolicy', value);
+
+  /// External IdP Trust Policy.
+  ///
+  /// Validation requirements for external identity providers
+  String get externalIdpTrustPolicy => doc.formField(path, 'externalIdpTrustPolicy') ?? '';
+  set externalIdpTrustPolicy(String value) => doc.setFormField(path, 'externalIdpTrustPolicy', value);
 }
 
 /// Generated section facade for the `allocations` `@Form` section:
@@ -132413,6 +137267,304 @@ class StakeholdersAndInterestsContentForm extends SomNode {
   /// Any further parties and their interests
   String get otherStakeholders => doc.formField(path, 'otherStakeholders') ?? '';
   set otherStakeholders(String value) => doc.setFormField(path, 'otherStakeholders', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class StepUpAuthenticationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  StepUpAuthenticationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Step-Up Enabled.
+  ///
+  /// Yes | No — whether step-up authentication is implemented
+  String get stepUpEnabled => doc.formField(path, 'stepUpEnabled') ?? '';
+  set stepUpEnabled(String value) => doc.setFormField(path, 'stepUpEnabled', value);
+
+  /// Step-Up Triggers.
+  ///
+  /// HighRiskOperation | SensitiveDataAccess | AdminAction | PaymentApproval | SettingsChange
+  String get stepUpTriggers => doc.formField(path, 'stepUpTriggers') ?? '';
+  set stepUpTriggers(String value) => doc.setFormField(path, 'stepUpTriggers', value);
+
+  /// Step-Up Target AAL.
+  ///
+  /// AAL2 | AAL3 — target assurance level for step-up authentication
+  String get stepUpTargetAal => doc.formField(path, 'stepUpTargetAal') ?? '';
+  set stepUpTargetAal(String value) => doc.setFormField(path, 'stepUpTargetAal', value);
+
+  /// Step-Up Timeout.
+  ///
+  /// Duration the elevated session lasts (e.g., 5min, 15min, transaction-scoped)
+  String get stepUpTimeout => doc.formField(path, 'stepUpTimeout') ?? '';
+  set stepUpTimeout(String value) => doc.setFormField(path, 'stepUpTimeout', value);
+
+  /// Risk-Based Auth Enabled.
+  ///
+  /// Yes | No — whether risk signals influence authentication requirements
+  String get riskBasedAuthEnabled => doc.formField(path, 'riskBasedAuthEnabled') ?? '';
+  set riskBasedAuthEnabled(String value) => doc.setFormField(path, 'riskBasedAuthEnabled', value);
+
+  /// Risk Signals.
+  ///
+  /// GeoLocation | IPReputation | DeviceFingerprint | BehaviorPattern | TimeOfDay
+  String get riskSignals => doc.formField(path, 'riskSignals') ?? '';
+  set riskSignals(String value) => doc.setFormField(path, 'riskSignals', value);
+
+  /// Risk Scoring Method.
+  ///
+  /// RuleBased | MachineLearning | Hybrid — how risk scores are computed
+  String get riskScoringMethod => doc.formField(path, 'riskScoringMethod') ?? '';
+  set riskScoringMethod(String value) => doc.setFormField(path, 'riskScoringMethod', value);
+
+  /// Low Risk Action.
+  ///
+  /// AllowSilently | NormalAuth — response to low-risk signals
+  String get lowRiskAction => doc.formField(path, 'lowRiskAction') ?? '';
+  set lowRiskAction(String value) => doc.setFormField(path, 'lowRiskAction', value);
+
+  /// Medium Risk Action.
+  ///
+  /// RequireMFA | AdditionalVerification — response to medium-risk signals
+  String get mediumRiskAction => doc.formField(path, 'mediumRiskAction') ?? '';
+  set mediumRiskAction(String value) => doc.setFormField(path, 'mediumRiskAction', value);
+
+  /// High Risk Action.
+  ///
+  /// Block | RequirePhishingResistant | ManualReview — response to high-risk signals
+  String get highRiskAction => doc.formField(path, 'highRiskAction') ?? '';
+  set highRiskAction(String value) => doc.setFormField(path, 'highRiskAction', value);
+
+  /// Adaptive Auth Provider.
+  ///
+  /// Built-in | Third-party service name — provider of adaptive authentication
+  String get adaptiveAuthProvider => doc.formField(path, 'adaptiveAuthProvider') ?? '';
+  set adaptiveAuthProvider(String value) => doc.setFormField(path, 'adaptiveAuthProvider', value);
+
+  /// Continuous Auth Enabled.
+  ///
+  /// Yes | No — whether session is continuously monitored for risk changes
+  String get continuousAuthEnabled => doc.formField(path, 'continuousAuthEnabled') ?? '';
+  set continuousAuthEnabled(String value) => doc.setFormField(path, 'continuousAuthEnabled', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class StorageEncryptionPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  StorageEncryptionPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Encryption at Rest.
+  ///
+  /// Yes | No — whether stored files are encrypted at rest
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get encryptionAtRest => somParseBool(doc.formField(path, 'encryptionAtRest'));
+  set encryptionAtRest(bool? value) => doc.setFormField(path, 'encryptionAtRest', somFormatBool(value));
+
+  /// Encryption Algorithm.
+  ///
+  /// AES-256-GCM | AES-256-CBC | ChaCha20-Poly1305 — algorithm for file encryption
+  String get encryptionAlgorithm => doc.formField(path, 'encryptionAlgorithm') ?? '';
+  set encryptionAlgorithm(String value) => doc.setFormField(path, 'encryptionAlgorithm', value);
+
+  /// Encryption Scope.
+  ///
+  /// Volume | Bucket | PerFile | PerTenant — granularity at which encryption keys are applied
+  String get encryptionScope => doc.formField(path, 'encryptionScope') ?? '';
+  set encryptionScope(String value) => doc.setFormField(path, 'encryptionScope', value);
+
+  /// Server-Side Encryption.
+  ///
+  /// SSE-S3 | SSE-KMS | SSE-C | ManagedKey — server-side encryption method
+  String get serverSideEncryption => doc.formField(path, 'serverSideEncryption') ?? '';
+  set serverSideEncryption(String value) => doc.setFormField(path, 'serverSideEncryption', value);
+
+  /// Client-Side Encryption.
+  ///
+  /// Yes | No — whether files are encrypted before upload by the client
+  bool? get clientSideEncryption => somParseBool(doc.formField(path, 'clientSideEncryption'));
+  set clientSideEncryption(bool? value) => doc.setFormField(path, 'clientSideEncryption', somFormatBool(value));
+
+  /// Client-Side Encryption Method.
+  ///
+  /// Envelope encryption, client-managed keys — method for client-side encryption
+  String get clientSideEncryptionMethod => doc.formField(path, 'clientSideEncryptionMethod') ?? '';
+  set clientSideEncryptionMethod(String value) => doc.setFormField(path, 'clientSideEncryptionMethod', value);
+
+  /// File Encryption Key Rotation.
+  ///
+  /// Frequency and method of rotating file encryption keys
+  String get fileKeyRotation => doc.formField(path, 'fileKeyRotation') ?? '';
+  set fileKeyRotation(String value) => doc.setFormField(path, 'fileKeyRotation', value);
+
+  /// Per-Tenant Encryption Keys.
+  ///
+  /// Yes | No — whether each tenant has its own encryption key for file storage
+  bool? get perTenantKeys => somParseBool(doc.formField(path, 'perTenantKeys'));
+  set perTenantKeys(bool? value) => doc.setFormField(path, 'perTenantKeys', somFormatBool(value));
+
+  /// Key Deletion on Tenant Removal.
+  ///
+  /// Yes | No — whether tenant file encryption keys are destroyed when tenant is deleted
+  bool? get keyDeletionOnTenantRemoval => somParseBool(doc.formField(path, 'keyDeletionOnTenantRemoval'));
+  set keyDeletionOnTenantRemoval(bool? value) => doc.setFormField(path, 'keyDeletionOnTenantRemoval', somFormatBool(value));
+
+  /// Encryption in Transit.
+  ///
+  /// Yes | No — TLS for file upload/download transport
+  bool? get encryptionInTransit => somParseBool(doc.formField(path, 'encryptionInTransit'));
+  set encryptionInTransit(bool? value) => doc.setFormField(path, 'encryptionInTransit', somFormatBool(value));
+
+  /// Minimum TLS Version for File Transfer.
+  ///
+  /// TLS 1.2 | TLS 1.3 — minimum TLS version for file transfers
+  String get minimumTlsVersion => doc.formField(path, 'minimumTlsVersion') ?? '';
+  set minimumTlsVersion(String value) => doc.setFormField(path, 'minimumTlsVersion', value);
+
+  /// Backup Encryption.
+  ///
+  /// Yes | No — whether file storage backups are encrypted with the same or separate keys
+  bool? get backupEncryption => somParseBool(doc.formField(path, 'backupEncryption'));
+  set backupEncryption(bool? value) => doc.setFormField(path, 'backupEncryption', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional storage encryption notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class StorageLifecyclePolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  StorageLifecyclePolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Retention Policy.
+  ///
+  /// TimeBased | Indefinite | ComplianceDriven — default file retention strategy
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get retentionPolicy => doc.formField(path, 'retentionPolicy') ?? '';
+  set retentionPolicy(String value) => doc.setFormField(path, 'retentionPolicy', value);
+
+  /// Default Retention Period.
+  ///
+  /// Default duration files are kept before eligible for deletion (e.g. 90 days, 7 years)
+  String get defaultRetentionPeriod => doc.formField(path, 'defaultRetentionPeriod') ?? '';
+  set defaultRetentionPeriod(String value) => doc.setFormField(path, 'defaultRetentionPeriod', value);
+
+  /// Retention by File Type.
+  ///
+  /// Yes | No — different retention periods for different file categories
+  bool? get retentionByFileType => somParseBool(doc.formField(path, 'retentionByFileType'));
+  set retentionByFileType(bool? value) => doc.setFormField(path, 'retentionByFileType', somFormatBool(value));
+
+  /// Legal Hold Support.
+  ///
+  /// Yes | No — ability to place legal holds preventing deletion regardless of retention policy
+  bool? get legalHoldSupport => somParseBool(doc.formField(path, 'legalHoldSupport'));
+  set legalHoldSupport(bool? value) => doc.setFormField(path, 'legalHoldSupport', somFormatBool(value));
+
+  /// Archiving Enabled.
+  ///
+  /// Yes | No — whether files are moved to low-cost archival tiers after a defined period
+  bool? get archivingEnabled => somParseBool(doc.formField(path, 'archivingEnabled'));
+  set archivingEnabled(bool? value) => doc.setFormField(path, 'archivingEnabled', somFormatBool(value));
+
+  /// Archival Storage Tier.
+  ///
+  /// Glacier | ColdStorage | NearlineStorage — target tier for archived files
+  String get archivalStorageTier => doc.formField(path, 'archivalStorageTier') ?? '';
+  set archivalStorageTier(String value) => doc.setFormField(path, 'archivalStorageTier', value);
+
+  /// Archival Transition Days.
+  ///
+  /// Number of days after last access before files move to archival storage
+  int? get archivalTransitionDays => somParseInt(doc.formField(path, 'archivalTransitionDays'));
+  set archivalTransitionDays(int? value) => doc.setFormField(path, 'archivalTransitionDays', somFormatInt(value));
+
+  /// File Versioning Enabled.
+  ///
+  /// Yes | No — maintain previous versions of overwritten or modified files
+  bool? get versioningEnabled => somParseBool(doc.formField(path, 'versioningEnabled'));
+  set versioningEnabled(bool? value) => doc.setFormField(path, 'versioningEnabled', somFormatBool(value));
+
+  /// Max Versions Retained.
+  ///
+  /// Maximum number of previous versions to retain per file
+  int? get maxVersions => somParseInt(doc.formField(path, 'maxVersions'));
+  set maxVersions(int? value) => doc.setFormField(path, 'maxVersions', somFormatInt(value));
+
+  /// Version Retention Days.
+  ///
+  /// Number of days previous versions are retained
+  int? get versionRetentionDays => somParseInt(doc.formField(path, 'versionRetentionDays'));
+  set versionRetentionDays(int? value) => doc.setFormField(path, 'versionRetentionDays', somFormatInt(value));
+
+  /// Backup Schedule.
+  ///
+  /// Daily | Hourly | Continuous — frequency of file storage backups
+  String get backupSchedule => doc.formField(path, 'backupSchedule') ?? '';
+  set backupSchedule(String value) => doc.setFormField(path, 'backupSchedule', value);
+
+  /// Backup Retention Days.
+  ///
+  /// Number of days file backups are retained
+  int? get backupRetentionDays => somParseInt(doc.formField(path, 'backupRetentionDays'));
+  set backupRetentionDays(int? value) => doc.setFormField(path, 'backupRetentionDays', somFormatInt(value));
+
+  /// Cross-Region Replication.
+  ///
+  /// Yes | No — replicate file storage to a secondary region for disaster recovery
+  bool? get crossRegionReplication => somParseBool(doc.formField(path, 'crossRegionReplication'));
+  set crossRegionReplication(bool? value) => doc.setFormField(path, 'crossRegionReplication', somFormatBool(value));
+
+  /// Secure Deletion Method.
+  ///
+  /// CryptoShred | Overwrite | StandardDelete — method for permanent file deletion
+  String get secureDeletionMethod => doc.formField(path, 'secureDeletionMethod') ?? '';
+  set secureDeletionMethod(String value) => doc.setFormField(path, 'secureDeletionMethod', value);
+
+  /// Deletion Confirmation Required.
+  ///
+  /// Yes | No — require explicit confirmation or approval for permanent file deletion
+  bool? get deletionConfirmation => somParseBool(doc.formField(path, 'deletionConfirmation'));
+  set deletionConfirmation(bool? value) => doc.setFormField(path, 'deletionConfirmation', somFormatBool(value));
+
+  /// Deletion Audit Logging.
+  ///
+  /// Yes | No — log all file deletion events for compliance and forensics
+  bool? get deletionAuditLogging => somParseBool(doc.formField(path, 'deletionAuditLogging'));
+  set deletionAuditLogging(bool? value) => doc.setFormField(path, 'deletionAuditLogging', somFormatBool(value));
+
+  /// Notes.
+  ///
+  /// Additional storage lifecycle notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `alignmentDetails` `@Form` section:
@@ -138505,6 +143657,134 @@ class TechnologyStandardEntryScopeForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class TenantBoundaryEnforcementPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TenantBoundaryEnforcementPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Enforcement Layer.
+  ///
+  /// API | Service | Database | All — at which architectural layer tenant authorization boundaries are enforced
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get enforcementLayer => doc.formField(path, 'enforcementLayer') ?? '';
+  set enforcementLayer(String value) => doc.setFormField(path, 'enforcementLayer', value);
+
+  /// Authorization Filter Strategy.
+  ///
+  /// QueryFilter | TokenScope | PolicyEngine | Middleware — how tenant boundaries are applied in authorization decisions
+  String get authorizationFilterStrategy => doc.formField(path, 'authorizationFilterStrategy') ?? '';
+  set authorizationFilterStrategy(String value) => doc.setFormField(path, 'authorizationFilterStrategy', value);
+
+  /// Implicit Tenant Filter.
+  ///
+  /// Yes | No — whether all authorization queries automatically include a tenant filter (defense-in-depth)
+  bool? get implicitTenantFilter => somParseBool(doc.formField(path, 'implicitTenantFilter'));
+  set implicitTenantFilter(bool? value) => doc.setFormField(path, 'implicitTenantFilter', somFormatBool(value));
+
+  /// Escalation Prevention.
+  ///
+  /// StrictScoping | RoleSeparation | TokenIsolation | All — how privilege escalation across tenant boundaries is prevented
+  String get escalationPrevention => doc.formField(path, 'escalationPrevention') ?? '';
+  set escalationPrevention(String value) => doc.setFormField(path, 'escalationPrevention', value);
+
+  /// Shared Service Authorization.
+  ///
+  /// ServiceAccount | PlatformRole | TenantAgnostic | ScopedProxy — how shared platform services authorize operations that span or are independent of tenants
+  String get sharedServiceAuthorization => doc.formField(path, 'sharedServiceAuthorization') ?? '';
+  set sharedServiceAuthorization(String value) => doc.setFormField(path, 'sharedServiceAuthorization', value);
+
+  /// Tenant Switching Policy.
+  ///
+  /// ReAuthenticate | SessionSwitch | TokenExchange | NotAllowed — how users belonging to multiple tenants switch their active tenant context
+  String get tenantSwitchingPolicy => doc.formField(path, 'tenantSwitchingPolicy') ?? '';
+  set tenantSwitchingPolicy(String value) => doc.setFormField(path, 'tenantSwitchingPolicy', value);
+
+  /// Multi-Tenant User Support.
+  ///
+  /// Yes | No — whether a single user identity can belong to and operate within multiple tenants
+  bool? get multiTenantUserSupport => somParseBool(doc.formField(path, 'multiTenantUserSupport'));
+  set multiTenantUserSupport(bool? value) => doc.setFormField(path, 'multiTenantUserSupport', somFormatBool(value));
+
+  /// Authorization Caching.
+  ///
+  /// None | PerTenant | SharedWithValidation | InvalidateOnSwitch — how authorization decisions are cached with respect to tenant context to prevent cross-tenant cache leakage
+  String get authorizationCaching => doc.formField(path, 'authorizationCaching') ?? '';
+  set authorizationCaching(String value) => doc.setFormField(path, 'authorizationCaching', value);
+
+  /// Notes.
+  ///
+  /// Additional tenant boundary enforcement notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TenantContextPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TenantContextPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Context Resolution Method.
+  ///
+  /// Token | Header | Domain | Path | Session | IDP-Asserted — how tenant identity is determined from incoming requests
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get contextResolutionMethod => doc.formField(path, 'contextResolutionMethod') ?? '';
+  set contextResolutionMethod(String value) => doc.setFormField(path, 'contextResolutionMethod', value);
+
+  /// Context Propagation.
+  ///
+  /// ThreadLocal | RequestScoped | ServiceMesh | TokenBased — how tenant context flows through application layers during authorization evaluation
+  String get contextPropagation => doc.formField(path, 'contextPropagation') ?? '';
+  set contextPropagation(String value) => doc.setFormField(path, 'contextPropagation', value);
+
+  /// Context Validation.
+  ///
+  /// SessionBinding | TokenClaim | DatabaseLookup | IDP-Asserted — how tenant context is validated against the authenticated user
+  String get contextValidation => doc.formField(path, 'contextValidation') ?? '';
+  set contextValidation(String value) => doc.setFormField(path, 'contextValidation', value);
+
+  /// Context Immutability.
+  ///
+  /// Yes | No — whether the tenant context is immutable once established for a request (prevents mid-request tampering)
+  bool? get contextImmutability => somParseBool(doc.formField(path, 'contextImmutability'));
+  set contextImmutability(bool? value) => doc.setFormField(path, 'contextImmutability', somFormatBool(value));
+
+  /// Cross-Service Propagation.
+  ///
+  /// JwtClaim | Header | gRPC-Metadata | ContextObject — how tenant context propagates across service boundaries in distributed architectures
+  String get crossServicePropagation => doc.formField(path, 'crossServicePropagation') ?? '';
+  set crossServicePropagation(String value) => doc.setFormField(path, 'crossServicePropagation', value);
+
+  /// Missing Context Behavior.
+  ///
+  /// Reject | DefaultTenant | Anonymous — what happens when tenant context cannot be determined (reject = deny access; defaultTenant = use platform default)
+  String get missingContextBehavior => doc.formField(path, 'missingContextBehavior') ?? '';
+  set missingContextBehavior(String value) => doc.setFormField(path, 'missingContextBehavior', value);
+
+  /// Notes.
+  ///
+  /// Additional tenant context policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class TenantCustomizationEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   TenantCustomizationEntryContentForm(super.doc, super.path);
@@ -138569,6 +143849,156 @@ class TenantCustomizationEntryContentForm extends SomNode {
   /// Notes.
   ///
   /// Additional tenant customization notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TenantDataIsolationPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TenantDataIsolationPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Tenant Isolation Model.
+  ///
+  /// SharedDatabase_SharedSchema | SharedDatabase_SeparateSchema | SeparateDatabase — multi-tenancy architecture
+  String get tenantIsolationModel => doc.formField(path, 'tenantIsolationModel') ?? '';
+  set tenantIsolationModel(String value) => doc.setFormField(path, 'tenantIsolationModel', value);
+
+  /// Tenant Identifier Column.
+  ///
+  /// Column name used for tenant filtering (e.g., tenant_id, org_id)
+  String get tenantIdentifierColumn => doc.formField(path, 'tenantIdentifierColumn') ?? '';
+  set tenantIdentifierColumn(String value) => doc.setFormField(path, 'tenantIdentifierColumn', value);
+
+  /// Tenant Context Injection.
+  ///
+  /// SessionVariable | ConnectionString | MiddlewareFilter | RowPolicy — how tenant context is set
+  String get tenantContextInjection => doc.formField(path, 'tenantContextInjection') ?? '';
+  set tenantContextInjection(String value) => doc.setFormField(path, 'tenantContextInjection', value);
+
+  /// Tenant Isolation Enforcement.
+  ///
+  /// DatabaseLevel | ApplicationLevel | Both — where isolation is enforced
+  String get tenantIsolationEnforcement => doc.formField(path, 'tenantIsolationEnforcement') ?? '';
+  set tenantIsolationEnforcement(String value) => doc.setFormField(path, 'tenantIsolationEnforcement', value);
+
+  /// Cross-Tenant Query Prevention.
+  ///
+  /// DatabaseRLS | QueryRewriting | GlobalFilter | AllLayers — how cross-tenant queries are blocked
+  String get crossTenantQueryPrevention => doc.formField(path, 'crossTenantQueryPrevention') ?? '';
+  set crossTenantQueryPrevention(String value) => doc.setFormField(path, 'crossTenantQueryPrevention', value);
+
+  /// Tenant Data Backup Isolation.
+  ///
+  /// SharedBackup | PerTenantBackup | EncryptedShared — tenant-specific backup strategy
+  String get tenantDataBackupIsolation => doc.formField(path, 'tenantDataBackupIsolation') ?? '';
+  set tenantDataBackupIsolation(String value) => doc.setFormField(path, 'tenantDataBackupIsolation', value);
+
+  /// Tenant Data Deletion.
+  ///
+  /// SoftDelete | HardDelete | CryptoShredding — how tenant data is removed on offboarding
+  String get tenantDataDeletion => doc.formField(path, 'tenantDataDeletion') ?? '';
+  set tenantDataDeletion(String value) => doc.setFormField(path, 'tenantDataDeletion', value);
+
+  /// Tenant Data Export.
+  ///
+  /// SelfService | AdminAssisted | ApiExport — data portability for tenants
+  String get tenantDataExport => doc.formField(path, 'tenantDataExport') ?? '';
+  set tenantDataExport(String value) => doc.setFormField(path, 'tenantDataExport', value);
+
+  /// Tenant Resource Quotas.
+  ///
+  /// Yes | No — whether storage/query quotas are enforced per tenant
+  String get tenantResourceQuotas => doc.formField(path, 'tenantResourceQuotas') ?? '';
+  set tenantResourceQuotas(String value) => doc.setFormField(path, 'tenantResourceQuotas', value);
+
+  /// Tenant Isolation Testing.
+  ///
+  /// AutomatedTests | PenetrationTesting | Both — how tenant isolation is verified
+  String get tenantIsolationTesting => doc.formField(path, 'tenantIsolationTesting') ?? '';
+  set tenantIsolationTesting(String value) => doc.setFormField(path, 'tenantIsolationTesting', value);
+
+  /// Shared Reference Data Access.
+  ///
+  /// ReadOnly | CachedLocally | Replicated — how tenants access shared/global reference data
+  String get sharedReferenceDataAccess => doc.formField(path, 'sharedReferenceDataAccess') ?? '';
+  set sharedReferenceDataAccess(String value) => doc.setFormField(path, 'sharedReferenceDataAccess', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TenantOnboardingPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TenantOnboardingPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Authorization Provisioning Model.
+  ///
+  /// Template | Clone | Custom | Minimal — how authorization resources (roles, permissions, policies) are provisioned for new tenants
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get authorizationProvisioningModel => doc.formField(path, 'authorizationProvisioningModel') ?? '';
+  set authorizationProvisioningModel(String value) => doc.setFormField(path, 'authorizationProvisioningModel', value);
+
+  /// Default Role Template.
+  ///
+  /// Name or ID of the role template used to bootstrap initial roles for a new tenant (e.g. StandardSaaS, Enterprise, Minimal)
+  String get defaultRoleTemplate => doc.formField(path, 'defaultRoleTemplate') ?? '';
+  set defaultRoleTemplate(String value) => doc.setFormField(path, 'defaultRoleTemplate', value);
+
+  /// Admin Role Provisioning.
+  ///
+  /// AutoCreate | ManualAssign | InviteBased — how the initial tenant administrator role is set up
+  String get adminRoleProvisioning => doc.formField(path, 'adminRoleProvisioning') ?? '';
+  set adminRoleProvisioning(String value) => doc.setFormField(path, 'adminRoleProvisioning', value);
+
+  /// Initial Permission Set.
+  ///
+  /// Full | Minimal | Custom — what permissions are granted to a new tenant upon creation
+  String get initialPermissionSet => doc.formField(path, 'initialPermissionSet') ?? '';
+  set initialPermissionSet(String value) => doc.setFormField(path, 'initialPermissionSet', value);
+
+  /// Offboarding Strategy.
+  ///
+  /// SoftDelete | HardDelete | Archive | Anonymize — how tenant authorization data is handled on offboarding
+  String get offboardingStrategy => doc.formField(path, 'offboardingStrategy') ?? '';
+  set offboardingStrategy(String value) => doc.setFormField(path, 'offboardingStrategy', value);
+
+  /// Resource Cleanup on Offboarding.
+  ///
+  /// Immediate | Deferred | Manual | PolicyBased — when authorization resources are cleaned up after tenant removal
+  String get resourceCleanupOnOffboarding => doc.formField(path, 'resourceCleanupOnOffboarding') ?? '';
+  set resourceCleanupOnOffboarding(String value) => doc.setFormField(path, 'resourceCleanupOnOffboarding', value);
+
+  /// Data Retention Days.
+  ///
+  /// Number of days tenant authorization data (roles, assignments, audit logs) is retained after offboarding (0 = immediate)
+  int? get dataRetentionDays => somParseInt(doc.formField(path, 'dataRetentionDays'));
+  set dataRetentionDays(int? value) => doc.setFormField(path, 'dataRetentionDays', somFormatInt(value));
+
+  /// Offboarding Approval.
+  ///
+  /// None | PlatformAdmin | ComplianceOfficer | Both — who must approve tenant offboarding and data deletion
+  String get offboardingApproval => doc.formField(path, 'offboardingApproval') ?? '';
+  set offboardingApproval(String value) => doc.setFormField(path, 'offboardingApproval', value);
+
+  /// Notes.
+  ///
+  /// Additional tenant onboarding/offboarding notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
@@ -139749,6 +145179,76 @@ class ThrowawayPrototypeValueForm extends SomNode {
   set futureReference(String value) => doc.setFormField(path, 'futureReference', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TlsProtocolPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TlsProtocolPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Minimum TLS Version.
+  ///
+  /// TLS1.2 | TLS1.3 — minimum acceptable TLS version (TLS 1.3 recommended; TLS 1.0/1.1 are deprecated and should not be used; PCI DSS forbids TLS 1.0)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get minimumTlsVersion => doc.formField(path, 'minimumTlsVersion') ?? '';
+  set minimumTlsVersion(String value) => doc.setFormField(path, 'minimumTlsVersion', value);
+
+  /// Preferred TLS Version.
+  ///
+  /// TLS1.3 | TLS1.2 — preferred TLS version for new connections (TLS 1.3 provides improved security and performance)
+  String get preferredTlsVersion => doc.formField(path, 'preferredTlsVersion') ?? '';
+  set preferredTlsVersion(String value) => doc.setFormField(path, 'preferredTlsVersion', value);
+
+  /// Allowed Cipher Suites.
+  ///
+  /// Comma-separated cipher suite names or categories (e.g. TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256; disable NULL, Anonymous, EXPORT, DES, RC4 ciphers)
+  String get allowedCipherSuites => doc.formField(path, 'allowedCipherSuites') ?? '';
+  set allowedCipherSuites(String value) => doc.setFormField(path, 'allowedCipherSuites', value);
+
+  /// Prefer Authenticated Encryption.
+  ///
+  /// Yes | No — whether GCM/CCM authenticated cipher modes are preferred over CBC (recommended: Yes)
+  bool? get preferAuthenticatedEncryption => somParseBool(doc.formField(path, 'preferAuthenticatedEncryption'));
+  set preferAuthenticatedEncryption(bool? value) => doc.setFormField(path, 'preferAuthenticatedEncryption', somFormatBool(value));
+
+  /// Diffie-Hellman Groups.
+  ///
+  /// Comma-separated DH groups for key exchange (e.g. x25519, prime256v1, ffdhe3072; per RFC 7919)
+  String get dhGroups => doc.formField(path, 'dhGroups') ?? '';
+  set dhGroups(String value) => doc.setFormField(path, 'dhGroups', value);
+
+  /// TLS Compression Disabled.
+  ///
+  /// Yes | No — whether TLS compression is disabled to prevent CRIME/BREACH attacks (recommended: Yes)
+  bool? get tlsCompressionDisabled => somParseBool(doc.formField(path, 'tlsCompressionDisabled'));
+  set tlsCompressionDisabled(bool? value) => doc.setFormField(path, 'tlsCompressionDisabled', somFormatBool(value));
+
+  /// Session Resumption.
+  ///
+  /// Tickets | SessionID | None — TLS session resumption mechanism (tickets recommended for TLS 1.3; session IDs for TLS 1.2)
+  String get sessionResumption => doc.formField(path, 'sessionResumption') ?? '';
+  set sessionResumption(String value) => doc.setFormField(path, 'sessionResumption', value);
+
+  /// Compliance Framework.
+  ///
+  /// FIPS-140-2 | PCI-DSS | HIPAA | NIST-800-52 | None — regulatory framework dictating TLS requirements
+  String get complianceFramework => doc.formField(path, 'complianceFramework') ?? '';
+  set complianceFramework(String value) => doc.setFormField(path, 'complianceFramework', value);
+
+  /// Notes.
+  ///
+  /// Additional TLS protocol policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
 /// Generated section facade for the `certificateValidation` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class TlsRequirementsCertificateValidationForm extends SomNode {
@@ -139915,6 +145415,116 @@ class TlsRequirementsTerminationForm extends SomNode {
   /// Encrypt service-to-service traffic
   bool? get internalTls => somParseBool(doc.formField(path, 'internalTls'));
   set internalTls(bool? value) => doc.setFormField(path, 'internalTls', somFormatBool(value));
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TokenManagementPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TokenManagementPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Token Format.
+  ///
+  /// JWT | Opaque | SAML | Custom — primary access token format
+  String get tokenFormat => doc.formField(path, 'tokenFormat') ?? '';
+  set tokenFormat(String value) => doc.setFormField(path, 'tokenFormat', value);
+
+  /// Token Signing Algorithm.
+  ///
+  /// RS256 | ES256 | HS256 | EdDSA — algorithm for signing tokens
+  String get tokenSigningAlgorithm => doc.formField(path, 'tokenSigningAlgorithm') ?? '';
+  set tokenSigningAlgorithm(String value) => doc.setFormField(path, 'tokenSigningAlgorithm', value);
+
+  /// Access Token Lifetime.
+  ///
+  /// Duration of access token validity (e.g., 15min, 1h)
+  String get accessTokenLifetime => doc.formField(path, 'accessTokenLifetime') ?? '';
+  set accessTokenLifetime(String value) => doc.setFormField(path, 'accessTokenLifetime', value);
+
+  /// Refresh Token Enabled.
+  ///
+  /// Yes | No — whether refresh tokens are issued
+  String get refreshTokenEnabled => doc.formField(path, 'refreshTokenEnabled') ?? '';
+  set refreshTokenEnabled(String value) => doc.setFormField(path, 'refreshTokenEnabled', value);
+
+  /// Refresh Token Lifetime.
+  ///
+  /// Duration of refresh token validity (e.g., 7d, 30d)
+  String get refreshTokenLifetime => doc.formField(path, 'refreshTokenLifetime') ?? '';
+  set refreshTokenLifetime(String value) => doc.setFormField(path, 'refreshTokenLifetime', value);
+
+  /// Refresh Token Rotation.
+  ///
+  /// Yes | No — whether refresh tokens are rotated on each use
+  String get refreshTokenRotation => doc.formField(path, 'refreshTokenRotation') ?? '';
+  set refreshTokenRotation(String value) => doc.setFormField(path, 'refreshTokenRotation', value);
+
+  /// Refresh Token Reuse Detection.
+  ///
+  /// Yes | No — whether reuse of old refresh tokens triggers revocation
+  String get refreshTokenReuseDetection => doc.formField(path, 'refreshTokenReuseDetection') ?? '';
+  set refreshTokenReuseDetection(String value) => doc.setFormField(path, 'refreshTokenReuseDetection', value);
+
+  /// ID Token Enabled.
+  ///
+  /// Yes | No — whether OIDC ID tokens are issued
+  String get idTokenEnabled => doc.formField(path, 'idTokenEnabled') ?? '';
+  set idTokenEnabled(String value) => doc.setFormField(path, 'idTokenEnabled', value);
+
+  /// ID Token Claims.
+  ///
+  /// Standard claims included in ID tokens (sub, email, name, roles)
+  String get idTokenClaims => doc.formField(path, 'idTokenClaims') ?? '';
+  set idTokenClaims(String value) => doc.setFormField(path, 'idTokenClaims', value);
+
+  /// Token Storage Client.
+  ///
+  /// HttpOnlyCookie | SessionStorage | LocalStorage | Memory — client-side storage
+  String get tokenStorageClient => doc.formField(path, 'tokenStorageClient') ?? '';
+  set tokenStorageClient(String value) => doc.setFormField(path, 'tokenStorageClient', value);
+
+  /// Token Storage Server.
+  ///
+  /// Redis | Database | InMemory | None — server-side token store (for opaque tokens)
+  String get tokenStorageServer => doc.formField(path, 'tokenStorageServer') ?? '';
+  set tokenStorageServer(String value) => doc.setFormField(path, 'tokenStorageServer', value);
+
+  /// Token Revocation Enabled.
+  ///
+  /// Yes | No — whether token revocation endpoint is available
+  String get tokenRevocationEnabled => doc.formField(path, 'tokenRevocationEnabled') ?? '';
+  set tokenRevocationEnabled(String value) => doc.setFormField(path, 'tokenRevocationEnabled', value);
+
+  /// Token Revocation Propagation.
+  ///
+  /// Immediate | EventualConsistency | Polling — how revocation propagates
+  String get tokenRevocationPropagation => doc.formField(path, 'tokenRevocationPropagation') ?? '';
+  set tokenRevocationPropagation(String value) => doc.setFormField(path, 'tokenRevocationPropagation', value);
+
+  /// Token Introspection Enabled.
+  ///
+  /// Yes | No — whether RFC 7662 token introspection endpoint is available
+  String get tokenIntrospectionEnabled => doc.formField(path, 'tokenIntrospectionEnabled') ?? '';
+  set tokenIntrospectionEnabled(String value) => doc.setFormField(path, 'tokenIntrospectionEnabled', value);
+
+  /// Audience Restriction.
+  ///
+  /// Yes | No — whether tokens are audience-restricted to specific services
+  String get audienceRestriction => doc.formField(path, 'audienceRestriction') ?? '';
+  set audienceRestriction(String value) => doc.setFormField(path, 'audienceRestriction', value);
+
+  /// Scope Policy.
+  ///
+  /// Minimum scope principle — how token scopes are assigned and validated
+  String get scopePolicy => doc.formField(path, 'scopePolicy') ?? '';
+  set scopePolicy(String value) => doc.setFormField(path, 'scopePolicy', value);
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -143383,6 +148993,76 @@ class TranslationVendorEntryContentForm extends SomNode {
   set contactInfo(String value) => doc.setFormField(path, 'contactInfo', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TransportSecurityPolicyContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TransportSecurityPolicyContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// HSTS Enabled.
+  ///
+  /// Yes | No — whether HTTP Strict Transport Security header is sent to force browsers to use HTTPS
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  bool? get hstsEnabled => somParseBool(doc.formField(path, 'hstsEnabled'));
+  set hstsEnabled(bool? value) => doc.setFormField(path, 'hstsEnabled', somFormatBool(value));
+
+  /// HSTS Max-Age (Days).
+  ///
+  /// HSTS max-age value in days (e.g. 365 = 1 year; 730 = 2 years; must be sufficiently long to prevent downgrade)
+  int? get hstsMaxAgeDays => somParseInt(doc.formField(path, 'hstsMaxAgeDays'));
+  set hstsMaxAgeDays(int? value) => doc.setFormField(path, 'hstsMaxAgeDays', somFormatInt(value));
+
+  /// HSTS Include Subdomains.
+  ///
+  /// Yes | No — whether HSTS applies to all subdomains (recommended: Yes when all subdomains support HTTPS)
+  bool? get hstsIncludeSubdomains => somParseBool(doc.formField(path, 'hstsIncludeSubdomains'));
+  set hstsIncludeSubdomains(bool? value) => doc.setFormField(path, 'hstsIncludeSubdomains', somFormatBool(value));
+
+  /// HSTS Preload.
+  ///
+  /// Yes | No — whether the domain is submitted to the HSTS preload list (hardcoded into browsers; requires includeSubDomains and long max-age)
+  bool? get hstsPreload => somParseBool(doc.formField(path, 'hstsPreload'));
+  set hstsPreload(bool? value) => doc.setFormField(path, 'hstsPreload', somFormatBool(value));
+
+  /// HTTP-to-HTTPS Redirect.
+  ///
+  /// Yes | No — whether HTTP requests are permanently redirected (301) to HTTPS
+  bool? get httpToHttpsRedirect => somParseBool(doc.formField(path, 'httpToHttpsRedirect'));
+  set httpToHttpsRedirect(bool? value) => doc.setFormField(path, 'httpToHttpsRedirect', somFormatBool(value));
+
+  /// Secure Cookie Flag.
+  ///
+  /// Yes | No — whether all cookies are marked with Secure flag (browsers only send them over HTTPS)
+  bool? get secureCookieFlag => somParseBool(doc.formField(path, 'secureCookieFlag'));
+  set secureCookieFlag(bool? value) => doc.setFormField(path, 'secureCookieFlag', somFormatBool(value));
+
+  /// Prevent Mixed Content.
+  ///
+  /// Yes | No — whether loading of non-TLS resources from TLS pages is blocked
+  bool? get preventMixedContent => somParseBool(doc.formField(path, 'preventMixedContent'));
+  set preventMixedContent(bool? value) => doc.setFormField(path, 'preventMixedContent', somFormatBool(value));
+
+  /// Sensitive Data Caching.
+  ///
+  /// NoCache | NoStore | Private | Default — cache-control headers for responses containing sensitive data (NoStore recommended per OWASP)
+  String get sensitiveDataCaching => doc.formField(path, 'sensitiveDataCaching') ?? '';
+  set sensitiveDataCaching(String value) => doc.setFormField(path, 'sensitiveDataCaching', value);
+
+  /// Notes.
+  ///
+  /// Additional transport security policy notes
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
 /// Generated section facade for the `access` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class TroubleshootingCapabilitiesAccessForm extends SomNode {
@@ -145521,6 +151201,86 @@ class UserAccessibilityNeedsAccessibilityFormForm extends SomNode {
   set additionalStandards(String value) => doc.setFormField(path, 'additionalStandards', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserAccountStatesDefinitionContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  UserAccountStatesDefinitionContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// State Model Type.
+  ///
+  /// Linear | Graph | Hierarchical — how states relate to each other
+  String get stateModel => doc.formField(path, 'stateModel') ?? '';
+  set stateModel(String value) => doc.setFormField(path, 'stateModel', value);
+
+  /// Initial State.
+  ///
+  /// State assigned at account creation (e.g., Pending Verification)
+  String get initialState => doc.formField(path, 'initialState') ?? '';
+  set initialState(String value) => doc.setFormField(path, 'initialState', value);
+
+  /// Active State.
+  ///
+  /// Fully operational account state name
+  String get activeState => doc.formField(path, 'activeState') ?? '';
+  set activeState(String value) => doc.setFormField(path, 'activeState', value);
+
+  /// Suspended State.
+  ///
+  /// Temporarily restricted state name
+  String get suspendedState => doc.formField(path, 'suspendedState') ?? '';
+  set suspendedState(String value) => doc.setFormField(path, 'suspendedState', value);
+
+  /// Locked State.
+  ///
+  /// Account locked due to security policy (e.g., failed logins)
+  String get lockedState => doc.formField(path, 'lockedState') ?? '';
+  set lockedState(String value) => doc.setFormField(path, 'lockedState', value);
+
+  /// Deactivated State.
+  ///
+  /// Administratively disabled, recoverable
+  String get deactivatedState => doc.formField(path, 'deactivatedState') ?? '';
+  set deactivatedState(String value) => doc.setFormField(path, 'deactivatedState', value);
+
+  /// Archived State.
+  ///
+  /// Read-only historical state before permanent deletion
+  String get archivedState => doc.formField(path, 'archivedState') ?? '';
+  set archivedState(String value) => doc.setFormField(path, 'archivedState', value);
+
+  /// Deleted State.
+  ///
+  /// Permanently removed or anonymized
+  String get deletedState => doc.formField(path, 'deletedState') ?? '';
+  set deletedState(String value) => doc.setFormField(path, 'deletedState', value);
+
+  /// Custom States.
+  ///
+  /// Additional project-specific states (comma-separated)
+  String get customStates => doc.formField(path, 'customStates') ?? '';
+  set customStates(String value) => doc.setFormField(path, 'customStates', value);
+
+  /// State Visibility.
+  ///
+  /// Which states are visible to the user vs. admin-only
+  String get stateVisibility => doc.formField(path, 'stateVisibility') ?? '';
+  set stateVisibility(String value) => doc.setFormField(path, 'stateVisibility', value);
+
+  /// State Transition Diagram Reference.
+  ///
+  /// Reference to a state transition diagram (mermaid or external)
+  String get stateTransitionDiagramRef => doc.formField(path, 'stateTransitionDiagramRef') ?? '';
+  set stateTransitionDiagramRef(String value) => doc.setFormField(path, 'stateTransitionDiagramRef', value);
+}
+
 /// Generated section facade for the `delivery` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class UserAssistanceDeliveryForm extends SomNode {
@@ -146185,6 +151945,68 @@ class UserGrowthProjectionsThresholdsForm extends SomNode {
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserInteractionModelSummaryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  UserInteractionModelSummaryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Primary Access Channel.
+  ///
+  /// Web, Mobile App, Desktop App, API, CLI
+  String get primaryAccessChannel => doc.formField(path, 'primaryAccessChannel') ?? '';
+  set primaryAccessChannel(String value) => doc.setFormField(path, 'primaryAccessChannel', value);
+
+  /// Number of Access Channels.
+  ///
+  /// Total count of access channels defined
+  int? get channelCount => somParseInt(doc.formField(path, 'channelCount'));
+  set channelCount(int? value) => doc.setFormField(path, 'channelCount', somFormatInt(value));
+
+  /// Number of Interaction Patterns.
+  ///
+  /// Total count of interaction patterns defined
+  int? get interactionPatternCount => somParseInt(doc.formField(path, 'interactionPatternCount'));
+  set interactionPatternCount(int? value) => doc.setFormField(path, 'interactionPatternCount', somFormatInt(value));
+
+  /// Number of Access Levels.
+  ///
+  /// Total count of access levels defined
+  int? get accessLevelCount => somParseInt(doc.formField(path, 'accessLevelCount'));
+  set accessLevelCount(int? value) => doc.setFormField(path, 'accessLevelCount', somFormatInt(value));
+
+  /// Multi-Channel Support.
+  ///
+  /// None, Limited, Full
+  String get multiChannelSupport => doc.formField(path, 'multiChannelSupport') ?? '';
+  set multiChannelSupport(String value) => doc.setFormField(path, 'multiChannelSupport', value);
+
+  /// Offline Capability.
+  ///
+  /// None, Read-only, Full
+  String get offlineCapability => doc.formField(path, 'offlineCapability') ?? '';
+  set offlineCapability(String value) => doc.setFormField(path, 'offlineCapability', value);
+
+  /// Session Management Approach.
+  ///
+  /// Server-side, Client-side, Hybrid, Stateless
+  String get sessionManagement => doc.formField(path, 'sessionManagement') ?? '';
+  set sessionManagement(String value) => doc.setFormField(path, 'sessionManagement', value);
+
+  /// Notification Channels.
+  ///
+  /// e.g., Email, SMS, Push, In-app
+  String get notificationChannels => doc.formField(path, 'notificationChannels') ?? '';
+  set notificationChannels(String value) => doc.setFormField(path, 'notificationChannels', value);
+}
+
 /// Generated section facade for the `approval` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class UserLifecycleTransitionEntryApprovalForm extends SomNode {
@@ -146321,6 +152143,124 @@ class UserLifecycleTransitionEntryEffectsForm extends SomNode {
   /// Email | SMS | InApp | Webhook
   String get notificationChannels => doc.formField(path, 'notificationChannels') ?? '';
   set notificationChannels(String value) => doc.setFormField(path, 'notificationChannels', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserLifecycleTransitionsContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  UserLifecycleTransitionsContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Transition Model.
+  ///
+  /// StateMachine | Workflow | Hybrid — how transitions are modeled
+  String get transitionModel => doc.formField(path, 'transitionModel') ?? '';
+  set transitionModel(String value) => doc.setFormField(path, 'transitionModel', value);
+
+  /// Default Approval Policy.
+  ///
+  /// SingleApprover | DualControl | AutoApproved — default for all transitions
+  String get approvalPolicyDefault => doc.formField(path, 'approvalPolicyDefault') ?? '';
+  set approvalPolicyDefault(String value) => doc.setFormField(path, 'approvalPolicyDefault', value);
+
+  /// Escalation Policy.
+  ///
+  /// What happens if approval is not granted within SLA (auto-deny, escalate, remind)
+  String get escalationPolicy => doc.formField(path, 'escalationPolicy') ?? '';
+  set escalationPolicy(String value) => doc.setFormField(path, 'escalationPolicy', value);
+
+  /// Escalation Timeframe.
+  ///
+  /// Time before pending approval is escalated (e.g., 48h)
+  String get escalationTimeframe => doc.formField(path, 'escalationTimeframe') ?? '';
+  set escalationTimeframe(String value) => doc.setFormField(path, 'escalationTimeframe', value);
+
+  /// Audit Trail Required.
+  ///
+  /// Yes | No — whether every transition is logged
+  String get auditTrailRequired => doc.formField(path, 'auditTrailRequired') ?? '';
+  set auditTrailRequired(String value) => doc.setFormField(path, 'auditTrailRequired', value);
+
+  /// Notification on Transition.
+  ///
+  /// User | Approver | Admin | All — who is notified on state change
+  String get notificationOnTransition => doc.formField(path, 'notificationOnTransition') ?? '';
+  set notificationOnTransition(String value) => doc.setFormField(path, 'notificationOnTransition', value);
+
+  /// Bulk Transition Support.
+  ///
+  /// Yes | No — whether multiple accounts can transition at once
+  String get bulkTransitionSupport => doc.formField(path, 'bulkTransitionSupport') ?? '';
+  set bulkTransitionSupport(String value) => doc.setFormField(path, 'bulkTransitionSupport', value);
+
+  /// Automated Transitions.
+  ///
+  /// Transitions triggered automatically (inactivity → deactivated, expiry → deleted)
+  String get automatedTransitions => doc.formField(path, 'automatedTransitions') ?? '';
+  set automatedTransitions(String value) => doc.setFormField(path, 'automatedTransitions', value);
+
+  /// Transition Undo Policy.
+  ///
+  /// Which transitions are reversible and within what time window
+  String get transitionUndoPolicy => doc.formField(path, 'transitionUndoPolicy') ?? '';
+  set transitionUndoPolicy(String value) => doc.setFormField(path, 'transitionUndoPolicy', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserNotificationPreferencesContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  UserNotificationPreferencesContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Global Opt-Out Support.
+  ///
+  /// Can users opt out of all non-essential notifications
+  String get globalOptOut => doc.formField(path, 'globalOptOut') ?? '';
+  set globalOptOut(String value) => doc.setFormField(path, 'globalOptOut', value);
+
+  /// Per-Type Control.
+  ///
+  /// Can users control individual notification types
+  String get perTypeControl => doc.formField(path, 'perTypeControl') ?? '';
+  set perTypeControl(String value) => doc.setFormField(path, 'perTypeControl', value);
+
+  /// Channel Preferences.
+  ///
+  /// Can users choose preferred channels
+  String get channelPreferences => doc.formField(path, 'channelPreferences') ?? '';
+  set channelPreferences(String value) => doc.setFormField(path, 'channelPreferences', value);
+
+  /// Frequency Control.
+  ///
+  /// Can users control notification frequency
+  String get frequencyControl => doc.formField(path, 'frequencyControl') ?? '';
+  set frequencyControl(String value) => doc.setFormField(path, 'frequencyControl', value);
+
+  /// Quiet Hours.
+  ///
+  /// Can users set do-not-disturb hours
+  String get quietHours => doc.formField(path, 'quietHours') ?? '';
+  set quietHours(String value) => doc.setFormField(path, 'quietHours', value);
+
+  /// Digest Option.
+  ///
+  /// Can users opt for daily/weekly digests
+  String get digestOption => doc.formField(path, 'digestOption') ?? '';
+  set digestOption(String value) => doc.setFormField(path, 'digestOption', value);
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -146621,6 +152561,122 @@ class UserProvisioningToolsRoleManagementForm extends SomNode {
   /// Periodic access recertification
   String get accessReviewProcess => doc.formField(path, 'accessReviewProcess') ?? '';
   set accessReviewProcess(String value) => doc.setFormField(path, 'accessReviewProcess', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserRegistrationProcessContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  UserRegistrationProcessContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Registration Methods.
+  ///
+  /// SelfRegistration | Invitation | AdminProvisioned | BulkImport | ExternalIdP
+  String get registrationMethods => doc.formField(path, 'registrationMethods') ?? '';
+  set registrationMethods(String value) => doc.setFormField(path, 'registrationMethods', value);
+
+  /// Self-Registration Enabled.
+  ///
+  /// Yes | No | PerCategory — whether users can self-register
+  String get selfRegistrationEnabled => doc.formField(path, 'selfRegistrationEnabled') ?? '';
+  set selfRegistrationEnabled(String value) => doc.setFormField(path, 'selfRegistrationEnabled', value);
+
+  /// Identity Proofing Level.
+  ///
+  /// None | Email | Phone | Document | InPerson — per NIST SP 800-63A IAL
+  String get identityProofingLevel => doc.formField(path, 'identityProofingLevel') ?? '';
+  set identityProofingLevel(String value) => doc.setFormField(path, 'identityProofingLevel', value);
+
+  /// Email Verification Required.
+  ///
+  /// Yes | No | Optional
+  String get emailVerificationRequired => doc.formField(path, 'emailVerificationRequired') ?? '';
+  set emailVerificationRequired(String value) => doc.setFormField(path, 'emailVerificationRequired', value);
+
+  /// Phone Verification Required.
+  ///
+  /// Yes | No | Optional
+  String get phoneVerificationRequired => doc.formField(path, 'phoneVerificationRequired') ?? '';
+  set phoneVerificationRequired(String value) => doc.setFormField(path, 'phoneVerificationRequired', value);
+
+  /// CAPTCHA Required.
+  ///
+  /// Yes | No — bot prevention during self-registration
+  String get captchaRequired => doc.formField(path, 'captchaRequired') ?? '';
+  set captchaRequired(String value) => doc.setFormField(path, 'captchaRequired', value);
+
+  /// Invitation Expiry Period.
+  ///
+  /// Duration before invitation link expires (e.g., 48h, 7d)
+  String get invitationExpiryPeriod => doc.formField(path, 'invitationExpiryPeriod') ?? '';
+  set invitationExpiryPeriod(String value) => doc.setFormField(path, 'invitationExpiryPeriod', value);
+
+  /// Approval Required.
+  ///
+  /// Yes | No — whether registration needs manual approval
+  String get approvalRequired => doc.formField(path, 'approvalRequired') ?? '';
+  set approvalRequired(String value) => doc.setFormField(path, 'approvalRequired', value);
+
+  /// Approval Workflow.
+  ///
+  /// Single Approver | Multi-Level | Auto-Approved — workflow type
+  String get approvalWorkflow => doc.formField(path, 'approvalWorkflow') ?? '';
+  set approvalWorkflow(String value) => doc.setFormField(path, 'approvalWorkflow', value);
+
+  /// Approver Role.
+  ///
+  /// Role or person who approves new registrations
+  String get approverRole => doc.formField(path, 'approverRole') ?? '';
+  set approverRole(String value) => doc.setFormField(path, 'approverRole', value);
+
+  /// Required Fields at Registration.
+  ///
+  /// Comma-separated list of mandatory fields during signup
+  String get requiredFieldsAtRegistration => doc.formField(path, 'requiredFieldsAtRegistration') ?? '';
+  set requiredFieldsAtRegistration(String value) => doc.setFormField(path, 'requiredFieldsAtRegistration', value);
+
+  /// Optional Fields at Registration.
+  ///
+  /// Comma-separated list of optional fields during signup
+  String get optionalFieldsAtRegistration => doc.formField(path, 'optionalFieldsAtRegistration') ?? '';
+  set optionalFieldsAtRegistration(String value) => doc.setFormField(path, 'optionalFieldsAtRegistration', value);
+
+  /// Terms Acceptance Required.
+  ///
+  /// Yes | No — must accept terms of service / privacy policy
+  String get termsAcceptanceRequired => doc.formField(path, 'termsAcceptanceRequired') ?? '';
+  set termsAcceptanceRequired(String value) => doc.setFormField(path, 'termsAcceptanceRequired', value);
+
+  /// Duplicate Detection.
+  ///
+  /// How duplicate accounts are detected (email, phone, name matching)
+  String get duplicateDetection => doc.formField(path, 'duplicateDetection') ?? '';
+  set duplicateDetection(String value) => doc.setFormField(path, 'duplicateDetection', value);
+
+  /// Welcome Notification.
+  ///
+  /// Email | SMS | InApp | None — notification on successful registration
+  String get welcomeNotification => doc.formField(path, 'welcomeNotification') ?? '';
+  set welcomeNotification(String value) => doc.setFormField(path, 'welcomeNotification', value);
+
+  /// Initial Role Assignment.
+  ///
+  /// Default role(s) assigned at registration
+  String get initialRoleAssignment => doc.formField(path, 'initialRoleAssignment') ?? '';
+  set initialRoleAssignment(String value) => doc.setFormField(path, 'initialRoleAssignment', value);
+
+  /// Registration Rate Limiting.
+  ///
+  /// Max registrations per IP/time window to prevent abuse
+  String get registrationRateLimiting => doc.formField(path, 'registrationRateLimiting') ?? '';
+  set registrationRateLimiting(String value) => doc.setFormField(path, 'registrationRateLimiting', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

@@ -254,10 +254,17 @@ class SpecDocumentMarkdown {
   /// section/complex nodes whose field carries none, the target **class**'s
   /// `@SectionId` (the id the generated schema types are keyed by); else the path
   /// segment (the member name).
+  ///
+  /// The class id comes from [SomMetaNode.classSectionId], exactly as the YAML
+  /// codec's key does, and never from `model.classNamed(node.className)`: a
+  /// wrapper section (`TextSection`, `FlowDiagramSection`, …) has no exported
+  /// class, so its node carries the **owner's** class name, and that lookup
+  /// returned the owner's id — a heading the schema rejects as the owner nested
+  /// in itself.
   String _headingIdOf(SomMetaNode node) =>
       node.sectionId ??
       ((node.kind == SomMetaKind.section || node.kind == SomMetaKind.complex)
-          ? model.classNamed(node.className)?.sectionId
+          ? node.classSectionId
           : null) ??
       node.segment;
 
@@ -285,10 +292,12 @@ class SpecDocumentMarkdown {
 
   /// A section/complex member with no field- or class-level `@SectionId`:
   /// heading-less, its children hoist to the owner.
+  /// A wrapper section such as `TextSection` is one of these: it has neither
+  /// id, so its own text is a body slot of the owner (SOM §11.6).
   bool _isTransparentSection(SomMetaNode n) =>
       (n.kind == SomMetaKind.section || n.kind == SomMetaKind.complex) &&
       n.sectionId == null &&
-      model.classNamed(n.className)?.sectionId == null;
+      n.classSectionId == null;
 
   /// A value member (content/scalar/enum/form) with no `@SectionId`: emitted
   /// into the owner's body region instead of under an own heading.

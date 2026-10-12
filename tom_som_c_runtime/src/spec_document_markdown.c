@@ -649,21 +649,21 @@ static SomMetaTree *codec_tree_for(MdCodec *c, const char *root_type,
 
 /* ---- transparency + heading id ------------------------------------------ */
 
-static const SpecClass *class_named(MdCodec *c, const char *name) {
-  return spec_model_class_named(c->model, name);
-}
-
 /* headingIdOf: field-level id, else target-class id for section/complex, else
  * the segment. Owned result. */
 static char *heading_id_of(MdCodec *c, const SomMetaNode *node) {
+  (void)c;
   if (node->section_id[0] != '\0') {
     return som_strdup(node->section_id);
   }
   if (strcmp(node->kind, SOM_META_KIND_SECTION) == 0 ||
       strcmp(node->kind, SOM_META_KIND_COMPLEX) == 0) {
-    const SpecClass *cls = class_named(c, node->class_name);
-    if (cls != NULL && cls->section_id[0] != '\0') {
-      return som_strdup(cls->section_id);
+    /* The class id is the node's class_section_id, as the YAML key uses —
+     * never class_named(node->class_name): a wrapper section (TextSection,
+     * ...) carries its OWNER's class name, and that lookup returned the
+     * owner's id. */
+    if (node->class_section_id != NULL && node->class_section_id[0] != '\0') {
+      return som_strdup(node->class_section_id);
     }
   }
   return som_strdup(som_meta_node_segment(node));
@@ -677,8 +677,11 @@ static int is_transparent_section(MdCodec *c, const SomMetaNode *n) {
   if (n->section_id[0] != '\0') {
     return 0;
   }
-  const SpecClass *cls = class_named(c, n->class_name);
-  return cls == NULL || cls->section_id[0] == '\0';
+  /* class_section_id, not class_named(n->class_name): see heading_id_of. A
+   * wrapper section (TextSection, ...) has neither id, so it is transparent
+   * (SOM §11.6). */
+  (void)c;
+  return n->class_section_id == NULL || n->class_section_id[0] == '\0';
 }
 
 static int is_transparent_value(const SomMetaNode *n) {

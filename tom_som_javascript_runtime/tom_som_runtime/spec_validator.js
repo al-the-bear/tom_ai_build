@@ -88,7 +88,12 @@ function validateDocument(model, doc) {
     // A form node is the one non-leaf that legitimately carries content: it is
     // the form's preamble, the free text before the first field line (SOM §11.4
     // rule 7), in the same slot a plain section's body uses.
-    if (!res.isValueLeaf && res.kind !== SpecNodeKind.FORM) {
+    // A wrapper section (TextSection, …) is the other: its class is not
+    // exported, so it resolves to no class and its text is stored at its own
+    // path, the way the YAML codec writes it.
+    const isWrapperSection =
+      res.kind === SpecNodeKind.SECTION && res.targetClass == null;
+    if (!res.isValueLeaf && res.kind !== SpecNodeKind.FORM && !isWrapperSection) {
       errors.push(
         new SpecValidationError(
           path,

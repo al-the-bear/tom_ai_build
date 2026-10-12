@@ -2097,21 +2097,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccessConstraintPoliciesContentForm content() {
+      return new AccessConstraintPoliciesContentForm(doc, path + "/content");
     }
 
     // Access Constraint Details (text).
@@ -2184,21 +2174,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccessControlModelSelectionContentForm content() {
+      return new AccessControlModelSelectionContentForm(doc, path + "/content");
     }
 
     // Access Control Model Details (text).
@@ -2518,21 +2498,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccountActivationPolicyContentForm content() {
+      return new AccountActivationPolicyContentForm(doc, path + "/content");
     }
 
     // Activation Flow Description (text).
@@ -2549,21 +2519,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccountDeactivationPolicyContentForm content() {
+      return new AccountDeactivationPolicyContentForm(doc, path + "/content");
     }
 
     // Deactivation Process Description (text).
@@ -2579,21 +2539,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccountDeletionPolicyContentForm content() {
+      return new AccountDeletionPolicyContentForm(doc, path + "/content");
     }
 
     // Deletion Process Description (text).
@@ -2610,21 +2560,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccountLockoutPolicyContentForm content() {
+      return new AccountLockoutPolicyContentForm(doc, path + "/content");
     }
 
     // Account Lockout Details (text).
@@ -2640,21 +2580,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AccountModificationPolicyContentForm content() {
+      return new AccountModificationPolicyContentForm(doc, path + "/content");
     }
 
     // Modification Rules Description (text).
@@ -3377,21 +3307,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiAbuseProtectionContentForm content() {
+      return new ApiAbuseProtectionContentForm(doc, path + "/content");
     }
 
     // Abuse Protection Details (text).
@@ -3407,21 +3327,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiAuthenticationPolicyContentForm content() {
+      return new ApiAuthenticationPolicyContentForm(doc, path + "/content");
     }
 
     // API Authentication Details (text).
@@ -3438,21 +3348,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiAuthorizationPolicyContentForm content() {
+      return new ApiAuthorizationPolicyContentForm(doc, path + "/content");
     }
 
     // API Authorization Details (text).
@@ -3504,21 +3404,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiCorsSecurityContentForm content() {
+      return new ApiCorsSecurityContentForm(doc, path + "/content");
     }
 
     // CORS Security Details (text).
@@ -3534,21 +3424,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiKeyManagementPolicyContentForm content() {
+      return new ApiKeyManagementPolicyContentForm(doc, path + "/content");
     }
 
     // API Key Management Details (text).
@@ -3566,21 +3446,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiRequestValidationPolicyContentForm content() {
+      return new ApiRequestValidationPolicyContentForm(doc, path + "/content");
     }
 
     // Request Validation Details (text).
@@ -3661,21 +3531,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ApiSecurityMonitoringContentForm content() {
+      return new ApiSecurityMonitoringContentForm(doc, path + "/content");
     }
 
     // API Security Monitoring Details (text).
@@ -4393,21 +4253,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public AuthenticationErrorHandlingContentForm content() {
+      return new AuthenticationErrorHandlingContentForm(doc, path + "/content");
     }
 
     // Error Handling Details (text).
@@ -5019,21 +4869,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public BackupEncryptionPolicyContentForm content() {
+      return new BackupEncryptionPolicyContentForm(doc, path + "/content");
     }
 
     // Backup Encryption Details (text).
@@ -5347,21 +5187,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public BiometricAuthenticationPolicyContentForm content() {
+      return new BiometricAuthenticationPolicyContentForm(doc, path + "/content");
     }
 
     // Biometric Implementation Details (text).
@@ -6597,21 +6427,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public CertificateAuthenticationPolicyContentForm content() {
+      return new CertificateAuthenticationPolicyContentForm(doc, path + "/content");
     }
 
     // Certificate Authentication Details (text).
@@ -6662,21 +6482,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public CertificateManagementPolicyContentForm content() {
+      return new CertificateManagementPolicyContentForm(doc, path + "/content");
     }
 
     // Certificate Management Details (text).
@@ -7348,19 +7158,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // Integration requirements content.
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ChannelIntegrationsContentForm content() {
+      return new ChannelIntegrationsContentForm(doc, path + "/content");
     }
   }
 
@@ -7995,21 +7795,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ColumnLevelSecurityPolicyContentForm content() {
+      return new ColumnLevelSecurityPolicyContentForm(doc, path + "/content");
     }
 
     // Column-Level Security Details (text).
@@ -9418,21 +9208,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ConcurrentSessionPolicyContentForm content() {
+      return new ConcurrentSessionPolicyContentForm(doc, path + "/content");
     }
 
     // Concurrent Session Details (text).
@@ -9608,21 +9388,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ContentScanningPolicyContentForm content() {
+      return new ContentScanningPolicyContentForm(doc, path + "/content");
     }
 
     // Content Scanning Details (text).
@@ -9888,21 +9658,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public CredentialCompromiseDetectionPolicyContentForm content() {
+      return new CredentialCompromiseDetectionPolicyContentForm(doc, path + "/content");
     }
 
     // Compromise Detection Details (text).
@@ -9918,21 +9678,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public CredentialRecoveryPolicyContentForm content() {
+      return new CredentialRecoveryPolicyContentForm(doc, path + "/content");
     }
 
     // Credential Recovery Details (text).
@@ -10071,21 +9821,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public CrossTenantAccessPolicyContentForm content() {
+      return new CrossTenantAccessPolicyContentForm(doc, path + "/content");
     }
 
     // Cross-Tenant Access Policy Details (text).
@@ -12722,21 +12462,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public DataAccessAuditPolicyContentForm content() {
+      return new DataAccessAuditPolicyContentForm(doc, path + "/content");
     }
 
     // Data Access Audit Details (text).
@@ -13757,21 +13487,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public DataMaskingPolicyContentForm content() {
+      return new DataMaskingPolicyContentForm(doc, path + "/content");
     }
 
     // Data Masking Details (text).
@@ -14610,21 +14330,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public DatabaseAccessPolicyContentForm content() {
+      return new DatabaseAccessPolicyContentForm(doc, path + "/content");
     }
 
     // Database Access Policy Details (text).
@@ -14675,21 +14385,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public DatabaseEncryptionPolicyContentForm content() {
+      return new DatabaseEncryptionPolicyContentForm(doc, path + "/content");
     }
 
     // Database Encryption Details (text).
@@ -17559,21 +17259,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public EncryptionAtRestPolicyContentForm content() {
+      return new EncryptionAtRestPolicyContentForm(doc, path + "/content");
     }
 
     // Encryption At Rest Policy Details (text).
@@ -20173,21 +19863,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public FileAccessControlPolicyContentForm content() {
+      return new FileAccessControlPolicyContentForm(doc, path + "/content");
     }
 
     // File Access Control Details (text).
@@ -20266,21 +19946,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public FileDownloadSecurityPolicyContentForm content() {
+      return new FileDownloadSecurityPolicyContentForm(doc, path + "/content");
     }
 
     // Download Security Details (text).
@@ -20297,21 +19967,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public FileStorageEncryptionPolicyContentForm content() {
+      return new FileStorageEncryptionPolicyContentForm(doc, path + "/content");
     }
 
     // File Storage Encryption Details (text).
@@ -20329,21 +19989,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public FileUploadValidationPolicyContentForm content() {
+      return new FileUploadValidationPolicyContentForm(doc, path + "/content");
     }
 
     // Upload Validation Details (text).
@@ -24902,21 +24552,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public LoginFlowConfigurationContentForm content() {
+      return new LoginFlowConfigurationContentForm(doc, path + "/content");
     }
 
     // Login Flow Details (text).
@@ -25735,21 +25375,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public MfaConfigurationContentForm content() {
+      return new MfaConfigurationContentForm(doc, path + "/content");
     }
 
     // MFA Implementation Details (text).
@@ -26979,21 +26609,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public MutualTlsPolicyContentForm content() {
+      return new MutualTlsPolicyContentForm(doc, path + "/content");
     }
 
     // Mutual TLS Policy Details (text).
@@ -29213,21 +28833,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PasswordLifecyclePolicyContentForm content() {
+      return new PasswordLifecyclePolicyContentForm(doc, path + "/content");
     }
 
     // Password Lifecycle Details (text).
@@ -29244,21 +28854,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PasswordRequirementsPolicyContentForm content() {
+      return new PasswordRequirementsPolicyContentForm(doc, path + "/content");
     }
 
     // Password Requirements Details (text).
@@ -29274,21 +28874,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PasswordStoragePolicyContentForm content() {
+      return new PasswordStoragePolicyContentForm(doc, path + "/content");
     }
 
     // Password Storage Details (text).
@@ -29446,21 +29036,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PermissionCompositionStrategyContentForm content() {
+      return new PermissionCompositionStrategyContentForm(doc, path + "/content");
     }
 
     // Permission Composition Details (text).
@@ -29476,21 +29056,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PermissionEvaluationBehaviorContentForm content() {
+      return new PermissionEvaluationBehaviorContentForm(doc, path + "/content");
     }
 
     // Permission Evaluation Details (text).
@@ -29506,21 +29076,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public PermissionGranularityPolicyContentForm content() {
+      return new PermissionGranularityPolicyContentForm(doc, path + "/content");
     }
 
     // Permission Granularity Details (text).
@@ -32723,21 +32283,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public RedirectHandlingPolicyContentForm content() {
+      return new RedirectHandlingPolicyContentForm(doc, path + "/content");
     }
 
     // Redirect Handling Details (text).
@@ -33145,21 +32695,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public RememberMePolicyContentForm content() {
+      return new RememberMePolicyContentForm(doc, path + "/content");
     }
 
     // Remember-Me Policy Details (text).
@@ -35404,21 +34944,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public RoleCertificationPolicyContentForm content() {
+      return new RoleCertificationPolicyContentForm(doc, path + "/content");
     }
 
     // Role Certification Details (text).
@@ -35552,21 +35082,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public RoleHierarchyPolicyContentForm content() {
+      return new RoleHierarchyPolicyContentForm(doc, path + "/content");
     }
 
     // Role Hierarchy Policy Details (text).
@@ -35772,21 +35292,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public RowLevelSecurityPolicyContentForm content() {
+      return new RowLevelSecurityPolicyContentForm(doc, path + "/content");
     }
 
     // Row-Level Security Details (text).
@@ -38109,21 +37619,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SelfServiceAccountManagementContentForm content() {
+      return new SelfServiceAccountManagementContentForm(doc, path + "/content");
     }
 
     // Self-Service Capabilities Description (text).
@@ -38587,21 +38087,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ServiceAccountCredentialPolicyContentForm content() {
+      return new ServiceAccountCredentialPolicyContentForm(doc, path + "/content");
     }
 
     // Service Account Credential Details (text).
@@ -38617,21 +38107,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public ServiceAccountLifecycleContentForm content() {
+      return new ServiceAccountLifecycleContentForm(doc, path + "/content");
     }
 
     // Service Account Management Description (text).
@@ -38761,21 +38241,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SessionCreationPolicyContentForm content() {
+      return new SessionCreationPolicyContentForm(doc, path + "/content");
     }
 
     // Session Creation Details (text).
@@ -38792,21 +38262,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SessionLifecycleMonitoringContentForm content() {
+      return new SessionLifecycleMonitoringContentForm(doc, path + "/content");
     }
 
     // Session Lifecycle Monitoring Details (text).
@@ -38928,21 +38388,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SessionRevocationPolicyContentForm content() {
+      return new SessionRevocationPolicyContentForm(doc, path + "/content");
     }
 
     // Session Revocation Details (text).
@@ -38959,21 +38409,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SessionSecurityPolicyContentForm content() {
+      return new SessionSecurityPolicyContentForm(doc, path + "/content");
     }
 
     // Session Security Details (text).
@@ -38991,21 +38431,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SessionTimeoutPolicyContentForm content() {
+      return new SessionTimeoutPolicyContentForm(doc, path + "/content");
     }
 
     // Session Timeout Details (text).
@@ -39549,21 +38979,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public SsoPolicyContentForm content() {
+      return new SsoPolicyContentForm(doc, path + "/content");
     }
 
     // SSO Implementation Details (text).
@@ -40634,21 +40054,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public StepUpAuthenticationPolicyContentForm content() {
+      return new StepUpAuthenticationPolicyContentForm(doc, path + "/content");
     }
 
     // Step-Up Authentication Details (text).
@@ -40667,21 +40077,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public StorageEncryptionPolicyContentForm content() {
+      return new StorageEncryptionPolicyContentForm(doc, path + "/content");
     }
 
     // Storage Encryption Details (text).
@@ -40698,21 +40098,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public StorageLifecyclePolicyContentForm content() {
+      return new StorageLifecyclePolicyContentForm(doc, path + "/content");
     }
 
     // Storage Lifecycle Details (text).
@@ -43662,21 +43052,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TenantBoundaryEnforcementPolicyContentForm content() {
+      return new TenantBoundaryEnforcementPolicyContentForm(doc, path + "/content");
     }
 
     // Tenant Boundary Enforcement Details (text).
@@ -43695,21 +43075,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TenantContextPolicyContentForm content() {
+      return new TenantContextPolicyContentForm(doc, path + "/content");
     }
 
     // Tenant Context Policy Details (text).
@@ -43743,21 +43113,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TenantDataIsolationPolicyContentForm content() {
+      return new TenantDataIsolationPolicyContentForm(doc, path + "/content");
     }
 
     // Tenant Data Isolation Details (text).
@@ -43835,21 +43195,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TenantOnboardingPolicyContentForm content() {
+      return new TenantOnboardingPolicyContentForm(doc, path + "/content");
     }
 
     // Tenant Onboarding Policy Details (text).
@@ -44168,21 +43518,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TlsProtocolPolicyContentForm content() {
+      return new TlsProtocolPolicyContentForm(doc, path + "/content");
     }
 
     // TLS Protocol Policy Details (text).
@@ -44232,21 +43572,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TokenManagementPolicyContentForm content() {
+      return new TokenManagementPolicyContentForm(doc, path + "/content");
     }
 
     // Token Management Details (text).
@@ -45315,21 +44645,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public TransportSecurityPolicyContentForm content() {
+      return new TransportSecurityPolicyContentForm(doc, path + "/content");
     }
 
     // Transport Security Policy Details (text).
@@ -46005,21 +45325,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public UserAccountStatesDefinitionContentForm content() {
+      return new UserAccountStatesDefinitionContentForm(doc, path + "/content");
     }
 
     // State Transition Diagram (mermaid).
@@ -46438,19 +45748,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // Summary content for interaction model.
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public UserInteractionModelSummaryContentForm content() {
+      return new UserInteractionModelSummaryContentForm(doc, path + "/content");
     }
   }
 
@@ -46632,21 +45932,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public UserLifecycleTransitionsContentForm content() {
+      return new UserLifecycleTransitionsContentForm(doc, path + "/content");
     }
 
     // Transition Rules Description (text).
@@ -46738,19 +46028,9 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // Preferences content.
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public UserNotificationPreferencesContentForm content() {
+      return new UserNotificationPreferencesContentForm(doc, path + "/content");
     }
   }
 
@@ -46890,21 +46170,11 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
     // The section's body content. For a `@Form`-annotated member this is the
     // form's **preamble** — the free text before the first field line (SOM
     // §11.4 rule 7); the field values themselves live in [form].
-    public String content() {
-      String v = doc.content(path + "/content");
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path + "/content", value);
+    public UserRegistrationProcessContentForm content() {
+      return new UserRegistrationProcessContentForm(doc, path + "/content");
     }
 
     // Registration Flow Description (text).
@@ -48800,6 +48070,267 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class AccessConstraintPoliciesContentForm extends SomNode {
+    public AccessConstraintPoliciesContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean separationOfDuties() {
+      String v = doc.formField(path, "separationOfDuties");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void separationOfDuties(Boolean value) {
+      doc.setFormField(path, "separationOfDuties", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String sodEnforcement() {
+      String v = doc.formField(path, "sodEnforcement");
+      return v == null ? "" : v;
+    }
+
+    public void sodEnforcement(String value) {
+      doc.setFormField(path, "sodEnforcement", value);
+    }
+
+    public Boolean temporalConstraints() {
+      String v = doc.formField(path, "temporalConstraints");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void temporalConstraints(Boolean value) {
+      doc.setFormField(path, "temporalConstraints", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean locationConstraints() {
+      String v = doc.formField(path, "locationConstraints");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void locationConstraints(Boolean value) {
+      doc.setFormField(path, "locationConstraints", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean deviceConstraints() {
+      String v = doc.formField(path, "deviceConstraints");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void deviceConstraints(Boolean value) {
+      doc.setFormField(path, "deviceConstraints", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean riskAdaptiveAccess() {
+      String v = doc.formField(path, "riskAdaptiveAccess");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void riskAdaptiveAccess(Boolean value) {
+      doc.setFormField(path, "riskAdaptiveAccess", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String contextualAttributes() {
+      String v = doc.formField(path, "contextualAttributes");
+      return v == null ? "" : v;
+    }
+
+    public void contextualAttributes(String value) {
+      doc.setFormField(path, "contextualAttributes", value);
+    }
+
+    public Boolean maxSessionPermissions() {
+      String v = doc.formField(path, "maxSessionPermissions");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void maxSessionPermissions(Boolean value) {
+      doc.setFormField(path, "maxSessionPermissions", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String leastPrivilegeEnforcement() {
+      String v = doc.formField(path, "leastPrivilegeEnforcement");
+      return v == null ? "" : v;
+    }
+
+    public void leastPrivilegeEnforcement(String value) {
+      doc.setFormField(path, "leastPrivilegeEnforcement", value);
+    }
+
+    public Boolean privilegeCreepDetection() {
+      String v = doc.formField(path, "privilegeCreepDetection");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void privilegeCreepDetection(Boolean value) {
+      doc.setFormField(path, "privilegeCreepDetection", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccessControlModelSelectionContentForm extends SomNode {
+    public AccessControlModelSelectionContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String primaryModel() {
+      String v = doc.formField(path, "primaryModel");
+      return v == null ? "" : v;
+    }
+
+    public void primaryModel(String value) {
+      doc.setFormField(path, "primaryModel", value);
+    }
+
+    public String modelRationale() {
+      String v = doc.formField(path, "modelRationale");
+      return v == null ? "" : v;
+    }
+
+    public void modelRationale(String value) {
+      doc.setFormField(path, "modelRationale", value);
+    }
+
+    public Boolean rbacEnabled() {
+      String v = doc.formField(path, "rbacEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void rbacEnabled(Boolean value) {
+      doc.setFormField(path, "rbacEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean abacEnabled() {
+      String v = doc.formField(path, "abacEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void abacEnabled(Boolean value) {
+      doc.setFormField(path, "abacEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean rebacEnabled() {
+      String v = doc.formField(path, "rebacEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void rebacEnabled(Boolean value) {
+      doc.setFormField(path, "rebacEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String policyLanguage() {
+      String v = doc.formField(path, "policyLanguage");
+      return v == null ? "" : v;
+    }
+
+    public void policyLanguage(String value) {
+      doc.setFormField(path, "policyLanguage", value);
+    }
+
+    public String policyDecisionPoint() {
+      String v = doc.formField(path, "policyDecisionPoint");
+      return v == null ? "" : v;
+    }
+
+    public void policyDecisionPoint(String value) {
+      doc.setFormField(path, "policyDecisionPoint", value);
+    }
+
+    public String policyEnforcementPoint() {
+      String v = doc.formField(path, "policyEnforcementPoint");
+      return v == null ? "" : v;
+    }
+
+    public void policyEnforcementPoint(String value) {
+      doc.setFormField(path, "policyEnforcementPoint", value);
+    }
+
+    public String policyAdministrationPoint() {
+      String v = doc.formField(path, "policyAdministrationPoint");
+      return v == null ? "" : v;
+    }
+
+    public void policyAdministrationPoint(String value) {
+      doc.setFormField(path, "policyAdministrationPoint", value);
+    }
+
+    public String policyInformationPoint() {
+      String v = doc.formField(path, "policyInformationPoint");
+      return v == null ? "" : v;
+    }
+
+    public void policyInformationPoint(String value) {
+      doc.setFormField(path, "policyInformationPoint", value);
+    }
+
+    public String delegationModel() {
+      String v = doc.formField(path, "delegationModel");
+      return v == null ? "" : v;
+    }
+
+    public void delegationModel(String value) {
+      doc.setFormField(path, "delegationModel", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class AccessLevelEntryContentForm extends SomNode {
     public AccessLevelEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -49819,6 +49350,729 @@ public final class TomSomV0 {
 
     public void userTestingWithDisabilities(Boolean value) {
       doc.setFormField(path, "userTestingWithDisabilities", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccountActivationPolicyContentForm extends SomNode {
+    public AccountActivationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String activationMethod() {
+      String v = doc.formField(path, "activationMethod");
+      return v == null ? "" : v;
+    }
+
+    public void activationMethod(String value) {
+      doc.setFormField(path, "activationMethod", value);
+    }
+
+    public String activationLinkExpiry() {
+      String v = doc.formField(path, "activationLinkExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void activationLinkExpiry(String value) {
+      doc.setFormField(path, "activationLinkExpiry", value);
+    }
+
+    public Integer maxActivationAttempts() {
+      String v = doc.formField(path, "maxActivationAttempts");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxActivationAttempts(Integer value) {
+      doc.setFormField(path, "maxActivationAttempts", value == null ? "" : String.valueOf(value));
+    }
+
+    public String activationPrerequisites() {
+      String v = doc.formField(path, "activationPrerequisites");
+      return v == null ? "" : v;
+    }
+
+    public void activationPrerequisites(String value) {
+      doc.setFormField(path, "activationPrerequisites", value);
+    }
+
+    public String provisioningOnActivation() {
+      String v = doc.formField(path, "provisioningOnActivation");
+      return v == null ? "" : v;
+    }
+
+    public void provisioningOnActivation(String value) {
+      doc.setFormField(path, "provisioningOnActivation", value);
+    }
+
+    public String activationNotification() {
+      String v = doc.formField(path, "activationNotification");
+      return v == null ? "" : v;
+    }
+
+    public void activationNotification(String value) {
+      doc.setFormField(path, "activationNotification", value);
+    }
+
+    public String activationTimeout() {
+      String v = doc.formField(path, "activationTimeout");
+      return v == null ? "" : v;
+    }
+
+    public void activationTimeout(String value) {
+      doc.setFormField(path, "activationTimeout", value);
+    }
+
+    public String activationTimeoutAction() {
+      String v = doc.formField(path, "activationTimeoutAction");
+      return v == null ? "" : v;
+    }
+
+    public void activationTimeoutAction(String value) {
+      doc.setFormField(path, "activationTimeoutAction", value);
+    }
+
+    public String postActivationRedirect() {
+      String v = doc.formField(path, "postActivationRedirect");
+      return v == null ? "" : v;
+    }
+
+    public void postActivationRedirect(String value) {
+      doc.setFormField(path, "postActivationRedirect", value);
+    }
+
+    public String onboardingRequired() {
+      String v = doc.formField(path, "onboardingRequired");
+      return v == null ? "" : v;
+    }
+
+    public void onboardingRequired(String value) {
+      doc.setFormField(path, "onboardingRequired", value);
+    }
+
+    public String onboardingSteps() {
+      String v = doc.formField(path, "onboardingSteps");
+      return v == null ? "" : v;
+    }
+
+    public void onboardingSteps(String value) {
+      doc.setFormField(path, "onboardingSteps", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccountDeactivationPolicyContentForm extends SomNode {
+    public AccountDeactivationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String deactivationTriggers() {
+      String v = doc.formField(path, "deactivationTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void deactivationTriggers(String value) {
+      doc.setFormField(path, "deactivationTriggers", value);
+    }
+
+    public String inactivityThreshold() {
+      String v = doc.formField(path, "inactivityThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void inactivityThreshold(String value) {
+      doc.setFormField(path, "inactivityThreshold", value);
+    }
+
+    public String inactivityWarningPeriod() {
+      String v = doc.formField(path, "inactivityWarningPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void inactivityWarningPeriod(String value) {
+      doc.setFormField(path, "inactivityWarningPeriod", value);
+    }
+
+    public String deactivationApproval() {
+      String v = doc.formField(path, "deactivationApproval");
+      return v == null ? "" : v;
+    }
+
+    public void deactivationApproval(String value) {
+      doc.setFormField(path, "deactivationApproval", value);
+    }
+
+    public String immediateDeactivationCases() {
+      String v = doc.formField(path, "immediateDeactivationCases");
+      return v == null ? "" : v;
+    }
+
+    public void immediateDeactivationCases(String value) {
+      doc.setFormField(path, "immediateDeactivationCases", value);
+    }
+
+    public String deactivatedAccountAccess() {
+      String v = doc.formField(path, "deactivatedAccountAccess");
+      return v == null ? "" : v;
+    }
+
+    public void deactivatedAccountAccess(String value) {
+      doc.setFormField(path, "deactivatedAccountAccess", value);
+    }
+
+    public String deactivationEffects() {
+      String v = doc.formField(path, "deactivationEffects");
+      return v == null ? "" : v;
+    }
+
+    public void deactivationEffects(String value) {
+      doc.setFormField(path, "deactivationEffects", value);
+    }
+
+    public String reactivationPolicy() {
+      String v = doc.formField(path, "reactivationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void reactivationPolicy(String value) {
+      doc.setFormField(path, "reactivationPolicy", value);
+    }
+
+    public String reactivationApproval() {
+      String v = doc.formField(path, "reactivationApproval");
+      return v == null ? "" : v;
+    }
+
+    public void reactivationApproval(String value) {
+      doc.setFormField(path, "reactivationApproval", value);
+    }
+
+    public String reactivationReverification() {
+      String v = doc.formField(path, "reactivationReverification");
+      return v == null ? "" : v;
+    }
+
+    public void reactivationReverification(String value) {
+      doc.setFormField(path, "reactivationReverification", value);
+    }
+
+    public String maxDeactivationPeriod() {
+      String v = doc.formField(path, "maxDeactivationPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void maxDeactivationPeriod(String value) {
+      doc.setFormField(path, "maxDeactivationPeriod", value);
+    }
+
+    public String deactivationNotification() {
+      String v = doc.formField(path, "deactivationNotification");
+      return v == null ? "" : v;
+    }
+
+    public void deactivationNotification(String value) {
+      doc.setFormField(path, "deactivationNotification", value);
+    }
+
+    public String gracePeriodAfterDeactivation() {
+      String v = doc.formField(path, "gracePeriodAfterDeactivation");
+      return v == null ? "" : v;
+    }
+
+    public void gracePeriodAfterDeactivation(String value) {
+      doc.setFormField(path, "gracePeriodAfterDeactivation", value);
+    }
+
+    public String dataPreservationDuration() {
+      String v = doc.formField(path, "dataPreservationDuration");
+      return v == null ? "" : v;
+    }
+
+    public void dataPreservationDuration(String value) {
+      doc.setFormField(path, "dataPreservationDuration", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccountDeletionPolicyContentForm extends SomNode {
+    public AccountDeletionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String deletionTriggers() {
+      String v = doc.formField(path, "deletionTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void deletionTriggers(String value) {
+      doc.setFormField(path, "deletionTriggers", value);
+    }
+
+    public String deletionApproval() {
+      String v = doc.formField(path, "deletionApproval");
+      return v == null ? "" : v;
+    }
+
+    public void deletionApproval(String value) {
+      doc.setFormField(path, "deletionApproval", value);
+    }
+
+    public String softDeleteEnabled() {
+      String v = doc.formField(path, "softDeleteEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void softDeleteEnabled(String value) {
+      doc.setFormField(path, "softDeleteEnabled", value);
+    }
+
+    public String softDeleteRetention() {
+      String v = doc.formField(path, "softDeleteRetention");
+      return v == null ? "" : v;
+    }
+
+    public void softDeleteRetention(String value) {
+      doc.setFormField(path, "softDeleteRetention", value);
+    }
+
+    public String permanentDeletionProcess() {
+      String v = doc.formField(path, "permanentDeletionProcess");
+      return v == null ? "" : v;
+    }
+
+    public void permanentDeletionProcess(String value) {
+      doc.setFormField(path, "permanentDeletionProcess", value);
+    }
+
+    public String dataAnonymizationStrategy() {
+      String v = doc.formField(path, "dataAnonymizationStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void dataAnonymizationStrategy(String value) {
+      doc.setFormField(path, "dataAnonymizationStrategy", value);
+    }
+
+    public String retainedDataAfterDeletion() {
+      String v = doc.formField(path, "retainedDataAfterDeletion");
+      return v == null ? "" : v;
+    }
+
+    public void retainedDataAfterDeletion(String value) {
+      doc.setFormField(path, "retainedDataAfterDeletion", value);
+    }
+
+    public String retentionPeriodAfterDeletion() {
+      String v = doc.formField(path, "retentionPeriodAfterDeletion");
+      return v == null ? "" : v;
+    }
+
+    public void retentionPeriodAfterDeletion(String value) {
+      doc.setFormField(path, "retentionPeriodAfterDeletion", value);
+    }
+
+    public String dataExportBeforeDeletion() {
+      String v = doc.formField(path, "dataExportBeforeDeletion");
+      return v == null ? "" : v;
+    }
+
+    public void dataExportBeforeDeletion(String value) {
+      doc.setFormField(path, "dataExportBeforeDeletion", value);
+    }
+
+    public String exportFormats() {
+      String v = doc.formField(path, "exportFormats");
+      return v == null ? "" : v;
+    }
+
+    public void exportFormats(String value) {
+      doc.setFormField(path, "exportFormats", value);
+    }
+
+    public String cascadeDeletionBehavior() {
+      String v = doc.formField(path, "cascadeDeletionBehavior");
+      return v == null ? "" : v;
+    }
+
+    public void cascadeDeletionBehavior(String value) {
+      doc.setFormField(path, "cascadeDeletionBehavior", value);
+    }
+
+    public String deletionConfirmation() {
+      String v = doc.formField(path, "deletionConfirmation");
+      return v == null ? "" : v;
+    }
+
+    public void deletionConfirmation(String value) {
+      doc.setFormField(path, "deletionConfirmation", value);
+    }
+
+    public String deletionNotification() {
+      String v = doc.formField(path, "deletionNotification");
+      return v == null ? "" : v;
+    }
+
+    public void deletionNotification(String value) {
+      doc.setFormField(path, "deletionNotification", value);
+    }
+
+    public String rightToErasureCompliance() {
+      String v = doc.formField(path, "rightToErasureCompliance");
+      return v == null ? "" : v;
+    }
+
+    public void rightToErasureCompliance(String value) {
+      doc.setFormField(path, "rightToErasureCompliance", value);
+    }
+
+    public String erasureResponseTime() {
+      String v = doc.formField(path, "erasureResponseTime");
+      return v == null ? "" : v;
+    }
+
+    public void erasureResponseTime(String value) {
+      doc.setFormField(path, "erasureResponseTime", value);
+    }
+
+    public String thirdPartyDataDeletion() {
+      String v = doc.formField(path, "thirdPartyDataDeletion");
+      return v == null ? "" : v;
+    }
+
+    public void thirdPartyDataDeletion(String value) {
+      doc.setFormField(path, "thirdPartyDataDeletion", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccountLockoutPolicyContentForm extends SomNode {
+    public AccountLockoutPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String lockoutThreshold() {
+      String v = doc.formField(path, "lockoutThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutThreshold(String value) {
+      doc.setFormField(path, "lockoutThreshold", value);
+    }
+
+    public String lockoutDuration() {
+      String v = doc.formField(path, "lockoutDuration");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutDuration(String value) {
+      doc.setFormField(path, "lockoutDuration", value);
+    }
+
+    public String lockoutEscalation() {
+      String v = doc.formField(path, "lockoutEscalation");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutEscalation(String value) {
+      doc.setFormField(path, "lockoutEscalation", value);
+    }
+
+    public String rateLimitingMethod() {
+      String v = doc.formField(path, "rateLimitingMethod");
+      return v == null ? "" : v;
+    }
+
+    public void rateLimitingMethod(String value) {
+      doc.setFormField(path, "rateLimitingMethod", value);
+    }
+
+    public String delayProgression() {
+      String v = doc.formField(path, "delayProgression");
+      return v == null ? "" : v;
+    }
+
+    public void delayProgression(String value) {
+      doc.setFormField(path, "delayProgression", value);
+    }
+
+    public String captchaTriggerThreshold() {
+      String v = doc.formField(path, "captchaTriggerThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void captchaTriggerThreshold(String value) {
+      doc.setFormField(path, "captchaTriggerThreshold", value);
+    }
+
+    public String ipBasedRateLimiting() {
+      String v = doc.formField(path, "ipBasedRateLimiting");
+      return v == null ? "" : v;
+    }
+
+    public void ipBasedRateLimiting(String value) {
+      doc.setFormField(path, "ipBasedRateLimiting", value);
+    }
+
+    public String distributedAttackProtection() {
+      String v = doc.formField(path, "distributedAttackProtection");
+      return v == null ? "" : v;
+    }
+
+    public void distributedAttackProtection(String value) {
+      doc.setFormField(path, "distributedAttackProtection", value);
+    }
+
+    public String unlockMechanism() {
+      String v = doc.formField(path, "unlockMechanism");
+      return v == null ? "" : v;
+    }
+
+    public void unlockMechanism(String value) {
+      doc.setFormField(path, "unlockMechanism", value);
+    }
+
+    public String failedAttemptResetOnSuccess() {
+      String v = doc.formField(path, "failedAttemptResetOnSuccess");
+      return v == null ? "" : v;
+    }
+
+    public void failedAttemptResetOnSuccess(String value) {
+      doc.setFormField(path, "failedAttemptResetOnSuccess", value);
+    }
+
+    public String lockoutNotification() {
+      String v = doc.formField(path, "lockoutNotification");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutNotification(String value) {
+      doc.setFormField(path, "lockoutNotification", value);
+    }
+
+    public String permanentLockoutEnabled() {
+      String v = doc.formField(path, "permanentLockoutEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void permanentLockoutEnabled(String value) {
+      doc.setFormField(path, "permanentLockoutEnabled", value);
+    }
+
+    public String permanentLockoutThreshold() {
+      String v = doc.formField(path, "permanentLockoutThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void permanentLockoutThreshold(String value) {
+      doc.setFormField(path, "permanentLockoutThreshold", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccountModificationPolicyContentForm extends SomNode {
+    public AccountModificationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String selfModifiableFields() {
+      String v = doc.formField(path, "selfModifiableFields");
+      return v == null ? "" : v;
+    }
+
+    public void selfModifiableFields(String value) {
+      doc.setFormField(path, "selfModifiableFields", value);
+    }
+
+    public String adminModifiableFields() {
+      String v = doc.formField(path, "adminModifiableFields");
+      return v == null ? "" : v;
+    }
+
+    public void adminModifiableFields(String value) {
+      doc.setFormField(path, "adminModifiableFields", value);
+    }
+
+    public String systemModifiableFields() {
+      String v = doc.formField(path, "systemModifiableFields");
+      return v == null ? "" : v;
+    }
+
+    public void systemModifiableFields(String value) {
+      doc.setFormField(path, "systemModifiableFields", value);
+    }
+
+    public String emailChangePolicy() {
+      String v = doc.formField(path, "emailChangePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void emailChangePolicy(String value) {
+      doc.setFormField(path, "emailChangePolicy", value);
+    }
+
+    public String phoneChangePolicy() {
+      String v = doc.formField(path, "phoneChangePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void phoneChangePolicy(String value) {
+      doc.setFormField(path, "phoneChangePolicy", value);
+    }
+
+    public String nameChangePolicy() {
+      String v = doc.formField(path, "nameChangePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void nameChangePolicy(String value) {
+      doc.setFormField(path, "nameChangePolicy", value);
+    }
+
+    public String roleChangeApproval() {
+      String v = doc.formField(path, "roleChangeApproval");
+      return v == null ? "" : v;
+    }
+
+    public void roleChangeApproval(String value) {
+      doc.setFormField(path, "roleChangeApproval", value);
+    }
+
+    public String bulkModificationSupport() {
+      String v = doc.formField(path, "bulkModificationSupport");
+      return v == null ? "" : v;
+    }
+
+    public void bulkModificationSupport(String value) {
+      doc.setFormField(path, "bulkModificationSupport", value);
+    }
+
+    public String changeAuditLogging() {
+      String v = doc.formField(path, "changeAuditLogging");
+      return v == null ? "" : v;
+    }
+
+    public void changeAuditLogging(String value) {
+      doc.setFormField(path, "changeAuditLogging", value);
+    }
+
+    public String changeNotification() {
+      String v = doc.formField(path, "changeNotification");
+      return v == null ? "" : v;
+    }
+
+    public void changeNotification(String value) {
+      doc.setFormField(path, "changeNotification", value);
+    }
+
+    public String historicalVersioning() {
+      String v = doc.formField(path, "historicalVersioning");
+      return v == null ? "" : v;
+    }
+
+    public void historicalVersioning(String value) {
+      doc.setFormField(path, "historicalVersioning", value);
+    }
+
+    public String reverificationTriggers() {
+      String v = doc.formField(path, "reverificationTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void reverificationTriggers(String value) {
+      doc.setFormField(path, "reverificationTriggers", value);
+    }
+
+    public String modificationRateLimiting() {
+      String v = doc.formField(path, "modificationRateLimiting");
+      return v == null ? "" : v;
+    }
+
+    public void modificationRateLimiting(String value) {
+      doc.setFormField(path, "modificationRateLimiting", value);
+    }
+
+    public String modificationCooldownPeriod() {
+      String v = doc.formField(path, "modificationCooldownPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void modificationCooldownPeriod(String value) {
+      doc.setFormField(path, "modificationCooldownPeriod", value);
     }
   }
 
@@ -52982,6 +53236,512 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class ApiAbuseProtectionContentForm extends SomNode {
+    public ApiAbuseProtectionContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean rateLimitingEnabled() {
+      String v = doc.formField(path, "rateLimitingEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void rateLimitingEnabled(Boolean value) {
+      doc.setFormField(path, "rateLimitingEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String rateLimitScope() {
+      String v = doc.formField(path, "rateLimitScope");
+      return v == null ? "" : v;
+    }
+
+    public void rateLimitScope(String value) {
+      doc.setFormField(path, "rateLimitScope", value);
+    }
+
+    public String authenticationEndpointLimits() {
+      String v = doc.formField(path, "authenticationEndpointLimits");
+      return v == null ? "" : v;
+    }
+
+    public void authenticationEndpointLimits(String value) {
+      doc.setFormField(path, "authenticationEndpointLimits", value);
+    }
+
+    public String sensitiveEndpointLimits() {
+      String v = doc.formField(path, "sensitiveEndpointLimits");
+      return v == null ? "" : v;
+    }
+
+    public void sensitiveEndpointLimits(String value) {
+      doc.setFormField(path, "sensitiveEndpointLimits", value);
+    }
+
+    public String bruteForceProtection() {
+      String v = doc.formField(path, "bruteForceProtection");
+      return v == null ? "" : v;
+    }
+
+    public void bruteForceProtection(String value) {
+      doc.setFormField(path, "bruteForceProtection", value);
+    }
+
+    public String botDetectionPolicy() {
+      String v = doc.formField(path, "botDetectionPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void botDetectionPolicy(String value) {
+      doc.setFormField(path, "botDetectionPolicy", value);
+    }
+
+    public Boolean ipReputationFiltering() {
+      String v = doc.formField(path, "ipReputationFiltering");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void ipReputationFiltering(Boolean value) {
+      doc.setFormField(path, "ipReputationFiltering", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean automaticBlocking() {
+      String v = doc.formField(path, "automaticBlocking");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void automaticBlocking(Boolean value) {
+      doc.setFormField(path, "automaticBlocking", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String blockDuration() {
+      String v = doc.formField(path, "blockDuration");
+      return v == null ? "" : v;
+    }
+
+    public void blockDuration(String value) {
+      doc.setFormField(path, "blockDuration", value);
+    }
+
+    public String geographicRestrictions() {
+      String v = doc.formField(path, "geographicRestrictions");
+      return v == null ? "" : v;
+    }
+
+    public void geographicRestrictions(String value) {
+      doc.setFormField(path, "geographicRestrictions", value);
+    }
+
+    public String requestThrottlingOnFailure() {
+      String v = doc.formField(path, "requestThrottlingOnFailure");
+      return v == null ? "" : v;
+    }
+
+    public void requestThrottlingOnFailure(String value) {
+      doc.setFormField(path, "requestThrottlingOnFailure", value);
+    }
+
+    public String businessFlowProtection() {
+      String v = doc.formField(path, "businessFlowProtection");
+      return v == null ? "" : v;
+    }
+
+    public void businessFlowProtection(String value) {
+      doc.setFormField(path, "businessFlowProtection", value);
+    }
+
+    public String webhookFloodProtection() {
+      String v = doc.formField(path, "webhookFloodProtection");
+      return v == null ? "" : v;
+    }
+
+    public void webhookFloodProtection(String value) {
+      doc.setFormField(path, "webhookFloodProtection", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiAuthenticationPolicyContentForm extends SomNode {
+    public ApiAuthenticationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String authenticationMethod() {
+      String v = doc.formField(path, "authenticationMethod");
+      return v == null ? "" : v;
+    }
+
+    public void authenticationMethod(String value) {
+      doc.setFormField(path, "authenticationMethod", value);
+    }
+
+    public Boolean multipleMethodsSupported() {
+      String v = doc.formField(path, "multipleMethodsSupported");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void multipleMethodsSupported(Boolean value) {
+      doc.setFormField(path, "multipleMethodsSupported", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String apiKeyTransmission() {
+      String v = doc.formField(path, "apiKeyTransmission");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyTransmission(String value) {
+      doc.setFormField(path, "apiKeyTransmission", value);
+    }
+
+    public String apiKeyRotationPolicy() {
+      String v = doc.formField(path, "apiKeyRotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyRotationPolicy(String value) {
+      doc.setFormField(path, "apiKeyRotationPolicy", value);
+    }
+
+    public String apiKeyScoping() {
+      String v = doc.formField(path, "apiKeyScoping");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyScoping(String value) {
+      doc.setFormField(path, "apiKeyScoping", value);
+    }
+
+    public String jwtValidationPolicy() {
+      String v = doc.formField(path, "jwtValidationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void jwtValidationPolicy(String value) {
+      doc.setFormField(path, "jwtValidationPolicy", value);
+    }
+
+    public String jwtSigningAlgorithm() {
+      String v = doc.formField(path, "jwtSigningAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void jwtSigningAlgorithm(String value) {
+      doc.setFormField(path, "jwtSigningAlgorithm", value);
+    }
+
+    public String accessTokenLifetime() {
+      String v = doc.formField(path, "accessTokenLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void accessTokenLifetime(String value) {
+      doc.setFormField(path, "accessTokenLifetime", value);
+    }
+
+    public String refreshTokenPolicy() {
+      String v = doc.formField(path, "refreshTokenPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void refreshTokenPolicy(String value) {
+      doc.setFormField(path, "refreshTokenPolicy", value);
+    }
+
+    public Boolean clientCredentialsFlow() {
+      String v = doc.formField(path, "clientCredentialsFlow");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void clientCredentialsFlow(Boolean value) {
+      doc.setFormField(path, "clientCredentialsFlow", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean authorizationCodeFlow() {
+      String v = doc.formField(path, "authorizationCodeFlow");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void authorizationCodeFlow(Boolean value) {
+      doc.setFormField(path, "authorizationCodeFlow", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean tokenRevocationSupport() {
+      String v = doc.formField(path, "tokenRevocationSupport");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void tokenRevocationSupport(Boolean value) {
+      doc.setFormField(path, "tokenRevocationSupport", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean mutualTlsRequired() {
+      String v = doc.formField(path, "mutualTlsRequired");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void mutualTlsRequired(Boolean value) {
+      doc.setFormField(path, "mutualTlsRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String serviceAccountPolicy() {
+      String v = doc.formField(path, "serviceAccountPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountPolicy(String value) {
+      doc.setFormField(path, "serviceAccountPolicy", value);
+    }
+
+    public String webhookSignatureVerification() {
+      String v = doc.formField(path, "webhookSignatureVerification");
+      return v == null ? "" : v;
+    }
+
+    public void webhookSignatureVerification(String value) {
+      doc.setFormField(path, "webhookSignatureVerification", value);
+    }
+
+    public String thirdPartyApiConsumption() {
+      String v = doc.formField(path, "thirdPartyApiConsumption");
+      return v == null ? "" : v;
+    }
+
+    public void thirdPartyApiConsumption(String value) {
+      doc.setFormField(path, "thirdPartyApiConsumption", value);
+    }
+
+    public String credentialTransmission() {
+      String v = doc.formField(path, "credentialTransmission");
+      return v == null ? "" : v;
+    }
+
+    public void credentialTransmission(String value) {
+      doc.setFormField(path, "credentialTransmission", value);
+    }
+
+    public String bearerTokenFormat() {
+      String v = doc.formField(path, "bearerTokenFormat");
+      return v == null ? "" : v;
+    }
+
+    public void bearerTokenFormat(String value) {
+      doc.setFormField(path, "bearerTokenFormat", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiAuthorizationPolicyContentForm extends SomNode {
+    public ApiAuthorizationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String objectLevelAuthorization() {
+      String v = doc.formField(path, "objectLevelAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void objectLevelAuthorization(String value) {
+      doc.setFormField(path, "objectLevelAuthorization", value);
+    }
+
+    public String functionLevelAuthorization() {
+      String v = doc.formField(path, "functionLevelAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void functionLevelAuthorization(String value) {
+      doc.setFormField(path, "functionLevelAuthorization", value);
+    }
+
+    public String propertyLevelAuthorization() {
+      String v = doc.formField(path, "propertyLevelAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void propertyLevelAuthorization(String value) {
+      doc.setFormField(path, "propertyLevelAuthorization", value);
+    }
+
+    public String permissionGranularity() {
+      String v = doc.formField(path, "permissionGranularity");
+      return v == null ? "" : v;
+    }
+
+    public void permissionGranularity(String value) {
+      doc.setFormField(path, "permissionGranularity", value);
+    }
+
+    public String scopeDefinitions() {
+      String v = doc.formField(path, "scopeDefinitions");
+      return v == null ? "" : v;
+    }
+
+    public void scopeDefinitions(String value) {
+      doc.setFormField(path, "scopeDefinitions", value);
+    }
+
+    public String scopeEnforcementLevel() {
+      String v = doc.formField(path, "scopeEnforcementLevel");
+      return v == null ? "" : v;
+    }
+
+    public void scopeEnforcementLevel(String value) {
+      doc.setFormField(path, "scopeEnforcementLevel", value);
+    }
+
+    public String delegatedAccessPolicy() {
+      String v = doc.formField(path, "delegatedAccessPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void delegatedAccessPolicy(String value) {
+      doc.setFormField(path, "delegatedAccessPolicy", value);
+    }
+
+    public String bulkOperationAuthorization() {
+      String v = doc.formField(path, "bulkOperationAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void bulkOperationAuthorization(String value) {
+      doc.setFormField(path, "bulkOperationAuthorization", value);
+    }
+
+    public String contextualAuthorization() {
+      String v = doc.formField(path, "contextualAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void contextualAuthorization(String value) {
+      doc.setFormField(path, "contextualAuthorization", value);
+    }
+
+    public String massAssignmentPrevention() {
+      String v = doc.formField(path, "massAssignmentPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void massAssignmentPrevention(String value) {
+      doc.setFormField(path, "massAssignmentPrevention", value);
+    }
+
+    public String horizontalPrivilegeEscalation() {
+      String v = doc.formField(path, "horizontalPrivilegeEscalation");
+      return v == null ? "" : v;
+    }
+
+    public void horizontalPrivilegeEscalation(String value) {
+      doc.setFormField(path, "horizontalPrivilegeEscalation", value);
+    }
+
+    public String verticalPrivilegeEscalation() {
+      String v = doc.formField(path, "verticalPrivilegeEscalation");
+      return v == null ? "" : v;
+    }
+
+    public void verticalPrivilegeEscalation(String value) {
+      doc.setFormField(path, "verticalPrivilegeEscalation", value);
+    }
+
+    public String sensitiveBusinessFlowProtection() {
+      String v = doc.formField(path, "sensitiveBusinessFlowProtection");
+      return v == null ? "" : v;
+    }
+
+    public void sensitiveBusinessFlowProtection(String value) {
+      doc.setFormField(path, "sensitiveBusinessFlowProtection", value);
+    }
+
+    public String workflowStateValidation() {
+      String v = doc.formField(path, "workflowStateValidation");
+      return v == null ? "" : v;
+    }
+
+    public void workflowStateValidation(String value) {
+      doc.setFormField(path, "workflowStateValidation", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class ApiCompatibilityEntryContentForm extends SomNode {
     public ApiCompatibilityEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -53222,6 +53982,628 @@ public final class TomSomV0 {
 
     public void authentication(String value) {
       doc.setFormField(path, "authentication", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiCorsSecurityContentForm extends SomNode {
+    public ApiCorsSecurityContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean corsEnabled() {
+      String v = doc.formField(path, "corsEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void corsEnabled(Boolean value) {
+      doc.setFormField(path, "corsEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String allowedOrigins() {
+      String v = doc.formField(path, "allowedOrigins");
+      return v == null ? "" : v;
+    }
+
+    public void allowedOrigins(String value) {
+      doc.setFormField(path, "allowedOrigins", value);
+    }
+
+    public String allowedMethods() {
+      String v = doc.formField(path, "allowedMethods");
+      return v == null ? "" : v;
+    }
+
+    public void allowedMethods(String value) {
+      doc.setFormField(path, "allowedMethods", value);
+    }
+
+    public String allowedHeaders() {
+      String v = doc.formField(path, "allowedHeaders");
+      return v == null ? "" : v;
+    }
+
+    public void allowedHeaders(String value) {
+      doc.setFormField(path, "allowedHeaders", value);
+    }
+
+    public String exposedHeaders() {
+      String v = doc.formField(path, "exposedHeaders");
+      return v == null ? "" : v;
+    }
+
+    public void exposedHeaders(String value) {
+      doc.setFormField(path, "exposedHeaders", value);
+    }
+
+    public Boolean credentialsAllowed() {
+      String v = doc.formField(path, "credentialsAllowed");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void credentialsAllowed(Boolean value) {
+      doc.setFormField(path, "credentialsAllowed", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer preflightCacheMaxAge() {
+      String v = doc.formField(path, "preflightCacheMaxAge");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void preflightCacheMaxAge(Integer value) {
+      doc.setFormField(path, "preflightCacheMaxAge", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean wildcardRestriction() {
+      String v = doc.formField(path, "wildcardRestriction");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void wildcardRestriction(Boolean value) {
+      doc.setFormField(path, "wildcardRestriction", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String contentSecurityPolicy() {
+      String v = doc.formField(path, "contentSecurityPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void contentSecurityPolicy(String value) {
+      doc.setFormField(path, "contentSecurityPolicy", value);
+    }
+
+    public String strictTransportSecurity() {
+      String v = doc.formField(path, "strictTransportSecurity");
+      return v == null ? "" : v;
+    }
+
+    public void strictTransportSecurity(String value) {
+      doc.setFormField(path, "strictTransportSecurity", value);
+    }
+
+    public String securityHeadersRequired() {
+      String v = doc.formField(path, "securityHeadersRequired");
+      return v == null ? "" : v;
+    }
+
+    public void securityHeadersRequired(String value) {
+      doc.setFormField(path, "securityHeadersRequired", value);
+    }
+
+    public String privateNetworkAccess() {
+      String v = doc.formField(path, "privateNetworkAccess");
+      return v == null ? "" : v;
+    }
+
+    public void privateNetworkAccess(String value) {
+      doc.setFormField(path, "privateNetworkAccess", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiKeyManagementPolicyContentForm extends SomNode {
+    public ApiKeyManagementPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String apiKeyAuthEnabled() {
+      String v = doc.formField(path, "apiKeyAuthEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyAuthEnabled(String value) {
+      doc.setFormField(path, "apiKeyAuthEnabled", value);
+    }
+
+    public String apiKeyTypes() {
+      String v = doc.formField(path, "apiKeyTypes");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyTypes(String value) {
+      doc.setFormField(path, "apiKeyTypes", value);
+    }
+
+    public String keyGenerationMethod() {
+      String v = doc.formField(path, "keyGenerationMethod");
+      return v == null ? "" : v;
+    }
+
+    public void keyGenerationMethod(String value) {
+      doc.setFormField(path, "keyGenerationMethod", value);
+    }
+
+    public String keyLength() {
+      String v = doc.formField(path, "keyLength");
+      return v == null ? "" : v;
+    }
+
+    public void keyLength(String value) {
+      doc.setFormField(path, "keyLength", value);
+    }
+
+    public String keyRotationPolicy() {
+      String v = doc.formField(path, "keyRotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void keyRotationPolicy(String value) {
+      doc.setFormField(path, "keyRotationPolicy", value);
+    }
+
+    public String keyExpirationPolicy() {
+      String v = doc.formField(path, "keyExpirationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void keyExpirationPolicy(String value) {
+      doc.setFormField(path, "keyExpirationPolicy", value);
+    }
+
+    public String keyScopeRestrictions() {
+      String v = doc.formField(path, "keyScopeRestrictions");
+      return v == null ? "" : v;
+    }
+
+    public void keyScopeRestrictions(String value) {
+      doc.setFormField(path, "keyScopeRestrictions", value);
+    }
+
+    public String ipAllowlisting() {
+      String v = doc.formField(path, "ipAllowlisting");
+      return v == null ? "" : v;
+    }
+
+    public void ipAllowlisting(String value) {
+      doc.setFormField(path, "ipAllowlisting", value);
+    }
+
+    public String rateLimitingPerKey() {
+      String v = doc.formField(path, "rateLimitingPerKey");
+      return v == null ? "" : v;
+    }
+
+    public void rateLimitingPerKey(String value) {
+      doc.setFormField(path, "rateLimitingPerKey", value);
+    }
+
+    public String keyRevocationProcess() {
+      String v = doc.formField(path, "keyRevocationProcess");
+      return v == null ? "" : v;
+    }
+
+    public void keyRevocationProcess(String value) {
+      doc.setFormField(path, "keyRevocationProcess", value);
+    }
+
+    public String keyStorageGuidance() {
+      String v = doc.formField(path, "keyStorageGuidance");
+      return v == null ? "" : v;
+    }
+
+    public void keyStorageGuidance(String value) {
+      doc.setFormField(path, "keyStorageGuidance", value);
+    }
+
+    public String keyAuditLogging() {
+      String v = doc.formField(path, "keyAuditLogging");
+      return v == null ? "" : v;
+    }
+
+    public void keyAuditLogging(String value) {
+      doc.setFormField(path, "keyAuditLogging", value);
+    }
+
+    public String serviceTokenSupport() {
+      String v = doc.formField(path, "serviceTokenSupport");
+      return v == null ? "" : v;
+    }
+
+    public void serviceTokenSupport(String value) {
+      doc.setFormField(path, "serviceTokenSupport", value);
+    }
+
+    public String tokenLifetime() {
+      String v = doc.formField(path, "tokenLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void tokenLifetime(String value) {
+      doc.setFormField(path, "tokenLifetime", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiRequestValidationPolicyContentForm extends SomNode {
+    public ApiRequestValidationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String inputValidationStrategy() {
+      String v = doc.formField(path, "inputValidationStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void inputValidationStrategy(String value) {
+      doc.setFormField(path, "inputValidationStrategy", value);
+    }
+
+    public Boolean schemaValidationEnforced() {
+      String v = doc.formField(path, "schemaValidationEnforced");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void schemaValidationEnforced(Boolean value) {
+      doc.setFormField(path, "schemaValidationEnforced", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String schemaValidationTool() {
+      String v = doc.formField(path, "schemaValidationTool");
+      return v == null ? "" : v;
+    }
+
+    public void schemaValidationTool(String value) {
+      doc.setFormField(path, "schemaValidationTool", value);
+    }
+
+    public Boolean contentTypeValidation() {
+      String v = doc.formField(path, "contentTypeValidation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void contentTypeValidation(Boolean value) {
+      doc.setFormField(path, "contentTypeValidation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String acceptedContentTypes() {
+      String v = doc.formField(path, "acceptedContentTypes");
+      return v == null ? "" : v;
+    }
+
+    public void acceptedContentTypes(String value) {
+      doc.setFormField(path, "acceptedContentTypes", value);
+    }
+
+    public Boolean rejectUnexpectedContentType() {
+      String v = doc.formField(path, "rejectUnexpectedContentType");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void rejectUnexpectedContentType(Boolean value) {
+      doc.setFormField(path, "rejectUnexpectedContentType", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String requestSizeLimit() {
+      String v = doc.formField(path, "requestSizeLimit");
+      return v == null ? "" : v;
+    }
+
+    public void requestSizeLimit(String value) {
+      doc.setFormField(path, "requestSizeLimit", value);
+    }
+
+    public Integer arrayLengthLimit() {
+      String v = doc.formField(path, "arrayLengthLimit");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void arrayLengthLimit(Integer value) {
+      doc.setFormField(path, "arrayLengthLimit", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer nestedObjectDepthLimit() {
+      String v = doc.formField(path, "nestedObjectDepthLimit");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void nestedObjectDepthLimit(Integer value) {
+      doc.setFormField(path, "nestedObjectDepthLimit", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer stringFieldMaxLength() {
+      String v = doc.formField(path, "stringFieldMaxLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void stringFieldMaxLength(Integer value) {
+      doc.setFormField(path, "stringFieldMaxLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean parameterTypeEnforcement() {
+      String v = doc.formField(path, "parameterTypeEnforcement");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void parameterTypeEnforcement(Boolean value) {
+      doc.setFormField(path, "parameterTypeEnforcement", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean numericRangeValidation() {
+      String v = doc.formField(path, "numericRangeValidation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void numericRangeValidation(Boolean value) {
+      doc.setFormField(path, "numericRangeValidation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String dateFormatValidation() {
+      String v = doc.formField(path, "dateFormatValidation");
+      return v == null ? "" : v;
+    }
+
+    public void dateFormatValidation(String value) {
+      doc.setFormField(path, "dateFormatValidation", value);
+    }
+
+    public String encodingValidation() {
+      String v = doc.formField(path, "encodingValidation");
+      return v == null ? "" : v;
+    }
+
+    public void encodingValidation(String value) {
+      doc.setFormField(path, "encodingValidation", value);
+    }
+
+    public String fileUploadValidation() {
+      String v = doc.formField(path, "fileUploadValidation");
+      return v == null ? "" : v;
+    }
+
+    public void fileUploadValidation(String value) {
+      doc.setFormField(path, "fileUploadValidation", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ApiSecurityMonitoringContentForm extends SomNode {
+    public ApiSecurityMonitoringContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean apiAccessLogging() {
+      String v = doc.formField(path, "apiAccessLogging");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void apiAccessLogging(Boolean value) {
+      doc.setFormField(path, "apiAccessLogging", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String loggedAttributes() {
+      String v = doc.formField(path, "loggedAttributes");
+      return v == null ? "" : v;
+    }
+
+    public void loggedAttributes(String value) {
+      doc.setFormField(path, "loggedAttributes", value);
+    }
+
+    public Boolean sensitiveEndpointMonitoring() {
+      String v = doc.formField(path, "sensitiveEndpointMonitoring");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void sensitiveEndpointMonitoring(Boolean value) {
+      doc.setFormField(path, "sensitiveEndpointMonitoring", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean sensitiveDataRedaction() {
+      String v = doc.formField(path, "sensitiveDataRedaction");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void sensitiveDataRedaction(Boolean value) {
+      doc.setFormField(path, "sensitiveDataRedaction", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean anomalyDetection() {
+      String v = doc.formField(path, "anomalyDetection");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void anomalyDetection(Boolean value) {
+      doc.setFormField(path, "anomalyDetection", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String errorRateMonitoring() {
+      String v = doc.formField(path, "errorRateMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void errorRateMonitoring(String value) {
+      doc.setFormField(path, "errorRateMonitoring", value);
+    }
+
+    public Boolean authenticationFailureTracking() {
+      String v = doc.formField(path, "authenticationFailureTracking");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void authenticationFailureTracking(Boolean value) {
+      doc.setFormField(path, "authenticationFailureTracking", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean dataExfiltrationDetection() {
+      String v = doc.formField(path, "dataExfiltrationDetection");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void dataExfiltrationDetection(Boolean value) {
+      doc.setFormField(path, "dataExfiltrationDetection", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean apiVersionInventory() {
+      String v = doc.formField(path, "apiVersionInventory");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void apiVersionInventory(Boolean value) {
+      doc.setFormField(path, "apiVersionInventory", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean deprecatedEndpointMonitoring() {
+      String v = doc.formField(path, "deprecatedEndpointMonitoring");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void deprecatedEndpointMonitoring(Boolean value) {
+      doc.setFormField(path, "deprecatedEndpointMonitoring", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean realTimeAlerts() {
+      String v = doc.formField(path, "realTimeAlerts");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void realTimeAlerts(Boolean value) {
+      doc.setFormField(path, "realTimeAlerts", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String securityResponseAutomation() {
+      String v = doc.formField(path, "securityResponseAutomation");
+      return v == null ? "" : v;
+    }
+
+    public void securityResponseAutomation(String value) {
+      doc.setFormField(path, "securityResponseAutomation", value);
+    }
+
+    public String complianceReporting() {
+      String v = doc.formField(path, "complianceReporting");
+      return v == null ? "" : v;
+    }
+
+    public void complianceReporting(String value) {
+      doc.setFormField(path, "complianceReporting", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -55772,6 +57154,127 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class AuthenticationErrorHandlingContentForm extends SomNode {
+    public AuthenticationErrorHandlingContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String invalidCredentialResponse() {
+      String v = doc.formField(path, "invalidCredentialResponse");
+      return v == null ? "" : v;
+    }
+
+    public void invalidCredentialResponse(String value) {
+      doc.setFormField(path, "invalidCredentialResponse", value);
+    }
+
+    public String accountLockoutThreshold() {
+      String v = doc.formField(path, "accountLockoutThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void accountLockoutThreshold(String value) {
+      doc.setFormField(path, "accountLockoutThreshold", value);
+    }
+
+    public String lockoutDuration() {
+      String v = doc.formField(path, "lockoutDuration");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutDuration(String value) {
+      doc.setFormField(path, "lockoutDuration", value);
+    }
+
+    public String lockoutEscalation() {
+      String v = doc.formField(path, "lockoutEscalation");
+      return v == null ? "" : v;
+    }
+
+    public void lockoutEscalation(String value) {
+      doc.setFormField(path, "lockoutEscalation", value);
+    }
+
+    public String bruteForceProtection() {
+      String v = doc.formField(path, "bruteForceProtection");
+      return v == null ? "" : v;
+    }
+
+    public void bruteForceProtection(String value) {
+      doc.setFormField(path, "bruteForceProtection", value);
+    }
+
+    public String credentialStuffingProtection() {
+      String v = doc.formField(path, "credentialStuffingProtection");
+      return v == null ? "" : v;
+    }
+
+    public void credentialStuffingProtection(String value) {
+      doc.setFormField(path, "credentialStuffingProtection", value);
+    }
+
+    public String userNotificationOnFailure() {
+      String v = doc.formField(path, "userNotificationOnFailure");
+      return v == null ? "" : v;
+    }
+
+    public void userNotificationOnFailure(String value) {
+      doc.setFormField(path, "userNotificationOnFailure", value);
+    }
+
+    public String adminAlertThreshold() {
+      String v = doc.formField(path, "adminAlertThreshold");
+      return v == null ? "" : v;
+    }
+
+    public void adminAlertThreshold(String value) {
+      doc.setFormField(path, "adminAlertThreshold", value);
+    }
+
+    public String failedLoginAuditLogging() {
+      String v = doc.formField(path, "failedLoginAuditLogging");
+      return v == null ? "" : v;
+    }
+
+    public void failedLoginAuditLogging(String value) {
+      doc.setFormField(path, "failedLoginAuditLogging", value);
+    }
+
+    public String suspiciousActivityResponse() {
+      String v = doc.formField(path, "suspiciousActivityResponse");
+      return v == null ? "" : v;
+    }
+
+    public void suspiciousActivityResponse(String value) {
+      doc.setFormField(path, "suspiciousActivityResponse", value);
+    }
+
+    public String gracefulDegradation() {
+      String v = doc.formField(path, "gracefulDegradation");
+      return v == null ? "" : v;
+    }
+
+    public void gracefulDegradation(String value) {
+      doc.setFormField(path, "gracefulDegradation", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class AuthenticationEventPolicyContentForm extends SomNode {
     public AuthenticationEventPolicyContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -57386,6 +58889,95 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class BackupEncryptionPolicyContentForm extends SomNode {
+    public BackupEncryptionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean backupEncryptionRequired() {
+      String v = doc.formField(path, "backupEncryptionRequired");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void backupEncryptionRequired(Boolean value) {
+      doc.setFormField(path, "backupEncryptionRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String backupEncryptionMethod() {
+      String v = doc.formField(path, "backupEncryptionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void backupEncryptionMethod(String value) {
+      doc.setFormField(path, "backupEncryptionMethod", value);
+    }
+
+    public Boolean separateBackupKeys() {
+      String v = doc.formField(path, "separateBackupKeys");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void separateBackupKeys(Boolean value) {
+      doc.setFormField(path, "separateBackupKeys", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String backupKeyRotation() {
+      String v = doc.formField(path, "backupKeyRotation");
+      return v == null ? "" : v;
+    }
+
+    public void backupKeyRotation(String value) {
+      doc.setFormField(path, "backupKeyRotation", value);
+    }
+
+    public Boolean encryptedBackupVerification() {
+      String v = doc.formField(path, "encryptedBackupVerification");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void encryptedBackupVerification(Boolean value) {
+      doc.setFormField(path, "encryptedBackupVerification", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean offSiteBackupEncryption() {
+      String v = doc.formField(path, "offSiteBackupEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void offSiteBackupEncryption(Boolean value) {
+      doc.setFormField(path, "offSiteBackupEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class BackupInfrastructureContentForm extends SomNode {
     public BackupInfrastructureContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -58949,6 +60541,136 @@ public final class TomSomV0 {
 
     public void calculatedProperties(String value) {
       doc.setFormField(path, "calculatedProperties", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class BiometricAuthenticationPolicyContentForm extends SomNode {
+    public BiometricAuthenticationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String biometricAuthEnabled() {
+      String v = doc.formField(path, "biometricAuthEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void biometricAuthEnabled(String value) {
+      doc.setFormField(path, "biometricAuthEnabled", value);
+    }
+
+    public String biometricModalities() {
+      String v = doc.formField(path, "biometricModalities");
+      return v == null ? "" : v;
+    }
+
+    public void biometricModalities(String value) {
+      doc.setFormField(path, "biometricModalities", value);
+    }
+
+    public String biometricUsageContext() {
+      String v = doc.formField(path, "biometricUsageContext");
+      return v == null ? "" : v;
+    }
+
+    public void biometricUsageContext(String value) {
+      doc.setFormField(path, "biometricUsageContext", value);
+    }
+
+    public String biometricAsActivationFactor() {
+      String v = doc.formField(path, "biometricAsActivationFactor");
+      return v == null ? "" : v;
+    }
+
+    public void biometricAsActivationFactor(String value) {
+      doc.setFormField(path, "biometricAsActivationFactor", value);
+    }
+
+    public String localVsCentralComparison() {
+      String v = doc.formField(path, "localVsCentralComparison");
+      return v == null ? "" : v;
+    }
+
+    public void localVsCentralComparison(String value) {
+      doc.setFormField(path, "localVsCentralComparison", value);
+    }
+
+    public String falseMatchRateTarget() {
+      String v = doc.formField(path, "falseMatchRateTarget");
+      return v == null ? "" : v;
+    }
+
+    public void falseMatchRateTarget(String value) {
+      doc.setFormField(path, "falseMatchRateTarget", value);
+    }
+
+    public String presentationAttackDetection() {
+      String v = doc.formField(path, "presentationAttackDetection");
+      return v == null ? "" : v;
+    }
+
+    public void presentationAttackDetection(String value) {
+      doc.setFormField(path, "presentationAttackDetection", value);
+    }
+
+    public String maxConsecutiveFailures() {
+      String v = doc.formField(path, "maxConsecutiveFailures");
+      return v == null ? "" : v;
+    }
+
+    public void maxConsecutiveFailures(String value) {
+      doc.setFormField(path, "maxConsecutiveFailures", value);
+    }
+
+    public String fallbackMethod() {
+      String v = doc.formField(path, "fallbackMethod");
+      return v == null ? "" : v;
+    }
+
+    public void fallbackMethod(String value) {
+      doc.setFormField(path, "fallbackMethod", value);
+    }
+
+    public String biometricDataStorage() {
+      String v = doc.formField(path, "biometricDataStorage");
+      return v == null ? "" : v;
+    }
+
+    public void biometricDataStorage(String value) {
+      doc.setFormField(path, "biometricDataStorage", value);
+    }
+
+    public String privacyConsiderations() {
+      String v = doc.formField(path, "privacyConsiderations");
+      return v == null ? "" : v;
+    }
+
+    public void privacyConsiderations(String value) {
+      doc.setFormField(path, "privacyConsiderations", value);
+    }
+
+    public String accessibilityAlternative() {
+      String v = doc.formField(path, "accessibilityAlternative");
+      return v == null ? "" : v;
+    }
+
+    public void accessibilityAlternative(String value) {
+      doc.setFormField(path, "accessibilityAlternative", value);
     }
   }
 
@@ -62836,6 +64558,136 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class CertificateAuthenticationPolicyContentForm extends SomNode {
+    public CertificateAuthenticationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String certificateAuthEnabled() {
+      String v = doc.formField(path, "certificateAuthEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void certificateAuthEnabled(String value) {
+      doc.setFormField(path, "certificateAuthEnabled", value);
+    }
+
+    public String certificateTypes() {
+      String v = doc.formField(path, "certificateTypes");
+      return v == null ? "" : v;
+    }
+
+    public void certificateTypes(String value) {
+      doc.setFormField(path, "certificateTypes", value);
+    }
+
+    public String certificateIssuance() {
+      String v = doc.formField(path, "certificateIssuance");
+      return v == null ? "" : v;
+    }
+
+    public void certificateIssuance(String value) {
+      doc.setFormField(path, "certificateIssuance", value);
+    }
+
+    public String certificateAuthority() {
+      String v = doc.formField(path, "certificateAuthority");
+      return v == null ? "" : v;
+    }
+
+    public void certificateAuthority(String value) {
+      doc.setFormField(path, "certificateAuthority", value);
+    }
+
+    public String keyStorageRequirement() {
+      String v = doc.formField(path, "keyStorageRequirement");
+      return v == null ? "" : v;
+    }
+
+    public void keyStorageRequirement(String value) {
+      doc.setFormField(path, "keyStorageRequirement", value);
+    }
+
+    public String mutualTlsRequired() {
+      String v = doc.formField(path, "mutualTlsRequired");
+      return v == null ? "" : v;
+    }
+
+    public void mutualTlsRequired(String value) {
+      doc.setFormField(path, "mutualTlsRequired", value);
+    }
+
+    public String certificateValidation() {
+      String v = doc.formField(path, "certificateValidation");
+      return v == null ? "" : v;
+    }
+
+    public void certificateValidation(String value) {
+      doc.setFormField(path, "certificateValidation", value);
+    }
+
+    public String certificateLifetime() {
+      String v = doc.formField(path, "certificateLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void certificateLifetime(String value) {
+      doc.setFormField(path, "certificateLifetime", value);
+    }
+
+    public String renewalProcess() {
+      String v = doc.formField(path, "renewalProcess");
+      return v == null ? "" : v;
+    }
+
+    public void renewalProcess(String value) {
+      doc.setFormField(path, "renewalProcess", value);
+    }
+
+    public String revocationProcess() {
+      String v = doc.formField(path, "revocationProcess");
+      return v == null ? "" : v;
+    }
+
+    public void revocationProcess(String value) {
+      doc.setFormField(path, "revocationProcess", value);
+    }
+
+    public String minimumKeyStrength() {
+      String v = doc.formField(path, "minimumKeyStrength");
+      return v == null ? "" : v;
+    }
+
+    public void minimumKeyStrength(String value) {
+      doc.setFormField(path, "minimumKeyStrength", value);
+    }
+
+    public String fipsComplianceRequired() {
+      String v = doc.formField(path, "fipsComplianceRequired");
+      return v == null ? "" : v;
+    }
+
+    public void fipsComplianceRequired(String value) {
+      doc.setFormField(path, "fipsComplianceRequired", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class CertificateManagementContentForm extends SomNode {
     public CertificateManagementContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -63029,6 +64881,132 @@ public final class TomSomV0 {
 
     public void expiryAlertThreshold(String value) {
       doc.setFormField(path, "expiryAlertThreshold", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class CertificateManagementPolicyContentForm extends SomNode {
+    public CertificateManagementPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String certificateAuthority() {
+      String v = doc.formField(path, "certificateAuthority");
+      return v == null ? "" : v;
+    }
+
+    public void certificateAuthority(String value) {
+      doc.setFormField(path, "certificateAuthority", value);
+    }
+
+    public String validationType() {
+      String v = doc.formField(path, "validationType");
+      return v == null ? "" : v;
+    }
+
+    public void validationType(String value) {
+      doc.setFormField(path, "validationType", value);
+    }
+
+    public Integer minimumKeyLength() {
+      String v = doc.formField(path, "minimumKeyLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void minimumKeyLength(Integer value) {
+      doc.setFormField(path, "minimumKeyLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public String keyType() {
+      String v = doc.formField(path, "keyType");
+      return v == null ? "" : v;
+    }
+
+    public void keyType(String value) {
+      doc.setFormField(path, "keyType", value);
+    }
+
+    public String hashingAlgorithm() {
+      String v = doc.formField(path, "hashingAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void hashingAlgorithm(String value) {
+      doc.setFormField(path, "hashingAlgorithm", value);
+    }
+
+    public String wildcardCertificatePolicy() {
+      String v = doc.formField(path, "wildcardCertificatePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void wildcardCertificatePolicy(String value) {
+      doc.setFormField(path, "wildcardCertificatePolicy", value);
+    }
+
+    public Integer certificateLifetimeDays() {
+      String v = doc.formField(path, "certificateLifetimeDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void certificateLifetimeDays(Integer value) {
+      doc.setFormField(path, "certificateLifetimeDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean automatedRenewal() {
+      String v = doc.formField(path, "automatedRenewal");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void automatedRenewal(Boolean value) {
+      doc.setFormField(path, "automatedRenewal", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean certificateTransparency() {
+      String v = doc.formField(path, "certificateTransparency");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void certificateTransparency(Boolean value) {
+      doc.setFormField(path, "certificateTransparency", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean caaRecords() {
+      String v = doc.formField(path, "caaRecords");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void caaRecords(Boolean value) {
+      doc.setFormField(path, "caaRecords", value == null ? "" : (value ? "true" : "false"));
     }
 
     public String notes() {
@@ -65781,6 +67759,91 @@ public final class TomSomV0 {
 
     public void collaborationModelChanges(String value) {
       doc.setFormField(path, "collaborationModelChanges", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ChannelIntegrationsContentForm extends SomNode {
+    public ChannelIntegrationsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String pushNotificationService() {
+      String v = doc.formField(path, "pushNotificationService");
+      return v == null ? "" : v;
+    }
+
+    public void pushNotificationService(String value) {
+      doc.setFormField(path, "pushNotificationService", value);
+    }
+
+    public String analyticsService() {
+      String v = doc.formField(path, "analyticsService");
+      return v == null ? "" : v;
+    }
+
+    public void analyticsService(String value) {
+      doc.setFormField(path, "analyticsService", value);
+    }
+
+    public String crashReporting() {
+      String v = doc.formField(path, "crashReporting");
+      return v == null ? "" : v;
+    }
+
+    public void crashReporting(String value) {
+      doc.setFormField(path, "crashReporting", value);
+    }
+
+    public String deepLinking() {
+      String v = doc.formField(path, "deepLinking");
+      return v == null ? "" : v;
+    }
+
+    public void deepLinking(String value) {
+      doc.setFormField(path, "deepLinking", value);
+    }
+
+    public String socialIntegration() {
+      String v = doc.formField(path, "socialIntegration");
+      return v == null ? "" : v;
+    }
+
+    public void socialIntegration(String value) {
+      doc.setFormField(path, "socialIntegration", value);
+    }
+
+    public String paymentIntegration() {
+      String v = doc.formField(path, "paymentIntegration");
+      return v == null ? "" : v;
+    }
+
+    public void paymentIntegration(String value) {
+      doc.setFormField(path, "paymentIntegration", value);
+    }
+
+    public String biometricIntegration() {
+      String v = doc.formField(path, "biometricIntegration");
+      return v == null ? "" : v;
+    }
+
+    public void biometricIntegration(String value) {
+      doc.setFormField(path, "biometricIntegration", value);
     }
   }
 
@@ -69013,6 +71076,109 @@ public final class TomSomV0 {
 
     public void usageGuidelines(String value) {
       doc.setFormField(path, "usageGuidelines", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ColumnLevelSecurityPolicyContentForm extends SomNode {
+    public ColumnLevelSecurityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String columnLevelSecurityEnabled() {
+      String v = doc.formField(path, "columnLevelSecurityEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void columnLevelSecurityEnabled(String value) {
+      doc.setFormField(path, "columnLevelSecurityEnabled", value);
+    }
+
+    public String columnAccessImplementation() {
+      String v = doc.formField(path, "columnAccessImplementation");
+      return v == null ? "" : v;
+    }
+
+    public void columnAccessImplementation(String value) {
+      doc.setFormField(path, "columnAccessImplementation", value);
+    }
+
+    public String sensitiveColumnClassification() {
+      String v = doc.formField(path, "sensitiveColumnClassification");
+      return v == null ? "" : v;
+    }
+
+    public void sensitiveColumnClassification(String value) {
+      doc.setFormField(path, "sensitiveColumnClassification", value);
+    }
+
+    public String piiColumnAccess() {
+      String v = doc.formField(path, "piiColumnAccess");
+      return v == null ? "" : v;
+    }
+
+    public void piiColumnAccess(String value) {
+      doc.setFormField(path, "piiColumnAccess", value);
+    }
+
+    public String financialDataColumnAccess() {
+      String v = doc.formField(path, "financialDataColumnAccess");
+      return v == null ? "" : v;
+    }
+
+    public void financialDataColumnAccess(String value) {
+      doc.setFormField(path, "financialDataColumnAccess", value);
+    }
+
+    public String healthDataColumnAccess() {
+      String v = doc.formField(path, "healthDataColumnAccess");
+      return v == null ? "" : v;
+    }
+
+    public void healthDataColumnAccess(String value) {
+      doc.setFormField(path, "healthDataColumnAccess", value);
+    }
+
+    public String dynamicFieldVisibility() {
+      String v = doc.formField(path, "dynamicFieldVisibility");
+      return v == null ? "" : v;
+    }
+
+    public void dynamicFieldVisibility(String value) {
+      doc.setFormField(path, "dynamicFieldVisibility", value);
+    }
+
+    public String columnAccessAudit() {
+      String v = doc.formField(path, "columnAccessAudit");
+      return v == null ? "" : v;
+    }
+
+    public void columnAccessAudit(String value) {
+      doc.setFormField(path, "columnAccessAudit", value);
+    }
+
+    public String columnEncryptionPolicy() {
+      String v = doc.formField(path, "columnEncryptionPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void columnEncryptionPolicy(String value) {
+      doc.setFormField(path, "columnEncryptionPolicy", value);
     }
   }
 
@@ -75217,6 +77383,127 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class ConcurrentSessionPolicyContentForm extends SomNode {
+    public ConcurrentSessionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String concurrentSessionsAllowed() {
+      String v = doc.formField(path, "concurrentSessionsAllowed");
+      return v == null ? "" : v;
+    }
+
+    public void concurrentSessionsAllowed(String value) {
+      doc.setFormField(path, "concurrentSessionsAllowed", value);
+    }
+
+    public String maxConcurrentSessions() {
+      String v = doc.formField(path, "maxConcurrentSessions");
+      return v == null ? "" : v;
+    }
+
+    public void maxConcurrentSessions(String value) {
+      doc.setFormField(path, "maxConcurrentSessions", value);
+    }
+
+    public String concurrentSessionScope() {
+      String v = doc.formField(path, "concurrentSessionScope");
+      return v == null ? "" : v;
+    }
+
+    public void concurrentSessionScope(String value) {
+      doc.setFormField(path, "concurrentSessionScope", value);
+    }
+
+    public String conflictResolution() {
+      String v = doc.formField(path, "conflictResolution");
+      return v == null ? "" : v;
+    }
+
+    public void conflictResolution(String value) {
+      doc.setFormField(path, "conflictResolution", value);
+    }
+
+    public String sessionListVisible() {
+      String v = doc.formField(path, "sessionListVisible");
+      return v == null ? "" : v;
+    }
+
+    public void sessionListVisible(String value) {
+      doc.setFormField(path, "sessionListVisible", value);
+    }
+
+    public String remoteTerminationEnabled() {
+      String v = doc.formField(path, "remoteTerminationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void remoteTerminationEnabled(String value) {
+      doc.setFormField(path, "remoteTerminationEnabled", value);
+    }
+
+    public String sessionDeviceInfo() {
+      String v = doc.formField(path, "sessionDeviceInfo");
+      return v == null ? "" : v;
+    }
+
+    public void sessionDeviceInfo(String value) {
+      doc.setFormField(path, "sessionDeviceInfo", value);
+    }
+
+    public String concurrentLoginNotification() {
+      String v = doc.formField(path, "concurrentLoginNotification");
+      return v == null ? "" : v;
+    }
+
+    public void concurrentLoginNotification(String value) {
+      doc.setFormField(path, "concurrentLoginNotification", value);
+    }
+
+    public String suspiciousConcurrentLoginAction() {
+      String v = doc.formField(path, "suspiciousConcurrentLoginAction");
+      return v == null ? "" : v;
+    }
+
+    public void suspiciousConcurrentLoginAction(String value) {
+      doc.setFormField(path, "suspiciousConcurrentLoginAction", value);
+    }
+
+    public String privilegedAccountSessionLimit() {
+      String v = doc.formField(path, "privilegedAccountSessionLimit");
+      return v == null ? "" : v;
+    }
+
+    public void privilegedAccountSessionLimit(String value) {
+      doc.setFormField(path, "privilegedAccountSessionLimit", value);
+    }
+
+    public String crossDeviceSessionHandling() {
+      String v = doc.formField(path, "crossDeviceSessionHandling");
+      return v == null ? "" : v;
+    }
+
+    public void crossDeviceSessionHandling(String value) {
+      doc.setFormField(path, "crossDeviceSessionHandling", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class ConfidentialInfoCategoryEntryContentForm extends SomNode {
     public ConfidentialInfoCategoryEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -76196,6 +78483,169 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ContentScanningPolicyContentForm extends SomNode {
+    public ContentScanningPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean antivirusScanningEnabled() {
+      String v = doc.formField(path, "antivirusScanningEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void antivirusScanningEnabled(Boolean value) {
+      doc.setFormField(path, "antivirusScanningEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String scanTiming() {
+      String v = doc.formField(path, "scanTiming");
+      return v == null ? "" : v;
+    }
+
+    public void scanTiming(String value) {
+      doc.setFormField(path, "scanTiming", value);
+    }
+
+    public String scanEngine() {
+      String v = doc.formField(path, "scanEngine");
+      return v == null ? "" : v;
+    }
+
+    public void scanEngine(String value) {
+      doc.setFormField(path, "scanEngine", value);
+    }
+
+    public String quarantinePolicy() {
+      String v = doc.formField(path, "quarantinePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void quarantinePolicy(String value) {
+      doc.setFormField(path, "quarantinePolicy", value);
+    }
+
+    public Integer quarantineRetentionDays() {
+      String v = doc.formField(path, "quarantineRetentionDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void quarantineRetentionDays(Integer value) {
+      doc.setFormField(path, "quarantineRetentionDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public String signatureUpdateFrequency() {
+      String v = doc.formField(path, "signatureUpdateFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void signatureUpdateFrequency(String value) {
+      doc.setFormField(path, "signatureUpdateFrequency", value);
+    }
+
+    public Boolean cdrEnabled() {
+      String v = doc.formField(path, "cdrEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void cdrEnabled(Boolean value) {
+      doc.setFormField(path, "cdrEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String cdrApplicableTypes() {
+      String v = doc.formField(path, "cdrApplicableTypes");
+      return v == null ? "" : v;
+    }
+
+    public void cdrApplicableTypes(String value) {
+      doc.setFormField(path, "cdrApplicableTypes", value);
+    }
+
+    public Boolean dlpScanningEnabled() {
+      String v = doc.formField(path, "dlpScanningEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void dlpScanningEnabled(Boolean value) {
+      doc.setFormField(path, "dlpScanningEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String dlpPolicies() {
+      String v = doc.formField(path, "dlpPolicies");
+      return v == null ? "" : v;
+    }
+
+    public void dlpPolicies(String value) {
+      doc.setFormField(path, "dlpPolicies", value);
+    }
+
+    public String dlpAction() {
+      String v = doc.formField(path, "dlpAction");
+      return v == null ? "" : v;
+    }
+
+    public void dlpAction(String value) {
+      doc.setFormField(path, "dlpAction", value);
+    }
+
+    public Boolean contentModeration() {
+      String v = doc.formField(path, "contentModeration");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void contentModeration(Boolean value) {
+      doc.setFormField(path, "contentModeration", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String moderationMethod() {
+      String v = doc.formField(path, "moderationMethod");
+      return v == null ? "" : v;
+    }
+
+    public void moderationMethod(String value) {
+      doc.setFormField(path, "moderationMethod", value);
+    }
+
+    public Boolean hashBasedDetection() {
+      String v = doc.formField(path, "hashBasedDetection");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void hashBasedDetection(Boolean value) {
+      doc.setFormField(path, "hashBasedDetection", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
   // Generated section facade for the `contextualHelpContent` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ContextualHelpContextualHelpContentForm extends SomNode {
@@ -77076,6 +79526,257 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class CredentialCompromiseDetectionPolicyContentForm extends SomNode {
+    public CredentialCompromiseDetectionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String breachDatabaseMonitoring() {
+      String v = doc.formField(path, "breachDatabaseMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void breachDatabaseMonitoring(String value) {
+      doc.setFormField(path, "breachDatabaseMonitoring", value);
+    }
+
+    public String breachDatabaseSource() {
+      String v = doc.formField(path, "breachDatabaseSource");
+      return v == null ? "" : v;
+    }
+
+    public void breachDatabaseSource(String value) {
+      doc.setFormField(path, "breachDatabaseSource", value);
+    }
+
+    public String breachCheckFrequency() {
+      String v = doc.formField(path, "breachCheckFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void breachCheckFrequency(String value) {
+      doc.setFormField(path, "breachCheckFrequency", value);
+    }
+
+    public String compromisedCredentialAction() {
+      String v = doc.formField(path, "compromisedCredentialAction");
+      return v == null ? "" : v;
+    }
+
+    public void compromisedCredentialAction(String value) {
+      doc.setFormField(path, "compromisedCredentialAction", value);
+    }
+
+    public String credentialStuffingDetection() {
+      String v = doc.formField(path, "credentialStuffingDetection");
+      return v == null ? "" : v;
+    }
+
+    public void credentialStuffingDetection(String value) {
+      doc.setFormField(path, "credentialStuffingDetection", value);
+    }
+
+    public String stuffingDetectionMethod() {
+      String v = doc.formField(path, "stuffingDetectionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void stuffingDetectionMethod(String value) {
+      doc.setFormField(path, "stuffingDetectionMethod", value);
+    }
+
+    public String darkWebMonitoring() {
+      String v = doc.formField(path, "darkWebMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void darkWebMonitoring(String value) {
+      doc.setFormField(path, "darkWebMonitoring", value);
+    }
+
+    public String userCompromiseNotification() {
+      String v = doc.formField(path, "userCompromiseNotification");
+      return v == null ? "" : v;
+    }
+
+    public void userCompromiseNotification(String value) {
+      doc.setFormField(path, "userCompromiseNotification", value);
+    }
+
+    public String adminCompromiseAlerts() {
+      String v = doc.formField(path, "adminCompromiseAlerts");
+      return v == null ? "" : v;
+    }
+
+    public void adminCompromiseAlerts(String value) {
+      doc.setFormField(path, "adminCompromiseAlerts", value);
+    }
+
+    public String compromiseResponseSla() {
+      String v = doc.formField(path, "compromiseResponseSla");
+      return v == null ? "" : v;
+    }
+
+    public void compromiseResponseSla(String value) {
+      doc.setFormField(path, "compromiseResponseSla", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class CredentialRecoveryPolicyContentForm extends SomNode {
+    public CredentialRecoveryPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String passwordResetMethod() {
+      String v = doc.formField(path, "passwordResetMethod");
+      return v == null ? "" : v;
+    }
+
+    public void passwordResetMethod(String value) {
+      doc.setFormField(path, "passwordResetMethod", value);
+    }
+
+    public String resetLinkExpiry() {
+      String v = doc.formField(path, "resetLinkExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void resetLinkExpiry(String value) {
+      doc.setFormField(path, "resetLinkExpiry", value);
+    }
+
+    public String resetLinkSingleUse() {
+      String v = doc.formField(path, "resetLinkSingleUse");
+      return v == null ? "" : v;
+    }
+
+    public void resetLinkSingleUse(String value) {
+      doc.setFormField(path, "resetLinkSingleUse", value);
+    }
+
+    public String resetRateLimiting() {
+      String v = doc.formField(path, "resetRateLimiting");
+      return v == null ? "" : v;
+    }
+
+    public void resetRateLimiting(String value) {
+      doc.setFormField(path, "resetRateLimiting", value);
+    }
+
+    public String savedRecoveryCodesEnabled() {
+      String v = doc.formField(path, "savedRecoveryCodesEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void savedRecoveryCodesEnabled(String value) {
+      doc.setFormField(path, "savedRecoveryCodesEnabled", value);
+    }
+
+    public String recoveryCodeCount() {
+      String v = doc.formField(path, "recoveryCodeCount");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryCodeCount(String value) {
+      doc.setFormField(path, "recoveryCodeCount", value);
+    }
+
+    public String recoveryCodeFormat() {
+      String v = doc.formField(path, "recoveryCodeFormat");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryCodeFormat(String value) {
+      doc.setFormField(path, "recoveryCodeFormat", value);
+    }
+
+    public String issuedRecoveryCodeChannels() {
+      String v = doc.formField(path, "issuedRecoveryCodeChannels");
+      return v == null ? "" : v;
+    }
+
+    public void issuedRecoveryCodeChannels(String value) {
+      doc.setFormField(path, "issuedRecoveryCodeChannels", value);
+    }
+
+    public String recoveryCodeExpiry() {
+      String v = doc.formField(path, "recoveryCodeExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryCodeExpiry(String value) {
+      doc.setFormField(path, "recoveryCodeExpiry", value);
+    }
+
+    public String identityReverificationRequired() {
+      String v = doc.formField(path, "identityReverificationRequired");
+      return v == null ? "" : v;
+    }
+
+    public void identityReverificationRequired(String value) {
+      doc.setFormField(path, "identityReverificationRequired", value);
+    }
+
+    public String recoveryContactEnabled() {
+      String v = doc.formField(path, "recoveryContactEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryContactEnabled(String value) {
+      doc.setFormField(path, "recoveryContactEnabled", value);
+    }
+
+    public String multipleRecoveryAddresses() {
+      String v = doc.formField(path, "multipleRecoveryAddresses");
+      return v == null ? "" : v;
+    }
+
+    public void multipleRecoveryAddresses(String value) {
+      doc.setFormField(path, "multipleRecoveryAddresses", value);
+    }
+
+    public String recoveryAuditLogging() {
+      String v = doc.formField(path, "recoveryAuditLogging");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryAuditLogging(String value) {
+      doc.setFormField(path, "recoveryAuditLogging", value);
+    }
+  }
+
   // Generated section facade for the `caching` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class CrossCuttingConcernsCachingForm extends SomNode {
@@ -77358,6 +80059,101 @@ public final class TomSomV0 {
 
     public void validation(String value) {
       doc.setFormField(path, "validation", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class CrossTenantAccessPolicyContentForm extends SomNode {
+    public CrossTenantAccessPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean crossTenantAccessAllowed() {
+      String v = doc.formField(path, "crossTenantAccessAllowed");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void crossTenantAccessAllowed(Boolean value) {
+      doc.setFormField(path, "crossTenantAccessAllowed", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String crossTenantAccessModel() {
+      String v = doc.formField(path, "crossTenantAccessModel");
+      return v == null ? "" : v;
+    }
+
+    public void crossTenantAccessModel(String value) {
+      doc.setFormField(path, "crossTenantAccessModel", value);
+    }
+
+    public String authorizationMechanism() {
+      String v = doc.formField(path, "authorizationMechanism");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationMechanism(String value) {
+      doc.setFormField(path, "authorizationMechanism", value);
+    }
+
+    public String resourceSharingModel() {
+      String v = doc.formField(path, "resourceSharingModel");
+      return v == null ? "" : v;
+    }
+
+    public void resourceSharingModel(String value) {
+      doc.setFormField(path, "resourceSharingModel", value);
+    }
+
+    public String idorPreventionStrategy() {
+      String v = doc.formField(path, "idorPreventionStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void idorPreventionStrategy(String value) {
+      doc.setFormField(path, "idorPreventionStrategy", value);
+    }
+
+    public String crossTenantAuditRequirement() {
+      String v = doc.formField(path, "crossTenantAuditRequirement");
+      return v == null ? "" : v;
+    }
+
+    public void crossTenantAuditRequirement(String value) {
+      doc.setFormField(path, "crossTenantAuditRequirement", value);
+    }
+
+    public String accessReviewFrequency() {
+      String v = doc.formField(path, "accessReviewFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void accessReviewFrequency(String value) {
+      doc.setFormField(path, "accessReviewFrequency", value);
     }
 
     public String notes() {
@@ -78603,6 +81399,136 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAccessAuditPolicyContentForm extends SomNode {
+    public DataAccessAuditPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String dataAccessLoggingEnabled() {
+      String v = doc.formField(path, "dataAccessLoggingEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void dataAccessLoggingEnabled(String value) {
+      doc.setFormField(path, "dataAccessLoggingEnabled", value);
+    }
+
+    public String dataAccessLoggingScope() {
+      String v = doc.formField(path, "dataAccessLoggingScope");
+      return v == null ? "" : v;
+    }
+
+    public void dataAccessLoggingScope(String value) {
+      doc.setFormField(path, "dataAccessLoggingScope", value);
+    }
+
+    public String loggedOperations() {
+      String v = doc.formField(path, "loggedOperations");
+      return v == null ? "" : v;
+    }
+
+    public void loggedOperations(String value) {
+      doc.setFormField(path, "loggedOperations", value);
+    }
+
+    public String dataAccessLogDetail() {
+      String v = doc.formField(path, "dataAccessLogDetail");
+      return v == null ? "" : v;
+    }
+
+    public void dataAccessLogDetail(String value) {
+      doc.setFormField(path, "dataAccessLogDetail", value);
+    }
+
+    public String queryTextLogging() {
+      String v = doc.formField(path, "queryTextLogging");
+      return v == null ? "" : v;
+    }
+
+    public void queryTextLogging(String value) {
+      doc.setFormField(path, "queryTextLogging", value);
+    }
+
+    public String anomalyDetectionEnabled() {
+      String v = doc.formField(path, "anomalyDetectionEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void anomalyDetectionEnabled(String value) {
+      doc.setFormField(path, "anomalyDetectionEnabled", value);
+    }
+
+    public String anomalySignals() {
+      String v = doc.formField(path, "anomalySignals");
+      return v == null ? "" : v;
+    }
+
+    public void anomalySignals(String value) {
+      doc.setFormField(path, "anomalySignals", value);
+    }
+
+    public String dataBreachDetection() {
+      String v = doc.formField(path, "dataBreachDetection");
+      return v == null ? "" : v;
+    }
+
+    public void dataBreachDetection(String value) {
+      doc.setFormField(path, "dataBreachDetection", value);
+    }
+
+    public String dataAccessReviewCycle() {
+      String v = doc.formField(path, "dataAccessReviewCycle");
+      return v == null ? "" : v;
+    }
+
+    public void dataAccessReviewCycle(String value) {
+      doc.setFormField(path, "dataAccessReviewCycle", value);
+    }
+
+    public String privilegedQueryAlerts() {
+      String v = doc.formField(path, "privilegedQueryAlerts");
+      return v == null ? "" : v;
+    }
+
+    public void privilegedQueryAlerts(String value) {
+      doc.setFormField(path, "privilegedQueryAlerts", value);
+    }
+
+    public String complianceReportingEnabled() {
+      String v = doc.formField(path, "complianceReportingEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void complianceReportingEnabled(String value) {
+      doc.setFormField(path, "complianceReportingEnabled", value);
+    }
+
+    public String dataAccessRetention() {
+      String v = doc.formField(path, "dataAccessRetention");
+      return v == null ? "" : v;
+    }
+
+    public void dataAccessRetention(String value) {
+      doc.setFormField(path, "dataAccessRetention", value);
     }
   }
 
@@ -82085,6 +85011,154 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataMaskingPolicyContentForm extends SomNode {
+    public DataMaskingPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String dynamicDataMaskingEnabled() {
+      String v = doc.formField(path, "dynamicDataMaskingEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void dynamicDataMaskingEnabled(String value) {
+      doc.setFormField(path, "dynamicDataMaskingEnabled", value);
+    }
+
+    public String dynamicMaskingRules() {
+      String v = doc.formField(path, "dynamicMaskingRules");
+      return v == null ? "" : v;
+    }
+
+    public void dynamicMaskingRules(String value) {
+      doc.setFormField(path, "dynamicMaskingRules", value);
+    }
+
+    public String dynamicMaskingScope() {
+      String v = doc.formField(path, "dynamicMaskingScope");
+      return v == null ? "" : v;
+    }
+
+    public void dynamicMaskingScope(String value) {
+      doc.setFormField(path, "dynamicMaskingScope", value);
+    }
+
+    public String staticMaskingForNonProduction() {
+      String v = doc.formField(path, "staticMaskingForNonProduction");
+      return v == null ? "" : v;
+    }
+
+    public void staticMaskingForNonProduction(String value) {
+      doc.setFormField(path, "staticMaskingForNonProduction", value);
+    }
+
+    public String staticMaskingTool() {
+      String v = doc.formField(path, "staticMaskingTool");
+      return v == null ? "" : v;
+    }
+
+    public void staticMaskingTool(String value) {
+      doc.setFormField(path, "staticMaskingTool", value);
+    }
+
+    public String maskingPreservesFormat() {
+      String v = doc.formField(path, "maskingPreservesFormat");
+      return v == null ? "" : v;
+    }
+
+    public void maskingPreservesFormat(String value) {
+      doc.setFormField(path, "maskingPreservesFormat", value);
+    }
+
+    public String maskingReversibility() {
+      String v = doc.formField(path, "maskingReversibility");
+      return v == null ? "" : v;
+    }
+
+    public void maskingReversibility(String value) {
+      doc.setFormField(path, "maskingReversibility", value);
+    }
+
+    public String piiMaskingPolicy() {
+      String v = doc.formField(path, "piiMaskingPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void piiMaskingPolicy(String value) {
+      doc.setFormField(path, "piiMaskingPolicy", value);
+    }
+
+    public String emailMaskingFormat() {
+      String v = doc.formField(path, "emailMaskingFormat");
+      return v == null ? "" : v;
+    }
+
+    public void emailMaskingFormat(String value) {
+      doc.setFormField(path, "emailMaskingFormat", value);
+    }
+
+    public String phoneMaskingFormat() {
+      String v = doc.formField(path, "phoneMaskingFormat");
+      return v == null ? "" : v;
+    }
+
+    public void phoneMaskingFormat(String value) {
+      doc.setFormField(path, "phoneMaskingFormat", value);
+    }
+
+    public String addressMaskingFormat() {
+      String v = doc.formField(path, "addressMaskingFormat");
+      return v == null ? "" : v;
+    }
+
+    public void addressMaskingFormat(String value) {
+      doc.setFormField(path, "addressMaskingFormat", value);
+    }
+
+    public String financialDataMasking() {
+      String v = doc.formField(path, "financialDataMasking");
+      return v == null ? "" : v;
+    }
+
+    public void financialDataMasking(String value) {
+      doc.setFormField(path, "financialDataMasking", value);
+    }
+
+    public String maskingAuditTrail() {
+      String v = doc.formField(path, "maskingAuditTrail");
+      return v == null ? "" : v;
+    }
+
+    public void maskingAuditTrail(String value) {
+      doc.setFormField(path, "maskingAuditTrail", value);
+    }
+
+    public String developmentDataStrategy() {
+      String v = doc.formField(path, "developmentDataStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void developmentDataStrategy(String value) {
+      doc.setFormField(path, "developmentDataStrategy", value);
+    }
+  }
+
   // Generated section facade for the `approach` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DataMigrationStrategyApproachForm extends SomNode {
@@ -85464,6 +88538,154 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DatabaseAccessPolicyContentForm extends SomNode {
+    public DatabaseAccessPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String databaseConnectionSecurity() {
+      String v = doc.formField(path, "databaseConnectionSecurity");
+      return v == null ? "" : v;
+    }
+
+    public void databaseConnectionSecurity(String value) {
+      doc.setFormField(path, "databaseConnectionSecurity", value);
+    }
+
+    public String minimumTlsVersion() {
+      String v = doc.formField(path, "minimumTlsVersion");
+      return v == null ? "" : v;
+    }
+
+    public void minimumTlsVersion(String value) {
+      doc.setFormField(path, "minimumTlsVersion", value);
+    }
+
+    public String applicationAccountStrategy() {
+      String v = doc.formField(path, "applicationAccountStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void applicationAccountStrategy(String value) {
+      doc.setFormField(path, "applicationAccountStrategy", value);
+    }
+
+    public String applicationAccountPrivileges() {
+      String v = doc.formField(path, "applicationAccountPrivileges");
+      return v == null ? "" : v;
+    }
+
+    public void applicationAccountPrivileges(String value) {
+      doc.setFormField(path, "applicationAccountPrivileges", value);
+    }
+
+    public String schemaOwnershipSeparation() {
+      String v = doc.formField(path, "schemaOwnershipSeparation");
+      return v == null ? "" : v;
+    }
+
+    public void schemaOwnershipSeparation(String value) {
+      doc.setFormField(path, "schemaOwnershipSeparation", value);
+    }
+
+    public String directTableAccess() {
+      String v = doc.formField(path, "directTableAccess");
+      return v == null ? "" : v;
+    }
+
+    public void directTableAccess(String value) {
+      doc.setFormField(path, "directTableAccess", value);
+    }
+
+    public String databaseCredentialStorage() {
+      String v = doc.formField(path, "databaseCredentialStorage");
+      return v == null ? "" : v;
+    }
+
+    public void databaseCredentialStorage(String value) {
+      doc.setFormField(path, "databaseCredentialStorage", value);
+    }
+
+    public String credentialRotationPolicy() {
+      String v = doc.formField(path, "credentialRotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void credentialRotationPolicy(String value) {
+      doc.setFormField(path, "credentialRotationPolicy", value);
+    }
+
+    public String connectionPoolSecurity() {
+      String v = doc.formField(path, "connectionPoolSecurity");
+      return v == null ? "" : v;
+    }
+
+    public void connectionPoolSecurity(String value) {
+      doc.setFormField(path, "connectionPoolSecurity", value);
+    }
+
+    public String privilegedAccessManagement() {
+      String v = doc.formField(path, "privilegedAccessManagement");
+      return v == null ? "" : v;
+    }
+
+    public void privilegedAccessManagement(String value) {
+      doc.setFormField(path, "privilegedAccessManagement", value);
+    }
+
+    public String databaseFirewallRules() {
+      String v = doc.formField(path, "databaseFirewallRules");
+      return v == null ? "" : v;
+    }
+
+    public void databaseFirewallRules(String value) {
+      doc.setFormField(path, "databaseFirewallRules", value);
+    }
+
+    public String sqlInjectionPrevention() {
+      String v = doc.formField(path, "sqlInjectionPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void sqlInjectionPrevention(String value) {
+      doc.setFormField(path, "sqlInjectionPrevention", value);
+    }
+
+    public String queryComplexityLimits() {
+      String v = doc.formField(path, "queryComplexityLimits");
+      return v == null ? "" : v;
+    }
+
+    public void queryComplexityLimits(String value) {
+      doc.setFormField(path, "queryComplexityLimits", value);
+    }
+
+    public String databaseActivityMonitoring() {
+      String v = doc.formField(path, "databaseActivityMonitoring");
+      return v == null ? "" : v;
+    }
+
+    public void databaseActivityMonitoring(String value) {
+      doc.setFormField(path, "databaseActivityMonitoring", value);
+    }
+  }
+
   // Generated section facade for the `connection` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DatabaseCompatibilityEntryConnectionForm extends SomNode {
@@ -85706,6 +88928,93 @@ public final class TomSomV0 {
 
     public void cloudVariants(String value) {
       doc.setFormField(path, "cloudVariants", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DatabaseEncryptionPolicyContentForm extends SomNode {
+    public DatabaseEncryptionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String databaseEncryptionMethod() {
+      String v = doc.formField(path, "databaseEncryptionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void databaseEncryptionMethod(String value) {
+      doc.setFormField(path, "databaseEncryptionMethod", value);
+    }
+
+    public String encryptedColumnStrategy() {
+      String v = doc.formField(path, "encryptedColumnStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void encryptedColumnStrategy(String value) {
+      doc.setFormField(path, "encryptedColumnStrategy", value);
+    }
+
+    public Boolean indexOnEncryptedColumns() {
+      String v = doc.formField(path, "indexOnEncryptedColumns");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void indexOnEncryptedColumns(Boolean value) {
+      doc.setFormField(path, "indexOnEncryptedColumns", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String searchOnEncryptedData() {
+      String v = doc.formField(path, "searchOnEncryptedData");
+      return v == null ? "" : v;
+    }
+
+    public void searchOnEncryptedData(String value) {
+      doc.setFormField(path, "searchOnEncryptedData", value);
+    }
+
+    public Boolean connectionEncryption() {
+      String v = doc.formField(path, "connectionEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void connectionEncryption(Boolean value) {
+      doc.setFormField(path, "connectionEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String databaseEngine() {
+      String v = doc.formField(path, "databaseEngine");
+      return v == null ? "" : v;
+    }
+
+    public void databaseEngine(String value) {
+      doc.setFormField(path, "databaseEngine", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -96567,6 +99876,123 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class EncryptionAtRestPolicyContentForm extends SomNode {
+    public EncryptionAtRestPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String defaultAlgorithm() {
+      String v = doc.formField(path, "defaultAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void defaultAlgorithm(String value) {
+      doc.setFormField(path, "defaultAlgorithm", value);
+    }
+
+    public Integer defaultKeyLength() {
+      String v = doc.formField(path, "defaultKeyLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void defaultKeyLength(Integer value) {
+      doc.setFormField(path, "defaultKeyLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public String cipherMode() {
+      String v = doc.formField(path, "cipherMode");
+      return v == null ? "" : v;
+    }
+
+    public void cipherMode(String value) {
+      doc.setFormField(path, "cipherMode", value);
+    }
+
+    public String encryptionLayer() {
+      String v = doc.formField(path, "encryptionLayer");
+      return v == null ? "" : v;
+    }
+
+    public void encryptionLayer(String value) {
+      doc.setFormField(path, "encryptionLayer", value);
+    }
+
+    public Boolean fieldLevelEncryption() {
+      String v = doc.formField(path, "fieldLevelEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void fieldLevelEncryption(Boolean value) {
+      doc.setFormField(path, "fieldLevelEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean transparentDataEncryption() {
+      String v = doc.formField(path, "transparentDataEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void transparentDataEncryption(Boolean value) {
+      doc.setFormField(path, "transparentDataEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean fullDiskEncryption() {
+      String v = doc.formField(path, "fullDiskEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void fullDiskEncryption(Boolean value) {
+      doc.setFormField(path, "fullDiskEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean minimizeSensitiveStorage() {
+      String v = doc.formField(path, "minimizeSensitiveStorage");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void minimizeSensitiveStorage(Boolean value) {
+      doc.setFormField(path, "minimizeSensitiveStorage", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String complianceFramework() {
+      String v = doc.formField(path, "complianceFramework");
+      return v == null ? "" : v;
+    }
+
+    public void complianceFramework(String value) {
+      doc.setFormField(path, "complianceFramework", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class EnterpriseSystemCompatibilityEntryContentForm extends SomNode {
     public EnterpriseSystemCompatibilityEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -106207,6 +109633,625 @@ public final class TomSomV0 {
 
     public void triggerEvent(String value) {
       doc.setFormField(path, "triggerEvent", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FileAccessControlPolicyContentForm extends SomNode {
+    public FileAccessControlPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String fileAccessModel() {
+      String v = doc.formField(path, "fileAccessModel");
+      return v == null ? "" : v;
+    }
+
+    public void fileAccessModel(String value) {
+      doc.setFormField(path, "fileAccessModel", value);
+    }
+
+    public Boolean authenticationRequired() {
+      String v = doc.formField(path, "authenticationRequired");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void authenticationRequired(Boolean value) {
+      doc.setFormField(path, "authenticationRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean anonymousDownloadAllowed() {
+      String v = doc.formField(path, "anonymousDownloadAllowed");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void anonymousDownloadAllowed(Boolean value) {
+      doc.setFormField(path, "anonymousDownloadAllowed", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String fileOwnershipModel() {
+      String v = doc.formField(path, "fileOwnershipModel");
+      return v == null ? "" : v;
+    }
+
+    public void fileOwnershipModel(String value) {
+      doc.setFormField(path, "fileOwnershipModel", value);
+    }
+
+    public String permissionGranularity() {
+      String v = doc.formField(path, "permissionGranularity");
+      return v == null ? "" : v;
+    }
+
+    public void permissionGranularity(String value) {
+      doc.setFormField(path, "permissionGranularity", value);
+    }
+
+    public Boolean folderLevelPermissions() {
+      String v = doc.formField(path, "folderLevelPermissions");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void folderLevelPermissions(Boolean value) {
+      doc.setFormField(path, "folderLevelPermissions", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String permissionInheritance() {
+      String v = doc.formField(path, "permissionInheritance");
+      return v == null ? "" : v;
+    }
+
+    public void permissionInheritance(String value) {
+      doc.setFormField(path, "permissionInheritance", value);
+    }
+
+    public Boolean sharingEnabled() {
+      String v = doc.formField(path, "sharingEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void sharingEnabled(Boolean value) {
+      doc.setFormField(path, "sharingEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean shareableLinkSupport() {
+      String v = doc.formField(path, "shareableLinkSupport");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void shareableLinkSupport(Boolean value) {
+      doc.setFormField(path, "shareableLinkSupport", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String shareableLinkExpiration() {
+      String v = doc.formField(path, "shareableLinkExpiration");
+      return v == null ? "" : v;
+    }
+
+    public void shareableLinkExpiration(String value) {
+      doc.setFormField(path, "shareableLinkExpiration", value);
+    }
+
+    public String externalSharingPolicy() {
+      String v = doc.formField(path, "externalSharingPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void externalSharingPolicy(String value) {
+      doc.setFormField(path, "externalSharingPolicy", value);
+    }
+
+    public String storageLocationPolicy() {
+      String v = doc.formField(path, "storageLocationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void storageLocationPolicy(String value) {
+      doc.setFormField(path, "storageLocationPolicy", value);
+    }
+
+    public String tenantStorageIsolation() {
+      String v = doc.formField(path, "tenantStorageIsolation");
+      return v == null ? "" : v;
+    }
+
+    public void tenantStorageIsolation(String value) {
+      doc.setFormField(path, "tenantStorageIsolation", value);
+    }
+
+    public String filesystemPermissions() {
+      String v = doc.formField(path, "filesystemPermissions");
+      return v == null ? "" : v;
+    }
+
+    public void filesystemPermissions(String value) {
+      doc.setFormField(path, "filesystemPermissions", value);
+    }
+
+    public Boolean presignedUrlSupport() {
+      String v = doc.formField(path, "presignedUrlSupport");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void presignedUrlSupport(Boolean value) {
+      doc.setFormField(path, "presignedUrlSupport", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String presignedUrlMaxExpiry() {
+      String v = doc.formField(path, "presignedUrlMaxExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void presignedUrlMaxExpiry(String value) {
+      doc.setFormField(path, "presignedUrlMaxExpiry", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FileDownloadSecurityPolicyContentForm extends SomNode {
+    public FileDownloadSecurityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean downloadAuthenticationRequired() {
+      String v = doc.formField(path, "downloadAuthenticationRequired");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void downloadAuthenticationRequired(Boolean value) {
+      doc.setFormField(path, "downloadAuthenticationRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean downloadRateLimiting() {
+      String v = doc.formField(path, "downloadRateLimiting");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void downloadRateLimiting(Boolean value) {
+      doc.setFormField(path, "downloadRateLimiting", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String downloadRateLimit() {
+      String v = doc.formField(path, "downloadRateLimit");
+      return v == null ? "" : v;
+    }
+
+    public void downloadRateLimit(String value) {
+      doc.setFormField(path, "downloadRateLimit", value);
+    }
+
+    public Boolean bandwidthThrottling() {
+      String v = doc.formField(path, "bandwidthThrottling");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void bandwidthThrottling(Boolean value) {
+      doc.setFormField(path, "bandwidthThrottling", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String contentDispositionPolicy() {
+      String v = doc.formField(path, "contentDispositionPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void contentDispositionPolicy(String value) {
+      doc.setFormField(path, "contentDispositionPolicy", value);
+    }
+
+    public Boolean cdnDelivery() {
+      String v = doc.formField(path, "cdnDelivery");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void cdnDelivery(Boolean value) {
+      doc.setFormField(path, "cdnDelivery", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean hotlinkPrevention() {
+      String v = doc.formField(path, "hotlinkPrevention");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void hotlinkPrevention(Boolean value) {
+      doc.setFormField(path, "hotlinkPrevention", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String cacheControlPolicy() {
+      String v = doc.formField(path, "cacheControlPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void cacheControlPolicy(String value) {
+      doc.setFormField(path, "cacheControlPolicy", value);
+    }
+
+    public Boolean downloadAuditLogging() {
+      String v = doc.formField(path, "downloadAuditLogging");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void downloadAuditLogging(Boolean value) {
+      doc.setFormField(path, "downloadAuditLogging", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean downloadAlerts() {
+      String v = doc.formField(path, "downloadAlerts");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void downloadAlerts(Boolean value) {
+      doc.setFormField(path, "downloadAlerts", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean watermarking() {
+      String v = doc.formField(path, "watermarking");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void watermarking(Boolean value) {
+      doc.setFormField(path, "watermarking", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FileStorageEncryptionPolicyContentForm extends SomNode {
+    public FileStorageEncryptionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String fileEncryptionMethod() {
+      String v = doc.formField(path, "fileEncryptionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void fileEncryptionMethod(String value) {
+      doc.setFormField(path, "fileEncryptionMethod", value);
+    }
+
+    public String cloudStorageEncryption() {
+      String v = doc.formField(path, "cloudStorageEncryption");
+      return v == null ? "" : v;
+    }
+
+    public void cloudStorageEncryption(String value) {
+      doc.setFormField(path, "cloudStorageEncryption", value);
+    }
+
+    public Boolean clientSideEncryption() {
+      String v = doc.formField(path, "clientSideEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void clientSideEncryption(Boolean value) {
+      doc.setFormField(path, "clientSideEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String encryptedFileFormats() {
+      String v = doc.formField(path, "encryptedFileFormats");
+      return v == null ? "" : v;
+    }
+
+    public void encryptedFileFormats(String value) {
+      doc.setFormField(path, "encryptedFileFormats", value);
+    }
+
+    public Boolean localDeviceEncryption() {
+      String v = doc.formField(path, "localDeviceEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void localDeviceEncryption(Boolean value) {
+      doc.setFormField(path, "localDeviceEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean temporaryFileEncryption() {
+      String v = doc.formField(path, "temporaryFileEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void temporaryFileEncryption(Boolean value) {
+      doc.setFormField(path, "temporaryFileEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FileUploadValidationPolicyContentForm extends SomNode {
+    public FileUploadValidationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String extensionValidationStrategy() {
+      String v = doc.formField(path, "extensionValidationStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void extensionValidationStrategy(String value) {
+      doc.setFormField(path, "extensionValidationStrategy", value);
+    }
+
+    public String allowedFileExtensions() {
+      String v = doc.formField(path, "allowedFileExtensions");
+      return v == null ? "" : v;
+    }
+
+    public void allowedFileExtensions(String value) {
+      doc.setFormField(path, "allowedFileExtensions", value);
+    }
+
+    public String blockedFileExtensions() {
+      String v = doc.formField(path, "blockedFileExtensions");
+      return v == null ? "" : v;
+    }
+
+    public void blockedFileExtensions(String value) {
+      doc.setFormField(path, "blockedFileExtensions", value);
+    }
+
+    public Boolean doubleExtensionPrevention() {
+      String v = doc.formField(path, "doubleExtensionPrevention");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void doubleExtensionPrevention(Boolean value) {
+      doc.setFormField(path, "doubleExtensionPrevention", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean contentTypeValidation() {
+      String v = doc.formField(path, "contentTypeValidation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void contentTypeValidation(Boolean value) {
+      doc.setFormField(path, "contentTypeValidation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean fileSignatureValidation() {
+      String v = doc.formField(path, "fileSignatureValidation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void fileSignatureValidation(Boolean value) {
+      doc.setFormField(path, "fileSignatureValidation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String signatureMismatchAction() {
+      String v = doc.formField(path, "signatureMismatchAction");
+      return v == null ? "" : v;
+    }
+
+    public void signatureMismatchAction(String value) {
+      doc.setFormField(path, "signatureMismatchAction", value);
+    }
+
+    public String filenameStrategy() {
+      String v = doc.formField(path, "filenameStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void filenameStrategy(String value) {
+      doc.setFormField(path, "filenameStrategy", value);
+    }
+
+    public Integer filenameMaxLength() {
+      String v = doc.formField(path, "filenameMaxLength");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void filenameMaxLength(Integer value) {
+      doc.setFormField(path, "filenameMaxLength", value == null ? "" : String.valueOf(value));
+    }
+
+    public String filenameAllowedCharacters() {
+      String v = doc.formField(path, "filenameAllowedCharacters");
+      return v == null ? "" : v;
+    }
+
+    public void filenameAllowedCharacters(String value) {
+      doc.setFormField(path, "filenameAllowedCharacters", value);
+    }
+
+    public Boolean pathTraversalPrevention() {
+      String v = doc.formField(path, "pathTraversalPrevention");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void pathTraversalPrevention(Boolean value) {
+      doc.setFormField(path, "pathTraversalPrevention", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean nullBytePrevention() {
+      String v = doc.formField(path, "nullBytePrevention");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void nullBytePrevention(Boolean value) {
+      doc.setFormField(path, "nullBytePrevention", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String maxFileSizeBytes() {
+      String v = doc.formField(path, "maxFileSizeBytes");
+      return v == null ? "" : v;
+    }
+
+    public void maxFileSizeBytes(String value) {
+      doc.setFormField(path, "maxFileSizeBytes", value);
+    }
+
+    public String maxUploadBatchSize() {
+      String v = doc.formField(path, "maxUploadBatchSize");
+      return v == null ? "" : v;
+    }
+
+    public void maxUploadBatchSize(String value) {
+      doc.setFormField(path, "maxUploadBatchSize", value);
+    }
+
+    public Integer maxConcurrentUploads() {
+      String v = doc.formField(path, "maxConcurrentUploads");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxConcurrentUploads(Integer value) {
+      doc.setFormField(path, "maxConcurrentUploads", value == null ? "" : String.valueOf(value));
+    }
+
+    public String compressedFileSizeLimit() {
+      String v = doc.formField(path, "compressedFileSizeLimit");
+      return v == null ? "" : v;
+    }
+
+    public void compressedFileSizeLimit(String value) {
+      doc.setFormField(path, "compressedFileSizeLimit", value);
+    }
+
+    public Boolean imageRewriting() {
+      String v = doc.formField(path, "imageRewriting");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void imageRewriting(Boolean value) {
+      doc.setFormField(path, "imageRewriting", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean documentSanitization() {
+      String v = doc.formField(path, "documentSanitization");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void documentSanitization(Boolean value) {
+      doc.setFormField(path, "documentSanitization", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean metadataStripping() {
+      String v = doc.formField(path, "metadataStripping");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void metadataStripping(Boolean value) {
+      doc.setFormField(path, "metadataStripping", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -123177,6 +127222,172 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class LoginFlowConfigurationContentForm extends SomNode {
+    public LoginFlowConfigurationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String loginEntryPoint() {
+      String v = doc.formField(path, "loginEntryPoint");
+      return v == null ? "" : v;
+    }
+
+    public void loginEntryPoint(String value) {
+      doc.setFormField(path, "loginEntryPoint", value);
+    }
+
+    public String credentialSubmissionMethod() {
+      String v = doc.formField(path, "credentialSubmissionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void credentialSubmissionMethod(String value) {
+      doc.setFormField(path, "credentialSubmissionMethod", value);
+    }
+
+    public String preAuthenticationChecks() {
+      String v = doc.formField(path, "preAuthenticationChecks");
+      return v == null ? "" : v;
+    }
+
+    public void preAuthenticationChecks(String value) {
+      doc.setFormField(path, "preAuthenticationChecks", value);
+    }
+
+    public String authenticationEndpoint() {
+      String v = doc.formField(path, "authenticationEndpoint");
+      return v == null ? "" : v;
+    }
+
+    public void authenticationEndpoint(String value) {
+      doc.setFormField(path, "authenticationEndpoint", value);
+    }
+
+    public String allowedAuthenticationMethods() {
+      String v = doc.formField(path, "allowedAuthenticationMethods");
+      return v == null ? "" : v;
+    }
+
+    public void allowedAuthenticationMethods(String value) {
+      doc.setFormField(path, "allowedAuthenticationMethods", value);
+    }
+
+    public String mfaChallengePresentation() {
+      String v = doc.formField(path, "mfaChallengePresentation");
+      return v == null ? "" : v;
+    }
+
+    public void mfaChallengePresentation(String value) {
+      doc.setFormField(path, "mfaChallengePresentation", value);
+    }
+
+    public String rememberMeEnabled() {
+      String v = doc.formField(path, "rememberMeEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeEnabled(String value) {
+      doc.setFormField(path, "rememberMeEnabled", value);
+    }
+
+    public String rememberMeDuration() {
+      String v = doc.formField(path, "rememberMeDuration");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeDuration(String value) {
+      doc.setFormField(path, "rememberMeDuration", value);
+    }
+
+    public String socialLoginEnabled() {
+      String v = doc.formField(path, "socialLoginEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void socialLoginEnabled(String value) {
+      doc.setFormField(path, "socialLoginEnabled", value);
+    }
+
+    public String socialLoginProviders() {
+      String v = doc.formField(path, "socialLoginProviders");
+      return v == null ? "" : v;
+    }
+
+    public void socialLoginProviders(String value) {
+      doc.setFormField(path, "socialLoginProviders", value);
+    }
+
+    public String passwordlessLoginEnabled() {
+      String v = doc.formField(path, "passwordlessLoginEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void passwordlessLoginEnabled(String value) {
+      doc.setFormField(path, "passwordlessLoginEnabled", value);
+    }
+
+    public String passwordlessLoginMethods() {
+      String v = doc.formField(path, "passwordlessLoginMethods");
+      return v == null ? "" : v;
+    }
+
+    public void passwordlessLoginMethods(String value) {
+      doc.setFormField(path, "passwordlessLoginMethods", value);
+    }
+
+    public String postAuthenticationAction() {
+      String v = doc.formField(path, "postAuthenticationAction");
+      return v == null ? "" : v;
+    }
+
+    public void postAuthenticationAction(String value) {
+      doc.setFormField(path, "postAuthenticationAction", value);
+    }
+
+    public String concurrentLoginPolicy() {
+      String v = doc.formField(path, "concurrentLoginPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void concurrentLoginPolicy(String value) {
+      doc.setFormField(path, "concurrentLoginPolicy", value);
+    }
+
+    public String loginNotification() {
+      String v = doc.formField(path, "loginNotification");
+      return v == null ? "" : v;
+    }
+
+    public void loginNotification(String value) {
+      doc.setFormField(path, "loginNotification", value);
+    }
+
+    public String loginFromNewDeviceAction() {
+      String v = doc.formField(path, "loginFromNewDeviceAction");
+      return v == null ? "" : v;
+    }
+
+    public void loginFromNewDeviceAction(String value) {
+      doc.setFormField(path, "loginFromNewDeviceAction", value);
+    }
+  }
+
   // Generated section facade for the `behavior` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class LoginFlowStepEntryBehaviorForm extends SomNode {
@@ -126226,6 +130437,136 @@ public final class TomSomV0 {
 
     public void rememberDeviceDuration(String value) {
       doc.setFormField(path, "rememberDeviceDuration", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class MfaConfigurationContentForm extends SomNode {
+    public MfaConfigurationContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String mfaRequired() {
+      String v = doc.formField(path, "mfaRequired");
+      return v == null ? "" : v;
+    }
+
+    public void mfaRequired(String value) {
+      doc.setFormField(path, "mfaRequired", value);
+    }
+
+    public String mfaEnforcementScope() {
+      String v = doc.formField(path, "mfaEnforcementScope");
+      return v == null ? "" : v;
+    }
+
+    public void mfaEnforcementScope(String value) {
+      doc.setFormField(path, "mfaEnforcementScope", value);
+    }
+
+    public String defaultSecondFactor() {
+      String v = doc.formField(path, "defaultSecondFactor");
+      return v == null ? "" : v;
+    }
+
+    public void defaultSecondFactor(String value) {
+      doc.setFormField(path, "defaultSecondFactor", value);
+    }
+
+    public String allowedSecondFactors() {
+      String v = doc.formField(path, "allowedSecondFactors");
+      return v == null ? "" : v;
+    }
+
+    public void allowedSecondFactors(String value) {
+      doc.setFormField(path, "allowedSecondFactors", value);
+    }
+
+    public String assuranceLevelTarget() {
+      String v = doc.formField(path, "assuranceLevelTarget");
+      return v == null ? "" : v;
+    }
+
+    public void assuranceLevelTarget(String value) {
+      doc.setFormField(path, "assuranceLevelTarget", value);
+    }
+
+    public String phishingResistanceRequired() {
+      String v = doc.formField(path, "phishingResistanceRequired");
+      return v == null ? "" : v;
+    }
+
+    public void phishingResistanceRequired(String value) {
+      doc.setFormField(path, "phishingResistanceRequired", value);
+    }
+
+    public String stepUpAuthenticationEnabled() {
+      String v = doc.formField(path, "stepUpAuthenticationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpAuthenticationEnabled(String value) {
+      doc.setFormField(path, "stepUpAuthenticationEnabled", value);
+    }
+
+    public String stepUpTriggers() {
+      String v = doc.formField(path, "stepUpTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpTriggers(String value) {
+      doc.setFormField(path, "stepUpTriggers", value);
+    }
+
+    public String rememberDevicePolicy() {
+      String v = doc.formField(path, "rememberDevicePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void rememberDevicePolicy(String value) {
+      doc.setFormField(path, "rememberDevicePolicy", value);
+    }
+
+    public String recoveryCodePolicy() {
+      String v = doc.formField(path, "recoveryCodePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void recoveryCodePolicy(String value) {
+      doc.setFormField(path, "recoveryCodePolicy", value);
+    }
+
+    public String enrollmentGracePeriod() {
+      String v = doc.formField(path, "enrollmentGracePeriod");
+      return v == null ? "" : v;
+    }
+
+    public void enrollmentGracePeriod(String value) {
+      doc.setFormField(path, "enrollmentGracePeriod", value);
+    }
+
+    public String mfaBypassPolicy() {
+      String v = doc.formField(path, "mfaBypassPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void mfaBypassPolicy(String value) {
+      doc.setFormField(path, "mfaBypassPolicy", value);
     }
   }
 
@@ -131416,6 +135757,92 @@ public final class TomSomV0 {
 
     public void toleranceAllowed(String value) {
       doc.setFormField(path, "toleranceAllowed", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class MutualTlsPolicyContentForm extends SomNode {
+    public MutualTlsPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean mtlsEnabled() {
+      String v = doc.formField(path, "mtlsEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void mtlsEnabled(Boolean value) {
+      doc.setFormField(path, "mtlsEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String mtlsScope() {
+      String v = doc.formField(path, "mtlsScope");
+      return v == null ? "" : v;
+    }
+
+    public void mtlsScope(String value) {
+      doc.setFormField(path, "mtlsScope", value);
+    }
+
+    public String clientCertificateIssuance() {
+      String v = doc.formField(path, "clientCertificateIssuance");
+      return v == null ? "" : v;
+    }
+
+    public void clientCertificateIssuance(String value) {
+      doc.setFormField(path, "clientCertificateIssuance", value);
+    }
+
+    public String revocationChecking() {
+      String v = doc.formField(path, "revocationChecking");
+      return v == null ? "" : v;
+    }
+
+    public void revocationChecking(String value) {
+      doc.setFormField(path, "revocationChecking", value);
+    }
+
+    public String fallbackOnMtlsFailure() {
+      String v = doc.formField(path, "fallbackOnMtlsFailure");
+      return v == null ? "" : v;
+    }
+
+    public void fallbackOnMtlsFailure(String value) {
+      doc.setFormField(path, "fallbackOnMtlsFailure", value);
+    }
+
+    public String clientCertificateRotation() {
+      String v = doc.formField(path, "clientCertificateRotation");
+      return v == null ? "" : v;
+    }
+
+    public void clientCertificateRotation(String value) {
+      doc.setFormField(path, "clientCertificateRotation", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -139289,6 +143716,432 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PasswordLifecyclePolicyContentForm extends SomNode {
+    public PasswordLifecyclePolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String periodicRotationRequired() {
+      String v = doc.formField(path, "periodicRotationRequired");
+      return v == null ? "" : v;
+    }
+
+    public void periodicRotationRequired(String value) {
+      doc.setFormField(path, "periodicRotationRequired", value);
+    }
+
+    public String rotationPeriod() {
+      String v = doc.formField(path, "rotationPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void rotationPeriod(String value) {
+      doc.setFormField(path, "rotationPeriod", value);
+    }
+
+    public String forceChangeOnCompromise() {
+      String v = doc.formField(path, "forceChangeOnCompromise");
+      return v == null ? "" : v;
+    }
+
+    public void forceChangeOnCompromise(String value) {
+      doc.setFormField(path, "forceChangeOnCompromise", value);
+    }
+
+    public String passwordHistoryDepth() {
+      String v = doc.formField(path, "passwordHistoryDepth");
+      return v == null ? "" : v;
+    }
+
+    public void passwordHistoryDepth(String value) {
+      doc.setFormField(path, "passwordHistoryDepth", value);
+    }
+
+    public String minimumPasswordAge() {
+      String v = doc.formField(path, "minimumPasswordAge");
+      return v == null ? "" : v;
+    }
+
+    public void minimumPasswordAge(String value) {
+      doc.setFormField(path, "minimumPasswordAge", value);
+    }
+
+    public String initialPasswordPolicy() {
+      String v = doc.formField(path, "initialPasswordPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void initialPasswordPolicy(String value) {
+      doc.setFormField(path, "initialPasswordPolicy", value);
+    }
+
+    public String temporaryPasswordExpiry() {
+      String v = doc.formField(path, "temporaryPasswordExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void temporaryPasswordExpiry(String value) {
+      doc.setFormField(path, "temporaryPasswordExpiry", value);
+    }
+
+    public String passwordExpiryWarning() {
+      String v = doc.formField(path, "passwordExpiryWarning");
+      return v == null ? "" : v;
+    }
+
+    public void passwordExpiryWarning(String value) {
+      doc.setFormField(path, "passwordExpiryWarning", value);
+    }
+
+    public String passwordChangeNotification() {
+      String v = doc.formField(path, "passwordChangeNotification");
+      return v == null ? "" : v;
+    }
+
+    public void passwordChangeNotification(String value) {
+      doc.setFormField(path, "passwordChangeNotification", value);
+    }
+
+    public String passwordChangeRequiresCurrent() {
+      String v = doc.formField(path, "passwordChangeRequiresCurrent");
+      return v == null ? "" : v;
+    }
+
+    public void passwordChangeRequiresCurrent(String value) {
+      doc.setFormField(path, "passwordChangeRequiresCurrent", value);
+    }
+
+    public String administratorResetPolicy() {
+      String v = doc.formField(path, "administratorResetPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void administratorResetPolicy(String value) {
+      doc.setFormField(path, "administratorResetPolicy", value);
+    }
+
+    public String passwordInactivityDisable() {
+      String v = doc.formField(path, "passwordInactivityDisable");
+      return v == null ? "" : v;
+    }
+
+    public void passwordInactivityDisable(String value) {
+      doc.setFormField(path, "passwordInactivityDisable", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PasswordRequirementsPolicyContentForm extends SomNode {
+    public PasswordRequirementsPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String minimumLengthSingleFactor() {
+      String v = doc.formField(path, "minimumLengthSingleFactor");
+      return v == null ? "" : v;
+    }
+
+    public void minimumLengthSingleFactor(String value) {
+      doc.setFormField(path, "minimumLengthSingleFactor", value);
+    }
+
+    public String minimumLengthMultiFactor() {
+      String v = doc.formField(path, "minimumLengthMultiFactor");
+      return v == null ? "" : v;
+    }
+
+    public void minimumLengthMultiFactor(String value) {
+      doc.setFormField(path, "minimumLengthMultiFactor", value);
+    }
+
+    public String maximumLength() {
+      String v = doc.formField(path, "maximumLength");
+      return v == null ? "" : v;
+    }
+
+    public void maximumLength(String value) {
+      doc.setFormField(path, "maximumLength", value);
+    }
+
+    public String allowedCharacterSets() {
+      String v = doc.formField(path, "allowedCharacterSets");
+      return v == null ? "" : v;
+    }
+
+    public void allowedCharacterSets(String value) {
+      doc.setFormField(path, "allowedCharacterSets", value);
+    }
+
+    public String compositionRulesEnforced() {
+      String v = doc.formField(path, "compositionRulesEnforced");
+      return v == null ? "" : v;
+    }
+
+    public void compositionRulesEnforced(String value) {
+      doc.setFormField(path, "compositionRulesEnforced", value);
+    }
+
+    public String passphraseSupported() {
+      String v = doc.formField(path, "passphraseSupported");
+      return v == null ? "" : v;
+    }
+
+    public void passphraseSupported(String value) {
+      doc.setFormField(path, "passphraseSupported", value);
+    }
+
+    public String unicodeNormalization() {
+      String v = doc.formField(path, "unicodeNormalization");
+      return v == null ? "" : v;
+    }
+
+    public void unicodeNormalization(String value) {
+      doc.setFormField(path, "unicodeNormalization", value);
+    }
+
+    public String passwordBlocklistEnabled() {
+      String v = doc.formField(path, "passwordBlocklistEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void passwordBlocklistEnabled(String value) {
+      doc.setFormField(path, "passwordBlocklistEnabled", value);
+    }
+
+    public String blocklistSources() {
+      String v = doc.formField(path, "blocklistSources");
+      return v == null ? "" : v;
+    }
+
+    public void blocklistSources(String value) {
+      doc.setFormField(path, "blocklistSources", value);
+    }
+
+    public String passwordStrengthMeter() {
+      String v = doc.formField(path, "passwordStrengthMeter");
+      return v == null ? "" : v;
+    }
+
+    public void passwordStrengthMeter(String value) {
+      doc.setFormField(path, "passwordStrengthMeter", value);
+    }
+
+    public String passwordHintsAllowed() {
+      String v = doc.formField(path, "passwordHintsAllowed");
+      return v == null ? "" : v;
+    }
+
+    public void passwordHintsAllowed(String value) {
+      doc.setFormField(path, "passwordHintsAllowed", value);
+    }
+
+    public String securityQuestionsAllowed() {
+      String v = doc.formField(path, "securityQuestionsAllowed");
+      return v == null ? "" : v;
+    }
+
+    public void securityQuestionsAllowed(String value) {
+      doc.setFormField(path, "securityQuestionsAllowed", value);
+    }
+
+    public String showPasswordOption() {
+      String v = doc.formField(path, "showPasswordOption");
+      return v == null ? "" : v;
+    }
+
+    public void showPasswordOption(String value) {
+      doc.setFormField(path, "showPasswordOption", value);
+    }
+
+    public String passwordManagerSupport() {
+      String v = doc.formField(path, "passwordManagerSupport");
+      return v == null ? "" : v;
+    }
+
+    public void passwordManagerSupport(String value) {
+      doc.setFormField(path, "passwordManagerSupport", value);
+    }
+
+    public String truncationPolicy() {
+      String v = doc.formField(path, "truncationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void truncationPolicy(String value) {
+      doc.setFormField(path, "truncationPolicy", value);
+    }
+
+    public String typoTolerancePolicy() {
+      String v = doc.formField(path, "typoTolerancePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void typoTolerancePolicy(String value) {
+      doc.setFormField(path, "typoTolerancePolicy", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PasswordStoragePolicyContentForm extends SomNode {
+    public PasswordStoragePolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String hashingAlgorithm() {
+      String v = doc.formField(path, "hashingAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void hashingAlgorithm(String value) {
+      doc.setFormField(path, "hashingAlgorithm", value);
+    }
+
+    public String hashingCostFactor() {
+      String v = doc.formField(path, "hashingCostFactor");
+      return v == null ? "" : v;
+    }
+
+    public void hashingCostFactor(String value) {
+      doc.setFormField(path, "hashingCostFactor", value);
+    }
+
+    public String costFactorReviewSchedule() {
+      String v = doc.formField(path, "costFactorReviewSchedule");
+      return v == null ? "" : v;
+    }
+
+    public void costFactorReviewSchedule(String value) {
+      doc.setFormField(path, "costFactorReviewSchedule", value);
+    }
+
+    public String saltLength() {
+      String v = doc.formField(path, "saltLength");
+      return v == null ? "" : v;
+    }
+
+    public void saltLength(String value) {
+      doc.setFormField(path, "saltLength", value);
+    }
+
+    public String saltGeneration() {
+      String v = doc.formField(path, "saltGeneration");
+      return v == null ? "" : v;
+    }
+
+    public void saltGeneration(String value) {
+      doc.setFormField(path, "saltGeneration", value);
+    }
+
+    public String pepperEnabled() {
+      String v = doc.formField(path, "pepperEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void pepperEnabled(String value) {
+      doc.setFormField(path, "pepperEnabled", value);
+    }
+
+    public String pepperStorage() {
+      String v = doc.formField(path, "pepperStorage");
+      return v == null ? "" : v;
+    }
+
+    public void pepperStorage(String value) {
+      doc.setFormField(path, "pepperStorage", value);
+    }
+
+    public String hashVersioning() {
+      String v = doc.formField(path, "hashVersioning");
+      return v == null ? "" : v;
+    }
+
+    public void hashVersioning(String value) {
+      doc.setFormField(path, "hashVersioning", value);
+    }
+
+    public String transmissionEncryption() {
+      String v = doc.formField(path, "transmissionEncryption");
+      return v == null ? "" : v;
+    }
+
+    public void transmissionEncryption(String value) {
+      doc.setFormField(path, "transmissionEncryption", value);
+    }
+
+    public String clientSideHashing() {
+      String v = doc.formField(path, "clientSideHashing");
+      return v == null ? "" : v;
+    }
+
+    public void clientSideHashing(String value) {
+      doc.setFormField(path, "clientSideHashing", value);
+    }
+
+    public String memoryHardFunction() {
+      String v = doc.formField(path, "memoryHardFunction");
+      return v == null ? "" : v;
+    }
+
+    public void memoryHardFunction(String value) {
+      doc.setFormField(path, "memoryHardFunction", value);
+    }
+
+    public String outputLength() {
+      String v = doc.formField(path, "outputLength");
+      return v == null ? "" : v;
+    }
+
+    public void outputLength(String value) {
+      doc.setFormField(path, "outputLength", value);
+    }
+  }
+
   // Generated section facade for the `capacity` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class PeakLoadPatternsCapacityForm extends SomNode {
@@ -139990,6 +144843,370 @@ public final class TomSomV0 {
 
     public void justification(String value) {
       doc.setFormField(path, "justification", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PermissionCompositionStrategyContentForm extends SomNode {
+    public PermissionCompositionStrategyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String compositionModel() {
+      String v = doc.formField(path, "compositionModel");
+      return v == null ? "" : v;
+    }
+
+    public void compositionModel(String value) {
+      doc.setFormField(path, "compositionModel", value);
+    }
+
+    public String defaultPolicy() {
+      String v = doc.formField(path, "defaultPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void defaultPolicy(String value) {
+      doc.setFormField(path, "defaultPolicy", value);
+    }
+
+    public Boolean explicitDenyOverride() {
+      String v = doc.formField(path, "explicitDenyOverride");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void explicitDenyOverride(Boolean value) {
+      doc.setFormField(path, "explicitDenyOverride", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean rolePermissionInheritance() {
+      String v = doc.formField(path, "rolePermissionInheritance");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void rolePermissionInheritance(Boolean value) {
+      doc.setFormField(path, "rolePermissionInheritance", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String groupPermissionAggregation() {
+      String v = doc.formField(path, "groupPermissionAggregation");
+      return v == null ? "" : v;
+    }
+
+    public void groupPermissionAggregation(String value) {
+      doc.setFormField(path, "groupPermissionAggregation", value);
+    }
+
+    public String conflictResolution() {
+      String v = doc.formField(path, "conflictResolution");
+      return v == null ? "" : v;
+    }
+
+    public void conflictResolution(String value) {
+      doc.setFormField(path, "conflictResolution", value);
+    }
+
+    public Boolean permissionBoundary() {
+      String v = doc.formField(path, "permissionBoundary");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void permissionBoundary(Boolean value) {
+      doc.setFormField(path, "permissionBoundary", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean scopedPermissions() {
+      String v = doc.formField(path, "scopedPermissions");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void scopedPermissions(Boolean value) {
+      doc.setFormField(path, "scopedPermissions", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean temporaryElevation() {
+      String v = doc.formField(path, "temporaryElevation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void temporaryElevation(Boolean value) {
+      doc.setFormField(path, "temporaryElevation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PermissionEvaluationBehaviorContentForm extends SomNode {
+    public PermissionEvaluationBehaviorContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String evaluationLocation() {
+      String v = doc.formField(path, "evaluationLocation");
+      return v == null ? "" : v;
+    }
+
+    public void evaluationLocation(String value) {
+      doc.setFormField(path, "evaluationLocation", value);
+    }
+
+    public String evaluationFrequency() {
+      String v = doc.formField(path, "evaluationFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void evaluationFrequency(String value) {
+      doc.setFormField(path, "evaluationFrequency", value);
+    }
+
+    public String cachingStrategy() {
+      String v = doc.formField(path, "cachingStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void cachingStrategy(String value) {
+      doc.setFormField(path, "cachingStrategy", value);
+    }
+
+    public Integer cacheTtlSeconds() {
+      String v = doc.formField(path, "cacheTtlSeconds");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void cacheTtlSeconds(Integer value) {
+      doc.setFormField(path, "cacheTtlSeconds", value == null ? "" : String.valueOf(value));
+    }
+
+    public String failureMode() {
+      String v = doc.formField(path, "failureMode");
+      return v == null ? "" : v;
+    }
+
+    public void failureMode(String value) {
+      doc.setFormField(path, "failureMode", value);
+    }
+
+    public Boolean authorizationLogging() {
+      String v = doc.formField(path, "authorizationLogging");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void authorizationLogging(Boolean value) {
+      doc.setFormField(path, "authorizationLogging", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean logDeniedRequests() {
+      String v = doc.formField(path, "logDeniedRequests");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void logDeniedRequests(Boolean value) {
+      doc.setFormField(path, "logDeniedRequests", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean logSuccessfulAccess() {
+      String v = doc.formField(path, "logSuccessfulAccess");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void logSuccessfulAccess(Boolean value) {
+      doc.setFormField(path, "logSuccessfulAccess", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean automatedTesting() {
+      String v = doc.formField(path, "automatedTesting");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void automatedTesting(Boolean value) {
+      doc.setFormField(path, "automatedTesting", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean clientSideHints() {
+      String v = doc.formField(path, "clientSideHints");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void clientSideHints(Boolean value) {
+      doc.setFormField(path, "clientSideHints", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class PermissionGranularityPolicyContentForm extends SomNode {
+    public PermissionGranularityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean functionLevelControl() {
+      String v = doc.formField(path, "functionLevelControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void functionLevelControl(Boolean value) {
+      doc.setFormField(path, "functionLevelControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean dataLevelControl() {
+      String v = doc.formField(path, "dataLevelControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void dataLevelControl(Boolean value) {
+      doc.setFormField(path, "dataLevelControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean fieldLevelControl() {
+      String v = doc.formField(path, "fieldLevelControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void fieldLevelControl(Boolean value) {
+      doc.setFormField(path, "fieldLevelControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean uiElementControl() {
+      String v = doc.formField(path, "uiElementControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void uiElementControl(Boolean value) {
+      doc.setFormField(path, "uiElementControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean apiOperationControl() {
+      String v = doc.formField(path, "apiOperationControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void apiOperationControl(Boolean value) {
+      doc.setFormField(path, "apiOperationControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean objectLevelControl() {
+      String v = doc.formField(path, "objectLevelControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void objectLevelControl(Boolean value) {
+      doc.setFormField(path, "objectLevelControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean tenantLevelControl() {
+      String v = doc.formField(path, "tenantLevelControl");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void tenantLevelControl(Boolean value) {
+      doc.setFormField(path, "tenantLevelControl", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String finestGranularity() {
+      String v = doc.formField(path, "finestGranularity");
+      return v == null ? "" : v;
+    }
+
+    public void finestGranularity(String value) {
+      doc.setFormField(path, "finestGranularity", value);
+    }
+
+    public Boolean dynamicPermissions() {
+      String v = doc.formField(path, "dynamicPermissions");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void dynamicPermissions(Boolean value) {
+      doc.setFormField(path, "dynamicPermissions", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -151934,6 +157151,136 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class RedirectHandlingPolicyContentForm extends SomNode {
+    public RedirectHandlingPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String oauthRedirectUriPolicy() {
+      String v = doc.formField(path, "oauthRedirectUriPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void oauthRedirectUriPolicy(String value) {
+      doc.setFormField(path, "oauthRedirectUriPolicy", value);
+    }
+
+    public String allowedRedirectDomains() {
+      String v = doc.formField(path, "allowedRedirectDomains");
+      return v == null ? "" : v;
+    }
+
+    public void allowedRedirectDomains(String value) {
+      doc.setFormField(path, "allowedRedirectDomains", value);
+    }
+
+    public String callbackUrlValidation() {
+      String v = doc.formField(path, "callbackUrlValidation");
+      return v == null ? "" : v;
+    }
+
+    public void callbackUrlValidation(String value) {
+      doc.setFormField(path, "callbackUrlValidation", value);
+    }
+
+    public String stateParameterRequired() {
+      String v = doc.formField(path, "stateParameterRequired");
+      return v == null ? "" : v;
+    }
+
+    public void stateParameterRequired(String value) {
+      doc.setFormField(path, "stateParameterRequired", value);
+    }
+
+    public String pkceRequired() {
+      String v = doc.formField(path, "pkceRequired");
+      return v == null ? "" : v;
+    }
+
+    public void pkceRequired(String value) {
+      doc.setFormField(path, "pkceRequired", value);
+    }
+
+    public String pkceMethod() {
+      String v = doc.formField(path, "pkceMethod");
+      return v == null ? "" : v;
+    }
+
+    public void pkceMethod(String value) {
+      doc.setFormField(path, "pkceMethod", value);
+    }
+
+    public String deepLinkHandling() {
+      String v = doc.formField(path, "deepLinkHandling");
+      return v == null ? "" : v;
+    }
+
+    public void deepLinkHandling(String value) {
+      doc.setFormField(path, "deepLinkHandling", value);
+    }
+
+    public String errorRedirectBehavior() {
+      String v = doc.formField(path, "errorRedirectBehavior");
+      return v == null ? "" : v;
+    }
+
+    public void errorRedirectBehavior(String value) {
+      doc.setFormField(path, "errorRedirectBehavior", value);
+    }
+
+    public String postLogoutRedirectUri() {
+      String v = doc.formField(path, "postLogoutRedirectUri");
+      return v == null ? "" : v;
+    }
+
+    public void postLogoutRedirectUri(String value) {
+      doc.setFormField(path, "postLogoutRedirectUri", value);
+    }
+
+    public String singleLogoutRedirectChain() {
+      String v = doc.formField(path, "singleLogoutRedirectChain");
+      return v == null ? "" : v;
+    }
+
+    public void singleLogoutRedirectChain(String value) {
+      doc.setFormField(path, "singleLogoutRedirectChain", value);
+    }
+
+    public String corsPolicy() {
+      String v = doc.formField(path, "corsPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void corsPolicy(String value) {
+      doc.setFormField(path, "corsPolicy", value);
+    }
+
+    public String iframeEmbeddingPolicy() {
+      String v = doc.formField(path, "iframeEmbeddingPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void iframeEmbeddingPolicy(String value) {
+      doc.setFormField(path, "iframeEmbeddingPolicy", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class ReferenceDocumentEntryContentForm extends SomNode {
     public ReferenceDocumentEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -153401,6 +158748,145 @@ public final class TomSomV0 {
 
     public void incidentPostmortem(String value) {
       doc.setFormField(path, "incidentPostmortem", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RememberMePolicyContentForm extends SomNode {
+    public RememberMePolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String rememberMeEnabled() {
+      String v = doc.formField(path, "rememberMeEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeEnabled(String value) {
+      doc.setFormField(path, "rememberMeEnabled", value);
+    }
+
+    public String rememberMeDuration() {
+      String v = doc.formField(path, "rememberMeDuration");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeDuration(String value) {
+      doc.setFormField(path, "rememberMeDuration", value);
+    }
+
+    public String rememberMeTokenType() {
+      String v = doc.formField(path, "rememberMeTokenType");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeTokenType(String value) {
+      doc.setFormField(path, "rememberMeTokenType", value);
+    }
+
+    public String rememberMeTokenStorage() {
+      String v = doc.formField(path, "rememberMeTokenStorage");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeTokenStorage(String value) {
+      doc.setFormField(path, "rememberMeTokenStorage", value);
+    }
+
+    public String rememberMeTokenRotation() {
+      String v = doc.formField(path, "rememberMeTokenRotation");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeTokenRotation(String value) {
+      doc.setFormField(path, "rememberMeTokenRotation", value);
+    }
+
+    public String rememberMeReuseDetection() {
+      String v = doc.formField(path, "rememberMeReuseDetection");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeReuseDetection(String value) {
+      doc.setFormField(path, "rememberMeReuseDetection", value);
+    }
+
+    public String rememberMeDeviceBinding() {
+      String v = doc.formField(path, "rememberMeDeviceBinding");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeDeviceBinding(String value) {
+      doc.setFormField(path, "rememberMeDeviceBinding", value);
+    }
+
+    public String rememberMeRevocation() {
+      String v = doc.formField(path, "rememberMeRevocation");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeRevocation(String value) {
+      doc.setFormField(path, "rememberMeRevocation", value);
+    }
+
+    public String rememberMeAalReduction() {
+      String v = doc.formField(path, "rememberMeAalReduction");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeAalReduction(String value) {
+      doc.setFormField(path, "rememberMeAalReduction", value);
+    }
+
+    public String rememberMeRestrictedOperations() {
+      String v = doc.formField(path, "rememberMeRestrictedOperations");
+      return v == null ? "" : v;
+    }
+
+    public void rememberMeRestrictedOperations(String value) {
+      doc.setFormField(path, "rememberMeRestrictedOperations", value);
+    }
+
+    public String trustedDeviceManagement() {
+      String v = doc.formField(path, "trustedDeviceManagement");
+      return v == null ? "" : v;
+    }
+
+    public void trustedDeviceManagement(String value) {
+      doc.setFormField(path, "trustedDeviceManagement", value);
+    }
+
+    public String maxTrustedDevices() {
+      String v = doc.formField(path, "maxTrustedDevices");
+      return v == null ? "" : v;
+    }
+
+    public void maxTrustedDevices(String value) {
+      doc.setFormField(path, "maxTrustedDevices", value);
+    }
+
+    public String trustedDeviceExpiry() {
+      String v = doc.formField(path, "trustedDeviceExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void trustedDeviceExpiry(String value) {
+      doc.setFormField(path, "trustedDeviceExpiry", value);
     }
   }
 
@@ -162320,6 +167806,114 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class RoleCertificationPolicyContentForm extends SomNode {
+    public RoleCertificationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean certificationRequired() {
+      String v = doc.formField(path, "certificationRequired");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void certificationRequired(Boolean value) {
+      doc.setFormField(path, "certificationRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String certificationFrequency() {
+      String v = doc.formField(path, "certificationFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void certificationFrequency(String value) {
+      doc.setFormField(path, "certificationFrequency", value);
+    }
+
+    public String certifier() {
+      String v = doc.formField(path, "certifier");
+      return v == null ? "" : v;
+    }
+
+    public void certifier(String value) {
+      doc.setFormField(path, "certifier", value);
+    }
+
+    public String nonResponseAction() {
+      String v = doc.formField(path, "nonResponseAction");
+      return v == null ? "" : v;
+    }
+
+    public void nonResponseAction(String value) {
+      doc.setFormField(path, "nonResponseAction", value);
+    }
+
+    public Boolean riskBasedScheduling() {
+      String v = doc.formField(path, "riskBasedScheduling");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void riskBasedScheduling(Boolean value) {
+      doc.setFormField(path, "riskBasedScheduling", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean automatedDetection() {
+      String v = doc.formField(path, "automatedDetection");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void automatedDetection(Boolean value) {
+      doc.setFormField(path, "automatedDetection", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer dormantRoleThresholdDays() {
+      String v = doc.formField(path, "dormantRoleThresholdDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void dormantRoleThresholdDays(Integer value) {
+      doc.setFormField(path, "dormantRoleThresholdDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean certificationAuditTrail() {
+      String v = doc.formField(path, "certificationAuditTrail");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void certificationAuditTrail(Boolean value) {
+      doc.setFormField(path, "certificationAuditTrail", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class RoleCombinationConstraintEntryContentForm extends SomNode {
     public RoleCombinationConstraintEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -162583,6 +168177,124 @@ public final class TomSomV0 {
 
     public void severity(String value) {
       doc.setFormField(path, "severity", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RoleHierarchyPolicyContentForm extends SomNode {
+    public RoleHierarchyPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String hierarchyModel() {
+      String v = doc.formField(path, "hierarchyModel");
+      return v == null ? "" : v;
+    }
+
+    public void hierarchyModel(String value) {
+      doc.setFormField(path, "hierarchyModel", value);
+    }
+
+    public Integer maxHierarchyDepth() {
+      String v = doc.formField(path, "maxHierarchyDepth");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxHierarchyDepth(Integer value) {
+      doc.setFormField(path, "maxHierarchyDepth", value == null ? "" : String.valueOf(value));
+    }
+
+    public String inheritanceMode() {
+      String v = doc.formField(path, "inheritanceMode");
+      return v == null ? "" : v;
+    }
+
+    public void inheritanceMode(String value) {
+      doc.setFormField(path, "inheritanceMode", value);
+    }
+
+    public Boolean multipleInheritance() {
+      String v = doc.formField(path, "multipleInheritance");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void multipleInheritance(Boolean value) {
+      doc.setFormField(path, "multipleInheritance", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean permissionOverride() {
+      String v = doc.formField(path, "permissionOverride");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void permissionOverride(Boolean value) {
+      doc.setFormField(path, "permissionOverride", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean activationConstraints() {
+      String v = doc.formField(path, "activationConstraints");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void activationConstraints(Boolean value) {
+      doc.setFormField(path, "activationConstraints", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer maxActiveRolesPerUser() {
+      String v = doc.formField(path, "maxActiveRolesPerUser");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxActiveRolesPerUser(Integer value) {
+      doc.setFormField(path, "maxActiveRolesPerUser", value == null ? "" : String.valueOf(value));
+    }
+
+    public String rolePriorityScheme() {
+      String v = doc.formField(path, "rolePriorityScheme");
+      return v == null ? "" : v;
+    }
+
+    public void rolePriorityScheme(String value) {
+      doc.setFormField(path, "rolePriorityScheme", value);
+    }
+
+    public Boolean automaticInheritanceRevocation() {
+      String v = doc.formField(path, "automaticInheritanceRevocation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void automaticInheritanceRevocation(Boolean value) {
+      doc.setFormField(path, "automaticInheritanceRevocation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -163112,6 +168824,127 @@ public final class TomSomV0 {
 
     public void rollbackTimeTarget(String value) {
       doc.setFormField(path, "rollbackTimeTarget", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RowLevelSecurityPolicyContentForm extends SomNode {
+    public RowLevelSecurityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String rowLevelSecurityEnabled() {
+      String v = doc.formField(path, "rowLevelSecurityEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void rowLevelSecurityEnabled(String value) {
+      doc.setFormField(path, "rowLevelSecurityEnabled", value);
+    }
+
+    public String rlsImplementation() {
+      String v = doc.formField(path, "rlsImplementation");
+      return v == null ? "" : v;
+    }
+
+    public void rlsImplementation(String value) {
+      doc.setFormField(path, "rlsImplementation", value);
+    }
+
+    public String rlsFilteringStrategy() {
+      String v = doc.formField(path, "rlsFilteringStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void rlsFilteringStrategy(String value) {
+      doc.setFormField(path, "rlsFilteringStrategy", value);
+    }
+
+    public String rlsBypassPolicy() {
+      String v = doc.formField(path, "rlsBypassPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void rlsBypassPolicy(String value) {
+      doc.setFormField(path, "rlsBypassPolicy", value);
+    }
+
+    public String hierarchicalVisibility() {
+      String v = doc.formField(path, "hierarchicalVisibility");
+      return v == null ? "" : v;
+    }
+
+    public void hierarchicalVisibility(String value) {
+      doc.setFormField(path, "hierarchicalVisibility", value);
+    }
+
+    public String hierarchyDepthLimit() {
+      String v = doc.formField(path, "hierarchyDepthLimit");
+      return v == null ? "" : v;
+    }
+
+    public void hierarchyDepthLimit(String value) {
+      doc.setFormField(path, "hierarchyDepthLimit", value);
+    }
+
+    public String crossTenantAccess() {
+      String v = doc.formField(path, "crossTenantAccess");
+      return v == null ? "" : v;
+    }
+
+    public void crossTenantAccess(String value) {
+      doc.setFormField(path, "crossTenantAccess", value);
+    }
+
+    public String dataOwnerAccess() {
+      String v = doc.formField(path, "dataOwnerAccess");
+      return v == null ? "" : v;
+    }
+
+    public void dataOwnerAccess(String value) {
+      doc.setFormField(path, "dataOwnerAccess", value);
+    }
+
+    public String sharedDataHandling() {
+      String v = doc.formField(path, "sharedDataHandling");
+      return v == null ? "" : v;
+    }
+
+    public void sharedDataHandling(String value) {
+      doc.setFormField(path, "sharedDataHandling", value);
+    }
+
+    public String rlsPerformanceStrategy() {
+      String v = doc.formField(path, "rlsPerformanceStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void rlsPerformanceStrategy(String value) {
+      doc.setFormField(path, "rlsPerformanceStrategy", value);
+    }
+
+    public String rlsTestingStrategy() {
+      String v = doc.formField(path, "rlsTestingStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void rlsTestingStrategy(String value) {
+      doc.setFormField(path, "rlsTestingStrategy", value);
     }
   }
 
@@ -171923,6 +177756,154 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class SelfServiceAccountManagementContentForm extends SomNode {
+    public SelfServiceAccountManagementContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String profileUpdateEnabled() {
+      String v = doc.formField(path, "profileUpdateEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void profileUpdateEnabled(String value) {
+      doc.setFormField(path, "profileUpdateEnabled", value);
+    }
+
+    public String passwordChangeEnabled() {
+      String v = doc.formField(path, "passwordChangeEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void passwordChangeEnabled(String value) {
+      doc.setFormField(path, "passwordChangeEnabled", value);
+    }
+
+    public String passwordResetEnabled() {
+      String v = doc.formField(path, "passwordResetEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void passwordResetEnabled(String value) {
+      doc.setFormField(path, "passwordResetEnabled", value);
+    }
+
+    public String passwordResetMethods() {
+      String v = doc.formField(path, "passwordResetMethods");
+      return v == null ? "" : v;
+    }
+
+    public void passwordResetMethods(String value) {
+      doc.setFormField(path, "passwordResetMethods", value);
+    }
+
+    public String mfaEnrollmentSelfService() {
+      String v = doc.formField(path, "mfaEnrollmentSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void mfaEnrollmentSelfService(String value) {
+      doc.setFormField(path, "mfaEnrollmentSelfService", value);
+    }
+
+    public String accountDeactivationSelfService() {
+      String v = doc.formField(path, "accountDeactivationSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void accountDeactivationSelfService(String value) {
+      doc.setFormField(path, "accountDeactivationSelfService", value);
+    }
+
+    public String accountDeletionSelfService() {
+      String v = doc.formField(path, "accountDeletionSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void accountDeletionSelfService(String value) {
+      doc.setFormField(path, "accountDeletionSelfService", value);
+    }
+
+    public String dataExportSelfService() {
+      String v = doc.formField(path, "dataExportSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void dataExportSelfService(String value) {
+      doc.setFormField(path, "dataExportSelfService", value);
+    }
+
+    public String sessionManagementSelfService() {
+      String v = doc.formField(path, "sessionManagementSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void sessionManagementSelfService(String value) {
+      doc.setFormField(path, "sessionManagementSelfService", value);
+    }
+
+    public String apiKeyManagementSelfService() {
+      String v = doc.formField(path, "apiKeyManagementSelfService");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyManagementSelfService(String value) {
+      doc.setFormField(path, "apiKeyManagementSelfService", value);
+    }
+
+    public String notificationPreferences() {
+      String v = doc.formField(path, "notificationPreferences");
+      return v == null ? "" : v;
+    }
+
+    public void notificationPreferences(String value) {
+      doc.setFormField(path, "notificationPreferences", value);
+    }
+
+    public String delegationEnabled() {
+      String v = doc.formField(path, "delegationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void delegationEnabled(String value) {
+      doc.setFormField(path, "delegationEnabled", value);
+    }
+
+    public String delegationScope() {
+      String v = doc.formField(path, "delegationScope");
+      return v == null ? "" : v;
+    }
+
+    public void delegationScope(String value) {
+      doc.setFormField(path, "delegationScope", value);
+    }
+
+    public String accountRecoveryProcess() {
+      String v = doc.formField(path, "accountRecoveryProcess");
+      return v == null ? "" : v;
+    }
+
+    public void accountRecoveryProcess(String value) {
+      doc.setFormField(path, "accountRecoveryProcess", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class ServerCallStepEntryContentForm extends SomNode {
     public ServerCallStepEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -173216,6 +179197,275 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class ServiceAccountCredentialPolicyContentForm extends SomNode {
+    public ServiceAccountCredentialPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String serviceAccountPasswordPolicy() {
+      String v = doc.formField(path, "serviceAccountPasswordPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountPasswordPolicy(String value) {
+      doc.setFormField(path, "serviceAccountPasswordPolicy", value);
+    }
+
+    public String serviceAccountRotationPeriod() {
+      String v = doc.formField(path, "serviceAccountRotationPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountRotationPeriod(String value) {
+      doc.setFormField(path, "serviceAccountRotationPeriod", value);
+    }
+
+    public String apiKeyLifetime() {
+      String v = doc.formField(path, "apiKeyLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyLifetime(String value) {
+      doc.setFormField(path, "apiKeyLifetime", value);
+    }
+
+    public String apiKeyRotationPolicy() {
+      String v = doc.formField(path, "apiKeyRotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void apiKeyRotationPolicy(String value) {
+      doc.setFormField(path, "apiKeyRotationPolicy", value);
+    }
+
+    public String secretsManagementTool() {
+      String v = doc.formField(path, "secretsManagementTool");
+      return v == null ? "" : v;
+    }
+
+    public void secretsManagementTool(String value) {
+      doc.setFormField(path, "secretsManagementTool", value);
+    }
+
+    public String machineToMachineAuth() {
+      String v = doc.formField(path, "machineToMachineAuth");
+      return v == null ? "" : v;
+    }
+
+    public void machineToMachineAuth(String value) {
+      doc.setFormField(path, "machineToMachineAuth", value);
+    }
+
+    public String serviceAccountMfaRequired() {
+      String v = doc.formField(path, "serviceAccountMfaRequired");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountMfaRequired(String value) {
+      doc.setFormField(path, "serviceAccountMfaRequired", value);
+    }
+
+    public String sharedCredentialProhibition() {
+      String v = doc.formField(path, "sharedCredentialProhibition");
+      return v == null ? "" : v;
+    }
+
+    public void sharedCredentialProhibition(String value) {
+      doc.setFormField(path, "sharedCredentialProhibition", value);
+    }
+
+    public String credentialVaultIntegration() {
+      String v = doc.formField(path, "credentialVaultIntegration");
+      return v == null ? "" : v;
+    }
+
+    public void credentialVaultIntegration(String value) {
+      doc.setFormField(path, "credentialVaultIntegration", value);
+    }
+
+    public String hardcodedCredentialDetection() {
+      String v = doc.formField(path, "hardcodedCredentialDetection");
+      return v == null ? "" : v;
+    }
+
+    public void hardcodedCredentialDetection(String value) {
+      doc.setFormField(path, "hardcodedCredentialDetection", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServiceAccountLifecycleContentForm extends SomNode {
+    public ServiceAccountLifecycleContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String serviceAccountTypes() {
+      String v = doc.formField(path, "serviceAccountTypes");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountTypes(String value) {
+      doc.setFormField(path, "serviceAccountTypes", value);
+    }
+
+    public String creationProcess() {
+      String v = doc.formField(path, "creationProcess");
+      return v == null ? "" : v;
+    }
+
+    public void creationProcess(String value) {
+      doc.setFormField(path, "creationProcess", value);
+    }
+
+    public String creationApproval() {
+      String v = doc.formField(path, "creationApproval");
+      return v == null ? "" : v;
+    }
+
+    public void creationApproval(String value) {
+      doc.setFormField(path, "creationApproval", value);
+    }
+
+    public String ownerAssignment() {
+      String v = doc.formField(path, "ownerAssignment");
+      return v == null ? "" : v;
+    }
+
+    public void ownerAssignment(String value) {
+      doc.setFormField(path, "ownerAssignment", value);
+    }
+
+    public String ownerReviewFrequency() {
+      String v = doc.formField(path, "ownerReviewFrequency");
+      return v == null ? "" : v;
+    }
+
+    public void ownerReviewFrequency(String value) {
+      doc.setFormField(path, "ownerReviewFrequency", value);
+    }
+
+    public String credentialRotationPolicy() {
+      String v = doc.formField(path, "credentialRotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void credentialRotationPolicy(String value) {
+      doc.setFormField(path, "credentialRotationPolicy", value);
+    }
+
+    public String credentialStorageMethod() {
+      String v = doc.formField(path, "credentialStorageMethod");
+      return v == null ? "" : v;
+    }
+
+    public void credentialStorageMethod(String value) {
+      doc.setFormField(path, "credentialStorageMethod", value);
+    }
+
+    public String scopeLimitation() {
+      String v = doc.formField(path, "scopeLimitation");
+      return v == null ? "" : v;
+    }
+
+    public void scopeLimitation(String value) {
+      doc.setFormField(path, "scopeLimitation", value);
+    }
+
+    public String ipRestriction() {
+      String v = doc.formField(path, "ipRestriction");
+      return v == null ? "" : v;
+    }
+
+    public void ipRestriction(String value) {
+      doc.setFormField(path, "ipRestriction", value);
+    }
+
+    public String expirationPolicy() {
+      String v = doc.formField(path, "expirationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void expirationPolicy(String value) {
+      doc.setFormField(path, "expirationPolicy", value);
+    }
+
+    public String renewalProcess() {
+      String v = doc.formField(path, "renewalProcess");
+      return v == null ? "" : v;
+    }
+
+    public void renewalProcess(String value) {
+      doc.setFormField(path, "renewalProcess", value);
+    }
+
+    public String decommissioningProcess() {
+      String v = doc.formField(path, "decommissioningProcess");
+      return v == null ? "" : v;
+    }
+
+    public void decommissioningProcess(String value) {
+      doc.setFormField(path, "decommissioningProcess", value);
+    }
+
+    public String monitoringRequirements() {
+      String v = doc.formField(path, "monitoringRequirements");
+      return v == null ? "" : v;
+    }
+
+    public void monitoringRequirements(String value) {
+      doc.setFormField(path, "monitoringRequirements", value);
+    }
+
+    public String serviceAccountNamingConvention() {
+      String v = doc.formField(path, "serviceAccountNamingConvention");
+      return v == null ? "" : v;
+    }
+
+    public void serviceAccountNamingConvention(String value) {
+      doc.setFormField(path, "serviceAccountNamingConvention", value);
+    }
+
+    public String documentationRequirements() {
+      String v = doc.formField(path, "documentationRequirements");
+      return v == null ? "" : v;
+    }
+
+    public void documentationRequirements(String value) {
+      doc.setFormField(path, "documentationRequirements", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class ServiceLevelAgreementEntryContentForm extends SomNode {
     public ServiceLevelAgreementEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -173983,6 +180233,275 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SessionCreationPolicyContentForm extends SomNode {
+    public SessionCreationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String sessionMechanism() {
+      String v = doc.formField(path, "sessionMechanism");
+      return v == null ? "" : v;
+    }
+
+    public void sessionMechanism(String value) {
+      doc.setFormField(path, "sessionMechanism", value);
+    }
+
+    public String sessionIdGeneration() {
+      String v = doc.formField(path, "sessionIdGeneration");
+      return v == null ? "" : v;
+    }
+
+    public void sessionIdGeneration(String value) {
+      doc.setFormField(path, "sessionIdGeneration", value);
+    }
+
+    public String sessionIdEntropy() {
+      String v = doc.formField(path, "sessionIdEntropy");
+      return v == null ? "" : v;
+    }
+
+    public void sessionIdEntropy(String value) {
+      doc.setFormField(path, "sessionIdEntropy", value);
+    }
+
+    public String sessionBindingMethod() {
+      String v = doc.formField(path, "sessionBindingMethod");
+      return v == null ? "" : v;
+    }
+
+    public void sessionBindingMethod(String value) {
+      doc.setFormField(path, "sessionBindingMethod", value);
+    }
+
+    public String httpOnlyCookies() {
+      String v = doc.formField(path, "httpOnlyCookies");
+      return v == null ? "" : v;
+    }
+
+    public void httpOnlyCookies(String value) {
+      doc.setFormField(path, "httpOnlyCookies", value);
+    }
+
+    public String secureCookies() {
+      String v = doc.formField(path, "secureCookies");
+      return v == null ? "" : v;
+    }
+
+    public void secureCookies(String value) {
+      doc.setFormField(path, "secureCookies", value);
+    }
+
+    public String sameSitePolicy() {
+      String v = doc.formField(path, "sameSitePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void sameSitePolicy(String value) {
+      doc.setFormField(path, "sameSitePolicy", value);
+    }
+
+    public String cookieDomain() {
+      String v = doc.formField(path, "cookieDomain");
+      return v == null ? "" : v;
+    }
+
+    public void cookieDomain(String value) {
+      doc.setFormField(path, "cookieDomain", value);
+    }
+
+    public String deviceBinding() {
+      String v = doc.formField(path, "deviceBinding");
+      return v == null ? "" : v;
+    }
+
+    public void deviceBinding(String value) {
+      doc.setFormField(path, "deviceBinding", value);
+    }
+
+    public String sessionDataStorage() {
+      String v = doc.formField(path, "sessionDataStorage");
+      return v == null ? "" : v;
+    }
+
+    public void sessionDataStorage(String value) {
+      doc.setFormField(path, "sessionDataStorage", value);
+    }
+
+    public String sessionReplicationStrategy() {
+      String v = doc.formField(path, "sessionReplicationStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void sessionReplicationStrategy(String value) {
+      doc.setFormField(path, "sessionReplicationStrategy", value);
+    }
+
+    public String csrfProtection() {
+      String v = doc.formField(path, "csrfProtection");
+      return v == null ? "" : v;
+    }
+
+    public void csrfProtection(String value) {
+      doc.setFormField(path, "csrfProtection", value);
+    }
+
+    public String postLoginRedirectValidation() {
+      String v = doc.formField(path, "postLoginRedirectValidation");
+      return v == null ? "" : v;
+    }
+
+    public void postLoginRedirectValidation(String value) {
+      doc.setFormField(path, "postLoginRedirectValidation", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SessionLifecycleMonitoringContentForm extends SomNode {
+    public SessionLifecycleMonitoringContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String sessionCreationLogging() {
+      String v = doc.formField(path, "sessionCreationLogging");
+      return v == null ? "" : v;
+    }
+
+    public void sessionCreationLogging(String value) {
+      doc.setFormField(path, "sessionCreationLogging", value);
+    }
+
+    public String sessionDestructionLogging() {
+      String v = doc.formField(path, "sessionDestructionLogging");
+      return v == null ? "" : v;
+    }
+
+    public void sessionDestructionLogging(String value) {
+      doc.setFormField(path, "sessionDestructionLogging", value);
+    }
+
+    public String sessionRenewalLogging() {
+      String v = doc.formField(path, "sessionRenewalLogging");
+      return v == null ? "" : v;
+    }
+
+    public void sessionRenewalLogging(String value) {
+      doc.setFormField(path, "sessionRenewalLogging", value);
+    }
+
+    public String sessionEventDetails() {
+      String v = doc.formField(path, "sessionEventDetails");
+      return v == null ? "" : v;
+    }
+
+    public void sessionEventDetails(String value) {
+      doc.setFormField(path, "sessionEventDetails", value);
+    }
+
+    public String sessionIdInLogs() {
+      String v = doc.formField(path, "sessionIdInLogs");
+      return v == null ? "" : v;
+    }
+
+    public void sessionIdInLogs(String value) {
+      doc.setFormField(path, "sessionIdInLogs", value);
+    }
+
+    public String sessionActivityTracking() {
+      String v = doc.formField(path, "sessionActivityTracking");
+      return v == null ? "" : v;
+    }
+
+    public void sessionActivityTracking(String value) {
+      doc.setFormField(path, "sessionActivityTracking", value);
+    }
+
+    public String sessionHistoryVisibleToUser() {
+      String v = doc.formField(path, "sessionHistoryVisibleToUser");
+      return v == null ? "" : v;
+    }
+
+    public void sessionHistoryVisibleToUser(String value) {
+      doc.setFormField(path, "sessionHistoryVisibleToUser", value);
+    }
+
+    public String failedSessionAccessLogging() {
+      String v = doc.formField(path, "failedSessionAccessLogging");
+      return v == null ? "" : v;
+    }
+
+    public void failedSessionAccessLogging(String value) {
+      doc.setFormField(path, "failedSessionAccessLogging", value);
+    }
+
+    public String sessionMetricsCollection() {
+      String v = doc.formField(path, "sessionMetricsCollection");
+      return v == null ? "" : v;
+    }
+
+    public void sessionMetricsCollection(String value) {
+      doc.setFormField(path, "sessionMetricsCollection", value);
+    }
+
+    public String sessionAuditRetention() {
+      String v = doc.formField(path, "sessionAuditRetention");
+      return v == null ? "" : v;
+    }
+
+    public void sessionAuditRetention(String value) {
+      doc.setFormField(path, "sessionAuditRetention", value);
+    }
+
+    public String realTimeSessionAlerts() {
+      String v = doc.formField(path, "realTimeSessionAlerts");
+      return v == null ? "" : v;
+    }
+
+    public void realTimeSessionAlerts(String value) {
+      doc.setFormField(path, "realTimeSessionAlerts", value);
+    }
+
+    public String alertTriggers() {
+      String v = doc.formField(path, "alertTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void alertTriggers(String value) {
+      doc.setFormField(path, "alertTriggers", value);
+    }
+  }
+
   // Generated section facade for the `lifecycle` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class SessionModelLifecycleForm extends SomNode {
@@ -174155,6 +180674,450 @@ public final class TomSomV0 {
 
     public void absoluteTimeout(String value) {
       doc.setFormField(path, "absoluteTimeout", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SessionRevocationPolicyContentForm extends SomNode {
+    public SessionRevocationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String logoutMechanism() {
+      String v = doc.formField(path, "logoutMechanism");
+      return v == null ? "" : v;
+    }
+
+    public void logoutMechanism(String value) {
+      doc.setFormField(path, "logoutMechanism", value);
+    }
+
+    public String logoutButtonPlacement() {
+      String v = doc.formField(path, "logoutButtonPlacement");
+      return v == null ? "" : v;
+    }
+
+    public void logoutButtonPlacement(String value) {
+      doc.setFormField(path, "logoutButtonPlacement", value);
+    }
+
+    public String logoutConfirmation() {
+      String v = doc.formField(path, "logoutConfirmation");
+      return v == null ? "" : v;
+    }
+
+    public void logoutConfirmation(String value) {
+      doc.setFormField(path, "logoutConfirmation", value);
+    }
+
+    public String postLogoutRedirect() {
+      String v = doc.formField(path, "postLogoutRedirect");
+      return v == null ? "" : v;
+    }
+
+    public void postLogoutRedirect(String value) {
+      doc.setFormField(path, "postLogoutRedirect", value);
+    }
+
+    public String postLogoutCacheClear() {
+      String v = doc.formField(path, "postLogoutCacheClear");
+      return v == null ? "" : v;
+    }
+
+    public void postLogoutCacheClear(String value) {
+      doc.setFormField(path, "postLogoutCacheClear", value);
+    }
+
+    public String singleLogoutEnabled() {
+      String v = doc.formField(path, "singleLogoutEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void singleLogoutEnabled(String value) {
+      doc.setFormField(path, "singleLogoutEnabled", value);
+    }
+
+    public String singleLogoutProtocol() {
+      String v = doc.formField(path, "singleLogoutProtocol");
+      return v == null ? "" : v;
+    }
+
+    public void singleLogoutProtocol(String value) {
+      doc.setFormField(path, "singleLogoutProtocol", value);
+    }
+
+    public String privilegeChangeRevocation() {
+      String v = doc.formField(path, "privilegeChangeRevocation");
+      return v == null ? "" : v;
+    }
+
+    public void privilegeChangeRevocation(String value) {
+      doc.setFormField(path, "privilegeChangeRevocation", value);
+    }
+
+    public String passwordChangeRevocation() {
+      String v = doc.formField(path, "passwordChangeRevocation");
+      return v == null ? "" : v;
+    }
+
+    public void passwordChangeRevocation(String value) {
+      doc.setFormField(path, "passwordChangeRevocation", value);
+    }
+
+    public String compromiseRevocation() {
+      String v = doc.formField(path, "compromiseRevocation");
+      return v == null ? "" : v;
+    }
+
+    public void compromiseRevocation(String value) {
+      doc.setFormField(path, "compromiseRevocation", value);
+    }
+
+    public String adminTerminationEnabled() {
+      String v = doc.formField(path, "adminTerminationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void adminTerminationEnabled(String value) {
+      doc.setFormField(path, "adminTerminationEnabled", value);
+    }
+
+    public String bulkRevocationEnabled() {
+      String v = doc.formField(path, "bulkRevocationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void bulkRevocationEnabled(String value) {
+      doc.setFormField(path, "bulkRevocationEnabled", value);
+    }
+
+    public String revocationPropagationDelay() {
+      String v = doc.formField(path, "revocationPropagationDelay");
+      return v == null ? "" : v;
+    }
+
+    public void revocationPropagationDelay(String value) {
+      doc.setFormField(path, "revocationPropagationDelay", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SessionSecurityPolicyContentForm extends SomNode {
+    public SessionSecurityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String sessionFixationProtection() {
+      String v = doc.formField(path, "sessionFixationProtection");
+      return v == null ? "" : v;
+    }
+
+    public void sessionFixationProtection(String value) {
+      doc.setFormField(path, "sessionFixationProtection", value);
+    }
+
+    public String sessionIdRegenerationTriggers() {
+      String v = doc.formField(path, "sessionIdRegenerationTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void sessionIdRegenerationTriggers(String value) {
+      doc.setFormField(path, "sessionIdRegenerationTriggers", value);
+    }
+
+    public String sessionBindingProperties() {
+      String v = doc.formField(path, "sessionBindingProperties");
+      return v == null ? "" : v;
+    }
+
+    public void sessionBindingProperties(String value) {
+      doc.setFormField(path, "sessionBindingProperties", value);
+    }
+
+    public String bindingMismatchAction() {
+      String v = doc.formField(path, "bindingMismatchAction");
+      return v == null ? "" : v;
+    }
+
+    public void bindingMismatchAction(String value) {
+      doc.setFormField(path, "bindingMismatchAction", value);
+    }
+
+    public String sessionAnomalyDetection() {
+      String v = doc.formField(path, "sessionAnomalyDetection");
+      return v == null ? "" : v;
+    }
+
+    public void sessionAnomalyDetection(String value) {
+      doc.setFormField(path, "sessionAnomalyDetection", value);
+    }
+
+    public String anomalyDetectionSignals() {
+      String v = doc.formField(path, "anomalyDetectionSignals");
+      return v == null ? "" : v;
+    }
+
+    public void anomalyDetectionSignals(String value) {
+      doc.setFormField(path, "anomalyDetectionSignals", value);
+    }
+
+    public String sessionCachePolicy() {
+      String v = doc.formField(path, "sessionCachePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void sessionCachePolicy(String value) {
+      doc.setFormField(path, "sessionCachePolicy", value);
+    }
+
+    public String clearSiteDataOnLogout() {
+      String v = doc.formField(path, "clearSiteDataOnLogout");
+      return v == null ? "" : v;
+    }
+
+    public void clearSiteDataOnLogout(String value) {
+      doc.setFormField(path, "clearSiteDataOnLogout", value);
+    }
+
+    public String sessionTransportSecurity() {
+      String v = doc.formField(path, "sessionTransportSecurity");
+      return v == null ? "" : v;
+    }
+
+    public void sessionTransportSecurity(String value) {
+      doc.setFormField(path, "sessionTransportSecurity", value);
+    }
+
+    public String sessionIdInUrlPrevention() {
+      String v = doc.formField(path, "sessionIdInUrlPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void sessionIdInUrlPrevention(String value) {
+      doc.setFormField(path, "sessionIdInUrlPrevention", value);
+    }
+
+    public String crossOriginSessionProtection() {
+      String v = doc.formField(path, "crossOriginSessionProtection");
+      return v == null ? "" : v;
+    }
+
+    public void crossOriginSessionProtection(String value) {
+      doc.setFormField(path, "crossOriginSessionProtection", value);
+    }
+
+    public String sessionDataMinimization() {
+      String v = doc.formField(path, "sessionDataMinimization");
+      return v == null ? "" : v;
+    }
+
+    public void sessionDataMinimization(String value) {
+      doc.setFormField(path, "sessionDataMinimization", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SessionTimeoutPolicyContentForm extends SomNode {
+    public SessionTimeoutPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String idleTimeoutDefault() {
+      String v = doc.formField(path, "idleTimeoutDefault");
+      return v == null ? "" : v;
+    }
+
+    public void idleTimeoutDefault(String value) {
+      doc.setFormField(path, "idleTimeoutDefault", value);
+    }
+
+    public String idleTimeoutHighValue() {
+      String v = doc.formField(path, "idleTimeoutHighValue");
+      return v == null ? "" : v;
+    }
+
+    public void idleTimeoutHighValue(String value) {
+      doc.setFormField(path, "idleTimeoutHighValue", value);
+    }
+
+    public String absoluteTimeout() {
+      String v = doc.formField(path, "absoluteTimeout");
+      return v == null ? "" : v;
+    }
+
+    public void absoluteTimeout(String value) {
+      doc.setFormField(path, "absoluteTimeout", value);
+    }
+
+    public String renewalTimeout() {
+      String v = doc.formField(path, "renewalTimeout");
+      return v == null ? "" : v;
+    }
+
+    public void renewalTimeout(String value) {
+      doc.setFormField(path, "renewalTimeout", value);
+    }
+
+    public String idleTimeoutAal1() {
+      String v = doc.formField(path, "idleTimeoutAal1");
+      return v == null ? "" : v;
+    }
+
+    public void idleTimeoutAal1(String value) {
+      doc.setFormField(path, "idleTimeoutAal1", value);
+    }
+
+    public String absoluteTimeoutAal1() {
+      String v = doc.formField(path, "absoluteTimeoutAal1");
+      return v == null ? "" : v;
+    }
+
+    public void absoluteTimeoutAal1(String value) {
+      doc.setFormField(path, "absoluteTimeoutAal1", value);
+    }
+
+    public String idleTimeoutAal2() {
+      String v = doc.formField(path, "idleTimeoutAal2");
+      return v == null ? "" : v;
+    }
+
+    public void idleTimeoutAal2(String value) {
+      doc.setFormField(path, "idleTimeoutAal2", value);
+    }
+
+    public String absoluteTimeoutAal2() {
+      String v = doc.formField(path, "absoluteTimeoutAal2");
+      return v == null ? "" : v;
+    }
+
+    public void absoluteTimeoutAal2(String value) {
+      doc.setFormField(path, "absoluteTimeoutAal2", value);
+    }
+
+    public String idleTimeoutAal3() {
+      String v = doc.formField(path, "idleTimeoutAal3");
+      return v == null ? "" : v;
+    }
+
+    public void idleTimeoutAal3(String value) {
+      doc.setFormField(path, "idleTimeoutAal3", value);
+    }
+
+    public String absoluteTimeoutAal3() {
+      String v = doc.formField(path, "absoluteTimeoutAal3");
+      return v == null ? "" : v;
+    }
+
+    public void absoluteTimeoutAal3(String value) {
+      doc.setFormField(path, "absoluteTimeoutAal3", value);
+    }
+
+    public String timeoutEnforcement() {
+      String v = doc.formField(path, "timeoutEnforcement");
+      return v == null ? "" : v;
+    }
+
+    public void timeoutEnforcement(String value) {
+      doc.setFormField(path, "timeoutEnforcement", value);
+    }
+
+    public String timeoutWarningEnabled() {
+      String v = doc.formField(path, "timeoutWarningEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void timeoutWarningEnabled(String value) {
+      doc.setFormField(path, "timeoutWarningEnabled", value);
+    }
+
+    public String timeoutWarningLeadTime() {
+      String v = doc.formField(path, "timeoutWarningLeadTime");
+      return v == null ? "" : v;
+    }
+
+    public void timeoutWarningLeadTime(String value) {
+      doc.setFormField(path, "timeoutWarningLeadTime", value);
+    }
+
+    public String timeoutWarningAction() {
+      String v = doc.formField(path, "timeoutWarningAction");
+      return v == null ? "" : v;
+    }
+
+    public void timeoutWarningAction(String value) {
+      doc.setFormField(path, "timeoutWarningAction", value);
+    }
+
+    public String sessionExtensionAllowed() {
+      String v = doc.formField(path, "sessionExtensionAllowed");
+      return v == null ? "" : v;
+    }
+
+    public void sessionExtensionAllowed(String value) {
+      doc.setFormField(path, "sessionExtensionAllowed", value);
+    }
+
+    public String maxExtensions() {
+      String v = doc.formField(path, "maxExtensions");
+      return v == null ? "" : v;
+    }
+
+    public void maxExtensions(String value) {
+      doc.setFormField(path, "maxExtensions", value);
+    }
+
+    public String gracePeriodAfterExpiry() {
+      String v = doc.formField(path, "gracePeriodAfterExpiry");
+      return v == null ? "" : v;
+    }
+
+    public void gracePeriodAfterExpiry(String value) {
+      doc.setFormField(path, "gracePeriodAfterExpiry", value);
     }
   }
 
@@ -176367,6 +183330,136 @@ public final class TomSomV0 {
 
     public void certifications(String value) {
       doc.setFormField(path, "certifications", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SsoPolicyContentForm extends SomNode {
+    public SsoPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ssoEnabled() {
+      String v = doc.formField(path, "ssoEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void ssoEnabled(String value) {
+      doc.setFormField(path, "ssoEnabled", value);
+    }
+
+    public String ssoProtocol() {
+      String v = doc.formField(path, "ssoProtocol");
+      return v == null ? "" : v;
+    }
+
+    public void ssoProtocol(String value) {
+      doc.setFormField(path, "ssoProtocol", value);
+    }
+
+    public String identityProviderType() {
+      String v = doc.formField(path, "identityProviderType");
+      return v == null ? "" : v;
+    }
+
+    public void identityProviderType(String value) {
+      doc.setFormField(path, "identityProviderType", value);
+    }
+
+    public String identityProviderProduct() {
+      String v = doc.formField(path, "identityProviderProduct");
+      return v == null ? "" : v;
+    }
+
+    public void identityProviderProduct(String value) {
+      doc.setFormField(path, "identityProviderProduct", value);
+    }
+
+    public String federationProtocol() {
+      String v = doc.formField(path, "federationProtocol");
+      return v == null ? "" : v;
+    }
+
+    public void federationProtocol(String value) {
+      doc.setFormField(path, "federationProtocol", value);
+    }
+
+    public String attributeMapping() {
+      String v = doc.formField(path, "attributeMapping");
+      return v == null ? "" : v;
+    }
+
+    public void attributeMapping(String value) {
+      doc.setFormField(path, "attributeMapping", value);
+    }
+
+    public String justInTimeProvisioning() {
+      String v = doc.formField(path, "justInTimeProvisioning");
+      return v == null ? "" : v;
+    }
+
+    public void justInTimeProvisioning(String value) {
+      doc.setFormField(path, "justInTimeProvisioning", value);
+    }
+
+    public String sessionSynchronization() {
+      String v = doc.formField(path, "sessionSynchronization");
+      return v == null ? "" : v;
+    }
+
+    public void sessionSynchronization(String value) {
+      doc.setFormField(path, "sessionSynchronization", value);
+    }
+
+    public String singleLogoutEnabled() {
+      String v = doc.formField(path, "singleLogoutEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void singleLogoutEnabled(String value) {
+      doc.setFormField(path, "singleLogoutEnabled", value);
+    }
+
+    public String ssoFallbackMethod() {
+      String v = doc.formField(path, "ssoFallbackMethod");
+      return v == null ? "" : v;
+    }
+
+    public void ssoFallbackMethod(String value) {
+      doc.setFormField(path, "ssoFallbackMethod", value);
+    }
+
+    public String ssoScopePolicy() {
+      String v = doc.formField(path, "ssoScopePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void ssoScopePolicy(String value) {
+      doc.setFormField(path, "ssoScopePolicy", value);
+    }
+
+    public String externalIdpTrustPolicy() {
+      String v = doc.formField(path, "externalIdpTrustPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void externalIdpTrustPolicy(String value) {
+      doc.setFormField(path, "externalIdpTrustPolicy", value);
     }
   }
 
@@ -181589,6 +188682,467 @@ public final class TomSomV0 {
 
     public void otherStakeholders(String value) {
       doc.setFormField(path, "otherStakeholders", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class StepUpAuthenticationPolicyContentForm extends SomNode {
+    public StepUpAuthenticationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String stepUpEnabled() {
+      String v = doc.formField(path, "stepUpEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpEnabled(String value) {
+      doc.setFormField(path, "stepUpEnabled", value);
+    }
+
+    public String stepUpTriggers() {
+      String v = doc.formField(path, "stepUpTriggers");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpTriggers(String value) {
+      doc.setFormField(path, "stepUpTriggers", value);
+    }
+
+    public String stepUpTargetAal() {
+      String v = doc.formField(path, "stepUpTargetAal");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpTargetAal(String value) {
+      doc.setFormField(path, "stepUpTargetAal", value);
+    }
+
+    public String stepUpTimeout() {
+      String v = doc.formField(path, "stepUpTimeout");
+      return v == null ? "" : v;
+    }
+
+    public void stepUpTimeout(String value) {
+      doc.setFormField(path, "stepUpTimeout", value);
+    }
+
+    public String riskBasedAuthEnabled() {
+      String v = doc.formField(path, "riskBasedAuthEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void riskBasedAuthEnabled(String value) {
+      doc.setFormField(path, "riskBasedAuthEnabled", value);
+    }
+
+    public String riskSignals() {
+      String v = doc.formField(path, "riskSignals");
+      return v == null ? "" : v;
+    }
+
+    public void riskSignals(String value) {
+      doc.setFormField(path, "riskSignals", value);
+    }
+
+    public String riskScoringMethod() {
+      String v = doc.formField(path, "riskScoringMethod");
+      return v == null ? "" : v;
+    }
+
+    public void riskScoringMethod(String value) {
+      doc.setFormField(path, "riskScoringMethod", value);
+    }
+
+    public String lowRiskAction() {
+      String v = doc.formField(path, "lowRiskAction");
+      return v == null ? "" : v;
+    }
+
+    public void lowRiskAction(String value) {
+      doc.setFormField(path, "lowRiskAction", value);
+    }
+
+    public String mediumRiskAction() {
+      String v = doc.formField(path, "mediumRiskAction");
+      return v == null ? "" : v;
+    }
+
+    public void mediumRiskAction(String value) {
+      doc.setFormField(path, "mediumRiskAction", value);
+    }
+
+    public String highRiskAction() {
+      String v = doc.formField(path, "highRiskAction");
+      return v == null ? "" : v;
+    }
+
+    public void highRiskAction(String value) {
+      doc.setFormField(path, "highRiskAction", value);
+    }
+
+    public String adaptiveAuthProvider() {
+      String v = doc.formField(path, "adaptiveAuthProvider");
+      return v == null ? "" : v;
+    }
+
+    public void adaptiveAuthProvider(String value) {
+      doc.setFormField(path, "adaptiveAuthProvider", value);
+    }
+
+    public String continuousAuthEnabled() {
+      String v = doc.formField(path, "continuousAuthEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void continuousAuthEnabled(String value) {
+      doc.setFormField(path, "continuousAuthEnabled", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class StorageEncryptionPolicyContentForm extends SomNode {
+    public StorageEncryptionPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean encryptionAtRest() {
+      String v = doc.formField(path, "encryptionAtRest");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void encryptionAtRest(Boolean value) {
+      doc.setFormField(path, "encryptionAtRest", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String encryptionAlgorithm() {
+      String v = doc.formField(path, "encryptionAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void encryptionAlgorithm(String value) {
+      doc.setFormField(path, "encryptionAlgorithm", value);
+    }
+
+    public String encryptionScope() {
+      String v = doc.formField(path, "encryptionScope");
+      return v == null ? "" : v;
+    }
+
+    public void encryptionScope(String value) {
+      doc.setFormField(path, "encryptionScope", value);
+    }
+
+    public String serverSideEncryption() {
+      String v = doc.formField(path, "serverSideEncryption");
+      return v == null ? "" : v;
+    }
+
+    public void serverSideEncryption(String value) {
+      doc.setFormField(path, "serverSideEncryption", value);
+    }
+
+    public Boolean clientSideEncryption() {
+      String v = doc.formField(path, "clientSideEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void clientSideEncryption(Boolean value) {
+      doc.setFormField(path, "clientSideEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String clientSideEncryptionMethod() {
+      String v = doc.formField(path, "clientSideEncryptionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void clientSideEncryptionMethod(String value) {
+      doc.setFormField(path, "clientSideEncryptionMethod", value);
+    }
+
+    public String fileKeyRotation() {
+      String v = doc.formField(path, "fileKeyRotation");
+      return v == null ? "" : v;
+    }
+
+    public void fileKeyRotation(String value) {
+      doc.setFormField(path, "fileKeyRotation", value);
+    }
+
+    public Boolean perTenantKeys() {
+      String v = doc.formField(path, "perTenantKeys");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void perTenantKeys(Boolean value) {
+      doc.setFormField(path, "perTenantKeys", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean keyDeletionOnTenantRemoval() {
+      String v = doc.formField(path, "keyDeletionOnTenantRemoval");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void keyDeletionOnTenantRemoval(Boolean value) {
+      doc.setFormField(path, "keyDeletionOnTenantRemoval", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean encryptionInTransit() {
+      String v = doc.formField(path, "encryptionInTransit");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void encryptionInTransit(Boolean value) {
+      doc.setFormField(path, "encryptionInTransit", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String minimumTlsVersion() {
+      String v = doc.formField(path, "minimumTlsVersion");
+      return v == null ? "" : v;
+    }
+
+    public void minimumTlsVersion(String value) {
+      doc.setFormField(path, "minimumTlsVersion", value);
+    }
+
+    public Boolean backupEncryption() {
+      String v = doc.formField(path, "backupEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void backupEncryption(Boolean value) {
+      doc.setFormField(path, "backupEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class StorageLifecyclePolicyContentForm extends SomNode {
+    public StorageLifecyclePolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String retentionPolicy() {
+      String v = doc.formField(path, "retentionPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void retentionPolicy(String value) {
+      doc.setFormField(path, "retentionPolicy", value);
+    }
+
+    public String defaultRetentionPeriod() {
+      String v = doc.formField(path, "defaultRetentionPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void defaultRetentionPeriod(String value) {
+      doc.setFormField(path, "defaultRetentionPeriod", value);
+    }
+
+    public Boolean retentionByFileType() {
+      String v = doc.formField(path, "retentionByFileType");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void retentionByFileType(Boolean value) {
+      doc.setFormField(path, "retentionByFileType", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean legalHoldSupport() {
+      String v = doc.formField(path, "legalHoldSupport");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void legalHoldSupport(Boolean value) {
+      doc.setFormField(path, "legalHoldSupport", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean archivingEnabled() {
+      String v = doc.formField(path, "archivingEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void archivingEnabled(Boolean value) {
+      doc.setFormField(path, "archivingEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String archivalStorageTier() {
+      String v = doc.formField(path, "archivalStorageTier");
+      return v == null ? "" : v;
+    }
+
+    public void archivalStorageTier(String value) {
+      doc.setFormField(path, "archivalStorageTier", value);
+    }
+
+    public Integer archivalTransitionDays() {
+      String v = doc.formField(path, "archivalTransitionDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void archivalTransitionDays(Integer value) {
+      doc.setFormField(path, "archivalTransitionDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean versioningEnabled() {
+      String v = doc.formField(path, "versioningEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void versioningEnabled(Boolean value) {
+      doc.setFormField(path, "versioningEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer maxVersions() {
+      String v = doc.formField(path, "maxVersions");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxVersions(Integer value) {
+      doc.setFormField(path, "maxVersions", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer versionRetentionDays() {
+      String v = doc.formField(path, "versionRetentionDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void versionRetentionDays(Integer value) {
+      doc.setFormField(path, "versionRetentionDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public String backupSchedule() {
+      String v = doc.formField(path, "backupSchedule");
+      return v == null ? "" : v;
+    }
+
+    public void backupSchedule(String value) {
+      doc.setFormField(path, "backupSchedule", value);
+    }
+
+    public Integer backupRetentionDays() {
+      String v = doc.formField(path, "backupRetentionDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void backupRetentionDays(Integer value) {
+      doc.setFormField(path, "backupRetentionDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean crossRegionReplication() {
+      String v = doc.formField(path, "crossRegionReplication");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void crossRegionReplication(Boolean value) {
+      doc.setFormField(path, "crossRegionReplication", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String secureDeletionMethod() {
+      String v = doc.formField(path, "secureDeletionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void secureDeletionMethod(String value) {
+      doc.setFormField(path, "secureDeletionMethod", value);
+    }
+
+    public Boolean deletionConfirmation() {
+      String v = doc.formField(path, "deletionConfirmation");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void deletionConfirmation(Boolean value) {
+      doc.setFormField(path, "deletionConfirmation", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean deletionAuditLogging() {
+      String v = doc.formField(path, "deletionAuditLogging");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void deletionAuditLogging(Boolean value) {
+      doc.setFormField(path, "deletionAuditLogging", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -190931,6 +198485,197 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class TenantBoundaryEnforcementPolicyContentForm extends SomNode {
+    public TenantBoundaryEnforcementPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String enforcementLayer() {
+      String v = doc.formField(path, "enforcementLayer");
+      return v == null ? "" : v;
+    }
+
+    public void enforcementLayer(String value) {
+      doc.setFormField(path, "enforcementLayer", value);
+    }
+
+    public String authorizationFilterStrategy() {
+      String v = doc.formField(path, "authorizationFilterStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationFilterStrategy(String value) {
+      doc.setFormField(path, "authorizationFilterStrategy", value);
+    }
+
+    public Boolean implicitTenantFilter() {
+      String v = doc.formField(path, "implicitTenantFilter");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void implicitTenantFilter(Boolean value) {
+      doc.setFormField(path, "implicitTenantFilter", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String escalationPrevention() {
+      String v = doc.formField(path, "escalationPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void escalationPrevention(String value) {
+      doc.setFormField(path, "escalationPrevention", value);
+    }
+
+    public String sharedServiceAuthorization() {
+      String v = doc.formField(path, "sharedServiceAuthorization");
+      return v == null ? "" : v;
+    }
+
+    public void sharedServiceAuthorization(String value) {
+      doc.setFormField(path, "sharedServiceAuthorization", value);
+    }
+
+    public String tenantSwitchingPolicy() {
+      String v = doc.formField(path, "tenantSwitchingPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void tenantSwitchingPolicy(String value) {
+      doc.setFormField(path, "tenantSwitchingPolicy", value);
+    }
+
+    public Boolean multiTenantUserSupport() {
+      String v = doc.formField(path, "multiTenantUserSupport");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void multiTenantUserSupport(Boolean value) {
+      doc.setFormField(path, "multiTenantUserSupport", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String authorizationCaching() {
+      String v = doc.formField(path, "authorizationCaching");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationCaching(String value) {
+      doc.setFormField(path, "authorizationCaching", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TenantContextPolicyContentForm extends SomNode {
+    public TenantContextPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String contextResolutionMethod() {
+      String v = doc.formField(path, "contextResolutionMethod");
+      return v == null ? "" : v;
+    }
+
+    public void contextResolutionMethod(String value) {
+      doc.setFormField(path, "contextResolutionMethod", value);
+    }
+
+    public String contextPropagation() {
+      String v = doc.formField(path, "contextPropagation");
+      return v == null ? "" : v;
+    }
+
+    public void contextPropagation(String value) {
+      doc.setFormField(path, "contextPropagation", value);
+    }
+
+    public String contextValidation() {
+      String v = doc.formField(path, "contextValidation");
+      return v == null ? "" : v;
+    }
+
+    public void contextValidation(String value) {
+      doc.setFormField(path, "contextValidation", value);
+    }
+
+    public Boolean contextImmutability() {
+      String v = doc.formField(path, "contextImmutability");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void contextImmutability(Boolean value) {
+      doc.setFormField(path, "contextImmutability", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String crossServicePropagation() {
+      String v = doc.formField(path, "crossServicePropagation");
+      return v == null ? "" : v;
+    }
+
+    public void crossServicePropagation(String value) {
+      doc.setFormField(path, "crossServicePropagation", value);
+    }
+
+    public String missingContextBehavior() {
+      String v = doc.formField(path, "missingContextBehavior");
+      return v == null ? "" : v;
+    }
+
+    public void missingContextBehavior(String value) {
+      doc.setFormField(path, "missingContextBehavior", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class TenantCustomizationEntryContentForm extends SomNode {
     public TenantCustomizationEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -191025,6 +198770,231 @@ public final class TomSomV0 {
 
     public void customizationAudit(Boolean value) {
       doc.setFormField(path, "customizationAudit", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TenantDataIsolationPolicyContentForm extends SomNode {
+    public TenantDataIsolationPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String tenantIsolationModel() {
+      String v = doc.formField(path, "tenantIsolationModel");
+      return v == null ? "" : v;
+    }
+
+    public void tenantIsolationModel(String value) {
+      doc.setFormField(path, "tenantIsolationModel", value);
+    }
+
+    public String tenantIdentifierColumn() {
+      String v = doc.formField(path, "tenantIdentifierColumn");
+      return v == null ? "" : v;
+    }
+
+    public void tenantIdentifierColumn(String value) {
+      doc.setFormField(path, "tenantIdentifierColumn", value);
+    }
+
+    public String tenantContextInjection() {
+      String v = doc.formField(path, "tenantContextInjection");
+      return v == null ? "" : v;
+    }
+
+    public void tenantContextInjection(String value) {
+      doc.setFormField(path, "tenantContextInjection", value);
+    }
+
+    public String tenantIsolationEnforcement() {
+      String v = doc.formField(path, "tenantIsolationEnforcement");
+      return v == null ? "" : v;
+    }
+
+    public void tenantIsolationEnforcement(String value) {
+      doc.setFormField(path, "tenantIsolationEnforcement", value);
+    }
+
+    public String crossTenantQueryPrevention() {
+      String v = doc.formField(path, "crossTenantQueryPrevention");
+      return v == null ? "" : v;
+    }
+
+    public void crossTenantQueryPrevention(String value) {
+      doc.setFormField(path, "crossTenantQueryPrevention", value);
+    }
+
+    public String tenantDataBackupIsolation() {
+      String v = doc.formField(path, "tenantDataBackupIsolation");
+      return v == null ? "" : v;
+    }
+
+    public void tenantDataBackupIsolation(String value) {
+      doc.setFormField(path, "tenantDataBackupIsolation", value);
+    }
+
+    public String tenantDataDeletion() {
+      String v = doc.formField(path, "tenantDataDeletion");
+      return v == null ? "" : v;
+    }
+
+    public void tenantDataDeletion(String value) {
+      doc.setFormField(path, "tenantDataDeletion", value);
+    }
+
+    public String tenantDataExport() {
+      String v = doc.formField(path, "tenantDataExport");
+      return v == null ? "" : v;
+    }
+
+    public void tenantDataExport(String value) {
+      doc.setFormField(path, "tenantDataExport", value);
+    }
+
+    public String tenantResourceQuotas() {
+      String v = doc.formField(path, "tenantResourceQuotas");
+      return v == null ? "" : v;
+    }
+
+    public void tenantResourceQuotas(String value) {
+      doc.setFormField(path, "tenantResourceQuotas", value);
+    }
+
+    public String tenantIsolationTesting() {
+      String v = doc.formField(path, "tenantIsolationTesting");
+      return v == null ? "" : v;
+    }
+
+    public void tenantIsolationTesting(String value) {
+      doc.setFormField(path, "tenantIsolationTesting", value);
+    }
+
+    public String sharedReferenceDataAccess() {
+      String v = doc.formField(path, "sharedReferenceDataAccess");
+      return v == null ? "" : v;
+    }
+
+    public void sharedReferenceDataAccess(String value) {
+      doc.setFormField(path, "sharedReferenceDataAccess", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TenantOnboardingPolicyContentForm extends SomNode {
+    public TenantOnboardingPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String authorizationProvisioningModel() {
+      String v = doc.formField(path, "authorizationProvisioningModel");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationProvisioningModel(String value) {
+      doc.setFormField(path, "authorizationProvisioningModel", value);
+    }
+
+    public String defaultRoleTemplate() {
+      String v = doc.formField(path, "defaultRoleTemplate");
+      return v == null ? "" : v;
+    }
+
+    public void defaultRoleTemplate(String value) {
+      doc.setFormField(path, "defaultRoleTemplate", value);
+    }
+
+    public String adminRoleProvisioning() {
+      String v = doc.formField(path, "adminRoleProvisioning");
+      return v == null ? "" : v;
+    }
+
+    public void adminRoleProvisioning(String value) {
+      doc.setFormField(path, "adminRoleProvisioning", value);
+    }
+
+    public String initialPermissionSet() {
+      String v = doc.formField(path, "initialPermissionSet");
+      return v == null ? "" : v;
+    }
+
+    public void initialPermissionSet(String value) {
+      doc.setFormField(path, "initialPermissionSet", value);
+    }
+
+    public String offboardingStrategy() {
+      String v = doc.formField(path, "offboardingStrategy");
+      return v == null ? "" : v;
+    }
+
+    public void offboardingStrategy(String value) {
+      doc.setFormField(path, "offboardingStrategy", value);
+    }
+
+    public String resourceCleanupOnOffboarding() {
+      String v = doc.formField(path, "resourceCleanupOnOffboarding");
+      return v == null ? "" : v;
+    }
+
+    public void resourceCleanupOnOffboarding(String value) {
+      doc.setFormField(path, "resourceCleanupOnOffboarding", value);
+    }
+
+    public Integer dataRetentionDays() {
+      String v = doc.formField(path, "dataRetentionDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void dataRetentionDays(Integer value) {
+      doc.setFormField(path, "dataRetentionDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public String offboardingApproval() {
+      String v = doc.formField(path, "offboardingApproval");
+      return v == null ? "" : v;
+    }
+
+    public void offboardingApproval(String value) {
+      doc.setFormField(path, "offboardingApproval", value);
     }
 
     public String notes() {
@@ -192832,6 +200802,111 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TlsProtocolPolicyContentForm extends SomNode {
+    public TlsProtocolPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String minimumTlsVersion() {
+      String v = doc.formField(path, "minimumTlsVersion");
+      return v == null ? "" : v;
+    }
+
+    public void minimumTlsVersion(String value) {
+      doc.setFormField(path, "minimumTlsVersion", value);
+    }
+
+    public String preferredTlsVersion() {
+      String v = doc.formField(path, "preferredTlsVersion");
+      return v == null ? "" : v;
+    }
+
+    public void preferredTlsVersion(String value) {
+      doc.setFormField(path, "preferredTlsVersion", value);
+    }
+
+    public String allowedCipherSuites() {
+      String v = doc.formField(path, "allowedCipherSuites");
+      return v == null ? "" : v;
+    }
+
+    public void allowedCipherSuites(String value) {
+      doc.setFormField(path, "allowedCipherSuites", value);
+    }
+
+    public Boolean preferAuthenticatedEncryption() {
+      String v = doc.formField(path, "preferAuthenticatedEncryption");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void preferAuthenticatedEncryption(Boolean value) {
+      doc.setFormField(path, "preferAuthenticatedEncryption", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String dhGroups() {
+      String v = doc.formField(path, "dhGroups");
+      return v == null ? "" : v;
+    }
+
+    public void dhGroups(String value) {
+      doc.setFormField(path, "dhGroups", value);
+    }
+
+    public Boolean tlsCompressionDisabled() {
+      String v = doc.formField(path, "tlsCompressionDisabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void tlsCompressionDisabled(Boolean value) {
+      doc.setFormField(path, "tlsCompressionDisabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String sessionResumption() {
+      String v = doc.formField(path, "sessionResumption");
+      return v == null ? "" : v;
+    }
+
+    public void sessionResumption(String value) {
+      doc.setFormField(path, "sessionResumption", value);
+    }
+
+    public String complianceFramework() {
+      String v = doc.formField(path, "complianceFramework");
+      return v == null ? "" : v;
+    }
+
+    public void complianceFramework(String value) {
+      doc.setFormField(path, "complianceFramework", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
   // Generated section facade for the `certificateValidation` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class TlsRequirementsCertificateValidationForm extends SomNode {
@@ -193089,6 +201164,172 @@ public final class TomSomV0 {
 
     public void internalTls(Boolean value) {
       doc.setFormField(path, "internalTls", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TokenManagementPolicyContentForm extends SomNode {
+    public TokenManagementPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String tokenFormat() {
+      String v = doc.formField(path, "tokenFormat");
+      return v == null ? "" : v;
+    }
+
+    public void tokenFormat(String value) {
+      doc.setFormField(path, "tokenFormat", value);
+    }
+
+    public String tokenSigningAlgorithm() {
+      String v = doc.formField(path, "tokenSigningAlgorithm");
+      return v == null ? "" : v;
+    }
+
+    public void tokenSigningAlgorithm(String value) {
+      doc.setFormField(path, "tokenSigningAlgorithm", value);
+    }
+
+    public String accessTokenLifetime() {
+      String v = doc.formField(path, "accessTokenLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void accessTokenLifetime(String value) {
+      doc.setFormField(path, "accessTokenLifetime", value);
+    }
+
+    public String refreshTokenEnabled() {
+      String v = doc.formField(path, "refreshTokenEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void refreshTokenEnabled(String value) {
+      doc.setFormField(path, "refreshTokenEnabled", value);
+    }
+
+    public String refreshTokenLifetime() {
+      String v = doc.formField(path, "refreshTokenLifetime");
+      return v == null ? "" : v;
+    }
+
+    public void refreshTokenLifetime(String value) {
+      doc.setFormField(path, "refreshTokenLifetime", value);
+    }
+
+    public String refreshTokenRotation() {
+      String v = doc.formField(path, "refreshTokenRotation");
+      return v == null ? "" : v;
+    }
+
+    public void refreshTokenRotation(String value) {
+      doc.setFormField(path, "refreshTokenRotation", value);
+    }
+
+    public String refreshTokenReuseDetection() {
+      String v = doc.formField(path, "refreshTokenReuseDetection");
+      return v == null ? "" : v;
+    }
+
+    public void refreshTokenReuseDetection(String value) {
+      doc.setFormField(path, "refreshTokenReuseDetection", value);
+    }
+
+    public String idTokenEnabled() {
+      String v = doc.formField(path, "idTokenEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void idTokenEnabled(String value) {
+      doc.setFormField(path, "idTokenEnabled", value);
+    }
+
+    public String idTokenClaims() {
+      String v = doc.formField(path, "idTokenClaims");
+      return v == null ? "" : v;
+    }
+
+    public void idTokenClaims(String value) {
+      doc.setFormField(path, "idTokenClaims", value);
+    }
+
+    public String tokenStorageClient() {
+      String v = doc.formField(path, "tokenStorageClient");
+      return v == null ? "" : v;
+    }
+
+    public void tokenStorageClient(String value) {
+      doc.setFormField(path, "tokenStorageClient", value);
+    }
+
+    public String tokenStorageServer() {
+      String v = doc.formField(path, "tokenStorageServer");
+      return v == null ? "" : v;
+    }
+
+    public void tokenStorageServer(String value) {
+      doc.setFormField(path, "tokenStorageServer", value);
+    }
+
+    public String tokenRevocationEnabled() {
+      String v = doc.formField(path, "tokenRevocationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void tokenRevocationEnabled(String value) {
+      doc.setFormField(path, "tokenRevocationEnabled", value);
+    }
+
+    public String tokenRevocationPropagation() {
+      String v = doc.formField(path, "tokenRevocationPropagation");
+      return v == null ? "" : v;
+    }
+
+    public void tokenRevocationPropagation(String value) {
+      doc.setFormField(path, "tokenRevocationPropagation", value);
+    }
+
+    public String tokenIntrospectionEnabled() {
+      String v = doc.formField(path, "tokenIntrospectionEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void tokenIntrospectionEnabled(String value) {
+      doc.setFormField(path, "tokenIntrospectionEnabled", value);
+    }
+
+    public String audienceRestriction() {
+      String v = doc.formField(path, "audienceRestriction");
+      return v == null ? "" : v;
+    }
+
+    public void audienceRestriction(String value) {
+      doc.setFormField(path, "audienceRestriction", value);
+    }
+
+    public String scopePolicy() {
+      String v = doc.formField(path, "scopePolicy");
+      return v == null ? "" : v;
+    }
+
+    public void scopePolicy(String value) {
+      doc.setFormField(path, "scopePolicy", value);
     }
   }
 
@@ -198467,6 +206708,116 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TransportSecurityPolicyContentForm extends SomNode {
+    public TransportSecurityPolicyContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Boolean hstsEnabled() {
+      String v = doc.formField(path, "hstsEnabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void hstsEnabled(Boolean value) {
+      doc.setFormField(path, "hstsEnabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Integer hstsMaxAgeDays() {
+      String v = doc.formField(path, "hstsMaxAgeDays");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void hstsMaxAgeDays(Integer value) {
+      doc.setFormField(path, "hstsMaxAgeDays", value == null ? "" : String.valueOf(value));
+    }
+
+    public Boolean hstsIncludeSubdomains() {
+      String v = doc.formField(path, "hstsIncludeSubdomains");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void hstsIncludeSubdomains(Boolean value) {
+      doc.setFormField(path, "hstsIncludeSubdomains", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean hstsPreload() {
+      String v = doc.formField(path, "hstsPreload");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void hstsPreload(Boolean value) {
+      doc.setFormField(path, "hstsPreload", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean httpToHttpsRedirect() {
+      String v = doc.formField(path, "httpToHttpsRedirect");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void httpToHttpsRedirect(Boolean value) {
+      doc.setFormField(path, "httpToHttpsRedirect", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean secureCookieFlag() {
+      String v = doc.formField(path, "secureCookieFlag");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void secureCookieFlag(Boolean value) {
+      doc.setFormField(path, "secureCookieFlag", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean preventMixedContent() {
+      String v = doc.formField(path, "preventMixedContent");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void preventMixedContent(Boolean value) {
+      doc.setFormField(path, "preventMixedContent", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String sensitiveDataCaching() {
+      String v = doc.formField(path, "sensitiveDataCaching");
+      return v == null ? "" : v;
+    }
+
+    public void sensitiveDataCaching(String value) {
+      doc.setFormField(path, "sensitiveDataCaching", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
+    }
+  }
+
   // Generated section facade for the `access` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class TroubleshootingCapabilitiesAccessForm extends SomNode {
@@ -201723,6 +210074,127 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserAccountStatesDefinitionContentForm extends SomNode {
+    public UserAccountStatesDefinitionContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String stateModel() {
+      String v = doc.formField(path, "stateModel");
+      return v == null ? "" : v;
+    }
+
+    public void stateModel(String value) {
+      doc.setFormField(path, "stateModel", value);
+    }
+
+    public String initialState() {
+      String v = doc.formField(path, "initialState");
+      return v == null ? "" : v;
+    }
+
+    public void initialState(String value) {
+      doc.setFormField(path, "initialState", value);
+    }
+
+    public String activeState() {
+      String v = doc.formField(path, "activeState");
+      return v == null ? "" : v;
+    }
+
+    public void activeState(String value) {
+      doc.setFormField(path, "activeState", value);
+    }
+
+    public String suspendedState() {
+      String v = doc.formField(path, "suspendedState");
+      return v == null ? "" : v;
+    }
+
+    public void suspendedState(String value) {
+      doc.setFormField(path, "suspendedState", value);
+    }
+
+    public String lockedState() {
+      String v = doc.formField(path, "lockedState");
+      return v == null ? "" : v;
+    }
+
+    public void lockedState(String value) {
+      doc.setFormField(path, "lockedState", value);
+    }
+
+    public String deactivatedState() {
+      String v = doc.formField(path, "deactivatedState");
+      return v == null ? "" : v;
+    }
+
+    public void deactivatedState(String value) {
+      doc.setFormField(path, "deactivatedState", value);
+    }
+
+    public String archivedState() {
+      String v = doc.formField(path, "archivedState");
+      return v == null ? "" : v;
+    }
+
+    public void archivedState(String value) {
+      doc.setFormField(path, "archivedState", value);
+    }
+
+    public String deletedState() {
+      String v = doc.formField(path, "deletedState");
+      return v == null ? "" : v;
+    }
+
+    public void deletedState(String value) {
+      doc.setFormField(path, "deletedState", value);
+    }
+
+    public String customStates() {
+      String v = doc.formField(path, "customStates");
+      return v == null ? "" : v;
+    }
+
+    public void customStates(String value) {
+      doc.setFormField(path, "customStates", value);
+    }
+
+    public String stateVisibility() {
+      String v = doc.formField(path, "stateVisibility");
+      return v == null ? "" : v;
+    }
+
+    public void stateVisibility(String value) {
+      doc.setFormField(path, "stateVisibility", value);
+    }
+
+    public String stateTransitionDiagramRef() {
+      String v = doc.formField(path, "stateTransitionDiagramRef");
+      return v == null ? "" : v;
+    }
+
+    public void stateTransitionDiagramRef(String value) {
+      doc.setFormField(path, "stateTransitionDiagramRef", value);
+    }
+  }
+
   // Generated section facade for the `delivery` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class UserAssistanceDeliveryForm extends SomNode {
@@ -202723,6 +211195,103 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserInteractionModelSummaryContentForm extends SomNode {
+    public UserInteractionModelSummaryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String primaryAccessChannel() {
+      String v = doc.formField(path, "primaryAccessChannel");
+      return v == null ? "" : v;
+    }
+
+    public void primaryAccessChannel(String value) {
+      doc.setFormField(path, "primaryAccessChannel", value);
+    }
+
+    public Integer channelCount() {
+      String v = doc.formField(path, "channelCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void channelCount(Integer value) {
+      doc.setFormField(path, "channelCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer interactionPatternCount() {
+      String v = doc.formField(path, "interactionPatternCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void interactionPatternCount(Integer value) {
+      doc.setFormField(path, "interactionPatternCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer accessLevelCount() {
+      String v = doc.formField(path, "accessLevelCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void accessLevelCount(Integer value) {
+      doc.setFormField(path, "accessLevelCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public String multiChannelSupport() {
+      String v = doc.formField(path, "multiChannelSupport");
+      return v == null ? "" : v;
+    }
+
+    public void multiChannelSupport(String value) {
+      doc.setFormField(path, "multiChannelSupport", value);
+    }
+
+    public String offlineCapability() {
+      String v = doc.formField(path, "offlineCapability");
+      return v == null ? "" : v;
+    }
+
+    public void offlineCapability(String value) {
+      doc.setFormField(path, "offlineCapability", value);
+    }
+
+    public String sessionManagement() {
+      String v = doc.formField(path, "sessionManagement");
+      return v == null ? "" : v;
+    }
+
+    public void sessionManagement(String value) {
+      doc.setFormField(path, "sessionManagement", value);
+    }
+
+    public String notificationChannels() {
+      String v = doc.formField(path, "notificationChannels");
+      return v == null ? "" : v;
+    }
+
+    public void notificationChannels(String value) {
+      doc.setFormField(path, "notificationChannels", value);
+    }
+  }
+
   // Generated section facade for the `approval` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class UserLifecycleTransitionEntryApprovalForm extends SomNode {
@@ -202925,6 +211494,185 @@ public final class TomSomV0 {
 
     public void notificationChannels(String value) {
       doc.setFormField(path, "notificationChannels", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserLifecycleTransitionsContentForm extends SomNode {
+    public UserLifecycleTransitionsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String transitionModel() {
+      String v = doc.formField(path, "transitionModel");
+      return v == null ? "" : v;
+    }
+
+    public void transitionModel(String value) {
+      doc.setFormField(path, "transitionModel", value);
+    }
+
+    public String approvalPolicyDefault() {
+      String v = doc.formField(path, "approvalPolicyDefault");
+      return v == null ? "" : v;
+    }
+
+    public void approvalPolicyDefault(String value) {
+      doc.setFormField(path, "approvalPolicyDefault", value);
+    }
+
+    public String escalationPolicy() {
+      String v = doc.formField(path, "escalationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void escalationPolicy(String value) {
+      doc.setFormField(path, "escalationPolicy", value);
+    }
+
+    public String escalationTimeframe() {
+      String v = doc.formField(path, "escalationTimeframe");
+      return v == null ? "" : v;
+    }
+
+    public void escalationTimeframe(String value) {
+      doc.setFormField(path, "escalationTimeframe", value);
+    }
+
+    public String auditTrailRequired() {
+      String v = doc.formField(path, "auditTrailRequired");
+      return v == null ? "" : v;
+    }
+
+    public void auditTrailRequired(String value) {
+      doc.setFormField(path, "auditTrailRequired", value);
+    }
+
+    public String notificationOnTransition() {
+      String v = doc.formField(path, "notificationOnTransition");
+      return v == null ? "" : v;
+    }
+
+    public void notificationOnTransition(String value) {
+      doc.setFormField(path, "notificationOnTransition", value);
+    }
+
+    public String bulkTransitionSupport() {
+      String v = doc.formField(path, "bulkTransitionSupport");
+      return v == null ? "" : v;
+    }
+
+    public void bulkTransitionSupport(String value) {
+      doc.setFormField(path, "bulkTransitionSupport", value);
+    }
+
+    public String automatedTransitions() {
+      String v = doc.formField(path, "automatedTransitions");
+      return v == null ? "" : v;
+    }
+
+    public void automatedTransitions(String value) {
+      doc.setFormField(path, "automatedTransitions", value);
+    }
+
+    public String transitionUndoPolicy() {
+      String v = doc.formField(path, "transitionUndoPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void transitionUndoPolicy(String value) {
+      doc.setFormField(path, "transitionUndoPolicy", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserNotificationPreferencesContentForm extends SomNode {
+    public UserNotificationPreferencesContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String globalOptOut() {
+      String v = doc.formField(path, "globalOptOut");
+      return v == null ? "" : v;
+    }
+
+    public void globalOptOut(String value) {
+      doc.setFormField(path, "globalOptOut", value);
+    }
+
+    public String perTypeControl() {
+      String v = doc.formField(path, "perTypeControl");
+      return v == null ? "" : v;
+    }
+
+    public void perTypeControl(String value) {
+      doc.setFormField(path, "perTypeControl", value);
+    }
+
+    public String channelPreferences() {
+      String v = doc.formField(path, "channelPreferences");
+      return v == null ? "" : v;
+    }
+
+    public void channelPreferences(String value) {
+      doc.setFormField(path, "channelPreferences", value);
+    }
+
+    public String frequencyControl() {
+      String v = doc.formField(path, "frequencyControl");
+      return v == null ? "" : v;
+    }
+
+    public void frequencyControl(String value) {
+      doc.setFormField(path, "frequencyControl", value);
+    }
+
+    public String quietHours() {
+      String v = doc.formField(path, "quietHours");
+      return v == null ? "" : v;
+    }
+
+    public void quietHours(String value) {
+      doc.setFormField(path, "quietHours", value);
+    }
+
+    public String digestOption() {
+      String v = doc.formField(path, "digestOption");
+      return v == null ? "" : v;
+    }
+
+    public void digestOption(String value) {
+      doc.setFormField(path, "digestOption", value);
     }
   }
 
@@ -203385,6 +212133,181 @@ public final class TomSomV0 {
 
     public void accessReviewProcess(String value) {
       doc.setFormField(path, "accessReviewProcess", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserRegistrationProcessContentForm extends SomNode {
+    public UserRegistrationProcessContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String registrationMethods() {
+      String v = doc.formField(path, "registrationMethods");
+      return v == null ? "" : v;
+    }
+
+    public void registrationMethods(String value) {
+      doc.setFormField(path, "registrationMethods", value);
+    }
+
+    public String selfRegistrationEnabled() {
+      String v = doc.formField(path, "selfRegistrationEnabled");
+      return v == null ? "" : v;
+    }
+
+    public void selfRegistrationEnabled(String value) {
+      doc.setFormField(path, "selfRegistrationEnabled", value);
+    }
+
+    public String identityProofingLevel() {
+      String v = doc.formField(path, "identityProofingLevel");
+      return v == null ? "" : v;
+    }
+
+    public void identityProofingLevel(String value) {
+      doc.setFormField(path, "identityProofingLevel", value);
+    }
+
+    public String emailVerificationRequired() {
+      String v = doc.formField(path, "emailVerificationRequired");
+      return v == null ? "" : v;
+    }
+
+    public void emailVerificationRequired(String value) {
+      doc.setFormField(path, "emailVerificationRequired", value);
+    }
+
+    public String phoneVerificationRequired() {
+      String v = doc.formField(path, "phoneVerificationRequired");
+      return v == null ? "" : v;
+    }
+
+    public void phoneVerificationRequired(String value) {
+      doc.setFormField(path, "phoneVerificationRequired", value);
+    }
+
+    public String captchaRequired() {
+      String v = doc.formField(path, "captchaRequired");
+      return v == null ? "" : v;
+    }
+
+    public void captchaRequired(String value) {
+      doc.setFormField(path, "captchaRequired", value);
+    }
+
+    public String invitationExpiryPeriod() {
+      String v = doc.formField(path, "invitationExpiryPeriod");
+      return v == null ? "" : v;
+    }
+
+    public void invitationExpiryPeriod(String value) {
+      doc.setFormField(path, "invitationExpiryPeriod", value);
+    }
+
+    public String approvalRequired() {
+      String v = doc.formField(path, "approvalRequired");
+      return v == null ? "" : v;
+    }
+
+    public void approvalRequired(String value) {
+      doc.setFormField(path, "approvalRequired", value);
+    }
+
+    public String approvalWorkflow() {
+      String v = doc.formField(path, "approvalWorkflow");
+      return v == null ? "" : v;
+    }
+
+    public void approvalWorkflow(String value) {
+      doc.setFormField(path, "approvalWorkflow", value);
+    }
+
+    public String approverRole() {
+      String v = doc.formField(path, "approverRole");
+      return v == null ? "" : v;
+    }
+
+    public void approverRole(String value) {
+      doc.setFormField(path, "approverRole", value);
+    }
+
+    public String requiredFieldsAtRegistration() {
+      String v = doc.formField(path, "requiredFieldsAtRegistration");
+      return v == null ? "" : v;
+    }
+
+    public void requiredFieldsAtRegistration(String value) {
+      doc.setFormField(path, "requiredFieldsAtRegistration", value);
+    }
+
+    public String optionalFieldsAtRegistration() {
+      String v = doc.formField(path, "optionalFieldsAtRegistration");
+      return v == null ? "" : v;
+    }
+
+    public void optionalFieldsAtRegistration(String value) {
+      doc.setFormField(path, "optionalFieldsAtRegistration", value);
+    }
+
+    public String termsAcceptanceRequired() {
+      String v = doc.formField(path, "termsAcceptanceRequired");
+      return v == null ? "" : v;
+    }
+
+    public void termsAcceptanceRequired(String value) {
+      doc.setFormField(path, "termsAcceptanceRequired", value);
+    }
+
+    public String duplicateDetection() {
+      String v = doc.formField(path, "duplicateDetection");
+      return v == null ? "" : v;
+    }
+
+    public void duplicateDetection(String value) {
+      doc.setFormField(path, "duplicateDetection", value);
+    }
+
+    public String welcomeNotification() {
+      String v = doc.formField(path, "welcomeNotification");
+      return v == null ? "" : v;
+    }
+
+    public void welcomeNotification(String value) {
+      doc.setFormField(path, "welcomeNotification", value);
+    }
+
+    public String initialRoleAssignment() {
+      String v = doc.formField(path, "initialRoleAssignment");
+      return v == null ? "" : v;
+    }
+
+    public void initialRoleAssignment(String value) {
+      doc.setFormField(path, "initialRoleAssignment", value);
+    }
+
+    public String registrationRateLimiting() {
+      String v = doc.formField(path, "registrationRateLimiting");
+      return v == null ? "" : v;
+    }
+
+    public void registrationRateLimiting(String value) {
+      doc.setFormField(path, "registrationRateLimiting", value);
     }
   }
 

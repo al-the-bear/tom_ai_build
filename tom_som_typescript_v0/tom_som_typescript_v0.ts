@@ -1694,19 +1694,11 @@ export class AccessConstraintPolicies extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccessConstraintPoliciesContentForm {
+    return new AccessConstraintPoliciesContentForm(this.doc, this.path + "/content");
   }
 
   // Access Constraint Details (text).
@@ -1777,19 +1769,11 @@ export class AccessControlModelSelection extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccessControlModelSelectionContentForm {
+    return new AccessControlModelSelectionContentForm(this.doc, this.path + "/content");
   }
 
   // Access Control Model Details (text).
@@ -2099,19 +2083,11 @@ export class AccountActivationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccountActivationPolicyContentForm {
+    return new AccountActivationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Activation Flow Description (text).
@@ -2128,19 +2104,11 @@ export class AccountDeactivationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccountDeactivationPolicyContentForm {
+    return new AccountDeactivationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Deactivation Process Description (text).
@@ -2156,19 +2124,11 @@ export class AccountDeletionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccountDeletionPolicyContentForm {
+    return new AccountDeletionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Deletion Process Description (text).
@@ -2185,19 +2145,11 @@ export class AccountLockoutPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccountLockoutPolicyContentForm {
+    return new AccountLockoutPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Account Lockout Details (text).
@@ -2213,19 +2165,11 @@ export class AccountModificationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AccountModificationPolicyContentForm {
+    return new AccountModificationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Modification Rules Description (text).
@@ -2936,19 +2880,11 @@ export class ApiAbuseProtection extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiAbuseProtectionContentForm {
+    return new ApiAbuseProtectionContentForm(this.doc, this.path + "/content");
   }
 
   // Abuse Protection Details (text).
@@ -2964,19 +2900,11 @@ export class ApiAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiAuthenticationPolicyContentForm {
+    return new ApiAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // API Authentication Details (text).
@@ -2993,19 +2921,11 @@ export class ApiAuthorizationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiAuthorizationPolicyContentForm {
+    return new ApiAuthorizationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // API Authorization Details (text).
@@ -3057,19 +2977,11 @@ export class ApiCorsSecurity extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiCorsSecurityContentForm {
+    return new ApiCorsSecurityContentForm(this.doc, this.path + "/content");
   }
 
   // CORS Security Details (text).
@@ -3085,19 +2997,11 @@ export class ApiKeyManagementPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiKeyManagementPolicyContentForm {
+    return new ApiKeyManagementPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // API Key Management Details (text).
@@ -3115,19 +3019,11 @@ export class ApiRequestValidationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiRequestValidationPolicyContentForm {
+    return new ApiRequestValidationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Request Validation Details (text).
@@ -3206,19 +3102,11 @@ export class ApiSecurityMonitoring extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ApiSecurityMonitoringContentForm {
+    return new ApiSecurityMonitoringContentForm(this.doc, this.path + "/content");
   }
 
   // API Security Monitoring Details (text).
@@ -3922,19 +3810,11 @@ export class AuthenticationErrorHandling extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): AuthenticationErrorHandlingContentForm {
+    return new AuthenticationErrorHandlingContentForm(this.doc, this.path + "/content");
   }
 
   // Error Handling Details (text).
@@ -4536,19 +4416,11 @@ export class BackupEncryptionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): BackupEncryptionPolicyContentForm {
+    return new BackupEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Backup Encryption Details (text).
@@ -4859,19 +4731,11 @@ export class BiometricAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): BiometricAuthenticationPolicyContentForm {
+    return new BiometricAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Biometric Implementation Details (text).
@@ -6082,19 +5946,11 @@ export class CertificateAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): CertificateAuthenticationPolicyContentForm {
+    return new CertificateAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Certificate Authentication Details (text).
@@ -6145,19 +6001,11 @@ export class CertificateManagementPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): CertificateManagementPolicyContentForm {
+    return new CertificateManagementPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Certificate Management Details (text).
@@ -6815,17 +6663,9 @@ export class ChannelIntegrations extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // Integration requirements content.
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ChannelIntegrationsContentForm {
+    return new ChannelIntegrationsContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -7456,19 +7296,11 @@ export class ColumnLevelSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ColumnLevelSecurityPolicyContentForm {
+    return new ColumnLevelSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Column-Level Security Details (text).
@@ -8858,19 +8690,11 @@ export class ConcurrentSessionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ConcurrentSessionPolicyContentForm {
+    return new ConcurrentSessionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Concurrent Session Details (text).
@@ -9046,19 +8870,11 @@ export class ContentScanningPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ContentScanningPolicyContentForm {
+    return new ContentScanningPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Content Scanning Details (text).
@@ -9314,19 +9130,11 @@ export class CredentialCompromiseDetectionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): CredentialCompromiseDetectionPolicyContentForm {
+    return new CredentialCompromiseDetectionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Compromise Detection Details (text).
@@ -9342,19 +9150,11 @@ export class CredentialRecoveryPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): CredentialRecoveryPolicyContentForm {
+    return new CredentialRecoveryPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Credential Recovery Details (text).
@@ -9487,19 +9287,11 @@ export class CrossTenantAccessPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): CrossTenantAccessPolicyContentForm {
+    return new CrossTenantAccessPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Cross-Tenant Access Policy Details (text).
@@ -12001,19 +11793,11 @@ export class DataAccessAuditPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): DataAccessAuditPolicyContentForm {
+    return new DataAccessAuditPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Data Access Audit Details (text).
@@ -13012,19 +12796,11 @@ export class DataMaskingPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): DataMaskingPolicyContentForm {
+    return new DataMaskingPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Data Masking Details (text).
@@ -13843,19 +13619,11 @@ export class DatabaseAccessPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): DatabaseAccessPolicyContentForm {
+    return new DatabaseAccessPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Database Access Policy Details (text).
@@ -13906,19 +13674,11 @@ export class DatabaseEncryptionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): DatabaseEncryptionPolicyContentForm {
+    return new DatabaseEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Database Encryption Details (text).
@@ -16729,19 +16489,11 @@ export class EncryptionAtRestPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): EncryptionAtRestPolicyContentForm {
+    return new EncryptionAtRestPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Encryption At Rest Policy Details (text).
@@ -19294,19 +19046,11 @@ export class FileAccessControlPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): FileAccessControlPolicyContentForm {
+    return new FileAccessControlPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // File Access Control Details (text).
@@ -19383,19 +19127,11 @@ export class FileDownloadSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): FileDownloadSecurityPolicyContentForm {
+    return new FileDownloadSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Download Security Details (text).
@@ -19412,19 +19148,11 @@ export class FileStorageEncryptionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): FileStorageEncryptionPolicyContentForm {
+    return new FileStorageEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // File Storage Encryption Details (text).
@@ -19442,19 +19170,11 @@ export class FileUploadValidationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): FileUploadValidationPolicyContentForm {
+    return new FileUploadValidationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Upload Validation Details (text).
@@ -23920,19 +23640,11 @@ export class LoginFlowConfiguration extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): LoginFlowConfigurationContentForm {
+    return new LoginFlowConfigurationContentForm(this.doc, this.path + "/content");
   }
 
   // Login Flow Details (text).
@@ -24737,19 +24449,11 @@ export class MfaConfiguration extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): MfaConfigurationContentForm {
+    return new MfaConfigurationContentForm(this.doc, this.path + "/content");
   }
 
   // MFA Implementation Details (text).
@@ -25959,19 +25663,11 @@ export class MutualTlsPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): MutualTlsPolicyContentForm {
+    return new MutualTlsPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Mutual TLS Policy Details (text).
@@ -28136,19 +27832,11 @@ export class PasswordLifecyclePolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PasswordLifecyclePolicyContentForm {
+    return new PasswordLifecyclePolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Password Lifecycle Details (text).
@@ -28165,19 +27853,11 @@ export class PasswordRequirementsPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PasswordRequirementsPolicyContentForm {
+    return new PasswordRequirementsPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Password Requirements Details (text).
@@ -28193,19 +27873,11 @@ export class PasswordStoragePolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PasswordStoragePolicyContentForm {
+    return new PasswordStoragePolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Password Storage Details (text).
@@ -28361,19 +28033,11 @@ export class PermissionCompositionStrategy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PermissionCompositionStrategyContentForm {
+    return new PermissionCompositionStrategyContentForm(this.doc, this.path + "/content");
   }
 
   // Permission Composition Details (text).
@@ -28389,19 +28053,11 @@ export class PermissionEvaluationBehavior extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PermissionEvaluationBehaviorContentForm {
+    return new PermissionEvaluationBehaviorContentForm(this.doc, this.path + "/content");
   }
 
   // Permission Evaluation Details (text).
@@ -28417,19 +28073,11 @@ export class PermissionGranularityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): PermissionGranularityPolicyContentForm {
+    return new PermissionGranularityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Permission Granularity Details (text).
@@ -31548,19 +31196,11 @@ export class RedirectHandlingPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): RedirectHandlingPolicyContentForm {
+    return new RedirectHandlingPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Redirect Handling Details (text).
@@ -31960,19 +31600,11 @@ export class RememberMePolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): RememberMePolicyContentForm {
+    return new RememberMePolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Remember-Me Policy Details (text).
@@ -34167,19 +33799,11 @@ export class RoleCertificationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): RoleCertificationPolicyContentForm {
+    return new RoleCertificationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Role Certification Details (text).
@@ -34311,19 +33935,11 @@ export class RoleHierarchyPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): RoleHierarchyPolicyContentForm {
+    return new RoleHierarchyPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Role Hierarchy Policy Details (text).
@@ -34523,19 +34139,11 @@ export class RowLevelSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): RowLevelSecurityPolicyContentForm {
+    return new RowLevelSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Row-Level Security Details (text).
@@ -36820,19 +36428,11 @@ export class SelfServiceAccountManagement extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SelfServiceAccountManagementContentForm {
+    return new SelfServiceAccountManagementContentForm(this.doc, this.path + "/content");
   }
 
   // Self-Service Capabilities Description (text).
@@ -37290,19 +36890,11 @@ export class ServiceAccountCredentialPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ServiceAccountCredentialPolicyContentForm {
+    return new ServiceAccountCredentialPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Service Account Credential Details (text).
@@ -37318,19 +36910,11 @@ export class ServiceAccountLifecycle extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): ServiceAccountLifecycleContentForm {
+    return new ServiceAccountLifecycleContentForm(this.doc, this.path + "/content");
   }
 
   // Service Account Management Description (text).
@@ -37460,19 +37044,11 @@ export class SessionCreationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SessionCreationPolicyContentForm {
+    return new SessionCreationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Session Creation Details (text).
@@ -37489,19 +37065,11 @@ export class SessionLifecycleMonitoring extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SessionLifecycleMonitoringContentForm {
+    return new SessionLifecycleMonitoringContentForm(this.doc, this.path + "/content");
   }
 
   // Session Lifecycle Monitoring Details (text).
@@ -37619,19 +37187,11 @@ export class SessionRevocationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SessionRevocationPolicyContentForm {
+    return new SessionRevocationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Session Revocation Details (text).
@@ -37648,19 +37208,11 @@ export class SessionSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SessionSecurityPolicyContentForm {
+    return new SessionSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Session Security Details (text).
@@ -37678,19 +37230,11 @@ export class SessionTimeoutPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SessionTimeoutPolicyContentForm {
+    return new SessionTimeoutPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Session Timeout Details (text).
@@ -38222,19 +37766,11 @@ export class SsoPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): SsoPolicyContentForm {
+    return new SsoPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // SSO Implementation Details (text).
@@ -39293,19 +38829,11 @@ export class StepUpAuthenticationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): StepUpAuthenticationPolicyContentForm {
+    return new StepUpAuthenticationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Step-Up Authentication Details (text).
@@ -39324,19 +38852,11 @@ export class StorageEncryptionPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): StorageEncryptionPolicyContentForm {
+    return new StorageEncryptionPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Storage Encryption Details (text).
@@ -39353,19 +38873,11 @@ export class StorageLifecyclePolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): StorageLifecyclePolicyContentForm {
+    return new StorageLifecyclePolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Storage Lifecycle Details (text).
@@ -42247,19 +41759,11 @@ export class TenantBoundaryEnforcementPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TenantBoundaryEnforcementPolicyContentForm {
+    return new TenantBoundaryEnforcementPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Tenant Boundary Enforcement Details (text).
@@ -42278,19 +41782,11 @@ export class TenantContextPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TenantContextPolicyContentForm {
+    return new TenantContextPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Tenant Context Policy Details (text).
@@ -42324,19 +41820,11 @@ export class TenantDataIsolationPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TenantDataIsolationPolicyContentForm {
+    return new TenantDataIsolationPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Tenant Data Isolation Details (text).
@@ -42412,19 +41900,11 @@ export class TenantOnboardingPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TenantOnboardingPolicyContentForm {
+    return new TenantOnboardingPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Tenant Onboarding Policy Details (text).
@@ -42739,19 +42219,11 @@ export class TlsProtocolPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TlsProtocolPolicyContentForm {
+    return new TlsProtocolPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // TLS Protocol Policy Details (text).
@@ -42801,19 +42273,11 @@ export class TokenManagementPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TokenManagementPolicyContentForm {
+    return new TokenManagementPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Token Management Details (text).
@@ -43858,19 +43322,11 @@ export class TransportSecurityPolicy extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): TransportSecurityPolicyContentForm {
+    return new TransportSecurityPolicyContentForm(this.doc, this.path + "/content");
   }
 
   // Transport Security Policy Details (text).
@@ -44532,19 +43988,11 @@ export class UserAccountStatesDefinition extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): UserAccountStatesDefinitionContentForm {
+    return new UserAccountStatesDefinitionContentForm(this.doc, this.path + "/content");
   }
 
   // State Transition Diagram (mermaid).
@@ -44953,17 +44401,9 @@ export class UserInteractionModelSummary extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // Summary content for interaction model.
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): UserInteractionModelSummaryContentForm {
+    return new UserInteractionModelSummaryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -45139,19 +44579,11 @@ export class UserLifecycleTransitions extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): UserLifecycleTransitionsContentForm {
+    return new UserLifecycleTransitionsContentForm(this.doc, this.path + "/content");
   }
 
   // Transition Rules Description (text).
@@ -45239,17 +44671,9 @@ export class UserNotificationPreferences extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // Preferences content.
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): UserNotificationPreferencesContentForm {
+    return new UserNotificationPreferencesContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -45384,19 +44808,11 @@ export class UserRegistrationProcess extends SomNode {
     super(doc, path);
   }
 
-  get canHaveContent(): boolean {
-    return true;
-  }
-
   // The section's body content. For a `@Form`-annotated member this is the
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
-  get content(): string {
-    return this.doc.content(this.path + "/content") || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path + "/content", value);
+  get content(): UserRegistrationProcessContentForm {
+    return new UserRegistrationProcessContentForm(this.doc, this.path + "/content");
   }
 
   // Registration Flow Description (text).
@@ -47176,6 +46592,238 @@ export class AcceptanceStepEntryOutcomeForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccessConstraintPoliciesContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get separationOfDuties(): boolean | null {
+    const v = this.doc.formField(this.path, "separationOfDuties");
+    return v == null ? null : v === 'true';
+  }
+
+  set separationOfDuties(value: boolean | null) {
+    this.doc.setFormField(this.path, "separationOfDuties", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get sodEnforcement(): string {
+    return this.doc.formField(this.path, "sodEnforcement") || '';
+  }
+
+  set sodEnforcement(value: string) {
+    this.doc.setFormField(this.path, "sodEnforcement", value);
+  }
+
+  get temporalConstraints(): boolean | null {
+    const v = this.doc.formField(this.path, "temporalConstraints");
+    return v == null ? null : v === 'true';
+  }
+
+  set temporalConstraints(value: boolean | null) {
+    this.doc.setFormField(this.path, "temporalConstraints", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get locationConstraints(): boolean | null {
+    const v = this.doc.formField(this.path, "locationConstraints");
+    return v == null ? null : v === 'true';
+  }
+
+  set locationConstraints(value: boolean | null) {
+    this.doc.setFormField(this.path, "locationConstraints", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get deviceConstraints(): boolean | null {
+    const v = this.doc.formField(this.path, "deviceConstraints");
+    return v == null ? null : v === 'true';
+  }
+
+  set deviceConstraints(value: boolean | null) {
+    this.doc.setFormField(this.path, "deviceConstraints", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get riskAdaptiveAccess(): boolean | null {
+    const v = this.doc.formField(this.path, "riskAdaptiveAccess");
+    return v == null ? null : v === 'true';
+  }
+
+  set riskAdaptiveAccess(value: boolean | null) {
+    this.doc.setFormField(this.path, "riskAdaptiveAccess", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get contextualAttributes(): string {
+    return this.doc.formField(this.path, "contextualAttributes") || '';
+  }
+
+  set contextualAttributes(value: string) {
+    this.doc.setFormField(this.path, "contextualAttributes", value);
+  }
+
+  get maxSessionPermissions(): boolean | null {
+    const v = this.doc.formField(this.path, "maxSessionPermissions");
+    return v == null ? null : v === 'true';
+  }
+
+  set maxSessionPermissions(value: boolean | null) {
+    this.doc.setFormField(this.path, "maxSessionPermissions", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get leastPrivilegeEnforcement(): string {
+    return this.doc.formField(this.path, "leastPrivilegeEnforcement") || '';
+  }
+
+  set leastPrivilegeEnforcement(value: string) {
+    this.doc.setFormField(this.path, "leastPrivilegeEnforcement", value);
+  }
+
+  get privilegeCreepDetection(): boolean | null {
+    const v = this.doc.formField(this.path, "privilegeCreepDetection");
+    return v == null ? null : v === 'true';
+  }
+
+  set privilegeCreepDetection(value: boolean | null) {
+    this.doc.setFormField(this.path, "privilegeCreepDetection", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccessControlModelSelectionContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get primaryModel(): string {
+    return this.doc.formField(this.path, "primaryModel") || '';
+  }
+
+  set primaryModel(value: string) {
+    this.doc.setFormField(this.path, "primaryModel", value);
+  }
+
+  get modelRationale(): string {
+    return this.doc.formField(this.path, "modelRationale") || '';
+  }
+
+  set modelRationale(value: string) {
+    this.doc.setFormField(this.path, "modelRationale", value);
+  }
+
+  get rbacEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "rbacEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set rbacEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "rbacEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get abacEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "abacEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set abacEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "abacEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get rebacEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "rebacEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set rebacEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "rebacEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get policyLanguage(): string {
+    return this.doc.formField(this.path, "policyLanguage") || '';
+  }
+
+  set policyLanguage(value: string) {
+    this.doc.setFormField(this.path, "policyLanguage", value);
+  }
+
+  get policyDecisionPoint(): string {
+    return this.doc.formField(this.path, "policyDecisionPoint") || '';
+  }
+
+  set policyDecisionPoint(value: string) {
+    this.doc.setFormField(this.path, "policyDecisionPoint", value);
+  }
+
+  get policyEnforcementPoint(): string {
+    return this.doc.formField(this.path, "policyEnforcementPoint") || '';
+  }
+
+  set policyEnforcementPoint(value: string) {
+    this.doc.setFormField(this.path, "policyEnforcementPoint", value);
+  }
+
+  get policyAdministrationPoint(): string {
+    return this.doc.formField(this.path, "policyAdministrationPoint") || '';
+  }
+
+  set policyAdministrationPoint(value: string) {
+    this.doc.setFormField(this.path, "policyAdministrationPoint", value);
+  }
+
+  get policyInformationPoint(): string {
+    return this.doc.formField(this.path, "policyInformationPoint") || '';
+  }
+
+  set policyInformationPoint(value: string) {
+    this.doc.setFormField(this.path, "policyInformationPoint", value);
+  }
+
+  get delegationModel(): string {
+    return this.doc.formField(this.path, "delegationModel") || '';
+  }
+
+  set delegationModel(value: string) {
+    this.doc.setFormField(this.path, "delegationModel", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class AccessLevelEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -48072,6 +47720,646 @@ export class AccessibilityTestingForm extends SomNode {
 
   set userTestingWithDisabilities(value: boolean | null) {
     this.doc.setFormField(this.path, "userTestingWithDisabilities", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccountActivationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get activationMethod(): string {
+    return this.doc.formField(this.path, "activationMethod") || '';
+  }
+
+  set activationMethod(value: string) {
+    this.doc.setFormField(this.path, "activationMethod", value);
+  }
+
+  get activationLinkExpiry(): string {
+    return this.doc.formField(this.path, "activationLinkExpiry") || '';
+  }
+
+  set activationLinkExpiry(value: string) {
+    this.doc.setFormField(this.path, "activationLinkExpiry", value);
+  }
+
+  get maxActivationAttempts(): number | null {
+    const v = this.doc.formField(this.path, "maxActivationAttempts");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxActivationAttempts(value: number | null) {
+    this.doc.setFormField(this.path, "maxActivationAttempts", value == null ? '' : String(value));
+  }
+
+  get activationPrerequisites(): string {
+    return this.doc.formField(this.path, "activationPrerequisites") || '';
+  }
+
+  set activationPrerequisites(value: string) {
+    this.doc.setFormField(this.path, "activationPrerequisites", value);
+  }
+
+  get provisioningOnActivation(): string {
+    return this.doc.formField(this.path, "provisioningOnActivation") || '';
+  }
+
+  set provisioningOnActivation(value: string) {
+    this.doc.setFormField(this.path, "provisioningOnActivation", value);
+  }
+
+  get activationNotification(): string {
+    return this.doc.formField(this.path, "activationNotification") || '';
+  }
+
+  set activationNotification(value: string) {
+    this.doc.setFormField(this.path, "activationNotification", value);
+  }
+
+  get activationTimeout(): string {
+    return this.doc.formField(this.path, "activationTimeout") || '';
+  }
+
+  set activationTimeout(value: string) {
+    this.doc.setFormField(this.path, "activationTimeout", value);
+  }
+
+  get activationTimeoutAction(): string {
+    return this.doc.formField(this.path, "activationTimeoutAction") || '';
+  }
+
+  set activationTimeoutAction(value: string) {
+    this.doc.setFormField(this.path, "activationTimeoutAction", value);
+  }
+
+  get postActivationRedirect(): string {
+    return this.doc.formField(this.path, "postActivationRedirect") || '';
+  }
+
+  set postActivationRedirect(value: string) {
+    this.doc.setFormField(this.path, "postActivationRedirect", value);
+  }
+
+  get onboardingRequired(): string {
+    return this.doc.formField(this.path, "onboardingRequired") || '';
+  }
+
+  set onboardingRequired(value: string) {
+    this.doc.setFormField(this.path, "onboardingRequired", value);
+  }
+
+  get onboardingSteps(): string {
+    return this.doc.formField(this.path, "onboardingSteps") || '';
+  }
+
+  set onboardingSteps(value: string) {
+    this.doc.setFormField(this.path, "onboardingSteps", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccountDeactivationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get deactivationTriggers(): string {
+    return this.doc.formField(this.path, "deactivationTriggers") || '';
+  }
+
+  set deactivationTriggers(value: string) {
+    this.doc.setFormField(this.path, "deactivationTriggers", value);
+  }
+
+  get inactivityThreshold(): string {
+    return this.doc.formField(this.path, "inactivityThreshold") || '';
+  }
+
+  set inactivityThreshold(value: string) {
+    this.doc.setFormField(this.path, "inactivityThreshold", value);
+  }
+
+  get inactivityWarningPeriod(): string {
+    return this.doc.formField(this.path, "inactivityWarningPeriod") || '';
+  }
+
+  set inactivityWarningPeriod(value: string) {
+    this.doc.setFormField(this.path, "inactivityWarningPeriod", value);
+  }
+
+  get deactivationApproval(): string {
+    return this.doc.formField(this.path, "deactivationApproval") || '';
+  }
+
+  set deactivationApproval(value: string) {
+    this.doc.setFormField(this.path, "deactivationApproval", value);
+  }
+
+  get immediateDeactivationCases(): string {
+    return this.doc.formField(this.path, "immediateDeactivationCases") || '';
+  }
+
+  set immediateDeactivationCases(value: string) {
+    this.doc.setFormField(this.path, "immediateDeactivationCases", value);
+  }
+
+  get deactivatedAccountAccess(): string {
+    return this.doc.formField(this.path, "deactivatedAccountAccess") || '';
+  }
+
+  set deactivatedAccountAccess(value: string) {
+    this.doc.setFormField(this.path, "deactivatedAccountAccess", value);
+  }
+
+  get deactivationEffects(): string {
+    return this.doc.formField(this.path, "deactivationEffects") || '';
+  }
+
+  set deactivationEffects(value: string) {
+    this.doc.setFormField(this.path, "deactivationEffects", value);
+  }
+
+  get reactivationPolicy(): string {
+    return this.doc.formField(this.path, "reactivationPolicy") || '';
+  }
+
+  set reactivationPolicy(value: string) {
+    this.doc.setFormField(this.path, "reactivationPolicy", value);
+  }
+
+  get reactivationApproval(): string {
+    return this.doc.formField(this.path, "reactivationApproval") || '';
+  }
+
+  set reactivationApproval(value: string) {
+    this.doc.setFormField(this.path, "reactivationApproval", value);
+  }
+
+  get reactivationReverification(): string {
+    return this.doc.formField(this.path, "reactivationReverification") || '';
+  }
+
+  set reactivationReverification(value: string) {
+    this.doc.setFormField(this.path, "reactivationReverification", value);
+  }
+
+  get maxDeactivationPeriod(): string {
+    return this.doc.formField(this.path, "maxDeactivationPeriod") || '';
+  }
+
+  set maxDeactivationPeriod(value: string) {
+    this.doc.setFormField(this.path, "maxDeactivationPeriod", value);
+  }
+
+  get deactivationNotification(): string {
+    return this.doc.formField(this.path, "deactivationNotification") || '';
+  }
+
+  set deactivationNotification(value: string) {
+    this.doc.setFormField(this.path, "deactivationNotification", value);
+  }
+
+  get gracePeriodAfterDeactivation(): string {
+    return this.doc.formField(this.path, "gracePeriodAfterDeactivation") || '';
+  }
+
+  set gracePeriodAfterDeactivation(value: string) {
+    this.doc.setFormField(this.path, "gracePeriodAfterDeactivation", value);
+  }
+
+  get dataPreservationDuration(): string {
+    return this.doc.formField(this.path, "dataPreservationDuration") || '';
+  }
+
+  set dataPreservationDuration(value: string) {
+    this.doc.setFormField(this.path, "dataPreservationDuration", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccountDeletionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get deletionTriggers(): string {
+    return this.doc.formField(this.path, "deletionTriggers") || '';
+  }
+
+  set deletionTriggers(value: string) {
+    this.doc.setFormField(this.path, "deletionTriggers", value);
+  }
+
+  get deletionApproval(): string {
+    return this.doc.formField(this.path, "deletionApproval") || '';
+  }
+
+  set deletionApproval(value: string) {
+    this.doc.setFormField(this.path, "deletionApproval", value);
+  }
+
+  get softDeleteEnabled(): string {
+    return this.doc.formField(this.path, "softDeleteEnabled") || '';
+  }
+
+  set softDeleteEnabled(value: string) {
+    this.doc.setFormField(this.path, "softDeleteEnabled", value);
+  }
+
+  get softDeleteRetention(): string {
+    return this.doc.formField(this.path, "softDeleteRetention") || '';
+  }
+
+  set softDeleteRetention(value: string) {
+    this.doc.setFormField(this.path, "softDeleteRetention", value);
+  }
+
+  get permanentDeletionProcess(): string {
+    return this.doc.formField(this.path, "permanentDeletionProcess") || '';
+  }
+
+  set permanentDeletionProcess(value: string) {
+    this.doc.setFormField(this.path, "permanentDeletionProcess", value);
+  }
+
+  get dataAnonymizationStrategy(): string {
+    return this.doc.formField(this.path, "dataAnonymizationStrategy") || '';
+  }
+
+  set dataAnonymizationStrategy(value: string) {
+    this.doc.setFormField(this.path, "dataAnonymizationStrategy", value);
+  }
+
+  get retainedDataAfterDeletion(): string {
+    return this.doc.formField(this.path, "retainedDataAfterDeletion") || '';
+  }
+
+  set retainedDataAfterDeletion(value: string) {
+    this.doc.setFormField(this.path, "retainedDataAfterDeletion", value);
+  }
+
+  get retentionPeriodAfterDeletion(): string {
+    return this.doc.formField(this.path, "retentionPeriodAfterDeletion") || '';
+  }
+
+  set retentionPeriodAfterDeletion(value: string) {
+    this.doc.setFormField(this.path, "retentionPeriodAfterDeletion", value);
+  }
+
+  get dataExportBeforeDeletion(): string {
+    return this.doc.formField(this.path, "dataExportBeforeDeletion") || '';
+  }
+
+  set dataExportBeforeDeletion(value: string) {
+    this.doc.setFormField(this.path, "dataExportBeforeDeletion", value);
+  }
+
+  get exportFormats(): string {
+    return this.doc.formField(this.path, "exportFormats") || '';
+  }
+
+  set exportFormats(value: string) {
+    this.doc.setFormField(this.path, "exportFormats", value);
+  }
+
+  get cascadeDeletionBehavior(): string {
+    return this.doc.formField(this.path, "cascadeDeletionBehavior") || '';
+  }
+
+  set cascadeDeletionBehavior(value: string) {
+    this.doc.setFormField(this.path, "cascadeDeletionBehavior", value);
+  }
+
+  get deletionConfirmation(): string {
+    return this.doc.formField(this.path, "deletionConfirmation") || '';
+  }
+
+  set deletionConfirmation(value: string) {
+    this.doc.setFormField(this.path, "deletionConfirmation", value);
+  }
+
+  get deletionNotification(): string {
+    return this.doc.formField(this.path, "deletionNotification") || '';
+  }
+
+  set deletionNotification(value: string) {
+    this.doc.setFormField(this.path, "deletionNotification", value);
+  }
+
+  get rightToErasureCompliance(): string {
+    return this.doc.formField(this.path, "rightToErasureCompliance") || '';
+  }
+
+  set rightToErasureCompliance(value: string) {
+    this.doc.setFormField(this.path, "rightToErasureCompliance", value);
+  }
+
+  get erasureResponseTime(): string {
+    return this.doc.formField(this.path, "erasureResponseTime") || '';
+  }
+
+  set erasureResponseTime(value: string) {
+    this.doc.setFormField(this.path, "erasureResponseTime", value);
+  }
+
+  get thirdPartyDataDeletion(): string {
+    return this.doc.formField(this.path, "thirdPartyDataDeletion") || '';
+  }
+
+  set thirdPartyDataDeletion(value: string) {
+    this.doc.setFormField(this.path, "thirdPartyDataDeletion", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccountLockoutPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get lockoutThreshold(): string {
+    return this.doc.formField(this.path, "lockoutThreshold") || '';
+  }
+
+  set lockoutThreshold(value: string) {
+    this.doc.setFormField(this.path, "lockoutThreshold", value);
+  }
+
+  get lockoutDuration(): string {
+    return this.doc.formField(this.path, "lockoutDuration") || '';
+  }
+
+  set lockoutDuration(value: string) {
+    this.doc.setFormField(this.path, "lockoutDuration", value);
+  }
+
+  get lockoutEscalation(): string {
+    return this.doc.formField(this.path, "lockoutEscalation") || '';
+  }
+
+  set lockoutEscalation(value: string) {
+    this.doc.setFormField(this.path, "lockoutEscalation", value);
+  }
+
+  get rateLimitingMethod(): string {
+    return this.doc.formField(this.path, "rateLimitingMethod") || '';
+  }
+
+  set rateLimitingMethod(value: string) {
+    this.doc.setFormField(this.path, "rateLimitingMethod", value);
+  }
+
+  get delayProgression(): string {
+    return this.doc.formField(this.path, "delayProgression") || '';
+  }
+
+  set delayProgression(value: string) {
+    this.doc.setFormField(this.path, "delayProgression", value);
+  }
+
+  get captchaTriggerThreshold(): string {
+    return this.doc.formField(this.path, "captchaTriggerThreshold") || '';
+  }
+
+  set captchaTriggerThreshold(value: string) {
+    this.doc.setFormField(this.path, "captchaTriggerThreshold", value);
+  }
+
+  get ipBasedRateLimiting(): string {
+    return this.doc.formField(this.path, "ipBasedRateLimiting") || '';
+  }
+
+  set ipBasedRateLimiting(value: string) {
+    this.doc.setFormField(this.path, "ipBasedRateLimiting", value);
+  }
+
+  get distributedAttackProtection(): string {
+    return this.doc.formField(this.path, "distributedAttackProtection") || '';
+  }
+
+  set distributedAttackProtection(value: string) {
+    this.doc.setFormField(this.path, "distributedAttackProtection", value);
+  }
+
+  get unlockMechanism(): string {
+    return this.doc.formField(this.path, "unlockMechanism") || '';
+  }
+
+  set unlockMechanism(value: string) {
+    this.doc.setFormField(this.path, "unlockMechanism", value);
+  }
+
+  get failedAttemptResetOnSuccess(): string {
+    return this.doc.formField(this.path, "failedAttemptResetOnSuccess") || '';
+  }
+
+  set failedAttemptResetOnSuccess(value: string) {
+    this.doc.setFormField(this.path, "failedAttemptResetOnSuccess", value);
+  }
+
+  get lockoutNotification(): string {
+    return this.doc.formField(this.path, "lockoutNotification") || '';
+  }
+
+  set lockoutNotification(value: string) {
+    this.doc.setFormField(this.path, "lockoutNotification", value);
+  }
+
+  get permanentLockoutEnabled(): string {
+    return this.doc.formField(this.path, "permanentLockoutEnabled") || '';
+  }
+
+  set permanentLockoutEnabled(value: string) {
+    this.doc.setFormField(this.path, "permanentLockoutEnabled", value);
+  }
+
+  get permanentLockoutThreshold(): string {
+    return this.doc.formField(this.path, "permanentLockoutThreshold") || '';
+  }
+
+  set permanentLockoutThreshold(value: string) {
+    this.doc.setFormField(this.path, "permanentLockoutThreshold", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccountModificationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get selfModifiableFields(): string {
+    return this.doc.formField(this.path, "selfModifiableFields") || '';
+  }
+
+  set selfModifiableFields(value: string) {
+    this.doc.setFormField(this.path, "selfModifiableFields", value);
+  }
+
+  get adminModifiableFields(): string {
+    return this.doc.formField(this.path, "adminModifiableFields") || '';
+  }
+
+  set adminModifiableFields(value: string) {
+    this.doc.setFormField(this.path, "adminModifiableFields", value);
+  }
+
+  get systemModifiableFields(): string {
+    return this.doc.formField(this.path, "systemModifiableFields") || '';
+  }
+
+  set systemModifiableFields(value: string) {
+    this.doc.setFormField(this.path, "systemModifiableFields", value);
+  }
+
+  get emailChangePolicy(): string {
+    return this.doc.formField(this.path, "emailChangePolicy") || '';
+  }
+
+  set emailChangePolicy(value: string) {
+    this.doc.setFormField(this.path, "emailChangePolicy", value);
+  }
+
+  get phoneChangePolicy(): string {
+    return this.doc.formField(this.path, "phoneChangePolicy") || '';
+  }
+
+  set phoneChangePolicy(value: string) {
+    this.doc.setFormField(this.path, "phoneChangePolicy", value);
+  }
+
+  get nameChangePolicy(): string {
+    return this.doc.formField(this.path, "nameChangePolicy") || '';
+  }
+
+  set nameChangePolicy(value: string) {
+    this.doc.setFormField(this.path, "nameChangePolicy", value);
+  }
+
+  get roleChangeApproval(): string {
+    return this.doc.formField(this.path, "roleChangeApproval") || '';
+  }
+
+  set roleChangeApproval(value: string) {
+    this.doc.setFormField(this.path, "roleChangeApproval", value);
+  }
+
+  get bulkModificationSupport(): string {
+    return this.doc.formField(this.path, "bulkModificationSupport") || '';
+  }
+
+  set bulkModificationSupport(value: string) {
+    this.doc.setFormField(this.path, "bulkModificationSupport", value);
+  }
+
+  get changeAuditLogging(): string {
+    return this.doc.formField(this.path, "changeAuditLogging") || '';
+  }
+
+  set changeAuditLogging(value: string) {
+    this.doc.setFormField(this.path, "changeAuditLogging", value);
+  }
+
+  get changeNotification(): string {
+    return this.doc.formField(this.path, "changeNotification") || '';
+  }
+
+  set changeNotification(value: string) {
+    this.doc.setFormField(this.path, "changeNotification", value);
+  }
+
+  get historicalVersioning(): string {
+    return this.doc.formField(this.path, "historicalVersioning") || '';
+  }
+
+  set historicalVersioning(value: string) {
+    this.doc.setFormField(this.path, "historicalVersioning", value);
+  }
+
+  get reverificationTriggers(): string {
+    return this.doc.formField(this.path, "reverificationTriggers") || '';
+  }
+
+  set reverificationTriggers(value: string) {
+    this.doc.setFormField(this.path, "reverificationTriggers", value);
+  }
+
+  get modificationRateLimiting(): string {
+    return this.doc.formField(this.path, "modificationRateLimiting") || '';
+  }
+
+  set modificationRateLimiting(value: string) {
+    this.doc.setFormField(this.path, "modificationRateLimiting", value);
+  }
+
+  get modificationCooldownPeriod(): string {
+    return this.doc.formField(this.path, "modificationCooldownPeriod") || '';
+  }
+
+  set modificationCooldownPeriod(value: string) {
+    this.doc.setFormField(this.path, "modificationCooldownPeriod", value);
   }
 }
 
@@ -50862,6 +51150,455 @@ export class AnomalyDetectionPolicyContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiAbuseProtectionContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get rateLimitingEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "rateLimitingEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set rateLimitingEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "rateLimitingEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get rateLimitScope(): string {
+    return this.doc.formField(this.path, "rateLimitScope") || '';
+  }
+
+  set rateLimitScope(value: string) {
+    this.doc.setFormField(this.path, "rateLimitScope", value);
+  }
+
+  get authenticationEndpointLimits(): string {
+    return this.doc.formField(this.path, "authenticationEndpointLimits") || '';
+  }
+
+  set authenticationEndpointLimits(value: string) {
+    this.doc.setFormField(this.path, "authenticationEndpointLimits", value);
+  }
+
+  get sensitiveEndpointLimits(): string {
+    return this.doc.formField(this.path, "sensitiveEndpointLimits") || '';
+  }
+
+  set sensitiveEndpointLimits(value: string) {
+    this.doc.setFormField(this.path, "sensitiveEndpointLimits", value);
+  }
+
+  get bruteForceProtection(): string {
+    return this.doc.formField(this.path, "bruteForceProtection") || '';
+  }
+
+  set bruteForceProtection(value: string) {
+    this.doc.setFormField(this.path, "bruteForceProtection", value);
+  }
+
+  get botDetectionPolicy(): string {
+    return this.doc.formField(this.path, "botDetectionPolicy") || '';
+  }
+
+  set botDetectionPolicy(value: string) {
+    this.doc.setFormField(this.path, "botDetectionPolicy", value);
+  }
+
+  get ipReputationFiltering(): boolean | null {
+    const v = this.doc.formField(this.path, "ipReputationFiltering");
+    return v == null ? null : v === 'true';
+  }
+
+  set ipReputationFiltering(value: boolean | null) {
+    this.doc.setFormField(this.path, "ipReputationFiltering", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get automaticBlocking(): boolean | null {
+    const v = this.doc.formField(this.path, "automaticBlocking");
+    return v == null ? null : v === 'true';
+  }
+
+  set automaticBlocking(value: boolean | null) {
+    this.doc.setFormField(this.path, "automaticBlocking", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get blockDuration(): string {
+    return this.doc.formField(this.path, "blockDuration") || '';
+  }
+
+  set blockDuration(value: string) {
+    this.doc.setFormField(this.path, "blockDuration", value);
+  }
+
+  get geographicRestrictions(): string {
+    return this.doc.formField(this.path, "geographicRestrictions") || '';
+  }
+
+  set geographicRestrictions(value: string) {
+    this.doc.setFormField(this.path, "geographicRestrictions", value);
+  }
+
+  get requestThrottlingOnFailure(): string {
+    return this.doc.formField(this.path, "requestThrottlingOnFailure") || '';
+  }
+
+  set requestThrottlingOnFailure(value: string) {
+    this.doc.setFormField(this.path, "requestThrottlingOnFailure", value);
+  }
+
+  get businessFlowProtection(): string {
+    return this.doc.formField(this.path, "businessFlowProtection") || '';
+  }
+
+  set businessFlowProtection(value: string) {
+    this.doc.setFormField(this.path, "businessFlowProtection", value);
+  }
+
+  get webhookFloodProtection(): string {
+    return this.doc.formField(this.path, "webhookFloodProtection") || '';
+  }
+
+  set webhookFloodProtection(value: string) {
+    this.doc.setFormField(this.path, "webhookFloodProtection", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiAuthenticationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get authenticationMethod(): string {
+    return this.doc.formField(this.path, "authenticationMethod") || '';
+  }
+
+  set authenticationMethod(value: string) {
+    this.doc.setFormField(this.path, "authenticationMethod", value);
+  }
+
+  get multipleMethodsSupported(): boolean | null {
+    const v = this.doc.formField(this.path, "multipleMethodsSupported");
+    return v == null ? null : v === 'true';
+  }
+
+  set multipleMethodsSupported(value: boolean | null) {
+    this.doc.setFormField(this.path, "multipleMethodsSupported", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get apiKeyTransmission(): string {
+    return this.doc.formField(this.path, "apiKeyTransmission") || '';
+  }
+
+  set apiKeyTransmission(value: string) {
+    this.doc.setFormField(this.path, "apiKeyTransmission", value);
+  }
+
+  get apiKeyRotationPolicy(): string {
+    return this.doc.formField(this.path, "apiKeyRotationPolicy") || '';
+  }
+
+  set apiKeyRotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "apiKeyRotationPolicy", value);
+  }
+
+  get apiKeyScoping(): string {
+    return this.doc.formField(this.path, "apiKeyScoping") || '';
+  }
+
+  set apiKeyScoping(value: string) {
+    this.doc.setFormField(this.path, "apiKeyScoping", value);
+  }
+
+  get jwtValidationPolicy(): string {
+    return this.doc.formField(this.path, "jwtValidationPolicy") || '';
+  }
+
+  set jwtValidationPolicy(value: string) {
+    this.doc.setFormField(this.path, "jwtValidationPolicy", value);
+  }
+
+  get jwtSigningAlgorithm(): string {
+    return this.doc.formField(this.path, "jwtSigningAlgorithm") || '';
+  }
+
+  set jwtSigningAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "jwtSigningAlgorithm", value);
+  }
+
+  get accessTokenLifetime(): string {
+    return this.doc.formField(this.path, "accessTokenLifetime") || '';
+  }
+
+  set accessTokenLifetime(value: string) {
+    this.doc.setFormField(this.path, "accessTokenLifetime", value);
+  }
+
+  get refreshTokenPolicy(): string {
+    return this.doc.formField(this.path, "refreshTokenPolicy") || '';
+  }
+
+  set refreshTokenPolicy(value: string) {
+    this.doc.setFormField(this.path, "refreshTokenPolicy", value);
+  }
+
+  get clientCredentialsFlow(): boolean | null {
+    const v = this.doc.formField(this.path, "clientCredentialsFlow");
+    return v == null ? null : v === 'true';
+  }
+
+  set clientCredentialsFlow(value: boolean | null) {
+    this.doc.setFormField(this.path, "clientCredentialsFlow", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get authorizationCodeFlow(): boolean | null {
+    const v = this.doc.formField(this.path, "authorizationCodeFlow");
+    return v == null ? null : v === 'true';
+  }
+
+  set authorizationCodeFlow(value: boolean | null) {
+    this.doc.setFormField(this.path, "authorizationCodeFlow", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get tokenRevocationSupport(): boolean | null {
+    const v = this.doc.formField(this.path, "tokenRevocationSupport");
+    return v == null ? null : v === 'true';
+  }
+
+  set tokenRevocationSupport(value: boolean | null) {
+    this.doc.setFormField(this.path, "tokenRevocationSupport", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get mutualTlsRequired(): boolean | null {
+    const v = this.doc.formField(this.path, "mutualTlsRequired");
+    return v == null ? null : v === 'true';
+  }
+
+  set mutualTlsRequired(value: boolean | null) {
+    this.doc.setFormField(this.path, "mutualTlsRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get serviceAccountPolicy(): string {
+    return this.doc.formField(this.path, "serviceAccountPolicy") || '';
+  }
+
+  set serviceAccountPolicy(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountPolicy", value);
+  }
+
+  get webhookSignatureVerification(): string {
+    return this.doc.formField(this.path, "webhookSignatureVerification") || '';
+  }
+
+  set webhookSignatureVerification(value: string) {
+    this.doc.setFormField(this.path, "webhookSignatureVerification", value);
+  }
+
+  get thirdPartyApiConsumption(): string {
+    return this.doc.formField(this.path, "thirdPartyApiConsumption") || '';
+  }
+
+  set thirdPartyApiConsumption(value: string) {
+    this.doc.setFormField(this.path, "thirdPartyApiConsumption", value);
+  }
+
+  get credentialTransmission(): string {
+    return this.doc.formField(this.path, "credentialTransmission") || '';
+  }
+
+  set credentialTransmission(value: string) {
+    this.doc.setFormField(this.path, "credentialTransmission", value);
+  }
+
+  get bearerTokenFormat(): string {
+    return this.doc.formField(this.path, "bearerTokenFormat") || '';
+  }
+
+  set bearerTokenFormat(value: string) {
+    this.doc.setFormField(this.path, "bearerTokenFormat", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiAuthorizationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get objectLevelAuthorization(): string {
+    return this.doc.formField(this.path, "objectLevelAuthorization") || '';
+  }
+
+  set objectLevelAuthorization(value: string) {
+    this.doc.setFormField(this.path, "objectLevelAuthorization", value);
+  }
+
+  get functionLevelAuthorization(): string {
+    return this.doc.formField(this.path, "functionLevelAuthorization") || '';
+  }
+
+  set functionLevelAuthorization(value: string) {
+    this.doc.setFormField(this.path, "functionLevelAuthorization", value);
+  }
+
+  get propertyLevelAuthorization(): string {
+    return this.doc.formField(this.path, "propertyLevelAuthorization") || '';
+  }
+
+  set propertyLevelAuthorization(value: string) {
+    this.doc.setFormField(this.path, "propertyLevelAuthorization", value);
+  }
+
+  get permissionGranularity(): string {
+    return this.doc.formField(this.path, "permissionGranularity") || '';
+  }
+
+  set permissionGranularity(value: string) {
+    this.doc.setFormField(this.path, "permissionGranularity", value);
+  }
+
+  get scopeDefinitions(): string {
+    return this.doc.formField(this.path, "scopeDefinitions") || '';
+  }
+
+  set scopeDefinitions(value: string) {
+    this.doc.setFormField(this.path, "scopeDefinitions", value);
+  }
+
+  get scopeEnforcementLevel(): string {
+    return this.doc.formField(this.path, "scopeEnforcementLevel") || '';
+  }
+
+  set scopeEnforcementLevel(value: string) {
+    this.doc.setFormField(this.path, "scopeEnforcementLevel", value);
+  }
+
+  get delegatedAccessPolicy(): string {
+    return this.doc.formField(this.path, "delegatedAccessPolicy") || '';
+  }
+
+  set delegatedAccessPolicy(value: string) {
+    this.doc.setFormField(this.path, "delegatedAccessPolicy", value);
+  }
+
+  get bulkOperationAuthorization(): string {
+    return this.doc.formField(this.path, "bulkOperationAuthorization") || '';
+  }
+
+  set bulkOperationAuthorization(value: string) {
+    this.doc.setFormField(this.path, "bulkOperationAuthorization", value);
+  }
+
+  get contextualAuthorization(): string {
+    return this.doc.formField(this.path, "contextualAuthorization") || '';
+  }
+
+  set contextualAuthorization(value: string) {
+    this.doc.setFormField(this.path, "contextualAuthorization", value);
+  }
+
+  get massAssignmentPrevention(): string {
+    return this.doc.formField(this.path, "massAssignmentPrevention") || '';
+  }
+
+  set massAssignmentPrevention(value: string) {
+    this.doc.setFormField(this.path, "massAssignmentPrevention", value);
+  }
+
+  get horizontalPrivilegeEscalation(): string {
+    return this.doc.formField(this.path, "horizontalPrivilegeEscalation") || '';
+  }
+
+  set horizontalPrivilegeEscalation(value: string) {
+    this.doc.setFormField(this.path, "horizontalPrivilegeEscalation", value);
+  }
+
+  get verticalPrivilegeEscalation(): string {
+    return this.doc.formField(this.path, "verticalPrivilegeEscalation") || '';
+  }
+
+  set verticalPrivilegeEscalation(value: string) {
+    this.doc.setFormField(this.path, "verticalPrivilegeEscalation", value);
+  }
+
+  get sensitiveBusinessFlowProtection(): string {
+    return this.doc.formField(this.path, "sensitiveBusinessFlowProtection") || '';
+  }
+
+  set sensitiveBusinessFlowProtection(value: string) {
+    this.doc.setFormField(this.path, "sensitiveBusinessFlowProtection", value);
+  }
+
+  get workflowStateValidation(): string {
+    return this.doc.formField(this.path, "workflowStateValidation") || '';
+  }
+
+  set workflowStateValidation(value: string) {
+    this.doc.setFormField(this.path, "workflowStateValidation", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ApiCompatibilityEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -51073,6 +51810,559 @@ export class ApiCompatibilityEntryTransportDetailsForm extends SomNode {
 
   set authentication(value: string) {
     this.doc.setFormField(this.path, "authentication", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiCorsSecurityContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get corsEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "corsEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set corsEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "corsEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get allowedOrigins(): string {
+    return this.doc.formField(this.path, "allowedOrigins") || '';
+  }
+
+  set allowedOrigins(value: string) {
+    this.doc.setFormField(this.path, "allowedOrigins", value);
+  }
+
+  get allowedMethods(): string {
+    return this.doc.formField(this.path, "allowedMethods") || '';
+  }
+
+  set allowedMethods(value: string) {
+    this.doc.setFormField(this.path, "allowedMethods", value);
+  }
+
+  get allowedHeaders(): string {
+    return this.doc.formField(this.path, "allowedHeaders") || '';
+  }
+
+  set allowedHeaders(value: string) {
+    this.doc.setFormField(this.path, "allowedHeaders", value);
+  }
+
+  get exposedHeaders(): string {
+    return this.doc.formField(this.path, "exposedHeaders") || '';
+  }
+
+  set exposedHeaders(value: string) {
+    this.doc.setFormField(this.path, "exposedHeaders", value);
+  }
+
+  get credentialsAllowed(): boolean | null {
+    const v = this.doc.formField(this.path, "credentialsAllowed");
+    return v == null ? null : v === 'true';
+  }
+
+  set credentialsAllowed(value: boolean | null) {
+    this.doc.setFormField(this.path, "credentialsAllowed", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get preflightCacheMaxAge(): number | null {
+    const v = this.doc.formField(this.path, "preflightCacheMaxAge");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set preflightCacheMaxAge(value: number | null) {
+    this.doc.setFormField(this.path, "preflightCacheMaxAge", value == null ? '' : String(value));
+  }
+
+  get wildcardRestriction(): boolean | null {
+    const v = this.doc.formField(this.path, "wildcardRestriction");
+    return v == null ? null : v === 'true';
+  }
+
+  set wildcardRestriction(value: boolean | null) {
+    this.doc.setFormField(this.path, "wildcardRestriction", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get contentSecurityPolicy(): string {
+    return this.doc.formField(this.path, "contentSecurityPolicy") || '';
+  }
+
+  set contentSecurityPolicy(value: string) {
+    this.doc.setFormField(this.path, "contentSecurityPolicy", value);
+  }
+
+  get strictTransportSecurity(): string {
+    return this.doc.formField(this.path, "strictTransportSecurity") || '';
+  }
+
+  set strictTransportSecurity(value: string) {
+    this.doc.setFormField(this.path, "strictTransportSecurity", value);
+  }
+
+  get securityHeadersRequired(): string {
+    return this.doc.formField(this.path, "securityHeadersRequired") || '';
+  }
+
+  set securityHeadersRequired(value: string) {
+    this.doc.setFormField(this.path, "securityHeadersRequired", value);
+  }
+
+  get privateNetworkAccess(): string {
+    return this.doc.formField(this.path, "privateNetworkAccess") || '';
+  }
+
+  set privateNetworkAccess(value: string) {
+    this.doc.setFormField(this.path, "privateNetworkAccess", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiKeyManagementPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get apiKeyAuthEnabled(): string {
+    return this.doc.formField(this.path, "apiKeyAuthEnabled") || '';
+  }
+
+  set apiKeyAuthEnabled(value: string) {
+    this.doc.setFormField(this.path, "apiKeyAuthEnabled", value);
+  }
+
+  get apiKeyTypes(): string {
+    return this.doc.formField(this.path, "apiKeyTypes") || '';
+  }
+
+  set apiKeyTypes(value: string) {
+    this.doc.setFormField(this.path, "apiKeyTypes", value);
+  }
+
+  get keyGenerationMethod(): string {
+    return this.doc.formField(this.path, "keyGenerationMethod") || '';
+  }
+
+  set keyGenerationMethod(value: string) {
+    this.doc.setFormField(this.path, "keyGenerationMethod", value);
+  }
+
+  get keyLength(): string {
+    return this.doc.formField(this.path, "keyLength") || '';
+  }
+
+  set keyLength(value: string) {
+    this.doc.setFormField(this.path, "keyLength", value);
+  }
+
+  get keyRotationPolicy(): string {
+    return this.doc.formField(this.path, "keyRotationPolicy") || '';
+  }
+
+  set keyRotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "keyRotationPolicy", value);
+  }
+
+  get keyExpirationPolicy(): string {
+    return this.doc.formField(this.path, "keyExpirationPolicy") || '';
+  }
+
+  set keyExpirationPolicy(value: string) {
+    this.doc.setFormField(this.path, "keyExpirationPolicy", value);
+  }
+
+  get keyScopeRestrictions(): string {
+    return this.doc.formField(this.path, "keyScopeRestrictions") || '';
+  }
+
+  set keyScopeRestrictions(value: string) {
+    this.doc.setFormField(this.path, "keyScopeRestrictions", value);
+  }
+
+  get ipAllowlisting(): string {
+    return this.doc.formField(this.path, "ipAllowlisting") || '';
+  }
+
+  set ipAllowlisting(value: string) {
+    this.doc.setFormField(this.path, "ipAllowlisting", value);
+  }
+
+  get rateLimitingPerKey(): string {
+    return this.doc.formField(this.path, "rateLimitingPerKey") || '';
+  }
+
+  set rateLimitingPerKey(value: string) {
+    this.doc.setFormField(this.path, "rateLimitingPerKey", value);
+  }
+
+  get keyRevocationProcess(): string {
+    return this.doc.formField(this.path, "keyRevocationProcess") || '';
+  }
+
+  set keyRevocationProcess(value: string) {
+    this.doc.setFormField(this.path, "keyRevocationProcess", value);
+  }
+
+  get keyStorageGuidance(): string {
+    return this.doc.formField(this.path, "keyStorageGuidance") || '';
+  }
+
+  set keyStorageGuidance(value: string) {
+    this.doc.setFormField(this.path, "keyStorageGuidance", value);
+  }
+
+  get keyAuditLogging(): string {
+    return this.doc.formField(this.path, "keyAuditLogging") || '';
+  }
+
+  set keyAuditLogging(value: string) {
+    this.doc.setFormField(this.path, "keyAuditLogging", value);
+  }
+
+  get serviceTokenSupport(): string {
+    return this.doc.formField(this.path, "serviceTokenSupport") || '';
+  }
+
+  set serviceTokenSupport(value: string) {
+    this.doc.setFormField(this.path, "serviceTokenSupport", value);
+  }
+
+  get tokenLifetime(): string {
+    return this.doc.formField(this.path, "tokenLifetime") || '';
+  }
+
+  set tokenLifetime(value: string) {
+    this.doc.setFormField(this.path, "tokenLifetime", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiRequestValidationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get inputValidationStrategy(): string {
+    return this.doc.formField(this.path, "inputValidationStrategy") || '';
+  }
+
+  set inputValidationStrategy(value: string) {
+    this.doc.setFormField(this.path, "inputValidationStrategy", value);
+  }
+
+  get schemaValidationEnforced(): boolean | null {
+    const v = this.doc.formField(this.path, "schemaValidationEnforced");
+    return v == null ? null : v === 'true';
+  }
+
+  set schemaValidationEnforced(value: boolean | null) {
+    this.doc.setFormField(this.path, "schemaValidationEnforced", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get schemaValidationTool(): string {
+    return this.doc.formField(this.path, "schemaValidationTool") || '';
+  }
+
+  set schemaValidationTool(value: string) {
+    this.doc.setFormField(this.path, "schemaValidationTool", value);
+  }
+
+  get contentTypeValidation(): boolean | null {
+    const v = this.doc.formField(this.path, "contentTypeValidation");
+    return v == null ? null : v === 'true';
+  }
+
+  set contentTypeValidation(value: boolean | null) {
+    this.doc.setFormField(this.path, "contentTypeValidation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get acceptedContentTypes(): string {
+    return this.doc.formField(this.path, "acceptedContentTypes") || '';
+  }
+
+  set acceptedContentTypes(value: string) {
+    this.doc.setFormField(this.path, "acceptedContentTypes", value);
+  }
+
+  get rejectUnexpectedContentType(): boolean | null {
+    const v = this.doc.formField(this.path, "rejectUnexpectedContentType");
+    return v == null ? null : v === 'true';
+  }
+
+  set rejectUnexpectedContentType(value: boolean | null) {
+    this.doc.setFormField(this.path, "rejectUnexpectedContentType", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get requestSizeLimit(): string {
+    return this.doc.formField(this.path, "requestSizeLimit") || '';
+  }
+
+  set requestSizeLimit(value: string) {
+    this.doc.setFormField(this.path, "requestSizeLimit", value);
+  }
+
+  get arrayLengthLimit(): number | null {
+    const v = this.doc.formField(this.path, "arrayLengthLimit");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set arrayLengthLimit(value: number | null) {
+    this.doc.setFormField(this.path, "arrayLengthLimit", value == null ? '' : String(value));
+  }
+
+  get nestedObjectDepthLimit(): number | null {
+    const v = this.doc.formField(this.path, "nestedObjectDepthLimit");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set nestedObjectDepthLimit(value: number | null) {
+    this.doc.setFormField(this.path, "nestedObjectDepthLimit", value == null ? '' : String(value));
+  }
+
+  get stringFieldMaxLength(): number | null {
+    const v = this.doc.formField(this.path, "stringFieldMaxLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set stringFieldMaxLength(value: number | null) {
+    this.doc.setFormField(this.path, "stringFieldMaxLength", value == null ? '' : String(value));
+  }
+
+  get parameterTypeEnforcement(): boolean | null {
+    const v = this.doc.formField(this.path, "parameterTypeEnforcement");
+    return v == null ? null : v === 'true';
+  }
+
+  set parameterTypeEnforcement(value: boolean | null) {
+    this.doc.setFormField(this.path, "parameterTypeEnforcement", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get numericRangeValidation(): boolean | null {
+    const v = this.doc.formField(this.path, "numericRangeValidation");
+    return v == null ? null : v === 'true';
+  }
+
+  set numericRangeValidation(value: boolean | null) {
+    this.doc.setFormField(this.path, "numericRangeValidation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dateFormatValidation(): string {
+    return this.doc.formField(this.path, "dateFormatValidation") || '';
+  }
+
+  set dateFormatValidation(value: string) {
+    this.doc.setFormField(this.path, "dateFormatValidation", value);
+  }
+
+  get encodingValidation(): string {
+    return this.doc.formField(this.path, "encodingValidation") || '';
+  }
+
+  set encodingValidation(value: string) {
+    this.doc.setFormField(this.path, "encodingValidation", value);
+  }
+
+  get fileUploadValidation(): string {
+    return this.doc.formField(this.path, "fileUploadValidation") || '';
+  }
+
+  set fileUploadValidation(value: string) {
+    this.doc.setFormField(this.path, "fileUploadValidation", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ApiSecurityMonitoringContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get apiAccessLogging(): boolean | null {
+    const v = this.doc.formField(this.path, "apiAccessLogging");
+    return v == null ? null : v === 'true';
+  }
+
+  set apiAccessLogging(value: boolean | null) {
+    this.doc.setFormField(this.path, "apiAccessLogging", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get loggedAttributes(): string {
+    return this.doc.formField(this.path, "loggedAttributes") || '';
+  }
+
+  set loggedAttributes(value: string) {
+    this.doc.setFormField(this.path, "loggedAttributes", value);
+  }
+
+  get sensitiveEndpointMonitoring(): boolean | null {
+    const v = this.doc.formField(this.path, "sensitiveEndpointMonitoring");
+    return v == null ? null : v === 'true';
+  }
+
+  set sensitiveEndpointMonitoring(value: boolean | null) {
+    this.doc.setFormField(this.path, "sensitiveEndpointMonitoring", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get sensitiveDataRedaction(): boolean | null {
+    const v = this.doc.formField(this.path, "sensitiveDataRedaction");
+    return v == null ? null : v === 'true';
+  }
+
+  set sensitiveDataRedaction(value: boolean | null) {
+    this.doc.setFormField(this.path, "sensitiveDataRedaction", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get anomalyDetection(): boolean | null {
+    const v = this.doc.formField(this.path, "anomalyDetection");
+    return v == null ? null : v === 'true';
+  }
+
+  set anomalyDetection(value: boolean | null) {
+    this.doc.setFormField(this.path, "anomalyDetection", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get errorRateMonitoring(): string {
+    return this.doc.formField(this.path, "errorRateMonitoring") || '';
+  }
+
+  set errorRateMonitoring(value: string) {
+    this.doc.setFormField(this.path, "errorRateMonitoring", value);
+  }
+
+  get authenticationFailureTracking(): boolean | null {
+    const v = this.doc.formField(this.path, "authenticationFailureTracking");
+    return v == null ? null : v === 'true';
+  }
+
+  set authenticationFailureTracking(value: boolean | null) {
+    this.doc.setFormField(this.path, "authenticationFailureTracking", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dataExfiltrationDetection(): boolean | null {
+    const v = this.doc.formField(this.path, "dataExfiltrationDetection");
+    return v == null ? null : v === 'true';
+  }
+
+  set dataExfiltrationDetection(value: boolean | null) {
+    this.doc.setFormField(this.path, "dataExfiltrationDetection", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get apiVersionInventory(): boolean | null {
+    const v = this.doc.formField(this.path, "apiVersionInventory");
+    return v == null ? null : v === 'true';
+  }
+
+  set apiVersionInventory(value: boolean | null) {
+    this.doc.setFormField(this.path, "apiVersionInventory", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get deprecatedEndpointMonitoring(): boolean | null {
+    const v = this.doc.formField(this.path, "deprecatedEndpointMonitoring");
+    return v == null ? null : v === 'true';
+  }
+
+  set deprecatedEndpointMonitoring(value: boolean | null) {
+    this.doc.setFormField(this.path, "deprecatedEndpointMonitoring", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get realTimeAlerts(): boolean | null {
+    const v = this.doc.formField(this.path, "realTimeAlerts");
+    return v == null ? null : v === 'true';
+  }
+
+  set realTimeAlerts(value: boolean | null) {
+    this.doc.setFormField(this.path, "realTimeAlerts", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get securityResponseAutomation(): string {
+    return this.doc.formField(this.path, "securityResponseAutomation") || '';
+  }
+
+  set securityResponseAutomation(value: string) {
+    this.doc.setFormField(this.path, "securityResponseAutomation", value);
+  }
+
+  get complianceReporting(): string {
+    return this.doc.formField(this.path, "complianceReporting") || '';
+  }
+
+  set complianceReporting(value: string) {
+    this.doc.setFormField(this.path, "complianceReporting", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -53317,6 +54607,113 @@ export class AuditEvidenceTypeEntryContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AuthenticationErrorHandlingContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get invalidCredentialResponse(): string {
+    return this.doc.formField(this.path, "invalidCredentialResponse") || '';
+  }
+
+  set invalidCredentialResponse(value: string) {
+    this.doc.setFormField(this.path, "invalidCredentialResponse", value);
+  }
+
+  get accountLockoutThreshold(): string {
+    return this.doc.formField(this.path, "accountLockoutThreshold") || '';
+  }
+
+  set accountLockoutThreshold(value: string) {
+    this.doc.setFormField(this.path, "accountLockoutThreshold", value);
+  }
+
+  get lockoutDuration(): string {
+    return this.doc.formField(this.path, "lockoutDuration") || '';
+  }
+
+  set lockoutDuration(value: string) {
+    this.doc.setFormField(this.path, "lockoutDuration", value);
+  }
+
+  get lockoutEscalation(): string {
+    return this.doc.formField(this.path, "lockoutEscalation") || '';
+  }
+
+  set lockoutEscalation(value: string) {
+    this.doc.setFormField(this.path, "lockoutEscalation", value);
+  }
+
+  get bruteForceProtection(): string {
+    return this.doc.formField(this.path, "bruteForceProtection") || '';
+  }
+
+  set bruteForceProtection(value: string) {
+    this.doc.setFormField(this.path, "bruteForceProtection", value);
+  }
+
+  get credentialStuffingProtection(): string {
+    return this.doc.formField(this.path, "credentialStuffingProtection") || '';
+  }
+
+  set credentialStuffingProtection(value: string) {
+    this.doc.setFormField(this.path, "credentialStuffingProtection", value);
+  }
+
+  get userNotificationOnFailure(): string {
+    return this.doc.formField(this.path, "userNotificationOnFailure") || '';
+  }
+
+  set userNotificationOnFailure(value: string) {
+    this.doc.setFormField(this.path, "userNotificationOnFailure", value);
+  }
+
+  get adminAlertThreshold(): string {
+    return this.doc.formField(this.path, "adminAlertThreshold") || '';
+  }
+
+  set adminAlertThreshold(value: string) {
+    this.doc.setFormField(this.path, "adminAlertThreshold", value);
+  }
+
+  get failedLoginAuditLogging(): string {
+    return this.doc.formField(this.path, "failedLoginAuditLogging") || '';
+  }
+
+  set failedLoginAuditLogging(value: string) {
+    this.doc.setFormField(this.path, "failedLoginAuditLogging", value);
+  }
+
+  get suspiciousActivityResponse(): string {
+    return this.doc.formField(this.path, "suspiciousActivityResponse") || '';
+  }
+
+  set suspiciousActivityResponse(value: string) {
+    this.doc.setFormField(this.path, "suspiciousActivityResponse", value);
+  }
+
+  get gracefulDegradation(): string {
+    return this.doc.formField(this.path, "gracefulDegradation") || '';
+  }
+
+  set gracefulDegradation(value: string) {
+    this.doc.setFormField(this.path, "gracefulDegradation", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class AuthenticationEventPolicyContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -54738,6 +56135,85 @@ export class BackupDataClassificationExclusionsForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class BackupEncryptionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get backupEncryptionRequired(): boolean | null {
+    const v = this.doc.formField(this.path, "backupEncryptionRequired");
+    return v == null ? null : v === 'true';
+  }
+
+  set backupEncryptionRequired(value: boolean | null) {
+    this.doc.setFormField(this.path, "backupEncryptionRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get backupEncryptionMethod(): string {
+    return this.doc.formField(this.path, "backupEncryptionMethod") || '';
+  }
+
+  set backupEncryptionMethod(value: string) {
+    this.doc.setFormField(this.path, "backupEncryptionMethod", value);
+  }
+
+  get separateBackupKeys(): boolean | null {
+    const v = this.doc.formField(this.path, "separateBackupKeys");
+    return v == null ? null : v === 'true';
+  }
+
+  set separateBackupKeys(value: boolean | null) {
+    this.doc.setFormField(this.path, "separateBackupKeys", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get backupKeyRotation(): string {
+    return this.doc.formField(this.path, "backupKeyRotation") || '';
+  }
+
+  set backupKeyRotation(value: string) {
+    this.doc.setFormField(this.path, "backupKeyRotation", value);
+  }
+
+  get encryptedBackupVerification(): boolean | null {
+    const v = this.doc.formField(this.path, "encryptedBackupVerification");
+    return v == null ? null : v === 'true';
+  }
+
+  set encryptedBackupVerification(value: boolean | null) {
+    this.doc.setFormField(this.path, "encryptedBackupVerification", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get offSiteBackupEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "offSiteBackupEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set offSiteBackupEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "offSiteBackupEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class BackupInfrastructureContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -56115,6 +57591,121 @@ export class BehaviorRuleEntryContentForm extends SomNode {
 
   set calculatedProperties(value: string) {
     this.doc.setFormField(this.path, "calculatedProperties", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class BiometricAuthenticationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get biometricAuthEnabled(): string {
+    return this.doc.formField(this.path, "biometricAuthEnabled") || '';
+  }
+
+  set biometricAuthEnabled(value: string) {
+    this.doc.setFormField(this.path, "biometricAuthEnabled", value);
+  }
+
+  get biometricModalities(): string {
+    return this.doc.formField(this.path, "biometricModalities") || '';
+  }
+
+  set biometricModalities(value: string) {
+    this.doc.setFormField(this.path, "biometricModalities", value);
+  }
+
+  get biometricUsageContext(): string {
+    return this.doc.formField(this.path, "biometricUsageContext") || '';
+  }
+
+  set biometricUsageContext(value: string) {
+    this.doc.setFormField(this.path, "biometricUsageContext", value);
+  }
+
+  get biometricAsActivationFactor(): string {
+    return this.doc.formField(this.path, "biometricAsActivationFactor") || '';
+  }
+
+  set biometricAsActivationFactor(value: string) {
+    this.doc.setFormField(this.path, "biometricAsActivationFactor", value);
+  }
+
+  get localVsCentralComparison(): string {
+    return this.doc.formField(this.path, "localVsCentralComparison") || '';
+  }
+
+  set localVsCentralComparison(value: string) {
+    this.doc.setFormField(this.path, "localVsCentralComparison", value);
+  }
+
+  get falseMatchRateTarget(): string {
+    return this.doc.formField(this.path, "falseMatchRateTarget") || '';
+  }
+
+  set falseMatchRateTarget(value: string) {
+    this.doc.setFormField(this.path, "falseMatchRateTarget", value);
+  }
+
+  get presentationAttackDetection(): string {
+    return this.doc.formField(this.path, "presentationAttackDetection") || '';
+  }
+
+  set presentationAttackDetection(value: string) {
+    this.doc.setFormField(this.path, "presentationAttackDetection", value);
+  }
+
+  get maxConsecutiveFailures(): string {
+    return this.doc.formField(this.path, "maxConsecutiveFailures") || '';
+  }
+
+  set maxConsecutiveFailures(value: string) {
+    this.doc.setFormField(this.path, "maxConsecutiveFailures", value);
+  }
+
+  get fallbackMethod(): string {
+    return this.doc.formField(this.path, "fallbackMethod") || '';
+  }
+
+  set fallbackMethod(value: string) {
+    this.doc.setFormField(this.path, "fallbackMethod", value);
+  }
+
+  get biometricDataStorage(): string {
+    return this.doc.formField(this.path, "biometricDataStorage") || '';
+  }
+
+  set biometricDataStorage(value: string) {
+    this.doc.setFormField(this.path, "biometricDataStorage", value);
+  }
+
+  get privacyConsiderations(): string {
+    return this.doc.formField(this.path, "privacyConsiderations") || '';
+  }
+
+  set privacyConsiderations(value: string) {
+    this.doc.setFormField(this.path, "privacyConsiderations", value);
+  }
+
+  get accessibilityAlternative(): string {
+    return this.doc.formField(this.path, "accessibilityAlternative") || '';
+  }
+
+  set accessibilityAlternative(value: string) {
+    this.doc.setFormField(this.path, "accessibilityAlternative", value);
   }
 }
 
@@ -59535,6 +61126,121 @@ export class CcbMemberEntryContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class CertificateAuthenticationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get certificateAuthEnabled(): string {
+    return this.doc.formField(this.path, "certificateAuthEnabled") || '';
+  }
+
+  set certificateAuthEnabled(value: string) {
+    this.doc.setFormField(this.path, "certificateAuthEnabled", value);
+  }
+
+  get certificateTypes(): string {
+    return this.doc.formField(this.path, "certificateTypes") || '';
+  }
+
+  set certificateTypes(value: string) {
+    this.doc.setFormField(this.path, "certificateTypes", value);
+  }
+
+  get certificateIssuance(): string {
+    return this.doc.formField(this.path, "certificateIssuance") || '';
+  }
+
+  set certificateIssuance(value: string) {
+    this.doc.setFormField(this.path, "certificateIssuance", value);
+  }
+
+  get certificateAuthority(): string {
+    return this.doc.formField(this.path, "certificateAuthority") || '';
+  }
+
+  set certificateAuthority(value: string) {
+    this.doc.setFormField(this.path, "certificateAuthority", value);
+  }
+
+  get keyStorageRequirement(): string {
+    return this.doc.formField(this.path, "keyStorageRequirement") || '';
+  }
+
+  set keyStorageRequirement(value: string) {
+    this.doc.setFormField(this.path, "keyStorageRequirement", value);
+  }
+
+  get mutualTlsRequired(): string {
+    return this.doc.formField(this.path, "mutualTlsRequired") || '';
+  }
+
+  set mutualTlsRequired(value: string) {
+    this.doc.setFormField(this.path, "mutualTlsRequired", value);
+  }
+
+  get certificateValidation(): string {
+    return this.doc.formField(this.path, "certificateValidation") || '';
+  }
+
+  set certificateValidation(value: string) {
+    this.doc.setFormField(this.path, "certificateValidation", value);
+  }
+
+  get certificateLifetime(): string {
+    return this.doc.formField(this.path, "certificateLifetime") || '';
+  }
+
+  set certificateLifetime(value: string) {
+    this.doc.setFormField(this.path, "certificateLifetime", value);
+  }
+
+  get renewalProcess(): string {
+    return this.doc.formField(this.path, "renewalProcess") || '';
+  }
+
+  set renewalProcess(value: string) {
+    this.doc.setFormField(this.path, "renewalProcess", value);
+  }
+
+  get revocationProcess(): string {
+    return this.doc.formField(this.path, "revocationProcess") || '';
+  }
+
+  set revocationProcess(value: string) {
+    this.doc.setFormField(this.path, "revocationProcess", value);
+  }
+
+  get minimumKeyStrength(): string {
+    return this.doc.formField(this.path, "minimumKeyStrength") || '';
+  }
+
+  set minimumKeyStrength(value: string) {
+    this.doc.setFormField(this.path, "minimumKeyStrength", value);
+  }
+
+  get fipsComplianceRequired(): string {
+    return this.doc.formField(this.path, "fipsComplianceRequired") || '';
+  }
+
+  set fipsComplianceRequired(value: string) {
+    this.doc.setFormField(this.path, "fipsComplianceRequired", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class CertificateManagementContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -59705,6 +61411,118 @@ export class CertificateManagementMonitoringForm extends SomNode {
 
   set expiryAlertThreshold(value: string) {
     this.doc.setFormField(this.path, "expiryAlertThreshold", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class CertificateManagementPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get certificateAuthority(): string {
+    return this.doc.formField(this.path, "certificateAuthority") || '';
+  }
+
+  set certificateAuthority(value: string) {
+    this.doc.setFormField(this.path, "certificateAuthority", value);
+  }
+
+  get validationType(): string {
+    return this.doc.formField(this.path, "validationType") || '';
+  }
+
+  set validationType(value: string) {
+    this.doc.setFormField(this.path, "validationType", value);
+  }
+
+  get minimumKeyLength(): number | null {
+    const v = this.doc.formField(this.path, "minimumKeyLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set minimumKeyLength(value: number | null) {
+    this.doc.setFormField(this.path, "minimumKeyLength", value == null ? '' : String(value));
+  }
+
+  get keyType(): string {
+    return this.doc.formField(this.path, "keyType") || '';
+  }
+
+  set keyType(value: string) {
+    this.doc.setFormField(this.path, "keyType", value);
+  }
+
+  get hashingAlgorithm(): string {
+    return this.doc.formField(this.path, "hashingAlgorithm") || '';
+  }
+
+  set hashingAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "hashingAlgorithm", value);
+  }
+
+  get wildcardCertificatePolicy(): string {
+    return this.doc.formField(this.path, "wildcardCertificatePolicy") || '';
+  }
+
+  set wildcardCertificatePolicy(value: string) {
+    this.doc.setFormField(this.path, "wildcardCertificatePolicy", value);
+  }
+
+  get certificateLifetimeDays(): number | null {
+    const v = this.doc.formField(this.path, "certificateLifetimeDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set certificateLifetimeDays(value: number | null) {
+    this.doc.setFormField(this.path, "certificateLifetimeDays", value == null ? '' : String(value));
+  }
+
+  get automatedRenewal(): boolean | null {
+    const v = this.doc.formField(this.path, "automatedRenewal");
+    return v == null ? null : v === 'true';
+  }
+
+  set automatedRenewal(value: boolean | null) {
+    this.doc.setFormField(this.path, "automatedRenewal", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get certificateTransparency(): boolean | null {
+    const v = this.doc.formField(this.path, "certificateTransparency");
+    return v == null ? null : v === 'true';
+  }
+
+  set certificateTransparency(value: boolean | null) {
+    this.doc.setFormField(this.path, "certificateTransparency", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get caaRecords(): boolean | null {
+    const v = this.doc.formField(this.path, "caaRecords");
+    return v == null ? null : v === 'true';
+  }
+
+  set caaRecords(value: boolean | null) {
+    this.doc.setFormField(this.path, "caaRecords", value == null ? '' : (value ? 'true' : 'false'));
   }
 
   get notes(): string {
@@ -62127,6 +63945,81 @@ export class ChangesFromCurrentStructureOverviewContentForm extends SomNode {
 
   set collaborationModelChanges(value: string) {
     this.doc.setFormField(this.path, "collaborationModelChanges", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ChannelIntegrationsContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get pushNotificationService(): string {
+    return this.doc.formField(this.path, "pushNotificationService") || '';
+  }
+
+  set pushNotificationService(value: string) {
+    this.doc.setFormField(this.path, "pushNotificationService", value);
+  }
+
+  get analyticsService(): string {
+    return this.doc.formField(this.path, "analyticsService") || '';
+  }
+
+  set analyticsService(value: string) {
+    this.doc.setFormField(this.path, "analyticsService", value);
+  }
+
+  get crashReporting(): string {
+    return this.doc.formField(this.path, "crashReporting") || '';
+  }
+
+  set crashReporting(value: string) {
+    this.doc.setFormField(this.path, "crashReporting", value);
+  }
+
+  get deepLinking(): string {
+    return this.doc.formField(this.path, "deepLinking") || '';
+  }
+
+  set deepLinking(value: string) {
+    this.doc.setFormField(this.path, "deepLinking", value);
+  }
+
+  get socialIntegration(): string {
+    return this.doc.formField(this.path, "socialIntegration") || '';
+  }
+
+  set socialIntegration(value: string) {
+    this.doc.setFormField(this.path, "socialIntegration", value);
+  }
+
+  get paymentIntegration(): string {
+    return this.doc.formField(this.path, "paymentIntegration") || '';
+  }
+
+  set paymentIntegration(value: string) {
+    this.doc.setFormField(this.path, "paymentIntegration", value);
+  }
+
+  get biometricIntegration(): string {
+    return this.doc.formField(this.path, "biometricIntegration") || '';
+  }
+
+  set biometricIntegration(value: string) {
+    this.doc.setFormField(this.path, "biometricIntegration", value);
   }
 }
 
@@ -64971,6 +66864,97 @@ export class ColorPaletteEntryContentForm extends SomNode {
 
   set usageGuidelines(value: string) {
     this.doc.setFormField(this.path, "usageGuidelines", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ColumnLevelSecurityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get columnLevelSecurityEnabled(): string {
+    return this.doc.formField(this.path, "columnLevelSecurityEnabled") || '';
+  }
+
+  set columnLevelSecurityEnabled(value: string) {
+    this.doc.setFormField(this.path, "columnLevelSecurityEnabled", value);
+  }
+
+  get columnAccessImplementation(): string {
+    return this.doc.formField(this.path, "columnAccessImplementation") || '';
+  }
+
+  set columnAccessImplementation(value: string) {
+    this.doc.setFormField(this.path, "columnAccessImplementation", value);
+  }
+
+  get sensitiveColumnClassification(): string {
+    return this.doc.formField(this.path, "sensitiveColumnClassification") || '';
+  }
+
+  set sensitiveColumnClassification(value: string) {
+    this.doc.setFormField(this.path, "sensitiveColumnClassification", value);
+  }
+
+  get piiColumnAccess(): string {
+    return this.doc.formField(this.path, "piiColumnAccess") || '';
+  }
+
+  set piiColumnAccess(value: string) {
+    this.doc.setFormField(this.path, "piiColumnAccess", value);
+  }
+
+  get financialDataColumnAccess(): string {
+    return this.doc.formField(this.path, "financialDataColumnAccess") || '';
+  }
+
+  set financialDataColumnAccess(value: string) {
+    this.doc.setFormField(this.path, "financialDataColumnAccess", value);
+  }
+
+  get healthDataColumnAccess(): string {
+    return this.doc.formField(this.path, "healthDataColumnAccess") || '';
+  }
+
+  set healthDataColumnAccess(value: string) {
+    this.doc.setFormField(this.path, "healthDataColumnAccess", value);
+  }
+
+  get dynamicFieldVisibility(): string {
+    return this.doc.formField(this.path, "dynamicFieldVisibility") || '';
+  }
+
+  set dynamicFieldVisibility(value: string) {
+    this.doc.setFormField(this.path, "dynamicFieldVisibility", value);
+  }
+
+  get columnAccessAudit(): string {
+    return this.doc.formField(this.path, "columnAccessAudit") || '';
+  }
+
+  set columnAccessAudit(value: string) {
+    this.doc.setFormField(this.path, "columnAccessAudit", value);
+  }
+
+  get columnEncryptionPolicy(): string {
+    return this.doc.formField(this.path, "columnEncryptionPolicy") || '';
+  }
+
+  set columnEncryptionPolicy(value: string) {
+    this.doc.setFormField(this.path, "columnEncryptionPolicy", value);
   }
 }
 
@@ -70429,6 +72413,113 @@ export class ComputingEquipmentEntryPlatformForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ConcurrentSessionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get concurrentSessionsAllowed(): string {
+    return this.doc.formField(this.path, "concurrentSessionsAllowed") || '';
+  }
+
+  set concurrentSessionsAllowed(value: string) {
+    this.doc.setFormField(this.path, "concurrentSessionsAllowed", value);
+  }
+
+  get maxConcurrentSessions(): string {
+    return this.doc.formField(this.path, "maxConcurrentSessions") || '';
+  }
+
+  set maxConcurrentSessions(value: string) {
+    this.doc.setFormField(this.path, "maxConcurrentSessions", value);
+  }
+
+  get concurrentSessionScope(): string {
+    return this.doc.formField(this.path, "concurrentSessionScope") || '';
+  }
+
+  set concurrentSessionScope(value: string) {
+    this.doc.setFormField(this.path, "concurrentSessionScope", value);
+  }
+
+  get conflictResolution(): string {
+    return this.doc.formField(this.path, "conflictResolution") || '';
+  }
+
+  set conflictResolution(value: string) {
+    this.doc.setFormField(this.path, "conflictResolution", value);
+  }
+
+  get sessionListVisible(): string {
+    return this.doc.formField(this.path, "sessionListVisible") || '';
+  }
+
+  set sessionListVisible(value: string) {
+    this.doc.setFormField(this.path, "sessionListVisible", value);
+  }
+
+  get remoteTerminationEnabled(): string {
+    return this.doc.formField(this.path, "remoteTerminationEnabled") || '';
+  }
+
+  set remoteTerminationEnabled(value: string) {
+    this.doc.setFormField(this.path, "remoteTerminationEnabled", value);
+  }
+
+  get sessionDeviceInfo(): string {
+    return this.doc.formField(this.path, "sessionDeviceInfo") || '';
+  }
+
+  set sessionDeviceInfo(value: string) {
+    this.doc.setFormField(this.path, "sessionDeviceInfo", value);
+  }
+
+  get concurrentLoginNotification(): string {
+    return this.doc.formField(this.path, "concurrentLoginNotification") || '';
+  }
+
+  set concurrentLoginNotification(value: string) {
+    this.doc.setFormField(this.path, "concurrentLoginNotification", value);
+  }
+
+  get suspiciousConcurrentLoginAction(): string {
+    return this.doc.formField(this.path, "suspiciousConcurrentLoginAction") || '';
+  }
+
+  set suspiciousConcurrentLoginAction(value: string) {
+    this.doc.setFormField(this.path, "suspiciousConcurrentLoginAction", value);
+  }
+
+  get privilegedAccountSessionLimit(): string {
+    return this.doc.formField(this.path, "privilegedAccountSessionLimit") || '';
+  }
+
+  set privilegedAccountSessionLimit(value: string) {
+    this.doc.setFormField(this.path, "privilegedAccountSessionLimit", value);
+  }
+
+  get crossDeviceSessionHandling(): string {
+    return this.doc.formField(this.path, "crossDeviceSessionHandling") || '';
+  }
+
+  set crossDeviceSessionHandling(value: string) {
+    this.doc.setFormField(this.path, "crossDeviceSessionHandling", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ConfidentialInfoCategoryEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -71290,6 +73381,151 @@ export class ConstraintRegisterEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ContentScanningPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get antivirusScanningEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "antivirusScanningEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set antivirusScanningEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "antivirusScanningEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get scanTiming(): string {
+    return this.doc.formField(this.path, "scanTiming") || '';
+  }
+
+  set scanTiming(value: string) {
+    this.doc.setFormField(this.path, "scanTiming", value);
+  }
+
+  get scanEngine(): string {
+    return this.doc.formField(this.path, "scanEngine") || '';
+  }
+
+  set scanEngine(value: string) {
+    this.doc.setFormField(this.path, "scanEngine", value);
+  }
+
+  get quarantinePolicy(): string {
+    return this.doc.formField(this.path, "quarantinePolicy") || '';
+  }
+
+  set quarantinePolicy(value: string) {
+    this.doc.setFormField(this.path, "quarantinePolicy", value);
+  }
+
+  get quarantineRetentionDays(): number | null {
+    const v = this.doc.formField(this.path, "quarantineRetentionDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set quarantineRetentionDays(value: number | null) {
+    this.doc.setFormField(this.path, "quarantineRetentionDays", value == null ? '' : String(value));
+  }
+
+  get signatureUpdateFrequency(): string {
+    return this.doc.formField(this.path, "signatureUpdateFrequency") || '';
+  }
+
+  set signatureUpdateFrequency(value: string) {
+    this.doc.setFormField(this.path, "signatureUpdateFrequency", value);
+  }
+
+  get cdrEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "cdrEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set cdrEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "cdrEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get cdrApplicableTypes(): string {
+    return this.doc.formField(this.path, "cdrApplicableTypes") || '';
+  }
+
+  set cdrApplicableTypes(value: string) {
+    this.doc.setFormField(this.path, "cdrApplicableTypes", value);
+  }
+
+  get dlpScanningEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "dlpScanningEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set dlpScanningEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "dlpScanningEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dlpPolicies(): string {
+    return this.doc.formField(this.path, "dlpPolicies") || '';
+  }
+
+  set dlpPolicies(value: string) {
+    this.doc.setFormField(this.path, "dlpPolicies", value);
+  }
+
+  get dlpAction(): string {
+    return this.doc.formField(this.path, "dlpAction") || '';
+  }
+
+  set dlpAction(value: string) {
+    this.doc.setFormField(this.path, "dlpAction", value);
+  }
+
+  get contentModeration(): boolean | null {
+    const v = this.doc.formField(this.path, "contentModeration");
+    return v == null ? null : v === 'true';
+  }
+
+  set contentModeration(value: boolean | null) {
+    this.doc.setFormField(this.path, "contentModeration", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get moderationMethod(): string {
+    return this.doc.formField(this.path, "moderationMethod") || '';
+  }
+
+  set moderationMethod(value: string) {
+    this.doc.setFormField(this.path, "moderationMethod", value);
+  }
+
+  get hashBasedDetection(): boolean | null {
+    const v = this.doc.formField(this.path, "hashBasedDetection");
+    return v == null ? null : v === 'true';
+  }
+
+  set hashBasedDetection(value: boolean | null) {
+    this.doc.setFormField(this.path, "hashBasedDetection", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
 // Generated section facade for the `contextualHelpContent` @Form section: its own content text followed by one typed member per form field.
 export class ContextualHelpContextualHelpContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -72064,6 +74300,228 @@ export class CorrectnessVerificationForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class CredentialCompromiseDetectionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get breachDatabaseMonitoring(): string {
+    return this.doc.formField(this.path, "breachDatabaseMonitoring") || '';
+  }
+
+  set breachDatabaseMonitoring(value: string) {
+    this.doc.setFormField(this.path, "breachDatabaseMonitoring", value);
+  }
+
+  get breachDatabaseSource(): string {
+    return this.doc.formField(this.path, "breachDatabaseSource") || '';
+  }
+
+  set breachDatabaseSource(value: string) {
+    this.doc.setFormField(this.path, "breachDatabaseSource", value);
+  }
+
+  get breachCheckFrequency(): string {
+    return this.doc.formField(this.path, "breachCheckFrequency") || '';
+  }
+
+  set breachCheckFrequency(value: string) {
+    this.doc.setFormField(this.path, "breachCheckFrequency", value);
+  }
+
+  get compromisedCredentialAction(): string {
+    return this.doc.formField(this.path, "compromisedCredentialAction") || '';
+  }
+
+  set compromisedCredentialAction(value: string) {
+    this.doc.setFormField(this.path, "compromisedCredentialAction", value);
+  }
+
+  get credentialStuffingDetection(): string {
+    return this.doc.formField(this.path, "credentialStuffingDetection") || '';
+  }
+
+  set credentialStuffingDetection(value: string) {
+    this.doc.setFormField(this.path, "credentialStuffingDetection", value);
+  }
+
+  get stuffingDetectionMethod(): string {
+    return this.doc.formField(this.path, "stuffingDetectionMethod") || '';
+  }
+
+  set stuffingDetectionMethod(value: string) {
+    this.doc.setFormField(this.path, "stuffingDetectionMethod", value);
+  }
+
+  get darkWebMonitoring(): string {
+    return this.doc.formField(this.path, "darkWebMonitoring") || '';
+  }
+
+  set darkWebMonitoring(value: string) {
+    this.doc.setFormField(this.path, "darkWebMonitoring", value);
+  }
+
+  get userCompromiseNotification(): string {
+    return this.doc.formField(this.path, "userCompromiseNotification") || '';
+  }
+
+  set userCompromiseNotification(value: string) {
+    this.doc.setFormField(this.path, "userCompromiseNotification", value);
+  }
+
+  get adminCompromiseAlerts(): string {
+    return this.doc.formField(this.path, "adminCompromiseAlerts") || '';
+  }
+
+  set adminCompromiseAlerts(value: string) {
+    this.doc.setFormField(this.path, "adminCompromiseAlerts", value);
+  }
+
+  get compromiseResponseSla(): string {
+    return this.doc.formField(this.path, "compromiseResponseSla") || '';
+  }
+
+  set compromiseResponseSla(value: string) {
+    this.doc.setFormField(this.path, "compromiseResponseSla", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class CredentialRecoveryPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get passwordResetMethod(): string {
+    return this.doc.formField(this.path, "passwordResetMethod") || '';
+  }
+
+  set passwordResetMethod(value: string) {
+    this.doc.setFormField(this.path, "passwordResetMethod", value);
+  }
+
+  get resetLinkExpiry(): string {
+    return this.doc.formField(this.path, "resetLinkExpiry") || '';
+  }
+
+  set resetLinkExpiry(value: string) {
+    this.doc.setFormField(this.path, "resetLinkExpiry", value);
+  }
+
+  get resetLinkSingleUse(): string {
+    return this.doc.formField(this.path, "resetLinkSingleUse") || '';
+  }
+
+  set resetLinkSingleUse(value: string) {
+    this.doc.setFormField(this.path, "resetLinkSingleUse", value);
+  }
+
+  get resetRateLimiting(): string {
+    return this.doc.formField(this.path, "resetRateLimiting") || '';
+  }
+
+  set resetRateLimiting(value: string) {
+    this.doc.setFormField(this.path, "resetRateLimiting", value);
+  }
+
+  get savedRecoveryCodesEnabled(): string {
+    return this.doc.formField(this.path, "savedRecoveryCodesEnabled") || '';
+  }
+
+  set savedRecoveryCodesEnabled(value: string) {
+    this.doc.setFormField(this.path, "savedRecoveryCodesEnabled", value);
+  }
+
+  get recoveryCodeCount(): string {
+    return this.doc.formField(this.path, "recoveryCodeCount") || '';
+  }
+
+  set recoveryCodeCount(value: string) {
+    this.doc.setFormField(this.path, "recoveryCodeCount", value);
+  }
+
+  get recoveryCodeFormat(): string {
+    return this.doc.formField(this.path, "recoveryCodeFormat") || '';
+  }
+
+  set recoveryCodeFormat(value: string) {
+    this.doc.setFormField(this.path, "recoveryCodeFormat", value);
+  }
+
+  get issuedRecoveryCodeChannels(): string {
+    return this.doc.formField(this.path, "issuedRecoveryCodeChannels") || '';
+  }
+
+  set issuedRecoveryCodeChannels(value: string) {
+    this.doc.setFormField(this.path, "issuedRecoveryCodeChannels", value);
+  }
+
+  get recoveryCodeExpiry(): string {
+    return this.doc.formField(this.path, "recoveryCodeExpiry") || '';
+  }
+
+  set recoveryCodeExpiry(value: string) {
+    this.doc.setFormField(this.path, "recoveryCodeExpiry", value);
+  }
+
+  get identityReverificationRequired(): string {
+    return this.doc.formField(this.path, "identityReverificationRequired") || '';
+  }
+
+  set identityReverificationRequired(value: string) {
+    this.doc.setFormField(this.path, "identityReverificationRequired", value);
+  }
+
+  get recoveryContactEnabled(): string {
+    return this.doc.formField(this.path, "recoveryContactEnabled") || '';
+  }
+
+  set recoveryContactEnabled(value: string) {
+    this.doc.setFormField(this.path, "recoveryContactEnabled", value);
+  }
+
+  get multipleRecoveryAddresses(): string {
+    return this.doc.formField(this.path, "multipleRecoveryAddresses") || '';
+  }
+
+  set multipleRecoveryAddresses(value: string) {
+    this.doc.setFormField(this.path, "multipleRecoveryAddresses", value);
+  }
+
+  get recoveryAuditLogging(): string {
+    return this.doc.formField(this.path, "recoveryAuditLogging") || '';
+  }
+
+  set recoveryAuditLogging(value: string) {
+    this.doc.setFormField(this.path, "recoveryAuditLogging", value);
+  }
+}
+
 // Generated section facade for the `caching` @Form section: its own content text followed by one typed member per form field.
 export class CrossCuttingConcernsCachingForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -72311,6 +74769,90 @@ export class CrossCuttingConcernsSharedForm extends SomNode {
 
   set validation(value: string) {
     this.doc.setFormField(this.path, "validation", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class CrossTenantAccessPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get crossTenantAccessAllowed(): boolean | null {
+    const v = this.doc.formField(this.path, "crossTenantAccessAllowed");
+    return v == null ? null : v === 'true';
+  }
+
+  set crossTenantAccessAllowed(value: boolean | null) {
+    this.doc.setFormField(this.path, "crossTenantAccessAllowed", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get crossTenantAccessModel(): string {
+    return this.doc.formField(this.path, "crossTenantAccessModel") || '';
+  }
+
+  set crossTenantAccessModel(value: string) {
+    this.doc.setFormField(this.path, "crossTenantAccessModel", value);
+  }
+
+  get authorizationMechanism(): string {
+    return this.doc.formField(this.path, "authorizationMechanism") || '';
+  }
+
+  set authorizationMechanism(value: string) {
+    this.doc.setFormField(this.path, "authorizationMechanism", value);
+  }
+
+  get resourceSharingModel(): string {
+    return this.doc.formField(this.path, "resourceSharingModel") || '';
+  }
+
+  set resourceSharingModel(value: string) {
+    this.doc.setFormField(this.path, "resourceSharingModel", value);
+  }
+
+  get idorPreventionStrategy(): string {
+    return this.doc.formField(this.path, "idorPreventionStrategy") || '';
+  }
+
+  set idorPreventionStrategy(value: string) {
+    this.doc.setFormField(this.path, "idorPreventionStrategy", value);
+  }
+
+  get crossTenantAuditRequirement(): string {
+    return this.doc.formField(this.path, "crossTenantAuditRequirement") || '';
+  }
+
+  set crossTenantAuditRequirement(value: string) {
+    this.doc.setFormField(this.path, "crossTenantAuditRequirement", value);
+  }
+
+  get accessReviewFrequency(): string {
+    return this.doc.formField(this.path, "accessReviewFrequency") || '';
+  }
+
+  set accessReviewFrequency(value: string) {
+    this.doc.setFormField(this.path, "accessReviewFrequency", value);
   }
 
   get notes(): string {
@@ -73411,6 +75953,121 @@ export class DashboardTemplatesContentForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DataAccessAuditPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get dataAccessLoggingEnabled(): string {
+    return this.doc.formField(this.path, "dataAccessLoggingEnabled") || '';
+  }
+
+  set dataAccessLoggingEnabled(value: string) {
+    this.doc.setFormField(this.path, "dataAccessLoggingEnabled", value);
+  }
+
+  get dataAccessLoggingScope(): string {
+    return this.doc.formField(this.path, "dataAccessLoggingScope") || '';
+  }
+
+  set dataAccessLoggingScope(value: string) {
+    this.doc.setFormField(this.path, "dataAccessLoggingScope", value);
+  }
+
+  get loggedOperations(): string {
+    return this.doc.formField(this.path, "loggedOperations") || '';
+  }
+
+  set loggedOperations(value: string) {
+    this.doc.setFormField(this.path, "loggedOperations", value);
+  }
+
+  get dataAccessLogDetail(): string {
+    return this.doc.formField(this.path, "dataAccessLogDetail") || '';
+  }
+
+  set dataAccessLogDetail(value: string) {
+    this.doc.setFormField(this.path, "dataAccessLogDetail", value);
+  }
+
+  get queryTextLogging(): string {
+    return this.doc.formField(this.path, "queryTextLogging") || '';
+  }
+
+  set queryTextLogging(value: string) {
+    this.doc.setFormField(this.path, "queryTextLogging", value);
+  }
+
+  get anomalyDetectionEnabled(): string {
+    return this.doc.formField(this.path, "anomalyDetectionEnabled") || '';
+  }
+
+  set anomalyDetectionEnabled(value: string) {
+    this.doc.setFormField(this.path, "anomalyDetectionEnabled", value);
+  }
+
+  get anomalySignals(): string {
+    return this.doc.formField(this.path, "anomalySignals") || '';
+  }
+
+  set anomalySignals(value: string) {
+    this.doc.setFormField(this.path, "anomalySignals", value);
+  }
+
+  get dataBreachDetection(): string {
+    return this.doc.formField(this.path, "dataBreachDetection") || '';
+  }
+
+  set dataBreachDetection(value: string) {
+    this.doc.setFormField(this.path, "dataBreachDetection", value);
+  }
+
+  get dataAccessReviewCycle(): string {
+    return this.doc.formField(this.path, "dataAccessReviewCycle") || '';
+  }
+
+  set dataAccessReviewCycle(value: string) {
+    this.doc.setFormField(this.path, "dataAccessReviewCycle", value);
+  }
+
+  get privilegedQueryAlerts(): string {
+    return this.doc.formField(this.path, "privilegedQueryAlerts") || '';
+  }
+
+  set privilegedQueryAlerts(value: string) {
+    this.doc.setFormField(this.path, "privilegedQueryAlerts", value);
+  }
+
+  get complianceReportingEnabled(): string {
+    return this.doc.formField(this.path, "complianceReportingEnabled") || '';
+  }
+
+  set complianceReportingEnabled(value: string) {
+    this.doc.setFormField(this.path, "complianceReportingEnabled", value);
+  }
+
+  get dataAccessRetention(): string {
+    return this.doc.formField(this.path, "dataAccessRetention") || '';
+  }
+
+  set dataAccessRetention(value: string) {
+    this.doc.setFormField(this.path, "dataAccessRetention", value);
   }
 }
 
@@ -76478,6 +79135,137 @@ export class DataIntegrationPointsIntegrationSummaryForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DataMaskingPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get dynamicDataMaskingEnabled(): string {
+    return this.doc.formField(this.path, "dynamicDataMaskingEnabled") || '';
+  }
+
+  set dynamicDataMaskingEnabled(value: string) {
+    this.doc.setFormField(this.path, "dynamicDataMaskingEnabled", value);
+  }
+
+  get dynamicMaskingRules(): string {
+    return this.doc.formField(this.path, "dynamicMaskingRules") || '';
+  }
+
+  set dynamicMaskingRules(value: string) {
+    this.doc.setFormField(this.path, "dynamicMaskingRules", value);
+  }
+
+  get dynamicMaskingScope(): string {
+    return this.doc.formField(this.path, "dynamicMaskingScope") || '';
+  }
+
+  set dynamicMaskingScope(value: string) {
+    this.doc.setFormField(this.path, "dynamicMaskingScope", value);
+  }
+
+  get staticMaskingForNonProduction(): string {
+    return this.doc.formField(this.path, "staticMaskingForNonProduction") || '';
+  }
+
+  set staticMaskingForNonProduction(value: string) {
+    this.doc.setFormField(this.path, "staticMaskingForNonProduction", value);
+  }
+
+  get staticMaskingTool(): string {
+    return this.doc.formField(this.path, "staticMaskingTool") || '';
+  }
+
+  set staticMaskingTool(value: string) {
+    this.doc.setFormField(this.path, "staticMaskingTool", value);
+  }
+
+  get maskingPreservesFormat(): string {
+    return this.doc.formField(this.path, "maskingPreservesFormat") || '';
+  }
+
+  set maskingPreservesFormat(value: string) {
+    this.doc.setFormField(this.path, "maskingPreservesFormat", value);
+  }
+
+  get maskingReversibility(): string {
+    return this.doc.formField(this.path, "maskingReversibility") || '';
+  }
+
+  set maskingReversibility(value: string) {
+    this.doc.setFormField(this.path, "maskingReversibility", value);
+  }
+
+  get piiMaskingPolicy(): string {
+    return this.doc.formField(this.path, "piiMaskingPolicy") || '';
+  }
+
+  set piiMaskingPolicy(value: string) {
+    this.doc.setFormField(this.path, "piiMaskingPolicy", value);
+  }
+
+  get emailMaskingFormat(): string {
+    return this.doc.formField(this.path, "emailMaskingFormat") || '';
+  }
+
+  set emailMaskingFormat(value: string) {
+    this.doc.setFormField(this.path, "emailMaskingFormat", value);
+  }
+
+  get phoneMaskingFormat(): string {
+    return this.doc.formField(this.path, "phoneMaskingFormat") || '';
+  }
+
+  set phoneMaskingFormat(value: string) {
+    this.doc.setFormField(this.path, "phoneMaskingFormat", value);
+  }
+
+  get addressMaskingFormat(): string {
+    return this.doc.formField(this.path, "addressMaskingFormat") || '';
+  }
+
+  set addressMaskingFormat(value: string) {
+    this.doc.setFormField(this.path, "addressMaskingFormat", value);
+  }
+
+  get financialDataMasking(): string {
+    return this.doc.formField(this.path, "financialDataMasking") || '';
+  }
+
+  set financialDataMasking(value: string) {
+    this.doc.setFormField(this.path, "financialDataMasking", value);
+  }
+
+  get maskingAuditTrail(): string {
+    return this.doc.formField(this.path, "maskingAuditTrail") || '';
+  }
+
+  set maskingAuditTrail(value: string) {
+    this.doc.setFormField(this.path, "maskingAuditTrail", value);
+  }
+
+  get developmentDataStrategy(): string {
+    return this.doc.formField(this.path, "developmentDataStrategy") || '';
+  }
+
+  set developmentDataStrategy(value: string) {
+    this.doc.setFormField(this.path, "developmentDataStrategy", value);
+  }
+}
+
 // Generated section facade for the `approach` @Form section: its own content text followed by one typed member per form field.
 export class DataMigrationStrategyApproachForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -79452,6 +82240,137 @@ export class DataVolumeSummaryProjectionForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DatabaseAccessPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get databaseConnectionSecurity(): string {
+    return this.doc.formField(this.path, "databaseConnectionSecurity") || '';
+  }
+
+  set databaseConnectionSecurity(value: string) {
+    this.doc.setFormField(this.path, "databaseConnectionSecurity", value);
+  }
+
+  get minimumTlsVersion(): string {
+    return this.doc.formField(this.path, "minimumTlsVersion") || '';
+  }
+
+  set minimumTlsVersion(value: string) {
+    this.doc.setFormField(this.path, "minimumTlsVersion", value);
+  }
+
+  get applicationAccountStrategy(): string {
+    return this.doc.formField(this.path, "applicationAccountStrategy") || '';
+  }
+
+  set applicationAccountStrategy(value: string) {
+    this.doc.setFormField(this.path, "applicationAccountStrategy", value);
+  }
+
+  get applicationAccountPrivileges(): string {
+    return this.doc.formField(this.path, "applicationAccountPrivileges") || '';
+  }
+
+  set applicationAccountPrivileges(value: string) {
+    this.doc.setFormField(this.path, "applicationAccountPrivileges", value);
+  }
+
+  get schemaOwnershipSeparation(): string {
+    return this.doc.formField(this.path, "schemaOwnershipSeparation") || '';
+  }
+
+  set schemaOwnershipSeparation(value: string) {
+    this.doc.setFormField(this.path, "schemaOwnershipSeparation", value);
+  }
+
+  get directTableAccess(): string {
+    return this.doc.formField(this.path, "directTableAccess") || '';
+  }
+
+  set directTableAccess(value: string) {
+    this.doc.setFormField(this.path, "directTableAccess", value);
+  }
+
+  get databaseCredentialStorage(): string {
+    return this.doc.formField(this.path, "databaseCredentialStorage") || '';
+  }
+
+  set databaseCredentialStorage(value: string) {
+    this.doc.setFormField(this.path, "databaseCredentialStorage", value);
+  }
+
+  get credentialRotationPolicy(): string {
+    return this.doc.formField(this.path, "credentialRotationPolicy") || '';
+  }
+
+  set credentialRotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "credentialRotationPolicy", value);
+  }
+
+  get connectionPoolSecurity(): string {
+    return this.doc.formField(this.path, "connectionPoolSecurity") || '';
+  }
+
+  set connectionPoolSecurity(value: string) {
+    this.doc.setFormField(this.path, "connectionPoolSecurity", value);
+  }
+
+  get privilegedAccessManagement(): string {
+    return this.doc.formField(this.path, "privilegedAccessManagement") || '';
+  }
+
+  set privilegedAccessManagement(value: string) {
+    this.doc.setFormField(this.path, "privilegedAccessManagement", value);
+  }
+
+  get databaseFirewallRules(): string {
+    return this.doc.formField(this.path, "databaseFirewallRules") || '';
+  }
+
+  set databaseFirewallRules(value: string) {
+    this.doc.setFormField(this.path, "databaseFirewallRules", value);
+  }
+
+  get sqlInjectionPrevention(): string {
+    return this.doc.formField(this.path, "sqlInjectionPrevention") || '';
+  }
+
+  set sqlInjectionPrevention(value: string) {
+    this.doc.setFormField(this.path, "sqlInjectionPrevention", value);
+  }
+
+  get queryComplexityLimits(): string {
+    return this.doc.formField(this.path, "queryComplexityLimits") || '';
+  }
+
+  set queryComplexityLimits(value: string) {
+    this.doc.setFormField(this.path, "queryComplexityLimits", value);
+  }
+
+  get databaseActivityMonitoring(): string {
+    return this.doc.formField(this.path, "databaseActivityMonitoring") || '';
+  }
+
+  set databaseActivityMonitoring(value: string) {
+    this.doc.setFormField(this.path, "databaseActivityMonitoring", value);
+  }
+}
+
 // Generated section facade for the `connection` @Form section: its own content text followed by one typed member per form field.
 export class DatabaseCompatibilityEntryConnectionForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -79664,6 +82583,83 @@ export class DatabaseCompatibilityEntrySupportForm extends SomNode {
 
   set cloudVariants(value: string) {
     this.doc.setFormField(this.path, "cloudVariants", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class DatabaseEncryptionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get databaseEncryptionMethod(): string {
+    return this.doc.formField(this.path, "databaseEncryptionMethod") || '';
+  }
+
+  set databaseEncryptionMethod(value: string) {
+    this.doc.setFormField(this.path, "databaseEncryptionMethod", value);
+  }
+
+  get encryptedColumnStrategy(): string {
+    return this.doc.formField(this.path, "encryptedColumnStrategy") || '';
+  }
+
+  set encryptedColumnStrategy(value: string) {
+    this.doc.setFormField(this.path, "encryptedColumnStrategy", value);
+  }
+
+  get indexOnEncryptedColumns(): boolean | null {
+    const v = this.doc.formField(this.path, "indexOnEncryptedColumns");
+    return v == null ? null : v === 'true';
+  }
+
+  set indexOnEncryptedColumns(value: boolean | null) {
+    this.doc.setFormField(this.path, "indexOnEncryptedColumns", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get searchOnEncryptedData(): string {
+    return this.doc.formField(this.path, "searchOnEncryptedData") || '';
+  }
+
+  set searchOnEncryptedData(value: string) {
+    this.doc.setFormField(this.path, "searchOnEncryptedData", value);
+  }
+
+  get connectionEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "connectionEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set connectionEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "connectionEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get databaseEngine(): string {
+    return this.doc.formField(this.path, "databaseEngine") || '';
+  }
+
+  set databaseEngine(value: string) {
+    this.doc.setFormField(this.path, "databaseEngine", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -89218,6 +92214,110 @@ export class EncryptedDataCategoryEntryContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class EncryptionAtRestPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get defaultAlgorithm(): string {
+    return this.doc.formField(this.path, "defaultAlgorithm") || '';
+  }
+
+  set defaultAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "defaultAlgorithm", value);
+  }
+
+  get defaultKeyLength(): number | null {
+    const v = this.doc.formField(this.path, "defaultKeyLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set defaultKeyLength(value: number | null) {
+    this.doc.setFormField(this.path, "defaultKeyLength", value == null ? '' : String(value));
+  }
+
+  get cipherMode(): string {
+    return this.doc.formField(this.path, "cipherMode") || '';
+  }
+
+  set cipherMode(value: string) {
+    this.doc.setFormField(this.path, "cipherMode", value);
+  }
+
+  get encryptionLayer(): string {
+    return this.doc.formField(this.path, "encryptionLayer") || '';
+  }
+
+  set encryptionLayer(value: string) {
+    this.doc.setFormField(this.path, "encryptionLayer", value);
+  }
+
+  get fieldLevelEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "fieldLevelEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set fieldLevelEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "fieldLevelEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get transparentDataEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "transparentDataEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set transparentDataEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "transparentDataEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get fullDiskEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "fullDiskEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set fullDiskEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "fullDiskEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get minimizeSensitiveStorage(): boolean | null {
+    const v = this.doc.formField(this.path, "minimizeSensitiveStorage");
+    return v == null ? null : v === 'true';
+  }
+
+  set minimizeSensitiveStorage(value: boolean | null) {
+    this.doc.setFormField(this.path, "minimizeSensitiveStorage", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get complianceFramework(): string {
+    return this.doc.formField(this.path, "complianceFramework") || '';
+  }
+
+  set complianceFramework(value: string) {
+    this.doc.setFormField(this.path, "complianceFramework", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class EnterpriseSystemCompatibilityEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -97711,6 +100811,557 @@ export class FieldValidationRuleContentForm extends SomNode {
 
   set triggerEvent(value: string) {
     this.doc.setFormField(this.path, "triggerEvent", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class FileAccessControlPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get fileAccessModel(): string {
+    return this.doc.formField(this.path, "fileAccessModel") || '';
+  }
+
+  set fileAccessModel(value: string) {
+    this.doc.setFormField(this.path, "fileAccessModel", value);
+  }
+
+  get authenticationRequired(): boolean | null {
+    const v = this.doc.formField(this.path, "authenticationRequired");
+    return v == null ? null : v === 'true';
+  }
+
+  set authenticationRequired(value: boolean | null) {
+    this.doc.setFormField(this.path, "authenticationRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get anonymousDownloadAllowed(): boolean | null {
+    const v = this.doc.formField(this.path, "anonymousDownloadAllowed");
+    return v == null ? null : v === 'true';
+  }
+
+  set anonymousDownloadAllowed(value: boolean | null) {
+    this.doc.setFormField(this.path, "anonymousDownloadAllowed", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get fileOwnershipModel(): string {
+    return this.doc.formField(this.path, "fileOwnershipModel") || '';
+  }
+
+  set fileOwnershipModel(value: string) {
+    this.doc.setFormField(this.path, "fileOwnershipModel", value);
+  }
+
+  get permissionGranularity(): string {
+    return this.doc.formField(this.path, "permissionGranularity") || '';
+  }
+
+  set permissionGranularity(value: string) {
+    this.doc.setFormField(this.path, "permissionGranularity", value);
+  }
+
+  get folderLevelPermissions(): boolean | null {
+    const v = this.doc.formField(this.path, "folderLevelPermissions");
+    return v == null ? null : v === 'true';
+  }
+
+  set folderLevelPermissions(value: boolean | null) {
+    this.doc.setFormField(this.path, "folderLevelPermissions", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get permissionInheritance(): string {
+    return this.doc.formField(this.path, "permissionInheritance") || '';
+  }
+
+  set permissionInheritance(value: string) {
+    this.doc.setFormField(this.path, "permissionInheritance", value);
+  }
+
+  get sharingEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "sharingEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set sharingEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "sharingEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get shareableLinkSupport(): boolean | null {
+    const v = this.doc.formField(this.path, "shareableLinkSupport");
+    return v == null ? null : v === 'true';
+  }
+
+  set shareableLinkSupport(value: boolean | null) {
+    this.doc.setFormField(this.path, "shareableLinkSupport", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get shareableLinkExpiration(): string {
+    return this.doc.formField(this.path, "shareableLinkExpiration") || '';
+  }
+
+  set shareableLinkExpiration(value: string) {
+    this.doc.setFormField(this.path, "shareableLinkExpiration", value);
+  }
+
+  get externalSharingPolicy(): string {
+    return this.doc.formField(this.path, "externalSharingPolicy") || '';
+  }
+
+  set externalSharingPolicy(value: string) {
+    this.doc.setFormField(this.path, "externalSharingPolicy", value);
+  }
+
+  get storageLocationPolicy(): string {
+    return this.doc.formField(this.path, "storageLocationPolicy") || '';
+  }
+
+  set storageLocationPolicy(value: string) {
+    this.doc.setFormField(this.path, "storageLocationPolicy", value);
+  }
+
+  get tenantStorageIsolation(): string {
+    return this.doc.formField(this.path, "tenantStorageIsolation") || '';
+  }
+
+  set tenantStorageIsolation(value: string) {
+    this.doc.setFormField(this.path, "tenantStorageIsolation", value);
+  }
+
+  get filesystemPermissions(): string {
+    return this.doc.formField(this.path, "filesystemPermissions") || '';
+  }
+
+  set filesystemPermissions(value: string) {
+    this.doc.setFormField(this.path, "filesystemPermissions", value);
+  }
+
+  get presignedUrlSupport(): boolean | null {
+    const v = this.doc.formField(this.path, "presignedUrlSupport");
+    return v == null ? null : v === 'true';
+  }
+
+  set presignedUrlSupport(value: boolean | null) {
+    this.doc.setFormField(this.path, "presignedUrlSupport", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get presignedUrlMaxExpiry(): string {
+    return this.doc.formField(this.path, "presignedUrlMaxExpiry") || '';
+  }
+
+  set presignedUrlMaxExpiry(value: string) {
+    this.doc.setFormField(this.path, "presignedUrlMaxExpiry", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class FileDownloadSecurityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get downloadAuthenticationRequired(): boolean | null {
+    const v = this.doc.formField(this.path, "downloadAuthenticationRequired");
+    return v == null ? null : v === 'true';
+  }
+
+  set downloadAuthenticationRequired(value: boolean | null) {
+    this.doc.setFormField(this.path, "downloadAuthenticationRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get downloadRateLimiting(): boolean | null {
+    const v = this.doc.formField(this.path, "downloadRateLimiting");
+    return v == null ? null : v === 'true';
+  }
+
+  set downloadRateLimiting(value: boolean | null) {
+    this.doc.setFormField(this.path, "downloadRateLimiting", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get downloadRateLimit(): string {
+    return this.doc.formField(this.path, "downloadRateLimit") || '';
+  }
+
+  set downloadRateLimit(value: string) {
+    this.doc.setFormField(this.path, "downloadRateLimit", value);
+  }
+
+  get bandwidthThrottling(): boolean | null {
+    const v = this.doc.formField(this.path, "bandwidthThrottling");
+    return v == null ? null : v === 'true';
+  }
+
+  set bandwidthThrottling(value: boolean | null) {
+    this.doc.setFormField(this.path, "bandwidthThrottling", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get contentDispositionPolicy(): string {
+    return this.doc.formField(this.path, "contentDispositionPolicy") || '';
+  }
+
+  set contentDispositionPolicy(value: string) {
+    this.doc.setFormField(this.path, "contentDispositionPolicy", value);
+  }
+
+  get cdnDelivery(): boolean | null {
+    const v = this.doc.formField(this.path, "cdnDelivery");
+    return v == null ? null : v === 'true';
+  }
+
+  set cdnDelivery(value: boolean | null) {
+    this.doc.setFormField(this.path, "cdnDelivery", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get hotlinkPrevention(): boolean | null {
+    const v = this.doc.formField(this.path, "hotlinkPrevention");
+    return v == null ? null : v === 'true';
+  }
+
+  set hotlinkPrevention(value: boolean | null) {
+    this.doc.setFormField(this.path, "hotlinkPrevention", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get cacheControlPolicy(): string {
+    return this.doc.formField(this.path, "cacheControlPolicy") || '';
+  }
+
+  set cacheControlPolicy(value: string) {
+    this.doc.setFormField(this.path, "cacheControlPolicy", value);
+  }
+
+  get downloadAuditLogging(): boolean | null {
+    const v = this.doc.formField(this.path, "downloadAuditLogging");
+    return v == null ? null : v === 'true';
+  }
+
+  set downloadAuditLogging(value: boolean | null) {
+    this.doc.setFormField(this.path, "downloadAuditLogging", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get downloadAlerts(): boolean | null {
+    const v = this.doc.formField(this.path, "downloadAlerts");
+    return v == null ? null : v === 'true';
+  }
+
+  set downloadAlerts(value: boolean | null) {
+    this.doc.setFormField(this.path, "downloadAlerts", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get watermarking(): boolean | null {
+    const v = this.doc.formField(this.path, "watermarking");
+    return v == null ? null : v === 'true';
+  }
+
+  set watermarking(value: boolean | null) {
+    this.doc.setFormField(this.path, "watermarking", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class FileStorageEncryptionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get fileEncryptionMethod(): string {
+    return this.doc.formField(this.path, "fileEncryptionMethod") || '';
+  }
+
+  set fileEncryptionMethod(value: string) {
+    this.doc.setFormField(this.path, "fileEncryptionMethod", value);
+  }
+
+  get cloudStorageEncryption(): string {
+    return this.doc.formField(this.path, "cloudStorageEncryption") || '';
+  }
+
+  set cloudStorageEncryption(value: string) {
+    this.doc.setFormField(this.path, "cloudStorageEncryption", value);
+  }
+
+  get clientSideEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "clientSideEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set clientSideEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "clientSideEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get encryptedFileFormats(): string {
+    return this.doc.formField(this.path, "encryptedFileFormats") || '';
+  }
+
+  set encryptedFileFormats(value: string) {
+    this.doc.setFormField(this.path, "encryptedFileFormats", value);
+  }
+
+  get localDeviceEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "localDeviceEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set localDeviceEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "localDeviceEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get temporaryFileEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "temporaryFileEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set temporaryFileEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "temporaryFileEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class FileUploadValidationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get extensionValidationStrategy(): string {
+    return this.doc.formField(this.path, "extensionValidationStrategy") || '';
+  }
+
+  set extensionValidationStrategy(value: string) {
+    this.doc.setFormField(this.path, "extensionValidationStrategy", value);
+  }
+
+  get allowedFileExtensions(): string {
+    return this.doc.formField(this.path, "allowedFileExtensions") || '';
+  }
+
+  set allowedFileExtensions(value: string) {
+    this.doc.setFormField(this.path, "allowedFileExtensions", value);
+  }
+
+  get blockedFileExtensions(): string {
+    return this.doc.formField(this.path, "blockedFileExtensions") || '';
+  }
+
+  set blockedFileExtensions(value: string) {
+    this.doc.setFormField(this.path, "blockedFileExtensions", value);
+  }
+
+  get doubleExtensionPrevention(): boolean | null {
+    const v = this.doc.formField(this.path, "doubleExtensionPrevention");
+    return v == null ? null : v === 'true';
+  }
+
+  set doubleExtensionPrevention(value: boolean | null) {
+    this.doc.setFormField(this.path, "doubleExtensionPrevention", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get contentTypeValidation(): boolean | null {
+    const v = this.doc.formField(this.path, "contentTypeValidation");
+    return v == null ? null : v === 'true';
+  }
+
+  set contentTypeValidation(value: boolean | null) {
+    this.doc.setFormField(this.path, "contentTypeValidation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get fileSignatureValidation(): boolean | null {
+    const v = this.doc.formField(this.path, "fileSignatureValidation");
+    return v == null ? null : v === 'true';
+  }
+
+  set fileSignatureValidation(value: boolean | null) {
+    this.doc.setFormField(this.path, "fileSignatureValidation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get signatureMismatchAction(): string {
+    return this.doc.formField(this.path, "signatureMismatchAction") || '';
+  }
+
+  set signatureMismatchAction(value: string) {
+    this.doc.setFormField(this.path, "signatureMismatchAction", value);
+  }
+
+  get filenameStrategy(): string {
+    return this.doc.formField(this.path, "filenameStrategy") || '';
+  }
+
+  set filenameStrategy(value: string) {
+    this.doc.setFormField(this.path, "filenameStrategy", value);
+  }
+
+  get filenameMaxLength(): number | null {
+    const v = this.doc.formField(this.path, "filenameMaxLength");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set filenameMaxLength(value: number | null) {
+    this.doc.setFormField(this.path, "filenameMaxLength", value == null ? '' : String(value));
+  }
+
+  get filenameAllowedCharacters(): string {
+    return this.doc.formField(this.path, "filenameAllowedCharacters") || '';
+  }
+
+  set filenameAllowedCharacters(value: string) {
+    this.doc.setFormField(this.path, "filenameAllowedCharacters", value);
+  }
+
+  get pathTraversalPrevention(): boolean | null {
+    const v = this.doc.formField(this.path, "pathTraversalPrevention");
+    return v == null ? null : v === 'true';
+  }
+
+  set pathTraversalPrevention(value: boolean | null) {
+    this.doc.setFormField(this.path, "pathTraversalPrevention", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get nullBytePrevention(): boolean | null {
+    const v = this.doc.formField(this.path, "nullBytePrevention");
+    return v == null ? null : v === 'true';
+  }
+
+  set nullBytePrevention(value: boolean | null) {
+    this.doc.setFormField(this.path, "nullBytePrevention", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get maxFileSizeBytes(): string {
+    return this.doc.formField(this.path, "maxFileSizeBytes") || '';
+  }
+
+  set maxFileSizeBytes(value: string) {
+    this.doc.setFormField(this.path, "maxFileSizeBytes", value);
+  }
+
+  get maxUploadBatchSize(): string {
+    return this.doc.formField(this.path, "maxUploadBatchSize") || '';
+  }
+
+  set maxUploadBatchSize(value: string) {
+    this.doc.setFormField(this.path, "maxUploadBatchSize", value);
+  }
+
+  get maxConcurrentUploads(): number | null {
+    const v = this.doc.formField(this.path, "maxConcurrentUploads");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxConcurrentUploads(value: number | null) {
+    this.doc.setFormField(this.path, "maxConcurrentUploads", value == null ? '' : String(value));
+  }
+
+  get compressedFileSizeLimit(): string {
+    return this.doc.formField(this.path, "compressedFileSizeLimit") || '';
+  }
+
+  set compressedFileSizeLimit(value: string) {
+    this.doc.setFormField(this.path, "compressedFileSizeLimit", value);
+  }
+
+  get imageRewriting(): boolean | null {
+    const v = this.doc.formField(this.path, "imageRewriting");
+    return v == null ? null : v === 'true';
+  }
+
+  set imageRewriting(value: boolean | null) {
+    this.doc.setFormField(this.path, "imageRewriting", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get documentSanitization(): boolean | null {
+    const v = this.doc.formField(this.path, "documentSanitization");
+    return v == null ? null : v === 'true';
+  }
+
+  set documentSanitization(value: boolean | null) {
+    this.doc.setFormField(this.path, "documentSanitization", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get metadataStripping(): boolean | null {
+    const v = this.doc.formField(this.path, "metadataStripping");
+    return v == null ? null : v === 'true';
+  }
+
+  set metadataStripping(value: boolean | null) {
+    this.doc.setFormField(this.path, "metadataStripping", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -112653,6 +116304,153 @@ export class LogStoragePolicyContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class LoginFlowConfigurationContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get loginEntryPoint(): string {
+    return this.doc.formField(this.path, "loginEntryPoint") || '';
+  }
+
+  set loginEntryPoint(value: string) {
+    this.doc.setFormField(this.path, "loginEntryPoint", value);
+  }
+
+  get credentialSubmissionMethod(): string {
+    return this.doc.formField(this.path, "credentialSubmissionMethod") || '';
+  }
+
+  set credentialSubmissionMethod(value: string) {
+    this.doc.setFormField(this.path, "credentialSubmissionMethod", value);
+  }
+
+  get preAuthenticationChecks(): string {
+    return this.doc.formField(this.path, "preAuthenticationChecks") || '';
+  }
+
+  set preAuthenticationChecks(value: string) {
+    this.doc.setFormField(this.path, "preAuthenticationChecks", value);
+  }
+
+  get authenticationEndpoint(): string {
+    return this.doc.formField(this.path, "authenticationEndpoint") || '';
+  }
+
+  set authenticationEndpoint(value: string) {
+    this.doc.setFormField(this.path, "authenticationEndpoint", value);
+  }
+
+  get allowedAuthenticationMethods(): string {
+    return this.doc.formField(this.path, "allowedAuthenticationMethods") || '';
+  }
+
+  set allowedAuthenticationMethods(value: string) {
+    this.doc.setFormField(this.path, "allowedAuthenticationMethods", value);
+  }
+
+  get mfaChallengePresentation(): string {
+    return this.doc.formField(this.path, "mfaChallengePresentation") || '';
+  }
+
+  set mfaChallengePresentation(value: string) {
+    this.doc.setFormField(this.path, "mfaChallengePresentation", value);
+  }
+
+  get rememberMeEnabled(): string {
+    return this.doc.formField(this.path, "rememberMeEnabled") || '';
+  }
+
+  set rememberMeEnabled(value: string) {
+    this.doc.setFormField(this.path, "rememberMeEnabled", value);
+  }
+
+  get rememberMeDuration(): string {
+    return this.doc.formField(this.path, "rememberMeDuration") || '';
+  }
+
+  set rememberMeDuration(value: string) {
+    this.doc.setFormField(this.path, "rememberMeDuration", value);
+  }
+
+  get socialLoginEnabled(): string {
+    return this.doc.formField(this.path, "socialLoginEnabled") || '';
+  }
+
+  set socialLoginEnabled(value: string) {
+    this.doc.setFormField(this.path, "socialLoginEnabled", value);
+  }
+
+  get socialLoginProviders(): string {
+    return this.doc.formField(this.path, "socialLoginProviders") || '';
+  }
+
+  set socialLoginProviders(value: string) {
+    this.doc.setFormField(this.path, "socialLoginProviders", value);
+  }
+
+  get passwordlessLoginEnabled(): string {
+    return this.doc.formField(this.path, "passwordlessLoginEnabled") || '';
+  }
+
+  set passwordlessLoginEnabled(value: string) {
+    this.doc.setFormField(this.path, "passwordlessLoginEnabled", value);
+  }
+
+  get passwordlessLoginMethods(): string {
+    return this.doc.formField(this.path, "passwordlessLoginMethods") || '';
+  }
+
+  set passwordlessLoginMethods(value: string) {
+    this.doc.setFormField(this.path, "passwordlessLoginMethods", value);
+  }
+
+  get postAuthenticationAction(): string {
+    return this.doc.formField(this.path, "postAuthenticationAction") || '';
+  }
+
+  set postAuthenticationAction(value: string) {
+    this.doc.setFormField(this.path, "postAuthenticationAction", value);
+  }
+
+  get concurrentLoginPolicy(): string {
+    return this.doc.formField(this.path, "concurrentLoginPolicy") || '';
+  }
+
+  set concurrentLoginPolicy(value: string) {
+    this.doc.setFormField(this.path, "concurrentLoginPolicy", value);
+  }
+
+  get loginNotification(): string {
+    return this.doc.formField(this.path, "loginNotification") || '';
+  }
+
+  set loginNotification(value: string) {
+    this.doc.setFormField(this.path, "loginNotification", value);
+  }
+
+  get loginFromNewDeviceAction(): string {
+    return this.doc.formField(this.path, "loginFromNewDeviceAction") || '';
+  }
+
+  set loginFromNewDeviceAction(value: string) {
+    this.doc.setFormField(this.path, "loginFromNewDeviceAction", value);
+  }
+}
+
 // Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field.
 export class LoginFlowStepEntryBehaviorForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -115339,6 +119137,121 @@ export class MfaCategoryRequirementEntryTimingForm extends SomNode {
 
   set rememberDeviceDuration(value: string) {
     this.doc.setFormField(this.path, "rememberDeviceDuration", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MfaConfigurationContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get mfaRequired(): string {
+    return this.doc.formField(this.path, "mfaRequired") || '';
+  }
+
+  set mfaRequired(value: string) {
+    this.doc.setFormField(this.path, "mfaRequired", value);
+  }
+
+  get mfaEnforcementScope(): string {
+    return this.doc.formField(this.path, "mfaEnforcementScope") || '';
+  }
+
+  set mfaEnforcementScope(value: string) {
+    this.doc.setFormField(this.path, "mfaEnforcementScope", value);
+  }
+
+  get defaultSecondFactor(): string {
+    return this.doc.formField(this.path, "defaultSecondFactor") || '';
+  }
+
+  set defaultSecondFactor(value: string) {
+    this.doc.setFormField(this.path, "defaultSecondFactor", value);
+  }
+
+  get allowedSecondFactors(): string {
+    return this.doc.formField(this.path, "allowedSecondFactors") || '';
+  }
+
+  set allowedSecondFactors(value: string) {
+    this.doc.setFormField(this.path, "allowedSecondFactors", value);
+  }
+
+  get assuranceLevelTarget(): string {
+    return this.doc.formField(this.path, "assuranceLevelTarget") || '';
+  }
+
+  set assuranceLevelTarget(value: string) {
+    this.doc.setFormField(this.path, "assuranceLevelTarget", value);
+  }
+
+  get phishingResistanceRequired(): string {
+    return this.doc.formField(this.path, "phishingResistanceRequired") || '';
+  }
+
+  set phishingResistanceRequired(value: string) {
+    this.doc.setFormField(this.path, "phishingResistanceRequired", value);
+  }
+
+  get stepUpAuthenticationEnabled(): string {
+    return this.doc.formField(this.path, "stepUpAuthenticationEnabled") || '';
+  }
+
+  set stepUpAuthenticationEnabled(value: string) {
+    this.doc.setFormField(this.path, "stepUpAuthenticationEnabled", value);
+  }
+
+  get stepUpTriggers(): string {
+    return this.doc.formField(this.path, "stepUpTriggers") || '';
+  }
+
+  set stepUpTriggers(value: string) {
+    this.doc.setFormField(this.path, "stepUpTriggers", value);
+  }
+
+  get rememberDevicePolicy(): string {
+    return this.doc.formField(this.path, "rememberDevicePolicy") || '';
+  }
+
+  set rememberDevicePolicy(value: string) {
+    this.doc.setFormField(this.path, "rememberDevicePolicy", value);
+  }
+
+  get recoveryCodePolicy(): string {
+    return this.doc.formField(this.path, "recoveryCodePolicy") || '';
+  }
+
+  set recoveryCodePolicy(value: string) {
+    this.doc.setFormField(this.path, "recoveryCodePolicy", value);
+  }
+
+  get enrollmentGracePeriod(): string {
+    return this.doc.formField(this.path, "enrollmentGracePeriod") || '';
+  }
+
+  set enrollmentGracePeriod(value: string) {
+    this.doc.setFormField(this.path, "enrollmentGracePeriod", value);
+  }
+
+  get mfaBypassPolicy(): string {
+    return this.doc.formField(this.path, "mfaBypassPolicy") || '';
+  }
+
+  set mfaBypassPolicy(value: string) {
+    this.doc.setFormField(this.path, "mfaBypassPolicy", value);
   }
 }
 
@@ -119914,6 +123827,82 @@ export class MustPassCriterionEntryVerificationForm extends SomNode {
 
   set toleranceAllowed(value: string) {
     this.doc.setFormField(this.path, "toleranceAllowed", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MutualTlsPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get mtlsEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "mtlsEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set mtlsEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "mtlsEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get mtlsScope(): string {
+    return this.doc.formField(this.path, "mtlsScope") || '';
+  }
+
+  set mtlsScope(value: string) {
+    this.doc.setFormField(this.path, "mtlsScope", value);
+  }
+
+  get clientCertificateIssuance(): string {
+    return this.doc.formField(this.path, "clientCertificateIssuance") || '';
+  }
+
+  set clientCertificateIssuance(value: string) {
+    this.doc.setFormField(this.path, "clientCertificateIssuance", value);
+  }
+
+  get revocationChecking(): string {
+    return this.doc.formField(this.path, "revocationChecking") || '';
+  }
+
+  set revocationChecking(value: string) {
+    this.doc.setFormField(this.path, "revocationChecking", value);
+  }
+
+  get fallbackOnMtlsFailure(): string {
+    return this.doc.formField(this.path, "fallbackOnMtlsFailure") || '';
+  }
+
+  set fallbackOnMtlsFailure(value: string) {
+    this.doc.setFormField(this.path, "fallbackOnMtlsFailure", value);
+  }
+
+  get clientCertificateRotation(): string {
+    return this.doc.formField(this.path, "clientCertificateRotation") || '';
+  }
+
+  set clientCertificateRotation(value: string) {
+    this.doc.setFormField(this.path, "clientCertificateRotation", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -126853,6 +130842,383 @@ export class ParticipantEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PasswordLifecyclePolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get periodicRotationRequired(): string {
+    return this.doc.formField(this.path, "periodicRotationRequired") || '';
+  }
+
+  set periodicRotationRequired(value: string) {
+    this.doc.setFormField(this.path, "periodicRotationRequired", value);
+  }
+
+  get rotationPeriod(): string {
+    return this.doc.formField(this.path, "rotationPeriod") || '';
+  }
+
+  set rotationPeriod(value: string) {
+    this.doc.setFormField(this.path, "rotationPeriod", value);
+  }
+
+  get forceChangeOnCompromise(): string {
+    return this.doc.formField(this.path, "forceChangeOnCompromise") || '';
+  }
+
+  set forceChangeOnCompromise(value: string) {
+    this.doc.setFormField(this.path, "forceChangeOnCompromise", value);
+  }
+
+  get passwordHistoryDepth(): string {
+    return this.doc.formField(this.path, "passwordHistoryDepth") || '';
+  }
+
+  set passwordHistoryDepth(value: string) {
+    this.doc.setFormField(this.path, "passwordHistoryDepth", value);
+  }
+
+  get minimumPasswordAge(): string {
+    return this.doc.formField(this.path, "minimumPasswordAge") || '';
+  }
+
+  set minimumPasswordAge(value: string) {
+    this.doc.setFormField(this.path, "minimumPasswordAge", value);
+  }
+
+  get initialPasswordPolicy(): string {
+    return this.doc.formField(this.path, "initialPasswordPolicy") || '';
+  }
+
+  set initialPasswordPolicy(value: string) {
+    this.doc.setFormField(this.path, "initialPasswordPolicy", value);
+  }
+
+  get temporaryPasswordExpiry(): string {
+    return this.doc.formField(this.path, "temporaryPasswordExpiry") || '';
+  }
+
+  set temporaryPasswordExpiry(value: string) {
+    this.doc.setFormField(this.path, "temporaryPasswordExpiry", value);
+  }
+
+  get passwordExpiryWarning(): string {
+    return this.doc.formField(this.path, "passwordExpiryWarning") || '';
+  }
+
+  set passwordExpiryWarning(value: string) {
+    this.doc.setFormField(this.path, "passwordExpiryWarning", value);
+  }
+
+  get passwordChangeNotification(): string {
+    return this.doc.formField(this.path, "passwordChangeNotification") || '';
+  }
+
+  set passwordChangeNotification(value: string) {
+    this.doc.setFormField(this.path, "passwordChangeNotification", value);
+  }
+
+  get passwordChangeRequiresCurrent(): string {
+    return this.doc.formField(this.path, "passwordChangeRequiresCurrent") || '';
+  }
+
+  set passwordChangeRequiresCurrent(value: string) {
+    this.doc.setFormField(this.path, "passwordChangeRequiresCurrent", value);
+  }
+
+  get administratorResetPolicy(): string {
+    return this.doc.formField(this.path, "administratorResetPolicy") || '';
+  }
+
+  set administratorResetPolicy(value: string) {
+    this.doc.setFormField(this.path, "administratorResetPolicy", value);
+  }
+
+  get passwordInactivityDisable(): string {
+    return this.doc.formField(this.path, "passwordInactivityDisable") || '';
+  }
+
+  set passwordInactivityDisable(value: string) {
+    this.doc.setFormField(this.path, "passwordInactivityDisable", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PasswordRequirementsPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get minimumLengthSingleFactor(): string {
+    return this.doc.formField(this.path, "minimumLengthSingleFactor") || '';
+  }
+
+  set minimumLengthSingleFactor(value: string) {
+    this.doc.setFormField(this.path, "minimumLengthSingleFactor", value);
+  }
+
+  get minimumLengthMultiFactor(): string {
+    return this.doc.formField(this.path, "minimumLengthMultiFactor") || '';
+  }
+
+  set minimumLengthMultiFactor(value: string) {
+    this.doc.setFormField(this.path, "minimumLengthMultiFactor", value);
+  }
+
+  get maximumLength(): string {
+    return this.doc.formField(this.path, "maximumLength") || '';
+  }
+
+  set maximumLength(value: string) {
+    this.doc.setFormField(this.path, "maximumLength", value);
+  }
+
+  get allowedCharacterSets(): string {
+    return this.doc.formField(this.path, "allowedCharacterSets") || '';
+  }
+
+  set allowedCharacterSets(value: string) {
+    this.doc.setFormField(this.path, "allowedCharacterSets", value);
+  }
+
+  get compositionRulesEnforced(): string {
+    return this.doc.formField(this.path, "compositionRulesEnforced") || '';
+  }
+
+  set compositionRulesEnforced(value: string) {
+    this.doc.setFormField(this.path, "compositionRulesEnforced", value);
+  }
+
+  get passphraseSupported(): string {
+    return this.doc.formField(this.path, "passphraseSupported") || '';
+  }
+
+  set passphraseSupported(value: string) {
+    this.doc.setFormField(this.path, "passphraseSupported", value);
+  }
+
+  get unicodeNormalization(): string {
+    return this.doc.formField(this.path, "unicodeNormalization") || '';
+  }
+
+  set unicodeNormalization(value: string) {
+    this.doc.setFormField(this.path, "unicodeNormalization", value);
+  }
+
+  get passwordBlocklistEnabled(): string {
+    return this.doc.formField(this.path, "passwordBlocklistEnabled") || '';
+  }
+
+  set passwordBlocklistEnabled(value: string) {
+    this.doc.setFormField(this.path, "passwordBlocklistEnabled", value);
+  }
+
+  get blocklistSources(): string {
+    return this.doc.formField(this.path, "blocklistSources") || '';
+  }
+
+  set blocklistSources(value: string) {
+    this.doc.setFormField(this.path, "blocklistSources", value);
+  }
+
+  get passwordStrengthMeter(): string {
+    return this.doc.formField(this.path, "passwordStrengthMeter") || '';
+  }
+
+  set passwordStrengthMeter(value: string) {
+    this.doc.setFormField(this.path, "passwordStrengthMeter", value);
+  }
+
+  get passwordHintsAllowed(): string {
+    return this.doc.formField(this.path, "passwordHintsAllowed") || '';
+  }
+
+  set passwordHintsAllowed(value: string) {
+    this.doc.setFormField(this.path, "passwordHintsAllowed", value);
+  }
+
+  get securityQuestionsAllowed(): string {
+    return this.doc.formField(this.path, "securityQuestionsAllowed") || '';
+  }
+
+  set securityQuestionsAllowed(value: string) {
+    this.doc.setFormField(this.path, "securityQuestionsAllowed", value);
+  }
+
+  get showPasswordOption(): string {
+    return this.doc.formField(this.path, "showPasswordOption") || '';
+  }
+
+  set showPasswordOption(value: string) {
+    this.doc.setFormField(this.path, "showPasswordOption", value);
+  }
+
+  get passwordManagerSupport(): string {
+    return this.doc.formField(this.path, "passwordManagerSupport") || '';
+  }
+
+  set passwordManagerSupport(value: string) {
+    this.doc.setFormField(this.path, "passwordManagerSupport", value);
+  }
+
+  get truncationPolicy(): string {
+    return this.doc.formField(this.path, "truncationPolicy") || '';
+  }
+
+  set truncationPolicy(value: string) {
+    this.doc.setFormField(this.path, "truncationPolicy", value);
+  }
+
+  get typoTolerancePolicy(): string {
+    return this.doc.formField(this.path, "typoTolerancePolicy") || '';
+  }
+
+  set typoTolerancePolicy(value: string) {
+    this.doc.setFormField(this.path, "typoTolerancePolicy", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PasswordStoragePolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get hashingAlgorithm(): string {
+    return this.doc.formField(this.path, "hashingAlgorithm") || '';
+  }
+
+  set hashingAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "hashingAlgorithm", value);
+  }
+
+  get hashingCostFactor(): string {
+    return this.doc.formField(this.path, "hashingCostFactor") || '';
+  }
+
+  set hashingCostFactor(value: string) {
+    this.doc.setFormField(this.path, "hashingCostFactor", value);
+  }
+
+  get costFactorReviewSchedule(): string {
+    return this.doc.formField(this.path, "costFactorReviewSchedule") || '';
+  }
+
+  set costFactorReviewSchedule(value: string) {
+    this.doc.setFormField(this.path, "costFactorReviewSchedule", value);
+  }
+
+  get saltLength(): string {
+    return this.doc.formField(this.path, "saltLength") || '';
+  }
+
+  set saltLength(value: string) {
+    this.doc.setFormField(this.path, "saltLength", value);
+  }
+
+  get saltGeneration(): string {
+    return this.doc.formField(this.path, "saltGeneration") || '';
+  }
+
+  set saltGeneration(value: string) {
+    this.doc.setFormField(this.path, "saltGeneration", value);
+  }
+
+  get pepperEnabled(): string {
+    return this.doc.formField(this.path, "pepperEnabled") || '';
+  }
+
+  set pepperEnabled(value: string) {
+    this.doc.setFormField(this.path, "pepperEnabled", value);
+  }
+
+  get pepperStorage(): string {
+    return this.doc.formField(this.path, "pepperStorage") || '';
+  }
+
+  set pepperStorage(value: string) {
+    this.doc.setFormField(this.path, "pepperStorage", value);
+  }
+
+  get hashVersioning(): string {
+    return this.doc.formField(this.path, "hashVersioning") || '';
+  }
+
+  set hashVersioning(value: string) {
+    this.doc.setFormField(this.path, "hashVersioning", value);
+  }
+
+  get transmissionEncryption(): string {
+    return this.doc.formField(this.path, "transmissionEncryption") || '';
+  }
+
+  set transmissionEncryption(value: string) {
+    this.doc.setFormField(this.path, "transmissionEncryption", value);
+  }
+
+  get clientSideHashing(): string {
+    return this.doc.formField(this.path, "clientSideHashing") || '';
+  }
+
+  set clientSideHashing(value: string) {
+    this.doc.setFormField(this.path, "clientSideHashing", value);
+  }
+
+  get memoryHardFunction(): string {
+    return this.doc.formField(this.path, "memoryHardFunction") || '';
+  }
+
+  set memoryHardFunction(value: string) {
+    this.doc.setFormField(this.path, "memoryHardFunction", value);
+  }
+
+  get outputLength(): string {
+    return this.doc.formField(this.path, "outputLength") || '';
+  }
+
+  set outputLength(value: string) {
+    this.doc.setFormField(this.path, "outputLength", value);
+  }
+}
+
 // Generated section facade for the `capacity` @Form section: its own content text followed by one typed member per form field.
 export class PeakLoadPatternsCapacityForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -127470,6 +131836,330 @@ export class PeripheralEquipmentEntryContentForm extends SomNode {
 
   set justification(value: string) {
     this.doc.setFormField(this.path, "justification", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PermissionCompositionStrategyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get compositionModel(): string {
+    return this.doc.formField(this.path, "compositionModel") || '';
+  }
+
+  set compositionModel(value: string) {
+    this.doc.setFormField(this.path, "compositionModel", value);
+  }
+
+  get defaultPolicy(): string {
+    return this.doc.formField(this.path, "defaultPolicy") || '';
+  }
+
+  set defaultPolicy(value: string) {
+    this.doc.setFormField(this.path, "defaultPolicy", value);
+  }
+
+  get explicitDenyOverride(): boolean | null {
+    const v = this.doc.formField(this.path, "explicitDenyOverride");
+    return v == null ? null : v === 'true';
+  }
+
+  set explicitDenyOverride(value: boolean | null) {
+    this.doc.setFormField(this.path, "explicitDenyOverride", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get rolePermissionInheritance(): boolean | null {
+    const v = this.doc.formField(this.path, "rolePermissionInheritance");
+    return v == null ? null : v === 'true';
+  }
+
+  set rolePermissionInheritance(value: boolean | null) {
+    this.doc.setFormField(this.path, "rolePermissionInheritance", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get groupPermissionAggregation(): string {
+    return this.doc.formField(this.path, "groupPermissionAggregation") || '';
+  }
+
+  set groupPermissionAggregation(value: string) {
+    this.doc.setFormField(this.path, "groupPermissionAggregation", value);
+  }
+
+  get conflictResolution(): string {
+    return this.doc.formField(this.path, "conflictResolution") || '';
+  }
+
+  set conflictResolution(value: string) {
+    this.doc.setFormField(this.path, "conflictResolution", value);
+  }
+
+  get permissionBoundary(): boolean | null {
+    const v = this.doc.formField(this.path, "permissionBoundary");
+    return v == null ? null : v === 'true';
+  }
+
+  set permissionBoundary(value: boolean | null) {
+    this.doc.setFormField(this.path, "permissionBoundary", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get scopedPermissions(): boolean | null {
+    const v = this.doc.formField(this.path, "scopedPermissions");
+    return v == null ? null : v === 'true';
+  }
+
+  set scopedPermissions(value: boolean | null) {
+    this.doc.setFormField(this.path, "scopedPermissions", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get temporaryElevation(): boolean | null {
+    const v = this.doc.formField(this.path, "temporaryElevation");
+    return v == null ? null : v === 'true';
+  }
+
+  set temporaryElevation(value: boolean | null) {
+    this.doc.setFormField(this.path, "temporaryElevation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PermissionEvaluationBehaviorContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get evaluationLocation(): string {
+    return this.doc.formField(this.path, "evaluationLocation") || '';
+  }
+
+  set evaluationLocation(value: string) {
+    this.doc.setFormField(this.path, "evaluationLocation", value);
+  }
+
+  get evaluationFrequency(): string {
+    return this.doc.formField(this.path, "evaluationFrequency") || '';
+  }
+
+  set evaluationFrequency(value: string) {
+    this.doc.setFormField(this.path, "evaluationFrequency", value);
+  }
+
+  get cachingStrategy(): string {
+    return this.doc.formField(this.path, "cachingStrategy") || '';
+  }
+
+  set cachingStrategy(value: string) {
+    this.doc.setFormField(this.path, "cachingStrategy", value);
+  }
+
+  get cacheTtlSeconds(): number | null {
+    const v = this.doc.formField(this.path, "cacheTtlSeconds");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set cacheTtlSeconds(value: number | null) {
+    this.doc.setFormField(this.path, "cacheTtlSeconds", value == null ? '' : String(value));
+  }
+
+  get failureMode(): string {
+    return this.doc.formField(this.path, "failureMode") || '';
+  }
+
+  set failureMode(value: string) {
+    this.doc.setFormField(this.path, "failureMode", value);
+  }
+
+  get authorizationLogging(): boolean | null {
+    const v = this.doc.formField(this.path, "authorizationLogging");
+    return v == null ? null : v === 'true';
+  }
+
+  set authorizationLogging(value: boolean | null) {
+    this.doc.setFormField(this.path, "authorizationLogging", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get logDeniedRequests(): boolean | null {
+    const v = this.doc.formField(this.path, "logDeniedRequests");
+    return v == null ? null : v === 'true';
+  }
+
+  set logDeniedRequests(value: boolean | null) {
+    this.doc.setFormField(this.path, "logDeniedRequests", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get logSuccessfulAccess(): boolean | null {
+    const v = this.doc.formField(this.path, "logSuccessfulAccess");
+    return v == null ? null : v === 'true';
+  }
+
+  set logSuccessfulAccess(value: boolean | null) {
+    this.doc.setFormField(this.path, "logSuccessfulAccess", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get automatedTesting(): boolean | null {
+    const v = this.doc.formField(this.path, "automatedTesting");
+    return v == null ? null : v === 'true';
+  }
+
+  set automatedTesting(value: boolean | null) {
+    this.doc.setFormField(this.path, "automatedTesting", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get clientSideHints(): boolean | null {
+    const v = this.doc.formField(this.path, "clientSideHints");
+    return v == null ? null : v === 'true';
+  }
+
+  set clientSideHints(value: boolean | null) {
+    this.doc.setFormField(this.path, "clientSideHints", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PermissionGranularityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get functionLevelControl(): boolean | null {
+    const v = this.doc.formField(this.path, "functionLevelControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set functionLevelControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "functionLevelControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dataLevelControl(): boolean | null {
+    const v = this.doc.formField(this.path, "dataLevelControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set dataLevelControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "dataLevelControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get fieldLevelControl(): boolean | null {
+    const v = this.doc.formField(this.path, "fieldLevelControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set fieldLevelControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "fieldLevelControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get uiElementControl(): boolean | null {
+    const v = this.doc.formField(this.path, "uiElementControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set uiElementControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "uiElementControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get apiOperationControl(): boolean | null {
+    const v = this.doc.formField(this.path, "apiOperationControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set apiOperationControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "apiOperationControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get objectLevelControl(): boolean | null {
+    const v = this.doc.formField(this.path, "objectLevelControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set objectLevelControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "objectLevelControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get tenantLevelControl(): boolean | null {
+    const v = this.doc.formField(this.path, "tenantLevelControl");
+    return v == null ? null : v === 'true';
+  }
+
+  set tenantLevelControl(value: boolean | null) {
+    this.doc.setFormField(this.path, "tenantLevelControl", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get finestGranularity(): string {
+    return this.doc.formField(this.path, "finestGranularity") || '';
+  }
+
+  set finestGranularity(value: string) {
+    this.doc.setFormField(this.path, "finestGranularity", value);
+  }
+
+  get dynamicPermissions(): boolean | null {
+    const v = this.doc.formField(this.path, "dynamicPermissions");
+    return v == null ? null : v === 'true';
+  }
+
+  set dynamicPermissions(value: boolean | null) {
+    this.doc.setFormField(this.path, "dynamicPermissions", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -137995,6 +142685,121 @@ export class RecoveryScenarioEntryContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RedirectHandlingPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get oauthRedirectUriPolicy(): string {
+    return this.doc.formField(this.path, "oauthRedirectUriPolicy") || '';
+  }
+
+  set oauthRedirectUriPolicy(value: string) {
+    this.doc.setFormField(this.path, "oauthRedirectUriPolicy", value);
+  }
+
+  get allowedRedirectDomains(): string {
+    return this.doc.formField(this.path, "allowedRedirectDomains") || '';
+  }
+
+  set allowedRedirectDomains(value: string) {
+    this.doc.setFormField(this.path, "allowedRedirectDomains", value);
+  }
+
+  get callbackUrlValidation(): string {
+    return this.doc.formField(this.path, "callbackUrlValidation") || '';
+  }
+
+  set callbackUrlValidation(value: string) {
+    this.doc.setFormField(this.path, "callbackUrlValidation", value);
+  }
+
+  get stateParameterRequired(): string {
+    return this.doc.formField(this.path, "stateParameterRequired") || '';
+  }
+
+  set stateParameterRequired(value: string) {
+    this.doc.setFormField(this.path, "stateParameterRequired", value);
+  }
+
+  get pkceRequired(): string {
+    return this.doc.formField(this.path, "pkceRequired") || '';
+  }
+
+  set pkceRequired(value: string) {
+    this.doc.setFormField(this.path, "pkceRequired", value);
+  }
+
+  get pkceMethod(): string {
+    return this.doc.formField(this.path, "pkceMethod") || '';
+  }
+
+  set pkceMethod(value: string) {
+    this.doc.setFormField(this.path, "pkceMethod", value);
+  }
+
+  get deepLinkHandling(): string {
+    return this.doc.formField(this.path, "deepLinkHandling") || '';
+  }
+
+  set deepLinkHandling(value: string) {
+    this.doc.setFormField(this.path, "deepLinkHandling", value);
+  }
+
+  get errorRedirectBehavior(): string {
+    return this.doc.formField(this.path, "errorRedirectBehavior") || '';
+  }
+
+  set errorRedirectBehavior(value: string) {
+    this.doc.setFormField(this.path, "errorRedirectBehavior", value);
+  }
+
+  get postLogoutRedirectUri(): string {
+    return this.doc.formField(this.path, "postLogoutRedirectUri") || '';
+  }
+
+  set postLogoutRedirectUri(value: string) {
+    this.doc.setFormField(this.path, "postLogoutRedirectUri", value);
+  }
+
+  get singleLogoutRedirectChain(): string {
+    return this.doc.formField(this.path, "singleLogoutRedirectChain") || '';
+  }
+
+  set singleLogoutRedirectChain(value: string) {
+    this.doc.setFormField(this.path, "singleLogoutRedirectChain", value);
+  }
+
+  get corsPolicy(): string {
+    return this.doc.formField(this.path, "corsPolicy") || '';
+  }
+
+  set corsPolicy(value: string) {
+    this.doc.setFormField(this.path, "corsPolicy", value);
+  }
+
+  get iframeEmbeddingPolicy(): string {
+    return this.doc.formField(this.path, "iframeEmbeddingPolicy") || '';
+  }
+
+  set iframeEmbeddingPolicy(value: string) {
+    this.doc.setFormField(this.path, "iframeEmbeddingPolicy", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ReferenceDocumentEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -139286,6 +144091,129 @@ export class ReliabilityVerificationForm extends SomNode {
 
   set incidentPostmortem(value: string) {
     this.doc.setFormField(this.path, "incidentPostmortem", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RememberMePolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get rememberMeEnabled(): string {
+    return this.doc.formField(this.path, "rememberMeEnabled") || '';
+  }
+
+  set rememberMeEnabled(value: string) {
+    this.doc.setFormField(this.path, "rememberMeEnabled", value);
+  }
+
+  get rememberMeDuration(): string {
+    return this.doc.formField(this.path, "rememberMeDuration") || '';
+  }
+
+  set rememberMeDuration(value: string) {
+    this.doc.setFormField(this.path, "rememberMeDuration", value);
+  }
+
+  get rememberMeTokenType(): string {
+    return this.doc.formField(this.path, "rememberMeTokenType") || '';
+  }
+
+  set rememberMeTokenType(value: string) {
+    this.doc.setFormField(this.path, "rememberMeTokenType", value);
+  }
+
+  get rememberMeTokenStorage(): string {
+    return this.doc.formField(this.path, "rememberMeTokenStorage") || '';
+  }
+
+  set rememberMeTokenStorage(value: string) {
+    this.doc.setFormField(this.path, "rememberMeTokenStorage", value);
+  }
+
+  get rememberMeTokenRotation(): string {
+    return this.doc.formField(this.path, "rememberMeTokenRotation") || '';
+  }
+
+  set rememberMeTokenRotation(value: string) {
+    this.doc.setFormField(this.path, "rememberMeTokenRotation", value);
+  }
+
+  get rememberMeReuseDetection(): string {
+    return this.doc.formField(this.path, "rememberMeReuseDetection") || '';
+  }
+
+  set rememberMeReuseDetection(value: string) {
+    this.doc.setFormField(this.path, "rememberMeReuseDetection", value);
+  }
+
+  get rememberMeDeviceBinding(): string {
+    return this.doc.formField(this.path, "rememberMeDeviceBinding") || '';
+  }
+
+  set rememberMeDeviceBinding(value: string) {
+    this.doc.setFormField(this.path, "rememberMeDeviceBinding", value);
+  }
+
+  get rememberMeRevocation(): string {
+    return this.doc.formField(this.path, "rememberMeRevocation") || '';
+  }
+
+  set rememberMeRevocation(value: string) {
+    this.doc.setFormField(this.path, "rememberMeRevocation", value);
+  }
+
+  get rememberMeAalReduction(): string {
+    return this.doc.formField(this.path, "rememberMeAalReduction") || '';
+  }
+
+  set rememberMeAalReduction(value: string) {
+    this.doc.setFormField(this.path, "rememberMeAalReduction", value);
+  }
+
+  get rememberMeRestrictedOperations(): string {
+    return this.doc.formField(this.path, "rememberMeRestrictedOperations") || '';
+  }
+
+  set rememberMeRestrictedOperations(value: string) {
+    this.doc.setFormField(this.path, "rememberMeRestrictedOperations", value);
+  }
+
+  get trustedDeviceManagement(): string {
+    return this.doc.formField(this.path, "trustedDeviceManagement") || '';
+  }
+
+  set trustedDeviceManagement(value: string) {
+    this.doc.setFormField(this.path, "trustedDeviceManagement", value);
+  }
+
+  get maxTrustedDevices(): string {
+    return this.doc.formField(this.path, "maxTrustedDevices") || '';
+  }
+
+  set maxTrustedDevices(value: string) {
+    this.doc.setFormField(this.path, "maxTrustedDevices", value);
+  }
+
+  get trustedDeviceExpiry(): string {
+    return this.doc.formField(this.path, "trustedDeviceExpiry") || '';
+  }
+
+  set trustedDeviceExpiry(value: string) {
+    this.doc.setFormField(this.path, "trustedDeviceExpiry", value);
   }
 }
 
@@ -147147,6 +152075,102 @@ export class RoleAdjustmentsAdjustmentSummaryForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RoleCertificationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get certificationRequired(): boolean | null {
+    const v = this.doc.formField(this.path, "certificationRequired");
+    return v == null ? null : v === 'true';
+  }
+
+  set certificationRequired(value: boolean | null) {
+    this.doc.setFormField(this.path, "certificationRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get certificationFrequency(): string {
+    return this.doc.formField(this.path, "certificationFrequency") || '';
+  }
+
+  set certificationFrequency(value: string) {
+    this.doc.setFormField(this.path, "certificationFrequency", value);
+  }
+
+  get certifier(): string {
+    return this.doc.formField(this.path, "certifier") || '';
+  }
+
+  set certifier(value: string) {
+    this.doc.setFormField(this.path, "certifier", value);
+  }
+
+  get nonResponseAction(): string {
+    return this.doc.formField(this.path, "nonResponseAction") || '';
+  }
+
+  set nonResponseAction(value: string) {
+    this.doc.setFormField(this.path, "nonResponseAction", value);
+  }
+
+  get riskBasedScheduling(): boolean | null {
+    const v = this.doc.formField(this.path, "riskBasedScheduling");
+    return v == null ? null : v === 'true';
+  }
+
+  set riskBasedScheduling(value: boolean | null) {
+    this.doc.setFormField(this.path, "riskBasedScheduling", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get automatedDetection(): boolean | null {
+    const v = this.doc.formField(this.path, "automatedDetection");
+    return v == null ? null : v === 'true';
+  }
+
+  set automatedDetection(value: boolean | null) {
+    this.doc.setFormField(this.path, "automatedDetection", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dormantRoleThresholdDays(): number | null {
+    const v = this.doc.formField(this.path, "dormantRoleThresholdDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set dormantRoleThresholdDays(value: number | null) {
+    this.doc.setFormField(this.path, "dormantRoleThresholdDays", value == null ? '' : String(value));
+  }
+
+  get certificationAuditTrail(): boolean | null {
+    const v = this.doc.formField(this.path, "certificationAuditTrail");
+    return v == null ? null : v === 'true';
+  }
+
+  set certificationAuditTrail(value: boolean | null) {
+    this.doc.setFormField(this.path, "certificationAuditTrail", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class RoleCombinationConstraintEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -147379,6 +152403,111 @@ export class RoleExclusionEntryContentForm extends SomNode {
 
   set severity(value: string) {
     this.doc.setFormField(this.path, "severity", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RoleHierarchyPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get hierarchyModel(): string {
+    return this.doc.formField(this.path, "hierarchyModel") || '';
+  }
+
+  set hierarchyModel(value: string) {
+    this.doc.setFormField(this.path, "hierarchyModel", value);
+  }
+
+  get maxHierarchyDepth(): number | null {
+    const v = this.doc.formField(this.path, "maxHierarchyDepth");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxHierarchyDepth(value: number | null) {
+    this.doc.setFormField(this.path, "maxHierarchyDepth", value == null ? '' : String(value));
+  }
+
+  get inheritanceMode(): string {
+    return this.doc.formField(this.path, "inheritanceMode") || '';
+  }
+
+  set inheritanceMode(value: string) {
+    this.doc.setFormField(this.path, "inheritanceMode", value);
+  }
+
+  get multipleInheritance(): boolean | null {
+    const v = this.doc.formField(this.path, "multipleInheritance");
+    return v == null ? null : v === 'true';
+  }
+
+  set multipleInheritance(value: boolean | null) {
+    this.doc.setFormField(this.path, "multipleInheritance", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get permissionOverride(): boolean | null {
+    const v = this.doc.formField(this.path, "permissionOverride");
+    return v == null ? null : v === 'true';
+  }
+
+  set permissionOverride(value: boolean | null) {
+    this.doc.setFormField(this.path, "permissionOverride", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get activationConstraints(): boolean | null {
+    const v = this.doc.formField(this.path, "activationConstraints");
+    return v == null ? null : v === 'true';
+  }
+
+  set activationConstraints(value: boolean | null) {
+    this.doc.setFormField(this.path, "activationConstraints", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get maxActiveRolesPerUser(): number | null {
+    const v = this.doc.formField(this.path, "maxActiveRolesPerUser");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxActiveRolesPerUser(value: number | null) {
+    this.doc.setFormField(this.path, "maxActiveRolesPerUser", value == null ? '' : String(value));
+  }
+
+  get rolePriorityScheme(): string {
+    return this.doc.formField(this.path, "rolePriorityScheme") || '';
+  }
+
+  set rolePriorityScheme(value: string) {
+    this.doc.setFormField(this.path, "rolePriorityScheme", value);
+  }
+
+  get automaticInheritanceRevocation(): boolean | null {
+    const v = this.doc.formField(this.path, "automaticInheritanceRevocation");
+    return v == null ? null : v === 'true';
+  }
+
+  set automaticInheritanceRevocation(value: boolean | null) {
+    this.doc.setFormField(this.path, "automaticInheritanceRevocation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -147844,6 +152973,113 @@ export class RollbackStrategyTriggersForm extends SomNode {
 
   set rollbackTimeTarget(value: string) {
     this.doc.setFormField(this.path, "rollbackTimeTarget", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RowLevelSecurityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get rowLevelSecurityEnabled(): string {
+    return this.doc.formField(this.path, "rowLevelSecurityEnabled") || '';
+  }
+
+  set rowLevelSecurityEnabled(value: string) {
+    this.doc.setFormField(this.path, "rowLevelSecurityEnabled", value);
+  }
+
+  get rlsImplementation(): string {
+    return this.doc.formField(this.path, "rlsImplementation") || '';
+  }
+
+  set rlsImplementation(value: string) {
+    this.doc.setFormField(this.path, "rlsImplementation", value);
+  }
+
+  get rlsFilteringStrategy(): string {
+    return this.doc.formField(this.path, "rlsFilteringStrategy") || '';
+  }
+
+  set rlsFilteringStrategy(value: string) {
+    this.doc.setFormField(this.path, "rlsFilteringStrategy", value);
+  }
+
+  get rlsBypassPolicy(): string {
+    return this.doc.formField(this.path, "rlsBypassPolicy") || '';
+  }
+
+  set rlsBypassPolicy(value: string) {
+    this.doc.setFormField(this.path, "rlsBypassPolicy", value);
+  }
+
+  get hierarchicalVisibility(): string {
+    return this.doc.formField(this.path, "hierarchicalVisibility") || '';
+  }
+
+  set hierarchicalVisibility(value: string) {
+    this.doc.setFormField(this.path, "hierarchicalVisibility", value);
+  }
+
+  get hierarchyDepthLimit(): string {
+    return this.doc.formField(this.path, "hierarchyDepthLimit") || '';
+  }
+
+  set hierarchyDepthLimit(value: string) {
+    this.doc.setFormField(this.path, "hierarchyDepthLimit", value);
+  }
+
+  get crossTenantAccess(): string {
+    return this.doc.formField(this.path, "crossTenantAccess") || '';
+  }
+
+  set crossTenantAccess(value: string) {
+    this.doc.setFormField(this.path, "crossTenantAccess", value);
+  }
+
+  get dataOwnerAccess(): string {
+    return this.doc.formField(this.path, "dataOwnerAccess") || '';
+  }
+
+  set dataOwnerAccess(value: string) {
+    this.doc.setFormField(this.path, "dataOwnerAccess", value);
+  }
+
+  get sharedDataHandling(): string {
+    return this.doc.formField(this.path, "sharedDataHandling") || '';
+  }
+
+  set sharedDataHandling(value: string) {
+    this.doc.setFormField(this.path, "sharedDataHandling", value);
+  }
+
+  get rlsPerformanceStrategy(): string {
+    return this.doc.formField(this.path, "rlsPerformanceStrategy") || '';
+  }
+
+  set rlsPerformanceStrategy(value: string) {
+    this.doc.setFormField(this.path, "rlsPerformanceStrategy", value);
+  }
+
+  get rlsTestingStrategy(): string {
+    return this.doc.formField(this.path, "rlsTestingStrategy") || '';
+  }
+
+  set rlsTestingStrategy(value: string) {
+    this.doc.setFormField(this.path, "rlsTestingStrategy", value);
   }
 }
 
@@ -155598,6 +160834,137 @@ export class SelfRegistrationPolicyVerificationForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SelfServiceAccountManagementContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get profileUpdateEnabled(): string {
+    return this.doc.formField(this.path, "profileUpdateEnabled") || '';
+  }
+
+  set profileUpdateEnabled(value: string) {
+    this.doc.setFormField(this.path, "profileUpdateEnabled", value);
+  }
+
+  get passwordChangeEnabled(): string {
+    return this.doc.formField(this.path, "passwordChangeEnabled") || '';
+  }
+
+  set passwordChangeEnabled(value: string) {
+    this.doc.setFormField(this.path, "passwordChangeEnabled", value);
+  }
+
+  get passwordResetEnabled(): string {
+    return this.doc.formField(this.path, "passwordResetEnabled") || '';
+  }
+
+  set passwordResetEnabled(value: string) {
+    this.doc.setFormField(this.path, "passwordResetEnabled", value);
+  }
+
+  get passwordResetMethods(): string {
+    return this.doc.formField(this.path, "passwordResetMethods") || '';
+  }
+
+  set passwordResetMethods(value: string) {
+    this.doc.setFormField(this.path, "passwordResetMethods", value);
+  }
+
+  get mfaEnrollmentSelfService(): string {
+    return this.doc.formField(this.path, "mfaEnrollmentSelfService") || '';
+  }
+
+  set mfaEnrollmentSelfService(value: string) {
+    this.doc.setFormField(this.path, "mfaEnrollmentSelfService", value);
+  }
+
+  get accountDeactivationSelfService(): string {
+    return this.doc.formField(this.path, "accountDeactivationSelfService") || '';
+  }
+
+  set accountDeactivationSelfService(value: string) {
+    this.doc.setFormField(this.path, "accountDeactivationSelfService", value);
+  }
+
+  get accountDeletionSelfService(): string {
+    return this.doc.formField(this.path, "accountDeletionSelfService") || '';
+  }
+
+  set accountDeletionSelfService(value: string) {
+    this.doc.setFormField(this.path, "accountDeletionSelfService", value);
+  }
+
+  get dataExportSelfService(): string {
+    return this.doc.formField(this.path, "dataExportSelfService") || '';
+  }
+
+  set dataExportSelfService(value: string) {
+    this.doc.setFormField(this.path, "dataExportSelfService", value);
+  }
+
+  get sessionManagementSelfService(): string {
+    return this.doc.formField(this.path, "sessionManagementSelfService") || '';
+  }
+
+  set sessionManagementSelfService(value: string) {
+    this.doc.setFormField(this.path, "sessionManagementSelfService", value);
+  }
+
+  get apiKeyManagementSelfService(): string {
+    return this.doc.formField(this.path, "apiKeyManagementSelfService") || '';
+  }
+
+  set apiKeyManagementSelfService(value: string) {
+    this.doc.setFormField(this.path, "apiKeyManagementSelfService", value);
+  }
+
+  get notificationPreferences(): string {
+    return this.doc.formField(this.path, "notificationPreferences") || '';
+  }
+
+  set notificationPreferences(value: string) {
+    this.doc.setFormField(this.path, "notificationPreferences", value);
+  }
+
+  get delegationEnabled(): string {
+    return this.doc.formField(this.path, "delegationEnabled") || '';
+  }
+
+  set delegationEnabled(value: string) {
+    this.doc.setFormField(this.path, "delegationEnabled", value);
+  }
+
+  get delegationScope(): string {
+    return this.doc.formField(this.path, "delegationScope") || '';
+  }
+
+  set delegationScope(value: string) {
+    this.doc.setFormField(this.path, "delegationScope", value);
+  }
+
+  get accountRecoveryProcess(): string {
+    return this.doc.formField(this.path, "accountRecoveryProcess") || '';
+  }
+
+  set accountRecoveryProcess(value: string) {
+    this.doc.setFormField(this.path, "accountRecoveryProcess", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ServerCallStepEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -156736,6 +162103,244 @@ export class ServerStorageRequirementsPerformanceForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ServiceAccountCredentialPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get serviceAccountPasswordPolicy(): string {
+    return this.doc.formField(this.path, "serviceAccountPasswordPolicy") || '';
+  }
+
+  set serviceAccountPasswordPolicy(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountPasswordPolicy", value);
+  }
+
+  get serviceAccountRotationPeriod(): string {
+    return this.doc.formField(this.path, "serviceAccountRotationPeriod") || '';
+  }
+
+  set serviceAccountRotationPeriod(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountRotationPeriod", value);
+  }
+
+  get apiKeyLifetime(): string {
+    return this.doc.formField(this.path, "apiKeyLifetime") || '';
+  }
+
+  set apiKeyLifetime(value: string) {
+    this.doc.setFormField(this.path, "apiKeyLifetime", value);
+  }
+
+  get apiKeyRotationPolicy(): string {
+    return this.doc.formField(this.path, "apiKeyRotationPolicy") || '';
+  }
+
+  set apiKeyRotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "apiKeyRotationPolicy", value);
+  }
+
+  get secretsManagementTool(): string {
+    return this.doc.formField(this.path, "secretsManagementTool") || '';
+  }
+
+  set secretsManagementTool(value: string) {
+    this.doc.setFormField(this.path, "secretsManagementTool", value);
+  }
+
+  get machineToMachineAuth(): string {
+    return this.doc.formField(this.path, "machineToMachineAuth") || '';
+  }
+
+  set machineToMachineAuth(value: string) {
+    this.doc.setFormField(this.path, "machineToMachineAuth", value);
+  }
+
+  get serviceAccountMfaRequired(): string {
+    return this.doc.formField(this.path, "serviceAccountMfaRequired") || '';
+  }
+
+  set serviceAccountMfaRequired(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountMfaRequired", value);
+  }
+
+  get sharedCredentialProhibition(): string {
+    return this.doc.formField(this.path, "sharedCredentialProhibition") || '';
+  }
+
+  set sharedCredentialProhibition(value: string) {
+    this.doc.setFormField(this.path, "sharedCredentialProhibition", value);
+  }
+
+  get credentialVaultIntegration(): string {
+    return this.doc.formField(this.path, "credentialVaultIntegration") || '';
+  }
+
+  set credentialVaultIntegration(value: string) {
+    this.doc.setFormField(this.path, "credentialVaultIntegration", value);
+  }
+
+  get hardcodedCredentialDetection(): string {
+    return this.doc.formField(this.path, "hardcodedCredentialDetection") || '';
+  }
+
+  set hardcodedCredentialDetection(value: string) {
+    this.doc.setFormField(this.path, "hardcodedCredentialDetection", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ServiceAccountLifecycleContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get serviceAccountTypes(): string {
+    return this.doc.formField(this.path, "serviceAccountTypes") || '';
+  }
+
+  set serviceAccountTypes(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountTypes", value);
+  }
+
+  get creationProcess(): string {
+    return this.doc.formField(this.path, "creationProcess") || '';
+  }
+
+  set creationProcess(value: string) {
+    this.doc.setFormField(this.path, "creationProcess", value);
+  }
+
+  get creationApproval(): string {
+    return this.doc.formField(this.path, "creationApproval") || '';
+  }
+
+  set creationApproval(value: string) {
+    this.doc.setFormField(this.path, "creationApproval", value);
+  }
+
+  get ownerAssignment(): string {
+    return this.doc.formField(this.path, "ownerAssignment") || '';
+  }
+
+  set ownerAssignment(value: string) {
+    this.doc.setFormField(this.path, "ownerAssignment", value);
+  }
+
+  get ownerReviewFrequency(): string {
+    return this.doc.formField(this.path, "ownerReviewFrequency") || '';
+  }
+
+  set ownerReviewFrequency(value: string) {
+    this.doc.setFormField(this.path, "ownerReviewFrequency", value);
+  }
+
+  get credentialRotationPolicy(): string {
+    return this.doc.formField(this.path, "credentialRotationPolicy") || '';
+  }
+
+  set credentialRotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "credentialRotationPolicy", value);
+  }
+
+  get credentialStorageMethod(): string {
+    return this.doc.formField(this.path, "credentialStorageMethod") || '';
+  }
+
+  set credentialStorageMethod(value: string) {
+    this.doc.setFormField(this.path, "credentialStorageMethod", value);
+  }
+
+  get scopeLimitation(): string {
+    return this.doc.formField(this.path, "scopeLimitation") || '';
+  }
+
+  set scopeLimitation(value: string) {
+    this.doc.setFormField(this.path, "scopeLimitation", value);
+  }
+
+  get ipRestriction(): string {
+    return this.doc.formField(this.path, "ipRestriction") || '';
+  }
+
+  set ipRestriction(value: string) {
+    this.doc.setFormField(this.path, "ipRestriction", value);
+  }
+
+  get expirationPolicy(): string {
+    return this.doc.formField(this.path, "expirationPolicy") || '';
+  }
+
+  set expirationPolicy(value: string) {
+    this.doc.setFormField(this.path, "expirationPolicy", value);
+  }
+
+  get renewalProcess(): string {
+    return this.doc.formField(this.path, "renewalProcess") || '';
+  }
+
+  set renewalProcess(value: string) {
+    this.doc.setFormField(this.path, "renewalProcess", value);
+  }
+
+  get decommissioningProcess(): string {
+    return this.doc.formField(this.path, "decommissioningProcess") || '';
+  }
+
+  set decommissioningProcess(value: string) {
+    this.doc.setFormField(this.path, "decommissioningProcess", value);
+  }
+
+  get monitoringRequirements(): string {
+    return this.doc.formField(this.path, "monitoringRequirements") || '';
+  }
+
+  set monitoringRequirements(value: string) {
+    this.doc.setFormField(this.path, "monitoringRequirements", value);
+  }
+
+  get serviceAccountNamingConvention(): string {
+    return this.doc.formField(this.path, "serviceAccountNamingConvention") || '';
+  }
+
+  set serviceAccountNamingConvention(value: string) {
+    this.doc.setFormField(this.path, "serviceAccountNamingConvention", value);
+  }
+
+  get documentationRequirements(): string {
+    return this.doc.formField(this.path, "documentationRequirements") || '';
+  }
+
+  set documentationRequirements(value: string) {
+    this.doc.setFormField(this.path, "documentationRequirements", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ServiceLevelAgreementEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -157411,6 +163016,244 @@ export class ServiceMeshAndGatewayMeshForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SessionCreationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get sessionMechanism(): string {
+    return this.doc.formField(this.path, "sessionMechanism") || '';
+  }
+
+  set sessionMechanism(value: string) {
+    this.doc.setFormField(this.path, "sessionMechanism", value);
+  }
+
+  get sessionIdGeneration(): string {
+    return this.doc.formField(this.path, "sessionIdGeneration") || '';
+  }
+
+  set sessionIdGeneration(value: string) {
+    this.doc.setFormField(this.path, "sessionIdGeneration", value);
+  }
+
+  get sessionIdEntropy(): string {
+    return this.doc.formField(this.path, "sessionIdEntropy") || '';
+  }
+
+  set sessionIdEntropy(value: string) {
+    this.doc.setFormField(this.path, "sessionIdEntropy", value);
+  }
+
+  get sessionBindingMethod(): string {
+    return this.doc.formField(this.path, "sessionBindingMethod") || '';
+  }
+
+  set sessionBindingMethod(value: string) {
+    this.doc.setFormField(this.path, "sessionBindingMethod", value);
+  }
+
+  get httpOnlyCookies(): string {
+    return this.doc.formField(this.path, "httpOnlyCookies") || '';
+  }
+
+  set httpOnlyCookies(value: string) {
+    this.doc.setFormField(this.path, "httpOnlyCookies", value);
+  }
+
+  get secureCookies(): string {
+    return this.doc.formField(this.path, "secureCookies") || '';
+  }
+
+  set secureCookies(value: string) {
+    this.doc.setFormField(this.path, "secureCookies", value);
+  }
+
+  get sameSitePolicy(): string {
+    return this.doc.formField(this.path, "sameSitePolicy") || '';
+  }
+
+  set sameSitePolicy(value: string) {
+    this.doc.setFormField(this.path, "sameSitePolicy", value);
+  }
+
+  get cookieDomain(): string {
+    return this.doc.formField(this.path, "cookieDomain") || '';
+  }
+
+  set cookieDomain(value: string) {
+    this.doc.setFormField(this.path, "cookieDomain", value);
+  }
+
+  get deviceBinding(): string {
+    return this.doc.formField(this.path, "deviceBinding") || '';
+  }
+
+  set deviceBinding(value: string) {
+    this.doc.setFormField(this.path, "deviceBinding", value);
+  }
+
+  get sessionDataStorage(): string {
+    return this.doc.formField(this.path, "sessionDataStorage") || '';
+  }
+
+  set sessionDataStorage(value: string) {
+    this.doc.setFormField(this.path, "sessionDataStorage", value);
+  }
+
+  get sessionReplicationStrategy(): string {
+    return this.doc.formField(this.path, "sessionReplicationStrategy") || '';
+  }
+
+  set sessionReplicationStrategy(value: string) {
+    this.doc.setFormField(this.path, "sessionReplicationStrategy", value);
+  }
+
+  get csrfProtection(): string {
+    return this.doc.formField(this.path, "csrfProtection") || '';
+  }
+
+  set csrfProtection(value: string) {
+    this.doc.setFormField(this.path, "csrfProtection", value);
+  }
+
+  get postLoginRedirectValidation(): string {
+    return this.doc.formField(this.path, "postLoginRedirectValidation") || '';
+  }
+
+  set postLoginRedirectValidation(value: string) {
+    this.doc.setFormField(this.path, "postLoginRedirectValidation", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SessionLifecycleMonitoringContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get sessionCreationLogging(): string {
+    return this.doc.formField(this.path, "sessionCreationLogging") || '';
+  }
+
+  set sessionCreationLogging(value: string) {
+    this.doc.setFormField(this.path, "sessionCreationLogging", value);
+  }
+
+  get sessionDestructionLogging(): string {
+    return this.doc.formField(this.path, "sessionDestructionLogging") || '';
+  }
+
+  set sessionDestructionLogging(value: string) {
+    this.doc.setFormField(this.path, "sessionDestructionLogging", value);
+  }
+
+  get sessionRenewalLogging(): string {
+    return this.doc.formField(this.path, "sessionRenewalLogging") || '';
+  }
+
+  set sessionRenewalLogging(value: string) {
+    this.doc.setFormField(this.path, "sessionRenewalLogging", value);
+  }
+
+  get sessionEventDetails(): string {
+    return this.doc.formField(this.path, "sessionEventDetails") || '';
+  }
+
+  set sessionEventDetails(value: string) {
+    this.doc.setFormField(this.path, "sessionEventDetails", value);
+  }
+
+  get sessionIdInLogs(): string {
+    return this.doc.formField(this.path, "sessionIdInLogs") || '';
+  }
+
+  set sessionIdInLogs(value: string) {
+    this.doc.setFormField(this.path, "sessionIdInLogs", value);
+  }
+
+  get sessionActivityTracking(): string {
+    return this.doc.formField(this.path, "sessionActivityTracking") || '';
+  }
+
+  set sessionActivityTracking(value: string) {
+    this.doc.setFormField(this.path, "sessionActivityTracking", value);
+  }
+
+  get sessionHistoryVisibleToUser(): string {
+    return this.doc.formField(this.path, "sessionHistoryVisibleToUser") || '';
+  }
+
+  set sessionHistoryVisibleToUser(value: string) {
+    this.doc.setFormField(this.path, "sessionHistoryVisibleToUser", value);
+  }
+
+  get failedSessionAccessLogging(): string {
+    return this.doc.formField(this.path, "failedSessionAccessLogging") || '';
+  }
+
+  set failedSessionAccessLogging(value: string) {
+    this.doc.setFormField(this.path, "failedSessionAccessLogging", value);
+  }
+
+  get sessionMetricsCollection(): string {
+    return this.doc.formField(this.path, "sessionMetricsCollection") || '';
+  }
+
+  set sessionMetricsCollection(value: string) {
+    this.doc.setFormField(this.path, "sessionMetricsCollection", value);
+  }
+
+  get sessionAuditRetention(): string {
+    return this.doc.formField(this.path, "sessionAuditRetention") || '';
+  }
+
+  set sessionAuditRetention(value: string) {
+    this.doc.setFormField(this.path, "sessionAuditRetention", value);
+  }
+
+  get realTimeSessionAlerts(): string {
+    return this.doc.formField(this.path, "realTimeSessionAlerts") || '';
+  }
+
+  set realTimeSessionAlerts(value: string) {
+    this.doc.setFormField(this.path, "realTimeSessionAlerts", value);
+  }
+
+  get alertTriggers(): string {
+    return this.doc.formField(this.path, "alertTriggers") || '';
+  }
+
+  set alertTriggers(value: string) {
+    this.doc.setFormField(this.path, "alertTriggers", value);
+  }
+}
+
 // Generated section facade for the `lifecycle` @Form section: its own content text followed by one typed member per form field.
 export class SessionModelLifecycleForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -157562,6 +163405,399 @@ export class SessionModelSessionConfigurationForm extends SomNode {
 
   set absoluteTimeout(value: string) {
     this.doc.setFormField(this.path, "absoluteTimeout", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SessionRevocationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get logoutMechanism(): string {
+    return this.doc.formField(this.path, "logoutMechanism") || '';
+  }
+
+  set logoutMechanism(value: string) {
+    this.doc.setFormField(this.path, "logoutMechanism", value);
+  }
+
+  get logoutButtonPlacement(): string {
+    return this.doc.formField(this.path, "logoutButtonPlacement") || '';
+  }
+
+  set logoutButtonPlacement(value: string) {
+    this.doc.setFormField(this.path, "logoutButtonPlacement", value);
+  }
+
+  get logoutConfirmation(): string {
+    return this.doc.formField(this.path, "logoutConfirmation") || '';
+  }
+
+  set logoutConfirmation(value: string) {
+    this.doc.setFormField(this.path, "logoutConfirmation", value);
+  }
+
+  get postLogoutRedirect(): string {
+    return this.doc.formField(this.path, "postLogoutRedirect") || '';
+  }
+
+  set postLogoutRedirect(value: string) {
+    this.doc.setFormField(this.path, "postLogoutRedirect", value);
+  }
+
+  get postLogoutCacheClear(): string {
+    return this.doc.formField(this.path, "postLogoutCacheClear") || '';
+  }
+
+  set postLogoutCacheClear(value: string) {
+    this.doc.setFormField(this.path, "postLogoutCacheClear", value);
+  }
+
+  get singleLogoutEnabled(): string {
+    return this.doc.formField(this.path, "singleLogoutEnabled") || '';
+  }
+
+  set singleLogoutEnabled(value: string) {
+    this.doc.setFormField(this.path, "singleLogoutEnabled", value);
+  }
+
+  get singleLogoutProtocol(): string {
+    return this.doc.formField(this.path, "singleLogoutProtocol") || '';
+  }
+
+  set singleLogoutProtocol(value: string) {
+    this.doc.setFormField(this.path, "singleLogoutProtocol", value);
+  }
+
+  get privilegeChangeRevocation(): string {
+    return this.doc.formField(this.path, "privilegeChangeRevocation") || '';
+  }
+
+  set privilegeChangeRevocation(value: string) {
+    this.doc.setFormField(this.path, "privilegeChangeRevocation", value);
+  }
+
+  get passwordChangeRevocation(): string {
+    return this.doc.formField(this.path, "passwordChangeRevocation") || '';
+  }
+
+  set passwordChangeRevocation(value: string) {
+    this.doc.setFormField(this.path, "passwordChangeRevocation", value);
+  }
+
+  get compromiseRevocation(): string {
+    return this.doc.formField(this.path, "compromiseRevocation") || '';
+  }
+
+  set compromiseRevocation(value: string) {
+    this.doc.setFormField(this.path, "compromiseRevocation", value);
+  }
+
+  get adminTerminationEnabled(): string {
+    return this.doc.formField(this.path, "adminTerminationEnabled") || '';
+  }
+
+  set adminTerminationEnabled(value: string) {
+    this.doc.setFormField(this.path, "adminTerminationEnabled", value);
+  }
+
+  get bulkRevocationEnabled(): string {
+    return this.doc.formField(this.path, "bulkRevocationEnabled") || '';
+  }
+
+  set bulkRevocationEnabled(value: string) {
+    this.doc.setFormField(this.path, "bulkRevocationEnabled", value);
+  }
+
+  get revocationPropagationDelay(): string {
+    return this.doc.formField(this.path, "revocationPropagationDelay") || '';
+  }
+
+  set revocationPropagationDelay(value: string) {
+    this.doc.setFormField(this.path, "revocationPropagationDelay", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SessionSecurityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get sessionFixationProtection(): string {
+    return this.doc.formField(this.path, "sessionFixationProtection") || '';
+  }
+
+  set sessionFixationProtection(value: string) {
+    this.doc.setFormField(this.path, "sessionFixationProtection", value);
+  }
+
+  get sessionIdRegenerationTriggers(): string {
+    return this.doc.formField(this.path, "sessionIdRegenerationTriggers") || '';
+  }
+
+  set sessionIdRegenerationTriggers(value: string) {
+    this.doc.setFormField(this.path, "sessionIdRegenerationTriggers", value);
+  }
+
+  get sessionBindingProperties(): string {
+    return this.doc.formField(this.path, "sessionBindingProperties") || '';
+  }
+
+  set sessionBindingProperties(value: string) {
+    this.doc.setFormField(this.path, "sessionBindingProperties", value);
+  }
+
+  get bindingMismatchAction(): string {
+    return this.doc.formField(this.path, "bindingMismatchAction") || '';
+  }
+
+  set bindingMismatchAction(value: string) {
+    this.doc.setFormField(this.path, "bindingMismatchAction", value);
+  }
+
+  get sessionAnomalyDetection(): string {
+    return this.doc.formField(this.path, "sessionAnomalyDetection") || '';
+  }
+
+  set sessionAnomalyDetection(value: string) {
+    this.doc.setFormField(this.path, "sessionAnomalyDetection", value);
+  }
+
+  get anomalyDetectionSignals(): string {
+    return this.doc.formField(this.path, "anomalyDetectionSignals") || '';
+  }
+
+  set anomalyDetectionSignals(value: string) {
+    this.doc.setFormField(this.path, "anomalyDetectionSignals", value);
+  }
+
+  get sessionCachePolicy(): string {
+    return this.doc.formField(this.path, "sessionCachePolicy") || '';
+  }
+
+  set sessionCachePolicy(value: string) {
+    this.doc.setFormField(this.path, "sessionCachePolicy", value);
+  }
+
+  get clearSiteDataOnLogout(): string {
+    return this.doc.formField(this.path, "clearSiteDataOnLogout") || '';
+  }
+
+  set clearSiteDataOnLogout(value: string) {
+    this.doc.setFormField(this.path, "clearSiteDataOnLogout", value);
+  }
+
+  get sessionTransportSecurity(): string {
+    return this.doc.formField(this.path, "sessionTransportSecurity") || '';
+  }
+
+  set sessionTransportSecurity(value: string) {
+    this.doc.setFormField(this.path, "sessionTransportSecurity", value);
+  }
+
+  get sessionIdInUrlPrevention(): string {
+    return this.doc.formField(this.path, "sessionIdInUrlPrevention") || '';
+  }
+
+  set sessionIdInUrlPrevention(value: string) {
+    this.doc.setFormField(this.path, "sessionIdInUrlPrevention", value);
+  }
+
+  get crossOriginSessionProtection(): string {
+    return this.doc.formField(this.path, "crossOriginSessionProtection") || '';
+  }
+
+  set crossOriginSessionProtection(value: string) {
+    this.doc.setFormField(this.path, "crossOriginSessionProtection", value);
+  }
+
+  get sessionDataMinimization(): string {
+    return this.doc.formField(this.path, "sessionDataMinimization") || '';
+  }
+
+  set sessionDataMinimization(value: string) {
+    this.doc.setFormField(this.path, "sessionDataMinimization", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SessionTimeoutPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get idleTimeoutDefault(): string {
+    return this.doc.formField(this.path, "idleTimeoutDefault") || '';
+  }
+
+  set idleTimeoutDefault(value: string) {
+    this.doc.setFormField(this.path, "idleTimeoutDefault", value);
+  }
+
+  get idleTimeoutHighValue(): string {
+    return this.doc.formField(this.path, "idleTimeoutHighValue") || '';
+  }
+
+  set idleTimeoutHighValue(value: string) {
+    this.doc.setFormField(this.path, "idleTimeoutHighValue", value);
+  }
+
+  get absoluteTimeout(): string {
+    return this.doc.formField(this.path, "absoluteTimeout") || '';
+  }
+
+  set absoluteTimeout(value: string) {
+    this.doc.setFormField(this.path, "absoluteTimeout", value);
+  }
+
+  get renewalTimeout(): string {
+    return this.doc.formField(this.path, "renewalTimeout") || '';
+  }
+
+  set renewalTimeout(value: string) {
+    this.doc.setFormField(this.path, "renewalTimeout", value);
+  }
+
+  get idleTimeoutAal1(): string {
+    return this.doc.formField(this.path, "idleTimeoutAal1") || '';
+  }
+
+  set idleTimeoutAal1(value: string) {
+    this.doc.setFormField(this.path, "idleTimeoutAal1", value);
+  }
+
+  get absoluteTimeoutAal1(): string {
+    return this.doc.formField(this.path, "absoluteTimeoutAal1") || '';
+  }
+
+  set absoluteTimeoutAal1(value: string) {
+    this.doc.setFormField(this.path, "absoluteTimeoutAal1", value);
+  }
+
+  get idleTimeoutAal2(): string {
+    return this.doc.formField(this.path, "idleTimeoutAal2") || '';
+  }
+
+  set idleTimeoutAal2(value: string) {
+    this.doc.setFormField(this.path, "idleTimeoutAal2", value);
+  }
+
+  get absoluteTimeoutAal2(): string {
+    return this.doc.formField(this.path, "absoluteTimeoutAal2") || '';
+  }
+
+  set absoluteTimeoutAal2(value: string) {
+    this.doc.setFormField(this.path, "absoluteTimeoutAal2", value);
+  }
+
+  get idleTimeoutAal3(): string {
+    return this.doc.formField(this.path, "idleTimeoutAal3") || '';
+  }
+
+  set idleTimeoutAal3(value: string) {
+    this.doc.setFormField(this.path, "idleTimeoutAal3", value);
+  }
+
+  get absoluteTimeoutAal3(): string {
+    return this.doc.formField(this.path, "absoluteTimeoutAal3") || '';
+  }
+
+  set absoluteTimeoutAal3(value: string) {
+    this.doc.setFormField(this.path, "absoluteTimeoutAal3", value);
+  }
+
+  get timeoutEnforcement(): string {
+    return this.doc.formField(this.path, "timeoutEnforcement") || '';
+  }
+
+  set timeoutEnforcement(value: string) {
+    this.doc.setFormField(this.path, "timeoutEnforcement", value);
+  }
+
+  get timeoutWarningEnabled(): string {
+    return this.doc.formField(this.path, "timeoutWarningEnabled") || '';
+  }
+
+  set timeoutWarningEnabled(value: string) {
+    this.doc.setFormField(this.path, "timeoutWarningEnabled", value);
+  }
+
+  get timeoutWarningLeadTime(): string {
+    return this.doc.formField(this.path, "timeoutWarningLeadTime") || '';
+  }
+
+  set timeoutWarningLeadTime(value: string) {
+    this.doc.setFormField(this.path, "timeoutWarningLeadTime", value);
+  }
+
+  get timeoutWarningAction(): string {
+    return this.doc.formField(this.path, "timeoutWarningAction") || '';
+  }
+
+  set timeoutWarningAction(value: string) {
+    this.doc.setFormField(this.path, "timeoutWarningAction", value);
+  }
+
+  get sessionExtensionAllowed(): string {
+    return this.doc.formField(this.path, "sessionExtensionAllowed") || '';
+  }
+
+  set sessionExtensionAllowed(value: string) {
+    this.doc.setFormField(this.path, "sessionExtensionAllowed", value);
+  }
+
+  get maxExtensions(): string {
+    return this.doc.formField(this.path, "maxExtensions") || '';
+  }
+
+  set maxExtensions(value: string) {
+    this.doc.setFormField(this.path, "maxExtensions", value);
+  }
+
+  get gracePeriodAfterExpiry(): string {
+    return this.doc.formField(this.path, "gracePeriodAfterExpiry") || '';
+  }
+
+  set gracePeriodAfterExpiry(value: string) {
+    this.doc.setFormField(this.path, "gracePeriodAfterExpiry", value);
   }
 }
 
@@ -159507,6 +165743,121 @@ export class SpecializedEquipmentEntryTechnicalForm extends SomNode {
 
   set certifications(value: string) {
     this.doc.setFormField(this.path, "certifications", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class SsoPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ssoEnabled(): string {
+    return this.doc.formField(this.path, "ssoEnabled") || '';
+  }
+
+  set ssoEnabled(value: string) {
+    this.doc.setFormField(this.path, "ssoEnabled", value);
+  }
+
+  get ssoProtocol(): string {
+    return this.doc.formField(this.path, "ssoProtocol") || '';
+  }
+
+  set ssoProtocol(value: string) {
+    this.doc.setFormField(this.path, "ssoProtocol", value);
+  }
+
+  get identityProviderType(): string {
+    return this.doc.formField(this.path, "identityProviderType") || '';
+  }
+
+  set identityProviderType(value: string) {
+    this.doc.setFormField(this.path, "identityProviderType", value);
+  }
+
+  get identityProviderProduct(): string {
+    return this.doc.formField(this.path, "identityProviderProduct") || '';
+  }
+
+  set identityProviderProduct(value: string) {
+    this.doc.setFormField(this.path, "identityProviderProduct", value);
+  }
+
+  get federationProtocol(): string {
+    return this.doc.formField(this.path, "federationProtocol") || '';
+  }
+
+  set federationProtocol(value: string) {
+    this.doc.setFormField(this.path, "federationProtocol", value);
+  }
+
+  get attributeMapping(): string {
+    return this.doc.formField(this.path, "attributeMapping") || '';
+  }
+
+  set attributeMapping(value: string) {
+    this.doc.setFormField(this.path, "attributeMapping", value);
+  }
+
+  get justInTimeProvisioning(): string {
+    return this.doc.formField(this.path, "justInTimeProvisioning") || '';
+  }
+
+  set justInTimeProvisioning(value: string) {
+    this.doc.setFormField(this.path, "justInTimeProvisioning", value);
+  }
+
+  get sessionSynchronization(): string {
+    return this.doc.formField(this.path, "sessionSynchronization") || '';
+  }
+
+  set sessionSynchronization(value: string) {
+    this.doc.setFormField(this.path, "sessionSynchronization", value);
+  }
+
+  get singleLogoutEnabled(): string {
+    return this.doc.formField(this.path, "singleLogoutEnabled") || '';
+  }
+
+  set singleLogoutEnabled(value: string) {
+    this.doc.setFormField(this.path, "singleLogoutEnabled", value);
+  }
+
+  get ssoFallbackMethod(): string {
+    return this.doc.formField(this.path, "ssoFallbackMethod") || '';
+  }
+
+  set ssoFallbackMethod(value: string) {
+    this.doc.setFormField(this.path, "ssoFallbackMethod", value);
+  }
+
+  get ssoScopePolicy(): string {
+    return this.doc.formField(this.path, "ssoScopePolicy") || '';
+  }
+
+  set ssoScopePolicy(value: string) {
+    this.doc.setFormField(this.path, "ssoScopePolicy", value);
+  }
+
+  get externalIdpTrustPolicy(): string {
+    return this.doc.formField(this.path, "externalIdpTrustPolicy") || '';
+  }
+
+  set externalIdpTrustPolicy(value: string) {
+    this.doc.setFormField(this.path, "externalIdpTrustPolicy", value);
   }
 }
 
@@ -164118,6 +170469,416 @@ export class StakeholdersAndInterestsContentForm extends SomNode {
 
   set otherStakeholders(value: string) {
     this.doc.setFormField(this.path, "otherStakeholders", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class StepUpAuthenticationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get stepUpEnabled(): string {
+    return this.doc.formField(this.path, "stepUpEnabled") || '';
+  }
+
+  set stepUpEnabled(value: string) {
+    this.doc.setFormField(this.path, "stepUpEnabled", value);
+  }
+
+  get stepUpTriggers(): string {
+    return this.doc.formField(this.path, "stepUpTriggers") || '';
+  }
+
+  set stepUpTriggers(value: string) {
+    this.doc.setFormField(this.path, "stepUpTriggers", value);
+  }
+
+  get stepUpTargetAal(): string {
+    return this.doc.formField(this.path, "stepUpTargetAal") || '';
+  }
+
+  set stepUpTargetAal(value: string) {
+    this.doc.setFormField(this.path, "stepUpTargetAal", value);
+  }
+
+  get stepUpTimeout(): string {
+    return this.doc.formField(this.path, "stepUpTimeout") || '';
+  }
+
+  set stepUpTimeout(value: string) {
+    this.doc.setFormField(this.path, "stepUpTimeout", value);
+  }
+
+  get riskBasedAuthEnabled(): string {
+    return this.doc.formField(this.path, "riskBasedAuthEnabled") || '';
+  }
+
+  set riskBasedAuthEnabled(value: string) {
+    this.doc.setFormField(this.path, "riskBasedAuthEnabled", value);
+  }
+
+  get riskSignals(): string {
+    return this.doc.formField(this.path, "riskSignals") || '';
+  }
+
+  set riskSignals(value: string) {
+    this.doc.setFormField(this.path, "riskSignals", value);
+  }
+
+  get riskScoringMethod(): string {
+    return this.doc.formField(this.path, "riskScoringMethod") || '';
+  }
+
+  set riskScoringMethod(value: string) {
+    this.doc.setFormField(this.path, "riskScoringMethod", value);
+  }
+
+  get lowRiskAction(): string {
+    return this.doc.formField(this.path, "lowRiskAction") || '';
+  }
+
+  set lowRiskAction(value: string) {
+    this.doc.setFormField(this.path, "lowRiskAction", value);
+  }
+
+  get mediumRiskAction(): string {
+    return this.doc.formField(this.path, "mediumRiskAction") || '';
+  }
+
+  set mediumRiskAction(value: string) {
+    this.doc.setFormField(this.path, "mediumRiskAction", value);
+  }
+
+  get highRiskAction(): string {
+    return this.doc.formField(this.path, "highRiskAction") || '';
+  }
+
+  set highRiskAction(value: string) {
+    this.doc.setFormField(this.path, "highRiskAction", value);
+  }
+
+  get adaptiveAuthProvider(): string {
+    return this.doc.formField(this.path, "adaptiveAuthProvider") || '';
+  }
+
+  set adaptiveAuthProvider(value: string) {
+    this.doc.setFormField(this.path, "adaptiveAuthProvider", value);
+  }
+
+  get continuousAuthEnabled(): string {
+    return this.doc.formField(this.path, "continuousAuthEnabled") || '';
+  }
+
+  set continuousAuthEnabled(value: string) {
+    this.doc.setFormField(this.path, "continuousAuthEnabled", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class StorageEncryptionPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get encryptionAtRest(): boolean | null {
+    const v = this.doc.formField(this.path, "encryptionAtRest");
+    return v == null ? null : v === 'true';
+  }
+
+  set encryptionAtRest(value: boolean | null) {
+    this.doc.setFormField(this.path, "encryptionAtRest", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get encryptionAlgorithm(): string {
+    return this.doc.formField(this.path, "encryptionAlgorithm") || '';
+  }
+
+  set encryptionAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "encryptionAlgorithm", value);
+  }
+
+  get encryptionScope(): string {
+    return this.doc.formField(this.path, "encryptionScope") || '';
+  }
+
+  set encryptionScope(value: string) {
+    this.doc.setFormField(this.path, "encryptionScope", value);
+  }
+
+  get serverSideEncryption(): string {
+    return this.doc.formField(this.path, "serverSideEncryption") || '';
+  }
+
+  set serverSideEncryption(value: string) {
+    this.doc.setFormField(this.path, "serverSideEncryption", value);
+  }
+
+  get clientSideEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "clientSideEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set clientSideEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "clientSideEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get clientSideEncryptionMethod(): string {
+    return this.doc.formField(this.path, "clientSideEncryptionMethod") || '';
+  }
+
+  set clientSideEncryptionMethod(value: string) {
+    this.doc.setFormField(this.path, "clientSideEncryptionMethod", value);
+  }
+
+  get fileKeyRotation(): string {
+    return this.doc.formField(this.path, "fileKeyRotation") || '';
+  }
+
+  set fileKeyRotation(value: string) {
+    this.doc.setFormField(this.path, "fileKeyRotation", value);
+  }
+
+  get perTenantKeys(): boolean | null {
+    const v = this.doc.formField(this.path, "perTenantKeys");
+    return v == null ? null : v === 'true';
+  }
+
+  set perTenantKeys(value: boolean | null) {
+    this.doc.setFormField(this.path, "perTenantKeys", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get keyDeletionOnTenantRemoval(): boolean | null {
+    const v = this.doc.formField(this.path, "keyDeletionOnTenantRemoval");
+    return v == null ? null : v === 'true';
+  }
+
+  set keyDeletionOnTenantRemoval(value: boolean | null) {
+    this.doc.setFormField(this.path, "keyDeletionOnTenantRemoval", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get encryptionInTransit(): boolean | null {
+    const v = this.doc.formField(this.path, "encryptionInTransit");
+    return v == null ? null : v === 'true';
+  }
+
+  set encryptionInTransit(value: boolean | null) {
+    this.doc.setFormField(this.path, "encryptionInTransit", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get minimumTlsVersion(): string {
+    return this.doc.formField(this.path, "minimumTlsVersion") || '';
+  }
+
+  set minimumTlsVersion(value: string) {
+    this.doc.setFormField(this.path, "minimumTlsVersion", value);
+  }
+
+  get backupEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "backupEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set backupEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "backupEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class StorageLifecyclePolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get retentionPolicy(): string {
+    return this.doc.formField(this.path, "retentionPolicy") || '';
+  }
+
+  set retentionPolicy(value: string) {
+    this.doc.setFormField(this.path, "retentionPolicy", value);
+  }
+
+  get defaultRetentionPeriod(): string {
+    return this.doc.formField(this.path, "defaultRetentionPeriod") || '';
+  }
+
+  set defaultRetentionPeriod(value: string) {
+    this.doc.setFormField(this.path, "defaultRetentionPeriod", value);
+  }
+
+  get retentionByFileType(): boolean | null {
+    const v = this.doc.formField(this.path, "retentionByFileType");
+    return v == null ? null : v === 'true';
+  }
+
+  set retentionByFileType(value: boolean | null) {
+    this.doc.setFormField(this.path, "retentionByFileType", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get legalHoldSupport(): boolean | null {
+    const v = this.doc.formField(this.path, "legalHoldSupport");
+    return v == null ? null : v === 'true';
+  }
+
+  set legalHoldSupport(value: boolean | null) {
+    this.doc.setFormField(this.path, "legalHoldSupport", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get archivingEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "archivingEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set archivingEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "archivingEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get archivalStorageTier(): string {
+    return this.doc.formField(this.path, "archivalStorageTier") || '';
+  }
+
+  set archivalStorageTier(value: string) {
+    this.doc.setFormField(this.path, "archivalStorageTier", value);
+  }
+
+  get archivalTransitionDays(): number | null {
+    const v = this.doc.formField(this.path, "archivalTransitionDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set archivalTransitionDays(value: number | null) {
+    this.doc.setFormField(this.path, "archivalTransitionDays", value == null ? '' : String(value));
+  }
+
+  get versioningEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "versioningEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set versioningEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "versioningEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get maxVersions(): number | null {
+    const v = this.doc.formField(this.path, "maxVersions");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxVersions(value: number | null) {
+    this.doc.setFormField(this.path, "maxVersions", value == null ? '' : String(value));
+  }
+
+  get versionRetentionDays(): number | null {
+    const v = this.doc.formField(this.path, "versionRetentionDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set versionRetentionDays(value: number | null) {
+    this.doc.setFormField(this.path, "versionRetentionDays", value == null ? '' : String(value));
+  }
+
+  get backupSchedule(): string {
+    return this.doc.formField(this.path, "backupSchedule") || '';
+  }
+
+  set backupSchedule(value: string) {
+    this.doc.setFormField(this.path, "backupSchedule", value);
+  }
+
+  get backupRetentionDays(): number | null {
+    const v = this.doc.formField(this.path, "backupRetentionDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set backupRetentionDays(value: number | null) {
+    this.doc.setFormField(this.path, "backupRetentionDays", value == null ? '' : String(value));
+  }
+
+  get crossRegionReplication(): boolean | null {
+    const v = this.doc.formField(this.path, "crossRegionReplication");
+    return v == null ? null : v === 'true';
+  }
+
+  set crossRegionReplication(value: boolean | null) {
+    this.doc.setFormField(this.path, "crossRegionReplication", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get secureDeletionMethod(): string {
+    return this.doc.formField(this.path, "secureDeletionMethod") || '';
+  }
+
+  set secureDeletionMethod(value: string) {
+    this.doc.setFormField(this.path, "secureDeletionMethod", value);
+  }
+
+  get deletionConfirmation(): boolean | null {
+    const v = this.doc.formField(this.path, "deletionConfirmation");
+    return v == null ? null : v === 'true';
+  }
+
+  set deletionConfirmation(value: boolean | null) {
+    this.doc.setFormField(this.path, "deletionConfirmation", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get deletionAuditLogging(): boolean | null {
+    const v = this.doc.formField(this.path, "deletionAuditLogging");
+    return v == null ? null : v === 'true';
+  }
+
+  set deletionAuditLogging(value: boolean | null) {
+    this.doc.setFormField(this.path, "deletionAuditLogging", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -172354,6 +179115,175 @@ export class TechnologyStandardEntryScopeForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TenantBoundaryEnforcementPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get enforcementLayer(): string {
+    return this.doc.formField(this.path, "enforcementLayer") || '';
+  }
+
+  set enforcementLayer(value: string) {
+    this.doc.setFormField(this.path, "enforcementLayer", value);
+  }
+
+  get authorizationFilterStrategy(): string {
+    return this.doc.formField(this.path, "authorizationFilterStrategy") || '';
+  }
+
+  set authorizationFilterStrategy(value: string) {
+    this.doc.setFormField(this.path, "authorizationFilterStrategy", value);
+  }
+
+  get implicitTenantFilter(): boolean | null {
+    const v = this.doc.formField(this.path, "implicitTenantFilter");
+    return v == null ? null : v === 'true';
+  }
+
+  set implicitTenantFilter(value: boolean | null) {
+    this.doc.setFormField(this.path, "implicitTenantFilter", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get escalationPrevention(): string {
+    return this.doc.formField(this.path, "escalationPrevention") || '';
+  }
+
+  set escalationPrevention(value: string) {
+    this.doc.setFormField(this.path, "escalationPrevention", value);
+  }
+
+  get sharedServiceAuthorization(): string {
+    return this.doc.formField(this.path, "sharedServiceAuthorization") || '';
+  }
+
+  set sharedServiceAuthorization(value: string) {
+    this.doc.setFormField(this.path, "sharedServiceAuthorization", value);
+  }
+
+  get tenantSwitchingPolicy(): string {
+    return this.doc.formField(this.path, "tenantSwitchingPolicy") || '';
+  }
+
+  set tenantSwitchingPolicy(value: string) {
+    this.doc.setFormField(this.path, "tenantSwitchingPolicy", value);
+  }
+
+  get multiTenantUserSupport(): boolean | null {
+    const v = this.doc.formField(this.path, "multiTenantUserSupport");
+    return v == null ? null : v === 'true';
+  }
+
+  set multiTenantUserSupport(value: boolean | null) {
+    this.doc.setFormField(this.path, "multiTenantUserSupport", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get authorizationCaching(): string {
+    return this.doc.formField(this.path, "authorizationCaching") || '';
+  }
+
+  set authorizationCaching(value: string) {
+    this.doc.setFormField(this.path, "authorizationCaching", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TenantContextPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get contextResolutionMethod(): string {
+    return this.doc.formField(this.path, "contextResolutionMethod") || '';
+  }
+
+  set contextResolutionMethod(value: string) {
+    this.doc.setFormField(this.path, "contextResolutionMethod", value);
+  }
+
+  get contextPropagation(): string {
+    return this.doc.formField(this.path, "contextPropagation") || '';
+  }
+
+  set contextPropagation(value: string) {
+    this.doc.setFormField(this.path, "contextPropagation", value);
+  }
+
+  get contextValidation(): string {
+    return this.doc.formField(this.path, "contextValidation") || '';
+  }
+
+  set contextValidation(value: string) {
+    this.doc.setFormField(this.path, "contextValidation", value);
+  }
+
+  get contextImmutability(): boolean | null {
+    const v = this.doc.formField(this.path, "contextImmutability");
+    return v == null ? null : v === 'true';
+  }
+
+  set contextImmutability(value: boolean | null) {
+    this.doc.setFormField(this.path, "contextImmutability", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get crossServicePropagation(): string {
+    return this.doc.formField(this.path, "crossServicePropagation") || '';
+  }
+
+  set crossServicePropagation(value: string) {
+    this.doc.setFormField(this.path, "crossServicePropagation", value);
+  }
+
+  get missingContextBehavior(): string {
+    return this.doc.formField(this.path, "missingContextBehavior") || '';
+  }
+
+  set missingContextBehavior(value: string) {
+    this.doc.setFormField(this.path, "missingContextBehavior", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class TenantCustomizationEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -172438,6 +179368,205 @@ export class TenantCustomizationEntryContentForm extends SomNode {
 
   set customizationAudit(value: boolean | null) {
     this.doc.setFormField(this.path, "customizationAudit", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TenantDataIsolationPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get tenantIsolationModel(): string {
+    return this.doc.formField(this.path, "tenantIsolationModel") || '';
+  }
+
+  set tenantIsolationModel(value: string) {
+    this.doc.setFormField(this.path, "tenantIsolationModel", value);
+  }
+
+  get tenantIdentifierColumn(): string {
+    return this.doc.formField(this.path, "tenantIdentifierColumn") || '';
+  }
+
+  set tenantIdentifierColumn(value: string) {
+    this.doc.setFormField(this.path, "tenantIdentifierColumn", value);
+  }
+
+  get tenantContextInjection(): string {
+    return this.doc.formField(this.path, "tenantContextInjection") || '';
+  }
+
+  set tenantContextInjection(value: string) {
+    this.doc.setFormField(this.path, "tenantContextInjection", value);
+  }
+
+  get tenantIsolationEnforcement(): string {
+    return this.doc.formField(this.path, "tenantIsolationEnforcement") || '';
+  }
+
+  set tenantIsolationEnforcement(value: string) {
+    this.doc.setFormField(this.path, "tenantIsolationEnforcement", value);
+  }
+
+  get crossTenantQueryPrevention(): string {
+    return this.doc.formField(this.path, "crossTenantQueryPrevention") || '';
+  }
+
+  set crossTenantQueryPrevention(value: string) {
+    this.doc.setFormField(this.path, "crossTenantQueryPrevention", value);
+  }
+
+  get tenantDataBackupIsolation(): string {
+    return this.doc.formField(this.path, "tenantDataBackupIsolation") || '';
+  }
+
+  set tenantDataBackupIsolation(value: string) {
+    this.doc.setFormField(this.path, "tenantDataBackupIsolation", value);
+  }
+
+  get tenantDataDeletion(): string {
+    return this.doc.formField(this.path, "tenantDataDeletion") || '';
+  }
+
+  set tenantDataDeletion(value: string) {
+    this.doc.setFormField(this.path, "tenantDataDeletion", value);
+  }
+
+  get tenantDataExport(): string {
+    return this.doc.formField(this.path, "tenantDataExport") || '';
+  }
+
+  set tenantDataExport(value: string) {
+    this.doc.setFormField(this.path, "tenantDataExport", value);
+  }
+
+  get tenantResourceQuotas(): string {
+    return this.doc.formField(this.path, "tenantResourceQuotas") || '';
+  }
+
+  set tenantResourceQuotas(value: string) {
+    this.doc.setFormField(this.path, "tenantResourceQuotas", value);
+  }
+
+  get tenantIsolationTesting(): string {
+    return this.doc.formField(this.path, "tenantIsolationTesting") || '';
+  }
+
+  set tenantIsolationTesting(value: string) {
+    this.doc.setFormField(this.path, "tenantIsolationTesting", value);
+  }
+
+  get sharedReferenceDataAccess(): string {
+    return this.doc.formField(this.path, "sharedReferenceDataAccess") || '';
+  }
+
+  set sharedReferenceDataAccess(value: string) {
+    this.doc.setFormField(this.path, "sharedReferenceDataAccess", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TenantOnboardingPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get authorizationProvisioningModel(): string {
+    return this.doc.formField(this.path, "authorizationProvisioningModel") || '';
+  }
+
+  set authorizationProvisioningModel(value: string) {
+    this.doc.setFormField(this.path, "authorizationProvisioningModel", value);
+  }
+
+  get defaultRoleTemplate(): string {
+    return this.doc.formField(this.path, "defaultRoleTemplate") || '';
+  }
+
+  set defaultRoleTemplate(value: string) {
+    this.doc.setFormField(this.path, "defaultRoleTemplate", value);
+  }
+
+  get adminRoleProvisioning(): string {
+    return this.doc.formField(this.path, "adminRoleProvisioning") || '';
+  }
+
+  set adminRoleProvisioning(value: string) {
+    this.doc.setFormField(this.path, "adminRoleProvisioning", value);
+  }
+
+  get initialPermissionSet(): string {
+    return this.doc.formField(this.path, "initialPermissionSet") || '';
+  }
+
+  set initialPermissionSet(value: string) {
+    this.doc.setFormField(this.path, "initialPermissionSet", value);
+  }
+
+  get offboardingStrategy(): string {
+    return this.doc.formField(this.path, "offboardingStrategy") || '';
+  }
+
+  set offboardingStrategy(value: string) {
+    this.doc.setFormField(this.path, "offboardingStrategy", value);
+  }
+
+  get resourceCleanupOnOffboarding(): string {
+    return this.doc.formField(this.path, "resourceCleanupOnOffboarding") || '';
+  }
+
+  set resourceCleanupOnOffboarding(value: string) {
+    this.doc.setFormField(this.path, "resourceCleanupOnOffboarding", value);
+  }
+
+  get dataRetentionDays(): number | null {
+    const v = this.doc.formField(this.path, "dataRetentionDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set dataRetentionDays(value: number | null) {
+    this.doc.setFormField(this.path, "dataRetentionDays", value == null ? '' : String(value));
+  }
+
+  get offboardingApproval(): string {
+    return this.doc.formField(this.path, "offboardingApproval") || '';
+  }
+
+  set offboardingApproval(value: string) {
+    this.doc.setFormField(this.path, "offboardingApproval", value);
   }
 
   get notes(): string {
@@ -174027,6 +181156,99 @@ export class ThrowawayPrototypeValueForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TlsProtocolPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get minimumTlsVersion(): string {
+    return this.doc.formField(this.path, "minimumTlsVersion") || '';
+  }
+
+  set minimumTlsVersion(value: string) {
+    this.doc.setFormField(this.path, "minimumTlsVersion", value);
+  }
+
+  get preferredTlsVersion(): string {
+    return this.doc.formField(this.path, "preferredTlsVersion") || '';
+  }
+
+  set preferredTlsVersion(value: string) {
+    this.doc.setFormField(this.path, "preferredTlsVersion", value);
+  }
+
+  get allowedCipherSuites(): string {
+    return this.doc.formField(this.path, "allowedCipherSuites") || '';
+  }
+
+  set allowedCipherSuites(value: string) {
+    this.doc.setFormField(this.path, "allowedCipherSuites", value);
+  }
+
+  get preferAuthenticatedEncryption(): boolean | null {
+    const v = this.doc.formField(this.path, "preferAuthenticatedEncryption");
+    return v == null ? null : v === 'true';
+  }
+
+  set preferAuthenticatedEncryption(value: boolean | null) {
+    this.doc.setFormField(this.path, "preferAuthenticatedEncryption", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dhGroups(): string {
+    return this.doc.formField(this.path, "dhGroups") || '';
+  }
+
+  set dhGroups(value: string) {
+    this.doc.setFormField(this.path, "dhGroups", value);
+  }
+
+  get tlsCompressionDisabled(): boolean | null {
+    const v = this.doc.formField(this.path, "tlsCompressionDisabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set tlsCompressionDisabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "tlsCompressionDisabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get sessionResumption(): string {
+    return this.doc.formField(this.path, "sessionResumption") || '';
+  }
+
+  set sessionResumption(value: string) {
+    this.doc.setFormField(this.path, "sessionResumption", value);
+  }
+
+  get complianceFramework(): string {
+    return this.doc.formField(this.path, "complianceFramework") || '';
+  }
+
+  set complianceFramework(value: string) {
+    this.doc.setFormField(this.path, "complianceFramework", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
 // Generated section facade for the `certificateValidation` @Form section: its own content text followed by one typed member per form field.
 export class TlsRequirementsCertificateValidationForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -174253,6 +181475,153 @@ export class TlsRequirementsTerminationForm extends SomNode {
 
   set internalTls(value: boolean | null) {
     this.doc.setFormField(this.path, "internalTls", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TokenManagementPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get tokenFormat(): string {
+    return this.doc.formField(this.path, "tokenFormat") || '';
+  }
+
+  set tokenFormat(value: string) {
+    this.doc.setFormField(this.path, "tokenFormat", value);
+  }
+
+  get tokenSigningAlgorithm(): string {
+    return this.doc.formField(this.path, "tokenSigningAlgorithm") || '';
+  }
+
+  set tokenSigningAlgorithm(value: string) {
+    this.doc.setFormField(this.path, "tokenSigningAlgorithm", value);
+  }
+
+  get accessTokenLifetime(): string {
+    return this.doc.formField(this.path, "accessTokenLifetime") || '';
+  }
+
+  set accessTokenLifetime(value: string) {
+    this.doc.setFormField(this.path, "accessTokenLifetime", value);
+  }
+
+  get refreshTokenEnabled(): string {
+    return this.doc.formField(this.path, "refreshTokenEnabled") || '';
+  }
+
+  set refreshTokenEnabled(value: string) {
+    this.doc.setFormField(this.path, "refreshTokenEnabled", value);
+  }
+
+  get refreshTokenLifetime(): string {
+    return this.doc.formField(this.path, "refreshTokenLifetime") || '';
+  }
+
+  set refreshTokenLifetime(value: string) {
+    this.doc.setFormField(this.path, "refreshTokenLifetime", value);
+  }
+
+  get refreshTokenRotation(): string {
+    return this.doc.formField(this.path, "refreshTokenRotation") || '';
+  }
+
+  set refreshTokenRotation(value: string) {
+    this.doc.setFormField(this.path, "refreshTokenRotation", value);
+  }
+
+  get refreshTokenReuseDetection(): string {
+    return this.doc.formField(this.path, "refreshTokenReuseDetection") || '';
+  }
+
+  set refreshTokenReuseDetection(value: string) {
+    this.doc.setFormField(this.path, "refreshTokenReuseDetection", value);
+  }
+
+  get idTokenEnabled(): string {
+    return this.doc.formField(this.path, "idTokenEnabled") || '';
+  }
+
+  set idTokenEnabled(value: string) {
+    this.doc.setFormField(this.path, "idTokenEnabled", value);
+  }
+
+  get idTokenClaims(): string {
+    return this.doc.formField(this.path, "idTokenClaims") || '';
+  }
+
+  set idTokenClaims(value: string) {
+    this.doc.setFormField(this.path, "idTokenClaims", value);
+  }
+
+  get tokenStorageClient(): string {
+    return this.doc.formField(this.path, "tokenStorageClient") || '';
+  }
+
+  set tokenStorageClient(value: string) {
+    this.doc.setFormField(this.path, "tokenStorageClient", value);
+  }
+
+  get tokenStorageServer(): string {
+    return this.doc.formField(this.path, "tokenStorageServer") || '';
+  }
+
+  set tokenStorageServer(value: string) {
+    this.doc.setFormField(this.path, "tokenStorageServer", value);
+  }
+
+  get tokenRevocationEnabled(): string {
+    return this.doc.formField(this.path, "tokenRevocationEnabled") || '';
+  }
+
+  set tokenRevocationEnabled(value: string) {
+    this.doc.setFormField(this.path, "tokenRevocationEnabled", value);
+  }
+
+  get tokenRevocationPropagation(): string {
+    return this.doc.formField(this.path, "tokenRevocationPropagation") || '';
+  }
+
+  set tokenRevocationPropagation(value: string) {
+    this.doc.setFormField(this.path, "tokenRevocationPropagation", value);
+  }
+
+  get tokenIntrospectionEnabled(): string {
+    return this.doc.formField(this.path, "tokenIntrospectionEnabled") || '';
+  }
+
+  set tokenIntrospectionEnabled(value: string) {
+    this.doc.setFormField(this.path, "tokenIntrospectionEnabled", value);
+  }
+
+  get audienceRestriction(): string {
+    return this.doc.formField(this.path, "audienceRestriction") || '';
+  }
+
+  set audienceRestriction(value: string) {
+    this.doc.setFormField(this.path, "audienceRestriction", value);
+  }
+
+  get scopePolicy(): string {
+    return this.doc.formField(this.path, "scopePolicy") || '';
+  }
+
+  set scopePolicy(value: string) {
+    this.doc.setFormField(this.path, "scopePolicy", value);
   }
 }
 
@@ -178994,6 +186363,104 @@ export class TranslationVendorEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TransportSecurityPolicyContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get hstsEnabled(): boolean | null {
+    const v = this.doc.formField(this.path, "hstsEnabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set hstsEnabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "hstsEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get hstsMaxAgeDays(): number | null {
+    const v = this.doc.formField(this.path, "hstsMaxAgeDays");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set hstsMaxAgeDays(value: number | null) {
+    this.doc.setFormField(this.path, "hstsMaxAgeDays", value == null ? '' : String(value));
+  }
+
+  get hstsIncludeSubdomains(): boolean | null {
+    const v = this.doc.formField(this.path, "hstsIncludeSubdomains");
+    return v == null ? null : v === 'true';
+  }
+
+  set hstsIncludeSubdomains(value: boolean | null) {
+    this.doc.setFormField(this.path, "hstsIncludeSubdomains", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get hstsPreload(): boolean | null {
+    const v = this.doc.formField(this.path, "hstsPreload");
+    return v == null ? null : v === 'true';
+  }
+
+  set hstsPreload(value: boolean | null) {
+    this.doc.setFormField(this.path, "hstsPreload", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get httpToHttpsRedirect(): boolean | null {
+    const v = this.doc.formField(this.path, "httpToHttpsRedirect");
+    return v == null ? null : v === 'true';
+  }
+
+  set httpToHttpsRedirect(value: boolean | null) {
+    this.doc.setFormField(this.path, "httpToHttpsRedirect", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get secureCookieFlag(): boolean | null {
+    const v = this.doc.formField(this.path, "secureCookieFlag");
+    return v == null ? null : v === 'true';
+  }
+
+  set secureCookieFlag(value: boolean | null) {
+    this.doc.setFormField(this.path, "secureCookieFlag", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get preventMixedContent(): boolean | null {
+    const v = this.doc.formField(this.path, "preventMixedContent");
+    return v == null ? null : v === 'true';
+  }
+
+  set preventMixedContent(value: boolean | null) {
+    this.doc.setFormField(this.path, "preventMixedContent", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get sensitiveDataCaching(): string {
+    return this.doc.formField(this.path, "sensitiveDataCaching") || '';
+  }
+
+  set sensitiveDataCaching(value: string) {
+    this.doc.setFormField(this.path, "sensitiveDataCaching", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
 // Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
 export class TroubleshootingCapabilitiesAccessForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -181859,6 +189326,113 @@ export class UserAccessibilityNeedsAccessibilityFormForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserAccountStatesDefinitionContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get stateModel(): string {
+    return this.doc.formField(this.path, "stateModel") || '';
+  }
+
+  set stateModel(value: string) {
+    this.doc.setFormField(this.path, "stateModel", value);
+  }
+
+  get initialState(): string {
+    return this.doc.formField(this.path, "initialState") || '';
+  }
+
+  set initialState(value: string) {
+    this.doc.setFormField(this.path, "initialState", value);
+  }
+
+  get activeState(): string {
+    return this.doc.formField(this.path, "activeState") || '';
+  }
+
+  set activeState(value: string) {
+    this.doc.setFormField(this.path, "activeState", value);
+  }
+
+  get suspendedState(): string {
+    return this.doc.formField(this.path, "suspendedState") || '';
+  }
+
+  set suspendedState(value: string) {
+    this.doc.setFormField(this.path, "suspendedState", value);
+  }
+
+  get lockedState(): string {
+    return this.doc.formField(this.path, "lockedState") || '';
+  }
+
+  set lockedState(value: string) {
+    this.doc.setFormField(this.path, "lockedState", value);
+  }
+
+  get deactivatedState(): string {
+    return this.doc.formField(this.path, "deactivatedState") || '';
+  }
+
+  set deactivatedState(value: string) {
+    this.doc.setFormField(this.path, "deactivatedState", value);
+  }
+
+  get archivedState(): string {
+    return this.doc.formField(this.path, "archivedState") || '';
+  }
+
+  set archivedState(value: string) {
+    this.doc.setFormField(this.path, "archivedState", value);
+  }
+
+  get deletedState(): string {
+    return this.doc.formField(this.path, "deletedState") || '';
+  }
+
+  set deletedState(value: string) {
+    this.doc.setFormField(this.path, "deletedState", value);
+  }
+
+  get customStates(): string {
+    return this.doc.formField(this.path, "customStates") || '';
+  }
+
+  set customStates(value: string) {
+    this.doc.setFormField(this.path, "customStates", value);
+  }
+
+  get stateVisibility(): string {
+    return this.doc.formField(this.path, "stateVisibility") || '';
+  }
+
+  set stateVisibility(value: string) {
+    this.doc.setFormField(this.path, "stateVisibility", value);
+  }
+
+  get stateTransitionDiagramRef(): string {
+    return this.doc.formField(this.path, "stateTransitionDiagramRef") || '';
+  }
+
+  set stateTransitionDiagramRef(value: string) {
+    this.doc.setFormField(this.path, "stateTransitionDiagramRef", value);
+  }
+}
+
 // Generated section facade for the `delivery` @Form section: its own content text followed by one typed member per form field.
 export class UserAssistanceDeliveryForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -182743,6 +190317,92 @@ export class UserGrowthProjectionsThresholdsForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserInteractionModelSummaryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get primaryAccessChannel(): string {
+    return this.doc.formField(this.path, "primaryAccessChannel") || '';
+  }
+
+  set primaryAccessChannel(value: string) {
+    this.doc.setFormField(this.path, "primaryAccessChannel", value);
+  }
+
+  get channelCount(): number | null {
+    const v = this.doc.formField(this.path, "channelCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set channelCount(value: number | null) {
+    this.doc.setFormField(this.path, "channelCount", value == null ? '' : String(value));
+  }
+
+  get interactionPatternCount(): number | null {
+    const v = this.doc.formField(this.path, "interactionPatternCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set interactionPatternCount(value: number | null) {
+    this.doc.setFormField(this.path, "interactionPatternCount", value == null ? '' : String(value));
+  }
+
+  get accessLevelCount(): number | null {
+    const v = this.doc.formField(this.path, "accessLevelCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set accessLevelCount(value: number | null) {
+    this.doc.setFormField(this.path, "accessLevelCount", value == null ? '' : String(value));
+  }
+
+  get multiChannelSupport(): string {
+    return this.doc.formField(this.path, "multiChannelSupport") || '';
+  }
+
+  set multiChannelSupport(value: string) {
+    this.doc.setFormField(this.path, "multiChannelSupport", value);
+  }
+
+  get offlineCapability(): string {
+    return this.doc.formField(this.path, "offlineCapability") || '';
+  }
+
+  set offlineCapability(value: string) {
+    this.doc.setFormField(this.path, "offlineCapability", value);
+  }
+
+  get sessionManagement(): string {
+    return this.doc.formField(this.path, "sessionManagement") || '';
+  }
+
+  set sessionManagement(value: string) {
+    this.doc.setFormField(this.path, "sessionManagement", value);
+  }
+
+  get notificationChannels(): string {
+    return this.doc.formField(this.path, "notificationChannels") || '';
+  }
+
+  set notificationChannels(value: string) {
+    this.doc.setFormField(this.path, "notificationChannels", value);
+  }
+}
+
 // Generated section facade for the `approval` @Form section: its own content text followed by one typed member per form field.
 export class UserLifecycleTransitionEntryApprovalForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -182920,6 +190580,164 @@ export class UserLifecycleTransitionEntryEffectsForm extends SomNode {
 
   set notificationChannels(value: string) {
     this.doc.setFormField(this.path, "notificationChannels", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserLifecycleTransitionsContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get transitionModel(): string {
+    return this.doc.formField(this.path, "transitionModel") || '';
+  }
+
+  set transitionModel(value: string) {
+    this.doc.setFormField(this.path, "transitionModel", value);
+  }
+
+  get approvalPolicyDefault(): string {
+    return this.doc.formField(this.path, "approvalPolicyDefault") || '';
+  }
+
+  set approvalPolicyDefault(value: string) {
+    this.doc.setFormField(this.path, "approvalPolicyDefault", value);
+  }
+
+  get escalationPolicy(): string {
+    return this.doc.formField(this.path, "escalationPolicy") || '';
+  }
+
+  set escalationPolicy(value: string) {
+    this.doc.setFormField(this.path, "escalationPolicy", value);
+  }
+
+  get escalationTimeframe(): string {
+    return this.doc.formField(this.path, "escalationTimeframe") || '';
+  }
+
+  set escalationTimeframe(value: string) {
+    this.doc.setFormField(this.path, "escalationTimeframe", value);
+  }
+
+  get auditTrailRequired(): string {
+    return this.doc.formField(this.path, "auditTrailRequired") || '';
+  }
+
+  set auditTrailRequired(value: string) {
+    this.doc.setFormField(this.path, "auditTrailRequired", value);
+  }
+
+  get notificationOnTransition(): string {
+    return this.doc.formField(this.path, "notificationOnTransition") || '';
+  }
+
+  set notificationOnTransition(value: string) {
+    this.doc.setFormField(this.path, "notificationOnTransition", value);
+  }
+
+  get bulkTransitionSupport(): string {
+    return this.doc.formField(this.path, "bulkTransitionSupport") || '';
+  }
+
+  set bulkTransitionSupport(value: string) {
+    this.doc.setFormField(this.path, "bulkTransitionSupport", value);
+  }
+
+  get automatedTransitions(): string {
+    return this.doc.formField(this.path, "automatedTransitions") || '';
+  }
+
+  set automatedTransitions(value: string) {
+    this.doc.setFormField(this.path, "automatedTransitions", value);
+  }
+
+  get transitionUndoPolicy(): string {
+    return this.doc.formField(this.path, "transitionUndoPolicy") || '';
+  }
+
+  set transitionUndoPolicy(value: string) {
+    this.doc.setFormField(this.path, "transitionUndoPolicy", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserNotificationPreferencesContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get globalOptOut(): string {
+    return this.doc.formField(this.path, "globalOptOut") || '';
+  }
+
+  set globalOptOut(value: string) {
+    this.doc.setFormField(this.path, "globalOptOut", value);
+  }
+
+  get perTypeControl(): string {
+    return this.doc.formField(this.path, "perTypeControl") || '';
+  }
+
+  set perTypeControl(value: string) {
+    this.doc.setFormField(this.path, "perTypeControl", value);
+  }
+
+  get channelPreferences(): string {
+    return this.doc.formField(this.path, "channelPreferences") || '';
+  }
+
+  set channelPreferences(value: string) {
+    this.doc.setFormField(this.path, "channelPreferences", value);
+  }
+
+  get frequencyControl(): string {
+    return this.doc.formField(this.path, "frequencyControl") || '';
+  }
+
+  set frequencyControl(value: string) {
+    this.doc.setFormField(this.path, "frequencyControl", value);
+  }
+
+  get quietHours(): string {
+    return this.doc.formField(this.path, "quietHours") || '';
+  }
+
+  set quietHours(value: string) {
+    this.doc.setFormField(this.path, "quietHours", value);
+  }
+
+  get digestOption(): string {
+    return this.doc.formField(this.path, "digestOption") || '';
+  }
+
+  set digestOption(value: string) {
+    this.doc.setFormField(this.path, "digestOption", value);
   }
 }
 
@@ -183325,6 +191143,161 @@ export class UserProvisioningToolsRoleManagementForm extends SomNode {
 
   set accessReviewProcess(value: string) {
     this.doc.setFormField(this.path, "accessReviewProcess", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserRegistrationProcessContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get registrationMethods(): string {
+    return this.doc.formField(this.path, "registrationMethods") || '';
+  }
+
+  set registrationMethods(value: string) {
+    this.doc.setFormField(this.path, "registrationMethods", value);
+  }
+
+  get selfRegistrationEnabled(): string {
+    return this.doc.formField(this.path, "selfRegistrationEnabled") || '';
+  }
+
+  set selfRegistrationEnabled(value: string) {
+    this.doc.setFormField(this.path, "selfRegistrationEnabled", value);
+  }
+
+  get identityProofingLevel(): string {
+    return this.doc.formField(this.path, "identityProofingLevel") || '';
+  }
+
+  set identityProofingLevel(value: string) {
+    this.doc.setFormField(this.path, "identityProofingLevel", value);
+  }
+
+  get emailVerificationRequired(): string {
+    return this.doc.formField(this.path, "emailVerificationRequired") || '';
+  }
+
+  set emailVerificationRequired(value: string) {
+    this.doc.setFormField(this.path, "emailVerificationRequired", value);
+  }
+
+  get phoneVerificationRequired(): string {
+    return this.doc.formField(this.path, "phoneVerificationRequired") || '';
+  }
+
+  set phoneVerificationRequired(value: string) {
+    this.doc.setFormField(this.path, "phoneVerificationRequired", value);
+  }
+
+  get captchaRequired(): string {
+    return this.doc.formField(this.path, "captchaRequired") || '';
+  }
+
+  set captchaRequired(value: string) {
+    this.doc.setFormField(this.path, "captchaRequired", value);
+  }
+
+  get invitationExpiryPeriod(): string {
+    return this.doc.formField(this.path, "invitationExpiryPeriod") || '';
+  }
+
+  set invitationExpiryPeriod(value: string) {
+    this.doc.setFormField(this.path, "invitationExpiryPeriod", value);
+  }
+
+  get approvalRequired(): string {
+    return this.doc.formField(this.path, "approvalRequired") || '';
+  }
+
+  set approvalRequired(value: string) {
+    this.doc.setFormField(this.path, "approvalRequired", value);
+  }
+
+  get approvalWorkflow(): string {
+    return this.doc.formField(this.path, "approvalWorkflow") || '';
+  }
+
+  set approvalWorkflow(value: string) {
+    this.doc.setFormField(this.path, "approvalWorkflow", value);
+  }
+
+  get approverRole(): string {
+    return this.doc.formField(this.path, "approverRole") || '';
+  }
+
+  set approverRole(value: string) {
+    this.doc.setFormField(this.path, "approverRole", value);
+  }
+
+  get requiredFieldsAtRegistration(): string {
+    return this.doc.formField(this.path, "requiredFieldsAtRegistration") || '';
+  }
+
+  set requiredFieldsAtRegistration(value: string) {
+    this.doc.setFormField(this.path, "requiredFieldsAtRegistration", value);
+  }
+
+  get optionalFieldsAtRegistration(): string {
+    return this.doc.formField(this.path, "optionalFieldsAtRegistration") || '';
+  }
+
+  set optionalFieldsAtRegistration(value: string) {
+    this.doc.setFormField(this.path, "optionalFieldsAtRegistration", value);
+  }
+
+  get termsAcceptanceRequired(): string {
+    return this.doc.formField(this.path, "termsAcceptanceRequired") || '';
+  }
+
+  set termsAcceptanceRequired(value: string) {
+    this.doc.setFormField(this.path, "termsAcceptanceRequired", value);
+  }
+
+  get duplicateDetection(): string {
+    return this.doc.formField(this.path, "duplicateDetection") || '';
+  }
+
+  set duplicateDetection(value: string) {
+    this.doc.setFormField(this.path, "duplicateDetection", value);
+  }
+
+  get welcomeNotification(): string {
+    return this.doc.formField(this.path, "welcomeNotification") || '';
+  }
+
+  set welcomeNotification(value: string) {
+    this.doc.setFormField(this.path, "welcomeNotification", value);
+  }
+
+  get initialRoleAssignment(): string {
+    return this.doc.formField(this.path, "initialRoleAssignment") || '';
+  }
+
+  set initialRoleAssignment(value: string) {
+    this.doc.setFormField(this.path, "initialRoleAssignment", value);
+  }
+
+  get registrationRateLimiting(): string {
+    return this.doc.formField(this.path, "registrationRateLimiting") || '';
+  }
+
+  set registrationRateLimiting(value: string) {
+    this.doc.setFormField(this.path, "registrationRateLimiting", value);
   }
 }
 

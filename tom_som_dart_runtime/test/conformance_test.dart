@@ -1888,6 +1888,20 @@ Map<String, dynamic> _buildMeta() => {
       ],
       'fields': [
         {'name': 'body', 'kind': 'content', 'sectionId': 'NOTE-BDY'},
+        // A WRAPPER section (`TextSection`): `section` kind with no `type`,
+        // because the wrapper class is not exported. Its text is stored at its
+        // own path, and it has no id of its own, so it is transparent (SOM
+        // §11.6): no heading, its text in the owner's body. Its meta node
+        // carries the OWNER's class name (`Notes`), so a codec that derives
+        // the heading id from `className` writes the owner's id (`NOTE`), and
+        // a validator that allows content only on value leaves and forms
+        // reports `kindMismatch` — both found authoring a real Blueprint.
+        {
+          'name': 'remarks',
+          'kind': 'section',
+          'contentType': 'text',
+          'sectionType': 'TextSection',
+        },
       ],
     },
     'Item': {
@@ -2081,6 +2095,10 @@ SpecDocument _buildDocument() {
   // a section node too: the resolver and the codecs are separate risks, and a
   // declared-but-empty member would have pinned only the first.
   d.setContent('DEMO/notes/NOTE-BDY', 'Section-kind body');
+  // The wrapper section under `Notes`: transparent, so its text renders in
+  // the Notes heading's body and parses back to this path (the first and only
+  // non-form body slot there).
+  d.setContent('DEMO/notes/remarks', 'Wrapper-section text');
   return d;
 }
 
