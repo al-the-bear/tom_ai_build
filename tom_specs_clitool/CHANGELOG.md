@@ -10,9 +10,13 @@
   generators need, sharing its PATH rules with the reference driver through
   `tool/lib/doc_toolchain_path.sh`. pdoc is required on Python >= 3.13.
 - `check_release_drift.dart` honours `.pubignore`: a path that never reaches
-  pub.dev is not unpublished change.
-- `tool/release_set.yaml` records the 1.3.3 model-chain release as published;
-  only `tom_doc_specs`' acknowledgement remains.
+  pub.dev is not unpublished change. It also reads a `published_from:` record
+  (version + commit) and measures from the commit a version was actually
+  published from, so a change that landed between the bump and the publish is
+  not reported as unpublished for the life of the version.
+- `tool/release_set.yaml` is no longer shipped: it records this workspace's
+  releases, and shipping it made every recorded acknowledgement drift the
+  package that holds it.
 - Section-citation, doc-coverage and invariant-correspondence gates refined;
   `tool/doccov.py`, the documentation campaign's Python counter, is retired.
 

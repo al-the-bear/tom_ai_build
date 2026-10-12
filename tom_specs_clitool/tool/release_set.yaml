@@ -93,13 +93,10 @@ workspace_prefixes:
 # tsdocd8 published all nine members so that the published set is what the
 # repository holds. An entry here is a deliberate exception with its reason,
 # not a backlog.
-# A SELF-REFERENCE WORTH KNOWING ABOUT: this manifest lives inside
-# `tom_specs_clitool`, which is itself a release member and ships `tool/`. So
-# recording an acknowledgement here drifts that package, and the first
-# acknowledgement always needs a second one for the clitool. That is a property
-# of putting the record next to the thing it describes, not a bug — the
-# alternative is a manifest outside the release set, which would then have no
-# gate over it at all.
+# This manifest lives inside `tom_specs_clitool`, a release member, but it is
+# `.pubignore`d: it records this workspace's releases, which a consumer of the
+# tool has no use for. So writing an acknowledgement or a publish record here
+# no longer drifts the package that holds it.
 unpublished_drift:
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
@@ -112,3 +109,18 @@ unpublished_drift:
     than published because the package that owns it decides its own cadence, and
     the todo that made the change (`sce54`, d4rt quest) is not the one that would
     publish it.
+
+# Where each member was actually published from, when that is not the commit
+# that set its version. A change that lands after the bump and before the
+# publish ships with that version; without a record here the drift gate, which
+# diffs from the bump, would call it unpublished for as long as the version
+# stands. A record applies only while its version is the current one, so the
+# next bump supersedes it without anyone having to delete it. Quote both values:
+# a hash like 5e903509 is otherwise a YAML float, and is then ignored.
+published_from:
+  tom_specs_core: {version: '0.2.1', commit: '47dba5ea'}
+  tom_code_specs: {version: '0.14.2', commit: '47dba5ea'}
+  tom_core_codespecs: {version: '0.12.1', commit: '5e903509'}
+  tom_specs_model: {version: '1.3.3', commit: '47dba5ea'}
+  tom_som_dart_runtime: {version: '1.3.3', commit: '47dba5ea'}
+  tom_som_dart_v0: {version: '1.3.3', commit: '47dba5ea'}

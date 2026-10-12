@@ -16,3 +16,10 @@
 # cannot is to stop shipping it, which is what this line does. `bin/` and
 # `tool/` stay: those are the tool a consumer installs.
 test/
+
+# The release manifest is this WORKSPACE's record of what it publishes and from
+# which commit. It names packages and commits a consumer of this tool does not
+# have, so it is useless in the archive, and shipping it made the package that
+# holds it drift every time a release was recorded in it. The two release gates
+# take `--manifest` for a consumer's own.
+tool/release_set.yaml

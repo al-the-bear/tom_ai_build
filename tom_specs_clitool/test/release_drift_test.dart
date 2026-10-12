@@ -179,4 +179,88 @@ void main() {
       expect(orphan.isViolation, isTrue);
     });
   });
+  group('RDR6: a recorded publish moves the anchor', () {
+    test('the published_from block is read; absent means none', () {
+      final dir = Directory.systemTemp.createTempSync('drift_pub');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final none = File(p.join(dir.path, 'a.yaml'))
+        ..writeAsStringSync('release_set: {}\n');
+      expect(loadPublishedFrom(none.path), isEmpty);
+      final f = File(p.join(dir.path, 'm.yaml'))
+        ..writeAsStringSync(
+          'release_set: {}\n'
+          'published_from:\n'
+          '  tom_thing: {version: 1.2.3, commit: abc123}\n',
+        );
+      final records = loadPublishedFrom(f.path);
+      expect(records['tom_thing']!.version, '1.2.3');
+      expect(records['tom_thing']!.commit, 'abc123');
+    });
+
+    test('an unquoted hash that YAML reads as a number is not a record', () {
+      final dir = Directory.systemTemp.createTempSync('drift_pub_num');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final f = File(p.join(dir.path, 'm.yaml'))
+        ..writeAsStringSync(
+          'release_set: {}\n'
+          'published_from:\n'
+          "  tom_thing: {version: '1.2.3', commit: 5e903509}\n",
+        );
+      expect(loadPublishedFrom(f.path), isEmpty);
+    });
+
+    test('a record for the current version replaces the version commit', () {
+      const record = PublishRecord(version: '1.2.3', commit: 'pub');
+      expect(
+        chooseDriftAnchor(
+          versionCommit: 'bump',
+          currentVersion: '1.2.3',
+          record: record,
+          isAncestorOfHead: (_) => true,
+        ),
+        'pub',
+      );
+    });
+
+    test('a record for another version is ignored: a bump supersedes it', () {
+      const record = PublishRecord(version: '1.2.2', commit: 'pub');
+      expect(
+        chooseDriftAnchor(
+          versionCommit: 'bump',
+          currentVersion: '1.2.3',
+          record: record,
+          isAncestorOfHead: (_) => true,
+        ),
+        'bump',
+      );
+    });
+
+    test('a record naming a commit not in HEAD\'s history is ignored', () {
+      // A typo or a rewritten history must fall back to the stricter anchor,
+      // never excuse drift against a commit nobody can diff from.
+      const record = PublishRecord(version: '1.2.3', commit: 'gone');
+      expect(
+        chooseDriftAnchor(
+          versionCommit: 'bump',
+          currentVersion: '1.2.3',
+          record: record,
+          isAncestorOfHead: (_) => false,
+        ),
+        'bump',
+      );
+    });
+
+    test('no version commit stays no anchor, whatever the record says', () {
+      const record = PublishRecord(version: '1.2.3', commit: 'pub');
+      expect(
+        chooseDriftAnchor(
+          versionCommit: null,
+          currentVersion: '1.2.3',
+          record: record,
+          isAncestorOfHead: (_) => true,
+        ),
+        isNull,
+      );
+    });
+  });
 }

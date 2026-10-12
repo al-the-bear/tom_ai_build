@@ -46,6 +46,19 @@
 /// reason it is knowingly behind. Acknowledging costs one line and is the
 /// record that "publish on demand" always needed; forgetting to costs a red
 /// test that names the package and the file count.
+///
+/// ## A publish made after the version commit
+///
+/// The version commit is not always what was published. A change that lands
+/// after the bump and before `dart pub publish` ships with that version, and
+/// the gate, diffing from the bump, would report it as unpublished for as long
+/// as the version stands — an acknowledgement that is false the day it is
+/// written. So `published_from:` in the manifest records, per package, the
+/// version and the commit it was actually published from. When the recorded
+/// version is the current one and the commit is in `HEAD`'s history, the gate
+/// diffs from that commit instead. A record for an older version is ignored, so
+/// a bump never inherits an excuse; a commit not in `HEAD`'s history is
+/// ignored too, falling back to the stricter anchor.
 library;
 
 import 'dart:io';
@@ -78,9 +91,10 @@ class PackageDrift {
   /// The version its `pubspec.yaml` currently declares.
   final String version;
 
-  /// The commit that introduced [version], or `null` when none was found —
-  /// which happens for a version that has never been committed, and is
-  /// reported rather than treated as "no drift".
+  /// The commit drift is measured from: the one that introduced [version], or
+  /// the recorded commit [version] was published from (`published_from:`).
+  /// `null` when no commit introduced [version] — a version that has never
+  /// been committed, which is reported rather than treated as "no drift".
   final String? versionCommit;
 
   /// Shipped files changed since [versionCommit], sorted.
@@ -147,6 +161,59 @@ Map<String, String> loadAcknowledgedDrift(String manifestPath) {
   };
 }
 
+/// Where one package was published from: the version, and the commit of the
+/// tree `dart pub publish` uploaded.
+class PublishRecord {
+  /// The version that was published.
+  final String version;
+
+  /// The commit the published tree was taken from.
+  final String commit;
+
+  /// Both fields are required.
+  const PublishRecord({required this.version, required this.commit});
+}
+
+/// Reads the `published_from:` block: package name → [PublishRecord].
+///
+/// Absent means no publish is recorded, and every package anchors to its
+/// version commit. An entry missing either field is skipped, which fails safe
+/// to the stricter anchor.
+Map<String, PublishRecord> loadPublishedFrom(String manifestPath) {
+  final doc = loadYaml(File(manifestPath).readAsStringSync());
+  if (doc is! YamlMap) return const {};
+  final node = doc['published_from'];
+  if (node is! YamlMap) return const {};
+  final out = <String, PublishRecord>{};
+  for (final e in node.entries) {
+    final v = e.value;
+    if (v is! YamlMap) continue;
+    final version = v['version'];
+    final commit = v['commit'];
+    // Strings only: an unquoted hash such as 5e903509 parses as a YAML float.
+    if (version is! String || commit is! String) continue;
+    out[e.key as String] = PublishRecord(version: version, commit: commit);
+  }
+  return out;
+}
+
+/// The commit drift is measured from.
+///
+/// [record] replaces [versionCommit] only when it is for [currentVersion] and
+/// its commit is in `HEAD`'s history ([isAncestorOfHead]). With no
+/// [versionCommit] there is no anchor at all: a version nothing ever committed
+/// is the gate's own finding, and no record can excuse it.
+String? chooseDriftAnchor({
+  required String? versionCommit,
+  required String currentVersion,
+  required PublishRecord? record,
+  required bool Function(String commit) isAncestorOfHead,
+}) {
+  if (versionCommit == null) return null;
+  if (record == null || record.version != currentVersion) return versionCommit;
+  return isAncestorOfHead(record.commit) ? record.commit : versionCommit;
+}
+
 /// Computes the drift report for every Dart member of the manifest.
 ReleaseDriftReport computeReleaseDrift({
   required String containerRoot,
@@ -154,6 +221,7 @@ ReleaseDriftReport computeReleaseDrift({
 }) {
   final manifest = ReleaseManifest.load(manifestPath);
   final acknowledged = loadAcknowledgedDrift(manifestPath);
+  final published = loadPublishedFrom(manifestPath);
   final out = <PackageDrift>[];
 
   for (final entry in manifest.releaseSet.entries) {
@@ -163,7 +231,12 @@ ReleaseDriftReport computeReleaseDrift({
     String? commit;
     var changed = <String>[];
     if (repoRoot != null && version != null) {
-      commit = _versionCommit(repoRoot, dir, version);
+      commit = chooseDriftAnchor(
+        versionCommit: _versionCommit(repoRoot, dir, version),
+        currentVersion: version,
+        record: published[entry.key],
+        isAncestorOfHead: (c) => _isAncestorOfHead(repoRoot, c),
+      );
       if (commit != null) {
         changed = _changedSince(
           repoRoot,
@@ -202,6 +275,17 @@ String? _declaredVersion(String pubspecPath) {
   }
   return null;
 }
+
+bool _isAncestorOfHead(String repoRoot, String commit) =>
+    Process.runSync('git', [
+      '-C',
+      repoRoot,
+      'merge-base',
+      '--is-ancestor',
+      commit,
+      'HEAD',
+    ]).exitCode ==
+    0;
 
 String? _repoRoot(String dir) {
   final r = Process.runSync('git', ['-C', dir, 'rev-parse', '--show-toplevel']);
