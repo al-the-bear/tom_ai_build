@@ -11,7 +11,10 @@
 # script is what keeps the record honest.
 #
 # Two invocations, because the difference between them is the lesson: without
-# --extracts six checks announce themselves unrun; with it they run.
+# --extracts six checks announce themselves unrun; with it they run. The second
+# is also recorded as JSON (`--json`, codespec/validation_report.json) — the
+# form a tool reads — with the sample's own path removed from the echoed
+# inputs, so the record names no machine.
 #
 # Semantics, the same as tool/run_all_samples.sh: a missing toolchain SKIPs
 # with the reason stated and never passes silently; --strict makes a skip a
@@ -24,6 +27,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 SAMPLE="$(dirname "$HERE")"
 CLITOOL="$(cd "$SAMPLE/../../tom_specs_clitool" 2>/dev/null && pwd || true)"
 REPORT="$SAMPLE/codespec/validation_report.txt"
+JSON_REPORT="$SAMPLE/codespec/validation_report.json"
 
 RECORD=0
 STRICT=0
@@ -70,17 +74,30 @@ ACTUAL="$(
   run_validator --extracts "$SAMPLE/build/codespecs_extracts" | sed 's/^/  /'
 )"
 
+ACTUAL_JSON="$(run_validator --extracts "$SAMPLE/build/codespecs_extracts" --json \
+  | sed "s#$SAMPLE/##g")"
+
 if [ "$RECORD" -eq 1 ]; then
   printf '%s\n' "$ACTUAL" > "$REPORT"
+  printf '%s\n' "$ACTUAL_JSON" > "$JSON_REPORT"
   echo "  RECORDED $REPORT"
+  echo "  RECORDED $JSON_REPORT"
   exit 0
 fi
 
+STATUS=0
 if printf '%s\n' "$ACTUAL" | diff -u "$REPORT" - > /dev/null 2>&1; then
   echo "  PASS     the recorded validation report still matches"
-  exit 0
+else
+  echo "  FAIL     codespec/validation_report.txt is stale"
+  printf '%s\n' "$ACTUAL" | diff -u "$REPORT" - | head -n 40 | sed 's/^/           /'
+  STATUS=1
 fi
-
-echo "  FAIL     codespec/validation_report.txt is stale"
-printf '%s\n' "$ACTUAL" | diff -u "$REPORT" - | head -n 40 | sed 's/^/           /'
-exit 1
+if printf '%s\n' "$ACTUAL_JSON" | diff -u "$JSON_REPORT" - > /dev/null 2>&1; then
+  echo "  PASS     the recorded JSON report still matches"
+else
+  echo "  FAIL     codespec/validation_report.json is stale"
+  printf '%s\n' "$ACTUAL_JSON" | diff -u "$JSON_REPORT" - | head -n 40 | sed 's/^/           /'
+  STATUS=1
+fi
+exit $STATUS

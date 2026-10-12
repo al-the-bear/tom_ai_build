@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- `validate_codespecs --json` writes one versioned JSON report (format
+  `codespecs-validation`): inputs, unrun checks, excluded areas, and per
+  violation its check, title, defining section, severity, file, line, token,
+  area and message. `CodeSpecsViolation` gains `token` and `area`, set by checks
+  34–36. The text report is unchanged.
+- `validate_codespecs --backlinks` writes the trio's back-link index (format
+  `codespecs-backlinks`): every declaration with its `@CodeSpec` id and source
+  tokens, its `@DocSpec` tokens, locus, file and line.
+- The command moved into `lib` (`runValidateCodespecs`) and compiles with
+  `dart compile exe` into a standalone binary; a test compiles it and runs it
+  with no SDK on `PATH`.
+
 - `bin/codespecs_areas.dart` also transcribes the Stage-A gate tables of
   `codespecs_prompt.md` §4.4.2 (A4's required arguments, with their
   *Resolves to* and *Applies when* columns) and §4.5 (A5's carriers) into the

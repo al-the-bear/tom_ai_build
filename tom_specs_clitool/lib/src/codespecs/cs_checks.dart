@@ -31,12 +31,21 @@ class CodeSpecsViolation {
   /// Where in the generated tree, when the check has a single site.
   final CsLocation? location;
 
+  /// The extract token (section id) the violation concerns, where the check
+  /// knows one — the comment and transfer checks. `null` otherwise.
+  final String? token;
+
+  /// The `CE-*` area the violation concerns, where the check knows one.
+  final String? area;
+
   /// Creates a violation.
   const CodeSpecsViolation({
     required this.check,
     required this.definedIn,
     required this.message,
     this.location,
+    this.token,
+    this.area,
   });
 
   @override
@@ -66,13 +75,19 @@ abstract class CodeSpecsCheck {
   List<CodeSpecsViolation> run(CodeSpecsValidationInput input);
 
   /// Builds a violation attributed to this check.
-  CodeSpecsViolation fail(String message, [CsLocation? at]) =>
-      CodeSpecsViolation(
-        check: number,
-        definedIn: definedIn,
-        message: message,
-        location: at,
-      );
+  CodeSpecsViolation fail(
+    String message, [
+    CsLocation? at,
+    String? token,
+    String? area,
+  ]) => CodeSpecsViolation(
+    check: number,
+    definedIn: definedIn,
+    message: message,
+    location: at,
+    token: token,
+    area: area,
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -3162,6 +3177,8 @@ class CsCommentFidelityCheck extends CodeSpecsCheck {
             '${short.total} lines of ${entry.origin} (${entry.sectionId}) — '
             'C4.2 forbids truncation, so a value a comment starts it finishes',
             comment.location,
+            entry.sectionId,
+            entry.areaCode,
           ),
         );
       }
@@ -3295,6 +3312,9 @@ class CsExtractCoverageCheck extends CodeSpecsCheck {
             '@CodeSpec or @DocSpec in the trio names that token — the '
             'specification fact reached no code, so Phase 5 and Phase 6 would '
             'have to reopen the document to find it',
+            null,
+            entry.sectionId,
+            extract.areaCode,
           ),
         );
       }
@@ -3347,6 +3367,7 @@ class CsBackLinkExtractedCheck extends CodeSpecsCheck {
             'one written to satisfy §2.5, and neither states where the code '
             'came from',
             declaration.location,
+            sectionId,
           ),
         );
       }

@@ -126,8 +126,9 @@ unpublished_drift:
     NO CODE: one documentation line — `codespecs_derivation_contract.md`'s
     "Where they run" names the SOM runtime's `CodeSpecsExtractSet` as the reader
     `cs_extract` goes through (vsctsa38); `codespecs_mapping.md` §10 indexes
-    qrb6, the two required arguments with no SOM source (vsctsa39). Goes out
-    with vsctsa45.
+    qrb6, the two required arguments with no SOM source (vsctsa39); the
+    derivation contract names validate_codespecs' --json and --backlinks
+    (vsctsa40). Goes out with vsctsa45.
   tom_specs_model: >-
     NO CODE: SOM §11.6 (wrapper sections), SOM §11.7 (applying a parsed
     import), SOM §12.1 (the review pass), SOM §14 item 4 (section replace)
@@ -144,7 +145,9 @@ unpublished_drift:
     carries the §4.4.6 step table (vsctsa37); the CodeSpecs validator reads
     extracts through the runtime (vsctsa38), so its published constraint on
     tom_som_dart_runtime must move to the release carrying that reader; the
-    catalogue transcribes the Stage-A gate tables (vsctsa39). Unpublished
+    catalogue transcribes the Stage-A gate tables (vsctsa39);
+    validate_codespecs gains --json, --backlinks and a standalone-compile
+    path (vsctsa40). Unpublished
     until vsctsa45, which publishes the regenerated packages these produce.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`

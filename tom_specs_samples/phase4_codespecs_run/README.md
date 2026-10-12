@@ -95,7 +95,10 @@ stdout.
 
 So stage 4's output is recorded in `codespec/validation_report.txt`, and
 `tool/validate.sh` is what keeps the record honest: it re-runs both invocations
-and fails if the file has gone stale. Like `run_all_samples.sh`, it **skips with
+and fails if the file has gone stale. The second invocation is also recorded in
+the form a tool reads, `codespec/validation_report.json` (`--json`), with the
+sample's own path removed from the echoed inputs so the record names no
+machine. Like `run_all_samples.sh`, it **skips with
 the reason stated** when the toolchain is absent, and `--strict` turns a skip
 into a failure.
 
@@ -131,6 +134,7 @@ empty. The stages are the ones below; only the numbers differ.
 | `tool/validate.sh` | Records and re-checks stage 4 |
 | `codespec/` | The emitted trio — Phase 4's output, with its own README |
 | `codespec/validation_report.txt` | Stage 4's recorded output |
+| `codespec/validation_report.json` | The same run as the `--json` report |
 | `expected_output.txt` | What `dart run` prints; the samples driver diffs it |
 | `build/codespecs_extracts/` | Stage 2's output (gitignored — regenerate by running) |
 

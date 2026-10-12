@@ -305,6 +305,16 @@ export 'src/codespecs/codespecs_validator.dart'
         runCodeSpecsChecks,
         assertCodeSpecsValid,
         readCsEnumMirrors;
+export 'src/codespecs/validate_codespecs_cli.dart'
+    show
+        runValidateCodespecs,
+        validateCodespecsParser,
+        codeSpecsReportJson,
+        codeSpecsBacklinkIndex,
+        kCodeSpecsReportFormat,
+        kCodeSpecsReportFormatVersion,
+        kCodeSpecsBacklinksFormat,
+        kCodeSpecsBacklinksFormatVersion;
 export 'src/codespecs/cs_check_table.dart'
     show
         CsCheckRow,

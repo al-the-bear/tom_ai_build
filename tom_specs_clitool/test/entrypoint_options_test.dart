@@ -20,10 +20,22 @@ void main() {
   final binDir = Directory('${Directory.current.path}/bin');
   final readme = File('${Directory.current.path}/README.md');
 
+  // An entrypoint whose option set lives in a library names that file in an
+  // `// entrypoint-options: <path>` line; its text is read as part of the
+  // entrypoint, so the correspondence still holds against the real parser.
+  String withOptionSource(String source) {
+    final m = RegExp(
+      r'^// entrypoint-options: (\S+)$',
+      multiLine: true,
+    ).firstMatch(source);
+    if (m == null) return source;
+    return '$source\n${File('${Directory.current.path}/${m.group(1)}').readAsStringSync()}';
+  }
+
   Map<String, String> realSources() => {
     for (final f in binDir.listSync().whereType<File>())
       if (f.path.endsWith('.dart'))
-        f.uri.pathSegments.last: f.readAsStringSync(),
+        f.uri.pathSegments.last: withOptionSource(f.readAsStringSync()),
   };
 
   group('README bin/ table ↔ entrypoint ArgParser correspondence', () {
