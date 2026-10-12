@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-10-12T20:52:06.871698 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-12T21:13:13.770709 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1996,6 +1996,12 @@ BridgedClass _createDocSpecsDocumentBridge() {
             'DocSpecsDocument',
           )
           .violations,
+      'allSections': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_1.DocSpecsDocument>(
+            target,
+            'DocSpecsDocument',
+          )
+          .allSections,
     },
     setters: {
       'declaredSchema': (visitor, target, value) =>
@@ -2015,14 +2021,45 @@ BridgedClass _createDocSpecsDocumentBridge() {
         final text = D4.getRequiredArg<String>(positional, 0, 'text', 'parse');
         return $tom_som_dart_runtime_1.DocSpecsDocument.parse(text);
       },
+      'replaceSectionBody': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 3, 'replaceSectionBody');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'replaceSectionBody',
+        );
+        final sectionId = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'sectionId',
+          'replaceSectionBody',
+        );
+        final body = D4.getRequiredArg<String>(
+          positional,
+          2,
+          'body',
+          'replaceSectionBody',
+        );
+        return $tom_som_dart_runtime_1.DocSpecsDocument.replaceSectionBody(
+          text,
+          sectionId,
+          body,
+        );
+      },
     },
     getterSignatures: {
       'declaredSchema': 'String? get declaredSchema',
       'sections': 'List<DocSpecsSection> get sections',
       'violations': 'List<DocSpecsViolation> get violations',
+      'allSections': 'Iterable<DocSpecsSection> get allSections',
     },
     setterSignatures: {'declaredSchema': 'set declaredSchema(dynamic value)'},
-    staticMethodSignatures: {'parse': 'DocSpecsDocument parse(String text)'},
+    staticMethodSignatures: {
+      'parse': 'DocSpecsDocument parse(String text)',
+      'replaceSectionBody':
+          'String replaceSectionBody(String text, String sectionId, String body)',
+    },
   );
 }
 
