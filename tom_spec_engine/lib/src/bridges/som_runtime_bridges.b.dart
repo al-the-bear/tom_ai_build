@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 21 files
-// Generated: 2026-10-12T19:44:03.366120 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-12T20:28:29.957039 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -88,6 +88,7 @@ class SomRuntimeBridge {
       _createSpecDocumentStateBridge(),
       _createSpecMarkdownRejectionBridge(),
       _createSpecMarkdownResultBridge(),
+      _createSpecMarkdownImportBridge(),
       _createSpecDocumentMarkdownBridge(),
       _createMarkdownFenceTrackerBridge(),
       _createSpecYamlFormatExceptionBridge(),
@@ -168,6 +169,7 @@ class SomRuntimeBridge {
       'SpecDocumentState': _createSpecDocumentStateBridge,
       'SpecMarkdownRejection': _createSpecMarkdownRejectionBridge,
       'SpecMarkdownResult': _createSpecMarkdownResultBridge,
+      'SpecMarkdownImport': _createSpecMarkdownImportBridge,
       'SpecDocumentMarkdown': _createSpecDocumentMarkdownBridge,
       'MarkdownFenceTracker': _createMarkdownFenceTrackerBridge,
       'SpecYamlFormatException': _createSpecYamlFormatExceptionBridge,
@@ -248,6 +250,7 @@ class SomRuntimeBridge {
       'SpecDocumentState': $tom_som_dart_runtime_5.SpecDocumentState,
       'SpecMarkdownRejection': $tom_som_dart_runtime_6.SpecMarkdownRejection,
       'SpecMarkdownResult': $tom_som_dart_runtime_6.SpecMarkdownResult,
+      'SpecMarkdownImport': $tom_som_dart_runtime_6.SpecMarkdownImport,
       'SpecDocumentMarkdown': $tom_som_dart_runtime_6.SpecDocumentMarkdown,
       'MarkdownFenceTracker': $tom_som_dart_runtime_6.MarkdownFenceTracker,
       'SpecYamlFormatException':
@@ -352,6 +355,8 @@ class SomRuntimeBridge {
       'SpecMarkdownRejection':
           'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
       'SpecMarkdownResult':
+          'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
+      'SpecMarkdownImport':
           'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
       'SpecDocumentMarkdown':
           'package:tom_som_dart_runtime/src/spec_document_markdown.dart',
@@ -4405,6 +4410,27 @@ BridgedClass _createSpecDocumentBridge() {
         final rootType = D4.getOptionalNamedArg<String?>(named, 'rootType');
         return t.toMarkdown(model, rootType: rootType);
       },
+      'applyMarkdownResult': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
+          target,
+          'SpecDocument',
+        );
+        D4.requireMinArgs(positional, 1, 'applyMarkdownResult');
+        final result = D4
+            .getRequiredArg<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+              positional,
+              0,
+              'result',
+              'applyMarkdownResult',
+            );
+        final allowRejections = D4.getNamedArgWithDefault<bool>(
+          named,
+          'allowRejections',
+          false,
+        );
+        t.applyMarkdownResult(result, allowRejections: allowRejections);
+        return null;
+      },
       'content': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_5.SpecDocument>(
           target,
@@ -4794,12 +4820,30 @@ BridgedClass _createSpecDocumentBridge() {
         );
         return $tom_som_dart_runtime_5.SpecDocument.fromFile(path, tree);
       },
+      'fromMarkdown': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 2, 'fromMarkdown');
+        final text = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'text',
+          'fromMarkdown',
+        );
+        final model = D4.getRequiredArg<$tom_som_dart_runtime_12.SpecModel>(
+          positional,
+          1,
+          'model',
+          'fromMarkdown',
+        );
+        return $tom_som_dart_runtime_5.SpecDocument.fromMarkdown(text, model);
+      },
     },
     constructorSignatures: {'': 'SpecDocument()'},
     methodSignatures: {
       'installPathNormalizer':
           'void installPathNormalizer(String Function(String path) normalizer)',
       'toMarkdown': 'String toMarkdown(SpecModel model, {String? rootType})',
+      'applyMarkdownResult':
+          'void applyMarkdownResult(SpecMarkdownResult result, {bool allowRejections = false})',
       'content': 'String? content(String path)',
       'hasContent': 'bool hasContent(String path)',
       'setContent': 'void setContent(String path, String value)',
@@ -4839,6 +4883,8 @@ BridgedClass _createSpecDocumentBridge() {
     staticMethodSignatures: {
       'fromYaml': 'SpecDocument fromYaml(String yaml, SomMetaTree tree)',
       'fromFile': 'SpecDocument fromFile(String path, SomMetaTree tree)',
+      'fromMarkdown':
+          'SpecMarkdownImport fromMarkdown(String text, SpecModel model)',
     },
   );
 }
@@ -5134,6 +5180,66 @@ BridgedClass _createSpecMarkdownResultBridge() {
       'rootPrefixes': 'Set<String> get rootPrefixes',
       'isClean': 'bool get isClean',
       'appliedCount': 'int get appliedCount',
+    },
+  );
+}
+
+// =============================================================================
+// SpecMarkdownImport Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkdownImportBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_6.SpecMarkdownImport,
+    name: 'SpecMarkdownImport',
+    isAssignable: (v) => v is $tom_som_dart_runtime_6.SpecMarkdownImport,
+    constructors: {
+      '': (visitor, positional, named) {
+        final document = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_5.SpecDocument>(
+              named,
+              'document',
+              'SpecMarkdownImport',
+            );
+        final result = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_6.SpecMarkdownResult>(
+              named,
+              'result',
+              'SpecMarkdownImport',
+            );
+        return $tom_som_dart_runtime_6.SpecMarkdownImport(
+          document: document,
+          result: result,
+        );
+      },
+    },
+    getters: {
+      'document': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownImport>(
+            target,
+            'SpecMarkdownImport',
+          )
+          .document,
+      'result': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownImport>(
+            target,
+            'SpecMarkdownImport',
+          )
+          .result,
+      'rejections': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.SpecMarkdownImport>(
+            target,
+            'SpecMarkdownImport',
+          )
+          .rejections,
+    },
+    constructorSignatures: {
+      '': 'SpecMarkdownImport({required SpecDocument document, required SpecMarkdownResult result})',
+    },
+    getterSignatures: {
+      'document': 'SpecDocument get document',
+      'result': 'SpecMarkdownResult get result',
+      'rejections': 'List<SpecMarkdownRejection> get rejections',
     },
   );
 }
