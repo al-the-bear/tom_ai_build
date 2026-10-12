@@ -1330,7 +1330,7 @@ on that model.
 | **`tom_specs_editor`** | `tom_forge/tom_specs_editor` | The authoring application — the primary human/AI workbench for Phases 2–6 |
 | `tom_specs_model` | `tom_ai/ai_build/tom_specs_model` | The specification object model: typed classes for all 14 document roots |
 | `tom_specs_core` | `tom_ai/ai_build/tom_specs_core` | The annotation library the model is built from — section IDs, forms, content help, `@MapsTo` / `@DetailedIn`, `@CodeSpecKind` |
-| `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, the JSON export the editor consumes, and the Phase-4 CodeSpecs validator (`bin/validate_codespecs.dart`) behind Gate G4 |
+| `tom_specs_clitool` | `tom_ai/ai_build/tom_specs_clitool` | Model outliner, structural validator, the JSON export the editor consumes, the spec-document validator (`bin/validate_spec.dart`: decode, DocSpecs schema and instance tier over one document or its assembled fragments), and the Phase-4 CodeSpecs validator (`bin/validate_codespecs.dart`, with `--json` and a back-link index) behind Gate G4 |
 | `tom_specs_reviewer` | `tom_ai/ai_build/tom_specs_reviewer` | Structural review of the object model itself — a methodology tool, not a project tool |
 | `tom_code_specs` | `tom_ai/ai_build/tom_code_specs` | The CodeSpecs annotation framework — the `Cs*` family plus the `@DocSpec` back-trace |
 | `tom_core_codespecs` | `tom_ai/core/tom_core_codespecs` | Gap-filler classes CodeSpecs needs that `tom_core` does not yet provide |

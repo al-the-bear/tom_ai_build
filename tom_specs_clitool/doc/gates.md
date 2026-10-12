@@ -168,6 +168,32 @@ so a skipped check never reads as a passed one. Give `--extracts` the whole tree
 or none: a partial one understates what the trio was supposed to carry, and
 check 35 would pass a gap it could not see.
 
+Two machine-readable outputs exist for a tool that would otherwise scrape the
+text. The exit codes are the same in every mode.
+- **`--json`** writes the result as one versioned document (format
+  `codespecs-validation`, version 1). It carries the inputs, the unrun checks,
+  the areas a gate record excluded, the 37 checks, and per violation its check
+  number and title, defining section, severity, file, line, token and area
+  (where the check knows them) and message.
+- **`--backlinks`** runs no check. It writes the trio's back-link index (format
+  `codespecs-backlinks`): every declaration with its `@CodeSpec` id and source
+  tokens, its `@DocSpec` tokens, its locus, file and line.
+
+The reader parses source text and never resolves it, so the command compiles
+into a standalone binary:
+
+```bash
+dart compile exe bin/validate_codespecs.dart -o validate_codespecs
+```
+
+It needs no SDK and no package resolution at run time. The test suite compiles
+it and runs it with no Dart on `PATH`.
+
+A project's *specification document*, as opposed to its generated code, is
+checked by `validate_spec.dart`: decode, the DocSpecs schema and the instance
+tier, over one document or several fragments. See
+[validating_a_document.md](validating_a_document.md).
+
 ## Reading a citation failure
 
 A broken `§` citation reports the file, the line, the citation and the fix:
