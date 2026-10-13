@@ -1254,6 +1254,15 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
   flush(frame.line + frame.body.size());
 }
 
+// Binds a heading's body region against the owner's transparent body slots
+// (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
+// fields route to that form (nearest form in slot order, wrapping); all other
+// text binds to the first non-form slot. With no non-form slot the text is a
+// form's preamble (SOM §11.6) — the form slot named `content` (the class-level
+// `@Form` on the `content` member), else the first form slot — and a
+// label-shaped preamble line has its one escape space stripped, exactly as a
+// continuation line does. Only an owner with no slot at all takes the text on
+// its own path.
 void MdParser::finalizeBodySlots(MdFrame& frame,
                                  const std::vector<NodeRel>& slots) {
   std::vector<NodeRel> forms;
@@ -1265,8 +1274,19 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
       contents.push_back(s);
     }
   }
-  std::string contentPath = !contents.empty()
-                                ? specPathJoin(frame.path, contents[0].rel)
+  const NodeRel* preambleSlot = nullptr;
+  if (contents.empty() && !forms.empty()) {
+    preambleSlot = &forms[0];
+    for (const auto& f : forms) {
+      if (f.rel == "content") {
+        preambleSlot = &f;
+        break;
+      }
+    }
+  }
+  std::string contentPath =
+      !contents.empty()       ? specPathJoin(frame.path, contents[0].rel)
+      : preambleSlot != nullptr ? specPathJoin(frame.path, preambleSlot->rel)
                                 : frame.path;
 
   if (forms.empty()) {
@@ -1328,8 +1348,11 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
         }
       }
     }
+    // Continuation — and a form preamble line, which the emitter escapes the
+    // same way: strip the one escape space of a label-shaped line.
     std::string text = line;
-    if (!fence.inFence() && haveField && matchContinuationLabel(line)) {
+    if (!fence.inFence() && (haveField || preambleSlot != nullptr) &&
+        matchContinuationLabel(line)) {
       text = line.substr(1);
     }
     if (haveField) {

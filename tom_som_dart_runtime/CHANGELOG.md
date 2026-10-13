@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Markdown import binds the prose of a section whose only body member is a form
+  — the class-level `@Form` on `content` — as that form's preamble, where the
+  YAML codec keeps it, instead of on the section's own path (SOM §11.6). A
+  SOM-rendered Solution Blueprint now imports back clean on all three tiers.
+  Pinned by a new `markdown_import_cases.json` case.
 - The review pass follows one scalar rule in every port (SOM §12.5): plain
   scalars typed by the YAML 1.2 core schema on decode, and
   `SpecDocumentYaml.reviewScalar` writing a float that reads back as itself —

@@ -1332,8 +1332,12 @@ func (p *mdParser) finalize(frame *mdFrame) {
 // finalizeBodySlots binds a heading's body region against the owner's
 // transparent body slots (SOM §11.2 transparency): `FieldName:` lines matching
 // a transparent form's fields route to that form (nearest form in slot order,
-// wrapping); all other text binds to the first non-form slot — or to the
-// owner's own path when no such slot exists.
+// wrapping); all other text binds to the first non-form slot. With no
+// non-form slot the text is a form's preamble (SOM §11.6): it binds to the
+// form slot named `content` (the class-level `@Form` on the `content` member),
+// else the first form slot, and a label-shaped preamble line has its one
+// escape space stripped exactly as a continuation line does. Only an owner with
+// no slot at all takes the text on its own path.
 func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	var formSlots []mdNodeRel
 	var contentSlots []mdNodeRel
@@ -1344,9 +1348,21 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 			contentSlots = append(contentSlots, s)
 		}
 	}
+	var preambleSlot *mdNodeRel
+	if len(contentSlots) == 0 && len(formSlots) > 0 {
+		preambleSlot = &formSlots[0]
+		for i := range formSlots {
+			if formSlots[i].rel == "content" {
+				preambleSlot = &formSlots[i]
+				break
+			}
+		}
+	}
 	contentPath := frame.path
 	if len(contentSlots) > 0 {
 		contentPath = frame.path + "/" + contentSlots[0].rel
+	} else if preambleSlot != nil {
+		contentPath = frame.path + "/" + preambleSlot.rel
 	}
 
 	if len(formSlots) == 0 {
@@ -1410,9 +1426,10 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 				}
 			}
 		}
-		// Continuation: strip the one escape space of a label-shaped line.
+		// Continuation — and a form preamble line, which the emitter escapes
+		// the same way: strip the one escape space of a label-shaped line.
 		text := line
-		if !fence.InFence() && haveField && mdContinuationLabelRE.MatchString(line) {
+		if !fence.InFence() && (haveField || preambleSlot != nil) && mdContinuationLabelRE.MatchString(line) {
 			text = line[1:]
 		}
 		if haveField {

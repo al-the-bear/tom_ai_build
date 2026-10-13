@@ -1624,6 +1624,15 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
 
 /* ---- finalize body slots ------------------------------------------------ */
 
+/* Binds a heading's body region against the owner's transparent body slots
+ * (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
+ * fields route to that form (nearest form in slot order, wrapping); all other
+ * text binds to the first non-form slot. With no non-form slot the text is a
+ * form's preamble (SOM §11.6) — the form slot named `content` (the class-level
+ * `@Form` on the `content` member), else the first form slot — and a
+ * label-shaped preamble line has its one escape space stripped, exactly as a
+ * continuation line does. Only an owner with no slot at all takes the text on
+ * its own path. */
 static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) {
   /* partition into form slots and content slots (preserving order) */
   NodeRelVec forms;
@@ -1638,9 +1647,22 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
                som_strdup(slots->items[i].rel));
     }
   }
+  /* preamble slot: borrowed from `forms`, only when there is no content slot */
+  const char *preamble_rel = NULL;
+  if (contents.len == 0 && forms.len > 0) {
+    preamble_rel = forms.items[0].rel;
+    for (size_t i = 0; i < forms.len; i++) {
+      if (strcmp(forms.items[i].rel, "content") == 0) {
+        preamble_rel = forms.items[i].rel;
+        break;
+      }
+    }
+  }
   char *content_path;
   if (contents.len > 0) {
     content_path = spec_path_join(frame->path, contents.items[0].rel);
+  } else if (preamble_rel != NULL) {
+    content_path = spec_path_join(frame->path, preamble_rel);
   } else {
     content_path = som_strdup(frame->path);
   }
@@ -1728,10 +1750,12 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
         free(value);
       }
     }
-    /* continuation */
+    /* continuation — and a form preamble line, which the emitter escapes the
+     * same way: strip the one escape space of a label-shaped line. */
     const char *text = line;
     char *stripped = NULL;
-    if (!spec_markdown_fence_in_fence(&fence) && have_field &&
+    if (!spec_markdown_fence_in_fence(&fence) &&
+        (have_field || preamble_rel != NULL) &&
         match_continuation_label(line)) {
       stripped = som_strdup(line + 1);
       text = stripped;

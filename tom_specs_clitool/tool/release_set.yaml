@@ -133,8 +133,9 @@ unpublished_drift:
     Since 1.4.1: doc comments (qr1) say the review pass is carried and written
     back and that applyMarkdownResult applies a parse; and the review writer
     (qrb4) prints non-finite floats as `.inf`/`-.inf`/`.nan` under the SOM §12.5
-    review-scalar rule; and its conformance test runs the catalogErrorCases
-    table (qrb5). Rides the next model-chain release.
+    review-scalar rule; its conformance test runs the catalogErrorCases
+    table (qrb5); and markdown import binds a form-only section's prose as the
+    form's preamble (qrb8). Rides the next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

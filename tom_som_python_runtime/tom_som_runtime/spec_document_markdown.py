@@ -1177,15 +1177,27 @@ class _Parser:
         """Binds a heading's body region against the owner's transparent body
         slots (SOM §11.2 transparency): ``FieldName:`` lines matching a
         transparent form's fields route to that form (nearest form in slot
-        order, wrapping); all other text binds to the first non-form slot — or
-        to the owner's own path when no such slot exists."""
+        order, wrapping); all other text binds to the first non-form slot.
+
+        With no non-form slot the text is a form's **preamble** (SOM §11.6,
+        §11.4 rule 7): it binds to the form slot named ``content`` (the
+        class-level ``@Form`` on the ``content`` member), else the first form
+        slot — where the YAML codec keeps it — and a label-shaped preamble line
+        has its one escape space stripped, as continuation lines do. Only an
+        owner with no slot at all takes the text on its own path."""
         form_slots = [s for s in slots if s[0].kind == SomMetaKind.FORM]
         content_slots = [s for s in slots if s[0].kind != SomMetaKind.FORM]
-        content_path = (
-            f"{frame.path}/{content_slots[0][1]}"
-            if content_slots
-            else frame.path
+        preamble_slot = (
+            next((s for s in form_slots if s[1] == "content"), form_slots[0])
+            if not content_slots and form_slots
+            else None
         )
+        if content_slots:
+            content_path = f"{frame.path}/{content_slots[0][1]}"
+        elif preamble_slot is not None:
+            content_path = f"{frame.path}/{preamble_slot[1]}"
+        else:
+            content_path = frame.path
 
         if not form_slots:
             value = self._restore_value(frame.body)
@@ -1239,10 +1251,12 @@ class _Parser:
                         fence.feed(line)
                         continue
             target = content_lines if current_field is None else current_lines
-            # Continuation: strip the one escape space of a label-shaped line.
+            # Continuation — and a form preamble line, which the emitter
+            # escapes the same way: strip the one escape space of a
+            # label-shaped line.
             if (
                 not fence.in_fence
-                and current_field is not None
+                and (current_field is not None or preamble_slot is not None)
                 and _CONTINUATION_LABEL.match(line)
             ):
                 target.append(line[1:])

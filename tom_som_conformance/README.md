@@ -258,7 +258,9 @@ the harness's diet:
   with its reason — none is, today. Every sample also satisfies its root's
   **DocSpecs schema** with no finding (the `sample_schema` gate, which runs
   [`tom_specs_clitool/bin/validate_spec.dart`](../tom_specs_clitool/bin/validate_spec.dart)
-  — all three tiers — on each). The exercise sample reaches every model shape,
+  — all three tiers — on each, and on the committed markdown rendition of the
+  Meridian document, so importing a rendition stays the inverse of rendering it).
+  The exercise sample reaches every model shape,
   so a section kind no document can write validly fails here, not in a
   project. That is a *single-language* guarantee: the structure round-trips in Dart, and
   exists in all nine ports — the generators compile against it — but is not

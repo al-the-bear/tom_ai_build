@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Markdown import (SOM §11.6): prose in a section whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble — `finalize_body_slots` binds it to `<owner>/content` (else the first form slot) and strips the escape space of a label-shaped preamble line, instead of storing it on the owner's path (kindMismatch); pinned by the new last `markdown_import_cases.json` case.
 - CodeSpecs catalogue: `CodeSpecsSlice`, `CodeSpecsStep` and `CodeSpecsArea` gain `try_from_json` (Result, error naming the row); `from_json` delegates and panics with the same message; `CodeSpecsAreaCatalog::from_json` propagates the row error instead of reading 0 or ""; pinned by the new `catalogErrorCases` table of `codespecs_extract_cases.json`.
 - Review-pass scalars keep their YAML 1.2 type (SOM §12.5): `YamlValue` gains `Null`/`Bool`/`Float`, the new `yaml_parse_typed` reads the `review:` pass by the core schema (ints and floats distinct, an integer beyond 64 bits as a float), and `write_review_pass` writes the typed values back (`3.0`, `1e+300`, `-.inf`) instead of guessing types from string text. Pinned by two new `yaml_review_cases.json` cases.
 

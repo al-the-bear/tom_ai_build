@@ -261,6 +261,29 @@
           "DEMO/DET": "Details & Contacts"
         }
       }
+    },
+    {
+      "name": "prose in a section whose only member is a class-level @Form is that form's preamble, not a value on the section itself",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-1]--> Card 1\n\nCard prose, before the fields.\n Caveat: label-shaped prose, escaped by the emitter.\n\nNote: first card\n",
+      "rejections": [],
+      "document": {
+        "content": {
+          "DEMO/CARD-LST-1/content": "Card prose, before the fields.\nCaveat: label-shaped prose, escaped by the emitter."
+        },
+        "forms": {
+          "DEMO/CARD-LST-1/content": {
+            "note": "first card"
+          }
+        },
+        "lists": {
+          "DEMO/CARD-LST": {
+            "seq": 1,
+            "items": [
+              "DEMO/CARD-LST-1"
+            ]
+          }
+        }
+      }
     }
   ]
 }

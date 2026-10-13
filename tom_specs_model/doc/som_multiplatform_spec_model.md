@@ -1318,6 +1318,14 @@ Three canonicalisation losses are accepted and normative:
    region, where nothing separates it from the owner's own content; on parse the
    two merge into the first content slot. Loss 1 with a form on one side.
 
+When the owner has **no** content slot — a section whose only body member is a
+form, typically the class-level `@Form` on its `content` member — the body's
+unlabelled text is that form's preamble and binds there (the form named
+`content` first, else the first form slot), with the same escape stripped from
+a label-shaped line as in a form body. That is where the YAML codec keeps it, so
+yaml → md → document is the identity for such a section. Only an owner with no
+body slot at all takes the text on its own path.
+
 Stored list-item ids are **not** among the losses: they round-trip through md
 (`tom_specs_model_rules.md` §7.6).
 

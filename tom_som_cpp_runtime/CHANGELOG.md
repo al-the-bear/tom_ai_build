@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Markdown import (`MdParser::finalizeBodySlots`): prose under a heading whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble (SOM §11.6) — bound to the `content` form slot, else the first, with a label-shaped line's escape space stripped — instead of landing on the owner's own path (kindMismatch).
 - `CodeSpecsAreaCatalog::fromJson` (via `CodeSpecsSlice`/`CodeSpecsStep`/`CodeSpecsArea::fromJson`) throws `std::invalid_argument` naming the row when a slice/step lacks a numeric `number`/`slice` or an area a non-empty `code`/`part`, as Dart does, instead of reading 0 / empty.
 - Review-pass scalars are typed by the YAML 1.2 core schema (SOM §12.5): an
   integer beyond 64 bits (decimal, `0o`, `0x`) is a float rather than

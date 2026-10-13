@@ -229,11 +229,14 @@ run_gate sample_validate dart "$ROOT/tom_som_dart_v0" dart run tool/validate_sam
 # four such kinds stayed hidden until a project tripped over them, because the
 # only schema-checked document reached part of the model. `validate_spec` runs
 # all three tiers on one document, so the decode and instance verdicts are
-# re-confirmed here on the clitool's own path.
+# re-confirmed here on the clitool's own path. The committed markdown
+# rendition of a document is imported and held to the same three tiers, so the
+# round trip yaml → md → document stays the identity it is specified to be.
 run_gate sample_schema dart "$ROOT/tom_specs_clitool" bash -c '
   status=0
   for f in ../tom_som_conformance/samples/*.docspecs.yaml \
-           ../tom_som_dart_v0/documents/*.docspecs.yaml; do
+           ../tom_som_dart_v0/documents/*.docspecs.yaml \
+           ../tom_som_dart_v0/documents/*.md; do
     dart run bin/validate_spec.dart "$f" || status=1
   done
   exit $status'

@@ -1321,16 +1321,26 @@ class _Parser {
    * Binds a heading's body region against the owner's transparent body slots
    * (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
    * fields route to that form (nearest form in slot order, wrapping); all
-   * other text binds to the first non-form slot — or to the owner's own path
-   * when no such slot exists.
+   * other text binds to the first non-form slot. With no non-form slot the
+   * text is a form's **preamble** (SOM §11.6) — the form slot named `content`
+   * (typically a class-level `@Form` on the `content` member), else the first
+   * form slot — and a label-shaped preamble line has its one escape space
+   * stripped, exactly as continuation lines are. Only an owner with no slot
+   * at all takes the text on its own path.
    */
   private _finalizeBodySlots(frame: _Frame, slots: _NodeRel[]): void {
     const formSlots = slots.filter(([s]) => s.kind === SomMetaKind.FORM);
     const contentSlots = slots.filter(([s]) => s.kind !== SomMetaKind.FORM);
+    const preambleSlot: _NodeRel | null =
+      contentSlots.length === 0 && formSlots.length > 0
+        ? (formSlots.find(([, name]) => name === 'content') ?? formSlots[0])
+        : null;
     const contentPath =
       contentSlots.length > 0
         ? `${frame.path}/${contentSlots[0][1]}`
-        : frame.path;
+        : preambleSlot !== null
+          ? `${frame.path}/${preambleSlot[1]}`
+          : frame.path;
 
     if (formSlots.length === 0) {
       const value = _Parser._restoreValue(frame.body);
@@ -1393,10 +1403,11 @@ class _Parser {
         }
       }
       const target = currentField === null ? contentLines : currentLines;
-      // Continuation: strip the one escape space of a label-shaped line.
+      // Continuation — and a form preamble line, which the emitter escapes
+      // the same way: strip the one escape space of a label-shaped line.
       if (
         !fence.inFence &&
-        currentField !== null &&
+        (currentField !== null || preambleSlot !== null) &&
         _CONTINUATION_LABEL.test(line)
       ) {
         target.push(line.slice(1));

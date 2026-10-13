@@ -1184,8 +1184,10 @@ class _Parser {
   /// Binds a heading's body region against the owner's transparent body slots
   /// (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
   /// fields route to that form (nearest form in slot order, wrapping); all
-  /// other text binds to the first non-form slot — or to the owner's own path
-  /// when no such slot exists.
+  /// other text binds to the first non-form slot. With no non-form slot the
+  /// text is a form's **preamble** (SOM §11.4 rule 7) — the class-level `@Form`
+  /// on the `content` member, else the first form — which is where the YAML
+  /// codec keeps it; only an owner with no slot at all takes it on its own path.
   void _finalizeBodySlots(_Frame frame, List<(SomMetaNode, String)> slots) {
     final formSlots = [
       for (final s in slots)
@@ -1195,8 +1197,16 @@ class _Parser {
       for (final s in slots)
         if (s.$1.kind != SomMetaKind.form) s,
     ];
+    final preambleSlot = contentSlots.isEmpty && formSlots.isNotEmpty
+        ? formSlots.firstWhere(
+            (s) => s.$2 == 'content',
+            orElse: () => formSlots.first,
+          )
+        : null;
     final contentPath = contentSlots.isNotEmpty
         ? '${frame.path}/${contentSlots.first.$2}'
+        : preambleSlot != null
+        ? '${frame.path}/${preambleSlot.$2}'
         : frame.path;
 
     if (formSlots.isEmpty) {
@@ -1254,10 +1264,11 @@ class _Parser {
         }
       }
       final target = currentField == null ? contentLines : currentLines;
-      // Continuation: strip the one escape space of a label-shaped line.
+      // Continuation — and a form preamble line, which the emitter escapes the
+      // same way: strip the one escape space of a label-shaped line.
       target.add(
         !fence.inFence &&
-                currentField != null &&
+                (currentField != null || preambleSlot != null) &&
                 RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
             ? line.substring(1)
             : line,

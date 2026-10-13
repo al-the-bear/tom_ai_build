@@ -1657,8 +1657,12 @@ position (under \"{}\")",
     /// Binds a heading's body region against the owner's transparent body
     /// slots (SOM §11.2 transparency): `FieldName:` lines matching a
     /// transparent form's fields route to that form (nearest form in slot
-    /// order, wrapping); all other text binds to the first non-form slot — or
-    /// to the owner's own path when no such slot exists.
+    /// order, wrapping); all other text binds to the first non-form slot. With
+    /// no non-form slot the text is a form's preamble (SOM §11.6): it binds to
+    /// the form slot named `content` (the class-level `@Form` on the `content`
+    /// member), else the first form slot, and a label-shaped preamble line has
+    /// its one escape space stripped exactly as a continuation line does. Only
+    /// an owner with no slot at all takes the text on its own path.
     fn finalize_body_slots(&mut self, frame: &MdFrame, slots: Vec<MdNodeRel>) {
         let mut form_slots: Vec<MdNodeRel> = Vec::new();
         let mut content_slots: Vec<MdNodeRel> = Vec::new();
@@ -1669,11 +1673,26 @@ position (under \"{}\")",
                 content_slots.push(s);
             }
         }
-        let content_path = if content_slots.is_empty() {
-            frame.path.clone()
+        let preamble_rel: Option<String> = if content_slots.is_empty() && !form_slots.is_empty() {
+            Some(
+                form_slots
+                    .iter()
+                    .find(|s| s.rel == "content")
+                    .unwrap_or(&form_slots[0])
+                    .rel
+                    .clone(),
+            )
         } else {
-            format!("{}/{}", frame.path, content_slots[0].rel)
+            None
         };
+        let content_path = if let Some(first) = content_slots.first() {
+            format!("{}/{}", frame.path, first.rel)
+        } else if let Some(rel) = &preamble_rel {
+            format!("{}/{}", frame.path, rel)
+        } else {
+            frame.path.clone()
+        };
+        let is_preamble = preamble_rel.is_some();
 
         if form_slots.is_empty() {
             let value = md_restore_value(&frame.body);
@@ -1735,8 +1754,13 @@ position (under \"{}\")",
                     }
                 }
             }
-            // Continuation: strip the one escape space of a label-shaped line.
-            let text = if !fence.in_fence() && have_field && md_continuation_label(line) {
+            // Continuation — and a form preamble line, which the emitter
+            // escapes the same way: strip the one escape space of a
+            // label-shaped line.
+            let text = if !fence.in_fence()
+                && (have_field || is_preamble)
+                && md_continuation_label(line)
+            {
                 &line[1..]
             } else {
                 line.as_str()

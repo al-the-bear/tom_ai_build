@@ -1160,8 +1160,13 @@ public final class SpecDocumentMarkdown {
      * Binds a heading's body region against the owner's transparent body
      * slots (SOM §11.2 transparency): {@code FieldName:} lines matching a
      * transparent form's fields route to that form (nearest form in slot
-     * order, wrapping); all other text binds to the first non-form slot — or
-     * to the owner's own path when no such slot exists.
+     * order, wrapping); all other text binds to the first non-form slot. With
+     * no non-form slot the text is a form's <b>preamble</b> (SOM §11.6) — the
+     * form slot named {@code content} (typically a class-level {@code @Form}
+     * on the {@code content} member), else the first form slot — and a
+     * label-shaped preamble line has its one escape space stripped, exactly as
+     * continuation lines are. Only an owner with no slot at all takes the text
+     * on its own path.
      */
     void finalizeBodySlots(MdFrame frame, List<NodeRel> slots) {
       List<NodeRel> formSlots = new ArrayList<>();
@@ -1173,9 +1178,21 @@ public final class SpecDocumentMarkdown {
           contentSlots.add(s);
         }
       }
+      NodeRel preambleSlot = null;
+      if (contentSlots.isEmpty() && !formSlots.isEmpty()) {
+        preambleSlot = formSlots.get(0);
+        for (NodeRel s : formSlots) {
+          if ("content".equals(s.rel)) {
+            preambleSlot = s;
+            break;
+          }
+        }
+      }
       String contentPath = frame.path;
       if (!contentSlots.isEmpty()) {
         contentPath = frame.path + "/" + contentSlots.get(0).rel;
+      } else if (preambleSlot != null) {
+        contentPath = frame.path + "/" + preambleSlot.rel;
       }
 
       if (formSlots.isEmpty()) {
@@ -1236,9 +1253,12 @@ public final class SpecDocumentMarkdown {
             }
           }
         }
-        // Continuation: strip the one escape space of a label-shaped line.
+        // Continuation — and a form preamble line, which the emitter escapes
+        // the same way: strip the one escape space of a label-shaped line.
         String text = line;
-        if (!bodyFence.inFence() && haveField && CONTINUATION_LABEL.matcher(line).find()) {
+        if (!bodyFence.inFence()
+            && (haveField || preambleSlot != null)
+            && CONTINUATION_LABEL.matcher(line).find()) {
           text = line.substring(1);
         }
         if (haveField) {
