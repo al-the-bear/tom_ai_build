@@ -33,7 +33,7 @@ package somruntime
 // The codec is free of any UI: it reads from / resolves against a SpecModel
 // (through the BuildSomMetaTree metadata tree) and a SpecDocument. Parse does
 // **not** mutate the document — it returns staged values keyed exactly like
-// SpecDocument.ToJSON plus a rejection report; the caller applies them.
+// SpecDocument.ToJSON plus a rejection report; SpecDocument.ApplyMarkdownResult applies them.
 // Anything that cannot be mapped — an unknown section id, a child heading
 // under a value leaf, orphaned text — is collected into
 // SpecMarkdownResult.Rejections rather than dropped (SOM §11.7).
@@ -920,7 +920,7 @@ func (c *SpecDocumentMarkdown) headingTitle(path string, node *SomMetaNode) stri
 // --- Import (SOM §11.7) -------------------------------------------------------
 
 // Parse parses text into staged values + a rejection report, **without**
-// mutating the document. The caller applies the result as a full overwrite.
+// mutating the document. SpecDocument.ApplyMarkdownResult applies the result as a full overwrite.
 func (c *SpecDocumentMarkdown) Parse(text string) *SpecMarkdownResult {
 	p := newMdParser(c)
 	p.run(strings.Split(text, "\n"))

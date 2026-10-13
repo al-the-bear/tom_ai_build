@@ -34,7 +34,7 @@ its position is a structured load error (:class:`SpecYamlFormatException`; no
 silent skips). Symmetrically, :func:`encode` raises when the document holds
 values the tree cannot place (nothing is silently dropped).
 
-The optional ``review:`` pass stays opaque to the runtime (:func:`decode`
+The optional ``review:`` pass is carried by the runtime uninterpreted, read and written back (:func:`decode`
 returns it as a raw map for the editor to interpret).
 """
 
@@ -87,7 +87,7 @@ class SpecYamlFormatException(Exception):
 class SpecYamlContents:
     """The decoded passes of a ``*.docspecs.yaml`` file: the ``document:``
     pass as a populated :class:`SpecDocument`, the ``review:`` pass as a raw
-    map (the runtime is review-agnostic), and the optional authoring
+    map (the runtime carries it uninterpreted and writes it back), and the optional authoring
     model-version stamp."""
 
     def __init__(
@@ -111,7 +111,7 @@ class SpecYamlContents:
         self.model_version = model_version
 
 
-# --- Shared scalar machinery (public for the editor's review writer) ---------
+# --- Shared scalar machinery (public for the review-pass writer) ---------
 
 
 def node_key(node: SomMetaNode) -> str:

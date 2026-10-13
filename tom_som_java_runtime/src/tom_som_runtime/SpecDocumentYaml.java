@@ -53,7 +53,7 @@ import java.util.regex.Pattern;
  * {@link #encode} throws when the document holds values the tree cannot place
  * (nothing is silently dropped).
  *
- * <p>The optional {@code review:} pass stays opaque to the runtime
+ * <p>The optional {@code review:} pass is carried by the runtime uninterpreted, read and written back
  * ({@link #decode} returns it as a raw mapping for the editor to interpret).
  *
  * <p>Divergences shared with the hand-rolled parser (documented in the JS/TS
@@ -71,7 +71,7 @@ public final class SpecDocumentYaml {
    */
   public static final int FORMAT_VERSION = 2;
 
-  // --- Shared scalar machinery (public for the editor's review writer) -----
+  // --- Shared scalar machinery (public for the review-pass writer) -----
 
   /**
    * The mapping key a metadata node writes (SOM §12.2): its effective section
@@ -304,7 +304,7 @@ public final class SpecDocumentYaml {
    * Writes {@code <indent><key>: <scalar>} where the scalar is a self-verified
    * block scalar (or a JSON-quoted fallback). Block body lines, which the
    * builder emits at a relative indent of 2, are re-indented past
-   * {@code keyIndent}. (Kept as the shared helper the editor's review writer
+   * {@code keyIndent}. (Kept as the shared helper the review-pass writer
    * uses in the other ports.)
    */
   public static void writeScalar(StringBuilder b, int keyIndent, String key, String value) {
@@ -910,7 +910,7 @@ public final class SpecDocumentYaml {
       stamp = parsed.isEmpty() ? null : parsed;
     }
 
-    // The review pass is opaque but typed (booleans, numbers, nulls round-trip
+    // The review pass is uninterpreted but typed (booleans, numbers, nulls round-trip
     // as such), so it is read from a typed parse; the document pass stays
     // untyped.
     Object rawReview = rootMap.get("review");

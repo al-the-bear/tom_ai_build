@@ -29,7 +29,7 @@
  * position is a structured load error (no silent skips). Symmetrically,
  * `encodeYaml` errors when the document holds values the tree cannot place.
  *
- * The optional `review:` pass stays opaque to the runtime (`decodeYaml` returns
+ * The optional `review:` pass is carried by the runtime uninterpreted, read and written back (`decodeYaml` returns
  * it as a raw mapping for the editor to interpret).
  */
 #ifndef SPEC_DOCUMENT_YAML_HPP
@@ -53,7 +53,7 @@ inline constexpr int kSpecYamlFormatVersion = 2;
 
 /* The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
  * populated SpecDocument (its modelVersion already set from the file stamp),
- * the `review:` pass as a raw mapping (the runtime is review-agnostic; an empty
+ * the `review:` pass as a raw mapping (the runtime carries it uninterpreted and writes it back; an empty
  * map when absent), and the optional authoring model-version stamp. */
 struct SpecYamlContents {
   SpecDocument document;
@@ -125,7 +125,7 @@ YamlPtr specYamlRekeyReview(const YamlValue& review,
 bool decodeYaml(const std::string& yamlText, const SomMetaTree& tree,
                 SpecYamlContents* out, std::string* err);
 
-/* ---- shared scalar machinery (public for the editor's review writer) ---- */
+/* ---- shared scalar machinery (public for the review-pass writer) ---- */
 
 /* Returns the mapping key a metadata node writes (SOM §12.2): its effective
  * section id, one space, then the exact member name (class name on the document

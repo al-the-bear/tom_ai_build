@@ -38,7 +38,7 @@
 //! [`encode_yaml`] errors when the document holds values the tree cannot place
 //! (nothing is silently dropped).
 //!
-//! The optional `review:` pass stays opaque to the runtime ([`decode_yaml`]
+//! The optional `review:` pass is carried by the runtime uninterpreted, read and written back ([`decode_yaml`]
 //! returns it as a raw mapping for the editor to interpret).
 //!
 //! Divergences shared with the hand-rolled parser (documented in the JS/TS
@@ -113,8 +113,8 @@ fn yaml_format_err(message: String) -> SpecYamlError {
 }
 
 /// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
-/// populated [`SpecDocument`], the `review:` pass as a raw mapping (the runtime
-/// is review-agnostic), and the optional authoring model-version stamp.
+/// populated [`SpecDocument`], the `review:` pass as a raw mapping (the runtime carries it
+/// uninterpreted and writes it back), and the optional authoring model-version stamp.
 #[derive(Debug, Clone, Default)]
 pub struct SpecYamlContents {
     /// The `document:` pass, loaded into a live document (its
@@ -129,7 +129,7 @@ pub struct SpecYamlContents {
     pub model_version: String,
 }
 
-// --- Shared scalar machinery (public for the editor's review writer) ---------
+// --- Shared scalar machinery (public for the review-pass writer) ---------
 
 /// Returns the mapping key a metadata node writes (SOM §12.2): its effective
 /// section id, one space, then the exact member name (class name on the

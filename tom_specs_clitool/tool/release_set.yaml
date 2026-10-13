@@ -98,6 +98,15 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_clitool: >-
+    NOT SHIPPED: `.pubignore` gained `tool/model_surface.stamp.json` after 0.5.0
+    was published (vsctsa45) — the file that excludes the stamp from the
+    archive is itself never in it. Rides the next clitool release.
+  tom_som_dart_runtime: >-
+    DOC COMMENTS ONLY since 1.4.1 (qr1): the YAML codec's and the markdown
+    codec's comments now say the review pass is carried and written back, and
+    that applyMarkdownResult applies a parse. No behaviour change; it rides the
+    next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

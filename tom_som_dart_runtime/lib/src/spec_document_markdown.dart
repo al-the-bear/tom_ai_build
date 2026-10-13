@@ -35,8 +35,8 @@
 /// The codec is value-free of any UI: it reads from / resolves against a
 /// [SpecModel] (through the [buildSomMetaTree] metadata tree) and a
 /// [SpecDocument]. [parse] does **not** mutate the document — it returns staged
-/// values keyed exactly like [SpecDocument.toJson] plus a rejection report; the
-/// caller applies them. Anything that cannot be mapped — an unknown section id,
+/// values keyed exactly like [SpecDocument.toJson] plus a rejection report; [SpecDocument.applyMarkdownResult]
+/// applies them. Anything that cannot be mapped — an unknown section id,
 /// a child heading under a value leaf, orphaned text — is collected into
 /// [SpecMarkdownResult.rejections] rather than dropped (SOM §11.7).
 library;
@@ -717,7 +717,7 @@ class SpecDocumentMarkdown {
   // --- Import (SOM §11.7) ---------------------------------------------------
 
   /// Parses [text] into staged values + a rejection report, **without**
-  /// mutating the document. The caller applies the result as a full overwrite.
+  /// mutating the document. [SpecDocument.applyMarkdownResult] applies the result as a full overwrite.
   SpecMarkdownResult parse(String text) {
     final p = _Parser(this);
     p.run(text.split('\n'));

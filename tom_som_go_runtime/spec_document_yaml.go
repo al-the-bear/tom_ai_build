@@ -37,7 +37,7 @@ package somruntime
 // skips). Symmetrically, EncodeYaml errors when the document holds values the
 // tree cannot place (nothing is silently dropped).
 //
-// The optional `review:` pass stays opaque to the runtime (DecodeYaml returns
+// The optional `review:` pass is carried by the runtime uninterpreted, read and written back (DecodeYaml returns
 // it as a raw mapping for the editor to interpret).
 //
 // Divergences shared with the hand-rolled parser (documented in the JS/TS
@@ -78,7 +78,7 @@ func yamlFormatErr(message string) error {
 
 // SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
 // `document:` pass as a populated SpecDocument, the `review:` pass as a raw
-// mapping (the runtime is review-agnostic), and the optional authoring
+// mapping (the runtime carries it uninterpreted and writes it back), and the optional authoring
 // model-version stamp.
 type SpecYamlContents struct {
 	// Document is the `document:` pass, loaded into a live document (its
@@ -94,7 +94,7 @@ type SpecYamlContents struct {
 	ModelVersion string
 }
 
-// --- Shared scalar machinery (public for the editor's review writer) ---------
+// --- Shared scalar machinery (public for the review-pass writer) ---------
 
 // NodeKey returns the mapping key a metadata node writes (SOM §12.2): its
 // effective section id, one space, then the exact member name (class name on
@@ -344,7 +344,7 @@ func writeRendered(b *yamlBuffer, keyIndent int, renderedKey, repr string) {
 // writeScalar writes "<indent><key>: <scalar>" where the scalar is a
 // self-verified block scalar (or a JSON-quoted fallback). Block body lines,
 // which the builder emits at a relative indent of 2, are re-indented past
-// keyIndent. (Kept as the shared helper the editor's review writer uses in the
+// keyIndent. (Kept as the shared helper the review-pass writer uses in the
 // other ports.)
 func writeScalar(b *yamlBuffer, keyIndent int, key, value string) {
 	writeRendered(b, keyIndent, yamlKey(key), scalarRepr(value))
@@ -1023,7 +1023,7 @@ func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 		stamp = parsedScalarStr(raw)
 	}
 
-	// The review pass is opaque: its plain scalars keep their YAML types
+	// The review pass is uninterpreted: its plain scalars keep their YAML types
 	// (booleans, null, numbers), so it is read with the typed parser.
 	var rev *YamlMap
 	if rootMap.Has("review") {

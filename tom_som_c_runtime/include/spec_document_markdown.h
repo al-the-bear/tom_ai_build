@@ -27,7 +27,7 @@
  *
  * `spec_markdown_parse` does not mutate any document — it returns staged
  * values keyed exactly like `spec_document_to_json` plus a rejection report
- * (SOM §11.7); the caller applies them as a full overwrite.
+ * (SOM §11.7); `spec_document_apply_markdown_result` applies them as a full overwrite.
  *
  * C conventions (shared with the rest of the runtime): "" = absent strings;
  * owned `char *` results are freed with `free`; `char **err` out-parameters
@@ -165,7 +165,7 @@ char *spec_document_to_markdown(const SpecDocument *document,
 
 /* Parses `text` into staged values + a rejection report, writing `*out`
  * (initialised by the callee; free with spec_markdown_result_free). The
- * parse never mutates a document — the caller applies the result as a full
+ * parse never mutates a document — `spec_document_apply_markdown_result` applies the result as a full
  * overwrite (SOM §11.7). */
 void spec_markdown_parse(const SpecModel *model, const char *text,
                          SpecMarkdownResult *out);

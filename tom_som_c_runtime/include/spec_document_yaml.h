@@ -30,7 +30,7 @@
  * `encode_yaml` errors when the document holds values the tree cannot place
  * (nothing is silently dropped).
  *
- * The optional `review:` pass stays opaque to the runtime (`decode_yaml`
+ * The optional `review:` pass is carried by the runtime uninterpreted, read and written back (`decode_yaml`
  * returns it as a raw mapping for the editor to interpret).
  *
  * Divergences shared with the hand-rolled parser (documented in the JS/TS
@@ -54,8 +54,8 @@
 
 /* SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
  * `document:` pass as a populated SpecDocument (its model_version already set
- * from the file stamp), the `review:` pass as a raw mapping (the runtime is
- * review-agnostic; an owned deep clone, an empty map when absent), and the
+ * from the file stamp), the `review:` pass as a raw mapping (the runtime carries it
+ * uninterpreted and writes it back; an owned deep clone, an empty map when absent), and the
  * optional authoring model-version stamp. */
 typedef struct {
   SpecDocument document;
@@ -138,7 +138,7 @@ YamlValue *spec_yaml_rekey_review(const YamlValue *review,
 int decode_yaml(const char *yaml_text, const SomMetaTree *tree,
                 SpecYamlContents *out, char **err);
 
-/* ---- shared scalar machinery (public for the editor's review writer) ---- */
+/* ---- shared scalar machinery (public for the review-pass writer) ---- */
 
 /* Returns the mapping key a metadata node writes (SOM §12.2): its effective
  * section id, one space, then the exact member name (class name on the

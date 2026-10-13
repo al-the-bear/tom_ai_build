@@ -23,7 +23,7 @@
     },
     "review": {
       "type": "object",
-      "description": "Optional editor structural-review pass; opaque to the runtime, so its inner shape is unconstrained.",
+      "description": "Optional structural-review pass. Every SOM runtime carries it uninterpreted and writes it back on save (SOM §12.1), so its inner shape is unconstrained here.",
       "additionalProperties": true
     }
   },

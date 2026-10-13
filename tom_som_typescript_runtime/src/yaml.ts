@@ -345,7 +345,7 @@ class _Yaml {
  * Parses `text` into the value model (a mapping object or array). With
  * `typed`, plain scalars are read by the YAML 1.2 core schema (booleans, null,
  * numbers, JSON flow collections) instead of staying strings — the reading the
- * opaque `review:` pass needs to round-trip its values' types.
+ * uninterpreted `review:` pass needs to round-trip its values' types.
  */
 export function parse(text: string, typed = false): YamlValue {
   const lines = _splitLines(text);

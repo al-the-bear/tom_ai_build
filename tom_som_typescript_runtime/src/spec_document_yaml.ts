@@ -37,7 +37,7 @@
  * {@link encode} throws when the document holds values the tree cannot place
  * (nothing is silently dropped).
  *
- * The optional `review:` pass stays opaque to the runtime ({@link decode}
+ * The optional `review:` pass is carried by the runtime uninterpreted, read and written back ({@link decode}
  * returns it as a raw map for the editor to interpret).
  */
 
@@ -79,8 +79,8 @@ export class SpecYamlFormatException extends Error {
 
 /**
  * The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
- * populated {@link SpecDocument}, the `review:` pass as a raw map (the runtime
- * is review-agnostic), and the optional authoring model-version stamp.
+ * populated {@link SpecDocument}, the `review:` pass as a raw map (the runtime carries it
+ * uninterpreted and writes it back), and the optional authoring model-version stamp.
  */
 export class SpecYamlContents {
   /** The `document:` pass, loaded into a live document (its
@@ -103,7 +103,7 @@ export class SpecYamlContents {
   }
 }
 
-// --- Shared scalar machinery (public for the editor's review writer) ---------
+// --- Shared scalar machinery (public for the review-pass writer) ---------
 
 /**
  * The mapping key a metadata node writes (SOM §12.2): its effective section id,
@@ -988,7 +988,7 @@ export function decode(yamlText: string, tree: SomMetaTree): SpecYamlContents {
     _parsedScalarStr(stampRaw) !== ''
       ? _parsedScalarStr(stampRaw)
       : null;
-  // The review pass is opaque: its plain scalars keep their YAML types
+  // The review pass is uninterpreted: its plain scalars keep their YAML types
   // (booleans, null, numbers), so it is read with the typed parser.
   const rev = 'review' in root ? yaml.parse(yamlText, true)['review'] : undefined;
 

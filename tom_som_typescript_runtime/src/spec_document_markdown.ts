@@ -35,7 +35,7 @@
  * {@link SpecModel} (through the {@link buildSomMetaTree} metadata tree) and a
  * {@link SpecDocument}. {@link SpecDocumentMarkdown.parse} does **not** mutate
  * the document — it returns staged values keyed exactly like
- * {@link SpecDocument.toJson} plus a rejection report; the caller applies
+ * {@link SpecDocument.toJson} plus a rejection report; {@link SpecDocument.applyMarkdownResult} applies
  * them. Anything that cannot be mapped — an unknown section id, a child
  * heading under a value leaf, orphaned text — is collected into
  * {@link SpecMarkdownResult.rejections} rather than dropped (SOM §11.7).
@@ -898,7 +898,7 @@ export class SpecDocumentMarkdown {
 
   /**
    * Parses `text` into staged values + a rejection report, **without**
-   * mutating the document. The caller applies the result as a full overwrite.
+   * mutating the document. {@link SpecDocument.applyMarkdownResult} applies the result as a full overwrite.
    */
   parse(text: string): SpecMarkdownResult {
     const p = new _Parser(this);

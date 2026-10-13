@@ -17,7 +17,7 @@ package somruntime
 // the other ports), sequences are []interface{}, scalars are string or int.
 // JSON-quoted scalars are parsed with encoding/json. YamlParseTyped additionally
 // reads plain scalars by the YAML 1.2 core schema (bool, nil, float64, JSON
-// flow collections) — used for the opaque `review:` pass only.
+// flow collections) — used for the uninterpreted `review:` pass only.
 
 import (
 	"encoding/json"
@@ -453,7 +453,7 @@ func YamlParse(text string) interface{} {
 
 // YamlParseTyped parses text like YamlParse, but reads plain scalars by the
 // YAML 1.2 core schema (booleans, null, float64 numbers, JSON flow
-// collections) instead of keeping them as strings — the reading the opaque
+// collections) instead of keeping them as strings — the reading the uninterpreted
 // `review:` pass needs to round-trip its values' types.
 func YamlParseTyped(text string) interface{} {
 	return yamlParse(text, true)

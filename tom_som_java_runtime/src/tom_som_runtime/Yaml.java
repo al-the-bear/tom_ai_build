@@ -37,7 +37,7 @@ public final class Yaml {
    * Parses {@code text}; with {@code typed} set, plain scalars are also read
    * as YAML 1.2 core-schema booleans ({@code true}/{@code false}), nulls
    * ({@code null}/{@code ~}) and floats ({@link Double}), and a plain
-   * {@code [...]} as a JSON flow sequence — what the opaque {@code review:}
+   * {@code [...]} as a JSON flow sequence — what the uninterpreted {@code review:}
    * pass needs to round-trip its typed values. The document pass is read
    * untyped.
    */

@@ -168,7 +168,7 @@ std::string documentToMarkdown(const SpecDocument& document,
                                const std::string& rootType = "");
 
 /* Parses `text` into staged values + a rejection report. The parse never
- * mutates a document — the caller applies the result as a full overwrite. */
+ * mutates a document — `SpecDocument::applyMarkdownResult` applies the result as a full overwrite. */
 SpecMarkdownResult markdownParse(const SpecModel& model, const std::string& text);
 
 }  // namespace som

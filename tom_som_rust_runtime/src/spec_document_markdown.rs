@@ -32,7 +32,7 @@
 //! [`SpecModel`] (through the [`build_som_meta_tree`] metadata tree) and a
 //! [`SpecDocument`]. Parse does **not** mutate the document — it returns
 //! staged values keyed exactly like `SpecDocument::to_json` plus a rejection
-//! report; the caller applies them. Anything that cannot be mapped — an
+//! report; [`SpecDocument::apply_markdown_result`] applies them. Anything that cannot be mapped — an
 //! unknown section id, a child heading under a value leaf, orphaned text — is
 //! collected into [`SpecMarkdownResult::rejections`] rather than dropped
 //! (SOM §11.7).
@@ -1081,7 +1081,7 @@ it cannot be represented in the DocSpecs markdown format",
     // --- Import (SOM §11.7) -------------------------------------------------------
 
     /// Parses `text` into staged values + a rejection report, **without**
-    /// mutating the document. The caller applies the result as a full
+    /// mutating the document. [`SpecDocument::apply_markdown_result`] applies the result as a full
     /// overwrite.
     pub fn parse(&self, text: &str) -> SpecMarkdownResult {
         let mut p = MdParser::new(self);

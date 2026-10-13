@@ -36,7 +36,7 @@ The codec is free of any UI: it reads from / resolves against a
 :class:`SpecModel` (through the :func:`build_som_meta_tree` metadata tree) and
 a :class:`SpecDocument`. :meth:`SpecDocumentMarkdown.parse` does **not** mutate
 the document — it returns staged values keyed exactly like
-:meth:`SpecDocument.to_json` plus a rejection report; the caller applies them.
+:meth:`SpecDocument.to_json` plus a rejection report; :meth:`SpecDocument.apply_markdown_result` applies them.
 Anything that cannot be mapped — an unknown section id, a child heading under a
 value leaf, orphaned text — is collected into
 :attr:`SpecMarkdownResult.rejections` rather than dropped (SOM §11.7).
@@ -757,7 +757,7 @@ class SpecDocumentMarkdown:
 
     def parse(self, text: str) -> SpecMarkdownResult:
         """Parses *text* into staged values + a rejection report, **without**
-        mutating the document. The caller applies the result as a full
+        mutating the document. :meth:`SpecDocument.apply_markdown_result` applies the result as a full
         overwrite."""
         p = _Parser(self)
         p.run(text.split("\n"))

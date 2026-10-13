@@ -41,7 +41,7 @@
 /// throws when the document holds values the tree cannot place (nothing is
 /// silently dropped).
 ///
-/// The optional `review:` pass stays opaque to the runtime ([decode] returns
+/// The optional `review:` pass is carried by the runtime uninterpreted, read and written back ([decode] returns
 /// it as a raw map for the editor to interpret).
 library;
 
@@ -75,8 +75,8 @@ class SpecYamlFormatException implements Exception {
 }
 
 /// The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
-/// populated [SpecDocument], the `review:` pass as a raw map (the runtime is
-/// review-agnostic), and the optional authoring model-version stamp.
+/// populated [SpecDocument], the `review:` pass as a raw map (the runtime carries it
+/// uninterpreted and writes it back), and the optional authoring model-version stamp.
 class SpecYamlContents {
   /// [document] and [review] are both required even though the `review:` pass
   /// is optional in the file: an absent pass decodes to an empty map, so no
@@ -286,7 +286,7 @@ class SpecDocumentYaml {
     return id == null ? name : '$id $name';
   }
 
-  // --- Shared scalar machinery (public for the editor's review writer) -----
+  // --- Shared scalar machinery (public for the review-pass writer) -----
 
   /// Writes `<indent><key>: <scalar>` where the scalar is a self-verified
   /// block scalar (or a JSON-quoted fallback). Block body lines, which the
