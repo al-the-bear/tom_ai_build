@@ -76,7 +76,7 @@ other gates cannot: whether a table is actually *read* by all nine runners.
 | Corpus load-bearing | [`tool/parity_gate.sh`](tool/parity_gate.sh) | a deliberately broken expectation leaves any suite green |
 | Corpus copies | [`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart) | a fixture copied into a published package has drifted from the corpus it came from |
 | Enum coverage | [`tom_som_dart_runtime/test/enum_coverage_test.dart`](../tom_som_dart_runtime/test/enum_coverage_test.dart) | a contract enum carries a constant no corpus table exercises |
-| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty-three reported results is a failure |
+| Aggregate suites | [`tool/run_all_suites.sh`](tool/run_all_suites.sh) | any of the twenty-four reported results is a failure |
 | Packaging sweep | the nine `buildFromSource` commands (SOM §17) | a facade regenerates with churn, or a language fails to build or pack |
 
 Every gate is *ratcheted* rather than advisory: each has a committed expectation

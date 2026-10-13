@@ -30,7 +30,7 @@ Two different claims, proved by two different drivers:
 | Claim | Driver | Shape of the proof |
 |-------|--------|--------------------|
 | All nine languages *read* the same specification identically | `regenerate_golden.sh` → `compare_golden.dart` | Nine logs, byte-identical |
-| Every hand-authored suite in all eighteen SOM packages passes | `run_all_suites.sh` | A PASS/FAIL/SKIP table over twenty-three results |
+| Every hand-authored suite in all eighteen SOM packages passes | `run_all_suites.sh` | A PASS/FAIL/SKIP table over twenty-four results |
 
 The distinction is worth holding on to. A green golden run says the nine *APIs
 agree*; it says nothing about whether each port's own tests pass. A green suite
