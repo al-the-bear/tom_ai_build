@@ -125,6 +125,7 @@ Each fails a build step rather than reporting a warning.
 | Nine-plane parity | Every capability the contract names is carried by all nine language runtimes | `bin/check_som_parity.dart`, `test/som_parity_test.dart` |
 | Release closure | The release-1 package set is dependency-closed | `bin/check_release_closure.dart`, `test/release_closure_test.dart` |
 | Release drift | Every release member is at its published tree, or says why not | `bin/check_release_drift.dart`, `test/release_drift_test.dart` |
+| Archive ignores | No release member's pub archive drops a file git tracks because a `.gitignore` excludes it — asked of `dart pub publish --dry-run` itself, since git and pub read ignore negations differently | `test/pub_archive_ignores_test.dart` |
 | Published tests | Every published package's own tests run from its pub.dev archive | `tool/verify_published_tests.sh` (a **release step**, not a standing gate) |
 | Doc coverage | Every measured package is at or above its ratchet floor, and enables `public_member_api_docs` | `bin/check_doc_coverage.dart`, `test/doc_coverage_test.dart` |
 | Formatting | Every governed package is what `dart format` would write | `bin/check_format.dart`, `test/format_test.dart` |
@@ -657,7 +658,7 @@ tom_specs_clitool
     ├── outline_writer.dart   the class-tree outline renderer
     ├── model_json_exporter   the class graph the editor and reviewer browse
     ├── model_freshness.dart  the model-source fingerprint behind the stamp
-    ├── {todo,section,oe}_citations.dart · release_closure.dart · entrypoint_options.dart
+    ├── {todo,section,oe}_citations.dart · release_closure.dart · pub_archive_ignores.dart · entrypoint_options.dart
     └── codespecs/            the CodeSpecs derivation-contract checks
 
    tom_specs_model ──ModelReader──▶ ModelClass graph ──▶ meta tree

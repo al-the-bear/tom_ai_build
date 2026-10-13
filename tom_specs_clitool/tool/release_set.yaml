@@ -101,7 +101,9 @@ unpublished_drift:
   tom_specs_clitool: >-
     NOT SHIPPED: `.pubignore` gained `tool/model_surface.stamp.json` after 0.5.0
     was published (vsctsa45) — the file that excludes the stamp from the
-    archive is itself never in it. Rides the next clitool release.
+    archive is itself never in it. Since then also qrb1's archive-ignore gate
+    (lib/src/pub_archive_ignores.dart), a library the default suite runs and
+    no command exposes. Rides the next clitool release.
   tom_som_dart_runtime: >-
     DOC COMMENTS ONLY since 1.4.1 (qr1): the YAML codec's and the markdown
     codec's comments now say the review pass is carried and written back, and

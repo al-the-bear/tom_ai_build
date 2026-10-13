@@ -49,6 +49,7 @@ The module declares **18 classes** and **7 enums** across 4 source file(s).
 | `todo_citations.dart` | The quest-todo citation gate — `TodoRecord`, `TodoCorpus`, `TodoCitation`, `TodoCitationVocabulary`, `TodoCitationReport`, `CitationVerdict`, `CitationExemption` |
 | `oe_citations.dart` | The open-ends citation gate — `OeRegister`, `OeCitation`, `OeCitationReport` |
 | `release_closure.dart` | The release-set closure walker — `ReleaseAllowEntry`, `ReleaseManifest`, `ClosureViolation`, `ClosureReport`, `ClosureEdgeKind`, `ClosureViolationKind` |
+| `pub_archive_ignores.dart` | The archive-ignore check — `PubArchiveIgnores`, `checkPubArchiveIgnores`, `parseCheckedInIgnored` |
 
 ## Class Hierarchy
 

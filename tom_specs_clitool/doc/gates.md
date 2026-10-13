@@ -32,6 +32,7 @@ every offender when it is not.
 | `check_todo_citations.dart` | Does every cited quest-todo id name exactly one open todo? | yes |
 | `check_oe_citations.dart` | Does every cited `OE-` id have a register row? | yes |
 | `check_release_closure.dart` | Is the release-1 package set dependency-closed? | yes |
+| `pub_archive_ignores_test.dart` (no command) | Does every release member's pub archive carry every file git tracks that no `.pubignore` excludes? | yes |
 | `check_doc_coverage.dart` | Is every measured package at or above its ratchet floor? | yes |
 | `check_format.dart` | Is every governed package what `dart format` would write? | yes |
 | `validate_codespecs.dart` | Does a generated CodeSpecs trio satisfy the `codespecs_derivation_contract.md` §6 checks? | no — needs a trio |
