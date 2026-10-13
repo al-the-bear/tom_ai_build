@@ -1729,6 +1729,263 @@
         "className": "Gamma",
         "messageContains": "no document root"
       }
+    },
+    {
+      "name": "a populated generation-projection root is refused",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          },
+          {
+            "type": "Proj",
+            "title": "Proj",
+            "sectionId": "PRJ"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          },
+          "Proj": {
+            "name": "Proj",
+            "sectionId": "PRJ",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Proj"
+                }
+              },
+              {
+                "name": "CodeSpecsProjection"
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "PRJ/NTS/NTE": "Projected note"
+        }
+      },
+      "expect": {
+        "fails": true,
+        "path": "PRJ",
+        "className": "Proj",
+        "messageContains": "generation projection"
+      }
+    },
+    {
+      "name": "naming a generation-projection root is refused",
+      "model": {
+        "metaSchemaVersion": 1,
+        "modelVersion": 1,
+        "roots": [
+          {
+            "type": "Alpha",
+            "title": "Alpha",
+            "sectionId": "ALP"
+          },
+          {
+            "type": "Beta",
+            "title": "Beta",
+            "sectionId": "BET"
+          },
+          {
+            "type": "Proj",
+            "title": "Proj",
+            "sectionId": "PRJ"
+          }
+        ],
+        "classes": {
+          "Alpha": {
+            "name": "Alpha",
+            "sectionId": "ALP",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Alpha"
+                }
+              },
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.form"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "title",
+                "kind": "content",
+                "sectionId": "TTL"
+              }
+            ]
+          },
+          "Beta": {
+            "name": "Beta",
+            "sectionId": "BET",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Beta"
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          },
+          "BetaNotes": {
+            "name": "BetaNotes",
+            "sectionId": "NTS",
+            "annotations": [
+              {
+                "name": "CodeSpecKind",
+                "arguments": {
+                  "kinds": [
+                    "CodeSpecPart.text"
+                  ]
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "note",
+                "kind": "content",
+                "sectionId": "NTE"
+              }
+            ]
+          },
+          "Proj": {
+            "name": "Proj",
+            "sectionId": "PRJ",
+            "annotations": [
+              {
+                "name": "Document",
+                "arguments": {
+                  "title": "Proj"
+                }
+              },
+              {
+                "name": "CodeSpecsProjection"
+              }
+            ],
+            "fields": [
+              {
+                "name": "notes",
+                "kind": "section",
+                "type": "BetaNotes",
+                "sectionId": "NTS"
+              }
+            ]
+          }
+        }
+      },
+      "state": {
+        "content": {
+          "PRJ/NTS/NTE": "Projected note"
+        }
+      },
+      "rootType": "PRJ",
+      "expect": {
+        "fails": true,
+        "path": "PRJ",
+        "className": "Proj",
+        "messageContains": "generation projection"
+      }
     }
   ]
 }

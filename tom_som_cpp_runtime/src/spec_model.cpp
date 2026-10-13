@@ -194,6 +194,12 @@ const SpecClass* SpecModel::classNamed(const std::string& name) const {
   return it != classesByName_.end() ? &it->second : nullptr;
 }
 
+bool SpecModel::isGenerationInput(const SpecRoot& root) const {
+  const SpecClass* cls = classNamed(root.type);
+  return cls != nullptr &&
+         specHasAnnotation(cls->annotations, "CodeSpecsProjection");
+}
+
 const SpecRoot& SpecModel::rootByType(const std::string& type) const {
   for (const auto& r : roots) {
     if (r.type == type) {

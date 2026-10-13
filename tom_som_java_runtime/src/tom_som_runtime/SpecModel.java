@@ -261,6 +261,32 @@ public final class SpecModel {
   }
 
   /**
+   * Whether {@code root} is a <b>generation input</b> rather than an authored
+   * document.
+   *
+   * <p>A generation input is an {@code @Document} root whose audience is a
+   * generator, not a spec author: it projects existing Solution Blueprint
+   * sections into the shape a downstream phase consumes.
+   * {@code D13CodeSpecsProjection} is the only one today — it is
+   * {@code @CodeSpecKind}-driven, flat, locus-grouped, and carries no document
+   * identity anybody would sit down and write.
+   *
+   * <p>Derived from the class's {@code @CodeSpecsProjection()} marker, which the
+   * export already carries losslessly in {@code classes[type].annotations}.
+   * Reading it here keeps the classification single-sourced in the model — a
+   * consumer that hard-coded the root's type name would silently misclassify the
+   * next projection to be added.
+   *
+   * <p>A root whose class is absent from {@link #classes} (a synthetic or
+   * truncated model) is <i>not</i> a generation input: an unknown class is not
+   * evidence.
+   */
+  public boolean isGenerationInput(SpecRoot root) {
+    SpecClass c = classNamed(root.type);
+    return c != null && c.hasAnnotation("CodeSpecsProjection");
+  }
+
+  /**
    * The document root whose {@link SpecRoot#type} equals {@code type} (SOM
    * SOM §21).
    *

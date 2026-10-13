@@ -158,6 +158,15 @@ const SpecClass *spec_model_class_named(const SpecModel *m, const char *name) {
   return NULL;
 }
 
+int spec_model_is_generation_input(const SpecModel *m, const SpecRoot *root) {
+  if (m == NULL || root == NULL) {
+    return 0;
+  }
+  const SpecClass *cls = spec_model_class_named(m, root->type);
+  return cls != NULL &&
+         spec_annotations_have(&cls->annotations, "CodeSpecsProjection");
+}
+
 const SpecRoot *spec_model_root_by_type(const SpecModel *m, const char *type,
                                         char **err) {
   if (m != NULL && type != NULL) {

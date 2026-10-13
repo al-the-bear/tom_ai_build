@@ -328,7 +328,9 @@ document's single **populated** root, falling back to the model's only root when
 the document is empty. Anything that does not resolve to exactly one root is a
 `CodeSpecsExtractError` from the constructor: an unknown `rootType`, more than one
 populated root, an empty document over a multi-root model, or a `rootType` that
-holds no value while another root does.
+holds no value while another root does. A root that resolves but is a
+**generation projection** — its class carries `@CodeSpecsProjection` — is refused
+too, whatever the document holds: it is never a specification document.
 
 Two wrong choices are worth naming because both look right, and because naming
 them is what the API shape was chosen to close:
@@ -346,7 +348,10 @@ them is what the API shape was chosen to close:
   declaring the entire project not applicable. This is the failure mode a bare
   required-root argument would leave intact, so it is the one the resolver
   reports: naming a root the document never populates is an error, not an empty
-  result.
+  result. The converse — a document whose populated root *is* the projection,
+  say one with `CGP/…` values — is refused on the root's `@CodeSpecsProjection`
+  marker rather than on its type name, so a future projection is refused the
+  same way.
 
 The extraction run is **not** a gate stage. Its own failures — an unrouted class,
 a malformed catalogue — surface as A3 or as a tooling error, and a tooling error

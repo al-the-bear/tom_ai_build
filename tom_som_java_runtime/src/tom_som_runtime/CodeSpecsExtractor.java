@@ -61,7 +61,9 @@ import java.util.Set;
  * for that; and naming a root the document never populates — the
  * {@code D13CodeSpecsProjection} mistake, whose {@code CGP/…} path space misses a
  * blueprint's {@code SBP/…} values and yields every area silently empty — is a
- * {@link CodeSpecsExtractError} rather than an empty result.
+ * {@link CodeSpecsExtractError} rather than an empty result. So is the converse: a
+ * document whose root <i>is</i> a {@code @CodeSpecsProjection}, which is never a
+ * specification document whatever it holds.
  */
 public final class CodeSpecsExtractor {
   /**
@@ -118,20 +120,43 @@ public final class CodeSpecsExtractor {
    * @throws CodeSpecsExtractError when the root cannot be resolved to exactly one:
    *     an unknown {@code rootType}, a {@code rootType} holding no value while
    *     another root does, more than one populated root, or an empty document over
-   *     a multi-root model.
+   *     a multi-root model — and when the resolved root is a generation projection
+   *     ({@link SpecModel#isGenerationInput}).
    */
   public CodeSpecsExtractor(
       SpecModel model, SpecDocument document, CodeSpecsAreaCatalog catalog, String rootType) {
     this.model = model;
     this.document = document;
     this.catalog = catalog;
-    this.root = resolveRoot(model, document, rootType);
+    this.root = refuseProjection(model, resolveRoot(model, document, rootType));
     this.reflection = new SpecReflection(model);
   }
 
   /** The document path segment a root's values live under. */
   private static String rootSegmentOf(SpecRoot r) {
     return r.sectionId != null && !r.sectionId.isEmpty() ? r.sectionId : r.type;
+  }
+
+  /**
+   * {@code root}, unless it is a generation input
+   * ({@link SpecModel#isGenerationInput}): a {@code @CodeSpecsProjection} root
+   * defines what generation reaches and is neither filled nor extracted
+   * ({@code codespecs_mapping.md} §8.4). Its path space holds none of the
+   * specification's values, so walking it would answer every area with a
+   * silently empty extract. Keyed on the annotation, never on a type name, so the
+   * next projection is refused too.
+   */
+  private static SpecRoot refuseProjection(SpecModel model, SpecRoot root) {
+    if (!model.isGenerationInput(root)) {
+      return root;
+    }
+    throw new CodeSpecsExtractError(
+        "root \"" + root.type + "\" is a generation projection "
+            + "(@CodeSpecsProjection), not a specification document — extract "
+            + "from the specification document it projects "
+            + "(codespecs_mapping.md §8.4)",
+        rootSegmentOf(root),
+        root.type);
   }
 
   /** Implements the constructor's root rule. */

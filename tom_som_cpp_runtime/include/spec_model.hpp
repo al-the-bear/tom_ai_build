@@ -291,6 +291,15 @@ class SpecModel {
   /* Returns the class named `name`, or null. */
   const SpecClass* classNamed(const std::string& name) const;
 
+  /* Whether `root` is a generation input rather than a specification
+   * document: its class carries the `@CodeSpecsProjection` marker, so it
+   * defines what generation reaches and is neither filled nor extracted
+   * (`codespecs_mapping.md` §8.4). Keyed on the annotation, never on a type
+   * name, so the next projection is classified too. A root whose class is
+   * absent from the model (a synthetic or truncated snapshot) is not a
+   * generation input: an unknown class is not evidence. */
+  bool isGenerationInput(const SpecRoot& root) const;
+
   /* Returns the document root whose `type` equals `type` (SOM §21).
    * Replaces the recurring firstWhere((r) => r.type == …) boilerplate. Throws
    * std::invalid_argument when no root carries that type, with a message that

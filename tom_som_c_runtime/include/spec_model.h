@@ -292,6 +292,15 @@ SpecModelStampCheck spec_model_check_stamp(const SpecModel *m,
 /* Returns the class named `name`, or NULL. */
 const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);
 
+/* Reports whether `root` is a generation input rather than a specification
+ * document: its class carries the `@CodeSpecsProjection` marker, so it defines
+ * what generation reaches and is neither filled nor extracted
+ * (`codespecs_mapping.md` §8.4). Keyed on the annotation, never on a type name,
+ * so the next projection is classified too. A root whose class is absent from
+ * the model (a synthetic or truncated snapshot) is not a generation input: an
+ * unknown class is not evidence. */
+int spec_model_is_generation_input(const SpecModel *m, const SpecRoot *root);
+
 /* Returns the document root whose `type` equals `type` (SOM §21), or NULL when
  * no root carries that type. On the NULL path, when `err` is non-NULL, writes an
  * owned message naming the missing type and the ones that do exist (caller frees

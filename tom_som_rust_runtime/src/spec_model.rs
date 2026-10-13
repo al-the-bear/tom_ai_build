@@ -618,6 +618,20 @@ impl SpecModel {
         self.classes.get(name)
     }
 
+    /// Whether `root` is a generation input rather than an authoring document:
+    /// a document whose root class carries the `@CodeSpecsProjection` marker
+    /// (`codespecs_mapping.md` §8.4) and defines what generation reaches rather
+    /// than what an author writes.
+    ///
+    /// Derived from the class's annotation, never from the root's type name, so
+    /// the next projection to be added is classified too. A root whose class is
+    /// absent from [`Self::classes`] (a synthetic or truncated model) is not a
+    /// generation input: an unknown class is not evidence.
+    pub fn is_generation_input(&self, root: &SpecRoot) -> bool {
+        self.class_named(&root.type_)
+            .is_some_and(|c| c.has_annotation("CodeSpecsProjection"))
+    }
+
     /// Returns the document root whose [`SpecRoot::type_`] equals `ty` (SOM
     /// §21).
     ///

@@ -788,6 +788,26 @@ def _resolve_root(
     )
 
 
+def _refuse_projection(model: SpecModel, root: SpecRoot) -> SpecRoot:
+    """*root*, unless it is a generation input
+    (:meth:`SpecModel.is_generation_input`): a ``@CodeSpecsProjection`` root
+    defines what generation reaches and is neither filled nor extracted
+    (`codespecs_mapping.md` §8.4). Its path space holds none of the
+    specification's values, so walking it would answer every area with a
+    silently empty extract. Keyed on the annotation, never on a type name, so
+    the next projection is refused too."""
+    if not model.is_generation_input(root):
+        return root
+    raise CodeSpecsExtractError(
+        message=f'root "{root.type}" is a generation projection '
+        "(@CodeSpecsProjection), not a specification document — extract "
+        "from the specification document it projects "
+        "(codespecs_mapping.md §8.4)",
+        path=_root_segment(root),
+        class_name=root.type,
+    )
+
+
 class CodeSpecsExtractor:
     """Produces one :class:`CodeSpecsExtract` per active area from a filled
     specification document.
@@ -799,7 +819,9 @@ class CodeSpecsExtractor:
     that; and naming a root the document never populates — the
     ``D13CodeSpecsProjection`` mistake, whose ``CGP/…`` path space misses a
     blueprint's ``SBP/…`` values and yields every area silently empty — raises
-    :class:`CodeSpecsExtractError` rather than returning an empty result."""
+    :class:`CodeSpecsExtractError` rather than returning an empty result. So
+    is the converse: a document whose root *is* a ``@CodeSpecsProjection``,
+    which is never a specification document whatever it holds."""
 
     def __init__(
         self,
@@ -819,7 +841,8 @@ class CodeSpecsExtractor:
         Raises :class:`CodeSpecsExtractError` when the root cannot be resolved to
         exactly one: an unknown *root_type*, a *root_type* holding no value while
         another root does, more than one populated root, or an empty document
-        over a multi-root model."""
+        over a multi-root model — and when the resolved root is a generation
+        projection (:meth:`SpecModel.is_generation_input`)."""
         #: The model describing the document's structure and carrying the
         #: routing verdicts.
         self.model = model
@@ -830,7 +853,9 @@ class CodeSpecsExtractor:
         #: The one `@Document` root this extractor walks. Resolved once, here,
         #: so `routings` and `extract_all` cannot disagree about what was
         #: walked.
-        self.root = _resolve_root(model, document, root_type)
+        self.root = _refuse_projection(
+            model, _resolve_root(model, document, root_type)
+        )
         self._reflection = SpecReflection(model)
 
     def routings(self) -> list[CodeSpecsRouting]:

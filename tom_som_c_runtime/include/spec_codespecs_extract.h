@@ -554,7 +554,9 @@ char *spec_codespecs_extract_error_string(const CodeSpecsExtractError *e);
  * naming a root the document never populates — the `D13CodeSpecsProjection`
  * mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
  * yields every area silently empty — is a `CodeSpecsExtractError` rather than an
- * empty result. */
+ * empty result. So is the converse: a document whose root *is* a
+ * `@CodeSpecsProjection`, which is never a specification document whatever it
+ * holds. */
 typedef struct {
   /* The model describing the document's structure and carrying the routing
    * verdicts. */
@@ -583,7 +585,9 @@ typedef struct {
  * Fails — leaving `root` NULL and filling `*err` when `err` is non-NULL — when
  * the root cannot be resolved to exactly one: an unknown `root_type`, a
  * `root_type` holding no value while another root does, more than one populated
- * root, or an empty document over a multi-root model. The C stand-in for the
+ * root, or an empty document over a multi-root model — and when the resolved
+ * root is a generation projection (`spec_model_is_generation_input`). The C
+ * stand-in for the
  * Dart port's constructor throw; check with
  * `spec_codespecs_extract_error_is_ok`. */
 CodeSpecsExtractor

@@ -752,6 +752,23 @@ const SpecRoot* resolveCodeSpecsRoot(const SpecModel& model,
                               std::string(), std::string());
 }
 
+/* `root`, unless it is a generation input (SpecModel::isGenerationInput): a
+ * `@CodeSpecsProjection` root defines what generation reaches and is neither
+ * filled nor extracted (`codespecs_mapping.md` §8.4). Its path space holds none
+ * of the specification's values, so walking it would answer every area with a
+ * silently empty extract. Keyed on the annotation, never on a type name, so the
+ * next projection is refused too. */
+const SpecRoot* refuseCodeSpecsProjection(const SpecModel& model,
+                                          const SpecRoot* root) {
+  if (!model.isGenerationInput(*root)) return root;
+  throw CodeSpecsExtractError(
+      "root \"" + root->type +
+          "\" is a generation projection (@CodeSpecsProjection), not a "
+          "specification document — extract from the specification document "
+          "it projects (codespecs_mapping.md §8.4)",
+      codeSpecsRootSegment(*root), root->type);
+}
+
 }  // namespace
 
 CodeSpecsExtractor::CodeSpecsExtractor(const SpecModel& model,
@@ -761,7 +778,8 @@ CodeSpecsExtractor::CodeSpecsExtractor(const SpecModel& model,
     : model_(&model),
       document_(&document),
       catalog_(std::move(catalog)),
-      root_(resolveCodeSpecsRoot(model, document, rootType)) {}
+      root_(refuseCodeSpecsProjection(
+          model, resolveCodeSpecsRoot(model, document, rootType))) {}
 
 std::vector<CodeSpecsRouting> CodeSpecsExtractor::routings() const {
   std::vector<CodeSpecsRouting> out;

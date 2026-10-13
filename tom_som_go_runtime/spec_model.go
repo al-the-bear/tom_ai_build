@@ -560,6 +560,23 @@ func (m *SpecModel) ClassNamed(name string) *SpecClass {
 	return m.Classes[name]
 }
 
+// IsGenerationInput reports whether root is a generation input rather than an
+// authoring document: a document whose root class carries the
+// `@CodeSpecsProjection` marker (`codespecs_mapping.md` §8.4) and defines what
+// generation reaches rather than what an author writes.
+//
+// Derived from the class's annotation, never from the root's type name, so the
+// next projection to be added is classified too. A root whose class is absent
+// from Classes (a synthetic or truncated model) is not a generation input: an
+// unknown class is not evidence.
+func (m *SpecModel) IsGenerationInput(root *SpecRoot) bool {
+	if root == nil {
+		return false
+	}
+	c := m.ClassNamed(root.Type)
+	return c != nil && c.HasAnnotation("CodeSpecsProjection")
+}
+
 // ModelVersionString is the `major.minor` version string used in the DocSpecs
 // markdown declaration (Dart / Python parity — mirrors Python's
 // `SpecModel.model_version_string`).

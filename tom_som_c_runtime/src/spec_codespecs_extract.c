@@ -1408,6 +1408,34 @@ static const SpecRoot *resolve_root(const SpecModel *model,
   return result;
 }
 
+/* `root`, unless it is a generation input (`spec_model_is_generation_input`):
+ * a `@CodeSpecsProjection` root defines what generation reaches and is neither
+ * filled nor extracted (`codespecs_mapping.md` §8.4). Its path space holds none
+ * of the specification's values, so walking it would answer every area with a
+ * silently empty extract. Keyed on the annotation, never on a type name, so the
+ * next projection is refused too. A NULL `root` (resolution already failed)
+ * passes through untouched. */
+static const SpecRoot *refuse_projection(const SpecModel *model,
+                                         const SpecRoot *root,
+                                         CodeSpecsExtractError *err) {
+  if (root == NULL || !spec_model_is_generation_input(model, root)) {
+    return root;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "root \"");
+  som_buf_puts(&b, root->type);
+  som_buf_puts(&b,
+               "\" is a generation projection (@CodeSpecsProjection), not a "
+               "specification document — extract from the specification "
+               "document it projects (codespecs_mapping.md §8.4)");
+  const SpecRoot *result = fail_root(err, som_buf_take(&b),
+                                     spec_reflection_root_segment(root),
+                                     root->type);
+  som_buf_free(&b);
+  return result;
+}
+
 CodeSpecsExtractor
 spec_codespecs_extractor_make(const SpecModel *model,
                               const SpecDocument *document,
@@ -1421,7 +1449,8 @@ spec_codespecs_extractor_make(const SpecModel *model,
   e.model = model;
   e.document = document;
   e.catalog = catalog;
-  e.root = resolve_root(model, document, root_type, err);
+  e.root = refuse_projection(
+      model, resolve_root(model, document, root_type, err), err);
   e.reflection = spec_reflection_make(model);
   return e;
 }

@@ -5385,6 +5385,37 @@ Map<String, dynamic> _codeSpecsExtractCases(SpecModel model, SpecDocument doc) {
           'messageContains': 'no document root',
         },
       },
+      // A `@CodeSpecsProjection` root is a generation input, never a
+      // specification document (`codespecs_mapping.md` §8.4): filled, it would
+      // otherwise resolve and answer every area with an empty extract. The
+      // refusal reads the annotation, so the root's type name is arbitrary.
+      {
+        'name': 'a populated generation-projection root is refused',
+        'model': _codeSpecsProjectionModelJson(),
+        'state': {
+          'content': {'PRJ/NTS/NTE': 'Projected note'},
+        },
+        'expect': {
+          'fails': true,
+          'path': 'PRJ',
+          'className': 'Proj',
+          'messageContains': 'generation projection',
+        },
+      },
+      {
+        'name': 'naming a generation-projection root is refused',
+        'model': _codeSpecsProjectionModelJson(),
+        'state': {
+          'content': {'PRJ/NTS/NTE': 'Projected note'},
+        },
+        'rootType': 'PRJ',
+        'expect': {
+          'fails': true,
+          'path': 'PRJ',
+          'className': 'Proj',
+          'messageContains': 'generation projection',
+        },
+      },
     ],
   };
 }
@@ -5464,6 +5495,38 @@ Map<String, dynamic> _codeSpecsTwoRootModelJson() => {
     },
   },
 };
+
+/// [_codeSpecsTwoRootModelJson] with a third root, `Proj`, marked
+/// `@CodeSpecsProjection` and re-referencing `BetaNotes` the way
+/// `D13CodeSpecsProjection` re-references the blueprint's sections.
+Map<String, dynamic> _codeSpecsProjectionModelJson() {
+  final m = _codeSpecsTwoRootModelJson();
+  (m['roots'] as List).add({
+    'type': 'Proj',
+    'title': 'Proj',
+    'sectionId': 'PRJ',
+  });
+  (m['classes'] as Map)['Proj'] = {
+    'name': 'Proj',
+    'sectionId': 'PRJ',
+    'annotations': [
+      {
+        'name': 'Document',
+        'arguments': {'title': 'Proj'},
+      },
+      {'name': 'CodeSpecsProjection'},
+    ],
+    'fields': [
+      {
+        'name': 'notes',
+        'kind': 'section',
+        'type': 'BetaNotes',
+        'sectionId': 'NTS',
+      },
+    ],
+  };
+  return m;
+}
 
 /// Cursor semantics that a result *table* cannot express: partial consumption
 /// via `take`, `count` reporting only what remains, and the edit-stability rule

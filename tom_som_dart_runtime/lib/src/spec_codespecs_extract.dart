@@ -936,7 +936,9 @@ class CodeSpecsExtractError implements Exception {
 /// that; and naming a root the document never populates — the
 /// `D13CodeSpecsProjection` mistake, whose `CGP/…` path space misses a
 /// blueprint's `SBP/…` values and yields every area silently empty — is a
-/// [CodeSpecsExtractError] rather than an empty result.
+/// [CodeSpecsExtractError] rather than an empty result. So is the converse: a
+/// document whose root *is* a `@CodeSpecsProjection`, which is never a
+/// specification document whatever it holds.
 class CodeSpecsExtractor {
   /// The model describing the document's structure and carrying the routing
   /// verdicts.
@@ -967,16 +969,36 @@ class CodeSpecsExtractor {
   /// Throws [CodeSpecsExtractError] when the root cannot be resolved to exactly
   /// one: an unknown [rootType], a [rootType] holding no value while another
   /// root does, more than one populated root, or an empty document over a
-  /// multi-root model.
+  /// multi-root model — and when the resolved root is a generation projection
+  /// ([SpecModel.isGenerationInput]).
   CodeSpecsExtractor({
     required this.model,
     required this.document,
     required this.catalog,
     String? rootType,
-  }) : root = _resolveRoot(model, document, rootType),
+  }) : root = _refuseProjection(model, _resolveRoot(model, document, rootType)),
        _reflection = SpecReflection(model);
 
   static String _segment(SpecRoot r) => r.sectionId ?? r.type;
+
+  /// [root], unless it is a generation input ([SpecModel.isGenerationInput]):
+  /// a `@CodeSpecsProjection` root defines what generation reaches and is
+  /// neither filled nor extracted (`codespecs_mapping.md` §8.4). Its path space
+  /// holds none of the specification's values, so walking it would answer
+  /// every area with a silently empty extract. Keyed on the annotation, never
+  /// on a type name, so the next projection is refused too.
+  static SpecRoot _refuseProjection(SpecModel model, SpecRoot root) {
+    if (!model.isGenerationInput(root)) return root;
+    throw CodeSpecsExtractError(
+      message:
+          'root "${root.type}" is a generation projection '
+          '(@CodeSpecsProjection), not a specification document — extract '
+          'from the specification document it projects '
+          '(codespecs_mapping.md §8.4)',
+      path: _segment(root),
+      className: root.type,
+    );
+  }
 
   static SpecRoot _resolveRoot(
     SpecModel model,

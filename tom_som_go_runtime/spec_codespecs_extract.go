@@ -769,7 +769,9 @@ func (e *CodeSpecsExtractError) Error() string {
 // naming a root the document never populates — the `D13CodeSpecsProjection`
 // mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
 // yields every area silently empty — is a CodeSpecsExtractError rather than an
-// empty result.
+// empty result. So is the converse: a document whose root *is* a
+// `@CodeSpecsProjection`, which is never a specification document whatever it
+// holds.
 type CodeSpecsExtractor struct {
 	// Model describes the document's structure and carries the routing verdicts.
 	Model *SpecModel
@@ -798,7 +800,9 @@ type CodeSpecsExtractor struct {
 //
 // Returns a *CodeSpecsExtractError when the root cannot be resolved to exactly
 // one: an unknown rootType, a rootType holding no value while another root does,
-// more than one populated root, or an empty document over a multi-root model.
+// more than one populated root, or an empty document over a multi-root model —
+// and when the resolved root is a generation projection
+// (SpecModel.IsGenerationInput).
 func NewCodeSpecsExtractor(
 	model *SpecModel,
 	document *SpecDocument,
@@ -807,6 +811,9 @@ func NewCodeSpecsExtractor(
 ) (*CodeSpecsExtractor, error) {
 	root, bad := resolveCodeSpecsRoot(model, document, rootType)
 	if bad != nil {
+		return nil, bad
+	}
+	if bad := refuseCodeSpecsProjection(model, root); bad != nil {
 		return nil, bad
 	}
 	return &CodeSpecsExtractor{
@@ -824,6 +831,27 @@ func codeSpecsRootSegment(r *SpecRoot) string {
 		return r.SectionID
 	}
 	return r.Type
+}
+
+// refuseCodeSpecsProjection returns an error when root is a generation input
+// (SpecModel.IsGenerationInput): a `@CodeSpecsProjection` root defines what
+// generation reaches and is neither filled nor extracted
+// (`codespecs_mapping.md` §8.4). Its path space holds none of the
+// specification's values, so walking it would answer every area with a
+// silently empty extract. Keyed on the annotation, never on a type name, so the
+// next projection is refused too.
+func refuseCodeSpecsProjection(model *SpecModel, root *SpecRoot) *CodeSpecsExtractError {
+	if !model.IsGenerationInput(root) {
+		return nil
+	}
+	return &CodeSpecsExtractError{
+		Message: `root "` + root.Type + `" is a generation projection ` +
+			`(@CodeSpecsProjection), not a specification document — extract ` +
+			`from the specification document it projects ` +
+			`(codespecs_mapping.md §8.4)`,
+		Path:      codeSpecsRootSegment(root),
+		ClassName: root.Type,
+	}
 }
 
 // resolveCodeSpecsRoot implements NewCodeSpecsExtractor's root rule.

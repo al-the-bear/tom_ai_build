@@ -486,7 +486,9 @@ class CodeSpecsExtractError : public std::exception {
  * naming a root the document never populates — the `D13CodeSpecsProjection`
  * mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
  * yields every area silently empty — is a CodeSpecsExtractError rather than an
- * empty result. */
+ * empty result. So is the converse: a document whose root *is* a
+ * `@CodeSpecsProjection`, which is never a specification document whatever it
+ * holds. */
 class CodeSpecsExtractor {
  public:
   /* `model` describes the document's structure and carries the routing verdicts;
@@ -502,7 +504,9 @@ class CodeSpecsExtractor {
    *
    * Throws CodeSpecsExtractError when the root cannot be resolved to exactly one:
    * an unknown `rootType`, a `rootType` holding no value while another root does,
-   * more than one populated root, or an empty document over a multi-root model. */
+   * more than one populated root, or an empty document over a multi-root model —
+   * and when the resolved root is a generation projection
+   * (SpecModel::isGenerationInput). */
   CodeSpecsExtractor(const SpecModel& model, const SpecDocument& document,
                      CodeSpecsAreaCatalog catalog,
                      const std::string& rootType = std::string());

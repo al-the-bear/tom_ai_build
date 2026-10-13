@@ -547,8 +547,9 @@ language mirrors it:
   when it is constructed from an optional root-type argument (type name or
   section id) that defaults to the document's single populated root — there is
   no way to ask for a union of every `@Document` root, and naming a root the
-  document never populates is an error rather than 26 silently empty extracts
-  (`codespecs_prompt.md` §5).
+  document never populates is an error rather than 27 silently empty extracts,
+  as is a root carrying `@CodeSpecsProjection`, which is a generation input
+  rather than a specification document (`codespecs_prompt.md` §5).
 - `spec_codespecs_records.dart` — the **reading** half of the same files:
   `CodeSpecsExtract.fromYaml` reads an extract back (refusing an unknown
   `formatVersion`, and a `document.entryCount` the entries disagree with),

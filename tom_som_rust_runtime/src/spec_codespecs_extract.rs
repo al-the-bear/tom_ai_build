@@ -1159,6 +1159,31 @@ fn code_specs_root_segment(root: &SpecRoot) -> &str {
     }
 }
 
+/// `Err` when `root` is a generation input ([`SpecModel::is_generation_input`]):
+/// a `@CodeSpecsProjection` root defines what generation reaches and is neither
+/// filled nor extracted (`codespecs_mapping.md` §8.4). Its path space holds none
+/// of the specification's values, so walking it would answer every area with a
+/// silently empty extract. Keyed on the annotation, never on a type name, so the
+/// next projection is refused too.
+fn refuse_code_specs_projection(
+    model: &SpecModel,
+    root: &SpecRoot,
+) -> Result<(), CodeSpecsExtractError> {
+    if !model.is_generation_input(root) {
+        return Ok(());
+    }
+    Err(CodeSpecsExtractError {
+        message: format!(
+            "root \"{}\" is a generation projection (@CodeSpecsProjection), not a \
+             specification document — extract from the specification document it \
+             projects (codespecs_mapping.md §8.4)",
+            root.type_
+        ),
+        path: code_specs_root_segment(root).to_string(),
+        class_name: root.type_.clone(),
+    })
+}
+
 /// Resolves the one root [`CodeSpecsExtractor`] walks — the rule stated on
 /// [`CodeSpecsExtractor::new`].
 fn resolve_code_specs_root<'m>(
@@ -1251,7 +1276,9 @@ fn resolve_code_specs_root<'m>(
 /// and naming a root the document never populates — the `D13CodeSpecsProjection`
 /// mistake, whose `CGP/…` path space misses a blueprint's `SBP/…` values and
 /// yields every area silently empty — is a [`CodeSpecsExtractError`] rather than
-/// an empty result.
+/// an empty result. So is the converse: a document whose root *is* a
+/// `@CodeSpecsProjection`, which is never a specification document whatever it
+/// holds.
 pub struct CodeSpecsExtractor<'d, 'm> {
     /// The filled specification document.
     pub document: &'d SpecDocument,
@@ -1282,7 +1309,8 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
     /// Fails with [`CodeSpecsExtractError`] when the root cannot be resolved to
     /// exactly one: an unknown `root_type`, a `root_type` holding no value while
     /// another root does, more than one populated root, or an empty document over
-    /// a multi-root model.
+    /// a multi-root model — and when the resolved root is a generation
+    /// projection ([`SpecModel::is_generation_input`]).
     pub fn new(
         document: &'d SpecDocument,
         reflection: SpecReflection<'m>,
@@ -1290,6 +1318,7 @@ impl<'d, 'm> CodeSpecsExtractor<'d, 'm> {
         root_type: Option<&str>,
     ) -> Result<CodeSpecsExtractor<'d, 'm>, CodeSpecsExtractError> {
         let root = resolve_code_specs_root(reflection.model, document, root_type)?;
+        refuse_code_specs_projection(reflection.model, root)?;
         Ok(CodeSpecsExtractor {
             document,
             reflection,

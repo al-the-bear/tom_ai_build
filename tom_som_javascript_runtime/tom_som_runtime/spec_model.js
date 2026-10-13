@@ -701,6 +701,29 @@ class SpecModel {
   }
 
   /**
+   * Whether `root` is a generation input rather than a document an author
+   * fills (the Dart `isGenerationInput`).
+   *
+   * A generation input is an `@Document` root whose audience is a generator,
+   * not a spec author: it projects existing Solution Blueprint sections into
+   * the shape a downstream phase consumes.
+   *
+   * Derived from the class's `@CodeSpecsProjection()` marker, so the
+   * classification stays single-sourced in the model — a consumer that
+   * hard-coded the root's type name would silently misclassify the next
+   * projection to be added. A root whose class is absent from
+   * {@link SpecModel#classes} is *not* a generation input: an unknown class is
+   * not evidence.
+   *
+   * @param {SpecRoot} root
+   * @returns {boolean}
+   */
+  isGenerationInput(root) {
+    const cls = this.classNamed(root.type);
+    return cls !== null && cls.hasAnnotation('CodeSpecsProjection');
+  }
+
+  /**
    * The document root whose {@link SpecRoot.type} equals `type` (SOM §21).
    *
    * Replaces the recurring `roots.find((r) => r.type === …)` boilerplate.

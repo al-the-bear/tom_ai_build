@@ -819,6 +819,31 @@ export class SpecModel {
   }
 
   /**
+   * Whether `root` is a **generation input** rather than an authored document.
+   *
+   * A generation input is an `@Document` root whose audience is a generator,
+   * not a spec author: it projects existing Solution Blueprint sections into
+   * the shape a downstream phase consumes. `D13CodeSpecsProjection` is the
+   * only one today — it is `@CodeSpecKind`-driven, flat, locus-grouped, and
+   * carries no document identity anybody would sit down and write.
+   *
+   * Derived from the class's `@CodeSpecsProjection()` marker, which the export
+   * already carries losslessly in `classes[type].annotations`. Reading it here
+   * keeps the classification single-sourced in the model — a consumer that
+   * hard-coded the root's type name would silently misclassify the next
+   * projection to be added.
+   *
+   * A root whose class is absent from {@link classes} (a synthetic or
+   * truncated model) is *not* a generation input: an unknown class is not
+   * evidence.
+   */
+  isGenerationInput(root: SpecRoot): boolean {
+    return (
+      this.classNamed(root.type)?.hasAnnotation('CodeSpecsProjection') ?? false
+    );
+  }
+
+  /**
    * The `major.minor` version string used in the DocSpecs markdown declaration
    * (Dart / Python parity — mirrors Python's `SpecModel.model_version_string`).
    */

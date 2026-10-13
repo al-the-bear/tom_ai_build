@@ -1085,6 +1085,28 @@ function codeSpecsRootSegment(root: SpecRoot): string {
 }
 
 /** The one root a {@link CodeSpecsExtractor} walks — `codespecs_prompt.md` §5. */
+/**
+ * `root`, unless it is a generation input ({@link SpecModel.isGenerationInput}):
+ * a `@CodeSpecsProjection` root defines what generation reaches and is neither
+ * filled nor extracted (`codespecs_mapping.md` §8.4). Its path space holds none
+ * of the specification's values, so walking it would answer every area with a
+ * silently empty extract. Keyed on the annotation, never on a type name, so the
+ * next projection is refused too.
+ */
+function refuseCodeSpecsProjection(model: SpecModel, root: SpecRoot): SpecRoot {
+  if (!model.isGenerationInput(root)) {
+    return root;
+  }
+  throw new CodeSpecsExtractError(
+    `root "${root.type}" is a generation projection ` +
+      '(@CodeSpecsProjection), not a specification document — extract ' +
+      'from the specification document it projects ' +
+      '(codespecs_mapping.md §8.4)',
+    codeSpecsRootSegment(root),
+    root.type,
+  );
+}
+
 function resolveCodeSpecsRoot(
   model: SpecModel,
   document: SpecDocument,
@@ -1151,7 +1173,9 @@ function resolveCodeSpecsRoot(
  * to ask for that; and naming a root the document never populates — the
  * `D13CodeSpecsProjection` mistake, whose `CGP/…` path space misses a
  * blueprint's `SBP/…` values and yields every area silently empty — throws
- * rather than returning an empty result.
+ * rather than returning an empty result. So does the converse: a document
+ * whose root *is* a `@CodeSpecsProjection`, which is never a specification
+ * document whatever it holds.
  */
 export class CodeSpecsExtractor {
   /**
@@ -1187,7 +1211,8 @@ export class CodeSpecsExtractor {
    * Throws {@link CodeSpecsExtractError} when the root cannot be resolved to
    * exactly one: an unknown `rootType`, a `rootType` holding no value while
    * another root does, more than one populated root, or an empty document over
-   * a multi-root model.
+   * a multi-root model — and when the resolved root is a generation projection
+   * ({@link SpecModel.isGenerationInput}).
    */
   constructor(
     model: SpecModel,
@@ -1198,7 +1223,10 @@ export class CodeSpecsExtractor {
     this.model = model;
     this.document = document;
     this.catalog = catalog;
-    this.root = resolveCodeSpecsRoot(model, document, rootType);
+    this.root = refuseCodeSpecsProjection(
+      model,
+      resolveCodeSpecsRoot(model, document, rootType),
+    );
     this._reflection = new SpecReflection(model);
   }
 
