@@ -21,6 +21,15 @@
 
 ## Quick Reference
 
+**Entrypoints use `package:args`, not `tom_build_base`.** This package is the
+recorded exception to the workspace's `tom_build_base`-first rule
+(`tool_dependencies.md`): its `bin/` tools are development gates and generators
+over this repository, and `tom_build_base` would become a direct dependency of a
+release-set member. Keep a new entrypoint in the same style — a plain
+`ArgParser`, with `--help` and the exit codes handled in the file — so the
+package never mixes two, and so `test/entrypoint_options_test.dart` can read its
+`addOption`/`addFlag` literals.
+
 The subject-matter documentation lives with the model, in
 `../tom_specs_model/doc/` — `som_multiplatform_spec_model.md` (the SOM
 authority), `som_generator_config.md` (the config block), `som_toolchains.md`

@@ -261,7 +261,11 @@ and renumbered).
 
 ### Entrypoints
 
-Related entrypoints in `bin/`:
+Related entrypoints in `bin/`. Each parses its arguments with `package:args`
+and handles `--help` and its exit codes itself; the package is
+the workspace's recorded exception to building CLIs on `tom_build_base`,
+because these are development gates over this repository and `tom_build_base`
+would widen a release member's dependency closure.
 
 The **Options** column is the entrypoint's whole input surface bar `--help`, and
 `test/entrypoint_options_test.dart` holds it against each file's own `ArgParser`

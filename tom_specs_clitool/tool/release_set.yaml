@@ -105,7 +105,9 @@ unpublished_drift:
     (lib/src/pub_archive_ignores.dart), a library the default suite runs and
     no command exposes. Since then also qrb3's schema-generator fix: a
     `@Reference` list's container admits the item types its element class is
-    owned under elsewhere. Rides the next clitool release.
+    owned under elsewhere. The README now records the package as the
+    exception to the tom_build_base CLI rule (qrb7). Rides the next clitool
+    release.
   tom_core_codespecs: >-
     DOCS ONLY since 0.12.3: the README status block names 0.12.3 (qrb1), and
     the derivation contract names the stored sources of `@CsTrigger.kind` and
