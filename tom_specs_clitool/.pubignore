@@ -23,3 +23,8 @@ test/
 # holds it drift every time a release was recorded in it. The two release gates
 # take `--manifest` for a consumer's own.
 tool/release_set.yaml
+
+# The model-freshness stamp is read only by test/model_freshness_test.dart,
+# which is not shipped either; it is rewritten by every model generation, so
+# shipping it made each model release drift the published clitool.
+tool/model_surface.stamp.json
