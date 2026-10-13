@@ -933,6 +933,136 @@ static void test_live_document_case(void) {
   som_meta_ref_free(&nroot.ref);
 }
 
+/* Whether item `item_path` carries a stored section id ending in
+ * `-<its position number>` — the id the @SectionIdPattern default would give. */
+static int stored_id_matches_position(const SpecDocument *doc,
+                                      const char *item_path) {
+  const char *sid = spec_document_item_section_id(doc, item_path);
+  const char *dash = strrchr(item_path, '-');
+  if (sid == NULL || dash == NULL) return 0;
+  size_t sl = strlen(sid);
+  size_t tl = strlen(dash); /* "-<n>" */
+  return sl >= tl && strcmp(sid + sl - tl, dash) == 0;
+}
+
+/* Markdown import: the .md lands on exactly the .docspecs.yaml. The .md is the
+ * yaml's rendition, so importing it must reproduce the yaml byte for byte —
+ * including every list item's section id, which a heading carries even when it
+ * equals the @SectionIdPattern default (`UCE-USER-1`). Ids are identity and
+ * paths only position, so after a move the item must keep its id rather than
+ * take its new position's. Mirrors the Dart v0 test of the same name. */
+static void test_markdown_import_lands_on_yaml(void) {
+  const char *sample_path =
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+  const char *sample_md_path =
+      "../tom_som_dart_v0/documents/meridian_order_management.md";
+  const char *model_meta_path = "meta/spec_model.meta.json";
+  const SomMetaTree *tree = d00_solution_blueprint_meta_tree();
+
+  char *meta_text = read_file(model_meta_path);
+  char *yaml_text = read_file(sample_path);
+  char *md_text = read_file(sample_md_path);
+  ok(meta_text != NULL && yaml_text != NULL && md_text != NULL,
+     "md import: read meta + yaml + markdown");
+  char *merr = NULL;
+  SpecModel *model =
+      meta_text != NULL ? spec_model_from_json_str(meta_text, &merr) : NULL;
+  free(merr);
+  ok(model != NULL, "md import: model meta parses");
+  char *yerr = NULL;
+  SpecDocument *original =
+      yaml_text != NULL ? spec_document_from_yaml(yaml_text, tree, &yerr) : NULL;
+  free(yerr);
+  ok(original != NULL, "md import: yaml decodes");
+
+  if (model != NULL && original != NULL && md_text != NULL) {
+    SpecMarkdownImport imp;
+    spec_document_from_markdown(md_text, model, &imp);
+    ok(imp.result.rejections_len == 0, "md import: no rejections");
+    for (size_t i = 0; i < imp.result.rejections_len; i++) {
+      fprintf(stderr, "  rejection line %zu: [%s] %s\n",
+              imp.result.rejections[i].line, imp.result.rejections[i].reason,
+              imp.result.rejections[i].message);
+    }
+    SpecDocument *document = imp.document;
+    char *eerr = NULL;
+    char *encoded = document != NULL
+                        ? encode_yaml(document, tree, original->model_version,
+                                      &eerr)
+                        : NULL;
+    ok(encoded != NULL && strcmp(encoded, yaml_text) == 0,
+       "md import: encodes byte-equal to the .docspecs.yaml");
+    if (encoded == NULL) {
+      fprintf(stderr, "  encode_yaml failed: %s\n", eerr != NULL ? eerr : "?");
+    } else if (strcmp(encoded, yaml_text) != 0) {
+      size_t at = 0;
+      while (encoded[at] != '\0' && encoded[at] == yaml_text[at]) at++;
+      fprintf(stderr, "  first difference at byte %zu\n", at);
+    }
+    free(encoded);
+    free(eerr);
+
+    /* The first list whose items all carry a stored id equal to their
+     * positional default — the case the import used to drop. */
+    char *list = NULL;
+    if (document != NULL) {
+      SomStrList lists;
+      som_strlist_init(&lists);
+      spec_document_list_paths(document, &lists);
+      for (size_t i = 0; i < lists.len && list == NULL; i++) {
+        const SomStrList *items = spec_document_list_items(document, lists.items[i]);
+        if (items == NULL || items->len <= 1) continue;
+        int all = 1;
+        for (size_t j = 0; j < items->len; j++) {
+          if (!stored_id_matches_position(document, items->items[j])) all = 0;
+        }
+        if (all) list = som_strdup(lists.items[i]);
+      }
+      som_strlist_free(&lists);
+    }
+    ok(list != NULL, "md import: a list whose items all store positional ids");
+    if (list != NULL) {
+      const SomStrList *items = spec_document_list_items(document, list);
+      /* Owned copies: the move rewrites the document's own strings. */
+      char *first_path = som_strdup(items->items[0]);
+      const char *fid = spec_document_item_section_id(document, first_path);
+      char *first_id = fid != NULL ? som_strdup(fid) : NULL;
+      ok(first_id != NULL, "md import: the first item stores an id");
+      SpecListItemMove mv;
+      SpecListMoveError merr2;
+      spec_list_move_error_init(&merr2);
+      int moved = spec_document_move_list_item(
+          document, model, first_path, (long long)items->len - 1, NULL, &mv,
+          &merr2);
+      ok(moved, "md import: first item moves to the end");
+      spec_list_item_move_free(&mv);
+      spec_list_move_error_free(&merr2);
+      if (moved && first_id != NULL) {
+        const SomStrList *after = spec_document_list_items(document, list);
+        const char *last_id =
+            spec_document_item_section_id(document, after->items[after->len - 1]);
+        const char *head_id =
+            spec_document_item_section_id(document, after->items[0]);
+        eq_str(last_id, first_id, "md import: the moved item keeps its id");
+        ok(head_id == NULL || strcmp(head_id, first_id) != 0,
+           "md import: the new first item does not take the moved id");
+      }
+      free(first_id);
+      free(first_path);
+      free(list);
+    }
+    spec_markdown_import_free(&imp);
+  }
+  if (original != NULL) {
+    spec_document_free(original);
+    free(original);
+  }
+  spec_model_free(model);
+  free(md_text);
+  free(yaml_text);
+  free(meta_text);
+}
+
 int main(void) {
   test_root_and_parity();
   test_typed_list();
@@ -943,6 +1073,7 @@ int main(void) {
   test_model_version();
   test_version_check();
   test_live_document_case();
+  test_markdown_import_lands_on_yaml();
 
   if (g_failed != 0) {
     fprintf(stderr, "\n%d checks FAILED (%d passed)\n", g_failed, g_passed);

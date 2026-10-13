@@ -665,6 +665,92 @@ void testLiveDocumentCase() {
   }
 }
 
+// Markdown import: the .md lands on exactly the .docspecs.yaml. The .md is the
+// yaml's rendition, so importing it must reproduce the yaml byte for byte —
+// including every list item's section id, which a heading carries even when it
+// equals the @SectionIdPattern default (`UCE-USER-1`). Ids are identity and
+// paths only position, so after a move the item must keep its id rather than
+// take its new position's. Mirrors the Dart v0 test of the same name.
+void testMarkdownImportLandsOnYaml() {
+  namespace m = tom_som_v0_meta;
+  const std::string samplePath =
+      "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml";
+  const std::string sampleMdPath =
+      "../tom_som_dart_v0/documents/meridian_order_management.md";
+  const std::string modelMetaPath = "meta/spec_model.meta.json";
+  const som::SomMetaTree& tree = m::d00SolutionBlueprintMetaTree();
+
+  std::string modelErr;
+  std::unique_ptr<som::SpecModel> model =
+      som::SpecModel::fromJsonStr(readFile(modelMetaPath), &modelErr);
+  ok(model != nullptr, "md import: model meta parses");
+  const std::string yamlText = readFile(samplePath);
+  std::string yamlErr;
+  std::optional<som::SpecDocument> original =
+      som::SpecDocument::fromYaml(yamlText, tree, &yamlErr);
+  ok(original.has_value(), "md import: yaml decodes");
+  if (model == nullptr || !original) return;
+
+  som::SpecMarkdownImport imported =
+      som::SpecDocument::fromMarkdown(readFile(sampleMdPath), *model);
+  ok(imported.rejections().empty(), "md import: no rejections");
+  for (const som::SpecMarkdownRejection& r : imported.rejections()) {
+    std::cerr << "  rejection line " << r.line << ": [" << r.reason << "] "
+              << r.message << "\n";
+  }
+  som::SpecDocument& document = imported.document;
+  std::string encErr;
+  std::optional<std::string> encoded =
+      som::encodeYaml(document, tree, original->modelVersion, &encErr);
+  ok(encoded.has_value() && *encoded == yamlText,
+     "md import: encodes byte-equal to the .docspecs.yaml");
+  if (!encoded) {
+    std::cerr << "  encodeYaml failed: " << encErr << "\n";
+  } else if (*encoded != yamlText) {
+    std::size_t at = 0;
+    while (at < encoded->size() && at < yamlText.size() &&
+           (*encoded)[at] == yamlText[at]) {
+      at++;
+    }
+    std::cerr << "  first difference at byte " << at << "\n";
+  }
+
+  // The first list whose items all carry a stored id equal to their
+  // positional default — the case the import used to drop.
+  auto storedIdMatchesPosition = [&document](const std::string& item) {
+    const std::string* sid = document.itemSectionIdOpt(item);
+    const std::size_t dash = item.rfind('-');
+    if (sid == nullptr || dash == std::string::npos) return false;
+    const std::string suffix = item.substr(dash);  // "-<n>"
+    return sid->size() >= suffix.size() &&
+           sid->compare(sid->size() - suffix.size(), suffix.size(), suffix) == 0;
+  };
+  std::optional<std::string> list;
+  for (const std::string& p : document.listPaths()) {
+    const std::vector<std::string> items = document.listItems(p);
+    if (items.size() <= 1) continue;
+    bool all = true;
+    for (const std::string& i : items) {
+      if (!storedIdMatchesPosition(i)) all = false;
+    }
+    if (all) {
+      list = p;
+      break;
+    }
+  }
+  ok(list.has_value(), "md import: a list whose items all store positional ids");
+  if (!list) return;
+  const std::vector<std::string> items = document.listItems(*list);
+  const std::string firstId = document.itemSectionId(items.front());
+  ok(!firstId.empty(), "md import: the first item stores an id");
+  document.moveListItem(*model, items.front(), (long long)items.size() - 1);
+  const std::vector<std::string> after = document.listItems(*list);
+  eqStr(document.itemSectionId(after.back()), firstId,
+        "md import: the moved item keeps its id");
+  ok(document.itemSectionId(after.front()) != firstId,
+     "md import: the new first item does not take the moved id");
+}
+
 }  // namespace
 
 int main() {
@@ -677,6 +763,7 @@ int main() {
   testCanHaveContent();
   testOneCallLoading();
   testLiveDocumentCase();
+  testMarkdownImportLandsOnYaml();
 
   if (gFailed != 0) {
     std::cerr << "\n" << gFailed << " checks FAILED (" << gPassed << " passed)\n";

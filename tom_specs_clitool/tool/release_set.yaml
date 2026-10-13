@@ -143,7 +143,9 @@ unpublished_drift:
     key in YAML (vsctasb4); and unreadable typed values are reported and
     refused (vsctasb5); and schema findings carry their document path
     (vsctasb6); and the CodeSpecs extractor refuses a @CodeSpecsProjection
-    root (vsctasb8). Rides the next model-chain release.
+    root (vsctasb8); and Markdown import stores a pattern-list item's
+    heading id even when it equals the positional default (vsctasb10). Rides
+    the next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

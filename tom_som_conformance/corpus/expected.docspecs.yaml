@@ -49,7 +49,7 @@ document:
         headline: |2-
           Reference to the Spec
         content: spec §1.2
-      refs-2: ADR7
+      REF-2: ADR7
     CARD-LST cards:
       CARD-ALPHA:
         headline: |2-
@@ -57,7 +57,7 @@ document:
         content:
           note: |2-
             first card
-      cards-2:
+      CARD-2:
         content:
           note: |2-
             second card

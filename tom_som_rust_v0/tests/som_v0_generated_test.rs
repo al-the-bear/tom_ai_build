@@ -605,3 +605,67 @@ fn live_document_case() {
         "id item node identity != nav item node"
     );
 }
+
+/// The .md is the yaml's rendition, so importing it must reproduce the yaml
+/// byte for byte — including every list item's section id, which a heading
+/// carries even when it equals the `@SectionIdPattern` default (`UCE-USER-1`).
+/// Ids are identity and paths only position, so after a move the item must
+/// keep its id rather than take its new position's. Mirrors the Dart guard
+/// 'markdown import: the .md lands on exactly the .docspecs.yaml'.
+#[test]
+fn markdown_import_lands_on_yaml() {
+    const SAMPLE_MD: &str = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    const MODEL_META_PATH: &str = "meta/spec_model.meta.json";
+    let tree = meta::d00_solution_blueprint_meta_tree();
+
+    let meta_text = std::fs::read_to_string(MODEL_META_PATH).expect("read model meta");
+    let model = som::SpecModel::from_json_str(&meta_text).expect("SpecModel::from_json_str");
+    let yaml_text = std::fs::read_to_string(SAMPLE_PATH).expect("read sample yaml");
+    let original = som::SpecDocument::from_yaml(&yaml_text, &tree).expect("from_yaml");
+    let sample_md = std::fs::read_to_string(SAMPLE_MD).expect("read sample md");
+    let imported = som::SpecDocument::from_markdown(&sample_md, &model);
+    assert!(imported.rejections().is_empty(), "markdown import rejections");
+    let mut document = imported.document;
+    let encoded =
+        som::encode_yaml(&document, &tree, &original.model_version).expect("encode_yaml");
+    assert!(
+        encoded == yaml_text,
+        "imported markdown does not encode to the sample .docspecs.yaml"
+    );
+
+    // The first list whose items all carry a stored id equal to their
+    // positional default — the case the import used to drop.
+    let list = document
+        .list_paths()
+        .into_iter()
+        .find(|p| {
+            let items = document.list_items(p);
+            items.len() > 1
+                && items.iter().all(|i| {
+                    let n = &i[i.rfind('-').unwrap() + 1..];
+                    document
+                        .item_section_id(i)
+                        .is_some_and(|id| id.ends_with(&format!("-{}", n)))
+                })
+        })
+        .expect("a list with >1 items all carrying positional-default stored ids");
+    let items = document.list_items(&list);
+    let first_id = document
+        .item_section_id(&items[0])
+        .cloned()
+        .expect("first item carries a stored id");
+    document
+        .move_list_item(&model, &items[0], items.len() as i64 - 1, None)
+        .expect("move_list_item");
+    let moved = document.list_items(&list);
+    assert_eq!(
+        document.item_section_id(moved.last().unwrap()),
+        Some(&first_id),
+        "last item keeps the moved item's id"
+    );
+    assert_ne!(
+        document.item_section_id(&moved[0]),
+        Some(&first_id),
+        "first item no longer carries the moved item's id"
+    );
+}

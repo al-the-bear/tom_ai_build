@@ -113,6 +113,7 @@
           ],
           "ids": {
             "DEMO/CARD-LST-1": "CARD-ALPHA",
+            "DEMO/CARD-LST-2": "CARD-2",
             "DEMO/CARD-LST-3": "CARD-BETA"
           }
         },
@@ -135,6 +136,7 @@
           ],
           "ids": {
             "DEMO/REF-LST-1": "REF-SPEC",
+            "DEMO/REF-LST-2": "REF-2",
             "DEMO/REF-LST-3": "REF-CD1"
           }
         },

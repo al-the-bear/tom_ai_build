@@ -1495,7 +1495,10 @@ void MdParser::openItem(int level, const std::string& listPath,
   }
   std::string itemPath = listPath + "-" + formatI64(number);
   state.items.push_back(itemPath);
-  if (!hasN) {
+  // A stored id is staged for an anonymous next item and for a numbered
+  // `@SectionIdPattern` id; the `<member>-<n>` fallback passes "" and stores
+  // nothing.
+  if (!hasN || !storedId.empty()) {
     state.ids.push_back({itemPath, storedId});
   }
   // SOM §11.7: stage a non-default item heading text against the effective
@@ -1631,9 +1634,10 @@ bool numberedPatternMatch(const std::string& pattern, const std::string& id,
 
 // Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
 // heading [id] is matched positionally against the container's list: the
-// `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
-// (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
-// for any other id — an anonymous next item carrying the stored id.
+// `<member>-<n>` fallback id (positional, nothing stored), the
+// `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
+// item <n> carrying that id), a pattern-shaped stored id, or — for any other
+// id — an anonymous next item carrying the stored id.
 void MdParser::openItemHeading(int level, const std::string& listPath,
                                const SomMetaNode& listNode,
                                const std::string& id, const std::string& title,
@@ -1653,7 +1657,11 @@ void MdParser::openItemHeading(int level, const std::string& listPath,
   if (!pattern.empty()) {
     long long num = 0;
     if (numberedPatternMatch(pattern, id, &num)) {
-      openItem(level, listPath, listNode, num, "", true, title, codeSpec, line);
+      // The pattern with `xxx` as a number parses back as item <n> AND is
+      // stored: the section id is the item's identity and the path only its
+      // position, so an id that happens to equal the positional default must
+      // survive a later move or insert (SOM §11.6).
+      openItem(level, listPath, listNode, num, id, true, title, codeSpec, line);
       return;
     }
     if (patternMatches(pattern, id)) {

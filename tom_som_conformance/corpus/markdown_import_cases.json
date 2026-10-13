@@ -280,7 +280,10 @@
             "seq": 1,
             "items": [
               "DEMO/CARD-LST-1"
-            ]
+            ],
+            "ids": {
+              "DEMO/CARD-LST-1": "CARD-1"
+            }
           }
         }
       }

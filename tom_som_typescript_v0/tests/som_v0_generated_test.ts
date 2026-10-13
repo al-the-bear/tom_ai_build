@@ -524,6 +524,71 @@ function testLiveDocumentCase(): void {
   check('live.node.id-identity', idRef.meta === navItem.meta);
 }
 
+// Markdown import: the .md is the yaml's rendition, so importing it must
+// reproduce the yaml byte for byte — including every list item's section id,
+// which a heading carries even when it equals the @SectionIdPattern default
+// (`UCE-USER-1`). Ids are identity and paths only position, so after a move
+// the item must keep its id rather than take its new position's. Mirrors the
+// Dart v0 test 'markdown import: the .md lands on exactly the .docspecs.yaml'.
+function testMarkdownImportLandsOnYaml(): void {
+  const sample =
+    '../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml';
+  const sampleMd =
+    '../tom_som_dart_v0/documents/meridian_order_management.md';
+  const tree = d00SolutionBlueprintMetaTree;
+  const model = SpecModel.fromJson(
+    JSON.parse(fs.readFileSync('meta/spec_model.meta.json', 'utf8')),
+  );
+  const yamlText = fs.readFileSync(sample, 'utf8');
+  const original = SpecDocument.fromYaml(yamlText, tree);
+  const imported = SpecDocument.fromMarkdown(
+    fs.readFileSync(sampleMd, 'utf8'),
+    model,
+  );
+  check(
+    'md-import.no-rejections',
+    imported.rejections.length === 0,
+    String(imported.rejections.length),
+  );
+  const document = imported.document;
+  check(
+    'md-import.byte-equal-yaml',
+    yamlEncode(document, tree, original.modelVersion) === yamlText,
+  );
+
+  // The first list whose items all carry a stored id equal to their
+  // positional default — the case the import used to drop.
+  const list = Array.from(document.listPaths).find((p) => {
+    const items = document.listItems(p);
+    return (
+      items.length > 1 &&
+      items.every((i) => {
+        const id = document.itemSectionId(i);
+        return id !== null && id.endsWith('-' + i.substring(i.lastIndexOf('-') + 1));
+      })
+    );
+  });
+  check('md-import.positional-id-list', list !== undefined);
+  if (list === undefined) {
+    return;
+  }
+  const items = document.listItems(list);
+  const firstId = document.itemSectionId(items[0]);
+  check('md-import.first-id', firstId !== null);
+  document.moveListItem(model, items[0], items.length - 1);
+  const after = document.listItems(list);
+  check(
+    'md-import.move-keeps-id',
+    document.itemSectionId(after[after.length - 1]) === firstId,
+    String(document.itemSectionId(after[after.length - 1])),
+  );
+  check(
+    'md-import.first-loses-id',
+    document.itemSectionId(after[0]) !== firstId,
+    String(document.itemSectionId(after[0])),
+  );
+}
+
 function main(): number {
   testRootAndParity();
   testModelVersion();
@@ -533,6 +598,7 @@ function main(): number {
   testOneCallLoading();
   testCanHaveContent();
   testLiveDocumentCase();
+  testMarkdownImportLandsOnYaml();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

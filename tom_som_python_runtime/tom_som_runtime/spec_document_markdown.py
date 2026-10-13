@@ -1026,10 +1026,10 @@ class _Parser:
     ) -> None:
         """Opens a list-item frame under a ``-LST`` container frame (SOM §11.2).
         The heading *id* is matched positionally against the container's list:
-        the ``<member>-<n>`` fallback id, the ``@SectionIdPattern`` resolved
-        with a number (``GOAL-ITEM-3``, parses back as item ``<n>``), a
-        pattern-shaped stored id, or — for any other id — an anonymous next
-        item carrying the stored id."""
+        the ``<member>-<n>`` fallback id (positional, nothing stored), the
+        ``@SectionIdPattern`` resolved with a number (``GOAL-ITEM-3``, parses
+        back as item ``<n>`` carrying that id), a pattern-shaped stored id, or
+        — for any other id — an anonymous next item carrying the stored id."""
         list_path = container.path
         anon = re.match(
             "^"
@@ -1054,9 +1054,10 @@ class _Parser:
             element.section_id_pattern if element is not None else None
         )
         if pattern is not None:
-            # Canonical anonymous id: the pattern with `xxx` as a number —
-            # parses back as item <n>, NOT as a stored id (YRD3 round-trip,
-            # SOM §11.5).
+            # The pattern with `xxx` as a number parses back as item <n> AND
+            # is stored: the section id is the item's identity and the path
+            # only its position, so an id that happens to equal the positional
+            # default must survive a later move or insert (SOM §11.6).
             numbered_re = (
                 "^"
                 + "([0-9]+)".join(re.escape(p) for p in pattern.split("xxx"))
@@ -1069,7 +1070,7 @@ class _Parser:
                     list_path,
                     list_node,
                     int(numbered.group(1)),
-                    None,
+                    id,
                     title,
                     code_spec,
                     line_no,

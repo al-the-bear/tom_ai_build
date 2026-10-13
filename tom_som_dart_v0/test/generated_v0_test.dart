@@ -505,6 +505,62 @@ void main() {
         'schemas/solution-blueprint/solution-blueprint.1.0.docspecs-schema.yaml';
     const modelMetaPath = 'meta/spec_model.meta.json';
 
+    test('markdown import: the .md lands on exactly the .docspecs.yaml', () {
+      // The .md is the yaml's rendition, so importing it must reproduce the
+      // yaml byte for byte — including every list item's section id, which a
+      // heading carries even when it equals the @SectionIdPattern default
+      // (`UCE-USER-1`). Ids are identity and paths only position, so after a
+      // move the item must keep its id rather than take its new position's.
+      final model = SpecModel.fromJson(
+        jsonDecode(File(modelMetaPath).readAsStringSync())
+            as Map<String, dynamic>,
+      );
+      final yamlText = File(samplePath).readAsStringSync();
+      final original = SpecDocument.fromYaml(
+        yamlText,
+        d00SolutionBlueprintMetaTree,
+      );
+      final imported = SpecDocument.fromMarkdown(
+        File(sampleMdPath).readAsStringSync(),
+        model,
+      );
+      expect(imported.rejections, isEmpty);
+      final document = imported.document;
+      expect(
+        SpecDocumentYaml.encode(
+          document: document,
+          tree: d00SolutionBlueprintMetaTree,
+          modelVersion: original.modelVersion,
+        ),
+        yamlText,
+      );
+
+      // The first list whose items all carry a stored id equal to their
+      // positional default — the case the import used to drop.
+      final list = document.listPaths.firstWhere(
+        (p) =>
+            document.listItems(p).length > 1 &&
+            document
+                .listItems(p)
+                .every(
+                  (i) =>
+                      document.itemSectionId(i) != null &&
+                      document
+                          .itemSectionId(i)!
+                          .endsWith('-${i.substring(i.lastIndexOf('-') + 1)}'),
+                ),
+      );
+      final items = document.listItems(list);
+      final firstId = document.itemSectionId(items.first);
+      expect(firstId, isNotNull);
+      document.moveListItem(model, items.first, items.length - 1);
+      expect(document.itemSectionId(document.listItems(list).last), firstId);
+      expect(
+        document.itemSectionId(document.listItems(list).first),
+        isNot(firstId),
+      );
+    });
+
     test('round-trip: decode → encode → decode is a stable reading', () {
       // Mirrors the golden's `generic-content` / `generic-lists` sections: the
       // full generic reading survives a re-serialisation round-trip byte-for-

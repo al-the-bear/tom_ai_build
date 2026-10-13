@@ -1042,6 +1042,12 @@ function _buildFixtureDocument() {
     const r = d.addListItem('DEMO/REF-LST');
     d.setContent(r, ref);
   }
+  // An item of a pattern list stores its id even when it equals the
+  // positional default (`REF-2`, `CARD-2` below): the Markdown heading
+  // carries that id and import stores it (SOM §11.6), so the YAML and the
+  // Markdown route can only land in the same memory if the fixture does too.
+  // Positional items stay covered by the pattern-less `items` and `tags`.
+  d.setItemSectionId('DEMO/REF-LST-2', 'REF-2');
   // YRD3 fixtures: stored headlines + a stored (pattern-shaped, non-numeric)
   // item section id.
   d.setHeadline('DEMO/SUM', 'Executive Summary');
@@ -1049,13 +1055,14 @@ function _buildFixtureDocument() {
   d.setHeadline('DEMO/items', 'Work Items');
   d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
   d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
-  // Card 1 gets a stored item section id and headline; card 2 keeps both
-  // defaults. The ordinary `note` field lands in the form store.
+  // Card 1 gets a stored item section id and headline; card 2 stores the
+  // default id `CARD-2` and keeps the derived item title. The ordinary `note`
+  // field lands in the form store.
   const c1 = d.addListItem('DEMO/CARD-LST');
   d.setItemSectionId(c1, 'CARD-ALPHA');
   d.setHeadline(c1, 'Alpha Card');
   d.setFormField(`${c1}/content`, 'note', 'first card');
-  const c2 = d.addListItem('DEMO/CARD-LST');
+  const c2 = d.addListItem('DEMO/CARD-LST', 'CARD-2');
   d.setFormField(`${c2}/content`, 'note', 'second card');
   d.setContent('DEMO/META/OWNR', 'alice');
   // Scalar list exercising the YAML 1.1-special quoting rule (SOM §12.5).

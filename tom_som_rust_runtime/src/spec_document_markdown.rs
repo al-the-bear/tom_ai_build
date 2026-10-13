@@ -1610,10 +1610,10 @@ position (under \"{}\")",
 
     /// Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
     /// heading `id` is matched positionally against the container's list: the
-    /// `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
-    /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped
-    /// stored id, or — for any other id — an anonymous next item carrying the
-    /// stored id.
+    /// `<member>-<n>` fallback id (positional, nothing stored), the
+    /// `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back
+    /// as item `<n>` carrying that id), a pattern-shaped stored id, or — for
+    /// any other id — an anonymous next item carrying the stored id.
     #[allow(clippy::too_many_arguments)]
     fn open_item_heading(
         &mut self,
@@ -1641,12 +1641,14 @@ position (under \"{}\")",
             }
         }
         if !pattern.is_empty() {
-            // Canonical anonymous id: the pattern with `xxx` as a number —
-            // parses back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
+            // The pattern with `xxx` as a number parses back as item <n> AND
+            // is stored: the section id is the item's identity and the path
+            // only its position, so an id that happens to equal the positional
+            // default must survive a later move or insert (SOM §11.6).
             let parts: Vec<&str> = pattern.split("xxx").collect();
             if parts.len() == 2 {
                 if let Some(n) = md_pattern_numbered(parts[0], parts[1], id) {
-                    self.open_item(level, list_path, list_node, n, "", true, title, code_spec, line_no);
+                    self.open_item(level, list_path, list_node, n, id, true, title, code_spec, line_no);
                     return;
                 }
             }
@@ -1687,7 +1689,10 @@ position (under \"{}\")",
         }
         let item_path = format!("{}-{}", list_path, number);
         state.items.push(item_path.clone());
-        if !has_n {
+        // A positional item (`has_n`) stores an id only when one is given —
+        // the numbered `@SectionIdPattern` form; the `<member>-<n>` fallback
+        // stores none.
+        if !has_n || !stored_id.is_empty() {
             state.ids.insert(item_path.clone(), stored_id.to_string());
         }
         // Stage the heading title as a stored headline only when it differs

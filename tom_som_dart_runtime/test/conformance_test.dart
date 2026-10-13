@@ -484,10 +484,11 @@ void main() {
     test(
       'a `*-LST` list heads under its @SectionId, empty-bodied, items deeper',
       () {
-        // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 is anonymous.
+        // Item 1 carries the stored id `REF-SPEC` (YRD3); item 2 stores the
+        // pattern-default `REF-2`.
         expectContainer('REF-LST', ['REF-SPEC', 'REF-2']);
-        // Card 1 carries the stored id `CARD-ALPHA` (YRD3); card 2 falls back to
-        // the pattern (`CARD-2`).
+        // Card 1 carries the stored id `CARD-ALPHA` (YRD3); card 2 stores the
+        // pattern-default `CARD-2`.
         expectContainer('CARD-LST', ['CARD-ALPHA', 'CARD-2']);
       },
     );
@@ -1861,7 +1862,8 @@ Map<String, dynamic> _buildMeta() => {
           // A `*-LST` list of complex items whose own transparent
           // `content` form carries an ordinary `note` field. Item ids and
           // headlines are stored directly in the YRD3 stores (card 1 sets
-          // `CARD-ALPHA` + a headline; card 2 falls back to defaults).
+          // `CARD-ALPHA` + a headline; card 2 stores the default `CARD-2`
+          // and keeps the default title).
           'name': 'cards',
           'kind': 'list',
           'sectionId': 'CARD-LST',
@@ -2405,6 +2407,12 @@ SpecDocument _buildDocument() {
     final r = d.addListItem('DEMO/REF-LST');
     d.setContent(r, ref);
   }
+  // An item of a pattern list stores its id even when it equals the
+  // positional default (`REF-2`, `CARD-2` below): the Markdown heading
+  // carries that id and import stores it (SOM §11.6), so the YAML and the
+  // Markdown route can only land in the same memory if the fixture does too.
+  // Positional items stay covered by the pattern-less `items` and `tags`.
+  d.setItemSectionId('DEMO/REF-LST-2', 'REF-2');
   // YRD3 fixtures: stored headlines + a stored (pattern-shaped, non-numeric)
   // item section id must round-trip through md AND yaml byte-stably.
   //  * a renamed fixed-section headline on a content leaf (`SUM`);
@@ -2418,14 +2426,14 @@ SpecDocument _buildDocument() {
   d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
   d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
   // Card 1 gets a stored (pattern-shaped, non-numeric) item section id and a
-  // stored headline (YRD3 stores). Card 2 keeps both defaults (`CARD-2`
-  // heading id, derived item title). The ordinary `note` field lands in the
+  // stored headline (YRD3 stores). Card 2 stores the default id `CARD-2` and
+  // keeps the derived item title. The ordinary `note` field lands in the
   // form store.
   final c1 = d.addListItem('DEMO/CARD-LST');
   d.setItemSectionId(c1, 'CARD-ALPHA');
   d.setHeadline(c1, 'Alpha Card');
   d.setFormField('$c1/content', 'note', 'first card');
-  final c2 = d.addListItem('DEMO/CARD-LST');
+  final c2 = d.addListItem('DEMO/CARD-LST', sectionId: 'CARD-2');
   d.setFormField('$c2/content', 'note', 'second card');
   d.setContent('DEMO/META/OWNR', 'alice');
   // Scalar list exercising the YAML 1.1-special quoting rule (SOM §12.5):
@@ -3997,6 +4005,9 @@ Map<String, dynamic> _markdownImportCases() {
             'DEMO/CARD-LST': {
               'seq': 1,
               'items': ['DEMO/CARD-LST-1'],
+              // The heading's `CARD-1` is stored though it equals the
+              // pattern default (SOM §11.6).
+              'ids': {'DEMO/CARD-LST-1': 'CARD-1'},
             },
           },
         },

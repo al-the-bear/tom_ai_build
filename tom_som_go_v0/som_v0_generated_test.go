@@ -661,3 +661,94 @@ func TestLiveDocumentCase(t *testing.T) {
 		t.Error("id item node identity != nav item node")
 	}
 }
+
+// TestMarkdownImportLandsOnYaml: the .md is the yaml's rendition, so importing
+// it must reproduce the yaml byte for byte — including every list item's
+// section id, which a heading carries even when it equals the
+// @SectionIdPattern default (`UCE-USER-1`). Ids are identity and paths only
+// position, so after a move the item must keep its id rather than take its new
+// position's. Mirrors the Dart guard 'markdown import: the .md lands on exactly
+// the .docspecs.yaml'.
+func TestMarkdownImportLandsOnYaml(t *testing.T) {
+	const sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md"
+	const modelMetaPath = "meta/spec_model.meta.json"
+	tree := D00SolutionBlueprintMetaTree
+
+	metaText, err := os.ReadFile(modelMetaPath)
+	if err != nil {
+		t.Fatalf("read model meta: %v", err)
+	}
+	model, err := som.SpecModelFromJSON(metaText)
+	if err != nil {
+		t.Fatalf("SpecModelFromJSON: %v", err)
+	}
+	yamlText, err := os.ReadFile(samplePath)
+	if err != nil {
+		t.Fatalf("read sample yaml: %v", err)
+	}
+	original, err := som.FromYaml(string(yamlText), tree)
+	if err != nil {
+		t.Fatalf("som.FromYaml: %v", err)
+	}
+	mdText, err := os.ReadFile(sampleMd)
+	if err != nil {
+		t.Fatalf("read sample md: %v", err)
+	}
+	imported, err := som.SpecDocumentFromMarkdown(string(mdText), model)
+	if err != nil {
+		t.Fatalf("SpecDocumentFromMarkdown: %v", err)
+	}
+	if n := len(imported.Rejections()); n != 0 {
+		t.Fatalf("markdown import rejections = %d, want 0", n)
+	}
+	document := imported.Document
+	encoded, err := som.EncodeYaml(document, tree, original.ModelVersion)
+	if err != nil {
+		t.Fatalf("som.EncodeYaml: %v", err)
+	}
+	if encoded != string(yamlText) {
+		t.Fatal("imported markdown does not encode to the sample .docspecs.yaml")
+	}
+
+	// The first list whose items all carry a stored id equal to their
+	// positional default — the case the import used to drop.
+	lists := document.ListPaths()
+	sort.Strings(lists)
+	list := ""
+	for _, p := range lists {
+		items := document.ListItems(p)
+		if len(items) <= 1 {
+			continue
+		}
+		all := true
+		for _, i := range items {
+			id, ok := document.ItemSectionID(i)
+			if !ok || !strings.HasSuffix(id, "-"+i[strings.LastIndex(i, "-")+1:]) {
+				all = false
+				break
+			}
+		}
+		if all {
+			list = p
+			break
+		}
+	}
+	if list == "" {
+		t.Fatal("no list with >1 items all carrying positional-default stored ids")
+	}
+	items := document.ListItems(list)
+	firstID, ok := document.ItemSectionID(items[0])
+	if !ok {
+		t.Fatalf("first item %q carries no stored id", items[0])
+	}
+	if _, err := document.MoveListItem(model, items[0], len(items)-1, ""); err != nil {
+		t.Fatalf("MoveListItem: %v", err)
+	}
+	moved := document.ListItems(list)
+	if lastID, _ := document.ItemSectionID(moved[len(moved)-1]); lastID != firstID {
+		t.Errorf("last item id = %q, want %q", lastID, firstID)
+	}
+	if headID, _ := document.ItemSectionID(moved[0]); headID == firstID {
+		t.Errorf("first item still carries %q after the move", firstID)
+	}
+}

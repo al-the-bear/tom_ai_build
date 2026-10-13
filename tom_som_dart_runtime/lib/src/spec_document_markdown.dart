@@ -1044,9 +1044,10 @@ class _Parser {
 
   /// Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
   /// heading [id] is matched positionally against the container's list:
-  /// the `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
-  /// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
-  /// id, or — for any other id — an anonymous next item carrying the stored id.
+  /// the `<member>-<n>` fallback id (positional, nothing stored), the
+  /// `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
+  /// item `<n>` carrying that id), a pattern-shaped stored id, or — for any
+  /// other id — an anonymous next item carrying the stored id.
   void _openItemHeading(
     int level,
     _Frame container,
@@ -1077,8 +1078,10 @@ class _Parser {
     final pattern =
         listNode.sectionIdPattern ?? listNode.elementNode?.sectionIdPattern;
     if (pattern != null) {
-      // Canonical anonymous id: the pattern with `xxx` as a number — parses
-      // back as item <n>, NOT as a stored id (YRD3 round-trip, SOM §11.5).
+      // The pattern with `xxx` as a number parses back as item <n> AND is
+      // stored: the section id is the item's identity and the path only its
+      // position, so an id that happens to equal the positional default must
+      // survive a later move or insert (SOM §11.6).
       final numbered = RegExp(
         '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$',
       ).firstMatch(id);
@@ -1088,7 +1091,7 @@ class _Parser {
           listPath,
           listNode,
           int.parse(numbered.group(1)!),
-          null,
+          id,
           title,
           codeSpec,
           lineNo,

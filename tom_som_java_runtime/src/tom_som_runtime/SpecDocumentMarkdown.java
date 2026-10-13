@@ -1015,10 +1015,11 @@ public final class SpecDocumentMarkdown {
     /**
      * Opens a list-item frame under a {@code -LST} container frame (SOM §11.2).
      * The heading {@code id} is matched positionally against the container's
-     * list: the {@code <member>-<n>} fallback id, the {@code @SectionIdPattern}
-     * resolved with a number ({@code GOAL-ITEM-3}, parses back as item
-     * {@code <n>}), a pattern-shaped stored id, or — for any other id — an
-     * anonymous next item carrying the stored id.
+     * list: the {@code <member>-<n>} fallback id (positional, nothing stored),
+     * the {@code @SectionIdPattern} resolved with a number
+     * ({@code GOAL-ITEM-3}, parses back as item {@code <n>} carrying that id),
+     * a pattern-shaped stored id, or — for any other id — an anonymous next
+     * item carrying the stored id.
      */
     void openItemHeading(int level, MdFrame container, SomMetaNode listNode,
         String id, String title, String codeSpec, int lineNo) {
@@ -1041,8 +1042,10 @@ public final class SpecDocumentMarkdown {
         pattern = element.sectionIdPattern;
       }
       if (pattern != null && !pattern.isEmpty()) {
-        // Canonical anonymous id: the pattern with `xxx` as a number — parses
-        // back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
+        // The pattern with `xxx` as a number parses back as item <n> AND is
+        // stored: the section id is the item's identity and the path only its
+        // position, so an id that happens to equal the positional default must
+        // survive a later move or insert (SOM §11.6).
         String[] parts = splitAll(pattern, "xxx");
         if (parts.length == 2) {
           Matcher numbered = Pattern
@@ -1051,7 +1054,7 @@ public final class SpecDocumentMarkdown {
               .matcher(id);
           if (numbered.matches()) {
             openItem(level, listPath, listNode, Integer.parseInt(numbered.group(1)),
-                null, true, title, codeSpec, lineNo);
+                id, true, title, codeSpec, lineNo);
             return;
           }
         }
@@ -1134,7 +1137,7 @@ public final class SpecDocumentMarkdown {
       }
       String itemPath = listPath + "-" + number;
       state.items.add(itemPath);
-      if (!hasN) {
+      if (storedId != null) {
         state.ids.put(itemPath, storedId);
       }
       // Stage the item heading text as a stored headline when it differs from

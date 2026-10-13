@@ -1202,9 +1202,10 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 
 // openItemHeading opens a list-item frame under a `-LST` container frame (SOM
 // §11.2). The heading id is matched positionally against the container's list:
-// the `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a
-// number (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored
-// id, or — for any other id — an anonymous next item carrying the stored id.
+// the `<member>-<n>` fallback id (positional, nothing stored), the
+// `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
+// item `<n>` carrying that id), a pattern-shaped stored id, or — for any
+// other id — an anonymous next item carrying the stored id.
 func (p *mdParser) openItemHeading(
 	level int, container *mdFrame, listNode *SomMetaNode, id, title, codeSpec string, lineNo int,
 ) {
@@ -1226,15 +1227,17 @@ func (p *mdParser) openItemHeading(
 		pattern = element.SectionIDPattern
 	}
 	if pattern != "" {
-		// Canonical anonymous id: the pattern with `xxx` as a number — parses
-		// back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
+		// The pattern with `xxx` as a number parses back as item <n> AND is
+		// stored: the section id is the item's identity and the path only its
+		// position, so an id that happens to equal the positional default must
+		// survive a later move or insert (SOM §11.6).
 		parts := strings.Split(pattern, "xxx")
 		if len(parts) == 2 {
 			numberedRE, err := regexp.Compile("^" + regexp.QuoteMeta(parts[0]) +
 				"([0-9]+)" + regexp.QuoteMeta(parts[1]) + "$")
 			if err == nil {
 				if numbered := numberedRE.FindStringSubmatch(id); numbered != nil {
-					p.openItem(level, listPath, listNode, atoi(numbered[1]), "", true, title, codeSpec, lineNo)
+					p.openItem(level, listPath, listNode, atoi(numbered[1]), id, true, title, codeSpec, lineNo)
 					return
 				}
 			}
@@ -1325,7 +1328,9 @@ func (p *mdParser) openItem(
 	}
 	itemPath := listPath + "-" + itoa(number)
 	state.items = append(state.items, itemPath)
-	if !hasN {
+	// A positional item (`hasN`) stores an id only when one is given — the
+	// numbered `@SectionIdPattern` form; the `<member>-<n>` fallback stores none.
+	if !hasN || storedID != "" {
 		state.ids[itemPath] = storedID
 	}
 	// SOM §11.7: stage a non-default item heading text against the derived

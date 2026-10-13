@@ -44,6 +44,7 @@ import tom_som_runtime.SomScalar;
 import tom_som_runtime.SomVersionError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentYaml;
+import tom_som_runtime.SpecMarkdownImport;
 import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecSectionIdCollision;
 import tom_som_runtime.SpecValidationError;
@@ -543,6 +544,64 @@ public final class GeneratedModelTest {
     check("live.node.id-identity", idRef.meta() == navItem.meta());
   }
 
+  // Markdown import: the .md is the yaml's rendition, so importing it must
+  // reproduce the yaml byte for byte — including every list item's section id,
+  // which a heading carries even when it equals the @SectionIdPattern default
+  // (`UCE-USER-1`). Ids are identity and paths only position, so after a move
+  // the item must keep its id rather than take its new position's. Mirrors the
+  // Dart v0 test 'markdown import: the .md lands on exactly the .docspecs.yaml'.
+  private static void testMarkdownImportLandsOnYaml() {
+    final String sampleMd = "../tom_som_dart_v0/documents/meridian_order_management.md";
+    final String modelMetaPath = "meta/spec_model.meta.json";
+    SomMetaTree tree = TomSomV0Meta.D00SolutionBlueprintMetaTree;
+    SpecModel model = SpecModel.fromJson(Json.parseObject(readText(modelMetaPath)));
+    String yamlText = readText(SAMPLE_PATH);
+    SpecDocument original = SpecDocument.fromYaml(yamlText, tree);
+    SpecMarkdownImport imported = SpecDocument.fromMarkdown(readText(sampleMd), model);
+    check("md-import.no-rejections", imported.rejections().isEmpty(),
+        String.valueOf(imported.rejections().size()));
+    SpecDocument document = imported.document;
+    check("md-import.byte-equal-yaml",
+        SpecDocumentYaml.encode(document, tree, original.modelVersion()).equals(yamlText));
+
+    // The first list whose items all carry a stored id equal to their
+    // positional default — the case the import used to drop.
+    String list = null;
+    for (String p : document.listPaths()) {
+      java.util.List<String> items = document.listItems(p);
+      if (items.size() <= 1) {
+        continue;
+      }
+      boolean all = true;
+      for (String i : items) {
+        String id = document.itemSectionId(i);
+        if (id == null || !id.endsWith("-" + i.substring(i.lastIndexOf('-') + 1))) {
+          all = false;
+          break;
+        }
+      }
+      if (all) {
+        list = p;
+        break;
+      }
+    }
+    check("md-import.positional-id-list", list != null);
+    if (list == null) {
+      return;
+    }
+    java.util.List<String> items = document.listItems(list);
+    String firstId = document.itemSectionId(items.get(0));
+    check("md-import.first-id", firstId != null);
+    document.moveListItem(model, items.get(0), items.size() - 1);
+    java.util.List<String> after = document.listItems(list);
+    String lastId = document.itemSectionId(after.get(after.size() - 1));
+    check("md-import.move-keeps-id", java.util.Objects.equals(lastId, firstId),
+        String.valueOf(lastId));
+    String newFirstId = document.itemSectionId(after.get(0));
+    check("md-import.first-loses-id", !java.util.Objects.equals(newFirstId, firstId),
+        String.valueOf(newFirstId));
+  }
+
   public static void main(String[] args) {
     testRootAndParity();
     testModelVersion();
@@ -552,6 +611,7 @@ public final class GeneratedModelTest {
     testOneCallLoading();
     testCanHaveContent();
     testLiveDocumentCase();
+    testMarkdownImportLandsOnYaml();
 
     int total = passed + failures.size();
     if (!failures.isEmpty()) {

@@ -1291,8 +1291,14 @@ Remove the nightly batch window.
 - Item heading id: the item's **stored id** when one exists, else the
   positional pattern id (`GOAL-ITEM-<n>`, 1-based). Item heading title: stored
   headline, else `<ElementTitle> <seq>` (`tom_specs_model_rules.md` §8 rule 3).
-- On parse, anonymous positional ids recover list membership and order from
-  position; stored ids are kept as stored ids. Lists are never transparent.
+- On parse, every item id recovers list membership and order, and every
+  item heading id of a pattern list is **stored**, including one equal to the
+  positional pattern id (`GOAL-ITEM-2`): the section id is the item's
+  identity and the path only its position, so it must survive a later move
+  or insert. Only a pattern-less list's `<member>-<n>` id is positional and
+  stores nothing. A document's Markdown therefore imports to the same memory
+  as its YAML only when every pattern-list item in it carries a stored id.
+  Lists are never transparent.
 
 ### 11.6 Transparent (id-less) members
 

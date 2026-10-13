@@ -54,7 +54,8 @@
                 "DEMO/CARD-LST-2"
               ],
               "ids": {
-                "DEMO/CARD-LST-1": "CARD-ALPHA"
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
               }
             },
             "DEMO/META/tags": {
@@ -73,7 +74,8 @@
                 "DEMO/REF-LST-2"
               ],
               "ids": {
-                "DEMO/REF-LST-1": "REF-SPEC"
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
               }
             },
             "DEMO/items": {
@@ -173,7 +175,8 @@
                 "DEMO/CARD-LST-2"
               ],
               "ids": {
-                "DEMO/CARD-LST-1": "CARD-ALPHA"
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
               }
             },
             "DEMO/META/tags": {
@@ -192,7 +195,8 @@
                 "DEMO/REF-LST-2"
               ],
               "ids": {
-                "DEMO/REF-LST-1": "REF-SPEC"
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
               }
             },
             "DEMO/items": {
@@ -352,7 +356,8 @@
                 "DEMO/CARD-LST-2"
               ],
               "ids": {
-                "DEMO/CARD-LST-1": "CARD-ALPHA"
+                "DEMO/CARD-LST-1": "CARD-ALPHA",
+                "DEMO/CARD-LST-2": "CARD-2"
               }
             },
             "DEMO/META/tags": {
@@ -371,7 +376,8 @@
                 "DEMO/REF-LST-2"
               ],
               "ids": {
-                "DEMO/REF-LST-1": "REF-SPEC"
+                "DEMO/REF-LST-1": "REF-SPEC",
+                "DEMO/REF-LST-2": "REF-2"
               }
             },
             "DEMO/items": {

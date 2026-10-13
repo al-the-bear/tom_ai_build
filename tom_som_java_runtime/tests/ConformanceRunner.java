@@ -1585,6 +1585,12 @@ public final class ConformanceRunner {
     for (String ref : List.of("spec \u00a71.2", "ADR7")) {
       d.setContent(d.addListItem("DEMO/REF-LST"), ref);
     }
+    // An item of a pattern list stores its id even when it equals the
+    // positional default (`REF-2`, `CARD-2` below): the Markdown heading
+    // carries that id and import stores it (SOM §11.6), so the YAML and the
+    // Markdown route can only land in the same memory if the fixture does too.
+    // Positional items stay covered by the pattern-less `items` and `tags`.
+    d.setItemSectionId("DEMO/REF-LST-2", "REF-2");
     d.setHeadline("DEMO/SUM", "Executive Summary");
     d.setHeadline("DEMO/DET", "Details & Contacts");
     d.setHeadline("DEMO/items", "Work Items");
@@ -1594,7 +1600,8 @@ public final class ConformanceRunner {
     d.setItemSectionId(c1, "CARD-ALPHA");
     d.setHeadline(c1, "Alpha Card");
     d.setFormField(c1 + "/content", "note", "first card");
-    String c2 = d.addListItem("DEMO/CARD-LST");
+    // Card 2 stores the default id `CARD-2` and keeps the derived item title.
+    String c2 = d.addListItem("DEMO/CARD-LST", "CARD-2");
     d.setFormField(c2 + "/content", "note", "second card");
     d.setContent("DEMO/META/OWNR", "alice");
     for (String tag : List.of("on", "no", "1:30", "plain")) {

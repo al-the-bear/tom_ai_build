@@ -1970,7 +1970,10 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
   char *num = itoa_dup(number);
   char *item_path = vcat3(list_path, "-", num);
   som_strlist_push_copy(&state->items, item_path);
-  if (!has_n) {
+  /* A stored id is staged for an anonymous next item and for a numbered
+     `@SectionIdPattern` id (copied — the map owns its strings); the
+     `<member>-<n>` fallback passes "" and stores nothing. */
+  if (!has_n || (stored_id != NULL && stored_id[0] != '\0')) {
     som_map_set(&state->ids, item_path, stored_id != NULL ? stored_id : "");
   }
   /* SOM §11.7: stage the heading title as a stored headline only when it
@@ -2114,9 +2117,10 @@ static void parser_open_root(MdParser *p, int level, const char *id,
 
 /* Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
    heading `id` is matched positionally against the container's list: the
-   `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
-   (`GOAL-ITEM-3`, parses back as item <n>), a pattern-shaped stored id, or —
-   for any other id — an anonymous next item carrying the stored id. */
+   `<member>-<n>` fallback id (positional, nothing stored), the
+   `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
+   item <n> carrying that id), a pattern-shaped stored id, or — for any other
+   id — an anonymous next item carrying the stored id. */
 static void parser_open_item_heading(MdParser *p, int level,
                                      const char *list_path,
                                      const SomMetaNode *list_node,
@@ -2139,7 +2143,11 @@ static void parser_open_item_heading(MdParser *p, int level,
   if (pattern[0] != '\0') {
     long long num = 0;
     if (numbered_pattern_match(pattern, id, &num)) {
-      parser_open_item(p, level, list_path, list_node, num, "", 1, title,
+      /* The pattern with `xxx` as a number parses back as item <n> AND is
+         stored: the section id is the item's identity and the path only its
+         position, so an id that happens to equal the positional default must
+         survive a later move or insert (SOM §11.6). */
+      parser_open_item(p, level, list_path, list_node, num, id, 1, title,
                        code_spec, line);
       return;
     }

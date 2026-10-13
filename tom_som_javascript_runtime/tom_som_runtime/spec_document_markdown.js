@@ -1142,9 +1142,10 @@ class _Parser {
   /**
    * Opens a list-item frame under a `-LST` container frame (SOM §11.2). The
    * heading `id` is matched positionally against the container's list: the
-   * `<member>-<n>` fallback id, the `@SectionIdPattern` resolved with a number
-   * (`GOAL-ITEM-3`, parses back as item `<n>`), a pattern-shaped stored id, or
-   * — for any other id — an anonymous next item carrying the stored id.
+   * `<member>-<n>` fallback id (positional, nothing stored), the
+   * `@SectionIdPattern` resolved with a number (`GOAL-ITEM-3`, parses back as
+   * item `<n>` carrying that id), a pattern-shaped stored id, or — for any
+   * other id — an anonymous next item carrying the stored id.
    */
   _openItemHeading(level, container, listNode, id, title, codeSpec, lineNo) {
     const listPath = container.path;
@@ -1165,8 +1166,10 @@ class _Parser {
         : null) ||
       null;
     if (pattern !== null) {
-      // Canonical anonymous id: the pattern with `xxx` as a number — parses
-      // back as item <n>, NOT as a stored id (SOM §11.2 round-trip).
+      // The pattern with `xxx` as a number parses back as item <n> AND is
+      // stored: the section id is the item's identity and the path only its
+      // position, so an id that happens to equal the positional default must
+      // survive a later move or insert (SOM §11.6).
       const parts = pattern.split('xxx');
       if (parts.length === 2) {
         const numbered = new RegExp(
@@ -1178,7 +1181,7 @@ class _Parser {
             listPath,
             listNode,
             parseInt(numbered[1], 10),
-            null,
+            id,
             title,
             codeSpec,
             lineNo,

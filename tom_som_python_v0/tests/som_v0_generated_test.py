@@ -448,6 +448,58 @@ def test_live_document_case() -> None:
     _check("live.node.id-identity", id_ref.meta is nav_item.meta)
 
 
+def test_markdown_import_lands_on_yaml() -> None:
+    """Markdown import: the .md lands on exactly the .docspecs.yaml.
+
+    The .md is the yaml's rendition, so importing it must reproduce the yaml
+    byte for byte — including every list item's section id, which a heading
+    carries even when it equals the @SectionIdPattern default (``UCE-USER-1``).
+    Ids are identity and paths only position, so after a move the item must
+    keep its id rather than take its new position's.
+    """
+    sample = "../tom_som_dart_v0/documents/meridian_order_management.docspecs.yaml"
+    sample_md = "../tom_som_dart_v0/documents/meridian_order_management.md"
+    tree = m.d00SolutionBlueprintMetaTree
+    with open("meta/spec_model.meta.json", encoding="utf-8") as fh:
+        model = SpecModel.from_json(json.load(fh))
+    with open(sample, encoding="utf-8", newline="") as fh:
+        yaml_text = fh.read()
+    original = SpecDocument.from_yaml(yaml_text, tree)
+    with open(sample_md, encoding="utf-8", newline="") as fh:
+        imported = SpecDocument.from_markdown(fh.read(), model)
+    _check("md-import.no-rejections", len(imported.rejections) == 0,
+           "; ".join(f"{r.line}: {r.reason}" for r in imported.rejections[:5]))
+    document = imported.document
+    _check("md-import.yaml-identical",
+           yaml_encode(document, tree,
+                       model_version=original.model_version) == yaml_text)
+
+    # The first list whose items all carry a stored id equal to their
+    # positional default — the case the import used to drop.
+    def _positional(item: str) -> bool:
+        sid = document.item_section_id(item)
+        return sid is not None and sid.endswith("-" + item.rsplit("-", 1)[1])
+
+    list_path = next(
+        (p for p in document.list_paths
+         if len(document.list_items(p)) > 1
+         and all(_positional(i) for i in document.list_items(p))),
+        None)
+    _check("md-import.positional-list-found", list_path is not None)
+    if list_path is None:
+        return
+    items = document.list_items(list_path)
+    first_id = document.item_section_id(items[0])
+    _check("md-import.first-id", first_id is not None)
+    document.move_list_item(model, items[0], len(items) - 1)
+    moved = document.list_items(list_path)
+    _check("md-import.move.last-keeps-id",
+           document.item_section_id(moved[-1]) == first_id,
+           f"{document.item_section_id(moved[-1])} != {first_id}")
+    _check("md-import.move.first-differs",
+           document.item_section_id(moved[0]) != first_id)
+
+
 def main() -> int:
     test_root_and_parity()
     test_model_version()
@@ -457,6 +509,7 @@ def main() -> int:
     test_can_have_content()
     test_one_call_loading()
     test_live_document_case()
+    test_markdown_import_lands_on_yaml()
 
     total = _passed + len(_failed)
     if _failed:
