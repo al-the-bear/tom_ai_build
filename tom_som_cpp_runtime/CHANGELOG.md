@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `encodeYaml`: a document with no values encodes as `document:` + `  <root key>: {}`, keeping the root key (the file's only record of its document root), never `document: {}`; decode still accepts `document: {}` (SOM §12.3 rule 4).
 - Query engine (`SpecQueryEngine::sectionIdOf`): a list item (`listItemComplex` / `listItemScalar`) is known by its own effective section id — stored id, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — for `sectionIdExact` / `sectionIdPrefix` and the projected `sectionId`; other nodes keep the model `@SectionId` (llm_and_d4rt_tools.md §6).
 - `decodeYaml`: `SpecYamlContents::review` is `nullptr` when the file has no `review:` key and a (possibly empty) YAML_MAP when it has one (a bare `review:` included), so a document without a review pass round-trips without gaining `review: {}` (SOM §12.1).
 - Markdown import (`MdParser::finalizeBodySlots`): prose under a heading whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble (SOM §11.6) — bound to the `content` form slot, else the first, with a label-shaped line's escape space stripped — instead of landing on the owner's own path (kindMismatch).

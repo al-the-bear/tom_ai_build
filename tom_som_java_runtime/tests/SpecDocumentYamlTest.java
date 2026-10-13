@@ -245,10 +245,15 @@ public final class SpecDocumentYamlTest {
             && "plain".equals(outSpecial.content(specialTags.get(3))),
         "");
 
-    // an empty document emits `document: {}`
+    // an empty document keeps its root key with an empty body (SOM §12.3 rule 4)
+    String emptyYaml = SpecDocumentYaml.encode(new SpecDocument(), tree, null);
     check(
         "encode.emptyDoc",
-        SpecDocumentYaml.encode(new SpecDocument(), tree, null).contains("document: {}"),
+        emptyYaml.contains("\ndocument:\n  D00 Demo: {}\n") && !emptyYaml.contains("document: {}"),
+        emptyYaml);
+    check(
+        "encode.emptyDoc.roundTrip",
+        SpecDocumentYaml.decode(emptyYaml, tree).document.isEmpty(),
         "");
 
     // the model-version stamp is omitted when absent

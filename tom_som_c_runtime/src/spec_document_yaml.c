@@ -969,19 +969,21 @@ char *encode_yaml_with_review(const SpecDocument *document,
     return NULL;
   }
   encoder_free(&e);
+  /* The root key is the only record of which document root the file is, so
+   * an empty document keeps it, with an empty body (SOM §12.3 rule 4). */
+  som_buf_puts(&out, "document:\n");
+  char *nk = spec_yaml_node_key(tree->root);
+  char *pk = spec_yaml_plain_key(nk);
+  som_buf_puts(&out, "  ");
+  som_buf_puts(&out, pk);
   if (body[0] == '\0') {
-    som_buf_puts(&out, "document: {}\n");
+    som_buf_puts(&out, ": {}\n");
   } else {
-    som_buf_puts(&out, "document:\n");
-    char *nk = spec_yaml_node_key(tree->root);
-    char *pk = spec_yaml_plain_key(nk);
-    som_buf_puts(&out, "  ");
-    som_buf_puts(&out, pk);
     som_buf_puts(&out, ":\n");
     som_buf_puts(&out, body);
-    free(pk);
-    free(nk);
   }
+  free(pk);
+  free(nk);
   free(body);
   if (review != NULL) {
     spec_yaml_write_review_pass(&out, review);

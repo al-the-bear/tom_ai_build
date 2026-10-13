@@ -221,10 +221,13 @@ func yamlTestEncode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 		outSpecial.ContentOr(specialTags[3]) == "plain"
 	c.check("encode.yaml11.roundTrip", specialOk, "")
 
-	// an empty document emits `document: {}`
+	// an empty document keeps its root key with an empty body (SOM §12.3
+	// rule 4), never `document: {}`
+	emptyOut := yamlEnc(t, tree, som.NewSpecDocument(), "")
 	c.check("encode.emptyDoc",
-		strings.Contains(yamlEnc(t, tree, som.NewSpecDocument(), ""),
-			"document: {}"), "")
+		strings.Contains(emptyOut,
+			"document:\n  "+som.PlainKey(som.NodeKey(tree.Root))+": {}\n") &&
+			!strings.Contains(emptyOut, "document: {}"), "")
 
 	// the model-version stamp is omitted when absent
 	c.check("encode.noStamp",

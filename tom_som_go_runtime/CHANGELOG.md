@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- YAML empty document (SOM §12.3 rule 4): the encoder writes an empty document as `document:` then `  <root key>: {}` instead of `document: {}`, keeping the root key that records which document root the file is; decode still accepts `document: {}`. Pinned by the new `yaml_review_cases.json` roundTrip case.
 - Query section ids (llm_and_d4rt_tools.md §6): a list item is known by its own effective id — stored, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — in the `sectionIdExact`/`sectionIdPrefix` filters and the projection's `SectionID`, so a list's own id matches only the list; pinned by four new `query_cases.json` cases and `projection_cases.json`.
 - YAML review pass presence (SOM §12.1): `DecodeYaml` returns `Review == nil` when the file has no `review:` key and a non-nil (possibly empty) map when it has one, so a file without a review pass round-trips without gaining `review: {}`; pinned by the new `yaml_review_cases.json` case.
 - Markdown import (SOM §11.6): prose in a section whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble — `finalizeBodySlots` binds it to `<owner>/content` (else the first form slot) and strips the escape space of a label-shaped preamble line, instead of storing it on the owner's path (kindMismatch); pinned by the new last `markdown_import_cases.json` case.

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- An empty document encodes as `document:` with its root key and an empty
+  mapping (`  SBP D00SolutionBlueprint: {}`) instead of `document: {}`, so the
+  file still records which document root it is (SOM §12.3 rule 4). Decode still
+  accepts `document: {}`. Pinned by a new `yaml_review_cases.json` case.
 - A list item is known by its own section id in `SpecQueryEngine`: the
   `sectionIdExact` / `sectionIdPrefix` filters and the projection's `sectionId`
   use the item's stored id, else its positional id — the id its markdown heading

@@ -353,9 +353,11 @@ void main() {
       expect(out.content('D00/control/owner'), 'the owner');
     });
 
-    test('an empty document emits `document: {}`', () {
+    test('an empty document keeps its root key, with an empty body', () {
       final yaml = enc(SpecDocument());
-      expect(yaml, contains('document: {}'));
+      expect(yaml, isNot(contains('document: {}')));
+      expect(yaml, matches(RegExp(r'\ndocument:\n  [^\n]+: \{\}\n$')));
+      expect(dec(yaml).document.isEmpty, isTrue);
     });
 
     test('the model-version stamp is omitted when absent', () {

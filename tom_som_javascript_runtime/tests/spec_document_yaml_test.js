@@ -265,8 +265,11 @@ function testEncode() {
     ) === JSON.stringify(['on', 'no', '1:30', 'plain']),
   );
 
-  // an empty document emits `document: {}`
-  _check('encode.emptyDoc', _enc(new SpecDocument()).includes('document: {}'));
+  // an empty document keeps its root key, with an empty body
+  const emptyYaml = _enc(new SpecDocument());
+  _check('encode.emptyDoc.noBareDocument', !emptyYaml.includes('document: {}'));
+  _check('encode.emptyDoc', /\ndocument:\n {2}[^\n]+: \{\}\n$/.test(emptyYaml));
+  _check('encode.emptyDoc.decodes', _dec(emptyYaml).document.isEmpty);
 
   // the model-version stamp is omitted when absent
   _check(

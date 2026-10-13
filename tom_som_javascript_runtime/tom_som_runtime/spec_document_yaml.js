@@ -592,7 +592,10 @@ class _Encoder {
     const body = this._mappingBody(root, root.segment, 4);
     this._assertNothingLeft();
     if (body === '') {
-      b.writeln('document: {}');
+      // The root key is the only record of which document root the file is,
+      // so an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+      b.writeln('document:');
+      b.writeln(`  ${plainKey(nodeKey(root))}: {}`);
       return;
     }
     b.writeln('document:');

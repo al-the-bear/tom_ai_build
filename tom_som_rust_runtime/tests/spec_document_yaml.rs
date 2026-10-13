@@ -14,7 +14,7 @@
 
 use tom_som_rust_runtime::spec_document::SpecDocument;
 use tom_som_rust_runtime::spec_document_yaml::{
-    decode_yaml, encode_yaml, SpecYamlContents, SpecYamlError,
+    decode_yaml, encode_yaml, node_key, plain_key, SpecYamlContents, SpecYamlError,
 };
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
@@ -270,10 +270,15 @@ fn yaml_test_encode(c: &mut Checker, tree: &SomMetaTree) {
         "",
     );
 
-    // an empty document emits `document: {}`
+    // an empty document keeps its root key with an empty body (SOM §12.3
+    // rule 4), never `document: {}`
+    let empty_out = yaml_enc(tree, &SpecDocument::new(), "");
     c.check(
         "encode.emptyDoc",
-        yaml_enc(tree, &SpecDocument::new(), "").contains("document: {}"),
+        empty_out.contains(&format!(
+            "document:\n  {}: {{}}\n",
+            plain_key(&node_key(&tree.root))
+        )) && !empty_out.contains("document: {}"),
         "",
     );
 

@@ -562,7 +562,13 @@ class _Encoder {
     final body = _mappingBody(root, root.segment, 4);
     _assertNothingLeft();
     if (body.isEmpty) {
-      b.writeln('document: {}');
+      // The root key is the only record of which document root the file is,
+      // so an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+      b
+        ..writeln('document:')
+        ..writeln(
+          '  ${SpecDocumentYaml.plainKey(SpecDocumentYaml.nodeKey(root))}: {}',
+        );
       return;
     }
     b

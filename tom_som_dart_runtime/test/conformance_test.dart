@@ -5731,6 +5731,17 @@ Map<String, dynamic> _yamlReviewCases(
       'yaml': withEmpty.toString(),
     },
     {
+      // The root key is a file's only record of which document root it is,
+      // so an empty document keeps it (SOM §12.3 rule 4).
+      'name': 'an empty document round-trips with its root key',
+      'op': 'roundTrip',
+      'yaml': () {
+        final at = golden.indexOf('\ndocument:\n') + 1;
+        final rootLine = golden.substring(at).split('\n')[1];
+        return '${golden.substring(0, at)}document:\n$rootLine {}\n';
+      }(),
+    },
+    {
       'name':
           'a document with no review pass round-trips byte for byte, '
           'without gaining one',

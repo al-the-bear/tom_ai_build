@@ -1469,6 +1469,11 @@ path segment is the bare `introductionAndScope`.
 4. The tree carries no paths; the runtime reconstructs paths by walking keys
    against the metadata tree. A key that does not match the tree at its
    position is a structured load error.
+   The root key is the only place a file records **which document root** it
+   is, so it is always written: a document with no values encodes as
+   `document:` followed by its root key with an empty mapping
+   (`  SBP D00SolutionBlueprint: {}`), never as `document: {}`. Decoders still
+   accept `document: {}` as an empty document of the tree they are given.
 5. **The `*-LST` container is a pure structural level** — it never carries a
    `content` key; its mapping holds only the item keys.
 6. Stored list-item ids, stored headlines, and stored `codeSpec` links persist

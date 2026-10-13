@@ -86,7 +86,10 @@ void spec_yaml_contents_free(SpecYamlContents *c);
  *
  * Sibling order is the tree's child order (@SerializationOrder), list items
  * follow their stored sequence; emission is sparse (only populated subtrees
- * appear). Returns an owned string; when the document holds values `tree`
+ * appear). A document with no values still writes its root key, as
+ * `document:` + `  <root key>: {}` — never `document: {}` — because the root
+ * key is the file's only record of which document root it is (SOM §12.3
+ * rule 4); decode keeps accepting `document: {}`. Returns an owned string; when the document holds values `tree`
  * cannot place returns NULL and, when `err` is non-NULL, writes an owned
  * structured message — nothing is silently dropped. */
 char *encode_yaml(const SpecDocument *document, const SomMetaTree *tree,

@@ -75,7 +75,11 @@ struct SpecYamlContents {
  * document's root).
  *
  * Sibling order is the tree's child order (@SerializationOrder), list items
- * follow their stored sequence; emission is sparse. Returns the owned string;
+ * follow their stored sequence; emission is sparse. A document with no values
+ * still writes its root key, as `document:` + `  <root key>: {}` — never
+ * `document: {}` — because the root key is the file's only record of which
+ * document root it is (SOM §12.3 rule 4); decode keeps accepting
+ * `document: {}`. Returns the owned string;
  * when the document holds values `tree` cannot place returns std::nullopt and,
  * when `err` is non-null, writes a structured message — nothing is silently
  * dropped.

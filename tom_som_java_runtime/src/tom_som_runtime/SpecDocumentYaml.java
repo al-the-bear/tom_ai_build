@@ -354,7 +354,10 @@ public final class SpecDocumentYaml {
    * list items follow their stored sequence; emission is sparse (only
    * populated subtrees appear). Throws {@link SpecYamlFormatException} when the
    * document holds values {@code tree} cannot place — nothing is silently
-   * dropped.
+   * dropped. A document with no values still writes its root key, as
+   * {@code document:} + {@code   <root key>: {}} (never {@code document: {}})
+   * — the root key is the file's only record of which document root it is
+   * (SOM §12.3 rule 4).
    */
   public static String encode(SpecDocument document, SomMetaTree tree, String modelVersion) {
     return encode(document, tree, modelVersion, null);
@@ -640,7 +643,10 @@ public final class SpecDocumentYaml {
       String body = mappingBody(root, root.segment(), 4);
       assertNothingLeft();
       if (body.isEmpty()) {
-        b.append("document: {}\n");
+        // The root key is the only record of which document root the file is,
+        // so an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+        b.append("document:\n");
+        b.append("  ").append(plainKey(nodeKey(root))).append(": {}\n");
         return;
       }
       b.append("document:\n");

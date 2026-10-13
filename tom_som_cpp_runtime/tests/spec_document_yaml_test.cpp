@@ -243,11 +243,12 @@ void yamlTestEncode() {
               contentOr(rtSpecial.document, stags[3]) == "plain");
   }
 
-  /* an empty document emits `document: {}` */
+  /* an empty document keeps its root key: `document:` + `  D00 Demo: {}` */
   {
     som::SpecDocument empty;
     std::string out = yamlEnc(empty, "");
-    check("encode.emptyDoc", contains(out, "document: {}"));
+    check("encode.emptyDoc", contains(out, "\ndocument:\n  D00 Demo: {}\n"));
+    check("encode.emptyDocNoBareMap", !contains(out, "document: {}"));
     std::string out2 = yamlEnc(empty, "");
     check("encode.noStamp", !contains(out2, "modelVersion:"));
   }

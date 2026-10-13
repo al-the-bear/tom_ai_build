@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- YAML encode: a document with no values writes `document:` + `  <root key>: {}` instead of `document: {}`, keeping the root key that records which document root the file is (SOM §12.3 rule 4); decode still accepts `document: {}`.
 - Query engine: a list item's section id (the `sectionIdExact` / `sectionIdPrefix` filters and the projection's `sectionId`) is the item's own effective id — stored id, else the list's `@SectionIdPattern` with its 1-based position, else `<list>-<position>` — so a list's own id matches only the list (llm_and_d4rt_tools.md §6).
 - Markdown import: a section whose owner has only form slots (e.g. a class-level `@Form` on `content`) binds its prose as that form's preamble — the `content` form slot, else the first — with label-shaped lines unescaped, instead of storing it on the owner's path (SOM §11.6).
 - `CodeSpecsAreaCatalog.fromJson` rejects a slice, step or area row missing a numeric `number`/`slice` or a non-empty `code`/`part` with an error naming the row, instead of reading `NaN`.

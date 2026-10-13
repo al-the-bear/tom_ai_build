@@ -729,6 +729,10 @@ func newYamlEncoder(doc *SpecDocument) *yamlEncoder {
 	return e
 }
 
+// writeDocumentPass writes the `document:` pass. An empty document keeps its
+// root key with an empty body (`document:` then `  <root key>: {}`), never
+// `document: {}`: the root key is the file's only record of which document
+// root it is (SOM §12.3 rule 4). Decode still accepts `document: {}`.
 func (e *yamlEncoder) writeDocumentPass(b *yamlBuffer, tree *SomMetaTree) error {
 	root := tree.Root
 	body, err := e.mappingBody(root, root.Segment(), 4)
@@ -739,7 +743,10 @@ func (e *yamlEncoder) writeDocumentPass(b *yamlBuffer, tree *SomMetaTree) error 
 		return err
 	}
 	if body == "" {
-		b.writeln("document: {}")
+		// The root key is the only record of which document root the file is,
+		// so an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+		b.writeln("document:")
+		b.writeln("  " + PlainKey(NodeKey(root)) + ": {}")
 		return nil
 	}
 	b.writeln("document:")

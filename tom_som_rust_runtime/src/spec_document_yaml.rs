@@ -761,6 +761,11 @@ impl<'a> YamlEncoder<'a> {
         e
     }
 
+    /// Writes the `document:` pass. An empty document keeps its root key with
+    /// an empty body (`document:` then `  <root key>: {}`), never
+    /// `document: {}`: the root key is the file's only record of which
+    /// document root it is (SOM §12.3 rule 4). Decode still accepts
+    /// `document: {}`.
     fn write_document_pass(
         &mut self,
         b: &mut YamlBuffer,
@@ -770,7 +775,11 @@ impl<'a> YamlEncoder<'a> {
         let body = self.mapping_body(root, root.segment(), 4)?;
         self.assert_nothing_left()?;
         if body.is_empty() {
-            b.writeln("document: {}");
+            // The root key is the only record of which document root the file
+            // is, so an empty document keeps it, with an empty body (SOM §12.3
+            // rule 4).
+            b.writeln("document:");
+            b.writeln(&format!("  {}: {{}}", plain_key(&node_key(root))));
             return Ok(());
         }
         b.writeln("document:");

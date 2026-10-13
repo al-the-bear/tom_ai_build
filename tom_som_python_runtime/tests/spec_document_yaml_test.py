@@ -15,6 +15,7 @@ Run with: ``python3 tests/spec_document_yaml_test.py``. Exit code 0 == green.
 from __future__ import annotations
 
 import os
+import re
 import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -269,8 +270,14 @@ def test_encode() -> None:
         == ["on", "no", "1:30", "plain"],
     )
 
-    # an empty document emits `document: {}`
-    _check("encode.emptyDoc", "document: {}" in _enc(SpecDocument()))
+    # an empty document keeps its root key, with an empty body
+    empty_yaml = _enc(SpecDocument())
+    _check("encode.emptyDoc.noBareDocument", "document: {}" not in empty_yaml)
+    _check(
+        "encode.emptyDoc",
+        re.search(r"\ndocument:\n  [^\n]+: \{\}\n$", empty_yaml) is not None,
+    )
+    _check("encode.emptyDoc.decodes", _dec(empty_yaml).document.is_empty)
 
     # the model-version stamp is omitted when absent
     _check("encode.noStamp", "modelVersion:" not in _enc(SpecDocument()))

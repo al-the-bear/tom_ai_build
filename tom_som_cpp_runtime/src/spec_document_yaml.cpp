@@ -759,12 +759,14 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
   if (!e.assertNothingLeft(err)) {
     return std::nullopt;
   }
+  // The root key is the only record of which document root the file is, so
+  // an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+  out += "document:\n";
+  out += "  ";
+  out += specYamlPlainKey(specYamlNodeKey(*tree.root()));
   if (body.empty()) {
-    out += "document: {}\n";
+    out += ": {}\n";
   } else {
-    out += "document:\n";
-    out += "  ";
-    out += specYamlPlainKey(specYamlNodeKey(*tree.root()));
     out += ":\n";
     out += body;
   }

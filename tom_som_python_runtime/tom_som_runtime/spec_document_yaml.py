@@ -614,7 +614,11 @@ class _Encoder:
         body = self._mapping_body(root, root.segment, 4)
         self._assert_nothing_left()
         if body == "":
-            b.writeln("document: {}")
+            # The root key is the only record of which document root the file
+            # is, so an empty document keeps it, with an empty body (SOM §12.3
+            # rule 4).
+            b.writeln("document:")
+            b.writeln(f"  {plain_key(node_key(root))}: {{}}")
             return
         b.writeln("document:")
         b.writeln(f"  {plain_key(node_key(root))}:")

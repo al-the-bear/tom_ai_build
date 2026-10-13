@@ -315,12 +315,14 @@ static void yaml_test_encode(void) {
     spec_document_free(&special);
   }
 
-  /* an empty document emits `document: {}` */
+  /* an empty document keeps its root key: `document:` + `  D00 Demo: {}` */
   {
     SpecDocument empty;
     spec_document_init(&empty);
     char *out = yaml_enc(&empty, "");
-    check("encode.emptyDoc", strstr(out, "document: {}") != NULL, "");
+    check("encode.emptyDoc", strstr(out, "\ndocument:\n  D00 Demo: {}\n") != NULL,
+          out);
+    check("encode.emptyDocNoBareMap", strstr(out, "document: {}") == NULL, "");
     free(out);
 
     /* the model-version stamp is omitted when absent */

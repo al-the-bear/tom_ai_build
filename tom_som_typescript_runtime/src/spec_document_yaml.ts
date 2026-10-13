@@ -371,7 +371,10 @@ function _isNumericOrBool(typeName: string): boolean {
  * Sibling order is the tree's child order (`@SerializationOrder`), list items
  * follow their stored sequence; emission is sparse (only populated subtrees
  * appear). Throws {@link SpecYamlFormatException} when the document holds
- * values `tree` cannot place — nothing is silently dropped.
+ * values `tree` cannot place — nothing is silently dropped. A document with
+ * no values still writes its root key, as `document:` + `  <root key>: {}`
+ * (never `document: {}`) — the root key is the file's only record of which
+ * document root it is (SOM §12.3 rule 4).
  *
  * `review` is written back as the `review:` pass when given — typically the
  * raw map {@link decode} returned, so that a load followed by a save keeps a
@@ -638,7 +641,10 @@ class _Encoder {
     const body = this._mappingBody(root, root.segment, 4);
     this._assertNothingLeft();
     if (body === '') {
-      b.writeln('document: {}');
+      // The root key is the only record of which document root the file is,
+      // so an empty document keeps it, with an empty body (SOM §12.3 rule 4).
+      b.writeln('document:');
+      b.writeln(`  ${plainKey(nodeKey(root))}: {}`);
       return;
     }
     b.writeln('document:');
