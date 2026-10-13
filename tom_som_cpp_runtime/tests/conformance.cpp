@@ -426,8 +426,12 @@ static void test_yaml_review(Checker& c, const som::SpecModel& model,
           contents.document.removeListItem(*item);
         }
       }
-      std::vector<std::string> got = som::specYamlStaleReviewPaths(
-          model, contents.document, *contents.review);
+      // An absent review pass (nullptr) has no stale paths: treat it as empty.
+      std::vector<std::string> got =
+          contents.review != nullptr
+              ? som::specYamlStaleReviewPaths(model, contents.document,
+                                              *contents.review)
+              : std::vector<std::string>();
       std::vector<std::string> want;
       for (std::size_t w = 0; w < som::jsonArrayLen(expect); w++) {
         const std::string* s = som::jsonAsStr(som::jsonArrayAt(expect, w));

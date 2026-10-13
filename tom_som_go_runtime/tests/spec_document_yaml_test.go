@@ -363,6 +363,14 @@ func yamlTestStrictDecode(c *checker, t *testing.T, tree *som.SomMetaTree) {
 		"    scope: global\n"
 	contents := yamlDec(t, tree, fixture)
 	c.check("decode.review", contents.Review.Has("D00/a"), "")
+	// SOM §12.1: no `review:` key decodes to nil; an explicit or bare one to
+	// a non-nil (empty) map.
+	c.check("decode.review.absent",
+		yamlDec(t, tree, "version: 2\ndocument: {}\n").Review == nil, "")
+	explicit := yamlDec(t, tree, "version: 2\ndocument: {}\nreview: {}\n").Review
+	c.check("decode.review.explicitEmpty", explicit != nil && explicit.Len() == 0, "")
+	bare := yamlDec(t, tree, "version: 2\ndocument: {}\nreview:\n").Review
+	c.check("decode.review.bare", bare != nil && bare.Len() == 0, "")
 }
 
 // TestSpecDocumentYaml runs the shared Hierarchical-codec suite

@@ -185,15 +185,21 @@ class SpecYamlContents:
     def __init__(
         self,
         document: SpecDocument,
-        review: dict,
+        review: Optional[dict] = None,
         model_version: Optional[str] = None,
     ) -> None:
+        """*review* is ``None`` when the file has no ``review:`` key and a
+        dict — possibly empty — when it has one, so passing it straight back
+        to :func:`encode` reproduces the file either way (SOM §12.1).
+        *model_version* is genuinely optional — an unstamped or hand-written
+        file has no authoring version (SOM §4.2)."""
         #: The ``document:`` pass, loaded into a live document (its
         #: :attr:`SpecDocument.model_version` is already set from the file
         #: stamp).
         self.document = document
-        #: The ``review:`` pass exactly as parsed (empty when absent). The
-        #: runtime does not interpret it; the editor maps it onto its own
+        #: The ``review:`` pass exactly as parsed: ``None`` when the file has
+        #: no ``review:`` key, an empty dict for an explicit ``review: {}``.
+        #: The runtime does not interpret it; the editor maps it onto its own
         #: review entries.
         self.review = review
         #: The authoring object-model version (``major.minor``) this document
@@ -940,7 +946,13 @@ def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
 
     return SpecYamlContents(
         document=document,
-        review=rev if isinstance(rev, dict) else {},
+        # An absent key stays None so encode writes no pass; a present one —
+        # `review: {}`, or a bare `review:` — is a pass, and is written back.
+        review=(
+            rev
+            if isinstance(rev, dict)
+            else ({} if "review" in root else None)
+        ),
         model_version=stamp,
     )
 

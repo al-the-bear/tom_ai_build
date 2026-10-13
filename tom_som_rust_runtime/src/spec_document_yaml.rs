@@ -120,9 +120,14 @@ pub struct SpecYamlContents {
     /// The `document:` pass, loaded into a live document (its
     /// [`SpecDocument::model_version`] is already set from the file stamp).
     pub document: SpecDocument,
-    /// The `review:` pass exactly as parsed (empty when absent). The runtime
-    /// does not interpret it; the editor maps it onto its own review entries.
-    pub review: YamlMap,
+    /// The `review:` pass exactly as parsed: `None` when the file has no
+    /// `review:` key, `Some` map — empty for an explicit `review: {}` or a bare
+    /// `review:` — when it has one. Passing it straight back to
+    /// [`encode_yaml_with_review`] (`contents.review.as_ref()`) writes no pass
+    /// for `None` and `review: {}` for an empty map, so a decode followed by an
+    /// encode reproduces the file either way (SOM §12.1). The runtime does not
+    /// interpret it; the editor maps it onto its own review entries.
+    pub review: Option<YamlMap>,
     /// The authoring object-model version (major.minor) this document was last
     /// written against, or `""` for an unstamped/hand-written file. Distinct
     /// from [`FORMAT_VERSION`] (the on-disk format version).
@@ -1170,13 +1175,15 @@ re-save the document in the hierarchical v2 format"
     // The review pass is uninterpreted: its plain scalars keep their YAML 1.2
     // core-schema types (SOM §12.5: null, booleans, ints and floats kept
     // distinct), so it is read with the typed parser.
+    // An absent key stays `None` so encode writes no pass; a present one —
+    // `review: {}`, or a bare `review:` — is a pass, and is written back.
     let review = if root_map.has("review") {
-        match yaml_parse_typed(yaml_text).get("review") {
+        Some(match yaml_parse_typed(yaml_text).get("review") {
             Some(YamlValue::Map(m)) => m.clone(),
             _ => YamlMap::new(),
-        }
+        })
     } else {
-        YamlMap::new()
+        None
     };
 
     let mut document = SpecDocument::new();

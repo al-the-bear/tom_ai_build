@@ -84,9 +84,15 @@ type SpecYamlContents struct {
 	// Document is the `document:` pass, loaded into a live document (its
 	// SpecDocument.ModelVersion is already set from the file stamp).
 	Document *SpecDocument
-	// Review is the `review:` pass exactly as parsed (empty when absent). The
-	// runtime does not interpret it; the editor maps it onto its own review
-	// entries.
+	// Review is the `review:` pass exactly as parsed. A nil pointer means the
+	// file has no `review:` key; a non-nil map — empty for an explicit
+	// `review: {}` or a bare `review:` — means it has one. The pointer is the
+	// presence flag (no separate bool): passing it straight back to
+	// EncodeYamlWithReview writes no pass for nil and `review: {}` for an empty
+	// map, so a decode followed by an encode reproduces the file either way
+	// (SOM §12.1). Check `Review != nil`, not `Review.Len() > 0`, to tell the
+	// two apart; RekeyReview and StaleReviewPaths accept nil. The runtime does
+	// not interpret the pass; the editor maps it onto its own review entries.
 	Review *YamlMap
 	// ModelVersion is the authoring object-model version (major.minor) this
 	// document was last written against, or "" for an unstamped/hand-written
@@ -1107,7 +1113,9 @@ func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 			rev, _ = typedRoot.GetOr("review").(*YamlMap)
 		}
 	}
-	if rev == nil {
+	// An absent key stays nil so encode writes no pass; a present one —
+	// `review: {}`, or a bare `review:` — is a pass, and is written back.
+	if rev == nil && rootMap.Has("review") {
 		rev = NewYamlMap()
 	}
 

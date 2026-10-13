@@ -1415,8 +1415,10 @@ Readers reject `version: 1` files with a clear error (no compatibility path).
 
 The `review:` pass is structural-review state keyed by section path. The
 runtimes do not interpret it, but they carry it: `decode` returns it as a raw
-map and `encode` writes back the map it is given, so a load followed by a save
-keeps a reviewed document's review state. The writer is canonical and the same
+map — or **null when the file has no `review:` key**, so an absent pass and an
+explicit `review: {}` stay distinct — and `encode` writes back the map it is
+given and nothing for null. A load followed by a save therefore reproduces the
+file in all three cases: a reviewed document, an empty pass, and no pass. The writer is canonical and the same
 in every port:
 - entries sorted by path, with JSON-quoted keys;
 - each entry's fields sorted by name;

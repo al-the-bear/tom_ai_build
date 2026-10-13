@@ -5518,7 +5518,7 @@ Object? _runYamlReviewCase(
   return SpecDocumentYaml.staleReviewPaths(
     model,
     contents.document,
-    contents.review,
+    contents.review ?? const {},
   );
 }
 

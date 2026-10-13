@@ -530,7 +530,7 @@ function _runYamlReviewCase(model, tree, c) {
   for (const item of c.removeItems) {
     contents.document.removeListItem(item);
   }
-  return staleReviewPaths(model, contents.document, contents.review);
+  return staleReviewPaths(model, contents.document, contents.review ?? {});
 }
 
 // The `review:` pass: written back sorted and byte-stable, and stale entries

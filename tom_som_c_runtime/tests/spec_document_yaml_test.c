@@ -579,6 +579,28 @@ static void yaml_test_strict_decode(void) {
     check("decode.review", yaml_get(c.review, "D00/a") != NULL, "");
     spec_yaml_contents_free(&c);
   }
+
+  /* no `review:` key decodes to NULL (absent); an explicit `review: {}` or a
+   * bare `review:` to an empty map (SOM §12.1) */
+  {
+    SpecYamlContents c;
+    yaml_dec("version: 2\ndocument: {}\n", &c);
+    check("decode.review.absent", c.review == NULL, "");
+    spec_yaml_contents_free(&c);
+  }
+  {
+    const char *present[] = {"version: 2\ndocument: {}\nreview: {}\n",
+                             "version: 2\ndocument: {}\nreview:\n"};
+    for (size_t i = 0; i < 2; i++) {
+      SpecYamlContents c;
+      yaml_dec(present[i], &c);
+      check("decode.review.empty",
+            c.review != NULL && c.review->type == YAML_MAP &&
+                c.review->as.map.len == 0,
+            present[i]);
+      spec_yaml_contents_free(&c);
+    }
+  }
 }
 
 /* A section/complex node whose field carries no @SectionId takes its target

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- The YAML codec's decode returns the `review:` pass as `null` when the file has no `review:` key (an explicit `review: {}` or a bare `review:` still gives an empty map), so decode-then-encode no longer adds `review: {}` to a file without a review pass (SOM §12.1). Pinned by the new `yaml_review_cases.json` round-trip case.
 - Markdown import: prose in a section whose owner has only form slots (a class-level `@Form` on the `content` member) is that form's preamble (SOM §11.6) — it binds to the `content` form slot, else the first form slot, with a label-shaped line's escape space stripped — instead of the owner's own path, which the model rejected. Pinned by the last `markdown_import_cases.json` case.
 - A malformed CodeSpecs area catalogue row (a slice or step without a numeric `number`/`slice`, a string where a number belongs, an area without a non-empty `code`/`part`) now throws an `Error` that names the row, as the Dart reference does, instead of loading `NaN` or `undefined`. Pinned by the six `catalogErrorCases` of `codespecs_extract_cases.json`.
 - The catalogue's int lists (`cites`, `slices`, `authoringSteps`) reject a non-numeric entry naming the row, and the records reader's `_intList` checks integers again: two functions of that name had shadowed each other, so both read their lists unchecked.

@@ -1008,8 +1008,12 @@ public final class SpecDocumentYaml {
     if (rawReview instanceof Map && !((Map<?, ?>) rawReview).isEmpty()) {
       rawReview = ((Map<String, Object>) Yaml.parse(yamlText, true)).get("review");
     }
+    // An absent key stays null so encode writes no pass; a present one —
+    // `review: {}`, or a bare `review:` — is a pass, and is written back.
     Map<String, Object> review =
-        rawReview instanceof Map ? (Map<String, Object>) rawReview : new LinkedHashMap<>();
+        rawReview instanceof Map
+            ? (Map<String, Object>) rawReview
+            : rootMap.containsKey("review") ? new LinkedHashMap<>() : null;
 
     SpecDocument document = new SpecDocument();
     document.setModelVersion(stamp);

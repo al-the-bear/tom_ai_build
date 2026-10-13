@@ -136,7 +136,9 @@ unpublished_drift:
     (qrb4) prints non-finite floats as `.inf`/`-.inf`/`.nan` under the SOM §12.5
     review-scalar rule; its conformance test runs the catalogErrorCases
     table (qrb5); and markdown import binds a form-only section's prose as the
-    form's preamble (qrb8). Rides the next model-chain release.
+    form's preamble (qrb8); and `SpecYamlContents.review` is null when the
+    file has no review pass (vsctasb1, breaking). Rides the next model-chain
+    release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

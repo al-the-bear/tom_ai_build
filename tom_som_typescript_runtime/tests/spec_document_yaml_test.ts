@@ -421,6 +421,13 @@ function testStrictDecode(): void {
     '    scope: global\n';
   const c = _dec(fixture);
   _check('decode.review', Object.keys(c.review).includes('D00/a'));
+
+  // no `review:` key decodes to null; an explicit or bare one to an empty map
+  _check('decode.review.absent', _dec('version: 2\ndocument: {}\n').review === null);
+  const explicit = _dec('version: 2\ndocument: {}\nreview: {}\n').review;
+  _check('decode.review.explicitEmpty', explicit !== null && Object.keys(explicit).length === 0);
+  const bare = _dec('version: 2\ndocument: {}\nreview:\n').review;
+  _check('decode.review.bare', bare !== null && Object.keys(bare).length === 0);
 }
 
 function testClassLevelOnlyKey(): void {

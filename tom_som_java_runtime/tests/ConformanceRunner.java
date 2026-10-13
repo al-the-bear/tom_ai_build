@@ -682,7 +682,10 @@ public final class ConformanceRunner {
       contents.document.removeListItem((String) item);
     }
     return new ArrayList<Object>(
-        SpecDocumentYaml.staleReviewPaths(model, contents.document, contents.review));
+        SpecDocumentYaml.staleReviewPaths(
+            model,
+            contents.document,
+            contents.review != null ? contents.review : new LinkedHashMap<>()));
   }
 
   // --- markdown conformance (SOM §11) -------------------------------------

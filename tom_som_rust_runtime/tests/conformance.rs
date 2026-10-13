@@ -783,7 +783,7 @@ fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
                 &contents.document,
                 tree,
                 &contents.model_version,
-                Some(&contents.review),
+                contents.review.as_ref(),
             ) {
                 Ok(got) => c.check(&tag, got == want, &byte_diff(&tag, &got, &want)),
                 Err(e) => c.check(&tag, false, &e.to_string()),
@@ -793,7 +793,9 @@ fn test_yaml_review(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
         for item in kase.get("removeItems").and_then(|v| v.as_array()).unwrap_or(&[]) {
             contents.document.remove_list_item(item.as_str().unwrap_or(""));
         }
-        let got = stale_review_paths(model, &contents.document, &contents.review);
+        let empty = YamlMap::new();
+        let review = contents.review.as_ref().unwrap_or(&empty);
+        let got = stale_review_paths(model, &contents.document, review);
         let want: Vec<String> = kase
             .get("expect")
             .and_then(|v| v.as_array())

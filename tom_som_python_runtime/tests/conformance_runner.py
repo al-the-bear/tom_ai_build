@@ -301,7 +301,7 @@ def _run_yaml_review_case(model: SpecModel, tree, case: dict):
                            review=contents.review)
     for item in case["removeItems"]:
         contents.document.remove_list_item(item)
-    return stale_review_paths(model, contents.document, contents.review)
+    return stale_review_paths(model, contents.document, contents.review or {})
 
 
 def test_yaml_review(model: SpecModel, tree) -> None:

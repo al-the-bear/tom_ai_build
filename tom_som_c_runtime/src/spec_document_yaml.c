@@ -1674,8 +1674,12 @@ int decode_yaml(const char *yaml_text, const SomMetaTree *tree,
 
   char *stamp = parsed_scalar_str(yaml_get(root, "modelVersion"));
 
+  /* An absent key stays NULL so encode writes no pass; a present one —
+   * `review: {}`, or a bare `review:` (an empty map flagged `plain`, which
+   * `clone_review` would type as null) — is an empty map, written back. */
   const YamlValue *rev = yaml_get(root, "review");
-  YamlValue *review = (rev != NULL && rev->type == YAML_MAP)
+  YamlValue *review = rev == NULL ? NULL
+                      : (rev->type == YAML_MAP && rev->as.map.len > 0)
                           ? clone_review(rev)
                           : new_empty_map();
 

@@ -78,25 +78,22 @@ class SpecYamlFormatException implements Exception {
 /// populated [SpecDocument], the `review:` pass as a raw map (the runtime carries it
 /// uninterpreted and writes it back), and the optional authoring model-version stamp.
 class SpecYamlContents {
-  /// [document] and [review] are both required even though the `review:` pass
-  /// is optional in the file: an absent pass decodes to an empty map, so no
-  /// caller ever has to tell "no review pass" apart from "not decoded yet".
+  /// [review] is `null` when the file has no `review:` key and a map — possibly
+  /// empty — when it has one, so passing it straight back to
+  /// [SpecDocumentYaml.encode] reproduces the file either way (SOM §12.1).
   /// [modelVersion] is genuinely nullable — an unstamped or hand-written file
   /// has no authoring version, and substituting one would let an object model
   /// edit a document it has never checked itself against (SOM §4.2).
-  SpecYamlContents({
-    required this.document,
-    required this.review,
-    this.modelVersion,
-  });
+  SpecYamlContents({required this.document, this.review, this.modelVersion});
 
   /// The `document:` pass, loaded into a live document (its
   /// [SpecDocument.modelVersion] is already set from the file stamp).
   final SpecDocument document;
 
-  /// The `review:` pass exactly as parsed (empty when absent). The runtime does
+  /// The `review:` pass exactly as parsed: `null` when the file has no
+  /// `review:` key, an empty map for an explicit `review: {}`. The runtime does
   /// not interpret it; the editor maps it onto its own review entries.
-  final Map<dynamic, dynamic> review;
+  final Map<dynamic, dynamic>? review;
 
   /// The authoring object-model version (`major.minor`) this document was last
   /// written against, or `null` for an unstamped/hand-written file. Distinct
@@ -524,7 +521,13 @@ class SpecDocumentYaml {
 
     return SpecYamlContents(
       document: document,
-      review: rev is Map ? rev : const {},
+      // An absent key stays null so encode writes no pass; a present one —
+      // `review: {}`, or a bare `review:` — is a pass, and is written back.
+      review: rev is Map
+          ? rev
+          : root.containsKey('review')
+          ? const {}
+          : null,
       modelVersion: stamp,
     );
   }

@@ -434,6 +434,12 @@ def test_strict_decode() -> None:
     )
     c = _dec(fixture)
     _check("decode.review", "D00/a" in {str(k) for k in c.review})
+    # an absent pass is None; an explicit or bare one is an empty dict
+    _check("decode.reviewAbsent", _dec("version: 2\ndocument: {}\n").review is None)
+    _check("decode.reviewEmpty",
+           _dec("version: 2\ndocument: {}\nreview: {}\n").review == {})
+    _check("decode.reviewBare",
+           _dec("version: 2\ndocument: {}\nreview:\n").review == {})
 
 
 def test_class_level_only_key() -> None:

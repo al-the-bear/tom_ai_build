@@ -85,14 +85,16 @@ class SpecYamlFormatException extends Error {
  * uninterpreted and writes it back), and the optional authoring model-version stamp.
  */
 class SpecYamlContents {
-  constructor(document, review, modelVersion = null) {
+  constructor(document, review = null, modelVersion = null) {
     /** The `document:` pass, loaded into a live document (its
      *  {@link SpecDocument#modelVersion} is already set from the file
      *  stamp). */
     this.document = document;
-    /** The `review:` pass exactly as parsed (empty when absent). The runtime
-     *  does not interpret it; the editor maps it onto its own review
-     *  entries. */
+    /** The `review:` pass exactly as parsed: `null` when the file has no
+     *  `review:` key, an empty object for an explicit `review: {}`. Passing
+     *  it straight back to {@link encode} reproduces the file either way
+     *  (SOM §12.1). The runtime does not interpret it; the editor maps it
+     *  onto its own review entries. */
     this.review = review;
     /** The authoring object-model version (`major.minor`) this document was
      *  last written against, or `null` for an unstamped/hand-written file.
@@ -993,7 +995,14 @@ function decode(yamlText, tree) {
     }
   }
 
-  return new SpecYamlContents(document, _isMapping(rev) ? rev : {}, stamp);
+  // An absent key stays null so encode writes no pass; a present one —
+  // `review: {}`, or a bare `review:` — is a pass, and is written back.
+  const review = _isMapping(rev)
+    ? rev
+    : Object.prototype.hasOwnProperty.call(root, 'review')
+      ? {}
+      : null;
+  return new SpecYamlContents(document, review, stamp);
 }
 
 /**

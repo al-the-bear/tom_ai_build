@@ -53,13 +53,20 @@ inline constexpr int kSpecYamlFormatVersion = 2;
 
 /* The decoded passes of a `*.docspecs.yaml` file: the `document:` pass as a
  * populated SpecDocument (its modelVersion already set from the file stamp),
- * the `review:` pass as a raw mapping (the runtime carries it uninterpreted and writes it back; an empty
- * map when absent), and the optional authoring model-version stamp. */
+ * the `review:` pass as a raw mapping (the runtime carries it uninterpreted and writes it back; a null
+ * pointer when the file has no `review:` key), and the optional authoring
+ * model-version stamp. */
 struct SpecYamlContents {
   SpecDocument document;
-  YamlRef review;            // YAML_MAP; empty map when the pass is absent.
-                             // Its plain scalars keep their source text; the
-                             // writer types them (SOM §12.5).
+  YamlRef review;            // nullptr when the file has no `review:` key,
+                             // otherwise a YAML_MAP — empty for an explicit
+                             // `review: {}` or a bare `review:` — so passing
+                             // `review.get()` straight back to encodeYaml
+                             // reproduces the file either way (SOM §12.1). A
+                             // caller of specYamlStaleReviewPaths /
+                             // specYamlRekeyReview treats nullptr as an empty
+                             // map. Its plain scalars keep their source text;
+                             // the writer types them (SOM §12.5).
   std::string modelVersion;  // "" when absent
 };
 

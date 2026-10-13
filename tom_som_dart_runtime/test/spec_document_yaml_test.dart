@@ -653,7 +653,7 @@ review:
     scope: global
 ''';
       final c = dec(fixture);
-      expect(c.review.keys.map((k) => '$k'), contains('D00/a'));
+      expect(c.review!.keys.map((k) => '$k'), contains('D00/a'));
     });
   });
 

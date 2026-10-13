@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import tom_som_runtime.Json;
 import tom_som_runtime.SomMetaBridge;
@@ -429,6 +430,18 @@ public final class SpecDocumentYamlTest {
             + "    scope: global\n";
     SpecYamlContents contents = SpecDocumentYaml.decode(fixture, tree);
     check("decode.review", contents.review.containsKey("D00/a"), "");
+
+    // no `review:` key decodes to null; an explicit or bare one to an empty map
+    check(
+        "decode.review.absent",
+        SpecDocumentYaml.decode("version: 2\ndocument: {}\n", tree).review == null,
+        "");
+    Map<String, Object> explicit =
+        SpecDocumentYaml.decode("version: 2\ndocument: {}\nreview: {}\n", tree).review;
+    check("decode.review.explicitEmpty", explicit != null && explicit.isEmpty(), "");
+    Map<String, Object> bare =
+        SpecDocumentYaml.decode("version: 2\ndocument: {}\nreview:\n", tree).review;
+    check("decode.review.bare", bare != null && bare.isEmpty(), "");
   }
 
   /**

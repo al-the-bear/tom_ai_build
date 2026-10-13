@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `decode_yaml`: `SpecYamlContents.review` is NULL when the file has no `review:` key and an (owned, possibly empty) YAML_MAP when it has one (a bare `review:` included), so a document without a review pass round-trips without gaining `review: {}` (SOM §12.1).
 - Markdown import (`finalize_body_slots`): prose under a heading whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble (SOM §11.6) — bound to the `content` form slot, else the first, with a label-shaped line's escape space stripped — instead of landing on the owner's own path (kindMismatch).
 - `spec_codespecs_area_catalog_from_json` now returns `int` and takes a `char **err`: a slice/step row without a numeric `number`/`slice` or an area without a non-empty `code`/`part` fails with a message naming the row (as Dart does) instead of reading 0 / empty.
 - Review-pass scalars are typed by the YAML 1.2 core schema (SOM §12.5):

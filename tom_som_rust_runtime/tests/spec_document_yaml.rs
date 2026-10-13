@@ -495,7 +495,32 @@ fn yaml_test_strict_decode(c: &mut Checker, tree: &SomMetaTree) {
     // the raw review pass is passed through untouched
     let fixture = "version: 2\ndocument: {}\nreview:\n  \"D00/a\":\n    scope: global\n";
     let contents = yaml_dec(tree, fixture);
-    c.check("decode.review", contents.review.has("D00/a"), "");
+    c.check(
+        "decode.review",
+        contents.review.as_ref().is_some_and(|r| r.has("D00/a")),
+        "",
+    );
+    // SOM §12.1: no `review:` key decodes to None; an explicit or bare one to
+    // an empty map.
+    c.check(
+        "decode.review.absent",
+        yaml_dec(tree, "version: 2\ndocument: {}\n").review.is_none(),
+        "",
+    );
+    c.check(
+        "decode.review.explicitEmpty",
+        yaml_dec(tree, "version: 2\ndocument: {}\nreview: {}\n")
+            .review
+            .is_some_and(|r| r.is_empty()),
+        "",
+    );
+    c.check(
+        "decode.review.bare",
+        yaml_dec(tree, "version: 2\ndocument: {}\nreview:\n")
+            .review
+            .is_some_and(|r| r.is_empty()),
+        "",
+    );
 }
 
 /// A section/complex node whose field carries no `@SectionId` takes its target

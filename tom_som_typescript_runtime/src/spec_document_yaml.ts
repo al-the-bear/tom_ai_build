@@ -87,17 +87,19 @@ export class SpecYamlContents {
    *  {@link SpecDocument.modelVersion} is already set from the file
    *  stamp). */
   document: SpecDocument;
-  /** The `review:` pass exactly as parsed (empty when absent). The runtime
-   *  does not interpret it; the editor maps it onto its own review
+  /** The `review:` pass exactly as parsed: `null` when the file has no
+   *  `review:` key, an empty map for an explicit `review: {}` or a bare
+   *  `review:`, so passing it straight back to {@link encode} reproduces the
+   *  file either way (SOM §12.1). The runtime does not interpret it; the editor maps it onto its own review
    *  entries. Its plain scalars are typed by the YAML 1.2 core schema
    *  (SOM §12.5): see {@link yaml.YamlReviewScalar} for the representation. */
-  review: any;
+  review: any | null;
   /** The authoring object-model version (`major.minor`) this document was
    *  last written against, or `null` for an unstamped/hand-written file.
    *  Distinct from {@link FORMAT_VERSION} (the on-disk format version). */
   modelVersion: string | null;
 
-  constructor(document: SpecDocument, review: any, modelVersion: string | null = null) {
+  constructor(document: SpecDocument, review: any | null, modelVersion: string | null = null) {
     this.document = document;
     this.review = review;
     this.modelVersion = modelVersion;
@@ -1046,7 +1048,13 @@ export function decode(yamlText: string, tree: SomMetaTree): SpecYamlContents {
     }
   }
 
-  return new SpecYamlContents(document, _isMapping(rev) ? rev : {}, stamp);
+  // An absent key stays null so encode writes no pass; a present one —
+  // `review: {}`, or a bare `review:` — is a pass, and is written back.
+  return new SpecYamlContents(
+    document,
+    _isMapping(rev) ? rev : 'review' in root ? {} : null,
+    stamp,
+  );
 }
 
 /**

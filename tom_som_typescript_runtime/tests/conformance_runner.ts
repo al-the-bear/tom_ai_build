@@ -394,7 +394,7 @@ function _runYamlReviewCase(model: SpecModel, tree: SomMetaTree, c: any): any {
   for (const item of c.removeItems as string[]) {
     contents.document.removeListItem(item);
   }
-  return staleReviewPaths(model, contents.document, contents.review);
+  return staleReviewPaths(model, contents.document, contents.review ?? {});
 }
 
 // The `review:` pass: written back sorted and byte-stable, and the entries a

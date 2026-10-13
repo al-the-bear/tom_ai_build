@@ -5,6 +5,7 @@
 - Markdown import: a section whose owner has only form slots (e.g. a class-level `@Form` on `content`) binds its prose as that form's preamble — the `content` form slot, else the first — with label-shaped lines unescaped, instead of storing it on the owner's path (SOM §11.6).
 - `CodeSpecsAreaCatalog.fromJson` rejects a slice, step or area row missing a numeric `number`/`slice` or a non-empty `code`/`part` with an error naming the row, instead of reading `NaN`.
 - The `review:` pass types its plain scalars by the YAML 1.2 core schema and writes them back canonically (SOM §12.5): integers stay exact to 64 bits (`bigint` beyond `Number.isSafeInteger`), whole floats decode as the new exported `YamlFloat` and write as `3.0`, non-finite floats as `.inf`/`-.inf`/`.nan` (new export `reviewScalar`).
+- YAML decode: `SpecYamlContents.review` is `null` when the file has no `review:` key and a map (empty for `review: {}` or a bare `review:`) when it has one, so decode → encode no longer adds `review: {}` to a file without a review pass (SOM §12.1).
 
 ## 1.4.1
 

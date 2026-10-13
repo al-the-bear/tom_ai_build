@@ -1560,10 +1560,14 @@ bool decodeYaml(const std::string& yamlText, const SomMetaTree& tree,
 
   std::string stamp = yamlScalarString(yamlGet(root, "modelVersion"));
 
+  // An absent key stays null so encode writes no pass; a present one —
+  // `review: {}`, or a bare `review:` — is a pass (an empty map), written back.
   YamlRef rev = yamlGet(root, "review");
-  YamlRef review = (rev != nullptr && rev->type == YamlType::Map)
-                       ? rev
-                       : std::const_pointer_cast<const YamlValue>(newEmptyMap());
+  YamlRef review =
+      rev == nullptr ? nullptr
+      : (rev->type == YamlType::Map && !rev->map.empty())
+          ? rev
+          : std::const_pointer_cast<const YamlValue>(newEmptyMap());
 
   SpecDocument document;
   document.modelVersion = stamp;

@@ -421,6 +421,12 @@ function testStrictDecode() {
     '    scope: global\n';
   const c = _dec(fixture);
   _check('decode.review', Object.keys(c.review).includes('D00/a'));
+  // an absent pass is null; an explicit or bare one is an empty object
+  _check('decode.reviewAbsent', _dec('version: 2\ndocument: {}\n').review === null);
+  const empty = _dec('version: 2\ndocument: {}\nreview: {}\n').review;
+  _check('decode.reviewEmpty', empty !== null && Object.keys(empty).length === 0);
+  const bare = _dec('version: 2\ndocument: {}\nreview:\n').review;
+  _check('decode.reviewBare', bare !== null && Object.keys(bare).length === 0);
 }
 
 function testClassLevelOnlyKey() {

@@ -544,6 +544,20 @@ void yamlTestStrictDecode() {
         "    scope: global\n");
     check("decode.review", som::yamlGet(c.review, "D00/a") != nullptr);
   }
+
+  // No `review:` key decodes to nullptr (absent); an explicit `review: {}` or
+  // a bare `review:` to an empty map (SOM §12.1).
+  {
+    som::SpecYamlContents c = yamlDec("version: 2\ndocument: {}\n");
+    check("decode.review.absent", c.review == nullptr);
+  }
+  for (const char* yaml : {"version: 2\ndocument: {}\nreview: {}\n",
+                           "version: 2\ndocument: {}\nreview:\n"}) {
+    som::SpecYamlContents c = yamlDec(yaml);
+    check("decode.review.empty", c.review != nullptr &&
+                                     c.review->type == som::YamlType::Map &&
+                                     c.review->map.empty());
+  }
 }
 
 /* ---- codespecs_mapping.md §9.2 codeSpec forward-link (mirror of stored headline) -------------- */

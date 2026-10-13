@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- **Breaking:** `SpecYamlContents.review` is `null` when the file has no
+  `review:` key and a map — possibly empty — when it has one, so decode → encode
+  no longer adds `review: {}` to a document that never had a review pass
+  (SOM §12.1). Pinned by a new `yaml_review_cases.json` case.
 - Markdown import binds the prose of a section whose only body member is a form
   — the class-level `@Form` on `content` — as that form's preamble, where the
   YAML codec keeps it, instead of on the section's own path (SOM §11.6). A

@@ -55,11 +55,15 @@
 /* SpecYamlContents is the decoded passes of a `*.docspecs.yaml` file: the
  * `document:` pass as a populated SpecDocument (its model_version already set
  * from the file stamp), the `review:` pass as a raw mapping (the runtime carries it
- * uninterpreted and writes it back; an owned deep clone, an empty map when absent), and the
- * optional authoring model-version stamp. */
+ * uninterpreted and writes it back; an owned deep clone, NULL when the file has
+ * no `review:` key), and the optional authoring model-version stamp. */
 typedef struct {
   SpecDocument document;
-  /* owned; YAML_MAP, empty when the pass is absent. Its plain scalars are
+  /* owned; NULL when the file has no `review:` key, otherwise a YAML_MAP —
+   * empty for an explicit `review: {}` or a bare `review:` — so passing it
+   * straight back to `encode_yaml_with_review` reproduces the file either way
+   * (SOM §12.1); NULL is the absent value, and `spec_yaml_stale_review_paths`
+   * / `spec_yaml_rekey_review` treat it as an empty map. Its plain scalars are
    * typed by the YAML 1.2 core schema (SOM §12.5): `~` / `null` / `Null` /
    * `NULL` and an empty value → YAML_NULL; `true|True|TRUE|false|False|FALSE`
    * → YAML_BOOL; `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` → YAML_INT, a
