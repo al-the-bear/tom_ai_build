@@ -580,6 +580,11 @@ class _SchemaBuilder {
       subsections: subsections,
     );
     final maxItemCount = _extraInt(node, 'Max', 'count');
+    if (pattern != null) {
+      _ownedItemTypes
+          .putIfAbsent(element.className, () => {})
+          .add(itemTypeName);
+    }
 
     // The `*-LST` container. When the list has no own @SectionId (legacy
     // uncovered list) there is no container level, so hoist the item type
@@ -594,6 +599,14 @@ class _SchemaBuilder {
     final containerTypeName = containerId
         .replaceAll(RegExp(r'-+$'), '')
         .toLowerCase();
+    if (node.extra.any((a) => a.name == 'Reference')) {
+      _referenceLists.add((
+        typeName: containerTypeName,
+        exactId: containerId,
+        node: node,
+        element: element.className,
+      ));
+    }
     _registerListContainerType(
       typeName: containerTypeName,
       exactId: containerId,
@@ -810,6 +823,7 @@ class _SchemaBuilder {
   /// Section-types ordered by descending prefix length so the DocSpecs factory
   /// (first `startsWith` match) resolves the most specific prefix first.
   Map<String, SectionTypeDef> orderedSectionTypes() {
+    _resolveReferenceLists();
     final entries = _sectionTypes.entries.toList()
       ..sort((a, b) {
         final byLen = (b.value.prefix?.length ?? 0).compareTo(
@@ -818,6 +832,36 @@ class _SchemaBuilder {
         return byLen != 0 ? byLen : a.key.compareTo(b.key);
       });
     return {for (final e in entries) e.key: e.value};
+  }
+
+  /// Item types, by element class, of every list that owns its items under a
+  /// `@SectionIdPattern`.
+  final Map<String, Set<String>> _ownedItemTypes = {};
+
+  /// `@Reference` list containers awaiting [_resolveReferenceLists].
+  final List<({String typeName, String exactId, MetaNode node, String element})>
+  _referenceLists = [];
+
+  /// Lets every `@Reference` list hold the item types its element class owns
+  /// elsewhere.
+  ///
+  /// A reference list owns nothing: its items are the ids of sections declared
+  /// in another list (`tom_specs_model_rules.md` §7.2), so an item carries the
+  /// id that owning list gave it — `WSE-STEP-1`, not the element class's own
+  /// `WSE`. The owning lists may sit anywhere in the tree, so this runs once
+  /// the walk is complete.
+  void _resolveReferenceLists() {
+    for (final ref in _referenceLists) {
+      for (final itemType in _ownedItemTypes[ref.element] ?? const <String>{}) {
+        _registerListContainerType(
+          typeName: ref.typeName,
+          exactId: ref.exactId,
+          node: ref.node,
+          itemTypeName: itemType,
+        );
+      }
+    }
+    _referenceLists.clear();
   }
 
   /// The `@SectionIdPattern` stem: the pattern with its `xxx` number

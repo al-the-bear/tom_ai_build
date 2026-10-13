@@ -19292,7 +19292,7 @@ void buildCurrentWorkflowEntryChildren(som::SomMetaNode& parent, std::vector<std
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "CurrentWorkflowEntry";
     (*n).memberName = "workflowDiagram";
-    (*n).sectionId = "CUWF-WORK";
+    (*n).sectionId = "CUWF-DIAG";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -34497,7 +34497,7 @@ void buildErrorRecoveryChildren(som::SomMetaNode& parent, std::vector<std::strin
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ErrorRecovery";
     (*n).memberName = "recoveryMechanismsContent";
-    (*n).sectionId = "ERRE-RECO";
+    (*n).sectionId = "ERRE-MECH";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -101549,7 +101549,7 @@ som::SomMetaRef navCurrentWorkflowEntry_content(NavCurrentWorkflowEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navCurrentWorkflowEntry_workflowDiagram(NavCurrentWorkflowEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUWF-WORK"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUWF-DIAG"));
 }
 NavWorkflowTriggers navCurrentWorkflowEntry_triggers(NavCurrentWorkflowEntry x) {
   return NavWorkflowTriggers{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "triggers"))};
@@ -104069,7 +104069,7 @@ som::SomMetaRef navErrorRecovery_content(NavErrorRecovery x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navErrorRecovery_recoveryMechanismsContent(NavErrorRecovery x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERRE-RECO"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERRE-MECH"));
 }
 som::SomMetaRef navErrorRecovery_dataPreservation(NavErrorRecovery x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ERDP"));
@@ -114734,8 +114734,8 @@ som::SomListMetaRef idCurrentBusinessProcess_MEBAEN_ENTR_LST(IdCurrentBusinessPr
 som::SomListMetaRef idCurrentBusinessProcess_CPIE_IMPR_LST(IdCurrentBusinessProcess x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processPainPoints/CPIE-IMPR-LST"), metaIdFactoryCurrentProcessImprovementEntry);
 }
-som::SomMetaRef idCurrentWorkflowEntry_CUWF_WORK(IdCurrentWorkflowEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUWF-WORK"));
+som::SomMetaRef idCurrentWorkflowEntry_CUWF_DIAG(IdCurrentWorkflowEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUWF-DIAG"));
 }
 som::SomListMetaRef idCurrentWorkflowEntry_WOTREN_TRIG_LST(IdCurrentWorkflowEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "triggers/WOTREN-TRIG-LST"), metaIdFactoryWorkflowTriggerEntry);
@@ -117839,8 +117839,8 @@ som::SomListMetaRef idD00SolutionBlueprint_SYERDI_ERRO_LST(IdD00SolutionBlueprin
 som::SomListMetaRef idD00SolutionBlueprint_SYERCO_ERRO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
-som::SomMetaRef idD00SolutionBlueprint_ERRE_RECO(IdD00SolutionBlueprint x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"));
+som::SomMetaRef idD00SolutionBlueprint_ERRE_MECH(IdD00SolutionBlueprint x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH"));
 }
 som::SomMetaRef idD00SolutionBlueprint_ERDP(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP"));
@@ -121358,8 +121358,8 @@ som::SomListMetaRef idD09ExperienceDesignSpecification_SYERDI_ERRO_LST(IdD09Expe
 som::SomListMetaRef idD09ExperienceDesignSpecification_SYERCO_ERRO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
-som::SomMetaRef idD09ExperienceDesignSpecification_ERRE_RECO(IdD09ExperienceDesignSpecification x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/ERRE-RECO"));
+som::SomMetaRef idD09ExperienceDesignSpecification_ERRE_MECH(IdD09ExperienceDesignSpecification x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/ERRE-MECH"));
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_ERDP(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/ERDP"));
@@ -124370,8 +124370,8 @@ som::SomListMetaRef idD13CodeSpecsProjection_SYERDI_ERRO_LST(IdD13CodeSpecsProje
 som::SomListMetaRef idD13CodeSpecsProjection_SYERCO_ERRO_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
-som::SomMetaRef idD13CodeSpecsProjection_ERRE_RECO(IdD13CodeSpecsProjection x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"));
+som::SomMetaRef idD13CodeSpecsProjection_ERRE_MECH(IdD13CodeSpecsProjection x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH"));
 }
 som::SomMetaRef idD13CodeSpecsProjection_ERDP(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERDP"));

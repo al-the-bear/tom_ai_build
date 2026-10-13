@@ -9814,14 +9814,14 @@ CurrentWorkflowEntryContentForm current_workflow_entry_content(const CurrentWork
   return out;
 }
 char *current_workflow_entry_workflow_diagram(const CurrentWorkflowEntry *self) {
-  char *path = spec_path_join(self->node.path, "CUWF-WORK");
+  char *path = spec_path_join(self->node.path, "CUWF-DIAG");
   const char *v = spec_document_content(self->node.doc, path);
   char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
 }
 void current_workflow_entry_set_workflow_diagram(CurrentWorkflowEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "CUWF-WORK");
+  char *path = spec_path_join(self->node.path, "CUWF-DIAG");
   spec_document_set_content(self->node.doc, path, value);
   free(path);
 }
@@ -18338,7 +18338,7 @@ void error_recovery_set_content(ErrorRecovery *self, const char *value) {
   free(path);
 }
 ErrorRecoveryRecoveryMechanismsContentForm error_recovery_recovery_mechanisms_content(const ErrorRecovery *self) {
-  char *path = spec_path_join(self->node.path, "ERRE-RECO");
+  char *path = spec_path_join(self->node.path, "ERRE-MECH");
   ErrorRecoveryRecoveryMechanismsContentForm out;
   error_recovery_recovery_mechanisms_content_form_init(&out, self->node.doc, path);
   free(path);

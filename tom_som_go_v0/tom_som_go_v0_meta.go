@@ -3181,7 +3181,7 @@ func metaChildrenCurrentStateRiskAssessment(s map[string]bool) []*som.SomMetaNod
 func metaChildrenCurrentWorkflowEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "CurrentWorkflowEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "workflowId", TypeName: "String", Description: "Workflow ID (internal identifier)", Hint: "The code the organisation already uses for this workflow — a process catalogue or BPM identifier, if one exists. Owned outside this document", Order: 0}, {Name: "workflowType", TypeName: "String", Description: "Type (e.g., Operational, Approval, Exception)", Order: 1}, {Name: "frequency", TypeName: "String", Description: "Execution Frequency", Order: 2}, {Name: "averageVolume", TypeName: "String", Description: "Average Volume per period", Order: 3}, {Name: "criticality", TypeName: "String", Description: "Business Criticality", Order: 4}}}},
-		{ClassName: "CurrentWorkflowEntry", MemberName: "workflowDiagram", SectionID: "CUWF-WORK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of this workflow showing steps, decisions, and actors in a BPMN-style diagram"}, ContentHelp: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.", DocComment: "Workflow diagram."},
+		{ClassName: "CurrentWorkflowEntry", MemberName: "workflowDiagram", SectionID: "CUWF-DIAG", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of this workflow showing steps, decisions, and actors in a BPMN-style diagram"}, ContentHelp: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.", DocComment: "Workflow diagram."},
 		metaCx("WorkflowTriggers", s, metaChildrenWorkflowTriggers, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WorkflowTriggers", MemberName: "triggers", ClassSectionID: "WOTR", Kind: som.SomMetaKindComplex, TypeName: "WorkflowTriggers", SerializationOrder: metaIntPtr(2), DocComment: "Workflow triggers and initiation.", ClassDocComment: "Workflow triggers and initiation conditions.", Recursive: r, Children: c}
 		}),
@@ -5969,7 +5969,7 @@ func metaChildrenErrorHandlingStandards(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenErrorRecovery(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ErrorRecovery", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce how a user gets back on track after an error before the preservation, retry and guided-recovery subsections below. Cover what work must never be lost.", DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."},
-		{ClassName: "ErrorRecovery", MemberName: "recoveryMechanismsContent", SectionID: "ERRE-RECO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "What the system offers after an error, so the user is not left stranded.\n\nRetry, undo, draft preservation and escalation paths. Distinct from the error\n*message*, which the philosophy and category sections govern.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "formDataPreservation", TypeName: "String", Description: "Form Data Preservation", Hint: "How unsaved form data is preserved on error", Order: 0}, {Name: "sessionRecovery", TypeName: "String", Description: "Session Recovery", Hint: "How expired sessions are handled", Order: 1}, {Name: "supportContactMethod", TypeName: "String", Description: "Support Contact Method", Hint: "Chat, email, phone, ticket", Order: 2}}}},
+		{ClassName: "ErrorRecovery", MemberName: "recoveryMechanismsContent", SectionID: "ERRE-MECH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "What the system offers after an error, so the user is not left stranded.\n\nRetry, undo, draft preservation and escalation paths. Distinct from the error\n*message*, which the philosophy and category sections govern.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "formDataPreservation", TypeName: "String", Description: "Form Data Preservation", Hint: "How unsaved form data is preserved on error", Order: 0}, {Name: "sessionRecovery", TypeName: "String", Description: "Session Recovery", Hint: "How expired sessions are handled", Order: 1}, {Name: "supportContactMethod", TypeName: "String", Description: "Support Contact Method", Hint: "Chat, email, phone, ticket", Order: 2}}}},
 		{ClassName: "ErrorRecovery", MemberName: "dataPreservation", SectionID: "ERDP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Data preservation: draft auto-save settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "draftAutoSave", TypeName: "bool", Description: "Draft Auto-Save", Hint: "Automatic draft saving before submission", Order: 0}, {Name: "draftSaveInterval", TypeName: "String", Description: "Draft Save Interval", Hint: "How often drafts are auto-saved", Order: 1}, {Name: "draftStorageMethod", TypeName: "String", Description: "Draft Storage Method", Hint: "LocalStorage, IndexedDB, server-side", Order: 2}, {Name: "draftRetentionPeriod", TypeName: "String", Description: "Draft Retention Period", Hint: "How long drafts are kept", Order: 3}, {Name: "draftRecoveryPrompt", TypeName: "String", Description: "Draft Recovery Prompt", Hint: "How users are notified of recoverable drafts", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — recoverability restores affected data after a failure so user work is not lost", "ISO 9241-110:2020 — use-error tolerance preserves user input so recovery requires minimal effort"}, "connotation": "The data-preservation configuration describing draft auto-save so user input survives failures."}}}},
 		{ClassName: "ErrorRecovery", MemberName: "retryMechanisms", SectionID: "ERRM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Retry mechanisms configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "automaticRetryEnabled", TypeName: "bool", Description: "Automatic Retry Enabled", Hint: "Whether failed operations are retried automatically", Order: 0}, {Name: "retryBackoffStrategy", TypeName: "String", Description: "Retry Backoff Strategy", Hint: "Exponential, linear, fixed", Order: 1}, {Name: "maxAutomaticRetries", TypeName: "int", Description: "Max Automatic Retries", Hint: "Maximum number of automatic retry attempts", Order: 2}, {Name: "manualRetryButton", TypeName: "bool", Description: "Manual Retry Button", Hint: "Whether a user-triggered retry button is shown", Order: 3}, {Name: "retryButtonLabel", TypeName: "String", Description: "Retry Button Label", Hint: "Button text (e.g., \"Try Again\")", Order: 4}, {Name: "retryFeedback", TypeName: "String", Description: "Retry Feedback", Hint: "How retry attempts are indicated", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — fault tolerance keeps the system operating as intended despite faults by retrying failed operations", "ISO 9241-110:2020 — use-error tolerance allows users to reattempt an operation after a transient failure"}, "connotation": "The retry-mechanism configuration describing automatic and manual reattempts after a failed operation."}}}},
 		{ClassName: "ErrorRecovery", MemberName: "guidedRecovery", SectionID: "ERGR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Guided recovery options.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "stepByStepRecovery", TypeName: "bool", Description: "Step-by-Step Recovery", Hint: "Guided recovery wizard", Order: 0}, {Name: "alternativeActions", TypeName: "String", Description: "Alternative Actions", Hint: "What else user can do", Order: 1}, {Name: "skipOption", TypeName: "bool", Description: "Skip Option", Hint: "Allow skipping failed operation", Order: 2}, {Name: "cancelOption", TypeName: "bool", Description: "Cancel Option", Hint: "Allow canceling and returning", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — use-error tolerance guides users through corrective steps with minimal effort", "ISO 9241-13:1998 — user guidance offers constructive suggestions for recovering from an error"}, "connotation": "The guided-recovery configuration describing step-by-step assistance and alternative actions after a failure."}}}},
@@ -24147,7 +24147,7 @@ func (x *CurrentWorkflowEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *CurrentWorkflowEntryNav) WorkflowDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-WORK"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-DIAG"}
 }
 
 func (x *CurrentWorkflowEntryNav) Triggers() *WorkflowTriggersNav {
@@ -30207,7 +30207,7 @@ func (x *ErrorRecoveryNav) Content() *som.SomMetaRef {
 }
 
 func (x *ErrorRecoveryNav) RecoveryMechanismsContent() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ERRE-RECO"}
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ERRE-MECH"}
 }
 
 func (x *ErrorRecoveryNav) DataPreservation() *som.SomMetaRef {
@@ -58217,8 +58217,8 @@ func newCurrentWorkflowEntryID(tree *som.SomMetaTree, path string) *CurrentWorkf
 	return &CurrentWorkflowEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *CurrentWorkflowEntryID) CUWF_WORK() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-WORK"}
+func (x *CurrentWorkflowEntryID) CUWF_DIAG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CUWF-DIAG"}
 }
 
 func (x *CurrentWorkflowEntryID) WOTREN_TRIG_LST() *som.SomListMetaRef[*WorkflowTriggerEntryID] {
@@ -62982,8 +62982,8 @@ func (x *D00SolutionBlueprintID) SYERCO_ERRO_LST() *som.SomListMetaRef[*SystemEr
 	})
 }
 
-func (x *D00SolutionBlueprintID) ERRE_RECO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"}
+func (x *D00SolutionBlueprintID) ERRE_MECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH"}
 }
 
 func (x *D00SolutionBlueprintID) ERDP() *som.SomMetaRef {
@@ -68305,8 +68305,8 @@ func (x *D09ExperienceDesignSpecificationID) SYERCO_ERRO_LST() *som.SomListMetaR
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) ERRE_RECO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/errorRecovery/ERRE-RECO"}
+func (x *D09ExperienceDesignSpecificationID) ERRE_MECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/errorRecovery/ERRE-MECH"}
 }
 
 func (x *D09ExperienceDesignSpecificationID) ERDP() *som.SomMetaRef {
@@ -72717,8 +72717,8 @@ func (x *D13CodeSpecsProjectionID) SYERCO_ERRO_LST() *som.SomListMetaRef[*System
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) ERRE_RECO() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"}
+func (x *D13CodeSpecsProjectionID) ERRE_MECH() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH"}
 }
 
 func (x *D13CodeSpecsProjectionID) ERDP() *som.SomMetaRef {

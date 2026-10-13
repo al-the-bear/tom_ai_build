@@ -41084,7 +41084,7 @@ static void meta_build_current_workflow_entry_content(SomMetaNode *n) {
 static void meta_build_current_workflow_entry_workflow_diagram(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentWorkflowEntry");
   meta_set(&n->member_name, "workflowDiagram");
-  meta_set(&n->section_id, "CUWF-WORK");
+  meta_set(&n->section_id, "CUWF-DIAG");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -62947,7 +62947,7 @@ static void meta_build_error_recovery_content(SomMetaNode *n) {
 static void meta_build_error_recovery_recovery_mechanisms_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorRecovery");
   meta_set(&n->member_name, "recoveryMechanismsContent");
-  meta_set(&n->section_id, "ERRE-RECO");
+  meta_set(&n->section_id, "ERRE-MECH");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -202112,7 +202112,7 @@ SomMetaRef current_workflow_entry_nav_content(som_nav_current_workflow_entry x) 
 }
 SomMetaRef current_workflow_entry_nav_workflow_diagram(som_nav_current_workflow_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "CUWF-WORK");
+  char *path = spec_path_join(x.ref.path, "CUWF-DIAG");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -207992,7 +207992,7 @@ SomMetaRef error_recovery_nav_content(som_nav_error_recovery x) {
 }
 SomMetaRef error_recovery_nav_recovery_mechanisms_content(som_nav_error_recovery x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ERRE-RECO");
+  char *path = spec_path_join(x.ref.path, "ERRE-MECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -232876,9 +232876,9 @@ SomListMetaRef current_business_process_id_cpie_impr_lst(som_id_current_business
   free(path);
   return out;
 }
-SomMetaRef current_workflow_entry_id_cuwf_work(som_id_current_workflow_entry x) {
+SomMetaRef current_workflow_entry_id_cuwf_diag(som_id_current_workflow_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "CUWF-WORK");
+  char *path = spec_path_join(x.ref.path, "CUWF-DIAG");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -240121,9 +240121,9 @@ SomListMetaRef d00_solution_blueprint_id_syerco_erro_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
-SomMetaRef d00_solution_blueprint_id_erre_reco(som_id_d00_solution_blueprint x) {
+SomMetaRef d00_solution_blueprint_id_erre_mech(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -248332,9 +248332,9 @@ SomListMetaRef d09_experience_design_specification_id_syerco_erro_lst(som_id_d09
   free(path);
   return out;
 }
-SomMetaRef d09_experience_design_specification_id_erre_reco(som_id_d09_experience_design_specification x) {
+SomMetaRef d09_experience_design_specification_id_erre_mech(som_id_d09_experience_design_specification x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "errorHandling/errorRecovery/ERRE-RECO");
+  char *path = spec_path_join(x.ref.path, "errorHandling/errorRecovery/ERRE-MECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -255360,9 +255360,9 @@ SomListMetaRef d13_code_specs_projection_id_syerco_erro_lst(som_id_d13_code_spec
   free(path);
   return out;
 }
-SomMetaRef d13_code_specs_projection_id_erre_reco(som_id_d13_code_specs_projection x) {
+SomMetaRef d13_code_specs_projection_id_erre_mech(som_id_d13_code_specs_projection x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

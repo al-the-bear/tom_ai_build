@@ -33,11 +33,13 @@
 #         `sample_decode` for the shared-sample decode gate
 #         (tom_som_dart_v0/tool/verify_samples.dart), `sample_validate`
 #         for the instance-tier gate over the same samples
-#         (tom_som_dart_v0/tool/validate_samples.dart), and `editor` for
+#         (tom_som_dart_v0/tool/validate_samples.dart), `sample_schema`
+#         for the DocSpecs schema tier over the same samples
+#         (tom_specs_clitool/bin/validate_spec.dart), and `editor` for
 #         the spec-authoring app's Flutter suite (tom_forge/tom_specs_editor,
 #         preceded by _bin/check_pub_cache.sh). With none given, everything
-#         runs — the four gates first, then the eighteen suites, then the
-#         editor: twenty-three results.
+#         runs — the five gates first, then the eighteen suites, then the
+#         editor: twenty-four results.
 set -uo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"   # tom_som_conformance/tool
@@ -219,6 +221,22 @@ run_gate sample_decode dart "$ROOT/tom_som_dart_v0" dart run tool/verify_samples
 # existed for weeks, because nothing ran it against that file. Exemptions are
 # written in the tool itself (`coverageOnly`), never implied here.
 run_gate sample_validate dart "$ROOT/tom_som_dart_v0" dart run tool/validate_samples.dart
+
+# The shared-sample SCHEMA-TIER gate: every sample, rendered to markdown, must
+# satisfy its root's DocSpecs schema with no finding — the third tier the two
+# gates above leave out. The exercise sample instantiates every model shape, so
+# this is the one place a section kind no document can write validly shows up:
+# four such kinds stayed hidden until a project tripped over them, because the
+# only schema-checked document reached part of the model. `validate_spec` runs
+# all three tiers on one document, so the decode and instance verdicts are
+# re-confirmed here on the clitool's own path.
+run_gate sample_schema dart "$ROOT/tom_specs_clitool" bash -c '
+  status=0
+  for f in ../tom_som_conformance/samples/*.docspecs.yaml \
+           ../tom_som_dart_v0/documents/*.docspecs.yaml; do
+    dart run bin/validate_spec.dart "$f" || status=1
+  done
+  exit $status'
 
 for entry in "${SUITES[@]}"; do
   name="${entry%%:*}"

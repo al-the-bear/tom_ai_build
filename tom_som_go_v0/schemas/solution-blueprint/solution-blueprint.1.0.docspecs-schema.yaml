@@ -6284,6 +6284,8 @@ section-types:
     subsection-types:
       wse:
         max-count: infinite
+      wse-step:
+        max-count: infinite
     min-text-length: 0
     max-text-length: 0
     description: Steps this actor participates in.
@@ -9094,6 +9096,33 @@ section-types:
       pattern: ^CPML-MILE-.+$
       error-message: IDs of this section must match CPML-MILE-xxx
     description: "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status."
+  cuwf-work:
+    prefix: CUWF_WORK_
+    subsection-types:
+      cuwf-diag:
+        max-count: 1
+      wotr:
+        max-count: 1
+      wse-step-lst:
+        max-count: 1
+      wae-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      woti:
+        max-count: 1
+      woex:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CUWF-WORK-.+$
+      error-message: IDs of this section must match CUWF-WORK-xxx
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
   daatt-data:
     prefix: DAATT_DATA
     format: daatt-data-form
@@ -9398,6 +9427,12 @@ section-types:
       pattern: ^EPNT-ENTR-.+$
       error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
+  erre-reco:
+    prefix: ERRE_RECO_
+    pattern-check-id:
+      pattern: ^ERRE-RECO-.+$
+      error-message: IDs of this section must match ERRE-RECO-xxx
+    description: Add one entry per recovery flow.
   exsycoenin:
     prefix: EXSYCOENIN
     format: exsycoenin-form
@@ -10296,34 +10331,10 @@ section-types:
       pattern: ^CSE-CODI-.+$
       error-message: IDs of this section must match CSE-CODI-xxx
     description: Add one entry per coding standard.
-  cuwf-work:
-    prefix: CUWF_WORK
-    subsection-types:
-      cuwf-work:
-        max-count: 1
-      wotr:
-        max-count: 1
-      wse-step-lst:
-        max-count: 1
-      wae-acto-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      wodepo-deci-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      woti:
-        max-count: 1
-      woex:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^CUWF-WORK-.+$
-      error-message: IDs of this section must match CUWF-WORK-xxx
+  cuwf-diag:
+    prefix: CUWF_DIAG
     format: mermaid-flowchart
-    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+    description: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor."
   cve-vari:
     prefix: CVE_VARI_
     subsection-types:
@@ -10507,13 +10518,10 @@ section-types:
       pattern: ^ENT-ENTI-.+$
       error-message: IDs of this section must match ENT-ENTI-xxx
     description: Add one entry per entitlement.
-  erre-reco:
-    prefix: ERRE_RECO
-    pattern-check-id:
-      pattern: ^ERRE-RECO-.+$
-      error-message: IDs of this section must match ERRE-RECO-xxx
-    format: erre-reco-form
-    description: Add one entry per recovery flow.
+  erre-mech:
+    prefix: ERRE_MECH
+    format: erre-mech-form
+    description: "What the system offers after an error, so the user is not left stranded."
   ete-expo:
     prefix: ETE_EXPO_
     subsection-types:
@@ -21455,7 +21463,7 @@ section-types:
   erre:
     prefix: ERRE
     subsection-types:
-      erre-reco:
+      erre-mech:
         max-count: 1
       erdp:
         max-count: 1
@@ -43799,7 +43807,7 @@ form-types:
         description: Auto-notify support team
       - fieldname: logLevel
         description: "Error, warning, info"
-  erre-reco-form:
+  erre-mech-form:
     fields:
       - fieldname: formDataPreservation
         description: How unsaved form data is preserved on error

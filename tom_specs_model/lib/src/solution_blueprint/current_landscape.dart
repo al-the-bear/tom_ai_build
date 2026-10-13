@@ -2488,7 +2488,7 @@ class CurrentWorkflowEntry extends DocSpecsSection {
   String? content;
 
   /// Workflow diagram.
-  @SectionId('CUWF-WORK')
+  @SectionId('CUWF-DIAG')
   @ContentType(
     'mermaid-flowchart',
     'Visual representation of this workflow '

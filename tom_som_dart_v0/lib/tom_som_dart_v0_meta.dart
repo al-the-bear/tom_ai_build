@@ -10495,7 +10495,7 @@ List<SomMetaNode> _mc$CurrentWorkflowEntry(Set<String> s) => [
        SomMetaNode(
           className: 'CurrentWorkflowEntry',
           memberName: 'workflowDiagram',
-          sectionId: 'CUWF-WORK',
+          sectionId: 'CUWF-DIAG',
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 1,
@@ -19765,7 +19765,7 @@ List<SomMetaNode> _mc$ErrorRecovery(Set<String> s) => [
        SomMetaNode(
           className: 'ErrorRecovery',
           memberName: 'recoveryMechanismsContent',
-          sectionId: 'ERRE-RECO',
+          sectionId: 'ERRE-MECH',
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
@@ -58176,7 +58176,7 @@ class CurrentStateRiskAssessment$Nav extends SomMetaRef {
 class CurrentWorkflowEntry$Nav extends SomMetaRef {
   CurrentWorkflowEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomMetaRef get workflowDiagram => SomMetaRef(tree, '$path/CUWF-WORK');
+  SomMetaRef get workflowDiagram => SomMetaRef(tree, '$path/CUWF-DIAG');
   WorkflowTriggers$Nav get triggers => WorkflowTriggers$Nav(tree, '$path/triggers');
   SomListMetaRef<WorkflowStepEntry$Nav> get steps => SomListMetaRef(tree, '$path/WSE-STEP-LST', WorkflowStepEntry$Nav.new);
   SomListMetaRef<WorkflowActorEntry$Nav> get actors => SomListMetaRef(tree, '$path/WAE-ACTO-LST', WorkflowActorEntry$Nav.new);
@@ -60438,7 +60438,7 @@ class ErrorHandlingStandards$Nav extends SomMetaRef {
 class ErrorRecovery$Nav extends SomMetaRef {
   ErrorRecovery$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomMetaRef get recoveryMechanismsContent => SomMetaRef(tree, '$path/ERRE-RECO');
+  SomMetaRef get recoveryMechanismsContent => SomMetaRef(tree, '$path/ERRE-MECH');
   SomMetaRef get dataPreservation => SomMetaRef(tree, '$path/ERDP');
   SomMetaRef get retryMechanisms => SomMetaRef(tree, '$path/ERRM');
   SomMetaRef get guidedRecovery => SomMetaRef(tree, '$path/ERGR');
@@ -71314,7 +71314,7 @@ class CurrentProcessImprovementEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class CurrentWorkflowEntry$Id extends SomMetaRef {
   CurrentWorkflowEntry$Id(super.tree, super.path);
-  SomMetaRef get CUWF_WORK => SomMetaRef(tree, '$path/CUWF-WORK');
+  SomMetaRef get CUWF_DIAG => SomMetaRef(tree, '$path/CUWF-DIAG');
   SomListMetaRef<WorkflowTriggerEntry$Id> get WOTREN_TRIG_LST => SomListMetaRef(tree, '$path/triggers/WOTREN-TRIG-LST', WorkflowTriggerEntry$Id.new);
   SomListMetaRef<WorkflowStepEntry$Id> get WSE_STEP_LST => SomListMetaRef(tree, '$path/WSE-STEP-LST', WorkflowStepEntry$Id.new);
   SomListMetaRef<WorkflowActorEntry$Id> get WAE_ACTO_LST => SomListMetaRef(tree, '$path/WAE-ACTO-LST', WorkflowActorEntry$Id.new);
@@ -72370,7 +72370,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF');
   SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
   SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCO_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST', SystemErrorCodeEntry$Id.new);
-  SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO');
+  SomMetaRef get ERRE_MECH => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR');
@@ -73606,7 +73606,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SEDF');
   SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
   SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCO_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST', SystemErrorCodeEntry$Id.new);
-  SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERRE-RECO');
+  SomMetaRef get ERRE_MECH => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERRE-MECH');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERGR');
@@ -74638,7 +74638,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF');
   SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
   SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCO_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST', SystemErrorCodeEntry$Id.new);
-  SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO');
+  SomMetaRef get ERRE_MECH => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERGR');

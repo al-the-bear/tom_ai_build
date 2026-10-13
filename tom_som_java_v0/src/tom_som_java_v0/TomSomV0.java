@@ -10274,12 +10274,12 @@ public final class TomSomV0 {
 
     // Workflow diagram.
     public String workflowDiagram() {
-      String v = doc.content(path + "/CUWF-WORK");
+      String v = doc.content(path + "/CUWF-DIAG");
       return v == null ? "" : v;
     }
 
     public void workflowDiagram(String value) {
-      doc.setContent(path + "/CUWF-WORK", value);
+      doc.setContent(path + "/CUWF-DIAG", value);
     }
 
     // Workflow triggers and initiation.
@@ -18214,7 +18214,7 @@ public final class TomSomV0 {
     // Retry, undo, draft preservation and escalation paths. Distinct from the error
     // *message*, which the philosophy and category sections govern.
     public ErrorRecoveryRecoveryMechanismsContentForm recoveryMechanismsContent() {
-      return new ErrorRecoveryRecoveryMechanismsContentForm(doc, path + "/ERRE-RECO");
+      return new ErrorRecoveryRecoveryMechanismsContentForm(doc, path + "/ERRE-MECH");
     }
 
     // Data preservation: draft auto-save settings.

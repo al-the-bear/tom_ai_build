@@ -11145,7 +11145,7 @@ def _mc_CurrentWorkflowEntry(s):
          SomMetaNode(
             class_name="CurrentWorkflowEntry",
             member_name="workflowDiagram",
-            section_id="CUWF-WORK",
+            section_id="CUWF-DIAG",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=1,
@@ -21024,7 +21024,7 @@ def _mc_ErrorRecovery(s):
          SomMetaNode(
             class_name="ErrorRecovery",
             member_name="recoveryMechanismsContent",
-            section_id="ERRE-RECO",
+            section_id="ERRE-MECH",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=1,
@@ -63950,7 +63950,7 @@ class CurrentWorkflowEntryNav(SomMetaRef):
 
     @property
     def workflowDiagram(self):
-        return SomMetaRef(self.tree, f"{self.path}/CUWF-WORK")
+        return SomMetaRef(self.tree, f"{self.path}/CUWF-DIAG")
 
     @property
     def triggers(self):
@@ -68598,7 +68598,7 @@ class ErrorRecoveryNav(SomMetaRef):
 
     @property
     def recoveryMechanismsContent(self):
-        return SomMetaRef(self.tree, f"{self.path}/ERRE-RECO")
+        return SomMetaRef(self.tree, f"{self.path}/ERRE-MECH")
 
     @property
     def dataPreservation(self):
@@ -89301,8 +89301,8 @@ class CurrentWorkflowEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def CUWF_WORK(self):
-        return SomMetaRef(self.tree, f"{self.path}/CUWF-WORK")
+    def CUWF_DIAG(self):
+        return SomMetaRef(self.tree, f"{self.path}/CUWF-DIAG")
 
     @property
     def WOTREN_TRIG_LST(self):
@@ -93462,8 +93462,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
-    def ERRE_RECO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO")
+    def ERRE_MECH(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH")
 
     @property
     def ERDP(self):
@@ -98217,8 +98217,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
-    def ERRE_RECO(self):
-        return SomMetaRef(self.tree, f"{self.path}/errorHandling/errorRecovery/ERRE-RECO")
+    def ERRE_MECH(self):
+        return SomMetaRef(self.tree, f"{self.path}/errorHandling/errorRecovery/ERRE-MECH")
 
     @property
     def ERDP(self):
@@ -102261,8 +102261,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
-    def ERRE_RECO(self):
-        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO")
+    def ERRE_MECH(self):
+        return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH")
 
     @property
     def ERDP(self):

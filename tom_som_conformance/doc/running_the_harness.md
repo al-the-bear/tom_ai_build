@@ -43,8 +43,8 @@ themselves, so they can be invoked from anywhere.
 ## Quick Start
 
 ```bash
-# 1. Every hand-authored suite, the four sample/corpus gates and the editor's
-#    Flutter suite (23 results).
+# 1. Every hand-authored suite, the five sample/corpus gates and the editor's
+#    Flutter suite (24 results).
 ./tool/run_all_suites.sh
 
 # 2. The nine-way byte-identity proof. Needs all nine toolchains.

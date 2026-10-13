@@ -103,11 +103,24 @@ unpublished_drift:
     was published (vsctsa45) — the file that excludes the stamp from the
     archive is itself never in it. Since then also qrb1's archive-ignore gate
     (lib/src/pub_archive_ignores.dart), a library the default suite runs and
-    no command exposes. Rides the next clitool release.
+    no command exposes. Since then also qrb3's schema-generator fix: a
+    `@Reference` list's container admits the item types its element class is
+    owned under elsewhere. Rides the next clitool release.
   tom_core_codespecs: >-
     DOCS ONLY since 0.12.3 (qrb1): the README status block names 0.12.3, and
     codespecs_mapping.md §10 states its one open item without a todo id, as
     tom_core's comment gate requires. Rides the next tom_core_codespecs release.
+  tom_specs_model: >-
+    MODEL ID FIXES since 1.4.1 (qrb3): CurrentWorkflowEntry's diagram is
+    `CUWF-DIAG` and ErrorRecovery's mechanisms form `ERRE-MECH`. Both old ids
+    collided with a list's item pattern (`CUWF-WORK-xxx`, `ERRE-RECO-xxx`), so no
+    document could write those sections validly. Rides the next model-chain
+    release.
+  tom_som_dart_v0: >-
+    REGENERATED since 1.4.1 (qrb3) from the tom_specs_model id fixes and the
+    clitool's reference-list schema fix: two renamed ids in the facade and meta,
+    and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema.
+    Rides the next model-chain release.
   tom_som_dart_runtime: >-
     DOC COMMENTS ONLY since 1.4.1 (qr1): the YAML codec's and the markdown
     codec's comments now say the review pass is carried and written back, and

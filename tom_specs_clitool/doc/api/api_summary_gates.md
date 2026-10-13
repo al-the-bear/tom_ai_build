@@ -1,7 +1,7 @@
 # TomSpecs CLI Tool API Reference: Gates
 
-The four gates with a fixed subject: the three citation gates and the
-release-set dependency-closure walker. Each resolves references that decay in
+The five gates with a fixed subject: the three citation gates, the
+release-set dependency-closure walker and the pub archive-ignore check. Each resolves references that decay in
 silence, and each is wired into the default `dart test` run.
 
 For task-oriented guidance see [gates.md](../gates.md).

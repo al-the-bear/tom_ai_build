@@ -14584,11 +14584,11 @@ impl CurrentWorkflowEntry {
 
     /// Workflow diagram.
     pub fn workflow_diagram(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUWF-WORK"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "CUWF-DIAG"))
     }
 
     pub fn set_workflow_diagram(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "CUWF-WORK");
+        let path = format!("{}/{}", self.node.path(), "CUWF-DIAG");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
@@ -24734,7 +24734,7 @@ impl ErrorRecovery {
     /// Retry, undo, draft preservation and escalation paths. Distinct from the error
     /// *message*, which the philosophy and category sections govern.
     pub fn recovery_mechanisms_content(&self) -> ErrorRecoveryRecoveryMechanismsContentForm {
-        ErrorRecoveryRecoveryMechanismsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ERRE-RECO"))
+        ErrorRecoveryRecoveryMechanismsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ERRE-MECH"))
     }
 
     /// Data preservation: draft auto-save settings.

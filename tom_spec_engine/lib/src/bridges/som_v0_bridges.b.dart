@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-13T02:39:15.147511 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-13T11:30:51.671148 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -941833,12 +941833,12 @@ BridgedClass _createCurrentWorkflowEntry$IdBridge() {
       },
     },
     getters: {
-      'CUWF_WORK': (visitor, target) => D4
+      'CUWF_DIAG': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.CurrentWorkflowEntry$Id>(
             target,
             'CurrentWorkflowEntry\$Id',
           )
-          .CUWF_WORK,
+          .CUWF_DIAG,
       'WOTREN_TRIG_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.CurrentWorkflowEntry$Id>(
             target,
@@ -941916,7 +941916,7 @@ BridgedClass _createCurrentWorkflowEntry$IdBridge() {
       '': 'CurrentWorkflowEntry\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
-      'CUWF_WORK': 'SomMetaRef get CUWF_WORK',
+      'CUWF_DIAG': 'SomMetaRef get CUWF_DIAG',
       'WOTREN_TRIG_LST':
           'SomListMetaRef<WorkflowTriggerEntry\$Id> get WOTREN_TRIG_LST',
       'WSE_STEP_LST': 'SomListMetaRef<WorkflowStepEntry\$Id> get WSE_STEP_LST',
@@ -948238,12 +948238,12 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .SYERCO_ERRO_LST,
-      'ERRE_RECO': (visitor, target) => D4
+      'ERRE_MECH': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
             'D00SolutionBlueprint\$Id',
           )
-          .ERRE_RECO,
+          .ERRE_MECH,
       'ERDP': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -951355,7 +951355,7 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
       'SYERDI_ERRO_LST': 'SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST',
       'SYERCO_ERRO_LST':
           'SomListMetaRef<SystemErrorCodeEntry\$Id> get SYERCO_ERRO_LST',
-      'ERRE_RECO': 'SomMetaRef get ERRE_RECO',
+      'ERRE_MECH': 'SomMetaRef get ERRE_MECH',
       'ERDP': 'SomMetaRef get ERDP',
       'ERRM': 'SomMetaRef get ERRM',
       'ERGR': 'SomMetaRef get ERGR',
@@ -957685,11 +957685,11 @@ BridgedClass _createD09ExperienceDesignSpecification$IdBridge() {
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
           >(target, 'D09ExperienceDesignSpecification\$Id')
           .SYERCO_ERRO_LST,
-      'ERRE_RECO': (visitor, target) => D4
+      'ERRE_MECH': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
           >(target, 'D09ExperienceDesignSpecification\$Id')
-          .ERRE_RECO,
+          .ERRE_MECH,
       'ERDP': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_2.D09ExperienceDesignSpecification$Id
@@ -958226,7 +958226,7 @@ BridgedClass _createD09ExperienceDesignSpecification$IdBridge() {
       'SYERDI_ERRO_LST': 'SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST',
       'SYERCO_ERRO_LST':
           'SomListMetaRef<SystemErrorCodeEntry\$Id> get SYERCO_ERRO_LST',
-      'ERRE_RECO': 'SomMetaRef get ERRE_RECO',
+      'ERRE_MECH': 'SomMetaRef get ERRE_MECH',
       'ERDP': 'SomMetaRef get ERDP',
       'ERRM': 'SomMetaRef get ERRM',
       'ERGR': 'SomMetaRef get ERGR',
@@ -964221,12 +964221,12 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
             'D13CodeSpecsProjection\$Id',
           )
           .SYERCO_ERRO_LST,
-      'ERRE_RECO': (visitor, target) => D4
+      'ERRE_MECH': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
             'D13CodeSpecsProjection\$Id',
           )
-          .ERRE_RECO,
+          .ERRE_MECH,
       'ERDP': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
@@ -965256,7 +965256,7 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
       'SYERDI_ERRO_LST': 'SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST',
       'SYERCO_ERRO_LST':
           'SomListMetaRef<SystemErrorCodeEntry\$Id> get SYERCO_ERRO_LST',
-      'ERRE_RECO': 'SomMetaRef get ERRE_RECO',
+      'ERRE_MECH': 'SomMetaRef get ERRE_MECH',
       'ERDP': 'SomMetaRef get ERDP',
       'ERRM': 'SomMetaRef get ERRM',
       'ERGR': 'SomMetaRef get ERGR',

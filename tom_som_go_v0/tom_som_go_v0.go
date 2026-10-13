@@ -10802,11 +10802,11 @@ func (x *CurrentWorkflowEntry) Content() *CurrentWorkflowEntryContentForm {
 
 // Workflow diagram.
 func (x *CurrentWorkflowEntry) WorkflowDiagram() string {
-	return x.Doc().ContentOr(x.Path() + "/CUWF-WORK")
+	return x.Doc().ContentOr(x.Path() + "/CUWF-DIAG")
 }
 
 func (x *CurrentWorkflowEntry) SetWorkflowDiagram(value string) {
-	x.Doc().SetContent(x.Path()+"/CUWF-WORK", value)
+	x.Doc().SetContent(x.Path()+"/CUWF-DIAG", value)
 }
 
 // Workflow triggers and initiation.
@@ -19556,7 +19556,7 @@ func (x *ErrorRecovery) SetContent(value string) {
 // Retry, undo, draft preservation and escalation paths. Distinct from the error
 // *message*, which the philosophy and category sections govern.
 func (x *ErrorRecovery) RecoveryMechanismsContent() *ErrorRecoveryRecoveryMechanismsContentForm {
-	return NewErrorRecoveryRecoveryMechanismsContentForm(x.Doc(), x.Path()+"/ERRE-RECO")
+	return NewErrorRecoveryRecoveryMechanismsContentForm(x.Doc(), x.Path()+"/ERRE-MECH")
 }
 
 // Data preservation: draft auto-save settings.

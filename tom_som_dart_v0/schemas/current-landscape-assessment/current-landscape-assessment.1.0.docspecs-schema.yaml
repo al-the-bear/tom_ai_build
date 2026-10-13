@@ -982,6 +982,8 @@ section-types:
     subsection-types:
       wse:
         max-count: infinite
+      wse-step:
+        max-count: infinite
     min-text-length: 0
     max-text-length: 0
     description: Steps this actor participates in.
@@ -1236,6 +1238,33 @@ section-types:
       pattern: ^CPIE-IMPR-.+$
       error-message: IDs of this section must match CPIE-IMPR-xxx
     description: "Add one entry per improvement opportunity, contrasting the current and desired state with its benefit, effort, and priority."
+  cuwf-work:
+    prefix: CUWF_WORK_
+    subsection-types:
+      cuwf-diag:
+        max-count: 1
+      wotr:
+        max-count: 1
+      wse-step-lst:
+        max-count: 1
+      wae-acto-lst:
+        max-count: 1
+      woinen-inpu-lst:
+        max-count: 1
+      woouen-outp-lst:
+        max-count: 1
+      wodepo-deci-lst:
+        max-count: 1
+      woburu-busi-lst:
+        max-count: 1
+      woti:
+        max-count: 1
+      woex:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CUWF-WORK-.+$
+      error-message: IDs of this section must match CUWF-WORK-xxx
+    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
   dadu-dupl:
     prefix: DADU_DUPL_
     subsection-types:
@@ -1435,34 +1464,10 @@ section-types:
       pattern: ^SYIN-ITEM-.+$
       error-message: IDs of this section must match SYIN-ITEM-xxx
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
-  cuwf-work:
-    prefix: CUWF_WORK
-    subsection-types:
-      cuwf-work:
-        max-count: 1
-      wotr:
-        max-count: 1
-      wse-step-lst:
-        max-count: 1
-      wae-acto-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      wodepo-deci-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      woti:
-        max-count: 1
-      woex:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^CUWF-WORK-.+$
-      error-message: IDs of this section must match CUWF-WORK-xxx
+  cuwf-diag:
+    prefix: CUWF_DIAG
     format: mermaid-flowchart
-    description: Document each workflow with enough detail to understand the current state and identify improvement opportunities. Include swim-lane diagrams for complex workflows with multiple actors.
+    description: "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor."
   dago-gove:
     prefix: DAGO_GOVE
     format: mermaid

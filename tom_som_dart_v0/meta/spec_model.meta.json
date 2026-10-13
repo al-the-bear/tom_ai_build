@@ -58107,13 +58107,13 @@
           "kind": "content",
           "doc": "Workflow diagram.",
           "help": "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.",
-          "sectionId": "CUWF-WORK",
+          "sectionId": "CUWF-DIAG",
           "serializationOrder": 1,
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "CUWF-WORK"
+                "id": "CUWF-DIAG"
               }
             },
             {
@@ -101356,13 +101356,13 @@
           "name": "recoveryMechanismsContent",
           "kind": "form",
           "doc": "What the system offers after an error, so the user is not left stranded.\n\nRetry, undo, draft preservation and escalation paths. Distinct from the error\n*message*, which the philosophy and category sections govern.",
-          "sectionId": "ERRE-RECO",
+          "sectionId": "ERRE-MECH",
           "serializationOrder": 1,
           "annotations": [
             {
               "name": "SectionId",
               "arguments": {
-                "id": "ERRE-RECO"
+                "id": "ERRE-MECH"
               }
             },
             {

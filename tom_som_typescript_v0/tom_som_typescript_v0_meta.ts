@@ -11155,7 +11155,7 @@ function _mc_CurrentWorkflowEntry(s: Set<string>): SomMetaNode[] {
      new SomMetaNode({
       className: "CurrentWorkflowEntry",
       memberName: "workflowDiagram",
-      sectionId: "CUWF-WORK",
+      sectionId: "CUWF-DIAG",
       kind: SomMetaKind.CONTENT,
       typeName: "String",
       serializationOrder: 1,
@@ -21034,7 +21034,7 @@ function _mc_ErrorRecovery(s: Set<string>): SomMetaNode[] {
      new SomMetaNode({
       className: "ErrorRecovery",
       memberName: "recoveryMechanismsContent",
-      sectionId: "ERRE-RECO",
+      sectionId: "ERRE-MECH",
       kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
@@ -63718,7 +63718,7 @@ export class CurrentWorkflowEntry$Nav extends SomMetaRef {
   }
 
   get workflowDiagram(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/CUWF-WORK");
+    return new SomMetaRef(this.tree, this.path + "/CUWF-DIAG");
   }
 
   get triggers(): WorkflowTriggers$Nav {
@@ -68190,7 +68190,7 @@ export class ErrorRecovery$Nav extends SomMetaRef {
   }
 
   get recoveryMechanismsContent(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/ERRE-RECO");
+    return new SomMetaRef(this.tree, this.path + "/ERRE-MECH");
   }
 
   get dataPreservation(): SomMetaRef {
@@ -87914,8 +87914,8 @@ export class CurrentProcessImprovementEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class CurrentWorkflowEntry$Id extends SomMetaRef {
-  get CUWF_WORK(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/CUWF-WORK");
+  get CUWF_DIAG(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/CUWF-DIAG");
   }
 
   get WOTREN_TRIG_LST(): SomListMetaRef<WorkflowTriggerEntry$Id> {
@@ -92070,8 +92070,8 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t: SomMetaTree, p: string) => new SystemErrorCodeEntry$Id(t, p));
   }
 
-  get ERRE_RECO(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+  get ERRE_MECH(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
   }
 
   get ERDP(): SomMetaRef {
@@ -96807,8 +96807,8 @@ export class D09ExperienceDesignSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t: SomMetaTree, p: string) => new SystemErrorCodeEntry$Id(t, p));
   }
 
-  get ERRE_RECO(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/ERRE-RECO");
+  get ERRE_MECH(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/errorHandling/errorRecovery/ERRE-MECH");
   }
 
   get ERDP(): SomMetaRef {
@@ -100843,8 +100843,8 @@ export class D13CodeSpecsProjection$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t: SomMetaTree, p: string) => new SystemErrorCodeEntry$Id(t, p));
   }
 
-  get ERRE_RECO(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+  get ERRE_MECH(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
   }
 
   get ERDP(): SomMetaRef {

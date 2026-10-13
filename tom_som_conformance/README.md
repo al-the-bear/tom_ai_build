@@ -86,11 +86,11 @@ un-reopenable.
 ## Quick start
 
 ```bash
-# Everything hand-authored, the four sample/corpus gates and the editor's
+# Everything hand-authored, the five sample/corpus gates and the editor's
 # Flutter suite. Absent toolchains skip with the reason stated; --strict turns
 # a skip into a failure.
 ./tool/run_all_suites.sh
-# → a PASS / FAIL / SKIP table over twenty-three results, non-zero exit on any failure
+# → a PASS / FAIL / SKIP table over twenty-four results, non-zero exit on any failure
 
 # The nine-way byte-identity proof (needs all nine toolchains installed).
 ./tool/regenerate_golden.sh
@@ -255,7 +255,12 @@ the harness's diet:
   decoding is not validity, and a sample can decode cleanly while naming a
   route, message key, error code or step that nothing declares. A sample
   excused from the instance tier is named in that tool's `coverageOnly` map
-  with its reason — none is, today. That is a *single-language* guarantee: the structure round-trips in Dart, and
+  with its reason — none is, today. Every sample also satisfies its root's
+  **DocSpecs schema** with no finding (the `sample_schema` gate, which runs
+  [`tom_specs_clitool/bin/validate_spec.dart`](../tom_specs_clitool/bin/validate_spec.dart)
+  — all three tiers — on each). The exercise sample reaches every model shape,
+  so a section kind no document can write validly fails here, not in a
+  project. That is a *single-language* guarantee: the structure round-trips in Dart, and
   exists in all nine ports — the generators compile against it — but is not
   proven to behave identically in the other eight.
 * **Loaded by the golden harness, byte-compared nine ways.** Only what the
@@ -854,16 +859,18 @@ so a suite could stay red without anyone noticing.
 [`tool/run_all_suites.sh`](tool/run_all_suites.sh) closes that: every SOM package
 now carries a uniform `run_tests.sh` that runs everything hand-authored in it,
 whatever the ecosystem underneath, and this driver is the aggregate over all
-eighteen. Before the suites it runs four gates — `sample_coverage`
+eighteen. Before the suites it runs five gates — `sample_coverage`
 ([`tool/check_sample_coverage.dart`](tool/check_sample_coverage.dart)),
 `sample_decode`
 ([`tom_som_dart_v0/tool/verify_samples.dart`](../tom_som_dart_v0/tool/verify_samples.dart)),
 `sample_validate`
-([`tom_som_dart_v0/tool/validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart))
+([`tom_som_dart_v0/tool/validate_samples.dart`](../tom_som_dart_v0/tool/validate_samples.dart)),
+`sample_schema`
+([`tom_specs_clitool/bin/validate_spec.dart`](../tom_specs_clitool/bin/validate_spec.dart))
 and `corpus_copies`
 ([`tool/check_corpus_copies.dart`](tool/check_corpus_copies.dart)) — and after
 them one step that is not a SOM package, `editor`, so a run reports
-twenty-three results in total.
+twenty-four results in total.
 
 `editor` runs `flutter test` in the spec-authoring app,
 `tom_forge/tom_specs_editor`. It rides here because nothing else can run it:
@@ -881,6 +888,17 @@ checkout the step skips with that reason stated.
 `refersTo` field is checked by the instance tier and by nothing else, and
 nothing had run the instance tier against that file. A check that runs only on
 request is a check that drifts.
+
+`sample_schema` exists for the same reason one tier up. Four kinds of Solution
+Blueprint section could not be written validly by any document, and nothing
+noticed until a project did: the only schema-checked document reached part of
+the model, and the exercise sample — which reaches all of it — had never been
+schema-valid, so it could not be gated. Its generator
+([`tool/build_exercise_sample.dart`](tool/build_exercise_sample.dart)) now emits
+a schema-valid document: items keyed by their list's id pattern, a fenced block
+for every diagram or code format, every required form field filled, a required
+`@OneOf` discriminator set to one case per instance, and every `refersTo` value
+naming an id the sample declares.
 
 `corpus_copies` is here rather than in the package it checks, and the reason is
 the point of it. `dart pub publish` ships `test/`, so a shipped test that reads

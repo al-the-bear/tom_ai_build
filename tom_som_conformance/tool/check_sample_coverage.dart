@@ -16,7 +16,9 @@
 //     a structure is instantiated when its id appears as a mapping key in any
 //     `samples/*.docspecs.yaml`.
 //   * section ids — every reachable class or field `sectionId`; covered under
-//     the same key-appearance rule.
+//     the same key-appearance rule, and a list element class's id also when
+//     an item key matches that list's `@SectionIdPattern` (a document keys
+//     its items by the pattern, never by the element class id).
 //
 // What it enforces — staged totality. The committed manifest
 // (`tool/sample_coverage_manifest.yaml`) is the *remaining set*: every
@@ -98,6 +100,11 @@ void main(List<String> args) {
   final listIds = <String>{};
   final sectionIds = <String>{};
   final visited = <String>{};
+  // Element class id → the item-id patterns of the lists holding it. A
+  // document writes a list item under the list's `@SectionIdPattern`
+  // (`RVENT-REVS-1`), never under the element class's own id, so such an
+  // item is what instantiates the element class.
+  final itemPatterns = <String, List<RegExp>>{};
 
   void walk(String type) {
     if (!visited.add(type)) return;
@@ -116,7 +123,21 @@ void main(List<String> args) {
           walk(field['sectionType'] as String);
         case 'list':
           listIds.add(field['sectionId'] as String);
-          walk(field['elementType'] as String);
+          final element = field['elementType'] as String;
+          final pattern = field['sectionIdPattern'] as String?;
+          final elementId =
+              (classes[element] as Map<String, dynamic>?)?['sectionId']
+                  as String?;
+          if (pattern != null && elementId != null) {
+            itemPatterns
+                .putIfAbsent(elementId, () => [])
+                .add(
+                  RegExp(
+                    '^${pattern.split('xxx').map(RegExp.escape).join('.+')}\$',
+                  ),
+                );
+          }
+          walk(element);
       }
     }
   }
@@ -143,7 +164,15 @@ void main(List<String> args) {
   }
 
   final coveredLists = listIds.where(keyTokens.contains).toSet();
-  final coveredSections = sectionIds.where(keyTokens.contains).toSet();
+  final coveredSections = sectionIds
+      .where(
+        (id) =>
+            keyTokens.contains(id) ||
+            (itemPatterns[id] ?? const []).any(
+              (re) => keyTokens.any(re.hasMatch),
+            ),
+      )
+      .toSet();
   final uncoveredLists = listIds.difference(coveredLists);
   final uncoveredSections = sectionIds.difference(coveredSections);
 

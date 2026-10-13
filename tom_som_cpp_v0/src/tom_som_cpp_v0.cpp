@@ -4331,10 +4331,10 @@ CurrentWorkflowEntryContentForm CurrentWorkflowEntry::content() const {
   return CurrentWorkflowEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 std::string CurrentWorkflowEntry::workflowDiagram() const {
-  return doc().content(som::joinPath(path(), "CUWF-WORK"));
+  return doc().content(som::joinPath(path(), "CUWF-DIAG"));
 }
 void CurrentWorkflowEntry::setWorkflowDiagram(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "CUWF-WORK"), value);
+  doc().setContent(som::joinPath(path(), "CUWF-DIAG"), value);
 }
 WorkflowTriggers CurrentWorkflowEntry::triggers() const {
   return WorkflowTriggers(doc(), som::joinPath(path(), "triggers"));
@@ -7927,7 +7927,7 @@ void ErrorRecovery::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 ErrorRecoveryRecoveryMechanismsContentForm ErrorRecovery::recoveryMechanismsContent() const {
-  return ErrorRecoveryRecoveryMechanismsContentForm(doc(), som::joinPath(path(), "ERRE-RECO"));
+  return ErrorRecoveryRecoveryMechanismsContentForm(doc(), som::joinPath(path(), "ERRE-MECH"));
 }
 ErrorRecoveryDataPreservationForm ErrorRecovery::dataPreservation() const {
   return ErrorRecoveryDataPreservationForm(doc(), som::joinPath(path(), "ERDP"));

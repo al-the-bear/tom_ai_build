@@ -9793,11 +9793,11 @@ class CurrentWorkflowEntry extends SomNode {
 
   // Workflow diagram.
   get workflowDiagram() {
-    return this.doc.content(this.path + "/CUWF-WORK") || '';
+    return this.doc.content(this.path + "/CUWF-DIAG") || '';
   }
 
   set workflowDiagram(value) {
-    this.doc.setContent(this.path + "/CUWF-WORK", value);
+    this.doc.setContent(this.path + "/CUWF-DIAG", value);
   }
 
   // Workflow triggers and initiation.
@@ -17560,7 +17560,7 @@ class ErrorRecovery extends SomNode {
   // Retry, undo, draft preservation and escalation paths. Distinct from the error
   // *message*, which the philosophy and category sections govern.
   get recoveryMechanismsContent() {
-    return new ErrorRecoveryRecoveryMechanismsContentForm(this.doc, this.path + "/ERRE-RECO");
+    return new ErrorRecoveryRecoveryMechanismsContentForm(this.doc, this.path + "/ERRE-MECH");
   }
 
   // Data preservation: draft auto-save settings.

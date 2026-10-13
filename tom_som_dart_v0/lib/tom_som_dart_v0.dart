@@ -9602,8 +9602,8 @@ class CurrentWorkflowEntry extends SomNode {
   /// Workflow diagram.
   ///
   /// **Authoring guidance.** Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.
-  String get workflowDiagram => doc.content('$path/CUWF-WORK') ?? '';
-  set workflowDiagram(String value) => doc.setContent('$path/CUWF-WORK', value);
+  String get workflowDiagram => doc.content('$path/CUWF-DIAG') ?? '';
+  set workflowDiagram(String value) => doc.setContent('$path/CUWF-DIAG', value);
 
   /// Workflow triggers and initiation.
   WorkflowTriggers get triggers => WorkflowTriggers(doc, '$path/triggers');
@@ -16610,7 +16610,7 @@ class ErrorRecovery extends SomNode {
   /// 
   /// Retry, undo, draft preservation and escalation paths. Distinct from the error
   /// *message*, which the philosophy and category sections govern.
-  ErrorRecoveryRecoveryMechanismsContentForm get recoveryMechanismsContent => ErrorRecoveryRecoveryMechanismsContentForm(doc, '$path/ERRE-RECO');
+  ErrorRecoveryRecoveryMechanismsContentForm get recoveryMechanismsContent => ErrorRecoveryRecoveryMechanismsContentForm(doc, '$path/ERRE-MECH');
 
   /// Data preservation: draft auto-save settings.
   ErrorRecoveryDataPreservationForm get dataPreservation => ErrorRecoveryDataPreservationForm(doc, '$path/ERDP');

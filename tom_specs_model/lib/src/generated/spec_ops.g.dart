@@ -9018,7 +9018,7 @@ void registerSpecOps() {
             () => n.workflowDiagram,
             (v) => n.workflowDiagram = v as DocSpecsSection?,
             label: 'workflowDiagram',
-            sectionId: 'CUWF-WORK',
+            sectionId: 'CUWF-DIAG',
           ),
           SpecSlot.node(
             () => n.triggers,
@@ -16840,7 +16840,7 @@ void registerSpecOps() {
             () => n.recoveryMechanismsContent,
             (v) => n.recoveryMechanismsContent = v as DocSpecsSection?,
             label: 'recoveryMechanismsContent',
-            sectionId: 'ERRE-RECO',
+            sectionId: 'ERRE-MECH',
           ),
           SpecSlot.node(
             () => n.dataPreservation,

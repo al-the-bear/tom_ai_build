@@ -9356,11 +9356,11 @@ class CurrentWorkflowEntry(SomNode):
     # Workflow diagram.
     @property
     def workflowDiagram(self):
-        return self.doc.content(f"{self.path}/CUWF-WORK") or ""
+        return self.doc.content(f"{self.path}/CUWF-DIAG") or ""
 
     @workflowDiagram.setter
     def workflowDiagram(self, value):
-        self.doc.set_content(f"{self.path}/CUWF-WORK", value)
+        self.doc.set_content(f"{self.path}/CUWF-DIAG", value)
 
     # Workflow triggers and initiation.
     @property
@@ -16836,7 +16836,7 @@ class ErrorRecovery(SomNode):
     # *message*, which the philosophy and category sections govern.
     @property
     def recoveryMechanismsContent(self):
-        return ErrorRecoveryRecoveryMechanismsContentForm(self.doc, f"{self.path}/ERRE-RECO")
+        return ErrorRecoveryRecoveryMechanismsContentForm(self.doc, f"{self.path}/ERRE-MECH")
 
     # Data preservation: draft auto-save settings.
     @property

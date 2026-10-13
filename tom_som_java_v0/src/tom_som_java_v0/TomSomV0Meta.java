@@ -20990,7 +20990,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CurrentWorkflowEntry", SomMetaKind.CONTENT, "String");
         n.memberName = "workflowDiagram";
-        n.sectionId = "CUWF-WORK";
+        n.sectionId = "CUWF-DIAG";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("mermaid-flowchart", "Visual representation of this workflow showing steps, decisions, and actors in a BPMN-style diagram");
         n.contentHelp = "Create a Mermaid flowchart or sequence diagram showing the workflow steps in order. Include decision points with branch conditions. For multi-actor workflows, use swim-lanes (subgraphs) per actor.";
@@ -21164,7 +21164,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef workflowDiagram() {
-      return new SomMetaRef(tree, path + "/CUWF-WORK");
+      return new SomMetaRef(tree, path + "/CUWF-DIAG");
     }
 
     public WorkflowTriggersNav triggers() {
@@ -38417,7 +38417,7 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ErrorRecovery", SomMetaKind.FORM, "String");
         n.memberName = "recoveryMechanismsContent";
-        n.sectionId = "ERRE-RECO";
+        n.sectionId = "ERRE-MECH";
         n.serializationOrder = 1;
         n.docComment = "What the system offers after an error, so the user is not left stranded.\n\nRetry, undo, draft preservation and escalation paths. Distinct from the error\n*message*, which the philosophy and category sections govern.";
         n.form = new SomFormMeta(Arrays.asList(
@@ -38544,7 +38544,7 @@ public final class TomSomV0Meta {
     }
 
     public SomMetaRef recoveryMechanismsContent() {
-      return new SomMetaRef(tree, path + "/ERRE-RECO");
+      return new SomMetaRef(tree, path + "/ERRE-MECH");
     }
 
     public SomMetaRef dataPreservation() {
@@ -111191,8 +111191,8 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomMetaRef CUWF_WORK() {
-      return new SomMetaRef(tree, path + "/CUWF-WORK");
+    public SomMetaRef CUWF_DIAG() {
+      return new SomMetaRef(tree, path + "/CUWF-DIAG");
     }
 
     public SomListMetaRef<WorkflowTriggerEntryId> WOTREN_TRIG_LST() {
@@ -115361,8 +115361,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
-    public SomMetaRef ERRE_RECO() {
-      return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+    public SomMetaRef ERRE_MECH() {
+      return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
     }
 
     public SomMetaRef ERDP() {
@@ -120143,8 +120143,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
-    public SomMetaRef ERRE_RECO() {
-      return new SomMetaRef(tree, path + "/errorHandling/errorRecovery/ERRE-RECO");
+    public SomMetaRef ERRE_MECH() {
+      return new SomMetaRef(tree, path + "/errorHandling/errorRecovery/ERRE-MECH");
     }
 
     public SomMetaRef ERDP() {
@@ -124199,8 +124199,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
-    public SomMetaRef ERRE_RECO() {
-      return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO");
+    public SomMetaRef ERRE_MECH() {
+      return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-MECH");
     }
 
     public SomMetaRef ERDP() {

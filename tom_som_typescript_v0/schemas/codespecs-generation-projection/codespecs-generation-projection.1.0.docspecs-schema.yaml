@@ -3580,6 +3580,12 @@ section-types:
       pattern: ^EPNT-ENTR-.+$
       error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
+  erre-reco:
+    prefix: ERRE_RECO_
+    pattern-check-id:
+      pattern: ^ERRE-RECO-.+$
+      error-message: IDs of this section must match ERRE-RECO-xxx
+    description: Add one entry per recovery flow.
   exten-resu:
     prefix: EXTEN_RESU
     format: exten-resu-form
@@ -3905,13 +3911,10 @@ section-types:
       pattern: ^ENT-ENTI-.+$
       error-message: IDs of this section must match ENT-ENTI-xxx
     description: Add one entry per entitlement.
-  erre-reco:
-    prefix: ERRE_RECO
-    pattern-check-id:
-      pattern: ^ERRE-RECO-.+$
-      error-message: IDs of this section must match ERRE-RECO-xxx
-    format: erre-reco-form
-    description: Add one entry per recovery flow.
+  erre-mech:
+    prefix: ERRE_MECH
+    format: erre-mech-form
+    description: "What the system offers after an error, so the user is not left stranded."
   ete-expo:
     prefix: ETE_EXPO_
     subsection-types:
@@ -9782,7 +9785,7 @@ section-types:
   erre:
     prefix: ERRE
     subsection-types:
-      erre-reco:
+      erre-mech:
         max-count: 1
       erdp:
         max-count: 1
@@ -24073,7 +24076,7 @@ form-types:
         description: Auto-notify support team
       - fieldname: logLevel
         description: "Error, warning, info"
-  erre-reco-form:
+  erre-mech-form:
     fields:
       - fieldname: formDataPreservation
         description: How unsaved form data is preserved on error

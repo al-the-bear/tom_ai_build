@@ -10033,7 +10033,7 @@ class ErrorRecovery extends DocSpecsSection {
   ///
   /// Retry, undo, draft preservation and escalation paths. Distinct from the error
   /// *message*, which the philosophy and category sections govern.
-  @SectionId('ERRE-RECO')
+  @SectionId('ERRE-MECH')
   @Form([
     Field(
       'formDataPreservation',
