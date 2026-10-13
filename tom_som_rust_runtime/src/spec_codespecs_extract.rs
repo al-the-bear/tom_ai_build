@@ -242,14 +242,29 @@ pub struct CodeSpecsSlice {
 }
 
 impl CodeSpecsSlice {
-    /// Reads one slice out of its catalogue JSON object.
-    pub fn from_json(j: &Json) -> CodeSpecsSlice {
-        CodeSpecsSlice {
-            number: j.get("number").and_then(|v| v.as_i64()).unwrap_or(0),
+    /// Reads one slice out of its catalogue JSON object. `number` is the only
+    /// key with no usable default: it must be a JSON number, else the read
+    /// fails with a message naming the row — e.g. `CodeSpecs area catalogue:
+    /// title "Shared types" is missing a numeric "number" (got absent)`. A
+    /// string `"2"` is not a number. `title`, `project` and `cites` fall back
+    /// to empty.
+    pub fn try_from_json(j: &Json) -> Result<CodeSpecsSlice, String> {
+        let label = catalog_row_label(j, &["title", "project"]);
+        Ok(CodeSpecsSlice {
+            number: catalog_required_int(j, "number", &label)?,
             title: j.str_or("title"),
             project: j.str_or("project"),
             cites: int_list(j.get("cites")),
-        }
+        })
+    }
+
+    /// [`CodeSpecsSlice::try_from_json`] for a row known to be well formed.
+    ///
+    /// # Panics
+    ///
+    /// With the `try_from_json` error message when the row is malformed.
+    pub fn from_json(j: &Json) -> CodeSpecsSlice {
+        Self::try_from_json(j).unwrap_or_else(|e| panic!("{}", e))
     }
 }
 
@@ -281,17 +296,28 @@ pub struct CodeSpecsStep {
 
 impl CodeSpecsStep {
     /// Reads one step out of its catalogue JSON object. `number` and `slice`
-    /// are the step's placement; like [`CodeSpecsSlice::from_json`]'s `number`
-    /// they read as `0` when absent or non-numeric, a value no area's
-    /// `authoringSteps` names. The text cells fall back to empty.
-    pub fn from_json(j: &Json) -> CodeSpecsStep {
-        CodeSpecsStep {
-            number: j.get("number").and_then(|v| v.as_i64()).unwrap_or(0),
+    /// are the step's placement and must be JSON numbers, else the read fails
+    /// with a message naming the row by its `title` or `placedBy` — e.g.
+    /// `CodeSpecs area catalogue: title "Step three" is missing a numeric
+    /// "slice" (got absent)`. The text cells fall back to empty.
+    pub fn try_from_json(j: &Json) -> Result<CodeSpecsStep, String> {
+        let label = catalog_row_label(j, &["title", "placedBy"]);
+        Ok(CodeSpecsStep {
+            number: catalog_required_int(j, "number", &label)?,
+            slice: catalog_required_int(j, "slice", &label)?,
             title: j.str_or("title"),
-            slice: j.get("slice").and_then(|v| v.as_i64()).unwrap_or(0),
             placed_by: j.str_or("placedBy"),
             area_codes: string_list(j.get("areaCodes")),
-        }
+        })
+    }
+
+    /// [`CodeSpecsStep::try_from_json`] for a row known to be well formed.
+    ///
+    /// # Panics
+    ///
+    /// With the `try_from_json` error message when the row is malformed.
+    pub fn from_json(j: &Json) -> CodeSpecsStep {
+        Self::try_from_json(j).unwrap_or_else(|e| panic!("{}", e))
     }
 }
 
@@ -313,7 +339,7 @@ impl CodeSpecsFieldRef {
     /// Reads one reference; `className` and `member` are required, so either
     /// one absent or empty is an `Err` naming the row.
     pub fn from_json(j: &Json) -> Result<CodeSpecsFieldRef, String> {
-        let label = gate_row_label(j, &["className", "member"]);
+        let label = catalog_row_label(j, &["className", "member"]);
         Ok(CodeSpecsFieldRef {
             class_name: gate_required_string(j, "className", &label)?,
             member: gate_required_string(j, "member", &label)?,
@@ -361,7 +387,7 @@ pub struct CodeSpecsRequiredArgument {
 impl CodeSpecsRequiredArgument {
     /// Reads one row of the catalogue's `gate.requiredArguments`.
     pub fn from_json(j: &Json) -> Result<CodeSpecsRequiredArgument, String> {
-        let label = gate_row_label(j, &["marker", "argument", "area"]);
+        let label = catalog_row_label(j, &["marker", "argument", "area"]);
         let resolves_to = match j.get("resolvesTo") {
             Some(r @ Json::Object(_)) => Some(CodeSpecsFieldRef::from_json(r)?),
             _ => None,
@@ -446,8 +472,10 @@ impl CodeSpecsCarrier {
     }
 }
 
-/// The row's first non-empty identifying cell, for a gate-table error message.
-fn gate_row_label(j: &Json, preferred: &[&str]) -> String {
+/// The row's first non-empty identifying cell, for a catalogue error message —
+/// the reference's `_rowLabel`, shared by the slice, area, step and gate
+/// tables. Falls back to the keys the row carries, in document order.
+fn catalog_row_label(j: &Json, preferred: &[&str]) -> String {
     for key in preferred {
         if let Some(v) = j.get(key).and_then(|v| v.as_str()) {
             if !v.is_empty() {
@@ -466,7 +494,42 @@ fn gate_row_label(j: &Json, preferred: &[&str]) -> String {
     }
 }
 
-/// A required non-empty string cell of a gate-table row.
+/// A required numeric cell of a catalogue row — the reference's
+/// `_requiredInt`. Any JSON number is accepted and truncated to an integer
+/// (the reference's `num.toInt()`); anything else, a numeric string included,
+/// fails naming the row.
+fn catalog_required_int(j: &Json, key: &str, owner: &str) -> Result<i64, String> {
+    match j.get(key) {
+        Some(Json::Int(n)) => Ok(*n),
+        Some(Json::Float(f)) => Ok(f.trunc() as i64),
+        other => Err(format!(
+            "CodeSpecs area catalogue: {} is missing a numeric \"{}\" (got {})",
+            owner,
+            key,
+            catalog_describe(other)
+        )),
+    }
+}
+
+/// Renders a rejected value for an error message, after the reference's
+/// `_describe`: `absent` for a missing or null cell, else the value prefixed
+/// with its type — `String "2"`, `int "2"` — so `"3"` and `3` are
+/// distinguishable.
+fn catalog_describe(v: Option<&Json>) -> String {
+    let (ty, text) = match v {
+        None | Some(Json::Null) => return "absent".to_string(),
+        Some(Json::Bool(b)) => ("bool", b.to_string()),
+        Some(Json::Int(n)) => ("int", n.to_string()),
+        Some(Json::Float(f)) => ("double", f.to_string()),
+        Some(Json::Str(s)) => ("String", s.clone()),
+        Some(Json::Array(_)) => ("List", format!("{:?}", v.unwrap())),
+        Some(Json::Object(_)) => ("Map", format!("{:?}", v.unwrap())),
+    };
+    format!("{} {:?}", ty, text)
+}
+
+/// A required non-empty string cell of a catalogue row — the reference's
+/// `_requiredString`, used by the area and gate tables.
 fn gate_required_string(j: &Json, key: &str, owner: &str) -> Result<String, String> {
     match j.get(key) {
         Some(Json::Str(v)) if !v.is_empty() => Ok(v.clone()),
@@ -474,10 +537,7 @@ fn gate_required_string(j: &Json, key: &str, owner: &str) -> Result<String, Stri
             "CodeSpecs area catalogue: {} is missing a non-empty \"{}\" (got {})",
             owner,
             key,
-            match other {
-                None | Some(Json::Null) => "absent".to_string(),
-                Some(v) => format!("{:?}", v),
-            }
+            catalog_describe(other)
         )),
     }
 }
@@ -521,19 +581,33 @@ pub struct CodeSpecsArea {
 }
 
 impl CodeSpecsArea {
-    /// Reads one area row out of its catalogue JSON object.
-    pub fn from_json(j: &Json) -> CodeSpecsArea {
-        CodeSpecsArea {
-            code: j.str_or("code"),
+    /// Reads one area row out of its catalogue JSON object. `code` and `part`
+    /// must be non-empty strings, else the read fails with a message naming
+    /// the row by its `code`, `part` or `canonicalId` — e.g. `CodeSpecs area
+    /// catalogue: part "form" is missing a non-empty "code" (got absent)`.
+    /// Every other cell falls back to empty, and `active` to `true`.
+    pub fn try_from_json(j: &Json) -> Result<CodeSpecsArea, String> {
+        let label = catalog_row_label(j, &["code", "part", "canonicalId"]);
+        Ok(CodeSpecsArea {
+            code: gate_required_string(j, "code", &label)?,
             canonical_id: j.str_or("canonicalId"),
-            part: j.str_or("part"),
+            part: gate_required_string(j, "part", &label)?,
             annotations: string_list(j.get("annotations")),
             built_on: j.str_or("builtOn"),
             attribute_surface: j.str_or("attributeSurface"),
             slices: int_list(j.get("slices")),
             authoring_steps: int_list(j.get("authoringSteps")),
             active: j.get("active").and_then(|v| v.as_bool()).unwrap_or(true),
-        }
+        })
+    }
+
+    /// [`CodeSpecsArea::try_from_json`] for a row known to be well formed.
+    ///
+    /// # Panics
+    ///
+    /// With the `try_from_json` error message when the row is malformed.
+    pub fn from_json(j: &Json) -> CodeSpecsArea {
+        Self::try_from_json(j).unwrap_or_else(|e| panic!("{}", e))
     }
 
     /// The fully-qualified `@CodeSpecKind` value — `CodeSpecPart.form`.
@@ -585,28 +659,31 @@ pub struct CodeSpecsAreaCatalog {
 impl CodeSpecsAreaCatalog {
     /// Reads the catalogue out of its JSON object.
     ///
-    /// Fails only on a malformed row of the optional `gate` block (a
-    /// `requiredArguments` or `carriers` row missing a required cell): the gate
-    /// tables are authored input shared by all nine runtimes, and a row that
-    /// half-parsed would put a silently incomplete obligation into every gate.
+    /// Fails on a malformed row, with a message naming it: a slice row without
+    /// a numeric `number`, a step row without a numeric `number` or `slice`, an
+    /// area row without a non-empty `code` or `part` (see each row's
+    /// `try_from_json`), or a row of the optional `gate` block missing a
+    /// required cell. The catalogue is authored input shared by all nine
+    /// runtimes, and a row that half-parsed would put a silently incomplete
+    /// vocabulary into every extract and gate.
     pub fn from_json(j: &Json) -> Result<CodeSpecsAreaCatalog, String> {
         let slices = j
             .get("slices")
             .and_then(|v| v.as_array())
-            .map(|arr| arr.iter().map(CodeSpecsSlice::from_json).collect())
-            .unwrap_or_default();
+            .map(|arr| arr.iter().map(CodeSpecsSlice::try_from_json).collect())
+            .unwrap_or_else(|| Ok(Vec::new()))?;
         let areas = j
             .get("areas")
             .and_then(|v| v.as_array())
-            .map(|arr| arr.iter().map(CodeSpecsArea::from_json).collect())
-            .unwrap_or_default();
+            .map(|arr| arr.iter().map(CodeSpecsArea::try_from_json).collect())
+            .unwrap_or_else(|| Ok(Vec::new()))?;
         // An absent `steps` key is a catalogue written before §4.4.6 was
         // transcribed: it loads with no steps rather than failing.
         let steps = j
             .get("steps")
             .and_then(|v| v.as_array())
-            .map(|arr| arr.iter().map(CodeSpecsStep::from_json).collect())
-            .unwrap_or_default();
+            .map(|arr| arr.iter().map(CodeSpecsStep::try_from_json).collect())
+            .unwrap_or_else(|| Ok(Vec::new()))?;
         // The optional `gate` block carries the Stage-A tables (§4.4 / §4.5).
         // Its presence, not its contents, decides whether A4 and A5 run.
         let gate = match j.get("gate") {

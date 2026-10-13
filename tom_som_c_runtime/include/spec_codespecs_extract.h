@@ -365,9 +365,22 @@ typedef struct {
  * callee, released with `spec_codespecs_area_catalog_free`). A NULL or
  * non-object node yields an empty catalogue rather than a failure — the shape
  * every optional block in this runtime decodes to. An absent (or null) `gate`
- * key yields no gate tables (`has_gate_tables == 0`). */
-void spec_codespecs_area_catalog_from_json(const SomJson *v,
-                                           CodeSpecsAreaCatalog *out);
+ * key yields no gate tables (`has_gate_tables == 0`).
+ *
+ * Returns 1 on success. A malformed row — a slice without a numeric `number`,
+ * a step without a numeric `number` or `slice`, an area without a non-empty
+ * `code` or `part` — fails: returns 0, leaves `*out` empty (nothing to free),
+ * and, when `err` is non-NULL, writes an owned message the caller must free
+ * that names the row, e.g. `CodeSpecs area catalogue: title "Shared types" is
+ * missing a numeric "number" (got absent)`. A string `"2"` is not a number.
+ * The row is named by the first of its identifying keys it carries as a
+ * non-empty string (slice: title, project; step: title, placedBy; area: code,
+ * part, canonicalId), else by its keys, else as `an empty row` — the Dart
+ * `CodeSpecsAreaCatalog.fromJson` `FormatException`. On success `*err` is
+ * left NULL. */
+int spec_codespecs_area_catalog_from_json(const SomJson *v,
+                                          CodeSpecsAreaCatalog *out,
+                                          char **err);
 
 void spec_codespecs_area_catalog_free(CodeSpecsAreaCatalog *c);
 

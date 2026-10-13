@@ -27,10 +27,15 @@ public final class CodeSpecsSlice {
     this.cites = cites;
   }
 
+  /**
+   * Reads one slice. {@code number} is required and must be a JSON number; a
+   * row without one throws an {@link IllegalArgumentException} naming the row
+   * by its {@code title} or {@code project}.
+   */
   public static CodeSpecsSlice fromJson(Map<String, Object> j) {
-    Object number = j.get("number");
     return new CodeSpecsSlice(
-        number instanceof Number ? ((Number) number).intValue() : 0,
+        CodeSpecsFieldRef.requiredInt(
+            j, "number", CodeSpecsFieldRef.rowLabel(j, new String[] {"title", "project"})),
         CodeSpecsAreaCatalog.stringOr(j.get("title")),
         CodeSpecsAreaCatalog.stringOr(j.get("project")),
         CodeSpecsAreaCatalog.intList(j.get("cites")));

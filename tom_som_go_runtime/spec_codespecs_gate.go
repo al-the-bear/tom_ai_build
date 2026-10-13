@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -203,6 +204,50 @@ func codeSpecsRequiredString(r *codeSpecsRow, key, owner string) (string, error)
 	return "", fmt.Errorf(
 		"CodeSpecs area catalogue: %s is missing a non-empty %q (got %s)",
 		owner, key, got)
+}
+
+// codeSpecsRequiredInt is a required numeric key of a row — the reference's
+// `_requiredInt`. Any JSON number is accepted and truncated to an int (the
+// reference's `num.toInt()`); anything else, a numeric string included, fails
+// naming the row.
+func codeSpecsRequiredInt(r *codeSpecsRow, key, owner string) (int, error) {
+	if v := r.raw(key); v != nil {
+		var n float64
+		if err := json.Unmarshal(v, &n); err == nil {
+			return int(n), nil
+		}
+	}
+	return 0, fmt.Errorf(
+		"CodeSpecs area catalogue: %s is missing a numeric %q (got %s)",
+		owner, key, codeSpecsDescribe(r.raw(key)))
+}
+
+// codeSpecsDescribe renders a rejected value for an error message, after the
+// reference's `_describe`: `absent` for a missing or null key, else the value
+// prefixed with its JSON type — `String "2"`, `int 2`, `double 2.5`, `bool
+// true`, `List [...]`, `Map {...}` — so "3" and 3 are distinguishable.
+func codeSpecsDescribe(v json.RawMessage) string {
+	if v == nil {
+		return "absent"
+	}
+	t := bytes.TrimSpace(v)
+	if len(t) == 0 {
+		return "absent"
+	}
+	switch t[0] {
+	case '"':
+		return "String " + string(t)
+	case 't', 'f':
+		return "bool " + strconv.Quote(string(t))
+	case '[':
+		return "List " + strconv.Quote(string(t))
+	case '{':
+		return "Map " + strconv.Quote(string(t))
+	}
+	if bytes.ContainsAny(t, ".eE") {
+		return "double " + strconv.Quote(string(t))
+	}
+	return "int " + strconv.Quote(string(t))
 }
 
 // codeSpecsFieldRefFromRow reads one reference; `className` and `member` are

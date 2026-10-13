@@ -1971,6 +1971,24 @@ public final class ConformanceRunner {
       check(at + ".routing", verdicts.equals(wantVerdicts), verdicts + " != " + wantVerdicts);
     }
 
+    // 5b. A malformed catalogue row fails at load, and the error names the row.
+    for (Object caseObj : (List<Object>) table.get("catalogErrorCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      String want = (String) ((Map<String, Object>) c.get("expect")).get("messageContains");
+      String at = "codeSpecs.catalogError[" + name + "]";
+      IllegalArgumentException err = null;
+      try {
+        CodeSpecsAreaCatalog.fromJson((Map<String, Object>) c.get("catalog"));
+      } catch (IllegalArgumentException e) {
+        err = e;
+      }
+      check(at + ".throws", err != null, "fromJson() succeeded");
+      if (err != null) {
+        check(at + ".message", err.getMessage().contains(want), err.getMessage());
+      }
+    }
+
     // 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
     // The models here carry two, because over a single-root model "walks the
     // named root" and "walks every root" give the same answer.

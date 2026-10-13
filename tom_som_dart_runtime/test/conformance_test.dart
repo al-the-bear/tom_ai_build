@@ -1339,6 +1339,28 @@ void main() {
       });
     }
 
+    // A hand-edited catalogue row with a missing or non-numeric number must
+    // fail naming the row, never load as 0 or NaN — every runtime pins the
+    // same message fragment, so the row label is part of the contract.
+    for (final c
+        in (table['catalogErrorCases'] as List).cast<Map<String, dynamic>>()) {
+      test(c['name'] as String, () {
+        final want = (c['expect'] as Map)['messageContains'] as String;
+        expect(
+          () => CodeSpecsAreaCatalog.fromJson(
+            (c['catalog'] as Map).cast<String, dynamic>(),
+          ),
+          throwsA(
+            isA<FormatException>().having(
+              (e) => e.message,
+              'message',
+              contains(want),
+            ),
+          ),
+        );
+      });
+    }
+
     test('the catalogue\'s authoring steps read back as committed', () {
       final catalogJson = (table['catalog'] as Map).cast<String, dynamic>();
       final got = jsonDecode(jsonEncode(_codeSpecsStepCases(catalogJson)));

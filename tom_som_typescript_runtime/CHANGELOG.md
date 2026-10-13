@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `CodeSpecsAreaCatalog.fromJson` rejects a slice, step or area row missing a numeric `number`/`slice` or a non-empty `code`/`part` with an error naming the row, instead of reading `NaN`.
 - The `review:` pass types its plain scalars by the YAML 1.2 core schema and writes them back canonically (SOM §12.5): integers stay exact to 64 bits (`bigint` beyond `Number.isSafeInteger`), whole floats decode as the new exported `YamlFloat` and write as `3.0`, non-finite floats as `.inf`/`-.inf`/`.nan` (new export `reviewScalar`).
 
 ## 1.4.1

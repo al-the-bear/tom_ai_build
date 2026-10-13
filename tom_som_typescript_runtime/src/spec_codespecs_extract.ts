@@ -296,9 +296,14 @@ export class CodeSpecsSlice {
     this.cites = props.cites || [];
   }
 
+  /**
+   * Reads one slice. `number` is required and must be a JSON number; a row
+   * without one throws an error naming the row by its `title` or `project`.
+   */
   static fromJson(j: any): CodeSpecsSlice {
+    const label = gateRowLabel(j, ['title', 'project']);
     return new CodeSpecsSlice({
-      number: Math.trunc(Number(j.number)),
+      number: gateRequiredInt(j, 'number', label),
       title: j.title != null ? j.title : '',
       project: j.project != null ? j.project : '',
       cites: intList(j.cites),
@@ -356,11 +361,16 @@ export class CodeSpecsStep {
     this.areaCodes = props.areaCodes || [];
   }
 
-  /** Reads one step. The text cells and `areaCodes` fall back to empty. */
+  /**
+   * Reads one step. `number` and `slice` are required JSON numbers — a row
+   * missing either throws an error naming it by its `title` or `placedBy`.
+   * The text cells and `areaCodes` fall back to empty.
+   */
   static fromJson(j: any): CodeSpecsStep {
+    const label = gateRowLabel(j, ['title', 'placedBy']);
     return new CodeSpecsStep({
-      number: Math.trunc(Number(j.number)),
-      slice: Math.trunc(Number(j.slice)),
+      number: gateRequiredInt(j, 'number', label),
+      slice: gateRequiredInt(j, 'slice', label),
       title: j.title != null ? j.title : '',
       placedBy: j.placedBy != null ? j.placedBy : '',
       areaCodes: stringList(j.areaCodes),
@@ -613,11 +623,17 @@ export class CodeSpecsArea {
     this.active = props.active != null ? props.active : true;
   }
 
+  /**
+   * Reads one area. `code` and `part` are required non-empty strings; a row
+   * missing either throws an error naming it by `code`, `part` or
+   * `canonicalId`.
+   */
   static fromJson(j: any): CodeSpecsArea {
+    const label = gateRowLabel(j, ['code', 'part', 'canonicalId']);
     return new CodeSpecsArea({
-      code: j.code,
+      code: gateRequiredString(j, 'code', label),
       canonicalId: j.canonicalId != null ? j.canonicalId : '',
-      part: j.part,
+      part: gateRequiredString(j, 'part', label),
       annotations: stringList(j.annotations),
       builtOn: j.builtOn != null ? j.builtOn : '',
       attributeSurface: j.attributeSurface != null ? j.attributeSurface : '',
@@ -2384,7 +2400,14 @@ class _Buffer {
   }
 }
 
-/** Names a gate-table row for an error: its first non-empty preferred key. */
+/**
+ * Names a catalogue row for an error: `<key> "<value>"` for the first preferred
+ * key the row carries as a non-empty string, else `the row with keys [...]`
+ * (in the row's own key order), else `an empty row`.
+ *
+ * Deliberately tolerant — it runs before the required-key checks, so it must
+ * produce something for a row missing the very key that would identify it.
+ */
 function gateRowLabel(j: any, preferred: string[]): string {
   for (const key of preferred) {
     const v = j != null ? j[key] : undefined;
@@ -2402,11 +2425,35 @@ function gateRequiredString(j: any, key: string, owner: string): string {
   if (typeof v === 'string' && v !== '') {
     return v;
   }
-  const got = v == null ? 'absent' : `${typeof v} ${yamlString(String(v))}`;
   throw new Error(
     `CodeSpecs area catalogue: ${owner} is missing a non-empty "${key}" ` +
-      `(got ${got})`,
+      `(got ${describeValue(v)})`,
   );
+}
+
+/**
+ * A required numeric cell of a catalogue row, truncated to an integer. Only a
+ * JSON number passes — the string `"2"` is rejected rather than coerced, and a
+ * missing cell fails instead of reading `NaN`. The error names the row via
+ * `owner` (a {@link gateRowLabel}).
+ */
+function gateRequiredInt(j: any, key: string, owner: string): number {
+  const v = j != null ? j[key] : undefined;
+  if (typeof v === 'number' && Number.isFinite(v)) {
+    return Math.trunc(v);
+  }
+  throw new Error(
+    `CodeSpecs area catalogue: ${owner} is missing a numeric "${key}" ` +
+      `(got ${describeValue(v)})`,
+  );
+}
+
+/**
+ * Renders a rejected value for an error message: `absent` for a missing key,
+ * else the value's type and its quoted text, so `"3"` and `3` differ.
+ */
+function describeValue(v: unknown): string {
+  return v == null ? 'absent' : `${typeof v} ${yamlString(String(v))}`;
 }
 
 function stringList(raw: unknown): string[] {

@@ -1764,6 +1764,27 @@ static void test_codespecs_extract(Checker& c, const som::SpecModel& model) {
     c.check(tag + ".routingVerdict", verdicts == wantVerdicts, join(verdicts));
   }
 
+  // 5b. The catalogue error cases: a malformed slice, step or area row fails
+  // the load with a message that names the row.
+  som::JsonRef catalogErrorCases = som::jsonGet(table, "catalogErrorCases");
+  std::size_t cen = som::jsonArrayLen(catalogErrorCases);
+  c.check("codeSpecsExtract.catalogErrorCases.nonEmpty", cen > 0, "");
+  for (std::size_t i = 0; i < cen; i++) {
+    som::JsonRef k = som::jsonArrayAt(catalogErrorCases, i);
+    std::string tag =
+        "codeSpecsExtract.catalogError[" + som::jsonStrOr(k, "name") + "]";
+    std::string contains =
+        som::jsonStrOr(som::jsonGet(k, "expect"), "messageContains");
+    try {
+      som::CodeSpecsAreaCatalog::fromJson(som::jsonGet(k, "catalog"));
+      c.check(tag, false, "did not throw");
+    } catch (const std::invalid_argument& e) {
+      std::string message = e.what();
+      c.check(tag + ".message", message.find(contains) != std::string::npos,
+              message);
+    }
+  }
+
   // 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
   // models here carry two, because over a single-root model "walks the named
   // root" and "walks every root" give the same answer.

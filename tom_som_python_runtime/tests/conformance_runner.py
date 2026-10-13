@@ -1248,6 +1248,24 @@ def test_codespecs_extract(model: SpecModel) -> None:
         _check(f"codespecs.error[{name}].routingVerdict",
                verdicts == [want["routingVerdict"]], str(verdicts))
 
+    # A malformed catalogue row (a slice, area or step missing a required
+    # field, or carrying a string where a number belongs) must fail naming the
+    # row, never load as 0 — every runtime pins the same message fragment, so
+    # the row label is part of the contract.
+    for case in table["catalogErrorCases"]:
+        name = case["name"]
+        want = case["expect"]["messageContains"]
+        try:
+            CodeSpecsAreaCatalog.from_json(case["catalog"])
+            raised = None
+        except ValueError as e:
+            raised = e
+        _check(f"codespecs.catalogError[{name}].raises", raised is not None,
+               "did not raise")
+        if raised is not None:
+            _check(f"codespecs.catalogError[{name}].message",
+                   want in str(raised), str(raised))
+
     # Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
     # models here carry two, because over a single-root model "walks the named
     # root" and "walks every root" give the same answer.

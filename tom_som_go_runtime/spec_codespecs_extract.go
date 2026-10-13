@@ -59,6 +59,7 @@ package somruntime
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 )
 
@@ -312,18 +313,21 @@ type CodeSpecsAreaCatalog struct {
 // codeSpecsSliceJSON, codeSpecsAreaJSON, codeSpecsStepJSON and
 // codeSpecsCatalogJSON mirror the catalogue's on-disk shape for unmarshalling. `active` is a *bool because its
 // absence means **true** (the reference's `?? true`), which a plain bool cannot
-// tell from an authored `false`.
+// tell from an authored `false`. The required keys — a slice's `number`, a
+// step's `number` and `slice`, an area's `code` and `part` — are read from the
+// key-ordered codeSpecsCatalogRowsJSON view instead, so a malformed row fails
+// naming the row rather than reading as 0 or "".
 type codeSpecsSliceJSON struct {
-	Number  int    `json:"number"`
+	Number  int    `json:"-"`
 	Title   string `json:"title"`
 	Project string `json:"project"`
 	Cites   []int  `json:"cites"`
 }
 
 type codeSpecsAreaJSON struct {
-	Code             string   `json:"code"`
+	Code             string   `json:"-"`
 	CanonicalID      string   `json:"canonicalId"`
-	Part             string   `json:"part"`
+	Part             string   `json:"-"`
 	Annotations      []string `json:"annotations"`
 	BuiltOn          string   `json:"builtOn"`
 	AttributeSurface string   `json:"attributeSurface"`
@@ -333,9 +337,9 @@ type codeSpecsAreaJSON struct {
 }
 
 type codeSpecsStepJSON struct {
-	Number    int      `json:"number"`
+	Number    int      `json:"-"`
 	Title     string   `json:"title"`
-	Slice     int      `json:"slice"`
+	Slice     int      `json:"-"`
 	PlacedBy  string   `json:"placedBy"`
 	AreaCodes []string `json:"areaCodes"`
 }
@@ -350,11 +354,83 @@ type codeSpecsCatalogJSON struct {
 	Gate *codeSpecsGateJSON `json:"gate"`
 }
 
+// codeSpecsCatalogRowsJSON is the catalogue's slice, area and step tables as
+// key-ordered rows, read before the typed view so each row's required keys can
+// be checked — and a failure named — the way the reference names it.
+type codeSpecsCatalogRowsJSON struct {
+	Slices []*codeSpecsRow `json:"slices"`
+	Areas  []*codeSpecsRow `json:"areas"`
+	Steps  []*codeSpecsRow `json:"steps"`
+}
+
+// codeSpecsCatalogRequired checks the required keys of every slice, area and
+// step row and writes them into the typed rows, in the reference's order
+// (slices, then areas, then steps). The first malformed row fails the load
+// with a message naming it.
+func codeSpecsCatalogRequired(rows *codeSpecsCatalogRowsJSON, raw *codeSpecsCatalogJSON) error {
+	for i, r := range rows.Slices {
+		if r == nil {
+			return fmt.Errorf("CodeSpecs area catalogue: slice row %d is not an object", i)
+		}
+		label := codeSpecsRowLabel(r, []string{"title", "project"})
+		n, err := codeSpecsRequiredInt(r, "number", label)
+		if err != nil {
+			return err
+		}
+		raw.Slices[i].Number = n
+	}
+	for i, r := range rows.Areas {
+		if r == nil {
+			return fmt.Errorf("CodeSpecs area catalogue: area row %d is not an object", i)
+		}
+		label := codeSpecsRowLabel(r, []string{"code", "part", "canonicalId"})
+		code, err := codeSpecsRequiredString(r, "code", label)
+		if err != nil {
+			return err
+		}
+		part, err := codeSpecsRequiredString(r, "part", label)
+		if err != nil {
+			return err
+		}
+		raw.Areas[i].Code, raw.Areas[i].Part = code, part
+	}
+	for i, r := range rows.Steps {
+		if r == nil {
+			return fmt.Errorf("CodeSpecs area catalogue: step row %d is not an object", i)
+		}
+		label := codeSpecsRowLabel(r, []string{"title", "placedBy"})
+		n, err := codeSpecsRequiredInt(r, "number", label)
+		if err != nil {
+			return err
+		}
+		slice, err := codeSpecsRequiredInt(r, "slice", label)
+		if err != nil {
+			return err
+		}
+		raw.Steps[i].Number, raw.Steps[i].Slice = n, slice
+	}
+	return nil
+}
+
 // CodeSpecsAreaCatalogFromJSON decodes the authored catalogue, normalising every
 // absent list to an empty (non-nil) slice and every absent `active` to true.
+//
+// It returns an error naming the row when a slice row lacks a numeric
+// `number`, a step row a numeric `number` or `slice`, or an area row a
+// non-empty `code` or `part` — e.g. `CodeSpecs area catalogue: title "Shared
+// types" is missing a numeric "number" (got absent)`. A string "2" is not a
+// number. The catalogue is authored input shared by all nine runtimes, and a
+// row that read as 0 would put a silently wrong placement into every extract.
 func CodeSpecsAreaCatalogFromJSON(data []byte) (*CodeSpecsAreaCatalog, error) {
+	var rows codeSpecsCatalogRowsJSON
+	if err := json.Unmarshal(data, &rows); err != nil {
+		return nil, err
+	}
 	var raw codeSpecsCatalogJSON
 	if err := json.Unmarshal(data, &raw); err != nil {
+		return nil, err
+	}
+	if err := codeSpecsCatalogRequired(&rows, &raw); err != nil {
 		return nil, err
 	}
 	catalog := &CodeSpecsAreaCatalog{

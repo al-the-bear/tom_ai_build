@@ -1392,6 +1392,32 @@ function testCodeSpecsExtract(model, doc) {
     );
   }
 
+  // A malformed catalogue row (a slice, area or step missing a required field,
+  // or carrying a string where a number belongs) must fail naming the row,
+  // never load as NaN — every runtime pins the same message fragment, so the
+  // row label is part of the contract.
+  for (const c of table.catalogErrorCases) {
+    const want = c.expect.messageContains;
+    let thrown = null;
+    try {
+      CodeSpecsAreaCatalog.fromJson(c.catalog);
+    } catch (err) {
+      thrown = err;
+    }
+    _check(
+      `codespecs.catalogError[${c.name}].thrown`,
+      thrown instanceof Error,
+      'did not throw',
+    );
+    if (thrown instanceof Error) {
+      _check(
+        `codespecs.catalogError[${c.name}].message`,
+        thrown.message.includes(want),
+        thrown.message,
+      );
+    }
+  }
+
   // Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root. The
   // models here carry two, because over a single-root model "walks the named
   // root" and "walks every root" give the same answer.

@@ -43,7 +43,6 @@ document to find out what ``CE-FM`` means.
 
 from __future__ import annotations
 
-import json
 from dataclasses import dataclass, field as dataclass_field
 from enum import Enum
 from typing import Any, Optional
@@ -185,8 +184,13 @@ class CodeSpecsSlice:
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "CodeSpecsSlice":
+        """Reads one slice. ``number`` is required and must be a JSON number;
+        a row without one raises :class:`ValueError` naming the row by its
+        ``title`` (else ``project``, else its keys)."""
         return CodeSpecsSlice(
-            number=int(j["number"]),
+            number=_required_int(
+                j, "number", _row_label(j, ["title", "project"])
+            ),
             title=j.get("title") or "",
             project=j.get("project") or "",
             cites=_int_list(j.get("cites")),
@@ -219,10 +223,13 @@ class CodeSpecsStep:
     def from_json(j: dict[str, Any]) -> "CodeSpecsStep":
         """Reads one step. ``number`` and ``slice`` are required — a step with
         no number cannot be placed, and one with no slice does not say which
-        project it lands in; the text cells fall back to empty."""
+        project it lands in; the text cells fall back to empty. A row missing
+        either raises :class:`ValueError` naming the row by its ``title``
+        (else ``placedBy``, else its keys)."""
+        label = _row_label(j, ["title", "placedBy"])
         return CodeSpecsStep(
-            number=int(j["number"]),
-            slice=int(j["slice"]),
+            number=_required_int(j, "number", label),
+            slice=_required_int(j, "slice", label),
             title=j.get("title") or "",
             placed_by=j.get("placedBy") or "",
             area_codes=_string_list(j.get("areaCodes")),
@@ -391,10 +398,15 @@ class CodeSpecsArea:
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "CodeSpecsArea":
+        """Reads one area. ``code`` and ``part`` are required non-empty
+        strings; a row missing either raises :class:`ValueError` naming the
+        row by its ``code`` (else ``part``, else ``canonicalId``, else its
+        keys)."""
         raw_active = j.get("active")
+        label = _row_label(j, ["code", "part", "canonicalId"])
         return CodeSpecsArea(
-            code=j["code"],
-            part=j["part"],
+            code=_required_string(j, "code", label),
+            part=_required_string(j, "part", label),
             canonical_id=j.get("canonicalId") or "",
             annotations=_string_list(j.get("annotations")),
             built_on=j.get("builtOn") or "",
@@ -1158,11 +1170,49 @@ def _required_string(j: dict[str, Any], key: str, owner: str) -> str:
     v = j.get(key)
     if isinstance(v, str) and v:
         return v
-    got = "absent" if v is None else f"{type(v).__name__} {json.dumps(str(v))}"
     raise ValueError(
         f'CodeSpecs area catalogue: {owner} is missing a non-empty "{key}" '
-        f"(got {got})"
+        f"(got {_describe(v)})"
     )
+
+
+def _required_int(j: dict[str, Any], key: str, owner: str) -> int:
+    """A required numeric key of a catalogue row; raises :class:`ValueError`
+    naming the row otherwise.
+
+    The value must be a JSON number: the string ``"2"`` is rejected rather
+    than coerced, and a JSON boolean (a Python ``int`` subclass) is rejected
+    too, so a malformed row never loads as ``0``."""
+    v = j.get(key)
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        return int(v)
+    raise ValueError(
+        f'CodeSpecs area catalogue: {owner} is missing a numeric "{key}" '
+        f"(got {_describe(v)})"
+    )
+
+
+#: Dart's runtime type names for the JSON value kinds, so ``_describe`` reads
+#: the same in every runtime.
+_DART_TYPE_NAMES = {
+    bool: "bool",
+    int: "int",
+    float: "double",
+    str: "String",
+    list: "List",
+    dict: "Map",
+}
+
+
+def _describe(v: Any) -> str:
+    """Renders a rejected value for an error message: ``absent`` for a missing
+    key, else the value with its type, so ``"3"`` and ``3`` are
+    distinguishable."""
+    if v is None:
+        return "absent"
+    type_name = _DART_TYPE_NAMES.get(type(v), type(v).__name__)
+    text = ("true" if v else "false") if isinstance(v, bool) else str(v)
+    return f"{type_name} {_yaml_string(text)}"
 
 
 def _string_list(raw: Any) -> list[str]:

@@ -2,6 +2,9 @@
 #include "spec_codespecs_extract.hpp"
 
 #include <algorithm>
+#include <cstdio>
+#include <initializer_list>
+#include <stdexcept>
 
 #include "spec_paths.hpp"
 
@@ -217,9 +220,99 @@ std::string CodeSpecsExtractEntry::display() const {
 
 /* ---- the catalogue ------------------------------------------------------ */
 
+namespace {
+
+/* Names a catalogue row for an error message, before any of its required keys
+ * are read: the first `preferred` key the row carries as a non-empty string,
+ * rendered `<key> "<value>"`; else `the row with keys [k1, k2]` in the row's
+ * own key order; else `an empty row`. The Dart `_rowLabel`.
+ *
+ * Deliberately tolerant — it must produce something for a row that is missing
+ * the very key that would normally identify it. */
+std::string rowLabel(const JsonRef& j,
+                     std::initializer_list<const char*> preferred) {
+  for (const char* key : preferred) {
+    const std::string* v = jsonAsStr(jsonGet(j, key));
+    if (v != nullptr && !v->empty()) {
+      return std::string(key) + " \"" + *v + "\"";
+    }
+  }
+  if (j == nullptr || j->type != JsonType::Object || j->object.empty()) {
+    return "an empty row";
+  }
+  std::string keys;
+  for (std::size_t i = 0; i < j->object.size(); i++) {
+    if (i > 0) {
+      keys += ", ";
+    }
+    keys += j->object[i].first;
+  }
+  return "the row with keys [" + keys + "]";
+}
+
+/* Renders a rejected value for an error message: `absent` for a missing (or
+ * null) key, else the value's type and its quoted text, so `"3"` and `3` are
+ * distinguishable. The Dart `_describe`, with JSON type names standing in for
+ * Dart's runtime types. */
+std::string describeValue(const JsonRef& v) {
+  if (v == nullptr || v->type == JsonType::Null) {
+    return "absent";
+  }
+  switch (v->type) {
+    case JsonType::Bool:
+      return "bool " + yamlString(v->boolean ? "true" : "false");
+    case JsonType::Int:
+      return "int " + yamlString(std::to_string(v->integer));
+    case JsonType::Float: {
+      char num[64];
+      std::snprintf(num, sizeof(num), "%g", v->real);
+      return "double " + yamlString(num);
+    }
+    case JsonType::Str:
+      return "String " + yamlString(v->str);
+    case JsonType::Array:
+      return "List";
+    default:
+      return "Map";
+  }
+}
+
+/* The required numeric `j[key]` — any JSON number, a fractional one truncated
+ * (the Dart `num.toInt`). A string such as `"2"` is not a number. Throws
+ * `std::invalid_argument` naming the row by `label`. The Dart `_requiredInt`. */
+long long requiredInt(const JsonRef& j, const std::string& key,
+                      const std::string& label) {
+  JsonRef v = jsonGet(j, key);
+  if (v != nullptr && v->type == JsonType::Int) {
+    return v->integer;
+  }
+  if (v != nullptr && v->type == JsonType::Float) {
+    return static_cast<long long>(v->real);
+  }
+  throw std::invalid_argument("CodeSpecs area catalogue: " + label +
+                              " is missing a numeric \"" + key + "\" (got " +
+                              describeValue(v) + ")");
+}
+
+/* The required non-empty string `j[key]`. Throws `std::invalid_argument`
+ * naming the row by `label`. The Dart `_requiredString`. */
+std::string requiredString(const JsonRef& j, const std::string& key,
+                           const std::string& label) {
+  JsonRef v = jsonGet(j, key);
+  const std::string* s = jsonAsStr(v);
+  if (s != nullptr && !s->empty()) {
+    return *s;
+  }
+  throw std::invalid_argument("CodeSpecs area catalogue: " + label +
+                              " is missing a non-empty \"" + key + "\" (got " +
+                              describeValue(v) + ")");
+}
+
+}  // namespace
+
 CodeSpecsSlice CodeSpecsSlice::fromJson(const JsonRef& j) {
   CodeSpecsSlice out;
-  out.number = jsonAsI64(jsonGet(j, "number")).value_or(0);
+  out.number = requiredInt(j, "number", rowLabel(j, {"title", "project"}));
   out.title = jsonStrOr(j, "title");
   out.project = jsonStrOr(j, "project");
   out.cites = intList(jsonGet(j, "cites"));
@@ -227,20 +320,24 @@ CodeSpecsSlice CodeSpecsSlice::fromJson(const JsonRef& j) {
 }
 
 CodeSpecsStep CodeSpecsStep::fromJson(const JsonRef& j) {
+  const std::string label = rowLabel(j, {"title", "placedBy"});
   CodeSpecsStep out;
-  out.number = jsonAsI64(jsonGet(j, "number")).value_or(0);
+  out.number = requiredInt(j, "number", label);
+  out.slice = requiredInt(j, "slice", label);
   out.title = jsonStrOr(j, "title");
-  out.slice = jsonAsI64(jsonGet(j, "slice")).value_or(0);
   out.placedBy = jsonStrOr(j, "placedBy");
   out.areaCodes = stringList(jsonGet(j, "areaCodes"));
   return out;
 }
 
 CodeSpecsArea CodeSpecsArea::fromJson(const JsonRef& j) {
+  // Name the row before reading it, so a missing `code` is still reported
+  // against something a reader can find in the file.
+  const std::string label = rowLabel(j, {"code", "part", "canonicalId"});
   CodeSpecsArea out;
-  out.code = jsonStrOr(j, "code");
+  out.code = requiredString(j, "code", label);
   out.canonicalId = jsonStrOr(j, "canonicalId");
-  out.part = jsonStrOr(j, "part");
+  out.part = requiredString(j, "part", label);
   out.annotations = stringList(jsonGet(j, "annotations"));
   out.builtOn = jsonStrOr(j, "builtOn");
   out.attributeSurface = jsonStrOr(j, "attributeSurface");

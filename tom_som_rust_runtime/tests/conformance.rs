@@ -2028,6 +2028,25 @@ fn test_codespecs_extract(c: &mut Checker, model: &SpecModel) {
         );
     }
 
+    // 4b. a malformed catalogue row fails naming the row, never loading as 0
+    //     or "" — every runtime pins the same message fragment, so the row
+    //     label is part of the contract.
+    let catalog_error_cases = table
+        .get("catalogErrorCases")
+        .and_then(|v| v.as_array())
+        .expect("codespecs_extract_cases.catalogErrorCases is a list");
+    for ce in catalog_error_cases {
+        let tag = format!("codespecs.catalogError[{}]", ce.str_or("name"));
+        let want = ce
+            .get("expect")
+            .expect("catalog error case has an expectation")
+            .str_or("messageContains");
+        match CodeSpecsAreaCatalog::from_json(ce.get("catalog").expect("case has a catalog")) {
+            Ok(_) => c.check(&format!("{}.raised", tag), false, "the catalogue loaded"),
+            Err(e) => c.check(&format!("{}.message", tag), e.contains(&want), &e),
+        }
+    }
+
     // 5. the ROUTE-TOTAL error cases: `extract_all` fails, `routings` reports.
     let error_cases = table
         .get("errorCases")

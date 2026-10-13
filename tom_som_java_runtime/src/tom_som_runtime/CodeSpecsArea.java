@@ -73,12 +73,18 @@ public final class CodeSpecsArea {
     this.active = active;
   }
 
+  /**
+   * Reads one area. {@code code} and {@code part} are required non-empty
+   * strings; a row missing either throws an {@link IllegalArgumentException}
+   * naming it by its {@code code}, {@code part} or {@code canonicalId}.
+   */
   public static CodeSpecsArea fromJson(Map<String, Object> j) {
     Object active = j.get("active");
+    String label = CodeSpecsFieldRef.rowLabel(j, new String[] {"code", "part", "canonicalId"});
     return new CodeSpecsArea(
-        (String) j.get("code"),
+        CodeSpecsFieldRef.requiredString(j, "code", label),
         CodeSpecsAreaCatalog.stringOr(j.get("canonicalId")),
-        (String) j.get("part"),
+        CodeSpecsFieldRef.requiredString(j, "part", label),
         CodeSpecsAreaCatalog.stringList(j.get("annotations")),
         CodeSpecsAreaCatalog.stringOr(j.get("builtOn")),
         CodeSpecsAreaCatalog.stringOr(j.get("attributeSurface")),

@@ -213,12 +213,18 @@ class CodeSpecsSlice {
     this.cites = cites;
   }
 
+  /**
+   * Reads one slice. `number` is required and must be a JSON number; a row
+   * without one throws an `Error` naming the row by its `title` (else
+   * `project`, else its keys).
+   */
   static fromJson(j) {
+    const label = _rowLabel(j, ['title', 'project']);
     return new CodeSpecsSlice({
-      number: Math.trunc(j.number),
+      number: _requiredInt(j, 'number', label),
       title: j.title != null ? j.title : '',
       project: j.project != null ? j.project : '',
-      cites: _intList(j.cites),
+      cites: _catalogIntList(j.cites, label, 'cites'),
     });
   }
 }
@@ -250,11 +256,17 @@ class CodeSpecsStep {
     this.areaCodes = areaCodes;
   }
 
-  /** Reads one step. The text cells and `areaCodes` fall back to empty. */
+  /**
+   * Reads one step. The text cells and `areaCodes` fall back to empty;
+   * `number` and `slice` are required JSON numbers, and a row missing either
+   * throws an `Error` naming the row by its `title` (else `placedBy`, else its
+   * keys).
+   */
   static fromJson(j) {
+    const label = _rowLabel(j, ['title', 'placedBy']);
     return new CodeSpecsStep({
-      number: Math.trunc(j.number),
-      slice: Math.trunc(j.slice),
+      number: _requiredInt(j, 'number', label),
+      slice: _requiredInt(j, 'slice', label),
       title: j.title != null ? j.title : '',
       placedBy: j.placedBy != null ? j.placedBy : '',
       areaCodes: _stringList(j.areaCodes),
@@ -279,10 +291,10 @@ class CodeSpecsFieldRef {
 
   /** Reads one reference; `className` and `member` are required. */
   static fromJson(j) {
-    const label = _gateRowLabel(j, ['className', 'member']);
+    const label = _rowLabel(j, ['className', 'member']);
     return new CodeSpecsFieldRef({
-      className: _gateRequiredString(j, 'className', label),
-      member: _gateRequiredString(j, 'member', label),
+      className: _requiredString(j, 'className', label),
+      member: _requiredString(j, 'member', label),
       formField: j.formField != null ? String(j.formField) : null,
     });
   }
@@ -322,17 +334,17 @@ class CodeSpecsRequiredArgument {
 
   /** Reads one row of the catalogue's `gate.requiredArguments`. */
   static fromJson(j) {
-    const label = _gateRowLabel(j, ['marker', 'argument', 'area']);
+    const label = _rowLabel(j, ['marker', 'argument', 'area']);
     const resolves = j.resolvesTo;
     const when = j.when;
     return new CodeSpecsRequiredArgument({
-      area: _gateRequiredString(j, 'area', label),
-      marker: _gateRequiredString(j, 'marker', label),
-      argument: _gateRequiredString(j, 'argument', label),
+      area: _requiredString(j, 'area', label),
+      marker: _requiredString(j, 'marker', label),
+      argument: _requiredString(j, 'argument', label),
       field: CodeSpecsFieldRef.fromJson(j),
       resolvesTo: resolves == null ? null : CodeSpecsFieldRef.fromJson(resolves),
       when: when == null ? null : CodeSpecsFieldRef.fromJson(when),
-      whenEquals: when == null ? null : _gateRequiredString(when, 'equals', label),
+      whenEquals: when == null ? null : _requiredString(when, 'equals', label),
     });
   }
 
@@ -398,8 +410,17 @@ class CodeSpecsCarrier {
   }
 }
 
-/** Names a gate-table row for an error: its first non-empty preferred key. */
-function _gateRowLabel(j, preferred) {
+/**
+ * Names a catalogue row (a slice, step, area or gate-table row) for an error
+ * message: the first of `preferred` the row carries as a non-empty string,
+ * rendered `<key> "<value>"`; else the row's own keys in order; else
+ * `an empty row`. Transcribes the Dart reference's `_rowLabel`.
+ *
+ * @param {object} j the row
+ * @param {string[]} preferred the keys to try, in order
+ * @returns {string}
+ */
+function _rowLabel(j, preferred) {
   for (const key of preferred) {
     const v = j != null ? j[key] : undefined;
     if (typeof v === 'string' && v !== '') {
@@ -410,16 +431,72 @@ function _gateRowLabel(j, preferred) {
   return keys === '' ? 'an empty row' : `the row with keys [${keys}]`;
 }
 
-/** A required non-empty string of a gate-table row. */
-function _gateRequiredString(j, key, owner) {
+/**
+ * A required non-empty string of a catalogue row; throws an `Error` naming the
+ * row (`owner`, from {@link _rowLabel}) otherwise.
+ *
+ * @param {object} j the row
+ * @param {string} key the required key
+ * @param {string} owner the row's label
+ * @returns {string}
+ */
+function _requiredString(j, key, owner) {
   const v = j != null ? j[key] : undefined;
   if (typeof v === 'string' && v !== '') {
     return v;
   }
-  const got = v == null ? 'absent' : `${typeof v} ${_yamlString(String(v))}`;
   throw new Error(
-    `CodeSpecs area catalogue: ${owner} is missing a non-empty "${key}" (got ${got})`,
+    `CodeSpecs area catalogue: ${owner} is missing a non-empty "${key}" (got ${_describe(v)})`,
   );
+}
+
+/**
+ * A required numeric key of a catalogue row; throws an `Error` naming the row
+ * (`owner`, from {@link _rowLabel}) otherwise. The value must be a JSON number
+ * — the string `"2"` is rejected rather than coerced, so a malformed row never
+ * loads as `NaN` or `0`.
+ *
+ * @param {object} j the row
+ * @param {string} key the required key
+ * @param {string} owner the row's label
+ * @returns {number}
+ */
+function _requiredInt(j, key, owner) {
+  const v = j != null ? j[key] : undefined;
+  if (typeof v === 'number' && Number.isFinite(v)) {
+    return Math.trunc(v);
+  }
+  throw new Error(
+    `CodeSpecs area catalogue: ${owner} is missing a numeric "${key}" (got ${_describe(v)})`,
+  );
+}
+
+/**
+ * Renders a rejected value for an error message: `absent` for a missing key,
+ * else the value with its Dart type name, so `"3"` and `3` are
+ * distinguishable. Transcribes the Dart reference's `_describe`.
+ *
+ * @param {*} v
+ * @returns {string}
+ */
+function _describe(v) {
+  if (v == null) {
+    return 'absent';
+  }
+  let typeName;
+  if (typeof v === 'string') {
+    typeName = 'String';
+  } else if (typeof v === 'boolean') {
+    typeName = 'bool';
+  } else if (typeof v === 'number') {
+    typeName = Number.isInteger(v) ? 'int' : 'double';
+  } else if (Array.isArray(v)) {
+    typeName = 'List';
+  } else {
+    typeName = 'Map';
+  }
+  const text = typeof v === 'object' ? JSON.stringify(v) : String(v);
+  return `${typeName} ${_yamlString(text)}`;
 }
 
 /**
@@ -465,16 +542,22 @@ class CodeSpecsArea {
     this.active = active;
   }
 
+  /**
+   * Reads one area. `code` and `part` are required non-empty strings; a row
+   * missing either throws an `Error` naming the row by its `code` (else
+   * `part`, else `canonicalId`, else its keys).
+   */
   static fromJson(j) {
+    const label = _rowLabel(j, ['code', 'part', 'canonicalId']);
     return new CodeSpecsArea({
-      code: j.code,
+      code: _requiredString(j, 'code', label),
       canonicalId: j.canonicalId != null ? j.canonicalId : '',
-      part: j.part,
+      part: _requiredString(j, 'part', label),
       annotations: _stringList(j.annotations),
       builtOn: j.builtOn != null ? j.builtOn : '',
       attributeSurface: j.attributeSurface != null ? j.attributeSurface : '',
-      slices: _intList(j.slices),
-      authoringSteps: _intList(j.authoringSteps),
+      slices: _catalogIntList(j.slices, label, 'slices'),
+      authoringSteps: _catalogIntList(j.authoringSteps, label, 'authoringSteps'),
       active: j.active != null ? Boolean(j.active) : true,
     });
   }
@@ -2211,8 +2294,36 @@ function _stringList(raw) {
   return Array.isArray(raw) ? raw.map((e) => String(e)) : [];
 }
 
-function _intList(raw) {
-  return Array.isArray(raw) ? raw.map((e) => Math.trunc(e)) : [];
+/**
+ * Reads a catalogue int list, naming [owner] and [key] when the value is not a
+ * list or an element is not a number — Dart's `_intList`. Distinct from the
+ * records reader's `_intList`: a second function of the same name would
+ * replace it for every caller, which is how both lost their checks.
+ *
+ * @param {unknown} raw
+ * @param {string} owner the row label
+ * @param {string} key
+ * @returns {number[]}
+ */
+function _catalogIntList(raw, owner, key) {
+  if (raw === undefined || raw === null) {
+    return [];
+  }
+  if (!Array.isArray(raw)) {
+    throw new Error(
+      `CodeSpecs area catalogue: "${key}" of ${owner} must be a list, ` +
+        `got ${_describe(raw)}`,
+    );
+  }
+  return raw.map((e) => {
+    if (typeof e === 'number' && Number.isFinite(e)) {
+      return Math.trunc(e);
+    }
+    throw new Error(
+      `CodeSpecs area catalogue: "${key}" of ${owner} contains a ` +
+        `non-numeric entry ${_describe(e)}`,
+    );
+  });
 }
 
 /**

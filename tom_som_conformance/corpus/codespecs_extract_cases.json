@@ -1612,5 +1612,123 @@
         "messageContains": "no document root"
       }
     }
+  ],
+  "catalogErrorCases": [
+    {
+      "name": "a slice row without its number fails, naming the slice",
+      "catalog": {
+        "source": "malformed",
+        "slices": [
+          {
+            "title": "Shared types",
+            "project": "<app>_codespec_shared",
+            "cites": []
+          }
+        ],
+        "areas": [],
+        "steps": []
+      },
+      "expect": {
+        "messageContains": "title \"Shared types\" is missing a numeric \"number\""
+      }
+    },
+    {
+      "name": "a step row without its slice fails, naming the step",
+      "catalog": {
+        "source": "malformed",
+        "slices": [],
+        "areas": [],
+        "steps": [
+          {
+            "number": 3,
+            "title": "Step three",
+            "placedBy": "CE-FM (3)",
+            "areaCodes": [
+              "CE-FM"
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "messageContains": "title \"Step three\" is missing a numeric \"slice\""
+      }
+    },
+    {
+      "name": "a step row without a number or title fails, named by placedBy",
+      "catalog": {
+        "source": "malformed",
+        "slices": [],
+        "areas": [],
+        "steps": [
+          {
+            "slice": 1,
+            "placedBy": "CE-TX (9)",
+            "areaCodes": [
+              "CE-TX"
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "messageContains": "placedBy \"CE-TX (9)\" is missing a numeric \"number\""
+      }
+    },
+    {
+      "name": "a slice row whose number is a string fails rather than reading 0",
+      "catalog": {
+        "source": "malformed",
+        "slices": [
+          {
+            "number": "2",
+            "title": "Shared contract",
+            "project": "<app>_codespec_shared",
+            "cites": []
+          }
+        ],
+        "areas": [],
+        "steps": []
+      },
+      "expect": {
+        "messageContains": "title \"Shared contract\" is missing a numeric \"number\""
+      }
+    },
+    {
+      "name": "an area row without its code fails, named by its part",
+      "catalog": {
+        "source": "malformed",
+        "slices": [],
+        "areas": [
+          {
+            "part": "form",
+            "slices": [
+              5
+            ],
+            "authoringSteps": [
+              23
+            ]
+          }
+        ],
+        "steps": []
+      },
+      "expect": {
+        "messageContains": "part \"form\" is missing a non-empty \"code\""
+      }
+    },
+    {
+      "name": "a row carrying no label key is named by its keys",
+      "catalog": {
+        "source": "malformed",
+        "slices": [
+          {
+            "cites": []
+          }
+        ],
+        "areas": [],
+        "steps": []
+      },
+      "expect": {
+        "messageContains": "the row with keys [cites] is missing a numeric \"number\""
+      }
+    }
   ]
 }

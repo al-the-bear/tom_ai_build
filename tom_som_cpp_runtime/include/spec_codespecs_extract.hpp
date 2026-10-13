@@ -186,7 +186,11 @@ struct CodeSpecsSlice {
    * closed by CodeSpecsAreaCatalog::citableAreaCodes. */
   std::vector<long long> cites;
 
-  /* Decodes one slice from its catalogue JSON object. */
+  /* Decodes one slice from its catalogue JSON object. A missing or
+   * non-numeric `number` (a string `"2"` included) throws
+   * `std::invalid_argument` naming the row by its title or project:
+   * `CodeSpecs area catalogue: title "…" is missing a numeric "number" (got …)`.
+   * The text cells fall back to empty. */
   static CodeSpecsSlice fromJson(const JsonRef& j);
 };
 
@@ -210,7 +214,9 @@ struct CodeSpecsStep {
    * inverse of CodeSpecsArea::authoringSteps. */
   std::vector<std::string> areaCodes;
 
-  /* Decodes one step from its catalogue JSON object. */
+  /* Decodes one step from its catalogue JSON object. A missing or non-numeric
+   * `number` or `slice` throws `std::invalid_argument` naming the row by its
+   * title or placedBy; the text cells fall back to empty. */
   static CodeSpecsStep fromJson(const JsonRef& j);
 };
 
@@ -242,7 +248,11 @@ struct CodeSpecsArea {
    * `CodeSpecPart` value but has no generated surface, so it gets no extract. */
   bool active = true;
 
-  /* Decodes one area from its catalogue JSON object. */
+  /* Decodes one area from its catalogue JSON object. A missing or empty `code`
+   * or `part` throws `std::invalid_argument` naming the row by its code, part
+   * or canonicalId (`... is missing a non-empty "code" (got …)`): neither can
+   * be defaulted without producing an area nothing routes to. `active`
+   * defaults to true. */
   static CodeSpecsArea fromJson(const JsonRef& j);
 
   /* The fully-qualified `@CodeSpecKind` value — `CodeSpecPart.form`. */
@@ -345,7 +355,11 @@ struct CodeSpecsAreaCatalog {
 
   /* Decodes a catalogue from its `{source, slices, areas, steps, gate}` JSON
    * object. An absent `steps` key yields no steps; an absent (or null) `gate`
-   * key yields no gate tables. */
+   * key yields no gate tables. A malformed slice, area or step row throws
+   * `std::invalid_argument` whose message names the row — by the first of
+   * its identifying keys it carries as a non-empty string, else
+   * `the row with keys [...]`, else `an empty row` (the Dart
+   * `FormatException`). */
   static CodeSpecsAreaCatalog fromJson(const JsonRef& j);
 
   /* The active areas, in catalogue order — one extract each. */

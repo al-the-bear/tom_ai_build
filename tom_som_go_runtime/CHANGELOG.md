@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CodeSpecs catalogue: `CodeSpecsAreaCatalogFromJSON` rejects a malformed slice, step or area row with an error naming the row (`title "Shared types" is missing a numeric "number"`) instead of reading 0 or ""; pinned by the new `catalogErrorCases` table of `codespecs_extract_cases.json`.
 - Review-pass scalars keep their YAML 1.2 type (SOM §12.5): `YamlParseTyped` reads `0o`/`0x` integers, `.inf`/`.nan` and an empty value (null), keeps ints and floats distinct (an integer beyond 64 bits reads as a float), and `WriteReviewPass` writes floats so they read back as floats (`3.0`, `1e+300`, `-.inf`). Pinned by two new `yaml_review_cases.json` cases.
 
 ## 1.4.1

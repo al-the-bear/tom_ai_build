@@ -48,36 +48,16 @@ public final class CodeSpecsStep {
    * Reads one step. {@code number} and {@code slice} are required — a step with
    * no number cannot be placed, and one with no slice does not say which project
    * it lands in — so either one absent or non-numeric throws an
-   * {@link IllegalArgumentException} naming the row. The text cells fall back to
-   * empty.
+   * {@link IllegalArgumentException} naming the row by its {@code title} or
+   * {@code placedBy}. The text cells fall back to empty.
    */
   public static CodeSpecsStep fromJson(Map<String, Object> j) {
+    String label = CodeSpecsFieldRef.rowLabel(j, new String[] {"title", "placedBy"});
     return new CodeSpecsStep(
-        requiredInt(j, "number"),
+        CodeSpecsFieldRef.requiredInt(j, "number", label),
         CodeSpecsAreaCatalog.stringOr(j.get("title")),
-        requiredInt(j, "slice"),
+        CodeSpecsFieldRef.requiredInt(j, "slice", label),
         CodeSpecsAreaCatalog.stringOr(j.get("placedBy")),
         CodeSpecsAreaCatalog.stringList(j.get("areaCodes")));
-  }
-
-  private static int requiredInt(Map<String, Object> j, String key) {
-    Object raw = j.get(key);
-    if (raw instanceof Number) {
-      return ((Number) raw).intValue();
-    }
-    throw new IllegalArgumentException(
-        "codespecs catalogue step " + rowLabel(j) + ": `" + key
-            + "` is missing or not a number");
-  }
-
-  /** The row's first non-empty identifying cell, for the error message. */
-  private static String rowLabel(Map<String, Object> j) {
-    for (String key : new String[] {"number", "title", "placedBy"}) {
-      Object v = j.get(key);
-      if (v != null && !v.toString().isEmpty()) {
-        return key + "=" + v;
-      }
-    }
-    return "(unlabelled)";
   }
 }

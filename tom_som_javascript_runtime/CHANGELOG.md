@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- A malformed CodeSpecs area catalogue row (a slice or step without a numeric `number`/`slice`, a string where a number belongs, an area without a non-empty `code`/`part`) now throws an `Error` that names the row, as the Dart reference does, instead of loading `NaN` or `undefined`. Pinned by the six `catalogErrorCases` of `codespecs_extract_cases.json`.
+- The catalogue's int lists (`cites`, `slices`, `authoringSteps`) reject a non-numeric entry naming the row, and the records reader's `_intList` checks integers again: two functions of that name had shadowed each other, so both read their lists unchecked.
 - Review-pass scalars keep their YAML 1.2 type (SOM §12.5): the typed reader resolves `0o`/`0x` ints and `.inf`/`.nan`, returns an int beyond `Number.isSafeInteger` as a `BigInt` (beyond 64 bits as a float) and a whole float as the new `YamlFloat` wrapper, and the new `reviewScalar` writes floats so they read back as floats (`3.0`, `1e+300`, `-.inf`). Pinned by two new `yaml_review_cases.json` cases.
 
 ## 1.4.1

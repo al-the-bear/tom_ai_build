@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `spec_codespecs_area_catalog_from_json` now returns `int` and takes a `char **err`: a slice/step row without a numeric `number`/`slice` or an area without a non-empty `code`/`part` fails with a message naming the row (as Dart does) instead of reading 0 / empty.
 - Review-pass scalars are typed by the YAML 1.2 core schema (SOM §12.5):
   `0o` / `0x` ints, `.inf` / `-.inf` / `.nan`, an empty value as null, and a
   decimal integer beyond 64 bits as a float rather than saturated; floats are

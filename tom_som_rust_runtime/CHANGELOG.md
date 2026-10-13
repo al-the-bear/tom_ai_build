@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CodeSpecs catalogue: `CodeSpecsSlice`, `CodeSpecsStep` and `CodeSpecsArea` gain `try_from_json` (Result, error naming the row); `from_json` delegates and panics with the same message; `CodeSpecsAreaCatalog::from_json` propagates the row error instead of reading 0 or ""; pinned by the new `catalogErrorCases` table of `codespecs_extract_cases.json`.
 - Review-pass scalars keep their YAML 1.2 type (SOM §12.5): `YamlValue` gains `Null`/`Bool`/`Float`, the new `yaml_parse_typed` reads the `review:` pass by the core schema (ints and floats distinct, an integer beyond 64 bits as a float), and `write_review_pass` writes the typed values back (`3.0`, `1e+300`, `-.inf`) instead of guessing types from string text. Pinned by two new `yaml_review_cases.json` cases.
 
 ## 1.4.1

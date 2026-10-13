@@ -1564,6 +1564,27 @@ function testCodeSpecsExtract(model: SpecModel): void {
     );
   }
 
+  // 5b. A malformed catalogue row fails at load, and the error names the row.
+  for (const c of table.catalogErrorCases) {
+    const name: string = c.name;
+    const want: string = c.expect.messageContains;
+    let raised: Error | null = null;
+    try {
+      CodeSpecsAreaCatalog.fromJson(c.catalog);
+    } catch (e) {
+      if (!(e instanceof Error)) throw e;
+      raised = e;
+    }
+    _check(`codespecs.catalogError[${name}].throws`, raised !== null, 'no throw');
+    if (raised !== null) {
+      _check(
+        `codespecs.catalogError[${name}].message`,
+        raised.message.includes(want),
+        `${JSON.stringify(raised.message)} lacks ${want}`,
+      );
+    }
+  }
+
   // 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
   // The models here carry two, because over a single-root model "walks the
   // named root" and "walks every root" give the same answer.

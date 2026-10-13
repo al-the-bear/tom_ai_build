@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- `CodeSpecsAreaCatalog::fromJson` (via `CodeSpecsSlice`/`CodeSpecsStep`/`CodeSpecsArea::fromJson`) throws `std::invalid_argument` naming the row when a slice/step lacks a numeric `number`/`slice` or an area a non-empty `code`/`part`, as Dart does, instead of reading 0 / empty.
 - Review-pass scalars are typed by the YAML 1.2 core schema (SOM §12.5): an
   integer beyond 64 bits (decimal, `0o`, `0x`) is a float rather than
   saturated, a float must match the core-schema spelling, an empty value is

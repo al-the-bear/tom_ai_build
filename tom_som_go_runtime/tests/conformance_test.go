@@ -1519,8 +1519,11 @@ type codeSpecsExtractTable struct {
 	Routings   json.RawMessage        `json:"routings"`
 	Extracts   []codeSpecsExtractWant `json:"extracts"`
 	ErrorCases []codeSpecsErrorCase   `json:"errorCases"`
-	RootCases  []codeSpecsRootCase    `json:"rootCases"`
-	StepCases  json.RawMessage        `json:"stepCases"`
+	// CatalogErrorCases are malformed catalogues that must fail to load with a
+	// message naming the bad row.
+	CatalogErrorCases []codeSpecsCatalogErrorCase `json:"catalogErrorCases"`
+	RootCases         []codeSpecsRootCase         `json:"rootCases"`
+	StepCases         json.RawMessage             `json:"stepCases"`
 }
 
 // codeSpecsRootCase is one row of the `rootCases` table — the root-scoping
@@ -1565,6 +1568,17 @@ type codeSpecsErrorCase struct {
 		ClassName       string `json:"className"`
 		MessageContains string `json:"messageContains"`
 		RoutingVerdict  string `json:"routingVerdict"`
+	} `json:"expect"`
+}
+
+// codeSpecsCatalogErrorCase is one row of the `catalogErrorCases` table: a
+// whole catalogue whose load must fail, and a fragment of the message — the
+// row label and the missing key — every runtime pins.
+type codeSpecsCatalogErrorCase struct {
+	Name    string          `json:"name"`
+	Catalog json.RawMessage `json:"catalog"`
+	Expect  struct {
+		MessageContains string `json:"messageContains"`
 	} `json:"expect"`
 }
 
@@ -1807,6 +1821,20 @@ func testCodeSpecsExtract(c *checker, t *testing.T, model *som.SpecModel) {
 		}
 		c.check(tag+".routing",
 			sliceEq(verdicts, []string{cc.Expect.RoutingVerdict}), join(verdicts))
+	}
+
+	// 5b. A malformed catalogue row fails naming the row, never loading as 0 or
+	//     "" — every runtime pins the same message fragment, so the row label
+	//     is part of the contract.
+	for _, cc := range table.CatalogErrorCases {
+		tag := "codespecs.catalogError[" + cc.Name + "]"
+		_, err := som.CodeSpecsAreaCatalogFromJSON(cc.Catalog)
+		if err == nil {
+			c.check(tag+".raised", false, "the catalogue loaded")
+			continue
+		}
+		c.check(tag+".message", strings.Contains(err.Error(), cc.Expect.MessageContains),
+			err.Error())
 	}
 
 	// 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.

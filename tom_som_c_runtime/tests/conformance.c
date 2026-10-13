@@ -2202,7 +2202,12 @@ static void test_codespecs_steps(Checker *c, const SomJson *table,
   }
   legacy_json.as.object.members = members;
   CodeSpecsAreaCatalog legacy;
-  spec_codespecs_area_catalog_from_json(&legacy_json, &legacy);
+  char *legacy_err = NULL;
+  check(c, "codespecs.stepCases.legacyLoads",
+        spec_codespecs_area_catalog_from_json(&legacy_json, &legacy,
+                                              &legacy_err),
+        legacy_err);
+  free(legacy_err);
   free(members);
 
   char *got = render_step_cases(catalog, &legacy);
@@ -2231,8 +2236,12 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
   fresh_document(&doc);
   SomJson *table = read_json("codespecs_extract_cases.json");
   CodeSpecsAreaCatalog catalog;
-  spec_codespecs_area_catalog_from_json(som_json_get(table, "catalog"),
-                                        &catalog);
+  char *catalog_err = NULL;
+  check(c, "codespecs.catalog.loads",
+        spec_codespecs_area_catalog_from_json(som_json_get(table, "catalog"),
+                                              &catalog, &catalog_err),
+        catalog_err);
+  free(catalog_err);
   CodeSpecsExtractor ex =
       spec_codespecs_extractor_make(model, &doc, &catalog, NULL, NULL);
 
@@ -2528,6 +2537,34 @@ static void test_codespecs_extract(Checker *c, const SpecModel *model) {
 
     spec_document_free(&err_doc);
     spec_model_free(err_model);
+  }
+
+  /* 5b. the catalogue error cases: a malformed slice, step or area row fails
+   * the load with a message that names the row. */
+  const SomJson *catalog_error_cases = som_json_get(table, "catalogErrorCases");
+  check(c, "codespecs.catalogErrorCases.nonEmpty",
+        som_json_array_len(catalog_error_cases) > 0, "");
+  for (size_t i = 0; i < som_json_array_len(catalog_error_cases); i++) {
+    const SomJson *cc = som_json_array_at(catalog_error_cases, i);
+    const char *want =
+        som_json_str_or(som_json_get(cc, "expect"), "messageContains");
+    char tag[512], t[640];
+    snprintf(tag, sizeof(tag), "codespecs.catalogErrorCase[%s]",
+             som_json_str_or(cc, "name"));
+    CodeSpecsAreaCatalog bad;
+    char *bad_err = NULL;
+    int ok = spec_codespecs_area_catalog_from_json(som_json_get(cc, "catalog"),
+                                                   &bad, &bad_err);
+    snprintf(t, sizeof(t), "%s.fails", tag);
+    check(c, t, !ok && bad_err != NULL, ok ? "catalogue loaded" : "no message");
+    if (!ok && bad_err != NULL) {
+      snprintf(t, sizeof(t), "%s.message", tag);
+      check(c, t, strstr(bad_err, want) != NULL, bad_err);
+    }
+    if (ok) {
+      spec_codespecs_area_catalog_free(&bad);
+    }
+    free(bad_err);
   }
 
   /* 6. Root scoping (`codespecs_prompt.md` §5): the walk starts at ONE root.
@@ -2979,8 +3016,14 @@ static char *run_gate_case(const SomJson *table, const SomJson *cc,
     return msg != NULL ? msg : som_strdup("catalogue JSON did not parse");
   }
   CodeSpecsAreaCatalog catalog;
-  spec_codespecs_area_catalog_from_json(catalog_json, &catalog);
+  char *catalog_err = NULL;
+  int catalog_ok =
+      spec_codespecs_area_catalog_from_json(catalog_json, &catalog, &catalog_err);
   som_json_free(catalog_json);
+  if (!catalog_ok) {
+    return catalog_err != NULL ? catalog_err
+                               : som_strdup("catalogue did not load");
+  }
 
   const SomJson *schema_yaml = som_json_get(cc, "schema") != NULL
                                    ? som_json_get(cc, "schema")
@@ -3052,8 +3095,12 @@ static void test_codespecs_records(Checker *c) {
   SomJson *table = read_json("codespecs_record_cases.json");
   SomJson *extract_table = read_json("codespecs_extract_cases.json");
   CodeSpecsAreaCatalog catalog;
-  spec_codespecs_area_catalog_from_json(som_json_get(extract_table, "catalog"),
-                                        &catalog);
+  char *catalog_err = NULL;
+  check(c, "codespecsRecords.catalog.loads",
+        spec_codespecs_area_catalog_from_json(
+            som_json_get(extract_table, "catalog"), &catalog, &catalog_err),
+        catalog_err);
+  free(catalog_err);
   char tag[512];
 
   /* 1. Extract reads: the summary, and the byte-stable round trip. */

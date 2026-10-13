@@ -385,27 +385,195 @@ static int json_bool_or_default(const SomJson *j, const char *key,
   return som_json_as_bool(som_json_get(j, key), &v) ? v : fallback;
 }
 
-static void slice_from_json(const SomJson *j, CodeSpecsSlice *out) {
-  out->number = 0;
-  som_json_as_i64(som_json_get(j, "number"), &out->number);
+/* Names a catalogue row for an error message, before any of its required keys
+ * are read: the first `preferred` key the row carries as a non-empty string,
+ * rendered `<key> "<value>"`; else `the row with keys [k1, k2]` in the row's
+ * own key order; else `an empty row`. The Dart `_rowLabel`.
+ *
+ * Deliberately tolerant — it must produce something for a row that is missing
+ * the very key that would normally identify it. Owned result. */
+static char *row_label(const SomJson *j, const char *const *preferred,
+                       size_t preferred_len) {
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t i = 0; i < preferred_len; i++) {
+    const char *v = som_json_as_str(som_json_get(j, preferred[i]));
+    if (v != NULL && v[0] != '\0') {
+      som_buf_puts(&b, preferred[i]);
+      som_buf_putc(&b, ' ');
+      som_buf_putc(&b, '"');
+      som_buf_puts(&b, v);
+      som_buf_putc(&b, '"');
+      char *out = som_buf_take(&b);
+      som_buf_free(&b);
+      return out;
+    }
+  }
+  size_t n = j != NULL && j->type == SOM_JSON_OBJECT ? j->as.object.len : 0;
+  if (n == 0) {
+    som_buf_puts(&b, "an empty row");
+  } else {
+    som_buf_puts(&b, "the row with keys [");
+    for (size_t i = 0; i < n; i++) {
+      if (i > 0) {
+        som_buf_puts(&b, ", ");
+      }
+      som_buf_puts(&b, j->as.object.members[i].key);
+    }
+    som_buf_putc(&b, ']');
+  }
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+/* Appends a rejected value for an error message: `absent` for a missing (or
+ * null) key, else the value's type and its quoted text, so `"3"` and `3` are
+ * distinguishable. The Dart `_describe`, with JSON type names standing in for
+ * Dart's runtime types. */
+static void describe_value(SomBuf *b, const SomJson *v) {
+  char num[64];
+  if (v == NULL || v->type == SOM_JSON_NULL) {
+    som_buf_puts(b, "absent");
+    return;
+  }
+  switch (v->type) {
+    case SOM_JSON_BOOL:
+      som_buf_puts(b, "bool ");
+      yaml_string(b, v->as.boolean ? "true" : "false");
+      break;
+    case SOM_JSON_INT:
+      snprintf(num, sizeof(num), "%lld", v->as.integer);
+      som_buf_puts(b, "int ");
+      yaml_string(b, num);
+      break;
+    case SOM_JSON_FLOAT:
+      snprintf(num, sizeof(num), "%g", v->as.real);
+      som_buf_puts(b, "double ");
+      yaml_string(b, num);
+      break;
+    case SOM_JSON_STR:
+      som_buf_puts(b, "String ");
+      yaml_string(b, v->as.str);
+      break;
+    case SOM_JSON_ARRAY:
+      som_buf_puts(b, "List");
+      break;
+    default:
+      som_buf_puts(b, "Map");
+      break;
+  }
+}
+
+/* Writes `CodeSpecs area catalogue: <label> is missing a <what> "<key>" (got
+ * <described value>)` to `*err` (owned) when `err` is non-NULL. */
+static void row_error(char **err, const char *label, const char *what,
+                      const char *key, const SomJson *got) {
+  if (err == NULL) {
+    return;
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "CodeSpecs area catalogue: ");
+  som_buf_puts(&b, label);
+  som_buf_puts(&b, " is missing a ");
+  som_buf_puts(&b, what);
+  som_buf_puts(&b, " \"");
+  som_buf_puts(&b, key);
+  som_buf_puts(&b, "\" (got ");
+  describe_value(&b, got);
+  som_buf_putc(&b, ')');
+  *err = som_buf_take(&b);
+  som_buf_free(&b);
+}
+
+/* Reads the required numeric `j[key]` into `*out` — any JSON number, a
+ * fractional one truncated (the Dart `num.toInt`). A string such as `"2"` is
+ * not a number. Returns 1, or 0 with `*err` naming the row by `label`. The
+ * Dart `_requiredInt`. */
+static int required_int(const SomJson *j, const char *key, const char *label,
+                        long long *out, char **err) {
+  const SomJson *v = som_json_get(j, key);
+  if (v != NULL && v->type == SOM_JSON_INT) {
+    *out = v->as.integer;
+    return 1;
+  }
+  if (v != NULL && v->type == SOM_JSON_FLOAT) {
+    *out = (long long)v->as.real;
+    return 1;
+  }
+  row_error(err, label, "numeric", key, v);
+  return 0;
+}
+
+/* Checks that `j[key]` is a non-empty string. Returns 1, or 0 with `*err`
+ * naming the row by `label`. The Dart `_requiredString`. */
+static int required_string(const SomJson *j, const char *key,
+                           const char *label, char **err) {
+  const SomJson *v = som_json_get(j, key);
+  const char *s = som_json_as_str(v);
+  if (s != NULL && s[0] != '\0') {
+    return 1;
+  }
+  row_error(err, label, "non-empty", key, v);
+  return 0;
+}
+
+/* Reads one §4.4.3 slice. A missing or non-numeric `number` fails — returning
+ * 0 with `*err` naming the row by its title or project — and leaves `*out`
+ * untouched (nothing allocated); the text cells fall back to empty. */
+static int slice_from_json(const SomJson *j, CodeSpecsSlice *out, char **err) {
+  static const char *const preferred[] = {"title", "project"};
+  char *label = row_label(j, preferred, 2);
+  long long number = 0;
+  int ok = required_int(j, "number", label, &number, err);
+  free(label);
+  if (!ok) {
+    return 0;
+  }
+  out->number = number;
   out->title = som_strdup(som_json_str_or(j, "title"));
   out->project = som_strdup(som_json_str_or(j, "project"));
   json_intlist(j, "cites", &out->cites, &out->cites_len);
+  return 1;
 }
 
-/* Reads one step. Like a slice row, a missing or non-numeric `number` /
- * `slice` decodes to 0 and the text cells fall back to empty. */
-static void step_from_json(const SomJson *j, CodeSpecsStep *out) {
-  out->number = 0;
-  som_json_as_i64(som_json_get(j, "number"), &out->number);
-  out->slice = 0;
-  som_json_as_i64(som_json_get(j, "slice"), &out->slice);
+/* Reads one step. A missing or non-numeric `number` or `slice` fails —
+ * returning 0 with `*err` naming the row by its title or placedBy — and leaves
+ * `*out` untouched; the text cells fall back to empty. */
+static int step_from_json(const SomJson *j, CodeSpecsStep *out, char **err) {
+  static const char *const preferred[] = {"title", "placedBy"};
+  char *label = row_label(j, preferred, 2);
+  long long number = 0;
+  long long slice = 0;
+  int ok = required_int(j, "number", label, &number, err) &&
+           required_int(j, "slice", label, &slice, err);
+  free(label);
+  if (!ok) {
+    return 0;
+  }
+  out->number = number;
+  out->slice = slice;
   out->title = som_strdup(som_json_str_or(j, "title"));
   out->placed_by = som_strdup(som_json_str_or(j, "placedBy"));
   json_strlist(j, "areaCodes", &out->area_codes);
+  return 1;
 }
 
-static void area_from_json(const SomJson *j, CodeSpecsArea *out) {
+/* Reads one §4.1 area. `code` and `part` must be non-empty strings — the code
+ * names the extract file and the part is what `@CodeSpecKind` values are
+ * matched against, so neither can be defaulted. A failure returns 0 with
+ * `*err` naming the row by its code, part or canonical id, and leaves `*out`
+ * untouched. `active` defaults to true. */
+static int area_from_json(const SomJson *j, CodeSpecsArea *out, char **err) {
+  static const char *const preferred[] = {"code", "part", "canonicalId"};
+  char *label = row_label(j, preferred, 3);
+  int ok = required_string(j, "code", label, err) &&
+           required_string(j, "part", label, err);
+  free(label);
+  if (!ok) {
+    return 0;
+  }
   out->code = som_strdup(som_json_str_or(j, "code"));
   out->canonical_id = som_strdup(som_json_str_or(j, "canonicalId"));
   out->part = som_strdup(som_json_str_or(j, "part"));
@@ -416,6 +584,7 @@ static void area_from_json(const SomJson *j, CodeSpecsArea *out) {
   json_intlist(j, "authoringSteps", &out->authoring_steps,
                &out->authoring_steps_len);
   out->active = json_bool_or_default(j, "active", 1);
+  return 1;
 }
 
 /* `j[key]` as an owned string, or NULL when absent / null / not a string —
@@ -490,8 +659,13 @@ static void carrier_from_json(const SomJson *j, CodeSpecsCarrier *out) {
   out->introduced_by = som_strdup(som_json_str_or(j, "introducedBy"));
 }
 
-void spec_codespecs_area_catalog_from_json(const SomJson *v,
-                                           CodeSpecsAreaCatalog *out) {
+int spec_codespecs_area_catalog_from_json(const SomJson *v,
+                                          CodeSpecsAreaCatalog *out,
+                                          char **err) {
+  if (err != NULL) {
+    *err = NULL;
+  }
+  memset(out, 0, sizeof(*out));
   out->source = som_strdup(som_json_str_or(v, "source"));
   out->slices = NULL;
   out->slices_len = 0;
@@ -505,7 +679,12 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
   if (n > 0) {
     out->slices = (CodeSpecsSlice *)calloc(n, sizeof(CodeSpecsSlice));
     for (size_t i = 0; i < n; i++) {
-      slice_from_json(som_json_array_at(slices, i), &out->slices[i]);
+      if (!slice_from_json(som_json_array_at(slices, i), &out->slices[i], err)) {
+        /* Rows before `i` are complete; row `i` allocated nothing. */
+        out->slices_len = i;
+        spec_codespecs_area_catalog_free(out);
+        return 0;
+      }
     }
     out->slices_len = n;
   }
@@ -515,7 +694,12 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
   if (n > 0) {
     out->areas = (CodeSpecsArea *)calloc(n, sizeof(CodeSpecsArea));
     for (size_t i = 0; i < n; i++) {
-      area_from_json(som_json_array_at(areas, i), &out->areas[i]);
+      if (!area_from_json(som_json_array_at(areas, i), &out->areas[i], err)) {
+        /* Rows before `i` are complete; row `i` allocated nothing. */
+        out->areas_len = i;
+        spec_codespecs_area_catalog_free(out);
+        return 0;
+      }
     }
     out->areas_len = n;
   }
@@ -526,7 +710,12 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
   if (n > 0) {
     out->steps = (CodeSpecsStep *)calloc(n, sizeof(CodeSpecsStep));
     for (size_t i = 0; i < n; i++) {
-      step_from_json(som_json_array_at(steps, i), &out->steps[i]);
+      if (!step_from_json(som_json_array_at(steps, i), &out->steps[i], err)) {
+        /* Rows before `i` are complete; row `i` allocated nothing. */
+        out->steps_len = i;
+        spec_codespecs_area_catalog_free(out);
+        return 0;
+      }
     }
     out->steps_len = n;
   }
@@ -559,6 +748,7 @@ void spec_codespecs_area_catalog_from_json(const SomJson *v,
     }
     out->carriers_len = n;
   }
+  return 1;
 }
 
 void spec_codespecs_area_catalog_free(CodeSpecsAreaCatalog *c) {
