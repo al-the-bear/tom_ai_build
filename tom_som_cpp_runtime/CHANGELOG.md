@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item (vsctsa44). `SpecDocument::moveListItem(model,
   itemPath, toIndex, toList)` moves the item to an index of its own list or,

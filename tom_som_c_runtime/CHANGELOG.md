@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item (vsctsa44). `spec_document_move_list_item` moves the
   item at a path to an index of its own list or, given `to_list`, of another

@@ -1,4 +1,4 @@
-## Unreleased
+## 1.4.0
 
 - SOM §9 documents moving a list item.
 

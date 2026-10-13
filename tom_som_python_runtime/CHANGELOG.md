@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item (vsctsa44): `SpecDocument.move_list_item(model,
   item_path, to_index, to_list=None)` moves an item to position `to_index` of

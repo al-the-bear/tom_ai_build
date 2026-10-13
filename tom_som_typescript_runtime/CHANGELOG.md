@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item: `SpecDocument.moveListItem(model, itemPath, toIndex,
   toList?)` moves an item to a 0-based position of its own list or of another

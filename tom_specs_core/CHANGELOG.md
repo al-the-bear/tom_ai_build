@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.2
 
 - `Field.countOf`: a form field stating a count of entries the document holds
   names them (`<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, summed), so

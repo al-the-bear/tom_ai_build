@@ -194,7 +194,7 @@ Expected stamp after a clean refresh:
 
 | Key | Value |
 | --- | --- |
-| `modelVersion` / `modelVersionLabel` | `1` / `1.3.3+1.0063655c` |
+| `modelVersion` / `modelVersionLabel` | `1` / `1.4.0+2.5a9a9f26` |
 | `metaSchemaVersion` | `1` |
 | `classCount` | 1254 |
 | `rootCount` | 14 |

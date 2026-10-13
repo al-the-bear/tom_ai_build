@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-12T17:43:26.748514Z",
+  "generatedAt": "2026-10-13T00:02:20.296606Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.3.3+1.0063655c",
+  "modelVersionLabel": "1.4.0+2.5a9a9f26",
   "classCount": 1254,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
@@ -116821,35 +116821,50 @@
               "label": "Total Functional Requirements",
               "hint": "Total count of functional requirements",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE"
+              ]
             },
             {
               "name": "mustHaveFunctional",
               "label": "Must-Have (count)",
               "hint": "Count of Must-Have functional requirements",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE.priority=must"
+              ]
             },
             {
               "name": "shouldHaveFunctional",
               "label": "Should-Have (count)",
               "hint": "Count of Should-Have functional requirements",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE.priority=should"
+              ]
             },
             {
               "name": "couldHaveFunctional",
               "label": "Could-Have (count)",
               "hint": "Count of Could-Have functional requirements",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE.priority=could"
+              ]
             },
             {
               "name": "wontHaveThisTimeFunctional",
               "label": "Won't-Have-This-Time (count)",
               "hint": "Count of Won't-Have-This-Time functional requirements",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE.priority=wontThisTime"
+              ]
             },
             {
               "name": "coverageNote",
@@ -169651,7 +169666,10 @@
               "label": "Total Organizational Requirements",
               "hint": "Total count of organizational requirements captured",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "ORRQ"
+              ]
             },
             {
               "name": "trainingRequirements",
@@ -232171,28 +232189,40 @@
               "label": "Total Security Requirements",
               "hint": "Total count of security requirements captured",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SECRQ"
+              ]
             },
             {
               "name": "criticalCount",
               "label": "Critical (count)",
               "hint": "Number of requirements at Critical priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SECRQ.priority=critical"
+              ]
             },
             {
               "name": "highCount",
               "label": "High (count)",
               "hint": "Number of requirements at High priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SECRQ.priority=high"
+              ]
             },
             {
               "name": "mediumCount",
               "label": "Medium (count)",
               "hint": "Number of requirements at Medium priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SECRQ.priority=medium"
+              ]
             },
             {
               "name": "securityFramework",
@@ -262448,28 +262478,41 @@
               "label": "User Category Count",
               "hint": "Number of distinct user categories",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "UCE"
+              ]
             },
             {
               "name": "externalInterfaceCount",
               "label": "External Interface Count",
               "hint": "Number of external system integrations",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "EIE"
+              ]
             },
             {
               "name": "functionalRequirementCount",
               "label": "Functional Requirement Count",
               "hint": "Number of functional requirements identified",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FRE"
+              ]
             },
             {
               "name": "nonFunctionalRequirementCount",
               "label": "Non-Functional Requirement Count",
               "hint": "Number of non-functional requirements identified",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ",
+                "SECRQ"
+              ]
             }
           ]
         },
@@ -269590,35 +269633,50 @@
               "label": "Total Technical Requirements",
               "hint": "Total count of technical requirements captured",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ"
+              ]
             },
             {
               "name": "criticalCount",
               "label": "Critical (count)",
               "hint": "Number of requirements at Critical priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ.priority=critical"
+              ]
             },
             {
               "name": "highCount",
               "label": "High (count)",
               "hint": "Number of requirements at High priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ.priority=high"
+              ]
             },
             {
               "name": "mediumCount",
               "label": "Medium (count)",
               "hint": "Number of requirements at Medium priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ.priority=medium"
+              ]
             },
             {
               "name": "lowCount",
               "label": "Low (count)",
               "hint": "Number of requirements at Low priority",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "TERQ.priority=low"
+              ]
             },
             {
               "name": "architectureDrivers",

@@ -9467,7 +9467,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -9594,7 +9594,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -9696,7 +9696,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -9809,7 +9809,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -9986,7 +9986,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10091,7 +10091,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10189,7 +10189,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10311,7 +10311,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10424,7 +10424,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -10539,7 +10539,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -10667,7 +10667,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -10825,7 +10825,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -10933,7 +10933,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11066,7 +11066,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.3'
+    model_version = '1.4'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")

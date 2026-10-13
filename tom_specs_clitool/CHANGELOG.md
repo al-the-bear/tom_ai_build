@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.5.0
 
 - The model reader and JSON export carry `Field.countOf` into the meta, and the
   static validator checks its targets under invariant `REFERS-TO` (a

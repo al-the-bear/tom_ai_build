@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item (vsctsa44): `SpecDocument.MoveListItem(model, itemPath,
   toIndex, toList)` moves an item to position `toIndex` of its list (`toList`

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.4.0
 
 - Moving a list item: `SpecDocument.moveListItem(model, itemPath, toIndex[,
   toList])` reorders a list item, or moves it into another list of the same
