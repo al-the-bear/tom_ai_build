@@ -17,7 +17,8 @@ golden byte-for-byte and matches every behavioural case:
   * validation cases;
   * the imperative operations script;
   * the YRD7 generic editor script (typed values, enum domains, structure);
-  * the SOM §14 DocSpecs tier (schema load + one violation case per rule);
+  * the SOM §14 DocSpecs tier (schema load + one violation case per rule),
+    and findings bound to their document path (``docspecs_path_cases.json``);
   * the SOM §9 portable text-pattern subset (match spans + compile rejections);
   * the spec_query surface (queries, cursor count, the flat node projection,
     and a scripted cursor session that mutates the document mid-iteration);
@@ -90,6 +91,7 @@ from tom_som_runtime import (  # noqa: E402
     encode_two_letter_date,
     generate_list_item_section_id,
     validate_document,
+    validate_spec_document,
     rekey_review,
     stale_review_paths,
     yaml_decode,
@@ -849,6 +851,40 @@ def test_docspecs() -> None:
         r.value for r in DocSpecsViolationRule if r.value not in covered
     )
     _check("docspecs.ruleCoverage", not uncovered, f"uncovered: {uncovered}")
+
+
+def test_docspecs_path(model) -> None:
+    """``docspecs_path_cases.json``: the renderer's heading map and
+    :func:`validate_spec_document` binding each finding to its document path
+    (SOM §14)."""
+    table = _read_json("docspecs_path_cases.json")
+    schema = DocSpecsSchema.from_yaml_text(table["schema"])
+    for case in table["cases"]:
+        name = case["name"]
+        d = SpecDocument()
+        d.load_json(case["state"])
+        root_type = case["rootType"]
+        rendition = d.to_markdown_with_map(model, root_type)
+        got_map = {str(k): v for k, v in rendition.heading_paths.items()}
+        _check(
+            f"docspecsPath[{name}].headingPaths",
+            got_map == case["headingPaths"],
+            f"{got_map} != {case['headingPaths']}",
+        )
+        got = [
+            {
+                "rule": v.rule.value,
+                "line": v.line,
+                "sectionId": v.section_id,
+                "path": v.path,
+            }
+            for v in validate_spec_document(model, d, schema, root_type)
+        ]
+        _check(
+            f"docspecsPath[{name}].violations",
+            got == case["violations"],
+            f"{got} != {case['violations']}",
+        )
 
 
 def test_docspecs_replace() -> None:
@@ -1663,6 +1699,7 @@ def main() -> int:
     test_section_id()
     test_serialization_order()
     test_docspecs()
+    test_docspecs_path(model)
     test_docspecs_replace()
     test_assembly()
     test_list_move(model)

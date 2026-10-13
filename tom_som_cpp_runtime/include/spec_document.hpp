@@ -30,6 +30,7 @@ class SpecModel;    // fwd (spec_model.hpp), used by SpecDocument::toMarkdown
 class SomMetaTree;  // fwd (spec_meta.hpp), used by SpecDocument::fromYaml
 struct SpecMarkdownResult;  // fwd (spec_document_markdown.hpp)
 struct SpecMarkdownImport;  // fwd (spec_document_markdown.hpp)
+struct SpecMarkdownRendition;  // fwd (spec_document_markdown.hpp)
 struct SpecDocumentAssembly;  // fwd (spec_document_assembly.hpp)
 class SpecDocument;
 
@@ -136,6 +137,11 @@ class SpecDocument {
    * so the caller names `rootType` explicitly. */
   std::string toMarkdown(const SpecModel& model,
                          const std::string& rootType = "") const;
+
+  /* toMarkdown, plus the document path behind every heading
+   * (markdownExportRootWithMap). Same root selection and failures. */
+  SpecMarkdownRendition toMarkdownWithMap(const SpecModel& model,
+                                          const std::string& rootType = "") const;
 
   /* Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
    * in one call: parse, then applyMarkdownResult (rejections allowed).

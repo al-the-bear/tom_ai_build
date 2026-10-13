@@ -64,11 +64,12 @@ the instance tier. That is why both run.
 ## Reading the report
 
 The text report names the root and schema, writes each finding to stderr as
-`TIER [code] line/location: message`, and ends with one count per tier:
+`TIER [code] line location [sectionId]: message`, and ends with one count per
+tier:
 
 ```text
 validate_spec doc.docspecs.yaml — root D00SolutionBlueprint (SBP), schema solution-blueprint
-SCHEMA   [missingRequiredField] line 1213 DAENT-CLAS: required form field "aggregateRoot" of "daent-clas-form" is missing
+SCHEMA   [missingRequiredField] line 1213 SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS [DAENT-CLAS]: required form field "aggregateRoot" of "daent-clas-form" is missing
 decode   0 finding(s)
 schema   1 finding(s)
 instance 0 finding(s)
@@ -76,14 +77,17 @@ validate_spec: 1 finding(s) — decode 0, schema 1, instance 0
 ```
 
 A schema finding's line is a line of the **rendition**, not of the YAML; write
-it out with `--markdown-out` to follow it.
+it out with `--markdown-out` to follow it. Its location is the **document
+path** of the section that line belongs to, which is what an editing tool
+takes: a section id alone repeats across a document (every entity has a
+`DAENT-CLAS`), so the id is shown beside the path rather than instead of it.
 
 The `--json` report (format `spec-validation`, version 1) has the shape
 `validate_codespecs --json` uses, so a tool reads both the same way: `inputs`,
 `root` (type, section id, title, schema id), `passed`, `summary`, `tiers` (per
 tier whether it ran and its finding count), `notRun`, and `violations` — per
-finding its `tier`, `code`, `severity`, `file`, `line`, `location` and
-`message`.
+finding its `tier`, `code`, `severity`, `file`, `line`, `location` (the
+document path), `sectionId` (a schema finding's section id) and `message`.
 
 ## What it checks against
 

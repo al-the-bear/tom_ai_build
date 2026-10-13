@@ -256,6 +256,8 @@ class SpecDocumentMarkdown {
     // will hand these in directly; until then the bridge derives them).
     /** @type {Map<string, import('./spec_meta').SomMetaTree>} */
     this._trees = new Map();
+    /** The paths of the headings written by the current export, in order. */
+    this._headingPaths = [];
   }
 
   _treeFor(rootType) {
@@ -472,6 +474,42 @@ class SpecDocumentMarkdown {
    * not declare (SOM §9, "Form-field order").
    */
   exportRoot(root) {
+    return this.exportRootWithMap(root).markdown;
+  }
+
+  /**
+   * {@link exportRoot}, plus the document path behind every heading it wrote —
+   * the one place that knows which node a heading came from.
+   *
+   * A caller holding a rendition line (a DocSpecs schema finding, an editor
+   * cursor) resolves it through {@link SpecMarkdownRendition#pathAtLine}
+   * instead of re-deriving the renderer's layout. Section ids repeat across a
+   * document, so the id alone does not say which node a line belongs to.
+   *
+   * @param {import('./spec_model').SpecRoot} root
+   * @returns {SpecMarkdownRendition}
+   */
+  exportRootWithMap(root) {
+    this._headingPaths = [];
+    const markdown = this._exportRoot(root);
+    /** @type {Map<number, string>} */
+    const headingPaths = new Map();
+    const fence = new MarkdownFenceTracker();
+    const lines = markdown.split('\n');
+    let next = 0;
+    for (let i = 0; i < lines.length && next < this._headingPaths.length; i++) {
+      const line = lines[i];
+      // A heading line as `_writeHeading` writes it. Body text never matches:
+      // heading-like body lines are escaped (SOM §11.3) and fenced ones skipped.
+      if (!fence.inFence && /^#+ <!--\[/.test(line)) {
+        headingPaths.set(i + 1, this._headingPaths[next++]);
+      }
+      fence.feed(line);
+    }
+    return new SpecMarkdownRendition(markdown, headingPaths);
+  }
+
+  _exportRoot(root) {
     const tree = this._treeFor(root.type);
     const node = tree.root;
     const b = new _Buffer();
@@ -480,11 +518,12 @@ class SpecDocumentMarkdown {
         `${this.model.modelVersionString} -->`,
     );
     const rootSeg = node.segment;
-    SpecDocumentMarkdown._writeHeading(
+    this._writeHeading(
       b,
       1,
       rootSeg,
       this.document.headline(rootSeg) || node.headline || root.title,
+      rootSeg,
       this.document.codeSpec(rootSeg),
     );
     this._writeSectionBody(b, node, rootSeg);
@@ -527,11 +566,12 @@ class SpecDocumentMarkdown {
         if (value === null) {
           continue;
         }
-        SpecDocumentMarkdown._writeHeading(
+        this._writeHeading(
           b,
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          path,
           this.document.codeSpec(path),
         );
         this._writeBody(b, value, path);
@@ -539,20 +579,22 @@ class SpecDocumentMarkdown {
         if (!this._formHasValues(child, path)) {
           continue;
         }
-        SpecDocumentMarkdown._writeHeading(
+        this._writeHeading(
           b,
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          path,
           this.document.codeSpec(path),
         );
         this._writeForm(b, child, path);
       } else if (kind === SomMetaKind.SECTION || kind === SomMetaKind.COMPLEX) {
-        SpecDocumentMarkdown._writeHeading(
+        this._writeHeading(
           b,
           depth,
           this._headingIdOf(child),
           this.document.headline(path) || SpecDocumentMarkdown._titleOf(child),
+          path,
           this.document.codeSpec(path),
         );
         this._writeSectionBody(b, child, path);
@@ -575,11 +617,12 @@ class SpecDocumentMarkdown {
     if (items.length === 0) return;
     // The container heading: its id is the list's `-LST` `@SectionId` (else the
     // member segment for a pattern-less list); its title is the member name.
-    SpecDocumentMarkdown._writeHeading(
+    this._writeHeading(
       b,
       depth,
       this._headingIdOf(node),
       this.document.headline(listPath) || SpecDocumentMarkdown._titleOf(node),
+      listPath,
       this.document.codeSpec(listPath),
     );
     // Item heading stem. Complex lists derive it from the element class name
@@ -610,11 +653,12 @@ class SpecDocumentMarkdown {
         pos,
         node.memberName || node.segment,
       );
-      SpecDocumentMarkdown._writeHeading(
+      this._writeHeading(
         b,
         depth + 1,
         itemId,
         this.document.headline(itemPath) || `${stem} ${pos}`,
+        itemPath,
         this.document.codeSpec(itemPath),
       );
       if (element === null || element === undefined) {
@@ -752,8 +796,12 @@ class SpecDocumentMarkdown {
    * nests past markdown's native 6 levels) keep their structure; the parse
    * grammar accepts `#{7,}` accordingly. Capping would silently flatten
    * distinct nesting positions into siblings and break schema validation.
+   *
+   * Records `path` — the document path the heading renders — for
+   * {@link exportRootWithMap}.
    */
-  static _writeHeading(b, depth, id, title, codeSpec) {
+  _writeHeading(b, depth, id, title, path, codeSpec) {
+    this._headingPaths.push(path);
     // csmc8 (codespecs_mapping.md §9.2): a stored codeSpec rides inside the
     // heading comment as `codeSpec="A,B"`. Byte-stable: when there is none, the
     // comment is emitted exactly as before (`<!--[ID]-->`).
@@ -1462,7 +1510,41 @@ class _Parser {
   }
 }
 
+/**
+ * A Markdown rendition of a document and the document path behind each of its
+ * headings ({@link SpecDocumentMarkdown#exportRootWithMap}).
+ */
+class SpecMarkdownRendition {
+  /**
+   * @param {string} markdown the rendered Markdown, identical to
+   *   {@link SpecDocumentMarkdown#exportRoot}
+   * @param {Map<number, string>} headingPaths every heading line (1-based) and
+   *   the document path it renders
+   */
+  constructor(markdown, headingPaths) {
+    this.markdown = markdown;
+    this.headingPaths = headingPaths;
+  }
+
+  /**
+   * The document path of the section `line` belongs to: the path of the
+   * heading on that line, else of the nearest heading above it. `null` for a
+   * line before the first heading.
+   *
+   * @param {number} line 1-based
+   * @returns {string|null}
+   */
+  pathAtLine(line) {
+    for (let l = line; l >= 1; l--) {
+      const p = this.headingPaths.get(l);
+      if (p !== undefined) return p;
+    }
+    return null;
+  }
+}
+
 module.exports = {
+  SpecMarkdownRendition,
   SpecMarkdownRejectReason,
   SpecMarkdownRejection,
   SpecMarkdownResult,

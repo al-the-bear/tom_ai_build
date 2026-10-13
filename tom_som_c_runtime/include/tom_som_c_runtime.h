@@ -35,6 +35,7 @@
 #include "spec_document_yaml.h"
 #include "spec_document_markdown.h"
 #include "docspecs_validator.h"
+#include "spec_schema_validation.h"
 #include "spec_codespecs_gate.h"
 #include "som_facade.h"
 

@@ -143,6 +143,17 @@ public final class SpecDocument {
     return new SpecDocumentMarkdown(model, this).exportRoot(root);
   }
 
+  /**
+   * {@link #toMarkdown(SpecModel, String)}, plus the document path behind every
+   * heading ({@link SpecDocumentMarkdown#exportRootWithMap}). Root selection is
+   * the same: {@code rootType}, else the single populated root.
+   */
+  public SpecMarkdownRendition toMarkdownWithMap(SpecModel model, String rootType) {
+    SpecRoot root =
+        rootType != null ? model.rootByType(rootType) : singlePopulatedRoot(model);
+    return new SpecDocumentMarkdown(model, this).exportRootWithMap(root);
+  }
+
   // --- markdown import ----------------------------------------------------
 
   /**

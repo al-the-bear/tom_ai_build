@@ -36,6 +36,7 @@
 #include "spec_document_yaml.hpp"
 #include "spec_document_markdown.hpp"
 #include "docspecs_validator.hpp"
+#include "spec_schema_validation.hpp"
 #include "spec_codespecs_gate.hpp"
 #include "som_facade.hpp"
 

@@ -147,6 +147,42 @@ char *spec_markdown_export_root(const SpecModel *model,
                                 const SpecDocument *document,
                                 const SpecRoot *root, char **err);
 
+/* One heading of a rendition: its 1-based line and the document path it
+ * renders (owned). */
+typedef struct {
+  int line;
+  char *path;
+} SpecMarkdownHeadingPath;
+
+/* A Markdown rendition of a document plus the document path behind each of
+ * its headings — the renderer is the one place that knows which node a
+ * heading came from, and a section id alone does not (ids repeat across a
+ * document). Owns everything; release with `spec_markdown_rendition_free`. */
+typedef struct {
+  char *markdown;                    /* identical to spec_markdown_export_root */
+  SpecMarkdownHeadingPath *headings; /* ascending by line */
+  size_t headings_len;
+} SpecMarkdownRendition;
+
+/* `spec_markdown_export_root`, plus the heading map: every heading line
+ * (1-based) and the document path it renders. Returns 1 writing `*out`; on the
+ * export's failure conditions returns 0 with `*out` empty (safe to free) and
+ * `*err` written when non-NULL. */
+int spec_markdown_export_root_with_map(const SpecModel *model,
+                                       const SpecDocument *document,
+                                       const SpecRoot *root,
+                                       SpecMarkdownRendition *out,
+                                       char **err);
+
+/* The document path of the section `line` (1-based) belongs to: the path of
+ * the heading on that line, else of the nearest heading above it. NULL for a
+ * line before the first heading. Borrowed from `r`. */
+const char *spec_markdown_rendition_path_at_line(
+    const SpecMarkdownRendition *r, int line);
+
+/* Releases a rendition's markdown and heading map (leaves it empty). */
+void spec_markdown_rendition_free(SpecMarkdownRendition *r);
+
 /* Renders `document` to Markdown in one call (SOM §21), returning the
  * owned output of `spec_markdown_export_root` (caller frees with `free`).
  *
@@ -162,6 +198,15 @@ char *spec_markdown_export_root(const SpecModel *model,
 char *spec_document_to_markdown(const SpecDocument *document,
                                 const SpecModel *model, const char *root_type,
                                 char **err);
+
+/* `spec_document_to_markdown`, plus the heading map
+ * (`spec_markdown_export_root_with_map`). Same root selection and failures;
+ * returns 1 writing `*out`, else 0 with `*out` empty. */
+int spec_document_to_markdown_with_map(const SpecDocument *document,
+                                       const SpecModel *model,
+                                       const char *root_type,
+                                       SpecMarkdownRendition *out,
+                                       char **err);
 
 /* Parses `text` into staged values + a rejection report, writing `*out`
  * (initialised by the callee; free with spec_markdown_result_free). The

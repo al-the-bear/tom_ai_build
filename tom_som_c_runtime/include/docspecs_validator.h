@@ -56,7 +56,9 @@ extern const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT];
 /* ---- violation ----------------------------------------------------------- */
 
 /* DocSpecsViolation is one validation finding. `section_id` / `path` are ""
- * when absent. */
+ * when absent. The validator works on Markdown alone, so it never resolves a
+ * document `path` itself — `validate_spec_document` (spec_schema_validation.h)
+ * does, for a SOM document it renders. */
 typedef struct {
   char *rule;       /* owned; one of the rule literals */
   int line;

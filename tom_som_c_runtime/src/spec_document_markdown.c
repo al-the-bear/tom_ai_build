@@ -606,6 +606,9 @@ typedef struct {
   TreeEntry *trees;
   size_t trees_len;
   size_t trees_cap;
+  /* When non-NULL, the document path of every heading written, in emission
+   * order (`spec_markdown_export_root_with_map`). Borrowed. */
+  SomStrList *heading_paths;
 } MdCodec;
 
 static void codec_init(MdCodec *c, const SpecModel *model,
@@ -615,6 +618,7 @@ static void codec_init(MdCodec *c, const SpecModel *model,
   c->trees = NULL;
   c->trees_len = 0;
   c->trees_cap = 0;
+  c->heading_paths = NULL;
 }
 
 static void codec_free(MdCodec *c) {
@@ -839,11 +843,16 @@ static char *heading_title(MdCodec *c, const char *path,
   return md_title_of(node);
 }
 
-/* Emits `#{depth} <!--[id]{ codeSpec="…"}--> title`. When `code_spec` is
+/* Emits `#{depth} <!--[id]{ codeSpec="…"}--> title`, recording `path` (the
+ * document path the heading renders) when the codec keeps a heading map. When `code_spec` is
  * non-NULL and non-empty it is written as a ` codeSpec="…"` key inside the
  * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL. */
-static void md_write_heading(SomBuf *b, int depth, const char *id,
-                             const char *title, const char *code_spec) {
+static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
+                             const char *title, const char *path,
+                             const char *code_spec) {
+  if (c->heading_paths != NULL) {
+    som_strlist_push_copy(c->heading_paths, path);
+  }
   for (int i = 0; i < depth; i++) {
     som_buf_putc(b, '#');
   }
@@ -1158,7 +1167,7 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   {
     char *chid = heading_id_of(c, node);
     char *ctitle = heading_title(c, list_path, node);
-    md_write_heading(b, depth, chid, ctitle,
+    md_write_heading(c, b, depth, chid, ctitle, list_path,
                      spec_document_code_spec(c->document, list_path));
     free(chid);
     free(ctitle);
@@ -1202,7 +1211,7 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       free(pos_str);
     }
     /* Items sit one level below the container heading. */
-    md_write_heading(b, depth + 1, item_id, title,
+    md_write_heading(c, b, depth + 1, item_id, title, item_path,
                      spec_document_code_spec(c->document, item_path));
     free(title);
     free(item_id);
@@ -1253,7 +1262,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       }
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
-      md_write_heading(b, depth, hid, title,
+      md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path));
       free(hid);
       free(title);
@@ -1265,7 +1274,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
       }
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
-      md_write_heading(b, depth, hid, title,
+      md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path));
       free(hid);
       free(title);
@@ -1274,7 +1283,7 @@ static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                strcmp(kind, SOM_META_KIND_COMPLEX) == 0) {
       char *hid = heading_id_of(c, child);
       char *title = heading_title(c, path, child);
-      md_write_heading(b, depth, hid, title,
+      md_write_heading(c, b, depth, hid, title, path,
                        spec_document_code_spec(c->document, path));
       free(hid);
       free(title);
@@ -1314,12 +1323,12 @@ static char *export_root_impl(MdCodec *c, const SpecRoot *root, char **err) {
   /* YRD3: a stored headline at the root path overrides the root title; the
      root class's @Headline default (YRD4) sits between the two. */
   const char *root_headline = spec_document_headline(c->document, root_seg);
-  md_write_heading(&b, 1, root_seg,
+  md_write_heading(c, &b, 1, root_seg,
                    (root_headline != NULL && root_headline[0] != '\0')
                        ? root_headline
                        : (node->headline[0] != '\0' ? node->headline
                                                     : root->title),
-                   spec_document_code_spec(c->document, root_seg));
+                   root_seg, spec_document_code_spec(c->document, root_seg));
   if (!write_section_body(c, &b, node, root_seg, err)) {
     som_buf_free(&b);
     return NULL;
@@ -1339,6 +1348,90 @@ char *spec_markdown_export_root(const SpecModel *model,
   char *out = export_root_impl(&c, root, err);
   codec_free(&c);
   return out;
+}
+
+/* A heading line as `md_write_heading` writes it: `^#+ <!--\[`. Body text never
+ * matches outside a fence — heading-like body lines are escaped (SOM §11.3). */
+static int is_emitted_heading(const char *line, size_t len) {
+  size_t i = 0;
+  while (i < len && line[i] == '#') i++;
+  if (i == 0) return 0;
+  return len - i >= 6 && memcmp(line + i, " <!--[", 6) == 0;
+}
+
+int spec_markdown_export_root_with_map(const SpecModel *model,
+                                       const SpecDocument *document,
+                                       const SpecRoot *root,
+                                       SpecMarkdownRendition *out,
+                                       char **err) {
+  out->markdown = NULL;
+  out->headings = NULL;
+  out->headings_len = 0;
+  SomStrList paths;
+  som_strlist_init(&paths);
+  MdCodec c;
+  codec_init(&c, model, document);
+  c.heading_paths = &paths;
+  char *markdown = export_root_impl(&c, root, err);
+  codec_free(&c);
+  if (markdown == NULL) {
+    som_strlist_free(&paths);
+    return 0;
+  }
+  /* Pair the recorded paths, in order, with the heading lines of the finished
+   * text — fenced lines are body, never a heading. */
+  out->markdown = markdown;
+  if (paths.len > 0) {
+    out->headings = (SpecMarkdownHeadingPath *)malloc(
+        paths.len * sizeof(SpecMarkdownHeadingPath));
+  }
+  SpecMarkdownFenceTracker fence;
+  spec_markdown_fence_init(&fence);
+  size_t next = 0;
+  int line_no = 1;
+  const char *p = markdown;
+  while (*p != '\0' && next < paths.len) {
+    const char *nl = strchr(p, '\n');
+    size_t len = nl != NULL ? (size_t)(nl - p) : strlen(p);
+    char *line = som_strdup_n(p, len);
+    if (!spec_markdown_fence_in_fence(&fence) && is_emitted_heading(line, len)) {
+      out->headings[out->headings_len].line = line_no;
+      out->headings[out->headings_len].path = paths.items[next];
+      paths.items[next] = NULL; /* ownership moved into the rendition */
+      out->headings_len++;
+      next++;
+    }
+    spec_markdown_fence_feed(&fence, line);
+    free(line);
+    if (nl == NULL) break;
+    p = nl + 1;
+    line_no++;
+  }
+  som_strlist_free(&paths);
+  return 1;
+}
+
+const char *spec_markdown_rendition_path_at_line(
+    const SpecMarkdownRendition *r, int line) {
+  /* Headings are stored in ascending line order: the last one at or above
+   * `line` is the section the line belongs to. */
+  const char *found = NULL;
+  for (size_t i = 0; i < r->headings_len; i++) {
+    if (r->headings[i].line > line) break;
+    found = r->headings[i].path;
+  }
+  return found;
+}
+
+void spec_markdown_rendition_free(SpecMarkdownRendition *r) {
+  free(r->markdown);
+  for (size_t i = 0; i < r->headings_len; i++) {
+    free(r->headings[i].path);
+  }
+  free(r->headings);
+  r->markdown = NULL;
+  r->headings = NULL;
+  r->headings_len = 0;
 }
 
 /* ======================================================================== */
@@ -2411,6 +2504,26 @@ char *spec_document_to_markdown(const SpecDocument *document,
     return NULL;
   }
   return spec_markdown_export_root(model, document, root, err);
+}
+
+int spec_document_to_markdown_with_map(const SpecDocument *document,
+                                       const SpecModel *model,
+                                       const char *root_type,
+                                       SpecMarkdownRendition *out,
+                                       char **err) {
+  out->markdown = NULL;
+  out->headings = NULL;
+  out->headings_len = 0;
+  const SpecRoot *root;
+  if (root_type != NULL && root_type[0] != '\0') {
+    root = spec_model_root_by_type(model, root_type, err);
+  } else {
+    root = single_populated_root(model, document, err);
+  }
+  if (root == NULL) {
+    return 0;
+  }
+  return spec_markdown_export_root_with_map(model, document, root, out, err);
 }
 
 /* ---- apply / one-call import (SOM §11.7) --------------------------------- */

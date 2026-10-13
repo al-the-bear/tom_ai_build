@@ -378,7 +378,40 @@ class SpecDocumentMarkdown {
   /// unterminated fenced code block (which would shield the remainder of the
   /// document from heading detection), and a form holding a field the model
   /// does not declare (SOM §9, "Form-field order").
-  String exportRoot(SpecRoot root) {
+  String exportRoot(SpecRoot root) => exportRootWithMap(root).markdown;
+
+  /// [exportRoot], plus the document path behind every heading it wrote —
+  /// the one place that knows which node a heading came from.
+  ///
+  /// A caller holding a rendition line (a DocSpecs schema finding, an editor
+  /// cursor) resolves it through [SpecMarkdownRendition.pathAtLine] instead
+  /// of re-deriving the renderer's layout. Section ids repeat across a
+  /// document, so the id alone does not say which node a line belongs to.
+  SpecMarkdownRendition exportRootWithMap(SpecRoot root) {
+    _headingPaths.clear();
+    final markdown = _exportRoot(root);
+    final headingPaths = <int, String>{};
+    final fence = MarkdownFenceTracker();
+    final lines = markdown.split('\n');
+    var next = 0;
+    for (var i = 0; i < lines.length && next < _headingPaths.length; i++) {
+      final line = lines[i];
+      if (!fence.inFence && _emittedHeading.hasMatch(line)) {
+        headingPaths[i + 1] = _headingPaths[next++];
+      }
+      fence.feed(line);
+    }
+    return SpecMarkdownRendition(markdown, headingPaths);
+  }
+
+  /// A heading line as [_writeHeading] writes it. Body text never matches:
+  /// heading-like body lines are escaped (SOM §11.3) and fenced ones skipped.
+  static final RegExp _emittedHeading = RegExp(r'^#+ <!--\[');
+
+  /// The paths of the headings written by the current export, in order.
+  final List<String> _headingPaths = [];
+
+  String _exportRoot(SpecRoot root) {
     final tree = _treeFor(root.type);
     final node = tree.root;
     final b = StringBuffer();
@@ -392,6 +425,7 @@ class SpecDocumentMarkdown {
       1,
       rootSeg,
       document.headline(rootSeg) ?? node.headline ?? root.title,
+      path: rootSeg,
       codeSpec: document.codeSpec(rootSeg),
     );
     _writeSectionBody(b, node, rootSeg);
@@ -434,6 +468,7 @@ class SpecDocumentMarkdown {
             depth,
             _headingIdOf(child),
             document.headline(path) ?? _titleOf(child),
+            path: path,
             codeSpec: document.codeSpec(path),
           );
           _writeBody(b, value, path);
@@ -444,6 +479,7 @@ class SpecDocumentMarkdown {
             depth,
             _headingIdOf(child),
             document.headline(path) ?? _titleOf(child),
+            path: path,
             codeSpec: document.codeSpec(path),
           );
           _writeForm(b, child, path);
@@ -454,6 +490,7 @@ class SpecDocumentMarkdown {
             depth,
             _headingIdOf(child),
             document.headline(path) ?? _titleOf(child),
+            path: path,
             codeSpec: document.codeSpec(path),
           );
           _writeSectionBody(b, child, path);
@@ -486,6 +523,7 @@ class SpecDocumentMarkdown {
       depth,
       _headingIdOf(node),
       document.headline(listPath) ?? _titleOf(node),
+      path: listPath,
       codeSpec: document.codeSpec(listPath),
     );
     // Item heading stem. Complex lists derive it from the element class name
@@ -518,6 +556,7 @@ class SpecDocumentMarkdown {
         depth + 1,
         id,
         document.headline(itemPath) ?? '$stem $pos',
+        path: itemPath,
         codeSpec: document.codeSpec(itemPath),
       );
       final element = node.elementNode;
@@ -636,13 +675,15 @@ class SpecDocumentMarkdown {
   /// When [codeSpec] is non-empty it is emitted as a `codeSpec="…"` key inside
   /// the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
   /// codeSpec="A,B"--> Title`.
-  static void _writeHeading(
+  void _writeHeading(
     StringBuffer b,
     int depth,
     String id,
     String title, {
+    required String path,
     String? codeSpec,
   }) {
+    _headingPaths.add(path);
     final code = (codeSpec != null && codeSpec.isNotEmpty)
         ? ' codeSpec="$codeSpec"'
         : '';
@@ -1362,4 +1403,28 @@ class _Parser {
         if (e.value.ids.isNotEmpty) 'ids': Map.of(e.value.ids),
       },
   };
+}
+
+/// A Markdown rendition of a document and the document path behind each of
+/// its headings ([SpecDocumentMarkdown.exportRootWithMap]).
+class SpecMarkdownRendition {
+  /// The rendition and its heading map — 1-based line → document path.
+  const SpecMarkdownRendition(this.markdown, this.headingPaths);
+
+  /// The rendered Markdown, identical to [SpecDocumentMarkdown.exportRoot].
+  final String markdown;
+
+  /// Every heading line (1-based) and the document path it renders.
+  final Map<int, String> headingPaths;
+
+  /// The document path of the section [line] belongs to: the path of the
+  /// heading on that line, else of the nearest heading above it. `null` for a
+  /// line before the first heading.
+  String? pathAtLine(int line) {
+    for (var l = line; l >= 1; l--) {
+      final p = headingPaths[l];
+      if (p != null) return p;
+    }
+    return null;
+  }
 }

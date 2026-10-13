@@ -354,6 +354,46 @@ public final class SpecDocumentMarkdown {
    * holding a field the model does not declare (SOM §9, "Form-field order").
    */
   public String exportRoot(SpecRoot root) {
+    return exportRootWithMap(root).markdown;
+  }
+
+  /**
+   * {@link #exportRoot}, plus the document path behind every heading it wrote
+   * — the one place that knows which node a heading came from.
+   *
+   * <p>A caller holding a rendition line (a DocSpecs schema finding, an editor
+   * cursor) resolves it through {@link SpecMarkdownRendition#pathAtLine}
+   * instead of re-deriving the renderer's layout. Section ids repeat across a
+   * document, so the id alone does not say which node a line belongs to.
+   */
+  public SpecMarkdownRendition exportRootWithMap(SpecRoot root) {
+    headingPaths.clear();
+    String markdown = exportRootText(root);
+    Map<Integer, String> map = new LinkedHashMap<>();
+    MarkdownFenceTracker fence = new MarkdownFenceTracker();
+    String[] lines = markdown.split("\n", -1);
+    int next = 0;
+    for (int i = 0; i < lines.length && next < headingPaths.size(); i++) {
+      String line = lines[i];
+      if (!fence.inFence() && EMITTED_HEADING.matcher(line).find()) {
+        map.put(i + 1, headingPaths.get(next++));
+      }
+      fence.feed(line);
+    }
+    return new SpecMarkdownRendition(markdown, map);
+  }
+
+  /**
+   * A heading line as {@link #writeHeading} writes it. Body text never
+   * matches: heading-like body lines are escaped (SOM §11.3) and fenced ones
+   * skipped.
+   */
+  private static final Pattern EMITTED_HEADING = Pattern.compile("^#+ <!--\\[");
+
+  /** The paths of the headings written by the current export, in order. */
+  private final List<String> headingPaths = new ArrayList<>();
+
+  private String exportRootText(SpecRoot root) {
     SomMetaTree tree = treeFor(root.type);
     SomMetaNode node = tree.root;
     StringBuilder b = new StringBuilder();
@@ -369,7 +409,7 @@ public final class SpecDocumentMarkdown {
     if (rootTitle == null || rootTitle.isEmpty()) {
       rootTitle = root.title;
     }
-    writeHeading(b, 1, rootSeg, rootTitle, document.codeSpec(rootSeg));
+    writeHeading(b, 1, rootSeg, rootTitle, rootSeg, document.codeSpec(rootSeg));
     writeSectionBody(b, node, rootSeg);
     writeChildren(b, node, rootSeg, 2);
     return b.toString();
@@ -414,19 +454,19 @@ public final class SpecDocumentMarkdown {
         if (value == null) {
           continue;
         }
-        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child),
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
             document.codeSpec(path));
         writeBody(b, value, path);
       } else if (SomMetaKind.FORM.equals(child.kind)) {
         if (!formHasValues(child, path)) {
           continue;
         }
-        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child),
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
             document.codeSpec(path));
         writeForm(b, child, path);
       } else if (SomMetaKind.SECTION.equals(child.kind)
           || SomMetaKind.COMPLEX.equals(child.kind)) {
-        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child),
+        writeHeading(b, depth, headingIdOf(child), headingTitle(path, child), path,
             document.codeSpec(path));
         writeSectionBody(b, child, path);
         writeChildren(b, child, path, depth + 1);
@@ -452,7 +492,7 @@ public final class SpecDocumentMarkdown {
     // member segment for a pattern-less list); its title is the member name —
     // unless a stored headline overrides it (YRD3).
     writeHeading(b, depth, headingIdOf(node), headingTitle(listPath, node),
-        document.codeSpec(listPath));
+        listPath, document.codeSpec(listPath));
     // Item heading stem. Complex lists derive it from the element class name
     // (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class
     // — its element typeName is literally `String`, which would render
@@ -488,7 +528,8 @@ public final class SpecDocumentMarkdown {
       if (itemTitle == null || itemTitle.isEmpty()) {
         itemTitle = stem + " " + pos;
       }
-      writeHeading(b, depth + 1, itemId, itemTitle, document.codeSpec(itemPath));
+      writeHeading(b, depth + 1, itemId, itemTitle, itemPath,
+          document.codeSpec(itemPath));
       if (element == null) {
         // Scalar list: the item's value is its body.
         String value = document.content(itemPath);
@@ -644,8 +685,10 @@ public final class SpecDocumentMarkdown {
    * Capping would silently flatten distinct nesting positions into siblings
    * and break schema validation.
    */
-  private static void writeHeading(
-      StringBuilder b, int depth, String id, String title, String codeSpec) {
+  private void writeHeading(
+      StringBuilder b, int depth, String id, String title, String path,
+      String codeSpec) {
+    headingPaths.add(path);
     // codespecs_mapping.md §9.2: emit ` codeSpec="…"` inside the same comment
     // when a mapping is stored; byte-identical to the plain form when
     // absent/empty.

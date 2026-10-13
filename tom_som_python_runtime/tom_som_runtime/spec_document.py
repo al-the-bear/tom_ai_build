@@ -38,7 +38,11 @@ from .spec_section_id import SpecSectionIdCollision
 
 if TYPE_CHECKING:
     from .spec_document_assembly import SpecDocumentAssembly
-    from .spec_document_markdown import SpecMarkdownImport, SpecMarkdownResult
+    from .spec_document_markdown import (
+        SpecMarkdownImport,
+        SpecMarkdownRendition,
+        SpecMarkdownResult,
+    )
     from .spec_model import SpecModel, SpecRoot
 
 
@@ -111,6 +115,20 @@ class SpecDocument:
         else:
             root = self._single_populated_root(model)
         return SpecDocumentMarkdown(model, self).export_root(root)
+
+    def to_markdown_with_map(
+        self, model: "SpecModel", root_type: Optional[str] = None
+    ) -> "SpecMarkdownRendition":
+        """:meth:`to_markdown`, plus the document path behind every heading
+        (:meth:`SpecDocumentMarkdown.export_root_with_map`). Root selection and
+        errors are those of :meth:`to_markdown`."""
+        from .spec_document_markdown import SpecDocumentMarkdown
+
+        if root_type is not None:
+            root = model.root_by_type(root_type)
+        else:
+            root = self._single_populated_root(model)
+        return SpecDocumentMarkdown(model, self).export_root_with_map(root)
 
     # --- assembling from fragments ---------------------------------------
 

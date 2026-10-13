@@ -531,6 +531,9 @@ pub struct SpecDocumentMarkdown<'a> {
     // Metadata trees per root type, built lazily (the generated facades will
     // hand these in directly; until then the bridge derives them).
     trees: RefCell<HashMap<String, Rc<SomMetaTree>>>,
+    // The paths of the headings written by the current export, in emission
+    // order (`export_root_with_map`).
+    heading_paths: RefCell<Vec<String>>,
 }
 
 impl<'a> SpecDocumentMarkdown<'a> {
@@ -540,6 +543,7 @@ impl<'a> SpecDocumentMarkdown<'a> {
             model,
             document,
             trees: RefCell::new(HashMap::new()),
+            heading_paths: RefCell::new(Vec::new()),
         }
     }
 
@@ -695,6 +699,42 @@ impl<'a> SpecDocumentMarkdown<'a> {
     /// heading detection), and a form holding a field the model does not
     /// declare (SOM §9, "Form-field order").
     pub fn export_root(&self, root: &SpecRoot) -> Result<String, String> {
+        Ok(self.export_root_with_map(root)?.markdown)
+    }
+
+    /// [`export_root`](Self::export_root), plus the document path behind every
+    /// heading it wrote — the one place that knows which node a heading came
+    /// from.
+    ///
+    /// A caller holding a rendition line (a DocSpecs schema finding, an editor
+    /// cursor) resolves it through [`SpecMarkdownRendition::path_at_line`]
+    /// instead of re-deriving the renderer's layout. Section ids repeat across
+    /// a document, so the id alone does not say which node a line belongs to.
+    /// Errors are `export_root`'s.
+    pub fn export_root_with_map(&self, root: &SpecRoot) -> Result<SpecMarkdownRendition, String> {
+        self.heading_paths.borrow_mut().clear();
+        let markdown = self.export_root_text(root)?;
+        let recorded = self.heading_paths.borrow();
+        let mut heading_paths = BTreeMap::new();
+        let mut fence = MarkdownFenceTracker::new();
+        let mut next = 0;
+        for (i, line) in markdown.split('\n').enumerate() {
+            if next >= recorded.len() {
+                break;
+            }
+            if !fence.in_fence() && md_emitted_heading(line) {
+                heading_paths.insert(i + 1, recorded[next].clone());
+                next += 1;
+            }
+            fence.feed(line);
+        }
+        Ok(SpecMarkdownRendition {
+            markdown,
+            heading_paths,
+        })
+    }
+
+    fn export_root_text(&self, root: &SpecRoot) -> Result<String, String> {
         let tree = self.tree_for(&root.type_)?;
         let node = tree.root.clone();
         let mut b = MdBuffer::new();
@@ -713,11 +753,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
         if root_title.is_empty() {
             root_title = root.title.clone();
         }
-        md_write_heading(
+        self.write_heading(
             &mut b,
             1,
             &root_seg,
             &root_title,
+            &root_seg,
             &self.document.code_spec_or(&root_seg),
         );
         self.write_section_body(&mut b, &node, &root_seg)?;
@@ -769,11 +810,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
                         Some(v) => v.clone(),
                         None => continue,
                     };
-                    md_write_heading(
+                    self.write_heading(
                         b,
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &path,
                         &self.document.code_spec_or(&path),
                     );
                     self.write_body(b, &value, &path)?;
@@ -782,21 +824,23 @@ impl<'a> SpecDocumentMarkdown<'a> {
                     if !self.form_has_values(child, &path) {
                         continue;
                     }
-                    md_write_heading(
+                    self.write_heading(
                         b,
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &path,
                         &self.document.code_spec_or(&path),
                     );
                     self.write_form(b, child, &path)?;
                 }
                 SOM_META_KIND_SECTION | SOM_META_KIND_COMPLEX => {
-                    md_write_heading(
+                    self.write_heading(
                         b,
                         depth,
                         &self.heading_id_of(child),
                         &self.heading_title(&path, child),
+                        &path,
                         &self.document.code_spec_or(&path),
                     );
                     self.write_section_body(b, child, &path)?;
@@ -809,6 +853,21 @@ impl<'a> SpecDocumentMarkdown<'a> {
             }
         }
         Ok(())
+    }
+
+    /// Writes a heading ([`md_write_heading`]) and records `path`, the document
+    /// path it renders, for [`export_root_with_map`](Self::export_root_with_map).
+    fn write_heading(
+        &self,
+        b: &mut MdBuffer,
+        depth: usize,
+        id: &str,
+        title: &str,
+        path: &str,
+        code_spec: &str,
+    ) {
+        self.heading_paths.borrow_mut().push(path.to_string());
+        md_write_heading(b, depth, id, title, code_spec);
     }
 
     /// Resolves the heading title for a node at `path`: the document's STORED
@@ -840,11 +899,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
         // The container heading: its id is the list's `-LST` `@SectionId` (else
         // the member segment for a pattern-less list); its title is the member
         // name.
-        md_write_heading(
+        self.write_heading(
             b,
             depth,
             &self.heading_id_of(node),
             &self.heading_title(list_path, node),
+            list_path,
             &self.document.code_spec_or(list_path),
         );
         // Item heading stem. Complex lists derive it from the element class
@@ -884,11 +944,12 @@ impl<'a> SpecDocumentMarkdown<'a> {
             if item_title.is_empty() {
                 item_title = format!("{} {}", stem, pos);
             }
-            md_write_heading(
+            self.write_heading(
                 b,
                 depth + 1,
                 &item_id,
                 &item_title,
+                item_path,
                 &self.document.code_spec_or(item_path),
             );
             match element {
@@ -1120,6 +1181,36 @@ fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_
         title
     ));
     b.writeln("");
+}
+
+/// Whether `line` is a heading as [`md_write_heading`] writes it — `^#+ <!--\[`.
+/// Body text never matches: heading-like body lines are escaped (SOM §11.3)
+/// and fenced ones skipped.
+fn md_emitted_heading(line: &str) -> bool {
+    let rest = line.trim_start_matches('#');
+    rest.len() < line.len() && rest.starts_with(" <!--[")
+}
+
+/// A Markdown rendition of a document and the document path behind each of
+/// its headings ([`SpecDocumentMarkdown::export_root_with_map`]).
+#[derive(Debug, Clone, PartialEq)]
+pub struct SpecMarkdownRendition {
+    /// The rendered Markdown, identical to [`SpecDocumentMarkdown::export_root`].
+    pub markdown: String,
+    /// Every heading line (1-based) and the document path it renders.
+    pub heading_paths: BTreeMap<usize, String>,
+}
+
+impl SpecMarkdownRendition {
+    /// The document path of the section `line` belongs to: the path of the
+    /// heading on that line, else of the nearest heading above it. `None` for
+    /// a line before the first heading.
+    pub fn path_at_line(&self, line: usize) -> Option<&str> {
+        self.heading_paths
+            .range(..=line)
+            .next_back()
+            .map(|(_, p)| p.as_str())
+    }
 }
 
 /// The effective DEFAULT title of `node` (YRD4): the `@Headline` default when

@@ -1195,6 +1195,85 @@ static void test_docspecs_replace(Checker& c) {
   }
 }
 
+/* docspecs_path_cases.json, run like the Dart reference: for each case the
+ * document loaded from `state` renders with a heading map equal to
+ * `headingPaths`, and validateSpecDocument against the table's schema yields
+ * `violations` ({rule, line, sectionId, path}) in order. */
+static void test_docspecs_path(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("docspecs_path_cases.json");
+  std::string err;
+  auto schema =
+      som::docspecsSchemaFromYamlText(som::jsonStrOr(table, "schema"), &err);
+  if (!schema.has_value()) {
+    std::fprintf(stderr, "docspecs path schema: %s\n", err.c_str());
+    std::exit(2);
+  }
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  std::size_t n = som::jsonArrayLen(cases);
+  c.check("docspecsPath.cases", n > 0, "no cases in docspecs_path_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string name = som::jsonStrOr(kase, "name");
+    const std::string rootType = som::jsonStrOr(kase, "rootType");
+    som::SpecDocument doc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "state")));
+
+    // Heading map: "line=path" joined by '/', in ascending line order.
+    std::string got_s;
+    std::string want_s;
+    try {
+      som::SpecMarkdownRendition r = doc.toMarkdownWithMap(model, rootType);
+      for (const auto& e : r.headingPaths) {
+        if (!got_s.empty()) got_s.push_back('/');
+        got_s += std::to_string(e.first) + "=" + e.second;
+      }
+    } catch (const std::exception& e) {
+      got_s = std::string("threw: ") + e.what();
+    }
+    std::map<long long, std::string> want;
+    som::JsonRef hp = som::jsonGet(kase, "headingPaths");
+    if (hp != nullptr) {
+      for (const auto& m : hp->object) {
+        const std::string* p = som::jsonAsStr(m.second);
+        want[std::stoll(m.first)] = p != nullptr ? *p : "";
+      }
+    }
+    for (const auto& e : want) {
+      if (!want_s.empty()) want_s.push_back('/');
+      want_s += std::to_string(e.first) + "=" + e.second;
+    }
+    c.check("docspecsPath[" + name + "].headingPaths", got_s == want_s,
+            got_s + " != " + want_s);
+
+    // Violations: "rule|line|sectionId|path" joined by '/'.
+    got_s.clear();
+    want_s.clear();
+    try {
+      std::vector<som::DocSpecsViolation> vs =
+          som::validateSpecDocument(model, doc, *schema, rootType);
+      for (std::size_t k = 0; k < vs.size(); k++) {
+        if (k > 0) got_s.push_back('/');
+        got_s += vs[k].rule + "|" + std::to_string(vs[k].line) + "|" +
+                 vs[k].sectionId + "|" + vs[k].path;
+      }
+    } catch (const std::exception& e) {
+      got_s = std::string("threw: ") + e.what();
+    }
+    som::JsonRef warr = som::jsonGet(kase, "violations");
+    std::size_t wn = som::jsonArrayLen(warr);
+    for (std::size_t k = 0; k < wn; k++) {
+      som::JsonRef wv = som::jsonArrayAt(warr, k);
+      long long line = som::jsonAsI64(som::jsonGet(wv, "line")).value_or(-1);
+      if (k > 0) want_s.push_back('/');
+      want_s += som::jsonStrOr(wv, "rule") + "|" + std::to_string(line) + "|" +
+                som::jsonStrOr(wv, "sectionId") + "|" +
+                som::jsonStrOr(wv, "path");
+    }
+    c.check("docspecsPath[" + name + "].violations", got_s == want_s,
+            got_s + " != " + want_s);
+  }
+}
+
 /* ---- SOM §9 text pattern / query / node creation ------------------------ */
 
 /* The fixture document every §9 group starts from — the same one the Dart
@@ -2707,6 +2786,7 @@ int main(int argc, char** argv) {
   test_serialization_order(c);
   test_docspecs(c);
   test_docspecs_replace(c);
+  test_docspecs_path(c, *model);
   test_text_pattern(c);
   test_query(c, *model);
   test_projection(c, *model);

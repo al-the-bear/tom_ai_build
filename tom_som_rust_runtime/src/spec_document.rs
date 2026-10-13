@@ -19,7 +19,9 @@
 use std::collections::BTreeMap;
 
 use crate::json::{encode_str, Json};
-use crate::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownImport, SpecMarkdownResult};
+use crate::spec_document_markdown::{
+    SpecDocumentMarkdown, SpecMarkdownImport, SpecMarkdownRendition, SpecMarkdownResult,
+};
 use crate::spec_model::{SpecField, SpecModel, SpecRoot, SPEC_FIELD_KIND_LIST};
 use crate::spec_reflection::SpecReflection;
 use crate::spec_section_id::{
@@ -328,6 +330,21 @@ impl SpecDocument {
             None => self.single_populated_root(model)?,
         };
         SpecDocumentMarkdown::new(model, self).export_root(root)
+    }
+
+    /// [`to_markdown`](Self::to_markdown), plus the document path behind every
+    /// heading ([`SpecDocumentMarkdown::export_root_with_map`]). `root_type`
+    /// and the errors are `to_markdown`'s.
+    pub fn to_markdown_with_map(
+        &self,
+        model: &SpecModel,
+        root_type: Option<&str>,
+    ) -> Result<SpecMarkdownRendition, String> {
+        let root = match root_type {
+            Some(ty) => model.root_by_type(ty)?,
+            None => self.single_populated_root(model)?,
+        };
+        SpecDocumentMarkdown::new(model, self).export_root_with_map(root)
     }
 
     /// Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document

@@ -932,6 +932,23 @@ func (d *SpecDocument) ToMarkdown(model *SpecModel, rootType string) (string, er
 	return NewSpecDocumentMarkdown(model, d).ExportRoot(root)
 }
 
+// ToMarkdownWithMap is ToMarkdown plus the document path behind every heading
+// (SpecDocumentMarkdown.ExportRootWithMap). rootType and the errors are
+// ToMarkdown's.
+func (d *SpecDocument) ToMarkdownWithMap(model *SpecModel, rootType string) (*SpecMarkdownRendition, error) {
+	var root *SpecRoot
+	var err error
+	if rootType != "" {
+		root, err = model.RootByType(rootType)
+	} else {
+		root, err = d.singlePopulatedRoot(model)
+	}
+	if err != nil {
+		return nil, err
+	}
+	return NewSpecDocumentMarkdown(model, d).ExportRootWithMap(root)
+}
+
 // singlePopulatedRoot returns the one root under which this document holds any
 // value, for ToMarkdown's default. It returns an error when zero or more than
 // one root is populated.

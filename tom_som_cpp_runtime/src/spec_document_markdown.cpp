@@ -508,6 +508,10 @@ class MdCodec {
     return model_.classNamed(name);
   }
 
+  /* When non-null, every heading written appends the document path it renders,
+   * in emission order (markdownExportRootWithMap). Borrowed. */
+  std::vector<std::string>* headingPaths = nullptr;
+
  private:
   const SpecModel& model_;
   const SpecDocument* document_;
@@ -664,14 +668,19 @@ std::string headingTitle(MdCodec& c, const std::string& path,
   return mdTitleOf(node);
 }
 
-/* Emits `#… <!--[ID]--> Title`. When `codeSpec` is non-empty it is emitted as a
+/* Emits `#… <!--[ID]--> Title`, recording `path` (the document path the
+ * heading renders) when the codec keeps a heading map. When `codeSpec` is non-empty it is emitted as a
  * `codeSpec="…"` key inside the same headline comment (codespecs_mapping.md
  * §9.2): `## <!--[ID] codeSpec="A,B"--> Title`. Byte-identical to the id-only
  * form when
  * `codeSpec` is empty. */
-void mdWriteHeading(std::string& b, int depth, const std::string& id,
-                    const std::string& title,
+void mdWriteHeading(MdCodec& c, std::string& b, int depth,
+                    const std::string& id, const std::string& title,
+                    const std::string& path,
                     const std::string& codeSpec = "") {
+  if (c.headingPaths != nullptr) {
+    c.headingPaths->push_back(path);
+  }
   for (int i = 0; i < depth; i++) {
     b.push_back('#');
   }
@@ -918,8 +927,9 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   }
   // The container heading: its id is the list's `-LST` @SectionId (else the
   // member segment for a pattern-less list); its title is the member name.
-  mdWriteHeading(b, depth, headingIdOf(c, node),
-                 headingTitle(c, listPath, node), doc.codeSpec(listPath));
+  mdWriteHeading(c, b, depth, headingIdOf(c, node),
+                 headingTitle(c, listPath, node), listPath,
+                 doc.codeSpec(listPath));
   // Item heading stem. Complex lists derive it from the element class name
   // (SOM §11.5, `Entry` dropped). A scalar list (shape 6) has no element class —
   // its element typeName is literally `String`, which would render "String 1",
@@ -953,7 +963,8 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
     if (title.empty()) {
       title = stem + " " + formatI64(pos);
     }
-    mdWriteHeading(b, depth + 1, itemId, title, doc.codeSpec(itemPath));
+    mdWriteHeading(c, b, depth + 1, itemId, title, itemPath,
+                   doc.codeSpec(itemPath));
     if (element == nullptr) {
       bool present = false;
       std::string v = contentOf(doc, itemPath, &present);
@@ -986,20 +997,20 @@ void writeChildren(MdCodec& c, std::string& b, const SomMetaNode& node,
       if (!present) {
         continue;
       }
-      mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child), doc.codeSpec(path));
+      mdWriteHeading(c, b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child), path, doc.codeSpec(path));
       writeBody(b, value, path);
     } else if (kindEq(kind, kSomMetaKindForm)) {
       if (!formHasValues(doc, *child, path)) {
         continue;
       }
-      mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child), doc.codeSpec(path));
+      mdWriteHeading(c, b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child), path, doc.codeSpec(path));
       writeForm(b, doc, *child, path);
     } else if (kindEq(kind, kSomMetaKindSection) ||
                kindEq(kind, kSomMetaKindComplex)) {
-      mdWriteHeading(b, depth, headingIdOf(c, *child),
-                     headingTitle(c, path, *child), doc.codeSpec(path));
+      mdWriteHeading(c, b, depth, headingIdOf(c, *child),
+                     headingTitle(c, path, *child), path, doc.codeSpec(path));
       writeSectionBody(c, b, *child, path);
       writeChildren(c, b, *child, path, depth + 1);
     } else if (kindEq(kind, kSomMetaKindList)) {
@@ -1032,7 +1043,8 @@ std::string exportRootImpl(MdCodec& c, const SpecRoot& root) {
   if (rootTitle.empty()) {
     rootTitle = !node->headline.empty() ? node->headline : root.title;
   }
-  mdWriteHeading(b, 1, rootSeg, rootTitle, c.document()->codeSpec(rootSeg));
+  mdWriteHeading(c, b, 1, rootSeg, rootTitle, rootSeg,
+                 c.document()->codeSpec(rootSeg));
   writeSectionBody(c, b, *node, rootSeg);
   writeChildren(c, b, *node, rootSeg, 2);
   return b;
@@ -1045,6 +1057,61 @@ std::string markdownExportRoot(const SpecModel& model,
                                const SpecRoot& root) {
   MdCodec c(model, &document);
   return exportRootImpl(c, root);
+}
+
+namespace {
+
+/* A heading line as mdWriteHeading writes it: `^#+ <!--\[`. Body text never
+ * matches outside a fence — heading-like body lines are escaped (SOM §11.3). */
+bool isEmittedHeading(const std::string& line) {
+  std::size_t i = 0;
+  while (i < line.size() && line[i] == '#') {
+    i++;
+  }
+  return i > 0 && line.compare(i, 6, " <!--[") == 0;
+}
+
+}  // namespace
+
+SpecMarkdownRendition markdownExportRootWithMap(const SpecModel& model,
+                                                const SpecDocument& document,
+                                                const SpecRoot& root) {
+  std::vector<std::string> paths;
+  MdCodec c(model, &document);
+  c.headingPaths = &paths;
+  SpecMarkdownRendition r;
+  r.markdown = exportRootImpl(c, root);
+  // Pair the recorded paths, in order, with the heading lines of the finished
+  // text — fenced lines are body, never a heading.
+  SpecMarkdownFenceTracker fence;
+  std::size_t next = 0;
+  int lineNo = 1;
+  std::size_t pos = 0;
+  const std::string& md = r.markdown;
+  while (pos <= md.size() && next < paths.size()) {
+    std::size_t nl = md.find('\n', pos);
+    std::string line =
+        md.substr(pos, nl == std::string::npos ? std::string::npos : nl - pos);
+    if (!fence.inFence() && isEmittedHeading(line)) {
+      r.headingPaths[lineNo] = std::move(paths[next++]);
+    }
+    fence.feed(line);
+    if (nl == std::string::npos) {
+      break;
+    }
+    pos = nl + 1;
+    lineNo++;
+  }
+  return r;
+}
+
+const std::string* SpecMarkdownRendition::pathAtLine(int line) const {
+  auto it = headingPaths.upper_bound(line);
+  if (it == headingPaths.begin()) {
+    return nullptr;
+  }
+  --it;
+  return &it->second;
 }
 
 /* ======================================================================== */
@@ -1865,6 +1932,21 @@ std::string documentToMarkdown(const SpecDocument& document,
     throw std::runtime_error(errMsg);
   }
   return markdownExportRoot(model, document, *root);
+}
+
+SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
+                                                const SpecModel& model,
+                                                const std::string& rootType) {
+  if (!rootType.empty()) {
+    return markdownExportRootWithMap(model, document,
+                                     model.rootByType(rootType));
+  }
+  std::string errMsg;
+  const SpecRoot* root = singlePopulatedRoot(model, document, &errMsg);
+  if (root == nullptr) {
+    throw std::runtime_error(errMsg);
+  }
+  return markdownExportRootWithMap(model, document, *root);
 }
 
 }  // namespace som

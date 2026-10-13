@@ -56,6 +56,7 @@ import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
 import tom_som_runtime.SpecListItemMove;
 import tom_som_runtime.SpecMarkdownImport;
+import tom_som_runtime.SpecMarkdownRendition;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
 import tom_som_runtime.SpecMatchSpan;
@@ -73,6 +74,7 @@ import tom_som_runtime.SpecResolution;
 import tom_som_runtime.SpecRoot;
 import tom_som_runtime.SpecSectionId;
 import tom_som_runtime.SpecSectionIdCollision;
+import tom_som_runtime.SpecSchemaValidation;
 import tom_som_runtime.SpecSerializationOrder;
 import tom_som_runtime.SpecStateFilter;
 import tom_som_runtime.SpecValidationError;
@@ -1494,6 +1496,49 @@ public final class ConformanceRunner {
     }
   }
 
+  /**
+   * {@code docspecs_path_cases.json}: the renderer's heading map (1-based
+   * heading line → document path) and the findings of
+   * {@link SpecSchemaValidation#validateSpecDocument}, each carrying the
+   * document path of the section its line belongs to.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testDocSpecsPaths(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("docspecs_path_cases.json");
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText((String) table.get("schema"));
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = "docspecsPaths[" + c.get("name") + "]";
+      String rootType = (String) c.get("rootType");
+      try {
+        SpecDocument doc = documentFromState((Map<String, Object>) c.get("state"));
+        SpecMarkdownRendition rendition = doc.toMarkdownWithMap(model, rootType);
+        Map<String, Object> map = new LinkedHashMap<>();
+        for (Map.Entry<Integer, String> e : rendition.headingPaths.entrySet()) {
+          map.put(String.valueOf(e.getKey()), e.getValue());
+        }
+        Object wantMap = c.get("headingPaths");
+        check(name + ".headingPaths", map.equals(wantMap), jsonMismatch(map, wantMap));
+        check(name + ".markdown", rendition.markdown.equals(doc.toMarkdown(model, rootType)),
+            "rendition differs from toMarkdown");
+        List<Object> got = new ArrayList<>();
+        for (DocSpecsViolation v
+            : SpecSchemaValidation.validateSpecDocument(model, doc, schema, rootType)) {
+          Map<String, Object> m = new LinkedHashMap<>();
+          m.put("rule", v.rule);
+          m.put("line", v.line);
+          m.put("sectionId", v.sectionId);
+          m.put("path", v.path);
+          got.add(m);
+        }
+        Object want = c.get("violations");
+        check(name + ".violations", got.equals(want), jsonMismatch(got, want));
+      } catch (RuntimeException e) {
+        check(name, false, "threw " + e);
+      }
+    }
+  }
+
   // --- SOM §9: text pattern / query / node creation -------------------------
 
   /**
@@ -2277,6 +2322,7 @@ public final class ConformanceRunner {
     testSerializationOrder();
     testDocSpecs();
     testDocSpecsReplace();
+    testDocSpecsPaths(model);
     testFixtureDocument();
     testPatterns();
     testQueries(model);

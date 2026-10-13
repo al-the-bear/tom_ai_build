@@ -95,8 +95,10 @@ from .spec_document_markdown import (
     SpecMarkdownImport,
     SpecMarkdownRejectReason,
     SpecMarkdownRejection,
+    SpecMarkdownRendition,
     SpecMarkdownResult,
 )
+from .spec_schema_validation import validate_spec_document
 from .spec_document_yaml import (
     FORMAT_VERSION,
     SpecYamlContents,
@@ -277,6 +279,7 @@ __all__ = [
     "SpecMarkdownImport",
     "SpecMarkdownRejectReason",
     "SpecMarkdownRejection",
+    "SpecMarkdownRendition",
     "SpecMarkdownResult",
     "SpecMatchSpan",
     "SpecModel",
@@ -331,6 +334,7 @@ __all__ = [
     "spec_path_segments",
     "split_list_item_segment",
     "validate_document",
+    "validate_spec_document",
     "yaml_decode",
     "yaml_encode",
     "rekey_review",

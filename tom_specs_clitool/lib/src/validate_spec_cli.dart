@@ -55,8 +55,13 @@ class SpecValidationFinding {
   /// (decode).
   final String code;
 
-  /// The section id or document path concerned, when the tier knows one.
+  /// The document path concerned, when the tier knows one. A schema finding
+  /// names the path of the section its rendition line belongs to, not only a
+  /// section id, because section ids repeat across a document.
   final String? location;
+
+  /// The DocSpecs section id a schema finding names, when it has one.
+  final String? sectionId;
 
   /// The 1-based line of the file or rendition, when the tier knows one.
   final int? line;
@@ -74,6 +79,7 @@ class SpecValidationFinding {
     required this.code,
     required this.message,
     this.location,
+    this.sectionId,
     this.line,
     this.file,
   });
@@ -256,6 +262,8 @@ Future<int> runValidateSpec(
           ),
         );
       }
+      // Rendered once: the same text the schema tier judges is what
+      // `--markdown-out` writes, so a finding's line points into that file.
       markdown = doc.toMarkdown(specModel, rootType: root.type);
       final out = results.option('markdown-out');
       if (out != null) File(out).writeAsStringSync(markdown);
@@ -267,14 +275,18 @@ Future<int> runValidateSpec(
           'reason': 'no DocSpecs schema `$schemaId` ships for ${root.type}',
         });
       } else {
-        for (final v in DocSpecsValidator(
+        for (final v in validateSpecDocument(
+          specModel,
+          doc,
           somDocSpecsSchema(schemaId),
-        ).validateMarkdown(markdown)) {
+          rootType: root.type,
+        )) {
           findings.add(
             SpecValidationFinding(
               tier: 'schema',
               code: v.rule.name,
-              location: v.sectionId ?? v.path,
+              location: v.path ?? v.sectionId,
+              sectionId: v.sectionId,
               line: v.line,
               message: v.message,
             ),
@@ -346,6 +358,7 @@ Future<int> runValidateSpec(
                 'file': f.file ?? (paths.length == 1 ? paths.single : null),
                 'line': f.line,
                 'location': f.location,
+                'sectionId': f.sectionId,
                 'message': f.message,
               },
           ],
@@ -362,6 +375,8 @@ Future<int> runValidateSpec(
           if (f.file != null && paths.length > 1) f.file!,
           if (f.line != null) 'line ${f.line}',
           if (f.location != null) f.location!,
+          if (f.sectionId != null && f.sectionId != f.location)
+            '[${f.sectionId}]',
         ].join(' ');
         stderrSink.writeln(
           '${f.tier.toUpperCase().padRight(8)} [${f.code}]'

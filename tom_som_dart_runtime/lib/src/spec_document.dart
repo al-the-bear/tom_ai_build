@@ -171,6 +171,15 @@ class SpecDocument {
     return SpecDocumentMarkdown(model, this).exportRoot(root);
   }
 
+  /// [toMarkdown], plus the document path behind every heading
+  /// ([SpecDocumentMarkdown.exportRootWithMap]).
+  SpecMarkdownRendition toMarkdownWithMap(SpecModel model, {String? rootType}) {
+    final root = rootType != null
+        ? model.rootByType(rootType)
+        : _singlePopulatedRoot(model);
+    return SpecDocumentMarkdown(model, this).exportRootWithMap(root);
+  }
+
   /// Assembles one document from [fragments] — name → document, in order —
   /// each holding a subset of the sections (`spec_document_assembly.dart`).
   /// Refusing: a place two fragments both write is an overlap, and an

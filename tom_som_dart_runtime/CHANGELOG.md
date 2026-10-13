@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- DocSpecs schema findings on a SOM document name the document path to fix:
+  `SpecDocument.toMarkdownWithMap` / `SpecDocumentMarkdown.exportRootWithMap`
+  return the rendition with its heading-line → path map
+  (`SpecMarkdownRendition.pathAtLine`), and `validateSpecDocument` renders,
+  validates and fills `DocSpecsViolation.path` (SOM §14). Pinned by
+  `docspecs_path_cases.json`.
 - A typed field (`int`, `double`, `num`, `bool`) holding text its type cannot
   read is no longer read as unset. `validateDocument` reports it with the new
   code `valueTypeMismatch`; `SpecEditor.value` / `formValue` throw a

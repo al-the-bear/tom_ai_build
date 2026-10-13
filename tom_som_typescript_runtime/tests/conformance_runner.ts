@@ -18,6 +18,7 @@
  *   * validation cases;
  *   * assembling one document from fragments (`assembly_cases.json`);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
+ *   * DocSpecs findings bound to their document path (`docspecs_path_cases.json`);
  *   * the imperative operations script;
  *   * the YRD7 generic editor script (typed values, enum domains, structure);
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule);
@@ -85,6 +86,7 @@ import {
   yamlDecode,
   yamlEncode,
   staleReviewPaths,
+  validateSpecDocument,
   SpecDocumentYaml,
 } from '../src/index';
 import type { SpecNodeKindValue, SpecStateFilterValue } from '../src/index';
@@ -1111,6 +1113,43 @@ function testDocSpecsReplace(): void {
   }
 }
 
+/**
+ * `docspecs_path_cases.json`: the renderer's heading map (1-based heading line
+ * → document path) and the findings of {@link validateSpecDocument}, each
+ * carrying the document path of the section its line belongs to.
+ */
+function testDocSpecsPaths(model: SpecModel): void {
+  const table = _readJson('docspecs_path_cases.json');
+  const schema = DocSpecsSchema.fromYamlText(table.schema);
+  for (const c of table.cases) {
+    const name = `docspecsPaths[${c.name}]`;
+    try {
+      const doc = _documentFromState(c.state);
+      const rendition = doc.toMarkdownWithMap(model, c.rootType);
+      const map: Record<string, string> = {};
+      for (const [line, p] of rendition.headingPaths) {
+        map[String(line)] = p;
+      }
+      _check(`${name}.headingPaths`, _deepEqual(map, c.headingPaths),
+        _jsonMismatch(map, c.headingPaths));
+      _check(`${name}.markdown`,
+        rendition.markdown === doc.toMarkdown(model, c.rootType));
+      const got = validateSpecDocument(model, doc, schema, c.rootType).map(
+        (v) => ({
+          rule: v.rule,
+          line: v.line,
+          sectionId: v.sectionId,
+          path: v.path,
+        }),
+      );
+      _check(`${name}.violations`, _deepEqual(got, c.violations),
+        _jsonMismatch(got, c.violations));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
 // --- spec_text_pattern / spec_query / spec_node_creation (SOM §9) -----------
 
 /**
@@ -2081,6 +2120,7 @@ export function main(): number {
   testSerializationOrder();
   testDocSpecs();
   testDocSpecsReplace();
+  testDocSpecsPaths(model);
   const queryDoc = _buildFixtureDocument();
   testQueryFixtureMatchesState();
   testPatterns();

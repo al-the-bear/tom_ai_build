@@ -1594,6 +1594,135 @@ static void test_docspecs(Checker *c) {
   docspecs_schema_free(schema);
 }
 
+/* docspecs_path_cases.json, run like the Dart reference: for each case the
+ * document loaded from `state` renders with a heading map equal to
+ * `headingPaths`, and `validate_spec_document` against the table's schema
+ * yields `violations` ({rule, line, sectionId, path}) in order. */
+static void test_docspecs_path(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("docspecs_path_cases.json");
+  DocSpecsSchema *schema = NULL;
+  char *serr = NULL;
+  if (!docspecs_schema_from_yaml_text(som_json_str_or(table, "schema"), &schema,
+                                      &serr)) {
+    fprintf(stderr, "docspecs path schema: %s\n", serr ? serr : "(no message)");
+    exit(2);
+  }
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "docspecsPath.cases", n > 0, "no cases in docspecs_path_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(kase, "name");
+    const char *root_type = som_json_str_or(kase, "rootType");
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+
+    /* Heading map: "line=path" joined by '/', in ascending line order. */
+    char tag[512];
+    snprintf(tag, sizeof(tag), "docspecsPath[%s].headingPaths", name);
+    SpecMarkdownRendition r;
+    char *err = NULL;
+    if (!spec_document_to_markdown_with_map(&doc, model, root_type, &r, &err)) {
+      check(c, tag, 0, err != NULL ? err : "render failed");
+      free(err);
+      spec_document_free(&doc);
+      continue;
+    }
+    SomBuf got;
+    som_buf_init(&got);
+    for (size_t k = 0; k < r.headings_len; k++) {
+      if (k > 0) som_buf_putc(&got, '/');
+      som_buf_puti(&got, r.headings[k].line);
+      som_buf_putc(&got, '=');
+      som_buf_puts(&got, r.headings[k].path);
+    }
+    spec_markdown_rendition_free(&r);
+    char *got_s = som_buf_take(&got);
+    SomBuf want;
+    som_buf_init(&want);
+    const SomJson *hp = som_json_get(kase, "headingPaths");
+    size_t hn = hp != NULL && hp->type == SOM_JSON_OBJECT ? hp->as.object.len : 0;
+    /* JSON object keys are decimal line numbers; order them numerically. */
+    long long prev = 0;
+    for (size_t k = 0; k < hn; k++) {
+      long long best = -1;
+      size_t best_i = 0;
+      for (size_t m = 0; m < hn; m++) {
+        long long ln = atoll(hp->as.object.members[m].key);
+        if (ln > prev && (best < 0 || ln < best)) {
+          best = ln;
+          best_i = m;
+        }
+      }
+      if (best < 0) break;
+      if (k > 0) som_buf_putc(&want, '/');
+      som_buf_puti(&want, best);
+      som_buf_putc(&want, '=');
+      const char *pv = som_json_as_str(hp->as.object.members[best_i].value);
+      som_buf_puts(&want, pv != NULL ? pv : "");
+      prev = best;
+    }
+    char *want_s = som_buf_take(&want);
+    char detail[4096];
+    snprintf(detail, sizeof(detail), "%s != %s", got_s, want_s);
+    check(c, tag, strcmp(got_s, want_s) == 0, detail);
+    free(got_s);
+    free(want_s);
+
+    /* Violations: "rule|line|sectionId|path" joined by '/'. */
+    snprintf(tag, sizeof(tag), "docspecsPath[%s].violations", name);
+    DocSpecsViolationList vl;
+    docspecs_violation_list_init(&vl);
+    if (!validate_spec_document(model, &doc, schema, root_type, &vl, &err)) {
+      check(c, tag, 0, err != NULL ? err : "validate failed");
+      free(err);
+      docspecs_violation_list_free(&vl);
+      spec_document_free(&doc);
+      continue;
+    }
+    som_buf_init(&got);
+    for (size_t k = 0; k < vl.len; k++) {
+      if (k > 0) som_buf_putc(&got, '/');
+      som_buf_puts(&got, vl.items[k].rule);
+      som_buf_putc(&got, '|');
+      som_buf_puti(&got, vl.items[k].line);
+      som_buf_putc(&got, '|');
+      som_buf_puts(&got, vl.items[k].section_id);
+      som_buf_putc(&got, '|');
+      som_buf_puts(&got, vl.items[k].path);
+    }
+    docspecs_violation_list_free(&vl);
+    got_s = som_buf_take(&got);
+    som_buf_init(&want);
+    const SomJson *warr = som_json_get(kase, "violations");
+    size_t wn = som_json_array_len(warr);
+    for (size_t k = 0; k < wn; k++) {
+      const SomJson *wv = som_json_array_at(warr, k);
+      long long line_no = 0;
+      som_json_as_i64(som_json_get(wv, "line"), &line_no);
+      if (k > 0) som_buf_putc(&want, '/');
+      som_buf_puts(&want, som_json_str_or(wv, "rule"));
+      som_buf_putc(&want, '|');
+      som_buf_puti(&want, line_no);
+      som_buf_putc(&want, '|');
+      som_buf_puts(&want, som_json_str_or(wv, "sectionId"));
+      som_buf_putc(&want, '|');
+      som_buf_puts(&want, som_json_str_or(wv, "path"));
+    }
+    want_s = som_buf_take(&want);
+    snprintf(detail, sizeof(detail), "%s != %s", got_s, want_s);
+    check(c, tag, strcmp(got_s, want_s) == 0, detail);
+    free(got_s);
+    free(want_s);
+    spec_document_free(&doc);
+  }
+  docspecs_schema_free(schema);
+  som_json_free(table);
+}
+
 /* docspecs_replace_cases.json, run like the Dart reference's
  * `_runDocSpecsReplaceCase`: the error flag must match; for a success the
  * resulting text must equal the expected text exactly. */
@@ -3949,6 +4078,7 @@ int main(int argc, char **argv) {
   test_serialization_order(&c);
   test_docspecs(&c);
   test_docspecs_replace(&c);
+  test_docspecs_path(&c, model);
   test_text_pattern(&c);
   test_query(&c, model);
   test_projection(&c, model);

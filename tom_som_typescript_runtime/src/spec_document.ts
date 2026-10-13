@@ -39,7 +39,10 @@ import {
   SpecDocumentMarkdown,
   SpecMarkdownImport,
 } from './spec_document_markdown';
-import type { SpecMarkdownResult } from './spec_document_markdown';
+import type {
+  SpecMarkdownRendition,
+  SpecMarkdownResult,
+} from './spec_document_markdown';
 import type { SomMetaTree } from './spec_meta';
 import { assembleSpecDocuments } from './spec_document_assembly';
 import type {
@@ -130,6 +133,19 @@ export class SpecDocument {
         ? model.rootByType(rootType)
         : this._singlePopulatedRoot(model);
     return new SpecDocumentMarkdown(model, this).exportRoot(root);
+  }
+
+  /**
+   * {@link toMarkdown}, plus the document path behind every heading
+   * ({@link SpecDocumentMarkdown.exportRootWithMap}). Root selection is the
+   * same as {@link toMarkdown}'s.
+   */
+  toMarkdownWithMap(model: SpecModel, rootType?: string): SpecMarkdownRendition {
+    const root =
+      rootType !== undefined && rootType !== null
+        ? model.rootByType(rootType)
+        : this._singlePopulatedRoot(model);
+    return new SpecDocumentMarkdown(model, this).exportRootWithMap(root);
   }
 
   /**

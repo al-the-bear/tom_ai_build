@@ -31,6 +31,7 @@
 #define SPEC_DOCUMENT_MARKDOWN_HPP
 
 #include <cstddef>
+#include <map>
 #include <set>
 #include <string>
 #include <vector>
@@ -156,6 +157,30 @@ std::string markdownExportRoot(const SpecModel& model,
                                const SpecDocument& document,
                                const SpecRoot& root);
 
+/* A Markdown rendition of a document and the document path behind each of
+ * its headings (markdownExportRootWithMap). The renderer is the one place that
+ * knows which node a heading came from; a section id alone does not, since ids
+ * repeat across a document. */
+struct SpecMarkdownRendition {
+  /* The rendered Markdown, identical to markdownExportRoot. */
+  std::string markdown;
+  /* Every heading line (1-based) and the document path it renders. */
+  std::map<int, std::string> headingPaths;
+
+  /* The document path of the section `line` belongs to: the path of the
+   * heading on that line, else of the nearest heading above it. nullptr for a
+   * line before the first heading. Borrowed from this rendition. */
+  const std::string* pathAtLine(int line) const;
+};
+
+/* markdownExportRoot, plus the document path behind every heading it wrote. A
+ * caller holding a rendition line (a DocSpecs schema finding, an editor
+ * cursor) resolves it through SpecMarkdownRendition::pathAtLine instead of
+ * re-deriving the renderer's layout. Throws as markdownExportRoot does. */
+SpecMarkdownRendition markdownExportRootWithMap(const SpecModel& model,
+                                                const SpecDocument& document,
+                                                const SpecRoot& root);
+
 /* Renders `document` to Markdown in one call (SOM §21).
  *
  * When `rootType` is non-empty, that root is exported (via
@@ -166,6 +191,12 @@ std::string markdownExportRoot(const SpecModel& model,
 std::string documentToMarkdown(const SpecDocument& document,
                                const SpecModel& model,
                                const std::string& rootType = "");
+
+/* documentToMarkdown, plus the heading map (markdownExportRootWithMap). Same
+ * root selection and failures. */
+SpecMarkdownRendition documentToMarkdownWithMap(const SpecDocument& document,
+                                                const SpecModel& model,
+                                                const std::string& rootType = "");
 
 /* Parses `text` into staged values + a rejection report. The parse never
  * mutates a document — `SpecDocument::applyMarkdownResult` applies the result as a full overwrite. */

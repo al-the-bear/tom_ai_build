@@ -1736,6 +1736,23 @@ Violation
 the list is empty. The Dart implementation's rule/section/line triples are the
 golden reference.
 
+`validate` judges Markdown and leaves `path` null. For a SOM document the
+runtime fills it, because a section id repeats across a document (every
+functional requirement has a `FRED` form) and only the renderer knows which
+node a heading came from:
+
+- **`toMarkdownWithMap(model, rootType)`** renders as `toMarkdown` does and
+  also returns the document path behind every heading line;
+  `pathAtLine(line)` is the path of the heading on that line, else of the
+  nearest one above it.
+- **`validateSpecDocument(model, document, schema, rootType)`** renders,
+  validates and returns each violation with `path` set to the section its line
+  belongs to. A finding about a missing child names the parent's path, as its
+  `sectionId` does.
+
+Pinned by `docspecs_path_cases.json`: an `STS` section that repeats once per
+list item, with the finding on the second.
+
 ## 15. Scripting surface
 
 The generic runtime carries the surface a sandboxed scripting layer needs: query,

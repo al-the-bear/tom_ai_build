@@ -86,12 +86,9 @@ class DocSpecsViolation {
   /// an id still occupies a source line.
   ///
   /// [sectionId] and [path] are optional because each may genuinely not
-  /// exist: a `malformedHeading` has no id to name, and no violation raised
-  /// by this validator resolves a runtime [path] at all (binding is a
-  /// separate step — see [bindDocSpecsMarkdown]), so it is `null` throughout
-  /// the current implementation and reserved for callers that fold binding
-  /// results into the same list. See [path] for why "always null here" does
-  /// not make it removable.
+  /// exist: a `malformedHeading` has no id to name, and this validator works
+  /// on Markdown alone, so it never resolves a document [path] itself —
+  /// `validateSpecDocument` does, for a SOM document it renders.
   DocSpecsViolation({
     required this.rule,
     required this.line,
@@ -114,10 +111,10 @@ class DocSpecsViolation {
   /// missing child has no id to point at.
   final String? sectionId;
 
-  /// The bound SOM runtime path, when one is resolvable. Always `null` from
-  /// [DocSpecsValidator.validate], which works schema-to-markdown and never
-  /// consults a [SpecModel]; it exists so binding-tier findings can share
-  /// this type.
+  /// The SOM document path the finding is about, when one is resolvable.
+  /// `null` from [DocSpecsValidator.validate], which works schema-to-markdown
+  /// and never consults a document; `validateSpecDocument` renders a SOM
+  /// document itself and fills it from the renderer's heading map.
   ///
   /// **Not dead, and not removable.** It is a member of the SOM §14 violation
   /// structure, which is specified as uniform across the nine runtimes — Rust,

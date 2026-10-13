@@ -79,7 +79,7 @@ struct DocSpecsViolation {
   int line = 0;
   std::string message;
   std::string sectionId;  // "" when none
-  std::string path;       // "" when none
+  std::string path;       // "" when none; validateSpecDocument fills it
 
   /* Renders as `line N: rule [section] (path) — message` (the bracket / paren
    * parts are omitted when empty; the dash is U+2014). */

@@ -260,6 +260,9 @@ type SpecDocumentMarkdown struct {
 	// Metadata trees per root type, built lazily (the generated facades
 	// will hand these in directly; until then the bridge derives them).
 	trees map[string]*SomMetaTree
+	// The paths of the headings written by the current export, in emission
+	// order (ExportRootWithMap).
+	headingPaths []string
 }
 
 // NewSpecDocumentMarkdown binds model and document to the codec.
@@ -500,6 +503,71 @@ func (c *SpecDocumentMarkdown) effectiveChildren(node *SomMetaNode) []mdNodeRel 
 // and a form holding a field the model does not declare (SOM §9,
 // "Form-field order").
 func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
+	rendition, err := c.ExportRootWithMap(root)
+	if err != nil {
+		return "", err
+	}
+	return rendition.Markdown, nil
+}
+
+// ExportRootWithMap is ExportRoot plus the document path behind every heading
+// it wrote — the one place that knows which node a heading came from.
+//
+// A caller holding a rendition line (a DocSpecs schema finding, an editor
+// cursor) resolves it through SpecMarkdownRendition.PathAtLine instead of
+// re-deriving the renderer's layout. Section ids repeat across a document, so
+// the id alone does not say which node a line belongs to. Errors are
+// ExportRoot's.
+func (c *SpecDocumentMarkdown) ExportRootWithMap(root *SpecRoot) (*SpecMarkdownRendition, error) {
+	c.headingPaths = c.headingPaths[:0]
+	markdown, err := c.exportRoot(root)
+	if err != nil {
+		return nil, err
+	}
+	headingPaths := map[int]string{}
+	fence := &MarkdownFenceTracker{}
+	next := 0
+	for i, line := range strings.Split(markdown, "\n") {
+		if next >= len(c.headingPaths) {
+			break
+		}
+		if !fence.InFence() && mdEmittedHeading.MatchString(line) {
+			headingPaths[i+1] = c.headingPaths[next]
+			next++
+		}
+		fence.Feed(line)
+	}
+	return &SpecMarkdownRendition{Markdown: markdown, HeadingPaths: headingPaths}, nil
+}
+
+// mdEmittedHeading matches a heading line as writeHeading writes it. Body text
+// never matches: heading-like body lines are escaped (SOM §11.3) and fenced
+// ones skipped.
+var mdEmittedHeading = regexp.MustCompile(`^#+ <!--\[`)
+
+// SpecMarkdownRendition is a Markdown rendition of a document and the
+// document path behind each of its headings (ExportRootWithMap).
+type SpecMarkdownRendition struct {
+	// Markdown is the rendered text, identical to ExportRoot.
+	Markdown string
+	// HeadingPaths maps every heading line (1-based) to the document path it
+	// renders.
+	HeadingPaths map[int]string
+}
+
+// PathAtLine returns the document path of the section line belongs to: the
+// path of the heading on that line, else of the nearest heading above it. ok
+// is false for a line before the first heading.
+func (r *SpecMarkdownRendition) PathAtLine(line int) (string, bool) {
+	for l := line; l >= 1; l-- {
+		if p, ok := r.HeadingPaths[l]; ok {
+			return p, true
+		}
+	}
+	return "", false
+}
+
+func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 	tree, err := c.treeFor(root.Type)
 	if err != nil {
 		return "", err
@@ -518,7 +586,7 @@ func (c *SpecDocumentMarkdown) ExportRoot(root *SpecRoot) (string, error) {
 	if rootTitle == "" {
 		rootTitle = root.Title
 	}
-	mdWriteHeading(b, 1, rootSeg, rootTitle, c.Document.CodeSpecOr(rootSeg))
+	c.writeHeading(b, 1, rootSeg, rootTitle, rootSeg, c.Document.CodeSpecOr(rootSeg))
 	if err := c.writeSectionBody(b, node, rootSeg); err != nil {
 		return "", err
 	}
@@ -569,7 +637,7 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !ok {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
 			if err := c.writeBody(b, value, path); err != nil {
 				return err
 			}
@@ -577,12 +645,12 @@ func (c *SpecDocumentMarkdown) writeChildren(
 			if !c.formHasValues(child, path) {
 				continue
 			}
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
 			if err := c.writeForm(b, child, path); err != nil {
 				return err
 			}
 		case SomMetaKindSection, SomMetaKindComplex:
-			mdWriteHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), c.Document.CodeSpecOr(path))
+			c.writeHeading(b, depth, c.headingIdOf(child), c.headingTitle(path, child), path, c.Document.CodeSpecOr(path))
 			if err := c.writeSectionBody(b, child, path); err != nil {
 				return err
 			}
@@ -612,7 +680,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	}
 	// The container heading: its id is the list's `-LST` `@SectionId` (else the
 	// member segment for a pattern-less list); its title is the member name.
-	mdWriteHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), c.Document.CodeSpecOr(listPath))
+	c.writeHeading(b, depth, c.headingIdOf(node), c.headingTitle(listPath, node), listPath, c.Document.CodeSpecOr(listPath))
 	// Item heading stem. Complex lists derive it from the element class name
 	// (SOM §11.5, `Entry` dropped). A scalar list (`[]string`, shape 6) has no
 	// element class — its element type name is literally `String`, which would
@@ -644,7 +712,7 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		if itemTitle == "" {
 			itemTitle = stem + " " + itoa(pos)
 		}
-		mdWriteHeading(b, depth+1, itemID, itemTitle, c.Document.CodeSpecOr(itemPath))
+		c.writeHeading(b, depth+1, itemID, itemTitle, itemPath, c.Document.CodeSpecOr(itemPath))
 		if element == nil {
 			// Scalar list: the item's value is its body.
 			value, _ := c.Document.Content(itemPath)
@@ -797,7 +865,8 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 	return nil
 }
 
-// mdWriteHeading writes `## <!--[ID]--> Title` at depth. SOM §11.2 is
+// writeHeading writes `## <!--[ID]--> Title` at depth and records path, the
+// document path the heading renders, for ExportRootWithMap. SOM §11.2 is
 // normative — heading level = 1 + section depth, **uncapped**: deep models
 // (the Solution Blueprint nests past markdown's native 6 levels) keep their
 // structure; the parse grammar accepts `#{7,}` accordingly. Capping would
@@ -807,7 +876,8 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 // When codeSpec is non-empty it is emitted as a `codeSpec="…"` key inside the
 // same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
 // codeSpec="A,B"--> Title`. Byte-identical to before when empty.
-func mdWriteHeading(b *mdBuffer, depth int, id, title, codeSpec string) {
+func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, path, codeSpec string) {
+	c.headingPaths = append(c.headingPaths, path)
 	code := ""
 	if codeSpec != "" {
 		code = ` codeSpec="` + codeSpec + `"`

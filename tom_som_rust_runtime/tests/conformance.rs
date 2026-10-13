@@ -32,7 +32,9 @@
 //!     scoping of a file set by its record (codespecs_record_cases.json);
 //!   - the Stage-A CodeSpecs gate, A1–A5, over every case of
 //!     codespecs_gate_cases.json;
-//!   - the SOM §14 DocSpecs tier (one case per violation rule).
+//!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
+//!     findings bound to document paths through the renderer's heading map
+//!     (docspecs_path_cases.json).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -74,7 +76,7 @@ use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
 use tom_som_rust_runtime::yaml::{YamlMap, YamlValue};
 use tom_som_rust_runtime::{
-    DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
+    validate_spec_document, DocSpecsDocument, DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES,
 };
 
 const MODEL_VERSION: &str = "1.0";
@@ -204,6 +206,7 @@ fn conformance() {
     test_node_creation_script(&mut c, &model);
     test_docspecs(&mut c);
     test_docspecs_replace(&mut c);
+    test_docspecs_paths(&mut c, &model);
 
     c.finish();
 }
@@ -1037,6 +1040,67 @@ fn test_docspecs_replace(c: &mut Checker) {
             _ => false,
         };
         c.check(&format!("docspecsReplace[{}]", name), ok, &format!("{:?}", got));
+    }
+}
+
+/// `docspecs_path_cases.json`: each document's rendition heading map
+/// (`to_markdown_with_map`) and its schema findings bound to document paths
+/// (`validate_spec_document`) — `{rule, line, sectionId, path}`, in order.
+fn test_docspecs_paths(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("docspecs_path_cases.json");
+    let schema = DocSpecsSchema::from_yaml_text(&table.str_or("schema"))
+        .expect("docspecs_path_cases schema");
+    let cases = cases(&table, "cases");
+    c.check("docspecsPaths.cases", !cases.is_empty(), "no cases");
+    let opt = |s: &str| if s.is_empty() { Json::Null } else { jstr(s) };
+    for cc in cases {
+        let name = cc.str_or("name");
+        let root_type = cc.str_or("rootType");
+        let doc = doc_from_state(&DocumentJson::from_json(
+            cc.get("state").unwrap_or(&Json::Null),
+        ));
+        match doc.to_markdown_with_map(model, Some(&root_type)) {
+            Ok(rendition) => {
+                let got = Json::Object(
+                    rendition
+                        .heading_paths
+                        .iter()
+                        .map(|(line, path)| (line.to_string(), jstr(path)))
+                        .collect(),
+                );
+                let want = cc.get("headingPaths").unwrap_or(&Json::Null);
+                c.check(
+                    &format!("docspecsPaths[{}].headingPaths", name),
+                    json_eq(&got, want),
+                    &format!("{:?} != {:?}", got, want),
+                );
+            }
+            Err(e) => c.check(&format!("docspecsPaths[{}].render", name), false, &e),
+        }
+        match validate_spec_document(model, &doc, &schema, Some(&root_type)) {
+            Ok(violations) => {
+                let got = Json::Array(
+                    violations
+                        .iter()
+                        .map(|v| {
+                            obj(vec![
+                                ("rule", jstr(&v.rule)),
+                                ("line", Json::Int(v.line as i64)),
+                                ("sectionId", opt(&v.section_id)),
+                                ("path", opt(&v.path)),
+                            ])
+                        })
+                        .collect(),
+                );
+                let want = cc.get("violations").unwrap_or(&Json::Null);
+                c.check(
+                    &format!("docspecsPaths[{}].violations", name),
+                    json_eq(&got, want),
+                    &format!("{:?} != {:?}", got, want),
+                );
+            }
+            Err(e) => c.check(&format!("docspecsPaths[{}].validate", name), false, &e),
+        }
     }
 }
 

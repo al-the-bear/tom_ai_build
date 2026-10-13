@@ -64,6 +64,7 @@ void main() {
   final codeSpecsRecordCases = _codeSpecsRecordCases(codeSpecsExtractCases);
   final assemblyCases = _assemblyCases(state);
   final listMoveCases = _listMoveCases(model, state);
+  final docSpecsPathCases = _docSpecsPathCases(model);
   final codeSpecsGateCases = _codeSpecsGateCases(
     meta,
     state,
@@ -120,6 +121,7 @@ void main() {
     write('codespecs_gate_cases.json', '${enc.convert(codeSpecsGateCases)}\n');
     write('assembly_cases.json', '${enc.convert(assemblyCases)}\n');
     write('list_move_cases.json', '${enc.convert(listMoveCases)}\n');
+    write('docspecs_path_cases.json', '${enc.convert(docSpecsPathCases)}\n');
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
@@ -617,6 +619,43 @@ void main() {
   // domain validation, and structural create/clear ops.
   // Executed against the corpus model, so every language's generic editor
   // replays the identical script.
+  // A DocSpecs schema finding over a SOM document carries the document path
+  // of the section its line belongs to: section ids repeat (here `STS`, once
+  // per item), so the id and the rendition line alone do not name the node.
+  test('docspecs_path_cases.json: findings carry their document path', () {
+    final table = jsonDecode(read('docspecs_path_cases.json')) as Map;
+    final schema = DocSpecsSchema.fromYamlText(table['schema'] as String);
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      final d = SpecDocument()
+        ..loadJson((c['state'] as Map).cast<String, dynamic>());
+      final rootType = c['rootType'] as String;
+      final rendition = d.toMarkdownWithMap(model, rootType: rootType);
+      expect(
+        {for (final e in rendition.headingPaths.entries) '${e.key}': e.value},
+        c['headingPaths'],
+        reason: '${c['name']}: heading map',
+      );
+      expect(
+        [
+          for (final v in validateSpecDocument(
+            model,
+            d,
+            schema,
+            rootType: rootType,
+          ))
+            {
+              'rule': v.rule.name,
+              'line': v.line,
+              'sectionId': v.sectionId,
+              'path': v.path,
+            },
+        ],
+        c['violations'],
+        reason: '${c['name']}: violations',
+      );
+    }
+  });
+
   test('editor script replays with the committed results', () {
     final steps = jsonDecode(read('editor_cases.json')) as List;
     final d = SpecDocument();
@@ -6877,4 +6916,90 @@ Map<String, dynamic> _runListMoveCase(SpecModel model, Map<String, dynamic> c) {
   } on ArgumentError {
     return {'ok': false, 'error': 'argument'};
   }
+}
+
+/// The `docspecs_path_cases.json` table: a small schema written for the
+/// fixture's `items` list, and documents whose rendition repeats the `STS`
+/// section id once per item. Expected heading maps and findings are computed
+/// live; the committed file is what every runtime replays.
+Map<String, dynamic> _docSpecsPathCases(SpecModel model) {
+  const schemaYaml = """title-format: "# <!--[DEMO]--> Demo Document"
+section-types:
+  ttl:
+    prefix: TTL
+  item:
+    prefix: items_
+    subsection-types:
+      sts:
+        max-count: 1
+  items:
+    prefix: items
+    subsection-types:
+      item:
+        min-count: 1
+        max-count: infinite
+  sts:
+    prefix: STS
+    max-text-length: 4
+document:
+  sections:
+    ttl:
+      section-type: ttl
+      optional: true
+    items:
+      section-type: items
+      optional: true
+""";
+  final schema = DocSpecsSchema.fromYamlText(schemaYaml);
+  Map<String, dynamic> caseFor(String name, Map<String, Object?> state) {
+    final d = SpecDocument()..loadJson(state);
+    final rendition = d.toMarkdownWithMap(model, rootType: 'Demo');
+    return {
+      'name': name,
+      'rootType': 'Demo',
+      'state': state,
+      'headingPaths': {
+        for (final e in rendition.headingPaths.entries) '${e.key}': e.value,
+      },
+      'violations': [
+        for (final v in validateSpecDocument(
+          model,
+          d,
+          schema,
+          rootType: 'Demo',
+        ))
+          {
+            'rule': v.rule.name,
+            'line': v.line,
+            'sectionId': v.sectionId,
+            'path': v.path,
+          },
+      ],
+    };
+  }
+
+  Map<String, Object?> state(String second) => {
+    'content': {
+      'DEMO/TTL': 'Hello',
+      'DEMO/items-1/STS': 'open',
+      'DEMO/items-2/STS': second,
+    },
+    'lists': {
+      'DEMO/items': {
+        'seq': 2,
+        'items': ['DEMO/items-1', 'DEMO/items-2'],
+      },
+    },
+  };
+
+  return {
+    'schema': schemaYaml,
+    'cases': [
+      caseFor(
+        'a finding in the second of two STS sections names the second item',
+        state('blocked'),
+      ),
+      caseFor('a clean rendition still maps every heading', state('done')),
+    ],
+  };
 }

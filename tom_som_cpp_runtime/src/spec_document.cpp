@@ -49,6 +49,11 @@ std::string SpecDocument::toMarkdown(const SpecModel& model,
                            "); pass rootType to choose one");
 }
 
+SpecMarkdownRendition SpecDocument::toMarkdownWithMap(
+    const SpecModel& model, const std::string& rootType) const {
+  return documentToMarkdownWithMap(*this, model, rootType);
+}
+
 /* ---- Markdown import (SOM §11.7) ---------------------------------------- */
 
 SpecMarkdownImport SpecDocument::fromMarkdown(const std::string& text,

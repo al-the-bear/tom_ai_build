@@ -28,7 +28,8 @@
  *   * the Phase-4 CodeSpecs extract tier — routing verdicts, the per-area extract
  *     goldens (YAML + Markdown, byte-for-byte), the "copied, never composed"
  *     guard and the `ROUTE-TOTAL` error cases;
- *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
+ *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule),
+ *     and findings bound to their document path (`docspecs_path_cases.json`).
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
  */
@@ -84,6 +85,7 @@ const {
   encodeTwoLetterDate,
   generateListItemSectionId,
   validateDocument,
+  validateSpecDocument,
   yamlDecode,
   yamlEncode,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
@@ -929,6 +931,35 @@ function testDocSpecs() {
     .sort();
   _check('docspecs.ruleCoverage', uncovered.length === 0,
     `uncovered: ${uncovered}`);
+}
+
+/**
+ * `docspecs_path_cases.json`: the renderer's heading map and
+ * `validateSpecDocument` binding each finding to its document path (SOM §14).
+ */
+function testDocSpecsPath(model) {
+  const table = _readJson('docspecs_path_cases.json');
+  const schema = DocSpecsSchema.fromYamlText(table.schema);
+  for (const c of table.cases) {
+    const d = new SpecDocument();
+    d.loadJson(c.state);
+    const rendition = d.toMarkdownWithMap(model, c.rootType);
+    const gotMap = {};
+    for (const [line, p] of rendition.headingPaths) {
+      gotMap[String(line)] = p;
+    }
+    _check(`docspecsPath[${c.name}].headingPaths`,
+      _deepEqual(gotMap, c.headingPaths),
+      `${JSON.stringify(gotMap)} != ${JSON.stringify(c.headingPaths)}`);
+    const got = validateSpecDocument(model, d, schema, c.rootType).map((v) => ({
+      rule: v.rule,
+      line: v.line,
+      sectionId: v.sectionId,
+      path: v.path,
+    }));
+    _check(`docspecsPath[${c.name}].violations`, _deepEqual(got, c.violations),
+      `${JSON.stringify(got)} != ${JSON.stringify(c.violations)}`);
+  }
 }
 
 /**
@@ -1929,6 +1960,7 @@ function main() {
   testNodeCreation(model);
   testNodeCreationScript(model);
   testDocSpecs();
+  testDocSpecsPath(model);
   testDocSpecsReplace();
 
   const total = _passed + _failed.length;

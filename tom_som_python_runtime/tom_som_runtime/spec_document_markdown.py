@@ -242,6 +242,8 @@ class SpecDocumentMarkdown:
         # Metadata trees per root type, built lazily (the generated facades
         # will hand these in directly; until then the bridge derives them).
         self._trees: dict[str, SomMetaTree] = {}
+        # The paths of the headings written by the current export, in order.
+        self._heading_paths: list[str] = []
 
     def _tree_for(self, root_type: str) -> SomMetaTree:
         tree = self._trees.get(root_type)
@@ -426,6 +428,37 @@ class SpecDocumentMarkdown:
         the remainder of the document from heading detection), and a form
         holding a field the model does not declare (SOM §9,
         "Form-field order")."""
+        return self.export_root_with_map(root).markdown
+
+    #: A heading line as :meth:`_write_heading` writes it. Body text never
+    #: matches: heading-like body lines are escaped (SOM §11.3) and fenced
+    #: ones skipped.
+    _emitted_heading = re.compile(r"^#+ <!--\[")
+
+    def export_root_with_map(self, root: SpecRoot) -> "SpecMarkdownRendition":
+        """:meth:`export_root`, plus the document path behind every heading it
+        wrote — the one place that knows which node a heading came from.
+
+        A caller holding a rendition line (a DocSpecs schema finding, an
+        editor cursor) resolves it through
+        :meth:`SpecMarkdownRendition.path_at_line` instead of re-deriving the
+        renderer's layout. Section ids repeat across a document, so the id
+        alone does not say which node a line belongs to."""
+        self._heading_paths = []
+        markdown = self._export_root(root)
+        heading_paths: dict[int, str] = {}
+        fence = MarkdownFenceTracker()
+        nxt = 0
+        for i, line in enumerate(markdown.split("\n")):
+            if nxt >= len(self._heading_paths):
+                break
+            if not fence.in_fence and self._emitted_heading.match(line):
+                heading_paths[i + 1] = self._heading_paths[nxt]
+                nxt += 1
+            fence.feed(line)
+        return SpecMarkdownRendition(markdown, heading_paths)
+
+    def _export_root(self, root: SpecRoot) -> str:
         tree = self._tree_for(root.type)
         node = tree.root
         b = _Buffer()
@@ -439,6 +472,7 @@ class SpecDocumentMarkdown:
             1,
             root_seg,
             self.document.headline(root_seg) or node.headline or root.title,
+            path=root_seg,
             code_spec=self.document.code_spec(root_seg),
         )
         self._write_section_body(b, node, root_seg)
@@ -482,6 +516,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    path=path,
                     code_spec=self.document.code_spec(path),
                 )
                 self._write_body(b, value, path)
@@ -493,6 +528,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    path=path,
                     code_spec=self.document.code_spec(path),
                 )
                 self._write_form(b, child, path)
@@ -502,6 +538,7 @@ class SpecDocumentMarkdown:
                     depth,
                     self._heading_id_of(child),
                     self.document.headline(path) or self._title_of(child),
+                    path=path,
                     code_spec=self.document.code_spec(path),
                 )
                 self._write_section_body(b, child, path)
@@ -529,6 +566,7 @@ class SpecDocumentMarkdown:
             depth,
             self._heading_id_of(node),
             self.document.headline(list_path) or self._title_of(node),
+            path=list_path,
             code_spec=self.document.code_spec(list_path),
         )
         # Item heading stem. Complex lists derive it from the element class name
@@ -564,6 +602,7 @@ class SpecDocumentMarkdown:
                 depth + 1,
                 item_id,
                 self.document.headline(item_path) or f"{stem} {pos}",
+                path=item_path,
                 code_spec=self.document.code_spec(item_path),
             )
             if element is None:
@@ -673,9 +712,15 @@ class SpecDocumentMarkdown:
         b.write(str(field_buf))
         b.writeln()
 
-    @staticmethod
     def _write_heading(
-        b: _Buffer, depth: int, id: str, title: str, code_spec: Optional[str] = None
+        self,
+        b: _Buffer,
+        depth: int,
+        id: str,
+        title: str,
+        *,
+        path: str,
+        code_spec: Optional[str] = None,
     ) -> None:
         """``## <!--[ID]--> Title`` at *depth*. SOM §11.2 is normative —
         heading level = 1 + section depth, **uncapped**: deep models (the
@@ -687,6 +732,7 @@ class SpecDocumentMarkdown:
         When *code_spec* is non-empty it is emitted as a ``codeSpec="…"`` key
         inside the same headline comment (codespecs_mapping.md §9.2):
         ``## <!--[ID] codeSpec="A,B"--> Title``."""
+        self._heading_paths.append(path)
         code = f' codeSpec="{code_spec}"' if code_spec else ""
         b.writeln(f"{'#' * depth} <!--[{id}]{code}--> {title}")
         b.writeln()
@@ -1343,3 +1389,25 @@ class _Parser:
                 entry["ids"] = dict(state.ids)
             out[key] = entry
         return out
+
+
+class SpecMarkdownRendition:
+    """A Markdown rendition of a document and the document path behind each
+    of its headings (:meth:`SpecDocumentMarkdown.export_root_with_map`)."""
+
+    def __init__(self, markdown: str, heading_paths: dict[int, str]) -> None:
+        #: The rendered Markdown, identical to
+        #: :meth:`SpecDocumentMarkdown.export_root`.
+        self.markdown = markdown
+        #: Every heading line (1-based) and the document path it renders.
+        self.heading_paths = heading_paths
+
+    def path_at_line(self, line: int) -> Optional[str]:
+        """The document path of the section *line* belongs to: the path of the
+        heading on that line, else of the nearest heading above it. ``None``
+        for a line before the first heading."""
+        for ln in range(line, 0, -1):
+            p = self.heading_paths.get(ln)
+            if p is not None:
+                return p
+        return None

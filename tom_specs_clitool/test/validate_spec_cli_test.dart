@@ -117,7 +117,13 @@ void main() {
     final schema = _violations(json, 'schema');
     expect(schema, isNotEmpty);
     expect(schema.first['code'], 'missingRequiredField');
-    expect(schema.first['location'], 'DAENT-CLAS');
+    // The finding names the document path to fix, not only the section id,
+    // which every entity repeats.
+    expect(schema.first['sectionId'], 'DAENT-CLAS');
+    expect(
+      schema.first['location'],
+      'SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS',
+    );
     expect(_violations(json, 'instance'), isEmpty);
   });
 

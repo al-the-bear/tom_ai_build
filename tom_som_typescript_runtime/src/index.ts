@@ -243,6 +243,7 @@ export {
   SpecMarkdownImport,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
+  SpecMarkdownRendition,
 } from './spec_document_markdown';
 export type { SpecMarkdownRejectReasonValue } from './spec_document_markdown';
 
@@ -263,6 +264,7 @@ export {
   DocSpecsValidator,
   bindDocspecsMarkdown,
 } from './docspecs_validator';
+export { validateSpecDocument } from './spec_schema_validation';
 export type {
   DocSpecsViolationRuleValue,
   DocSpecsSectionTypeInit,

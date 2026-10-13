@@ -32,6 +32,7 @@ pub mod spec_node_creation;
 pub mod spec_paths;
 pub mod spec_query;
 pub mod spec_reflection;
+pub mod spec_schema_validation;
 pub mod spec_section_id;
 pub mod spec_serialization_order;
 pub mod spec_text_pattern;
@@ -86,7 +87,7 @@ pub use spec_document_markdown::{
     spec_markdown_form_label, spec_markdown_item_title_stem, spec_markdown_kebab_case,
     spec_markdown_title_case, MarkdownFenceTracker, SpecDocumentMarkdown, SpecMarkdownRejection,
     SpecMarkdownResult, SPEC_MARKDOWN_REJECT_KIND_MISMATCH, SPEC_MARKDOWN_REJECT_MALFORMED_HEADING,
-    SpecMarkdownImport, SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
+    SpecMarkdownImport, SpecMarkdownRendition, SPEC_MARKDOWN_REJECT_MISSING_VALUE, SPEC_MARKDOWN_REJECT_ORPHAN_CONTENT,
     SPEC_MARKDOWN_REJECT_UNKNOWN_SECTION,
 };
 pub use spec_document_yaml::{
@@ -121,6 +122,7 @@ pub use spec_query::{
     SpecStateFilter,
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
+pub use spec_schema_validation::validate_spec_document;
 pub use spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision, section_id_pattern_prefix,
     today_month_day, SpecSectionIdCollision, SpecSectionIdError,

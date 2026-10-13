@@ -221,6 +221,7 @@ func TestConformance(t *testing.T) {
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
 	testDocSpecsReplace(c, t)
+	testDocSpecsPaths(c, t, model)
 	testAssembly(c, t)
 	testListMove(c, t, model)
 	testPattern(c, t)
@@ -857,6 +858,80 @@ func testDocSpecs(c *checker, t *testing.T) {
 		}
 	}
 	c.check("docspecs.ruleCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
+}
+
+// docSpecsPathTable mirrors corpus/docspecs_path_cases.json: a DocSpecs
+// schema and SOM documents whose rendition heading map and path-bound schema
+// findings every port must agree on (SOM §14).
+type docSpecsPathTable struct {
+	Schema string `json:"schema"`
+	Cases  []struct {
+		Name         string            `json:"name"`
+		RootType     string            `json:"rootType"`
+		State        som.DocumentJson  `json:"state"`
+		HeadingPaths map[string]string `json:"headingPaths"`
+		Violations   []struct {
+			Rule      string  `json:"rule"`
+			Line      int     `json:"line"`
+			SectionID *string `json:"sectionId"`
+			Path      *string `json:"path"`
+		} `json:"violations"`
+	} `json:"cases"`
+}
+
+// testDocSpecsPaths asserts ToMarkdownWithMap's heading map and that
+// ValidateSpecDocument binds each finding to its document path.
+func testDocSpecsPaths(c *checker, t *testing.T, model *som.SpecModel) {
+	var table docSpecsPathTable
+	readJSON(t, "docspecs_path_cases.json", &table)
+	c.check("docspecsPaths.cases", len(table.Cases) > 0, "no cases in docspecs_path_cases.json")
+	schema, err := som.DocSpecsSchemaFromYamlText(table.Schema)
+	if err != nil {
+		t.Fatalf("docspecs_path_cases schema: %v", err)
+	}
+	optStr := func(s string) *string {
+		if s == "" {
+			return nil
+		}
+		return &s
+	}
+	type row struct {
+		Rule      string  `json:"rule"`
+		Line      int     `json:"line"`
+		SectionID *string `json:"sectionId"`
+		Path      *string `json:"path"`
+	}
+	for _, cc := range table.Cases {
+		state := cc.State
+		doc := docFromState(&state)
+		rendition, err := doc.ToMarkdownWithMap(model, cc.RootType)
+		if err != nil {
+			c.check("docspecsPaths["+cc.Name+"].render", false, err.Error())
+			continue
+		}
+		gotMap := map[string]string{}
+		for line, path := range rendition.HeadingPaths {
+			gotMap[itoa(line)] = path
+		}
+		got, want := canonJSON(t, gotMap), canonJSON(t, cc.HeadingPaths)
+		c.check("docspecsPaths["+cc.Name+"].headingPaths", got == want, got+" != "+want)
+
+		violations, err := som.ValidateSpecDocument(model, doc, schema, cc.RootType)
+		if err != nil {
+			c.check("docspecsPaths["+cc.Name+"].validate", false, err.Error())
+			continue
+		}
+		gotRows := []row{}
+		for _, v := range violations {
+			gotRows = append(gotRows, row{v.Rule, v.Line, optStr(v.SectionID), optStr(v.Path)})
+		}
+		wantRows := []row{}
+		for _, v := range cc.Violations {
+			wantRows = append(wantRows, row{v.Rule, v.Line, v.SectionID, v.Path})
+		}
+		got, want = canonJSON(t, gotRows), canonJSON(t, wantRows)
+		c.check("docspecsPaths["+cc.Name+"].violations", got == want, got+" != "+want)
+	}
 }
 
 type opCase struct {

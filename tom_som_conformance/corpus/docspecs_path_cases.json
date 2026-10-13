@@ -1,0 +1,72 @@
+{
+  "schema": "title-format: \"# <!--[DEMO]--> Demo Document\"\nsection-types:\n  ttl:\n    prefix: TTL\n  item:\n    prefix: items_\n    subsection-types:\n      sts:\n        max-count: 1\n  items:\n    prefix: items\n    subsection-types:\n      item:\n        min-count: 1\n        max-count: infinite\n  sts:\n    prefix: STS\n    max-text-length: 4\ndocument:\n  sections:\n    ttl:\n      section-type: ttl\n      optional: true\n    items:\n      section-type: items\n      optional: true\n",
+  "cases": [
+    {
+      "name": "a finding in the second of two STS sections names the second item",
+      "rootType": "Demo",
+      "state": {
+        "content": {
+          "DEMO/TTL": "Hello",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-2/STS": "blocked"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        }
+      },
+      "headingPaths": {
+        "2": "DEMO",
+        "4": "DEMO/TTL",
+        "8": "DEMO/items",
+        "10": "DEMO/items-1",
+        "12": "DEMO/items-1/STS",
+        "16": "DEMO/items-2",
+        "18": "DEMO/items-2/STS"
+      },
+      "violations": [
+        {
+          "rule": "textLengthOut",
+          "line": 18,
+          "sectionId": "STS",
+          "path": "DEMO/items-2/STS"
+        }
+      ]
+    },
+    {
+      "name": "a clean rendition still maps every heading",
+      "rootType": "Demo",
+      "state": {
+        "content": {
+          "DEMO/TTL": "Hello",
+          "DEMO/items-1/STS": "open",
+          "DEMO/items-2/STS": "done"
+        },
+        "lists": {
+          "DEMO/items": {
+            "seq": 2,
+            "items": [
+              "DEMO/items-1",
+              "DEMO/items-2"
+            ]
+          }
+        }
+      },
+      "headingPaths": {
+        "2": "DEMO",
+        "4": "DEMO/TTL",
+        "8": "DEMO/items",
+        "10": "DEMO/items-1",
+        "12": "DEMO/items-1/STS",
+        "16": "DEMO/items-2",
+        "18": "DEMO/items-2/STS"
+      },
+      "violations": []
+    }
+  ]
+}

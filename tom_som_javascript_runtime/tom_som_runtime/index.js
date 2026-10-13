@@ -180,9 +180,11 @@ const {
   SpecMarkdownRejection,
   SpecMarkdownResult,
   SpecMarkdownImport,
+  SpecMarkdownRendition,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
 } = require('./spec_document_markdown');
+const { validateSpecDocument } = require('./spec_schema_validation');
 const {
   DocSpecsViolationRule,
   DocSpecsViolation,
@@ -359,6 +361,7 @@ module.exports = {
   SpecMarkdownRejection,
   SpecMarkdownResult,
   SpecMarkdownImport,
+  SpecMarkdownRendition,
   MarkdownFenceTracker,
   SpecDocumentMarkdown,
   // docspecs validation
@@ -376,4 +379,5 @@ module.exports = {
   DocSpecsSchema,
   DocSpecsValidator,
   bindDocspecsMarkdown,
+  validateSpecDocument,
 };

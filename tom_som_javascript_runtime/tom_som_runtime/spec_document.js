@@ -150,6 +150,24 @@ class SpecDocument {
   }
 
   /**
+   * {@link toMarkdown}, plus the document path behind every heading
+   * ({@link SpecDocumentMarkdown#exportRootWithMap}). Root selection and errors
+   * are those of {@link toMarkdown}.
+   *
+   * @param {import('./spec_model').SpecModel} model
+   * @param {string|null} [rootType]
+   * @returns {import('./spec_document_markdown').SpecMarkdownRendition}
+   */
+  toMarkdownWithMap(model, rootType = null) {
+    const { SpecDocumentMarkdown } = require('./spec_document_markdown');
+    const root =
+      rootType !== null && rootType !== undefined
+        ? model.rootByType(rootType)
+        : this._singlePopulatedRoot(model);
+    return new SpecDocumentMarkdown(model, this).exportRootWithMap(root);
+  }
+
+  /**
    * Loads a SOM-rendered Markdown document (SOM §11.7) into a fresh document
    * in one call: parse, then {@link applyMarkdownResult}.
    *

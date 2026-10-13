@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- DocSpecs findings name their document path: `SpecDocumentMarkdown.exportRootWithMap` / `SpecDocument.toMarkdownWithMap` return a `SpecMarkdownRendition` (the `toMarkdown` text plus a 1-based heading line → document path map, `pathAtLine`), and the new `SpecSchemaValidation.validateSpecDocument(model, document, schema, rootType)` renders, validates and sets each `DocSpecsViolation.path` from that map (SOM §14).
 - Typed fields (`int`/`double`/`num`/`bool`, nullable too): new `somScalarBase` / `somTypedTextReadable`; `setValue`/`setFormValue` refuse a string the type cannot read, `value`/`formValue` throw an `IllegalStateException` on such stored text instead of answering null, and `validateDocument` reports it as the new code `valueTypeMismatch` (scalar leaves and non-enum, non-`countOf` form fields; SOM §9).
 - YAML encode: a document with no values writes `document:` + `  <root key>: {}` instead of `document: {}`, keeping the root key that records which document root the file is (SOM §12.3 rule 4); decode still accepts `document: {}`.
 - Query engine: a list item's section id (the `sectionIdExact` / `sectionIdPrefix` filters and the projection's `sectionId`) is the item's own effective id — stored id, else the list's `@SectionIdPattern` with its 1-based position, else `<list>-<position>` — so a list's own id matches only the list (llm_and_d4rt_tools.md §6).
