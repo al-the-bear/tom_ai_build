@@ -104,6 +104,10 @@ unpublished_drift:
     archive is itself never in it. Since then also qrb1's archive-ignore gate
     (lib/src/pub_archive_ignores.dart), a library the default suite runs and
     no command exposes. Rides the next clitool release.
+  tom_core_codespecs: >-
+    DOCS ONLY since 0.12.3 (qrb1): the README status block names 0.12.3, and
+    codespecs_mapping.md §10 states its one open item without a todo id, as
+    tom_core's comment gate requires. Rides the next tom_core_codespecs release.
   tom_som_dart_runtime: >-
     DOC COMMENTS ONLY since 1.4.1 (qr1): the YAML codec's and the markdown
     codec's comments now say the review pass is carried and written back, and
