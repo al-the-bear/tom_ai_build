@@ -29,9 +29,22 @@
 # it refuses to start when they do not: `check_release_drift.dart` is the
 # precondition, and `--allow-drift` is the deliberate override.
 #
-# Usage:  ./tool/verify_published_tests.sh [--strict] [--allow-drift]
-#                                          [--log-dir DIR] [package ...]
+# PREFLIGHT, the same question one step earlier. `--preflight` runs each
+# member's own `dart test` on the LOCAL tree, before anything is uploaded. A
+# package whose shipped test is stale is otherwise caught only by the run above,
+# after the publish — which is how `tom_specs_model` 1.4.0 reached pub.dev with a
+# round-trip test whose counts predated a model change, and cost a lockstep
+# 1.4.1 of three packages. Nothing else runs these suites routinely: the
+# conformance driver runs the SOM runtimes and facades, the clitool suite runs
+# the clitool. Preflight skips the drift precondition, since local and published
+# are expected to differ before a publish, and is the step before
+# `dart pub publish` in the release procedure (the clitool README).
 #
+# Usage:  ./tool/verify_published_tests.sh [--preflight] [--strict]
+#                                          [--allow-drift] [--log-dir DIR]
+#                                          [package ...]
+#
+#   --preflight    run each member's own tests on the local tree (pre-publish)
 #   --strict       a skip is a failure (the right setting for a release gate)
 #   --allow-drift  run even when the release-drift gate is red; the verdict is
 #                  then not a statement about what is published
@@ -48,14 +61,16 @@ CONTAINER="$(cd "$ROOT/../.." && pwd)"           # tom_agent_container
 
 STRICT=0
 ALLOW_DRIFT=0
+PREFLIGHT=0
 LOG_DIR=""
 SELECTED=()
 while [ $# -gt 0 ]; do
   case "$1" in
+    --preflight) PREFLIGHT=1; shift ;;
     --strict) STRICT=1; shift ;;
     --allow-drift) ALLOW_DRIFT=1; shift ;;
     --log-dir) LOG_DIR="$2"; shift 2 ;;
-    -h|--help) sed -n '2,47p' "$0"; exit 0 ;;
+    -h|--help) sed -n '2,54p' "$0"; exit 0 ;;
     *) SELECTED+=("$1"); shift ;;
   esac
 done
@@ -95,6 +110,57 @@ if [ "${#PACKAGES[@]}" -eq 0 ]; then
   exit 1
 fi
 
+RESULTS=()
+passed=0; failed=0; skipped=0
+
+want() {
+  [ "${#SELECTED[@]}" -eq 0 ] && return 0
+  local p
+  for p in "${SELECTED[@]}"; do [ "$p" = "$1" ] && return 0; done
+  return 1
+}
+
+# ── preflight: each member's own suite, on the local tree ──────────────────
+if [ "$PREFLIGHT" -eq 1 ]; then
+  for entry in "${PACKAGES[@]}"; do
+    name="${entry%% *}"
+    dir="$CONTAINER/${entry##* }"
+    want "$name" || continue
+    log="$LOG_DIR/$name.preflight.log"
+    if [ ! -d "$dir/test" ]; then
+      RESULTS+=("SKIP $name — no test/ directory")
+      skipped=$((skipped+1)); continue
+    fi
+    echo "== preflight $name =="
+    if ! ( cd "$dir" && dart pub get > "$log" 2>&1 ); then
+      RESULTS+=("FAIL $name — 'dart pub get' failed")
+      failed=$((failed+1)); tail -n 15 "$log" | sed 's/^/    /'; continue
+    fi
+    if ( cd "$dir" && dart test >> "$log" 2>&1 ); then
+      RESULTS+=("PASS $name")
+      passed=$((passed+1))
+    else
+      RESULTS+=("FAIL $name — its own tests fail on the local tree; do not publish")
+      failed=$((failed+1)); tail -n 25 "$log" | sed 's/^/    /'
+    fi
+  done
+  echo
+  echo "== preflight summary =="
+  for r in "${RESULTS[@]}"; do echo "  $r"; done
+  echo "  logs: $LOG_DIR"
+  echo
+  if [ "$failed" -gt 0 ]; then
+    echo "FAILED: $passed passed, $failed failed, $skipped skipped."
+    exit 1
+  fi
+  if [ "$skipped" -gt 0 ] && [ "$STRICT" -eq 1 ]; then
+    echo "FAILED (--strict): $passed passed, 0 failed, $skipped skipped."
+    exit 1
+  fi
+  echo "Preflight: $passed release member suite(s) pass on the local tree, $skipped skipped."
+  exit 0
+fi
+
 # ── the precondition ────────────────────────────────────────────────────────
 if [ "$ALLOW_DRIFT" -eq 0 ]; then
   echo "== precondition: local tree == published tree =="
@@ -108,16 +174,6 @@ if [ "$ALLOW_DRIFT" -eq 0 ]; then
   fi
   echo "  clean"
 fi
-
-RESULTS=()
-passed=0; failed=0; skipped=0
-
-want() {
-  [ "${#SELECTED[@]}" -eq 0 ] && return 0
-  local p
-  for p in "${SELECTED[@]}"; do [ "$p" = "$1" ] && return 0; done
-  return 1
-}
 
 for entry in "${PACKAGES[@]}"; do
   name="${entry%% *}"

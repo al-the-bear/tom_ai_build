@@ -106,8 +106,9 @@ unpublished_drift:
     no command exposes. Since then also qrb3's schema-generator fix: a
     `@Reference` list's container admits the item types its element class is
     owned under elsewhere. The README now records the package as the
-    exception to the tom_build_base CLI rule (qrb7). Rides the next clitool
-    release.
+    exception to the tom_build_base CLI rule (qrb7), and
+    verify_published_tests.sh gained `--preflight` with the release procedure
+    in the README (qrb9). Rides the next clitool release.
   tom_core_codespecs: >-
     DOCS ONLY since 0.12.3: the README status block names 0.12.3 (qrb1), and
     the derivation contract names the stored sources of `@CsTrigger.kind` and

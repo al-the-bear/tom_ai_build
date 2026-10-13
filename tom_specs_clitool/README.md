@@ -126,7 +126,7 @@ Each fails a build step rather than reporting a warning.
 | Release closure | The release-1 package set is dependency-closed | `bin/check_release_closure.dart`, `test/release_closure_test.dart` |
 | Release drift | Every release member is at its published tree, or says why not | `bin/check_release_drift.dart`, `test/release_drift_test.dart` |
 | Archive ignores | No release member's pub archive drops a file git tracks because a `.gitignore` excludes it — asked of `dart pub publish --dry-run` itself, since git and pub read ignore negations differently | `test/pub_archive_ignores_test.dart` |
-| Published tests | Every published package's own tests run from its pub.dev archive | `tool/verify_published_tests.sh` (a **release step**, not a standing gate) |
+| Published tests | Every release member's own tests pass on the local tree before a publish (`--preflight`), and from its pub.dev archive after one | `tool/verify_published_tests.sh` (a **release step**, not a standing gate) |
 | Doc coverage | Every measured package is at or above its ratchet floor, and enables `public_member_api_docs` | `bin/check_doc_coverage.dart`, `test/doc_coverage_test.dart` |
 | Formatting | Every governed package is what `dart format` would write | `bin/check_format.dart`, `test/format_test.dart` |
 | Shipped script paths | Every path literal in a shipped `example/`/`bin/`/`tool/` script resolves inside its own package | `bin/check_shipped_paths.dart`, `test/shipped_script_paths_test.dart` |
@@ -309,7 +309,7 @@ is worse than absent — it still looks runnable.
 | Entry | Purpose | Re-run when |
 | --- | --- | --- |
 | `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs **all three** citation gates — `check_todo_citations.dart`, `check_section_citations.dart` and `check_oe_citations.dart` — as blocking steps under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
-| `verify_published_tests.sh` | Download each release member's **actual archive from pub.dev**, `dart pub get` it in a directory with no workspace siblings, and run its shipped tests. A release step rather than a standing gate: the archive's tests are only meaningful against the archive's dependencies, and a local tree run against published siblings reports the stale-publish drift as a test failure. It therefore **refuses to start** while `check_release_drift.dart` is red (`--allow-drift` overrides). Downloads rather than reconstructs the archive from `git ls-files` minus `.pubignore`, because a reconstruction re-implements pub's packaging rules and would hide the untracked-fixture case that motivated this. `--strict` makes a skip a failure. | After a lockstep publish. |
+| `verify_published_tests.sh` | Download each release member's **actual archive from pub.dev**, `dart pub get` it in a directory with no workspace siblings, and run its shipped tests. A release step rather than a standing gate: the archive's tests are only meaningful against the archive's dependencies, and a local tree run against published siblings reports the stale-publish drift as a test failure. It therefore **refuses to start** while `check_release_drift.dart` is red (`--allow-drift` overrides). Downloads rather than reconstructs the archive from `git ls-files` minus `.pubignore`, because a reconstruction re-implements pub's packaging rules and would hide the untracked-fixture case that motivated this. `--strict` makes a skip a failure. **`--preflight`** asks the same question one step earlier: it runs each member's own `dart test` on the local tree, with no drift precondition, so a stale shipped test fails before the upload rather than after it. | `--preflight` before every `dart pub publish`; the archive run after a lockstep publish. |
 | `regenerate_api_references.sh` | The API-reference driver over all eighteen SOM packages, running the eight per-language generators into `<package>/doc/api/reference/`. Its shape is `tom_som_conformance/tool/run_all_suites.sh`'s: per-target selection, and a skip with the reason stated when a toolchain is absent, with `--strict` turning a skip into a failure. The rendered output is gitignored (`som_toolchains.md`, "Documentation generation"). | The documented sources change and a reference is wanted locally. |
 | `provision_doc_generators.sh` | Report which of the eight documentation generators a host carries, and install the only two that are ever a documentation-only install — `pdoc` and `doxygen`. Reports by default and installs on `--install`; `--dry-run` prints the commands, `--markdown` emits the `som_toolchains.md` host table. For `pdoc` it reports the **interpreter behind the tool** and checks it for PyYAML and Python >= 3.13, because pdoc imports the module rather than parsing it, and below 3.13 it re-parses the whole module per class — so the version alone cannot tell a working install from one that dies at import or one that never finishes on a facade. | A host is brought up for documentation generation. |
 | `lib/doc_toolchain_path.sh` | Not an entry point: the toolchain `PATH` rules the two scripts above share, so the provisioner cannot certify a host the driver then skips. Resolves what a non-interactive shell hides — `~/.cargo/bin` and the Go tarball, Dart when it is the SDK bundled with a Flutter checkout, and `javadoc` **from JDK 21 by preference** (Homebrew's `openjdk@21` is keg-only, so a platform `/usr/bin/javadoc` shim for another major wins by default). | A toolchain installs somewhere the rules do not look. |
@@ -467,6 +467,33 @@ targets — without compiling against the typed classes.
   typed surface may change freely between regenerations. Backward-compatibility
   observation — and the move to `_v1` — begins when a `release.md` is added to
   the model major.
+
+### Release procedure
+
+Publishing a release member is a fixed sequence, because each step answers a
+question the next one depends on:
+
+1. **What moved.** `dart run bin/check_release_drift.dart` names every member
+   whose tree differs from what pub.dev carries; each is acknowledged in
+   `tool/release_set.yaml`'s `unpublished_drift:` until it is published.
+2. **Bump.** Raise the version and add the CHANGELOG entry of every member that
+   moved, and of every member that depends on one in lockstep. When the model
+   chain moves, regenerate after the bump (`buildkit -v -p . :versioner` in
+   `tom_specs_model`, then `bin/generate_som.dart`), so the generated packages
+   carry the new version.
+3. **Preflight.** `tool/verify_published_tests.sh --preflight` runs every
+   member's own `dart test` on the local tree, with the conformance driver
+   (`tom_som_conformance/tool/run_all_suites.sh`) and this package's `dart
+   test` beside it. A member whose own suite fails is not published: its tests
+   ship in the archive, and nothing else runs them before a consumer does.
+4. **Publish.** `dart pub publish` in each member, each after the members it
+   depends on.
+5. **Record.** Remove the published members from `unpublished_drift:`, and
+   record a `published_from:` commit when the publish was made from a later
+   commit than the bump, so the drift gate is green again.
+6. **Verify.** Once pub.dev serves the new versions,
+   `tool/verify_published_tests.sh --strict` runs each archive's shipped tests
+   against hosted dependencies.
 
 ### Samples
 
