@@ -60,10 +60,16 @@
 typedef struct {
   SpecDocument document;
   /* owned; YAML_MAP, empty when the pass is absent. Its plain scalars are
-   * typed as a YAML core-schema reader types them (`true` → YAML_BOOL,
-   * `null` → YAML_NULL, `2.5` → YAML_FLOAT, a JSON flow list → YAML_SEQ), so
-   * passing it back to `encode_yaml_with_review` reproduces it byte for
-   * byte. */
+   * typed by the YAML 1.2 core schema (SOM §12.5): `~` / `null` / `Null` /
+   * `NULL` and an empty value → YAML_NULL; `true|True|TRUE|false|False|FALSE`
+   * → YAML_BOOL; `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` → YAML_INT, a
+   * decimal integer outside the signed 64-bit range → YAML_FLOAT (never
+   * saturated); `[-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?`,
+   * `[-+]?.inf` and `.nan` (each in its three case forms) → YAML_FLOAT; a JSON
+   * flow list → YAML_SEQ; anything else a string. Quoted and block scalars
+   * are always strings. Passing it back to `encode_yaml_with_review` writes
+   * every value in its canonical form, so a canonical file round-trips byte
+   * for byte. */
   YamlValue *review;
   char *model_version; /* owned; "" when absent */
 } SpecYamlContents;
@@ -101,7 +107,11 @@ char *encode_yaml_with_review(const SpecDocument *document,
  * the output the same in every port and keeps decode followed by encode
  * byte-identical. Null, booleans, numbers and identifier-like strings
  * (^[A-Za-z_][A-Za-z0-9_]*$, not a YAML word such as `yes` / `null`) are
- * written plain; any other string as a self-verified block scalar; a nested
+ * written plain — scalars in the canonical form of SOM §12.5: `null`,
+ * `true` / `false`, ints in decimal, floats as `.nan` / `.inf` / `-.inf` or
+ * the shortest round-tripping digits in JavaScript's Number toString layout
+ * with `.0` appended to a whole fixed-notation value (`3.0`, `1e+300`,
+ * `1e-7`); any other string as a self-verified block scalar; a nested
  * map one level deeper (`{}` when empty); a sequence as a JSON flow sequence.
  * An empty (or non-map) review writes `review: {}`. */
 void spec_yaml_write_review_pass(SomBuf *out, const YamlValue *review);

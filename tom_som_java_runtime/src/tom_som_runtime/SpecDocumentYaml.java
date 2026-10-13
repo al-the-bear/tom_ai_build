@@ -384,10 +384,12 @@ public final class SpecDocumentYaml {
    * interpretation: entries sorted by path (JSON-quoted keys), each entry's
    * fields sorted by name. Sorting, rather than keeping the map's order, is
    * what makes the output the same in every port, and it keeps decode
-   * followed by encode byte-identical. Booleans, numbers and identifier-like
-   * strings are written plain; any other string as a self-verified block
-   * scalar ({@link #writeScalar}); a nested map one level deeper; a list as a
-   * JSON flow sequence. An empty map writes {@code review: {}}.
+   * followed by encode byte-identical. Null, booleans and numbers are written
+   * plain in their canonical YAML 1.2 spelling ({@link #reviewScalar},
+   * SOM §12.5) and identifier-like strings that are no YAML word plain too;
+   * any other string as a self-verified block scalar ({@link #writeScalar}); a
+   * nested map one level deeper; a list as a JSON flow sequence. An empty map
+   * writes {@code review: {}}.
    */
   public static void writeReviewPass(StringBuilder b, Map<?, ?> review) {
     if (review.isEmpty()) {
@@ -429,7 +431,7 @@ public final class SpecDocumentYaml {
     } else if (value == null) {
       b.append(prefix).append(renderedKey).append(": null\n");
     } else if (value instanceof Boolean || value instanceof Number) {
-      b.append(prefix).append(renderedKey).append(": ").append(value).append('\n');
+      b.append(prefix).append(renderedKey).append(": ").append(reviewScalar(value)).append('\n');
     } else if (value instanceof List) {
       b.append(prefix).append(renderedKey).append(": ").append(Json.write(value)).append('\n');
     } else {
@@ -441,6 +443,94 @@ public final class SpecDocumentYaml {
         writeRendered(b, indent, renderedKey, scalarRepr(text));
       }
     }
+  }
+
+  /**
+   * A decoded boolean or number as the review-pass writer prints it (SOM §12.5,
+   * review scalars): the form that reads back as the same value. Booleans are
+   * {@code true}/{@code false}; an integer ({@link Integer}, {@link Long},
+   * {@link Short}, {@link Byte}, {@link java.math.BigInteger}) is written in
+   * decimal; any other number is a float, written by {@link #formatFloat}.
+   */
+  public static String reviewScalar(Object value) {
+    if (value instanceof Boolean) {
+      return ((Boolean) value) ? "true" : "false";
+    }
+    if (value instanceof Integer
+        || value instanceof Long
+        || value instanceof Short
+        || value instanceof Byte
+        || value instanceof java.math.BigInteger) {
+      return value.toString();
+    }
+    if (value instanceof Number) {
+      return formatFloat(((Number) value).doubleValue());
+    }
+    return String.valueOf(value);
+  }
+
+  /**
+   * A float in the canonical review-pass spelling (SOM §12.5): {@code .nan},
+   * {@code .inf}, {@code -.inf}; otherwise the shortest digit string that
+   * parses back to the same double, laid out like JavaScript's
+   * {@code Number.prototype.toString} — fixed notation when {@code x == 0} or
+   * {@code 1e-6 <= |x| < 1e21}, else exponent notation with an explicit sign
+   * and no padding ({@code 1e+300}, {@code 1.5e-300}) — and in fixed notation
+   * {@code .0} appended when there is no fraction ({@code 3.0}, {@code -0.0}).
+   * The digits come from an exact {@link java.math.BigDecimal} search, not
+   * {@link Double#toString}, whose digits are not always the shortest before
+   * JDK 19 and whose layout differs ({@code 1.0E300}).
+   */
+  public static String formatFloat(double x) {
+    if (Double.isNaN(x)) {
+      return ".nan";
+    }
+    if (Double.isInfinite(x)) {
+      return x > 0 ? ".inf" : "-.inf";
+    }
+    boolean negative = x < 0 || (x == 0 && 1 / x < 0);
+    String sign = negative ? "-" : "";
+    if (x == 0) {
+      return sign + "0.0";
+    }
+    java.math.BigDecimal exact = new java.math.BigDecimal(Math.abs(x));
+    java.math.BigDecimal shortest = exact;
+    for (int p = 1; p <= 17; p++) {
+      java.math.BigDecimal r =
+          exact.round(new java.math.MathContext(p, java.math.RoundingMode.HALF_EVEN));
+      if (r.doubleValue() == Math.abs(x)) {
+        shortest = r;
+        break;
+      }
+    }
+    shortest = shortest.stripTrailingZeros();
+    String digits = shortest.unscaledValue().toString();
+    int k = digits.length();
+    int n = k - shortest.scale(); // value = 0.<digits> × 10^n
+    StringBuilder out = new StringBuilder(sign);
+    if (k <= n && n <= 21) {
+      out.append(digits);
+      for (int i = k; i < n; i++) {
+        out.append('0');
+      }
+      out.append(".0");
+    } else if (0 < n && n <= 21) {
+      out.append(digits, 0, n).append('.').append(digits, n, k);
+    } else if (-6 < n && n <= 0) {
+      out.append("0.");
+      for (int i = n; i < 0; i++) {
+        out.append('0');
+      }
+      out.append(digits);
+    } else {
+      int e = n - 1;
+      out.append(digits.charAt(0));
+      if (k > 1) {
+        out.append('.').append(digits, 1, k);
+      }
+      out.append('e').append(e < 0 ? '-' : '+').append(Math.abs(e));
+    }
+    return out.toString();
   }
 
   private static final Pattern REVIEW_TOKEN_PATTERN = Pattern.compile("^[A-Za-z_][A-Za-z0-9_]*$");
@@ -910,8 +1000,9 @@ public final class SpecDocumentYaml {
       stamp = parsed.isEmpty() ? null : parsed;
     }
 
-    // The review pass is uninterpreted but typed (booleans, numbers, nulls round-trip
-    // as such), so it is read from a typed parse; the document pass stays
+    // The review pass is uninterpreted but typed: its plain scalars keep their
+    // YAML 1.2 core-schema types (SOM §12.5 — null, Boolean, Integer/Long,
+    // Double), so it is read from a typed parse; the document pass stays
     // untyped.
     Object rawReview = rootMap.get("review");
     if (rawReview instanceof Map && !((Map<?, ?>) rawReview).isEmpty()) {

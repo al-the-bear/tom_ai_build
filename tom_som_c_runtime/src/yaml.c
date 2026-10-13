@@ -1,5 +1,6 @@
 #include "yaml.h"
 
+#include <errno.h>
 #include <float.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -111,8 +112,10 @@ char *yaml_format_double(double v) {
     return som_strdup(v < 0 ? "-Infinity" : "Infinity");
   }
   char buf[64];
-  int integral = a >= 9007199254740992.0 || (double)(long long)a == a;
-  if (integral && a < 1e21) {
+  /* Below 2^53 an integral double prints exactly with `%.0f`, and that exact
+   * integer is also its shortest round-tripping form. Larger whole values go
+   * through the shortest-digits path below (zero-padded up to 1e21). */
+  if (a < 9007199254740992.0 && (double)(long long)a == a) {
     if (v == 0 && 1.0 / v < 0) {
       return som_strdup("-0.0");
     }
@@ -481,35 +484,56 @@ static YamlValue *parse_sequence(YamlReader *r, size_t indent) {
   return list;
 }
 
+/* An empty value (`key:` with nothing nested): an empty map flagged `plain`,
+ * so an untyped pass can read it as null (SOM §12.5) while the document pass
+ * keeps treating it as an empty mapping. */
+static YamlValue *empty_value(void) {
+  YamlValue *v = yaml_new_map();
+  v->plain = 1;
+  return v;
+}
+
 static YamlValue *parse_nested_after_key(YamlReader *r, size_t parent_indent) {
   long i = next_significant(r, r->idx);
   if (i < 0) {
-    return yaml_new_map();
+    return empty_value();
   }
   size_t child_indent = yaml_leading(r->lines.items[i]);
   if (child_indent <= parent_indent) {
-    return yaml_new_map();
+    return empty_value();
   }
   return parse_node(r, child_indent);
+}
+
+/* Parses a decimal integer, failing (rather than saturating) outside the
+ * signed 64-bit range. */
+static int parse_i64_exact(const char *t, long long *out) {
+  errno = 0;
+  char *end = NULL;
+  long long v = strtoll(t, &end, 10);
+  if (errno == ERANGE || end == t || *end != '\0') {
+    return 0;
+  }
+  *out = v;
+  return 1;
 }
 
 static YamlValue *parse_flow_scalar(const char *s) {
   char *t = trim_dup(s, strlen(s));
   YamlValue *out;
+  long long n;
   if (strcmp(t, "{}") == 0) {
     out = yaml_new_map();
   } else if (strcmp(t, "[]") == 0) {
     out = yaml_new_seq();
   } else if (t[0] == '"') {
     out = yaml_new_str(parse_quoted(t, 0));
-  } else if (yaml_is_integer(t)) {
-    long long n;
-    if (som_parse_i64(t, &n)) {
-      out = yaml_new_int(n);
-    } else {
-      out = yaml_new_str(som_strdup(t));
-    }
+  } else if (yaml_is_integer(t) && parse_i64_exact(t, &n)) {
+    out = yaml_new_int(n);
   } else {
+    /* Any other plain scalar — including a decimal integer outside the signed
+     * 64-bit range, which is never saturated — stays the source text with
+     * `plain` set, for the codec to type where a pass is untyped. */
     out = yaml_new_str(som_strdup(t));
     out->plain = 1;
   }

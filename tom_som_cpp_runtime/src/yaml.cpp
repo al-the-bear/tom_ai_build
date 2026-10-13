@@ -1,6 +1,9 @@
 /* Idiomatic-C++ port of the C `yaml` module. */
 #include "yaml.hpp"
 
+#include <cerrno>
+#include <cstdlib>
+
 #include "som_json.hpp"
 #include "som_util.hpp"
 
@@ -281,14 +284,23 @@ YamlPtr parseSequence(YamlReader& r, std::size_t indent) {
   return list;
 }
 
+/* An empty value (`key:` with nothing nested): an empty map flagged `plain`,
+ * so an untyped pass (the review pass) reads it as null (SOM §12.5) while the
+ * document pass keeps treating it as an empty mapping. */
+YamlPtr emptyValue() {
+  YamlPtr v = yamlNewMap();
+  v->plain = true;
+  return v;
+}
+
 YamlPtr parseNestedAfterKey(YamlReader& r, std::size_t parentIndent) {
   long i = r.nextSignificant(r.idx);
   if (i < 0) {
-    return yamlNewMap();
+    return emptyValue();
   }
   std::size_t childIndent = yamlLeading(r.lines[static_cast<std::size_t>(i)]);
   if (childIndent <= parentIndent) {
-    return yamlNewMap();
+    return emptyValue();
   }
   return parseNode(r, childIndent);
 }
@@ -305,9 +317,13 @@ YamlPtr parseFlowScalar(const std::string& s) {
     return yamlNewStr(parseQuoted(t, false));
   }
   if (yamlIsInteger(t)) {
-    auto n = parseI64(t);
-    if (n.has_value()) {
-      return yamlNewInt(*n);
+    // Exact, never saturated: a decimal integer outside the signed 64-bit
+    // range stays plain text, which the review pass types as a float.
+    errno = 0;
+    char* end = nullptr;
+    long long n = std::strtoll(t.c_str(), &end, 10);
+    if (errno != ERANGE && end == t.c_str() + t.size()) {
+      return yamlNewInt(n);
     }
   }
   YamlPtr plain = yamlNewStr(t);

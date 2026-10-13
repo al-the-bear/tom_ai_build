@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- The review pass follows one scalar rule in every port (SOM §12.5): plain
+  scalars typed by the YAML 1.2 core schema on decode, and
+  `SpecDocumentYaml.reviewScalar` writing a float that reads back as itself —
+  `.inf`, `-.inf` and `.nan` for the non-finite values, which were written as
+  `Infinity` and `NaN` and read back as strings. Pinned by two new
+  `yaml_review_cases.json` cases.
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

@@ -57,7 +57,9 @@ inline constexpr int kSpecYamlFormatVersion = 2;
  * map when absent), and the optional authoring model-version stamp. */
 struct SpecYamlContents {
   SpecDocument document;
-  YamlRef review;            // YAML_MAP; empty map when the pass is absent
+  YamlRef review;            // YAML_MAP; empty map when the pass is absent.
+                             // Its plain scalars keep their source text; the
+                             // writer types them (SOM §12.5).
   std::string modelVersion;  // "" when absent
 };
 
@@ -86,10 +88,18 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
  * interpretation: entries sorted by path (byte order, JSON-quoted keys), each
  * entry's fields sorted by name. Sorting rather than keeping the map's order
  * makes the output the same in every port and keeps decode followed by encode
- * byte-identical. Scalars are typed as YAML types them: a Str flagged `plain`
- * that reads as null, a boolean or a number is written as that value (`null`,
- * `true`, an integer without decimal point, a double as Dart prints it), a
- * plain JSON flow collection as that collection; booleans, numbers and
+ * byte-identical. Plain scalars are typed by the YAML 1.2 core schema
+ * (SOM §12.5) — quoted and block scalars are always strings: `~` / `null` /
+ * `Null` / `NULL` and an empty value (`key:`) → null;
+ * `true|True|TRUE|false|False|FALSE` → bool; `[-+]?[0-9]+`, `0o[0-7]+`,
+ * `0x[0-9a-fA-F]+` → int, a value outside the signed 64-bit range → float
+ * (never saturated); `[-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?`,
+ * `[-+]?.inf` and `.nan` (three case forms each) → float; a plain JSON flow
+ * collection → that collection; anything else a string. Each is written in
+ * canonical form: `null`, `true` / `false`, ints in decimal, floats as
+ * `.nan` / `.inf` / `-.inf` or the shortest round-tripping digits in
+ * JavaScript's Number toString layout with `.0` appended to a whole
+ * fixed-notation value (`3.0`, `1e+300`, `1e-7`); booleans, numbers and
  * identifier-like strings (not a YAML keyword such as `yes` or `null`) are
  * written plain, any other string as a self-verified block scalar, a nested map
  * one level deeper, a list as a JSON flow sequence. An empty map writes

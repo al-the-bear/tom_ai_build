@@ -114,18 +114,18 @@ unpublished_drift:
     MODEL ID FIXES since 1.4.1 (qrb3): CurrentWorkflowEntry's diagram is
     `CUWF-DIAG` and ErrorRecovery's mechanisms form `ERRE-MECH`. Both old ids
     collided with a list's item pattern (`CUWF-WORK-xxx`, `ERRE-RECO-xxx`), so no
-    document could write those sections validly. Rides the next model-chain
-    release.
+    document could write those sections validly. Also SOM §12.5 now states
+    the review-scalar rule (qrb4). Rides the next model-chain release.
   tom_som_dart_v0: >-
     REGENERATED since 1.4.1 (qrb3) from the tom_specs_model id fixes and the
     clitool's reference-list schema fix: two renamed ids in the facade and meta,
     and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema.
     Rides the next model-chain release.
   tom_som_dart_runtime: >-
-    DOC COMMENTS ONLY since 1.4.1 (qr1): the YAML codec's and the markdown
-    codec's comments now say the review pass is carried and written back, and
-    that applyMarkdownResult applies a parse. No behaviour change; it rides the
-    next model-chain release.
+    Since 1.4.1: doc comments (qr1) say the review pass is carried and written
+    back and that applyMarkdownResult applies a parse; and the review writer
+    (qrb4) prints non-finite floats as `.inf`/`-.inf`/`.nan` under the SOM §12.5
+    review-scalar rule. Rides the next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

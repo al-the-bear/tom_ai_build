@@ -31,8 +31,7 @@ package somruntime
 //   - The YAML is read with the package's own reader (YamlParseTyped, the
 //     reader the docspecs YAML load path uses). It does not report syntax
 //     errors or duplicate keys, so the reference's "is not valid YAML" error has
-//     no counterpart here, and an empty `key:` reads as an empty mapping — which
-//     the helpers below treat as the reference's null.
+//     no counterpart here. An empty `key:` reads as null, as in package:yaml.
 
 import (
 	"os"
@@ -744,9 +743,8 @@ func csrRootMapping(text, name, key string) (*YamlMap, error) {
 	return root, nil
 }
 
-// csrGet reads key from m, with the reference's null for an absent key — and
-// for an empty `key:`, which the package reader returns as an empty mapping
-// where package:yaml returns null.
+// csrGet reads key from m, with the reference's null for an absent key and an
+// empty `key:` (an empty mapping is also taken as null).
 func csrGet(m *YamlMap, key string) interface{} {
 	v, ok := m.Get(key)
 	if !ok {

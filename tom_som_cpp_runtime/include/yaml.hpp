@@ -11,7 +11,8 @@
  * maps (a mirror of the Go/Rust YamlMap — the hierarchical codec iterates list
  * items in source order, so anonymous keys like `requirements-2` and
  * `requirements-10` must keep declaration order, not lexical order), sequences
- * are arrays, scalars are strings or integers. JSON-quoted scalars are parsed
+ * are arrays, scalars are strings or integers (Int only for a plain decimal
+ * within the signed 64-bit range). JSON-quoted scalars are parsed
  * via the hand-rolled `som_json` parser.
  *
  * Ownership: a parsed value owns its whole subtree via std::shared_ptr; values
@@ -44,10 +45,14 @@ class YamlValue {
   std::vector<YamlPtr> seq;
   std::string str;
   long long integer = 0;
-  // A Str scalar that was written plain (unquoted, not a block scalar). The
-  // document codec reads every scalar as text and ignores this; a reader that
-  // needs YAML's typing of plain scalars (`true`, `null`, `2.5`, the review
-  // pass) consults it. Set it on a constructed Str to mean the same.
+  // A Str scalar that was written plain (unquoted, not a block scalar) —
+  // including a decimal integer outside the signed 64-bit range, which the
+  // parser never saturates into an Int — or the empty Map an empty value
+  // (`key:`) parses to. The document codec reads every scalar as text and
+  // ignores this; the review pass consults it to type plain scalars by the
+  // YAML 1.2 core schema (SOM §12.5: `true` a bool, `~` and an empty value
+  // null, `2.5` a float), while quoted and block scalars stay strings. Set it
+  // on a constructed Str to mean the same.
   bool plain = false;
 
   explicit YamlValue(YamlType t) : type(t) {}

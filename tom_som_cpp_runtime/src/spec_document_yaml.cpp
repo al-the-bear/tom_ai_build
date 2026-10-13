@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <limits>
 #include <map>
 #include <vector>
 
@@ -777,8 +778,13 @@ std::optional<std::string> encodeYaml(const SpecDocument& document,
 
 namespace {
 
-/* `value` as Dart's double.toString prints it (shortest round-trip digits; an
- * integral value keeps `.0`; exponent form below 1e-6 and from 1e21). */
+/* `value` as Dart's double.toString prints it: the shortest digit string that
+ * parses back to the same double (`%.{p}e` for growing p until strtod agrees),
+ * laid out like JavaScript's Number.prototype.toString — fixed notation when
+ * value == 0 or 1e-6 <= |value| < 1e21, with `.0` appended when there is no
+ * fractional part (`3.0`, `-0.0`, `100000000000000000000.0`), exponent
+ * notation otherwise with an explicit sign and no padding (`1e+21`,
+ * `1.5e-300`, `1e-7`); `NaN` / `Infinity` / `-Infinity`. */
 std::string dartDouble(double value) {
   if (std::isnan(value)) {
     return "NaN";
@@ -836,8 +842,66 @@ JsonPtr jsonStrValue(const std::string& s) {
   return j;
 }
 
-/* The value YAML (package:yaml's core schema) gives a plain scalar: null,
- * a boolean, an integer, a double, a JSON flow collection, else the string. */
+JsonPtr jsonFloat(double d) {
+  JsonPtr j = jsonOf(JsonType::Float);
+  j->real = d;
+  return j;
+}
+
+/* Whether `t[from..]` is one or more characters of `set`. */
+bool allOf(const std::string& t, std::size_t from, const char* set) {
+  return from < t.size() && t.find_first_not_of(set, from) == std::string::npos;
+}
+
+/* Whether `t` matches the YAML 1.2 core-schema float spelling
+ * [-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)? (a decimal integer
+ * matches too; the caller tries the int forms first). */
+bool isCoreFloat(const std::string& t) {
+  auto digit = [&t](std::size_t i) { return i < t.size() && t[i] >= '0' && t[i] <= '9'; };
+  std::size_t i = 0;
+  if (i < t.size() && (t[i] == '-' || t[i] == '+')) {
+    i++;
+  }
+  std::size_t intDigits = 0;
+  while (digit(i)) {
+    i++;
+    intDigits++;
+  }
+  std::size_t fracDigits = 0;
+  if (i < t.size() && t[i] == '.') {
+    i++;
+    while (digit(i)) {
+      i++;
+      fracDigits++;
+    }
+  }
+  if (intDigits == 0 && fracDigits == 0) {
+    return false;
+  }
+  if (i < t.size() && (t[i] == 'e' || t[i] == 'E')) {
+    i++;
+    if (i < t.size() && (t[i] == '-' || t[i] == '+')) {
+      i++;
+    }
+    if (!digit(i)) {
+      return false;
+    }
+    while (digit(i)) {
+      i++;
+    }
+  }
+  return i == t.size();
+}
+
+/* The value the YAML 1.2 core schema (package:yaml's, the Dart reference's
+ * reader) gives the plain scalar `t` (SOM §12.5): `~` / `null` / `Null` /
+ * `NULL` and an empty value → null; `true|True|TRUE|false|False|FALSE` →
+ * bool; `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` → int, but a value
+ * outside the signed 64-bit range → float (never saturated); the float
+ * spelling, `[-+]?.inf` and `.nan` (each in its three case forms) → float;
+ * a JSON flow collection (what the writer emits for a list) → its value;
+ * anything else the string. Int and Float stay distinct, so `3.0` is written
+ * back as `3.0` and `3` as `3`. */
 JsonPtr typedPlain(const std::string& t) {
   if (t.empty() || t == "null" || t == "Null" || t == "NULL" || t == "~") {
     return jsonOf(JsonType::Null);
@@ -853,52 +917,47 @@ JsonPtr typedPlain(const std::string& t) {
     JsonPtr j = jsonParse(t, &err);
     return j != nullptr ? j : jsonStrValue(t);
   }
-  auto isDigit = [](char c) { return c >= '0' && c <= '9'; };
-  auto allOf = [&t](std::size_t from, const std::string& set) {
-    if (from >= t.size()) {
-      return false;
-    }
-    return t.find_first_not_of(set, from) == std::string::npos;
-  };
-  if (t.size() > 2 && t[0] == '0' && (t[1] == 'x' || t[1] == 'o')) {
-    bool hex = t[1] == 'x';
-    if (allOf(2, hex ? "0123456789abcdefABCDEF" : "01234567")) {
-      errno = 0;
-      long long n = std::strtoll(t.c_str() + 2, nullptr, hex ? 16 : 8);
-      if (errno == 0) {
-        JsonPtr j = jsonOf(JsonType::Int);
-        j->integer = n;
-        return j;
-      }
-    }
-    return jsonStrValue(t);
+  int base = 0;
+  std::size_t from = 0;
+  if (allOf(t, 2, "01234567") && t.compare(0, 2, "0o") == 0) {
+    base = 8;
+    from = 2;
+  } else if (allOf(t, 2, "0123456789abcdefABCDEF") && t.compare(0, 2, "0x") == 0) {
+    base = 16;
+    from = 2;
+  } else if (allOf(t, (t[0] == '-' || t[0] == '+') ? 1 : 0, "0123456789")) {
+    base = 10;
   }
-  static const char* const kSpecials[][2] = {
-      {".inf", "inf"},   {".Inf", "inf"},   {".INF", "inf"},
-      {"+.inf", "inf"},  {"+.Inf", "inf"},  {"+.INF", "inf"},
-      {"-.inf", "-inf"}, {"-.Inf", "-inf"}, {"-.INF", "-inf"},
-      {".nan", "nan"},   {".NaN", "nan"},   {".NAN", "nan"},
-  };
-  for (const auto& sp : kSpecials) {
-    if (t == sp[0]) {
-      JsonPtr j = jsonOf(JsonType::Float);
-      j->real = std::strtod(sp[1], nullptr);
-      return j;
-    }
-  }
-  bool numberish =
-      isDigit(t[0]) || (t[0] == '.' && t.size() > 1 && isDigit(t[1])) ||
-      ((t[0] == '+' || t[0] == '-') && t.size() > 1 &&
-       (isDigit(t[1]) || t[1] == '.'));
-  if (numberish &&
-      t.find_first_not_of("0123456789+-.eE") == std::string::npos) {
+  if (base != 0) {
+    errno = 0;
     char* end = nullptr;
-    double d = std::strtod(t.c_str(), &end);
-    if (end == t.c_str() + t.size()) {
-      JsonPtr j = jsonOf(JsonType::Float);
-      j->real = d;
+    long long n = std::strtoll(t.c_str() + from, &end, base);
+    if (errno != ERANGE) {
+      JsonPtr j = jsonOf(JsonType::Int);
+      j->integer = n;
       return j;
     }
+    if (base == 10) {
+      return jsonFloat(std::strtod(t.c_str(), nullptr));
+    }
+    double d = 0;
+    for (std::size_t i = from; i < t.size(); i++) {
+      char c = t[i];
+      int digit = c <= '9' ? c - '0' : (c | 0x20) - 'a' + 10;
+      d = d * base + digit;
+    }
+    return jsonFloat(d);
+  }
+  std::string unsignedT = (t[0] == '-' || t[0] == '+') ? t.substr(1) : t;
+  if (unsignedT == ".inf" || unsignedT == ".Inf" || unsignedT == ".INF") {
+    double inf = std::numeric_limits<double>::infinity();
+    return jsonFloat(t[0] == '-' ? -inf : inf);
+  }
+  if (t == ".nan" || t == ".NaN" || t == ".NAN") {
+    return jsonFloat(std::numeric_limits<double>::quiet_NaN());
+  }
+  if (isCoreFloat(t)) {
+    return jsonFloat(std::strtod(t.c_str(), nullptr));
   }
   return jsonStrValue(t);
 }
@@ -907,6 +966,9 @@ JsonPtr typedPlain(const std::string& t) {
 JsonPtr reviewJson(const YamlValue& v) {
   switch (v.type) {
     case YamlType::Map: {
+      if (v.plain && v.map.empty()) {
+        return jsonOf(JsonType::Null);  // an empty value (`key:`)
+      }
       JsonPtr j = jsonOf(JsonType::Object);
       for (const auto& kv : v.map) {
         j->object.emplace_back(kv.first, kv.second != nullptr
@@ -977,6 +1039,21 @@ void jsonFlow(std::string& out, const Json& v) {
   }
 }
 
+/* A review float in the canonical form that reads back as the same value
+ * (SOM §12.5): `.nan`, `.inf`, `-.inf` for the non-finite values (`Infinity`
+ * would read back as a string), else `dartDouble` — the shortest
+ * round-tripping digits in JavaScript's Number toString layout, with `.0`
+ * appended to a whole fixed-notation value (`3.0`, `1e+300`, `1e-7`). */
+std::string reviewFloat(double d) {
+  if (std::isnan(d)) {
+    return ".nan";
+  }
+  if (std::isinf(d)) {
+    return d > 0 ? ".inf" : "-.inf";
+  }
+  return dartDouble(d);
+}
+
 bool reviewToken(const std::string& s) {
   if (s.empty()) {
     return false;
@@ -1034,10 +1111,12 @@ void writeReviewValue(std::string& out, std::size_t indent,
                          *kv.second);
       }
       return;
+    case JsonType::Float:
+      out += pad + renderedKey + ": " + reviewFloat(value.real) + "\n";
+      return;
     case JsonType::Null:
     case JsonType::Bool:
     case JsonType::Int:
-    case JsonType::Float:
     case JsonType::Array: {
       std::string flow;
       jsonFlow(flow, value);

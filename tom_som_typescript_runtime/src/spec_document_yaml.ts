@@ -89,7 +89,8 @@ export class SpecYamlContents {
   document: SpecDocument;
   /** The `review:` pass exactly as parsed (empty when absent). The runtime
    *  does not interpret it; the editor maps it onto its own review
-   *  entries. */
+   *  entries. Its plain scalars are typed by the YAML 1.2 core schema
+   *  (SOM §12.5): see {@link yaml.YamlReviewScalar} for the representation. */
   review: any;
   /** The authoring object-model version (`major.minor`) this document was
    *  last written against, or `null` for an unstamped/hand-written file.
@@ -393,7 +394,8 @@ function _isPlainObject(v: any): boolean {
     v !== null &&
     typeof v === 'object' &&
     !Array.isArray(v) &&
-    !(v instanceof Map)
+    !(v instanceof Map) &&
+    !(v instanceof yaml.YamlFloat)
   );
 }
 
@@ -425,10 +427,11 @@ function _sortStrings(keys: string[]): string[] {
  * fields sorted by name. Sorting, rather than keeping the map's order, is what
  * makes the output the same in every port — several ports decode YAML into
  * maps that do not keep insertion order — and it keeps decode followed by
- * encode byte-identical. Booleans, numbers and identifier-like strings are
- * written plain; any other string as a self-verified block scalar
- * ({@link writeScalar}); a nested map one level deeper; a list as a JSON flow
- * sequence. An empty map writes `review: {}`.
+ * encode byte-identical. Null, booleans and numbers are written plain in their
+ * canonical YAML 1.2 spelling ({@link reviewScalar}, SOM §12.5) and
+ * identifier-like strings that are no YAML word plain too; any other string as
+ * a self-verified block scalar ({@link writeScalar}); a nested map one level
+ * deeper; a list as a JSON flow sequence. An empty map writes `review: {}`.
  */
 export function writeReviewPass(
   b: { writeln(text?: string): void; write(text: string): void },
@@ -464,8 +467,13 @@ function _writeReviewValue(
     }
   } else if (value === null || value === undefined) {
     b.writeln(`${pad}${renderedKey}: null`);
-  } else if (typeof value === 'boolean' || typeof value === 'number') {
-    b.writeln(`${pad}${renderedKey}: ${value}`);
+  } else if (
+    typeof value === 'boolean' ||
+    typeof value === 'number' ||
+    typeof value === 'bigint' ||
+    value instanceof yaml.YamlFloat
+  ) {
+    b.writeln(`${pad}${renderedKey}: ${reviewScalar(value)}`);
   } else if (Array.isArray(value)) {
     b.writeln(`${pad}${renderedKey}: ${JSON.stringify(value)}`);
   } else if (
@@ -476,6 +484,25 @@ function _writeReviewValue(
   } else {
     _writeRendered(b, indent, renderedKey, _scalar(String(value)));
   }
+}
+
+/**
+ * A decoded boolean or number as the review-pass writer prints it (SOM §12.5,
+ * review scalars): the form that reads back as the same value. Booleans are
+ * `true`/`false`; an integer — a `bigint`, or a `number` that is a whole value
+ * other than `-0` — is written in decimal; a float — a {@link yaml.YamlFloat}
+ * or any other `number` — by {@link yaml.formatYamlFloat}, so it always
+ * carries a fraction or an exponent (`3.0`, `1e+300`, `1e-7`) and the
+ * non-finite values take their YAML spellings (`.inf`, `-.inf`, `.nan`).
+ */
+export function reviewScalar(
+  value: boolean | number | bigint | yaml.YamlFloat,
+): string {
+  if (typeof value === 'boolean') return value ? 'true' : 'false';
+  if (typeof value === 'bigint') return value.toString();
+  if (value instanceof yaml.YamlFloat) return yaml.formatYamlFloat(value.value);
+  if (Number.isInteger(value) && !Object.is(value, -0)) return String(value);
+  return yaml.formatYamlFloat(value);
 }
 
 const _REVIEW_TOKEN_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/;
@@ -988,8 +1015,9 @@ export function decode(yamlText: string, tree: SomMetaTree): SpecYamlContents {
     _parsedScalarStr(stampRaw) !== ''
       ? _parsedScalarStr(stampRaw)
       : null;
-  // The review pass is uninterpreted: its plain scalars keep their YAML types
-  // (booleans, null, numbers), so it is read with the typed parser.
+  // The review pass is uninterpreted: its plain scalars keep their YAML 1.2
+  // core-schema types (SOM §12.5 — null, booleans, 64-bit integers, floats
+  // with whole floats kept as `YamlFloat`), so it is read with the typed parser.
   const rev = 'review' in root ? yaml.parse(yamlText, true)['review'] : undefined;
 
   const document = new SpecDocument();

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The `review:` pass types its plain scalars by the YAML 1.2 core schema and writes them back canonically (SOM §12.5): ints up to 64 bits (`Long` beyond `int`, a `Double` beyond 64 bits — previously a `NumberFormatException`), hex/octal ints, `.inf`/`-.inf`/`.nan`, and floats in the shortest round-tripping digits laid out like JavaScript (`3.0`, `1e+300`) via the new `SpecDocumentYaml.reviewScalar` / `formatFloat`.
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

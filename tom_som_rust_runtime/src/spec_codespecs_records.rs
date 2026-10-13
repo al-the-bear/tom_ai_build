@@ -858,6 +858,10 @@ fn typed(v: YamlValue) -> Result<RecVal, String> {
         )),
         YamlValue::Int(n) => Ok(RecVal::Int(n)),
         YamlValue::Str(t) => typed_scalar(&t),
+        // The raw-scalar reader never yields these; mapped for completeness.
+        YamlValue::Null => Ok(RecVal::Null),
+        YamlValue::Bool(b) => Ok(RecVal::Bool(b)),
+        YamlValue::Float(f) => Ok(RecVal::Float(f)),
     }
 }
 

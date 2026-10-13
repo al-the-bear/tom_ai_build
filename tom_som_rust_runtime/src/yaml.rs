@@ -13,7 +13,9 @@
 //! maps ([`YamlMap`], mirroring the Go `YamlMap` — the hierarchical v2 codec
 //! walks keys in file order), sequences are vectors, scalars are strings or
 //! integers. JSON-quoted scalars are parsed via the hand-rolled [`crate::json`]
-//! parser.
+//! parser. [`yaml_parse_typed`] additionally reads plain scalars by the YAML 1.2
+//! core schema (SOM §12.5: null, bool, int, float) — used for the uninterpreted
+//! `review:` pass.
 
 use crate::json::Json;
 
@@ -72,12 +74,23 @@ impl YamlMap {
 }
 
 /// A parsed YAML value.
+///
+/// [`yaml_parse`] yields maps, sequences, strings and integers only; `Null`,
+/// `Bool` and `Float` come from [`yaml_parse_typed`] (the YAML 1.2 core-schema
+/// reading, SOM §12.5), where `Int` and `Float` stay distinct so a whole float
+/// (`3.0`) is written back as a float and an integer (`3`) as an integer.
 #[derive(Debug, Clone, PartialEq)]
 pub enum YamlValue {
     Map(YamlMap),
     Seq(Vec<YamlValue>),
     Str(String),
     Int(i64),
+    /// A null (typed reading only).
+    Null,
+    /// A boolean (typed reading only).
+    Bool(bool),
+    /// A float (typed reading only).
+    Float(f64),
 }
 
 impl YamlValue {
@@ -193,6 +206,9 @@ struct YamlReader {
     /// as its source text, and a block scalar as the JSON string literal of its
     /// content, so the caller can tell `null` from `"null"`.
     raw: bool,
+    /// Typed mode ([`yaml_parse_typed`]): plain scalars are read by the YAML 1.2
+    /// core schema ([`yaml_typed_plain`]) and an empty value is null.
+    typed: bool,
 }
 
 impl YamlReader {
@@ -242,7 +258,11 @@ impl YamlReader {
             let key = yaml_parse_scalar_key(content[..colon].trim());
             let rest = content[colon + 1..].trim().to_string();
             let value = if rest.is_empty() {
-                self.parse_nested_after_key(indent)
+                match self.parse_nested_after_key(indent) {
+                    // An empty value is null (YAML 1.2 core schema).
+                    YamlValue::Map(m) if self.typed && m.is_empty() => YamlValue::Null,
+                    v => v,
+                }
             } else if rest.starts_with('|') || rest.starts_with('>') {
                 self.block_value(&rest, indent)
             } else {
@@ -323,6 +343,9 @@ impl YamlReader {
                 return YamlValue::Str(v);
             }
             return YamlValue::Str(t.to_string());
+        }
+        if self.typed {
+            return yaml_typed_plain(t);
         }
         if yaml_is_integer(t) {
             if let Ok(n) = t.parse::<i64>() {
@@ -436,7 +459,141 @@ impl YamlReader {
 
 /// Parses `text` into the value model (a map or sequence).
 pub fn yaml_parse(text: &str) -> YamlValue {
-    yaml_parse_with(text, false)
+    yaml_parse_with(text, false, false)
+}
+
+/// Parses `text` like [`yaml_parse`], but reads plain scalars by the YAML 1.2
+/// core schema ([`yaml_typed_plain`]; an empty value is [`YamlValue::Null`])
+/// instead of keeping them as strings — the reading the uninterpreted
+/// `review:` pass needs to keep its values' types (SOM §12.5). Quoted and
+/// block scalars stay strings.
+pub fn yaml_parse_typed(text: &str) -> YamlValue {
+    yaml_parse_with(text, false, true)
+}
+
+/// The YAML 1.2 core-schema reading of a plain scalar `t` (SOM §12.5, review
+/// scalars — the schema package:yaml applies):
+///
+/// - null: `~`, `null`, `Null`, `NULL` and the empty scalar;
+/// - bool: `true|True|TRUE|false|False|FALSE`;
+/// - int: `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` → [`YamlValue::Int`]; an
+///   integer outside the signed 64-bit range is read as a [`YamlValue::Float`];
+/// - float: `[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?`,
+///   `[-+]?\.(inf|Inf|INF)`, `\.(nan|NaN|NAN)`.
+///
+/// A JSON flow collection (the form the review writer gives a list) is parsed
+/// as JSON. Anything else stays the string it is.
+pub fn yaml_typed_plain(t: &str) -> YamlValue {
+    match t {
+        "" | "~" | "null" | "Null" | "NULL" => return YamlValue::Null,
+        "true" | "True" | "TRUE" => return YamlValue::Bool(true),
+        "false" | "False" | "FALSE" => return YamlValue::Bool(false),
+        ".nan" | ".NaN" | ".NAN" => return YamlValue::Float(f64::NAN),
+        _ => {}
+    }
+    let unsigned = t.strip_prefix(['-', '+']).unwrap_or(t);
+    if matches!(unsigned, ".inf" | ".Inf" | ".INF") {
+        let inf = if t.starts_with('-') { f64::NEG_INFINITY } else { f64::INFINITY };
+        return YamlValue::Float(inf);
+    }
+    if yaml_is_integer(t) {
+        return match t.parse::<i64>() {
+            Ok(n) => YamlValue::Int(n),
+            Err(_) => YamlValue::Float(t.parse::<f64>().unwrap_or(f64::NAN)),
+        };
+    }
+    for (prefix, radix) in [("0o", 8), ("0x", 16)] {
+        if let Some(digits) = t.strip_prefix(prefix) {
+            if !digits.is_empty() && digits.chars().all(|c| c.is_digit(radix)) {
+                return yaml_radix_int(digits, radix);
+            }
+        }
+    }
+    if yaml_is_float(t) {
+        if let Ok(f) = t.parse::<f64>() {
+            return YamlValue::Float(f);
+        }
+    }
+    if t.starts_with('[') || t.starts_with('{') {
+        if let Ok(j) = Json::parse(t) {
+            return yaml_from_json(&j);
+        }
+    }
+    YamlValue::Str(t.to_string())
+}
+
+/// `digits` in `radix` as an int when it fits a signed 64-bit integer, else as
+/// the nearest float.
+fn yaml_radix_int(digits: &str, radix: u32) -> YamlValue {
+    if let Ok(n) = i64::from_str_radix(digits, radix) {
+        return YamlValue::Int(n);
+    }
+    if let Ok(n) = u128::from_str_radix(digits, radix) {
+        return YamlValue::Float(n as f64);
+    }
+    let f = digits.chars().fold(0f64, |acc, c| {
+        acc * radix as f64 + c.to_digit(radix).unwrap_or(0) as f64
+    });
+    YamlValue::Float(f)
+}
+
+/// Reports whether `t` matches `[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?`.
+fn yaml_is_float(t: &str) -> bool {
+    let b = t.as_bytes();
+    let mut i = 0;
+    if i < b.len() && (b[i] == b'-' || b[i] == b'+') {
+        i += 1;
+    }
+    let digits = |i: &mut usize| {
+        let start = *i;
+        while *i < b.len() && b[*i].is_ascii_digit() {
+            *i += 1;
+        }
+        *i - start
+    };
+    if i < b.len() && b[i] == b'.' {
+        i += 1;
+        if digits(&mut i) == 0 {
+            return false;
+        }
+    } else {
+        if digits(&mut i) == 0 {
+            return false;
+        }
+        if i < b.len() && b[i] == b'.' {
+            i += 1;
+            digits(&mut i);
+        }
+    }
+    if i < b.len() && (b[i] == b'e' || b[i] == b'E') {
+        i += 1;
+        if i < b.len() && (b[i] == b'-' || b[i] == b'+') {
+            i += 1;
+        }
+        if digits(&mut i) == 0 {
+            return false;
+        }
+    }
+    i == b.len()
+}
+
+/// A [`Json`] value in the typed value model (object order is kept).
+fn yaml_from_json(j: &Json) -> YamlValue {
+    match j {
+        Json::Null => YamlValue::Null,
+        Json::Bool(v) => YamlValue::Bool(*v),
+        Json::Int(n) => YamlValue::Int(*n),
+        Json::Float(f) => YamlValue::Float(*f),
+        Json::Str(s) => YamlValue::Str(s.clone()),
+        Json::Array(items) => YamlValue::Seq(items.iter().map(yaml_from_json).collect()),
+        Json::Object(pairs) => {
+            let mut m = YamlMap::new();
+            for (k, v) in pairs {
+                m.insert(k.clone(), yaml_from_json(v));
+            }
+            YamlValue::Map(m)
+        }
+    }
 }
 
 /// Parses `text` like [`yaml_parse`], but keeps every flow scalar as its
@@ -448,12 +605,12 @@ pub fn yaml_parse(text: &str) -> YamlValue {
 /// `null` and `"null"` read the same; a reader that has to tell them apart —
 /// the CodeSpecs record reader — types the scalars itself from this form.
 pub fn yaml_parse_raw_scalars(text: &str) -> YamlValue {
-    yaml_parse_with(text, true)
+    yaml_parse_with(text, true, false)
 }
 
-fn yaml_parse_with(text: &str, raw: bool) -> YamlValue {
+fn yaml_parse_with(text: &str, raw: bool, typed: bool) -> YamlValue {
     let lines: Vec<String> = text.split('\n').map(|s| s.to_string()).collect();
-    let mut y = YamlReader { lines, idx: 0, raw };
+    let mut y = YamlReader { lines, idx: 0, raw, typed };
     if y.next_significant(0).is_none() {
         return YamlValue::empty_map();
     }

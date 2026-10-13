@@ -685,8 +685,8 @@ fn test_list_move(c: &mut Checker, model: &SpecModel) {
     }
 }
 
-/// A corpus JSON value as the YAML codec's value (strings, integers, maps,
-/// sequences — the shapes a `review:` pass holds).
+/// A corpus JSON value as the YAML codec's value (the typed shapes a `review:`
+/// pass holds: null, booleans, integers, floats, strings, maps, sequences).
 fn json_to_yaml(v: &Json) -> YamlValue {
     match v {
         Json::Object(pairs) => {
@@ -699,9 +699,9 @@ fn json_to_yaml(v: &Json) -> YamlValue {
         Json::Array(items) => YamlValue::Seq(items.iter().map(json_to_yaml).collect()),
         Json::Int(n) => YamlValue::Int(*n),
         Json::Str(s) => YamlValue::Str(s.clone()),
-        Json::Bool(b) => YamlValue::Str(b.to_string()),
-        Json::Float(f) => YamlValue::Str(f.to_string()),
-        Json::Null => YamlValue::Str(String::new()),
+        Json::Bool(b) => YamlValue::Bool(*b),
+        Json::Float(f) => YamlValue::Float(*f),
+        Json::Null => YamlValue::Null,
     }
 }
 
@@ -714,6 +714,9 @@ fn yaml_to_json(v: &YamlValue) -> Json {
         YamlValue::Seq(items) => Json::Array(items.iter().map(yaml_to_json).collect()),
         YamlValue::Int(n) => Json::Int(*n),
         YamlValue::Str(s) => Json::Str(s.clone()),
+        YamlValue::Null => Json::Null,
+        YamlValue::Bool(b) => Json::Bool(*b),
+        YamlValue::Float(f) => Json::Float(*f),
     }
 }
 

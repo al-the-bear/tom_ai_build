@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The `review:` pass types its plain scalars by the YAML 1.2 core schema and writes them back canonically (SOM §12.5): integers stay exact to 64 bits (`bigint` beyond `Number.isSafeInteger`), whole floats decode as the new exported `YamlFloat` and write as `3.0`, non-finite floats as `.inf`/`-.inf`/`.nan` (new export `reviewScalar`).
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

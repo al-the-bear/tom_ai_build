@@ -406,10 +406,15 @@ func EncodeYamlWithReview(
 // without interpretation: entries sorted by path (JSON-quoted keys), each
 // entry's fields sorted by name. Sorting, rather than keeping the map's order,
 // is what makes the output the same in every port, and it keeps decode
-// followed by encode byte-identical. Booleans, numbers and identifier-like
-// strings are written plain; any other string as a self-verified block scalar
-// (the writer used for document values); a nested map one level deeper; a list
-// as a JSON flow sequence. An empty (or nil) map writes `review: {}`.
+// followed by encode byte-identical. Scalars keep their YAML 1.2 type (SOM
+// §12.5, review scalars; DecodeYaml reads them with YamlParseTyped): nil writes
+// `null`, booleans `true`/`false`, integers (int, int64) in decimal, a float64
+// in the form that reads back as the same float (reviewFloat: `3.0`, `1e+300`,
+// `.nan`, `-.inf`); identifier-like strings that are not a YAML word are
+// written plain, any other string as a self-verified block scalar (the writer
+// used for document values), so a string never reads back as another type. A
+// nested map is written one level deeper; a list as a JSON flow sequence. An
+// empty (or nil) map writes `review: {}`.
 func WriteReviewPass(out *strings.Builder, review *YamlMap) {
 	b := &yamlBuffer{}
 	writeReviewPass(b, review)
@@ -452,7 +457,7 @@ func writeReviewValue(b *yamlBuffer, indent int, renderedKey string, value inter
 	case nil:
 		b.writeln(pad + renderedKey + ": null")
 	case bool, int, int64, float64:
-		b.writeln(pad + renderedKey + ": " + reviewJSON(v))
+		b.writeln(pad + renderedKey + ": " + reviewScalar(v))
 	case []interface{}:
 		b.writeln(pad + renderedKey + ": " + reviewJSON(v))
 	case string:
@@ -475,8 +480,81 @@ var yamlWords = map[string]bool{
 	"on": true, "off": true, "y": true, "n": true,
 }
 
-// reviewJSON renders a review value as JSON (the flow form of a list, the
-// plain form of a number/bool): integral numbers without a decimal point,
+// reviewScalar renders a decoded bool or number as the review-pass writer
+// prints it (SOM §12.5, review scalars): the form that reads back as the same
+// value and type — integers in decimal, floats through reviewFloat.
+func reviewScalar(value interface{}) string {
+	switch v := value.(type) {
+	case bool:
+		if v {
+			return "true"
+		}
+		return "false"
+	case int:
+		return strconv.Itoa(v) // not itoa: it cannot print math.MinInt64
+	case int64:
+		return strconv.FormatInt(v, 10)
+	case float64:
+		return reviewFloat(v)
+	}
+	return reviewJSON(value)
+}
+
+// reviewFloat writes x so that it reads back as the same float64 (SOM §12.5):
+// NaN `.nan`, ±infinity `.inf` / `-.inf`; otherwise the shortest digit string
+// that parses back to x, laid out like JavaScript's Number.prototype.toString —
+// fixed notation when x is 0 or 1e-6 <= |x| < 1e21, exponent notation with an
+// explicit exponent sign and no padding otherwise (`1e+300`, `1.5e-300`,
+// `1e-7`) — with `.0` appended to a fixed form without a fraction (`3.0`,
+// `-0.0`, `100000000000000000000.0`) so it stays a float.
+func reviewFloat(x float64) string {
+	switch {
+	case math.IsNaN(x):
+		return ".nan"
+	case math.IsInf(x, 1):
+		return ".inf"
+	case math.IsInf(x, -1):
+		return "-.inf"
+	case x == 0:
+		if math.Signbit(x) {
+			return "-0.0"
+		}
+		return "0.0"
+	}
+	// Shortest round-trip digits: "[-]d[.ddd]e±XX".
+	e := strconv.FormatFloat(x, 'e', -1, 64)
+	sign := ""
+	if e[0] == '-' {
+		sign, e = "-", e[1:]
+	}
+	ePos := strings.IndexByte(e, 'e')
+	digits := strings.Replace(e[:ePos], ".", "", 1)
+	exp, _ := strconv.Atoi(e[ePos+1:])
+	abs := math.Abs(x)
+	if abs >= 1e-6 && abs < 1e21 {
+		point := exp + 1 // digits before the decimal point
+		switch {
+		case point <= 0:
+			return sign + "0." + strings.Repeat("0", -point) + digits
+		case point >= len(digits):
+			return sign + digits + strings.Repeat("0", point-len(digits)) + ".0"
+		default:
+			return sign + digits[:point] + "." + digits[point:]
+		}
+	}
+	mantissa := digits[:1]
+	if len(digits) > 1 {
+		mantissa += "." + digits[1:]
+	}
+	expSign := "+"
+	if exp < 0 {
+		expSign, exp = "-", -exp
+	}
+	return sign + mantissa + "e" + expSign + strconv.Itoa(exp)
+}
+
+// reviewJSON renders a review value as JSON (the flow form of a list):
+// integers in decimal, floats through reviewFloat (so they stay floats),
 // strings via jsJSONString, maps with their keys sorted.
 func reviewJSON(value interface{}) string {
 	switch v := value.(type) {
@@ -488,14 +566,11 @@ func reviewJSON(value interface{}) string {
 		}
 		return "false"
 	case int:
-		return itoa(v)
+		return strconv.Itoa(v)
 	case int64:
 		return strconv.FormatInt(v, 10)
 	case float64:
-		if v == math.Trunc(v) && math.Abs(v) < 1e21 {
-			return strconv.FormatFloat(v, 'f', -1, 64)
-		}
-		return strconv.FormatFloat(v, 'g', -1, 64)
+		return reviewFloat(v)
 	case string:
 		return jsJSONString(v)
 	case []interface{}:
@@ -1023,8 +1098,9 @@ func DecodeYaml(yamlText string, tree *SomMetaTree) (*SpecYamlContents, error) {
 		stamp = parsedScalarStr(raw)
 	}
 
-	// The review pass is uninterpreted: its plain scalars keep their YAML types
-	// (booleans, null, numbers), so it is read with the typed parser.
+	// The review pass is uninterpreted: its plain scalars keep their YAML 1.2
+	// core-schema types (SOM §12.5: null, booleans, ints and floats kept
+	// distinct), so it is read with the typed parser.
 	var rev *YamlMap
 	if rootMap.Has("review") {
 		if typedRoot, ok := YamlParseTyped(yamlText).(*YamlMap); ok {

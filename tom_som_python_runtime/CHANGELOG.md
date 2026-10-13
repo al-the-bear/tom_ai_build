@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Review-pass scalars keep their YAML 1.2 type (SOM §12.5): the `review:` pass is re-read with a core-schema PyYAML loader (`0o`/`0x` ints, `1e+300`, `.inf`/`.nan`, `TRUE`, `~`; `yes`/`on` stay strings; an integer beyond 64 bits reads as a float), and the new `review_scalar` writes floats so they read back as floats (`3.0`, `1e+300`, `1e-7`, `-.inf`). Pinned by two new `yaml_review_cases.json` cases.
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

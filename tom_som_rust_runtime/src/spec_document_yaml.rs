@@ -61,7 +61,7 @@ use crate::spec_reflection::{
     SpecReflection, SPEC_NODE_KIND_LIST_ITEM_COMPLEX, SPEC_NODE_KIND_LIST_ITEM_SCALAR,
 };
 use crate::spec_section_id::SpecSectionIdError;
-use crate::yaml::{yaml_parse, YamlMap, YamlValue};
+use crate::yaml::{yaml_parse, yaml_parse_typed, YamlMap, YamlValue};
 
 /// The on-disk format version (independent of the model-version stamp).
 /// Version 2 is the hierarchical tree format; version-1 flat files are rejected
@@ -490,16 +490,16 @@ pub fn encode_yaml_with_review(
 /// interpretation: entries sorted by path (JSON-quoted keys), each entry's
 /// fields sorted by name. Sorting, rather than keeping the map's order, is
 /// what makes the output the same in every port, and it keeps decode followed
-/// by encode byte-identical. Booleans, numbers and identifier-like strings are
-/// written plain; any other string as a self-verified block scalar; a nested
-/// map one level deeper; a list as a JSON flow sequence. An empty map writes
-/// `review: {}`.
+/// by encode byte-identical.
 ///
-/// The hand-rolled reader ([`crate::yaml`]) yields no booleans, nulls or
-/// floats: a plain `true`, `null` or `2.5` arrives as a string. So a string
-/// whose text is exactly `true`, `false` or `null`, or a decimal number
-/// (`-?[0-9]+.[0-9]+`), is written plain as the YAML value it denotes — which
-/// is what the Dart reference writes for the bool/null/double it decodes there.
+/// Scalars keep their YAML 1.2 type (SOM §12.5, review scalars; [`decode_yaml`]
+/// reads them with [`yaml_parse_typed`]): [`YamlValue::Null`] writes `null`,
+/// booleans `true`/`false`, integers in decimal, a [`YamlValue::Float`] in the
+/// form that reads back as the same float ([`review_float`]: `3.0`, `1e+300`,
+/// `.nan`, `-.inf`). Identifier-like strings that are not a YAML word are
+/// written plain, any other string as a self-verified block scalar, so a
+/// string never reads back as another type. A nested map is written one level
+/// deeper; a list as a JSON flow sequence. An empty map writes `review: {}`.
 pub fn write_review_pass(out: &mut String, review: &YamlMap) {
     let mut b = YamlBuffer {
         out: std::mem::take(out),
@@ -540,12 +540,14 @@ fn write_review_value(b: &mut YamlBuffer, indent: usize, rendered_key: &str, val
                 }
             }
         }
-        YamlValue::Int(n) => b.writeln(&format!("{}{}: {}", pad, rendered_key, n)),
+        YamlValue::Null | YamlValue::Bool(_) | YamlValue::Int(_) | YamlValue::Float(_) => {
+            b.writeln(&format!("{}{}: {}", pad, rendered_key, review_scalar(value)))
+        }
         YamlValue::Seq(_) => {
             b.writeln(&format!("{}{}: {}", pad, rendered_key, review_json(value)))
         }
         YamlValue::Str(s) => {
-            if is_review_literal(s) || (is_review_token(s) && !is_yaml_word(s)) {
+            if is_review_token(s) && !is_yaml_word(s) {
                 b.writeln(&format!("{}{}: {}", pad, rendered_key, s));
             } else {
                 write_rendered(b, indent, rendered_key, &scalar_repr(s));
@@ -570,23 +572,65 @@ fn is_yaml_word(s: &str) -> bool {
     )
 }
 
-/// Reports whether `s` is the text of a plain YAML bool, null or decimal
-/// number — a value the reader hands over as a string (see
-/// [`write_review_pass`]).
-fn is_review_literal(s: &str) -> bool {
-    if matches!(s, "true" | "false" | "null") {
-        return true;
+/// A decoded null, bool or number as the review-pass writer prints it (SOM
+/// §12.5, review scalars): the form that reads back as the same value and
+/// type — integers in decimal, floats through [`review_float`].
+fn review_scalar(value: &YamlValue) -> String {
+    match value {
+        YamlValue::Null => "null".to_string(),
+        YamlValue::Bool(v) => v.to_string(),
+        YamlValue::Int(n) => n.to_string(),
+        YamlValue::Float(f) => review_float(*f),
+        other => review_json(other),
     }
-    let digits = s.strip_prefix('-').unwrap_or(s);
-    match digits.split_once('.') {
-        Some((int, frac)) => {
-            !int.is_empty()
-                && !frac.is_empty()
-                && int.bytes().all(|c| c.is_ascii_digit())
-                && frac.bytes().all(|c| c.is_ascii_digit())
-        }
-        None => false,
+}
+
+/// Writes `x` so that it reads back as the same `f64` (SOM §12.5): NaN `.nan`,
+/// ±infinity `.inf` / `-.inf`; otherwise the shortest digit string that parses
+/// back to `x`, laid out like JavaScript's `Number.prototype.toString` — fixed
+/// notation when `x` is 0 or `1e-6 <= |x| < 1e21`, exponent notation with an
+/// explicit exponent sign and no padding otherwise (`1e+300`, `1.5e-300`,
+/// `1e-7`) — with `.0` appended to a fixed form without a fraction (`3.0`,
+/// `-0.0`, `100000000000000000000.0`) so it stays a float.
+///
+/// `{}` on an `f64` is shortest round-trip but never uses an exponent, so the
+/// digits are taken from `{:e}` and laid out here.
+pub fn review_float(x: f64) -> String {
+    if x.is_nan() {
+        return ".nan".to_string();
     }
+    if x.is_infinite() {
+        return if x > 0.0 { ".inf" } else { "-.inf" }.to_string();
+    }
+    let sign = if x.is_sign_negative() { "-" } else { "" };
+    if x == 0.0 {
+        return format!("{}0.0", sign);
+    }
+    // Shortest round-trip digits: "d[.ddd]e[-]X".
+    let e = format!("{:e}", x.abs());
+    let (mantissa, exp) = e.split_once('e').unwrap_or((&e, "0"));
+    let digits: String = mantissa.chars().filter(|&c| c != '.').collect();
+    let exp: i32 = exp.parse().unwrap_or(0);
+    let abs = x.abs();
+    if (1e-6..1e21).contains(&abs) {
+        let point = exp + 1; // digits before the decimal point
+        let len = digits.len() as i32;
+        return if point <= 0 {
+            format!("{}0.{}{}", sign, "0".repeat((-point) as usize), digits)
+        } else if point >= len {
+            format!("{}{}{}.0", sign, digits, "0".repeat((point - len) as usize))
+        } else {
+            let (int, frac) = digits.split_at(point as usize);
+            format!("{}{}.{}", sign, int, frac)
+        };
+    }
+    let mut out = format!("{}{}", sign, &digits[..1]);
+    if digits.len() > 1 {
+        out.push('.');
+        out.push_str(&digits[1..]);
+    }
+    out.push_str(&format!("e{}{}", if exp < 0 { '-' } else { '+' }, exp.abs()));
+    out
 }
 
 /// Renders `value` as a compact JSON flow value (a review list), keys in
@@ -604,8 +648,10 @@ fn review_json(value: &YamlValue) -> String {
             let parts: Vec<String> = items.iter().map(review_json).collect();
             format!("[{}]", parts.join(","))
         }
+        YamlValue::Null => "null".to_string(),
+        YamlValue::Bool(v) => v.to_string(),
         YamlValue::Int(n) => n.to_string(),
-        YamlValue::Str(s) if is_review_literal(s) => s.clone(),
+        YamlValue::Float(f) => review_float(*f),
         YamlValue::Str(s) => js_json_string(s),
     }
 }
@@ -1121,9 +1167,16 @@ re-save the document in the hierarchical v2 format"
         .map(parsed_scalar_str)
         .unwrap_or_default();
 
-    let review = match root_map.get("review") {
-        Some(YamlValue::Map(m)) => m.clone(),
-        _ => YamlMap::new(),
+    // The review pass is uninterpreted: its plain scalars keep their YAML 1.2
+    // core-schema types (SOM §12.5: null, booleans, ints and floats kept
+    // distinct), so it is read with the typed parser.
+    let review = if root_map.has("review") {
+        match yaml_parse_typed(yaml_text).get("review") {
+            Some(YamlValue::Map(m)) => m.clone(),
+            _ => YamlMap::new(),
+        }
+    } else {
+        YamlMap::new()
     };
 
     let mut document = SpecDocument::new();

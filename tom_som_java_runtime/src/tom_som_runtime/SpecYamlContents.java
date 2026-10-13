@@ -19,7 +19,9 @@ public final class SpecYamlContents {
   /**
    * The {@code review:} pass exactly as parsed (empty when absent). The
    * runtime does not interpret it; the editor maps it onto its own review
-   * entries.
+   * entries. Its plain scalars are typed by the YAML 1.2 core schema
+   * (SOM §12.5): null, {@link Boolean}, {@link Integer} or {@link Long} for an
+   * int, {@link Double} for a float, else {@link String}.
    */
   public final Map<String, Object> review;
 

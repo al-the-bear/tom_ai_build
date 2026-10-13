@@ -10,7 +10,8 @@
  * It supports exactly what the encoder produces (and what the self-verify
  * round-trip probe needs): block mappings, block sequences (`- item`), literal
  * block scalars (`|`, `|-`, `|2`, `|2-` …), JSON-quoted flow scalars, plain
- * integers, and the empty flow collections `{}` / `[]`. Mappings are plain
+ * integers, and the empty flow collections `{}` / `[]` — plus, in typed mode,
+ * the YAML 1.2 core-schema plain scalars (see {@link parse}). Mappings are plain
  * objects (prototype-free), sequences are arrays, and scalars are strings or
  * numbers. JSON-quoted scalars are parsed with the native `JSON.parse`.
  */
@@ -79,11 +80,88 @@ function _parseScalarKey(keyPart) {
   return keyPart;
 }
 
-// YAML 1.2 core-schema plain scalars, resolved only in typed mode.
+// YAML 1.2 core-schema plain scalars, resolved only in typed mode (SOM §12.5).
 const _CORE_NULL = /^(~|null|Null|NULL)$/;
 const _CORE_TRUE = /^(true|True|TRUE)$/;
 const _CORE_FALSE = /^(false|False|FALSE)$/;
+const _CORE_INT = /^([-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$/;
 const _CORE_FLOAT = /^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$/;
+const _CORE_INF = /^[-+]?\.(inf|Inf|INF)$/;
+const _CORE_NAN = /^\.(nan|NaN|NAN)$/;
+
+const _INT64_MIN = -(2n ** 63n);
+const _INT64_MAX = 2n ** 63n - 1n;
+
+/**
+ * A float whose value is a whole number (`3.0`, `-0.0`, `1e+300`) as the
+ * typed reader returns it. A JavaScript `Number` cannot tell `3.0` from `3`,
+ * and the YAML 1.2 core schema (SOM §12.5) keeps the two apart, so a whole
+ * float is wrapped; a float with a fraction, or a non-finite one, is a plain
+ * `Number` — it cannot be mistaken for an int. `valueOf()` gives the number,
+ * `toString()` its canonical YAML spelling (`3.0`), which is also what Dart's
+ * `'$value'` prints for the double.
+ */
+class YamlFloat {
+  /** @param {number} value */
+  constructor(value) {
+    /** The float's value. @type {number} */
+    this.value = value;
+  }
+
+  valueOf() {
+    return this.value;
+  }
+
+  toString() {
+    return floatText(this.value);
+  }
+}
+
+/**
+ * A double in its canonical YAML spelling (SOM §12.5): `.nan`, `.inf`,
+ * `-.inf`; otherwise `Number.prototype.toString`'s shortest round-trip digits
+ * and layout (fixed notation for `x == 0` or `1e-6 <= |x| < 1e21`, else
+ * `1e+300` / `1e-7`), with `.0` appended to a fixed-notation value with no
+ * fraction (`3.0`, `-0.0`) so it reads back as a float.
+ *
+ * @param {number} x
+ * @returns {string}
+ */
+function floatText(x) {
+  if (Number.isNaN(x)) return '.nan';
+  if (x === Infinity) return '.inf';
+  if (x === -Infinity) return '-.inf';
+  const s = Object.is(x, -0) ? '-0' : String(x);
+  return /[.e]/.test(s) ? s : `${s}.0`;
+}
+
+/**
+ * A plain scalar typed by the YAML 1.2 core schema (SOM §12.5): `null`,
+ * booleans, ints (`Number` when `Number.isSafeInteger`, else `BigInt`; an int
+ * outside the signed 64-bit range becomes a float), floats (`Number`, or a
+ * {@link YamlFloat} when whole), anything else the text itself.
+ */
+function _coreScalar(t) {
+  if (_CORE_NULL.test(t)) return null;
+  if (_CORE_TRUE.test(t)) return true;
+  if (_CORE_FALSE.test(t)) return false;
+  if (_CORE_INT.test(t)) {
+    const big = BigInt(t.startsWith('+') ? t.slice(1) : t);
+    if (big < _INT64_MIN || big > _INT64_MAX) {
+      return _float(/^0[ox]/.test(t) ? Number(big) : parseFloat(t));
+    }
+    const n = Number(big);
+    return Number.isSafeInteger(n) ? n : big;
+  }
+  if (_CORE_FLOAT.test(t)) return _float(parseFloat(t));
+  if (_CORE_INF.test(t)) return t.startsWith('-') ? -Infinity : Infinity;
+  if (_CORE_NAN.test(t)) return NaN;
+  return t;
+}
+
+function _float(x) {
+  return Number.isInteger(x) || Object.is(x, -0) ? new YamlFloat(x) : x;
+}
 
 class _Yaml {
   constructor(lines, typed = false) {
@@ -218,14 +296,7 @@ class _Yaml {
     if (t.startsWith('"')) {
       return JSON.parse(t); // a JSON string literal is a valid YAML flow scalar.
     }
-    if (_isInteger(t)) {
-      return parseInt(t, 10);
-    }
     if (this.typed) {
-      if (_CORE_NULL.test(t)) return null;
-      if (_CORE_TRUE.test(t)) return true;
-      if (_CORE_FALSE.test(t)) return false;
-      if (_CORE_FLOAT.test(t)) return parseFloat(t);
       if (t.startsWith('[') && t.endsWith(']')) {
         try {
           return JSON.parse(t); // the JSON flow sequences the encoder writes.
@@ -233,6 +304,10 @@ class _Yaml {
           // not JSON — keep the plain text.
         }
       }
+      return _coreScalar(t);
+    }
+    if (_isInteger(t)) {
+      return parseInt(t, 10);
     }
     return t;
   }
@@ -329,9 +404,12 @@ class _Yaml {
 /**
  * Parses `text` into the value model (a mapping object or array).
  *
- * With `typed`, plain scalars resolve per the YAML 1.2 core schema (`null`,
- * booleans, floats) and non-empty JSON flow sequences are read as arrays;
- * without it they stay strings, which is what the document pass expects.
+ * With `typed`, plain scalars resolve per the YAML 1.2 core schema (SOM
+ * §12.5: `null`, booleans, ints, floats — see {@link YamlFloat} for how a
+ * whole float stays a float and `BigInt` for ints beyond `Number`'s safe
+ * range) and non-empty JSON flow sequences are read as arrays; quoted and
+ * block scalars are always strings. Without it plain scalars stay strings
+ * (decimal integers excepted), which is what the document pass expects.
  */
 function parse(text, { typed = false } = {}) {
   const lines = _splitLines(text);
@@ -352,4 +430,4 @@ function parseMap(text) {
   return _newMap();
 }
 
-module.exports = { parse, parseMap };
+module.exports = { parse, parseMap, YamlFloat, floatText };

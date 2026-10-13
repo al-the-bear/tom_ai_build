@@ -104,6 +104,7 @@ from .spec_document_yaml import (
     decode as yaml_decode,
     encode as yaml_encode,
     rekey_review,
+    review_scalar,
     stale_review_paths,
     write_review_pass,
 )
@@ -329,6 +330,7 @@ __all__ = [
     "yaml_decode",
     "yaml_encode",
     "rekey_review",
+    "review_scalar",
     "stale_review_paths",
     "write_review_pass",
 ]

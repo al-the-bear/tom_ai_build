@@ -21,10 +21,13 @@
 
 #include <stddef.h>
 
-/* The parser itself only yields MAP / SEQ / STR / INT. BOOL, NULL and FLOAT
- * are produced by the docspecs codec's typed `review:` pass (where a plain
- * `true` is a boolean) and by `yaml_value_from_json`; they never appear in a
- * `document:` pass. */
+/* The parser itself only yields MAP / SEQ / STR / INT (INT for a plain
+ * decimal integer within the signed 64-bit range). BOOL, NULL and FLOAT are
+ * produced by the docspecs codec's typed `review:` pass, which types every
+ * plain scalar by the YAML 1.2 core schema (SOM §12.5), and by
+ * `yaml_value_from_json`; they never appear in a `document:` pass. INT and
+ * FLOAT stay distinct, so a whole float `3.0` is written back as `3.0` and an
+ * int `3` as `3`. */
 typedef enum {
   YAML_MAP,
   YAML_SEQ,
@@ -44,10 +47,13 @@ typedef struct {
 
 struct YamlValue {
   YamlType type;
-  /* 1 for a YAML_STR read from an unquoted flow scalar (`key: ok`), 0 for a
-   * JSON-quoted or block scalar. Lets the codec type the `review:` pass the
-   * way a YAML core-schema reader does (plain `true` is a boolean, quoted
-   * `"true"` and block `|2-` text stay strings). */
+  /* 1 for a YAML_STR read from an unquoted flow scalar (`key: ok`, and a
+   * decimal integer outside the signed 64-bit range, which the parser never
+   * saturates), 0 for a JSON-quoted or block scalar; also 1 for the empty
+   * YAML_MAP an empty value (`key:`) parses to. Lets the codec type the
+   * `review:` pass by the YAML 1.2 core schema (SOM §12.5): plain `true` is a
+   * boolean and an empty value null, while quoted `"true"` and block `|2-`
+   * text stay strings. */
   int plain;
   union {
     struct {
@@ -97,9 +103,13 @@ int yaml_as_int(const YamlValue *v, long long *out);
  * for non-scalars. Owned result. */
 char *yaml_scalar_string(const YamlValue *v);
 
-/* Formats a double the way Dart's `double.toString` does (shortest
- * round-tripping digits; `3.0` for integral values; exponent form `1e+21` /
- * `1e-7` outside [1e-6, 1e21); `NaN`, `Infinity`, `-Infinity`). Owned. */
+/* Formats a double the way Dart's `double.toString` does: the shortest digit
+ * string that parses back to the same double, laid out like JavaScript's
+ * Number.prototype.toString — fixed notation when v == 0 or
+ * 1e-6 <= |v| < 1e21, with `.0` appended when there is no fractional part
+ * (`3.0`, `-0.0`, `100000000000000000000.0`), exponent notation otherwise
+ * with an explicit sign and no padding (`1e+21`, `1.5e-300`, `1e-7`); and
+ * `NaN`, `Infinity`, `-Infinity`. Owned. */
 char *yaml_format_double(double v);
 
 #endif /* YAML_H */

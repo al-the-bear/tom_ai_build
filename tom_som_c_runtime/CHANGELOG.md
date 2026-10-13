@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Review-pass scalars are typed by the YAML 1.2 core schema (SOM §12.5):
+  `0o` / `0x` ints, `.inf` / `-.inf` / `.nan`, an empty value as null, and a
+  decimal integer beyond 64 bits as a float rather than saturated; floats are
+  written in canonical form (`3.0`, `1e+300`, `.nan`), a whole float at or
+  above 2^53 with its shortest digits.
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

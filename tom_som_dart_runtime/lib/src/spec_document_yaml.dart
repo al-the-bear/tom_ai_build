@@ -181,7 +181,7 @@ class SpecDocumentYaml {
     } else if (value == null) {
       b.writeln('$pad$renderedKey: null');
     } else if (value is bool || value is num) {
-      b.writeln('$pad$renderedKey: $value');
+      b.writeln('$pad$renderedKey: ${reviewScalar(value)}');
     } else if (value is List) {
       b.writeln('$pad$renderedKey: ${jsonEncode(value)}');
     } else if (_reviewTokenPattern.hasMatch('$value') &&
@@ -190,6 +190,21 @@ class SpecDocumentYaml {
     } else {
       _writeRendered(b, indent, renderedKey, _scalar('$value'));
     }
+  }
+
+  /// A decoded bool or number as the review-pass writer prints it (SOM §12.5,
+  /// review scalars): the form that reads back as the same value.
+  ///
+  /// A float always carries a fraction or an exponent so it stays a float
+  /// (`3.0`, `1e+300`, `1e-7`), and the non-finite values take their YAML
+  /// spellings (`.inf`, `-.inf`, `.nan`), because `Infinity` would read back as
+  /// a string.
+  static String reviewScalar(Object value) {
+    if (value is double) {
+      if (value.isNaN) return '.nan';
+      if (value.isInfinite) return value > 0 ? '.inf' : '-.inf';
+    }
+    return '$value';
   }
 
   static final RegExp _reviewTokenPattern = RegExp(r'^[A-Za-z_][A-Za-z0-9_]*$');

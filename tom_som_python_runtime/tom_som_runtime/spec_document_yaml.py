@@ -35,12 +35,15 @@ silent skips). Symmetrically, :func:`encode` raises when the document holds
 values the tree cannot place (nothing is silently dropped).
 
 The optional ``review:`` pass is carried by the runtime uninterpreted, read and written back (:func:`decode`
-returns it as a raw map for the editor to interpret).
+returns it as a raw map for the editor to interpret). Its scalars are typed by
+the YAML 1.2 core schema rather than PyYAML's 1.1 resolver (SOM §12.5, review
+scalars): see :func:`_load_review_pass` and :func:`review_scalar`.
 """
 
 from __future__ import annotations
 
 import json
+import math
 import re
 from typing import Any, Optional
 
@@ -61,6 +64,95 @@ def _require_yaml() -> Any:
             "install it with `pip install pyyaml`."
         )
     return _yaml
+
+
+# --- YAML 1.2 core-schema reader for the review pass (SOM §12.5) ---------
+
+_INT64_MIN = -(2**63)
+_INT64_MAX = 2**63 - 1
+
+_CORE_NULL = r"^(?:~|null|Null|NULL|)$"
+_CORE_BOOL = r"^(?:true|True|TRUE|false|False|FALSE)$"
+_CORE_INT = r"^(?:[-+]?[0-9]+|0o[0-7]+|0x[0-9a-fA-F]+)$"
+_CORE_FLOAT = (
+    r"^(?:[-+]?(?:\.[0-9]+|[0-9]+(?:\.[0-9]*)?)(?:[eE][-+]?[0-9]+)?"
+    r"|[-+]?\.(?:inf|Inf|INF)|\.(?:nan|NaN|NAN))$"
+)
+
+_core_loader_class: Any = None
+
+
+def _core_loader() -> Any:
+    """A PyYAML ``SafeLoader`` whose implicit resolvers are the YAML 1.2 core
+    schema instead of PyYAML's 1.1 ones (SOM §12.5, review scalars).
+
+    Only *plain* scalars are resolved — quoted and block scalars stay strings:
+    null ``~``/``null``/``Null``/``NULL`` (and an empty value); bool
+    ``true|True|TRUE|false|False|FALSE``; int ``[-+]?[0-9]+``, ``0o[0-7]+``,
+    ``0x[0-9a-fA-F]+``; float ``[-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?``,
+    ``[-+]?.inf`` and ``.nan`` (any of the three cases). Everything else —
+    including the 1.1-only ``yes``/``on``/sexagesimal forms — is a string. An
+    integer outside the signed 64-bit range becomes a ``float``, as it does in
+    every port, so Python's arbitrary-precision ``int`` does not leak through.
+    Built on first use, as PyYAML is imported lazily."""
+    global _core_loader_class
+    if _core_loader_class is not None:
+        return _core_loader_class
+    y = _require_yaml()
+
+    class _CoreLoader(y.SafeLoader):
+        yaml_implicit_resolvers: dict = {}
+
+    def _int(loader: Any, node: Any) -> Any:
+        text = loader.construct_scalar(node)
+        if text.startswith("0o"):
+            value = int(text[2:], 8)
+        elif text.startswith("0x"):
+            value = int(text[2:], 16)
+        else:
+            value = int(text, 10)
+        if _INT64_MIN <= value <= _INT64_MAX:
+            return value
+        # Out of 64-bit range: a float (parsing the decimal text rounds once).
+        return float(value) if text[:2] in ("0o", "0x") else float(text)
+
+    def _float(loader: Any, node: Any) -> float:
+        text = loader.construct_scalar(node)
+        lower = text.lower()
+        if lower == ".nan":
+            return math.nan
+        if lower.endswith(".inf"):
+            return -math.inf if text.startswith("-") else math.inf
+        return float(text)
+
+    def _bool(loader: Any, node: Any) -> bool:
+        return loader.construct_scalar(node).lower() == "true"
+
+    _CoreLoader.add_implicit_resolver(
+        "tag:yaml.org,2002:null", re.compile(_CORE_NULL), ["~", "n", "N", ""]
+    )
+    _CoreLoader.add_implicit_resolver(
+        "tag:yaml.org,2002:bool", re.compile(_CORE_BOOL), list("tTfF")
+    )
+    _CoreLoader.add_implicit_resolver(
+        "tag:yaml.org,2002:int", re.compile(_CORE_INT), list("-+0123456789")
+    )
+    _CoreLoader.add_implicit_resolver(
+        "tag:yaml.org,2002:float", re.compile(_CORE_FLOAT), list("-+0123456789.")
+    )
+    _CoreLoader.add_constructor("tag:yaml.org,2002:int", _int)
+    _CoreLoader.add_constructor("tag:yaml.org,2002:float", _float)
+    _CoreLoader.add_constructor("tag:yaml.org,2002:bool", _bool)
+    _core_loader_class = _CoreLoader
+    return _CoreLoader
+
+
+def _load_review_pass(yaml_text: str) -> Any:
+    """The ``review:`` pass of *yaml_text* read with the YAML 1.2 core schema
+    (:func:`_core_loader`, SOM §12.5). The ``document:`` pass is read by the
+    plain ``safe_load``, whose string-typed stores it feeds."""
+    root = _require_yaml().load(yaml_text, Loader=_core_loader())
+    return root.get("review") if isinstance(root, dict) else None
 
 
 #: The on-disk format version (independent of the model-version stamp).
@@ -341,9 +433,56 @@ def _review_str(value: Any) -> str:
     """The string form Dart's ``'$value'`` gives a decoded YAML value."""
     if value is None:
         return "null"
+    if isinstance(value, (bool, int, float)):
+        return review_scalar(value)
+    return str(value)
+
+
+def review_scalar(value: Any) -> str:
+    """A decoded bool or number as the review-pass writer prints it (SOM
+    §12.5, review scalars): the form that reads back as the same value.
+
+    ``true``/``false``; an ``int`` in decimal; a ``float`` as ``.nan``,
+    ``.inf`` or ``-.inf`` when non-finite, otherwise the shortest digit string
+    that parses back to the same double, laid out like JavaScript's
+    ``Number.prototype.toString`` — fixed notation when ``x == 0`` or
+    ``1e-6 <= |x| < 1e21``, exponent notation otherwise with an explicit
+    exponent sign and no padding (``1e+300``, ``1e-7``) — with ``.0`` appended
+    to a fixed-notation value that has no fraction (``3.0``, ``-0.0``), so a
+    float always stays a float. Python's ``repr`` supplies the shortest
+    digits; its own layout (exponent from ``1e16``, ``1e-07``) is not used."""
     if isinstance(value, bool):
         return "true" if value else "false"
-    return str(value)
+    if isinstance(value, int):
+        return str(value)
+    x = float(value)
+    if math.isnan(x):
+        return ".nan"
+    if math.isinf(x):
+        return ".inf" if x > 0 else "-.inf"
+    if x == 0:
+        return "-0.0" if math.copysign(1.0, x) < 0 else "0.0"
+    sign = "-" if x < 0 else ""
+    mantissa, _, exp = repr(abs(x)).partition("e")
+    int_part, _, frac_part = mantissa.partition(".")
+    digits = int_part + frac_part
+    # value = 0.<digits> * 10**n
+    n = len(int_part) + (int(exp) if exp else 0)
+    stripped = digits.lstrip("0")
+    n -= len(digits) - len(stripped)
+    digits = stripped.rstrip("0")
+    k = len(digits)
+    if k <= n <= 21:
+        return f"{sign}{digits}{'0' * (n - k)}.0"
+    if 0 < n <= 21:
+        return f"{sign}{digits[:n]}.{digits[n:]}"
+    if -6 < n <= 0:
+        return f"{sign}0.{'0' * -n}{digits}"
+    e = n - 1
+    e_text = f"e{'+' if e >= 0 else '-'}{abs(e)}"
+    if k == 1:
+        return f"{sign}{digits}{e_text}"
+    return f"{sign}{digits[0]}.{digits[1:]}{e_text}"
 
 
 def write_review_pass(b: _Buffer, review: dict) -> None:
@@ -351,10 +490,12 @@ def write_review_pass(b: _Buffer, review: dict) -> None:
     interpretation: entries sorted by path (JSON-quoted keys), each entry's
     fields sorted by name. Sorting, rather than keeping the map's order, is
     what makes the output the same in every port, and it keeps decode
-    followed by encode byte-identical. Booleans, numbers and identifier-like
-    strings are written plain; any other string as a self-verified block
-    scalar; a nested map one level deeper; a list as a JSON flow sequence. An
-    empty map writes ``review: {}``."""
+    followed by encode byte-identical. Booleans and numbers are written plain
+    in their canonical form (:func:`review_scalar`, SOM §12.5), so an ``int``
+    and a whole ``float`` stay apart (``3`` vs ``3.0``); identifier-like
+    strings that are not YAML words are written plain; any other string as a
+    self-verified block scalar; a nested map one level deeper; a list as a JSON
+    flow sequence. An empty map writes ``review: {}``."""
     if not review:
         b.writeln("review: {}")
         return
@@ -386,10 +527,8 @@ def _write_review_value(
             _write_review_value(b, indent + 2, plain_key(field), by_field[field])
     elif value is None:
         b.writeln(f"{pad}{rendered_key}: null")
-    elif isinstance(value, bool):  # before the number test: bool is an int.
-        b.writeln(f"{pad}{rendered_key}: {'true' if value else 'false'}")
-    elif isinstance(value, (int, float)):
-        b.writeln(f"{pad}{rendered_key}: {value}")
+    elif isinstance(value, (bool, int, float)):
+        b.writeln(f"{pad}{rendered_key}: {review_scalar(value)}")
     elif isinstance(value, list):
         b.writeln(
             f"{pad}{rendered_key}: "
@@ -768,7 +907,12 @@ def decode(yaml_text: str, tree: SomMetaTree) -> SpecYamlContents:
         if stamp_raw is not None and _parsed_scalar_str(stamp_raw) != ""
         else None
     )
+    # The review pass is re-read with the YAML 1.2 core schema (SOM §12.5):
+    # PyYAML's 1.1 resolver would read `1e+300` or `0o17` as strings and
+    # `yes` as a bool, which the other ports do not.
     rev = root.get("review")
+    if isinstance(rev, dict) and rev:
+        rev = _load_review_pass(yaml_text)
 
     document = SpecDocument()
     document.model_version = stamp

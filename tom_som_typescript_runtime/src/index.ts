@@ -223,12 +223,15 @@ export {
   writeScalar,
   writeHeader,
   writeReviewPass,
+  reviewScalar,
   staleReviewPaths,
   rekeyReview,
   SpecDocumentYaml,
   encode as yamlEncode,
   decode as yamlDecode,
 } from './spec_document_yaml';
+export { YamlFloat, formatYamlFloat } from './yaml';
+export type { YamlReviewScalar } from './yaml';
 
 // markdown codec (DocSpecs-conform, SOM §11)
 export {

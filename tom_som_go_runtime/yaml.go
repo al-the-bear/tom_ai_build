@@ -16,11 +16,14 @@ package somruntime
 // keys in document order, exactly like the JS/TS objects and Python dicts of
 // the other ports), sequences are []interface{}, scalars are string or int.
 // JSON-quoted scalars are parsed with encoding/json. YamlParseTyped additionally
-// reads plain scalars by the YAML 1.2 core schema (bool, nil, float64, JSON
-// flow collections) — used for the uninterpreted `review:` pass only.
+// reads plain scalars by the YAML 1.2 core schema (SOM §12.5: nil, bool, int —
+// float64 beyond 64 bits —, float64, JSON flow collections; an empty value is
+// nil) — used for the uninterpreted `review:` pass and the CodeSpecs records.
 
 import (
 	"encoding/json"
+	"math"
+	"math/big"
 	"regexp"
 	"strconv"
 	"strings"
@@ -152,26 +155,60 @@ type yamlReader struct {
 	typed bool
 }
 
-var yamlFloatPattern = regexp.MustCompile(
-	`^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$`)
+var (
+	yamlDecimalIntPattern = regexp.MustCompile(`^[-+]?[0-9]+$`)
+	yamlOctalIntPattern   = regexp.MustCompile(`^0o[0-7]+$`)
+	yamlHexIntPattern     = regexp.MustCompile(`^0x[0-9a-fA-F]+$`)
+	yamlFloatPattern      = regexp.MustCompile(
+		`^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$`)
+	yamlInfPattern = regexp.MustCompile(`^[-+]?\.(inf|Inf|INF)$`)
+	yamlNaNPattern = regexp.MustCompile(`^\.(nan|NaN|NAN)$`)
+)
 
-// yamlTypedPlain is the YAML 1.2 core-schema reading of a plain scalar t (the
-// schema package:yaml applies): booleans, null, numbers (float64; integers are
-// already ints); a JSON flow collection is parsed as JSON. Anything else stays
-// the string it is.
+// yamlTypedPlain is the YAML 1.2 core-schema reading of a plain scalar t
+// (SOM §12.5, review scalars — the schema package:yaml applies):
+//
+//   - null: `~`, `null`, `Null`, `NULL` and the empty scalar → nil;
+//   - bool: `true|True|TRUE|false|False|FALSE` → bool;
+//   - int: `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` → int (a 64-bit
+//     integer). An integer outside the signed 64-bit range is read as a
+//     float64, as package:yaml reads it;
+//   - float: `[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?`,
+//     `[-+]?\.(inf|Inf|INF)`, `\.(nan|NaN|NAN)` → float64.
+//
+// An int and a float64 stay distinct, so a whole float (`3.0`) is written back
+// as a float and an integer (`3`) as an integer. A JSON flow collection (the
+// form the review writer gives a list) is parsed as JSON. Anything else stays
+// the string it is. Quoted and block scalars never reach this function: they
+// are always strings.
 func yamlTypedPlain(t string) interface{} {
 	switch t {
+	case "", "~", "null", "Null", "NULL":
+		return nil
 	case "true", "True", "TRUE":
 		return true
 	case "false", "False", "FALSE":
 		return false
-	case "null", "Null", "NULL", "~":
-		return nil
 	}
-	if yamlFloatPattern.MatchString(t) {
-		if f, err := strconv.ParseFloat(t, 64); err == nil {
-			return f
+	switch {
+	case yamlDecimalIntPattern.MatchString(t):
+		return yamlIntOrFloat(t, 10)
+	case yamlOctalIntPattern.MatchString(t):
+		return yamlIntOrFloat(t[2:], 8)
+	case yamlHexIntPattern.MatchString(t):
+		return yamlIntOrFloat(t[2:], 16)
+	case yamlFloatPattern.MatchString(t):
+		// An out-of-range literal parses to ±Inf / 0 with ErrRange: keep the
+		// value, as package:yaml (double.parse) does.
+		f, _ := strconv.ParseFloat(t, 64)
+		return f
+	case yamlInfPattern.MatchString(t):
+		if t[0] == '-' {
+			return math.Inf(-1)
 		}
+		return math.Inf(1)
+	case yamlNaNPattern.MatchString(t):
+		return math.NaN()
 	}
 	if strings.HasPrefix(t, "[") || strings.HasPrefix(t, "{") {
 		dec := json.NewDecoder(strings.NewReader(t))
@@ -182,6 +219,23 @@ func yamlTypedPlain(t string) interface{} {
 		}
 	}
 	return t
+}
+
+// yamlIntOrFloat reads digits (in base) as an int when it fits a signed 64-bit
+// integer, and as the nearest float64 otherwise.
+func yamlIntOrFloat(digits string, base int) interface{} {
+	if n, err := strconv.ParseInt(digits, base, 64); err == nil {
+		if int64(int(n)) == n {
+			return int(n)
+		}
+		return n
+	}
+	b, ok := new(big.Int).SetString(strings.TrimPrefix(digits, "+"), base)
+	if !ok {
+		return digits
+	}
+	f, _ := new(big.Float).SetInt(b).Float64()
+	return f
 }
 
 // yamlFromJSON converts an encoding/json value (decoded with UseNumber) into
@@ -270,6 +324,9 @@ func (y *yamlReader) parseMapping(indent int) interface{} {
 		var value interface{}
 		if rest == "" {
 			value = y.parseNestedAfterKey(indent)
+			if vm, isMap := value.(*YamlMap); y.typed && isMap && vm.Len() == 0 {
+				value = nil // an empty value is null (YAML 1.2 core schema).
+			}
 		} else if strings.HasPrefix(rest, "|") || strings.HasPrefix(rest, ">") {
 			value = y.parseBlockScalar(rest, indent)
 		} else {
@@ -350,11 +407,11 @@ func (y *yamlReader) parseFlowScalar(s string) interface{} {
 		}
 		return t
 	}
-	if yamlIsInteger(t) {
-		return atoi(t)
-	}
 	if y.typed {
 		return yamlTypedPlain(t)
+	}
+	if yamlIsInteger(t) {
+		return atoi(t)
 	}
 	return t
 }
@@ -452,8 +509,9 @@ func YamlParse(text string) interface{} {
 }
 
 // YamlParseTyped parses text like YamlParse, but reads plain scalars by the
-// YAML 1.2 core schema (booleans, null, float64 numbers, JSON flow
-// collections) instead of keeping them as strings — the reading the uninterpreted
+// YAML 1.2 core schema (SOM §12.5, see yamlTypedPlain: null, booleans, int and
+// float64 kept distinct, JSON flow collections; an empty value is nil) instead
+// of keeping them as strings — the reading the uninterpreted
 // `review:` pass needs to round-trip its values' types.
 func YamlParseTyped(text string) interface{} {
 	return yamlParse(text, true)

@@ -10,7 +10,9 @@
  * block scalars (`|`, `|-`, `|2`, `|2-` …), JSON-quoted flow scalars, plain
  * integers, and the empty flow collections `{}` / `[]`. Mappings are plain
  * objects (prototype-free), sequences are arrays, and scalars are strings or
- * numbers. JSON-quoted scalars are parsed with the native `JSON.parse`.
+ * numbers (or, in the typed reading of the `review:` pass, the
+ * {@link YamlReviewScalar} values of SOM §12.5). JSON-quoted scalars are parsed
+ * with the native `JSON.parse`.
  *
  * The dynamic value model is intentionally untyped (`any`): a YAML document is a
  * heterogeneous tree of maps, arrays, strings and numbers, mirroring the JS port.
@@ -85,17 +87,76 @@ function _parseScalarKey(keyPart: string): string {
 }
 
 const _FLOAT_PATTERN = /^[-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?$/;
+const _DEC_INT_PATTERN = /^[-+]?[0-9]+$/;
+const _OCT_INT_PATTERN = /^0o[0-7]+$/;
+const _HEX_INT_PATTERN = /^0x[0-9a-fA-F]+$/;
+const _INF_PATTERN = /^[-+]?\.(inf|Inf|INF)$/;
+const _NAN_PATTERN = /^\.(nan|NaN|NAN)$/;
+const _INT64_MIN = -(BigInt(1) << BigInt(63));
+const _INT64_MAX = (BigInt(1) << BigInt(63)) - BigInt(1);
 
 /**
- * The YAML 1.2 core-schema reading of a plain scalar `t` (the schema
- * `package:yaml` applies): booleans, null, numbers; a JSON flow collection is
- * parsed as JSON. Anything else stays the string it is.
+ * A float whose value is whole (`3.0`, `-0.0`, `1e+300`), decoded from the
+ * uninterpreted `review:` pass. A JavaScript `number` cannot tell `3` from
+ * `3.0`, so a whole float is wrapped to stay a float through decode and encode
+ * (SOM §12.5). Floats with a fraction, `NaN` and the infinities stay plain
+ * `number`s — no integer reads as one.
+ */
+export class YamlFloat {
+  constructor(readonly value: number) {}
+
+  valueOf(): number {
+    return this.value;
+  }
+
+  toString(): string {
+    return formatYamlFloat(this.value);
+  }
+}
+
+/**
+ * A decoded review-pass scalar (SOM §12.5): `null`, a boolean, an integer
+ * (`number` when `Number.isSafeInteger`, else `bigint` — always within the
+ * signed 64-bit range), a float (`number` that is not a safe integer, or a
+ * {@link YamlFloat} when whole), or a string.
+ */
+export type YamlReviewScalar = null | boolean | number | bigint | YamlFloat | string;
+
+/** An integer as the narrowest exact JavaScript value. */
+function _intValue(n: bigint): number | bigint {
+  const asNumber = Number(n);
+  return Number.isSafeInteger(asNumber) ? asNumber : n;
+}
+
+/** A float, wrapped when whole so it stays distinguishable from an int. */
+function _floatValue(x: number): number | YamlFloat {
+  return Number.isInteger(x) ? new YamlFloat(x) : x;
+}
+
+/**
+ * The YAML 1.2 core-schema reading of a plain scalar `t` (SOM §12.5, the
+ * schema `package:yaml` applies): `~`/`null`/`Null`/`NULL` are null;
+ * `true|True|TRUE|false|False|FALSE` are booleans; `[-+]?[0-9]+`, `0o[0-7]+`
+ * and `0x[0-9a-fA-F]+` are integers — a decimal outside the signed 64-bit
+ * range becomes a float; `[-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?`,
+ * `[-+]?.inf` and `.nan` are floats. A JSON flow collection is parsed as
+ * JSON. Anything else stays the string it is. Quoted and block scalars never
+ * reach here: they are always strings.
  */
 function _typedPlain(t: string): YamlValue {
+  if (t === '' || t === '~' || t === 'null' || t === 'Null' || t === 'NULL') return null;
   if (t === 'true' || t === 'True' || t === 'TRUE') return true;
   if (t === 'false' || t === 'False' || t === 'FALSE') return false;
-  if (t === 'null' || t === 'Null' || t === 'NULL' || t === '~') return null;
-  if (_FLOAT_PATTERN.test(t)) return Number(t);
+  if (_DEC_INT_PATTERN.test(t)) {
+    const n = BigInt(t);
+    if (n < _INT64_MIN || n > _INT64_MAX) return _floatValue(Number(t));
+    return _intValue(n);
+  }
+  if (_OCT_INT_PATTERN.test(t)) return _intValue(BigInt('0o' + t.slice(2)));
+  if (_HEX_INT_PATTERN.test(t)) return _intValue(BigInt(t));
+  if (_FLOAT_PATTERN.test(t)) return _floatValue(Number(t));
+  if (_INF_PATTERN.test(t)) return t.startsWith('-') ? -Infinity : Infinity;
+  if (_NAN_PATTERN.test(t)) return NaN;
   if (t.startsWith('[') || t.startsWith('{')) {
     try {
       return JSON.parse(t);
@@ -104,6 +165,22 @@ function _typedPlain(t: string): YamlValue {
     }
   }
   return t;
+}
+
+/**
+ * A float in the canonical review-pass spelling (SOM §12.5): `.nan`, `.inf`,
+ * `-.inf`; otherwise the shortest round-tripping digits in JavaScript's
+ * `Number.prototype.toString` layout (fixed notation for 0 and
+ * 1e-6 <= |x| < 1e21, else exponent notation such as `1e+300`), with `.0`
+ * appended in fixed notation when there is no fraction (`3.0`, `-0.0`).
+ */
+export function formatYamlFloat(x: number): string {
+  if (Number.isNaN(x)) return '.nan';
+  if (x === Infinity) return '.inf';
+  if (x === -Infinity) return '-.inf';
+  if (Object.is(x, -0)) return '-0.0';
+  const s = String(x);
+  return s.includes('e') || s.includes('.') ? s : s + '.0';
 }
 
 class _Yaml {
@@ -226,7 +303,8 @@ class _Yaml {
     }
     const childIndent = _leading(this.lines[i]);
     if (childIndent <= parentIndent) {
-      return _newMap();
+      // An empty value: null in the YAML 1.2 core schema (the typed reading).
+      return this.typed ? null : _newMap();
     }
     return this.parseNode(childIndent);
   }
@@ -242,10 +320,13 @@ class _Yaml {
     if (t.startsWith('"')) {
       return JSON.parse(t); // a JSON string literal is a valid YAML flow scalar.
     }
+    if (this.typed) {
+      return _typedPlain(t);
+    }
     if (_isInteger(t)) {
       return parseInt(t, 10);
     }
-    return this.typed ? _typedPlain(t) : t;
+    return t;
   }
 
   /**
@@ -343,9 +424,11 @@ class _Yaml {
 
 /**
  * Parses `text` into the value model (a mapping object or array). With
- * `typed`, plain scalars are read by the YAML 1.2 core schema (booleans, null,
- * numbers, JSON flow collections) instead of staying strings — the reading the
- * uninterpreted `review:` pass needs to round-trip its values' types.
+ * `typed`, plain scalars are read by the YAML 1.2 core schema (SOM §12.5:
+ * null, booleans, 64-bit integers, floats, JSON flow collections — see
+ * {@link YamlReviewScalar}) and an empty value is null, instead of the
+ * document codec's strings and plain integers — the reading the uninterpreted
+ * `review:` pass needs to round-trip its values' types.
  */
 export function parse(text: string, typed = false): YamlValue {
   const lines = _splitLines(text);

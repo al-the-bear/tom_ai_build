@@ -40,10 +40,15 @@
  * (nothing is silently dropped).
  *
  * The optional `review:` pass is carried by the runtime uninterpreted, read and written back ({@link decode}
- * returns it as a raw map for the editor to interpret).
+ * returns it as a raw map for the editor to interpret). Its plain scalars are
+ * typed by the YAML 1.2 core schema (SOM §12.5, review scalars): ints are a
+ * `Number` (a `BigInt` beyond `Number.isSafeInteger`), floats a `Number` — or a
+ * {@link YamlFloat} when whole, so `3.0` stays apart from `3` — and
+ * {@link reviewScalar} writes each back in its canonical form.
  */
 
 const yaml = require('./yaml');
+const { YamlFloat, floatText } = yaml;
 const { SpecDocument, _remapUnder } = require('./spec_document');
 const { SomFormMeta, SomMetaKind } = require('./spec_meta');
 const { specPathJoin } = require('./spec_paths');
@@ -376,8 +381,10 @@ function encode(document, tree, modelVersion = null, review = null) {
  * interpretation: entries sorted by path (JSON-quoted keys), each entry's
  * fields sorted by name. Sorting, rather than keeping the map's order, is what
  * makes the output the same in every port, and it keeps decode followed by
- * encode byte-identical. Booleans, numbers and identifier-like strings are
- * written plain; any other string as a self-verified block scalar
+ * encode byte-identical. Booleans and numbers are written plain in their
+ * canonical form ({@link reviewScalar}, SOM §12.5); identifier-like strings
+ * that are not YAML words are written plain; any other string as a
+ * self-verified block scalar
  * ({@link writeScalar}); a nested map one level deeper; a list as a JSON flow
  * sequence. An empty map writes `review: {}`.
  *
@@ -398,7 +405,9 @@ function writeReviewPass(b, review) {
 
 function _writeReviewValue(b, indent, renderedKey, value) {
   const pad = ' '.repeat(indent);
-  if (_isMapping(value)) {
+  if (_isReviewScalar(value)) {
+    b.writeln(`${pad}${renderedKey}: ${reviewScalar(value)}`);
+  } else if (_isMapping(value)) {
     const fields = Object.keys(value).map((k) => `${k}`).sort();
     if (fields.length === 0) {
       b.writeln(`${pad}${renderedKey}: {}`);
@@ -410,8 +419,6 @@ function _writeReviewValue(b, indent, renderedKey, value) {
     }
   } else if (value === null || value === undefined) {
     b.writeln(`${pad}${renderedKey}: null`);
-  } else if (typeof value === 'boolean' || typeof value === 'number') {
-    b.writeln(`${pad}${renderedKey}: ${value}`);
   } else if (Array.isArray(value)) {
     b.writeln(`${pad}${renderedKey}: ${JSON.stringify(value)}`);
   } else if (
@@ -422,6 +429,34 @@ function _writeReviewValue(b, indent, renderedKey, value) {
   } else {
     _writeRendered(b, indent, renderedKey, _scalar(`${value}`));
   }
+}
+
+function _isReviewScalar(value) {
+  return (
+    typeof value === 'boolean' ||
+    typeof value === 'number' ||
+    typeof value === 'bigint' ||
+    value instanceof YamlFloat
+  );
+}
+
+/**
+ * A decoded bool or number as the review-pass writer prints it (SOM §12.5,
+ * review scalars): the form that reads back as the same value. `true`/`false`;
+ * a `BigInt` or a safe-integer `Number` as a decimal int; any other `Number`
+ * and a {@link YamlFloat} as a float ({@link floatText}: `.nan`, `.inf`,
+ * `-.inf`, otherwise `Number.prototype.toString` with `.0` appended to a
+ * whole fixed-notation value — `3.0`, `-0.0`, `1e+300`, `1e-7`).
+ *
+ * @param {boolean|number|bigint|YamlFloat} value
+ * @returns {string}
+ */
+function reviewScalar(value) {
+  if (typeof value === 'boolean') return value ? 'true' : 'false';
+  if (typeof value === 'bigint') return value.toString();
+  if (value instanceof YamlFloat) return floatText(value.value);
+  if (Number.isSafeInteger(value) && !Object.is(value, -0)) return String(value);
+  return floatText(value);
 }
 
 const _REVIEW_TOKEN_PATTERN = /^[A-Za-z_][A-Za-z0-9_]*$/;
@@ -500,6 +535,11 @@ class SpecDocumentYaml {
   /** See {@link rekeyReview}. */
   static rekeyReview(review, renamed) {
     return rekeyReview(review, renamed);
+  }
+
+  /** See {@link reviewScalar}. */
+  static reviewScalar(value) {
+    return reviewScalar(value);
   }
 }
 
@@ -919,9 +959,9 @@ function decode(yamlText, tree) {
     _parsedScalarStr(stampRaw) !== ''
       ? _parsedScalarStr(stampRaw)
       : null;
-  // The `review:` pass is passed through with its values typed (booleans,
-  // null, numbers, flow lists) like a full YAML reader returns them; the
-  // document pass keeps the untyped strings its stores expect.
+  // The `review:` pass is re-read with its plain scalars typed by the YAML 1.2
+  // core schema (SOM §12.5) and its JSON flow lists as arrays; the document
+  // pass keeps the untyped strings its stores expect.
   let rev = root['review'];
   if (_isMapping(rev) && Object.keys(rev).length > 0) {
     rev = yaml.parse(yamlText, { typed: true })['review'];
@@ -1210,6 +1250,8 @@ module.exports = {
   writeScalar,
   writeHeader,
   writeReviewPass,
+  reviewScalar,
+  YamlFloat,
   staleReviewPaths,
   rekeyReview,
   SpecDocumentYaml,

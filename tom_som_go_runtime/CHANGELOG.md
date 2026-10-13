@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Review-pass scalars keep their YAML 1.2 type (SOM §12.5): `YamlParseTyped` reads `0o`/`0x` integers, `.inf`/`.nan` and an empty value (null), keeps ints and floats distinct (an integer beyond 64 bits reads as a float), and `WriteReviewPass` writes floats so they read back as floats (`3.0`, `1e+300`, `-.inf`). Pinned by two new `yaml_review_cases.json` cases.
+
 ## 1.4.1
 
 - No change of its own: released in lockstep with `tom_specs_model` 1.4.1.

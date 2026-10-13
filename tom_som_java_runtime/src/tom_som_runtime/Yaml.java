@@ -16,7 +16,10 @@ import java.util.Map;
  * literal block scalars ({@code |}, {@code |-}, {@code |2}, {@code |2-} …),
  * JSON-quoted flow scalars, plain integers, and the empty flow collections
  * {@code {}} / {@code []}. The value model matches {@link Json}:
- * {@link LinkedHashMap}, {@link ArrayList}, {@link String}, {@link Integer}.
+ * {@link LinkedHashMap}, {@link ArrayList}, {@link String}, {@link Integer}
+ * (a plain integer outside the {@code int} range stays its text) — or, in the
+ * typed reading, the YAML 1.2 core-schema scalars of SOM §12.5 (see
+ * {@link #parse(String, boolean)}).
  */
 public final class Yaml {
   private final List<String> lines;
@@ -34,12 +37,25 @@ public final class Yaml {
   }
 
   /**
-   * Parses {@code text}; with {@code typed} set, plain scalars are also read
-   * as YAML 1.2 core-schema booleans ({@code true}/{@code false}), nulls
-   * ({@code null}/{@code ~}) and floats ({@link Double}), and a plain
-   * {@code [...]} as a JSON flow sequence — what the uninterpreted {@code review:}
-   * pass needs to round-trip its typed values. The document pass is read
-   * untyped.
+   * Parses {@code text}; with {@code typed} set, a plain scalar is typed by the
+   * YAML 1.2 core schema (SOM §12.5) — quoted and block scalars are always
+   * strings:
+   *
+   * <ul>
+   *   <li>null: {@code ~}, {@code null}, {@code Null}, {@code NULL}, and an
+   *       empty value;
+   *   <li>{@link Boolean}: {@code true|True|TRUE|false|False|FALSE};
+   *   <li>int: {@code [-+]?[0-9]+}, {@code 0o[0-7]+}, {@code 0x[0-9a-fA-F]+} —
+   *       an {@link Integer} when it fits, else a {@link Long}; a decimal
+   *       outside the signed 64-bit range becomes a float;
+   *   <li>float ({@link Double}):
+   *       {@code [-+]?(.[0-9]+|[0-9]+(.[0-9]*)?)([eE][-+]?[0-9]+)?},
+   *       {@code [-+]?.inf}, {@code .nan} (each in its three spellings);
+   *   <li>a plain {@code [...]} is a JSON flow sequence; anything else a string.
+   * </ul>
+   *
+   * That is what the uninterpreted {@code review:} pass needs to round-trip its
+   * typed values. The document pass is read untyped.
    */
   public static Object parse(String text, boolean typed) {
     List<String> raw = splitLines(text);
@@ -170,7 +186,8 @@ public final class Yaml {
     }
     int childIndent = leading(lines.get(i));
     if (childIndent <= parentIndent) {
-      return new LinkedHashMap<String, Object>();
+      // An empty value: null in the YAML 1.2 core schema (the typed reading).
+      return typed ? null : new LinkedHashMap<String, Object>();
     }
     return parseNode(childIndent);
   }
@@ -186,11 +203,15 @@ public final class Yaml {
     if (t.startsWith("\"")) {
       return Json.parse(t); // a JSON string literal is a valid YAML flow scalar.
     }
-    if (isInteger(t)) {
-      return Integer.valueOf(Integer.parseInt(t));
-    }
     if (typed) {
       return typedScalar(t);
+    }
+    if (isInteger(t)) {
+      try {
+        return Integer.valueOf(Integer.parseInt(t));
+      } catch (NumberFormatException e) {
+        return t; // beyond int: the untyped reading keeps the text.
+      }
     }
     return t;
   }
@@ -198,6 +219,32 @@ public final class Yaml {
   private static final java.util.regex.Pattern FLOAT_PATTERN =
       java.util.regex.Pattern.compile("^[-+]?(\\.[0-9]+|[0-9]+(\\.[0-9]*)?)([eE][-+]?[0-9]+)?$");
 
+  private static final java.util.regex.Pattern DEC_PATTERN =
+      java.util.regex.Pattern.compile("^[-+]?[0-9]+$");
+  private static final java.util.regex.Pattern OCT_PATTERN =
+      java.util.regex.Pattern.compile("^0o[0-7]+$");
+  private static final java.util.regex.Pattern HEX_PATTERN =
+      java.util.regex.Pattern.compile("^0x[0-9a-fA-F]+$");
+  private static final java.math.BigInteger LONG_MIN =
+      java.math.BigInteger.valueOf(Long.MIN_VALUE);
+  private static final java.math.BigInteger LONG_MAX =
+      java.math.BigInteger.valueOf(Long.MAX_VALUE);
+
+  /**
+   * An integer as an {@link Integer} when it fits, else a {@link Long}; beyond
+   * the signed 64-bit range it becomes a float ({@link Double}).
+   */
+  private static Object intValue(java.math.BigInteger n) {
+    if (n.compareTo(LONG_MIN) < 0 || n.compareTo(LONG_MAX) > 0) {
+      return Double.valueOf(n.doubleValue());
+    }
+    long v = n.longValue();
+    return v >= Integer.MIN_VALUE && v <= Integer.MAX_VALUE
+        ? (Object) Integer.valueOf((int) v)
+        : (Object) Long.valueOf(v);
+  }
+
+  /** The YAML 1.2 core-schema reading of the plain scalar {@code t} (SOM §12.5). */
   private static Object typedScalar(String t) {
     switch (t) {
       case "true":
@@ -212,9 +259,34 @@ public final class Yaml {
       case "Null":
       case "NULL":
       case "~":
+      case "":
         return null;
+      case ".inf":
+      case ".Inf":
+      case ".INF":
+      case "+.inf":
+      case "+.Inf":
+      case "+.INF":
+        return Double.valueOf(Double.POSITIVE_INFINITY);
+      case "-.inf":
+      case "-.Inf":
+      case "-.INF":
+        return Double.valueOf(Double.NEGATIVE_INFINITY);
+      case ".nan":
+      case ".NaN":
+      case ".NAN":
+        return Double.valueOf(Double.NaN);
       default:
         break;
+    }
+    if (DEC_PATTERN.matcher(t).matches()) {
+      return intValue(new java.math.BigInteger(t.startsWith("+") ? t.substring(1) : t));
+    }
+    if (OCT_PATTERN.matcher(t).matches()) {
+      return intValue(new java.math.BigInteger(t.substring(2), 8));
+    }
+    if (HEX_PATTERN.matcher(t).matches()) {
+      return intValue(new java.math.BigInteger(t.substring(2), 16));
     }
     if (FLOAT_PATTERN.matcher(t).matches()) {
       return Double.valueOf(Double.parseDouble(t));

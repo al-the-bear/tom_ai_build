@@ -1413,7 +1413,8 @@ in every port:
 - entries sorted by path, with JSON-quoted keys;
 - each entry's fields sorted by name;
 - booleans, numbers and identifier-like strings written plain, any other
-  string as a block scalar;
+  string as a block scalar — each value typed on decode and written on encode
+  by the review-scalar rule (§12.5);
 - an empty pass written as `review: {}`.
 Decode followed by encode is therefore byte-identical. Review entries are keyed
 by path, so removing a list item can leave entries behind. `staleReviewPaths`
@@ -1509,6 +1510,31 @@ additionally every emitter treats YAML-1.1-special strings as *not plainable*
 1.1-only). Lowercase `true`/`false` stay unguarded (booleans in both
 versions). The conformance corpus pins this with a `Meta.tags` case
 (`on`, `no`, `1:30`, `plain`).
+
+**Review scalars.** The `review:` pass is the one place a reader meets data
+the model does not type, so its plain scalars are typed by the **YAML 1.2 core
+schema**, as package:yaml (the Dart reference) applies it. Quoted and block
+scalars are always strings; a plain scalar is
+
+| Type | Plain forms |
+|------|-------------|
+| null | `~`, `null`, `Null`, `NULL`, an empty value |
+| bool | `true`, `True`, `TRUE`, `false`, `False`, `FALSE` |
+| int | `[-+]?[0-9]+`, `0o[0-7]+`, `0x[0-9a-fA-F]+` — a decimal integer outside the signed 64-bit range is a **float** |
+| float | `[-+]?(\.[0-9]+\|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)?`, `[-+]?\.inf`, `.Inf`, `.INF` (signed alike), `.nan`, `.NaN`, `.NAN` |
+| string | anything else |
+
+and an int and a float stay distinct after decode. The writer prints `null`,
+`true`/`false`, an int in decimal, and a float as the shortest digit string
+that reads back as the same double: fixed notation when the value is zero or
+`1e-6 ≤ |x| < 1e21`, with `.0` appended to a whole value (`3.0`, `-0.0`,
+`1000.0`), exponent notation otherwise with a signed, unpadded exponent
+(`1e+300`, `1.5e-300`, `1e-7`), and `.inf`, `-.inf`, `.nan` for the non-finite
+values. That is JavaScript's `Number.prototype.toString` layout with `.0` kept
+on whole floats, which is what Dart prints. A canonical review pass therefore
+round-trips byte for byte, and a non-canonical spelling (`TRUE`, `~`, `0x1F`,
+`2.50`, `1e3`) is written in canonical form. Both are pinned by
+`yaml_review_cases.json` in every port.
 
 ### 12.6 Complete example
 

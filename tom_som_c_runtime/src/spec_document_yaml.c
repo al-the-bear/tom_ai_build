@@ -3,6 +3,8 @@
 #include "spec_document_yaml.h"
 
 #include <ctype.h>
+#include <errno.h>
+#include <float.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1036,6 +1038,9 @@ static YamlValue *clone_yaml(const YamlValue *v) {
   return out;
 }
 
+/* Whether `t` is a YAML 1.2 core-schema float spelling with digits:
+ * [-+]?(\.[0-9]+|[0-9]+(\.[0-9]*)?)([eE][-+]?[0-9]+)? (SOM §12.5). A
+ * decimal integer matches too; the caller tries the int forms first. */
 static int is_plain_float(const char *t) {
   size_t i = 0;
   if (t[i] == '-' || t[i] == '+') {
@@ -1074,31 +1079,116 @@ static int is_plain_float(const char *t) {
   return t[i] == '\0';
 }
 
+/* Whether `t` is `<prefix>` followed by one or more digits of `base`
+ * (8 → [0-7], 16 → [0-9a-fA-F]). */
+static int is_radix_int(const char *t, const char *prefix, int base) {
+  size_t n = strlen(prefix);
+  if (strncmp(t, prefix, n) != 0 || t[n] == '\0') {
+    return 0;
+  }
+  for (const char *p = t + n; *p != '\0'; p++) {
+    int ok = base == 8 ? (*p >= '0' && *p <= '7') : isxdigit((unsigned char)*p);
+    if (!ok) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+static int str_in(const char *t, const char *const *words, size_t n) {
+  for (size_t i = 0; i < n; i++) {
+    if (strcmp(t, words[i]) == 0) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+static YamlValue *new_float(double d) {
+  YamlValue *out = calloc(1, sizeof(YamlValue));
+  out->type = YAML_FLOAT;
+  out->as.real = d;
+  return out;
+}
+
+/* Types the plain review scalar `t` by the YAML 1.2 core schema (SOM §12.5):
+ * `~` / `null` / `Null` / `NULL` → null; `true|True|TRUE|false|False|FALSE`
+ * → bool; `0o[0-7]+` / `0x[0-9a-fA-F]+` → int; a decimal integer outside the
+ * signed 64-bit range (the parser leaves it a plain string, never saturated)
+ * or a float spelling → float, as do `[-+]?.inf` (any case form) and `.nan`.
+ * A decimal integer within range is already a YAML_INT from the parser.
+ * Returns NULL when `t` is a string. */
+static YamlValue *review_core_scalar(const char *t) {
+  static const char *const nulls[] = {"~", "null", "Null", "NULL"};
+  static const char *const trues[] = {"true", "True", "TRUE"};
+  static const char *const falses[] = {"false", "False", "FALSE"};
+  static const char *const infs[] = {".inf", ".Inf", ".INF"};
+  static const char *const nans[] = {".nan", ".NaN", ".NAN"};
+  if (str_in(t, nulls, 4)) {
+    YamlValue *out = calloc(1, sizeof(YamlValue));
+    out->type = YAML_NULL;
+    return out;
+  }
+  if (str_in(t, trues, 3) || str_in(t, falses, 3)) {
+    YamlValue *out = calloc(1, sizeof(YamlValue));
+    out->type = YAML_BOOL;
+    out->as.boolean = t[0] == 't' || t[0] == 'T';
+    return out;
+  }
+  if (is_radix_int(t, "0o", 8) || is_radix_int(t, "0x", 16)) {
+    int base = t[1] == 'o' ? 8 : 16;
+    errno = 0;
+    unsigned long long u = strtoull(t + 2, NULL, base);
+    if (errno == ERANGE || u > 9223372036854775807ULL) {
+      /* Beyond the signed 64-bit range: the nearest double, as for decimal. */
+      double d = 0;
+      for (const char *p = t + 2; *p != '\0'; p++) {
+        int digit = isdigit((unsigned char)*p)
+                        ? *p - '0'
+                        : tolower((unsigned char)*p) - 'a' + 10;
+        d = d * base + digit;
+      }
+      return new_float(d);
+    }
+    YamlValue *out = calloc(1, sizeof(YamlValue));
+    out->type = YAML_INT;
+    out->as.integer = (long long)u;
+    return out;
+  }
+  const char *u = (t[0] == '-' || t[0] == '+') ? t + 1 : t;
+  if (str_in(u, infs, 3)) {
+    /* strtod accepts "inf" in every locale; no libm needed. */
+    double inf = strtod("inf", NULL);
+    return new_float(t[0] == '-' ? -inf : inf);
+  }
+  if (str_in(t, nans, 3)) {
+    return new_float(strtod("nan", NULL));
+  }
+  if (is_plain_float(t)) {
+    return new_float(strtod(t, NULL));
+  }
+  return NULL;
+}
+
 /* Deep-clones the `review:` pass, typing its plain scalars the way a YAML
- * core-schema reader (the Dart reference's package:yaml) does: `null` / `~`
- * → null, `true` / `false` → bool, a decimal or `.inf` / `.nan` → float, and
- * a JSON flow collection (`["a"]`, what the review writer emits for a list)
- * → its sequence / map. Quoted and block scalars stay strings. The `document:`
- * pass is never typed (its scalars are the model's raw text). */
+ * 1.2 core-schema reader (the Dart reference's package:yaml) does — SOM
+ * §12.5: null, bool, int (decimal within the signed 64-bit range, `0o`
+ * octal, `0x` hex), float (a decimal integer beyond 64 bits, a float
+ * spelling, `.inf` / `-.inf` / `.nan`), else string; an empty value is null;
+ * and a JSON flow collection (`["a"]`, what the review writer emits for a
+ * list) → its sequence / map. Quoted and block scalars always stay strings.
+ * The `document:` pass is never typed (its scalars are the model's raw
+ * text). */
 static YamlValue *clone_review(const YamlValue *v) {
+  if (v->type == YAML_MAP && v->plain && v->as.map.len == 0) {
+    YamlValue *out = calloc(1, sizeof(YamlValue));
+    out->type = YAML_NULL;
+    return out;
+  }
   if (v->type == YAML_STR && v->plain) {
     const char *t = v->as.str;
-    YamlValue *out = NULL;
-    if (strcmp(t, "null") == 0 || strcmp(t, "Null") == 0 ||
-        strcmp(t, "NULL") == 0 || strcmp(t, "~") == 0) {
-      out = calloc(1, sizeof(YamlValue));
-      out->type = YAML_NULL;
-    } else if (strcmp(t, "true") == 0 || strcmp(t, "True") == 0 ||
-               strcmp(t, "TRUE") == 0 || strcmp(t, "false") == 0 ||
-               strcmp(t, "False") == 0 || strcmp(t, "FALSE") == 0) {
-      out = calloc(1, sizeof(YamlValue));
-      out->type = YAML_BOOL;
-      out->as.boolean = t[0] == 't' || t[0] == 'T';
-    } else if (is_plain_float(t)) {
-      out = calloc(1, sizeof(YamlValue));
-      out->type = YAML_FLOAT;
-      out->as.real = strtod(t, NULL);
-    } else if (t[0] == '[' || t[0] == '{') {
+    YamlValue *out = review_core_scalar(t);
+    if (out == NULL && (t[0] == '[' || t[0] == '{')) {
       SomJson *j = som_json_parse(t, NULL);
       if (j != NULL) {
         out = yaml_value_from_json(j);
@@ -1712,6 +1802,26 @@ static void write_review_json(SomBuf *b, const YamlValue *v) {
   }
 }
 
+/* A review scalar in the canonical form that reads back as the same value
+ * (SOM §12.5): `null`, `true` / `false`, an int in decimal, and a float as
+ * `yaml_format_double` lays it out (shortest round-tripping digits in
+ * JavaScript's Number.prototype.toString layout, `.0` appended to a whole
+ * value in fixed notation) except that the non-finite values take their YAML
+ * spellings `.nan`, `.inf` and `-.inf` (`Infinity` would read back as a
+ * string). A string is returned verbatim. Owned. */
+static char *review_scalar(const YamlValue *v) {
+  if (v->type == YAML_FLOAT) {
+    double d = v->as.real;
+    if (d != d) {
+      return som_strdup(".nan");
+    }
+    if (d > DBL_MAX || d < -DBL_MAX) {
+      return som_strdup(d > 0 ? ".inf" : "-.inf");
+    }
+  }
+  return yaml_scalar_string(v);
+}
+
 /* Whether a review string may be written plain: an identifier
  * (^[A-Za-z_][A-Za-z0-9_]*$) that no YAML 1.1 / 1.2 reader takes for
  * something other than a string. */
@@ -1777,7 +1887,7 @@ static void write_review_value(SomBuf *b, size_t indent,
     write_review_json(b, v);
   } else {
     /* bool / int / float, or a plain-safe identifier string. */
-    char *t = yaml_scalar_string(v);
+    char *t = review_scalar(v);
     som_buf_puts(b, t);
     free(t);
   }
