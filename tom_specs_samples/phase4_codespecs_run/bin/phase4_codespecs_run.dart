@@ -64,6 +64,9 @@ List<CodeSpecsExtract> _variantA(_Inputs inputs) {
   final gate = _runGate(inputs, doc);
   if (!gate.passed) {
     stderr.writeln('variant A was supposed to pass the gate');
+    for (final f in gate.findings) {
+      stderr.writeln('  $f');
+    }
     exit(1);
   }
   print('   gate verdict             : PASS — the run may begin');
@@ -98,12 +101,13 @@ void _variantB(_Inputs inputs) {
   }
   print('   gate verdict             : REJECTED — the run may not begin');
   print('');
-  print('   What A1 names, per violation:');
-  for (final v in gate.a1) {
-    print('     line ${v.line}: ${v.rule.name} [${v.sectionId}] ${v.message}');
+  print('   What the gate names, per finding:');
+  for (final f in gate.findings) {
+    print('     ${f.check.label} ${f.code} [${f.location}] ${f.message}');
   }
   print('');
-  print('   A2 did not move: ${gate.a2.length} violations, the same as');
+  final a2 = gate[CodeSpecsGateCheck.a2].findings.length;
+  print('   A2 did not move: $a2 violations, the same as');
   print('   variant A. Clearing a required field REMOVES a value, and a');
   print('   validator that checks values has nothing left to object to. That');
   print('   is why the gate runs both tiers and not either one');
@@ -115,71 +119,41 @@ void _variantB(_Inputs inputs) {
 // Stage 1 — the mechanical gate (codespecs_prompt.md §4).
 // ---------------------------------------------------------------------------
 
-/// What one run of the mechanical tier produced.
-class _GateResult {
-  /// A1's violations — the document's markdown against its DocSpecs schema.
-  final List<DocSpecsViolation> a1;
-
-  /// A2's violations — the instance tier over the document's own values.
-  final List<SpecValidationError> a2;
-
-  /// A3's failure, or `null` when the routing walk was total.
-  final CodeSpecsExtractError? a3;
-
-  /// The per-area extracts, present only when all three tiers passed.
-  final List<CodeSpecsExtract>? extracts;
-
-  const _GateResult(this.a1, this.a2, this.a3, this.extracts);
-
-  /// Whether the run may begin.
-  bool get passed => a1.isEmpty && a2.isEmpty && a3 == null;
-}
-
 /// Runs the mechanical tier over [doc] and prints each check's verdict.
 ///
-/// All three run unconditionally rather than short-circuiting: a project fixing
-/// one wants to see the rest (`codespecs_prompt.md` §4).
-_GateResult _runGate(_Inputs inputs, SpecDocument doc) {
+/// All five checks run as one gate, `CodeSpecsGate`, and none stops the
+/// others: a project fixing one wants to see the rest (`codespecs_prompt.md`
+/// §4). A check that could not run says so, and the gate does not pass.
+CodeSpecsGateReport _runGate(_Inputs inputs, SpecDocument doc) {
   print('1. The starting prompt\'s quality gate        [MECHANICAL]');
-
-  final markdown = doc.toMarkdown(inputs.model, rootType: _kRoot);
-  final a1 = DocSpecsValidator(inputs.schema).validateMarkdown(markdown);
-  print('   A1 schema completeness   : ${_verdict(a1.length)}');
-
-  final a2 = validateDocument(inputs.model, doc);
-  print('   A2 instance-tier values  : ${_verdict(a2.length)}');
-
-  // A3 is not a separate pass over the tree: the extractor's strict walk throws
-  // on the first section carrying none of the three routing verdicts, so
-  // running the extraction IS the routing-totality check
-  // (`tom_specs_model_rules.md` §10.2 ROUTE-TOTAL).
-  final extractor = CodeSpecsExtractor(
+  final report = CodeSpecsGate(
     model: inputs.model,
     document: doc,
     catalog: inputs.catalog,
+    schema: inputs.schema,
     rootType: _kRoot,
-  );
-  try {
-    final extracts = extractor.extractAll();
-    print(
-      '   A3 routing totality      : pass — '
-      '${extractor.routings().length} sections walked, all routed',
-    );
-    print('   A4 / A5                  : not run here — required-argument');
-    print('                              sources and carrier presence are');
-    print('                              read off the per-marker argument');
-    print('                              table, which the generator owns and');
-    print('                              the SOM runtimes do not ship.');
-    return _GateResult(
-      a1,
-      a2,
-      null,
-      a1.isEmpty && a2.isEmpty ? extracts : null,
-    );
-  } on CodeSpecsExtractError catch (e) {
-    print('   A3 routing totality      : FAIL — ${e.message}');
-    return _GateResult(a1, a2, e, null);
+  ).run();
+  const titles = {
+    CodeSpecsGateCheck.a1: 'schema completeness  ',
+    CodeSpecsGateCheck.a2: 'instance-tier values ',
+    CodeSpecsGateCheck.a3: 'routing totality     ',
+    CodeSpecsGateCheck.a4: 'required arguments   ',
+    CodeSpecsGateCheck.a5: 'structured carriers  ',
+  };
+  for (final r in report.results) {
+    final verdict = !r.ran
+        ? 'NOT RUN — ${r.notRunReason}'
+        : r.findings.isEmpty
+        ? 'pass — 0 findings'
+        : 'FAIL — ${r.findings.length} findings';
+    print('   ${r.check.label} ${titles[r.check]}: $verdict');
   }
+  print(
+    '   (A4 held ${inputs.catalog.requiredArguments.length} required-argument '
+    'rows, A5 ${inputs.catalog.carriers.length} carriers, both from the '
+    'catalogue\'s gate tables)',
+  );
+  return report;
 }
 
 // ---------------------------------------------------------------------------
@@ -416,9 +390,6 @@ final String _authoredExample = File(
 final String _validationReport = File(
   'codespec/validation_report.txt',
 ).readAsStringSync();
-
-String _verdict(int violations) =>
-    violations == 0 ? 'pass — 0 violations' : 'FAIL — $violations violations';
 
 String _short(String value) =>
     value.length <= 44 ? value : '${value.substring(0, 41)}...';

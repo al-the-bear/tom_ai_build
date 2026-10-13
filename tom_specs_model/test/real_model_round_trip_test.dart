@@ -40,46 +40,44 @@ void main() {
         filler = _Filler(realModel())..fill(project.solutionBlueprint);
       });
 
-      test(
-        'a populated Solution Blueprint is a fixed point of the runtime codec',
-        () {
-          final written = SpecYaml.toYaml(
-            project.solutionBlueprint,
-            tree: treeFor(_sbp),
-          );
+      test('a populated Solution Blueprint is a fixed point of the runtime codec', () {
+        final written = SpecYaml.toYaml(
+          project.solutionBlueprint,
+          tree: treeFor(_sbp),
+        );
 
-          // Non-triviality: this must be the real document, not an empty shell a
-          // trivially-correct encoder would also round-trip.
-          // 707 text sections and 233 forms: every section the default-constructed
-          // tree reaches. The remaining model classes are list *element* types,
-          // unreachable until a list has items — the third test covers those.
-          //
-          // Asserted exactly rather than as a floor, for the same reason
-          // `registry_snapshot_test` asserts its class count exactly: a `>=` bound
-          // is silent in the direction the model actually moves.
-          expect(
-            filler.contentLeaves,
-            707,
-            reason: 'the fixture must exercise the whole reachable model',
-          );
-          expect(filler.formSections, 233);
-          expect(written.split('\n').length, greaterThan(3000));
+        // Non-triviality: this must be the real document, not an empty shell a
+        // trivially-correct encoder would also round-trip.
+        // 637 text sections and 303 forms: every section the default-constructed
+        // tree reaches. (A class-level `@Form` makes its `content` a form, which
+        // is why 70 former text sections count as forms.) The remaining model classes are list *element* types,
+        // unreachable until a list has items — the third test covers those.
+        //
+        // Asserted exactly rather than as a floor, for the same reason
+        // `registry_snapshot_test` asserts its class count exactly: a `>=` bound
+        // is silent in the direction the model actually moves.
+        expect(
+          filler.contentLeaves,
+          637,
+          reason: 'the fixture must exercise the whole reachable model',
+        );
+        expect(filler.formSections, 303);
+        expect(written.split('\n').length, greaterThan(3000));
 
-          final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));
-          final rewritten = SpecDocumentYaml.encode(
-            document: reloaded.document,
-            tree: treeFor(_sbp),
-          );
+        final reloaded = SpecDocumentYaml.decode(written, treeFor(_sbp));
+        final rewritten = SpecDocumentYaml.encode(
+          document: reloaded.document,
+          tree: treeFor(_sbp),
+        );
 
-          expect(
-            rewritten,
-            written,
-            reason:
-                'a document SpecYaml wrote is not a fixed point of the '
-                'runtime codec — the two derivations of SOM §12 have drifted',
-          );
-        },
-      );
+        expect(
+          rewritten,
+          written,
+          reason:
+              'a document SpecYaml wrote is not a fixed point of the '
+              'runtime codec — the two derivations of SOM §12 have drifted',
+        );
+      });
 
       test('every authored value survives the round trip, by path', () {
         final projected = SpecYaml.toDocument(

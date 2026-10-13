@@ -1,3 +1,10 @@
+## 1.4.1
+
+- Test-only. `test/real_model_round_trip_test.dart` asserted the reachable
+  model's text-section and form counts as they were before a class-level
+  `@Form` made its `content` a form (637 and 303, not 707 and 233). 1.4.0
+  shipped the stale counts, so its archive's own test failed.
+
 ## 1.4.0
 
 - SOM §9 documents moving a list item.

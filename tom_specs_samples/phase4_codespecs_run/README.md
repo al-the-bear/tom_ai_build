@@ -60,9 +60,11 @@ extraction walk itself). It runs them for two documents:
   `codespecs_prompt.md` §10.2 that measures the same effect on a full-size
   document).
 
-A4 and A5 are not run here, and the sample says so rather than passing over
-them: they read the per-marker required-argument table, which the generator owns
-and the SOM runtimes do not ship.
+All five checks run as one gate, `CodeSpecsGate`, which every SOM runtime
+ships. A4 holds the required-argument rows and A5 the carriers of
+`codespecs_prompt.md` §4.4/§4.5, both read from the area catalogue's gate
+tables. In variant B, A4 names the same cleared `aggregateRoot` as A1, from the
+other direction: it is `@CsServiceUnit.rootAggregate`'s source.
 
 **Stage 2** walks the 27-area catalogue and writes 54 files to
 `build/codespecs_extracts/` — a `.yaml` of record and a rendered `.md` view per

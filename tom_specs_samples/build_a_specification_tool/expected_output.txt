@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.3.3+1.0063655c
-  generatedAt       = 2026-10-11T08:32:30.291650Z
+  modelVersionLabel = 1.4.0+2.5a9a9f26
+  generatedAt       = 2026-10-12T23:54:43.212111Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -188,7 +188,7 @@ form slot the form does not declare:
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (7): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown
+  SpecValidationCode  (8): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
@@ -206,7 +206,7 @@ and answering it means walking the model and asking the document.
 
   SECTION                                WRITTEN / OFFERED
   SBP.1 Document Control (header + revi…     0 /    11    0%
-  SBP.2 Introduction & Scope                 1 /   410    0%
+  SBP.2 Introduction & Scope                 1 /   417    0%
   SBP.3 Glossary & Abbreviations             0 /     2    0%
   SBP.4 Stakeholders & Governance            0 /   201    0%
   SBP.5 Current Landscape                    2 /   222    1%
@@ -215,12 +215,12 @@ and answering it means walking the model and asking the document.
   SBP.8 Information & Data Model             1 /    50    2%
   SBP.9 Requirements (functional + NFR …     0 /    55    0%
   SBP.11 Solution Architecture & Techno…     0 /  2529    0%
-  SBP.12 Security & Access Model             0 /   308    0%
+  SBP.12 Security & Access Model             0 /  1080    0%
   SBP.13 Experience & Interface Design       0 /   488    0%
   SBP.14 Quality & Acceptance Model          0 /   517    0%
   SBP.15 Delivery, Transition & Rollout      0 /   372    0%
   -------------------------------------- -------------------
-  TOTAL                                      4 /  5415    0%
+  TOTAL                                      4 /  6194    0%
 
   SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
   the twelve Phase-3 documents: its section classes ARE those
@@ -231,6 +231,6 @@ and answering it means walking the model and asking the document.
 
   Required-and-missing, from the schema tier, for contrast:
     1 missing required field(s) — the only gaps a validator
-    will name, out of 5411 unwritten positions.
+    will name, out of 6190 unwritten positions.
 
 That gap between the two numbers is the tool's reason to exist.

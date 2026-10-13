@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- No change of its own: released in lockstep with `tom_specs_model` 1.4.1.
+
 ## 1.4.0
 
 - Moving a list item: `SpecDocument.moveListItem(model, itemPath, toIndex,

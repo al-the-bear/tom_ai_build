@@ -11,14 +11,12 @@ Variant A — a sufficient specification
    and 3 stored attributes; every other section is unwritten.
 
 1. The starting prompt's quality gate        [MECHANICAL]
-   A1 schema completeness   : pass — 0 violations
-   A2 instance-tier values  : pass — 0 violations
-   A3 routing totality      : pass — 216 sections walked, all routed
-   A4 / A5                  : not run here — required-argument
-                              sources and carrier presence are
-                              read off the per-marker argument
-                              table, which the generator owns and
-                              the SOM runtimes do not ship.
+   A1 schema completeness  : pass — 0 findings
+   A2 instance-tier values : pass — 0 findings
+   A3 routing totality     : pass — 0 findings
+   A4 required arguments   : pass — 0 findings
+   A5 structured carriers  : pass — 0 findings
+   (A4 held 25 required-argument rows, A5 26 carriers, both from the catalogue's gate tables)
    gate verdict             : PASS — the run may begin
 
 2. The extract generator                      [MECHANICAL]
@@ -169,19 +167,19 @@ Both entities keep their `DAENT-CLAS` section and its `category`, and
 both have `aggregateRoot` cleared. Nothing else changed.
 
 1. The starting prompt's quality gate        [MECHANICAL]
-   A1 schema completeness   : FAIL — 2 violations
-   A2 instance-tier values  : pass — 0 violations
-   A3 routing totality      : pass — 216 sections walked, all routed
-   A4 / A5                  : not run here — required-argument
-                              sources and carrier presence are
-                              read off the per-marker argument
-                              table, which the generator owns and
-                              the SOM runtimes do not ship.
+   A1 schema completeness  : FAIL — 2 findings
+   A2 instance-tier values : pass — 0 findings
+   A3 routing totality     : pass — 0 findings
+   A4 required arguments   : FAIL — 2 findings
+   A5 structured carriers  : pass — 0 findings
+   (A4 held 25 required-argument rows, A5 26 carriers, both from the catalogue's gate tables)
    gate verdict             : REJECTED — the run may not begin
 
-   What A1 names, per violation:
-     line 26: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
-     line 72: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-form" is missing
+   What the gate names, per finding:
+     A1 missingRequiredField [DAENT-CLAS] line 26: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A1 missingRequiredField [DAENT-CLAS] line 72: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
+     A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
 
    A2 did not move: 0 violations, the same as
    variant A. Clearing a required field REMOVES a value, and a
