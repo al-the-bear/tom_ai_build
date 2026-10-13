@@ -22,6 +22,53 @@ import (
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
 const Version = "v1.4.0"
 
+// ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ActionTriggerKind string
+
+const (
+	// A user acting on an element — a tap, a press or a long press.
+	//
+	// The common kind for a button or link; the trigger then names the element
+	// and the gesture.
+	ActionTriggerKindUserGesture ActionTriggerKind = "userGesture"
+	// A form event — a field changing, the form submitting, validation passing
+	// or failing.
+	//
+	// Chosen when the action runs because of what happened to the form rather
+	// than because a control was touched.
+	ActionTriggerKindInFormEvent ActionTriggerKind = "inFormEvent"
+	// A screen, route or app lifecycle phase — entering, leaving, initialising
+	// or disposing.
+	//
+	// The kind for work that runs because the user arrived somewhere, not
+	// because they did something there.
+	ActionTriggerKindLifecycle ActionTriggerKind = "lifecycle"
+	// An inbound server push or notification.
+	//
+	// The only kind not started on the device; the trigger names the channel
+	// and the event type it listens for.
+	ActionTriggerKindServerEvent ActionTriggerKind = "serverEvent"
+	// A condition over observable state becoming true — the `canExecute` case.
+	//
+	// Its predicate is code rather than a stated fact, so the trigger carries
+	// no further field: the generated predicate is written by the implementer.
+	ActionTriggerKindCondition ActionTriggerKind = "condition"
+)
+
+// parseActionTriggerKind returns the ActionTriggerKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseActionTriggerKind(token string) ActionTriggerKind {
+	switch ActionTriggerKind(token) {
+	case ActionTriggerKindUserGesture, ActionTriggerKindInFormEvent, ActionTriggerKindLifecycle, ActionTriggerKindServerEvent, ActionTriggerKindCondition:
+		return ActionTriggerKind(token)
+	}
+	return ""
+}
+
 // AuthorizationRequirementKind is the generated named type for `AuthorizationRequirementKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -80067,6 +80114,14 @@ func (x *ComponentActionEntryContentForm) SetActionTrigger(value string) {
 	x.Doc().SetFormField(x.Path(), "actionTrigger", value)
 }
 
+func (x *ComponentActionEntryContentForm) TriggerKind() ActionTriggerKind {
+	return parseActionTriggerKind(x.Doc().FormFieldOr(x.Path(), "triggerKind"))
+}
+
+func (x *ComponentActionEntryContentForm) SetTriggerKind(value ActionTriggerKind) {
+	x.Doc().SetFormField(x.Path(), "triggerKind", string(value))
+}
+
 func (x *ComponentActionEntryContentForm) ActionPayload() string {
 	return x.Doc().FormFieldOr(x.Path(), "actionPayload")
 }
@@ -150144,6 +150199,14 @@ func (x *NotificationTypeEntryContentForm) SetContentTemplate(value string) {
 	x.Doc().SetFormField(x.Path(), "contentTemplate", value)
 }
 
+func (x *NotificationTypeEntryContentForm) BodyMessageKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "bodyMessageKey")
+}
+
+func (x *NotificationTypeEntryContentForm) SetBodyMessageKey(value string) {
+	x.Doc().SetFormField(x.Path(), "bodyMessageKey", value)
+}
+
 func (x *NotificationTypeEntryContentForm) Localized() string {
 	return x.Doc().FormFieldOr(x.Path(), "localized")
 }
@@ -185348,6 +185411,14 @@ func (x *ScreenElementActionContentForm) ActionTrigger() string {
 
 func (x *ScreenElementActionContentForm) SetActionTrigger(value string) {
 	x.Doc().SetFormField(x.Path(), "actionTrigger", value)
+}
+
+func (x *ScreenElementActionContentForm) TriggerKind() ActionTriggerKind {
+	return parseActionTriggerKind(x.Doc().FormFieldOr(x.Path(), "triggerKind"))
+}
+
+func (x *ScreenElementActionContentForm) SetTriggerKind(value ActionTriggerKind) {
+	x.Doc().SetFormField(x.Path(), "triggerKind", string(value))
 }
 
 func (x *ScreenElementActionContentForm) ActionPayload() string {

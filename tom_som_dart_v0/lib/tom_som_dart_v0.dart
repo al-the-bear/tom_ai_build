@@ -26,6 +26,50 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'tom_som_dart_v0_meta.dart';
 export 'tom_som_dart_v0_meta.dart';
 
+/// Generated enum for `ActionTriggerKind` values.
+enum ActionTriggerKind {
+  /// A user acting on an element — a tap, a press or a long press.
+  /// 
+  /// The common kind for a button or link; the trigger then names the element
+  /// and the gesture.
+  userGesture,
+
+  /// A form event — a field changing, the form submitting, validation passing
+  /// or failing.
+  /// 
+  /// Chosen when the action runs because of what happened to the form rather
+  /// than because a control was touched.
+  inFormEvent,
+
+  /// A screen, route or app lifecycle phase — entering, leaving, initialising
+  /// or disposing.
+  /// 
+  /// The kind for work that runs because the user arrived somewhere, not
+  /// because they did something there.
+  lifecycle,
+
+  /// An inbound server push or notification.
+  /// 
+  /// The only kind not started on the device; the trigger names the channel
+  /// and the event type it listens for.
+  serverEvent,
+
+  /// A condition over observable state becoming true — the `canExecute` case.
+  /// 
+  /// Its predicate is code rather than a stated fact, so the trigger carries
+  /// no further field: the generated predicate is written by the implementer.
+  condition;
+}
+
+/// Parses a stored token into a [ActionTriggerKind], or `null`.
+ActionTriggerKind? _parseActionTriggerKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ActionTriggerKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `AuthorizationRequirementKind` values.
 enum AuthorizationRequirementKind {
   /// The caller must hold one of a named set of roles.
@@ -61156,6 +61200,14 @@ class ComponentActionEntryContentForm extends SomNode {
   String get actionTrigger => doc.formField(path, 'actionTrigger') ?? '';
   set actionTrigger(String value) => doc.setFormField(path, 'actionTrigger', value);
 
+  /// Trigger Kind.
+  ///
+  /// What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state
+  ///
+  /// Stored as one of: `userGesture`, `inFormEvent`, `lifecycle`, `serverEvent`, `condition`.
+  ActionTriggerKind? get triggerKind => _parseActionTriggerKind(doc.formField(path, 'triggerKind'));
+  set triggerKind(ActionTriggerKind? value) => doc.setFormField(path, 'triggerKind', value?.name ?? '');
+
   /// Action Payload.
   ///
   /// Data passed with action
@@ -104474,6 +104526,12 @@ class NotificationTypeEntryContentForm extends SomNode {
   String get contentTemplate => doc.formField(path, 'contentTemplate') ?? '';
   set contentTemplate(String value) => doc.setFormField(path, 'contentTemplate', value);
 
+  /// Body Message Key.
+  ///
+  /// The message key whose copy is the notification body, as a key the message-key registry declares
+  String get bodyMessageKey => doc.formField(path, 'bodyMessageKey') ?? '';
+  set bodyMessageKey(String value) => doc.setFormField(path, 'bodyMessageKey', value);
+
   /// Localized.
   ///
   /// Available in multiple languages
@@ -126605,6 +126663,14 @@ class ScreenElementActionContentForm extends SomNode {
   /// User interaction that triggers execution
   String get actionTrigger => doc.formField(path, 'actionTrigger') ?? '';
   set actionTrigger(String value) => doc.setFormField(path, 'actionTrigger', value);
+
+  /// Trigger Kind.
+  ///
+  /// What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state
+  ///
+  /// Stored as one of: `userGesture`, `inFormEvent`, `lifecycle`, `serverEvent`, `condition`.
+  ActionTriggerKind? get triggerKind => _parseActionTriggerKind(doc.formField(path, 'triggerKind'));
+  set triggerKind(ActionTriggerKind? value) => doc.setFormField(path, 'triggerKind', value?.name ?? '');
 
   /// Action Payload.
   ///

@@ -16467,7 +16467,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "The symbol the built component carries for this action, e.g. onSubmit", 0),
             new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 1),
-            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed with action", 2)));
+            new SomFormFieldMeta("triggerKind", "ActionTriggerKind", "Trigger Kind", false, "What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state", 2, java.util.List.of("userGesture", "inFormEvent", "lifecycle", "serverEvent", "condition")),
+            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed with action", 3)));
         out.add(n);
       }
       {
@@ -60832,7 +60833,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("mandatoryChannels", "String", "Mandatory Channels", false, "Channels that cannot be disabled", 6),
             new SomFormFieldMeta("triggerEvent", "String", "Trigger Event", false, "System event that triggers this notification", 7),
             new SomFormFieldMeta("contentTemplate", "String", "Content Template", false, "Template ID or description", 8),
-            new SomFormFieldMeta("localized", "String", "Localized", false, "Available in multiple languages", 9)));
+            new SomFormFieldMeta("bodyMessageKey", "String", "Body Message Key", false, "The message key whose copy is the notification body, as a key the message-key registry declares", 9, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("localized", "String", "Localized", false, "Available in multiple languages", 10)));
         out.add(n);
       }
       return out;
@@ -81663,8 +81665,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh/Custom", 1),
             new SomFormFieldMeta("buttonStyle", "String", "Button Style", false, "Primary/Secondary/Tertiary/Danger/Text-Only/Icon-Only/Outlined/Floating", 2),
             new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers execution", 3),
-            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed when the action fires", 4),
-            new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+S", 5)));
+            new SomFormFieldMeta("triggerKind", "ActionTriggerKind", "Trigger Kind", false, "What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state", 4, java.util.List.of("userGesture", "inFormEvent", "lifecycle", "serverEvent", "condition")),
+            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed when the action fires", 5),
+            new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+S", 6)));
         out.add(n);
       }
       {

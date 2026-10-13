@@ -34666,8 +34666,8 @@ static void meta_build_component_action_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("actionId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Action ID");
@@ -34680,12 +34680,25 @@ static void meta_build_component_action_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("User interaction that triggers");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("actionPayload");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Action Payload");
+  n->form->fields[2].name = som_strdup("triggerKind");
+  n->form->fields[2].type_name = som_strdup("ActionTriggerKind");
+  n->form->fields[2].description = som_strdup("Trigger Kind");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Data passed with action");
+  n->form->fields[2].hint = som_strdup("What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state");
   n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 5;
+  n->form->fields[2].enum_values = (char **)calloc(5, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("userGesture");
+  n->form->fields[2].enum_values[1] = som_strdup("inFormEvent");
+  n->form->fields[2].enum_values[2] = som_strdup("lifecycle");
+  n->form->fields[2].enum_values[3] = som_strdup("serverEvent");
+  n->form->fields[2].enum_values[4] = som_strdup("condition");
+  n->form->fields[3].name = som_strdup("actionPayload");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Action Payload");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Data passed with action");
+  n->form->fields[3].order = 3;
 }
 static void meta_build_component_action_entry_governance(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentActionEntry");
@@ -94214,8 +94227,8 @@ static void meta_build_notification_type_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 10;
-  n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 11;
+  n->form->fields = (SomFormFieldMeta *)calloc(11, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("notificationType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Notification Type");
@@ -94276,12 +94289,21 @@ static void meta_build_notification_type_entry_content(SomMetaNode *n) {
   n->form->fields[8].required = 0;
   n->form->fields[8].hint = som_strdup("Template ID or description");
   n->form->fields[8].order = 8;
-  n->form->fields[9].name = som_strdup("localized");
+  n->form->fields[9].name = som_strdup("bodyMessageKey");
   n->form->fields[9].type_name = som_strdup("String");
-  n->form->fields[9].description = som_strdup("Localized");
+  n->form->fields[9].description = som_strdup("Body Message Key");
   n->form->fields[9].required = 0;
-  n->form->fields[9].hint = som_strdup("Available in multiple languages");
+  n->form->fields[9].hint = som_strdup("The message key whose copy is the notification body, as a key the message-key registry declares");
   n->form->fields[9].order = 9;
+  n->form->fields[9].refers_to_len = 1;
+  n->form->fields[9].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[9].refers_to[0] = som_strdup("MSGKE.key");
+  n->form->fields[10].name = som_strdup("localized");
+  n->form->fields[10].type_name = som_strdup("String");
+  n->form->fields[10].description = som_strdup("Localized");
+  n->form->fields[10].required = 0;
+  n->form->fields[10].hint = som_strdup("Available in multiple languages");
+  n->form->fields[10].order = 10;
 }
 static void meta_build_object_invariant_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ObjectInvariantEntry");
@@ -123439,8 +123461,8 @@ static void meta_build_screen_element_action_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("actionId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Action ID");
@@ -123468,18 +123490,31 @@ static void meta_build_screen_element_action_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("User interaction that triggers execution");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("actionPayload");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Action Payload");
+  n->form->fields[4].name = som_strdup("triggerKind");
+  n->form->fields[4].type_name = som_strdup("ActionTriggerKind");
+  n->form->fields[4].description = som_strdup("Trigger Kind");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Data passed when the action fires");
+  n->form->fields[4].hint = som_strdup("What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("keyboardShortcut");
+  n->form->fields[4].enum_values_len = 5;
+  n->form->fields[4].enum_values = (char **)calloc(5, sizeof(char *));
+  n->form->fields[4].enum_values[0] = som_strdup("userGesture");
+  n->form->fields[4].enum_values[1] = som_strdup("inFormEvent");
+  n->form->fields[4].enum_values[2] = som_strdup("lifecycle");
+  n->form->fields[4].enum_values[3] = som_strdup("serverEvent");
+  n->form->fields[4].enum_values[4] = som_strdup("condition");
+  n->form->fields[5].name = som_strdup("actionPayload");
   n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Keyboard Shortcut");
+  n->form->fields[5].description = som_strdup("Action Payload");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Shortcut binding, e.g., Ctrl+S");
+  n->form->fields[5].hint = som_strdup("Data passed when the action fires");
   n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("keyboardShortcut");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Keyboard Shortcut");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("Shortcut binding, e.g., Ctrl+S");
+  n->form->fields[6].order = 6;
 }
 static void meta_build_screen_element_action_execution(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementAction");

@@ -12,6 +12,66 @@ import tom_som_runtime.SpecDocument;
 public final class TomSomV0 {
   private TomSomV0() {}
 
+  // Generated enum for `ActionTriggerKind` values.
+  public enum ActionTriggerKind {
+    /**
+     * A user acting on an element — a tap, a press or a long press.
+     *
+     * The common kind for a button or link; the trigger then names the element
+     * and the gesture.
+     */
+    userGesture("userGesture"),
+    /**
+     * A form event — a field changing, the form submitting, validation passing
+     * or failing.
+     *
+     * Chosen when the action runs because of what happened to the form rather
+     * than because a control was touched.
+     */
+    inFormEvent("inFormEvent"),
+    /**
+     * A screen, route or app lifecycle phase — entering, leaving, initialising
+     * or disposing.
+     *
+     * The kind for work that runs because the user arrived somewhere, not
+     * because they did something there.
+     */
+    lifecycle("lifecycle"),
+    /**
+     * An inbound server push or notification.
+     *
+     * The only kind not started on the device; the trigger names the channel
+     * and the event type it listens for.
+     */
+    serverEvent("serverEvent"),
+    /**
+     * A condition over observable state becoming true — the `canExecute` case.
+     *
+     * Its predicate is code rather than a stated fact, so the trigger carries
+     * no further field: the generated predicate is written by the implementer.
+     */
+    condition("condition");
+
+    public final String token;
+
+    ActionTriggerKind(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ActionTriggerKind, or null.
+    public static ActionTriggerKind parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ActionTriggerKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `AuthorizationRequirementKind` values.
   public enum AuthorizationRequirementKind {
     /**
@@ -73197,6 +73257,14 @@ public final class TomSomV0 {
       doc.setFormField(path, "actionTrigger", value);
     }
 
+    public ActionTriggerKind triggerKind() {
+      return ActionTriggerKind.parse(doc.formField(path, "triggerKind"));
+    }
+
+    public void setTriggerKind(ActionTriggerKind value) {
+      doc.setFormField(path, "triggerKind", value == null ? "" : value.token);
+    }
+
     public String actionPayload() {
       String v = doc.formField(path, "actionPayload");
       return v == null ? "" : v;
@@ -139129,6 +139197,15 @@ public final class TomSomV0 {
       doc.setFormField(path, "contentTemplate", value);
     }
 
+    public String bodyMessageKey() {
+      String v = doc.formField(path, "bodyMessageKey");
+      return v == null ? "" : v;
+    }
+
+    public void bodyMessageKey(String value) {
+      doc.setFormField(path, "bodyMessageKey", value);
+    }
+
     public String localized() {
       String v = doc.formField(path, "localized");
       return v == null ? "" : v;
@@ -172633,6 +172710,14 @@ public final class TomSomV0 {
 
     public void actionTrigger(String value) {
       doc.setFormField(path, "actionTrigger", value);
+    }
+
+    public ActionTriggerKind triggerKind() {
+      return ActionTriggerKind.parse(doc.formField(path, "triggerKind"));
+    }
+
+    public void setTriggerKind(ActionTriggerKind value) {
+      doc.setFormField(path, "triggerKind", value == null ? "" : value.token);
     }
 
     public String actionPayload() {

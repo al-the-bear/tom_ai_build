@@ -164,7 +164,7 @@
           - [1,] channels: `NotificationChannelEntry`[]
             - content @Form(channelId, description, deliveryMethod, retryPolicy, fallbackChannel, quietHoursSupport, urgencyLevels)
           - notificationTypes: `NotificationTypeEntry`[]
-            - content @Form(notificationType, typeId, category, urgency, defaultChannels, userConfigurable, mandatoryChannels, triggerEvent, contentTemplate, localized)
+            - content @Form(notificationType, typeId, category, urgency, defaultChannels, userConfigurable, mandatoryChannels, triggerEvent, contentTemplate, bodyMessageKey, localized)
           - preferences: `UserNotificationPreferences`[]
             - content @form
         - `MultiChannelExperience`

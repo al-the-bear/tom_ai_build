@@ -8,6 +8,38 @@
 #include "tom_som_c_v0_meta.h"
 #include <stdbool.h>
 
+// Generated enum tokens for `ActionTriggerKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A user acting on an element — a tap, a press or a long press.
+//
+// The common kind for a button or link; the trigger then names the element
+// and the gesture.
+#define ACTION_TRIGGER_KIND_USER_GESTURE "userGesture"
+// A form event — a field changing, the form submitting, validation passing
+// or failing.
+//
+// Chosen when the action runs because of what happened to the form rather
+// than because a control was touched.
+#define ACTION_TRIGGER_KIND_IN_FORM_EVENT "inFormEvent"
+// A screen, route or app lifecycle phase — entering, leaving, initialising
+// or disposing.
+//
+// The kind for work that runs because the user arrived somewhere, not
+// because they did something there.
+#define ACTION_TRIGGER_KIND_LIFECYCLE "lifecycle"
+// An inbound server push or notification.
+//
+// The only kind not started on the device; the trigger names the channel
+// and the event type it listens for.
+#define ACTION_TRIGGER_KIND_SERVER_EVENT "serverEvent"
+// A condition over observable state becoming true — the `canExecute` case.
+//
+// Its predicate is code rather than a stated fact, so the trigger carries
+// no further field: the generated predicate is written by the implementer.
+#define ACTION_TRIGGER_KIND_CONDITION "condition"
+// parse_action_trigger_kind returns the token (owned) when it is a known ActionTriggerKind value, else "".
+char *parse_action_trigger_kind(const char *token);
+
 // Generated enum tokens for `AuthorizationRequirementKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // The caller must hold one of a named set of roles.
@@ -38789,6 +38821,8 @@ char *component_action_entry_content_form_action_id(const ComponentActionEntryCo
 void component_action_entry_content_form_set_action_id(ComponentActionEntryContentForm *self, const char *value);
 char *component_action_entry_content_form_action_trigger(const ComponentActionEntryContentForm *self);
 void component_action_entry_content_form_set_action_trigger(ComponentActionEntryContentForm *self, const char *value);
+char *component_action_entry_content_form_trigger_kind(const ComponentActionEntryContentForm *self);
+void component_action_entry_content_form_set_trigger_kind(ComponentActionEntryContentForm *self, const char *value);
 char *component_action_entry_content_form_action_payload(const ComponentActionEntryContentForm *self);
 void component_action_entry_content_form_set_action_payload(ComponentActionEntryContentForm *self, const char *value);
 
@@ -55744,6 +55778,8 @@ char *notification_type_entry_content_form_trigger_event(const NotificationTypeE
 void notification_type_entry_content_form_set_trigger_event(NotificationTypeEntryContentForm *self, const char *value);
 char *notification_type_entry_content_form_content_template(const NotificationTypeEntryContentForm *self);
 void notification_type_entry_content_form_set_content_template(NotificationTypeEntryContentForm *self, const char *value);
+char *notification_type_entry_content_form_body_message_key(const NotificationTypeEntryContentForm *self);
+void notification_type_entry_content_form_set_body_message_key(NotificationTypeEntryContentForm *self, const char *value);
 char *notification_type_entry_content_form_localized(const NotificationTypeEntryContentForm *self);
 void notification_type_entry_content_form_set_localized(NotificationTypeEntryContentForm *self, const char *value);
 
@@ -64327,6 +64363,8 @@ char *screen_element_action_content_form_button_style(const ScreenElementActionC
 void screen_element_action_content_form_set_button_style(ScreenElementActionContentForm *self, const char *value);
 char *screen_element_action_content_form_action_trigger(const ScreenElementActionContentForm *self);
 void screen_element_action_content_form_set_action_trigger(ScreenElementActionContentForm *self, const char *value);
+char *screen_element_action_content_form_trigger_kind(const ScreenElementActionContentForm *self);
+void screen_element_action_content_form_set_trigger_kind(ScreenElementActionContentForm *self, const char *value);
 char *screen_element_action_content_form_action_payload(const ScreenElementActionContentForm *self);
 void screen_element_action_content_form_set_action_payload(ScreenElementActionContentForm *self, const char *value);
 char *screen_element_action_content_form_keyboard_shortcut(const ScreenElementActionContentForm *self);

@@ -10,6 +10,25 @@
 
 namespace tom_som_v0 {
 
+std::optional<std::string> ActionTriggerKind::parse(const std::string& token) {
+  if (token == userGesture) {
+    return token;
+  }
+  if (token == inFormEvent) {
+    return token;
+  }
+  if (token == lifecycle) {
+    return token;
+  }
+  if (token == serverEvent) {
+    return token;
+  }
+  if (token == condition) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> AuthorizationRequirementKind::parse(const std::string& token) {
   if (token == role) {
     return token;
@@ -35711,6 +35730,12 @@ std::string ComponentActionEntryContentForm::actionTrigger() const {
 }
 void ComponentActionEntryContentForm::setActionTrigger(const std::string& value) {
   doc().setFormField(path(), "actionTrigger", value);
+}
+std::string ComponentActionEntryContentForm::triggerKind() const {
+  return doc().formField(path(), "triggerKind");
+}
+void ComponentActionEntryContentForm::setTriggerKind(const std::string& value) {
+  doc().setFormField(path(), "triggerKind", value);
 }
 std::string ComponentActionEntryContentForm::actionPayload() const {
   return doc().formField(path(), "actionPayload");
@@ -73807,6 +73832,12 @@ std::string NotificationTypeEntryContentForm::contentTemplate() const {
 void NotificationTypeEntryContentForm::setContentTemplate(const std::string& value) {
   doc().setFormField(path(), "contentTemplate", value);
 }
+std::string NotificationTypeEntryContentForm::bodyMessageKey() const {
+  return doc().formField(path(), "bodyMessageKey");
+}
+void NotificationTypeEntryContentForm::setBodyMessageKey(const std::string& value) {
+  doc().setFormField(path(), "bodyMessageKey", value);
+}
 std::string NotificationTypeEntryContentForm::localized() const {
   return doc().formField(path(), "localized");
 }
@@ -93259,6 +93290,12 @@ std::string ScreenElementActionContentForm::actionTrigger() const {
 }
 void ScreenElementActionContentForm::setActionTrigger(const std::string& value) {
   doc().setFormField(path(), "actionTrigger", value);
+}
+std::string ScreenElementActionContentForm::triggerKind() const {
+  return doc().formField(path(), "triggerKind");
+}
+void ScreenElementActionContentForm::setTriggerKind(const std::string& value) {
+  doc().setFormField(path(), "triggerKind", value);
 }
 std::string ScreenElementActionContentForm::actionPayload() const {
   return doc().formField(path(), "actionPayload");

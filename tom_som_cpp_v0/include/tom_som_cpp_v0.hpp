@@ -11,6 +11,41 @@
 
 namespace tom_som_v0 {
 
+// Generated enum tokens for `ActionTriggerKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ActionTriggerKind {
+  // A user acting on an element — a tap, a press or a long press.
+  //
+  // The common kind for a button or link; the trigger then names the element
+  // and the gesture.
+  static constexpr const char* userGesture = "userGesture";
+  // A form event — a field changing, the form submitting, validation passing
+  // or failing.
+  //
+  // Chosen when the action runs because of what happened to the form rather
+  // than because a control was touched.
+  static constexpr const char* inFormEvent = "inFormEvent";
+  // A screen, route or app lifecycle phase — entering, leaving, initialising
+  // or disposing.
+  //
+  // The kind for work that runs because the user arrived somewhere, not
+  // because they did something there.
+  static constexpr const char* lifecycle = "lifecycle";
+  // An inbound server push or notification.
+  //
+  // The only kind not started on the device; the trigger names the channel
+  // and the event type it listens for.
+  static constexpr const char* serverEvent = "serverEvent";
+  // A condition over observable state becoming true — the `canExecute` case.
+  //
+  // Its predicate is code rather than a stated fact, so the trigger carries
+  // no further field: the generated predicate is written by the implementer.
+  static constexpr const char* condition = "condition";
+  // Returns the token when it is a known ActionTriggerKind value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ActionTriggerKind() = delete;
+};
+
 // Generated enum tokens for `AuthorizationRequirementKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct AuthorizationRequirementKind {
@@ -40559,6 +40594,8 @@ class ComponentActionEntryContentForm : public som::SomNode {
   void setActionId(const std::string& value);
   std::string actionTrigger() const;
   void setActionTrigger(const std::string& value);
+  std::string triggerKind() const;
+  void setTriggerKind(const std::string& value);
   std::string actionPayload() const;
   void setActionPayload(const std::string& value);
 };
@@ -60883,6 +60920,8 @@ class NotificationTypeEntryContentForm : public som::SomNode {
   void setTriggerEvent(const std::string& value);
   std::string contentTemplate() const;
   void setContentTemplate(const std::string& value);
+  std::string bodyMessageKey() const;
+  void setBodyMessageKey(const std::string& value);
   std::string localized() const;
   void setLocalized(const std::string& value);
 };
@@ -71119,6 +71158,8 @@ class ScreenElementActionContentForm : public som::SomNode {
   void setButtonStyle(const std::string& value);
   std::string actionTrigger() const;
   void setActionTrigger(const std::string& value);
+  std::string triggerKind() const;
+  void setTriggerKind(const std::string& value);
   std::string actionPayload() const;
   void setActionPayload(const std::string& value);
   std::string keyboardShortcut() const;

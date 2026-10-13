@@ -15,6 +15,47 @@ from tom_som_runtime import (
 
 from tom_som_python_v0_meta import *  # noqa: F401,F403
 
+class ActionTriggerKind(Enum):
+    """Generated enum for `ActionTriggerKind` values."""
+
+    # A user acting on an element — a tap, a press or a long press.
+    #
+    # The common kind for a button or link; the trigger then names the element
+    # and the gesture.
+    userGesture = "userGesture"
+    # A form event — a field changing, the form submitting, validation passing
+    # or failing.
+    #
+    # Chosen when the action runs because of what happened to the form rather
+    # than because a control was touched.
+    inFormEvent = "inFormEvent"
+    # A screen, route or app lifecycle phase — entering, leaving, initialising
+    # or disposing.
+    #
+    # The kind for work that runs because the user arrived somewhere, not
+    # because they did something there.
+    lifecycle = "lifecycle"
+    # An inbound server push or notification.
+    #
+    # The only kind not started on the device; the trigger names the channel
+    # and the event type it listens for.
+    serverEvent = "serverEvent"
+    # A condition over observable state becoming true — the `canExecute` case.
+    #
+    # Its predicate is code rather than a stated fact, so the trigger carries
+    # no further field: the generated predicate is written by the implementer.
+    condition = "condition"
+
+
+def _parse_ActionTriggerKind(token):
+    """Parses a stored token into a ActionTriggerKind, or None."""
+    if not token:
+        return None
+    for v in ActionTriggerKind:
+        if v.value == token:
+            return v
+    return None
+
 class AuthorizationRequirementKind(Enum):
     """Generated enum for `AuthorizationRequirementKind` values."""
 
@@ -66632,6 +66673,14 @@ class ComponentActionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "actionTrigger", value)
 
     @property
+    def triggerKind(self) -> "ActionTriggerKind | None":
+        return _parse_ActionTriggerKind(self.doc.form_field(self.path, "triggerKind"))
+
+    @triggerKind.setter
+    def triggerKind(self, value):
+        self.doc.set_form_field(self.path, "triggerKind", "" if value is None else value.value)
+
+    @property
     def actionPayload(self) -> str:
         return self.doc.form_field(self.path, "actionPayload") or ""
 
@@ -122882,6 +122931,14 @@ class NotificationTypeEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "contentTemplate", value)
 
     @property
+    def bodyMessageKey(self) -> str:
+        return self.doc.form_field(self.path, "bodyMessageKey") or ""
+
+    @bodyMessageKey.setter
+    def bodyMessageKey(self, value):
+        self.doc.set_form_field(self.path, "bodyMessageKey", value)
+
+    @property
     def localized(self) -> str:
         return self.doc.form_field(self.path, "localized") or ""
 
@@ -151699,6 +151756,14 @@ class ScreenElementActionContentForm(SomNode):
     @actionTrigger.setter
     def actionTrigger(self, value):
         self.doc.set_form_field(self.path, "actionTrigger", value)
+
+    @property
+    def triggerKind(self) -> "ActionTriggerKind | None":
+        return _parse_ActionTriggerKind(self.doc.form_field(self.path, "triggerKind"))
+
+    @triggerKind.setter
+    def triggerKind(self, value):
+        self.doc.set_form_field(self.path, "triggerKind", "" if value is None else value.value)
 
     @property
     def actionPayload(self) -> str:

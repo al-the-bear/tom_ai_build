@@ -107,20 +107,26 @@ unpublished_drift:
     `@Reference` list's container admits the item types its element class is
     owned under elsewhere. Rides the next clitool release.
   tom_core_codespecs: >-
-    DOCS ONLY since 0.12.3 (qrb1): the README status block names 0.12.3, and
-    codespecs_mapping.md §10 states its one open item without a todo id, as
-    tom_core's comment gate requires. Rides the next tom_core_codespecs release.
+    DOCS ONLY since 0.12.3: the README status block names 0.12.3 (qrb1), and
+    the derivation contract names the stored sources of `@CsTrigger.kind` and
+    `@CsNotification.body`, so codespecs_mapping.md §10 has nothing open
+    (qrb6). Rides the next tom_core_codespecs release.
   tom_specs_model: >-
     MODEL ID FIXES since 1.4.1 (qrb3): CurrentWorkflowEntry's diagram is
     `CUWF-DIAG` and ErrorRecovery's mechanisms form `ERRE-MECH`. Both old ids
     collided with a list's item pattern (`CUWF-WORK-xxx`, `ERRE-RECO-xxx`), so no
     document could write those sections validly. Also SOM §12.5 now states
-    the review-scalar rule (qrb4). Rides the next model-chain release.
+    the review-scalar rule (qrb4). And two additive CodeSpecs carriers (qrb6):
+    the `ActionTriggerKind` enum with `triggerKind` on SCELAC and CMAC, and
+    `bodyMessageKey` (refersTo MSGKE.key) on NTFTY, plus their A4/A5 rows in
+    codespecs_prompt.md and the regenerated codespecs_areas.json. Rides the
+    next model-chain release.
   tom_som_dart_v0: >-
     REGENERATED since 1.4.1 (qrb3) from the tom_specs_model id fixes and the
     clitool's reference-list schema fix: two renamed ids in the facade and meta,
-    and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema.
-    Rides the next model-chain release.
+    and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema;
+    and the qrb6 carriers (`ActionTriggerKind`, `triggerKind`,
+    `bodyMessageKey`). Rides the next model-chain release.
   tom_som_dart_runtime: >-
     Since 1.4.1: doc comments (qr1) say the review pass is carried and written
     back and that applyMarkdownResult applies a parse; and the review writer

@@ -9,6 +9,48 @@ import '../common/authorization_requirement.dart';
 import '../document_stubs.dart';
 import '../common/enums.dart';
 
+/// What fires an action — the closed set an action trigger's kind selects from.
+///
+/// Mirrors the CodeSpecs trigger vocabulary arm for arm
+/// (`codespecs_derivation_contract.md` §3.5.6), because the kind decides which
+/// further facts a trigger needs: a gesture names an element, a form event a
+/// form, a lifecycle trigger a phase, a server event a channel. It is stated
+/// rather than read off the free-text action trigger, which describes the
+/// interaction for a reader and stays beside it as that description.
+enum ActionTriggerKind {
+  /// A user acting on an element — a tap, a press or a long press.
+  ///
+  /// The common kind for a button or link; the trigger then names the element
+  /// and the gesture.
+  userGesture,
+
+  /// A form event — a field changing, the form submitting, validation passing
+  /// or failing.
+  ///
+  /// Chosen when the action runs because of what happened to the form rather
+  /// than because a control was touched.
+  inFormEvent,
+
+  /// A screen, route or app lifecycle phase — entering, leaving, initialising
+  /// or disposing.
+  ///
+  /// The kind for work that runs because the user arrived somewhere, not
+  /// because they did something there.
+  lifecycle,
+
+  /// An inbound server push or notification.
+  ///
+  /// The only kind not started on the device; the trigger names the channel
+  /// and the event type it listens for.
+  serverEvent,
+
+  /// A condition over observable state becoming true — the `canExecute` case.
+  ///
+  /// Its predicate is code rather than a stated fact, so the trigger carries
+  /// no further field: the generated predicate is written by the implementer.
+  condition,
+}
+
 /// The closed set of screen-element kinds (CE-EL).
 ///
 /// The catalogue is `codespecs_mapping.md` §5.18.
@@ -2507,6 +2549,14 @@ class ScreenElementAction extends DocSpecsSection {
       String,
       'Action Trigger',
       hint: 'User interaction that triggers execution',
+    ),
+    Field(
+      'triggerKind',
+      ActionTriggerKind,
+      'Trigger Kind',
+      hint:
+          'What fires the action: a user gesture, a form event, a lifecycle '
+          'phase, a server event or a condition over state',
     ),
     Field(
       'actionPayload',
@@ -14359,6 +14409,14 @@ class ComponentActionEntry extends DocSpecsSection {
       String,
       'Action Trigger',
       hint: 'User interaction that triggers',
+    ),
+    Field(
+      'triggerKind',
+      ActionTriggerKind,
+      'Trigger Kind',
+      hint:
+          'What fires the action: a user gesture, a form event, a lifecycle '
+          'phase, a server event or a condition over state',
     ),
     Field(
       'actionPayload',

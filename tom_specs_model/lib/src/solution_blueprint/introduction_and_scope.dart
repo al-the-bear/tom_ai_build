@@ -4567,6 +4567,15 @@ class NotificationTypeEntry extends DocSpecsSection {
       hint: 'Template ID or description',
     ),
     Field(
+      'bodyMessageKey',
+      String,
+      'Body Message Key',
+      hint:
+          'The message key whose copy is the notification body, as a key the '
+          'message-key registry declares',
+      refersTo: ['MSGKE.key'],
+    ),
+    Field(
       'localized',
       String,
       'Localized',

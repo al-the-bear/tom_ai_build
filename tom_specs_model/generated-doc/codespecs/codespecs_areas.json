@@ -1057,6 +1057,30 @@
         "className": "ScheduledJobEntry",
         "member": "content",
         "formField": "triggerKind"
+      },
+      {
+        "area": "CE-AC",
+        "marker": "@CsTrigger",
+        "argument": "kind",
+        "className": "ScreenElementAction",
+        "member": "content",
+        "formField": "triggerKind"
+      },
+      {
+        "area": "CE-AC",
+        "marker": "@CsTrigger",
+        "argument": "kind",
+        "className": "ComponentActionEntry",
+        "member": "content",
+        "formField": "triggerKind"
+      },
+      {
+        "area": "CE-NT",
+        "marker": "@CsNotification",
+        "argument": "body",
+        "className": "NotificationTypeEntry",
+        "member": "content",
+        "formField": "bodyMessageKey"
       }
     ],
     "carriers": [
@@ -1209,6 +1233,24 @@
         "member": "eventTrigger",
         "formField": "eventName",
         "introducedBy": "`codespecs_derivation_contract.md` §3.7.1 (job trigger cases)"
+      },
+      {
+        "className": "ScreenElementAction",
+        "member": "content",
+        "formField": "triggerKind",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.6 (trigger kind)"
+      },
+      {
+        "className": "ComponentActionEntry",
+        "member": "content",
+        "formField": "triggerKind",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.5.6 (trigger kind)"
+      },
+      {
+        "className": "NotificationTypeEntry",
+        "member": "content",
+        "formField": "bodyMessageKey",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.2.8 (notification body)"
       },
       {
         "className": "DataAttributeEntry",

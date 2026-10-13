@@ -9,6 +9,17 @@
 #include <string.h>
 #include <stdio.h>
 
+char *parse_action_trigger_kind(const char *token) {
+  if (strcmp(token, ACTION_TRIGGER_KIND_USER_GESTURE) == 0 ||
+      strcmp(token, ACTION_TRIGGER_KIND_IN_FORM_EVENT) == 0 ||
+      strcmp(token, ACTION_TRIGGER_KIND_LIFECYCLE) == 0 ||
+      strcmp(token, ACTION_TRIGGER_KIND_SERVER_EVENT) == 0 ||
+      strcmp(token, ACTION_TRIGGER_KIND_CONDITION) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_authorization_requirement_kind(const char *token) {
   if (strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_ROLE) == 0 ||
       strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_GROUP) == 0 ||
@@ -69362,6 +69373,13 @@ char *component_action_entry_content_form_action_trigger(const ComponentActionEn
 void component_action_entry_content_form_set_action_trigger(ComponentActionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionTrigger", value);
 }
+char *component_action_entry_content_form_trigger_kind(const ComponentActionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void component_action_entry_content_form_set_trigger_kind(ComponentActionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "triggerKind", value);
+}
 char *component_action_entry_content_form_action_payload(const ComponentActionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionPayload");
   return som_strdup(v != NULL ? v : "");
@@ -117085,6 +117103,13 @@ char *notification_type_entry_content_form_content_template(const NotificationTy
 void notification_type_entry_content_form_set_content_template(NotificationTypeEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "contentTemplate", value);
 }
+char *notification_type_entry_content_form_body_message_key(const NotificationTypeEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "bodyMessageKey");
+  return som_strdup(v != NULL ? v : "");
+}
+void notification_type_entry_content_form_set_body_message_key(NotificationTypeEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "bodyMessageKey", value);
+}
 char *notification_type_entry_content_form_localized(const NotificationTypeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "localized");
   return som_strdup(v != NULL ? v : "");
@@ -141495,6 +141520,13 @@ char *screen_element_action_content_form_action_trigger(const ScreenElementActio
 }
 void screen_element_action_content_form_set_action_trigger(ScreenElementActionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionTrigger", value);
+}
+char *screen_element_action_content_form_trigger_kind(const ScreenElementActionContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_element_action_content_form_set_trigger_kind(ScreenElementActionContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "triggerKind", value);
 }
 char *screen_element_action_content_form_action_payload(const ScreenElementActionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionPayload");

@@ -1,7 +1,7 @@
 {
-  "fingerprint": "5936456e8acb72113288712a575a1c817d1b33a7f79e3c6563fbcb3e569a170a",
+  "fingerprint": "3b4f6a8c74d6b6773722980319acfc266845cc47a88825db6ea641059040c096",
   "fileCount": 45,
-  "declarationCount": 1280,
+  "declarationCount": 1281,
   "packages": [
     "tom_som_c_v0",
     "tom_som_cpp_v0",

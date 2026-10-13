@@ -58,7 +58,7 @@
                     - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                       entitlementRequirement, resourceKeyRequirement, customRequirement
               - elementAction: `ScreenElementAction`
-                - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
+                - content @Form(actionId, actionType, buttonStyle, actionTrigger, triggerKind, actionPayload, keyboardShortcut),
                   execution, navigation
               - fieldSpec: `ScreenElementFieldSpec`
                 - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
@@ -313,7 +313,7 @@
       - variants: `ComponentVariantEntry`[]
         - content @Form(variantId, variantDescription, visualDifferences), visual, behavior, variantMockup @mermaid
       - actions: `ComponentActionEntry`[]
-        - content @Form(actionId, actionTrigger, actionPayload), governance, execution
+        - content @Form(actionId, actionTrigger, triggerKind, actionPayload), governance, execution
       - slots: `ComponentSlotEntry`[]
         - content @Form(slotId, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
       - properties: `ComponentPropertyEntry`[]

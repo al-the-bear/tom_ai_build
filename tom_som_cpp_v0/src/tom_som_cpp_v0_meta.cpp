@@ -15399,7 +15399,8 @@ void buildComponentActionEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "The symbol the built component carries for this action, e.g. onSubmit", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionPayload", "String", "Action Payload", false, "Data passed with action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerKind", "ActionTriggerKind", "Trigger Kind", false, "What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state", 2, std::vector<std::string>{"userGesture", "inFormEvent", "lifecycle", "serverEvent", "condition"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionPayload", "String", "Action Payload", false, "Data passed with action", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -53707,7 +53708,8 @@ void buildNotificationTypeEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mandatoryChannels", "String", "Mandatory Channels", false, "Channels that cannot be disabled", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerEvent", "String", "Trigger Event", false, "System event that triggers this notification", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"contentTemplate", "String", "Content Template", false, "Template ID or description", 8, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"localized", "String", "Localized", false, "Available in multiple languages", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"bodyMessageKey", "String", "Body Message Key", false, "The message key whose copy is the notification body, as a key the message-key registry declares", 9, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"localized", "String", "Localized", false, "Available in multiple languages", 10, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -71226,8 +71228,9 @@ void buildScreenElementActionChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh/Custom", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"buttonStyle", "String", "Button Style", false, "Primary/Secondary/Tertiary/Danger/Text-Only/Icon-Only/Outlined/Floating", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionTrigger", "String", "Action Trigger", false, "User interaction that triggers execution", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionPayload", "String", "Action Payload", false, "Data passed when the action fires", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+S", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerKind", "ActionTriggerKind", "Trigger Kind", false, "What fires the action: a user gesture, a form event, a lifecycle phase, a server event or a condition over state", 4, std::vector<std::string>{"userGesture", "inFormEvent", "lifecycle", "serverEvent", "condition"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionPayload", "String", "Action Payload", false, "Data passed when the action fires", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+S", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {

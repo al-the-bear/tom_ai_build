@@ -225,11 +225,18 @@ matter when its section is required.
 | `CE-MG` | `@CsMigration` | `schema` | `MigrationTargetEntry.content.schemaName` | — | — |
 | `CE-MG` | `@CsMigration` | `kind` | `SchemaMigrationStepEntry.content.artifactKind` | — | — |
 | `CE-JB` | `@CsJob` | `trigger` | `ScheduledJobEntry.content.triggerKind` | — | — |
+| `CE-AC` | `@CsTrigger` | `kind` | `ScreenElementAction.content.triggerKind` | — | — |
+| `CE-AC` | `@CsTrigger` | `kind` | `ComponentActionEntry.content.triggerKind` | — | — |
+| `CE-NT` | `@CsNotification` | `body` | `NotificationTypeEntry.content.bodyMessageKey` | — | — |
 
 Where the model marks a source form field `required`, A1 already rejects a
 missing value once its section is present and A4 restates it; where the model
 leaves it optional — `tableName`, `placement`, `errorMessageResource`, the field
-spec's `dataType` — A4 is the only check that holds the contract.
+spec's `dataType`, the two `triggerKind` fields and `bodyMessageKey` — A4 is the
+only check that holds the contract. Those last three are optional in the model
+because they were added beside free-text fields a document may already fill
+(`actionTrigger`, `contentTemplate`); the free text stays as the description a
+reader sees, and A4 is what makes the structured value required for generation.
 
 **Required arguments with no row, and why.** Each is a `codespecs_derivation_contract.md` §5.1 required argument
 A4 deliberately does not hold to a document field:
@@ -244,9 +251,6 @@ A4 deliberately does not hold to a document field:
 - **Not expressible per instance.** `@CsServiceUnit`'s `boundedContext` is read
   from the unit's **root** entity only; a rule over every entity instance would
   reject the non-root ones, so it stays with stage B's reading.
-- **No source in the model.** `@CsTrigger`'s `kind` names no SOM member, and
-  `@CsNotification`'s `body` has no message-key field on `NotificationTypeEntry`.
-  These are model gaps, indexed in `codespecs_mapping.md` §10.
 
 ### 4.5 A5 — no structured carrier is missing from the model
 
@@ -298,6 +302,9 @@ introduced it. The area catalogue carries the table as `gate.carriers`.
 | `ScheduledJobEntry.cronTrigger.cronExpression` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
 | `ScheduledJobEntry.calendarTrigger.calendarRule` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
 | `ScheduledJobEntry.eventTrigger.eventName` | `codespecs_derivation_contract.md` §3.7.1 (job trigger cases) |
+| `ScreenElementAction.content.triggerKind` | `codespecs_derivation_contract.md` §3.5.6 (trigger kind) |
+| `ComponentActionEntry.content.triggerKind` | `codespecs_derivation_contract.md` §3.5.6 (trigger kind) |
+| `NotificationTypeEntry.content.bodyMessageKey` | `codespecs_derivation_contract.md` §3.2.8 (notification body) |
 | `DataAttributeEntry.enumerationTypeOptions.domainEnum` | `codespecs_derivation_contract.md` §3.3.2 (enumeration typing) |
 
 All nine SOM runtimes run A1–A5 as one gate, `CodeSpecsGate`, over the model,

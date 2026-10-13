@@ -1,4 +1,4 @@
-// Generated: 2026-10-13T11:41:12.105597 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-13T12:41:45.290655 by tom_d4rt_generator 1.52.0
 /// D4rt Bridges for tom_spec_engine
 library;
 

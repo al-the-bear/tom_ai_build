@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-13T11:30:51.671148 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-13T12:25:46.168980 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -40637,6 +40637,10 @@ class SomV0Bridge {
   /// Returns all bridged enum definitions.
   static List<BridgedEnumDefinition> bridgedEnums() {
     return [
+      BridgedEnumDefinition<$tom_som_dart_v0_1.ActionTriggerKind>(
+        name: 'ActionTriggerKind',
+        values: $tom_som_dart_v0_1.ActionTriggerKind.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.AuthorizationRequirementKind>(
         name: 'AuthorizationRequirementKind',
         values: $tom_som_dart_v0_1.AuthorizationRequirementKind.values,
@@ -40748,6 +40752,7 @@ class SomV0Bridge {
   /// multiple barrels (e.g., tom_core_kernel and tom_core_server).
   static Map<String, String> enumSourceUris() {
     return {
+      'ActionTriggerKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AuthorizationRequirementKind':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BasicAuthorizationRequirementKind':
@@ -41396,6 +41401,7 @@ class SomV0Bridge {
 
   /// Returns a list of bridged enum names.
   static List<String> get enumNames => [
+    'ActionTriggerKind',
     'AuthorizationRequirementKind',
     'BasicAuthorizationRequirementKind',
     'ClientApplicationKind',
@@ -324269,6 +324275,12 @@ BridgedClass _createComponentActionEntryContentFormBridge() {
             'ComponentActionEntryContentForm',
           )
           .actionTrigger,
+      'triggerKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ComponentActionEntryContentForm>(
+            target,
+            'ComponentActionEntryContentForm',
+          )
+          .triggerKind,
       'actionPayload': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ComponentActionEntryContentForm>(
             target,
@@ -324340,6 +324352,16 @@ BridgedClass _createComponentActionEntryContentFormBridge() {
             value,
             'actionTrigger',
           ),
+      'triggerKind': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ComponentActionEntryContentForm
+              >(target, 'ComponentActionEntryContentForm')
+              .triggerKind = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ActionTriggerKind>(
+                value,
+                'triggerKind',
+              ),
       'actionPayload': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -324385,6 +324407,7 @@ BridgedClass _createComponentActionEntryContentFormBridge() {
       'content': 'String get content',
       'actionId': 'String get actionId',
       'actionTrigger': 'String get actionTrigger',
+      'triggerKind': 'ActionTriggerKind? get triggerKind',
       'actionPayload': 'String get actionPayload',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -324397,6 +324420,7 @@ BridgedClass _createComponentActionEntryContentFormBridge() {
       'content': 'set content(String value)',
       'actionId': 'set actionId(String value)',
       'actionTrigger': 'set actionTrigger(String value)',
+      'triggerKind': 'set triggerKind(ActionTriggerKind? value)',
       'actionPayload': 'set actionPayload(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -555990,6 +556014,12 @@ BridgedClass _createNotificationTypeEntryContentFormBridge() {
             'NotificationTypeEntryContentForm',
           )
           .contentTemplate,
+      'bodyMessageKey': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.NotificationTypeEntryContentForm>(
+            target,
+            'NotificationTypeEntryContentForm',
+          )
+          .bodyMessageKey,
       'localized': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.NotificationTypeEntryContentForm>(
             target,
@@ -556125,6 +556155,15 @@ BridgedClass _createNotificationTypeEntryContentFormBridge() {
             value,
             'contentTemplate',
           ),
+      'bodyMessageKey': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.NotificationTypeEntryContentForm
+              >(target, 'NotificationTypeEntryContentForm')
+              .bodyMessageKey = D4.extractBridgedArg<String>(
+            value,
+            'bodyMessageKey',
+          ),
       'localized': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -556177,6 +556216,7 @@ BridgedClass _createNotificationTypeEntryContentFormBridge() {
       'mandatoryChannels': 'String get mandatoryChannels',
       'triggerEvent': 'String get triggerEvent',
       'contentTemplate': 'String get contentTemplate',
+      'bodyMessageKey': 'String get bodyMessageKey',
       'localized': 'String get localized',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -556196,6 +556236,7 @@ BridgedClass _createNotificationTypeEntryContentFormBridge() {
       'mandatoryChannels': 'set mandatoryChannels(String value)',
       'triggerEvent': 'set triggerEvent(String value)',
       'contentTemplate': 'set contentTemplate(String value)',
+      'bodyMessageKey': 'set bodyMessageKey(String value)',
       'localized': 'set localized(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -672587,6 +672628,12 @@ BridgedClass _createScreenElementActionContentFormBridge() {
             'ScreenElementActionContentForm',
           )
           .actionTrigger,
+      'triggerKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ScreenElementActionContentForm>(
+            target,
+            'ScreenElementActionContentForm',
+          )
+          .triggerKind,
       'actionPayload': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ScreenElementActionContentForm>(
             target,
@@ -672682,6 +672729,16 @@ BridgedClass _createScreenElementActionContentFormBridge() {
             value,
             'actionTrigger',
           ),
+      'triggerKind': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScreenElementActionContentForm
+              >(target, 'ScreenElementActionContentForm')
+              .triggerKind = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ActionTriggerKind>(
+                value,
+                'triggerKind',
+              ),
       'actionPayload': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -672738,6 +672795,7 @@ BridgedClass _createScreenElementActionContentFormBridge() {
       'actionType': 'String get actionType',
       'buttonStyle': 'String get buttonStyle',
       'actionTrigger': 'String get actionTrigger',
+      'triggerKind': 'ActionTriggerKind? get triggerKind',
       'actionPayload': 'String get actionPayload',
       'keyboardShortcut': 'String get keyboardShortcut',
       'doc': 'SpecDocument get doc',
@@ -672753,6 +672811,7 @@ BridgedClass _createScreenElementActionContentFormBridge() {
       'actionType': 'set actionType(String value)',
       'buttonStyle': 'set buttonStyle(String value)',
       'actionTrigger': 'set actionTrigger(String value)',
+      'triggerKind': 'set triggerKind(ActionTriggerKind? value)',
       'actionPayload': 'set actionPayload(String value)',
       'keyboardShortcut': 'set keyboardShortcut(String value)',
       '\$sectionId': 'set \$sectionId(String value)',

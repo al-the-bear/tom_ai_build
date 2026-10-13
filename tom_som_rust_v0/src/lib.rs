@@ -33,6 +33,107 @@ impl std::fmt::Display for SomLoadError {
 
 impl std::error::Error for SomLoadError {}
 
+/// Generated enum constants for `ActionTriggerKind` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// A user acting on an element — a tap, a press or a long press.
+///
+/// The common kind for a button or link; the trigger then names the element
+/// and the gesture.
+pub const ACTION_TRIGGER_KIND_USER_GESTURE: &str = "userGesture";
+/// A form event — a field changing, the form submitting, validation passing
+/// or failing.
+///
+/// Chosen when the action runs because of what happened to the form rather
+/// than because a control was touched.
+pub const ACTION_TRIGGER_KIND_IN_FORM_EVENT: &str = "inFormEvent";
+/// A screen, route or app lifecycle phase — entering, leaving, initialising
+/// or disposing.
+///
+/// The kind for work that runs because the user arrived somewhere, not
+/// because they did something there.
+pub const ACTION_TRIGGER_KIND_LIFECYCLE: &str = "lifecycle";
+/// An inbound server push or notification.
+///
+/// The only kind not started on the device; the trigger names the channel
+/// and the event type it listens for.
+pub const ACTION_TRIGGER_KIND_SERVER_EVENT: &str = "serverEvent";
+/// A condition over observable state becoming true — the `canExecute` case.
+///
+/// Its predicate is code rather than a stated fact, so the trigger carries
+/// no further field: the generated predicate is written by the implementer.
+pub const ACTION_TRIGGER_KIND_CONDITION: &str = "condition";
+
+/// ActionTriggerKind is the generated enum for `ActionTriggerKind` values.
+///
+/// The stored token is what [ActionTriggerKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ActionTriggerKind {
+    /// A user acting on an element — a tap, a press or a long press.
+    ///
+    /// The common kind for a button or link; the trigger then names the element
+    /// and the gesture.
+    UserGesture,
+    /// A form event — a field changing, the form submitting, validation passing
+    /// or failing.
+    ///
+    /// Chosen when the action runs because of what happened to the form rather
+    /// than because a control was touched.
+    InFormEvent,
+    /// A screen, route or app lifecycle phase — entering, leaving, initialising
+    /// or disposing.
+    ///
+    /// The kind for work that runs because the user arrived somewhere, not
+    /// because they did something there.
+    Lifecycle,
+    /// An inbound server push or notification.
+    ///
+    /// The only kind not started on the device; the trigger names the channel
+    /// and the event type it listens for.
+    ServerEvent,
+    /// A condition over observable state becoming true — the `canExecute` case.
+    ///
+    /// Its predicate is code rather than a stated fact, so the trigger carries
+    /// no further field: the generated predicate is written by the implementer.
+    Condition,
+}
+
+impl ActionTriggerKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ActionTriggerKind::UserGesture => "userGesture",
+            ActionTriggerKind::InFormEvent => "inFormEvent",
+            ActionTriggerKind::Lifecycle => "lifecycle",
+            ActionTriggerKind::ServerEvent => "serverEvent",
+            ActionTriggerKind::Condition => "condition",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "userGesture" => Some(ActionTriggerKind::UserGesture),
+            "inFormEvent" => Some(ActionTriggerKind::InFormEvent),
+            "lifecycle" => Some(ActionTriggerKind::Lifecycle),
+            "serverEvent" => Some(ActionTriggerKind::ServerEvent),
+            "condition" => Some(ActionTriggerKind::Condition),
+            _ => None,
+        }
+    }
+}
+
+/// parse_action_trigger_kind returns token when it is a known ActionTriggerKind value, else "".
+pub fn parse_action_trigger_kind(token: &str) -> String {
+    match token {
+        ACTION_TRIGGER_KIND_USER_GESTURE | ACTION_TRIGGER_KIND_IN_FORM_EVENT | ACTION_TRIGGER_KIND_LIFECYCLE | ACTION_TRIGGER_KIND_SERVER_EVENT | ACTION_TRIGGER_KIND_CONDITION => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `AuthorizationRequirementKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// The caller must hold one of a named set of roles.
@@ -93955,6 +94056,16 @@ impl ComponentActionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "actionTrigger", value);
     }
 
+    pub fn trigger_kind(&self) -> Option<ActionTriggerKind> {
+        ActionTriggerKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "triggerKind"))
+    }
+
+    pub fn set_trigger_kind(&self, value: Option<ActionTriggerKind>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "triggerKind", text);
+    }
+
     pub fn action_payload(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "actionPayload")
     }
@@ -169324,6 +169435,15 @@ impl NotificationTypeEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "contentTemplate", value);
     }
 
+    pub fn body_message_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "bodyMessageKey")
+    }
+
+    pub fn set_body_message_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "bodyMessageKey", value);
+    }
+
     pub fn localized(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "localized")
     }
@@ -207476,6 +207596,16 @@ impl ScreenElementActionContentForm {
     pub fn set_action_trigger(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "actionTrigger", value);
+    }
+
+    pub fn trigger_kind(&self) -> Option<ActionTriggerKind> {
+        ActionTriggerKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "triggerKind"))
+    }
+
+    pub fn set_trigger_kind(&self, value: Option<ActionTriggerKind>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "triggerKind", text);
     }
 
     pub fn action_payload(&self) -> String {
