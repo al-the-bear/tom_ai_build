@@ -40,6 +40,8 @@ import {
   somParseEnumName,
   somParseInt,
   somParseNum,
+  somScalarBase,
+  somTypedTextReadable,
 } from './spec_typed_values';
 
 /**
@@ -53,11 +55,36 @@ import {
 export type SomValue = string | number | boolean | null;
 
 /** Strips a trailing `?` from a declared type name. */
-function _scalarBase(typeName: string | null | undefined): string | null {
-  if (typeName === null || typeName === undefined) {
-    return null;
+const _scalarBase = somScalarBase;
+
+/**
+ * `text` for the store when a `base`-typed field can read it, else an error
+ * naming `where`.
+ */
+function _readableText(base: string, text: string, where: string): string {
+  if (somTypedTextReadable(base, text)) {
+    return text;
   }
-  return typeName.endsWith('?') ? typeName.slice(0, -1) : typeName;
+  throw new Error(`${JSON.stringify(text)} at ${where}: cannot be read as ${base}`);
+}
+
+/**
+ * Throws when `raw` is text a `typeName` field cannot read — the typed read
+ * would otherwise answer null, indistinguishable from an unset field.
+ */
+function _requireReadable(
+  typeName: string | null | undefined,
+  raw: string,
+  path: string,
+  what: string,
+): void {
+  if (somTypedTextReadable(typeName, raw)) {
+    return;
+  }
+  throw new Error(
+    `${path}: ${what} holds "${raw}", which is not readable as ` +
+      `${somScalarBase(typeName)}`,
+  );
 }
 
 /** Parses stored text per the declared scalar base type. */
@@ -126,10 +153,9 @@ export class SpecEditor {
     if (r.kind === SpecNodeKind.ENUM_VALUE) {
       return somParseEnumName(raw, r.field !== null ? r.field.enumValues : []);
     }
-    return _parseScalar(
-      raw,
-      _scalarBase(r.field !== null ? r.field.type : null),
-    );
+    const type = r.field !== null ? r.field.type : null;
+    _requireReadable(type, raw, path, path);
+    return _parseScalar(raw, _scalarBase(type));
   }
 
   /**
@@ -181,7 +207,9 @@ export class SpecEditor {
    *
    * Reads the form store and parses per the declared field type (enum fields
    * return the validated constant name). Throws for a non-form path or an
-   * unknown field name.
+   * unknown field name, and when the stored text is not readable as the
+   * declared type (`lots` in an `int` field) — such a value is reported by
+   * `validateDocument` as `valueTypeMismatch`, never silently read as unset.
    */
   formValue(path: string, field: string): SomValue {
     const ff = this._formField(path, field);
@@ -192,6 +220,7 @@ export class SpecEditor {
     if (ff.enumValues.length > 0) {
       return somParseEnumName(raw, ff.enumValues);
     }
+    _requireReadable(ff.type, raw, path, `form field "${field}"`);
     return _parseScalar(raw, _scalarBase(ff.type));
   }
 
@@ -199,7 +228,8 @@ export class SpecEditor {
    * Sets form `field` at the `@Form` section `path` to the typed value `v`
    * (`null` clears), converting through the shared boundary helpers.
    *
-   * Throws for a wrong value type or an out-of-domain enum name.
+   * Throws for a wrong value type, an out-of-domain enum name, or a string the
+   * declared type cannot read (`'lots'` for an `int`).
    */
   setFormValue(path: string, field: string, v: SomValue): void {
     const ff = this._formField(path, field);
@@ -293,8 +323,9 @@ export class SpecEditor {
   // --- conversion -----------------------------------------------------------
 
   /**
-   * Formats `v` for the store per the leaf's declared type; strings pass through
-   * verbatim (the plain-text serialization is authoritative).
+   * Formats `v` for the store per the leaf's declared type; a string is stored
+   * verbatim (the plain-text serialization is authoritative) when the type can
+   * read it, and refused when it cannot.
    */
   private _format(
     v: SomValue,
@@ -343,7 +374,13 @@ export class SpecEditor {
         break;
     }
     if (typeof v === 'string') {
-      return v;
+      // A typed field stores a string verbatim only when it can read it back.
+      return base === 'int' ||
+        base === 'double' ||
+        base === 'num' ||
+        base === 'bool'
+        ? _readableText(base, v, where !== null ? where : path)
+        : v;
     }
     throw new Error(
       `${JSON.stringify(v)} at ${where !== null ? where : path}: ` +

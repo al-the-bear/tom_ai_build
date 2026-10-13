@@ -193,3 +193,36 @@ func (e *EnumNameOutOfDomain) Error() string {
 func isIntegral(value float64) bool {
 	return !math.IsNaN(value) && !math.IsInf(value, 0) && value == math.Trunc(value)
 }
+
+// SomScalarBase returns the scalar base of a declared field type: `int?` →
+// `int`; "" (no declared type) stays "".
+func SomScalarBase(typeName string) string { return scalarBase(typeName) }
+
+// SomTypedTextReadable reports whether raw, stored in a field declared as
+// typeName, is text that type's parser can read.
+//
+// Only `int`, `double`, `num` and `bool` constrain their text; every other
+// type (strings, and enums, whose domain `enumValueUnknown` checks) accepts
+// any text. Empty text is readable: it is how a field is unset. The validator
+// reports a stored value this rejects as `valueTypeMismatch`, the setters
+// refuse to store one, and the typed reads return an error for one — so text
+// a typed field cannot read is never silently read as unset.
+func SomTypedTextReadable(typeName, raw string) bool {
+	if raw == "" {
+		return true
+	}
+	var ok bool
+	switch scalarBase(typeName) {
+	case "int":
+		_, ok = SomParseInt(raw)
+	case "double":
+		_, ok = SomParseDouble(raw)
+	case "num":
+		_, ok = SomParseNum(raw)
+	case "bool":
+		_, ok = SomParseBool(raw)
+	default:
+		return true
+	}
+	return ok
+}

@@ -278,3 +278,45 @@ char *som_format_enum_name(const char *name, const SomStrList *values,
   }
   return NULL;
 }
+
+/* ---- typed-text readability (valueTypeMismatch) ------------------------ */
+
+char *som_scalar_base(const char *type_name) {
+  if (type_name == NULL) {
+    return NULL;
+  }
+  size_t n = strlen(type_name);
+  if (n > 0 && type_name[n - 1] == '?') {
+    n--;
+  }
+  char *out = (char *)malloc(n + 1);
+  memcpy(out, type_name, n);
+  out[n] = '\0';
+  return out;
+}
+
+int som_typed_text_readable(const char *type_name, const char *raw) {
+  if (raw == NULL || raw[0] == '\0') {
+    return 1;
+  }
+  char *base = som_scalar_base(type_name);
+  int ok = 1;
+  if (base != NULL) {
+    if (strcmp(base, "int") == 0) {
+      long long i;
+      ok = som_parse_int(raw, &i);
+    } else if (strcmp(base, "double") == 0) {
+      double d;
+      ok = som_parse_double(raw, &d);
+    } else if (strcmp(base, "num") == 0) {
+      SomValue v = som_value_none();
+      ok = som_parse_num(raw, &v);
+      som_value_free(&v);
+    } else if (strcmp(base, "bool") == 0) {
+      int b;
+      ok = som_parse_bool(raw, &b);
+    }
+  }
+  free(base);
+  return ok;
+}

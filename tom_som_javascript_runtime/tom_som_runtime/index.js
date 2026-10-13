@@ -116,6 +116,8 @@ const {
   somParseEnumName,
   somParseInt,
   somParseNum,
+  somScalarBase,
+  somTypedTextReadable,
 } = require('./spec_typed_values');
 const {
   K_SECTION_ID_SLOT,
@@ -281,6 +283,8 @@ module.exports = {
   CodeSpecsGateCheckResult,
   CodeSpecsGateReport,
   // typed-value store boundary
+  somScalarBase,
+  somTypedTextReadable,
   somParseInt,
   somFormatInt,
   somParseDouble,

@@ -15,9 +15,10 @@ Typed contract (mirrored by all nine runtimes):
     layer (``'high'``), because the generic API has no generated enum types —
     only the facade layer converts to native constants;
   * ``None`` (or ``''``) clears a value (D4);
-  * reads are forgiving (unparsable stored text reads as ``None``), writes are
-    strict (:class:`ValueError` for a wrong type or an out-of-domain enum
-    name).
+  * writes are strict (:class:`ValueError` for a wrong type, an out-of-domain
+    enum name, or a string the declared type cannot read); typed reads raise
+    :class:`ValueError` on stored text the declared type cannot read
+    (``lots`` in an ``int``) rather than reading it as unset.
 """
 
 from __future__ import annotations
@@ -40,6 +41,8 @@ from .spec_typed_values import (
     som_parse_enum_name,
     som_parse_int,
     som_parse_num,
+    som_scalar_base,
+    som_typed_text_readable,
 )
 
 
@@ -91,6 +94,7 @@ class SpecEditor:
             return None
         if r.kind == SpecNodeKind.ENUM_VALUE:
             return som_parse_enum_name(raw, r.field.enum_values if r.field else [])
+        _require_readable(r.field.type if r.field else None, raw, path, path)
         return _parse_scalar(raw, _scalar_base(r.field.type if r.field else None))
 
     def set_value(self, path: str, v: Any) -> None:
@@ -133,7 +137,10 @@ class SpecEditor:
         """The typed value of form *field* at the ``@Form`` section *path*, or
         ``None`` when unset.
 
-        Raises :class:`ValueError` for a non-form path or an unknown field.
+        Raises :class:`ValueError` for a non-form path, an unknown field, or
+        stored text the declared type cannot read (``lots`` in an ``int``
+        field) — such a value is reported by ``validate_document`` as
+        ``valueTypeMismatch`` and is never silently read as unset.
         """
         ff = self._form_field(path, field)
         raw = self.document.form_field(path, field)
@@ -141,14 +148,15 @@ class SpecEditor:
             return None
         if ff.enum_values:
             return som_parse_enum_name(raw, ff.enum_values)
+        _require_readable(ff.type, raw, path, f'form field "{field}"')
         return _parse_scalar(raw, _scalar_base(ff.type))
 
     def set_form_value(self, path: str, field: str, v: Any) -> None:
         """Sets form *field* at the ``@Form`` section *path* to the typed value
         *v* (``None`` clears), converting through the shared boundary helpers.
 
-        Raises :class:`ValueError` for a wrong value type or an out-of-domain
-        enum name.
+        Raises :class:`ValueError` for a wrong value type, an out-of-domain
+        enum name, or a string the declared type cannot read.
         """
         ff = self._form_field(path, field)
         if ff.enum_values:
@@ -240,8 +248,9 @@ class SpecEditor:
         type_name: Optional[str] = None,
         where: Optional[str] = None,
     ) -> str:
-        """Formats *v* for the store per the leaf's declared type; strings pass
-        through verbatim (the plain-text serialization is authoritative)."""
+        """Formats *v* for the store per the leaf's declared type; a string is
+        stored verbatim (the plain-text serialization is authoritative) when the
+        type can read it, and refused when it cannot."""
         if v is None:
             return ""
         if kind == SpecNodeKind.ENUM_VALUE:
@@ -269,6 +278,11 @@ class SpecEditor:
             if is_bool:
                 return som_format_bool(v)
         if isinstance(v, str):
+            if base in ("int", "double", "num", "bool") and not \
+                    som_typed_text_readable(base, v):
+                raise ValueError(
+                    f"{v!r} at {where or path}: cannot be read as {base}"
+                )
             return v
         raise ValueError(
             f"{v!r} at {where or path}: wrong value type for a "
@@ -281,6 +295,20 @@ class SpecEditor:
         if isinstance(v, str):
             return v
         raise ValueError(f"{field}: expected a str for this field of {path}")
+
+
+def _require_readable(
+    type_name: Optional[str], raw: str, path: str, what: str
+) -> None:
+    """Raises :class:`ValueError` when *raw* is text a *type_name* field cannot
+    read — the typed read would otherwise answer ``None``, indistinguishable
+    from an unset field."""
+    if som_typed_text_readable(type_name, raw):
+        return
+    raise ValueError(
+        f'{path}: {what} holds "{raw}", which is not readable as '
+        f"{som_scalar_base(type_name)}"
+    )
 
 
 def _parse_scalar(raw: str, base: Optional[str]) -> Any:

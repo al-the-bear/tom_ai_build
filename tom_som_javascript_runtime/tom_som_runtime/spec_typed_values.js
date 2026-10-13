@@ -214,7 +214,56 @@ function somFormatEnumName(name, values) {
   return name;
 }
 
+/**
+ * The scalar base of a declared field type: `int?` → `int`; `null` stays
+ * `null`.
+ *
+ * @param {?string} typeName
+ * @returns {?string}
+ */
+function somScalarBase(typeName) {
+  if (typeName === null || typeName === undefined) {
+    return null;
+  }
+  return typeName.endsWith('?') ? typeName.slice(0, -1) : typeName;
+}
+
+/**
+ * Whether `raw`, stored in a field declared as `typeName`, is text that type's
+ * parser can read.
+ *
+ * Only `int`, `double`, `num` and `bool` constrain their text; every other type
+ * (strings, and enums, whose domain `enumValueUnknown` checks) accepts any
+ * text. Empty or absent text is readable: it is how a field is unset. The
+ * validator reports a stored value this rejects as `valueTypeMismatch`, the
+ * setters refuse to store one, and the typed reads throw on one — so text a
+ * typed field cannot read is never silently read as unset.
+ *
+ * @param {?string} typeName
+ * @param {?string} raw
+ * @returns {boolean}
+ */
+function somTypedTextReadable(typeName, raw) {
+  if (raw === null || raw === undefined || raw === '') {
+    return true;
+  }
+  switch (somScalarBase(typeName)) {
+    case 'int':
+      return somParseInt(raw) !== null;
+    case 'double':
+      return somParseDouble(raw) !== null;
+    case 'num':
+      return somParseNum(raw) !== null;
+    case 'bool':
+      return somParseBool(raw) !== null;
+    default:
+      return true;
+  }
+}
+
 module.exports = {
+  somScalarBase,
+  somTypedTextReadable,
   somParseInt,
   somFormatInt,
   somParseDouble,

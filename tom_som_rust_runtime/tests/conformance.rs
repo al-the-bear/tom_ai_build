@@ -1208,6 +1208,20 @@ fn test_editor(c: &mut Checker, model: &SpecModel) {
             ),
             // Raw store write, bypassing the typed boundary.
             "setContent" => ed.document.set_content(&path, &s.str_or("value")),
+            // Raw form write (bypasses the typed boundary).
+            "setRawFormField" => ed.document.set_form_field(&path, &field, &s.str_or("value")),
+            // Stored text the declared type cannot read: the typed read refuses
+            // it rather than answering None.
+            "valueUnreadable" => c.check(
+                &format!("{} {}", tag, path),
+                ed.value(&path).is_err(),
+                "did not error",
+            ),
+            "formValueUnreadable" => c.check(
+                &format!("{} {}#{}", tag, path, field),
+                ed.form_value(&path, &field).is_err(),
+                "did not error",
+            ),
             "rawContent" => {
                 let got = ed.document.content(&path);
                 c.check(

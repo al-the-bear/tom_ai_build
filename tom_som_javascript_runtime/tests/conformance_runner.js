@@ -662,6 +662,21 @@ function testEditor(model) {
     } else if (kind === 'setContent') {
       // raw store write (bypasses the typed boundary)
       doc.setContent(s.path, s.value);
+    } else if (kind === 'setRawFormField') {
+      // raw form write (bypasses the typed boundary)
+      doc.setFormField(s.path, s.field, s.value);
+    } else if (kind === 'valueUnreadable') {
+      _check(
+        `editor[${n}].valueUnreadable ${s.path}`,
+        _throws(() => ed.value(s.path)),
+        '',
+      );
+    } else if (kind === 'formValueUnreadable') {
+      _check(
+        `editor[${n}].formValueUnreadable ${s.path}#${s.field}`,
+        _throws(() => ed.formValue(s.path, s.field)),
+        '',
+      );
     } else if (kind === 'rawContent') {
       const got = doc.content(s.path);
       _check(`editor[${n}].rawContent ${s.path}`, got === s.expect, String(got));

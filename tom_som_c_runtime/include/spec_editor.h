@@ -17,9 +17,12 @@
  *     only the facade layer converts to native constants;
  *   - SOM_VALUE_NONE (or the empty string) clears a value (D4), which REMOVES
  *     the key rather than storing "";
- *   - reads are forgiving (unparsable stored text reads as SOM_VALUE_NONE),
- *     writes are strict (an error for a wrong value type or an out-of-domain
- *     enum name).
+ *   - writes are strict (an error for a wrong value type, an out-of-domain
+ *     enum name, or a string the declared type cannot read — `"lots"` for an
+ *     `int`); typed reads fail on stored text the declared `int` / `double` /
+ *     `num` / `bool` type cannot read (reported by `validate_document` as
+ *     `valueTypeMismatch`) rather than reading it as unset; a stale enum name
+ *     still reads as SOM_VALUE_NONE (`enumValueUnknown` reports it).
  *
  * Error idiom: every fallible operation returns 1 on success and 0 on failure,
  * writing an owned message to `*err` when `err` is non-NULL (the caller frees it
@@ -60,10 +63,11 @@ int spec_editor_resolve(const SpecEditor *e, const char *path,
 /* ---- value leaves (content / scalar / enum / scalar list item) ----------- */
 
 /* The typed value at the value leaf `path`, written to `*out`
- * (SOM_VALUE_NONE when unset or unparsable). The kind follows the model:
- * int/double/num/bool scalars yield the parsed native value, an enum leaf the
- * validated constant name, everything else the raw string. Returns 0 when
- * `path` is dangling or is not a value leaf. The caller releases `*out` with
+ * (SOM_VALUE_NONE when unset, or an enum leaf holding a name outside its
+ * domain). The kind follows the model: int/double/num/bool scalars yield the
+ * parsed native value, an enum leaf the validated constant name, everything
+ * else the raw string. Returns 0 when `path` is dangling, is not a value leaf,
+ * or holds text its int/double/num/bool type cannot read (`*out` untouched). The caller releases `*out` with
  * `som_value_free`. */
 int spec_editor_value(const SpecEditor *e, const char *path, SomValue *out,
                       char **err);
@@ -71,10 +75,11 @@ int spec_editor_value(const SpecEditor *e, const char *path, SomValue *out,
 /* Sets the value leaf at `path` to `v`, converting at the store boundary.
  *
  * SOM_VALUE_NONE (or a NULL `v`) clears. For a typed scalar `v` must be the
- * native kind — or a string, which is taken verbatim, the plain-text
- * serialization being authoritative; for an enum leaf `v` must be one of the
- * field's constant names. Returns 0 for a non-leaf path, a wrong value kind, or
- * an out-of-domain enum name. */
+ * native kind — or a string the type can read, which is taken verbatim, the
+ * plain-text serialization being authoritative; for an enum leaf `v` must be
+ * one of the field's constant names. Returns 0 for a non-leaf path, a wrong
+ * value kind, a string the declared type cannot read, or an out-of-domain enum
+ * name. */
 int spec_editor_set_value(SpecEditor *e, const char *path, const SomValue *v,
                           char **err);
 
@@ -94,15 +99,18 @@ int spec_editor_set_headline(SpecEditor *e, const char *path,
 /* ---- typed form fields --------------------------------------------------- */
 
 /* The typed value of form `field` at the `@Form` section `path`, written to
- * `*out` (SOM_VALUE_NONE when unset or unparsable). Returns 0 for a dangling
- * path, a non-form node, or an unknown field name. The caller releases `*out`
+ * `*out` (SOM_VALUE_NONE when unset, or an enum field holding a name outside
+ * its domain). Returns 0 for a dangling path, a non-form node, an unknown field
+ * name, or stored text the declared int/double/num/bool type cannot read
+ * (`*out` untouched). The caller releases `*out`
  * with `som_value_free`. */
 int spec_editor_form_value(const SpecEditor *e, const char *path,
                            const char *field, SomValue *out, char **err);
 
 /* Sets form `field` at the `@Form` section `path` to the typed value `v`
  * (SOM_VALUE_NONE / NULL clears), converting through the shared boundary
- * helpers. Returns 0 for a wrong value kind or an out-of-domain enum name. */
+ * helpers. Returns 0 for a wrong value kind, an out-of-domain enum name, or a
+ * string the declared type cannot read. */
 int spec_editor_set_form_value(SpecEditor *e, const char *path,
                                const char *field, const SomValue *v,
                                char **err);

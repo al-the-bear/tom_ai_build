@@ -82,3 +82,37 @@ String somFormatEnumName(String? name, List<String> values) {
   }
   return name;
 }
+
+/// The scalar base of a declared field type: `int?` → `int`, `null` stays
+/// `null`.
+String? somScalarBase(String? typeName) {
+  if (typeName == null) return null;
+  return typeName.endsWith('?')
+      ? typeName.substring(0, typeName.length - 1)
+      : typeName;
+}
+
+/// Whether [raw], stored in a field declared as [typeName], is text that
+/// type's parser can read.
+///
+/// Only `int`, `double`, `num` and `bool` constrain their text; every other
+/// type (strings, and enums, whose domain `enumValueUnknown` checks) accepts
+/// any text. Empty or absent text is readable: it is how a field is unset.
+/// The validator reports a stored value this rejects as `valueTypeMismatch`,
+/// the setters refuse to store one, and the typed reads throw on one — so
+/// text a typed field cannot read is never silently read as unset.
+bool somTypedTextReadable(String? typeName, String? raw) {
+  if (raw == null || raw.isEmpty) return true;
+  switch (somScalarBase(typeName)) {
+    case 'int':
+      return somParseInt(raw) != null;
+    case 'double':
+      return somParseDouble(raw) != null;
+    case 'num':
+      return somParseNum(raw) != null;
+    case 'bool':
+      return somParseBool(raw) != null;
+    default:
+      return true;
+  }
+}

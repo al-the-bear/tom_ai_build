@@ -645,6 +645,26 @@ void main() {
           );
         case 'setContent': // raw store write (bypasses the typed boundary)
           d.setContent(s['path'] as String, s['value'] as String);
+        case 'setRawFormField': // raw form write (bypasses the typed boundary)
+          d.setFormField(
+            s['path'] as String,
+            s['field'] as String,
+            s['value'] as String,
+          );
+        case 'valueUnreadable':
+          // Stored text the declared type cannot read: the typed read refuses
+          // it rather than answering null (any port's error type is fine).
+          expect(
+            () => ed.value(s['path'] as String),
+            throwsA(anything),
+            reason: 'valueUnreadable ${s['path']}',
+          );
+        case 'formValueUnreadable':
+          expect(
+            () => ed.formValue(s['path'] as String, s['field'] as String),
+            throwsA(anything),
+            reason: 'formValueUnreadable ${s['path']}#${s['field']}',
+          );
         case 'rawContent':
           expect(
             d.content(s['path'] as String),
@@ -2494,6 +2514,19 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         'DEMO/DET': {'priority': ''},
       },
     }),
+    // A typed field holding text its type cannot read is reported, in a form
+    // and in a scalar leaf; readable text and empty text are not.
+    caseFor('valueTypeMismatch', {
+      'content': {'DEMO/CNT': 'abc', 'DEMO/RTO': '2.5'},
+      'forms': {
+        'DEMO/DET': {
+          'estimate': 'lots',
+          'active': 'yes',
+          'weight': '',
+          'tally': '7',
+        },
+      },
+    }),
     caseFor('minItems', {
       'lists': {
         'DEMO/items': {
@@ -2711,9 +2744,13 @@ List<Map<String, dynamic>> _editorScript() => [
   {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '12'},
   {'op': 'setValueThrows', 'path': 'DEMO/CNT', 'value': true},
   {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
-  // Forgiving read: raw garbage in the store reads as null, not an error.
+  // Text the type cannot read: the setter refuses it, and when it reaches the
+  // store another way (a hand edit, a raw write) the typed read refuses it
+  // too, rather than answering null as if the field were unset.
+  {'op': 'setValueThrows', 'path': 'DEMO/CNT', 'value': 'abc'},
+  {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
   {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
-  {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
+  {'op': 'valueUnreadable', 'path': 'DEMO/CNT'},
   {'op': 'setContent', 'path': 'DEMO/CNT', 'value': ''},
   // `double` LEAF (DEMO/RTO). `Details.weight` already covers the double
   // conversion through the form store; this covers the other dispatch, and
@@ -2732,8 +2769,9 @@ List<Map<String, dynamic>> _editorScript() => [
   {'op': 'value', 'path': 'DEMO/RTO', 'expect': 6.0},
   {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': '6'},
   {'op': 'setValueThrows', 'path': 'DEMO/RTO', 'value': true},
+  {'op': 'setValueThrows', 'path': 'DEMO/RTO', 'value': 'abc'},
   {'op': 'setContent', 'path': 'DEMO/RTO', 'value': 'abc'},
-  {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
+  {'op': 'valueUnreadable', 'path': 'DEMO/RTO'},
   {'op': 'setValue', 'path': 'DEMO/RTO', 'value': null},
   {'op': 'value', 'path': 'DEMO/RTO', 'expect': null},
   {'op': 'rawContent', 'path': 'DEMO/RTO', 'expect': null},
@@ -2753,10 +2791,32 @@ List<Map<String, dynamic>> _editorScript() => [
   {'op': 'value', 'path': 'DEMO/SCR', 'expect': 9},
   {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': '9'},
   {'op': 'setValueThrows', 'path': 'DEMO/SCR', 'value': true},
+  {'op': 'setValueThrows', 'path': 'DEMO/SCR', 'value': 'abc'},
   {'op': 'setContent', 'path': 'DEMO/SCR', 'value': 'abc'},
-  {'op': 'value', 'path': 'DEMO/SCR', 'expect': null},
+  {'op': 'valueUnreadable', 'path': 'DEMO/SCR'},
   {'op': 'setValue', 'path': 'DEMO/SCR', 'value': null},
   {'op': 'rawContent', 'path': 'DEMO/SCR', 'expect': null},
+  // The same rule for a typed FORM field (Details.estimate is an int).
+  {
+    'op': 'setFormValueThrows',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': 'lots',
+  },
+  {
+    'op': 'setRawFormField',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': 'lots',
+  },
+  {'op': 'formValueUnreadable', 'path': 'DEMO/DET', 'field': 'estimate'},
+  {
+    'op': 'setFormValue',
+    'path': 'DEMO/DET',
+    'field': 'estimate',
+    'value': null,
+  },
+  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate', 'expect': null},
   // Enum leaf: validated constant-name strings.
   {'op': 'setValue', 'path': 'DEMO/PRI', 'value': 'high'},
   {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
@@ -2949,14 +3009,21 @@ List<Map<String, dynamic>> _editorScript() => [
     'field': 'estimate',
     'expect': null,
   },
-  // Forgiving typed read of raw garbage in the form store.
+  // Text a bool cannot read: refused by the setter; written raw, it is kept
+  // verbatim in the store and refused by the typed read.
   {
-    'op': 'setFormValue',
+    'op': 'setFormValueThrows',
     'path': 'DEMO/DET',
     'field': 'active',
     'value': 'not-a-bool',
   },
-  {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active', 'expect': null},
+  {
+    'op': 'setRawFormField',
+    'path': 'DEMO/DET',
+    'field': 'active',
+    'value': 'not-a-bool',
+  },
+  {'op': 'formValueUnreadable', 'path': 'DEMO/DET', 'field': 'active'},
   {
     'op': 'rawFormField',
     'path': 'DEMO/DET',

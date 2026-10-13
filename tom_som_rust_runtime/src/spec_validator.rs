@@ -10,9 +10,11 @@
 use crate::spec_document::SpecDocument;
 use crate::spec_model::{SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM};
 use crate::spec_reflection::{
-    SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SECTION,
+    SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SCALAR,
+    SPEC_NODE_KIND_SECTION,
 };
 use crate::spec_section_id::{effective_list_item_section_id, K_SECTION_ID_SLOT};
+use crate::spec_typed_values::{som_scalar_base, som_typed_text_readable};
 use std::collections::{BTreeMap, BTreeSet};
 
 /// Why a single value in a document is invalid against the model.
@@ -33,6 +35,13 @@ pub const SPEC_VALIDATION_CODE_ENUM_VALUE_UNKNOWN: &str = "enumValueUnknown";
 /// (vsctsa43). A total kept by hand drifts from the list it describes the first
 /// time the list changes and the total does not.
 pub const SPEC_VALIDATION_CODE_COUNT_MISMATCH: &str = "countMismatch";
+/// A typed field (`int`, `double`, `num` or `bool`) — a form field or a scalar
+/// leaf — holds text its type cannot read (`lots` in an `int`). The typed read
+/// refuses such text rather than answering `None`, and the setters refuse to
+/// store it, but a document edited by hand or by another tool can still carry
+/// it; this is where it is reported. Empty text is absence, not a bad value,
+/// and is not reported.
+pub const SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH: &str = "valueTypeMismatch";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -90,6 +99,20 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                         code: SPEC_VALIDATION_CODE_KIND_MISMATCH.to_string(),
                         message: format!("expected a value leaf but path resolves to {}", res.kind),
                     });
+                } else if res.kind == SPEC_NODE_KIND_SCALAR {
+                    let ty = res.field.as_ref().map(|f| f.type_.as_str());
+                    let value = doc.content(&path).cloned();
+                    if !som_typed_text_readable(ty, value.as_deref()) {
+                        errors.push(SpecValidationError {
+                            path: path.clone(),
+                            code: SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH.to_string(),
+                            message: format!(
+                                "holds \"{}\", which is not readable as {}",
+                                value.as_deref().unwrap_or(""),
+                                som_scalar_base(ty).unwrap_or("")
+                            ),
+                        });
+                    }
                 }
             }
         }
@@ -136,6 +159,24 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                 }
             };
             if spec.enum_values.is_empty() {
+                let text = doc.form_field_or(&path, &name);
+                // A stated count (`count_of`) is checked by countMismatch, which
+                // already reports text that is no whole number; one finding is
+                // enough.
+                if spec.count_of.is_empty()
+                    && !som_typed_text_readable(Some(&spec.type_), Some(&text))
+                {
+                    errors.push(SpecValidationError {
+                        path: path.clone(),
+                        code: SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH.to_string(),
+                        message: format!(
+                            "form field \"{}\" holds \"{}\", which is not readable as {}",
+                            name,
+                            text,
+                            som_scalar_base(Some(&spec.type_)).unwrap_or("")
+                        ),
+                    });
+                }
                 continue;
             }
             let value = doc.form_field_or(&path, &name);

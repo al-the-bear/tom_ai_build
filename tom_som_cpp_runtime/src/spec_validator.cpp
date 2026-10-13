@@ -8,6 +8,7 @@
 #include "som_util.hpp"
 #include "spec_reflection.hpp"
 #include "spec_section_id.hpp"
+#include "spec_typed_values.hpp"
 
 namespace som {
 namespace {
@@ -559,6 +560,17 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
         !isWrapperSection) {
       push(path, kSpecValidationCodeKindMismatch,
            "expected a value leaf but path resolves to " + res->kind);
+      continue;
+    }
+    if (res->kind == kSpecNodeKindScalar) {
+      const std::string type =
+          res->field != nullptr ? res->field->type : std::string();
+      const std::string value = doc.content(path);
+      if (!somTypedTextReadable(type, value)) {
+        push(path, kSpecValidationCodeValueTypeMismatch,
+             "holds \"" + value + "\", which is not readable as " +
+                 somScalarBase(type));
+      }
     }
   }
 
@@ -590,6 +602,14 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
         continue;
       }
       if (spec->enumValues.empty()) {
+        const std::string text = doc.formField(path, name);
+        // A stated count (`countOf`) is checked by countMismatch, which already
+        // reports text that is no whole number; one finding is enough.
+        if (spec->countOf.empty() && !somTypedTextReadable(spec->type, text)) {
+          push(path, kSpecValidationCodeValueTypeMismatch,
+               "form field \"" + name + "\" holds \"" + text +
+                   "\", which is not readable as " + somScalarBase(spec->type));
+        }
         continue;
       }
       const std::string value = doc.formField(path, name);

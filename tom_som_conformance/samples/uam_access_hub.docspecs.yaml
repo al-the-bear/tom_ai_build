@@ -1890,11 +1890,16 @@ document:
       XDFU designFollowUp:
         ACCESS accessibility:
           ACCESS-ACCE accessibilityOverviewContent:
-            accessibilityStatement: |2-
+            content: |2-
               The console targets WCAG 2.1 AA. The four-state model is never
               conveyed by colour alone: disabled affordances carry a state
               label, and the access-level selector is fully keyboard
               operable.
+            wcagComplianceTarget: |2-
+              AA
+            wcagVersion: |2-
+              2.1
+            accessibilityStatement: true
     QACM qualityAndAcceptanceModel:
       content: |2-
         Quality gates centre on the closed-by-default property and tenant

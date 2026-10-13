@@ -37,7 +37,8 @@ use crate::spec_reflection::{
 use crate::spec_section_id::{generate_list_item_section_id, today_month_day};
 use crate::spec_typed_values::{
     som_format_bool, som_format_double, som_format_enum_name, som_format_int, som_format_num,
-    som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num, SomNum,
+    som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num,
+    som_scalar_base, som_typed_text_readable, SomNum,
 };
 
 /// A typed value at the generic editing boundary.
@@ -119,7 +120,9 @@ impl<'d, 'm> SpecEditor<'d, 'm> {
     /// The returned variant follows the model: `int`/`double`/`num`/`bool`
     /// scalars return the parsed native value, enum leaves the validated
     /// constant name, everything else the raw string. Errors when `path` is not
-    /// a value leaf.
+    /// a value leaf, or when the stored text is not readable as the declared
+    /// type (`lots` in an `int` leaf — reported by `validate_document` as
+    /// `valueTypeMismatch`, never silently read as unset).
     pub fn value(&self, path: &str) -> Result<Option<SomValue>, String> {
         let r = self.value_leaf(path)?;
         let raw = match self.document.content(path) {
@@ -132,15 +135,17 @@ impl<'d, 'm> SpecEditor<'d, 'm> {
             let values = r.field.as_ref().map(|f| &f.enum_values).unwrap_or(&empty);
             return Ok(som_parse_enum_name(Some(&raw), values).map(SomValue::Str));
         }
+        require_readable(field_type, &raw, path, path)?;
         Ok(parse_typed(&raw, scalar_base(field_type)))
     }
 
     /// Sets the value leaf at `path` to `v`, converting at the store boundary.
     ///
     /// `None` clears. For typed scalars `v` must be the native variant (or a
-    /// [`SomValue::Str`], taken verbatim); for enum leaves `v` must be one of the
-    /// field's constant names. Errors for a non-leaf path, a wrong value type, or
-    /// an out-of-domain enum name.
+    /// [`SomValue::Str`] the type can read, taken verbatim); for enum leaves `v`
+    /// must be one of the field's constant names. Errors for a non-leaf path, a
+    /// wrong value type, a string the type cannot read, or an out-of-domain enum
+    /// name.
     pub fn set_value(&mut self, path: &str, v: Option<SomValue>) -> Result<(), String> {
         let r = self.value_leaf(path)?;
         let stored = format_for_store(v.as_ref(), &r.kind, r.field.as_ref(), path, None, None)?;
@@ -182,8 +187,9 @@ impl<'d, 'm> SpecEditor<'d, 'm> {
     /// when unset.
     ///
     /// Reads the form store and parses per the declared field type (enum fields
-    /// return the validated constant name). Errors for a non-form path or an
-    /// unknown field name.
+    /// return the validated constant name). Errors for a non-form path, an
+    /// unknown field name, or stored text not readable as the declared type
+    /// (`lots` in an `int` field — reported as `valueTypeMismatch`).
     pub fn form_value(&self, path: &str, field: &str) -> Result<Option<SomValue>, String> {
         let ff = self.form_field(path, field)?;
         let raw = match self.document.form_field(path, field) {
@@ -193,13 +199,15 @@ impl<'d, 'm> SpecEditor<'d, 'm> {
         if !ff.enum_values.is_empty() {
             return Ok(som_parse_enum_name(Some(&raw), &ff.enum_values).map(SomValue::Str));
         }
+        require_readable(&ff.type_, &raw, path, &format!("form field \"{}\"", field))?;
         Ok(parse_typed(&raw, scalar_base(&ff.type_)))
     }
 
     /// Sets form `field` at the `@Form` section `path` to the typed value `v`
     /// (`None` clears), converting through the shared boundary helpers.
     ///
-    /// Errors for a wrong value type or an out-of-domain enum name.
+    /// Errors for a wrong value type, an out-of-domain enum name, or a string
+    /// the declared type cannot read (`"lots"` for an `int`).
     pub fn set_form_value(
         &mut self,
         path: &str,
@@ -328,6 +336,21 @@ impl<'d, 'm> SpecEditor<'d, 'm> {
     }
 }
 
+/// `Err` when `raw` is text a `type_name` field cannot read — the typed read
+/// would otherwise answer `None`, indistinguishable from an unset field.
+fn require_readable(type_name: &str, raw: &str, path: &str, what: &str) -> Result<(), String> {
+    if som_typed_text_readable(Some(type_name), Some(raw)) {
+        return Ok(());
+    }
+    Err(format!(
+        "{}: {} holds \"{}\", which is not readable as {}",
+        path,
+        what,
+        raw,
+        som_scalar_base(Some(type_name)).unwrap_or("")
+    ))
+}
+
 /// Parses stored text per the declared scalar base type; an untyped (or
 /// unrecognised) base keeps the raw string.
 fn parse_typed(raw: &str, base: Option<&str>) -> Option<SomValue> {
@@ -343,8 +366,9 @@ fn parse_typed(raw: &str, base: Option<&str>) -> Option<SomValue> {
     }
 }
 
-/// Formats `v` for the store per the leaf's declared type; strings pass through
-/// verbatim (the plain-text serialization is authoritative).
+/// Formats `v` for the store per the leaf's declared type; a string is stored
+/// verbatim (the plain-text serialization is authoritative) when the type can
+/// read it, and refused when it cannot.
 ///
 /// `type_name` overrides the field's declared type (the form-field path, whose
 /// type lives on the [`FormFieldSpec`] rather than the [`SpecField`]) and
@@ -378,6 +402,14 @@ fn format_for_store(
         _ => {}
     }
     if let SomValue::Str(s) = v {
+        if !som_typed_text_readable(base, Some(s)) {
+            return Err(format!(
+                "{:?} at {}: cannot be read as {}",
+                s,
+                where_.unwrap_or(path),
+                base.unwrap_or("String")
+            ));
+        }
         return Ok(s.clone());
     }
     Err(format!(

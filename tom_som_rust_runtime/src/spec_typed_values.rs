@@ -214,3 +214,35 @@ mod tests {
         assert!(som_format_enum_name(Some("urgent"), &values).is_err());
     }
 }
+
+/// The scalar base of a declared field type: `int?` → `int`; `None` (or the
+/// empty name, the Rust model's "no declared type") stays `None`.
+pub fn som_scalar_base(type_name: Option<&str>) -> Option<&str> {
+    match type_name {
+        None | Some("") => None,
+        Some(t) => Some(t.strip_suffix('?').unwrap_or(t)),
+    }
+}
+
+/// Whether `raw`, stored in a field declared as `type_name`, is text that
+/// type's parser can read.
+///
+/// Only `int`, `double`, `num` and `bool` constrain their text; every other
+/// type (strings, and enums, whose domain `enumValueUnknown` checks) accepts
+/// any text. Empty or absent text is readable: it is how a field is unset. The
+/// validator reports a stored value this rejects as `valueTypeMismatch`, the
+/// setters refuse to store one, and the typed reads return `Err` for one — so
+/// text a typed field cannot read is never silently read as unset.
+pub fn som_typed_text_readable(type_name: Option<&str>, raw: Option<&str>) -> bool {
+    let raw = match raw {
+        None | Some("") => return true,
+        Some(r) => r,
+    };
+    match som_scalar_base(type_name) {
+        Some("int") => som_parse_int(Some(raw)).is_some(),
+        Some("double") => som_parse_double(Some(raw)).is_some(),
+        Some("num") => som_parse_num(Some(raw)).is_some(),
+        Some("bool") => som_parse_bool(Some(raw)).is_some(),
+        _ => true,
+    }
+}

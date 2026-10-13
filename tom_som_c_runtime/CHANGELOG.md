@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- A typed field (`int` / `double` / `num` / `bool`, nullable too) holding non-empty text its type cannot read (SOM §9): `spec_editor_set_value` / `spec_editor_set_form_value` refuse such a string (return 0 with `*err`), `spec_editor_value` / `spec_editor_form_value` now return 0 with `*err` on such stored text instead of answering SOM_VALUE_NONE, and `validate_document` reports the new `valueTypeMismatch` (`SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH`) for a scalar leaf and for a non-enum, non-`countOf` form field; new helpers `som_scalar_base` / `som_typed_text_readable`.
 - `encode_yaml`: a document with no values encodes as `document:` + `  <root key>: {}`, keeping the root key (the file's only record of its document root), never `document: {}`; decode still accepts `document: {}` (SOM §12.3 rule 4).
 - Query engine (`section_id_of`): a list item (`listItemComplex` / `listItemScalar`) is known by its own effective section id — stored id, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — for `sectionIdExact` / `sectionIdPrefix` and the projected `sectionId`; other nodes keep the model `@SectionId` (llm_and_d4rt_tools.md §6).
 - `decode_yaml`: `SpecYamlContents.review` is NULL when the file has no `review:` key and an (owned, possibly empty) YAML_MAP when it has one (a bare `review:` included), so a document without a review pass round-trips without gaining `review: {}` (SOM §12.1).

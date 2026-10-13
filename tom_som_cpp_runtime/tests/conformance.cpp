@@ -835,6 +835,16 @@ static void test_editor(Checker& c, const som::SpecModel& model) {
     } else if (op == "setContent") {
       // raw store write (bypasses the typed boundary)
       doc.setContent(path, som::jsonStrOr(s, "value"));
+    } else if (op == "setRawFormField") {
+      // raw form write (bypasses the typed boundary)
+      doc.setFormField(path, field, som::jsonStrOr(s, "value"));
+    } else if (op == "valueUnreadable") {
+      // stored text the declared type cannot read: the typed read throws
+      // rather than answering null
+      expect_throws(c, tag + " " + path, [&] { ed.value(path); });
+    } else if (op == "formValueUnreadable") {
+      expect_throws(c, tag + " " + path + "#" + field,
+                    [&] { ed.formValue(path, field); });
     } else if (op == "rawContent") {
       const std::string* got = doc.contentOpt(path);
       const std::string* want = som::jsonAsStr(som::jsonGet(s, "expect"));

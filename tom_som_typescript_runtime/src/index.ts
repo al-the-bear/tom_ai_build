@@ -86,6 +86,8 @@ export {
   somFormatBool,
   somParseEnumName,
   somFormatEnumName,
+  somScalarBase,
+  somTypedTextReadable,
 } from './spec_typed_values';
 
 // generic modification API (YRD7)

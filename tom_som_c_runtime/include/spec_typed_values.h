@@ -13,8 +13,9 @@
  * Conventions (the typed contract, mirrored by all nine runtimes):
  *   - absent / empty string => "no value" on read; no value on write => clear
  *     (D4, so the key is REMOVED rather than stored as "");
- *   - `int` — decimal integer (optional sign), non-numeric text reads as no
- *     value;
+ *   - `int` — decimal integer (optional sign); the raw parser answers "no
+ *     value" for non-numeric text, but the editor's typed reads fail on it
+ *     (`som_typed_text_readable`);
  *   - `double` — accepts any parsable floating literal (also plain integers);
  *     formatting always carries a decimal point, so an integral value
  *     round-trips as `2.0` rather than `2` (Dart's `double.toString`);
@@ -124,5 +125,23 @@ int som_parse_enum_name(const char *raw, const SomStrList *values, char **out);
  * where reads are forgiving, so a typo cannot enter the store. */
 char *som_format_enum_name(const char *name, const SomStrList *values,
                            char **err);
+
+/* ---- typed-text readability (valueTypeMismatch) ------------------------ */
+
+/* The scalar base of a declared field type: `int?` -> `int`. Returns an owned
+ * copy (free with `free`), or NULL when `type_name` is NULL. */
+char *som_scalar_base(const char *type_name);
+
+/* Whether `raw`, stored in a field declared as `type_name`, is text that
+ * type's parser can read (1) or not (0).
+ *
+ * Only `int`, `double`, `num` and `bool` (and their `?` variants) constrain
+ * their text; every other type (strings, and enums, whose domain
+ * `enumValueUnknown` checks) accepts any text. NULL or empty text is readable:
+ * it is how a field is unset. The validator reports a stored value this
+ * rejects as `valueTypeMismatch`, the editor's setters refuse to store one,
+ * and the typed reads fail on one — so text a typed field cannot read is never
+ * silently read as unset. */
+int som_typed_text_readable(const char *type_name, const char *raw);
 
 #endif /* SPEC_TYPED_VALUES_H */

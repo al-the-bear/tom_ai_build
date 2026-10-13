@@ -19,6 +19,7 @@ from .spec_document import SpecDocument
 from .spec_model import SpecClass, SpecField, SpecFieldKind, SpecModel
 from .spec_reflection import SpecNodeKind, SpecReflection
 from .spec_section_id import K_SECTION_ID_SLOT, effective_list_item_section_id
+from .spec_typed_values import som_scalar_base, som_typed_text_readable
 
 
 class SpecValidationCode(Enum):
@@ -46,6 +47,13 @@ class SpecValidationCode(Enum):
     #: number at all (vsctsa43). A total kept by hand drifts from the list it
     #: describes the first time the list changes and the total does not.
     COUNT_MISMATCH = "countMismatch"
+    #: A typed field (``int``, ``double``, ``num`` or ``bool``) — a form field
+    #: or a scalar leaf — holds text its type cannot read (``lots`` in an
+    #: ``int``). The typed read refuses such text and the setters refuse to
+    #: store it, but a document edited by hand or by another tool can still
+    #: carry it; this is where it is reported. Empty text is absence, not a bad
+    #: value, and is not reported.
+    VALUE_TYPE_MISMATCH = "valueTypeMismatch"
 
 
 @dataclass(frozen=True)
@@ -105,6 +113,21 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                     ),
                 )
             )
+            continue
+        if res.kind == SpecNodeKind.SCALAR:
+            type_name = res.field.type if res.field else None
+            value = doc.content(path)
+            if not som_typed_text_readable(type_name, value):
+                errors.append(
+                    SpecValidationError(
+                        path=path,
+                        code=SpecValidationCode.VALUE_TYPE_MISMATCH,
+                        message=(
+                            f'holds "{value}", which is not readable as '
+                            f"{som_scalar_base(type_name)}"
+                        ),
+                    )
+                )
 
     # 2. Form sections.
     for path in sorted(doc.form_paths):
@@ -140,6 +163,22 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                 )
                 continue
             if not spec.enum_values:
+                text = doc.form_field(path, name)
+                # A stated count (`count_of`) is checked by `countMismatch`,
+                # which already reports text that is no whole number.
+                if not spec.count_of and not som_typed_text_readable(
+                    spec.type, text
+                ):
+                    errors.append(
+                        SpecValidationError(
+                            path=path,
+                            code=SpecValidationCode.VALUE_TYPE_MISMATCH,
+                            message=(
+                                f'form field "{name}" holds "{text}", which is '
+                                f"not readable as {som_scalar_base(spec.type)}"
+                            ),
+                        )
+                    )
                 continue
             value = doc.form_field(path, name)
             # Absence is not a bad value.

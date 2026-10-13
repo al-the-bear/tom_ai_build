@@ -12,6 +12,7 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_reflection.dart';
 import 'spec_section_id.dart';
+import 'spec_typed_values.dart';
 
 /// Why a single value in a document is invalid against the model.
 enum SpecValidationCode {
@@ -55,6 +56,15 @@ enum SpecValidationCode {
   /// all (vsctsa43). A total kept by hand drifts from the list it describes
   /// the first time the list changes and the total does not.
   countMismatch,
+
+  /// A typed field (`int`, `double`, `num` or `bool`) — a form field or a
+  /// scalar leaf — holds text its type cannot read (`lots` in an `int`).
+  ///
+  /// The typed read refuses such text rather than answering null, and the
+  /// setters refuse to store it, but a document edited by hand or by another
+  /// tool can still carry it; this is where it is reported. Empty text is
+  /// absence, not a bad value, and is not reported.
+  valueTypeMismatch,
 }
 
 /// One problem found while validating a document.
@@ -118,6 +128,22 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
               'expected a value leaf but path resolves to ${res.kind.name}',
         ),
       );
+      continue;
+    }
+    if (res.kind == SpecNodeKind.scalar) {
+      final type = res.field?.type;
+      final value = doc.content(path);
+      if (!somTypedTextReadable(type, value)) {
+        errors.add(
+          SpecValidationError(
+            path: path,
+            code: SpecValidationCode.valueTypeMismatch,
+            message:
+                'holds "$value", which is not readable as '
+                '${somScalarBase(type)}',
+          ),
+        );
+      }
     }
   }
 
@@ -152,7 +178,23 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         );
         continue;
       }
-      if (spec.enumValues.isEmpty) continue;
+      if (spec.enumValues.isEmpty) {
+        final text = doc.formField(path, name);
+        // A stated count (`countOf`) is checked by `countMismatch`, which
+        // already reports text that is no whole number; one finding is enough.
+        if (spec.countOf.isEmpty && !somTypedTextReadable(spec.type, text)) {
+          errors.add(
+            SpecValidationError(
+              path: path,
+              code: SpecValidationCode.valueTypeMismatch,
+              message:
+                  'form field "$name" holds "$text", which is not readable '
+                  'as ${somScalarBase(spec.type)}',
+            ),
+          );
+        }
+        continue;
+      }
       final value = doc.formField(path, name);
       // Absence is not a bad value: an empty field is what every other tier
       // reads as "not set", and reporting it here would make a half-filled

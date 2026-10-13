@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Typed text (SOM §9, `valueTypeMismatch`): an `int`/`double`/`num`/`bool` field holding non-empty text its parser cannot read is refused by `SetValue`/`SetFormValue` (error), makes `Value`/`FormValue` return an error instead of `nil`, and is reported by `ValidateDocument` as the new `SpecValidationCodeValueTypeMismatch` (scalar leaves; form fields without enum values or `CountOf`); new helpers `SomScalarBase`, `SomTypedTextReadable`. Pinned by the new `validation_cases.json` case and the `setRawFormField`/`valueUnreadable`/`formValueUnreadable` editor ops.
 - YAML empty document (SOM §12.3 rule 4): the encoder writes an empty document as `document:` then `  <root key>: {}` instead of `document: {}`, keeping the root key that records which document root the file is; decode still accepts `document: {}`. Pinned by the new `yaml_review_cases.json` roundTrip case.
 - Query section ids (llm_and_d4rt_tools.md §6): a list item is known by its own effective id — stored, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — in the `sectionIdExact`/`sectionIdPrefix` filters and the projection's `SectionID`, so a list's own id matches only the list; pinned by four new `query_cases.json` cases and `projection_cases.json`.
 - YAML review pass presence (SOM §12.1): `DecodeYaml` returns `Review == nil` when the file has no `review:` key and a non-nil (possibly empty) map when it has one, so a file without a review pass round-trips without gaining `review: {}`; pinned by the new `yaml_review_cases.json` case.

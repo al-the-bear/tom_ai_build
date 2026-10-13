@@ -138,6 +138,23 @@ std::optional<std::string> somParseEnumName(const std::string& raw,
 std::string somFormatEnumName(const std::optional<std::string>& name,
                               const std::vector<std::string>& values);
 
+/* ---- typed-text readability (valueTypeMismatch) ------------------------ */
+
+/* The scalar base of a declared field type: `int?` -> `int`. */
+std::string somScalarBase(const std::string& typeName);
+
+/* Whether `raw`, stored in a field declared as `typeName`, is text that type's
+ * parser can read.
+ *
+ * Only `int`, `double`, `num` and `bool` (and their `?` variants) constrain
+ * their text; every other type (strings, and enums, whose domain
+ * `enumValueUnknown` checks) accepts any text. Empty text is readable: it is
+ * how a field is unset. The validator reports a stored value this rejects as
+ * `valueTypeMismatch`, the editor's setters refuse to store one, and the typed
+ * reads throw on one — so text a typed field cannot read is never silently
+ * read as unset. */
+bool somTypedTextReadable(const std::string& typeName, const std::string& raw);
+
 }  // namespace som
 
 #endif  // SPEC_TYPED_VALUES_HPP

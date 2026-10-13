@@ -22,7 +22,16 @@ public enum SpecValidationCode {
    * (vsctsa43). A total kept by hand drifts from the list it describes the first
    * time the list changes and the total does not.
    */
-  COUNT_MISMATCH("countMismatch");
+  COUNT_MISMATCH("countMismatch"),
+  /**
+   * A typed field ({@code int}, {@code double}, {@code num} or {@code bool}) — a
+   * form field or a scalar leaf — holds text its type cannot read ({@code lots}
+   * in an {@code int}). The typed read refuses such text rather than answering
+   * null, and the setters refuse to store it, but a document edited by hand or
+   * by another tool can still carry it; this is where it is reported. Empty text
+   * is absence, not a bad value, and is not reported.
+   */
+  VALUE_TYPE_MISMATCH("valueTypeMismatch");
 
   public final String value;
 

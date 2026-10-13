@@ -500,6 +500,15 @@ def test_editor(model: SpecModel) -> None:
                            lambda s=s: ed.set_value(s["path"], s["value"]))
         elif kind == "setContent":  # raw store write (bypasses the boundary)
             doc.set_content(s["path"], s["value"])
+        elif kind == "setRawFormField":  # raw form write (bypasses boundary)
+            doc.set_form_field(s["path"], s["field"], s["value"])
+        elif kind == "valueUnreadable":
+            _expect_raises(f"editor[{n}].valueUnreadable {s['path']}",
+                           lambda s=s: ed.value(s["path"]))
+        elif kind == "formValueUnreadable":
+            _expect_raises(
+                f"editor[{n}].formValueUnreadable {s['path']}#{s['field']}",
+                lambda s=s: ed.form_value(s["path"], s["field"]))
         elif kind == "rawContent":
             _check(f"editor[{n}].rawContent {s['path']}",
                    doc.content(s["path"]) == s["expect"],

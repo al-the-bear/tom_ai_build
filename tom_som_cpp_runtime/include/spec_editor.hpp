@@ -65,15 +65,18 @@ class SpecEditor {
    * The kind follows the model: `int`/`double`/`num`/`bool` scalars return the
    * parsed native value, enum leaves the validated constant name, everything
    * else the raw string. Throws std::invalid_argument when `path` is not a
-   * value leaf. */
+   * value leaf, or when it holds text its `int`/`double`/`num`/`bool` type
+   * cannot read (`lots` in an `int` leaf) — such a value is reported by
+   * `validateDocument` as `valueTypeMismatch` and is never read as unset. */
   SomValue value(const std::string& path) const;
 
   /* Sets the value leaf at `path` to `v`, converting at the store boundary.
    *
    * A null SomValue clears. For typed scalars `v` must be the native kind (or a
-   * string, taken verbatim); for enum leaves `v` must be one of the field's
-   * constant names. Throws std::invalid_argument for a non-leaf path, a wrong
-   * value kind, or an out-of-domain enum name. */
+   * string the type can read, taken verbatim); for enum leaves `v` must be one
+   * of the field's constant names. Throws std::invalid_argument for a non-leaf
+   * path, a wrong value kind, a string the declared type cannot read, or an
+   * out-of-domain enum name. */
   void setValue(const std::string& path, const SomValue& v);
 
   // --- headlines (YRD3) ----------------------------------------------------
@@ -93,14 +96,17 @@ class SpecEditor {
    *
    * Reads the form store and parses per the declared field type (enum fields
    * return the validated constant name). Throws std::invalid_argument for a
-   * non-form path or an unknown field name. */
+   * non-form path, an unknown field name, or stored text the declared
+   * `int`/`double`/`num`/`bool` type cannot read (reported by
+   * `validateDocument` as `valueTypeMismatch`). */
   SomValue formValue(const std::string& path, const std::string& field) const;
 
   /* Sets form `field` at the `@Form` section `path` to the typed value `v` (a
    * null SomValue clears), converting through the shared boundary helpers.
    *
-   * Throws std::invalid_argument for a wrong value kind or an out-of-domain
-   * enum name. */
+   * Throws std::invalid_argument for a wrong value kind, an out-of-domain
+   * enum name, or a string the declared type cannot read (`"lots"` for an
+   * `int`). */
   void setFormValue(const std::string& path, const std::string& field,
                     const SomValue& v);
 

@@ -1031,6 +1031,24 @@ static void test_editor(Checker *c, const SpecModel *model) {
     } else if (strcmp(op, "setContent") == 0) {
       /* raw store write — deliberately bypasses the typed boundary */
       spec_document_set_content(&doc, path, som_json_str_or(s, "value"));
+    } else if (strcmp(op, "setRawFormField") == 0) {
+      /* raw form write — deliberately bypasses the typed boundary */
+      spec_document_set_form_field(&doc, path, field,
+                                   som_json_str_or(s, "value"));
+    } else if (strcmp(op, "valueUnreadable") == 0) {
+      /* stored text the declared type cannot read: the typed read fails
+         rather than answering none */
+      snprintf(tag, sizeof(tag), "editor[%zu].valueUnreadable %s", i, path);
+      SomValue got = som_value_none();
+      check_rejected(c, tag, spec_editor_value(&ed, path, &got, &err), err);
+      som_value_free(&got);
+    } else if (strcmp(op, "formValueUnreadable") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].formValueUnreadable %s#%s", i,
+               path, field);
+      SomValue got = som_value_none();
+      check_rejected(c, tag,
+                     spec_editor_form_value(&ed, path, field, &got, &err), err);
+      som_value_free(&got);
     } else if (strcmp(op, "rawContent") == 0) {
       snprintf(tag, sizeof(tag), "editor[%zu].rawContent %s", i, path);
       check_opt_str(c, tag, spec_document_content(&doc, path), s, "expect");

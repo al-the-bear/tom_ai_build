@@ -1143,6 +1143,17 @@ public final class ConformanceRunner {
         case "formValueThrows":
           check(at + path + "#" + field, raisesArgument(() -> ed.formValue(path, field)), "");
           break;
+        case "setRawFormField": // raw form write (bypasses the typed boundary)
+          doc.setFormField(path, field, (String) s.get("value"));
+          break;
+        case "valueUnreadable":
+          // Stored text the declared type cannot read: the typed read refuses
+          // it rather than answering null.
+          check(at + path, raisesAny(() -> ed.value(path)), "");
+          break;
+        case "formValueUnreadable":
+          check(at + path + "#" + field, raisesAny(() -> ed.formValue(path, field)), "");
+          break;
         case "rawFormField":
           check(
               at + path + "#" + field,
@@ -1237,6 +1248,15 @@ public final class ConformanceRunner {
    * signal the editor's strict-write contract uses (the corpus's {@code *Throws}
    * ops only require that the operation fails).
    */
+  private static boolean raisesAny(Runnable fn) {
+    try {
+      fn.run();
+      return false;
+    } catch (RuntimeException e) {
+      return true;
+    }
+  }
+
   private static boolean raisesArgument(Runnable fn) {
     try {
       fn.run();

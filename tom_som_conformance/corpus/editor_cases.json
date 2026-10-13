@@ -55,14 +55,23 @@
     "expect": 12
   },
   {
-    "op": "setContent",
+    "op": "setValueThrows",
     "path": "DEMO/CNT",
     "value": "abc"
   },
   {
     "op": "value",
     "path": "DEMO/CNT",
-    "expect": null
+    "expect": 12
+  },
+  {
+    "op": "setContent",
+    "path": "DEMO/CNT",
+    "value": "abc"
+  },
+  {
+    "op": "valueUnreadable",
+    "path": "DEMO/CNT"
   },
   {
     "op": "setContent",
@@ -120,14 +129,18 @@
     "value": true
   },
   {
+    "op": "setValueThrows",
+    "path": "DEMO/RTO",
+    "value": "abc"
+  },
+  {
     "op": "setContent",
     "path": "DEMO/RTO",
     "value": "abc"
   },
   {
-    "op": "value",
-    "path": "DEMO/RTO",
-    "expect": null
+    "op": "valueUnreadable",
+    "path": "DEMO/RTO"
   },
   {
     "op": "setValue",
@@ -195,14 +208,18 @@
     "value": true
   },
   {
+    "op": "setValueThrows",
+    "path": "DEMO/SCR",
+    "value": "abc"
+  },
+  {
     "op": "setContent",
     "path": "DEMO/SCR",
     "value": "abc"
   },
   {
-    "op": "value",
-    "path": "DEMO/SCR",
-    "expect": null
+    "op": "valueUnreadable",
+    "path": "DEMO/SCR"
   },
   {
     "op": "setValue",
@@ -212,6 +229,35 @@
   {
     "op": "rawContent",
     "path": "DEMO/SCR",
+    "expect": null
+  },
+  {
+    "op": "setFormValueThrows",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "value": "lots"
+  },
+  {
+    "op": "setRawFormField",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "value": "lots"
+  },
+  {
+    "op": "formValueUnreadable",
+    "path": "DEMO/DET",
+    "field": "estimate"
+  },
+  {
+    "op": "setFormValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
+    "value": null
+  },
+  {
+    "op": "formValue",
+    "path": "DEMO/DET",
+    "field": "estimate",
     "expect": null
   },
   {
@@ -611,16 +657,21 @@
     "expect": null
   },
   {
-    "op": "setFormValue",
+    "op": "setFormValueThrows",
     "path": "DEMO/DET",
     "field": "active",
     "value": "not-a-bool"
   },
   {
-    "op": "formValue",
+    "op": "setRawFormField",
     "path": "DEMO/DET",
     "field": "active",
-    "expect": null
+    "value": "not-a-bool"
+  },
+  {
+    "op": "formValueUnreadable",
+    "path": "DEMO/DET",
+    "field": "active"
   },
   {
     "op": "rawFormField",

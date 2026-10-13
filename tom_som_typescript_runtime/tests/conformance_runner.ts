@@ -829,6 +829,20 @@ function testEditor(model: SpecModel): void {
       _expectThrows(`editor[${n}].formValueThrows ${s.path}#${s.field}`, () =>
         ed.formValue(s.path, s.field),
       );
+    } else if (kind === 'setRawFormField') {
+      // Raw form write: bypasses the typed boundary on purpose.
+      doc.setFormField(s.path, s.field, s.value);
+    } else if (kind === 'valueUnreadable') {
+      // Stored text the declared type cannot read: the typed read refuses it
+      // rather than answering null.
+      _expectThrows(`editor[${n}].valueUnreadable ${s.path}`, () =>
+        ed.value(s.path),
+      );
+    } else if (kind === 'formValueUnreadable') {
+      _expectThrows(
+        `editor[${n}].formValueUnreadable ${s.path}#${s.field}`,
+        () => ed.formValue(s.path, s.field),
+      );
     } else if (kind === 'rawFormField') {
       const got = doc.formField(s.path, s.field);
       _check(

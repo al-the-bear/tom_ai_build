@@ -36,6 +36,13 @@
  * (vsctsa43). A total kept by hand drifts from the list it describes the first
  * time the list changes and the total does not. */
 #define SPEC_VALIDATION_CODE_COUNT_MISMATCH "countMismatch"
+/* A typed field (`int`, `double`, `num` or `bool`) — a form field or a scalar
+ * leaf — holding text its type cannot read (`lots` in an `int`). The typed read
+ * refuses such text rather than answering none, and the setters refuse to
+ * store it, but a document edited by hand or by another tool can still carry
+ * it; this is where it is reported. Empty text is absence, not a bad value,
+ * and is not reported. A `countOf` form field is left to countMismatch. */
+#define SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH "valueTypeMismatch"
 
 typedef struct {
   char *path;    /* owned */

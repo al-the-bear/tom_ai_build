@@ -35,6 +35,13 @@ const (
 	// at all (vsctsa43). A total kept by hand drifts from the list it describes
 	// the first time the list changes and the total does not.
 	SpecValidationCodeCountMismatch = "countMismatch"
+	// A typed field (`int`, `double`, `num` or `bool`) — a form field or a
+	// scalar leaf — holds text its type cannot read (`lots` in an `int`). The
+	// typed read refuses such text rather than answering nil, and the setters
+	// refuse to store it, but a document edited by hand or by another tool can
+	// still carry it; this is where it is reported. Empty text is absence, not
+	// a bad value, and is not reported.
+	SpecValidationCodeValueTypeMismatch = "valueTypeMismatch"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -91,6 +98,19 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 				Code:    SpecValidationCodeKindMismatch,
 				Message: "expected a value leaf but path resolves to " + res.Kind,
 			})
+			continue
+		}
+		if res.Kind == SpecNodeKindScalar {
+			typ := fieldType(res.Field)
+			value := doc.ContentOr(path)
+			if !SomTypedTextReadable(typ, value) {
+				errors = append(errors, SpecValidationError{
+					Path: path,
+					Code: SpecValidationCodeValueTypeMismatch,
+					Message: "holds \"" + value + "\", which is not readable as " +
+						SomScalarBase(typ),
+				})
+			}
 		}
 	}
 
@@ -124,6 +144,18 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 				continue
 			}
 			if len(spec.EnumValues) == 0 {
+				text := doc.FormFieldOr(path, name)
+				// A stated count (CountOf) is checked by countMismatch, which
+				// already reports text that is no whole number; one finding is
+				// enough.
+				if len(spec.CountOf) == 0 && !SomTypedTextReadable(spec.Type, text) {
+					errors = append(errors, SpecValidationError{
+						Path: path,
+						Code: SpecValidationCodeValueTypeMismatch,
+						Message: "form field \"" + name + "\" holds \"" + text +
+							"\", which is not readable as " + SomScalarBase(spec.Type),
+					})
+				}
 				continue
 			}
 			value := doc.FormFieldOr(path, name)

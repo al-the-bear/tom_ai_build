@@ -1060,6 +1060,16 @@ func testEditor(c *checker, t *testing.T, model *som.SpecModel) {
 				"expected an error")
 		case "setContent": // raw store write (bypasses the typed boundary)
 			doc.SetContent(s.Path, jsonString(t, s.Value))
+		case "setRawFormField": // raw form write (bypasses the typed boundary)
+			doc.SetFormField(s.Path, s.Field, jsonString(t, s.Value))
+		case "valueUnreadable":
+			// Stored text the declared type cannot read: the typed read refuses
+			// it rather than answering nil.
+			_, err := ed.Value(s.Path)
+			c.check(tag+" "+s.Path, err != nil, "expected an error")
+		case "formValueUnreadable":
+			_, err := ed.FormValue(s.Path, s.Field)
+			c.check(tag+" "+s.Path+"#"+s.Field, err != nil, "expected an error")
 		case "rawContent":
 			val, ok := doc.Content(s.Path)
 			exp := jsonStringPtr(t, s.Expect)

@@ -85,6 +85,7 @@ class SpecEditor {
     if (r.kind == SpecNodeKind.enumValue) {
       return somParseEnumName(raw, r.field?.enumValues ?? const []);
     }
+    _requireReadable(r.field?.type, raw, path, path);
     switch (_scalarBase(r.field?.type)) {
       case 'int':
         return somParseInt(raw);
@@ -145,12 +146,16 @@ class SpecEditor {
   ///
   /// Reads the form store and parses per the declared field type (enum fields
   /// return the validated constant name). Throws [ArgumentError] for a non-form
-  /// path or an unknown field name.
+  /// path or an unknown field name, and [FormatException] when the stored text
+  /// is not readable as the declared type (`lots` in an `int` field) — such a
+  /// value is reported by `validateDocument` as `valueTypeMismatch`, and is
+  /// never silently read as unset.
   Object? formValue(String path, String field) {
     final (_, ff) = _formField(path, field);
     final raw = document.formField(path, field);
     if (raw == null || raw.isEmpty) return null;
     if (ff.enumValues.isNotEmpty) return somParseEnumName(raw, ff.enumValues);
+    _requireReadable(ff.type, raw, path, 'form field "$field"');
     switch (_scalarBase(ff.type)) {
       case 'int':
         return somParseInt(raw);
@@ -168,8 +173,8 @@ class SpecEditor {
   /// Sets form [field] at the `@Form` section [path] to the typed value [v]
   /// (`null` clears), converting through the shared boundary helpers.
   ///
-  /// Throws [ArgumentError] for a wrong value type or an out-of-domain enum
-  /// name.
+  /// Throws [ArgumentError] for a wrong value type, an out-of-domain enum
+  /// name, or a string the declared type cannot read (`'lots'` for an `int`).
   void setFormValue(String path, String field, Object? v) {
     final (_, ff) = _formField(path, field);
     final String stored;
@@ -270,8 +275,9 @@ class SpecEditor {
         : typeName;
   }
 
-  /// Formats [v] for the store per the leaf's declared type; strings pass
-  /// through verbatim (the plain-text serialization is authoritative).
+  /// Formats [v] for the store per the leaf's declared type; a string is
+  /// stored verbatim (the plain-text serialization is authoritative) when the
+  /// type can read it, and refused when it cannot.
   String _format(
     Object? v,
     SpecNodeKind kind,
@@ -291,20 +297,20 @@ class SpecEditor {
     switch (base) {
       case 'int':
         if (v is int) return somFormatInt(v);
-        if (v is String) return v;
+        if (v is String) return _readableText(base!, v, where ?? path);
         break;
       case 'double':
         if (v is double) return somFormatDouble(v);
         if (v is int) return somFormatDouble(v.toDouble());
-        if (v is String) return v;
+        if (v is String) return _readableText(base!, v, where ?? path);
         break;
       case 'num':
         if (v is num) return somFormatNum(v);
-        if (v is String) return v;
+        if (v is String) return _readableText(base!, v, where ?? path);
         break;
       case 'bool':
         if (v is bool) return somFormatBool(v);
-        if (v is String) return v;
+        if (v is String) return _readableText(base!, v, where ?? path);
         break;
       default:
         if (v is String) return v;
@@ -314,6 +320,29 @@ class SpecEditor {
       v,
       where ?? path,
       'wrong value type for a ${base ?? 'String'} field',
+    );
+  }
+
+  /// [text] for the store when a [base]-typed field can read it, else an
+  /// [ArgumentError] naming [where].
+  static String _readableText(String base, String text, String where) {
+    if (somTypedTextReadable(base, text)) return text;
+    throw ArgumentError.value(text, where, 'cannot be read as $base');
+  }
+
+  /// Throws [FormatException] when [raw] is text a [typeName] field cannot
+  /// read — the typed read would otherwise answer null, indistinguishable
+  /// from an unset field.
+  static void _requireReadable(
+    String? typeName,
+    String raw,
+    String path,
+    String what,
+  ) {
+    if (somTypedTextReadable(typeName, raw)) return;
+    throw FormatException(
+      '$path: $what holds "$raw", which is not readable as '
+      '${somScalarBase(typeName)}',
     );
   }
 

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- A typed field (`int`, `double`, `num`, `bool`) holding text its type cannot
+  read is no longer read as unset. `validateDocument` reports it with the new
+  code `valueTypeMismatch`; `SpecEditor.value` / `formValue` throw a
+  `FormatException` on it; `setValue` / `setFormValue` refuse such a string
+  (SOM §9). Enum fields keep their forgiving read and `enumValueUnknown`.
+  Pinned by `validation_cases.json` and `editor_cases.json`.
 - An empty document encodes as `document:` with its root key and an empty
   mapping (`  SBP D00SolutionBlueprint: {}`) instead of `document: {}`, so the
   file still records which document root it is (SOM §12.3 rule 4). Decode still

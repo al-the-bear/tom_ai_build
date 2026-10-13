@@ -169,6 +169,37 @@
     "errors": []
   },
   {
+    "name": "valueTypeMismatch",
+    "state": {
+      "content": {
+        "DEMO/CNT": "abc",
+        "DEMO/RTO": "2.5"
+      },
+      "forms": {
+        "DEMO/DET": {
+          "estimate": "lots",
+          "active": "yes",
+          "weight": "",
+          "tally": "7"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/CNT",
+        "code": "valueTypeMismatch"
+      },
+      {
+        "path": "DEMO/DET",
+        "code": "valueTypeMismatch"
+      },
+      {
+        "path": "DEMO/DET",
+        "code": "valueTypeMismatch"
+      }
+    ]
+  },
+  {
     "name": "minItems",
     "state": {
       "lists": {

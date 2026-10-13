@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- A typed field (`int` / `double` / `num` / `bool`, nullable too) holding non-empty text its type cannot read (SOM §9): `SpecEditor::setValue` / `setFormValue` refuse such a string (`std::invalid_argument`), `SpecEditor::value` / `formValue` now throw `std::invalid_argument` on such stored text instead of returning null, and `validateDocument` reports the new `valueTypeMismatch` (`kSpecValidationCodeValueTypeMismatch`) for a scalar leaf and for a non-enum, non-`countOf` form field; new helpers `somScalarBase` / `somTypedTextReadable`.
 - `encodeYaml`: a document with no values encodes as `document:` + `  <root key>: {}`, keeping the root key (the file's only record of its document root), never `document: {}`; decode still accepts `document: {}` (SOM §12.3 rule 4).
 - Query engine (`SpecQueryEngine::sectionIdOf`): a list item (`listItemComplex` / `listItemScalar`) is known by its own effective section id — stored id, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — for `sectionIdExact` / `sectionIdPrefix` and the projected `sectionId`; other nodes keep the model `@SectionId` (llm_and_d4rt_tools.md §6).
 - `decodeYaml`: `SpecYamlContents::review` is `nullptr` when the file has no `review:` key and a (possibly empty) YAML_MAP when it has one (a bare `review:` included), so a document without a review pass round-trips without gaining `review: {}` (SOM §12.1).

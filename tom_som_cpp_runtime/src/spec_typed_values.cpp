@@ -235,4 +235,33 @@ std::string somFormatEnumName(const std::optional<std::string>& name,
   return *name;
 }
 
+/* ---- typed-text readability (valueTypeMismatch) ------------------------ */
+
+std::string somScalarBase(const std::string& typeName) {
+  if (!typeName.empty() && typeName.back() == '?') {
+    return typeName.substr(0, typeName.size() - 1);
+  }
+  return typeName;
+}
+
+bool somTypedTextReadable(const std::string& typeName, const std::string& raw) {
+  if (raw.empty()) {
+    return true;
+  }
+  const std::string base = somScalarBase(typeName);
+  if (base == "int") {
+    return somParseInt(raw).has_value();
+  }
+  if (base == "double") {
+    return somParseDouble(raw).has_value();
+  }
+  if (base == "num") {
+    return !somParseNum(raw).isNull();
+  }
+  if (base == "bool") {
+    return somParseBool(raw).has_value();
+  }
+  return true;
+}
+
 }  // namespace som

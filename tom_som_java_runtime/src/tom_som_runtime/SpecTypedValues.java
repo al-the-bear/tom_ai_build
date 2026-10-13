@@ -169,6 +169,51 @@ public final class SpecTypedValues {
   }
 
   /**
+   * The scalar base of a declared field type: {@code int?} → {@code int},
+   * {@code null} stays {@code null}.
+   */
+  public static String somScalarBase(String typeName) {
+    if (typeName == null) {
+      return null;
+    }
+    return typeName.endsWith("?")
+        ? typeName.substring(0, typeName.length() - 1)
+        : typeName;
+  }
+
+  /**
+   * Whether {@code raw}, stored in a field declared as {@code typeName}, is text
+   * that type's parser can read.
+   *
+   * <p>Only {@code int}, {@code double}, {@code num} and {@code bool} constrain
+   * their text; every other type (strings, and enums, whose domain
+   * {@code enumValueUnknown} checks) accepts any text. Empty or absent text is
+   * readable: it is how a field is unset. The validator reports a stored value
+   * this rejects as {@code valueTypeMismatch}, the setters refuse to store one,
+   * and the typed reads throw on one — so text a typed field cannot read is
+   * never silently read as unset.
+   */
+  public static boolean somTypedTextReadable(String typeName, String raw) {
+    if (raw == null || raw.isEmpty()) {
+      return true;
+    }
+    String base = somScalarBase(typeName);
+    if ("int".equals(base)) {
+      return somParseInt(raw) != null;
+    }
+    if ("double".equals(base)) {
+      return somParseDouble(raw) != null;
+    }
+    if ("num".equals(base)) {
+      return somParseNum(raw) != null;
+    }
+    if ("bool".equals(base)) {
+      return somParseBool(raw) != null;
+    }
+    return true;
+  }
+
+  /**
    * Whether {@code raw} is a decimal floating literal in the language-neutral
    * shape the store uses — the guard that keeps {@link #somParseDouble} from
    * accepting Java's extra {@code 12f} / {@code 0x1p3} spellings.

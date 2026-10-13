@@ -122,8 +122,25 @@ static const char *scalar_base(const char *type_name, char *scratch,
   return scratch;
 }
 
+/* Fails (returns 0, owned message in `*err`) when `raw` is text a `type_name`
+ * field cannot read — the typed read would otherwise answer SOM_VALUE_NONE,
+ * indistinguishable from an unset field. `what` names the value in the
+ * message (the leaf path, or `form field "<name>"`). */
+static int require_readable(const char *type_name, const char *raw,
+                            const char *path, const char *what, char **err) {
+  if (som_typed_text_readable(type_name, raw)) {
+    return 1;
+  }
+  char *base = som_scalar_base(type_name);
+  set_err(err, "%s: %s holds \"%s\", which is not readable as %s", path, what,
+          raw, base != NULL ? base : "");
+  free(base);
+  return 0;
+}
+
 /* Parses stored text per the declared scalar base type — the read side of the
- * boundary. Unparsable text yields SOM_VALUE_NONE (reads are forgiving). */
+ * boundary. Callers check `require_readable` first; text a typed parser still
+ * rejects yields SOM_VALUE_NONE. */
 static SomValue parse_scalar(const char *raw, const char *base) {
   if (strcmp(base, "int") == 0) {
     long long i = 0;
@@ -163,10 +180,11 @@ static int string_or_none(const SomValue *v, const char *path,
   return 0;
 }
 
-/* Formats `v` for the store per the leaf's declared type; strings pass through
- * verbatim (the plain-text serialization is authoritative). Writes an owned
- * string to `*out` and returns 1; returns 0 on a wrong value kind or an
- * out-of-domain enum name. */
+/* Formats `v` for the store per the leaf's declared type; a string is stored
+ * verbatim (the plain-text serialization is authoritative) when the type can
+ * read it, and refused when it cannot (`"lots"` for an `int`). Writes an owned
+ * string to `*out` and returns 1; returns 0 on a wrong value kind, an
+ * out-of-domain enum name, or unreadable text. */
 static int format_value(const SomValue *v, const char *kind,
                         const SpecField *field, const char *path,
                         const char *type_name, const char *where, char **out,
@@ -222,6 +240,11 @@ static int format_value(const SomValue *v, const char *kind,
     }
   }
   if (v->kind == SOM_VALUE_STR) {
+    if (!som_typed_text_readable(declared, v->str)) {
+      set_err(err, "\"%s\" at %s: cannot be read as %s", v->str,
+              where != NULL ? where : path, base);
+      return 0;
+    }
     *out = som_strdup(v->str);
     return 1;
   }
@@ -252,10 +275,13 @@ int spec_editor_value(const SpecEditor *e, const char *path, SomValue *out,
                : som_value_none();
     free(name);
   } else {
+    const char *type = r.field != NULL ? r.field->type : NULL;
+    if (!require_readable(type, raw, path, path, err)) {
+      spec_resolution_free(&r);
+      return 0;
+    }
     char scratch[128];
-    *out = parse_scalar(
-        raw, scalar_base(r.field != NULL ? r.field->type : NULL, scratch,
-                         sizeof(scratch)));
+    *out = parse_scalar(raw, scalar_base(type, scratch, sizeof(scratch)));
   }
   spec_resolution_free(&r);
   return 1;
@@ -324,6 +350,11 @@ int spec_editor_form_value(const SpecEditor *e, const char *path,
                : som_value_none();
     free(name);
     return 1;
+  }
+  char what[256];
+  snprintf(what, sizeof(what), "form field \"%s\"", field);
+  if (!require_readable(ff->type, raw, path, what, err)) {
+    return 0;
   }
   char scratch[128];
   *out = parse_scalar(raw, scalar_base(ff->type, scratch, sizeof(scratch)));

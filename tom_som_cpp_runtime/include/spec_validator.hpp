@@ -44,6 +44,14 @@ inline constexpr const char* kSpecValidationCodeEnumValueUnknown =
  * time the list changes and the total does not. */
 inline constexpr const char* kSpecValidationCodeCountMismatch =
     "countMismatch";
+/* A typed field (`int`, `double`, `num` or `bool`) — a form field or a scalar
+ * leaf — holding text its type cannot read (`lots` in an `int`). The typed read
+ * refuses such text rather than answering null, and the setters refuse to
+ * store it, but a document edited by hand or by another tool can still carry
+ * it; this is where it is reported. Empty text is absence, not a bad value,
+ * and is not reported. A `countOf` form field is left to countMismatch. */
+inline constexpr const char* kSpecValidationCodeValueTypeMismatch =
+    "valueTypeMismatch";
 
 struct SpecValidationError {
   std::string path;

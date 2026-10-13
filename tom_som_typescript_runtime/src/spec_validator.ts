@@ -17,6 +17,7 @@ import {
   K_SECTION_ID_SLOT,
   effectiveListItemSectionId,
 } from './spec_section_id';
+import { somScalarBase, somTypedTextReadable } from './spec_typed_values';
 
 /** Why a single value in a document is invalid against the model. */
 export const SpecValidationCode = {
@@ -50,6 +51,15 @@ export const SpecValidationCode = {
    * first time the list changes and the total does not.
    */
   COUNT_MISMATCH: 'countMismatch',
+  /**
+   * A typed field (`int`, `double`, `num` or `bool`) — a form field or a scalar
+   * leaf — holds text its type cannot read (`lots` in an `int`). The typed read
+   * refuses such text rather than answering null, and the setters refuse to
+   * store it, but a document edited by hand or by another tool can still carry
+   * it; this is where it is reported. Empty text is absence, not a bad value,
+   * and is not reported.
+   */
+  VALUE_TYPE_MISMATCH: 'valueTypeMismatch',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -119,6 +129,20 @@ export function validateDocument(
           `expected a value leaf but path resolves to ${res.kind}`,
         ),
       );
+      continue;
+    }
+    if (res.kind === SpecNodeKind.SCALAR) {
+      const type = res.field !== null ? res.field.type : null;
+      const value = doc.content(path);
+      if (!somTypedTextReadable(type, value)) {
+        errors.push(
+          new SpecValidationError(
+            path,
+            SpecValidationCode.VALUE_TYPE_MISMATCH,
+            `holds "${value}", which is not readable as ${somScalarBase(type)}`,
+          ),
+        );
+      }
     }
   }
 
@@ -152,7 +176,22 @@ export function validateDocument(
         );
         continue;
       }
-      if (spec.enumValues.length === 0) continue;
+      if (spec.enumValues.length === 0) {
+        const text = doc.formField(path, name);
+        // A stated count (`countOf`) is checked by `countMismatch`, which
+        // already reports text that is no whole number; one finding is enough.
+        if (spec.countOf.length === 0 && !somTypedTextReadable(spec.type, text)) {
+          errors.push(
+            new SpecValidationError(
+              path,
+              SpecValidationCode.VALUE_TYPE_MISMATCH,
+              `form field "${name}" holds "${text}", which is not readable ` +
+                `as ${somScalarBase(spec.type)}`,
+            ),
+          );
+        }
+        continue;
+      }
       const value = doc.formField(path, name);
       // Absence is not a bad value.
       if (value === null || value === '') continue;

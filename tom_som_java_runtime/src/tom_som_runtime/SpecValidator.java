@@ -56,6 +56,19 @@ public final class SpecValidator {
                 path,
                 SpecValidationCode.KIND_MISMATCH,
                 "expected a value leaf but path resolves to " + res.kind.value));
+        continue;
+      }
+      if (res.kind == SpecNodeKind.SCALAR) {
+        String type = res.field != null ? res.field.type : null;
+        String value = doc.content(path);
+        if (!SpecTypedValues.somTypedTextReadable(type, value)) {
+          errors.add(
+              new SpecValidationError(
+                  path,
+                  SpecValidationCode.VALUE_TYPE_MISMATCH,
+                  "holds \"" + value + "\", which is not readable as "
+                      + SpecTypedValues.somScalarBase(type)));
+        }
       }
     }
 
@@ -89,6 +102,18 @@ public final class SpecValidator {
           continue;
         }
         if (spec.enumValues.isEmpty()) {
+          String text = doc.formField(path, name);
+          // A stated count (countOf) is checked by countMismatch, which already
+          // reports text that is no whole number; one finding is enough.
+          if (spec.countOf.isEmpty() && !SpecTypedValues.somTypedTextReadable(spec.type, text)) {
+            errors.add(
+                new SpecValidationError(
+                    path,
+                    SpecValidationCode.VALUE_TYPE_MISMATCH,
+                    "form field \"" + name + "\" holds \"" + text
+                        + "\", which is not readable as "
+                        + SpecTypedValues.somScalarBase(spec.type)));
+          }
           continue;
         }
         String value = doc.formField(path, name);

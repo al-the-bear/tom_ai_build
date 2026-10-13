@@ -695,15 +695,16 @@ errors in another — precisely the divergence §19 exists to prevent, and a
 direct contradiction of the "read, write, **validate**, load, save" completeness
 promised per language in §1/§6.
 
-Concretely, all nine emit the same seven codes, in the same five phases, in this
+Concretely, all nine emit the same nine codes, in the same six phases, in this
 order — content leaves, form sections, lists, `@OneOf` cases, `refersTo`
-references, each group sorted by path:
+references, stated counts, each group sorted by path:
 
 | Code | Phase | What it reports |
 | --- | --- | --- |
 | `danglingPath` | 1 | a set path that resolves to no model node |
 | `kindMismatch` | 1 | a value stored at a node whose kind cannot hold one |
 | `unknownFormField` | 2 | a form sub-key naming no field of that form |
+| `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf` field is left to `countMismatch` |
 | `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
@@ -716,7 +717,7 @@ slot a plain section's body uses, so a phase-1 check written as "content only on
 a value leaf" reports a legal document as invalid. Every other non-leaf kind —
 section, list, container — still fires.
 
-Adding a ninth code means adding it in all nine, in the same phase, with the
+Adding a tenth code means adding it in all nine, in the same phase, with the
 same message text. The corpus obligation in §19 is what makes that mechanical
 rather than remembered — the seventh, `enumValueUnknown`, and the eighth,
 `countMismatch`, were added exactly that way, and the parity gate showed all nine going red on a mutated expectation
@@ -731,6 +732,13 @@ Thirteen out-of-vocabulary values sat in a committed sample from the day they
 were written, each silently absent to every typed reader. Note what it does
 **not** report: an **empty** value is absence, not a bad value, and every other
 tier reads it that way — a half-filled document is incomplete, not invalid.
+
+`valueTypeMismatch` closes the same gap for typed scalars, and there the read is
+**not** forgiving: text an `int`, `double`, `num` or `bool` field cannot read
+(`lots`, `yes`) makes the typed read (`value`, `formValue`) throw rather than
+answer null, and the typed setters refuse to store it. The validator reports it
+where the text came from elsewhere — a hand edit, a markdown import, a raw
+store write. Empty text is absence and is not reported.
 
 ### Moving a list item
 

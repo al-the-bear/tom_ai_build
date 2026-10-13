@@ -10,10 +10,20 @@ namespace {
 
 /* Strips a trailing `?` from a declared type name (`int?` -> `int`). */
 std::string scalarBase(const std::string& typeName) {
-  if (!typeName.empty() && typeName.back() == '?') {
-    return typeName.substr(0, typeName.size() - 1);
+  return somScalarBase(typeName);
+}
+
+/* Throws std::invalid_argument when `raw` is text a `typeName` field cannot
+ * read — the typed read would otherwise answer null, indistinguishable from an
+ * unset field. `what` names the value (the leaf path, or `form field "x"`). */
+void requireReadable(const std::string& typeName, const std::string& raw,
+                     const std::string& path, const std::string& what) {
+  if (somTypedTextReadable(typeName, raw)) {
+    return;
   }
-  return typeName;
+  throw std::invalid_argument(path + ": " + what + " holds \"" + raw +
+                              "\", which is not readable as " +
+                              somScalarBase(typeName));
 }
 
 /* Parses stored text per the declared scalar base type; an unrecognised base is
@@ -88,8 +98,10 @@ SomValue SpecEditor::value(const std::string& path) const {
         *raw, r.field != nullptr ? r.field->enumValues : kNoValues);
     return name.has_value() ? SomValue::ofString(*name) : SomValue::null();
   }
-  return parseScalar(
-      *raw, scalarBase(r.field != nullptr ? r.field->type : std::string()));
+  const std::string type =
+      r.field != nullptr ? r.field->type : std::string();
+  requireReadable(type, *raw, path, path);
+  return parseScalar(*raw, scalarBase(type));
 }
 
 void SpecEditor::setValue(const std::string& path, const SomValue& v) {
@@ -158,6 +170,7 @@ SomValue SpecEditor::formValue(const std::string& path,
     std::optional<std::string> name = somParseEnumName(*raw, ff.enumValues);
     return name.has_value() ? SomValue::ofString(*name) : SomValue::null();
   }
+  requireReadable(ff.type, *raw, path, "form field \"" + field + "\"");
   return parseScalar(*raw, scalarBase(ff.type));
 }
 
@@ -246,9 +259,15 @@ std::string SpecEditor::format(const SomValue& v, const std::string& kind,
       return somFormatBool(v.boolValue());
     }
   }
-  /* A string is authoritative for every declared type: the store holds plain
-   * text, so writing "12" into an int leaf stores exactly that. */
+  /* A string is authoritative for every declared type that can read it: the
+   * store holds plain text, so writing "12" into an int leaf stores exactly
+   * that, while "lots" is refused. */
   if (v.isString()) {
+    if (!somTypedTextReadable(base, v.stringValue())) {
+      throw std::invalid_argument((where.empty() ? path : where) + ": \"" +
+                                  v.stringValue() + "\" cannot be read as " +
+                                  base);
+    }
     return v.stringValue();
   }
   throw std::invalid_argument(

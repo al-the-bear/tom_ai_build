@@ -6,6 +6,7 @@
 
 #include "spec_reflection.h"
 #include "spec_section_id.h"
+#include "spec_typed_values.h"
 
 static void errors_push(SpecValidationErrors *errs, const char *path,
                         const char *code, char *message_owned) {
@@ -916,6 +917,21 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
       errors_push(out, path, SPEC_VALIDATION_CODE_KIND_MISMATCH,
                   fmt_kind("expected a value leaf but path resolves to ",
                            res.kind));
+    } else if (strcmp(res.kind, SPEC_NODE_KIND_SCALAR) == 0) {
+      const char *type = res.field != NULL ? res.field->type : NULL;
+      const char *value = spec_document_content(doc, path);
+      if (!som_typed_text_readable(type, value)) {
+        char *base = som_scalar_base(type);
+        SomBuf b;
+        som_buf_init(&b);
+        som_buf_puts(&b, "holds \"");
+        som_buf_puts(&b, value);
+        som_buf_puts(&b, "\", which is not readable as ");
+        som_buf_puts(&b, base != NULL ? base : "null");
+        free(base);
+        errors_push(out, path, SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH,
+                    som_buf_take(&b));
+      }
     }
     spec_resolution_free(&res);
   }
@@ -962,6 +978,24 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
         continue;
       }
       if (spec->enum_values.len == 0) {
+        const char *text = spec_document_form_field(doc, path, names.items[j]);
+        /* A stated count (`countOf`) is checked by countMismatch, which already
+           reports text that is no whole number; one finding is enough. */
+        if (spec->count_of.len == 0 &&
+            !som_typed_text_readable(spec->type, text)) {
+          char *base = som_scalar_base(spec->type);
+          SomBuf b;
+          som_buf_init(&b);
+          som_buf_puts(&b, "form field \"");
+          som_buf_puts(&b, names.items[j]);
+          som_buf_puts(&b, "\" holds \"");
+          som_buf_puts(&b, text);
+          som_buf_puts(&b, "\", which is not readable as ");
+          som_buf_puts(&b, base != NULL ? base : "null");
+          free(base);
+          errors_push(out, path, SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH,
+                      som_buf_take(&b));
+        }
         continue;
       }
       const char *value = spec_document_form_field(doc, path, names.items[j]);

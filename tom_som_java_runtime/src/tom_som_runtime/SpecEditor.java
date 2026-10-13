@@ -83,7 +83,9 @@ public final class SpecEditor {
     if (r.kind == SpecNodeKind.ENUM_VALUE) {
       return SpecTypedValues.somParseEnumName(raw, enumValuesOf(r.field));
     }
-    return parseScalar(raw, scalarBase(r.field != null ? r.field.type : null));
+    String type = r.field != null ? r.field.type : null;
+    requireReadable(type, raw, path, path);
+    return parseScalar(raw, scalarBase(type));
   }
 
   /**
@@ -137,7 +139,11 @@ public final class SpecEditor {
    *
    * <p>Reads the form store and parses per the declared field type (enum fields
    * return the validated constant name). Throws {@link IllegalArgumentException}
-   * for a non-form path or an unknown field name.
+   * for a non-form path or an unknown field name, and
+   * {@link IllegalStateException} when the stored text is not readable as the
+   * declared type ({@code lots} in an {@code int} field) — such a value is
+   * reported by {@code validateDocument} as {@code valueTypeMismatch}, never
+   * silently read as unset.
    */
   public Object formValue(String path, String field) {
     FormFieldSpec ff = formFieldSpec(path, field);
@@ -148,6 +154,7 @@ public final class SpecEditor {
     if (!ff.enumValues.isEmpty()) {
       return SpecTypedValues.somParseEnumName(raw, ff.enumValues);
     }
+    requireReadable(ff.type, raw, path, "form field \"" + field + "\"");
     return parseScalar(raw, scalarBase(ff.type));
   }
 
@@ -156,8 +163,9 @@ public final class SpecEditor {
    * typed value {@code v} ({@code null} clears), converting through the shared
    * boundary helpers.
    *
-   * <p>Throws {@link IllegalArgumentException} for a wrong value type or an
-   * out-of-domain enum name.
+   * <p>Throws {@link IllegalArgumentException} for a wrong value type, an
+   * out-of-domain enum name, or a string the declared type cannot read
+   * ({@code "lots"} for an {@code int}).
    */
   public void setFormValue(String path, String field, Object v) {
     FormFieldSpec ff = formFieldSpec(path, field);
@@ -266,12 +274,33 @@ public final class SpecEditor {
 
   /** Strips a trailing {@code ?} from a declared type name. */
   private static String scalarBase(String typeName) {
-    if (typeName == null) {
-      return null;
+    return SpecTypedValues.somScalarBase(typeName);
+  }
+
+  /**
+   * {@code text} for the store when a {@code base}-typed field can read it, else
+   * an {@link IllegalArgumentException} naming {@code where}.
+   */
+  private static String readableText(String base, String text, String where) {
+    if (SpecTypedValues.somTypedTextReadable(base, text)) {
+      return text;
     }
-    return typeName.endsWith("?")
-        ? typeName.substring(0, typeName.length() - 1)
-        : typeName;
+    throw new IllegalArgumentException(
+        "\"" + text + "\" at " + where + ": cannot be read as " + base);
+  }
+
+  /**
+   * Throws {@link IllegalStateException} when {@code raw} is text a
+   * {@code typeName} field cannot read — the typed read would otherwise answer
+   * null, indistinguishable from an unset field.
+   */
+  private static void requireReadable(String typeName, String raw, String path, String what) {
+    if (SpecTypedValues.somTypedTextReadable(typeName, raw)) {
+      return;
+    }
+    throw new IllegalStateException(
+        path + ": " + what + " holds \"" + raw + "\", which is not readable as "
+            + SpecTypedValues.somScalarBase(typeName));
   }
 
   /** Parses stored text per the declared scalar base type. */
@@ -296,8 +325,9 @@ public final class SpecEditor {
   }
 
   /**
-   * Formats {@code v} for the store per the leaf's declared type; strings pass
-   * through verbatim (the plain-text serialization is authoritative).
+   * Formats {@code v} for the store per the leaf's declared type; a string is
+   * stored verbatim (the plain-text serialization is authoritative) when the
+   * type can read it, and refused when it cannot.
    *
    * <p>{@code typeName} overrides the field's own type (the form-field route,
    * which carries its type on the {@link FormFieldSpec} rather than the
@@ -334,6 +364,11 @@ public final class SpecEditor {
       }
     }
     if (v instanceof String) {
+      // A typed field stores a string verbatim only when it can read it back.
+      if ("int".equals(base) || "double".equals(base) || "num".equals(base)
+          || "bool".equals(base)) {
+        return readableText(base, (String) v, where != null ? where : path);
+      }
       return (String) v;
     }
     throw new IllegalArgumentException(

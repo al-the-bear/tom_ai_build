@@ -182,6 +182,8 @@ from .spec_typed_values import (
     som_parse_enum_name,
     som_parse_int,
     som_parse_num,
+    som_scalar_base,
+    som_typed_text_readable,
 )
 from .spec_validator import (
     SpecValidationCode,
@@ -322,6 +324,8 @@ __all__ = [
     "som_parse_enum_name",
     "som_parse_int",
     "som_parse_num",
+    "som_scalar_base",
+    "som_typed_text_readable",
     "spec_parent_path",
     "spec_path_join",
     "spec_path_segments",

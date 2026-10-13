@@ -134,3 +134,37 @@ def som_format_enum_name(name: Optional[str], values: Iterable[str]) -> str:
             f"{name!r} is not one of the enum values {', '.join(domain)}"
         )
     return name
+
+
+def som_scalar_base(type_name: Optional[str]) -> Optional[str]:
+    """The scalar base of a declared field type: ``int?`` → ``int``; ``None``
+    stays ``None``."""
+    if type_name is None:
+        return None
+    return type_name[:-1] if type_name.endswith("?") else type_name
+
+
+def som_typed_text_readable(type_name: Optional[str], raw: Optional[str]) -> bool:
+    """Whether *raw*, stored in a field declared as *type_name*, is text that
+    type's parser can read.
+
+    Only ``int``, ``double``, ``num`` and ``bool`` constrain their text; every
+    other type (strings, and enums, whose domain ``enumValueUnknown`` checks)
+    accepts any text. Empty or absent text is readable: it is how a field is
+    unset. The validator reports a stored value this rejects as
+    ``valueTypeMismatch``, the setters refuse to store one, and the typed reads
+    raise on one — so text a typed field cannot read is never silently read as
+    unset.
+    """
+    if raw is None or raw == "":
+        return True
+    base = som_scalar_base(type_name)
+    if base == "int":
+        return som_parse_int(raw) is not None
+    if base == "double":
+        return som_parse_double(raw) is not None
+    if base == "num":
+        return som_parse_num(raw) is not None
+    if base == "bool":
+        return som_parse_bool(raw) is not None
+    return True

@@ -79,7 +79,10 @@ func (e *SpecEditor) Resolve(path string) (*SpecResolution, error) {
 //
 // The dynamic type follows the model: int/double/num/bool scalars return the
 // parsed native value, enum leaves the validated constant name, everything else
-// the raw string. Returns an error when path is not a value leaf.
+// the raw string. Returns an error when path is not a value leaf, or when the
+// stored text is not readable as the declared type (`lots` in an `int` leaf) —
+// such text is reported by ValidateDocument as valueTypeMismatch and is never
+// silently read as unset.
 func (e *SpecEditor) Value(path string) (any, error) {
 	r, err := e.valueLeaf(path)
 	if err != nil {
@@ -95,15 +98,18 @@ func (e *SpecEditor) Value(path string) (any, error) {
 		}
 		return nil, nil
 	}
+	if err := requireReadable(fieldType(r.Field), raw, path, path); err != nil {
+		return nil, err
+	}
 	return parseScalar(raw, scalarBase(fieldType(r.Field))), nil
 }
 
 // SetValue sets the value leaf at path to v, converting at the store boundary.
 //
-// A nil v clears. For typed scalars v must be the declared type (or a string,
-// taken verbatim); for enum leaves v must be one of the field's constant names.
-// Returns an error for a non-leaf path, a wrong value type, or an out-of-domain
-// enum name.
+// A nil v clears. For typed scalars v must be the declared type (or a string the
+// type can read, taken verbatim); for enum leaves v must be one of the field's constant names.
+// Returns an error for a non-leaf path, a wrong value type, a string the
+// declared type cannot read, or an out-of-domain enum name.
 func (e *SpecEditor) SetValue(path string, v any) error {
 	r, err := e.valueLeaf(path)
 	if err != nil {
@@ -156,8 +162,9 @@ func (e *SpecEditor) SetHeadline(path, value string) error {
 // nil when unset.
 //
 // It reads the form store and parses per the declared field type (enum fields
-// return the validated constant name). Returns an error for a non-form path or
-// an unknown field name.
+// return the validated constant name). Returns an error for a non-form path, an
+// unknown field name, or stored text not readable as the declared type (`lots`
+// in an `int` field — reported by ValidateDocument as valueTypeMismatch).
 func (e *SpecEditor) FormValue(path, field string) (any, error) {
 	ff, err := e.formField(path, field)
 	if err != nil {
@@ -173,13 +180,18 @@ func (e *SpecEditor) FormValue(path, field string) (any, error) {
 		}
 		return nil, nil
 	}
+	if err := requireReadable(
+		ff.Type, raw, path, "form field \""+field+"\""); err != nil {
+		return nil, err
+	}
 	return parseScalar(raw, scalarBase(ff.Type)), nil
 }
 
 // SetFormValue sets form field at the @Form section path to the typed value v
 // (nil clears), converting through the shared boundary helpers.
 //
-// Returns an error for a wrong value type or an out-of-domain enum name.
+// Returns an error for a wrong value type, an out-of-domain enum name, or a
+// string the declared type cannot read (`"lots"` for an `int`).
 func (e *SpecEditor) SetFormValue(path, field string, v any) error {
 	ff, err := e.formField(path, field)
 	if err != nil {
@@ -292,7 +304,8 @@ func (e *SpecEditor) ClearSection(path string) error {
 // --- conversion --------------------------------------------------------------
 
 // format renders v for the store per the leaf's declared type; strings pass
-// through verbatim (the plain-text serialization is authoritative).
+// through verbatim (the plain-text serialization is authoritative) when the
+// type can read them, and are refused when it cannot.
 //
 // typeName overrides the field's own declared type (the form-field case, where
 // the type lives on the FormFieldSpec rather than the SpecField) and where
@@ -341,6 +354,10 @@ func (e *SpecEditor) format(
 		}
 	}
 	if s, ok := v.(string); ok {
+		if !SomTypedTextReadable(base, s) {
+			return "", errors.New(
+				"value at " + at + ": \"" + s + "\" cannot be read as " + base)
+		}
 		return s, nil
 	}
 	if base == "" {
@@ -361,6 +378,17 @@ func stringOrEmpty(v any, path, field string) (string, error) {
 	}
 	return "", errors.New(
 		field + ": expected a string for this field of " + path)
+}
+
+// requireReadable returns an error when raw is text a typeName field cannot
+// read — the typed read would otherwise answer nil, indistinguishable from an
+// unset field.
+func requireReadable(typeName, raw, path, what string) error {
+	if SomTypedTextReadable(typeName, raw) {
+		return nil
+	}
+	return errors.New(path + ": " + what + " holds \"" + raw +
+		"\", which is not readable as " + scalarBase(typeName))
 }
 
 // parseScalar parses stored text per the declared scalar base type, returning

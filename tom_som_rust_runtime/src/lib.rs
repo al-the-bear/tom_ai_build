@@ -129,6 +129,7 @@ pub use spec_serialization_order::{SpecSerializationOrder, SERIALIZATION_UNORDER
 pub use spec_text_pattern::{SomPatternError, SomTextPattern, SpecMatchSpan};
 pub use spec_typed_values::{
     som_format_bool, som_format_double, som_format_enum_name, som_format_int, som_format_num,
-    som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num, SomNum,
+    som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num,
+    som_scalar_base, som_typed_text_readable, SomNum,
 };
 pub use spec_validator::{validate_document, SpecValidationError};

@@ -19,8 +19,10 @@
  *     layer (`'high'`), because the generic API has no generated enum types —
  *     only the facade layer converts to native constants;
  *   * `null` (or `''`) clears a value (D4);
- *   * reads are forgiving (unparsable stored text reads as `null`), writes are
- *     strict (an {@link Error} for a wrong type or an out-of-domain enum name).
+ *   * writes are strict (an {@link Error} for a wrong type, an out-of-domain
+ *     enum name, or a string the declared type cannot read); typed reads throw
+ *     on stored text the declared type cannot read (`lots` in an `int`) rather
+ *     than reading it as unset.
  *
  * JavaScript has a single `number` type, so the `int`/`double`/`num` split the
  * reference runtimes get from the language is made here from the **declared
@@ -41,6 +43,8 @@ const {
   somParseEnumName,
   somParseInt,
   somParseNum,
+  somScalarBase,
+  somTypedTextReadable,
 } = require('./spec_typed_values');
 
 /**
@@ -54,6 +58,41 @@ function _scalarBase(typeName) {
     return null;
   }
   return typeName.endsWith('?') ? typeName.slice(0, -1) : typeName;
+}
+
+/**
+ * `text` for the store when a `base`-typed field can read it, else an
+ * {@link Error} naming `where`.
+ *
+ * @param {string} base
+ * @param {string} text
+ * @param {string} where
+ * @returns {string}
+ */
+function _readableText(base, text, where) {
+  if (somTypedTextReadable(base, text)) {
+    return text;
+  }
+  throw new Error(`'${text}' at ${where}: cannot be read as ${base}`);
+}
+
+/**
+ * Throws when `raw` is text a `typeName` field cannot read — the typed read
+ * would otherwise answer `null`, indistinguishable from an unset field.
+ *
+ * @param {?string} typeName
+ * @param {string} raw
+ * @param {string} path
+ * @param {string} what
+ */
+function _requireReadable(typeName, raw, path, what) {
+  if (somTypedTextReadable(typeName, raw)) {
+    return;
+  }
+  throw new Error(
+    `${path}: ${what} holds "${raw}", which is not readable as ` +
+      `${somScalarBase(typeName)}`,
+  );
 }
 
 /**
@@ -141,6 +180,7 @@ class SpecEditor {
     if (r.kind === SpecNodeKind.ENUM_VALUE) {
       return somParseEnumName(raw, r.field !== null ? r.field.enumValues : []);
     }
+    _requireReadable(r.field !== null ? r.field.type : null, raw, path, path);
     return _parseScalar(raw, _scalarBase(r.field !== null ? r.field.type : null));
   }
 
@@ -206,7 +246,9 @@ class SpecEditor {
    *
    * Reads the form store and parses per the declared field type (enum fields
    * return the validated constant name). Throws an {@link Error} for a non-form
-   * path or an unknown field name.
+   * path, an unknown field name, or stored text the declared type cannot read
+   * (`lots` in an `int` field) — such a value is reported by `validateDocument`
+   * as `valueTypeMismatch` and is never silently read as unset.
    *
    * @param {string} path
    * @param {string} field
@@ -221,6 +263,7 @@ class SpecEditor {
     if (ff.enumValues.length > 0) {
       return somParseEnumName(raw, ff.enumValues);
     }
+    _requireReadable(ff.type, raw, path, `form field "${field}"`);
     return _parseScalar(raw, _scalarBase(ff.type));
   }
 
@@ -228,8 +271,8 @@ class SpecEditor {
    * Sets form `field` at the `@Form` section `path` to the typed value `v`
    * (`null` clears), converting through the shared boundary helpers.
    *
-   * Throws an {@link Error} for a wrong value type or an out-of-domain enum
-   * name.
+   * Throws an {@link Error} for a wrong value type, an out-of-domain enum name,
+   * or a string the declared type cannot read (`'lots'` for an `int`).
    *
    * @param {string} path
    * @param {string} field
@@ -335,8 +378,9 @@ class SpecEditor {
   // --- conversion -----------------------------------------------------------
 
   /**
-   * Formats `v` for the store per the leaf's declared type; strings pass
-   * through verbatim (the plain-text serialization is authoritative).
+   * Formats `v` for the store per the leaf's declared type; a string is stored
+   * verbatim (the plain-text serialization is authoritative) when the type can
+   * read it, and refused when it cannot.
    *
    * @param {string|number|boolean|null} v
    * @param {string} kind
@@ -389,6 +433,9 @@ class SpecEditor {
         break;
     }
     if (typeof v === 'string') {
+      if (base === 'int' || base === 'double' || base === 'num' || base === 'bool') {
+        return _readableText(base, v, where !== null ? where : path);
+      }
       return v;
     }
     throw new Error(
