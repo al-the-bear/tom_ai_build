@@ -1,5 +1,85 @@
 [
   {
+    "name": "sectionIdExact finds a list item by its stored override id",
+    "query": {
+      "sectionIdExact": "CARD-ALPHA"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "sectionIdExact finds an anonymous list item by its positional id",
+    "query": {
+      "sectionIdExact": "CARD-2"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "A card entry.",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "sectionIdExact on a list's own id matches the list, not its items",
+    "query": {
+      "sectionIdExact": "CARD-LST"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "sectionIdPrefix reaches list items through their own ids",
+    "query": {
+      "sectionIdPrefix": "CARD-"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "A card entry.",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
     "name": "text substring in a content leaf",
     "query": {
       "text": "Hello"

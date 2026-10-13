@@ -183,8 +183,13 @@ API (in the `spec` scope) and as MCP tools (§8.2). It is **lexical/structural**
   case-insensitivity); also over section headlines/doc-comments.
 - **type / kind** — section kind (`content`/`form`/`list`/`section`/`complex`/
   `scalar`/`enum`) or model class name.
-- **id / path** — exact section id, `@SectionId` prefix, or path glob; also
-  `@MapsTo`/`@DetailedIn` target.
+- **id / path** — exact section id, section-id prefix, or path glob; also
+  `@MapsTo`/`@DetailedIn` target. The section id is the one a node's markdown
+  heading carries: a list item's **own** id — its stored id, else the list's
+  `@SectionIdPattern` with the item's 1-based position — and the model
+  `@SectionId` for every other node. A list's own id therefore matches the list,
+  not its items; the items are reached by their ids, by class, or by a path
+  glob.
 - **state** — empty / non-empty, reviewed / unreviewed, review scope.
 
 **Result + iteration.** A query returns a **cursor** of matches (`{path, kind,

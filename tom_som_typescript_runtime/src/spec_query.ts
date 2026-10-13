@@ -31,6 +31,7 @@ import { SpecClass, SpecField, SpecFieldKind, SpecModel } from './spec_model';
 import { specPathJoin, specPathSegments, splitListItemSegment } from './spec_paths';
 import { SpecNodeKind, SpecReflection, SpecResolution } from './spec_reflection';
 import type { SpecNodeKindValue } from './spec_reflection';
+import { effectiveListItemSectionId } from './spec_section_id';
 import { SpecSerializationOrder } from './spec_serialization_order';
 import { SomTextPattern, SpecMatchSpan } from './spec_text_pattern';
 
@@ -630,8 +631,38 @@ export class SpecQueryEngine {
 
   // --- node descriptors ----------------------------------------------------
 
+  /**
+   * The section id a node is known by — the one its markdown heading carries
+   * and a reader sees (llm_and_d4rt_tools.md §6).
+   *
+   * A list item answers with its **own** id: the stored one when the author
+   * set or generated it, else the positional id the renderer writes (the
+   * list's `@SectionIdPattern` with the 1-based position, else
+   * `<member>-<position>`). Every other node answers with its model
+   * `@SectionId`.
+   */
   private _sectionIdOf(resolution: SpecResolution): string | null {
     const field = resolution.field;
+    if (
+      resolution.kind === SpecNodeKind.LIST_ITEM_COMPLEX ||
+      resolution.kind === SpecNodeKind.LIST_ITEM_SCALAR
+    ) {
+      // An item path is `<parent>/<list segment>-<seq>`: the item is a
+      // sibling segment of its list, not a child of it.
+      const path = resolution.path;
+      const slash = path.lastIndexOf('/');
+      const parent = slash < 0 ? '' : path.substring(0, slash);
+      const split = splitListItemSegment(path.substring(slash + 1));
+      const listPath =
+        split === null ? path : parent === '' ? split.base : `${parent}/${split.base}`;
+      const position = this.document.listItems(listPath).indexOf(path) + 1;
+      return effectiveListItemSectionId(
+        this.document.itemSectionId(path),
+        field !== null ? field.sectionIdPattern : null,
+        position,
+        field !== null ? field.name : '',
+      );
+    }
     if (field !== null && field.sectionId !== null) {
       return field.sectionId;
     }

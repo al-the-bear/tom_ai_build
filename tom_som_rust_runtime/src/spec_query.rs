@@ -65,9 +65,10 @@ use crate::spec_model::{
 use crate::spec_paths::{spec_path_join, spec_path_segments, split_list_item_segment};
 use crate::spec_reflection::{
     SpecReflection, SpecResolution, SPEC_NODE_KIND_CONTENT, SPEC_NODE_KIND_ENUM_VALUE,
-    SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_LIST_ITEM_SCALAR,
-    SPEC_NODE_KIND_ROOT, SPEC_NODE_KIND_SCALAR,
+    SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_LIST_ITEM_COMPLEX,
+    SPEC_NODE_KIND_LIST_ITEM_SCALAR, SPEC_NODE_KIND_ROOT, SPEC_NODE_KIND_SCALAR,
 };
+use crate::spec_section_id::effective_list_item_section_id;
 use crate::spec_serialization_order::SpecSerializationOrder;
 use crate::spec_text_pattern::{SomPatternError, SomTextPattern, SpecMatchSpan};
 
@@ -338,7 +339,7 @@ impl<'d, 'm> SpecQueryEngine<'d, 'm> {
             path: path.to_string(),
             kind: resolution.kind.clone(),
             class_id: resolution.target_class.as_ref().map(|c| c.name.clone()),
-            section_id: section_id_of(&resolution),
+            section_id: self.section_id_of(&resolution),
             maps_to: resolution
                 .target_class
                 .as_ref()
@@ -435,6 +436,69 @@ impl<'d, 'm> SpecQueryEngine<'d, 'm> {
 
     // --- predicates ----------------------------------------------------------
 
+    /// The section id a node is known by — the one its markdown heading carries
+    /// and a reader sees (llm_and_d4rt_tools.md §6).
+    ///
+    /// A list item answers with its **own** id: the stored one when the author
+    /// set or generated it, else the positional id the renderer writes (the
+    /// list's `@SectionIdPattern` with the 1-based position, else
+    /// `<member>-<position>`). Every other node answers with its model
+    /// `@SectionId` — the field's, else its class's, else the root's. So
+    /// `sectionIdExact` on a list's own id matches the list and not its items,
+    /// and an item is found by the id its heading shows.
+    fn section_id_of(&self, resolution: &SpecResolution) -> Option<String> {
+        if resolution.kind == SPEC_NODE_KIND_LIST_ITEM_COMPLEX
+            || resolution.kind == SPEC_NODE_KIND_LIST_ITEM_SCALAR
+        {
+            // An item path is `<parent>/<list segment>-<seq>`: the item is a
+            // sibling segment of its list, not a child of it.
+            let path = resolution.path.as_str();
+            let (parent, last) = match path.rfind('/') {
+                Some(slash) => (&path[..slash], &path[slash + 1..]),
+                None => ("", path),
+            };
+            let list_path = match split_list_item_segment(last) {
+                Some(split) if parent.is_empty() => split.base,
+                Some(split) => format!("{}/{}", parent, split.base),
+                None => path.to_string(),
+            };
+            let position = self
+                .document
+                .list_items(&list_path)
+                .iter()
+                .position(|item| item == path)
+                .map_or(0, |i| i + 1);
+            let (pattern, stem) = match resolution.field.as_ref() {
+                Some(f) => (f.section_id_pattern.as_str(), f.name.as_str()),
+                None => ("", ""),
+            };
+            return Some(effective_list_item_section_id(
+                self.document.item_section_id(path).map(String::as_str),
+                pattern,
+                position,
+                stem,
+            ));
+        }
+        if let Some(id) = resolution
+            .field
+            .as_ref()
+            .and_then(|f| non_empty(&f.section_id))
+        {
+            return Some(id);
+        }
+        if let Some(id) = resolution
+            .target_class
+            .as_ref()
+            .and_then(|c| non_empty(&c.section_id))
+        {
+            return Some(id);
+        }
+        resolution
+            .root
+            .as_ref()
+            .and_then(|r| non_empty(&r.section_id))
+    }
+
     /// The model-fixed dimensions (kind / class / id / path / mapsTo /
     /// detailedIn).
     fn matches_structural(&self, query: &SpecQuery, resolution: &SpecResolution) -> bool {
@@ -450,7 +514,7 @@ impl<'d, 'm> SpecQueryEngine<'d, 'm> {
             }
         }
 
-        let section_id = section_id_of(resolution);
+        let section_id = self.section_id_of(resolution);
         if let Some(exact) = &query.section_id_exact {
             if section_id.as_deref() != Some(exact.as_str()) {
                 return false;
@@ -653,28 +717,6 @@ impl<'d, 'm> SpecQueryEngine<'d, 'm> {
         }
         None
     }
-}
-
-/// The node's `@SectionId`: the field's, else its class's, else the root's.
-fn section_id_of(resolution: &SpecResolution) -> Option<String> {
-    if let Some(id) = resolution
-        .field
-        .as_ref()
-        .and_then(|f| non_empty(&f.section_id))
-    {
-        return Some(id);
-    }
-    if let Some(id) = resolution
-        .target_class
-        .as_ref()
-        .and_then(|c| non_empty(&c.section_id))
-    {
-        return Some(id);
-    }
-    resolution
-        .root
-        .as_ref()
-        .and_then(|r| non_empty(&r.section_id))
 }
 
 /// `""` is this crate's model-level "absent" sentinel; the query surface reports

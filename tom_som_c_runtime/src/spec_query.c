@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "spec_paths.h"
+#include "spec_section_id.h"
 #include "spec_serialization_order.h"
 
 #define K_ASTERISK 0x2A /* * */
@@ -147,17 +148,68 @@ SpecQueryEngine spec_query_engine_make(const SpecModel *model,
 
 /* ---- node descriptors ----------------------------------------------------- */
 
-/* `field?.sectionId ?? targetClass?.sectionId ?? root.sectionId` — a borrowed
- * pointer, or NULL when nothing carries one. */
-static const char *section_id_of(const SpecResolution *r) {
+/* The section id a node is known by — the one its markdown heading carries and
+ * a reader sees (llm_and_d4rt_tools.md §6). Owned result, or NULL when nothing
+ * carries one.
+ *
+ * A list item answers with its **own** id: the stored one when the author set
+ * or generated it, else the positional id the renderer writes (the list's
+ * `@SectionIdPattern` with the 1-based position, else `<member>-<position>`).
+ * Every other node answers with its model `@SectionId`
+ * (`field ?? targetClass ?? root`). So `sectionIdExact` on a list's own id
+ * matches the list and not its items, and an item is found by the id its
+ * heading shows. */
+static char *section_id_of(const SpecQueryEngine *e, const SpecResolution *r) {
+  if (strcmp(r->kind, SPEC_NODE_KIND_LIST_ITEM_COMPLEX) == 0 ||
+      strcmp(r->kind, SPEC_NODE_KIND_LIST_ITEM_SCALAR) == 0) {
+    /* An item path is `<parent>/<list segment>-<seq>`: the item is a sibling
+     * segment of its list, not a child of it. */
+    const char *path = r->path;
+    const char *slash = strrchr(path, '/');
+    const char *last = slash == NULL ? path : slash + 1;
+    char *base = NULL;
+    long long seq = 0;
+    char *list_path;
+    if (spec_split_list_item_segment(last, &base, &seq)) {
+      if (slash == NULL) {
+        list_path = som_strdup(base);
+      } else {
+        size_t plen = (size_t)(slash - path);
+        list_path = (char *)malloc(plen + 1 + strlen(base) + 1);
+        memcpy(list_path, path, plen);
+        list_path[plen] = '/';
+        strcpy(list_path + plen + 1, base);
+      }
+      free(base);
+    } else {
+      list_path = som_strdup(path);
+    }
+    long long position = 0;
+    const SomStrList *items = spec_document_list_items(e->document, list_path);
+    if (items != NULL) {
+      size_t i;
+      for (i = 0; i < items->len; i++) {
+        if (strcmp(items->items[i], path) == 0) {
+          position = (long long)i + 1;
+          break;
+        }
+      }
+    }
+    free(list_path);
+    const SpecField *f = r->field;
+    return spec_effective_list_item_section_id(
+        spec_document_item_section_id(e->document, path),
+        f == NULL ? NULL : f->section_id_pattern, position,
+        f == NULL || f->name == NULL ? "" : f->name);
+  }
   if (r->field != NULL && is_set(r->field->section_id)) {
-    return r->field->section_id;
+    return som_strdup(r->field->section_id);
   }
   if (r->target_class != NULL && is_set(r->target_class->section_id)) {
-    return r->target_class->section_id;
+    return som_strdup(r->target_class->section_id);
   }
   if (r->root != NULL && is_set(r->root->section_id)) {
-    return r->root->section_id;
+    return som_strdup(r->root->section_id);
   }
   return NULL;
 }
@@ -380,7 +432,8 @@ static int glob_matches(const char *glob, const char *path) {
 /* ---- predicates ----------------------------------------------------------- */
 
 /* The model-fixed dimensions (kind / class / id / path / mapsTo / detailedIn). */
-static int matches_structural(const SpecQuery *q, const SpecResolution *r) {
+static int matches_structural(const SpecQueryEngine *e, const SpecQuery *q,
+                              const SpecResolution *r) {
   if (q->kinds != NULL && !som_strlist_contains(q->kinds, r->kind)) {
     return 0;
   }
@@ -391,14 +444,22 @@ static int matches_structural(const SpecQuery *q, const SpecResolution *r) {
     }
   }
 
-  const char *section_id = section_id_of(r);
-  if (q->section_id_exact != NULL &&
-      (section_id == NULL || strcmp(section_id, q->section_id_exact) != 0)) {
-    return 0;
-  }
-  if (q->section_id_prefix != NULL) {
-    size_t n = strlen(q->section_id_prefix);
-    if (section_id == NULL || strncmp(section_id, q->section_id_prefix, n) != 0) {
+  if (q->section_id_exact != NULL || q->section_id_prefix != NULL) {
+    char *section_id = section_id_of(e, r);
+    int ok = 1;
+    if (q->section_id_exact != NULL &&
+        (section_id == NULL || strcmp(section_id, q->section_id_exact) != 0)) {
+      ok = 0;
+    }
+    if (ok && q->section_id_prefix != NULL) {
+      size_t n = strlen(q->section_id_prefix);
+      if (section_id == NULL ||
+          strncmp(section_id, q->section_id_prefix, n) != 0) {
+        ok = 0;
+      }
+    }
+    free(section_id);
+    if (!ok) {
       return 0;
     }
   }
@@ -558,7 +619,7 @@ int spec_query_engine_query(const SpecQueryEngine *e, const SpecQuery *q,
     if (!spec_reflection_resolve(&e->reflection, paths.items[i], &r)) {
       continue;
     }
-    if (matches_structural(q, &r)) {
+    if (matches_structural(e, q, &r)) {
       som_strlist_push_copy(&candidates, paths.items[i]);
     }
     spec_resolution_free(&r);
@@ -636,13 +697,14 @@ int spec_query_engine_project_node(const SpecQueryEngine *e, const char *path,
   if (!spec_reflection_resolve(&e->reflection, path, &r)) {
     return 0;
   }
-  const char *section_id = section_id_of(&r);
+  char *section_id = section_id_of(e, &r);
   const char *headline = headline_of(e, &r);
   out->path = som_strdup(path);
   out->kind = r.kind;
   out->class_id =
       som_strdup(r.target_class == NULL ? "" : or_empty(r.target_class->name));
   out->section_id = som_strdup(or_empty(section_id));
+  free(section_id);
   out->maps_to = som_strdup(
       r.target_class == NULL ? "" : or_empty(r.target_class->maps_to));
   out->detailed_in = som_strdup(

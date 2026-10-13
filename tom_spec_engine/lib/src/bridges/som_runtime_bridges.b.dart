@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 24 files
-// Generated: 2026-10-13T12:25:30.178923 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-13T20:07:30.081294 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -7417,11 +7417,7 @@ BridgedClass _createSpecYamlContentsBridge() {
               'document',
               'SpecYamlContents',
             );
-        final review = D4.getRequiredNamedArg<Map>(
-          named,
-          'review',
-          'SpecYamlContents',
-        );
+        final review = D4.getOptionalNamedArg<Map?>(named, 'review');
         final modelVersion = D4.getOptionalNamedArg<String?>(
           named,
           'modelVersion',
@@ -7454,11 +7450,11 @@ BridgedClass _createSpecYamlContentsBridge() {
           .modelVersion,
     },
     constructorSignatures: {
-      '': 'SpecYamlContents({required SpecDocument document, required Map review, String? modelVersion})',
+      '': 'SpecYamlContents({required SpecDocument document, Map? review, String? modelVersion})',
     },
     getterSignatures: {
       'document': 'SpecDocument get document',
-      'review': 'Map get review',
+      'review': 'Map? get review',
       'modelVersion': 'String? get modelVersion',
     },
   );

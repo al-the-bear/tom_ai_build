@@ -2,6 +2,7 @@
 #include "spec_query.hpp"
 
 #include "spec_paths.hpp"
+#include "spec_section_id.hpp"
 #include "spec_serialization_order.hpp"
 
 namespace som {
@@ -344,8 +345,46 @@ bool SpecQueryEngine::isLivePath(const std::string& path) const {
 
 // --- node descriptors --------------------------------------------------------
 
+// The section id a node is known by — the one its markdown heading carries and
+// a reader sees (llm_and_d4rt_tools.md §6).
+//
+// A list item answers with its **own** id: the stored one when the author set
+// or generated it, else the positional id the renderer writes (the list's
+// `@SectionIdPattern` with the 1-based position, else `<member>-<position>`).
+// Every other node answers with its model `@SectionId`. So `sectionIdExact` on
+// a list's own id matches the list and not its items, and an item is found by
+// the id its heading shows.
 std::optional<std::string> SpecQueryEngine::sectionIdOf(
     const SpecResolution& r) const {
+  if (r.kind == kSpecNodeKindListItemComplex ||
+      r.kind == kSpecNodeKindListItemScalar) {
+    // An item path is `<parent>/<list segment>-<seq>`: the item is a sibling
+    // segment of its list, not a child of it.
+    const std::string& path = r.path;
+    const std::size_t slash = path.rfind('/');
+    const std::string parent =
+        slash == std::string::npos ? std::string() : path.substr(0, slash);
+    const std::string last =
+        slash == std::string::npos ? path : path.substr(slash + 1);
+    std::string base;
+    long long seq = 0;
+    std::string listPath = path;
+    if (specSplitListItemSegment(last, &base, &seq)) {
+      listPath = parent.empty() ? base : parent + "/" + base;
+    }
+    long long position = 0;
+    const std::vector<std::string> items = document_->listItems(listPath);
+    for (std::size_t i = 0; i < items.size(); ++i) {
+      if (items[i] == path) {
+        position = static_cast<long long>(i) + 1;
+        break;
+      }
+    }
+    return effectiveListItemSectionId(
+        document_->itemSectionIdOpt(path),
+        r.field != nullptr ? r.field->sectionIdPattern : std::string(),
+        position, r.field != nullptr ? r.field->name : std::string());
+  }
   if (r.field != nullptr && !r.field->sectionId.empty()) {
     return r.field->sectionId;
   }

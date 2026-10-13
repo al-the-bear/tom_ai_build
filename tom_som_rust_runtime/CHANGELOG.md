@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Query section ids (llm_and_d4rt_tools.md §6): a list item is known by its own effective id — stored, else the list's `@SectionIdPattern` with its 1-based position, else `<member>-<position>` — in the `sectionIdExact`/`sectionIdPrefix` filters and the projection's `section_id`, so a list's own id matches only the list; pinned by four new `query_cases.json` cases and `projection_cases.json`.
 - YAML review pass presence (SOM §12.1): `SpecYamlContents::review` is now `Option<YamlMap>` — `None` when the file has no `review:` key, `Some` (possibly empty) when it has one — so a file without a review pass round-trips without gaining `review: {}`; pinned by the new `yaml_review_cases.json` case.
 - Markdown import (SOM §11.6): prose in a section whose owner has no content slot but has form slots (a class-level `@Form` on `content`) is that form's preamble — `finalize_body_slots` binds it to `<owner>/content` (else the first form slot) and strips the escape space of a label-shaped preamble line, instead of storing it on the owner's path (kindMismatch); pinned by the new last `markdown_import_cases.json` case.
 - CodeSpecs catalogue: `CodeSpecsSlice`, `CodeSpecsStep` and `CodeSpecsArea` gain `try_from_json` (Result, error naming the row); `from_json` delegates and panics with the same message; `CodeSpecsAreaCatalog::from_json` propagates the row error instead of reading 0 or ""; pinned by the new `catalogErrorCases` table of `codespecs_extract_cases.json`.

@@ -504,7 +504,49 @@ func (e *SpecQueryEngine) isLivePath(path string) bool {
 
 // --- node descriptors --------------------------------------------------------
 
+// sectionIDOf returns the section id a node is known by — the one its markdown
+// heading carries and a reader sees (llm_and_d4rt_tools.md §6).
+//
+// A list item answers with its **own** id: the stored one when the author set
+// or generated it, else the positional id the renderer writes (the list's
+// `@SectionIdPattern` with the 1-based position, else `<member>-<position>`).
+// Every other node answers with its model `@SectionId`. So `sectionIdExact` on
+// a list's own id matches the list and not its items, and an item is found by
+// the id its heading shows.
 func (e *SpecQueryEngine) sectionIDOf(resolution *SpecResolution) string {
+	if resolution.Kind == SpecNodeKindListItemComplex ||
+		resolution.Kind == SpecNodeKindListItemScalar {
+		// An item path is `<parent>/<list segment>-<seq>`: the item is a
+		// sibling segment of its list, not a child of it.
+		path := resolution.Path
+		slash := strings.LastIndex(path, "/")
+		parent := ""
+		if slash >= 0 {
+			parent = path[:slash]
+		}
+		listPath := path
+		if split, ok := SplitListItemSegment(path[slash+1:]); ok {
+			if parent == "" {
+				listPath = split.Base
+			} else {
+				listPath = parent + "/" + split.Base
+			}
+		}
+		position := 0
+		for i, item := range e.Document.ListItems(listPath) {
+			if item == path {
+				position = i + 1
+				break
+			}
+		}
+		pattern, stem := "", ""
+		if resolution.Field != nil {
+			pattern = resolution.Field.SectionIDPattern
+			stem = resolution.Field.Name
+		}
+		storedID, hasStored := e.Document.ItemSectionID(path)
+		return EffectiveListItemSectionID(storedID, hasStored, pattern, position, stem)
+	}
 	if resolution.Field != nil && resolution.Field.SectionID != "" {
 		return resolution.Field.SectionID
 	}

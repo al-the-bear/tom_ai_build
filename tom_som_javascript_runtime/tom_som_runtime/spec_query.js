@@ -31,6 +31,7 @@
 const { SpecFieldKind } = require('./spec_model');
 const { specPathJoin, specPathSegments, splitListItemSegment } = require('./spec_paths');
 const { SpecNodeKind, SpecReflection } = require('./spec_reflection');
+const { effectiveListItemSectionId } = require('./spec_section_id');
 const { SpecSerializationOrder } = require('./spec_serialization_order');
 const { SomTextPattern } = require('./spec_text_pattern');
 
@@ -597,6 +598,35 @@ class SpecQueryEngine {
    * @returns {?string}
    */
   _sectionIdOf(resolution) {
+    // The section id a node is known by — the one its markdown heading carries
+    // and a reader sees (llm_and_d4rt_tools.md §6). A list item answers with
+    // its own id: the stored one, else the positional id the renderer writes
+    // (the list's `@SectionIdPattern` with the 1-based position, else
+    // `<member>-<position>`). Every other node answers with its model
+    // `@SectionId`.
+    const kind = resolution.kind;
+    if (kind === SpecNodeKind.LIST_ITEM_COMPLEX || kind === SpecNodeKind.LIST_ITEM_SCALAR) {
+      // An item path is `<parent>/<list segment>-<seq>`: the item is a sibling
+      // segment of its list, not a child of it.
+      const path = resolution.path;
+      const slash = path.lastIndexOf('/');
+      const parent = slash < 0 ? '' : path.slice(0, slash);
+      const split = splitListItemSegment(path.slice(slash + 1));
+      const listPath =
+        split === null ? path : parent === '' ? split.base : `${parent}/${split.base}`;
+      const position = this.document.listItems(listPath).indexOf(path) + 1;
+      const field = resolution.field;
+      const pattern =
+        field !== null && field !== undefined && field.sectionIdPattern != null
+          ? field.sectionIdPattern
+          : null;
+      return effectiveListItemSectionId(
+        this.document.itemSectionId(path),
+        pattern,
+        position,
+        field !== null && field !== undefined ? field.name : '',
+      );
+    }
     const fromField = resolution.field !== null ? resolution.field.sectionId : null;
     if (fromField !== null && fromField !== undefined) {
       return fromField;

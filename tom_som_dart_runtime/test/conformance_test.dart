@@ -3861,6 +3861,40 @@ Map<String, dynamic> _markdownImportCases() {
           'headlines': {'DEMO/DET': 'Details & Contacts'},
         },
       ),
+      c(
+        name:
+            'prose in a section whose only member is a class-level @Form is '
+            "that form's preamble, not a value on the section itself",
+        markdown: [
+          '# <!--[DEMO]--> Demo Document',
+          '',
+          '## <!--[CARD-LST]--> Cards',
+          '',
+          '### <!--[CARD-1]--> Card 1',
+          '',
+          'Card prose, before the fields.',
+          ' Caveat: label-shaped prose, escaped by the emitter.',
+          '',
+          'Note: first card',
+        ],
+        rejections: [],
+        document: {
+          'content': {
+            'DEMO/CARD-LST-1/content':
+                'Card prose, before the fields.\n'
+                'Caveat: label-shaped prose, escaped by the emitter.',
+          },
+          'forms': {
+            'DEMO/CARD-LST-1/content': {'note': 'first card'},
+          },
+          'lists': {
+            'DEMO/CARD-LST': {
+              'seq': 1,
+              'items': ['DEMO/CARD-LST-1'],
+            },
+          },
+        },
+      ),
     ],
   };
 }
@@ -4505,6 +4539,28 @@ List<Map<String, dynamic>> _queryCases(SpecModel model, SpecDocument doc) {
     });
   }
 
+  // -- a list item is known by its own section id (llm_and_d4rt_tools.md §6) --
+  run(
+    "sectionIdExact finds a list item by its stored override id",
+    const SpecQuery(sectionIdExact: 'CARD-ALPHA'),
+    {'sectionIdExact': 'CARD-ALPHA'},
+  );
+  run(
+    'sectionIdExact finds an anonymous list item by its positional id',
+    const SpecQuery(sectionIdExact: 'CARD-2'),
+    {'sectionIdExact': 'CARD-2'},
+  );
+  run(
+    "sectionIdExact on a list's own id matches the list, not its items",
+    const SpecQuery(sectionIdExact: 'CARD-LST'),
+    {'sectionIdExact': 'CARD-LST'},
+  );
+  run(
+    'sectionIdPrefix reaches list items through their own ids',
+    const SpecQuery(sectionIdPrefix: 'CARD-'),
+    {'sectionIdPrefix': 'CARD-'},
+  );
+
   // -- text dimension --
   run('text substring in a content leaf', const SpecQuery(text: 'Hello'), {
     'text': 'Hello',
@@ -4940,6 +4996,121 @@ Map<String, dynamic> _codeSpecsExtractCases(SpecModel model, SpecDocument doc) {
           'yaml': x.toYaml(),
           'markdown': x.toMarkdown(),
         },
+    ],
+    // Hand-edited catalogues with one malformed row each: every runtime must
+    // fail naming the row, in this wording, rather than load a 0 or a NaN.
+    'catalogErrorCases': [
+      {
+        "name": 'a slice row without its number fails, naming the slice',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [
+            {
+              "title": 'Shared types',
+              "project": '<app>_codespec_shared',
+              "cites": [],
+            },
+          ],
+          "areas": [],
+          "steps": [],
+        },
+        "expect": {
+          "messageContains":
+              'title "Shared types" is missing a numeric "number"',
+        },
+      },
+      {
+        "name": 'a step row without its slice fails, naming the step',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [],
+          "areas": [],
+          "steps": [
+            {
+              "number": 3,
+              "title": 'Step three',
+              "placedBy": 'CE-FM (3)',
+              "areaCodes": ['CE-FM'],
+            },
+          ],
+        },
+        "expect": {
+          "messageContains": 'title "Step three" is missing a numeric "slice"',
+        },
+      },
+      {
+        "name": 'a step row without a number or title fails, named by placedBy',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [],
+          "areas": [],
+          "steps": [
+            {
+              "slice": 1,
+              "placedBy": 'CE-TX (9)',
+              "areaCodes": ['CE-TX'],
+            },
+          ],
+        },
+        "expect": {
+          "messageContains":
+              'placedBy "CE-TX (9)" is missing a numeric "number"',
+        },
+      },
+      {
+        "name":
+            'a slice row whose number is a string fails rather than reading 0',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [
+            {
+              "number": '2',
+              "title": 'Shared contract',
+              "project": '<app>_codespec_shared',
+              "cites": [],
+            },
+          ],
+          "areas": [],
+          "steps": [],
+        },
+        "expect": {
+          "messageContains":
+              'title "Shared contract" is missing a numeric "number"',
+        },
+      },
+      {
+        "name": 'an area row without its code fails, named by its part',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [],
+          "areas": [
+            {
+              "part": 'form',
+              "slices": [5],
+              "authoringSteps": [23],
+            },
+          ],
+          "steps": [],
+        },
+        "expect": {
+          "messageContains": 'part "form" is missing a non-empty "code"',
+        },
+      },
+      {
+        "name": 'a row carrying no label key is named by its keys',
+        "catalog": {
+          "source": 'malformed',
+          "slices": [
+            {"cites": []},
+          ],
+          "areas": [],
+          "steps": [],
+        },
+        "expect": {
+          "messageContains":
+              'the row with keys [cites] is missing a numeric "number"',
+        },
+      },
     ],
     // The `ROUTE-TOTAL` hard error. It carries its OWN model rather than
     // mutating the shared one — the shared `model.meta.json` is a valid model
@@ -5558,6 +5729,64 @@ Map<String, dynamic> _yamlReviewCases(
       'name': 'an empty review pass round-trips as review: {}',
       'op': 'roundTrip',
       'yaml': withEmpty.toString(),
+    },
+    {
+      'name':
+          'a document with no review pass round-trips byte for byte, '
+          'without gaining one',
+      'op': 'roundTrip',
+      'yaml': golden,
+    },
+    {
+      // Written in canonical form, so the round trip is byte-identical: the
+      // SOM §12.5 review-scalar edges every port must type and print alike.
+      'name':
+          'review scalars keep their YAML 1.2 type: whole floats, exponents, '
+          '64-bit integer bounds, non-finite floats and strings that read '
+          'like scalars',
+      'op': 'roundTrip',
+      'yaml':
+          '$golden'
+          'review:\n'
+          '  "DEMO/TTL":\n'
+          '    big: 1.2345678901234568e+29\n'
+          '    exp_large: 1e+300\n'
+          '    exp_small: 1.5e-300\n'
+          '    huge_whole: 100000000000000000000.0\n'
+          '    inf: .inf\n'
+          '    int_max: 9223372036854775807\n'
+          '    int_min: -9223372036854775808\n'
+          '    nan: .nan\n'
+          '    neg_inf: -.inf\n'
+          '    neg_zero: -0.0\n'
+          '    one_tenth: 0.1\n'
+          '    small: 0.000001\n'
+          '    smaller: 1e-7\n'
+          '    str_null: |2-\n'
+          '      null\n'
+          '    str_num: |2-\n'
+          '      3.0\n'
+          '    str_true: |2-\n'
+          '      true\n'
+          '    threshold: 1e+21\n'
+          '    whole: 3.0\n',
+    },
+    {
+      'name':
+          'review scalars in a non-canonical spelling are written in '
+          'canonical form: an integer beyond 64 bits becomes a float',
+      'op': 'roundTrip',
+      'yaml':
+          '$golden'
+          'review:\n'
+          '  "DEMO/TTL":\n'
+          '    big_int: 123456789012345678901234567890\n'
+          '    caps: TRUE\n'
+          '    hex: 0x1F\n'
+          '    octal: 0o17\n'
+          '    padded: 2.50\n'
+          '    sci: 1e3\n'
+          '    tilde: ~\n',
     },
     {
       'name': 'stale entries: an unknown path and a removed list item',

@@ -380,7 +380,32 @@ public final class SpecQueryEngine {
 
   // --- node descriptors -----------------------------------------------------
 
+  /**
+   * The section id a node is known by — the one its markdown heading carries and a
+   * reader sees (llm_and_d4rt_tools.md §6). A list item answers with its <b>own</b>
+   * id: the stored one, else the list's {@code @SectionIdPattern} with the 1-based
+   * position, else {@code <member>-<position>}. Every other node answers with its
+   * model {@code @SectionId}.
+   */
   private String sectionIdOf(SpecResolution resolution) {
+    if (resolution.kind == SpecNodeKind.LIST_ITEM_COMPLEX
+        || resolution.kind == SpecNodeKind.LIST_ITEM_SCALAR) {
+      // An item path is `<parent>/<list segment>-<seq>`: the item is a sibling
+      // segment of its list, not a child of it.
+      String path = resolution.path;
+      int slash = path.lastIndexOf('/');
+      String parent = slash < 0 ? "" : path.substring(0, slash);
+      SpecPaths.ListItemSegment split = SpecPaths.splitListItemSegment(path.substring(slash + 1));
+      String listPath =
+          split == null ? path : (parent.isEmpty() ? split.base : parent + "/" + split.base);
+      int position = document.listItems(listPath).indexOf(path) + 1;
+      SpecField field = resolution.field;
+      return SpecSectionId.effectiveListItemSectionId(
+          document.itemSectionId(path),
+          field == null ? null : field.sectionIdPattern,
+          position,
+          field == null ? "" : field.name);
+    }
     if (resolution.field != null && resolution.field.sectionId != null) {
       return resolution.field.sectionId;
     }

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- A list item is known by its own section id in `SpecQueryEngine`: the
+  `sectionIdExact` / `sectionIdPrefix` filters and the projection's `sectionId`
+  use the item's stored id, else its positional id — the id its markdown heading
+  carries — instead of the list field's id (llm_and_d4rt_tools.md §6). A list's
+  own id now matches the list, not its items. Pinned by four new
+  `query_cases.json` cases and the regenerated `projection_cases.json`.
 - **Breaking:** `SpecYamlContents.review` is `null` when the file has no
   `review:` key and a map — possibly empty — when it has one, so decode → encode
   no longer adds `review: {}` to a document that never had a review pass

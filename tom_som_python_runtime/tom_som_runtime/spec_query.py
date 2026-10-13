@@ -37,6 +37,7 @@ from .spec_document import SpecDocument
 from .spec_model import SpecClass, SpecFieldKind, SpecModel
 from .spec_paths import spec_path_join, spec_path_segments, split_list_item_segment
 from .spec_reflection import SpecNodeKind, SpecReflection, SpecResolution
+from .spec_section_id import effective_list_item_section_id
 from .spec_serialization_order import SpecSerializationOrder
 from .spec_text_pattern import SomTextPattern, SpecMatchSpan
 
@@ -456,6 +457,39 @@ class SpecQueryEngine:
     # --- node descriptors ----------------------------------------------------
 
     def _section_id_of(self, resolution: SpecResolution) -> Optional[str]:
+        """The section id a node is known by — the one its markdown heading
+        carries and a reader sees (llm_and_d4rt_tools.md §6).
+
+        A list item answers with its **own** id: the stored one when the author
+        set or generated it, else the positional id the renderer writes (the
+        list's ``@SectionIdPattern`` with the 1-based position, else
+        ``<member>-<position>``). Every other node answers with its model
+        ``@SectionId``. So ``section_id_exact`` on a list's own id matches the
+        list and not its items, and an item is found by the id its heading
+        shows."""
+        if resolution.kind in (
+            SpecNodeKind.LIST_ITEM_COMPLEX,
+            SpecNodeKind.LIST_ITEM_SCALAR,
+        ):
+            # An item path is `<parent>/<list segment>-<seq>`: the item is a
+            # sibling segment of its list, not a child of it.
+            path = resolution.path
+            slash = path.rfind("/")
+            parent = "" if slash < 0 else path[:slash]
+            split = split_list_item_segment(path[slash + 1 :])
+            if split is None:
+                list_path = path
+            else:
+                list_path = split.base if parent == "" else f"{parent}/{split.base}"
+            items = self.document.list_items(list_path)
+            position = items.index(path) + 1 if path in items else 0
+            fld = resolution.field
+            return effective_list_item_section_id(
+                stored_id=self.document.item_section_id(path),
+                pattern=fld.section_id_pattern if fld is not None else None,
+                position=position,
+                fallback_stem=fld.name if fld is not None else "",
+            )
         if resolution.field is not None and resolution.field.section_id is not None:
             return resolution.field.section_id
         if (

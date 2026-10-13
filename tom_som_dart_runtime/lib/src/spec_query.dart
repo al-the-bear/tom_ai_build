@@ -28,6 +28,7 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
+import 'spec_section_id.dart';
 import 'spec_serialization_order.dart';
 import 'spec_text_pattern.dart';
 
@@ -522,10 +523,41 @@ class SpecQueryEngine {
 
   // --- node descriptors ----------------------------------------------------
 
-  String? _sectionIdOf(SpecResolution resolution) =>
-      resolution.field?.sectionId ??
-      resolution.targetClass?.sectionId ??
-      resolution.root.sectionId;
+  /// The section id a node is known by — the one its markdown heading carries
+  /// and a reader sees (llm_and_d4rt_tools.md §6).
+  ///
+  /// A list item answers with its **own** id: the stored one when the author
+  /// set or generated it, else the positional id the renderer writes (the
+  /// list's `@SectionIdPattern` with the 1-based position, else
+  /// `<member>-<position>`). Every other node answers with its model
+  /// `@SectionId`. So `sectionIdExact` on a list's own id matches the list and
+  /// not its items, and an item is found by the id its heading shows.
+  String? _sectionIdOf(SpecResolution resolution) {
+    final kind = resolution.kind;
+    if (kind == SpecNodeKind.listItemComplex ||
+        kind == SpecNodeKind.listItemScalar) {
+      // An item path is `<parent>/<list segment>-<seq>`: the item is a
+      // sibling segment of its list, not a child of it.
+      final path = resolution.path;
+      final slash = path.lastIndexOf('/');
+      final parent = slash < 0 ? '' : path.substring(0, slash);
+      final split = splitListItemSegment(path.substring(slash + 1));
+      final listPath = split == null
+          ? path
+          : (parent.isEmpty ? split.base : '$parent/${split.base}');
+      final position = document.listItems(listPath).indexOf(path) + 1;
+      final field = resolution.field;
+      return effectiveListItemSectionId(
+        storedId: document.itemSectionId(path),
+        pattern: field?.sectionIdPattern,
+        position: position,
+        fallbackStem: field?.name ?? '',
+      );
+    }
+    return resolution.field?.sectionId ??
+        resolution.targetClass?.sectionId ??
+        resolution.root.sectionId;
+  }
 
   /// The headline a node actually shows: the document's **stored** headline
   /// when the author set one, otherwise the model's doc comment.
