@@ -2995,6 +2995,23 @@ static char *gate_summary(const CodeSpecsGateRecord *g) {
     sum_str(&b, e->resolution);
     sum_key(&b, 0, "note");
     sum_str(&b, e->note);
+    /* Only when present, so a gap-less entry's summary is unchanged. */
+    if (e->gaps_len > 0) {
+      sum_key(&b, 0, "gaps");
+      som_buf_putc(&b, '[');
+      for (size_t g = 0; g < e->gaps_len; g++) {
+        if (g > 0) som_buf_putc(&b, ',');
+        som_buf_putc(&b, '{');
+        sum_key(&b, 1, "sectionId");
+        sum_str(&b, e->gaps[g].section_id);
+        sum_key(&b, 0, "required");
+        sum_str(&b, e->gaps[g].required);
+        sum_key(&b, 0, "carrier");
+        sum_str(&b, e->gaps[g].carrier);
+        som_buf_putc(&b, '}');
+      }
+      som_buf_putc(&b, ']');
+    }
     som_buf_putc(&b, '}');
   }
   som_buf_puts(&b, "]}");
@@ -3042,7 +3059,8 @@ static char *scope_summary(const CodeSpecsExtractSet *s) {
   return out;
 }
 
-/* A gate entry from its corpus form, borrowing the corpus strings. */
+/* A gate entry from its corpus form, borrowing the corpus strings. The gap
+ * array itself is allocated — release it with `gate_entry_json_release`. */
 static CodeSpecsGateEntry gate_entry_json(const SomJson *v) {
   CodeSpecsGateEntry e;
   e.area = (char *)som_json_str_or(v, "area");
@@ -3050,7 +3068,31 @@ static CodeSpecsGateEntry gate_entry_json(const SomJson *v) {
   spec_codespecs_gate_verdict_parse(som_json_str_or(v, "verdict"), &e.verdict);
   e.resolution = (char *)som_json_as_str(som_json_get(v, "resolution"));
   e.note = (char *)som_json_as_str(som_json_get(v, "note"));
+  e.gaps = NULL;
+  e.gaps_len = 0;
+  const SomJson *gaps = som_json_get(v, "gaps");
+  size_t n = gaps != NULL && gaps->type == SOM_JSON_ARRAY
+                 ? som_json_array_len(gaps)
+                 : 0;
+  if (n > 0) {
+    e.gaps = (CodeSpecsGateGap *)calloc(n, sizeof(CodeSpecsGateGap));
+    for (size_t i = 0; i < n; i++) {
+      const SomJson *g = som_json_array_at(gaps, i);
+      e.gaps[i].section_id = (char *)som_json_str_or(g, "sectionId");
+      e.gaps[i].required = (char *)som_json_str_or(g, "required");
+      e.gaps[i].carrier = (char *)som_json_str_or(g, "carrier");
+    }
+    e.gaps_len = n;
+  }
   return e;
+}
+
+/* Frees what `gate_entry_json` allocated — the gap array, not the borrowed
+ * strings. */
+static void gate_entry_json_release(CodeSpecsGateEntry *e) {
+  free(e->gaps);
+  e->gaps = NULL;
+  e->gaps_len = 0;
 }
 
 /* Compares `got` with the corpus value `want` (rendered the same way). */
@@ -3088,6 +3130,9 @@ static int gate_from_json_list(const SomJson *list, CodeSpecsGateRecord *out,
     entries[i] = gate_entry_json(som_json_array_at(list, i));
   }
   int ok = spec_codespecs_gate_record_make(entries, n, NULL, out, err);
+  for (size_t i = 0; i < n; i++) {
+    gate_entry_json_release(&entries[i]);
+  }
   free(entries); /* the strings are borrowed from the corpus */
   return ok;
 }
@@ -3386,6 +3431,7 @@ static void test_codespecs_records(Checker *c) {
       } else {
         check(c, t2, 0, err.message);
       }
+      gate_entry_json_release(&e);
     }
     spec_codespecs_record_error_free(&err);
     spec_codespecs_gate_record_free(&g);

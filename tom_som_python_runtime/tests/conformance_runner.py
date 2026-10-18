@@ -59,6 +59,7 @@ from tom_som_runtime import (  # noqa: E402
     CodeSpecsExtractor,
     CodeSpecsGate,
     CodeSpecsGateEntry,
+    CodeSpecsGateGap,
     CodeSpecsGateRecord,
     CodeSpecsGateVerdict,
     CodeSpecsRecordError,
@@ -1389,18 +1390,24 @@ def _extract_summary(x) -> dict:
     }
 
 
-def _gate_summary(g) -> dict:
-    return {
-        "verdicts": [
-            {
-                "area": v.area,
-                "verdict": v.verdict.word,
-                "resolution": v.resolution,
-                "note": v.note,
-            }
-            for v in g.verdicts
-        ]
+def _gate_verdict_summary(v) -> dict:
+    out = {
+        "area": v.area,
+        "verdict": v.verdict.word,
+        "resolution": v.resolution,
+        "note": v.note,
     }
+    # Only when present, so a gap-less entry's summary is unchanged.
+    if v.gaps:
+        out["gaps"] = [
+            {"sectionId": g.section_id, "required": g.required, "carrier": g.carrier}
+            for g in v.gaps
+        ]
+    return out
+
+
+def _gate_summary(g) -> dict:
+    return {"verdicts": [_gate_verdict_summary(v) for v in g.verdicts]}
 
 
 def _scope_summary(s) -> dict:
@@ -1427,6 +1434,12 @@ def _gate_entry(v: dict):
         verdict=CodeSpecsGateVerdict.parse(v["verdict"]),
         resolution=v.get("resolution"),
         note=v.get("note"),
+        gaps=tuple(
+            CodeSpecsGateGap(
+                section_id=g["sectionId"], required=g["required"], carrier=g["carrier"]
+            )
+            for g in v.get("gaps") or ()
+        ),
     )
 
 

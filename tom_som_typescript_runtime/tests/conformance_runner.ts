@@ -46,6 +46,7 @@ import {
   CodeSpecsExtractor,
   CodeSpecsGate,
   CodeSpecsGateEntry,
+  CodeSpecsGateGap,
   CodeSpecsGateRecord,
   CodeSpecsGateVerdict,
   CodeSpecsRecordError,
@@ -1856,6 +1857,16 @@ function _gateSummary(g: CodeSpecsGateRecord): any {
       verdict: v.verdict.word,
       resolution: v.resolution,
       note: v.note,
+      // Only when present, so a gap-less entry's summary is unchanged.
+      ...(v.gaps.length > 0
+        ? {
+            gaps: v.gaps.map((gap) => ({
+              sectionId: gap.sectionId,
+              required: gap.required,
+              carrier: gap.carrier,
+            })),
+          }
+        : {}),
     })),
   };
 }
@@ -1882,6 +1893,14 @@ function _gateEntry(v: any): CodeSpecsGateEntry {
     verdict: CodeSpecsGateVerdict.parse(v.verdict) as CodeSpecsGateVerdict,
     resolution: v.resolution != null ? v.resolution : null,
     note: v.note != null ? v.note : null,
+    gaps: ((v.gaps ?? []) as any[]).map(
+      (g) =>
+        new CodeSpecsGateGap({
+          sectionId: g.sectionId,
+          required: g.required,
+          carrier: g.carrier,
+        }),
+    ),
   });
 }
 

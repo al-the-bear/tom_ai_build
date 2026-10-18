@@ -60,6 +60,7 @@ const {
   CodeSpecsExtractSet,
   CodeSpecsExtractor,
   CodeSpecsGateEntry,
+  CodeSpecsGateGap,
   CodeSpecsGateRecord,
   CodeSpecsGateVerdict,
   CodeSpecsRecordError,
@@ -1693,6 +1694,16 @@ function _gateSummary(g) {
       verdict: v.verdict.word,
       resolution: v.resolution,
       note: v.note,
+      // Only when present, so a gap-less entry's summary is unchanged.
+      ...(v.gaps.length > 0
+        ? {
+            gaps: v.gaps.map((g) => ({
+              sectionId: g.sectionId,
+              required: g.required,
+              carrier: g.carrier,
+            })),
+          }
+        : {}),
     })),
   };
 }
@@ -1719,6 +1730,14 @@ function _gateEntry(v) {
     verdict: CodeSpecsGateVerdict.parse(v.verdict),
     resolution: v.resolution != null ? v.resolution : null,
     note: v.note != null ? v.note : null,
+    gaps: (v.gaps || []).map(
+      (g) =>
+        new CodeSpecsGateGap({
+          sectionId: g.sectionId,
+          required: g.required,
+          carrier: g.carrier,
+        }),
+    ),
   });
 }
 

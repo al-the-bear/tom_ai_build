@@ -254,6 +254,32 @@ func ParseCodeSpecsGateVerdict(word string) (CodeSpecsGateVerdict, bool) {
 	return "", false
 }
 
+// CodeSpecsGateGap is one gap line of an insufficient area
+// (`codespecs_prompt.md` §6.3): a missing input, and the section field that
+// should have carried it.
+//
+// Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+// the same field are two gaps — which is why the record carries them as data
+// rather than leaving them in the note. Shape is checked by
+// CodeSpecsGateRecord.
+type CodeSpecsGateGap struct {
+	// SectionID is the section whose content is missing the input.
+	SectionID string
+	// Required is what the derivation contract required, in one line.
+	Required string
+	// Carrier is `<section-id>.<field>` — the field that should have carried it.
+	Carrier string
+}
+
+// Line returns the gap as the §6.3 output line, without its indentation.
+func (g CodeSpecsGateGap) Line() string {
+	return g.SectionID + " — " + g.Required + " — should have been carried by " + g.Carrier
+}
+
+// codeSpecsCarrierPattern is `<section-id>.<field>`: one or more dot-separated
+// parts, none empty, no whitespace.
+var codeSpecsCarrierPattern = regexp.MustCompile(`^[^\s.]+(\.[^\s.]+)+$`)
+
 // CodeSpecsGateEntry is one area's recorded verdict. Shape is checked by
 // CodeSpecsGateRecord, which is the only thing that reads or writes entries.
 type CodeSpecsGateEntry struct {
@@ -266,6 +292,10 @@ type CodeSpecsGateEntry struct {
 	// Note is a free-text note — why the verdict was taken; "" for none. Never
 	// read as data.
 	Note string
+	// Gaps are the gap lines of an insufficient area, in the order Stage B
+	// found them; empty for every other verdict, and for an insufficient area
+	// recorded before its gaps were.
+	Gaps []CodeSpecsGateGap
 }
 
 // Descoped reports whether this is an insufficient area resolved by descoping.
@@ -298,7 +328,7 @@ func NewCodeSpecsGateRecord(verdicts []CodeSpecsGateEntry, source string) (*Code
 }
 
 var codeSpecsGateEntryKeys = map[string]bool{
-	"area": true, "verdict": true, "resolution": true, "note": true,
+	"area": true, "verdict": true, "resolution": true, "gaps": true, "note": true,
 }
 
 // CodeSpecsGateRecordFromYaml parses `gate.verdicts.yaml`. source names the
@@ -337,7 +367,7 @@ func CodeSpecsGateRecordFromYaml(text, source string) (*CodeSpecsGateRecord, err
 			if !codeSpecsGateEntryKeys[key] {
 				return nil, csrErr(source + " has an unknown key `" + key +
 					"` in a verdict — an entry knows `area`, `verdict`, " +
-					"`resolution` and `note` only")
+					"`resolution`, `gaps` and `note` only")
 			}
 		}
 		area, err := csrStr(csrGet(m, "area"), source, "verdicts[].area")
@@ -371,11 +401,58 @@ func CodeSpecsGateRecordFromYaml(text, source string) (*CodeSpecsGateRecord, err
 		if err != nil {
 			return nil, err
 		}
+		gaps, err := csrGaps(csrGet(m, "gaps"), source, area)
+		if err != nil {
+			return nil, err
+		}
 		entries = append(entries, CodeSpecsGateEntry{
 			Area: area, Verdict: verdict, Resolution: resolution, Note: note,
+			Gaps: gaps,
 		})
 	}
 	return NewCodeSpecsGateRecord(entries, source)
+}
+
+var codeSpecsGateGapKeys = map[string]bool{
+	"sectionId": true, "required": true, "carrier": true,
+}
+
+func csrGaps(raw interface{}, source, area string) ([]CodeSpecsGateGap, error) {
+	if raw == nil {
+		return nil, nil
+	}
+	list, ok := raw.([]interface{})
+	if !ok {
+		return nil, csrErr(source + ": `" + area + "` has `gaps:` that is not a list")
+	}
+	out := make([]CodeSpecsGateGap, 0, len(list))
+	for _, g := range list {
+		m, ok := g.(*YamlMap)
+		if !ok {
+			return nil, csrErr(source + ": `" + area + "` has a gap that is not a mapping")
+		}
+		for _, key := range m.Keys() {
+			if !codeSpecsGateGapKeys[key] {
+				return nil, csrErr(source + " has an unknown key `" + key +
+					"` in a gap of " + area + " — a gap knows `sectionId`, " +
+					"`required` and `carrier` only")
+			}
+		}
+		sectionID, err := csrStr(csrGet(m, "sectionId"), source, "gaps[].sectionId")
+		if err != nil {
+			return nil, err
+		}
+		required, err := csrStr(csrGet(m, "required"), source, "gaps[].required")
+		if err != nil {
+			return nil, err
+		}
+		carrier, err := csrStr(csrGet(m, "carrier"), source, "gaps[].carrier")
+		if err != nil {
+			return nil, err
+		}
+		out = append(out, CodeSpecsGateGap{SectionID: sectionID, Required: required, Carrier: carrier})
+	}
+	return out, nil
 }
 
 func (r *CodeSpecsGateRecord) check(source string) error {
@@ -397,6 +474,25 @@ func (r *CodeSpecsGateRecord) check(source string) error {
 			return csrErr(source + " gives " + e.Area + " the verdict `" + e.Verdict +
 				"` — codespecs_prompt.md §6.2 knows `sufficient`, " +
 				"`not applicable` and `insufficient` only")
+		}
+		if len(e.Gaps) > 0 && e.Verdict != CodeSpecsGateInsufficient {
+			return csrErr(source + " gives " + e.Area + " gap lines on verdict `" +
+				e.Verdict + "` — only an insufficient area has missing inputs")
+		}
+		for _, g := range e.Gaps {
+			for _, f := range [][2]string{
+				{"sectionId", g.SectionID}, {"required", g.Required}, {"carrier", g.Carrier},
+			} {
+				if strings.TrimSpace(f[1]) == "" {
+					return csrErr(source + " has a gap of " + e.Area + " with no `" +
+						f[0] + "` — a gap line names the section, what was required " +
+						"and its carrier")
+				}
+			}
+			if !codeSpecsCarrierPattern.MatchString(g.Carrier) {
+				return csrErr(source + " gives a gap of " + e.Area + " the carrier `" +
+					g.Carrier + "` — a carrier is `<section-id>.<field>`")
+			}
 		}
 		if e.Resolution == "" {
 			continue
@@ -468,7 +564,7 @@ func (r *CodeSpecsGateRecord) WithVerdict(entry CodeSpecsGateEntry) (*CodeSpecsG
 //
 // `area` and `verdict` are written plain, as `codespecs_prompt.md` §6.3 shows
 // them — both are from a closed vocabulary the constructor checked — and a note
-// as a double-quoted scalar, the extract's one escaping rule.
+// and every gap field as double-quoted scalars, the extract's one escaping rule.
 func (r *CodeSpecsGateRecord) ToYaml() string {
 	var b strings.Builder
 	b.WriteString("gate:\n")
@@ -483,6 +579,14 @@ func (r *CodeSpecsGateRecord) ToYaml() string {
 		b.WriteString("      verdict: " + e.Verdict + "\n")
 		if e.Resolution != "" {
 			b.WriteString("      resolution: " + e.Resolution + "\n")
+		}
+		if len(e.Gaps) > 0 {
+			b.WriteString("      gaps:\n")
+			for _, g := range e.Gaps {
+				b.WriteString("        - sectionId: " + cseYamlString(g.SectionID) + "\n")
+				b.WriteString("          required: " + cseYamlString(g.Required) + "\n")
+				b.WriteString("          carrier: " + cseYamlString(g.Carrier) + "\n")
+			}
 		}
 		if e.Note != "" {
 			b.WriteString("      note: " + cseYamlString(e.Note) + "\n")

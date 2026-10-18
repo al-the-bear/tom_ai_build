@@ -248,6 +248,45 @@ impl CodeSpecsGateVerdict {
     }
 }
 
+/// One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a
+/// missing input, and the section field that should have carried it.
+///
+/// Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+/// the same field are two gaps — which is why the record carries them as data
+/// rather than leaving them in the note. Shape is checked by
+/// [`CodeSpecsGateRecord`].
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CodeSpecsGateGap {
+    /// The section whose content is missing the input.
+    pub section_id: String,
+
+    /// What the derivation contract required, in one line.
+    pub required: String,
+
+    /// `<section-id>.<field>` — the field that should have carried it.
+    pub carrier: String,
+}
+
+impl CodeSpecsGateGap {
+    /// The gap as the §6.3 output line, without its indentation.
+    pub fn line(&self) -> String {
+        format!(
+            "{} — {} — should have been carried by {}",
+            self.section_id, self.required, self.carrier
+        )
+    }
+}
+
+/// `^[^\s.]+(\.[^\s.]+)+$` — `<section-id>.<field>`: one or more
+/// dot-separated parts, none empty, no whitespace.
+fn is_carrier(s: &str) -> bool {
+    let parts: Vec<&str> = s.split('.').collect();
+    parts.len() >= 2
+        && parts
+            .iter()
+            .all(|p| !p.is_empty() && !p.chars().any(char::is_whitespace))
+}
+
 /// One area's recorded verdict.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CodeSpecsGateEntry {
@@ -262,6 +301,11 @@ pub struct CodeSpecsGateEntry {
 
     /// A free-text note — why the verdict was taken. Never read as data.
     pub note: Option<String>,
+
+    /// The gap lines of an insufficient area, in the order Stage B found them;
+    /// empty for every other verdict, and for an insufficient area recorded
+    /// before its gaps were.
+    pub gaps: Vec<CodeSpecsGateGap>,
 }
 
 impl CodeSpecsGateEntry {
@@ -274,6 +318,7 @@ impl CodeSpecsGateEntry {
             verdict,
             resolution: None,
             note: None,
+            gaps: Vec::new(),
         }
     }
 
@@ -351,10 +396,10 @@ impl CodeSpecsGateRecord {
                 _ => return err(format!("{} has a verdict that is not a mapping", source)),
             };
             for (key, _) in raw {
-                if !["area", "verdict", "resolution", "note"].contains(&key.as_str()) {
+                if !["area", "verdict", "resolution", "gaps", "note"].contains(&key.as_str()) {
                     return err(format!(
                         "{} has an unknown key `{}` in a verdict — an entry knows `area`, \
-                         `verdict`, `resolution` and `note` only",
+                         `verdict`, `resolution`, `gaps` and `note` only",
                         source, key
                     ));
                 }
@@ -371,11 +416,13 @@ impl CodeSpecsGateRecord {
                     ))
                 }
             };
+            let gaps = read_gaps(map_get(raw, "gaps"), source, &area)?;
             entries.push(CodeSpecsGateEntry {
                 area,
                 verdict,
                 resolution: opt_str(map_get(raw, "resolution"), source, "verdicts[].resolution")?,
                 note: opt_str(map_get(raw, "note"), source, "verdicts[].note")?,
+                gaps,
             });
         }
         CodeSpecsGateRecord::new_with_source(entries, source)
@@ -401,6 +448,37 @@ impl CodeSpecsGateRecord {
                 ));
             }
             seen.push(&e.area);
+            if !e.gaps.is_empty() && e.verdict != CodeSpecsGateVerdict::Insufficient {
+                return err(format!(
+                    "{} gives {} gap lines on verdict `{}` — only an insufficient area has \
+                     missing inputs",
+                    source,
+                    e.area,
+                    e.verdict.word()
+                ));
+            }
+            for g in &e.gaps {
+                for (name, value) in [
+                    ("sectionId", &g.section_id),
+                    ("required", &g.required),
+                    ("carrier", &g.carrier),
+                ] {
+                    if value.trim().is_empty() {
+                        return err(format!(
+                            "{} has a gap of {} with no `{}` — a gap line names the section, \
+                             what was required and its carrier",
+                            source, e.area, name
+                        ));
+                    }
+                }
+                if !is_carrier(&g.carrier) {
+                    return err(format!(
+                        "{} gives a gap of {} the carrier `{}` — a carrier is \
+                         `<section-id>.<field>`",
+                        source, e.area, g.carrier
+                    ));
+                }
+            }
             let resolution = match &e.resolution {
                 None => continue,
                 Some(r) => r,
@@ -488,7 +566,8 @@ impl CodeSpecsGateRecord {
     ///
     /// `area` and `verdict` are written plain, as `codespecs_prompt.md` §6.3
     /// shows them — both are from a closed vocabulary the constructor checked —
-    /// and a note as a double-quoted scalar, the extract's one escaping rule.
+    /// and a note and every gap field as double-quoted scalars, the extract's
+    /// one escaping rule.
     pub fn to_yaml(&self) -> String {
         let mut b = String::new();
         b.push_str("gate:\n");
@@ -506,6 +585,20 @@ impl CodeSpecsGateRecord {
             b.push_str(&format!("      verdict: {}\n", e.verdict.word()));
             if let Some(r) = &e.resolution {
                 b.push_str(&format!("      resolution: {}\n", r));
+            }
+            if !e.gaps.is_empty() {
+                b.push_str("      gaps:\n");
+                for g in &e.gaps {
+                    b.push_str(&format!(
+                        "        - sectionId: {}\n",
+                        yaml_string(&g.section_id)
+                    ));
+                    b.push_str(&format!(
+                        "          required: {}\n",
+                        yaml_string(&g.required)
+                    ));
+                    b.push_str(&format!("          carrier: {}\n", yaml_string(&g.carrier)));
+                }
             }
             if let Some(n) = &e.note {
                 b.push_str(&format!("      note: {}\n", yaml_string(n)));
@@ -959,6 +1052,47 @@ fn is_float(s: &str) -> bool {
         }
     }
     i == b.len()
+}
+
+/// The optional `gaps:` list of an entry.
+fn read_gaps(v: Option<&RecVal>, source: &str, area: &str) -> RecordResult<Vec<CodeSpecsGateGap>> {
+    let items = match present(v) {
+        None => return Ok(Vec::new()),
+        Some(RecVal::List(items)) => items,
+        Some(_) => {
+            return err(format!(
+                "{}: `{}` has `gaps:` that is not a list",
+                source, area
+            ))
+        }
+    };
+    let mut gaps = Vec::with_capacity(items.len());
+    for g in items {
+        let g = match g {
+            RecVal::Map(m) => m,
+            _ => {
+                return err(format!(
+                    "{}: `{}` has a gap that is not a mapping",
+                    source, area
+                ))
+            }
+        };
+        for (key, _) in g {
+            if !["sectionId", "required", "carrier"].contains(&key.as_str()) {
+                return err(format!(
+                    "{} has an unknown key `{}` in a gap of {} — a gap knows `sectionId`, \
+                     `required` and `carrier` only",
+                    source, key, area
+                ));
+            }
+        }
+        gaps.push(CodeSpecsGateGap {
+            section_id: req_str(map_get(g, "sectionId"), source, "gaps[].sectionId")?,
+            required: req_str(map_get(g, "required"), source, "gaps[].required")?,
+            carrier: req_str(map_get(g, "carrier"), source, "gaps[].carrier")?,
+        });
+    }
+    Ok(gaps)
 }
 
 fn req_str(v: Option<&RecVal>, name: &str, key: &str) -> RecordResult<String> {

@@ -122,7 +122,30 @@ const char *spec_codespecs_gate_verdict_word(CodeSpecsGateVerdict v);
 int spec_codespecs_gate_verdict_parse(const char *word,
                                       CodeSpecsGateVerdict *out);
 
-/* One area's recorded verdict. Owns its strings. */
+/* One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a missing
+ * input, and the section field that should have carried it.
+ *
+ * Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+ * the same field are two gaps — which is why the record carries them as data
+ * rather than leaving them in the note. Owns its strings; shape is checked by
+ * the gate record. */
+typedef struct {
+  /* The section whose content is missing the input. */
+  char *section_id;
+  /* What the derivation contract required, in one line. */
+  char *required;
+  /* `<section-id>.<field>` — the field that should have carried it. */
+  char *carrier;
+} CodeSpecsGateGap;
+
+/* The gap as the §6.3 output line, without its indentation:
+ * `<sectionId> — <required> — should have been carried by <carrier>`. Owned
+ * result. */
+char *spec_codespecs_gate_gap_line(const CodeSpecsGateGap *g);
+/* Frees the owned members of `*g`. Safe on a zeroed struct. */
+void spec_codespecs_gate_gap_free(CodeSpecsGateGap *g);
+
+/* One area's recorded verdict. Owns its strings and its gaps. */
 typedef struct {
   /* The area's `CE-*` code. */
   char *area;
@@ -133,6 +156,11 @@ typedef struct {
   /* A free-text note — why the verdict was taken. Never read as data. NULL when
    * there is none. */
   char *note;
+  /* The gap lines of an insufficient area, in the order Stage B found them;
+   * empty (NULL, 0) for every other verdict, and for an insufficient area
+   * recorded before its gaps were. Owned by the entry, freed with it. */
+  CodeSpecsGateGap *gaps;
+  size_t gaps_len;
 } CodeSpecsGateEntry;
 
 /* Whether this is an insufficient area resolved by descoping. */
@@ -197,8 +225,8 @@ int spec_codespecs_gate_record_with_verdict(const CodeSpecsGateRecord *r,
 
 /* The record as `gate.verdicts.yaml`. Byte-stable: the same record always writes
  * the same text, and reading it back writes it again unchanged. `area`,
- * `verdict` and `resolution` are written plain, a note as a double-quoted scalar
- * (`spec_codespecs_yaml_string`). Owned result. */
+ * `verdict` and `resolution` are written plain, a note and every gap field as
+ * double-quoted scalars (`spec_codespecs_yaml_string`). Owned result. */
 char *spec_codespecs_gate_record_to_yaml(const CodeSpecsGateRecord *r);
 
 /* ---- a tree of extracts, scoped by its gate record ----------------------- */

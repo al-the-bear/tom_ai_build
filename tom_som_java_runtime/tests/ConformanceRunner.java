@@ -26,6 +26,7 @@ import tom_som_runtime.CodeSpecsGateCheckResult;
 import tom_som_runtime.CodeSpecsGateFinding;
 import tom_som_runtime.CodeSpecsGateReport;
 import tom_som_runtime.CodeSpecsGateEntry;
+import tom_som_runtime.CodeSpecsGateGap;
 import tom_som_runtime.CodeSpecsGateRecord;
 import tom_som_runtime.CodeSpecsGateVerdict;
 import tom_som_runtime.CodeSpecsRecordError;
@@ -365,7 +366,23 @@ public final class ConformanceRunner {
         (String) v.get("area"),
         CodeSpecsGateVerdict.parse((String) v.get("verdict")),
         (String) v.get("resolution"),
-        (String) v.get("note"));
+        (String) v.get("note"),
+        gateGaps(v.get("gaps")));
+  }
+
+  @SuppressWarnings("unchecked")
+  private static List<CodeSpecsGateGap> gateGaps(Object raw) {
+    List<CodeSpecsGateGap> out = new ArrayList<>();
+    if (raw == null) {
+      return out;
+    }
+    for (Object gObj : (List<Object>) raw) {
+      Map<String, Object> g = (Map<String, Object>) gObj;
+      out.add(
+          new CodeSpecsGateGap(
+              (String) g.get("sectionId"), (String) g.get("required"), (String) g.get("carrier")));
+    }
+    return out;
   }
 
   private static Map<String, Object> extractSummary(CodeSpecsExtract x) {
@@ -402,6 +419,18 @@ public final class ConformanceRunner {
       o.put("verdict", v.verdict.word);
       o.put("resolution", v.resolution);
       o.put("note", v.note);
+      // Only when present, so a gap-less entry's summary is unchanged.
+      if (!v.gaps.isEmpty()) {
+        List<Object> gaps = new ArrayList<>();
+        for (CodeSpecsGateGap gap : v.gaps) {
+          Map<String, Object> m = new LinkedHashMap<>();
+          m.put("sectionId", gap.sectionId);
+          m.put("required", gap.required);
+          m.put("carrier", gap.carrier);
+          gaps.add(m);
+        }
+        o.put("gaps", gaps);
+      }
       verdicts.add(o);
     }
     Map<String, Object> o = new LinkedHashMap<>();

@@ -546,6 +546,29 @@ int spec_codespecs_gate_entry_descoped(const CodeSpecsGateEntry *e) {
          strcmp(e->resolution, SPEC_CODESPECS_GATE_DESCOPED) == 0;
 }
 
+char *spec_codespecs_gate_gap_line(const CodeSpecsGateGap *g) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, g->section_id != NULL ? g->section_id : "");
+  som_buf_puts(&b, " — ");
+  som_buf_puts(&b, g->required != NULL ? g->required : "");
+  som_buf_puts(&b, " — should have been carried by ");
+  som_buf_puts(&b, g->carrier != NULL ? g->carrier : "");
+  char *out = som_buf_take(&b);
+  som_buf_free(&b);
+  return out;
+}
+
+void spec_codespecs_gate_gap_free(CodeSpecsGateGap *g) {
+  if (g == NULL) {
+    return;
+  }
+  free(g->section_id);
+  free(g->required);
+  free(g->carrier);
+  memset(g, 0, sizeof(*g));
+}
+
 void spec_codespecs_gate_entry_free(CodeSpecsGateEntry *e) {
   if (e == NULL) {
     return;
@@ -553,17 +576,34 @@ void spec_codespecs_gate_entry_free(CodeSpecsGateEntry *e) {
   free(e->area);
   free(e->resolution);
   free(e->note);
+  for (size_t i = 0; i < e->gaps_len; i++) {
+    spec_codespecs_gate_gap_free(&e->gaps[i]);
+  }
+  free(e->gaps);
   memset(e, 0, sizeof(*e));
 }
 
 static char *dup_opt(const char *s) { return s == NULL ? NULL : som_strdup(s); }
 
+static char *dup_or_empty(const char *s) { return som_strdup(s != NULL ? s : ""); }
+
 static CodeSpecsGateEntry gate_entry_copy(const CodeSpecsGateEntry *e) {
   CodeSpecsGateEntry c;
-  c.area = som_strdup(e->area != NULL ? e->area : "");
+  c.area = dup_or_empty(e->area);
   c.verdict = e->verdict;
   c.resolution = dup_opt(e->resolution);
   c.note = dup_opt(e->note);
+  c.gaps = NULL;
+  c.gaps_len = 0;
+  if (e->gaps_len > 0) {
+    c.gaps = (CodeSpecsGateGap *)calloc(e->gaps_len, sizeof(CodeSpecsGateGap));
+    for (size_t i = 0; i < e->gaps_len; i++) {
+      c.gaps[i].section_id = dup_or_empty(e->gaps[i].section_id);
+      c.gaps[i].required = dup_or_empty(e->gaps[i].required);
+      c.gaps[i].carrier = dup_or_empty(e->gaps[i].carrier);
+    }
+    c.gaps_len = e->gaps_len;
+  }
   return c;
 }
 
@@ -592,6 +632,45 @@ static int is_area_code(const char *s) {
   return 1;
 }
 
+/* Dart's `\s` over ASCII: space, tab, newline, vertical tab, form feed and
+ * carriage return. */
+static int is_space_char(char c) {
+  return c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' ||
+         c == '\r';
+}
+
+/* Whether `s` is all whitespace (`value.trim().isEmpty`). */
+static int is_blank(const char *s) {
+  for (const char *p = s; *p != '\0'; p++) {
+    if (!is_space_char(*p)) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+/* `^[^\s.]+(\.[^\s.]+)+$`: `<section-id>.<field>` — two or more dot-separated
+ * parts, none empty, no whitespace. */
+static int is_carrier(const char *s) {
+  size_t part = 0;
+  size_t parts = 1;
+  for (const char *p = s; *p != '\0'; p++) {
+    if (is_space_char(*p)) {
+      return 0;
+    }
+    if (*p == '.') {
+      if (part == 0) {
+        return 0;
+      }
+      parts++;
+      part = 0;
+    } else {
+      part++;
+    }
+  }
+  return part > 0 && parts >= 2;
+}
+
 /* The constructor's `_check`. */
 static int gate_check(const CodeSpecsGateRecord *r, const char *source,
                       CodeSpecsRecordError *err) {
@@ -610,6 +689,31 @@ static int gate_check(const CodeSpecsGateRecord *r, const char *source,
                     "%s carries two verdicts for %s — a scope with two "
                     "answers for one area is no scope",
                     source, e->area);
+      }
+    }
+    if (e->gaps_len > 0 && e->verdict != CODESPECS_GATE_INSUFFICIENT) {
+      return fail(err,
+                  "%s gives %s gap lines on verdict `%s` — only an "
+                  "insufficient area has missing inputs",
+                  source, e->area, spec_codespecs_gate_verdict_word(e->verdict));
+    }
+    for (size_t g = 0; g < e->gaps_len; g++) {
+      const CodeSpecsGateGap *gap = &e->gaps[g];
+      const char *names[3] = {"sectionId", "required", "carrier"};
+      const char *values[3] = {gap->section_id, gap->required, gap->carrier};
+      for (int f = 0; f < 3; f++) {
+        if (values[f] == NULL || is_blank(values[f])) {
+          return fail(err,
+                      "%s has a gap of %s with no `%s` — a gap line "
+                      "names the section, what was required and its carrier",
+                      source, e->area, names[f]);
+        }
+      }
+      if (!is_carrier(gap->carrier)) {
+        return fail(err,
+                    "%s gives a gap of %s the carrier `%s` — a carrier "
+                    "is `<section-id>.<field>`",
+                    source, e->area, gap->carrier);
       }
     }
     if (e->resolution == NULL) {
@@ -661,6 +765,52 @@ int spec_codespecs_gate_record_make(const CodeSpecsGateEntry *verdicts,
   return gate_adopt(copy, len, source, out, err);
 }
 
+/* `_gaps`: the optional `gaps:` list of the entry `e` (area already read).
+ * Fills `e->gaps` / `e->gaps_len` — owned by the entry, so the caller's entry
+ * free releases a partial list on failure. */
+static int read_gaps(const YamlValue *raw, const char *source,
+                     CodeSpecsGateEntry *e, CodeSpecsRecordError *err) {
+  if (node_kind(raw) == NODE_NULL) {
+    return 1;
+  }
+  if (node_kind(raw) != NODE_SEQ) {
+    return fail(err, "%s: `%s` has `gaps:` that is not a list", source,
+                e->area);
+  }
+  if (raw->as.seq.len == 0) {
+    return 1;
+  }
+  e->gaps = (CodeSpecsGateGap *)calloc(raw->as.seq.len, sizeof(CodeSpecsGateGap));
+  for (size_t i = 0; i < raw->as.seq.len; i++) {
+    const YamlValue *g = raw->as.seq.items[i];
+    if (node_kind(g) != NODE_MAP) {
+      return fail(err, "%s: `%s` has a gap that is not a mapping", source,
+                  e->area);
+    }
+    for (size_t k = 0; k < g->as.map.len; k++) {
+      const char *key = g->as.map.entries[k].key;
+      if (strcmp(key, "sectionId") != 0 && strcmp(key, "required") != 0 &&
+          strcmp(key, "carrier") != 0) {
+        return fail(err,
+                    "%s has an unknown key `%s` in a gap of %s — a gap "
+                    "knows `sectionId`, `required` and `carrier` only",
+                    source, key, e->area);
+      }
+    }
+    CodeSpecsGateGap *gap = &e->gaps[i];
+    e->gaps_len = i + 1; /* so the entry free releases this slot on failure */
+    if (!read_str(yaml_get(g, "sectionId"), source, "gaps[].sectionId",
+                  &gap->section_id, err) ||
+        !read_str(yaml_get(g, "required"), source, "gaps[].required",
+                  &gap->required, err) ||
+        !read_str(yaml_get(g, "carrier"), source, "gaps[].carrier",
+                  &gap->carrier, err)) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 /* The body of `spec_codespecs_gate_record_from_yaml` past the root mapping.
  * Appends to `*entries` / `*len` (freed by the caller on failure). */
 static int read_gate(const YamlValue *root, const char *source,
@@ -702,10 +852,11 @@ static int read_gate(const YamlValue *root, const char *source,
     for (size_t k = 0; k < raw->as.map.len; k++) {
       const char *key = raw->as.map.entries[k].key;
       if (strcmp(key, "area") != 0 && strcmp(key, "verdict") != 0 &&
-          strcmp(key, "resolution") != 0 && strcmp(key, "note") != 0) {
+          strcmp(key, "resolution") != 0 && strcmp(key, "gaps") != 0 &&
+          strcmp(key, "note") != 0) {
         return fail(err,
                     "%s has an unknown key `%s` in a verdict — an entry knows "
-                    "`area`, `verdict`, `resolution` and `note` only",
+                    "`area`, `verdict`, `resolution`, `gaps` and `note` only",
                     source, key);
       }
     }
@@ -730,7 +881,8 @@ static int read_gate(const YamlValue *root, const char *source,
     if (!read_opt_str(yaml_get(raw, "resolution"), source,
                       "verdicts[].resolution", &e->resolution, err) ||
         !read_opt_str(yaml_get(raw, "note"), source, "verdicts[].note",
-                      &e->note, err)) {
+                      &e->note, err) ||
+        !read_gaps(yaml_get(raw, "gaps"), source, e, err)) {
       return 0;
     }
   }
@@ -839,6 +991,24 @@ char *spec_codespecs_gate_record_to_yaml(const CodeSpecsGateRecord *r) {
         som_buf_puts(&b, "      resolution: ");
         som_buf_puts(&b, e->resolution);
         som_buf_putc(&b, '\n');
+      }
+      if (e->gaps_len > 0) {
+        som_buf_puts(&b, "      gaps:\n");
+        for (size_t g = 0; g < e->gaps_len; g++) {
+          char *sid = spec_codespecs_yaml_string(e->gaps[g].section_id);
+          char *req = spec_codespecs_yaml_string(e->gaps[g].required);
+          char *car = spec_codespecs_yaml_string(e->gaps[g].carrier);
+          som_buf_puts(&b, "        - sectionId: ");
+          som_buf_puts(&b, sid);
+          som_buf_puts(&b, "\n          required: ");
+          som_buf_puts(&b, req);
+          som_buf_puts(&b, "\n          carrier: ");
+          som_buf_puts(&b, car);
+          som_buf_putc(&b, '\n');
+          free(sid);
+          free(req);
+          free(car);
+        }
       }
       if (e->note != NULL) {
         char *q = spec_codespecs_yaml_string(e->note);

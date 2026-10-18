@@ -434,10 +434,19 @@ gate:
     - area: CE-SC
       verdict: insufficient
       resolution: descoped
+      gaps:
+        - sectionId: "SECRO-ADMIN"
+          required: "the permissions the role grants"
+          carrier: "SECRO-ADMIN.permissions"
 ```
 
-An entry may also carry `note:` — free text saying why the verdict was taken,
-never read as data. All nine SOM runtimes read and write the record as
+An *insufficient* entry carries its gap lines as data under `gaps:`, one item per
+line above: `sectionId`, `required` and `carrier` (`<section-id>.<field>`), all
+three required. They are what Stage C turns into one L0 todo each (§7). The list
+is optional — an insufficient area recorded without it is still read — and any
+other verdict carrying it is refused, since only an insufficient area has
+missing inputs. Adding it left `formatVersion` at 1. An entry may also carry
+`note:` — free text saying why the verdict was taken, never read as data. All nine SOM runtimes read and write the record as
 `CodeSpecsGateRecord` (`gate.verdicts.yaml`, `formatVersion: 1`), and read an
 extract tree back, scoped by it, as `CodeSpecsExtractSet`; writing the record
 through it is what keeps a hand edit from producing a shape no reader accepts.

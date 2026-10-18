@@ -2429,11 +2429,23 @@ type codeSpecsGateEntryJSON struct {
 	Verdict    string `json:"verdict"`
 	Resolution string `json:"resolution"`
 	Note       string `json:"note"`
+	Gaps       []struct {
+		SectionID string `json:"sectionId"`
+		Required  string `json:"required"`
+		Carrier   string `json:"carrier"`
+	} `json:"gaps"`
 }
 
 func (v codeSpecsGateEntryJSON) entry() som.CodeSpecsGateEntry {
+	var gaps []som.CodeSpecsGateGap
+	for _, g := range v.Gaps {
+		gaps = append(gaps, som.CodeSpecsGateGap{
+			SectionID: g.SectionID, Required: g.Required, Carrier: g.Carrier,
+		})
+	}
 	return som.CodeSpecsGateEntry{
 		Area: v.Area, Verdict: v.Verdict, Resolution: v.Resolution, Note: v.Note,
+		Gaps: gaps,
 	}
 }
 
@@ -2465,12 +2477,25 @@ func codeSpecsExtractSummary(x *som.CodeSpecsExtract) map[string]any {
 func codeSpecsGateSummary(g *som.CodeSpecsGateRecord) map[string]any {
 	verdicts := []any{}
 	for _, v := range g.Verdicts {
-		verdicts = append(verdicts, map[string]any{
+		entry := map[string]any{
 			"area":       v.Area,
 			"verdict":    v.Verdict,
 			"resolution": nullable(v.Resolution),
 			"note":       nullable(v.Note),
-		})
+		}
+		// Only when present, so a gap-less entry's summary is unchanged.
+		if len(v.Gaps) > 0 {
+			gaps := []any{}
+			for _, g := range v.Gaps {
+				gaps = append(gaps, map[string]any{
+					"sectionId": g.SectionID,
+					"required":  g.Required,
+					"carrier":   g.Carrier,
+				})
+			}
+			entry["gaps"] = gaps
+		}
+		verdicts = append(verdicts, entry)
 	}
 	return map[string]any{"verdicts": verdicts}
 }

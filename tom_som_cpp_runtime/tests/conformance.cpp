@@ -2053,7 +2053,20 @@ static std::string gate_summary(const som::CodeSpecsGateRecord& g) {
     b += "{\"area\":" + sum_str(e.area) + ",\"verdict\":" +
          sum_str(std::string(som::codeSpecsGateVerdictWord(e.verdict))) +
          ",\"resolution\":" + sum_str(e.resolution) +
-         ",\"note\":" + sum_str(e.note) + "}";
+         ",\"note\":" + sum_str(e.note);
+    // Only when present, so a gap-less entry's summary is unchanged.
+    if (!e.gaps.empty()) {
+      b += ",\"gaps\":[";
+      for (std::size_t k = 0; k < e.gaps.size(); k++) {
+        const som::CodeSpecsGateGap& g = e.gaps[k];
+        if (k > 0) b += ",";
+        b += "{\"sectionId\":" + sum_str(g.sectionId) +
+             ",\"required\":" + sum_str(g.required) +
+             ",\"carrier\":" + sum_str(g.carrier) + "}";
+      }
+      b += "]";
+    }
+    b += "}";
   }
   return b + "]}";
 }
@@ -2088,6 +2101,14 @@ static som::CodeSpecsGateEntry gate_entry_json(const som::JsonRef& v) {
   }
   if (const std::string* n = som::jsonAsStr(som::jsonGet(v, "note"))) {
     e.note = *n;
+  }
+  som::JsonRef gaps = som::jsonGet(v, "gaps");
+  std::size_t n = gaps ? som::jsonArrayLen(gaps) : 0;
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef g = som::jsonArrayAt(gaps, i);
+    e.gaps.push_back({som::jsonStrOr(g, "sectionId"),
+                      som::jsonStrOr(g, "required"),
+                      som::jsonStrOr(g, "carrier")});
   }
   return e;
 }

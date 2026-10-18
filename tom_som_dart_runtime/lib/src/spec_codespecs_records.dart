@@ -186,6 +186,38 @@ enum CodeSpecsGateVerdict {
 /// decided to leave out.
 const String kCodeSpecsGateDescoped = 'descoped';
 
+/// One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a
+/// missing input, and the section field that should have carried it.
+///
+/// Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+/// the same field are two gaps — which is why the record carries them as data
+/// rather than leaving them in the note.
+class CodeSpecsGateGap {
+  /// The section whose content is missing the input.
+  final String sectionId;
+
+  /// What the derivation contract required, in one line.
+  final String required;
+
+  /// `<section-id>.<field>` — the field that should have carried it.
+  final String carrier;
+
+  /// Creates a gap. Shape is checked by [CodeSpecsGateRecord].
+  const CodeSpecsGateGap({
+    required this.sectionId,
+    required this.required,
+    required this.carrier,
+  });
+
+  /// The gap as the §6.3 output line, without its indentation.
+  String get line =>
+      '$sectionId — $required — should have been carried by $carrier';
+}
+
+/// `<section-id>.<field>`: one or more dot-separated parts, none empty, no
+/// whitespace.
+final RegExp _carrierPattern = RegExp(r'^[^\s.]+(\.[^\s.]+)+$');
+
 /// One area's recorded verdict.
 class CodeSpecsGateEntry {
   /// The area's `CE-*` code.
@@ -200,6 +232,11 @@ class CodeSpecsGateEntry {
   /// A free-text note — why the verdict was taken. Never read as data.
   final String? note;
 
+  /// The gap lines of an insufficient area, in the order Stage B found them;
+  /// empty for every other verdict, and for an insufficient area recorded
+  /// before its gaps were.
+  final List<CodeSpecsGateGap> gaps;
+
   /// Creates an entry. Shape is checked by [CodeSpecsGateRecord], which is the
   /// only thing that reads or writes entries.
   const CodeSpecsGateEntry({
@@ -207,6 +244,7 @@ class CodeSpecsGateEntry {
     required this.verdict,
     this.resolution,
     this.note,
+    this.gaps = const [],
   });
 
   /// Whether this is an insufficient area resolved by descoping.
@@ -266,10 +304,16 @@ class CodeSpecsGateRecord {
         );
       }
       for (final key in raw.keys) {
-        if (!const ['area', 'verdict', 'resolution', 'note'].contains(key)) {
+        if (!const [
+          'area',
+          'verdict',
+          'resolution',
+          'gaps',
+          'note',
+        ].contains(key)) {
           throw CodeSpecsRecordError(
             '$source has an unknown key `$key` in a verdict — an entry knows '
-            '`area`, `verdict`, `resolution` and `note` only',
+            '`area`, `verdict`, `resolution`, `gaps` and `note` only',
           );
         }
       }
@@ -292,10 +336,40 @@ class CodeSpecsGateRecord {
             'verdicts[].resolution',
           ),
           note: _optStr(raw['note'], source, 'verdicts[].note'),
+          gaps: _gaps(raw['gaps'], source, area),
         ),
       );
     }
     return CodeSpecsGateRecord(entries, source: source);
+  }
+
+  static List<CodeSpecsGateGap> _gaps(Object? raw, String source, String area) {
+    if (raw == null) return const [];
+    if (raw is! YamlList) {
+      throw CodeSpecsRecordError(
+        '$source: `$area` has `gaps:` that is not a list',
+      );
+    }
+    return [
+      for (final g in raw)
+        if (g is! YamlMap)
+          throw CodeSpecsRecordError(
+            '$source: `$area` has a gap that is not a mapping',
+          )
+        else ...[
+          for (final key in g.keys)
+            if (!const ['sectionId', 'required', 'carrier'].contains(key))
+              throw CodeSpecsRecordError(
+                '$source has an unknown key `$key` in a gap of $area — a gap '
+                'knows `sectionId`, `required` and `carrier` only',
+              ),
+          CodeSpecsGateGap(
+            sectionId: _str(g['sectionId'], source, 'gaps[].sectionId'),
+            required: _str(g['required'], source, 'gaps[].required'),
+            carrier: _str(g['carrier'], source, 'gaps[].carrier'),
+          ),
+        ],
+    ];
   }
 
   void _check(String source) {
@@ -314,6 +388,32 @@ class CodeSpecsGateRecord {
           '$source carries two verdicts for ${e.area} — a scope with two '
           'answers for one area is no scope',
         );
+      }
+      if (e.gaps.isNotEmpty && e.verdict != CodeSpecsGateVerdict.insufficient) {
+        throw CodeSpecsRecordError(
+          '$source gives ${e.area} gap lines on verdict `${e.verdict.word}` — '
+          'only an insufficient area has missing inputs',
+        );
+      }
+      for (final g in e.gaps) {
+        for (final (name, value) in [
+          ('sectionId', g.sectionId),
+          ('required', g.required),
+          ('carrier', g.carrier),
+        ]) {
+          if (value.trim().isEmpty) {
+            throw CodeSpecsRecordError(
+              '$source has a gap of ${e.area} with no `$name` — a gap line '
+              'names the section, what was required and its carrier',
+            );
+          }
+        }
+        if (!_carrierPattern.hasMatch(g.carrier)) {
+          throw CodeSpecsRecordError(
+            '$source gives a gap of ${e.area} the carrier `${g.carrier}` — a '
+            'carrier is `<section-id>.<field>`',
+          );
+        }
       }
       final resolution = e.resolution;
       if (resolution == null) continue;
@@ -381,7 +481,8 @@ class CodeSpecsGateRecord {
   ///
   /// `area` and `verdict` are written plain, as `codespecs_prompt.md` §6.3
   /// shows them — both are from a closed vocabulary the constructor checked —
-  /// and a note as a double-quoted scalar, the extract's one escaping rule.
+  /// and a note and every gap field as double-quoted scalars, the extract's one
+  /// escaping rule.
   String toYaml() {
     final b = StringBuffer()
       ..writeln('gate:')
@@ -395,6 +496,17 @@ class CodeSpecsGateRecord {
       b.writeln('    - area: ${e.area}');
       b.writeln('      verdict: ${e.verdict.word}');
       if (e.resolution != null) b.writeln('      resolution: ${e.resolution}');
+      if (e.gaps.isNotEmpty) {
+        b.writeln('      gaps:');
+        for (final g in e.gaps) {
+          b
+            ..writeln(
+              '        - sectionId: ${codeSpecsYamlString(g.sectionId)}',
+            )
+            ..writeln('          required: ${codeSpecsYamlString(g.required)}')
+            ..writeln('          carrier: ${codeSpecsYamlString(g.carrier)}');
+        }
+      }
       if (e.note != null) {
         b.writeln('      note: ${codeSpecsYamlString(e.note!)}');
       }

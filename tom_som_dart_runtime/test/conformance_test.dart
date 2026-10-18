@@ -6145,6 +6145,22 @@ Map<String, dynamic> _codeSpecsRecordCases(Map<String, dynamic> extractTable) {
       'name': 'no verdicts yet',
       'yaml': 'gate:\n  formatVersion: 1\n  verdicts: []\n',
     },
+    // `codespecs_prompt.md` §6.3: one gap line per missing input, so two
+    // sections missing the same field are two gaps (and two L0 todos).
+    {
+      'name': 'an insufficient area with gap lines',
+      'yaml': gate(
+        '    - area: CE-DB\n      verdict: insufficient\n'
+        '      gaps:\n'
+        '        - sectionId: "NTFTY-ORDER"\n'
+        '          required: "the entity\'s table name"\n'
+        '          carrier: "DAENT-ORDER.tableName"\n'
+        '        - sectionId: "NTFTY-SHIP"\n'
+        '          required: "the entity\'s table name"\n'
+        '          carrier: "DAENT-SHIP.tableName"\n'
+        '      note: "two entities name no table"\n',
+      ),
+    },
   ];
   for (final g in gateRecords) {
     g['expect'] = _gateSummary(
@@ -6159,6 +6175,19 @@ Map<String, dynamic> _codeSpecsRecordCases(Map<String, dynamic> extractTable) {
       'verdict': 'insufficient',
       'resolution': 'descoped',
       'note': 'decided in L0 "csopen3"',
+    },
+  ];
+  final gapVerdicts = [
+    {
+      'area': 'CE-TX',
+      'verdict': 'insufficient',
+      'gaps': [
+        {
+          'sectionId': 'MSGKE-ORDER',
+          'required': 'the message "text" in the default locale',
+          'carrier': 'MSGKE-ORDER.text',
+        },
+      ],
     },
   ];
   final then = {'area': 'CE-FM', 'verdict': 'not applicable'};
@@ -6230,6 +6259,13 @@ Map<String, dynamic> _codeSpecsRecordCases(Map<String, dynamic> extractTable) {
         'verdicts': <Object>[],
         'yaml': CodeSpecsGateRecord(const []).toYaml(),
       },
+      {
+        'name': 'an insufficient area with a gap line',
+        'verdicts': gapVerdicts,
+        'yaml': CodeSpecsGateRecord([
+          for (final v in gapVerdicts) _gateEntry(v),
+        ]).toYaml(),
+      },
     ],
     'gateErrors': [
       {
@@ -6273,6 +6309,43 @@ Map<String, dynamic> _codeSpecsRecordCases(Map<String, dynamic> extractTable) {
           '      reviewer: me\n',
         ),
         'messageContains': 'unknown key `reviewer`',
+      },
+      {
+        'name': 'gap lines on a sufficient area',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: sufficient\n'
+          '      gaps:\n        - sectionId: "A"\n'
+          '          required: "x"\n          carrier: "A.b"\n',
+        ),
+        'messageContains': 'gap lines on verdict `sufficient`',
+      },
+      {
+        'name': 'an unknown key in a gap',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: insufficient\n'
+          '      gaps:\n        - sectionId: "A"\n'
+          '          required: "x"\n          carrier: "A.b"\n'
+          '          severity: high\n',
+        ),
+        'messageContains': 'unknown key `severity` in a gap',
+      },
+      {
+        'name': 'a gap without its carrier',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: insufficient\n'
+          '      gaps:\n        - sectionId: "A"\n'
+          '          required: "x"\n',
+        ),
+        'messageContains': 'with no `carrier`',
+      },
+      {
+        'name': 'a carrier that names no field',
+        'yaml': gate(
+          '    - area: CE-FM\n      verdict: insufficient\n'
+          '      gaps:\n        - sectionId: "A"\n'
+          '          required: "x"\n          carrier: "A"\n',
+        ),
+        'messageContains': 'the carrier `A`',
       },
       {
         'name': 'a later format version',
@@ -6347,6 +6420,14 @@ CodeSpecsGateEntry _gateEntry(Map v) => CodeSpecsGateEntry(
   verdict: CodeSpecsGateVerdict.parse(v['verdict'] as String)!,
   resolution: v['resolution'] as String?,
   note: v['note'] as String?,
+  gaps: [
+    for (final g in (v['gaps'] as List? ?? const []).cast<Map>())
+      CodeSpecsGateGap(
+        sectionId: g['sectionId'] as String,
+        required: g['required'] as String,
+        carrier: g['carrier'] as String,
+      ),
+  ],
 );
 
 Map<String, dynamic> _extractSummary(CodeSpecsExtract x) => {
@@ -6371,6 +6452,16 @@ Map<String, dynamic> _gateSummary(CodeSpecsGateRecord g) => {
         'verdict': v.verdict.word,
         'resolution': v.resolution,
         'note': v.note,
+        // Only when present, so a gap-less entry's summary is unchanged.
+        if (v.gaps.isNotEmpty)
+          'gaps': [
+            for (final g in v.gaps)
+              {
+                'sectionId': g.sectionId,
+                'required': g.required,
+                'carrier': g.carrier,
+              },
+          ],
       },
   ],
 };

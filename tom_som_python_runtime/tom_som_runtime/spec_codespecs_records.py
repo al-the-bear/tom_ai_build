@@ -215,6 +215,37 @@ class CodeSpecsGateVerdict(Enum):
 
 
 @dataclass(frozen=True)
+class CodeSpecsGateGap:
+    """One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a
+    missing input, and the section field that should have carried it.
+
+    Stage C creates one L0 ``csopen`` todo per gap line, so two sections
+    missing the same field are two gaps — which is why the record carries them
+    as data rather than leaving them in the note. Shape is checked by
+    :class:`CodeSpecsGateRecord`."""
+
+    #: The section whose content is missing the input.
+    section_id: str
+    #: What the derivation contract required, in one line.
+    required: str
+    #: ``<section-id>.<field>`` — the field that should have carried it.
+    carrier: str
+
+    @property
+    def line(self) -> str:
+        """The gap as the §6.3 output line, without its indentation."""
+        return (
+            f"{self.section_id} — {self.required} — should have been carried "
+            f"by {self.carrier}"
+        )
+
+
+#: ``<section-id>.<field>``: one or more dot-separated parts, none empty, no
+#: whitespace.
+_CARRIER_PATTERN = re.compile(r"^[^\s.]+(\.[^\s.]+)+$")
+
+
+@dataclass(frozen=True)
 class CodeSpecsGateEntry:
     """One area's recorded verdict. Shape is checked by
     :class:`CodeSpecsGateRecord`, which is the only thing that reads or writes
@@ -228,6 +259,10 @@ class CodeSpecsGateEntry:
     resolution: Optional[str] = None
     #: A free-text note — why the verdict was taken. Never read as data.
     note: Optional[str] = None
+    #: The gap lines of an insufficient area, in the order Stage B found them;
+    #: empty for every other verdict, and for an insufficient area recorded
+    #: before its gaps were.
+    gaps: tuple[CodeSpecsGateGap, ...] = ()
 
     @property
     def descoped(self) -> bool:
@@ -235,7 +270,8 @@ class CodeSpecsGateEntry:
         return self.resolution == K_CODE_SPECS_GATE_DESCOPED
 
 
-_GATE_ENTRY_KEYS = ("area", "verdict", "resolution", "note")
+_GATE_ENTRY_KEYS = ("area", "verdict", "resolution", "gaps", "note")
+_GATE_GAP_KEYS = ("sectionId", "required", "carrier")
 
 
 class CodeSpecsGateRecord:
@@ -289,7 +325,7 @@ class CodeSpecsGateRecord:
                     raise CodeSpecsRecordError(
                         f"{source} has an unknown key `{_show(key)}` in a "
                         f"verdict — an entry knows `area`, `verdict`, "
-                        f"`resolution` and `note` only"
+                        f"`resolution`, `gaps` and `note` only"
                     )
             area = _str(raw.get("area"), source, "verdicts[].area")
             word = _str(raw.get("verdict"), source, "verdicts[].verdict")
@@ -308,9 +344,40 @@ class CodeSpecsGateRecord:
                         raw.get("resolution"), source, "verdicts[].resolution"
                     ),
                     note=_opt_str(raw.get("note"), source, "verdicts[].note"),
+                    gaps=CodeSpecsGateRecord._gaps(raw.get("gaps"), source, area),
                 )
             )
         return CodeSpecsGateRecord(entries, source=source)
+
+    @staticmethod
+    def _gaps(raw: Any, source: str, area: str) -> tuple[CodeSpecsGateGap, ...]:
+        if raw is None:
+            return ()
+        if not isinstance(raw, list):
+            raise CodeSpecsRecordError(
+                f"{source}: `{area}` has `gaps:` that is not a list"
+            )
+        out: list[CodeSpecsGateGap] = []
+        for g in raw:
+            if not isinstance(g, dict):
+                raise CodeSpecsRecordError(
+                    f"{source}: `{area}` has a gap that is not a mapping"
+                )
+            for key in g:
+                if key not in _GATE_GAP_KEYS:
+                    raise CodeSpecsRecordError(
+                        f"{source} has an unknown key `{_show(key)}` in a gap "
+                        f"of {area} — a gap knows `sectionId`, `required` and "
+                        f"`carrier` only"
+                    )
+            out.append(
+                CodeSpecsGateGap(
+                    section_id=_str(g.get("sectionId"), source, "gaps[].sectionId"),
+                    required=_str(g.get("required"), source, "gaps[].required"),
+                    carrier=_str(g.get("carrier"), source, "gaps[].carrier"),
+                )
+            )
+        return tuple(out)
 
     def _check(self, source: str) -> None:
         seen: set[str] = set()
@@ -329,6 +396,29 @@ class CodeSpecsGateRecord:
                     f"two answers for one area is no scope"
                 )
             seen.add(e.area)
+            if e.gaps and e.verdict is not CodeSpecsGateVerdict.INSUFFICIENT:
+                raise CodeSpecsRecordError(
+                    f"{source} gives {e.area} gap lines on verdict "
+                    f"`{e.verdict.word}` — only an insufficient area has "
+                    f"missing inputs"
+                )
+            for g in e.gaps:
+                for name, value in (
+                    ("sectionId", g.section_id),
+                    ("required", g.required),
+                    ("carrier", g.carrier),
+                ):
+                    if value.strip() == "":
+                        raise CodeSpecsRecordError(
+                            f"{source} has a gap of {e.area} with no `{name}` "
+                            f"— a gap line names the section, what was "
+                            f"required and its carrier"
+                        )
+                if not _CARRIER_PATTERN.match(g.carrier):
+                    raise CodeSpecsRecordError(
+                        f"{source} gives a gap of {e.area} the carrier "
+                        f"`{g.carrier}` — a carrier is `<section-id>.<field>`"
+                    )
             resolution = e.resolution
             if resolution is None:
                 continue
@@ -392,8 +482,8 @@ class CodeSpecsGateRecord:
 
         ``area`` and ``verdict`` are written plain, as `codespecs_prompt.md`
         §6.3 shows them — both are from a closed vocabulary the constructor
-        checked — and a note as a double-quoted scalar, the extract's one
-        escaping rule."""
+        checked — and a note and every gap field as double-quoted scalars, the
+        extract's one escaping rule."""
         lines = ["gate:", f"  formatVersion: {K_CODE_SPECS_GATE_RECORD_FORMAT}"]
         if not self.verdicts:
             lines.append("  verdicts: []")
@@ -404,6 +494,12 @@ class CodeSpecsGateRecord:
             lines.append(f"      verdict: {e.verdict.word}")
             if e.resolution is not None:
                 lines.append(f"      resolution: {e.resolution}")
+            if e.gaps:
+                lines.append("      gaps:")
+                for g in e.gaps:
+                    lines.append(f"        - sectionId: {_yaml_string(g.section_id)}")
+                    lines.append(f"          required: {_yaml_string(g.required)}")
+                    lines.append(f"          carrier: {_yaml_string(g.carrier)}")
             if e.note is not None:
                 lines.append(f"      note: {_yaml_string(e.note)}")
         return "\n".join(lines) + "\n"

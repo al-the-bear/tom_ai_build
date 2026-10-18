@@ -1792,6 +1792,46 @@ export class CodeSpecsGateVerdict {
   }
 }
 
+/**
+ * One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a missing
+ * input, and the section field that should have carried it.
+ *
+ * Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+ * the same field are two gaps — which is why the record carries them as data
+ * rather than leaving them in the note.
+ */
+export class CodeSpecsGateGap {
+  /** The section whose content is missing the input. */
+  readonly sectionId: string;
+
+  /** What the derivation contract required, in one line. */
+  readonly required: string;
+
+  /** `<section-id>.<field>` — the field that should have carried it. */
+  readonly carrier: string;
+
+  /** Creates a gap. Shape is checked by {@link CodeSpecsGateRecord}. */
+  constructor(props: { sectionId: string; required: string; carrier: string }) {
+    this.sectionId = props.sectionId;
+    this.required = props.required;
+    this.carrier = props.carrier;
+  }
+
+  /** The gap as the §6.3 output line, without its indentation. */
+  get line(): string {
+    return (
+      `${this.sectionId} — ${this.required} — should have been carried by ` +
+      this.carrier
+    );
+  }
+}
+
+/**
+ * `<section-id>.<field>`: one or more dot-separated parts, none empty, no
+ * whitespace.
+ */
+const _CARRIER_PATTERN = /^[^\s.]+(\.[^\s.]+)+$/;
+
 /** One area's recorded verdict. */
 export class CodeSpecsGateEntry {
   /** The area's `CE-*` code. */
@@ -1807,6 +1847,13 @@ export class CodeSpecsGateEntry {
   readonly note: string | null;
 
   /**
+   * The gap lines of an insufficient area, in the order Stage B found them;
+   * empty for every other verdict, and for an insufficient area recorded
+   * before its gaps were.
+   */
+  readonly gaps: readonly CodeSpecsGateGap[];
+
+  /**
    * Creates an entry. Shape is checked by {@link CodeSpecsGateRecord}, which is
    * the only thing that reads or writes entries.
    */
@@ -1815,11 +1862,13 @@ export class CodeSpecsGateEntry {
     verdict: CodeSpecsGateVerdict;
     resolution?: string | null;
     note?: string | null;
+    gaps?: readonly CodeSpecsGateGap[];
   }) {
     this.area = props.area;
     this.verdict = props.verdict;
     this.resolution = props.resolution != null ? props.resolution : null;
     this.note = props.note != null ? props.note : null;
+    this.gaps = Object.freeze([...(props.gaps ?? [])]);
   }
 
   /** Whether this is an insufficient area resolved by descoping. */
@@ -1890,10 +1939,12 @@ export class CodeSpecsGateRecord {
         );
       }
       for (const key of Object.keys(raw)) {
-        if (!['area', 'verdict', 'resolution', 'note'].includes(key)) {
+        if (
+          !['area', 'verdict', 'resolution', 'gaps', 'note'].includes(key)
+        ) {
           throw new CodeSpecsRecordError(
             `${source} has an unknown key \`${key}\` in a verdict — an entry ` +
-              'knows `area`, `verdict`, `resolution` and `note` only',
+              'knows `area`, `verdict`, `resolution`, `gaps` and `note` only',
           );
         }
       }
@@ -1913,10 +1964,50 @@ export class CodeSpecsGateRecord {
           verdict,
           resolution: _optStr(raw.resolution, source, 'verdicts[].resolution'),
           note: _optStr(raw.note, source, 'verdicts[].note'),
+          gaps: CodeSpecsGateRecord._gaps(raw.gaps, source, area),
         }),
       );
     }
     return new CodeSpecsGateRecord(entries, source);
+  }
+
+  private static _gaps(
+    raw: unknown,
+    source: string,
+    area: string,
+  ): CodeSpecsGateGap[] {
+    if (_absent(raw)) {
+      return [];
+    }
+    if (!Array.isArray(raw)) {
+      throw new CodeSpecsRecordError(
+        `${source}: \`${area}\` has \`gaps:\` that is not a list`,
+      );
+    }
+    const out: CodeSpecsGateGap[] = [];
+    for (const g of raw) {
+      if (!_isMap(g)) {
+        throw new CodeSpecsRecordError(
+          `${source}: \`${area}\` has a gap that is not a mapping`,
+        );
+      }
+      for (const key of Object.keys(g)) {
+        if (!['sectionId', 'required', 'carrier'].includes(key)) {
+          throw new CodeSpecsRecordError(
+            `${source} has an unknown key \`${key}\` in a gap of ${area} — ` +
+              'a gap knows `sectionId`, `required` and `carrier` only',
+          );
+        }
+      }
+      out.push(
+        new CodeSpecsGateGap({
+          sectionId: _str(g.sectionId, source, 'gaps[].sectionId'),
+          required: _str(g.required, source, 'gaps[].required'),
+          carrier: _str(g.carrier, source, 'gaps[].carrier'),
+        }),
+      );
+    }
+    return out;
   }
 
   private _check(source: string): void {
@@ -1939,6 +2030,37 @@ export class CodeSpecsGateRecord {
         );
       }
       seen.add(e.area);
+      if (
+        e.gaps.length > 0 &&
+        e.verdict !== CodeSpecsGateVerdict.insufficient
+      ) {
+        throw new CodeSpecsRecordError(
+          `${source} gives ${e.area} gap lines on verdict ` +
+            `\`${e.verdict.word}\` — only an insufficient area has missing ` +
+            'inputs',
+        );
+      }
+      for (const g of e.gaps) {
+        const fields: [string, string][] = [
+          ['sectionId', g.sectionId],
+          ['required', g.required],
+          ['carrier', g.carrier],
+        ];
+        for (const [name, value] of fields) {
+          if (value.trim() === '') {
+            throw new CodeSpecsRecordError(
+              `${source} has a gap of ${e.area} with no \`${name}\` — a gap ` +
+                'line names the section, what was required and its carrier',
+            );
+          }
+        }
+        if (!_CARRIER_PATTERN.test(g.carrier)) {
+          throw new CodeSpecsRecordError(
+            `${source} gives a gap of ${e.area} the carrier ` +
+              `\`${g.carrier}\` — a carrier is \`<section-id>.<field>\``,
+          );
+        }
+      }
       const resolution = e.resolution;
       if (resolution === null) {
         continue;
@@ -2017,7 +2139,8 @@ export class CodeSpecsGateRecord {
    *
    * `area` and `verdict` are written plain, as `codespecs_prompt.md` §6.3 shows
    * them — both are from a closed vocabulary the constructor checked — and a
-   * note as a double-quoted scalar, the extract's one escaping rule.
+   * note and every gap field as double-quoted scalars, the extract's one
+   * escaping rule.
    */
   toYaml(): string {
     const b = new _Buffer();
@@ -2033,6 +2156,14 @@ export class CodeSpecsGateRecord {
       b.writeln(`      verdict: ${e.verdict.word}`);
       if (e.resolution !== null) {
         b.writeln(`      resolution: ${e.resolution}`);
+      }
+      if (e.gaps.length > 0) {
+        b.writeln('      gaps:');
+        for (const g of e.gaps) {
+          b.writeln(`        - sectionId: ${yamlString(g.sectionId)}`);
+          b.writeln(`          required: ${yamlString(g.required)}`);
+          b.writeln(`          carrier: ${yamlString(g.carrier)}`);
+        }
       }
       if (e.note !== null) {
         b.writeln(`      note: ${yamlString(e.note)}`);

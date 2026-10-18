@@ -1,5 +1,9 @@
 package tom_som_runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /** One area's recorded verdict in the gate record. */
 public final class CodeSpecsGateEntry {
   /**
@@ -21,15 +25,36 @@ public final class CodeSpecsGateEntry {
   public final String note;
 
   /**
+   * The gap lines of an insufficient area, in the order Stage B found them;
+   * empty for every other verdict, and for an insufficient area recorded before
+   * its gaps were.
+   */
+  public final List<CodeSpecsGateGap> gaps;
+
+  /**
    * Creates an entry. Shape is checked by {@link CodeSpecsGateRecord}, which is
    * the only thing that reads or writes entries.
    */
   public CodeSpecsGateEntry(
       String area, CodeSpecsGateVerdict verdict, String resolution, String note) {
+    this(area, verdict, resolution, note, List.of());
+  }
+
+  /** As the four-argument constructor, with the area's gap lines. */
+  public CodeSpecsGateEntry(
+      String area,
+      CodeSpecsGateVerdict verdict,
+      String resolution,
+      String note,
+      List<CodeSpecsGateGap> gaps) {
     this.area = area;
     this.verdict = verdict;
     this.resolution = resolution;
     this.note = note;
+    this.gaps =
+        gaps == null
+            ? List.of()
+            : Collections.unmodifiableList(new ArrayList<>(gaps));
   }
 
   public CodeSpecsGateEntry(String area, CodeSpecsGateVerdict verdict) {

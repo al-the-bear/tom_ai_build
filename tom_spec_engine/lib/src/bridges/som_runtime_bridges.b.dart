@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 25 files
-// Generated: 2026-10-18T10:25:21.508696 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-18T10:49:51.111706 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -97,6 +97,7 @@ class SomRuntimeBridge {
       _createCodeSpecsGateReportBridge(),
       _createCodeSpecsGateBridge(),
       _createCodeSpecsRecordErrorBridge(),
+      _createCodeSpecsGateGapBridge(),
       _createCodeSpecsGateEntryBridge(),
       _createCodeSpecsGateRecordBridge(),
       _createCodeSpecsExcludedAreaBridge(),
@@ -195,6 +196,7 @@ class SomRuntimeBridge {
       'CodeSpecsGateReport': _createCodeSpecsGateReportBridge,
       'CodeSpecsGate': _createCodeSpecsGateBridge,
       'CodeSpecsRecordError': _createCodeSpecsRecordErrorBridge,
+      'CodeSpecsGateGap': _createCodeSpecsGateGapBridge,
       'CodeSpecsGateEntry': _createCodeSpecsGateEntryBridge,
       'CodeSpecsGateRecord': _createCodeSpecsGateRecordBridge,
       'CodeSpecsExcludedArea': _createCodeSpecsExcludedAreaBridge,
@@ -295,6 +297,7 @@ class SomRuntimeBridge {
       'CodeSpecsGateReport': $tom_som_dart_runtime_5.CodeSpecsGateReport,
       'CodeSpecsGate': $tom_som_dart_runtime_5.CodeSpecsGate,
       'CodeSpecsRecordError': $tom_som_dart_runtime_6.CodeSpecsRecordError,
+      'CodeSpecsGateGap': $tom_som_dart_runtime_6.CodeSpecsGateGap,
       'CodeSpecsGateEntry': $tom_som_dart_runtime_6.CodeSpecsGateEntry,
       'CodeSpecsGateRecord': $tom_som_dart_runtime_6.CodeSpecsGateRecord,
       'CodeSpecsExcludedArea': $tom_som_dart_runtime_6.CodeSpecsExcludedArea,
@@ -423,6 +426,8 @@ class SomRuntimeBridge {
       'CodeSpecsGate':
           'package:tom_som_dart_runtime/src/spec_codespecs_gate.dart',
       'CodeSpecsRecordError':
+          'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
+      'CodeSpecsGateGap':
           'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
       'CodeSpecsGateEntry':
           'package:tom_som_dart_runtime/src/spec_codespecs_records.dart',
@@ -5172,6 +5177,77 @@ BridgedClass _createCodeSpecsRecordErrorBridge() {
 }
 
 // =============================================================================
+// CodeSpecsGateGap Bridge
+// =============================================================================
+
+BridgedClass _createCodeSpecsGateGapBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_6.CodeSpecsGateGap,
+    name: 'CodeSpecsGateGap',
+    isAssignable: (v) => v is $tom_som_dart_runtime_6.CodeSpecsGateGap,
+    constructors: {
+      '': (visitor, positional, named) {
+        final sectionId = D4.getRequiredNamedArg<String>(
+          named,
+          'sectionId',
+          'CodeSpecsGateGap',
+        );
+        final required = D4.getRequiredNamedArg<String>(
+          named,
+          'required',
+          'CodeSpecsGateGap',
+        );
+        final carrier = D4.getRequiredNamedArg<String>(
+          named,
+          'carrier',
+          'CodeSpecsGateGap',
+        );
+        return $tom_som_dart_runtime_6.CodeSpecsGateGap(
+          sectionId: sectionId,
+          required: required,
+          carrier: carrier,
+        );
+      },
+    },
+    getters: {
+      'sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateGap>(
+            target,
+            'CodeSpecsGateGap',
+          )
+          .sectionId,
+      'required': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateGap>(
+            target,
+            'CodeSpecsGateGap',
+          )
+          .required,
+      'carrier': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateGap>(
+            target,
+            'CodeSpecsGateGap',
+          )
+          .carrier,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateGap>(
+            target,
+            'CodeSpecsGateGap',
+          )
+          .line,
+    },
+    constructorSignatures: {
+      '': 'const CodeSpecsGateGap({required String sectionId, required String required, required String carrier})',
+    },
+    getterSignatures: {
+      'sectionId': 'String get sectionId',
+      'required': 'String get required',
+      'carrier': 'String get carrier',
+      'line': 'String get line',
+    },
+  );
+}
+
+// =============================================================================
 // CodeSpecsGateEntry Bridge
 // =============================================================================
 
@@ -5195,11 +5271,18 @@ BridgedClass _createCodeSpecsGateEntryBridge() {
             );
         final resolution = D4.getOptionalNamedArg<String?>(named, 'resolution');
         final note = D4.getOptionalNamedArg<String?>(named, 'note');
+        final gaps = named.containsKey('gaps') && named['gaps'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_6.CodeSpecsGateGap>(
+                named['gaps'],
+                'gaps',
+              )
+            : const <$tom_som_dart_runtime_6.CodeSpecsGateGap>[];
         return $tom_som_dart_runtime_6.CodeSpecsGateEntry(
           area: area,
           verdict: verdict,
           resolution: resolution,
           note: note,
+          gaps: gaps,
         );
       },
     },
@@ -5228,6 +5311,12 @@ BridgedClass _createCodeSpecsGateEntryBridge() {
             'CodeSpecsGateEntry',
           )
           .note,
+      'gaps': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateEntry>(
+            target,
+            'CodeSpecsGateEntry',
+          )
+          .gaps,
       'descoped': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_6.CodeSpecsGateEntry>(
             target,
@@ -5236,13 +5325,14 @@ BridgedClass _createCodeSpecsGateEntryBridge() {
           .descoped,
     },
     constructorSignatures: {
-      '': 'const CodeSpecsGateEntry({required String area, required CodeSpecsGateVerdict verdict, String? resolution, String? note})',
+      '': 'const CodeSpecsGateEntry({required String area, required CodeSpecsGateVerdict verdict, String? resolution, String? note, List<CodeSpecsGateGap> gaps = const []})',
     },
     getterSignatures: {
       'area': 'String get area',
       'verdict': 'CodeSpecsGateVerdict get verdict',
       'resolution': 'String? get resolution',
       'note': 'String? get note',
+      'gaps': 'List<CodeSpecsGateGap> get gaps',
       'descoped': 'bool get descoped',
     },
   );

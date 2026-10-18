@@ -106,6 +106,28 @@ const char* codeSpecsGateVerdictWord(CodeSpecsGateVerdict verdict);
 std::optional<CodeSpecsGateVerdict> parseCodeSpecsGateVerdict(
     const std::string& word);
 
+/* One gap line of an insufficient area (`codespecs_prompt.md` §6.3): a missing
+ * input, and the section field that should have carried it.
+ *
+ * Stage C creates one L0 `csopen` todo per gap line, so two sections missing
+ * the same field are two gaps — which is why the record carries them as data
+ * rather than leaving them in the note. Shape is checked by
+ * CodeSpecsGateRecord. */
+struct CodeSpecsGateGap {
+  /* The section whose content is missing the input. */
+  std::string sectionId;
+  /* What the derivation contract required, in one line. */
+  std::string required;
+  /* `<section-id>.<field>` — the field that should have carried it. */
+  std::string carrier;
+
+  /* The gap as the §6.3 output line, without its indentation. */
+  std::string line() const {
+    return sectionId + " — " + required + " — should have been carried by " +
+           carrier;
+  }
+};
+
 /* One area's recorded verdict. */
 struct CodeSpecsGateEntry {
   /* The area's `CE-*` code. */
@@ -116,6 +138,10 @@ struct CodeSpecsGateEntry {
   std::optional<std::string> resolution;
   /* A free-text note — why the verdict was taken. Never read as data. */
   std::optional<std::string> note;
+  /* The gap lines of an insufficient area, in the order Stage B found them;
+   * empty for every other verdict, and for an insufficient area recorded
+   * before its gaps were. */
+  std::vector<CodeSpecsGateGap> gaps;
 
   /* Whether this is an insufficient area resolved by descoping. */
   bool descoped() const {
@@ -162,8 +188,8 @@ class CodeSpecsGateRecord {
 
   /* The record as `gate.verdicts.yaml`. Byte-stable: the same record always
    * writes the same text, and `fromYaml(r.toYaml()).toYaml() == r.toYaml()`.
-   * `area`, `verdict` and `resolution` are written plain, a note as a
-   * double-quoted scalar (codeSpecsYamlString). */
+   * `area`, `verdict` and `resolution` are written plain, a note and every
+   * gap field as double-quoted scalars (codeSpecsYamlString). */
   std::string toYaml() const;
 
  private:

@@ -148,8 +148,9 @@ unpublished_drift:
     refused (vsctasb5); and schema findings carry their document path
     (vsctasb6); and the CodeSpecs extractor refuses a @CodeSpecsProjection
     root (vsctasb8); and Markdown import stores a pattern-list item's
-    heading id even when it equals the positional default (vsctasb10). Rides
-    the next model-chain release.
+    heading id even when it equals the positional default (vsctasb10); and the
+    gate record reads and writes an insufficient entry's `gaps:` lines
+    (vsctasb12). Rides the next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

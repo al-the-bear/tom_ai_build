@@ -387,6 +387,32 @@
       "expect": {
         "verdicts": []
       }
+    },
+    {
+      "name": "an insufficient area with gap lines",
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-DB\n      verdict: insufficient\n      gaps:\n        - sectionId: \"NTFTY-ORDER\"\n          required: \"the entity's table name\"\n          carrier: \"DAENT-ORDER.tableName\"\n        - sectionId: \"NTFTY-SHIP\"\n          required: \"the entity's table name\"\n          carrier: \"DAENT-SHIP.tableName\"\n      note: \"two entities name no table\"\n",
+      "expect": {
+        "verdicts": [
+          {
+            "area": "CE-DB",
+            "verdict": "insufficient",
+            "resolution": null,
+            "note": "two entities name no table",
+            "gaps": [
+              {
+                "sectionId": "NTFTY-ORDER",
+                "required": "the entity's table name",
+                "carrier": "DAENT-ORDER.tableName"
+              },
+              {
+                "sectionId": "NTFTY-SHIP",
+                "required": "the entity's table name",
+                "carrier": "DAENT-SHIP.tableName"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "gateWrites": [
@@ -415,6 +441,23 @@
       "name": "an empty record",
       "verdicts": [],
       "yaml": "gate:\n  formatVersion: 1\n  verdicts: []\n"
+    },
+    {
+      "name": "an insufficient area with a gap line",
+      "verdicts": [
+        {
+          "area": "CE-TX",
+          "verdict": "insufficient",
+          "gaps": [
+            {
+              "sectionId": "MSGKE-ORDER",
+              "required": "the message \"text\" in the default locale",
+              "carrier": "MSGKE-ORDER.text"
+            }
+          ]
+        }
+      ],
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-TX\n      verdict: insufficient\n      gaps:\n        - sectionId: \"MSGKE-ORDER\"\n          required: \"the message \\\"text\\\" in the default locale\"\n          carrier: \"MSGKE-ORDER.text\"\n"
     }
   ],
   "gateErrors": [
@@ -447,6 +490,26 @@
       "name": "an unknown key",
       "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-FM\n      verdict: sufficient\n      reviewer: me\n",
       "messageContains": "unknown key `reviewer`"
+    },
+    {
+      "name": "gap lines on a sufficient area",
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-FM\n      verdict: sufficient\n      gaps:\n        - sectionId: \"A\"\n          required: \"x\"\n          carrier: \"A.b\"\n",
+      "messageContains": "gap lines on verdict `sufficient`"
+    },
+    {
+      "name": "an unknown key in a gap",
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-FM\n      verdict: insufficient\n      gaps:\n        - sectionId: \"A\"\n          required: \"x\"\n          carrier: \"A.b\"\n          severity: high\n",
+      "messageContains": "unknown key `severity` in a gap"
+    },
+    {
+      "name": "a gap without its carrier",
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-FM\n      verdict: insufficient\n      gaps:\n        - sectionId: \"A\"\n          required: \"x\"\n",
+      "messageContains": "with no `carrier`"
+    },
+    {
+      "name": "a carrier that names no field",
+      "yaml": "gate:\n  formatVersion: 1\n  verdicts:\n    - area: CE-FM\n      verdict: insufficient\n      gaps:\n        - sectionId: \"A\"\n          required: \"x\"\n          carrier: \"A\"\n",
+      "messageContains": "the carrier `A`"
     },
     {
       "name": "a later format version",

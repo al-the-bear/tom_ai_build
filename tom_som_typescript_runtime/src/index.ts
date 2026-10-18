@@ -146,6 +146,7 @@ export {
   parseCodeSpecsExtractYaml,
   codeSpecsYamlString,
   CodeSpecsGateVerdict,
+  CodeSpecsGateGap,
   CodeSpecsGateEntry,
   CodeSpecsGateRecord,
   CodeSpecsExcludedArea,

@@ -386,6 +386,70 @@ std::optional<CodeSpecsGateVerdict> parseCodeSpecsGateVerdict(
   return std::nullopt;
 }
 
+namespace {
+
+/* Dart's `\s` over ASCII. */
+bool isSpaceChar(char c) {
+  return c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' ||
+         c == '\r';
+}
+
+/* `value.trim().isEmpty`. */
+bool isBlank(const std::string& s) {
+  for (char c : s) {
+    if (!isSpaceChar(c)) return false;
+  }
+  return true;
+}
+
+/* `^[^\s.]+(\.[^\s.]+)+$`: `<section-id>.<field>` — two or more
+ * dot-separated parts, none empty, no whitespace. */
+bool isCarrier(const std::string& s) {
+  std::size_t part = 0;
+  std::size_t parts = 1;
+  for (char c : s) {
+    if (isSpaceChar(c)) return false;
+    if (c == '.') {
+      if (part == 0) return false;
+      parts++;
+      part = 0;
+    } else {
+      part++;
+    }
+  }
+  return part > 0 && parts >= 2;
+}
+
+/* `_gaps`: the optional `gaps:` list of the entry for `area`. */
+std::vector<CodeSpecsGateGap> readGaps(YamlRef raw, const std::string& source,
+                                       const std::string& area) {
+  std::vector<CodeSpecsGateGap> out;
+  if (nodeKind(raw) == NodeKind::Null) return out;
+  if (nodeKind(raw) != NodeKind::Seq) {
+    fail(source + ": `" + area + "` has `gaps:` that is not a list");
+  }
+  for (const YamlPtr& g : raw->seq) {
+    if (nodeKind(g) != NodeKind::Map) {
+      fail(source + ": `" + area + "` has a gap that is not a mapping");
+    }
+    for (const auto& kv : g->map) {
+      if (kv.first != "sectionId" && kv.first != "required" &&
+          kv.first != "carrier") {
+        fail(source + " has an unknown key `" + kv.first + "` in a gap of " +
+             area + " — a gap knows `sectionId`, `required` and `carrier` only");
+      }
+    }
+    CodeSpecsGateGap gap;
+    gap.sectionId = readStr(yamlGet(g, "sectionId"), source, "gaps[].sectionId");
+    gap.required = readStr(yamlGet(g, "required"), source, "gaps[].required");
+    gap.carrier = readStr(yamlGet(g, "carrier"), source, "gaps[].carrier");
+    out.push_back(std::move(gap));
+  }
+  return out;
+}
+
+}  // namespace
+
 CodeSpecsGateRecord::CodeSpecsGateRecord(
     std::vector<CodeSpecsGateEntry> verdicts, const std::string& source)
     : verdicts_(std::move(verdicts)) {
@@ -406,6 +470,29 @@ void CodeSpecsGateRecord::check(const std::string& source) const {
       if (verdicts_[k].area == e.area) {
         fail(source + " carries two verdicts for " + e.area +
              " — a scope with two answers for one area is no scope");
+      }
+    }
+    if (!e.gaps.empty() && e.verdict != CodeSpecsGateVerdict::Insufficient) {
+      fail(source + " gives " + e.area + " gap lines on verdict `" +
+           codeSpecsGateVerdictWord(e.verdict) +
+           "` — only an insufficient area has missing inputs");
+    }
+    for (const CodeSpecsGateGap& g : e.gaps) {
+      const std::pair<const char*, const std::string*> fields[] = {
+          {"sectionId", &g.sectionId},
+          {"required", &g.required},
+          {"carrier", &g.carrier},
+      };
+      for (const auto& [name, value] : fields) {
+        if (isBlank(*value)) {
+          fail(source + " has a gap of " + e.area + " with no `" + name +
+               "` — a gap line names the section, what was required and its "
+               "carrier");
+        }
+      }
+      if (!isCarrier(g.carrier)) {
+        fail(source + " gives a gap of " + e.area + " the carrier `" +
+             g.carrier + "` — a carrier is `<section-id>.<field>`");
       }
     }
     if (!e.resolution.has_value()) {
@@ -453,10 +540,11 @@ CodeSpecsGateRecord CodeSpecsGateRecord::fromYaml(const std::string& text,
     }
     for (const auto& kv : raw->map) {
       if (kv.first != "area" && kv.first != "verdict" &&
-          kv.first != "resolution" && kv.first != "note") {
+          kv.first != "resolution" && kv.first != "gaps" &&
+          kv.first != "note") {
         fail(source + " has an unknown key `" + kv.first +
              "` in a verdict — an entry knows `area`, `verdict`, "
-             "`resolution` and `note` only");
+             "`resolution`, `gaps` and `note` only");
       }
     }
     CodeSpecsGateEntry e;
@@ -474,6 +562,7 @@ CodeSpecsGateRecord CodeSpecsGateRecord::fromYaml(const std::string& text,
     e.resolution =
         readOptStr(yamlGet(raw, "resolution"), source, "verdicts[].resolution");
     e.note = readOptStr(yamlGet(raw, "note"), source, "verdicts[].note");
+    e.gaps = readGaps(yamlGet(raw, "gaps"), source, e.area);
     entries.push_back(std::move(e));
   }
   return CodeSpecsGateRecord(std::move(entries), source);
@@ -532,6 +621,14 @@ std::string CodeSpecsGateRecord::toYaml() const {
          "\n";
     if (e.resolution.has_value()) {
       b += "      resolution: " + *e.resolution + "\n";
+    }
+    if (!e.gaps.empty()) {
+      b += "      gaps:\n";
+      for (const CodeSpecsGateGap& g : e.gaps) {
+        b += "        - sectionId: " + codeSpecsYamlString(g.sectionId) + "\n";
+        b += "          required: " + codeSpecsYamlString(g.required) + "\n";
+        b += "          carrier: " + codeSpecsYamlString(g.carrier) + "\n";
+      }
     }
     if (e.note.has_value()) {
       b += "      note: " + codeSpecsYamlString(*e.note) + "\n";

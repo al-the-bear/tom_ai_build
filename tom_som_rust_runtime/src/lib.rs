@@ -73,7 +73,7 @@ pub use spec_codespecs_gate::{
 };
 pub use spec_codespecs_records::{
     parse_code_specs_extract_yaml, CodeSpecsExcludedArea, CodeSpecsExtractSet, CodeSpecsGateEntry,
-    CodeSpecsGateRecord, CodeSpecsGateVerdict, CodeSpecsRecordError,
+    CodeSpecsGateGap, CodeSpecsGateRecord, CodeSpecsGateVerdict, CodeSpecsRecordError,
     CODE_SPECS_EXTRACT_FILE_SUFFIX, CODE_SPECS_GATE_DESCOPED, CODE_SPECS_GATE_RECORD_FILE,
     CODE_SPECS_GATE_RECORD_FORMAT,
 };

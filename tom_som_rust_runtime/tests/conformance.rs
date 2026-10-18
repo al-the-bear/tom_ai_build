@@ -47,7 +47,8 @@ use tom_som_rust_runtime::spec_codespecs_extract::{
 };
 use tom_som_rust_runtime::spec_codespecs_gate::{CodeSpecsGate, CodeSpecsGateReport};
 use tom_som_rust_runtime::spec_codespecs_records::{
-    CodeSpecsExtractSet, CodeSpecsGateEntry, CodeSpecsGateRecord, CodeSpecsGateVerdict,
+    CodeSpecsExtractSet, CodeSpecsGateEntry, CodeSpecsGateGap, CodeSpecsGateRecord,
+    CodeSpecsGateVerdict,
 };
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument, SpecListMoveError};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
@@ -2353,12 +2354,28 @@ fn gate_summary(g: &CodeSpecsGateRecord) -> Json {
         .verdicts()
         .iter()
         .map(|v| {
-            obj(vec![
+            let mut fields = vec![
                 ("area", jstr(&v.area)),
                 ("verdict", jstr(v.verdict.word())),
                 ("resolution", jopt(&v.resolution)),
                 ("note", jopt(&v.note)),
-            ])
+            ];
+            // Only when present, so a gap-less entry's summary is unchanged.
+            if !v.gaps.is_empty() {
+                let gaps = v
+                    .gaps
+                    .iter()
+                    .map(|g| {
+                        obj(vec![
+                            ("sectionId", jstr(&g.section_id)),
+                            ("required", jstr(&g.required)),
+                            ("carrier", jstr(&g.carrier)),
+                        ])
+                    })
+                    .collect();
+                fields.push(("gaps", Json::Array(gaps)));
+            }
+            obj(fields)
         })
         .collect();
     obj(vec![("verdicts", Json::Array(verdicts))])
@@ -2395,6 +2412,19 @@ fn gate_entry(v: &Json) -> CodeSpecsGateEntry {
             .and_then(|r| r.as_str())
             .map(str::to_string),
         note: v.get("note").and_then(|r| r.as_str()).map(str::to_string),
+        gaps: v
+            .get("gaps")
+            .and_then(|g| g.as_array())
+            .map(|gaps| {
+                gaps.iter()
+                    .map(|g| CodeSpecsGateGap {
+                        section_id: g.str_or("sectionId"),
+                        required: g.str_or("required"),
+                        carrier: g.str_or("carrier"),
+                    })
+                    .collect()
+            })
+            .unwrap_or_default(),
     }
 }
 

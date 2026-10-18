@@ -30,7 +30,15 @@ public final class CodeSpecsGateRecord {
   private static final Pattern AREA_CODE = Pattern.compile("^CE-[A-Z]+$");
 
   private static final List<String> ENTRY_KEYS =
-      List.of("area", "verdict", "resolution", "note");
+      List.of("area", "verdict", "resolution", "gaps", "note");
+
+  private static final List<String> GAP_KEYS = List.of("sectionId", "required", "carrier");
+
+  /**
+   * {@code <section-id>.<field>}: one or more dot-separated parts, none empty,
+   * no whitespace.
+   */
+  private static final Pattern CARRIER = Pattern.compile("^[^\\s.]+(\\.[^\\s.]+)+$");
 
   /** The verdicts, in the order they were recorded. */
   public final List<CodeSpecsGateEntry> verdicts;
@@ -86,7 +94,7 @@ public final class CodeSpecsGateRecord {
         if (!ENTRY_KEYS.contains(key)) {
           throw new CodeSpecsRecordError(
               source + " has an unknown key `" + key + "` in a verdict — an entry knows "
-                  + "`area`, `verdict`, `resolution` and `note` only");
+                  + "`area`, `verdict`, `resolution`, `gaps` and `note` only");
         }
       }
       String area = CodeSpecsRecordReader.str(raw.get("area"), source, "verdicts[].area");
@@ -103,9 +111,42 @@ public final class CodeSpecsGateRecord {
               verdict,
               CodeSpecsRecordReader.optStr(
                   raw.get("resolution"), source, "verdicts[].resolution"),
-              CodeSpecsRecordReader.optStr(raw.get("note"), source, "verdicts[].note")));
+              CodeSpecsRecordReader.optStr(raw.get("note"), source, "verdicts[].note"),
+              gaps(raw.get("gaps"), source, area)));
     }
     return new CodeSpecsGateRecord(entries, source);
+  }
+
+  @SuppressWarnings("unchecked")
+  private static List<CodeSpecsGateGap> gaps(Object raw, String source, String area) {
+    if (CodeSpecsRecordReader.absent(raw)) {
+      return List.of();
+    }
+    if (!(raw instanceof List)) {
+      throw new CodeSpecsRecordError(
+          source + ": `" + area + "` has `gaps:` that is not a list");
+    }
+    List<CodeSpecsGateGap> out = new ArrayList<>();
+    for (Object gObj : (List<Object>) raw) {
+      if (!(gObj instanceof Map)) {
+        throw new CodeSpecsRecordError(
+            source + ": `" + area + "` has a gap that is not a mapping");
+      }
+      Map<String, Object> g = (Map<String, Object>) gObj;
+      for (String key : g.keySet()) {
+        if (!GAP_KEYS.contains(key)) {
+          throw new CodeSpecsRecordError(
+              source + " has an unknown key `" + key + "` in a gap of " + area
+                  + " — a gap knows `sectionId`, `required` and `carrier` only");
+        }
+      }
+      out.add(
+          new CodeSpecsGateGap(
+              CodeSpecsRecordReader.str(g.get("sectionId"), source, "gaps[].sectionId"),
+              CodeSpecsRecordReader.str(g.get("required"), source, "gaps[].required"),
+              CodeSpecsRecordReader.str(g.get("carrier"), source, "gaps[].carrier")));
+    }
+    return out;
   }
 
   private void check(String source) {
@@ -122,6 +163,28 @@ public final class CodeSpecsGateRecord {
         throw new CodeSpecsRecordError(
             source + " carries two verdicts for " + e.area + " — a scope with two "
                 + "answers for one area is no scope");
+      }
+      if (!e.gaps.isEmpty() && e.verdict != CodeSpecsGateVerdict.INSUFFICIENT) {
+        throw new CodeSpecsRecordError(
+            source + " gives " + e.area + " gap lines on verdict `" + e.verdict.word
+                + "` — only an insufficient area has missing inputs");
+      }
+      for (CodeSpecsGateGap g : e.gaps) {
+        String[][] fields = {
+          {"sectionId", g.sectionId}, {"required", g.required}, {"carrier", g.carrier},
+        };
+        for (String[] f : fields) {
+          if (f[1] == null || f[1].trim().isEmpty()) {
+            throw new CodeSpecsRecordError(
+                source + " has a gap of " + e.area + " with no `" + f[0] + "` — a gap "
+                    + "line names the section, what was required and its carrier");
+          }
+        }
+        if (!CARRIER.matcher(g.carrier).matches()) {
+          throw new CodeSpecsRecordError(
+              source + " gives a gap of " + e.area + " the carrier `" + g.carrier
+                  + "` — a carrier is `<section-id>.<field>`");
+        }
       }
       if (e.resolution == null) {
         continue;
@@ -198,8 +261,8 @@ public final class CodeSpecsGateRecord {
    * equals {@code r.toYaml()}.
    *
    * <p>{@code area} and {@code verdict} are written plain — both are from a
-   * closed vocabulary the constructor checked — and a note as a double-quoted
-   * scalar, the extract's one escaping rule.
+   * closed vocabulary the constructor checked — and a note and every gap
+   * field as double-quoted scalars, the extract's one escaping rule.
    */
   public String toYaml() {
     StringBuilder b = new StringBuilder();
@@ -215,6 +278,20 @@ public final class CodeSpecsGateRecord {
       b.append("      verdict: ").append(e.verdict.word).append('\n');
       if (e.resolution != null) {
         b.append("      resolution: ").append(e.resolution).append('\n');
+      }
+      if (!e.gaps.isEmpty()) {
+        b.append("      gaps:\n");
+        for (CodeSpecsGateGap g : e.gaps) {
+          b.append("        - sectionId: ")
+              .append(CodeSpecsExtract.yamlString(g.sectionId))
+              .append('\n');
+          b.append("          required: ")
+              .append(CodeSpecsExtract.yamlString(g.required))
+              .append('\n');
+          b.append("          carrier: ")
+              .append(CodeSpecsExtract.yamlString(g.carrier))
+              .append('\n');
+        }
       }
       if (e.note != null) {
         b.append("      note: ").append(CodeSpecsExtract.yamlString(e.note)).append('\n');
