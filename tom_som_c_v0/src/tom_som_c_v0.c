@@ -51,6 +51,37 @@ char *parse_basic_authorization_requirement_kind(const char *token) {
   return som_strdup("");
 }
 
+char *parse_binding_error_format(const char *token) {
+  if (strcmp(token, BINDING_ERROR_FORMAT_RESULT_ENVELOPE) == 0 ||
+      strcmp(token, BINDING_ERROR_FORMAT_PROBLEM_JSON) == 0 ||
+      strcmp(token, BINDING_ERROR_FORMAT_SCIM) == 0 ||
+      strcmp(token, BINDING_ERROR_FORMAT_OAUTH) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_binding_http_method(const char *token) {
+  if (strcmp(token, BINDING_HTTP_METHOD_GET) == 0 ||
+      strcmp(token, BINDING_HTTP_METHOD_POST) == 0 ||
+      strcmp(token, BINDING_HTTP_METHOD_PUT) == 0 ||
+      strcmp(token, BINDING_HTTP_METHOD_PATCH) == 0 ||
+      strcmp(token, BINDING_HTTP_METHOD_DELETE) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_binding_parameter_source(const char *token) {
+  if (strcmp(token, BINDING_PARAMETER_SOURCE_PATH) == 0 ||
+      strcmp(token, BINDING_PARAMETER_SOURCE_QUERY) == 0 ||
+      strcmp(token, BINDING_PARAMETER_SOURCE_BODY) == 0 ||
+      strcmp(token, BINDING_PARAMETER_SOURCE_HEADER) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_client_application_kind(const char *token) {
   if (strcmp(token, CLIENT_APPLICATION_KIND_GRAPHICAL_APPLICATION) == 0 ||
       strcmp(token, CLIENT_APPLICATION_KIND_COMMAND_LINE) == 0 ||
@@ -177,6 +208,14 @@ char *parse_probability(const char *token) {
       strcmp(token, PROBABILITY_MEDIUM) == 0 ||
       strcmp(token, PROBABILITY_HIGH) == 0 ||
       strcmp(token, PROBABILITY_VERY_HIGH) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_protocol_feature_kind(const char *token) {
+  if (strcmp(token, PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER) == 0 ||
+      strcmp(token, PROTOCOL_FEATURE_KIND_SCIM2_SERVER) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -4054,6 +4093,24 @@ BehaviorRuleEntryContentForm behavior_rule_entry_content(const BehaviorRuleEntry
   char *path = spec_path_join(self->node.path, "content");
   BehaviorRuleEntryContentForm out;
   behavior_rule_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void binding_parameter_entry_init(BindingParameterEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void binding_parameter_entry_free(BindingParameterEntry *self) {
+  som_node_free(&self->node);
+}
+int binding_parameter_entry_can_have_content(const BindingParameterEntry *self) {
+  (void)self;
+  return 0;
+}
+BindingParameterEntryContentForm binding_parameter_entry_content(const BindingParameterEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  BindingParameterEntryContentForm out;
+  binding_parameter_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -19765,6 +19822,31 @@ FeatureDependencyEntryContentForm feature_dependency_entry_content(const Feature
   return out;
 }
 
+void feature_hook_entry_init(FeatureHookEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void feature_hook_entry_free(FeatureHookEntry *self) {
+  som_node_free(&self->node);
+}
+int feature_hook_entry_can_have_content(const FeatureHookEntry *self) {
+  (void)self;
+  return 0;
+}
+FeatureHookEntryContentForm feature_hook_entry_content(const FeatureHookEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  FeatureHookEntryContentForm out;
+  feature_hook_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList feature_hook_entry_methods(const FeatureHookEntry *self) {
+  char *path = spec_path_join(self->node.path, "FEHOM-METH-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "FEHOM-METH-xxx");
+  free(path);
+  return out;
+}
+
 void feature_module_entry_init(FeatureModuleEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -21653,6 +21735,24 @@ HighAvailabilityRequirementsDisasterRecoveryForm high_availability_requirements_
   char *path = spec_path_join(self->node.path, "HARDR");
   HighAvailabilityRequirementsDisasterRecoveryForm out;
   high_availability_requirements_disaster_recovery_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void hook_method_entry_init(HookMethodEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void hook_method_entry_free(HookMethodEntry *self) {
+  som_node_free(&self->node);
+}
+int hook_method_entry_can_have_content(const HookMethodEntry *self) {
+  (void)self;
+  return 0;
+}
+HookMethodEntryContentForm hook_method_entry_content(const HookMethodEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  HookMethodEntryContentForm out;
+  hook_method_entry_content_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -28845,6 +28945,31 @@ void operating_environment_set_constraints_and_dependencies(OperatingEnvironment
   free(path);
 }
 
+void operation_binding_entry_init(OperationBindingEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void operation_binding_entry_free(OperationBindingEntry *self) {
+  som_node_free(&self->node);
+}
+int operation_binding_entry_can_have_content(const OperationBindingEntry *self) {
+  (void)self;
+  return 0;
+}
+OperationBindingEntryContentForm operation_binding_entry_content(const OperationBindingEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  OperationBindingEntryContentForm out;
+  operation_binding_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList operation_binding_entry_parameters(const OperationBindingEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVOBP-PARA-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVOBP-PARA-xxx");
+  free(path);
+  return out;
+}
+
 void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -32910,6 +33035,31 @@ ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self) {
   char *path = spec_path_join(self->node.path, "content");
   ProtocolEntryContentForm out;
   protocol_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void protocol_feature_entry_init(ProtocolFeatureEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void protocol_feature_entry_free(ProtocolFeatureEntry *self) {
+  som_node_free(&self->node);
+}
+int protocol_feature_entry_can_have_content(const ProtocolFeatureEntry *self) {
+  (void)self;
+  return 0;
+}
+ProtocolFeatureEntryContentForm protocol_feature_entry_content(const ProtocolFeatureEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  ProtocolFeatureEntryContentForm out;
+  protocol_feature_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList protocol_feature_entry_hooks(const ProtocolFeatureEntry *self) {
+  char *path = spec_path_join(self->node.path, "FEHOK-HOOK-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "FEHOK-HOOK-xxx");
   free(path);
   return out;
 }
@@ -39983,6 +40133,13 @@ SomList server_operation_entry_response_members(const ServerOperationEntry *self
   free(path);
   return out;
 }
+SomList server_operation_entry_bindings(const ServerOperationEntry *self) {
+  char *path = spec_path_join(self->node.path, "SVOBI-BIND-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "SVOBI-BIND-xxx");
+  free(path);
+  return out;
+}
 
 void server_operation_member_entry_init(ServerOperationMemberEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -40028,6 +40185,13 @@ SomList server_operation_registry_operations(const ServerOperationRegistry *self
   char *path = spec_path_join(self->node.path, "SVOPE-OPER-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "SVOPE-OPER-xxx");
+  free(path);
+  return out;
+}
+SomList server_operation_registry_protocol_features(const ServerOperationRegistry *self) {
+  char *path = spec_path_join(self->node.path, "PROTF-FEAT-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "PROTF-FEAT-xxx");
   free(path);
   return out;
 }
@@ -60239,6 +60403,34 @@ char *behavior_rule_entry_content_form_calculated_properties(const BehaviorRuleE
 }
 void behavior_rule_entry_content_form_set_calculated_properties(BehaviorRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "calculatedProperties", value);
+}
+
+void binding_parameter_entry_content_form_init(BindingParameterEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void binding_parameter_entry_content_form_free(BindingParameterEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *binding_parameter_entry_content_form_content(const BindingParameterEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void binding_parameter_entry_content_form_set_content(BindingParameterEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *binding_parameter_entry_content_form_source(const BindingParameterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "source");
+  return som_strdup(v != NULL ? v : "");
+}
+void binding_parameter_entry_content_form_set_source(BindingParameterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "source", value);
+}
+char *binding_parameter_entry_content_form_request_member(const BindingParameterEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requestMember");
+  return som_strdup(v != NULL ? v : "");
+}
+void binding_parameter_entry_content_form_set_request_member(BindingParameterEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "requestMember", value);
 }
 
 void biometric_authentication_policy_content_form_init(BiometricAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path) {
@@ -94298,6 +94490,27 @@ void feature_dependency_entry_content_form_set_notes(FeatureDependencyEntryConte
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
 }
 
+void feature_hook_entry_content_form_init(FeatureHookEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void feature_hook_entry_content_form_free(FeatureHookEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *feature_hook_entry_content_form_content(const FeatureHookEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void feature_hook_entry_content_form_set_content(FeatureHookEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *feature_hook_entry_content_form_hook(const FeatureHookEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "hook");
+  return som_strdup(v != NULL ? v : "");
+}
+void feature_hook_entry_content_form_set_hook(FeatureHookEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "hook", value);
+}
+
 void feature_module_entry_configuration_form_init(FeatureModuleEntryConfigurationForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -99011,6 +99224,41 @@ bool high_availability_requirements_redundancy_form_active_active_mode(const Hig
 }
 void high_availability_requirements_redundancy_form_set_active_active_mode(HighAvailabilityRequirementsRedundancyForm *self, bool value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "activeActiveMode", value ? "true" : "false");
+}
+
+void hook_method_entry_content_form_init(HookMethodEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void hook_method_entry_content_form_free(HookMethodEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *hook_method_entry_content_form_content(const HookMethodEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void hook_method_entry_content_form_set_content(HookMethodEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *hook_method_entry_content_form_calls_operations(const HookMethodEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "callsOperations");
+  return som_strdup(v != NULL ? v : "");
+}
+void hook_method_entry_content_form_set_calls_operations(HookMethodEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "callsOperations", value);
+}
+char *hook_method_entry_content_form_reads_entities(const HookMethodEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "readsEntities");
+  return som_strdup(v != NULL ? v : "");
+}
+void hook_method_entry_content_form_set_reads_entities(HookMethodEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "readsEntities", value);
+}
+char *hook_method_entry_content_form_writes_entities(const HookMethodEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "writesEntities");
+  return som_strdup(v != NULL ? v : "");
+}
+void hook_method_entry_content_form_set_writes_entities(HookMethodEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "writesEntities", value);
 }
 
 void ide_requirement_entry_configuration_form_init(IdeRequirementEntryConfigurationForm *self, SpecDocument *doc, const char *path) {
@@ -118077,6 +118325,85 @@ void ongoing_training_entry_schedule_form_set_duration(OngoingTrainingEntrySched
   spec_document_set_form_field(self->node.doc, self->node.path, "duration", value);
 }
 
+void operation_binding_entry_content_form_init(OperationBindingEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void operation_binding_entry_content_form_free(OperationBindingEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *operation_binding_entry_content_form_content(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_content(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *operation_binding_entry_content_form_http_method(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "httpMethod");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_http_method(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "httpMethod", value);
+}
+char *operation_binding_entry_content_form_path_template(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "pathTemplate");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_path_template(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "pathTemplate", value);
+}
+char *operation_binding_entry_content_form_version_prefix(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "versionPrefix");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_version_prefix(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "versionPrefix", value);
+}
+long operation_binding_entry_content_form_success_status(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "successStatus");
+  return (v != NULL && *v) ? atol(v) : 0;
+}
+void operation_binding_entry_content_form_set_success_status(OperationBindingEntryContentForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "successStatus", buf);
+}
+char *operation_binding_entry_content_form_response_headers(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "responseHeaders");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_response_headers(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "responseHeaders", value);
+}
+char *operation_binding_entry_content_form_consumes(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "consumes");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_consumes(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "consumes", value);
+}
+char *operation_binding_entry_content_form_produces(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "produces");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_produces(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "produces", value);
+}
+char *operation_binding_entry_content_form_error_format(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "errorFormat");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_error_format(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "errorFormat", value);
+}
+char *operation_binding_entry_content_form_served_interface(const OperationBindingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "servedInterface");
+  return som_strdup(v != NULL ? v : "");
+}
+void operation_binding_entry_content_form_set_served_interface(OperationBindingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "servedInterface", value);
+}
+
 void operational_monitoring_alerting_form_init(OperationalMonitoringAlertingForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -127572,6 +127899,34 @@ char *protocol_entry_content_form_notes(const ProtocolEntryContentForm *self) {
 }
 void protocol_entry_content_form_set_notes(ProtocolEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void protocol_feature_entry_content_form_init(ProtocolFeatureEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void protocol_feature_entry_content_form_free(ProtocolFeatureEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *protocol_feature_entry_content_form_content(const ProtocolFeatureEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void protocol_feature_entry_content_form_set_content(ProtocolFeatureEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *protocol_feature_entry_content_form_feature(const ProtocolFeatureEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "feature");
+  return som_strdup(v != NULL ? v : "");
+}
+void protocol_feature_entry_content_form_set_feature(ProtocolFeatureEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "feature", value);
+}
+char *protocol_feature_entry_content_form_purpose(const ProtocolFeatureEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
+  return som_strdup(v != NULL ? v : "");
+}
+void protocol_feature_entry_content_form_set_purpose(ProtocolFeatureEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "purpose", value);
 }
 
 void prototype_feature_entry_content_form_init(PrototypeFeatureEntryContentForm *self, SpecDocument *doc, const char *path) {

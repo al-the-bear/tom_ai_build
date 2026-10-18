@@ -137,6 +137,7 @@ void buildBandwidthRequirementsChildren(som::SomMetaNode& parent, std::vector<st
 void buildBasicTechnicalRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBatchJobManagementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBehaviorRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildBindingParameterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBiometricAuthenticationPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBoundaryAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBoundaryAssumptionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -484,6 +485,7 @@ void buildExternalSystemsContextChildren(som::SomMetaNode& parent, std::vector<s
 void buildFamilyComponentRefChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFeatureDependenciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFeatureDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildFeatureHookEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFeatureModuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFeaturePrioritizationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -535,6 +537,7 @@ void buildHardwareRequirementsChildren(som::SomMetaNode& parent, std::vector<std
 void buildHealthCheckEndpointsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildHealthChecksAndDiagnosticsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildHighAvailabilityRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildHookMethodEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIdeRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIdentificationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildIdentificationAndAuthenticationChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -721,6 +724,7 @@ void buildOnCallScheduleConfigChildren(som::SomMetaNode& parent, std::vector<std
 void buildOnboardingHelpChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOngoingTrainingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOperatingEnvironmentChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildOperationBindingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOperationalMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOperationalPainPointsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildOperationsRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -835,6 +839,7 @@ void buildProjectOrganizationAndProcessChildren(som::SomMetaNode& parent, std::v
 void buildProjectTeamStaffingChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildProtocolComplianceRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildProtocolEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildProtocolFeatureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildProtocolsAndStandardsSectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPrototypeChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildPrototypeFeatureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -8352,6 +8357,24 @@ void buildBehaviorRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"keyOperations", "String", "Key Operations", false, "Main operations/behaviors (e.g., Submit, Approve, Cancel)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules", false, "Rules for validating object state", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"calculatedProperties", "String", "Calculated Properties", false, "Derived/calculated attributes (e.g., orderTotal, age)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildBindingParameterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "BindingParameterEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "BindingParameterSource", "Source", true, "Where the parameter is found", 0, std::vector<std::string>{"path", "query", "body", "header"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requestMember", "String", "Request Member", true, "The operation's request member the parameter supplies", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -20562,7 +20585,7 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.hasSerializationOrder = true;
         n.serializationOrder = 18;
         n.docComment = "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -22864,7 +22887,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 15;
         n.comment = "locus: shared(CE-API contract)+server(CE-API operations)";
         n.docComment = "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -37216,6 +37239,48 @@ void buildFeatureDependencyEntryChildren(som::SomMetaNode& parent, std::vector<s
   }
 }
 
+void buildFeatureHookEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "FeatureHookEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.";
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hook", "String", "Hook", true, "The hook's catalogue name, e.g. scimStore or clientRegistry (codespecs_mapping.md §5.30)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "FeatureHookEntry";
+    (*ln).memberName = "methods";
+    (*ln).sectionId = "FEHOM-METH-LST";
+    (*ln).sectionIdPattern = "FEHOM-METH-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "HookMethodEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry.";
+    (*ln).docComment = "7.9.2.x. Methods — what each member of the hook contract does.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"What each member of the hook contract does, in terms of operations and entities.\"}", nullptr)});
+    ln->elementNode = metaCx("HookMethodEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "HookMethodEntry";
+        n.classSectionId = "FEHOM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "HookMethodEntry";
+        n.docComment = "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.";
+        n.classDocComment = "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.";
+      },
+      buildHookMethodEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
 void buildFeatureModuleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -40692,6 +40757,26 @@ void buildHighAvailabilityRequirementsChildren(som::SomMetaNode& parent, std::ve
   }
 }
 
+void buildHookMethodEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "HookMethodEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "State what the member does and what it answers, in terms of the operations it calls and the entities it uses.";
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"callsOperations", "String", "Calls Operations", false, "Comma-separated ServerOperationEntry.operationName values, in the order the member calls them", 0, std::vector<std::string>{}, std::vector<std::string>{"SVOPE.operationName"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"readsEntities", "String", "Reads Entities", false, "Comma-separated DataEntityEntry.entityName values the member reads", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"writesEntities", "String", "Writes Entities", false, "Comma-separated DataEntityEntry.entityName values the member writes", 2, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
+    parent.addChild(std::move(n));
+  }
+}
+
 void buildIdeRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -41928,7 +42013,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 9;
         n.docComment = "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.";
-        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.";
+        n.classDocComment = "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).";
       },
       buildServerOperationRegistryChildren);
     parent.addChild(std::move(n));
@@ -54294,6 +54379,56 @@ void buildOperatingEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
   }
 }
 
+void buildOperationBindingEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "OperationBindingEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.";
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"httpMethod", "BindingHttpMethod", "HTTP Method", true, "The method the operation is served under", 0, std::vector<std::string>{"get", "post", "put", "patch", "delete"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"pathTemplate", "String", "Path Template", true, "The path after the version prefix, with {name} captures, e.g. /users/{userId}", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"versionPrefix", "String", "Version Prefix", false, "The prefix the path is served under, e.g. /api/v1; from the interface's versioning convention", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"successStatus", "int", "Success Status", false, "The status a successful call answers with, e.g. 200, 201 or 204", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"responseHeaders", "String", "Response Headers", false, "Comma-separated headers a success sets, e.g. Location, ETag", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"consumes", "String", "Request Content Type", false, "e.g. application/json; leave empty for a request without a body", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"produces", "String", "Response Content Type", false, "e.g. application/json", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorFormat", "BindingErrorFormat", "Error Format", false, "The format errors are answered in; the result envelope if empty", 7, std::vector<std::string>{"resultEnvelope", "problemJson", "scim", "oauth"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"servedInterface", "String", "Served Interface", false, "The external interface (EIE) this binding belongs to, by its external system name", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "OperationBindingEntry";
+    (*ln).memberName = "parameters";
+    (*ln).sectionId = "SVOBP-PARA-LST";
+    (*ln).sectionIdPattern = "SVOBP-PARA-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "BindingParameterEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one.";
+    (*ln).docComment = "7.9.x. Parameters — where the binding finds each request member.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"RFC 9110 — HTTP semantics (methods, status codes, header fields)\"],\"connotation\":\"Where the binding finds each request member of its operation.\"}", nullptr)});
+    ln->elementNode = metaCx("BindingParameterEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "BindingParameterEntry";
+        n.classSectionId = "SVOBP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "BindingParameterEntry";
+        n.docComment = "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.";
+        n.classDocComment = "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.";
+      },
+      buildBindingParameterEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
 void buildOperationalMonitoringChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
   (void)stack;
   {
@@ -61660,6 +61795,48 @@ void buildProtocolEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).form->fields.push_back(som::SomFormFieldMeta{"directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional protocol notes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
+  }
+}
+
+void buildProtocolFeatureEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ProtocolFeatureEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"feature", "ProtocolFeatureKind", "Feature", true, "The framework protocol server the system enables", 0, std::vector<std::string>{"oidcAuthorizationServer", "scim2Server"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What the system uses the feature for, and who its callers are", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ProtocolFeatureEntry";
+    (*ln).memberName = "hooks";
+    (*ln).sectionId = "FEHOK-HOOK-LST";
+    (*ln).sectionIdPattern = "FEHOK-HOOK-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "FeatureHookEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per hook the system implements. Every hook the feature requires needs an entry.";
+    (*ln).docComment = "7.9.2.x. Hooks — the extension points of the feature the system\nimplements.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"The hooks of the feature the system implements, each with its behaviour.\"}", nullptr)});
+    ln->elementNode = metaCx("FeatureHookEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "FeatureHookEntry";
+        n.classSectionId = "FEHOK";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "FeatureHookEntry";
+        n.docComment = "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.";
+        n.classDocComment = "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.";
+      },
+      buildFeatureHookEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -74624,6 +74801,31 @@ void buildServerOperationEntryChildren(som::SomMetaNode& parent, std::vector<std
       buildServerOperationMemberEntryChildren);
     parent.addChild(std::move(ln));
   }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ServerOperationEntry";
+    (*ln).memberName = "bindings";
+    (*ln).sectionId = "SVOBI-BIND-LST";
+    (*ln).sectionIdPattern = "SVOBI-BIND-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "OperationBindingEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 4;
+    (*ln).contentHelp = "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.";
+    (*ln).docComment = "7.9.x. Protocol Bindings — the standard-protocol shapes this operation is\nalso served under, for third-party callers.\n\nThe operation itself keeps the `codespecs_mapping.md` §7 contract: the\napplication's own client calls it by name. A binding is a second shape of\nthe same operation — an HTTP method, a path, where each request member is\nfound, the success status and headers — and an operation may have several.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"RFC 9110 — HTTP semantics (methods, status codes, header fields)\",\"RFC 6570 — URI templates\"],\"connotation\":\"The HTTP shapes this operation is served under for third-party callers.\"}", nullptr)});
+    ln->elementNode = metaCx("OperationBindingEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "OperationBindingEntry";
+        n.classSectionId = "SVOBI";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "OperationBindingEntry";
+        n.docComment = "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.";
+        n.classDocComment = "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.";
+      },
+      buildOperationBindingEntryChildren);
+    parent.addChild(std::move(ln));
+  }
 }
 
 void buildServerOperationMemberEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
@@ -74658,7 +74860,7 @@ void buildServerOperationRegistryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).contentHelp = "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n";
+    (*n).contentHelp = "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n";
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     parent.addChild(std::move(n));
   }
@@ -74685,6 +74887,31 @@ void buildServerOperationRegistryChildren(som::SomMetaNode& parent, std::vector<
         n.classDocComment = "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).";
       },
       buildServerOperationEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ServerOperationRegistry";
+    (*ln).memberName = "protocolFeatures";
+    (*ln).sectionId = "PROTF-FEAT-LST";
+    (*ln).sectionIdPattern = "PROTF-FEAT-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ProtocolFeatureEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 2;
+    (*ln).contentHelp = "Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.";
+    (*ln).docComment = "7.9.2. Protocol Features — the standard protocol servers the framework\nprovides that the system enables, each with the hooks the system\nimplements.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"The framework protocol servers the system enables and the hooks it plugs its domain into.\"}", nullptr)});
+    ln->elementNode = metaCx("ProtocolFeatureEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ProtocolFeatureEntry";
+        n.classSectionId = "PROTF";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ProtocolFeatureEntry";
+        n.docComment = "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).";
+        n.classDocComment = "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).";
+      },
+      buildProtocolFeatureEntryChildren);
     parent.addChild(std::move(ln));
   }
 }
@@ -95242,6 +95469,9 @@ void* metaNavFactoryBackupPolicyEntry(const som::SomMetaTree* tree, const std::s
 void* metaNavFactoryBehaviorRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavBehaviorRuleEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryBindingParameterEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavBindingParameterEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryBoundaryAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavBoundaryAssumptionEntry{som::SomMetaRef(tree, path)};
 }
@@ -95662,6 +95892,9 @@ void* metaNavFactoryFamilyComponentRef(const som::SomMetaTree* tree, const std::
 void* metaNavFactoryFeatureDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFeatureDependencyEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryFeatureHookEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavFeatureHookEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryFeatureModuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavFeatureModuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -95721,6 +95954,9 @@ void* metaNavFactoryGradedAccessLevelEntry(const som::SomMetaTree* tree, const s
 }
 void* metaNavFactoryHandlingRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavHandlingRequirementEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryHookMethodEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavHookMethodEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryIdeRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavIdeRequirementEntry{som::SomMetaRef(tree, path)};
@@ -95938,6 +96174,9 @@ void* metaNavFactoryObjectStateEntry(const som::SomMetaTree* tree, const std::st
 void* metaNavFactoryOngoingTrainingEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavOngoingTrainingEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryOperationBindingEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavOperationBindingEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryOrgChangeRisks(const som::SomMetaTree* tree, const std::string& path) {
   return new NavOrgChangeRisks{som::SomMetaRef(tree, path)};
 }
@@ -96069,6 +96308,9 @@ void* metaNavFactoryProgrammingLanguageEntry(const som::SomMetaTree* tree, const
 }
 void* metaNavFactoryProtocolEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavProtocolEntry{som::SomMetaRef(tree, path)};
+}
+void* metaNavFactoryProtocolFeatureEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavProtocolFeatureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaNavFactoryPrototypeFeatureEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavPrototypeFeatureEntry{som::SomMetaRef(tree, path)};
@@ -96757,6 +96999,9 @@ void* metaIdFactoryBackupPolicyEntry(const som::SomMetaTree* tree, const std::st
 void* metaIdFactoryBehaviorRuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdBehaviorRuleEntry{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryBindingParameterEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdBindingParameterEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryBoundaryAssumptionEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdBoundaryAssumptionEntry{som::SomMetaRef(tree, path)};
 }
@@ -97177,6 +97422,9 @@ void* metaIdFactoryFamilyComponentRef(const som::SomMetaTree* tree, const std::s
 void* metaIdFactoryFeatureDependencyEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFeatureDependencyEntry{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryFeatureHookEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdFeatureHookEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryFeatureModuleEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdFeatureModuleEntry{som::SomMetaRef(tree, path)};
 }
@@ -97236,6 +97484,9 @@ void* metaIdFactoryGradedAccessLevelEntry(const som::SomMetaTree* tree, const st
 }
 void* metaIdFactoryHandlingRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdHandlingRequirementEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryHookMethodEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdHookMethodEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryIdeRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdIdeRequirementEntry{som::SomMetaRef(tree, path)};
@@ -97453,6 +97704,9 @@ void* metaIdFactoryObjectStateEntry(const som::SomMetaTree* tree, const std::str
 void* metaIdFactoryOngoingTrainingEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdOngoingTrainingEntry{som::SomMetaRef(tree, path)};
 }
+void* metaIdFactoryOperationBindingEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdOperationBindingEntry{som::SomMetaRef(tree, path)};
+}
 void* metaIdFactoryOrgChangeRisks(const som::SomMetaTree* tree, const std::string& path) {
   return new IdOrgChangeRisks{som::SomMetaRef(tree, path)};
 }
@@ -97584,6 +97838,9 @@ void* metaIdFactoryProgrammingLanguageEntry(const som::SomMetaTree* tree, const 
 }
 void* metaIdFactoryProtocolEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdProtocolEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryProtocolFeatureEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdProtocolFeatureEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryPrototypeFeatureEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdPrototypeFeatureEntry{som::SomMetaRef(tree, path)};
@@ -99755,6 +100012,9 @@ som::SomListMetaRef navBatchJobManagement_scheduledJobs(NavBatchJobManagement x)
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCJOB-JOB-LST"), metaNavFactoryScheduledJobEntry);
 }
 som::SomMetaRef navBehaviorRuleEntry_content(NavBehaviorRuleEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navBindingParameterEntry_content(NavBindingParameterEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navBiometricAuthenticationPolicy_content(NavBiometricAuthenticationPolicy x) {
@@ -104521,6 +104781,12 @@ som::SomListMetaRef navFeatureDependencies_items(NavFeatureDependencies x) {
 som::SomMetaRef navFeatureDependencyEntry_content(NavFeatureDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
+som::SomMetaRef navFeatureHookEntry_content(NavFeatureHookEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navFeatureHookEntry_methods(NavFeatureHookEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FEHOM-METH-LST"), metaNavFactoryHookMethodEntry);
+}
 som::SomMetaRef navFeatureModuleEntry_content(NavFeatureModuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -105093,6 +105359,9 @@ som::SomMetaRef navHighAvailabilityRequirements_loadBalancing(NavHighAvailabilit
 }
 som::SomMetaRef navHighAvailabilityRequirements_disasterRecovery(NavHighAvailabilityRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "HARDR"));
+}
+som::SomMetaRef navHookMethodEntry_content(NavHookMethodEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navIdeRequirementEntry_content(NavIdeRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107353,6 +107622,12 @@ NavTechnicalEnvironment navOperatingEnvironment_technicalEnvironment(NavOperatin
 som::SomMetaRef navOperatingEnvironment_constraintsAndDependencies(NavOperatingEnvironment x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COANDE"));
 }
+som::SomMetaRef navOperationBindingEntry_content(NavOperationBindingEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navOperationBindingEntry_parameters(NavOperationBindingEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOBP-PARA-LST"), metaNavFactoryBindingParameterEntry);
+}
 som::SomMetaRef navOperationalMonitoring_content(NavOperationalMonitoring x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -108525,6 +108800,12 @@ som::SomMetaRef navProtocolComplianceRequirements_events(NavProtocolComplianceRe
 }
 som::SomMetaRef navProtocolEntry_content(NavProtocolEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navProtocolFeatureEntry_content(NavProtocolFeatureEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navProtocolFeatureEntry_hooks(NavProtocolFeatureEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FEHOK-HOOK-LST"), metaNavFactoryFeatureHookEntry);
 }
 som::SomMetaRef navProtocolsAndStandardsSection_content(NavProtocolsAndStandardsSection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -110638,6 +110919,9 @@ som::SomListMetaRef navServerOperationEntry_requestMembers(NavServerOperationEnt
 som::SomListMetaRef navServerOperationEntry_responseMembers(NavServerOperationEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOPM-RESM-LST"), metaNavFactoryServerOperationMemberEntry);
 }
+som::SomListMetaRef navServerOperationEntry_bindings(NavServerOperationEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOBI-BIND-LST"), metaNavFactoryOperationBindingEntry);
+}
 som::SomMetaRef navServerOperationMemberEntry_content(NavServerOperationMemberEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -110646,6 +110930,9 @@ som::SomMetaRef navServerOperationRegistry_content(NavServerOperationRegistry x)
 }
 som::SomListMetaRef navServerOperationRegistry_operations(NavServerOperationRegistry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOPE-OPER-LST"), metaNavFactoryServerOperationEntry);
+}
+som::SomListMetaRef navServerOperationRegistry_protocolFeatures(NavServerOperationRegistry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PROTF-FEAT-LST"), metaNavFactoryProtocolFeatureEntry);
 }
 som::SomMetaRef navServerOsRequirements_content(NavServerOsRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -115694,6 +115981,9 @@ som::SomListMetaRef idD00SolutionBlueprint_MSGKE_MKEY_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_SVOPE_OPER_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST"), metaIdFactoryServerOperationEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_PROTF_FEAT_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/serverOperationRegistry/PROTF-FEAT-LST"), metaIdFactoryProtocolFeatureEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_DMFUE_ENFU_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST"), metaIdFactoryEntityFollowUpEntry);
 }
@@ -119086,6 +119376,9 @@ som::SomListMetaRef idD03InformationModel_MSGKE_MKEY_LST(IdD03InformationModel x
 }
 som::SomListMetaRef idD03InformationModel_SVOPE_OPER_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "serverOperationRegistry/SVOPE-OPER-LST"), metaIdFactoryServerOperationEntry);
+}
+som::SomListMetaRef idD03InformationModel_PROTF_FEAT_LST(IdD03InformationModel x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "serverOperationRegistry/PROTF-FEAT-LST"), metaIdFactoryProtocolFeatureEntry);
 }
 som::SomListMetaRef idD03InformationModel_MIGTG_TARG_LST(IdD03InformationModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "schemaVersioningAndMigration/MIGTG-TARG-LST"), metaIdFactoryMigrationTargetEntry);
@@ -124247,6 +124540,9 @@ som::SomListMetaRef idD13CodeSpecsProjection_SCMST_STEP_LST(IdD13CodeSpecsProjec
 som::SomListMetaRef idD13CodeSpecsProjection_SVOPE_OPER_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "serverOperationRegistry/SVOPE-OPER-LST"), metaIdFactoryServerOperationEntry);
 }
+som::SomListMetaRef idD13CodeSpecsProjection_PROTF_FEAT_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "serverOperationRegistry/PROTF-FEAT-LST"), metaIdFactoryProtocolFeatureEntry);
+}
 som::SomMetaRef idD13CodeSpecsProjection_ACOVNA(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsAndActorInteractions/actorOverview/ACOVNA"));
 }
@@ -125189,6 +125485,9 @@ som::SomMetaRef idExternalSystemContextEntry_ESCEG(IdExternalSystemContextEntry 
 som::SomMetaRef idExternalSystemContextEntry_EXSYCO_DATA(IdExternalSystemContextEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCO-DATA"));
 }
+som::SomListMetaRef idFeatureHookEntry_FEHOM_METH_LST(IdFeatureHookEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FEHOM-METH-LST"), metaIdFactoryHookMethodEntry);
+}
 som::SomMetaRef idFeatureModuleEntry_FMED(IdFeatureModuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FMED"));
 }
@@ -125915,6 +126214,9 @@ som::SomMetaRef idOngoingTrainingEntry_OTEC(IdOngoingTrainingEntry x) {
 som::SomMetaRef idOngoingTrainingEntry_ONTRENCO(IdOngoingTrainingEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ONTRENCO"));
 }
+som::SomListMetaRef idOperationBindingEntry_SVOBP_PARA_LST(IdOperationBindingEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOBP-PARA-LST"), metaIdFactoryBindingParameterEntry);
+}
 som::SomMetaRef idOrganizationalChangeEntry_OCIDN(IdOrganizationalChangeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OCIDN"));
 }
@@ -126133,6 +126435,9 @@ som::SomMetaRef idProgrammingLanguageEntry_PLGQU(IdProgrammingLanguageEntry x) {
 }
 som::SomMetaRef idProgrammingLanguageEntry_PLGJT(IdProgrammingLanguageEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PLGJT"));
+}
+som::SomListMetaRef idProtocolFeatureEntry_FEHOK_HOOK_LST(IdProtocolFeatureEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FEHOK-HOOK-LST"), metaIdFactoryFeatureHookEntry);
 }
 som::SomMetaRef idQualityCategoryEntry_QCADF(IdQualityCategoryEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "QCADF"));
@@ -126856,6 +127161,9 @@ som::SomListMetaRef idServerOperationEntry_SVOPM_REQM_LST(IdServerOperationEntry
 }
 som::SomListMetaRef idServerOperationEntry_SVOPM_RESM_LST(IdServerOperationEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOPM-RESM-LST"), metaIdFactoryServerOperationMemberEntry);
+}
+som::SomListMetaRef idServerOperationEntry_SVOBI_BIND_LST(IdServerOperationEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOBI-BIND-LST"), metaIdFactoryOperationBindingEntry);
 }
 som::SomMetaRef idServerRoleEntry_SRES(IdServerRoleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SRES"));

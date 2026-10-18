@@ -122,6 +122,74 @@ def _parse_BasicAuthorizationRequirementKind(token):
             return v
     return None
 
+class BindingErrorFormat(Enum):
+    """Generated enum for `BindingErrorFormat` values."""
+
+    # The CE-ER Result envelope of the operation contract.
+    resultEnvelope = "resultEnvelope"
+    # RFC 9457 problem details (`application/problem+json`).
+    problemJson = "problemJson"
+    # The SCIM 2.0 error schema (RFC 7644 §3.12).
+    scim = "scim"
+    # The OAuth 2.0 error response (RFC 6749 §5.2).
+    oauth = "oauth"
+
+
+def _parse_BindingErrorFormat(token):
+    """Parses a stored token into a BindingErrorFormat, or None."""
+    if not token:
+        return None
+    for v in BindingErrorFormat:
+        if v.value == token:
+            return v
+    return None
+
+class BindingHttpMethod(Enum):
+    """Generated enum for `BindingHttpMethod` values."""
+
+    # A read with no side effect — a single resource or a listing.
+    get = "get"
+    # A creation, or an action that is not a plain state change.
+    post = "post"
+    # A full replacement of the resource at the path.
+    put = "put"
+    # A partial change of the resource at the path.
+    patch = "patch"
+    # A removal of the resource at the path.
+    delete = "delete"
+
+
+def _parse_BindingHttpMethod(token):
+    """Parses a stored token into a BindingHttpMethod, or None."""
+    if not token:
+        return None
+    for v in BindingHttpMethod:
+        if v.value == token:
+            return v
+    return None
+
+class BindingParameterSource(Enum):
+    """Generated enum for `BindingParameterSource` values."""
+
+    # A `{name}` capture in the path template.
+    path = "path"
+    # A query parameter.
+    query = "query"
+    # The request body, or one member of it.
+    body = "body"
+    # A request header.
+    header = "header"
+
+
+def _parse_BindingParameterSource(token):
+    """Parses a stored token into a BindingParameterSource, or None."""
+    if not token:
+        return None
+    for v in BindingParameterSource:
+        if v.value == token:
+            return v
+    return None
+
 class ClientApplicationKind(Enum):
     """Generated enum for `ClientApplicationKind` values."""
 
@@ -605,6 +673,24 @@ def _parse_Probability(token):
     if not token:
         return None
     for v in Probability:
+        if v.value == token:
+            return v
+    return None
+
+class ProtocolFeatureKind(Enum):
+    """Generated enum for `ProtocolFeatureKind` values."""
+
+    # An OAuth 2.0 / OpenID Connect authorization server.
+    oidcAuthorizationServer = "oidcAuthorizationServer"
+    # A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+    scim2Server = "scim2Server"
+
+
+def _parse_ProtocolFeatureKind(token):
+    """Parses a stored token into a ProtocolFeatureKind, or None."""
+    if not token:
+        return None
+    for v in ProtocolFeatureKind:
         if v.value == token:
             return v
     return None
@@ -4535,6 +4621,23 @@ class BehaviorRuleEntry(SomNode):
     @property
     def content(self):
         return BehaviorRuleEntryContentForm(self.doc, f"{self.path}/content")
+
+class BindingParameterEntry(SomNode):
+    """Where a protocol binding finds one request member (form).
+    
+    The entry's headline is the parameter's name on the wire — the `{name}`
+    capture, the query parameter, the body member or the header — and the form
+    says where it is found and which request member it supplies.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return BindingParameterEntryContentForm(self.doc, f"{self.path}/content")
 
 class BiometricAuthenticationPolicy(SomNode):
     """Biometric authentication policy (form).
@@ -9508,7 +9611,7 @@ class D00SolutionBlueprint(SomNode):
     per the public-standards order of the `@StandardReferences` below.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SBP")
@@ -9635,7 +9738,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     and the inventory / migration plan for the systems being replaced.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CLA")
@@ -9737,7 +9840,7 @@ class D02TargetOperatingModel(SomNode):
     cross-process analysis, exception handling, and KPIs.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TOM")
@@ -9850,7 +9953,7 @@ class D03InformationModel(SomNode):
     integrity constraints.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IFM")
@@ -10027,7 +10130,7 @@ class D04RequirementsSpecification(SomNode):
     and coverage analysis.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "RSP")
@@ -10132,7 +10235,7 @@ class D05InteractionScenarios(SomNode):
     and traceability.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ISC")
@@ -10230,7 +10333,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     and translation handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "ATS")
@@ -10352,7 +10455,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     migration, operational concerns, and cross-boundary error handling.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "IIS")
@@ -10465,7 +10568,7 @@ class D08SecurityAccessSpecification(SomNode):
     compliance framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "SAS")
@@ -10580,7 +10683,7 @@ class D09ExperienceDesignSpecification(SomNode):
     mockups.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "XDS")
@@ -10708,7 +10811,7 @@ class D10QualityAcceptancePlan(SomNode):
     Full quality plan combining quality goals and the acceptance plan.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "QAP")
@@ -10866,7 +10969,7 @@ class D11DeliveryRoadmap(SomNode):
     framework.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "DRM")
@@ -10974,7 +11077,7 @@ class D12TransitionRolloutPlan(SomNode):
     transfer, and warranty/support.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "TRP")
@@ -11107,7 +11210,7 @@ class D13CodeSpecsProjection(SomNode):
     models, the process-step interactions, and the client-side experience seed.
     """
     #: The model version this object model was generated against (SOM §4.2).
-    model_version = '1.5'
+    model_version = '1.6'
 
     def __init__(self, doc, document_version=None):
         super().__init__(doc, "CGP")
@@ -18125,6 +18228,32 @@ class FeatureDependencyEntry(SomNode):
     def content(self):
         return FeatureDependencyEntryContentForm(self.doc, f"{self.path}/content")
 
+class FeatureHookEntry(SomNode):
+    """One hook of a framework protocol feature that the system implements (form +
+    method list).
+    
+    The hook is a framework contract — SCIM's resource store, an authorization
+    server's client registry — and the system's implementation of it is the
+    CodeSpec. The contract's members are the framework's; what the system states
+    is, per member, what the implementation does: the operations it calls, in
+    order, and the entities it reads and writes, so the CodeSpec body is a
+    sequence of calls and not invented logic.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return FeatureHookEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.9.2.x. Methods — what each member of the hook contract does.
+    @property
+    def methods(self):
+        return SomList(self.doc, f"{self.path}/FEHOM-METH-LST", lambda d, p: HookMethodEntry(d, p), pattern="FEHOM-METH-xxx")
+
 class FeatureModuleEntry(SomNode):
     """Feature module entry — a vertical slice feature."""
     def __init__(self, doc, path):
@@ -19786,6 +19915,23 @@ class HighAvailabilityRequirements(SomNode):
     @property
     def disasterRecovery(self):
         return HighAvailabilityRequirementsDisasterRecoveryForm(self.doc, f"{self.path}/HARDR")
+
+class HookMethodEntry(SomNode):
+    """What one member of a hook contract does (form).
+    
+    The entry's headline is the contract member's name. The operations it calls
+    are listed in the order the implementation calls them; that order is the
+    CodeSpec body.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return HookMethodEntryContentForm(self.doc, f"{self.path}/content")
 
 class IdeRequirementEntry(SomNode):
     """IDE requirement entry — a required IDE or editor."""
@@ -25954,6 +26100,30 @@ class OperatingEnvironment(SomNode):
     def constraintsAndDependencies(self, value):
         self.doc.set_content(f"{self.path}/COANDE", value)
 
+class OperationBindingEntry(SomNode):
+    """One standard-protocol shape of a server operation (form + parameter list).
+    
+    The operation stays the unit of behaviour; the binding only says how a
+    third-party caller reaches it: the method, the path template, where each
+    request member is found, the success status and headers, the content types,
+    the error format and the version prefix. A REST listing, a save and a state
+    transition are each one binding of their operation.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return OperationBindingEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.9.x. Parameters — where the binding finds each request member.
+    @property
+    def parameters(self):
+        return SomList(self.doc, f"{self.path}/SVOBP-PARA-LST", lambda d, p: BindingParameterEntry(d, p), pattern="SVOBP-PARA-xxx")
+
 class OperationalMonitoring(SomNode):
     """11.4.3. Monitoring quality."""
     def __init__(self, doc, path):
@@ -29334,6 +29504,31 @@ class ProtocolEntry(SomNode):
     @property
     def content(self):
         return ProtocolEntryContentForm(self.doc, f"{self.path}/content")
+
+class ProtocolFeatureEntry(SomNode):
+    """A standard protocol server the framework provides, enabled by the system
+    (form + hook list).
+    
+    The framework owns the protocol's endpoints, wire format and error format;
+    the system writes no protocol endpoint of its own. What the system supplies
+    are the **hooks** — the extension points through which the protocol reaches
+    the system's domain (`codespecs_mapping.md` §5.30).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return ProtocolFeatureEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.9.2.x. Hooks — the extension points of the feature the system
+    # implements.
+    @property
+    def hooks(self):
+        return SomList(self.doc, f"{self.path}/FEHOK-HOOK-LST", lambda d, p: FeatureHookEntry(d, p), pattern="FEHOK-HOOK-xxx")
 
 class ProtocolsAndStandardsSection(SomNode):
     """8.6.1. Protocols and Standards."""
@@ -35524,6 +35719,17 @@ class ServerOperationEntry(SomNode):
     def responseMembers(self):
         return SomList(self.doc, f"{self.path}/SVOPM-RESM-LST", lambda d, p: ServerOperationMemberEntry(d, p), pattern="SVOPM-RESM-xxx")
 
+    # 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+    # also served under, for third-party callers.
+    #
+    # The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+    # application's own client calls it by name. A binding is a second shape of
+    # the same operation — an HTTP method, a path, where each request member is
+    # found, the success status and headers — and an operation may have several.
+    @property
+    def bindings(self):
+        return SomList(self.doc, f"{self.path}/SVOBI-BIND-LST", lambda d, p: OperationBindingEntry(d, p), pattern="SVOBI-BIND-xxx")
+
 class ServerOperationMemberEntry(SomNode):
     """A single member of an operation's request or response shape (form).
     
@@ -35571,6 +35777,11 @@ class ServerOperationRegistry(SomNode):
       errors;
     - no encoding, header, redirect, CORS or credential plumbing — framework
       transport members, never spec input.
+    
+    Third-party HTTP shapes are added beside the contract, not inside it: an
+    operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+    and [protocolFeatures] lists the framework protocol servers the system
+    enables with the hooks it implements (`codespecs_mapping.md` §5.30).
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -35594,6 +35805,13 @@ class ServerOperationRegistry(SomNode):
     @property
     def operations(self):
         return SomList(self.doc, f"{self.path}/SVOPE-OPER-LST", lambda d, p: ServerOperationEntry(d, p), pattern="SVOPE-OPER-xxx")
+
+    # 7.9.2. Protocol Features — the standard protocol servers the framework
+    # provides that the system enables, each with the hooks the system
+    # implements.
+    @property
+    def protocolFeatures(self):
+        return SomList(self.doc, f"{self.path}/PROTF-FEAT-LST", lambda d, p: ProtocolFeatureEntry(d, p), pattern="PROTF-FEAT-xxx")
 
 class ServerOsRequirements(SomNode):
     """Server operating system requirements."""
@@ -55908,6 +56126,39 @@ class BehaviorRuleEntryContentForm(SomNode):
     @calculatedProperties.setter
     def calculatedProperties(self, value):
         self.doc.set_form_field(self.path, "calculatedProperties", value)
+
+class BindingParameterEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def source(self) -> "BindingParameterSource | None":
+        return _parse_BindingParameterSource(self.doc.form_field(self.path, "source"))
+
+    @source.setter
+    def source(self, value):
+        self.doc.set_form_field(self.path, "source", "" if value is None else value.value)
+
+    @property
+    def requestMember(self) -> str:
+        return self.doc.form_field(self.path, "requestMember") or ""
+
+    @requestMember.setter
+    def requestMember(self, value):
+        self.doc.set_form_field(self.path, "requestMember", value)
 
 class BiometricAuthenticationPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -96027,6 +96278,31 @@ class FeatureDependencyEntryContentForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class FeatureHookEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def hook(self) -> str:
+        return self.doc.form_field(self.path, "hook") or ""
+
+    @hook.setter
+    def hook(self, value):
+        self.doc.set_form_field(self.path, "hook", value)
+
 class FeatureModuleEntryConfigurationForm(SomNode):
     """Generated section facade for the `configuration` @Form section: its own content text followed by one typed member per form field."""
 
@@ -101595,6 +101871,47 @@ class HighAvailabilityRequirementsRedundancyForm(SomNode):
     @activeActiveMode.setter
     def activeActiveMode(self, value):
         self.doc.set_form_field(self.path, "activeActiveMode", "" if value is None else ("true" if value else "false"))
+
+class HookMethodEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def callsOperations(self) -> str:
+        return self.doc.form_field(self.path, "callsOperations") or ""
+
+    @callsOperations.setter
+    def callsOperations(self, value):
+        self.doc.set_form_field(self.path, "callsOperations", value)
+
+    @property
+    def readsEntities(self) -> str:
+        return self.doc.form_field(self.path, "readsEntities") or ""
+
+    @readsEntities.setter
+    def readsEntities(self, value):
+        self.doc.set_form_field(self.path, "readsEntities", value)
+
+    @property
+    def writesEntities(self) -> str:
+        return self.doc.form_field(self.path, "writesEntities") or ""
+
+    @writesEntities.setter
+    def writesEntities(self, value):
+        self.doc.set_form_field(self.path, "writesEntities", value)
 
 class IdeRequirementEntryConfigurationForm(SomNode):
     """Generated section facade for the `configuration` @Form section: its own content text followed by one typed member per form field."""
@@ -124074,6 +124391,101 @@ class OngoingTrainingEntryScheduleForm(SomNode):
     def duration(self, value):
         self.doc.set_form_field(self.path, "duration", value)
 
+class OperationBindingEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def httpMethod(self) -> "BindingHttpMethod | None":
+        return _parse_BindingHttpMethod(self.doc.form_field(self.path, "httpMethod"))
+
+    @httpMethod.setter
+    def httpMethod(self, value):
+        self.doc.set_form_field(self.path, "httpMethod", "" if value is None else value.value)
+
+    @property
+    def pathTemplate(self) -> str:
+        return self.doc.form_field(self.path, "pathTemplate") or ""
+
+    @pathTemplate.setter
+    def pathTemplate(self, value):
+        self.doc.set_form_field(self.path, "pathTemplate", value)
+
+    @property
+    def versionPrefix(self) -> str:
+        return self.doc.form_field(self.path, "versionPrefix") or ""
+
+    @versionPrefix.setter
+    def versionPrefix(self, value):
+        self.doc.set_form_field(self.path, "versionPrefix", value)
+
+    @property
+    def successStatus(self) -> "int | None":
+        v = self.doc.form_field(self.path, "successStatus")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @successStatus.setter
+    def successStatus(self, value):
+        self.doc.set_form_field(self.path, "successStatus", "" if value is None else str(value))
+
+    @property
+    def responseHeaders(self) -> str:
+        return self.doc.form_field(self.path, "responseHeaders") or ""
+
+    @responseHeaders.setter
+    def responseHeaders(self, value):
+        self.doc.set_form_field(self.path, "responseHeaders", value)
+
+    @property
+    def consumes(self) -> str:
+        return self.doc.form_field(self.path, "consumes") or ""
+
+    @consumes.setter
+    def consumes(self, value):
+        self.doc.set_form_field(self.path, "consumes", value)
+
+    @property
+    def produces(self) -> str:
+        return self.doc.form_field(self.path, "produces") or ""
+
+    @produces.setter
+    def produces(self, value):
+        self.doc.set_form_field(self.path, "produces", value)
+
+    @property
+    def errorFormat(self) -> "BindingErrorFormat | None":
+        return _parse_BindingErrorFormat(self.doc.form_field(self.path, "errorFormat"))
+
+    @errorFormat.setter
+    def errorFormat(self, value):
+        self.doc.set_form_field(self.path, "errorFormat", "" if value is None else value.value)
+
+    @property
+    def servedInterface(self) -> str:
+        return self.doc.form_field(self.path, "servedInterface") or ""
+
+    @servedInterface.setter
+    def servedInterface(self, value):
+        self.doc.set_form_field(self.path, "servedInterface", value)
+
 class OperationalMonitoringAlertingForm(SomNode):
     """Generated section facade for the `alerting` @Form section: its own content text followed by one typed member per form field."""
 
@@ -135281,6 +135693,39 @@ class ProtocolEntryContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class ProtocolFeatureEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def feature(self) -> "ProtocolFeatureKind | None":
+        return _parse_ProtocolFeatureKind(self.doc.form_field(self.path, "feature"))
+
+    @feature.setter
+    def feature(self, value):
+        self.doc.set_form_field(self.path, "feature", "" if value is None else value.value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
 class PrototypeFeatureEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

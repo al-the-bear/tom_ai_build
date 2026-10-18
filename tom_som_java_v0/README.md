@@ -35,17 +35,17 @@ Declare the dependency (it pulls in `tom_som_java_runtime`):
 <dependency>
   <groupId>io.github.al-the-bear</groupId>
   <artifactId>tom_som_java_v0</artifactId>
-  <version>1.5.0</version>
+  <version>1.6.0</version>
 </dependency>
 ```
 
-`tom_som_java_v0` and `tom_som_java_runtime` both carry version `1.5.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_java_v0` and `tom_som_java_runtime` both carry version `1.6.0`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
 ### Document roots
 
-Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1254 model classes are reached through it.
+Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1259 model classes are reached through it.
 
 | Section id | Document | Generated root type |
 | ---------- | -------- | ------------------- |
@@ -233,7 +233,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.5.0**, tracking the TomSpecs model version and matching `tom_som_java_runtime`. Generated surface: 14 document roots, 1254 model classes. Verify the package with:
+Version **1.6.0**, tracking the TomSpecs model version and matching `tom_som_java_runtime`. Generated surface: 14 document roots, 1259 model classes. Verify the package with:
 
 ```bash
 ./build_jar.sh

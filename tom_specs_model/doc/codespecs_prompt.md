@@ -228,6 +228,9 @@ matter when its section is required.
 | `CE-AC` | `@CsTrigger` | `kind` | `ScreenElementAction.content.triggerKind` | — | — |
 | `CE-AC` | `@CsTrigger` | `kind` | `ComponentActionEntry.content.triggerKind` | — | — |
 | `CE-NT` | `@CsNotification` | `body` | `NotificationTypeEntry.content.bodyMessageKey` | — | — |
+| `CE-API` | `@CsOperationBinding` | `operation` | `ServerOperationEntry.content.operationName` | — | — |
+| `CE-SU` | `@CsFeatureHook` | `feature` | `ProtocolFeatureEntry.content.feature` | — | — |
+| `CE-SU` | `@CsFeatureHook` | `hook` | `FeatureHookEntry.content.hook` | — | — |
 
 Where the model marks a source form field `required`, A1 already rejects a
 missing value once its section is present and A4 restates it; where the model
@@ -306,6 +309,11 @@ introduced it. The area catalogue carries the table as `gate.carriers`.
 | `ComponentActionEntry.content.triggerKind` | `codespecs_derivation_contract.md` §3.5.6 (trigger kind) |
 | `NotificationTypeEntry.content.bodyMessageKey` | `codespecs_derivation_contract.md` §3.2.8 (notification body) |
 | `DataAttributeEntry.enumerationTypeOptions.domainEnum` | `codespecs_derivation_contract.md` §3.3.2 (enumeration typing) |
+| `OperationBindingEntry.content.httpMethod` | `codespecs_derivation_contract.md` §3.4.5 (protocol binding) |
+| `OperationBindingEntry.content.pathTemplate` | `codespecs_derivation_contract.md` §3.4.5 (protocol binding) |
+| `OperationBindingEntry.parameters` | `codespecs_derivation_contract.md` §3.4.5 (protocol binding) |
+| `BindingParameterEntry.content.source` | `codespecs_derivation_contract.md` §3.4.5 (protocol binding) |
+| `HookMethodEntry.content.callsOperations` | `codespecs_derivation_contract.md` §3.4.6 (hook body) |
 
 All nine SOM runtimes run A1–A5 as one gate, `CodeSpecsGate`, over the model,
 the document, the area catalogue and the document's DocSpecs schema. It reports
@@ -460,6 +468,16 @@ the scope machine-readable: the validator's extract reader scopes checks 35 and
 a verdict for every extract it reads, and rejects a `not applicable` entry
 whose extract has routed entries (§6.4's evidence rule, held mechanically).
 Without the record, the whole extract tree is the obligation set, as before.
+
+**A hook the framework cannot host yet is insufficient.** A CE-SU extract may
+hold a `FeatureHookEntry` whose hook's catalogue entry is not available
+(`csFeatureHooks` in `tom_code_specs`, `codespecs_mapping.md` §5.30): tom_core
+does not ship the contract the hook would implement, so no class can be derived
+(pillar 2). The verdict for the area is **insufficient**, with one gap line per
+such hook. Its carrier is the framework, not a section: `<FEHOK section id> —
+the tom_core contract <contract> — should have been carried by
+tom_core.<contract>`. The L0 todo it becomes is a tom_core prerequisite; the
+specification has nothing to fill.
 
 ### 6.4 An empty extract is a candidate, never the verdict
 

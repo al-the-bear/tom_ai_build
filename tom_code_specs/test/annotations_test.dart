@@ -8,7 +8,7 @@
 //     class for CE-FM. This half is asserted by the DECLARATIONS BELOW
 //     COMPILING; a bare stub class would prove the constructor exists and
 //     nothing about whether it is usable where the part lives.
-//  2. **Surface** — that each of the 24 attribute-bearing markers carries its
+//  2. **Surface** — that each of the 26 attribute-bearing markers carries its
 //     full `codespecs_derivation_contract.md` §5.1 argument set, and that the
 //     16 note-only markers carry nothing beyond `note`. This half is asserted in
 //     the test bodies, which const-construct the same full attribute sets.
@@ -578,6 +578,49 @@ class EmployeeProfile {
   String? costCentre;
 }
 
+/// CE-API — a protocol binding: the HTTP shape a third-party caller reaches
+/// `customer.load` through (`codespecs_mapping.md` §5.30). Stands in for a
+/// top-level const `TomOperationBinding` in the server project; the shape is
+/// the const's constructor arguments, so the marker carries only the
+/// operation it binds.
+@CsOperationBinding(Operations.customerLoad, note: 'GET /api/v1/customers/{id}')
+@CodeSpec('API-CUSTOMER-LOAD-REST', source: ['SAS-INTEG'])
+const customerLoadRestBinding = _OperationBindingStandIn(
+  method: 'GET',
+  pathTemplate: '/api/v1/customers/{id}',
+);
+
+/// A second binding of the same operation: an operation may have several.
+@CsOperationBinding(Operations.customerLoad)
+const customerLoadLegacyBinding = _OperationBindingStandIn(
+  method: 'GET',
+  pathTemplate: '/legacy/customer/{id}',
+);
+
+class _OperationBindingStandIn {
+  final String method;
+  final String pathTemplate;
+
+  const _OperationBindingStandIn({
+    required this.method,
+    required this.pathTemplate,
+  });
+}
+
+/// CE-SU — the class implementing a protocol-feature hook IS the CodeSpec
+/// (`codespecs_mapping.md` §5.30). Stands in for an implementation of
+/// `TomScimStore`; its body is form 3b, calling the app's own operations.
+@CsFeatureHook(
+  CsProtocolFeature.scim2Server,
+  'scimStore',
+  note: 'users only, no groups',
+)
+@CodeSpec('SU-SCIM-STORE', source: ['SAS-PROV'])
+class CustomerScimStore {
+  Object? createUser(Object? resource) =>
+      throw UnsupportedError('provision via Operations.customerSave');
+}
+
 void main() {
   group('id/trace annotations', () {
     test('CodeSpec carries id, source, requirements', () {
@@ -604,7 +647,7 @@ void main() {
     });
   });
 
-  // ── csrb4: the 24 attribute-bearing markers ───────────────────────────────
+  // ── csrb4: the 26 attribute-bearing markers ───────────────────────────────
   //
   // One test per marker, constructing its FULL surface. Together with the
   // declarations above — which are the placement half of the assertion — this
@@ -829,6 +872,41 @@ void main() {
       const endpoint = CsEndpoint('customer.save', note: 'idempotent');
       expect(endpoint.operation, 'customer.save');
       expect(endpoint.note, 'idempotent');
+    });
+
+    test('CsOperationBinding cites the operation as a typed ref', () {
+      const binding = CsOperationBinding(
+        Operations.customerLoad,
+        note: 'REST read',
+      );
+      expect(identical(binding.operation, Operations.customerLoad), isTrue);
+      expect(binding.operation.id, 'customer.load');
+      expect(binding.note, 'REST read');
+      expect(const CsOperationBinding(Operations.customerSave).note, isNull);
+    });
+
+    test('an operation may carry several bindings', () {
+      expect(customerLoadRestBinding.pathTemplate, '/api/v1/customers/{id}');
+      expect(customerLoadLegacyBinding.pathTemplate, '/legacy/customer/{id}');
+    });
+
+    test('CsFeatureHook takes the feature and the catalogue hook name', () {
+      const hook = CsFeatureHook(
+        CsProtocolFeature.scim2Server,
+        'scimStore',
+        note: 'users only',
+      );
+      expect(hook.feature, CsProtocolFeature.scim2Server);
+      expect(hook.hook, 'scimStore');
+      expect(hook.note, 'users only');
+      expect(
+        const CsFeatureHook(
+          CsProtocolFeature.oidcAuthorizationServer,
+          'claimsProvider',
+        ).note,
+        isNull,
+      );
+      expect(CustomerScimStore(), isA<CustomerScimStore>());
     });
 
     test('CsServiceUnit requires both halves of the §5.1 boundary', () {
@@ -1309,7 +1387,7 @@ void main() {
   // ── csrb4: the 16 note-only markers ───────────────────────────────────────
 
   group('csrb4: the note-only markers carry nothing beyond note', () {
-    // Pinning these is as load-bearing as pinning the 24: each is note-only
+    // Pinning these is as load-bearing as pinning the 26: each is note-only
     // because `codespecs_derivation_contract.md` §2.3's tests found an existing carrier — the declaration name, a
     // generic, or the `tom_core` substrate constructor — and adding an argument
     // later would create the second, disagreeing source those tests prevent.
@@ -1352,6 +1430,100 @@ void main() {
       // reach — `@CsEnum` is the only other marker built on nothing.
       expect(const CsCollaborator(note: 'Phase-6 seam').note, 'Phase-6 seam');
       expect(const CsCollaborator().note, isNull);
+    });
+  });
+
+  group('protocol features: the hook catalogue and reserved paths', () {
+    Set<String> hooks(CsProtocolFeature feature, {bool? required}) => {
+      for (final spec in csFeatureHooks)
+        if (spec.feature == feature &&
+            (required == null || spec.required == required))
+          spec.hook,
+    };
+
+    test('CsProtocolFeature is the closed two', () {
+      expect(CsProtocolFeature.values, [
+        CsProtocolFeature.oidcAuthorizationServer,
+        CsProtocolFeature.scim2Server,
+      ]);
+    });
+
+    test('the SCIM 2.0 server requires the store alone', () {
+      expect(hooks(CsProtocolFeature.scim2Server, required: true), {
+        'scimStore',
+      });
+      expect(hooks(CsProtocolFeature.scim2Server, required: false), {
+        'scimIdentityDirectory',
+        'scimSessionRevocation',
+      });
+    });
+
+    test('the OIDC authorization server requires three hooks', () {
+      expect(hooks(CsProtocolFeature.oidcAuthorizationServer, required: true), {
+        'clientRegistry',
+        'subjectAuthentication',
+        'claimsProvider',
+      });
+      expect(
+        hooks(CsProtocolFeature.oidcAuthorizationServer, required: false),
+        {'consentStore'},
+      );
+    });
+
+    test('each hook names its contract, and availability tracks tom_core', () {
+      final byHook = {for (final spec in csFeatureHooks) spec.hook: spec};
+      expect(byHook, hasLength(csFeatureHooks.length));
+      expect(byHook['scimStore']!.contract, 'TomScimStore');
+      expect(
+        byHook['scimIdentityDirectory']!.contract,
+        'TomScimIdentityDirectory',
+      );
+      expect(
+        byHook['scimSessionRevocation']!.contract,
+        'TomScimService.revoke',
+      );
+      expect(byHook['clientRegistry']!.contract, 'TomOidcClientRegistry');
+      expect(
+        byHook['subjectAuthentication']!.contract,
+        'TomOidcSubjectAuthenticator',
+      );
+      expect(byHook['claimsProvider']!.contract, 'TomOidcClaimsProvider');
+      expect(byHook['consentStore']!.contract, 'TomOidcConsentStore');
+      for (final spec in csFeatureHooks) {
+        // The SCIM contracts ship in tom_core_server; the OIDC ones are
+        // requested and provisional.
+        expect(
+          spec.available,
+          spec.feature == CsProtocolFeature.scim2Server,
+          reason: spec.hook,
+        );
+      }
+    });
+
+    test('every feature has hooks and reserved paths', () {
+      for (final feature in CsProtocolFeature.values) {
+        expect(hooks(feature), isNotEmpty, reason: feature.name);
+        expect(
+          csFeatureReservedPaths[feature],
+          isNotEmpty,
+          reason: feature.name,
+        );
+      }
+    });
+
+    test('every reserved path is absolute', () {
+      for (final paths in csFeatureReservedPaths.values) {
+        for (final path in paths) {
+          expect(path, startsWith('/'));
+        }
+      }
+      expect(csFeatureReservedPaths[CsProtocolFeature.scim2Server], [
+        '/scim/v2',
+      ]);
+      expect(
+        csFeatureReservedPaths[CsProtocolFeature.oidcAuthorizationServer],
+        ['/.well-known/openid-configuration', '/oauth2'],
+      );
     });
   });
 

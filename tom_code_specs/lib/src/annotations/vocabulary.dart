@@ -8,9 +8,13 @@
 /// where one exists. A named validator check asserts each such mirror is
 /// complete (`codespecs_derivation_contract.md` §6 check 9): a `tom_core`
 /// catalogue that grows without its mirror growing is a build failure, not a
-/// silent divergence. No catalogue here currently has one — every
+/// silent divergence. No enum here currently has one — every
 /// `codespecs_derivation_contract.md` §5.3 row mirrors a *document section* —
 /// so the check's pair table is empty and it stands ready rather than firing.
+/// The one table that does mirror `tom_core` is [csFeatureHooks], and what it
+/// mirrors is a set of hook *contracts*, not a `tom_core` catalogue: each entry
+/// names the type or member it stands for, and records whether `tom_core`
+/// ships it yet.
 ///
 /// **Why they are enums and not strings.** A catalogue is *closed* — adding a
 /// value is an edit to the taxonomy, reviewed as such, not a free-form attribute
@@ -410,3 +414,101 @@ enum CsOverridableBy {
   /// opens every intervening scope as well.
   device,
 }
+
+/// A framework protocol feature: a `tom_core_server` standard protocol server
+/// an application enables (`codespecs_mapping.md` §5.30).
+///
+/// The framework owns the protocol — its paths, wire format and conformance —
+/// and asks the application only for the data behind it, through the hooks
+/// [csFeatureHooks] lists per feature. The catalogue is closed for the same
+/// reason every enum here is: adding a feature is a framework release, not
+/// something a specification can declare in passing.
+enum CsProtocolFeature {
+  /// An OpenID Connect authorization server: the application issues identity
+  /// and access tokens to third-party clients (OAuth 2.0 / OIDC).
+  oidcAuthorizationServer,
+
+  /// A SCIM 2.0 server: identity providers provision and deprovision the
+  /// application's users and groups.
+  scim2Server,
+}
+
+/// One hook a [CsProtocolFeature] asks the application to implement
+/// (`codespecs_derivation_contract.md` §3.4.6).
+///
+/// A row of [csFeatureHooks]: the `@CsFeatureHook(feature, hook)` a class
+/// carries is looked up here, and the entry says which `tom_core` contract the
+/// class implements and whether the feature can run without it.
+class CsFeatureHookSpec {
+  /// The feature the hook belongs to.
+  final CsProtocolFeature feature;
+
+  /// The hook's catalogue name — the string `@CsFeatureHook` carries verbatim.
+  final String hook;
+
+  /// The `tom_core` type or member the hook implements, e.g. `TomScimStore`
+  /// or `TomScimService.revoke`.
+  final String contract;
+
+  /// Whether the feature cannot run without an implementation of this hook.
+  ///
+  /// An optional hook has a framework default (or a feature that simply goes
+  /// unused), so leaving it unimplemented is a choice, not an omission.
+  final bool required;
+
+  /// Whether `tom_core` ships [contract] today.
+  ///
+  /// `false` marks a contract that has been requested from `tom_core` but not
+  /// delivered: its name is provisional, and a class implementing it cannot
+  /// compile against the framework yet.
+  final bool available;
+
+  /// Declares the hook [hook] of [feature], implemented against [contract].
+  const CsFeatureHookSpec(
+    this.feature,
+    this.hook, {
+    required this.contract,
+    required this.required,
+    required this.available,
+  });
+}
+
+/// Every hook of every [CsProtocolFeature] (`codespecs_derivation_contract.md`
+/// §3.4.6).
+///
+/// Mirrors `tom_core_server`'s hook contracts. The SCIM ones exist:
+/// `TomScimStore` (`lib/src/tomserver/authentication/scim_resource.dart`),
+/// `TomScimIdentityDirectory` (`scim_directory.dart`) and
+/// `TomScimService.revoke` (`scim_service.dart`). The OIDC ones are
+/// **requested** from `tom_core` (its todo "OAuth 2.0 / OpenID Connect
+/// authorization server with hooks") and do not exist yet, so their contract
+/// names are provisional until `tom_core` ships them and
+/// [CsFeatureHookSpec.available] records which is which.
+///
+/// One entry per line, in one fixed form, so a text parser can read the table
+/// without a Dart analyzer.
+const List<CsFeatureHookSpec> csFeatureHooks = [
+  // dart format off
+  CsFeatureHookSpec(CsProtocolFeature.scim2Server, 'scimStore', contract: 'TomScimStore', required: true, available: true),
+  CsFeatureHookSpec(CsProtocolFeature.scim2Server, 'scimIdentityDirectory', contract: 'TomScimIdentityDirectory', required: false, available: true),
+  CsFeatureHookSpec(CsProtocolFeature.scim2Server, 'scimSessionRevocation', contract: 'TomScimService.revoke', required: false, available: true),
+  CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'clientRegistry', contract: 'TomOidcClientRegistry', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'subjectAuthentication', contract: 'TomOidcSubjectAuthenticator', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'claimsProvider', contract: 'TomOidcClaimsProvider', required: true, available: false),
+  CsFeatureHookSpec(CsProtocolFeature.oidcAuthorizationServer, 'consentStore', contract: 'TomOidcConsentStore', required: false, available: false),
+  // dart format on
+];
+
+/// The path prefixes the framework serves for each [CsProtocolFeature]
+/// (`codespecs_mapping.md` §5.30).
+///
+/// No `@CsOperationBinding` may declare a path inside one of them: they belong
+/// to the framework's protocol server, and a binding there would either shadow
+/// the protocol or be shadowed by it, depending on route order.
+const Map<CsProtocolFeature, List<String>> csFeatureReservedPaths = {
+  CsProtocolFeature.scim2Server: ['/scim/v2'],
+  CsProtocolFeature.oidcAuthorizationServer: [
+    '/.well-known/openid-configuration',
+    '/oauth2',
+  ],
+};

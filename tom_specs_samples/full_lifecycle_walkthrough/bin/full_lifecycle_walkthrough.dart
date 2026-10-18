@@ -403,7 +403,7 @@ void _phase4(_Environment env, SpecDocument sbp, Directory out) {
   _gate('G4', 'CodeSpecs Complete', 'software engineering, AI+script', [
     _check(
       'Derivation contract satisfied',
-      _validationReport.contains('37 checks passed'),
+      _checksPassed.hasMatch(_validationReport),
     ),
     _check(
       'Trio is self-sufficient',
@@ -897,7 +897,11 @@ bool get _withExtractsRan =>
     _withExtracts.isNotEmpty && !_withExtracts.contains('checks 35 and 36');
 
 /// Whether that invocation reported every check passing.
-bool get _withExtractsPassed => _withExtracts.contains('37 checks passed');
+bool get _withExtractsPassed => _checksPassed.hasMatch(_withExtracts);
+
+/// The validator's success line, whatever its check count: the count grows
+/// with the derivation contract, and the gate asks whether every check passed.
+final _checksPassed = RegExp(r'codespecs: \d+ checks passed');
 
 /// Stage-4's recorded validator output, kept current by `tool/validate.sh`.
 final String _validationReport = File(

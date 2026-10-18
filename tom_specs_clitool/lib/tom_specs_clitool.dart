@@ -304,6 +304,7 @@ export 'src/codespecs/cs_checks.dart'
         CodeSpecsViolation,
         codeSpecsChecks,
         csMirroredEnumPairs,
+        csBindingMethods,
         applyMigrations;
 export 'src/codespecs/codespecs_validator.dart'
     show
@@ -311,7 +312,9 @@ export 'src/codespecs/codespecs_validator.dart'
         CodeSpecsValidationException,
         runCodeSpecsChecks,
         assertCodeSpecsValid,
-        readCsEnumMirrors;
+        readCsEnumMirrors,
+        readCsFeatureCatalogue,
+        CsFeatureCatalogueException;
 export 'src/validate_spec_cli.dart'
     show
         runValidateSpec,

@@ -1,4 +1,4 @@
-/// The thirty-seven validator checks `codespecs_derivation_contract.md` §6
+/// The forty-one validator checks `codespecs_derivation_contract.md` §6
 /// names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
@@ -3509,10 +3509,496 @@ class CsReflectionWrittenNotFinalCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 38, 39, 41 — protocol bindings
+// ---------------------------------------------------------------------------
+
+/// The HTTP methods a binding may declare — `TomOperationBinding.methods` of
+/// `tom_core_codespecs` (`codespecs_derivation_contract.md` §3.4.5).
+///
+/// A copy rather than an import: this validator reads the trio as source and
+/// depends on no package the trio is built on.
+const csBindingMethods = <String>{'GET', 'POST', 'PUT', 'PATCH', 'DELETE'};
+
+/// The `{name}` captures of a binding path, in source order — the same pattern
+/// `TomOperationBinding.pathCaptures` reads.
+final _csPathCapture = RegExp(r'\{([^{}]+)\}');
+
+/// One `TomOperationBinding` construction of the trio, read for checks 38, 39
+/// and 41.
+class _CsBinding {
+  _CsBinding(this.construction);
+
+  final CsConstruction construction;
+
+  /// The const the construction is the value of.
+  String get holder => construction.holder ?? '<unnamed binding>';
+
+  CsLocation get location => construction.location;
+
+  /// The operation name the first positional carries, when it is a literal.
+  String? get operation {
+    final first = construction.positional.isEmpty
+        ? null
+        : construction.positional.first;
+    return first is CsStringValue ? first.value : null;
+  }
+
+  CsValue? get method => construction.named['method'];
+
+  String? get path => construction.stringArgument('path');
+
+  /// The version prefix; absent means `''`, the constructor default.
+  String? get versionPrefix => construction.named.containsKey('versionPrefix')
+      ? construction.stringArgument('versionPrefix')
+      : '';
+
+  /// `versionPrefix + path`, the route `TomOperationBinding.route` serves, or
+  /// `null` when either half is not a string literal.
+  String? get route {
+    final prefix = versionPrefix;
+    final p = path;
+    if (prefix == null || p == null) return null;
+    return '$prefix$p';
+  }
+
+  /// The `TomBindingParameter` constructions of `parameters:`, in list order.
+  Iterable<CsConstructionValue> get parameters sync* {
+    final list = construction.named['parameters'];
+    if (list is! CsListValue) return;
+    for (final value in list.values) {
+      if (value is CsConstructionValue && value.type == 'TomBindingParameter') {
+        yield value;
+      }
+    }
+  }
+}
+
+/// Every `TomOperationBinding` construction across the trio.
+List<_CsBinding> _csBindings(CodeSpecsValidationInput input) => [
+  for (final project in input.projects)
+    for (final construction in project.constructions)
+      if (construction.type == 'TomOperationBinding') _CsBinding(construction),
+];
+
+/// `codespecs_derivation_contract.md` §6 check 38.
+///
+/// A binding is a second shape of an operation the trio already declares, so
+/// both of its names for that operation must agree with the declaration: the
+/// `CsOperationRef` the marker cites has to resolve to a shared `@CsEndpoint`,
+/// and the operation string the `TomOperationBinding` is constructed with has
+/// to be that endpoint's name. The marker and the constructor argument are two
+/// writings of one fact; Phase 6 routes on the string, so a drift between them
+/// would serve one operation's request to another's handler.
+class CsBindingOperationCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsBindingOperationCheck();
+
+  @override
+  int get number => 38;
+
+  @override
+  String get definedIn => '§3.4.5';
+
+  @override
+  String get title =>
+      'Every @CsOperationBinding names an operation the trio declares, and '
+      "the TomOperationBinding's first argument is that operation's name";
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    // The shared CsOperationRef consts by the path a citation spells, and the
+    // operations a shared @CsEndpoint declares.
+    final refs = <String, String>{};
+    for (final construction in input.shared.constructions) {
+      if (construction.type != 'CsOperationRef') continue;
+      final holder = construction.holder;
+      final id = CsConstructionValue(
+        construction.type,
+        construction.positional,
+        construction.named,
+      ).idArgument;
+      if (holder != null && id != null) refs[holder] = id;
+    }
+    final endpoints = <String>{
+      for (final declaration in input.shared.declarations)
+        if (declaration.marker('CsEndpoint')?.firstPositionalString
+            case final op? when op.trim().isNotEmpty)
+          op,
+    };
+
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      for (final file in project.files) {
+        for (final declaration in file.declarations) {
+          final marker = declaration.marker('CsOperationBinding');
+          if (marker == null) continue;
+          final site = '@CsOperationBinding on ${declaration.path}';
+
+          final (operation, problem) = _resolve(marker.firstPositional, refs);
+          if (operation == null) {
+            out.add(fail('$site $problem', marker.location));
+          } else if (!endpoints.contains(operation)) {
+            out.add(
+              fail(
+                "$site names operation '$operation', which no shared "
+                '@CsEndpoint declares — a binding is a second shape of a '
+                'declared operation, never a new one',
+                marker.location,
+              ),
+            );
+          }
+
+          CsConstruction? binding;
+          for (final construction in file.constructions) {
+            if (construction.holder == declaration.path &&
+                construction.type == 'TomOperationBinding') {
+              binding = construction;
+            }
+          }
+          if (binding == null) {
+            out.add(
+              fail(
+                '$site marks a declaration that is not a const '
+                'TomOperationBinding — §3.4.5 emits the binding as the '
+                'constructor call itself',
+                declaration.location,
+              ),
+            );
+            continue;
+          }
+          if (operation == null) continue;
+          final first = binding.positional.isEmpty
+              ? null
+              : binding.positional.first;
+          final written = first is CsStringValue ? first.value : null;
+          if (written == operation) continue;
+          out.add(
+            fail(
+              '${declaration.path} is constructed for operation '
+              "${written == null ? '${first ?? 'nothing'}' : "'$written'"}, but "
+              "its @CsOperationBinding cites '$operation' — the first "
+              'argument is the operation name verbatim',
+              binding.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+
+  /// The operation name [value] cites, or a reason it cites none.
+  (String?, String) _resolve(CsValue? value, Map<String, String> refs) {
+    switch (value) {
+      case CsConstructionValue(type: 'CsOperationRef'):
+        final id = value.idArgument;
+        if (id != null && id.trim().isNotEmpty) return (id, '');
+        return (null, 'cites a CsOperationRef with no operation name');
+      case CsQualifiedValue():
+        final id = refs[value.path];
+        if (id != null) return (id, '');
+        return (
+          null,
+          'cites ${value.path}, which resolves to no shared CsOperationRef '
+              'const',
+        );
+      case CsUnknownValue(:final source)
+          when RegExp(r'^[A-Za-z_][A-Za-z0-9_.]*$').hasMatch(source):
+        final id = refs[source];
+        if (id != null) return (id, '');
+        return (
+          null,
+          'cites $source, which resolves to no shared CsOperationRef const',
+        );
+      case null:
+        return (null, 'names no operation');
+      default:
+        return (null, 'cites $value, which is not a CsOperationRef');
+    }
+  }
+}
+
+/// `codespecs_derivation_contract.md` §6 check 39.
+///
+/// The three things about a binding's HTTP shape that compile either way and
+/// fail only when a request arrives: a method outside the closed set, two
+/// bindings a router cannot tell apart, and a path capture with no request
+/// member to land in (or a member waiting on a capture the path never makes).
+///
+/// Two routes are the same route when they differ only in the names of their
+/// captures — `/users/{id}` and `/users/{userId}` match the same requests.
+class CsBindingRouteCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsBindingRouteCheck();
+
+  @override
+  int get number => 39;
+
+  @override
+  String get definedIn => '§3.4.5';
+
+  @override
+  String get title =>
+      "A binding's method is one of TomOperationBinding.methods; no two "
+      'bindings share a method and a route; every {name} in a path is mapped '
+      'by a path parameter, and every path parameter by a {name}';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    final seen = <String, _CsBinding>{};
+    for (final binding in _csBindings(input)) {
+      final method = binding.method;
+      final methodName = method is CsStringValue ? method.value : null;
+      if (methodName == null || !csBindingMethods.contains(methodName)) {
+        out.add(
+          fail(
+            '${binding.holder} declares method '
+            "${method == null ? 'nothing' : '$method'}, which is not one of "
+            '${csBindingMethods.join(', ')} (TomOperationBinding.methods)',
+            binding.location,
+          ),
+        );
+      }
+
+      final path = binding.path;
+      final route = binding.route;
+      if (path == null || route == null) {
+        out.add(
+          fail(
+            '${binding.holder} writes its path or version prefix as something '
+            'other than a string literal — §3.4.5 copies both verbatim, and a '
+            'route nothing can read is a route nothing can check',
+            binding.location,
+          ),
+        );
+        continue;
+      }
+
+      if (methodName != null) {
+        final key = '$methodName ${route.replaceAll(_csPathCapture, '{}')}';
+        final first = seen[key];
+        if (first == null) {
+          seen[key] = binding;
+        } else {
+          out.add(
+            fail(
+              '${binding.holder} and ${first.holder} (${first.location}) both '
+              'bind $methodName $route — a router cannot tell the two apart',
+              binding.location,
+            ),
+          );
+        }
+      }
+
+      final captures = [
+        for (final m in _csPathCapture.allMatches(path)) m.group(1)!,
+      ];
+      final pathParameters = <String>[
+        for (final parameter in binding.parameters)
+          if (enumConstantName(parameter.named['source']) == 'path')
+            parameter.idArgument ?? '$parameter',
+      ];
+      for (final capture in captures) {
+        if (pathParameters.contains(capture)) continue;
+        out.add(
+          fail(
+            "${binding.holder}'s path $path captures {$capture}, which no "
+            'TomBindingParameter with source TomBindingSource.path maps to a '
+            'request member',
+            binding.location,
+          ),
+        );
+      }
+      for (final name in pathParameters) {
+        if (captures.contains(name)) continue;
+        out.add(
+          fail(
+            "${binding.holder} maps path parameter '$name', but its path "
+            '$path has no {$name} capture to read it from',
+            binding.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 40 — framework protocol-feature hooks
+// ---------------------------------------------------------------------------
+
+/// `codespecs_derivation_contract.md` §6 check 40.
+///
+/// Reads the hook catalogue beside the trio — `csFeatureHooks` of
+/// `tom_code_specs`' vocabulary — because which hooks a feature has, which it
+/// cannot run without and which contracts `tom_core` ships are catalogue
+/// facts, not trio facts. Without the catalogue the check reports nothing, and
+/// the CLI says so.
+///
+/// A feature is held to its required hooks only once the trio implements one of
+/// its hooks: a system that enables no feature owes none of them.
+class CsFeatureHookCompletenessCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsFeatureHookCompletenessCheck();
+
+  @override
+  int get number => 40;
+
+  @override
+  String get definedIn => '§3.4.6';
+
+  @override
+  String get title =>
+      'Every @CsFeatureHook names a hook of its feature in csFeatureHooks; '
+      'for every feature the trio implements a hook of, every required hook '
+      'is implemented exactly once; no unavailable hook is implemented';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final catalogue = input.featureCatalogue;
+    if (catalogue == null) return const [];
+
+    final out = <CodeSpecsViolation>[];
+    final implemented = <String, List<CsDeclaration>>{};
+    final features = <String>{};
+    final firstSite = <String, CsLocation>{};
+    for (final declaration in input.declarations) {
+      final marker = declaration.marker('CsFeatureHook');
+      if (marker == null) continue;
+      final feature = enumConstantName(marker.firstPositional) ?? '';
+      final second = marker.positional.length > 1 ? marker.positional[1] : null;
+      final hook = second is CsStringValue ? second.value : '';
+      final site = '@CsFeatureHook on ${declaration.path}';
+
+      final known = catalogue.hooksOf(feature).isNotEmpty;
+      if (known) {
+        features.add(feature);
+        firstSite.putIfAbsent(feature, () => marker.location);
+      }
+      final entry = catalogue.entry(feature, hook);
+      if (entry == null) {
+        out.add(
+          fail(
+            known
+                ? "$site names hook '$hook', which $feature does not have in "
+                      'csFeatureHooks (it has '
+                      '${catalogue.hooksOf(feature).map((e) => e.hook).join(', ')})'
+                : "$site names feature '$feature', which csFeatureHooks does "
+                      'not list',
+            marker.location,
+          ),
+        );
+        continue;
+      }
+      if (!entry.available) {
+        out.add(
+          fail(
+            "$site implements $feature's hook '$hook', whose contract "
+            '${entry.contract} tom_core does not ship yet (available: false) '
+            '— the class cannot compile against the framework, and §3.4.6 '
+            'emits no class for it',
+            marker.location,
+          ),
+        );
+      }
+      final key = '$feature/$hook';
+      final previous = implemented.putIfAbsent(key, () => []);
+      if (previous.isNotEmpty) {
+        out.add(
+          fail(
+            "$site implements $feature's hook '$hook' a second time — "
+            '${previous.first.path} (${previous.first.location}) already '
+            'does, and the framework binds one implementation per hook',
+            marker.location,
+          ),
+        );
+      }
+      previous.add(declaration);
+    }
+
+    for (final feature in features) {
+      for (final entry in catalogue.hooksOf(feature)) {
+        if (!entry.required) continue;
+        if (implemented.containsKey('$feature/${entry.hook}')) continue;
+        out.add(
+          fail(
+            "the trio implements a hook of $feature but not its required hook "
+            "'${entry.hook}' (${entry.contract}) — the feature cannot run "
+            'without it',
+            firstSite[feature],
+          ),
+        );
+      }
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 41 — reserved protocol paths
+// ---------------------------------------------------------------------------
+
+/// `codespecs_derivation_contract.md` §6 check 41.
+///
+/// The framework serves a protocol feature's endpoints under the prefixes
+/// `csFeatureReservedPaths` lists, and a binding there would shadow the
+/// protocol or be shadowed by it depending on route order. Held against every
+/// feature's prefixes, not only the enabled ones: a system that declares
+/// `/scim/v2/Users` itself is re-declaring a protocol endpoint whether or not it
+/// also enables the feature. Reads the same catalogue as check 40.
+class CsReservedProtocolPathCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsReservedProtocolPathCheck();
+
+  @override
+  int get number => 41;
+
+  @override
+  String get definedIn => '§3.4.5';
+
+  @override
+  String get title =>
+      "No binding's route lies under a path csFeatureReservedPaths reserves "
+      'for a framework protocol feature';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final catalogue = input.featureCatalogue;
+    if (catalogue == null) return const [];
+
+    final out = <CodeSpecsViolation>[];
+    for (final binding in _csBindings(input)) {
+      final route = binding.route;
+      if (route == null) continue;
+      for (final entry in catalogue.reservedPaths.entries) {
+        for (final reserved in entry.value) {
+          final prefix = reserved.endsWith('/')
+              ? reserved.substring(0, reserved.length - 1)
+              : reserved;
+          if (prefix.isEmpty) continue;
+          if (route != prefix && !route.startsWith('$prefix/')) continue;
+          out.add(
+            fail(
+              '${binding.holder} binds $route, which lies under $reserved — '
+              'the path the framework reserves for ${entry.key}; the system '
+              'never re-declares a protocol endpoint',
+              binding.location,
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The thirty-seven checks, in `codespecs_derivation_contract.md` §6 table
+/// The forty-one checks, in `codespecs_derivation_contract.md` §6 table
 /// order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   /// Check 1 — two sections in one locus project deriving the same identifier.
@@ -3693,4 +4179,24 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   /// `collaborator` seam and a member the declaration assigns in its own body
   /// are the carve-outs.
   CsReflectionWrittenNotFinalCheck(),
+
+  /// Check 38 — a `@CsOperationBinding` whose `CsOperationRef` resolves to no
+  /// shared `@CsEndpoint`, or whose `TomOperationBinding` is constructed for a
+  /// different operation than the marker cites.
+  CsBindingOperationCheck(),
+
+  /// Check 39 — a binding with a method outside the closed set, two bindings on
+  /// one method and route, or a path capture and a path parameter that do not
+  /// map onto each other.
+  CsBindingRouteCheck(),
+
+  /// Check 40 — a `@CsFeatureHook` naming a hook its feature does not have, a
+  /// required hook of an enabled feature left unimplemented, a hook implemented
+  /// twice, or one whose contract `tom_core` does not ship. Reads the hook
+  /// catalogue beside the trio.
+  CsFeatureHookCompletenessCheck(),
+
+  /// Check 41 — a binding declared under a path the framework reserves for a
+  /// protocol feature. Reads the reserved-path catalogue beside the trio.
+  CsReservedProtocolPathCheck(),
 ];

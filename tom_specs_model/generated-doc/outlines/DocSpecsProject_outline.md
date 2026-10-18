@@ -1306,6 +1306,16 @@
             - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
           - responseMembers: `ServerOperationMemberEntry`[]
             - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
+          - bindings: `OperationBindingEntry`[]
+            - content @Form(httpMethod, pathTemplate, versionPrefix, successStatus, responseHeaders, consumes, produces, errorFormat, servedInterface)
+            - parameters: `BindingParameterEntry`[]
+              - content @Form(source, requestMember)
+        - protocolFeatures: `ProtocolFeatureEntry`[]
+          - content @Form(feature, purpose)
+          - hooks: `FeatureHookEntry`[]
+            - content @Form(hook)
+            - methods: `HookMethodEntry`[]
+              - content @Form(callsOperations, readsEntities, writesEntities)
       - `DataModelFollowUp`
         - content, erDiagram @mermaid-er
         - entityFollowUps: `EntityFollowUpEntry`[]
@@ -3458,6 +3468,16 @@
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`[]
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
+        - bindings: `OperationBindingEntry`[]
+          - content @Form(httpMethod, pathTemplate, versionPrefix, successStatus, responseHeaders, consumes, produces, errorFormat, servedInterface)
+          - parameters: `BindingParameterEntry`[]
+            - content @Form(source, requestMember)
+      - protocolFeatures: `ProtocolFeatureEntry`[]
+        - content @Form(feature, purpose)
+        - hooks: `FeatureHookEntry`[]
+          - content @Form(hook)
+          - methods: `HookMethodEntry`[]
+            - content @Form(callsOperations, readsEntities, writesEntities)
     - `SchemaVersioningAndMigration`
       - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
       - migrationTargets: `MigrationTargetEntry`[]
@@ -6441,6 +6461,16 @@
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`[]
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
+        - bindings: `OperationBindingEntry`[]
+          - content @Form(httpMethod, pathTemplate, versionPrefix, successStatus, responseHeaders, consumes, produces, errorFormat, servedInterface)
+          - parameters: `BindingParameterEntry`[]
+            - content @Form(source, requestMember)
+      - protocolFeatures: `ProtocolFeatureEntry`[]
+        - content @Form(feature, purpose)
+        - hooks: `FeatureHookEntry`[]
+          - content @Form(hook)
+          - methods: `HookMethodEntry`[]
+            - content @Form(callsOperations, readsEntities, writesEntities)
     - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
       - content
       - overview: `ProcessStepsOverview`

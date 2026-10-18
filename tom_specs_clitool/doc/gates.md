@@ -144,7 +144,7 @@ behind it: the walk continues through the crossing's own manifest.
 
 ### The CodeSpecs validator
 
-`validate_codespecs.dart` runs the thirty-seven contract checks over a generated
+`validate_codespecs.dart` runs the forty-one contract checks over a generated
 trio. It takes `--shared`, `--client` and `--server`; **all three are required**,
 and omitting one exits `2` with usage rather than crashing:
 
@@ -154,12 +154,13 @@ Error: the CodeSpecs trio is the pass's subject; missing required option(s): --s
 
 Exit codes: `0` clean, `1` on any violation, `2` on bad usage.
 
-The trio is the pass's *subject*, not its only input. Four checks cannot be
+The trio is the pass's *subject*, not its only input. Some checks cannot be
 answered from emitted code alone, and each takes its own corroborating input:
 
 | Input | Unlocks |
 |-------|---------|
 | `--migrations` | Check 13 — migration convergence |
+| `--cs-vocabulary` | Checks 40 and 41 — feature-hook completeness and reserved protocol paths, against `csFeatureHooks` / `csFeatureReservedPaths` |
 | `--cs-vocabulary` + `--core-source` | Check 9 — the catalogue mirrors |
 | `--regenerated-shared` / `-client` / `-server` | Check 31 — determinism across a second generation |
 | `--extracts` | Checks 32–36 — the comment text and the routing self-sufficiency |
@@ -173,7 +174,7 @@ Two machine-readable outputs exist for a tool that would otherwise scrape the
 text. The exit codes are the same in every mode.
 - **`--json`** writes the result as one versioned document (format
   `codespecs-validation`, version 1). It carries the inputs, the unrun checks,
-  the areas a gate record excluded, the 37 checks, and per violation its check
+  the areas a gate record excluded, the 41 checks, and per violation its check
   number and title, defining section, severity, file, line, token and area
   (where the check knows them) and message.
 - **`--backlinks`** runs no check. It writes the trio's back-link index (format

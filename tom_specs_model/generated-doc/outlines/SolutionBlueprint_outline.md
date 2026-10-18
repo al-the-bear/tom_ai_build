@@ -1302,6 +1302,16 @@
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`[]
           - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
+        - bindings: `OperationBindingEntry`[]
+          - content @Form(httpMethod, pathTemplate, versionPrefix, successStatus, responseHeaders, consumes, produces, errorFormat, servedInterface)
+          - parameters: `BindingParameterEntry`[]
+            - content @Form(source, requestMember)
+      - protocolFeatures: `ProtocolFeatureEntry`[]
+        - content @Form(feature, purpose)
+        - hooks: `FeatureHookEntry`[]
+          - content @Form(hook)
+          - methods: `HookMethodEntry`[]
+            - content @Form(callsOperations, readsEntities, writesEntities)
     - `DataModelFollowUp`
       - content, erDiagram @mermaid-er
       - entityFollowUps: `EntityFollowUpEntry`[]

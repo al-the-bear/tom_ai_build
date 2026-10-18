@@ -100,6 +100,56 @@ struct BasicAuthorizationRequirementKind {
   BasicAuthorizationRequirementKind() = delete;
 };
 
+// Generated enum tokens for `BindingErrorFormat` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct BindingErrorFormat {
+  // The CE-ER Result envelope of the operation contract.
+  static constexpr const char* resultEnvelope = "resultEnvelope";
+  // RFC 9457 problem details (`application/problem+json`).
+  static constexpr const char* problemJson = "problemJson";
+  // The SCIM 2.0 error schema (RFC 7644 §3.12).
+  static constexpr const char* scim = "scim";
+  // The OAuth 2.0 error response (RFC 6749 §5.2).
+  static constexpr const char* oauth = "oauth";
+  // Returns the token when it is a known BindingErrorFormat value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  BindingErrorFormat() = delete;
+};
+
+// Generated enum tokens for `BindingHttpMethod` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct BindingHttpMethod {
+  // A read with no side effect — a single resource or a listing.
+  static constexpr const char* get = "get";
+  // A creation, or an action that is not a plain state change.
+  static constexpr const char* post = "post";
+  // A full replacement of the resource at the path.
+  static constexpr const char* put = "put";
+  // A partial change of the resource at the path.
+  static constexpr const char* patch = "patch";
+  // A removal of the resource at the path.
+  static constexpr const char* delete_ = "delete";
+  // Returns the token when it is a known BindingHttpMethod value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  BindingHttpMethod() = delete;
+};
+
+// Generated enum tokens for `BindingParameterSource` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct BindingParameterSource {
+  // A `{name}` capture in the path template.
+  static constexpr const char* path = "path";
+  // A query parameter.
+  static constexpr const char* query = "query";
+  // The request body, or one member of it.
+  static constexpr const char* body = "body";
+  // A request header.
+  static constexpr const char* header = "header";
+  // Returns the token when it is a known BindingParameterSource value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  BindingParameterSource() = delete;
+};
+
 // Generated enum tokens for `ClientApplicationKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct ClientApplicationKind {
@@ -513,6 +563,18 @@ struct Probability {
   // Returns the token when it is a known Probability value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   Probability() = delete;
+};
+
+// Generated enum tokens for `ProtocolFeatureKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ProtocolFeatureKind {
+  // An OAuth 2.0 / OpenID Connect authorization server.
+  static constexpr const char* oidcAuthorizationServer = "oidcAuthorizationServer";
+  // A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+  static constexpr const char* scim2Server = "scim2Server";
+  // Returns the token when it is a known ProtocolFeatureKind value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ProtocolFeatureKind() = delete;
 };
 
 // Generated enum tokens for `ReportColumnKind` values. The stored token is byte-
@@ -1225,6 +1287,7 @@ class BandwidthRequirements;
 class BasicTechnicalRequirements;
 class BatchJobManagement;
 class BehaviorRuleEntry;
+class BindingParameterEntry;
 class BiometricAuthenticationPolicy;
 class BoundaryAssumptionEntry;
 class BoundaryAssumptions;
@@ -1572,6 +1635,7 @@ class ExternalSystemsContext;
 class FamilyComponentRef;
 class FeatureDependencies;
 class FeatureDependencyEntry;
+class FeatureHookEntry;
 class FeatureModuleEntry;
 class FeaturePrioritization;
 class FeaturePriorityEntry;
@@ -1623,6 +1687,7 @@ class HardwareRequirements;
 class HealthCheckEndpoints;
 class HealthChecksAndDiagnosticsSection;
 class HighAvailabilityRequirements;
+class HookMethodEntry;
 class IdeRequirementEntry;
 class Identification;
 class IdentificationAndAuthentication;
@@ -1809,6 +1874,7 @@ class OnCallScheduleConfig;
 class OnboardingHelp;
 class OngoingTrainingEntry;
 class OperatingEnvironment;
+class OperationBindingEntry;
 class OperationalMonitoring;
 class OperationalPainPoints;
 class OperationsRequirements;
@@ -1923,6 +1989,7 @@ class ProjectOrganizationAndProcess;
 class ProjectTeamStaffing;
 class ProtocolComplianceRequirements;
 class ProtocolEntry;
+class ProtocolFeatureEntry;
 class ProtocolsAndStandardsSection;
 class Prototype;
 class PrototypeFeatureEntry;
@@ -2582,6 +2649,7 @@ class BatchJobManagementContentForm;
 class BatchJobManagementExecutionForm;
 class BatchJobManagementMonitoringForm;
 class BehaviorRuleEntryContentForm;
+class BindingParameterEntryContentForm;
 class BiometricAuthenticationPolicyContentForm;
 class BoundaryAssumptionEntryContentForm;
 class BoundaryAssumptionEntryRiskForm;
@@ -3397,6 +3465,7 @@ class ExternalSystemContextEntryOperationsForm;
 class FamilyComponentRefContentForm;
 class FeatureDependenciesContentForm;
 class FeatureDependencyEntryContentForm;
+class FeatureHookEntryContentForm;
 class FeatureModuleEntryConfigurationForm;
 class FeatureModuleEntryContentForm;
 class FeatureModuleEntryDependenciesForm;
@@ -3506,6 +3575,7 @@ class HighAvailabilityRequirementsDisasterRecoveryForm;
 class HighAvailabilityRequirementsFailoverForm;
 class HighAvailabilityRequirementsLoadBalancingForm;
 class HighAvailabilityRequirementsRedundancyForm;
+class HookMethodEntryContentForm;
 class IdeRequirementEntryConfigurationForm;
 class IdeRequirementEntryContentForm;
 class IdeRequirementEntryIntegrationForm;
@@ -3949,6 +4019,7 @@ class OngoingTrainingEntryComplianceForm;
 class OngoingTrainingEntryContentForm;
 class OngoingTrainingEntryContentManagementForm;
 class OngoingTrainingEntryScheduleForm;
+class OperationBindingEntryContentForm;
 class OperationalMonitoringAlertingForm;
 class OperationalMonitoringAutomationForm;
 class OperationalMonitoringContentForm;
@@ -4149,6 +4220,7 @@ class ProtocolComplianceRequirementsContentForm;
 class ProtocolComplianceRequirementsEventsForm;
 class ProtocolComplianceRequirementsObservabilityForm;
 class ProtocolEntryContentForm;
+class ProtocolFeatureEntryContentForm;
 class PrototypeFeatureEntryContentForm;
 class PrototypeFeatureSubsetFeatureSubsetContentForm;
 class PrototypeFeatureSubsetFidelityForm;
@@ -7250,6 +7322,20 @@ class BehaviorRuleEntry : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
   BehaviorRuleEntryContentForm content() const;
+};
+
+// Where a protocol binding finds one request member (form).
+//
+// The entry's headline is the parameter's name on the wire — the `{name}`
+// capture, the query parameter, the body member or the header — and the form
+// says where it is found and which request member it supplies.
+class BindingParameterEntry : public som::SomNode {
+ public:
+  BindingParameterEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  BindingParameterEntryContentForm content() const;
 };
 
 // Biometric authentication policy (form).
@@ -10370,7 +10456,7 @@ class CutoverProcedure : public som::SomNode {
 class D00SolutionBlueprint : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10439,7 +10525,7 @@ class D00SolutionBlueprint : public som::SomNode {
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10499,7 +10585,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 class D02TargetOperatingModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10565,7 +10651,7 @@ class D02TargetOperatingModel : public som::SomNode {
 class D03InformationModel : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10674,7 +10760,7 @@ class D03InformationModel : public som::SomNode {
 class D04RequirementsSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10737,7 +10823,7 @@ class D04RequirementsSpecification : public som::SomNode {
 class D05InteractionScenarios : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10796,7 +10882,7 @@ class D05InteractionScenarios : public som::SomNode {
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10863,7 +10949,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10930,7 +11016,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -10999,7 +11085,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11069,7 +11155,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11151,7 +11237,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
 class D11DeliveryRoadmap : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11214,7 +11300,7 @@ class D11DeliveryRoadmap : public som::SomNode {
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -11292,7 +11378,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
 class D13CodeSpecsProjection : public som::SomNode {
  public:
   // The model version this object model was generated against (SOM §4.2).
-  static constexpr const char* kModelVersion = "1.5";
+  static constexpr const char* kModelVersion = "1.6";
   // Creates the typed facade at the document root and verifies the document's
   // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
@@ -15825,6 +15911,27 @@ class FeatureDependencyEntry : public som::SomNode {
   FeatureDependencyEntryContentForm content() const;
 };
 
+// One hook of a framework protocol feature that the system implements (form +
+// method list).
+//
+// The hook is a framework contract — SCIM's resource store, an authorization
+// server's client registry — and the system's implementation of it is the
+// CodeSpec. The contract's members are the framework's; what the system states
+// is, per member, what the implementation does: the operations it calls, in
+// order, and the entities it reads and writes, so the CodeSpec body is a
+// sequence of calls and not invented logic.
+class FeatureHookEntry : public som::SomNode {
+ public:
+  FeatureHookEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  FeatureHookEntryContentForm content() const;
+  // 7.9.2.x. Methods — what each member of the hook contract does.
+  // Returns the list view; element type: HookMethodEntry (construct from item paths).
+  som::SomList methods() const;
+};
+
 // Feature module entry — a vertical slice feature.
 class FeatureModuleEntry : public som::SomNode {
  public:
@@ -16901,6 +17008,20 @@ class HighAvailabilityRequirements : public som::SomNode {
   HighAvailabilityRequirementsLoadBalancingForm loadBalancing() const;
   // Disaster recovery alignment.
   HighAvailabilityRequirementsDisasterRecoveryForm disasterRecovery() const;
+};
+
+// What one member of a hook contract does (form).
+//
+// The entry's headline is the contract member's name. The operations it calls
+// are listed in the order the implementation calls them; that order is the
+// CodeSpec body.
+class HookMethodEntry : public som::SomNode {
+ public:
+  HookMethodEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  HookMethodEntryContentForm content() const;
 };
 
 // IDE requirement entry — a required IDE or editor.
@@ -20799,6 +20920,25 @@ class OperatingEnvironment : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// One standard-protocol shape of a server operation (form + parameter list).
+//
+// The operation stays the unit of behaviour; the binding only says how a
+// third-party caller reaches it: the method, the path template, where each
+// request member is found, the success status and headers, the content types,
+// the error format and the version prefix. A REST listing, a save and a state
+// transition are each one binding of their operation.
+class OperationBindingEntry : public som::SomNode {
+ public:
+  OperationBindingEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  OperationBindingEntryContentForm content() const;
+  // 7.9.x. Parameters — where the binding finds each request member.
+  // Returns the list view; element type: BindingParameterEntry (construct from item paths).
+  som::SomList parameters() const;
+};
+
 // 11.4.3. Monitoring quality.
 class OperationalMonitoring : public som::SomNode {
  public:
@@ -22980,6 +23120,26 @@ class ProtocolEntry : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
   ProtocolEntryContentForm content() const;
+};
+
+// A standard protocol server the framework provides, enabled by the system
+// (form + hook list).
+//
+// The framework owns the protocol's endpoints, wire format and error format;
+// the system writes no protocol endpoint of its own. What the system supplies
+// are the **hooks** — the extension points through which the protocol reaches
+// the system's domain (`codespecs_mapping.md` §5.30).
+class ProtocolFeatureEntry : public som::SomNode {
+ public:
+  ProtocolFeatureEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  ProtocolFeatureEntryContentForm content() const;
+  // 7.9.2.x. Hooks — the extension points of the feature the system
+  // implements.
+  // Returns the list view; element type: FeatureHookEntry (construct from item paths).
+  som::SomList hooks() const;
 };
 
 // 8.6.1. Protocols and Standards.
@@ -27015,6 +27175,15 @@ class ServerOperationEntry : public som::SomNode {
   // authored per operation.
   // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
   som::SomList responseMembers() const;
+  // 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+  // also served under, for third-party callers.
+  //
+  // The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+  // application's own client calls it by name. A binding is a second shape of
+  // the same operation — an HTTP method, a path, where each request member is
+  // found, the success status and headers — and an operation may have several.
+  // Returns the list view; element type: OperationBindingEntry (construct from item paths).
+  som::SomList bindings() const;
 };
 
 // A single member of an operation's request or response shape (form).
@@ -27060,6 +27229,11 @@ class ServerOperationMemberEntry : public som::SomNode {
 //   errors;
 // - no encoding, header, redirect, CORS or credential plumbing — framework
 //   transport members, never spec input.
+//
+// Third-party HTTP shapes are added beside the contract, not inside it: an
+// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+// and [protocolFeatures] lists the framework protocol servers the system
+// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 class ServerOperationRegistry : public som::SomNode {
  public:
   ServerOperationRegistry(som::SpecDocument& doc, std::string path);
@@ -27071,6 +27245,11 @@ class ServerOperationRegistry : public som::SomNode {
   // 7.9.1. Operations — one entry per operation the system answers.
   // Returns the list view; element type: ServerOperationEntry (construct from item paths).
   som::SomList operations() const;
+  // 7.9.2. Protocol Features — the standard protocol servers the framework
+  // provides that the system enables, each with the hooks the system
+  // implements.
+  // Returns the list view; element type: ProtocolFeatureEntry (construct from item paths).
+  som::SomList protocolFeatures() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -36672,6 +36851,20 @@ class BehaviorRuleEntryContentForm : public som::SomNode {
   void setValidationRules(const std::string& value);
   std::string calculatedProperties() const;
   void setCalculatedProperties(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class BindingParameterEntryContentForm : public som::SomNode {
+ public:
+  BindingParameterEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string source() const;
+  void setSource(const std::string& value);
+  std::string requestMember() const;
+  void setRequestMember(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -51262,6 +51455,18 @@ class FeatureDependencyEntryContentForm : public som::SomNode {
   void setNotes(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class FeatureHookEntryContentForm : public som::SomNode {
+ public:
+  FeatureHookEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string hook() const;
+  void setHook(const std::string& value);
+};
+
 // Generated section facade for the `configuration` @Form section: its own `content` text followed by one typed member per form field.
 class FeatureModuleEntryConfigurationForm : public som::SomNode {
  public:
@@ -53256,6 +53461,22 @@ class HighAvailabilityRequirementsRedundancyForm : public som::SomNode {
   void setGeographicRedundancy(std::optional<bool> value);
   std::optional<bool> activeActiveMode() const;
   void setActiveActiveMode(std::optional<bool> value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class HookMethodEntryContentForm : public som::SomNode {
+ public:
+  HookMethodEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string callsOperations() const;
+  void setCallsOperations(const std::string& value);
+  std::string readsEntities() const;
+  void setReadsEntities(const std::string& value);
+  std::string writesEntities() const;
+  void setWritesEntities(const std::string& value);
 };
 
 // Generated section facade for the `configuration` @Form section: its own `content` text followed by one typed member per form field.
@@ -61344,6 +61565,34 @@ class OngoingTrainingEntryScheduleForm : public som::SomNode {
   void setDuration(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class OperationBindingEntryContentForm : public som::SomNode {
+ public:
+  OperationBindingEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string httpMethod() const;
+  void setHttpMethod(const std::string& value);
+  std::string pathTemplate() const;
+  void setPathTemplate(const std::string& value);
+  std::string versionPrefix() const;
+  void setVersionPrefix(const std::string& value);
+  std::optional<long> successStatus() const;
+  void setSuccessStatus(std::optional<long> value);
+  std::string responseHeaders() const;
+  void setResponseHeaders(const std::string& value);
+  std::string consumes() const;
+  void setConsumes(const std::string& value);
+  std::string produces() const;
+  void setProduces(const std::string& value);
+  std::string errorFormat() const;
+  void setErrorFormat(const std::string& value);
+  std::string servedInterface() const;
+  void setServedInterface(const std::string& value);
+};
+
 // Generated section facade for the `alerting` @Form section: its own `content` text followed by one typed member per form field.
 class OperationalMonitoringAlertingForm : public som::SomNode {
  public:
@@ -65236,6 +65485,20 @@ class ProtocolEntryContentForm : public som::SomNode {
   void setDirectionality(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ProtocolFeatureEntryContentForm : public som::SomNode {
+ public:
+  ProtocolFeatureEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string feature() const;
+  void setFeature(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

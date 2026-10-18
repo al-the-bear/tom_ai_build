@@ -88,6 +88,47 @@ char *parse_authorization_requirement_kind(const char *token);
 // parse_basic_authorization_requirement_kind returns the token (owned) when it is a known BasicAuthorizationRequirementKind value, else "".
 char *parse_basic_authorization_requirement_kind(const char *token);
 
+// Generated enum tokens for `BindingErrorFormat` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The CE-ER Result envelope of the operation contract.
+#define BINDING_ERROR_FORMAT_RESULT_ENVELOPE "resultEnvelope"
+// RFC 9457 problem details (`application/problem+json`).
+#define BINDING_ERROR_FORMAT_PROBLEM_JSON "problemJson"
+// The SCIM 2.0 error schema (RFC 7644 §3.12).
+#define BINDING_ERROR_FORMAT_SCIM "scim"
+// The OAuth 2.0 error response (RFC 6749 §5.2).
+#define BINDING_ERROR_FORMAT_OAUTH "oauth"
+// parse_binding_error_format returns the token (owned) when it is a known BindingErrorFormat value, else "".
+char *parse_binding_error_format(const char *token);
+
+// Generated enum tokens for `BindingHttpMethod` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A read with no side effect — a single resource or a listing.
+#define BINDING_HTTP_METHOD_GET "get"
+// A creation, or an action that is not a plain state change.
+#define BINDING_HTTP_METHOD_POST "post"
+// A full replacement of the resource at the path.
+#define BINDING_HTTP_METHOD_PUT "put"
+// A partial change of the resource at the path.
+#define BINDING_HTTP_METHOD_PATCH "patch"
+// A removal of the resource at the path.
+#define BINDING_HTTP_METHOD_DELETE "delete"
+// parse_binding_http_method returns the token (owned) when it is a known BindingHttpMethod value, else "".
+char *parse_binding_http_method(const char *token);
+
+// Generated enum tokens for `BindingParameterSource` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// A `{name}` capture in the path template.
+#define BINDING_PARAMETER_SOURCE_PATH "path"
+// A query parameter.
+#define BINDING_PARAMETER_SOURCE_QUERY "query"
+// The request body, or one member of it.
+#define BINDING_PARAMETER_SOURCE_BODY "body"
+// A request header.
+#define BINDING_PARAMETER_SOURCE_HEADER "header"
+// parse_binding_parameter_source returns the token (owned) when it is a known BindingParameterSource value, else "".
+char *parse_binding_parameter_source(const char *token);
+
 // Generated enum tokens for `ClientApplicationKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // A graphical application with screens, forms and navigation.
@@ -466,6 +507,15 @@ char *parse_priority(const char *token);
 #define PROBABILITY_VERY_HIGH "veryHigh"
 // parse_probability returns the token (owned) when it is a known Probability value, else "".
 char *parse_probability(const char *token);
+
+// Generated enum tokens for `ProtocolFeatureKind` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// An OAuth 2.0 / OpenID Connect authorization server.
+#define PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER "oidcAuthorizationServer"
+// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+#define PROTOCOL_FEATURE_KIND_SCIM2_SERVER "scim2Server"
+// parse_protocol_feature_kind returns the token (owned) when it is a known ProtocolFeatureKind value, else "".
+char *parse_protocol_feature_kind(const char *token);
 
 // Generated enum tokens for `ReportColumnKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
@@ -1043,33 +1093,33 @@ char *parse_status(const char *token);
 char *parse_user_attribute_placement(const char *token);
 
 // D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
-#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.5"
+#define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.6"
 // D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
-#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.5"
+#define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.6"
 // D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
-#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.5"
+#define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.6"
 // D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
-#define D03_INFORMATION_MODEL_MODEL_VERSION "1.5"
+#define D03_INFORMATION_MODEL_MODEL_VERSION "1.6"
 // D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
-#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.5"
+#define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.6"
 // D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
-#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.5"
+#define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.6"
 // D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
-#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.5"
+#define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.6"
 // D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
-#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.5"
+#define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.6"
 // D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
-#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.5"
+#define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.6"
 // D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
-#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.5"
+#define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.6"
 // D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
-#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.5"
+#define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.6"
 // D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
-#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.5"
+#define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.6"
 // D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
-#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.5"
+#define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.6"
 // D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
-#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.5"
+#define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.6"
 
 // Typed facade structs — each binds a node (document + path).
 typedef struct { SomNode node; } AcceptanceCriteriaList;
@@ -1173,6 +1223,7 @@ typedef struct { SomNode node; } BandwidthRequirements;
 typedef struct { SomNode node; } BasicTechnicalRequirements;
 typedef struct { SomNode node; } BatchJobManagement;
 typedef struct { SomNode node; } BehaviorRuleEntry;
+typedef struct { SomNode node; } BindingParameterEntry;
 typedef struct { SomNode node; } BiometricAuthenticationPolicy;
 typedef struct { SomNode node; } BoundaryAssumptionEntry;
 typedef struct { SomNode node; } BoundaryAssumptions;
@@ -1520,6 +1571,7 @@ typedef struct { SomNode node; } ExternalSystemsContext;
 typedef struct { SomNode node; } FamilyComponentRef;
 typedef struct { SomNode node; } FeatureDependencies;
 typedef struct { SomNode node; } FeatureDependencyEntry;
+typedef struct { SomNode node; } FeatureHookEntry;
 typedef struct { SomNode node; } FeatureModuleEntry;
 typedef struct { SomNode node; } FeaturePrioritization;
 typedef struct { SomNode node; } FeaturePriorityEntry;
@@ -1571,6 +1623,7 @@ typedef struct { SomNode node; } HardwareRequirements;
 typedef struct { SomNode node; } HealthCheckEndpoints;
 typedef struct { SomNode node; } HealthChecksAndDiagnosticsSection;
 typedef struct { SomNode node; } HighAvailabilityRequirements;
+typedef struct { SomNode node; } HookMethodEntry;
 typedef struct { SomNode node; } IdeRequirementEntry;
 typedef struct { SomNode node; } Identification;
 typedef struct { SomNode node; } IdentificationAndAuthentication;
@@ -1757,6 +1810,7 @@ typedef struct { SomNode node; } OnCallScheduleConfig;
 typedef struct { SomNode node; } OnboardingHelp;
 typedef struct { SomNode node; } OngoingTrainingEntry;
 typedef struct { SomNode node; } OperatingEnvironment;
+typedef struct { SomNode node; } OperationBindingEntry;
 typedef struct { SomNode node; } OperationalMonitoring;
 typedef struct { SomNode node; } OperationalPainPoints;
 typedef struct { SomNode node; } OperationsRequirements;
@@ -1871,6 +1925,7 @@ typedef struct { SomNode node; } ProjectOrganizationAndProcess;
 typedef struct { SomNode node; } ProjectTeamStaffing;
 typedef struct { SomNode node; } ProtocolComplianceRequirements;
 typedef struct { SomNode node; } ProtocolEntry;
+typedef struct { SomNode node; } ProtocolFeatureEntry;
 typedef struct { SomNode node; } ProtocolsAndStandardsSection;
 typedef struct { SomNode node; } Prototype;
 typedef struct { SomNode node; } PrototypeFeatureEntry;
@@ -2530,6 +2585,7 @@ typedef struct { SomNode node; } BatchJobManagementContentForm;
 typedef struct { SomNode node; } BatchJobManagementExecutionForm;
 typedef struct { SomNode node; } BatchJobManagementMonitoringForm;
 typedef struct { SomNode node; } BehaviorRuleEntryContentForm;
+typedef struct { SomNode node; } BindingParameterEntryContentForm;
 typedef struct { SomNode node; } BiometricAuthenticationPolicyContentForm;
 typedef struct { SomNode node; } BoundaryAssumptionEntryContentForm;
 typedef struct { SomNode node; } BoundaryAssumptionEntryRiskForm;
@@ -3345,6 +3401,7 @@ typedef struct { SomNode node; } ExternalSystemContextEntryOperationsForm;
 typedef struct { SomNode node; } FamilyComponentRefContentForm;
 typedef struct { SomNode node; } FeatureDependenciesContentForm;
 typedef struct { SomNode node; } FeatureDependencyEntryContentForm;
+typedef struct { SomNode node; } FeatureHookEntryContentForm;
 typedef struct { SomNode node; } FeatureModuleEntryConfigurationForm;
 typedef struct { SomNode node; } FeatureModuleEntryContentForm;
 typedef struct { SomNode node; } FeatureModuleEntryDependenciesForm;
@@ -3454,6 +3511,7 @@ typedef struct { SomNode node; } HighAvailabilityRequirementsDisasterRecoveryFor
 typedef struct { SomNode node; } HighAvailabilityRequirementsFailoverForm;
 typedef struct { SomNode node; } HighAvailabilityRequirementsLoadBalancingForm;
 typedef struct { SomNode node; } HighAvailabilityRequirementsRedundancyForm;
+typedef struct { SomNode node; } HookMethodEntryContentForm;
 typedef struct { SomNode node; } IdeRequirementEntryConfigurationForm;
 typedef struct { SomNode node; } IdeRequirementEntryContentForm;
 typedef struct { SomNode node; } IdeRequirementEntryIntegrationForm;
@@ -3897,6 +3955,7 @@ typedef struct { SomNode node; } OngoingTrainingEntryComplianceForm;
 typedef struct { SomNode node; } OngoingTrainingEntryContentForm;
 typedef struct { SomNode node; } OngoingTrainingEntryContentManagementForm;
 typedef struct { SomNode node; } OngoingTrainingEntryScheduleForm;
+typedef struct { SomNode node; } OperationBindingEntryContentForm;
 typedef struct { SomNode node; } OperationalMonitoringAlertingForm;
 typedef struct { SomNode node; } OperationalMonitoringAutomationForm;
 typedef struct { SomNode node; } OperationalMonitoringContentForm;
@@ -4097,6 +4156,7 @@ typedef struct { SomNode node; } ProtocolComplianceRequirementsContentForm;
 typedef struct { SomNode node; } ProtocolComplianceRequirementsEventsForm;
 typedef struct { SomNode node; } ProtocolComplianceRequirementsObservabilityForm;
 typedef struct { SomNode node; } ProtocolEntryContentForm;
+typedef struct { SomNode node; } ProtocolFeatureEntryContentForm;
 typedef struct { SomNode node; } PrototypeFeatureEntryContentForm;
 typedef struct { SomNode node; } PrototypeFeatureSubsetFeatureSubsetContentForm;
 typedef struct { SomNode node; } PrototypeFeatureSubsetFidelityForm;
@@ -7188,6 +7248,21 @@ int behavior_rule_entry_can_have_content(const BehaviorRuleEntry *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
 BehaviorRuleEntryContentForm behavior_rule_entry_content(const BehaviorRuleEntry *self);
+
+// Where a protocol binding finds one request member (form).
+//
+// The entry's headline is the parameter's name on the wire — the `{name}`
+// capture, the query parameter, the body member or the header — and the form
+// says where it is found and which request member it supplies.
+// Binds a BindingParameterEntry facade to a document and a path (path copied).
+void binding_parameter_entry_init(BindingParameterEntry *self, SpecDocument *doc, const char *path);
+void binding_parameter_entry_free(BindingParameterEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int binding_parameter_entry_can_have_content(const BindingParameterEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+BindingParameterEntryContentForm binding_parameter_entry_content(const BindingParameterEntry *self);
 
 // Biometric authentication policy (form).
 //
@@ -15609,6 +15684,28 @@ int feature_dependency_entry_can_have_content(const FeatureDependencyEntry *self
 // §11.4 rule 7); the field values themselves live in [form].
 FeatureDependencyEntryContentForm feature_dependency_entry_content(const FeatureDependencyEntry *self);
 
+// One hook of a framework protocol feature that the system implements (form +
+// method list).
+//
+// The hook is a framework contract — SCIM's resource store, an authorization
+// server's client registry — and the system's implementation of it is the
+// CodeSpec. The contract's members are the framework's; what the system states
+// is, per member, what the implementation does: the operations it calls, in
+// order, and the entities it reads and writes, so the CodeSpec body is a
+// sequence of calls and not invented logic.
+// Binds a FeatureHookEntry facade to a document and a path (path copied).
+void feature_hook_entry_init(FeatureHookEntry *self, SpecDocument *doc, const char *path);
+void feature_hook_entry_free(FeatureHookEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int feature_hook_entry_can_have_content(const FeatureHookEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+FeatureHookEntryContentForm feature_hook_entry_content(const FeatureHookEntry *self);
+// 7.9.2.x. Methods — what each member of the hook contract does.
+// Returns the list view; element type: HookMethodEntry (construct from item paths).
+SomList feature_hook_entry_methods(const FeatureHookEntry *self);
+
 // Feature module entry — a vertical slice feature.
 // Binds a FeatureModuleEntry facade to a document and a path (path copied).
 void feature_module_entry_init(FeatureModuleEntry *self, SpecDocument *doc, const char *path);
@@ -16677,6 +16774,21 @@ HighAvailabilityRequirementsFailoverForm high_availability_requirements_failover
 HighAvailabilityRequirementsLoadBalancingForm high_availability_requirements_load_balancing(const HighAvailabilityRequirements *self);
 // Disaster recovery alignment.
 HighAvailabilityRequirementsDisasterRecoveryForm high_availability_requirements_disaster_recovery(const HighAvailabilityRequirements *self);
+
+// What one member of a hook contract does (form).
+//
+// The entry's headline is the contract member's name. The operations it calls
+// are listed in the order the implementation calls them; that order is the
+// CodeSpec body.
+// Binds a HookMethodEntry facade to a document and a path (path copied).
+void hook_method_entry_init(HookMethodEntry *self, SpecDocument *doc, const char *path);
+void hook_method_entry_free(HookMethodEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int hook_method_entry_can_have_content(const HookMethodEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+HookMethodEntryContentForm hook_method_entry_content(const HookMethodEntry *self);
 
 // IDE requirement entry — a required IDE or editor.
 // Binds a IdeRequirementEntry facade to a document and a path (path copied).
@@ -20532,6 +20644,26 @@ TechnicalEnvironment operating_environment_technical_environment(const Operating
 char *operating_environment_constraints_and_dependencies(const OperatingEnvironment *self);
 void operating_environment_set_constraints_and_dependencies(OperatingEnvironment *self, const char *value);
 
+// One standard-protocol shape of a server operation (form + parameter list).
+//
+// The operation stays the unit of behaviour; the binding only says how a
+// third-party caller reaches it: the method, the path template, where each
+// request member is found, the success status and headers, the content types,
+// the error format and the version prefix. A REST listing, a save and a state
+// transition are each one binding of their operation.
+// Binds a OperationBindingEntry facade to a document and a path (path copied).
+void operation_binding_entry_init(OperationBindingEntry *self, SpecDocument *doc, const char *path);
+void operation_binding_entry_free(OperationBindingEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int operation_binding_entry_can_have_content(const OperationBindingEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+OperationBindingEntryContentForm operation_binding_entry_content(const OperationBindingEntry *self);
+// 7.9.x. Parameters — where the binding finds each request member.
+// Returns the list view; element type: BindingParameterEntry (construct from item paths).
+SomList operation_binding_entry_parameters(const OperationBindingEntry *self);
+
 // 11.4.3. Monitoring quality.
 // Binds a OperationalMonitoring facade to a document and a path (path copied).
 void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path);
@@ -22648,6 +22780,27 @@ int protocol_entry_can_have_content(const ProtocolEntry *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
 ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self);
+
+// A standard protocol server the framework provides, enabled by the system
+// (form + hook list).
+//
+// The framework owns the protocol's endpoints, wire format and error format;
+// the system writes no protocol endpoint of its own. What the system supplies
+// are the **hooks** — the extension points through which the protocol reaches
+// the system's domain (`codespecs_mapping.md` §5.30).
+// Binds a ProtocolFeatureEntry facade to a document and a path (path copied).
+void protocol_feature_entry_init(ProtocolFeatureEntry *self, SpecDocument *doc, const char *path);
+void protocol_feature_entry_free(ProtocolFeatureEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int protocol_feature_entry_can_have_content(const ProtocolFeatureEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+ProtocolFeatureEntryContentForm protocol_feature_entry_content(const ProtocolFeatureEntry *self);
+// 7.9.2.x. Hooks — the extension points of the feature the system
+// implements.
+// Returns the list view; element type: FeatureHookEntry (construct from item paths).
+SomList protocol_feature_entry_hooks(const ProtocolFeatureEntry *self);
 
 // 8.6.1. Protocols and Standards.
 // Binds a ProtocolsAndStandardsSection facade to a document and a path (path copied).
@@ -26627,6 +26780,15 @@ SomList server_operation_entry_request_members(const ServerOperationEntry *self)
 // authored per operation.
 // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
 SomList server_operation_entry_response_members(const ServerOperationEntry *self);
+// 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+// also served under, for third-party callers.
+//
+// The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+// application's own client calls it by name. A binding is a second shape of
+// the same operation — an HTTP method, a path, where each request member is
+// found, the success status and headers — and an operation may have several.
+// Returns the list view; element type: OperationBindingEntry (construct from item paths).
+SomList server_operation_entry_bindings(const ServerOperationEntry *self);
 
 // A single member of an operation's request or response shape (form).
 //
@@ -26672,6 +26834,11 @@ ServerOperationMemberEntryContentForm server_operation_member_entry_content(cons
 //   errors;
 // - no encoding, header, redirect, CORS or credential plumbing — framework
 //   transport members, never spec input.
+//
+// Third-party HTTP shapes are added beside the contract, not inside it: an
+// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+// and [protocolFeatures] lists the framework protocol servers the system
+// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 // Binds a ServerOperationRegistry facade to a document and a path (path copied).
 void server_operation_registry_init(ServerOperationRegistry *self, SpecDocument *doc, const char *path);
 void server_operation_registry_free(ServerOperationRegistry *self);
@@ -26685,6 +26852,11 @@ void server_operation_registry_set_content(ServerOperationRegistry *self, const 
 // 7.9.1. Operations — one entry per operation the system answers.
 // Returns the list view; element type: ServerOperationEntry (construct from item paths).
 SomList server_operation_registry_operations(const ServerOperationRegistry *self);
+// 7.9.2. Protocol Features — the standard protocol servers the framework
+// provides that the system enables, each with the hooks the system
+// implements.
+// Returns the list view; element type: ProtocolFeatureEntry (construct from item paths).
+SomList server_operation_registry_protocol_features(const ServerOperationRegistry *self);
 
 // Server operating system requirements.
 // Binds a ServerOsRequirements facade to a document and a path (path copied).
@@ -35559,6 +35731,17 @@ char *behavior_rule_entry_content_form_validation_rules(const BehaviorRuleEntryC
 void behavior_rule_entry_content_form_set_validation_rules(BehaviorRuleEntryContentForm *self, const char *value);
 char *behavior_rule_entry_content_form_calculated_properties(const BehaviorRuleEntryContentForm *self);
 void behavior_rule_entry_content_form_set_calculated_properties(BehaviorRuleEntryContentForm *self, const char *value);
+
+// BindingParameterEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void binding_parameter_entry_content_form_init(BindingParameterEntryContentForm *self, SpecDocument *doc, const char *path);
+void binding_parameter_entry_content_form_free(BindingParameterEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *binding_parameter_entry_content_form_content(const BindingParameterEntryContentForm *self);
+void binding_parameter_entry_content_form_set_content(BindingParameterEntryContentForm *self, const char *value);
+char *binding_parameter_entry_content_form_source(const BindingParameterEntryContentForm *self);
+void binding_parameter_entry_content_form_set_source(BindingParameterEntryContentForm *self, const char *value);
+char *binding_parameter_entry_content_form_request_member(const BindingParameterEntryContentForm *self);
+void binding_parameter_entry_content_form_set_request_member(BindingParameterEntryContentForm *self, const char *value);
 
 // BiometricAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void biometric_authentication_policy_content_form_init(BiometricAuthenticationPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -47703,6 +47886,15 @@ void feature_dependency_entry_content_form_set_resolution_status(FeatureDependen
 char *feature_dependency_entry_content_form_notes(const FeatureDependencyEntryContentForm *self);
 void feature_dependency_entry_content_form_set_notes(FeatureDependencyEntryContentForm *self, const char *value);
 
+// FeatureHookEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void feature_hook_entry_content_form_init(FeatureHookEntryContentForm *self, SpecDocument *doc, const char *path);
+void feature_hook_entry_content_form_free(FeatureHookEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *feature_hook_entry_content_form_content(const FeatureHookEntryContentForm *self);
+void feature_hook_entry_content_form_set_content(FeatureHookEntryContentForm *self, const char *value);
+char *feature_hook_entry_content_form_hook(const FeatureHookEntryContentForm *self);
+void feature_hook_entry_content_form_set_hook(FeatureHookEntryContentForm *self, const char *value);
+
 // FeatureModuleEntryConfigurationForm is the generated section facade for the `configuration` @Form section: its own `content` text followed by one typed member per form field.
 void feature_module_entry_configuration_form_init(FeatureModuleEntryConfigurationForm *self, SpecDocument *doc, const char *path);
 void feature_module_entry_configuration_form_free(FeatureModuleEntryConfigurationForm *self);
@@ -49371,6 +49563,19 @@ bool high_availability_requirements_redundancy_form_geographic_redundancy(const 
 void high_availability_requirements_redundancy_form_set_geographic_redundancy(HighAvailabilityRequirementsRedundancyForm *self, bool value);
 bool high_availability_requirements_redundancy_form_active_active_mode(const HighAvailabilityRequirementsRedundancyForm *self);
 void high_availability_requirements_redundancy_form_set_active_active_mode(HighAvailabilityRequirementsRedundancyForm *self, bool value);
+
+// HookMethodEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void hook_method_entry_content_form_init(HookMethodEntryContentForm *self, SpecDocument *doc, const char *path);
+void hook_method_entry_content_form_free(HookMethodEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *hook_method_entry_content_form_content(const HookMethodEntryContentForm *self);
+void hook_method_entry_content_form_set_content(HookMethodEntryContentForm *self, const char *value);
+char *hook_method_entry_content_form_calls_operations(const HookMethodEntryContentForm *self);
+void hook_method_entry_content_form_set_calls_operations(HookMethodEntryContentForm *self, const char *value);
+char *hook_method_entry_content_form_reads_entities(const HookMethodEntryContentForm *self);
+void hook_method_entry_content_form_set_reads_entities(HookMethodEntryContentForm *self, const char *value);
+char *hook_method_entry_content_form_writes_entities(const HookMethodEntryContentForm *self);
+void hook_method_entry_content_form_set_writes_entities(HookMethodEntryContentForm *self, const char *value);
 
 // IdeRequirementEntryConfigurationForm is the generated section facade for the `configuration` @Form section: its own `content` text followed by one typed member per form field.
 void ide_requirement_entry_configuration_form_init(IdeRequirementEntryConfigurationForm *self, SpecDocument *doc, const char *path);
@@ -56129,6 +56334,31 @@ void ongoing_training_entry_schedule_form_set_format(OngoingTrainingEntrySchedul
 char *ongoing_training_entry_schedule_form_duration(const OngoingTrainingEntryScheduleForm *self);
 void ongoing_training_entry_schedule_form_set_duration(OngoingTrainingEntryScheduleForm *self, const char *value);
 
+// OperationBindingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void operation_binding_entry_content_form_init(OperationBindingEntryContentForm *self, SpecDocument *doc, const char *path);
+void operation_binding_entry_content_form_free(OperationBindingEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *operation_binding_entry_content_form_content(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_content(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_http_method(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_http_method(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_path_template(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_path_template(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_version_prefix(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_version_prefix(OperationBindingEntryContentForm *self, const char *value);
+long operation_binding_entry_content_form_success_status(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_success_status(OperationBindingEntryContentForm *self, long value);
+char *operation_binding_entry_content_form_response_headers(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_response_headers(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_consumes(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_consumes(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_produces(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_produces(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_error_format(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_error_format(OperationBindingEntryContentForm *self, const char *value);
+char *operation_binding_entry_content_form_served_interface(const OperationBindingEntryContentForm *self);
+void operation_binding_entry_content_form_set_served_interface(OperationBindingEntryContentForm *self, const char *value);
+
 // OperationalMonitoringAlertingForm is the generated section facade for the `alerting` @Form section: its own `content` text followed by one typed member per form field.
 void operational_monitoring_alerting_form_init(OperationalMonitoringAlertingForm *self, SpecDocument *doc, const char *path);
 void operational_monitoring_alerting_form_free(OperationalMonitoringAlertingForm *self);
@@ -59422,6 +59652,17 @@ char *protocol_entry_content_form_directionality(const ProtocolEntryContentForm 
 void protocol_entry_content_form_set_directionality(ProtocolEntryContentForm *self, const char *value);
 char *protocol_entry_content_form_notes(const ProtocolEntryContentForm *self);
 void protocol_entry_content_form_set_notes(ProtocolEntryContentForm *self, const char *value);
+
+// ProtocolFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void protocol_feature_entry_content_form_init(ProtocolFeatureEntryContentForm *self, SpecDocument *doc, const char *path);
+void protocol_feature_entry_content_form_free(ProtocolFeatureEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *protocol_feature_entry_content_form_content(const ProtocolFeatureEntryContentForm *self);
+void protocol_feature_entry_content_form_set_content(ProtocolFeatureEntryContentForm *self, const char *value);
+char *protocol_feature_entry_content_form_feature(const ProtocolFeatureEntryContentForm *self);
+void protocol_feature_entry_content_form_set_feature(ProtocolFeatureEntryContentForm *self, const char *value);
+char *protocol_feature_entry_content_form_purpose(const ProtocolFeatureEntryContentForm *self);
+void protocol_feature_entry_content_form_set_purpose(ProtocolFeatureEntryContentForm *self, const char *value);
 
 // PrototypeFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void prototype_feature_entry_content_form_init(PrototypeFeatureEntryContentForm *self, SpecDocument *doc, const char *path);

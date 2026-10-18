@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-18T10:06:02.224485Z",
+  "generatedAt": "2026-10-18T11:13:15.691853Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.5.0+4.974ff27f",
-  "classCount": 1254,
+  "modelVersionLabel": "1.6.0+5.e0f9f8f8",
+  "classCount": 1259,
   "rootCount": 14,
-  "modelHash": "da17666f836f377db85406ef3320d33df2c706ad989ae346f1415660af5bec7c",
+  "modelHash": "7892b4152c4ea5c37247cce9da8a14eccdcc0d50656a82f3761f777ac8af41f2",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -22850,6 +22850,93 @@
               "hint": "Derived/calculated attributes (e.g., orderTotal, age)",
               "type": "String",
               "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "BindingParameterEntry": {
+      "name": "BindingParameterEntry",
+      "sectionId": "SVOBP",
+      "doc": "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.",
+      "standardReferences": {
+        "standards": [
+          "RFC 9110 — HTTP semantics (methods, status codes, header fields)"
+        ],
+        "connotation": "Where a protocol binding finds one request member of its operation."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RFC 9110 — HTTP semantics (methods, status codes, header fields)"
+            ],
+            "connotation": "Where a protocol binding finds one request member of its operation."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVOBP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "CE-API — one parameter mapping of a protocol binding, a TomBindingParameter of its TomOperationBinding."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "source",
+              "label": "Source",
+              "hint": "Where the parameter is found",
+              "type": "BindingParameterSource",
+              "required": true,
+              "enumValues": [
+                "path",
+                "query",
+                "body",
+                "header"
+              ],
+              "enumValueDocs": {
+                "path": "A `{name}` capture in the path template.",
+                "query": "A query parameter.",
+                "body": "The request body, or one member of it.",
+                "header": "A request header."
+              }
+            },
+            {
+              "name": "requestMember",
+              "label": "Request Member",
+              "hint": "The operation's request member the parameter supplies",
+              "type": "String",
+              "required": true
             }
           ]
         }
@@ -109716,6 +109803,133 @@
         }
       ]
     },
+    "FeatureHookEntry": {
+      "name": "FeatureHookEntry",
+      "sectionId": "FEHOK",
+      "doc": "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+        ],
+        "connotation": "One implemented hook of a framework protocol feature, with what each contract member does."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "One implemented hook of a framework protocol feature, with what each contract member does."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FEHOK"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "CE-SU — one hook implementation, a @CsFeatureHook class on the framework contract (codespecs_mapping.md §5.30)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "hook",
+              "label": "Hook",
+              "hint": "The hook's catalogue name, e.g. scimStore or clientRegistry (codespecs_mapping.md §5.30)",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "methods",
+          "kind": "list",
+          "doc": "7.9.2.x. Methods — what each member of the hook contract does.",
+          "help": "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry.",
+          "sectionId": "FEHOM-METH-LST",
+          "sectionIdPattern": "FEHOM-METH-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "What each member of the hook contract does, in terms of operations and entities."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+                ],
+                "connotation": "What each member of the hook contract does, in terms of operations and entities."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FEHOM-METH-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "FEHOM-METH-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "HookMethodEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "FeatureModuleEntry": {
       "name": "FeatureModuleEntry",
       "sectionId": "FTRMOD",
@@ -121258,6 +121472,104 @@
               "hint": "Additional HA notes",
               "type": "String",
               "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "HookMethodEntry": {
+      "name": "HookMethodEntry",
+      "sectionId": "FEHOM",
+      "doc": "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+        ],
+        "connotation": "What one member of a hook contract does: the operations it calls, in order, and the entities it reads and writes."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "What one member of a hook contract does: the operations it calls, in order, and the entities it reads and writes."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "FEHOM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "CE-SU — one member of a hook implementation; its called operations, in order, are the form-3b body (codespecs_derivation_contract.md §3.4.6)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "State what the member does and what it answers, in terms of the operations it calls and the entities it uses.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "State what the member does and what it answers, in terms of the operations it calls and the entities it uses."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "callsOperations",
+              "label": "Calls Operations",
+              "hint": "Comma-separated ServerOperationEntry.operationName values, in the order the member calls them",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
+            },
+            {
+              "name": "readsEntities",
+              "label": "Reads Entities",
+              "hint": "Comma-separated DataEntityEntry.entityName values the member reads",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "writesEntities",
+              "label": "Writes Entities",
+              "hint": "Comma-separated DataEntityEntry.entityName values the member writes",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
             }
           ]
         }
@@ -166211,6 +166523,217 @@
         }
       ]
     },
+    "OperationBindingEntry": {
+      "name": "OperationBindingEntry",
+      "sectionId": "SVOBI",
+      "doc": "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.",
+      "standardReferences": {
+        "standards": [
+          "RFC 9110 — HTTP semantics (methods, status codes, header fields)",
+          "RFC 6570 — URI templates"
+        ],
+        "connotation": "One HTTP shape of a server operation: method, path template, parameter mapping, success status and headers, content types, error format and version prefix."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RFC 9110 — HTTP semantics (methods, status codes, header fields)",
+              "RFC 6570 — URI templates"
+            ],
+            "connotation": "One HTTP shape of a server operation: method, path template, parameter mapping, success status and headers, content types, error format and version prefix."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVOBI"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "CE-API — a protocol binding of an operation, realised as an @CsOperationBinding over a TomOperationBinding in the server project. It names the operation by reference and leaves the §7 operation contract intact (codespecs_mapping.md §5.30)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "httpMethod",
+              "label": "HTTP Method",
+              "hint": "The method the operation is served under",
+              "type": "BindingHttpMethod",
+              "required": true,
+              "enumValues": [
+                "get",
+                "post",
+                "put",
+                "patch",
+                "delete"
+              ],
+              "enumValueDocs": {
+                "get": "A read with no side effect — a single resource or a listing.",
+                "post": "A creation, or an action that is not a plain state change.",
+                "put": "A full replacement of the resource at the path.",
+                "patch": "A partial change of the resource at the path.",
+                "delete": "A removal of the resource at the path."
+              }
+            },
+            {
+              "name": "pathTemplate",
+              "label": "Path Template",
+              "hint": "The path after the version prefix, with {name} captures, e.g. /users/{userId}",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "versionPrefix",
+              "label": "Version Prefix",
+              "hint": "The prefix the path is served under, e.g. /api/v1; from the interface's versioning convention",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "successStatus",
+              "label": "Success Status",
+              "hint": "The status a successful call answers with, e.g. 200, 201 or 204",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "responseHeaders",
+              "label": "Response Headers",
+              "hint": "Comma-separated headers a success sets, e.g. Location, ETag",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "consumes",
+              "label": "Request Content Type",
+              "hint": "e.g. application/json; leave empty for a request without a body",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "produces",
+              "label": "Response Content Type",
+              "hint": "e.g. application/json",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "errorFormat",
+              "label": "Error Format",
+              "hint": "The format errors are answered in; the result envelope if empty",
+              "type": "BindingErrorFormat",
+              "required": false,
+              "enumValues": [
+                "resultEnvelope",
+                "problemJson",
+                "scim",
+                "oauth"
+              ],
+              "enumValueDocs": {
+                "resultEnvelope": "The CE-ER Result envelope of the operation contract.",
+                "problemJson": "RFC 9457 problem details (`application/problem+json`).",
+                "scim": "The SCIM 2.0 error schema (RFC 7644 §3.12).",
+                "oauth": "The OAuth 2.0 error response (RFC 6749 §5.2)."
+              }
+            },
+            {
+              "name": "servedInterface",
+              "label": "Served Interface",
+              "hint": "The external interface (EIE) this binding belongs to, by its external system name",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "parameters",
+          "kind": "list",
+          "doc": "7.9.x. Parameters — where the binding finds each request member.",
+          "help": "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one.",
+          "sectionId": "SVOBP-PARA-LST",
+          "sectionIdPattern": "SVOBP-PARA-xxx",
+          "standardReferences": {
+            "standards": [
+              "RFC 9110 — HTTP semantics (methods, status codes, header fields)"
+            ],
+            "connotation": "Where the binding finds each request member of its operation."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RFC 9110 — HTTP semantics (methods, status codes, header fields)"
+                ],
+                "connotation": "Where the binding finds each request member of its operation."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOBP-PARA-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVOBP-PARA-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "BindingParameterEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "OperationalMonitoring": {
       "name": "OperationalMonitoring",
       "sectionId": "MOQU",
@@ -190314,6 +190837,145 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "ProtocolFeatureEntry": {
+      "name": "ProtocolFeatureEntry",
+      "sectionId": "PROTF",
+      "doc": "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).",
+      "standardReferences": {
+        "standards": [
+          "RFC 6749 — The OAuth 2.0 Authorization Framework",
+          "OpenID Connect Core 1.0",
+          "RFC 7643 / RFC 7644 — SCIM 2.0 core schema and protocol"
+        ],
+        "connotation": "A framework protocol server the system enables, with the hooks it implements."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "RFC 6749 — The OAuth 2.0 Authorization Framework",
+              "OpenID Connect Core 1.0",
+              "RFC 7643 / RFC 7644 — SCIM 2.0 core schema and protocol"
+            ],
+            "connotation": "A framework protocol server the system enables, with the hooks it implements."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "PROTF"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serviceUnit"
+            ],
+            "note": "CE-SU — a framework protocol feature the system enables. Its hooks are each a @CsFeatureHook class implementing the framework contract (codespecs_mapping.md §5.30)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "feature",
+              "label": "Feature",
+              "hint": "The framework protocol server the system enables",
+              "type": "ProtocolFeatureKind",
+              "required": true,
+              "enumValues": [
+                "oidcAuthorizationServer",
+                "scim2Server"
+              ],
+              "enumValueDocs": {
+                "oidcAuthorizationServer": "An OAuth 2.0 / OpenID Connect authorization server.",
+                "scim2Server": "A SCIM 2.0 provisioning server (RFC 7643, RFC 7644)."
+              }
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "What the system uses the feature for, and who its callers are",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "hooks",
+          "kind": "list",
+          "doc": "7.9.2.x. Hooks — the extension points of the feature the system\nimplements.",
+          "help": "Add one entry per hook the system implements. Every hook the feature requires needs an entry.",
+          "sectionId": "FEHOK-HOOK-LST",
+          "sectionIdPattern": "FEHOK-HOOK-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "The hooks of the feature the system implements, each with its behaviour."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+                ],
+                "connotation": "The hooks of the feature the system implements, each with its behaviour."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "FEHOK-HOOK-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "FEHOK-HOOK-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per hook the system implements. Every hook the feature requires needs an entry."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "FeatureHookEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -234944,6 +235606,60 @@
           ],
           "elementType": "ServerOperationMemberEntry",
           "elementIsComplex": true
+        },
+        {
+          "name": "bindings",
+          "kind": "list",
+          "doc": "7.9.x. Protocol Bindings — the standard-protocol shapes this operation is\nalso served under, for third-party callers.\n\nThe operation itself keeps the `codespecs_mapping.md` §7 contract: the\napplication's own client calls it by name. A binding is a second shape of\nthe same operation — an HTTP method, a path, where each request member is\nfound, the success status and headers — and an operation may have several.",
+          "help": "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.",
+          "sectionId": "SVOBI-BIND-LST",
+          "sectionIdPattern": "SVOBI-BIND-xxx",
+          "standardReferences": {
+            "standards": [
+              "RFC 9110 — HTTP semantics (methods, status codes, header fields)",
+              "RFC 6570 — URI templates"
+            ],
+            "connotation": "The HTTP shapes this operation is served under for third-party callers."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "RFC 9110 — HTTP semantics (methods, status codes, header fields)",
+                  "RFC 6570 — URI templates"
+                ],
+                "connotation": "The HTTP shapes this operation is served under for third-party callers."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOBI-BIND-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVOBI-BIND-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "elementType": "OperationBindingEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -235061,7 +235777,7 @@
     "ServerOperationRegistry": {
       "name": "ServerOperationRegistry",
       "sectionId": "SVOPR",
-      "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+      "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
@@ -235101,13 +235817,13 @@
           "name": "content",
           "kind": "content",
           "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-          "help": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n",
+          "help": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n"
+                "guidance": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n"
               }
             },
             {
@@ -235169,6 +235885,58 @@
             }
           ],
           "elementType": "ServerOperationEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "protocolFeatures",
+          "kind": "list",
+          "doc": "7.9.2. Protocol Features — the standard protocol servers the framework\nprovides that the system enables, each with the hooks the system\nimplements.",
+          "help": "Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.",
+          "sectionId": "PROTF-FEAT-LST",
+          "sectionIdPattern": "PROTF-FEAT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "The framework protocol servers the system enables and the hooks it plugs its domain into."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+                ],
+                "connotation": "The framework protocol servers the system enables and the hooks it plugs its domain into."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "PROTF-FEAT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "PROTF-FEAT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ProtocolFeatureEntry",
           "elementIsComplex": true
         }
       ]

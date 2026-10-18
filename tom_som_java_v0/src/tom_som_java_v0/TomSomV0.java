@@ -194,6 +194,127 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `BindingErrorFormat` values.
+  public enum BindingErrorFormat {
+    /**
+     * The CE-ER Result envelope of the operation contract.
+     */
+    resultEnvelope("resultEnvelope"),
+    /**
+     * RFC 9457 problem details (`application/problem+json`).
+     */
+    problemJson("problemJson"),
+    /**
+     * The SCIM 2.0 error schema (RFC 7644 §3.12).
+     */
+    scim("scim"),
+    /**
+     * The OAuth 2.0 error response (RFC 6749 §5.2).
+     */
+    oauth("oauth");
+
+    public final String token;
+
+    BindingErrorFormat(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a BindingErrorFormat, or null.
+    public static BindingErrorFormat parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (BindingErrorFormat v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `BindingHttpMethod` values.
+  public enum BindingHttpMethod {
+    /**
+     * A read with no side effect — a single resource or a listing.
+     */
+    get("get"),
+    /**
+     * A creation, or an action that is not a plain state change.
+     */
+    post("post"),
+    /**
+     * A full replacement of the resource at the path.
+     */
+    put("put"),
+    /**
+     * A partial change of the resource at the path.
+     */
+    patch("patch"),
+    /**
+     * A removal of the resource at the path.
+     */
+    delete("delete");
+
+    public final String token;
+
+    BindingHttpMethod(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a BindingHttpMethod, or null.
+    public static BindingHttpMethod parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (BindingHttpMethod v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `BindingParameterSource` values.
+  public enum BindingParameterSource {
+    /**
+     * A `{name}` capture in the path template.
+     */
+    path("path"),
+    /**
+     * A query parameter.
+     */
+    query("query"),
+    /**
+     * The request body, or one member of it.
+     */
+    body("body"),
+    /**
+     * A request header.
+     */
+    header("header");
+
+    public final String token;
+
+    BindingParameterSource(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a BindingParameterSource, or null.
+    public static BindingParameterSource parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (BindingParameterSource v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `ClientApplicationKind` values.
   public enum ClientApplicationKind {
     /**
@@ -899,6 +1020,37 @@ public final class TomSomV0 {
         return null;
       }
       for (Probability v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `ProtocolFeatureKind` values.
+  public enum ProtocolFeatureKind {
+    /**
+     * An OAuth 2.0 / OpenID Connect authorization server.
+     */
+    oidcAuthorizationServer("oidcAuthorizationServer"),
+    /**
+     * A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+     */
+    scim2Server("scim2Server");
+
+    public final String token;
+
+    ProtocolFeatureKind(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ProtocolFeatureKind, or null.
+    public static ProtocolFeatureKind parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ProtocolFeatureKind v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -5234,6 +5386,24 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in [form].
     public BehaviorRuleEntryContentForm content() {
       return new BehaviorRuleEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // Where a protocol binding finds one request member (form).
+  //
+  // The entry's headline is the parameter's name on the wire — the `{name}`
+  // capture, the query parameter, the body member or the header — and the form
+  // says where it is found and which request member it supplies.
+  public static final class BindingParameterEntry extends SomNode {
+    public BindingParameterEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public BindingParameterEntryContentForm content() {
+      return new BindingParameterEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -10454,7 +10624,7 @@ public final class TomSomV0 {
   // per the public-standards order of the `@StandardReferences` below.
   public static final class D00SolutionBlueprint extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10592,7 +10762,7 @@ public final class TomSomV0 {
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10705,7 +10875,7 @@ public final class TomSomV0 {
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -10829,7 +10999,7 @@ public final class TomSomV0 {
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11013,7 +11183,7 @@ public final class TomSomV0 {
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11130,7 +11300,7 @@ public final class TomSomV0 {
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11239,7 +11409,7 @@ public final class TomSomV0 {
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11372,7 +11542,7 @@ public final class TomSomV0 {
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11496,7 +11666,7 @@ public final class TomSomV0 {
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11622,7 +11792,7 @@ public final class TomSomV0 {
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11761,7 +11931,7 @@ public final class TomSomV0 {
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -11930,7 +12100,7 @@ public final class TomSomV0 {
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12049,7 +12219,7 @@ public final class TomSomV0 {
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -12193,7 +12363,7 @@ public final class TomSomV0 {
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
     // The model version this object model was generated against (SOM §4.2).
-    public static final String MODEL_VERSION = "1.5";
+    public static final String MODEL_VERSION = "1.6";
 
     // Creates the typed facade over doc at the document root and verifies the
     // document's authoring documentVersion is editable (SOM §4.2).
@@ -19582,6 +19752,33 @@ public final class TomSomV0 {
     }
   }
 
+  // One hook of a framework protocol feature that the system implements (form +
+  // method list).
+  //
+  // The hook is a framework contract — SCIM's resource store, an authorization
+  // server's client registry — and the system's implementation of it is the
+  // CodeSpec. The contract's members are the framework's; what the system states
+  // is, per member, what the implementation does: the operations it calls, in
+  // order, and the entities it reads and writes, so the CodeSpec body is a
+  // sequence of calls and not invented logic.
+  public static final class FeatureHookEntry extends SomNode {
+    public FeatureHookEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public FeatureHookEntryContentForm content() {
+      return new FeatureHookEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.9.2.x. Methods — what each member of the hook contract does.
+    public SomList<HookMethodEntry> methods() {
+      return new SomList<>(doc, path + "/FEHOM-METH-LST", (d, p) -> new HookMethodEntry(d, p), "FEHOM-METH-xxx");
+    }
+  }
+
   // Feature module entry — a vertical slice feature.
   public static final class FeatureModuleEntry extends SomNode {
     public FeatureModuleEntry(SpecDocument doc, String path) {
@@ -21319,6 +21516,24 @@ public final class TomSomV0 {
     // Disaster recovery alignment.
     public HighAvailabilityRequirementsDisasterRecoveryForm disasterRecovery() {
       return new HighAvailabilityRequirementsDisasterRecoveryForm(doc, path + "/HARDR");
+    }
+  }
+
+  // What one member of a hook contract does (form).
+  //
+  // The entry's headline is the contract member's name. The operations it calls
+  // are listed in the order the implementation calls them; that order is the
+  // CodeSpec body.
+  public static final class HookMethodEntry extends SomNode {
+    public HookMethodEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public HookMethodEntryContentForm content() {
+      return new HookMethodEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -27761,6 +27976,31 @@ public final class TomSomV0 {
     }
   }
 
+  // One standard-protocol shape of a server operation (form + parameter list).
+  //
+  // The operation stays the unit of behaviour; the binding only says how a
+  // third-party caller reaches it: the method, the path template, where each
+  // request member is found, the success status and headers, the content types,
+  // the error format and the version prefix. A REST listing, a save and a state
+  // transition are each one binding of their operation.
+  public static final class OperationBindingEntry extends SomNode {
+    public OperationBindingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public OperationBindingEntryContentForm content() {
+      return new OperationBindingEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.9.x. Parameters — where the binding finds each request member.
+    public SomList<BindingParameterEntry> parameters() {
+      return new SomList<>(doc, path + "/SVOBP-PARA-LST", (d, p) -> new BindingParameterEntry(d, p), "SVOBP-PARA-xxx");
+    }
+  }
+
   // 11.4.3. Monitoring quality.
   public static final class OperationalMonitoring extends SomNode {
     public OperationalMonitoring(SpecDocument doc, String path) {
@@ -31366,6 +31606,32 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in [form].
     public ProtocolEntryContentForm content() {
       return new ProtocolEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // A standard protocol server the framework provides, enabled by the system
+  // (form + hook list).
+  //
+  // The framework owns the protocol's endpoints, wire format and error format;
+  // the system writes no protocol endpoint of its own. What the system supplies
+  // are the **hooks** — the extension points through which the protocol reaches
+  // the system's domain (`codespecs_mapping.md` §5.30).
+  public static final class ProtocolFeatureEntry extends SomNode {
+    public ProtocolFeatureEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public ProtocolFeatureEntryContentForm content() {
+      return new ProtocolFeatureEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.9.2.x. Hooks — the extension points of the feature the system
+    // implements.
+    public SomList<FeatureHookEntry> hooks() {
+      return new SomList<>(doc, path + "/FEHOK-HOOK-LST", (d, p) -> new FeatureHookEntry(d, p), "FEHOK-HOOK-xxx");
     }
   }
 
@@ -37879,6 +38145,17 @@ public final class TomSomV0 {
     public SomList<ServerOperationMemberEntry> responseMembers() {
       return new SomList<>(doc, path + "/SVOPM-RESM-LST", (d, p) -> new ServerOperationMemberEntry(d, p), "SVOPM-RESM-xxx");
     }
+
+    // 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+    // also served under, for third-party callers.
+    //
+    // The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+    // application's own client calls it by name. A binding is a second shape of
+    // the same operation — an HTTP method, a path, where each request member is
+    // found, the success status and headers — and an operation may have several.
+    public SomList<OperationBindingEntry> bindings() {
+      return new SomList<>(doc, path + "/SVOBI-BIND-LST", (d, p) -> new OperationBindingEntry(d, p), "SVOBI-BIND-xxx");
+    }
   }
 
   // A single member of an operation's request or response shape (form).
@@ -37928,6 +38205,11 @@ public final class TomSomV0 {
   //   errors;
   // - no encoding, header, redirect, CORS or credential plumbing — framework
   //   transport members, never spec input.
+  //
+  // Third-party HTTP shapes are added beside the contract, not inside it: an
+  // operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+  // and [protocolFeatures] lists the framework protocol servers the system
+  // enables with the hooks it implements (`codespecs_mapping.md` §5.30).
   public static final class ServerOperationRegistry extends SomNode {
     public ServerOperationRegistry(SpecDocument doc, String path) {
       super(doc, path);
@@ -37953,6 +38235,13 @@ public final class TomSomV0 {
     // 7.9.1. Operations — one entry per operation the system answers.
     public SomList<ServerOperationEntry> operations() {
       return new SomList<>(doc, path + "/SVOPE-OPER-LST", (d, p) -> new ServerOperationEntry(d, p), "SVOPE-OPER-xxx");
+    }
+
+    // 7.9.2. Protocol Features — the standard protocol servers the framework
+    // provides that the system enables, each with the hooks the system
+    // implements.
+    public SomList<ProtocolFeatureEntry> protocolFeatures() {
+      return new SomList<>(doc, path + "/PROTF-FEAT-LST", (d, p) -> new ProtocolFeatureEntry(d, p), "PROTF-FEAT-xxx");
     }
   }
 
@@ -60601,6 +60890,45 @@ public final class TomSomV0 {
 
     public void calculatedProperties(String value) {
       doc.setFormField(path, "calculatedProperties", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class BindingParameterEntryContentForm extends SomNode {
+    public BindingParameterEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public BindingParameterSource source() {
+      return BindingParameterSource.parse(doc.formField(path, "source"));
+    }
+
+    public void setSource(BindingParameterSource value) {
+      doc.setFormField(path, "source", value == null ? "" : value.token);
+    }
+
+    public String requestMember() {
+      String v = doc.formField(path, "requestMember");
+      return v == null ? "" : v;
+    }
+
+    public void requestMember(String value) {
+      doc.setFormField(path, "requestMember", value);
     }
   }
 
@@ -107704,6 +108032,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class FeatureHookEntryContentForm extends SomNode {
+    public FeatureHookEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String hook() {
+      String v = doc.formField(path, "hook");
+      return v == null ? "" : v;
+    }
+
+    public void hook(String value) {
+      doc.setFormField(path, "hook", value);
+    }
+  }
+
   // Generated section facade for the `configuration` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class FeatureModuleEntryConfigurationForm extends SomNode {
@@ -114206,6 +114565,55 @@ public final class TomSomV0 {
 
     public void activeActiveMode(Boolean value) {
       doc.setFormField(path, "activeActiveMode", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class HookMethodEntryContentForm extends SomNode {
+    public HookMethodEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String callsOperations() {
+      String v = doc.formField(path, "callsOperations");
+      return v == null ? "" : v;
+    }
+
+    public void callsOperations(String value) {
+      doc.setFormField(path, "callsOperations", value);
+    }
+
+    public String readsEntities() {
+      String v = doc.formField(path, "readsEntities");
+      return v == null ? "" : v;
+    }
+
+    public void readsEntities(String value) {
+      doc.setFormField(path, "readsEntities", value);
+    }
+
+    public String writesEntities() {
+      String v = doc.formField(path, "writesEntities");
+      return v == null ? "" : v;
+    }
+
+    public void writesEntities(String value) {
+      doc.setFormField(path, "writesEntities", value);
     }
   }
 
@@ -140552,6 +140960,108 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class OperationBindingEntryContentForm extends SomNode {
+    public OperationBindingEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public BindingHttpMethod httpMethod() {
+      return BindingHttpMethod.parse(doc.formField(path, "httpMethod"));
+    }
+
+    public void setHttpMethod(BindingHttpMethod value) {
+      doc.setFormField(path, "httpMethod", value == null ? "" : value.token);
+    }
+
+    public String pathTemplate() {
+      String v = doc.formField(path, "pathTemplate");
+      return v == null ? "" : v;
+    }
+
+    public void pathTemplate(String value) {
+      doc.setFormField(path, "pathTemplate", value);
+    }
+
+    public String versionPrefix() {
+      String v = doc.formField(path, "versionPrefix");
+      return v == null ? "" : v;
+    }
+
+    public void versionPrefix(String value) {
+      doc.setFormField(path, "versionPrefix", value);
+    }
+
+    public Integer successStatus() {
+      String v = doc.formField(path, "successStatus");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void successStatus(Integer value) {
+      doc.setFormField(path, "successStatus", value == null ? "" : String.valueOf(value));
+    }
+
+    public String responseHeaders() {
+      String v = doc.formField(path, "responseHeaders");
+      return v == null ? "" : v;
+    }
+
+    public void responseHeaders(String value) {
+      doc.setFormField(path, "responseHeaders", value);
+    }
+
+    public String consumes() {
+      String v = doc.formField(path, "consumes");
+      return v == null ? "" : v;
+    }
+
+    public void consumes(String value) {
+      doc.setFormField(path, "consumes", value);
+    }
+
+    public String produces() {
+      String v = doc.formField(path, "produces");
+      return v == null ? "" : v;
+    }
+
+    public void produces(String value) {
+      doc.setFormField(path, "produces", value);
+    }
+
+    public BindingErrorFormat errorFormat() {
+      return BindingErrorFormat.parse(doc.formField(path, "errorFormat"));
+    }
+
+    public void setErrorFormat(BindingErrorFormat value) {
+      doc.setFormField(path, "errorFormat", value == null ? "" : value.token);
+    }
+
+    public String servedInterface() {
+      String v = doc.formField(path, "servedInterface");
+      return v == null ? "" : v;
+    }
+
+    public void servedInterface(String value) {
+      doc.setFormField(path, "servedInterface", value);
+    }
+  }
+
   // Generated section facade for the `alerting` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class OperationalMonitoringAlertingForm extends SomNode {
@@ -153520,6 +154030,45 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ProtocolFeatureEntryContentForm extends SomNode {
+    public ProtocolFeatureEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public ProtocolFeatureKind feature() {
+      return ProtocolFeatureKind.parse(doc.formField(path, "feature"));
+    }
+
+    public void setFeature(ProtocolFeatureKind value) {
+      doc.setFormField(path, "feature", value == null ? "" : value.token);
+    }
+
+    public String purpose() {
+      String v = doc.formField(path, "purpose");
+      return v == null ? "" : v;
+    }
+
+    public void purpose(String value) {
+      doc.setFormField(path, "purpose", value);
     }
   }
 

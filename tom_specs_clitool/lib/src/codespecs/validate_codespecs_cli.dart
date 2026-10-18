@@ -84,10 +84,12 @@ ArgParser validateCodespecsParser() => ArgParser()
   ..addOption(
     'cs-vocabulary',
     help:
-        "Path to tom_code_specs' vocabulary source (file or directory), "
-        'for the mirrored-catalogue check (9). No catalogue currently has a '
-        'tom_core counterpart, so the check has an empty pair table and this '
-        'reports nothing until one is added.',
+        "Path to tom_code_specs' vocabulary source (file or directory). "
+        'Its csFeatureHooks and csFeatureReservedPaths tables are the '
+        'catalogue the feature-hook and reserved-path checks (40, 41) hold '
+        'the trio against; omitted, both are reported not run. With '
+        '--core-source it also feeds the mirrored-catalogue check (9), whose '
+        'pair table is currently empty.',
   )
   ..addOption(
     'core-source',
@@ -201,23 +203,31 @@ Future<int> runValidateCodespecs(
     final migrations = _migrations(results.option('migrations'));
     final vocabulary = results.option('cs-vocabulary');
     final coreSource = results.option('core-source');
+    final vocabularySources = _dartSources(vocabulary);
+    final CsFeatureCatalogue? featureCatalogue;
+    try {
+      featureCatalogue = readCsFeatureCatalogue(vocabularySources);
+    } on CsFeatureCatalogueException catch (e) {
+      throw _UsageError('--cs-vocabulary: ${e.message}');
+    }
     final input = CodeSpecsValidationInput(
       shared: shared,
       client: client,
       server: server,
       migrations: migrations,
       enumMirrors: readCsEnumMirrors(
-        csSources: _dartSources(vocabulary),
+        csSources: vocabularySources,
         coreSources: _dartSources(coreSource),
       ),
       regeneration: regeneration,
       extracts: extracts,
+      featureCatalogue: featureCatalogue,
     );
 
     // Every check whose corroborating input is absent says so — in both
-    // outputs. The trio is the pass's subject; four questions each need
-    // something the trio cannot show, and for all four a silent pass would
-    // read as a verified one.
+    // outputs. The trio is the pass's subject; some questions need something
+    // the trio cannot show, and for each a silent pass would read as a
+    // verified one.
     final notRun = <Map<String, Object?>>[
       if (migrations.isEmpty)
         {
@@ -233,6 +243,21 @@ Future<int> runValidateCodespecs(
               'check 9 (mirrored catalogues) not run — pass both '
               '--cs-vocabulary and --core-source; a catalogue neither side '
               'declares mirrors an empty one, which compares equal.',
+        },
+      if (featureCatalogue == null)
+        {
+          'checks': [40, 41],
+          'reason': vocabulary == null
+              ? 'checks 40 and 41 (feature-hook completeness and reserved '
+                    'protocol paths) not run — pass --cs-vocabulary pointing '
+                    "at tom_code_specs' vocabulary source; without its "
+                    'csFeatureHooks and csFeatureReservedPaths there is no '
+                    'catalogue to hold a hook or a route against.'
+              : 'checks 40 and 41 (feature-hook completeness and reserved '
+                    'protocol paths) not run — the --cs-vocabulary source '
+                    'declares neither csFeatureHooks nor '
+                    "csFeatureReservedPaths; point it at tom_code_specs' "
+                    'vocabulary.dart or its lib/ directory.',
         },
       if (regeneration == null)
         {
@@ -499,7 +524,7 @@ void _printUsage(ArgParser parser, StringSink sink) {
   );
   sink.writeln();
   sink.writeln(
-    'Enforces the thirty-seven checks of codespecs_derivation_contract.md §6. '
+    'Enforces the forty-one checks of codespecs_derivation_contract.md §6. '
     'Any violation fails: the exit code is 1 and every breach is written to '
     'stderr naming its check number and defining section (or to the --json '
     'report). --backlinks writes the trio\'s back-link index instead.',

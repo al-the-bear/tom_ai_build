@@ -54,7 +54,7 @@ class CodeSpecsValidationReport {
   }
 }
 
-/// Runs [checks] (by default all thirty-seven) over [input].
+/// Runs [checks] (by default all forty-one) over [input].
 ///
 /// Every check runs even when an earlier one fails — an author fixing a
 /// generated tree wants the whole list, not the first breach.
@@ -101,6 +101,117 @@ List<CsEnumMirror> readCsEnumMirrors({
         coreValues: find(coreSources, entry.value),
       ),
   ];
+}
+
+/// Thrown when a vocabulary source carries a feature catalogue the text parser
+/// cannot read completely.
+///
+/// A row the parser skipped would be a hook check 40 never asks for, so an
+/// unreadable row is an error rather than an omission.
+class CsFeatureCatalogueException implements Exception {
+  /// What could not be read.
+  final String message;
+
+  /// Creates the exception.
+  const CsFeatureCatalogueException(this.message);
+
+  @override
+  String toString() => 'CsFeatureCatalogueException: $message';
+}
+
+final _hookRow = RegExp(
+  r'^CsFeatureHookSpec\(\s*CsProtocolFeature\.(\w+)\s*,\s*'
+  r"'([^']*)'\s*,\s*contract:\s*'([^']*)'\s*,\s*"
+  r'required:\s*(true|false)\s*,\s*available:\s*(true|false)\s*,?\s*\)\s*,?$',
+);
+
+final _reservedEntry = RegExp(
+  r'CsProtocolFeature\.(\w+)\s*:\s*\[([^\]]*)\]',
+  multiLine: true,
+);
+
+final _quoted = RegExp(r"'([^']*)'");
+
+/// Reads the framework protocol-feature catalogue — `csFeatureHooks` and
+/// `csFeatureReservedPaths` — out of `tom_code_specs`' vocabulary [sources],
+/// for checks 40 and 41.
+///
+/// A text parse, like [readCsEnumMirrors]: the vocabulary keeps the hook table
+/// one `CsFeatureHookSpec(…)` per line between `// dart format off` and `on`
+/// precisely so that it can be read without an analyzer. Returns `null` when no
+/// source declares either table, so the caller can announce the two checks as
+/// unrun rather than as passed. Throws [CsFeatureCatalogueException] when only
+/// one of the two tables is found, or when a row of the hook table does not
+/// have the fixed form.
+CsFeatureCatalogue? readCsFeatureCatalogue(Iterable<String> sources) {
+  List<CsFeatureHookEntry>? hooks;
+  Map<String, List<String>>? reserved;
+
+  for (final source in sources) {
+    final hookStart = source.indexOf(RegExp(r'\bcsFeatureHooks\s*=\s*\['));
+    if (hookStart >= 0) {
+      final open = source.indexOf('[', hookStart);
+      final close = source.indexOf('];', open);
+      if (close < 0) {
+        throw const CsFeatureCatalogueException(
+          'csFeatureHooks has no closing `];`',
+        );
+      }
+      final rows = <CsFeatureHookEntry>[];
+      for (final raw in source.substring(open + 1, close).split('\n')) {
+        final line = raw.trim();
+        if (line.isEmpty || line.startsWith('//')) continue;
+        final match = _hookRow.firstMatch(line);
+        if (match == null) {
+          throw CsFeatureCatalogueException(
+            'csFeatureHooks row is not one CsFeatureHookSpec(CsProtocolFeature.'
+            "<feature>, '<hook>', contract: '<C>', required: <bool>, "
+            'available: <bool>) per line: $line',
+          );
+        }
+        rows.add(
+          CsFeatureHookEntry(
+            feature: match.group(1)!,
+            hook: match.group(2)!,
+            contract: match.group(3)!,
+            required: match.group(4) == 'true',
+            available: match.group(5) == 'true',
+          ),
+        );
+      }
+      (hooks ??= []).addAll(rows);
+    }
+
+    final pathStart = source.indexOf(
+      RegExp(r'\bcsFeatureReservedPaths\s*=\s*\{'),
+    );
+    if (pathStart >= 0) {
+      final open = source.indexOf('{', pathStart);
+      final close = source.indexOf('};', open);
+      if (close < 0) {
+        throw const CsFeatureCatalogueException(
+          'csFeatureReservedPaths has no closing `};`',
+        );
+      }
+      final body = source.substring(open + 1, close);
+      reserved ??= {};
+      for (final match in _reservedEntry.allMatches(body)) {
+        reserved.putIfAbsent(match.group(1)!, () => []).addAll([
+          for (final q in _quoted.allMatches(match.group(2)!)) q.group(1)!,
+        ]);
+      }
+    }
+  }
+
+  if (hooks == null && reserved == null) return null;
+  if (hooks == null || reserved == null) {
+    throw CsFeatureCatalogueException(
+      'the vocabulary declares ${hooks == null ? 'csFeatureReservedPaths' : 'csFeatureHooks'} '
+      'but not ${hooks == null ? 'csFeatureHooks' : 'csFeatureReservedPaths'}; '
+      'checks 40 and 41 read the two together',
+    );
+  }
+  return CsFeatureCatalogue(hooks: hooks, reservedPaths: reserved);
 }
 
 /// Thrown when a validation pass fails, so a caller that treats generation as a

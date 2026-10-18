@@ -1,3 +1,25 @@
+## 1.6.0
+
+- Protocol bindings: a `ServerOperationEntry` has a `bindings` list of
+  `OperationBindingEntry` (`SVOBI`) — the HTTP method, path template, version
+  prefix, success status, response headers, content types and error format a
+  third-party caller reaches the operation under — each with a `parameters`
+  list of `BindingParameterEntry` (`SVOBP`). The operation's own contract is
+  unchanged. Enums `BindingHttpMethod`, `BindingParameterSource` and
+  `BindingErrorFormat`.
+- Framework protocol features: the server operation registry has a
+  `protocolFeatures` list of `ProtocolFeatureEntry` (`PROTF`, enum
+  `ProtocolFeatureKind`: an OIDC authorization server, a SCIM 2.0 server), each
+  with the `hooks` the system implements (`FeatureHookEntry`, `FEHOK`) and, per
+  hook, what each contract member does (`HookMethodEntry`, `FEHOM`: the
+  operations it calls in order, the entities it reads and writes).
+- `codespecs_prompt.md` gains the A4 rows and A5 carriers for both, and the
+  Stage-B rule for a hook whose tom_core contract does not exist yet.
+- `tom_specs_project_flow.md` G4 gains three criteria (bindings resolve, hooks
+  complete, no protocol endpoint re-declared).
+- The generic gate checklists G1 and G2 (`doc/gate_checklists/`) and their
+  authority, `doc/tom_specs_gate_checklists.md`.
+
 ## 1.5.0
 
 - **Document-breaking:** two section ids are renamed, because the old ones

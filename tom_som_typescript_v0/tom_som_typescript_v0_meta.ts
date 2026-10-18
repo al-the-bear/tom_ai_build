@@ -4441,6 +4441,19 @@ function _mc_BehaviorRuleEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_BindingParameterEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "BindingParameterEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "source", typeName: "BindingParameterSource", description: "Source", required: true, hint: "Where the parameter is found", order: 0, enumValues: ["path", "query", "body", "header"]}), new SomFormFieldMeta({name: "requestMember", typeName: "String", description: "Request Member", required: true, hint: "The operation's request member the parameter supplies", order: 1})])}),
+  ];
+}
+
 function _mc_BiometricAuthenticationPolicy(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -11999,7 +12012,7 @@ function _mc_D03InformationModel(s: Set<string>): SomMetaNode[] {
         typeName: "ServerOperationRegistry",
         serializationOrder: 18,
         docComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
-        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
         recursive: r,
         children: c})),
      _cx("SchemaVersioningAndMigration", s, _mc_SchemaVersioningAndMigration,
@@ -13729,7 +13742,7 @@ function _mc_D13CodeSpecsProjection(s: Set<string>): SomMetaNode[] {
         serializationOrder: 15,
         comment: "locus: shared(CE-API contract)+server(CE-API operations)",
         docComment: "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
-        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
         recursive: r,
         children: c})),
      _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
@@ -22760,6 +22773,32 @@ function _mc_FeatureDependencyEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_FeatureHookEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "FeatureHookEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "hook", typeName: "String", description: "Hook", required: true, hint: "The hook's catalogue name, e.g. scimStore or clientRegistry (codespecs_mapping.md §5.30)", order: 0})])}),
+     new SomMetaNode({
+      className: "FeatureHookEntry",
+      memberName: "methods",
+      sectionId: "FEHOM-METH-LST",
+      sectionIdPattern: "FEHOM-METH-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "HookMethodEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry.",
+      docComment: "7.9.2.x. Methods — what each member of the hook contract does.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture description (interface contracts)"], "connotation": "What each member of the hook contract does, in terms of operations and entities."})],
+      elementNode: _cx("HookMethodEntry", s, _mc_HookMethodEntry, (r, c) => new SomMetaNode({className: "HookMethodEntry", classSectionId: "FEHOM", kind: SomMetaKind.COMPLEX, typeName: "HookMethodEntry", docComment: "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.", classDocComment: "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.", recursive: r, children: c}))}),
+  ];
+}
+
 function _mc_FeatureModuleEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -24920,6 +24959,20 @@ function _mc_HighAvailabilityRequirements(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_HookMethodEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "HookMethodEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "State what the member does and what it answers, in terms of the operations it calls and the entities it uses.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "callsOperations", typeName: "String", description: "Calls Operations", hint: "Comma-separated ServerOperationEntry.operationName values, in the order the member calls them", order: 0, refersTo: ["SVOPE.operationName"]}), new SomFormFieldMeta({name: "readsEntities", typeName: "String", description: "Reads Entities", hint: "Comma-separated DataEntityEntry.entityName values the member reads", order: 1, refersTo: ["DAENT.entityName"]}), new SomFormFieldMeta({name: "writesEntities", typeName: "String", description: "Writes Entities", hint: "Comma-separated DataEntityEntry.entityName values the member writes", order: 2, refersTo: ["DAENT.entityName"]})])}),
+  ];
+}
+
 function _mc_IdeRequirementEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -25690,7 +25743,7 @@ function _mc_InformationAndDataModel(s: Set<string>): SomMetaNode[] {
         typeName: "ServerOperationRegistry",
         serializationOrder: 9,
         docComment: "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.",
-        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+        classDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).",
         recursive: r,
         children: c})),
      _cx("DataModelFollowUp", s, _mc_DataModelFollowUp,
@@ -33320,6 +33373,32 @@ function _mc_OperatingEnvironment(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_OperationBindingEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "OperationBindingEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "httpMethod", typeName: "BindingHttpMethod", description: "HTTP Method", required: true, hint: "The method the operation is served under", order: 0, enumValues: ["get", "post", "put", "patch", "delete"]}), new SomFormFieldMeta({name: "pathTemplate", typeName: "String", description: "Path Template", required: true, hint: "The path after the version prefix, with {name} captures, e.g. /users/{userId}", order: 1}), new SomFormFieldMeta({name: "versionPrefix", typeName: "String", description: "Version Prefix", hint: "The prefix the path is served under, e.g. /api/v1; from the interface's versioning convention", order: 2}), new SomFormFieldMeta({name: "successStatus", typeName: "int", description: "Success Status", hint: "The status a successful call answers with, e.g. 200, 201 or 204", order: 3}), new SomFormFieldMeta({name: "responseHeaders", typeName: "String", description: "Response Headers", hint: "Comma-separated headers a success sets, e.g. Location, ETag", order: 4}), new SomFormFieldMeta({name: "consumes", typeName: "String", description: "Request Content Type", hint: "e.g. application/json; leave empty for a request without a body", order: 5}), new SomFormFieldMeta({name: "produces", typeName: "String", description: "Response Content Type", hint: "e.g. application/json", order: 6}), new SomFormFieldMeta({name: "errorFormat", typeName: "BindingErrorFormat", description: "Error Format", hint: "The format errors are answered in; the result envelope if empty", order: 7, enumValues: ["resultEnvelope", "problemJson", "scim", "oauth"]}), new SomFormFieldMeta({name: "servedInterface", typeName: "String", description: "Served Interface", hint: "The external interface (EIE) this binding belongs to, by its external system name", order: 8})])}),
+     new SomMetaNode({
+      className: "OperationBindingEntry",
+      memberName: "parameters",
+      sectionId: "SVOBP-PARA-LST",
+      sectionIdPattern: "SVOBP-PARA-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "BindingParameterEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one.",
+      docComment: "7.9.x. Parameters — where the binding finds each request member.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["RFC 9110 — HTTP semantics (methods, status codes, header fields)"], "connotation": "Where the binding finds each request member of its operation."})],
+      elementNode: _cx("BindingParameterEntry", s, _mc_BindingParameterEntry, (r, c) => new SomMetaNode({className: "BindingParameterEntry", classSectionId: "SVOBP", kind: SomMetaKind.COMPLEX, typeName: "BindingParameterEntry", docComment: "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.", classDocComment: "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.", recursive: r, children: c}))}),
+  ];
+}
+
 function _mc_OperationalMonitoring(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -37803,6 +37882,31 @@ function _mc_ProtocolEntry(s: Set<string>): SomMetaNode[] {
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
       form: new SomFormMeta([new SomFormFieldMeta({name: "protocolType", typeName: "String", description: "Protocol Type", hint: "Request-response, streaming, pub-sub, event-driven", order: 0}), new SomFormFieldMeta({name: "protocolVersion", typeName: "String", description: "Protocol Version", hint: "HTTP/2, MQTT 5.0, gRPC 1.x", order: 1}), new SomFormFieldMeta({name: "transportLayer", typeName: "String", description: "Transport Layer", hint: "TCP, UDP, QUIC", order: 2}), new SomFormFieldMeta({name: "directionality", typeName: "String", description: "Directionality", hint: "Client-to-server, bidirectional, server-push", order: 3}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional protocol notes", order: 4})])}),
+  ];
+}
+
+function _mc_ProtocolFeatureEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ProtocolFeatureEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "feature", typeName: "ProtocolFeatureKind", description: "Feature", required: true, hint: "The framework protocol server the system enables", order: 0, enumValues: ["oidcAuthorizationServer", "scim2Server"]}), new SomFormFieldMeta({name: "purpose", typeName: "String", description: "Purpose", hint: "What the system uses the feature for, and who its callers are", order: 1})])}),
+     new SomMetaNode({
+      className: "ProtocolFeatureEntry",
+      memberName: "hooks",
+      sectionId: "FEHOK-HOOK-LST",
+      sectionIdPattern: "FEHOK-HOOK-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "FeatureHookEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per hook the system implements. Every hook the feature requires needs an entry.",
+      docComment: "7.9.2.x. Hooks — the extension points of the feature the system\nimplements.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture description (interface contracts)"], "connotation": "The hooks of the feature the system implements, each with its behaviour."})],
+      elementNode: _cx("FeatureHookEntry", s, _mc_FeatureHookEntry, (r, c) => new SomMetaNode({className: "FeatureHookEntry", classSectionId: "FEHOK", kind: SomMetaKind.COMPLEX, typeName: "FeatureHookEntry", docComment: "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.", classDocComment: "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.", recursive: r, children: c}))}),
   ];
 }
 
@@ -45731,6 +45835,18 @@ function _mc_ServerOperationEntry(s: Set<string>): SomMetaNode[] {
       docComment: "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The members that make up the success payload this operation returns."})],
       elementNode: _cx("ServerOperationMemberEntry", s, _mc_ServerOperationMemberEntry, (r, c) => new SomMetaNode({className: "ServerOperationMemberEntry", classSectionId: "SVOPM", kind: SomMetaKind.COMPLEX, typeName: "ServerOperationMemberEntry", docComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", classDocComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "ServerOperationEntry",
+      memberName: "bindings",
+      sectionId: "SVOBI-BIND-LST",
+      sectionIdPattern: "SVOBI-BIND-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "OperationBindingEntry",
+      serializationOrder: 4,
+      contentHelp: "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.",
+      docComment: "7.9.x. Protocol Bindings — the standard-protocol shapes this operation is\nalso served under, for third-party callers.\n\nThe operation itself keeps the `codespecs_mapping.md` §7 contract: the\napplication's own client calls it by name. A binding is a second shape of\nthe same operation — an HTTP method, a path, where each request member is\nfound, the success status and headers — and an operation may have several.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["RFC 9110 — HTTP semantics (methods, status codes, header fields)", "RFC 6570 — URI templates"], "connotation": "The HTTP shapes this operation is served under for third-party callers."})],
+      elementNode: _cx("OperationBindingEntry", s, _mc_OperationBindingEntry, (r, c) => new SomMetaNode({className: "OperationBindingEntry", classSectionId: "SVOBI", kind: SomMetaKind.COMPLEX, typeName: "OperationBindingEntry", docComment: "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.", classDocComment: "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.", recursive: r, children: c}))}),
   ];
 }
 
@@ -45756,7 +45872,7 @@ function _mc_ServerOperationRegistry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       contentType: new SomContentTypeMeta("text", ""),
-      contentHelp: "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n",
+      contentHelp: "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n",
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."}),
      new SomMetaNode({
       className: "ServerOperationRegistry",
@@ -45770,6 +45886,18 @@ function _mc_ServerOperationRegistry(s: Set<string>): SomMetaNode[] {
       docComment: "7.9.1. Operations — one entry per operation the system answers.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture description (interface contracts)"], "connotation": "The catalogued operations the application's own server surface answers."})],
       elementNode: _cx("ServerOperationEntry", s, _mc_ServerOperationEntry, (r, c) => new SomMetaNode({className: "ServerOperationEntry", classSectionId: "SVOPE", kind: SomMetaKind.COMPLEX, typeName: "ServerOperationEntry", docComment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).", classDocComment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "ServerOperationRegistry",
+      memberName: "protocolFeatures",
+      sectionId: "PROTF-FEAT-LST",
+      sectionIdPattern: "PROTF-FEAT-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ProtocolFeatureEntry",
+      serializationOrder: 2,
+      contentHelp: "Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.",
+      docComment: "7.9.2. Protocol Features — the standard protocol servers the framework\nprovides that the system enables, each with the hooks the system\nimplements.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC/IEEE 42010 — architecture description (interface contracts)"], "connotation": "The framework protocol servers the system enables and the hooks it plugs its domain into."})],
+      elementNode: _cx("ProtocolFeatureEntry", s, _mc_ProtocolFeatureEntry, (r, c) => new SomMetaNode({className: "ProtocolFeatureEntry", classSectionId: "PROTF", kind: SomMetaKind.COMPLEX, typeName: "ProtocolFeatureEntry", docComment: "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).", classDocComment: "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).", recursive: r, children: c}))}),
   ];
 }
 
@@ -60486,6 +60614,16 @@ export class BehaviorRuleEntry$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `BindingParameterEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class BindingParameterEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `BiometricAuthenticationPolicy` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -68982,6 +69120,20 @@ export class FeatureDependencyEntry$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `FeatureHookEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class FeatureHookEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get methods(): SomListMetaRef<HookMethodEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/FEHOM-METH-LST", (t: SomMetaTree, p: string) => new HookMethodEntry$Nav(t, p));
+  }
+}
+
 // Dot-notation accessors of `FeatureModuleEntry` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -70049,6 +70201,16 @@ export class HighAvailabilityRequirements$Nav extends SomMetaRef {
 
   get disasterRecovery(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/HARDR");
+  }
+}
+
+// Dot-notation accessors of `HookMethodEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class HookMethodEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -74180,6 +74342,20 @@ export class OperatingEnvironment$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `OperationBindingEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class OperationBindingEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get parameters(): SomListMetaRef<BindingParameterEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/SVOBP-PARA-LST", (t: SomMetaTree, p: string) => new BindingParameterEntry$Nav(t, p));
+  }
+}
+
 // Dot-notation accessors of `OperationalMonitoring` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -76425,6 +76601,20 @@ export class ProtocolComplianceRequirements$Nav extends SomMetaRef {
 export class ProtocolEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `ProtocolFeatureEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ProtocolFeatureEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get hooks(): SomListMetaRef<FeatureHookEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/FEHOK-HOOK-LST", (t: SomMetaTree, p: string) => new FeatureHookEntry$Nav(t, p));
   }
 }
 
@@ -80370,6 +80560,10 @@ export class ServerOperationEntry$Nav extends SomMetaRef {
   get responseMembers(): SomListMetaRef<ServerOperationMemberEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/SVOPM-RESM-LST", (t: SomMetaTree, p: string) => new ServerOperationMemberEntry$Nav(t, p));
   }
+
+  get bindings(): SomListMetaRef<OperationBindingEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/SVOBI-BIND-LST", (t: SomMetaTree, p: string) => new OperationBindingEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `ServerOperationMemberEntry` (SOM §8). Every getter is one
@@ -80393,6 +80587,10 @@ export class ServerOperationRegistry$Nav extends SomMetaRef {
 
   get operations(): SomListMetaRef<ServerOperationEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/SVOPE-OPER-LST", (t: SomMetaTree, p: string) => new ServerOperationEntry$Nav(t, p));
+  }
+
+  get protocolFeatures(): SomListMetaRef<ProtocolFeatureEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/PROTF-FEAT-LST", (t: SomMetaTree, p: string) => new ProtocolFeatureEntry$Nav(t, p));
   }
 }
 
@@ -86890,6 +87088,12 @@ export class BackupPolicyEntry$Id extends SomMetaRef {
 export class BehaviorRuleEntry$Id extends SomMetaRef {
 }
 
+// ID-tree accessors of `BindingParameterEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class BindingParameterEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `BoundaryAssumptionEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -89204,6 +89408,10 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get SVOPE_OPER_LST(): SomListMetaRef<ServerOperationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST", (t: SomMetaTree, p: string) => new ServerOperationEntry$Id(t, p));
+  }
+
+  get PROTF_FEAT_LST(): SomListMetaRef<ProtocolFeatureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/informationAndDataModel/serverOperationRegistry/PROTF-FEAT-LST", (t: SomMetaTree, p: string) => new ProtocolFeatureEntry$Id(t, p));
   }
 
   get DMFUE_ENFU_LST(): SomListMetaRef<EntityFollowUpEntry$Id> {
@@ -93743,6 +93951,10 @@ export class D03InformationModel$Id extends SomMetaRef {
 
   get SVOPE_OPER_LST(): SomListMetaRef<ServerOperationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/serverOperationRegistry/SVOPE-OPER-LST", (t: SomMetaTree, p: string) => new ServerOperationEntry$Id(t, p));
+  }
+
+  get PROTF_FEAT_LST(): SomListMetaRef<ProtocolFeatureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/serverOperationRegistry/PROTF-FEAT-LST", (t: SomMetaTree, p: string) => new ProtocolFeatureEntry$Id(t, p));
   }
 
   get MIGTG_TARG_LST(): SomListMetaRef<MigrationTargetEntry$Id> {
@@ -100675,6 +100887,10 @@ export class D13CodeSpecsProjection$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/serverOperationRegistry/SVOPE-OPER-LST", (t: SomMetaTree, p: string) => new ServerOperationEntry$Id(t, p));
   }
 
+  get PROTF_FEAT_LST(): SomListMetaRef<ProtocolFeatureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/serverOperationRegistry/PROTF-FEAT-LST", (t: SomMetaTree, p: string) => new ProtocolFeatureEntry$Id(t, p));
+  }
+
   get ACOVNA(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/processStepsAndActorInteractions/actorOverview/ACOVNA");
   }
@@ -102374,6 +102590,15 @@ export class FamilyComponentRef$Id extends SomMetaRef {
 export class FeatureDependencyEntry$Id extends SomMetaRef {
 }
 
+// ID-tree accessors of `FeatureHookEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class FeatureHookEntry$Id extends SomMetaRef {
+  get FEHOM_METH_LST(): SomListMetaRef<HookMethodEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/FEHOM-METH-LST", (t: SomMetaTree, p: string) => new HookMethodEntry$Id(t, p));
+  }
+}
+
 // ID-tree accessors of `FeatureModuleEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -102725,6 +102950,12 @@ export class GradedAccessLevelEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class HandlingRequirementEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `HookMethodEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class HookMethodEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `IdeRequirementEntry` (SOM §8): getters named by section id
@@ -103845,6 +104076,15 @@ export class OngoingTrainingEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `OperationBindingEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class OperationBindingEntry$Id extends SomMetaRef {
+  get SVOBP_PARA_LST(): SomListMetaRef<BindingParameterEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/SVOBP-PARA-LST", (t: SomMetaTree, p: string) => new BindingParameterEntry$Id(t, p));
+  }
+}
+
 // ID-tree accessors of `OrgChangeRisks` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -104381,6 +104621,15 @@ export class ProgrammingLanguageEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class ProtocolEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `ProtocolFeatureEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ProtocolFeatureEntry$Id extends SomMetaRef {
+  get FEHOK_HOOK_LST(): SomListMetaRef<FeatureHookEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/FEHOK-HOOK-LST", (t: SomMetaTree, p: string) => new FeatureHookEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `PrototypeFeatureEntry` (SOM §8): getters named by section id
@@ -105854,6 +106103,10 @@ export class ServerOperationEntry$Id extends SomMetaRef {
 
   get SVOPM_RESM_LST(): SomListMetaRef<ServerOperationMemberEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/SVOPM-RESM-LST", (t: SomMetaTree, p: string) => new ServerOperationMemberEntry$Id(t, p));
+  }
+
+  get SVOBI_BIND_LST(): SomListMetaRef<OperationBindingEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/SVOBI-BIND-LST", (t: SomMetaTree, p: string) => new OperationBindingEntry$Id(t, p));
   }
 }
 

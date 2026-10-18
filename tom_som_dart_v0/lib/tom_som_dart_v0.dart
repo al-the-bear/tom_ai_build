@@ -2,7 +2,7 @@
 // ignore_for_file: type=lint, unused_import, document_ignores
 
 /// The generated typed object model for the TomSpecs specification documents
-/// (`v0`), model version `1.5`.
+/// (`v0`), model version `1.6`.
 ///
 /// **Generated — do not edit.** Regenerate with `generate_som.dart`; a hand
 /// edit is overwritten by the next run. The generator is
@@ -146,6 +146,81 @@ enum BasicAuthorizationRequirementKind {
 BasicAuthorizationRequirementKind? _parseBasicAuthorizationRequirementKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in BasicAuthorizationRequirementKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `BindingErrorFormat` values.
+enum BindingErrorFormat {
+  /// The CE-ER Result envelope of the operation contract.
+  resultEnvelope,
+
+  /// RFC 9457 problem details (`application/problem+json`).
+  problemJson,
+
+  /// The SCIM 2.0 error schema (RFC 7644 §3.12).
+  scim,
+
+  /// The OAuth 2.0 error response (RFC 6749 §5.2).
+  oauth;
+}
+
+/// Parses a stored token into a [BindingErrorFormat], or `null`.
+BindingErrorFormat? _parseBindingErrorFormat(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in BindingErrorFormat.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `BindingHttpMethod` values.
+enum BindingHttpMethod {
+  /// A read with no side effect — a single resource or a listing.
+  get,
+
+  /// A creation, or an action that is not a plain state change.
+  post,
+
+  /// A full replacement of the resource at the path.
+  put,
+
+  /// A partial change of the resource at the path.
+  patch,
+
+  /// A removal of the resource at the path.
+  delete;
+}
+
+/// Parses a stored token into a [BindingHttpMethod], or `null`.
+BindingHttpMethod? _parseBindingHttpMethod(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in BindingHttpMethod.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `BindingParameterSource` values.
+enum BindingParameterSource {
+  /// A `{name}` capture in the path template.
+  path,
+
+  /// A query parameter.
+  query,
+
+  /// The request body, or one member of it.
+  body,
+
+  /// A request header.
+  header;
+}
+
+/// Parses a stored token into a [BindingParameterSource], or `null`.
+BindingParameterSource? _parseBindingParameterSource(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in BindingParameterSource.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -668,6 +743,24 @@ enum Probability {
 Probability? _parseProbability(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in Probability.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ProtocolFeatureKind` values.
+enum ProtocolFeatureKind {
+  /// An OAuth 2.0 / OpenID Connect authorization server.
+  oidcAuthorizationServer,
+
+  /// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+  scim2Server;
+}
+
+/// Parses a stored token into a [ProtocolFeatureKind], or `null`.
+ProtocolFeatureKind? _parseProtocolFeatureKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ProtocolFeatureKind.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -4838,6 +4931,25 @@ class BehaviorRuleEntry extends SomNode {
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   BehaviorRuleEntryContentForm get content => BehaviorRuleEntryContentForm(doc, '$path/content');
+}
+
+/// Where a protocol binding finds one request member (form).
+/// 
+/// The entry's headline is the parameter's name on the wire — the `{name}`
+/// capture, the query parameter, the body member or the header — and the form
+/// says where it is found and which request member it supplies.
+class BindingParameterEntry extends SomNode {
+  /// Names the `BindingParameterEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  BindingParameterEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  BindingParameterEntryContentForm get content => BindingParameterEntryContentForm(doc, '$path/content');
 }
 
 /// Biometric authentication policy (form).
@@ -9765,7 +9877,7 @@ class CutoverProcedure extends SomNode {
 /// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -9858,7 +9970,7 @@ class D00SolutionBlueprint extends SomNode {
 /// and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -9938,7 +10050,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 /// cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10025,7 +10137,7 @@ class D02TargetOperatingModel extends SomNode {
 /// integrity constraints.
 class D03InformationModel extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10160,7 +10272,7 @@ class D03InformationModel extends SomNode {
 /// and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10242,7 +10354,7 @@ class D04RequirementsSpecification extends SomNode {
 /// and traceability.
 class D05InteractionScenarios extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10320,7 +10432,7 @@ class D05InteractionScenarios extends SomNode {
 /// and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10412,7 +10524,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 /// migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10499,7 +10611,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 /// compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10590,7 +10702,7 @@ class D08SecurityAccessSpecification extends SomNode {
 /// mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10686,7 +10798,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 /// Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10800,7 +10912,7 @@ class D10QualityAcceptancePlan extends SomNode {
 /// framework.
 class D11DeliveryRoadmap extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10884,7 +10996,7 @@ class D11DeliveryRoadmap extends SomNode {
 /// transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -10987,7 +11099,7 @@ class D12TransitionRolloutPlan extends SomNode {
 /// models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
-  static const String modelVersion = '1.5';
+  static const String modelVersion = '1.6';
 
   /// Creates the typed facade over [doc] at the document root and verifies
   /// the document's authoring [documentVersion] is editable (SOM §4.2).
@@ -17869,6 +17981,36 @@ class FeatureDependencyEntry extends SomNode {
   FeatureDependencyEntryContentForm get content => FeatureDependencyEntryContentForm(doc, '$path/content');
 }
 
+/// One hook of a framework protocol feature that the system implements (form +
+/// method list).
+/// 
+/// The hook is a framework contract — SCIM's resource store, an authorization
+/// server's client registry — and the system's implementation of it is the
+/// CodeSpec. The contract's members are the framework's; what the system states
+/// is, per member, what the implementation does: the operations it calls, in
+/// order, and the entities it reads and writes, so the CodeSpec body is a
+/// sequence of calls and not invented logic.
+class FeatureHookEntry extends SomNode {
+  /// Names the `FeatureHookEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  FeatureHookEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.
+  FeatureHookEntryContentForm get content => FeatureHookEntryContentForm(doc, '$path/content');
+
+  /// 7.9.2.x. Methods — what each member of the hook contract does.
+  ///
+  /// **Authoring guidance.** Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry.
+  SomList<HookMethodEntry> get methods => SomList<HookMethodEntry>(doc, '$path/FEHOM-METH-LST', (d, p) => HookMethodEntry(d, p), pattern: 'FEHOM-METH-xxx');
+}
+
 /// Feature module entry — a vertical slice feature.
 class FeatureModuleEntry extends SomNode {
   /// Names the `FeatureModuleEntry` section at [path] inside [doc].
@@ -19547,6 +19689,27 @@ class HighAvailabilityRequirements extends SomNode {
 
   /// Disaster recovery alignment.
   HighAvailabilityRequirementsDisasterRecoveryForm get disasterRecovery => HighAvailabilityRequirementsDisasterRecoveryForm(doc, '$path/HARDR');
+}
+
+/// What one member of a hook contract does (form).
+/// 
+/// The entry's headline is the contract member's name. The operations it calls
+/// are listed in the order the implementation calls them; that order is the
+/// CodeSpec body.
+class HookMethodEntry extends SomNode {
+  /// Names the `HookMethodEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  HookMethodEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** State what the member does and what it answers, in terms of the operations it calls and the entities it uses.
+  HookMethodEntryContentForm get content => HookMethodEntryContentForm(doc, '$path/content');
 }
 
 /// IDE requirement entry — a required IDE or editor.
@@ -25655,6 +25818,34 @@ class OperatingEnvironment extends SomNode {
   set constraintsAndDependencies(String value) => doc.setContent('$path/COANDE', value);
 }
 
+/// One standard-protocol shape of a server operation (form + parameter list).
+/// 
+/// The operation stays the unit of behaviour; the binding only says how a
+/// third-party caller reaches it: the method, the path template, where each
+/// request member is found, the success status and headers, the content types,
+/// the error format and the version prefix. A REST listing, a save and a state
+/// transition are each one binding of their operation.
+class OperationBindingEntry extends SomNode {
+  /// Names the `OperationBindingEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  OperationBindingEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.
+  OperationBindingEntryContentForm get content => OperationBindingEntryContentForm(doc, '$path/content');
+
+  /// 7.9.x. Parameters — where the binding finds each request member.
+  ///
+  /// **Authoring guidance.** Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one.
+  SomList<BindingParameterEntry> get parameters => SomList<BindingParameterEntry>(doc, '$path/SVOBP-PARA-LST', (d, p) => BindingParameterEntry(d, p), pattern: 'SVOBP-PARA-xxx');
+}
+
 /// 11.4.3. Monitoring quality.
 class OperationalMonitoring extends SomNode {
   /// Names the `OperationalMonitoring` section at [path] inside [doc].
@@ -29075,6 +29266,33 @@ class ProtocolEntry extends SomNode {
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   ProtocolEntryContentForm get content => ProtocolEntryContentForm(doc, '$path/content');
+}
+
+/// A standard protocol server the framework provides, enabled by the system
+/// (form + hook list).
+/// 
+/// The framework owns the protocol's endpoints, wire format and error format;
+/// the system writes no protocol endpoint of its own. What the system supplies
+/// are the **hooks** — the extension points through which the protocol reaches
+/// the system's domain (`codespecs_mapping.md` §5.30).
+class ProtocolFeatureEntry extends SomNode {
+  /// Names the `ProtocolFeatureEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  ProtocolFeatureEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ProtocolFeatureEntryContentForm get content => ProtocolFeatureEntryContentForm(doc, '$path/content');
+
+  /// 7.9.2.x. Hooks — the extension points of the feature the system
+  /// implements.
+  ///
+  /// **Authoring guidance.** Add one entry per hook the system implements. Every hook the feature requires needs an entry.
+  SomList<FeatureHookEntry> get hooks => SomList<FeatureHookEntry>(doc, '$path/FEHOK-HOOK-LST', (d, p) => FeatureHookEntry(d, p), pattern: 'FEHOK-HOOK-xxx');
 }
 
 /// 8.6.1. Protocols and Standards.
@@ -35332,6 +35550,17 @@ class ServerOperationEntry extends SomNode {
   ///
   /// **Authoring guidance.** Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
   SomList<ServerOperationMemberEntry> get responseMembers => SomList<ServerOperationMemberEntry>(doc, '$path/SVOPM-RESM-LST', (d, p) => ServerOperationMemberEntry(d, p), pattern: 'SVOPM-RESM-xxx');
+
+  /// 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+  /// also served under, for third-party callers.
+  /// 
+  /// The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+  /// application's own client calls it by name. A binding is a second shape of
+  /// the same operation — an HTTP method, a path, where each request member is
+  /// found, the success status and headers — and an operation may have several.
+  ///
+  /// **Authoring guidance.** Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.
+  SomList<OperationBindingEntry> get bindings => SomList<OperationBindingEntry>(doc, '$path/SVOBI-BIND-LST', (d, p) => OperationBindingEntry(d, p), pattern: 'SVOBI-BIND-xxx');
 }
 
 /// A single member of an operation's request or response shape (form).
@@ -35382,6 +35611,11 @@ class ServerOperationMemberEntry extends SomNode {
 ///   errors;
 /// - no encoding, header, redirect, CORS or credential plumbing — framework
 ///   transport members, never spec input.
+/// 
+/// Third-party HTTP shapes are added beside the contract, not inside it: an
+/// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+/// and [protocolFeatures] lists the framework protocol servers the system
+/// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 class ServerOperationRegistry extends SomNode {
   /// Names the `ServerOperationRegistry` section at [path] inside [doc].
   ///
@@ -35406,9 +35640,13 @@ class ServerOperationRegistry extends SomNode {
   /// - its **authorization requirement**,
   /// - the **error codes** it may return, from the error-code registry (ERCRG).
   ///
-  /// Do **not** author a transport method, a path or response status codes: the
-  /// operation name carries the intent, and every outcome — success or structured
-  /// error — is returned in the Result envelope (RSLTE).
+  /// Do **not** author a transport method, a path or response status codes on the
+  /// operation: the operation name carries the intent, and every outcome — success
+  /// or structured error — is returned in the Result envelope (RSLTE). When third
+  /// parties call an operation in a standard HTTP shape, add a **protocol binding**
+  /// to the operation instead; when the system enables a standard protocol server
+  /// the framework provides (OIDC, SCIM), list it under **protocol features** with
+  /// the hooks the system implements.
   ///
   /// This registry is for the system's **own** operations. Interfaces to third-party
   /// systems are inventoried under External Interfaces (EXIN) instead.
@@ -35419,6 +35657,13 @@ class ServerOperationRegistry extends SomNode {
   ///
   /// **Authoring guidance.** Add one entry per operation the system answers.
   SomList<ServerOperationEntry> get operations => SomList<ServerOperationEntry>(doc, '$path/SVOPE-OPER-LST', (d, p) => ServerOperationEntry(d, p), pattern: 'SVOPE-OPER-xxx');
+
+  /// 7.9.2. Protocol Features — the standard protocol servers the framework
+  /// provides that the system enables, each with the hooks the system
+  /// implements.
+  ///
+  /// **Authoring guidance.** Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.
+  SomList<ProtocolFeatureEntry> get protocolFeatures => SomList<ProtocolFeatureEntry>(doc, '$path/PROTF-FEAT-LST', (d, p) => ProtocolFeatureEntry(d, p), pattern: 'PROTF-FEAT-xxx');
 }
 
 /// Server operating system requirements.
@@ -52933,6 +53178,38 @@ class BehaviorRuleEntryContentForm extends SomNode {
   /// Derived/calculated attributes (e.g., orderTotal, age)
   String get calculatedProperties => doc.formField(path, 'calculatedProperties') ?? '';
   set calculatedProperties(String value) => doc.setFormField(path, 'calculatedProperties', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class BindingParameterEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  BindingParameterEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Source.
+  ///
+  /// Where the parameter is found
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `path`, `query`, `body`, `header`.
+  BindingParameterSource? get source => _parseBindingParameterSource(doc.formField(path, 'source'));
+  set source(BindingParameterSource? value) => doc.setFormField(path, 'source', value?.name ?? '');
+
+  /// Request Member.
+  ///
+  /// The operation's request member the parameter supplies
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get requestMember => doc.formField(path, 'requestMember') ?? '';
+  set requestMember(String value) => doc.setFormField(path, 'requestMember', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -83799,6 +84076,28 @@ class FeatureDependencyEntryContentForm extends SomNode {
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class FeatureHookEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  FeatureHookEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Hook.
+  ///
+  /// The hook's catalogue name, e.g. scimStore or clientRegistry (codespecs_mapping.md §5.30)
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get hook => doc.formField(path, 'hook') ?? '';
+  set hook(String value) => doc.setFormField(path, 'hook', value);
+}
+
 /// Generated section facade for the `configuration` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class FeatureModuleEntryConfigurationForm extends SomNode {
@@ -88171,6 +88470,38 @@ class HighAvailabilityRequirementsRedundancyForm extends SomNode {
   /// All sites active
   bool? get activeActiveMode => somParseBool(doc.formField(path, 'activeActiveMode'));
   set activeActiveMode(bool? value) => doc.setFormField(path, 'activeActiveMode', somFormatBool(value));
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class HookMethodEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  HookMethodEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Calls Operations.
+  ///
+  /// Comma-separated ServerOperationEntry.operationName values, in the order the member calls them
+  String get callsOperations => doc.formField(path, 'callsOperations') ?? '';
+  set callsOperations(String value) => doc.setFormField(path, 'callsOperations', value);
+
+  /// Reads Entities.
+  ///
+  /// Comma-separated DataEntityEntry.entityName values the member reads
+  String get readsEntities => doc.formField(path, 'readsEntities') ?? '';
+  set readsEntities(String value) => doc.setFormField(path, 'readsEntities', value);
+
+  /// Writes Entities.
+  ///
+  /// Comma-separated DataEntityEntry.entityName values the member writes
+  String get writesEntities => doc.formField(path, 'writesEntities') ?? '';
+  set writesEntities(String value) => doc.setFormField(path, 'writesEntities', value);
 }
 
 /// Generated section facade for the `configuration` `@Form` section:
@@ -105383,6 +105714,82 @@ class OngoingTrainingEntryScheduleForm extends SomNode {
   set duration(String value) => doc.setFormField(path, 'duration', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class OperationBindingEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  OperationBindingEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// HTTP Method.
+  ///
+  /// The method the operation is served under
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `get`, `post`, `put`, `patch`, `delete`.
+  BindingHttpMethod? get httpMethod => _parseBindingHttpMethod(doc.formField(path, 'httpMethod'));
+  set httpMethod(BindingHttpMethod? value) => doc.setFormField(path, 'httpMethod', value?.name ?? '');
+
+  /// Path Template.
+  ///
+  /// The path after the version prefix, with {name} captures, e.g. /users/{userId}
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get pathTemplate => doc.formField(path, 'pathTemplate') ?? '';
+  set pathTemplate(String value) => doc.setFormField(path, 'pathTemplate', value);
+
+  /// Version Prefix.
+  ///
+  /// The prefix the path is served under, e.g. /api/v1; from the interface's versioning convention
+  String get versionPrefix => doc.formField(path, 'versionPrefix') ?? '';
+  set versionPrefix(String value) => doc.setFormField(path, 'versionPrefix', value);
+
+  /// Success Status.
+  ///
+  /// The status a successful call answers with, e.g. 200, 201 or 204
+  int? get successStatus => somParseInt(doc.formField(path, 'successStatus'));
+  set successStatus(int? value) => doc.setFormField(path, 'successStatus', somFormatInt(value));
+
+  /// Response Headers.
+  ///
+  /// Comma-separated headers a success sets, e.g. Location, ETag
+  String get responseHeaders => doc.formField(path, 'responseHeaders') ?? '';
+  set responseHeaders(String value) => doc.setFormField(path, 'responseHeaders', value);
+
+  /// Request Content Type.
+  ///
+  /// e.g. application/json; leave empty for a request without a body
+  String get consumes => doc.formField(path, 'consumes') ?? '';
+  set consumes(String value) => doc.setFormField(path, 'consumes', value);
+
+  /// Response Content Type.
+  ///
+  /// e.g. application/json
+  String get produces => doc.formField(path, 'produces') ?? '';
+  set produces(String value) => doc.setFormField(path, 'produces', value);
+
+  /// Error Format.
+  ///
+  /// The format errors are answered in; the result envelope if empty
+  ///
+  /// Stored as one of: `resultEnvelope`, `problemJson`, `scim`, `oauth`.
+  BindingErrorFormat? get errorFormat => _parseBindingErrorFormat(doc.formField(path, 'errorFormat'));
+  set errorFormat(BindingErrorFormat? value) => doc.setFormField(path, 'errorFormat', value?.name ?? '');
+
+  /// Served Interface.
+  ///
+  /// The external interface (EIE) this binding belongs to, by its external system name
+  String get servedInterface => doc.formField(path, 'servedInterface') ?? '';
+  set servedInterface(String value) => doc.setFormField(path, 'servedInterface', value);
+}
+
 /// Generated section facade for the `alerting` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class OperationalMonitoringAlertingForm extends SomNode {
@@ -113893,6 +114300,36 @@ class ProtocolEntryContentForm extends SomNode {
   /// Additional protocol notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ProtocolFeatureEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ProtocolFeatureEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Feature.
+  ///
+  /// The framework protocol server the system enables
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  ///
+  /// Stored as one of: `oidcAuthorizationServer`, `scim2Server`.
+  ProtocolFeatureKind? get feature => _parseProtocolFeatureKind(doc.formField(path, 'feature'));
+  set feature(ProtocolFeatureKind? value) => doc.setFormField(path, 'feature', value?.name ?? '');
+
+  /// Purpose.
+  ///
+  /// What the system uses the feature for, and who its callers are
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

@@ -1,4 +1,4 @@
-/// Fixtures for the thirty-seven `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the forty-one `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -13,6 +13,7 @@
 library;
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
@@ -31,6 +32,7 @@ CodeSpecsValidationInput _input({
   Map<String, String>? againClient,
   Map<String, String>? againServer,
   CsExtractSet? extracts,
+  CsFeatureCatalogue? features,
 }) => CodeSpecsValidationInput(
   shared: readCsLocusProject(
     locus: CsLocus.shared,
@@ -50,6 +52,7 @@ CodeSpecsValidationInput _input({
   migrations: migrations,
   enumMirrors: mirrors,
   extracts: extracts,
+  featureCatalogue: features,
   regeneration:
       againShared == null && againClient == null && againServer == null
       ? null
@@ -176,6 +179,120 @@ const _customerEntries = <(String, String, String)>[
   ('IMO-014', 'content', _customerContent),
 ];
 
+/// The shared operation catalogue the binding fixtures cite — the
+/// `codespecs_derivation_contract.md` §3.2.1 shape, a `@CsEndpoint` on each
+/// `static const CsOperationRef`.
+const _userOperations = {
+  'lib/a.dart': '''
+class UserOperations {
+  @CsEndpoint('user.save')
+  static const save = CsOperationRef('user.save');
+
+  @CsEndpoint('user.suspend')
+  static const suspend = CsOperationRef('user.suspend');
+}
+''',
+};
+
+/// One `@CsOperationBinding` const, defaulting to the `user.save` PUT of
+/// `codespecs_derivation_contract.md` §3.4.5's worked example.
+String _binding({
+  String name = 'userSavePutBinding',
+  String ref = 'UserOperations.save',
+  String operation = 'user.save',
+  String method = 'PUT',
+  String path = '/users/{userId}',
+  String versionPrefix = '/api/v1',
+  List<(String, String)> parameters = const [
+    ('userId', 'path'),
+    ('user', 'body'),
+  ],
+}) =>
+    '''
+@CsOperationBinding($ref)
+@DocSpec([DocRef('SVOBI', 'supplies the HTTP shape this binding serves the operation under')])
+const $name = TomOperationBinding(
+  '$operation',
+  method: '$method',
+  path: '$path',
+  versionPrefix: '$versionPrefix',
+  parameters: [
+${[for (final (n, s) in parameters) "    TomBindingParameter('$n', source: TomBindingSource.$s, member: '$n'),"].join('\n')}
+  ],
+  successStatus: 204,
+);
+''';
+
+/// Two conforming bindings of two operations.
+final _userBindings = {
+  'lib/b.dart': _binding(),
+  'lib/c.dart': _binding(
+    name: 'userSuspendPostBinding',
+    ref: 'UserOperations.suspend',
+    operation: 'user.suspend',
+    method: 'POST',
+    path: '/users/{userId}/suspension',
+    parameters: [('userId', 'path')],
+  ),
+};
+
+/// One `@CsFeatureHook` class.
+String _hook(
+  String hook, {
+  String feature = 'scim2Server',
+  String className = 'UamScimStore',
+}) =>
+    '''
+@CsFeatureHook(CsProtocolFeature.$feature, '$hook')
+class $className {}
+''';
+
+/// The catalogue checks 40 and 41 read, as `tom_code_specs`' vocabulary
+/// declares it.
+const _features = CsFeatureCatalogue(
+  hooks: [
+    CsFeatureHookEntry(
+      feature: 'scim2Server',
+      hook: 'scimStore',
+      contract: 'TomScimStore',
+      required: true,
+      available: true,
+    ),
+    CsFeatureHookEntry(
+      feature: 'scim2Server',
+      hook: 'scimIdentityDirectory',
+      contract: 'TomScimIdentityDirectory',
+      required: false,
+      available: true,
+    ),
+    CsFeatureHookEntry(
+      feature: 'scim2Server',
+      hook: 'scimSessionRevocation',
+      contract: 'TomScimService.revoke',
+      required: false,
+      available: true,
+    ),
+    CsFeatureHookEntry(
+      feature: 'oidcAuthorizationServer',
+      hook: 'clientRegistry',
+      contract: 'TomOidcClientRegistry',
+      required: true,
+      available: false,
+    ),
+    CsFeatureHookEntry(
+      feature: 'oidcAuthorizationServer',
+      hook: 'subjectAuthentication',
+      contract: 'TomOidcSubjectAuthenticator',
+      required: true,
+      available: false,
+    ),
+  ],
+  reservedPaths: {
+    'scim2Server': ['/scim/v2'],
+    'oidcAuthorizationServer': ['/.well-known/openid-configuration', '/oauth2'],
+  },
+);
+
 /// The violations of `codespecs_derivation_contract.md` §6 check [number]
 /// raised by [input].
 List<CodeSpecsViolation> _forCheck(
@@ -215,9 +332,9 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the thirty-seven checks in table order', () {
+    test('names the forty-one checks in table order', () {
       expect(codeSpecsChecks.map((c) => c.number), [
-        for (var i = 1; i <= 37; i++) i,
+        for (var i = 1; i <= 41; i++) i,
       ]);
     });
 
@@ -3599,6 +3716,387 @@ class OrderingConfig {
     });
   });
 
+  group('38 — a binding names a declared operation (§3.4.5)', () {
+    _redGreen(
+      38,
+      '§3.4.5',
+      says: contains('which no shared @CsEndpoint declares'),
+      red: _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(
+            ref: "CsOperationRef('user.purge')",
+            operation: 'user.purge',
+          ),
+        },
+      ),
+      green: _input(shared: _userOperations, server: _userBindings),
+    );
+
+    test('a ref const the shared project does not declare is unresolved', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(ref: 'UserOperations.purge')},
+      );
+      expect(
+        _forCheck(38, input).single.message,
+        contains('resolves to no shared CsOperationRef const'),
+      );
+    });
+
+    test('a shared CsOperationRef with no @CsEndpoint is not enough', () {
+      final input = _input(
+        shared: {
+          'lib/a.dart': '''
+class UserOperations {
+  static const save = CsOperationRef('user.save');
+}
+''',
+        },
+        server: {'lib/b.dart': _binding()},
+      );
+      expect(
+        _forCheck(38, input).single.message,
+        contains("names operation 'user.save', which no shared @CsEndpoint"),
+      );
+    });
+
+    test('the constructor argument must be the cited operation name', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(ref: 'UserOperations.suspend')},
+      );
+      expect(
+        _forCheck(38, input).single.message,
+        contains(
+          "constructed for operation 'user.save', but its "
+          "@CsOperationBinding cites 'user.suspend'",
+        ),
+      );
+    });
+
+    test('the marker must sit on a TomOperationBinding const', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': '''
+@CsOperationBinding(UserOperations.save)
+const userSavePutBinding = 'PUT /users';
+''',
+        },
+      );
+      expect(
+        _forCheck(38, input).single.message,
+        contains('not a const TomOperationBinding'),
+      );
+    });
+
+    test('an inline CsOperationRef resolves by its id', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(ref: "CsOperationRef('user.save')")},
+      );
+      expect(_forCheck(38, input), isEmpty);
+    });
+  });
+
+  group('39 — a binding route is well formed and unique (§3.4.5)', () {
+    _redGreen(
+      39,
+      '§3.4.5',
+      says: contains('which is not one of GET, POST, PUT, PATCH, DELETE'),
+      red: _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(method: 'FETCH')},
+      ),
+      green: _input(shared: _userOperations, server: _userBindings),
+    );
+
+    test('two bindings on one method and route are reported', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(),
+          'lib/c.dart': _binding(
+            name: 'userSavePutBinding2',
+            path: '/users/{id}',
+            parameters: [('id', 'path')],
+          ),
+        },
+      );
+      expect(
+        _forCheck(39, input).single.message,
+        contains('both bind PUT /api/v1/users/{id}'),
+      );
+    });
+
+    test('the same path under two methods is two routes', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(),
+          'lib/c.dart': _binding(name: 'userSavePatchBinding', method: 'PATCH'),
+        },
+      );
+      expect(_forCheck(39, input), isEmpty);
+    });
+
+    test('the same path under two version prefixes is two routes', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(),
+          'lib/c.dart': _binding(
+            name: 'userSavePutV2',
+            versionPrefix: '/api/v2',
+          ),
+        },
+      );
+      expect(_forCheck(39, input), isEmpty);
+    });
+
+    test('a capture no path parameter maps is reported', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(parameters: [('user', 'body')]),
+        },
+      );
+      expect(
+        _forCheck(39, input).single.message,
+        contains('captures {userId}, which no TomBindingParameter'),
+      );
+    });
+
+    test('a path parameter with no capture is reported', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(
+            path: '/users',
+            parameters: [('userId', 'path')],
+          ),
+        },
+      );
+      expect(
+        _forCheck(39, input).single.message,
+        contains(
+          "maps path parameter 'userId', but its path /users has no "
+          '{userId} capture',
+        ),
+      );
+    });
+
+    test('a query parameter needs no capture', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(
+            path: '/users',
+            parameters: [('page', 'query')],
+          ),
+        },
+      );
+      expect(_forCheck(39, input), isEmpty);
+    });
+  });
+
+  group('40 — feature hooks are complete (§3.4.6)', () {
+    _redGreen(
+      40,
+      '§3.4.6',
+      says: contains(
+        "names hook 'scimUserStore', which scim2Server does not "
+        'have in csFeatureHooks',
+      ),
+      red: _input(
+        server: {'lib/h.dart': _hook('scimUserStore')},
+        features: _features,
+      ),
+      green: _input(
+        server: {'lib/h.dart': _hook('scimStore')},
+        features: _features,
+      ),
+    );
+
+    test('an unknown feature is reported', () {
+      final input = _input(
+        server: {
+          'lib/h.dart': _hook('scimStore', feature: 'samlIdentityProvider'),
+        },
+        features: _features,
+      );
+      expect(
+        _forCheck(40, input).single.message,
+        contains("names feature 'samlIdentityProvider'"),
+      );
+    });
+
+    test('a feature with one hook implemented owes its required hooks', () {
+      final input = _input(
+        server: {'lib/h.dart': _hook('scimIdentityDirectory')},
+        features: _features,
+      );
+      expect(
+        _forCheck(40, input).single.message,
+        contains("not its required hook 'scimStore' (TomScimStore)"),
+      );
+    });
+
+    test('a hook implemented twice is reported', () {
+      final input = _input(
+        server: {
+          'lib/h.dart': _hook('scimStore'),
+          'lib/i.dart': _hook('scimStore', className: 'UamScimStore2'),
+        },
+        features: _features,
+      );
+      expect(
+        _forCheck(40, input).single.message,
+        contains("implements scim2Server's hook 'scimStore' a second time"),
+      );
+    });
+
+    test('a hook whose contract tom_core does not ship is reported', () {
+      final input = _input(
+        server: {
+          'lib/h.dart': _hook(
+            'clientRegistry',
+            feature: 'oidcAuthorizationServer',
+            className: 'UamOidcClientRegistry',
+          ),
+        },
+        features: _features,
+      );
+      final messages = _forCheck(40, input).map((v) => v.message).toList();
+      expect(
+        messages,
+        contains(contains('TomOidcClientRegistry tom_core does not ship yet')),
+      );
+      // The feature is enabled, so its other required hook is owed as well.
+      expect(
+        messages,
+        contains(contains("not its required hook 'subjectAuthentication'")),
+      );
+    });
+
+    test('a trio implementing no hook owes none', () {
+      expect(_forCheck(40, _input(features: _features)), isEmpty);
+    });
+
+    test('without the catalogue the check reports nothing', () {
+      final input = _input(server: {'lib/h.dart': _hook('scimUserStore')});
+      expect(_forCheck(40, input), isEmpty);
+    });
+  });
+
+  group('41 — no binding under a reserved protocol path (§3.4.5)', () {
+    _redGreen(
+      41,
+      '§3.4.5',
+      says: contains('which lies under /scim/v2'),
+      red: _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(versionPrefix: '/scim/v2')},
+        features: _features,
+      ),
+      green: _input(
+        shared: _userOperations,
+        server: _userBindings,
+        features: _features,
+      ),
+    );
+
+    test('the reserved prefix itself is reserved', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(
+            versionPrefix: '',
+            path: '/oauth2',
+            parameters: const [],
+          ),
+        },
+        features: _features,
+      );
+      expect(_forCheck(41, input), hasLength(1));
+    });
+
+    test('a path that only shares the prefix text is not under it', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {
+          'lib/b.dart': _binding(
+            versionPrefix: '',
+            path: '/oauth2-legacy/{userId}',
+          ),
+        },
+        features: _features,
+      );
+      expect(_forCheck(41, input), isEmpty);
+    });
+
+    test('without the catalogue the check reports nothing', () {
+      final input = _input(
+        shared: _userOperations,
+        server: {'lib/b.dart': _binding(versionPrefix: '/scim/v2')},
+      );
+      expect(_forCheck(41, input), isEmpty);
+    });
+  });
+
+  group('readCsFeatureCatalogue', () {
+    test("reads tom_code_specs' own vocabulary", () {
+      final catalogue = readCsFeatureCatalogue([
+        File(
+          '../tom_code_specs/lib/src/annotations/vocabulary.dart',
+        ).readAsStringSync(),
+      ])!;
+      expect(
+        catalogue.entry('scim2Server', 'scimStore'),
+        isA<CsFeatureHookEntry>()
+            .having((e) => e.contract, 'contract', 'TomScimStore')
+            .having((e) => e.required, 'required', isTrue)
+            .having((e) => e.available, 'available', isTrue),
+      );
+      expect(
+        catalogue.hooksOf('oidcAuthorizationServer').every((e) => !e.available),
+        isTrue,
+      );
+      expect(catalogue.reservedPaths['scim2Server'], ['/scim/v2']);
+      expect(catalogue.reservedPaths['oidcAuthorizationServer'], [
+        '/.well-known/openid-configuration',
+        '/oauth2',
+      ]);
+    });
+
+    test('a source declaring neither table yields no catalogue', () {
+      expect(readCsFeatureCatalogue(['class Nothing {}']), isNull);
+    });
+
+    test('a row of another form is an error, never a skipped hook', () {
+      expect(
+        () => readCsFeatureCatalogue([
+          '''
+const csFeatureHooks = [
+  CsFeatureHookSpec(CsProtocolFeature.scim2Server, 'scimStore',
+      contract: 'TomScimStore', required: true, available: true),
+];
+const csFeatureReservedPaths = {};
+''',
+        ]),
+        throwsA(isA<CsFeatureCatalogueException>()),
+      );
+    });
+
+    test('one table without the other is an error', () {
+      expect(
+        () => readCsFeatureCatalogue(['const csFeatureReservedPaths = {};']),
+        throwsA(isA<CsFeatureCatalogueException>()),
+      );
+    });
+  });
+
   group('the §4 worked example', () {
     // The example is the contract's own demonstration that the rules compose,
     // so it is the fixture that has to pass every comment check: a rule the
@@ -3798,7 +4296,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 37 checks passed');
+      expect(report.summary, 'codespecs: 41 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -3831,7 +4329,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 37 checks'));
+      expect(report.summary, contains('across 2 of 41 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(
         report.lines.join('\n'),

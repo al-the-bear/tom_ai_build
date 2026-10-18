@@ -35,7 +35,9 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
     - [CsScreenFlow](#csscreenflow)
   - [Server markers](#server-markers)
     - [CsEndpoint](#csendpoint)
+    - [CsOperationBinding](#csoperationbinding)
     - [CsServiceUnit](#csserviceunit)
+    - [CsFeatureHook](#csfeaturehook)
     - [CsTable](#cstable)
     - [CsFileReference](#csfilereference)
     - [CsColumn](#cscolumn)
@@ -73,23 +75,23 @@ catalogues in [api_summary_vocabulary.md](api_summary_vocabulary.md).
 
 ## Overview
 
-The module declares **45 classes** across seven source files:
-**40 `Cs*` markers** (39 parts plus `@CsCollaborator`), the
+The module declares **47 classes** across seven source files:
+**42 `Cs*` markers** (41 parts plus `@CsCollaborator`), the
 **2 facet value classes**, and the **3 identity /
 trace declarations.
 
 | Source file | Holds |
 |-------------|-------|
 | `element_annotations.dart` | Client / UI markers — 14 classes |
-| `service_annotations.dart` | Server markers — 18 classes |
+| `service_annotations.dart` | Server markers — 20 classes |
 | `contract_annotations.dart` | Shared-contract markers — 2 classes |
 | `client_settings_annotations.dart` | Client, settings, identity and auth markers — 7 classes |
 | `cs_collaborator.dart` | The collaborator marker — 1 classes |
 | `code_spec.dart` | Identity and forward trace — 1 classes |
 | `doc_spec.dart` | Back-trace — 2 classes |
 
-Of the forty markers, **sixteen carry a single optional `note`** and
-**twenty-four take arguments** — see
+Of the forty-two markers, **sixteen carry a single optional `note`** and
+**twenty-six take arguments** — see
 [marking_code.md](../marking_code.md#note-only-versus-argument-carrying).
 
 ## Class Hierarchy
@@ -113,7 +115,9 @@ Object
 │   └── CsScreenFlow
 ├── Server markers
 │   ├── CsEndpoint
+│   ├── CsOperationBinding
 │   ├── CsServiceUnit
+│   ├── CsFeatureHook
 │   ├── CsTable
 │   ├── CsFileReference  (facet value class, not a marker)
 │   ├── CsColumn
@@ -424,6 +428,22 @@ const CsEndpoint(this.operation, {this.note});
 | `operation` | `String` | The operation name, verbatim from the specification. |
 | `note` | `String?` | Optional part-specific note. |
 
+#### CsOperationBinding
+
+CE-API — a protocol binding of one of the application's own operations: a standard HTTP shape third-party callers reach the operation through (`codespecs_mapping.md` §5.30, `codespecs_derivation_contract.md` §3.4.5). Marks a top-level const `TomOperationBinding` in the server project; the binding's attributes are that const's constructor arguments.
+
+##### Constructors
+```dart
+const CsOperationBinding(this.operation, {this.note});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `operation` | `CsOperationRef` | The operation this binding exposes. |
+| `note` | `String?` | Optional part-specific note. |
+
 #### CsServiceUnit
 
 CE-SU — a service unit (a cohesive server-side service).
@@ -443,6 +463,23 @@ const CsServiceUnit({
 |----------|------|-------------|
 | `rootAggregate` | `Type` | The aggregate root the unit owns. |
 | `boundedContext` | `String` | The outer bound the unit sits inside, verbatim. |
+| `note` | `String?` | Optional part-specific note. |
+
+#### CsFeatureHook
+
+CE-SU — the class implementing one hook of a framework protocol feature (`codespecs_mapping.md` §5.30, `codespecs_derivation_contract.md` §3.4.6). The class implementing the framework contract is the CodeSpec; its body is a form-3b body calling named operations and repositories.
+
+##### Constructors
+```dart
+const CsFeatureHook(this.feature, this.hook, {this.note});
+```
+
+##### Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `feature` | `CsProtocolFeature` | The protocol feature whose hook the class implements. |
+| `hook` | `String` | The hook's catalogue name, verbatim from `csFeatureHooks`. |
 | `note` | `String?` | Optional part-specific note. |
 
 #### CsTable

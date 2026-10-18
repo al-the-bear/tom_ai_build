@@ -3743,6 +3743,17 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
+    BindingParameterEntry,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as BindingParameterEntry;
+        return BindingParameterEntry()..content = n.content;
+      },
+      yamlScalar: (o) => (o as BindingParameterEntry).content,
+    ),
+  );
+  SpecRegistry.register(
     BiometricAuthenticationPolicy,
     SpecClassOps(
       slots: (o) {
@@ -18155,6 +18166,29 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
+    FeatureHookEntry,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as FeatureHookEntry;
+        return [
+          SpecSlot.list(
+            () => n.methods,
+            (v) => n.methods = v.cast<HookMethodEntry>(),
+            label: 'methods',
+            sectionId: 'FEHOM-METH-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as FeatureHookEntry;
+        return FeatureHookEntry()
+          ..content = n.content
+          ..methods = n.methods;
+      },
+      yamlScalar: (o) => (o as FeatureHookEntry).content,
+    ),
+  );
+  SpecRegistry.register(
     FeatureModuleEntry,
     SpecClassOps(
       slots: (o) {
@@ -19892,6 +19926,17 @@ void registerSpecOps() {
           ..disasterRecovery = n.disasterRecovery;
       },
       yamlScalar: (o) => (o as HighAvailabilityRequirements).content,
+    ),
+  );
+  SpecRegistry.register(
+    HookMethodEntry,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as HookMethodEntry;
+        return HookMethodEntry()..content = n.content;
+      },
+      yamlScalar: (o) => (o as HookMethodEntry).content,
     ),
   );
   SpecRegistry.register(
@@ -26587,6 +26632,29 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
+    OperationBindingEntry,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as OperationBindingEntry;
+        return [
+          SpecSlot.list(
+            () => n.parameters,
+            (v) => n.parameters = v.cast<BindingParameterEntry>(),
+            label: 'parameters',
+            sectionId: 'SVOBP-PARA-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as OperationBindingEntry;
+        return OperationBindingEntry()
+          ..content = n.content
+          ..parameters = n.parameters;
+      },
+      yamlScalar: (o) => (o as OperationBindingEntry).content,
+    ),
+  );
+  SpecRegistry.register(
     OperationalMonitoring,
     SpecClassOps(
       slots: (o) {
@@ -30182,6 +30250,29 @@ void registerSpecOps() {
         return ProtocolEntry()..content = n.content;
       },
       yamlScalar: (o) => (o as ProtocolEntry).content,
+    ),
+  );
+  SpecRegistry.register(
+    ProtocolFeatureEntry,
+    SpecClassOps(
+      slots: (o) {
+        final n = o as ProtocolFeatureEntry;
+        return [
+          SpecSlot.list(
+            () => n.hooks,
+            (v) => n.hooks = v.cast<FeatureHookEntry>(),
+            label: 'hooks',
+            sectionId: 'FEHOK-HOOK-LST',
+          ),
+        ];
+      },
+      cloneShallow: (o) {
+        final n = o as ProtocolFeatureEntry;
+        return ProtocolFeatureEntry()
+          ..content = n.content
+          ..hooks = n.hooks;
+      },
+      yamlScalar: (o) => (o as ProtocolFeatureEntry).content,
     ),
   );
   SpecRegistry.register(
@@ -36494,6 +36585,12 @@ void registerSpecOps() {
             label: 'responseMembers',
             sectionId: 'SVOPM-RESM-LST',
           ),
+          SpecSlot.list(
+            () => n.bindings,
+            (v) => n.bindings = v.cast<OperationBindingEntry>(),
+            label: 'bindings',
+            sectionId: 'SVOBI-BIND-LST',
+          ),
         ];
       },
       cloneShallow: (o) {
@@ -36502,7 +36599,8 @@ void registerSpecOps() {
           ..content = n.content
           ..authorization = n.authorization
           ..requestMembers = n.requestMembers
-          ..responseMembers = n.responseMembers;
+          ..responseMembers = n.responseMembers
+          ..bindings = n.bindings;
       },
       yamlScalar: (o) => (o as ServerOperationEntry).content,
     ),
@@ -36530,13 +36628,20 @@ void registerSpecOps() {
             label: 'operations',
             sectionId: 'SVOPE-OPER-LST',
           ),
+          SpecSlot.list(
+            () => n.protocolFeatures,
+            (v) => n.protocolFeatures = v.cast<ProtocolFeatureEntry>(),
+            label: 'protocolFeatures',
+            sectionId: 'PROTF-FEAT-LST',
+          ),
         ];
       },
       cloneShallow: (o) {
         final n = o as ServerOperationRegistry;
         return ServerOperationRegistry()
           ..content = n.content
-          ..operations = n.operations;
+          ..operations = n.operations
+          ..protocolFeatures = n.protocolFeatures;
       },
       yamlScalar: (o) => (o as ServerOperationRegistry).content,
     ),

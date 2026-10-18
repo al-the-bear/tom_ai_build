@@ -7,12 +7,14 @@
 /// is no `Cs*` base class to extend.
 ///
 /// The `CE-*` code named by each doc comment is the part's **stable registry
-/// key** (`codespecs_mapping.md` §4.1: never reused, never renamed); CE-DB is
-/// carried by three markers ([CsTable], [CsColumn], [CsRepository]), CE-NT by
-/// two ([CsNotification], [CsNotificationChannel]) and CE-RP by four
-/// ([CsReport], [CsReportColumn], [CsReportChart], [CsReportParameter]).
+/// key** (`codespecs_mapping.md` §4.1: never reused, never renamed); CE-API is
+/// carried by two markers ([CsEndpoint], [CsOperationBinding]), CE-SU by two
+/// ([CsServiceUnit], [CsFeatureHook]), CE-DB by three ([CsTable], [CsColumn],
+/// [CsRepository]), CE-NT by two ([CsNotification], [CsNotificationChannel])
+/// and CE-RP by four ([CsReport], [CsReportColumn], [CsReportChart],
+/// [CsReportParameter]).
 ///
-/// This file covers the sixteen server-side part markers, plus the one facet
+/// This file covers the eighteen server-side part markers, plus the one facet
 /// value class a marker carries ([CsFileReference] on [CsColumn]). Client/UI
 /// markers live in `element_annotations.dart`; shared markers in
 /// `contract_annotations.dart`. The closed catalogues these markers select from
@@ -76,6 +78,58 @@ class CsEndpoint {
   const CsEndpoint(this.operation, {this.note});
 }
 
+/// CE-API — a protocol binding of one of the application's own operations: a
+/// standard HTTP shape third-party callers reach the operation through
+/// (`codespecs_mapping.md` §5.30, `codespecs_derivation_contract.md` §3.4.5).
+///
+/// The second CE-API marker, beside [CsEndpoint]. An endpoint is the
+/// operation as the application's own client calls it — one POST per named
+/// operation under the `codespecs_mapping.md` §7 contract, which a binding does
+/// not touch. A binding is the same operation as an *outside* caller expects to
+/// find it: a method, a path template, a parameter mapping, a success status and
+/// headers, content types, an error format and a version prefix. Integrations
+/// are written against conventions the application did not choose, so the
+/// binding adapts the operation to the convention rather than the convention to
+/// the operation.
+///
+/// It marks a top-level const `TomOperationBinding` (from `tom_core_codespecs`)
+/// in the **server** project. The binding is a routing concern of the process
+/// that serves it, so neither the shared half nor the client ever sees it.
+class CsOperationBinding {
+  /// The operation this binding exposes.
+  ///
+  /// **Required, first positional**, and a [CsOperationRef] rather than a
+  /// string: unlike [CsEndpoint], this marker does not *declare* the
+  /// operation, it cites one the shared half already declared — so a renamed or
+  /// removed operation is a compile error here, not a binding to nothing.
+  final CsOperationRef operation;
+
+  /// Optional part-specific note.
+  final String? note;
+
+  /// Marks the annotated top-level const `TomOperationBinding` as a protocol
+  /// binding of [operation] (`codespecs_derivation_contract.md` §3.4.5).
+  ///
+  /// The binding's attributes — method, path template, parameter mapping,
+  /// success status and headers, content types, error format, version prefix —
+  /// are **that const's constructor arguments**, not this marker's
+  /// (`codespecs_derivation_contract.md` §2.3 test b: the substrate constructor
+  /// already takes them). The marker therefore carries only the operation it
+  /// binds and a note, and a second copy of the HTTP shape here would be the
+  /// disagreeing source `codespecs_derivation_contract.md` §2.3 exists to
+  /// prevent.
+  ///
+  /// An operation **may have several bindings** — one convention per
+  /// integration that needs it — and each is its own const with its own marker.
+  /// None of them changes the operation: it keeps its `codespecs_mapping.md` §7
+  /// POST for the application's own client, and a binding that would need a
+  /// different request or response shape is a different operation, not a
+  /// different binding. A binding may not declare a path inside a prefix a
+  /// [CsProtocolFeature] reserves ([csFeatureReservedPaths]): those paths belong
+  /// to the framework's protocol server.
+  const CsOperationBinding(this.operation, {this.note});
+}
+
 /// CE-SU — a service unit (a cohesive server-side service).
 class CsServiceUnit {
   /// The aggregate root the unit owns.
@@ -128,6 +182,58 @@ class CsServiceUnit {
     required this.boundedContext,
     this.note,
   });
+}
+
+/// CE-SU — the class implementing one hook of a framework protocol feature
+/// (`codespecs_mapping.md` §5.30, `codespecs_derivation_contract.md` §3.4.6).
+///
+/// A protocol feature is a `tom_core_server` standard protocol server the
+/// application enables — a SCIM 2.0 server, an OIDC authorization server. The
+/// framework owns the protocol: its paths, its wire format, its conformance.
+/// What it cannot own is where the application keeps the data the protocol
+/// speaks about, so it asks for that through hook contracts, and the
+/// application implements them.
+///
+/// This generalises `codespecs_mapping.md` §5.25's rule that the app's
+/// `TomAuthenticationService` implementation *is* the `@CsAuth` CodeSpec: the
+/// class implementing the framework contract **is** the CodeSpec. No wrapper
+/// declaration stands between the specification and the hook, because a
+/// wrapper would be a second place the hook's behaviour could be stated.
+class CsFeatureHook {
+  /// The protocol feature whose hook the class implements.
+  ///
+  /// **Required, first positional** — the feature decides which hook names
+  /// exist, so [hook] is meaningless without it.
+  final CsProtocolFeature feature;
+
+  /// The hook's catalogue name, verbatim from [csFeatureHooks].
+  ///
+  /// **Required, second positional**, and **never derived**: it is the key the
+  /// framework's contract is looked up by, so it is copied from the catalogue
+  /// and not re-cased from the class name (`codespecs_derivation_contract.md`
+  /// §2.1 N5). A string and not an enum because the catalogue is a table of
+  /// (feature, hook) pairs — an enum per feature would split one closed list
+  /// into several.
+  final String hook;
+
+  /// Optional part-specific note.
+  final String? note;
+
+  /// Marks the annotated class as the implementation of [hook] of [feature].
+  ///
+  /// The class implements the `tom_core` contract the catalogue entry names
+  /// ([CsFeatureHookSpec.contract]), and that contract is what fixes its method
+  /// set — which is why the marker carries no method list of its own. Its
+  /// bodies are **form-3b** bodies (`codespecs_derivation_contract.md`
+  /// §3.0.1): they call the application's named operations and repositories,
+  /// so the protocol is served from the same domain logic the application's
+  /// own client reaches, never from a parallel copy of it.
+  ///
+  /// An enabled feature is complete only when every hook the catalogue marks
+  /// [CsFeatureHookSpec.required] has an implementing class; a hook whose
+  /// [CsFeatureHookSpec.available] is `false` names a contract `tom_core` does
+  /// not ship yet (`codespecs_derivation_contract.md` §3.4.6).
+  const CsFeatureHook(this.feature, this.hook, {this.note});
 }
 
 /// CE-DB — a persistent table (a stored entity type, `codespecs_mapping.md`

@@ -845,6 +845,68 @@ class CsEnumMirror {
   });
 }
 
+/// One row of `tom_code_specs`' `csFeatureHooks` catalogue
+/// (`codespecs_derivation_contract.md` §3.4.6), as read from its source.
+///
+/// The validator's own copy of `CsFeatureHookSpec`: the two packages must not
+/// depend on each other, so the row is read as text and held here.
+class CsFeatureHookEntry {
+  /// The `CsProtocolFeature` constant name (`scim2Server`).
+  final String feature;
+
+  /// The hook's catalogue key, the string `@CsFeatureHook` carries verbatim.
+  final String hook;
+
+  /// The `tom_core` contract the hook implements.
+  final String contract;
+
+  /// Whether the feature cannot run without an implementation of this hook.
+  final bool required;
+
+  /// Whether `tom_core` ships [contract] today.
+  final bool available;
+
+  /// Creates a catalogue row.
+  const CsFeatureHookEntry({
+    required this.feature,
+    required this.hook,
+    required this.contract,
+    required this.required,
+    required this.available,
+  });
+}
+
+/// The framework protocol-feature catalogue checks 40 and 41 hold the trio
+/// against: `csFeatureHooks` and `csFeatureReservedPaths` of `tom_code_specs`'
+/// vocabulary (`codespecs_mapping.md` §5.30).
+///
+/// Supplied by the caller, like the mirror pairs of check 9, because it lives in
+/// a package the trio's reading does not include. `null` on
+/// [CodeSpecsValidationInput.featureCatalogue] means *not supplied*, and the two
+/// checks then report nothing — which the CLI announces as not run.
+class CsFeatureCatalogue {
+  /// Every hook of every feature, in catalogue order.
+  final List<CsFeatureHookEntry> hooks;
+
+  /// The path prefixes the framework serves, keyed by feature constant name.
+  final Map<String, List<String>> reservedPaths;
+
+  /// Creates a catalogue.
+  const CsFeatureCatalogue({required this.hooks, required this.reservedPaths});
+
+  /// The catalogue row for [hook] of [feature], or `null` when there is none.
+  CsFeatureHookEntry? entry(String feature, String hook) {
+    for (final e in hooks) {
+      if (e.feature == feature && e.hook == hook) return e;
+    }
+    return null;
+  }
+
+  /// The rows of [feature], in catalogue order.
+  Iterable<CsFeatureHookEntry> hooksOf(String feature) =>
+      hooks.where((e) => e.feature == feature);
+}
+
 /// A second generation run over the same spec model, for the determinism check.
 ///
 /// The only `codespecs_derivation_contract.md` §6 check whose subject is two
@@ -879,7 +941,7 @@ class CodeSpecsRegeneration {
   };
 }
 
-/// Everything the thirty-seven checks read.
+/// Everything the forty-one checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;
@@ -909,6 +971,11 @@ class CodeSpecsValidationInput {
   /// comment-source checks report nothing rather than guessing.
   final CsExtractSet extracts;
 
+  /// The framework protocol-feature catalogue, for the feature-hook and
+  /// reserved-path checks (40, 41). `null` when the caller supplied none, in
+  /// which case both report nothing rather than guessing.
+  final CsFeatureCatalogue? featureCatalogue;
+
   /// Creates a validation input.
   CodeSpecsValidationInput({
     required this.shared,
@@ -918,6 +985,7 @@ class CodeSpecsValidationInput {
     this.enumMirrors = const [],
     this.regeneration,
     CsExtractSet? extracts,
+    this.featureCatalogue,
   }) : extracts = extracts ?? CsExtractSet.empty;
 
   /// The three projects, in emission order.

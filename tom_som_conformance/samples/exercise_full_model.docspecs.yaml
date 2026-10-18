@@ -3768,6 +3768,32 @@ document:
                 content:
                   content: Exercise form preamble.
                   memberType: "Exercise value."
+            SVOBI-BIND-LST bindings:
+              SVOBI-BIND-1:
+                content:
+                  content: Exercise form preamble.
+                  httpMethod: "get"
+                  pathTemplate: "Exercise value."
+                SVOBP-PARA-LST parameters:
+                  SVOBP-PARA-1:
+                    content:
+                      content: Exercise form preamble.
+                      source: "path"
+                      requestMember: "Exercise value."
+        PROTF-FEAT-LST protocolFeatures:
+          PROTF-FEAT-1:
+            content:
+              content: Exercise form preamble.
+              feature: "oidcAuthorizationServer"
+            FEHOK-HOOK-LST hooks:
+              FEHOK-HOOK-1:
+                content:
+                  content: Exercise form preamble.
+                  hook: "Exercise value."
+                FEHOM-METH-LST methods:
+                  FEHOM-METH-1:
+                    content:
+                      content: Exercise form preamble.
       DMFU dataModelFollowUp:
         content: Exercise text.
         erDiagram:

@@ -66,7 +66,7 @@ layers of information on it:
 
 ```yaml
 dependencies:
-  tom_code_specs: ^0.13.0
+  tom_code_specs: ^0.15.0
 ```
 
 or
@@ -92,21 +92,22 @@ import.
 | `@CodeSpec(id, {source, requirements})` | Identity + forward doc → code trace (CE-TR) on a CodeSpec class | `codespecs_mapping.md` §9 |
 | `@DocSpec([DocRef(sectionId, description), …])` | Code → doc back-trace on a CodeSpec class/member | `codespecs_mapping.md` §9.3 |
 | `DocRef(sectionId, description)` | One back-trace entry | `codespecs_mapping.md` §9.3 |
-| `Cs*` annotation family (no base classes) — 39 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
+| `Cs*` annotation family (no base classes) — 41 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
 | `@CsCollaborator()` | The one marker that is **not** a part: the abstract collaborator a form-3b body calls | `codespecs_derivation_contract.md` §3.0.1 |
 | `Cs*Ref` typed cross-part references — 13 consts | Annotation *parameter* vocabulary: one const type per referenceable part | `codespecs_mapping.md` §5.23 |
-| The closed catalogues — 16 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
+| The closed catalogues — 17 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
+| The protocol-feature hook catalogue — `CsFeatureHookSpec`, `csFeatureHooks`, `csFeatureReservedPaths` | The hooks each `CsProtocolFeature` asks the app to implement, and the paths it reserves | `codespecs_derivation_contract.md` §3.4.6 |
 
 ### The `Cs*` family
 
 One marker file per concern. A part's `CE-*` code is its **stable registry
-key**, so several markers may share one code (CE-EL, CE-AC, CE-NV, CE-DB, CE-NT
-and CE-RP each have more than one).
+key**, so several markers may share one code (CE-EL, CE-AC, CE-NV, CE-API,
+CE-SU, CE-DB, CE-NT and CE-RP each have more than one).
 
 | File | Markers | Parts |
 |------|---------|-------|
 | `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
-| `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
+| `service_annotations.dart` | `@CsEndpoint`, `@CsOperationBinding`, `@CsServiceUnit`, `@CsFeatureHook`, `@CsTable`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API (endpoint + protocol binding), CE-SU (service unit + protocol-feature hook), CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
 | `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
 
@@ -174,7 +175,7 @@ fallback — which names a **sibling channel**. That is why the family has no
 
 ### The closed catalogues
 
-`vocabulary.dart` holds the sixteen enums a marker's arguments select from
+`vocabulary.dart` holds the seventeen enums a marker's arguments select from
 ([`codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
 §5.3). They are enums rather than strings for
 the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
@@ -194,6 +195,19 @@ edit, not by a specification inventing a value in passing.
 | `CsIdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
 | `CsOverridableBy` | `@CsServerConfig` / `@CsClientConfig` / `@CsUserSetting` `(overridableBy:)` |
 | `CsSensitivityLevel` | `@CsColumn(sensitivityLevel:)` |
+| `CsProtocolFeature` | `@CsFeatureHook(feature, …)` |
+
+Beside the enums sits the **protocol-feature hook catalogue**
+([`codespecs_derivation_contract.md`](../../core/tom_core_codespecs/doc/codespecs_derivation_contract.md)
+§3.4.6). A protocol feature is a `tom_core_server` standard protocol server the
+app enables (SCIM 2.0, an OIDC authorization server); the class implementing
+one of its hook contracts *is* the `@CsFeatureHook` CodeSpec.
+
+| Symbol | Role |
+|--------|------|
+| `CsFeatureHookSpec` | One hook: its feature, its catalogue name, the `tom_core` contract it implements, whether it is required, whether `tom_core` ships it today |
+| `csFeatureHooks` | Every hook of every feature — the name `@CsFeatureHook(feature, hook)` carries verbatim. The SCIM contracts exist in `tom_core_server`; the OIDC ones are requested and provisional |
+| `csFeatureReservedPaths` | The path prefixes the framework serves per feature, which no `@CsOperationBinding` may declare |
 
 Each is **declared here, not imported**: `tom_code_specs` deliberately does not
 depend on `tom_core` (`codespecs_mapping.md` §9.5), so every catalogue with a
@@ -292,12 +306,12 @@ tom_code_specs                       (depends only on tom_specs_core)
     ├── code_spec.dart               @CodeSpec — identity + forward trace
     ├── doc_spec.dart                @DocSpec / DocRef — back-trace
     ├── element_annotations.dart     14 client / UI markers
-    ├── service_annotations.dart     16 server markers
+    ├── service_annotations.dart     18 server markers
     ├── contract_annotations.dart     2 shared markers
     ├── client_settings_annotations.dart  7 client-app / config / identity markers
     ├── cs_collaborator.dart         @CsCollaborator — the one non-part marker
     ├── cross_part_refs.dart         13 typed cross-part reference consts
-    └── vocabulary.dart              16 closed catalogues + 2 facet value classes
+    └── vocabulary.dart              17 closed catalogues + the feature-hook catalogue
 
   Phase 3 documents ──@CodeSpecKind──▶ routing ──▶ per-area extract
                                                         │
@@ -317,10 +331,10 @@ tom_code_specs                       (depends only on tom_specs_core)
 | --- | --- |
 | `CodeSpec` | Identity of a CodeSpec class plus its forward trace to source sections and requirements. |
 | `DocSpec` / `DocRef` | The code → document back-trace: one entry per section that shaped the declaration. |
-| The 39 `Cs*` part markers | Say which catalogue part a declaration is, and carry that part's authored attributes. |
+| The 41 `Cs*` part markers | Say which catalogue part a declaration is, and carry that part's authored attributes. |
 | `CsCollaborator` | Marks the abstract collaborator a stub body calls — one per emitting top-level declaration; not a part. |
 | The 13 `Cs*Ref` consts | Typed cross-part references; distinct types with no shared supertype, so a wrong kind is a compile error. |
-| The 16 `vocabulary.dart` enums | The closed arms a marker's argument selects from — a value cannot be invented in passing. |
+| The 17 `vocabulary.dart` enums | The closed arms a marker's argument selects from — a value cannot be invented in passing. |
 | `CsFileReference`, `CsGradedAccess` | The two facet value classes, for arguments that are structures rather than scalars. |
 
 ### What lives in `tom_specs_core` instead
@@ -392,7 +406,7 @@ packages, as opposed to this package's own `example/`:
 | [doc/index.md](doc/index.md) | The catalogue of this package's documentation |
 | [doc/marking_code.md](doc/marking_code.md) | Applying `@CodeSpec`, the part markers and `@CsCollaborator` |
 | [doc/cross_references.md](doc/cross_references.md) | The typed `Cs*Ref` family and the `@DocSpec` back-links |
-| [doc/vocabulary.md](doc/vocabulary.md) | The sixteen closed catalogues and the per-kind slot rule |
+| [doc/vocabulary.md](doc/vocabulary.md) | The seventeen closed catalogues and the per-kind slot rule |
 | [doc/api/api_summary_index.md](doc/api/api_summary_index.md) | The per-module API summaries |
 
 **Siblings** — packages you will reach for next:
@@ -406,16 +420,16 @@ packages, as opposed to this package's own `example/`:
 
 ## Status
 
-Version **0.13.0**, published on pub.dev. Test suite: **87 tests, all passing**
+Version **0.15.0**. Test suite: **96 tests, all passing**
 (`dart test`).
 
-`@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family** plus
-`@CsCollaborator`, the **13-const `Cs*Ref` family** and the **16 closed
-catalogues** are declared — one marker (or marker group) for every active part in
+`@CodeSpec`, `@DocSpec`/`DocRef`, the **41-marker `Cs*` family** plus
+`@CsCollaborator`, the **13-const `Cs*Ref` family**, the **17 closed
+catalogues** and the protocol-feature hook catalogue are declared — one marker (or marker group) for every active part in
 the `codespecs_mapping.md` §4.1 catalogue, with no marker for a deferred one.
 `@CodeSpecKind` is list-valued.
 
-The family is a marker set **and** an attribute surface. **24 of the 40 markers
+The family is a marker set **and** an attribute surface. **26 of the 42 markers
 take arguments**, wired to `codespecs_mapping.md` §5's per-part spec-authorable
 surface; the other **16 carry a single optional `note`** — a design decision, not
 an omission, because everything their part authors is already carried by the

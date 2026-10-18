@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-18T12:17:56.251956 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-18T13:48:44.622162 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -127,6 +127,7 @@ class SomV0Bridge {
       _createBasicTechnicalRequirementsBridge(),
       _createBatchJobManagementBridge(),
       _createBehaviorRuleEntryBridge(),
+      _createBindingParameterEntryBridge(),
       _createBiometricAuthenticationPolicyBridge(),
       _createBoundaryAssumptionEntryBridge(),
       _createBoundaryAssumptionsBridge(),
@@ -474,6 +475,7 @@ class SomV0Bridge {
       _createFamilyComponentRefBridge(),
       _createFeatureDependenciesBridge(),
       _createFeatureDependencyEntryBridge(),
+      _createFeatureHookEntryBridge(),
       _createFeatureModuleEntryBridge(),
       _createFeaturePrioritizationBridge(),
       _createFeaturePriorityEntryBridge(),
@@ -525,6 +527,7 @@ class SomV0Bridge {
       _createHealthCheckEndpointsBridge(),
       _createHealthChecksAndDiagnosticsSectionBridge(),
       _createHighAvailabilityRequirementsBridge(),
+      _createHookMethodEntryBridge(),
       _createIdeRequirementEntryBridge(),
       _createIdentificationBridge(),
       _createIdentificationAndAuthenticationBridge(),
@@ -711,6 +714,7 @@ class SomV0Bridge {
       _createOnboardingHelpBridge(),
       _createOngoingTrainingEntryBridge(),
       _createOperatingEnvironmentBridge(),
+      _createOperationBindingEntryBridge(),
       _createOperationalMonitoringBridge(),
       _createOperationalPainPointsBridge(),
       _createOperationsRequirementsBridge(),
@@ -825,6 +829,7 @@ class SomV0Bridge {
       _createProjectTeamStaffingBridge(),
       _createProtocolComplianceRequirementsBridge(),
       _createProtocolEntryBridge(),
+      _createProtocolFeatureEntryBridge(),
       _createProtocolsAndStandardsSectionBridge(),
       _createPrototypeBridge(),
       _createPrototypeFeatureEntryBridge(),
@@ -1484,6 +1489,7 @@ class SomV0Bridge {
       _createBatchJobManagementExecutionFormBridge(),
       _createBatchJobManagementMonitoringFormBridge(),
       _createBehaviorRuleEntryContentFormBridge(),
+      _createBindingParameterEntryContentFormBridge(),
       _createBiometricAuthenticationPolicyContentFormBridge(),
       _createBoundaryAssumptionEntryContentFormBridge(),
       _createBoundaryAssumptionEntryRiskFormBridge(),
@@ -2299,6 +2305,7 @@ class SomV0Bridge {
       _createFamilyComponentRefContentFormBridge(),
       _createFeatureDependenciesContentFormBridge(),
       _createFeatureDependencyEntryContentFormBridge(),
+      _createFeatureHookEntryContentFormBridge(),
       _createFeatureModuleEntryConfigurationFormBridge(),
       _createFeatureModuleEntryContentFormBridge(),
       _createFeatureModuleEntryDependenciesFormBridge(),
@@ -2408,6 +2415,7 @@ class SomV0Bridge {
       _createHighAvailabilityRequirementsFailoverFormBridge(),
       _createHighAvailabilityRequirementsLoadBalancingFormBridge(),
       _createHighAvailabilityRequirementsRedundancyFormBridge(),
+      _createHookMethodEntryContentFormBridge(),
       _createIdeRequirementEntryConfigurationFormBridge(),
       _createIdeRequirementEntryContentFormBridge(),
       _createIdeRequirementEntryIntegrationFormBridge(),
@@ -2851,6 +2859,7 @@ class SomV0Bridge {
       _createOngoingTrainingEntryContentFormBridge(),
       _createOngoingTrainingEntryContentManagementFormBridge(),
       _createOngoingTrainingEntryScheduleFormBridge(),
+      _createOperationBindingEntryContentFormBridge(),
       _createOperationalMonitoringAlertingFormBridge(),
       _createOperationalMonitoringAutomationFormBridge(),
       _createOperationalMonitoringContentFormBridge(),
@@ -3051,6 +3060,7 @@ class SomV0Bridge {
       _createProtocolComplianceRequirementsEventsFormBridge(),
       _createProtocolComplianceRequirementsObservabilityFormBridge(),
       _createProtocolEntryContentFormBridge(),
+      _createProtocolFeatureEntryContentFormBridge(),
       _createPrototypeFeatureEntryContentFormBridge(),
       _createPrototypeFeatureSubsetFeatureSubsetContentFormBridge(),
       _createPrototypeFeatureSubsetFidelityFormBridge(),
@@ -4190,6 +4200,7 @@ class SomV0Bridge {
       _createBasicTechnicalRequirements$NavBridge(),
       _createBatchJobManagement$NavBridge(),
       _createBehaviorRuleEntry$NavBridge(),
+      _createBindingParameterEntry$NavBridge(),
       _createBiometricAuthenticationPolicy$NavBridge(),
       _createBoundaryAssumptionEntry$NavBridge(),
       _createBoundaryAssumptions$NavBridge(),
@@ -4538,6 +4549,7 @@ class SomV0Bridge {
       _createFamilyComponentRef$NavBridge(),
       _createFeatureDependencies$NavBridge(),
       _createFeatureDependencyEntry$NavBridge(),
+      _createFeatureHookEntry$NavBridge(),
       _createFeatureModuleEntry$NavBridge(),
       _createFeaturePrioritization$NavBridge(),
       _createFeaturePriorityEntry$NavBridge(),
@@ -4589,6 +4601,7 @@ class SomV0Bridge {
       _createHealthCheckEndpoints$NavBridge(),
       _createHealthChecksAndDiagnosticsSection$NavBridge(),
       _createHighAvailabilityRequirements$NavBridge(),
+      _createHookMethodEntry$NavBridge(),
       _createIdeRequirementEntry$NavBridge(),
       _createIdentification$NavBridge(),
       _createIdentificationAndAuthentication$NavBridge(),
@@ -4775,6 +4788,7 @@ class SomV0Bridge {
       _createOnboardingHelp$NavBridge(),
       _createOngoingTrainingEntry$NavBridge(),
       _createOperatingEnvironment$NavBridge(),
+      _createOperationBindingEntry$NavBridge(),
       _createOperationalMonitoring$NavBridge(),
       _createOperationalPainPoints$NavBridge(),
       _createOperationsRequirements$NavBridge(),
@@ -4889,6 +4903,7 @@ class SomV0Bridge {
       _createProjectTeamStaffing$NavBridge(),
       _createProtocolComplianceRequirements$NavBridge(),
       _createProtocolEntry$NavBridge(),
+      _createProtocolFeatureEntry$NavBridge(),
       _createProtocolsAndStandardsSection$NavBridge(),
       _createPrototype$NavBridge(),
       _createPrototypeFeatureEntry$NavBridge(),
@@ -5375,6 +5390,7 @@ class SomV0Bridge {
       _createAuthorizationRoleEntry$IdBridge(),
       _createBackupPolicyEntry$IdBridge(),
       _createBehaviorRuleEntry$IdBridge(),
+      _createBindingParameterEntry$IdBridge(),
       _createBoundaryAssumptionEntry$IdBridge(),
       _createBoundaryInteractionPatterns$IdBridge(),
       _createBoundedContextEntry$IdBridge(),
@@ -5529,6 +5545,7 @@ class SomV0Bridge {
       _createExternalSystemContextEntry$IdBridge(),
       _createFamilyComponentRef$IdBridge(),
       _createFeatureDependencyEntry$IdBridge(),
+      _createFeatureHookEntry$IdBridge(),
       _createFeatureModuleEntry$IdBridge(),
       _createFeaturePriorityEntry$IdBridge(),
       _createFeatureStageMapping$IdBridge(),
@@ -5549,6 +5566,7 @@ class SomV0Bridge {
       _createGoalRiskEntry$IdBridge(),
       _createGradedAccessLevelEntry$IdBridge(),
       _createHandlingRequirementEntry$IdBridge(),
+      _createHookMethodEntry$IdBridge(),
       _createIdeRequirementEntry$IdBridge(),
       _createIdentityAttributeMappingEntry$IdBridge(),
       _createIdentityProviderDetails$IdBridge(),
@@ -5621,6 +5639,7 @@ class SomV0Bridge {
       _createObjectOperationEntry$IdBridge(),
       _createObjectStateEntry$IdBridge(),
       _createOngoingTrainingEntry$IdBridge(),
+      _createOperationBindingEntry$IdBridge(),
       _createOrgChangeRisks$IdBridge(),
       _createOrgImplementationActivity$IdBridge(),
       _createOrganizationalChangeEntry$IdBridge(),
@@ -5665,6 +5684,7 @@ class SomV0Bridge {
       _createProcessTriggerEntry$IdBridge(),
       _createProgrammingLanguageEntry$IdBridge(),
       _createProtocolEntry$IdBridge(),
+      _createProtocolFeatureEntry$IdBridge(),
       _createPrototypeFeatureEntry$IdBridge(),
       _createPrototypeGoalEntry$IdBridge(),
       _createQualityCategoryEntry$IdBridge(),
@@ -5980,6 +6000,7 @@ class SomV0Bridge {
       'BasicTechnicalRequirements': _createBasicTechnicalRequirementsBridge,
       'BatchJobManagement': _createBatchJobManagementBridge,
       'BehaviorRuleEntry': _createBehaviorRuleEntryBridge,
+      'BindingParameterEntry': _createBindingParameterEntryBridge,
       'BiometricAuthenticationPolicy':
           _createBiometricAuthenticationPolicyBridge,
       'BoundaryAssumptionEntry': _createBoundaryAssumptionEntryBridge,
@@ -6359,6 +6380,7 @@ class SomV0Bridge {
       'FamilyComponentRef': _createFamilyComponentRefBridge,
       'FeatureDependencies': _createFeatureDependenciesBridge,
       'FeatureDependencyEntry': _createFeatureDependencyEntryBridge,
+      'FeatureHookEntry': _createFeatureHookEntryBridge,
       'FeatureModuleEntry': _createFeatureModuleEntryBridge,
       'FeaturePrioritization': _createFeaturePrioritizationBridge,
       'FeaturePriorityEntry': _createFeaturePriorityEntryBridge,
@@ -6414,6 +6436,7 @@ class SomV0Bridge {
       'HealthChecksAndDiagnosticsSection':
           _createHealthChecksAndDiagnosticsSectionBridge,
       'HighAvailabilityRequirements': _createHighAvailabilityRequirementsBridge,
+      'HookMethodEntry': _createHookMethodEntryBridge,
       'IdeRequirementEntry': _createIdeRequirementEntryBridge,
       'Identification': _createIdentificationBridge,
       'IdentificationAndAuthentication':
@@ -6618,6 +6641,7 @@ class SomV0Bridge {
       'OnboardingHelp': _createOnboardingHelpBridge,
       'OngoingTrainingEntry': _createOngoingTrainingEntryBridge,
       'OperatingEnvironment': _createOperatingEnvironmentBridge,
+      'OperationBindingEntry': _createOperationBindingEntryBridge,
       'OperationalMonitoring': _createOperationalMonitoringBridge,
       'OperationalPainPoints': _createOperationalPainPointsBridge,
       'OperationsRequirements': _createOperationsRequirementsBridge,
@@ -6745,6 +6769,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements':
           _createProtocolComplianceRequirementsBridge,
       'ProtocolEntry': _createProtocolEntryBridge,
+      'ProtocolFeatureEntry': _createProtocolFeatureEntryBridge,
       'ProtocolsAndStandardsSection': _createProtocolsAndStandardsSectionBridge,
       'Prototype': _createPrototypeBridge,
       'PrototypeFeatureEntry': _createPrototypeFeatureEntryBridge,
@@ -7604,6 +7629,8 @@ class SomV0Bridge {
       'BatchJobManagementMonitoringForm':
           _createBatchJobManagementMonitoringFormBridge,
       'BehaviorRuleEntryContentForm': _createBehaviorRuleEntryContentFormBridge,
+      'BindingParameterEntryContentForm':
+          _createBindingParameterEntryContentFormBridge,
       'BiometricAuthenticationPolicyContentForm':
           _createBiometricAuthenticationPolicyContentFormBridge,
       'BoundaryAssumptionEntryContentForm':
@@ -9127,6 +9154,7 @@ class SomV0Bridge {
           _createFeatureDependenciesContentFormBridge,
       'FeatureDependencyEntryContentForm':
           _createFeatureDependencyEntryContentFormBridge,
+      'FeatureHookEntryContentForm': _createFeatureHookEntryContentFormBridge,
       'FeatureModuleEntryConfigurationForm':
           _createFeatureModuleEntryConfigurationFormBridge,
       'FeatureModuleEntryContentForm':
@@ -9327,6 +9355,7 @@ class SomV0Bridge {
           _createHighAvailabilityRequirementsLoadBalancingFormBridge,
       'HighAvailabilityRequirementsRedundancyForm':
           _createHighAvailabilityRequirementsRedundancyFormBridge,
+      'HookMethodEntryContentForm': _createHookMethodEntryContentFormBridge,
       'IdeRequirementEntryConfigurationForm':
           _createIdeRequirementEntryConfigurationFormBridge,
       'IdeRequirementEntryContentForm':
@@ -10157,6 +10186,8 @@ class SomV0Bridge {
           _createOngoingTrainingEntryContentManagementFormBridge,
       'OngoingTrainingEntryScheduleForm':
           _createOngoingTrainingEntryScheduleFormBridge,
+      'OperationBindingEntryContentForm':
+          _createOperationBindingEntryContentFormBridge,
       'OperationalMonitoringAlertingForm':
           _createOperationalMonitoringAlertingFormBridge,
       'OperationalMonitoringAutomationForm':
@@ -10515,6 +10546,8 @@ class SomV0Bridge {
       'ProtocolComplianceRequirementsObservabilityForm':
           _createProtocolComplianceRequirementsObservabilityFormBridge,
       'ProtocolEntryContentForm': _createProtocolEntryContentFormBridge,
+      'ProtocolFeatureEntryContentForm':
+          _createProtocolFeatureEntryContentFormBridge,
       'PrototypeFeatureEntryContentForm':
           _createPrototypeFeatureEntryContentFormBridge,
       'PrototypeFeatureSubsetFeatureSubsetContentForm':
@@ -12463,6 +12496,7 @@ class SomV0Bridge {
           _createBasicTechnicalRequirements$NavBridge,
       'BatchJobManagement\$Nav': _createBatchJobManagement$NavBridge,
       'BehaviorRuleEntry\$Nav': _createBehaviorRuleEntry$NavBridge,
+      'BindingParameterEntry\$Nav': _createBindingParameterEntry$NavBridge,
       'BiometricAuthenticationPolicy\$Nav':
           _createBiometricAuthenticationPolicy$NavBridge,
       'BoundaryAssumptionEntry\$Nav': _createBoundaryAssumptionEntry$NavBridge,
@@ -12923,6 +12957,7 @@ class SomV0Bridge {
       'FamilyComponentRef\$Nav': _createFamilyComponentRef$NavBridge,
       'FeatureDependencies\$Nav': _createFeatureDependencies$NavBridge,
       'FeatureDependencyEntry\$Nav': _createFeatureDependencyEntry$NavBridge,
+      'FeatureHookEntry\$Nav': _createFeatureHookEntry$NavBridge,
       'FeatureModuleEntry\$Nav': _createFeatureModuleEntry$NavBridge,
       'FeaturePrioritization\$Nav': _createFeaturePrioritization$NavBridge,
       'FeaturePriorityEntry\$Nav': _createFeaturePriorityEntry$NavBridge,
@@ -12990,6 +13025,7 @@ class SomV0Bridge {
           _createHealthChecksAndDiagnosticsSection$NavBridge,
       'HighAvailabilityRequirements\$Nav':
           _createHighAvailabilityRequirements$NavBridge,
+      'HookMethodEntry\$Nav': _createHookMethodEntry$NavBridge,
       'IdeRequirementEntry\$Nav': _createIdeRequirementEntry$NavBridge,
       'Identification\$Nav': _createIdentification$NavBridge,
       'IdentificationAndAuthentication\$Nav':
@@ -13235,6 +13271,7 @@ class SomV0Bridge {
       'OnboardingHelp\$Nav': _createOnboardingHelp$NavBridge,
       'OngoingTrainingEntry\$Nav': _createOngoingTrainingEntry$NavBridge,
       'OperatingEnvironment\$Nav': _createOperatingEnvironment$NavBridge,
+      'OperationBindingEntry\$Nav': _createOperationBindingEntry$NavBridge,
       'OperationalMonitoring\$Nav': _createOperationalMonitoring$NavBridge,
       'OperationalPainPoints\$Nav': _createOperationalPainPoints$NavBridge,
       'OperationsRequirements\$Nav': _createOperationsRequirements$NavBridge,
@@ -13384,6 +13421,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements\$Nav':
           _createProtocolComplianceRequirements$NavBridge,
       'ProtocolEntry\$Nav': _createProtocolEntry$NavBridge,
+      'ProtocolFeatureEntry\$Nav': _createProtocolFeatureEntry$NavBridge,
       'ProtocolsAndStandardsSection\$Nav':
           _createProtocolsAndStandardsSection$NavBridge,
       'Prototype\$Nav': _createPrototype$NavBridge,
@@ -14006,6 +14044,7 @@ class SomV0Bridge {
       'AuthorizationRoleEntry\$Id': _createAuthorizationRoleEntry$IdBridge,
       'BackupPolicyEntry\$Id': _createBackupPolicyEntry$IdBridge,
       'BehaviorRuleEntry\$Id': _createBehaviorRuleEntry$IdBridge,
+      'BindingParameterEntry\$Id': _createBindingParameterEntry$IdBridge,
       'BoundaryAssumptionEntry\$Id': _createBoundaryAssumptionEntry$IdBridge,
       'BoundaryInteractionPatterns\$Id':
           _createBoundaryInteractionPatterns$IdBridge,
@@ -14201,6 +14240,7 @@ class SomV0Bridge {
           _createExternalSystemContextEntry$IdBridge,
       'FamilyComponentRef\$Id': _createFamilyComponentRef$IdBridge,
       'FeatureDependencyEntry\$Id': _createFeatureDependencyEntry$IdBridge,
+      'FeatureHookEntry\$Id': _createFeatureHookEntry$IdBridge,
       'FeatureModuleEntry\$Id': _createFeatureModuleEntry$IdBridge,
       'FeaturePriorityEntry\$Id': _createFeaturePriorityEntry$IdBridge,
       'FeatureStageMapping\$Id': _createFeatureStageMapping$IdBridge,
@@ -14224,6 +14264,7 @@ class SomV0Bridge {
       'GoalRiskEntry\$Id': _createGoalRiskEntry$IdBridge,
       'GradedAccessLevelEntry\$Id': _createGradedAccessLevelEntry$IdBridge,
       'HandlingRequirementEntry\$Id': _createHandlingRequirementEntry$IdBridge,
+      'HookMethodEntry\$Id': _createHookMethodEntry$IdBridge,
       'IdeRequirementEntry\$Id': _createIdeRequirementEntry$IdBridge,
       'IdentityAttributeMappingEntry\$Id':
           _createIdentityAttributeMappingEntry$IdBridge,
@@ -14309,6 +14350,7 @@ class SomV0Bridge {
       'ObjectOperationEntry\$Id': _createObjectOperationEntry$IdBridge,
       'ObjectStateEntry\$Id': _createObjectStateEntry$IdBridge,
       'OngoingTrainingEntry\$Id': _createOngoingTrainingEntry$IdBridge,
+      'OperationBindingEntry\$Id': _createOperationBindingEntry$IdBridge,
       'OrgChangeRisks\$Id': _createOrgChangeRisks$IdBridge,
       'OrgImplementationActivity\$Id':
           _createOrgImplementationActivity$IdBridge,
@@ -14360,6 +14402,7 @@ class SomV0Bridge {
       'ProcessTriggerEntry\$Id': _createProcessTriggerEntry$IdBridge,
       'ProgrammingLanguageEntry\$Id': _createProgrammingLanguageEntry$IdBridge,
       'ProtocolEntry\$Id': _createProtocolEntry$IdBridge,
+      'ProtocolFeatureEntry\$Id': _createProtocolFeatureEntry$IdBridge,
       'PrototypeFeatureEntry\$Id': _createPrototypeFeatureEntry$IdBridge,
       'PrototypeGoalEntry\$Id': _createPrototypeGoalEntry$IdBridge,
       'QualityCategoryEntry\$Id': _createQualityCategoryEntry$IdBridge,
@@ -14727,6 +14770,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.BasicTechnicalRequirements,
       'BatchJobManagement': $tom_som_dart_v0_1.BatchJobManagement,
       'BehaviorRuleEntry': $tom_som_dart_v0_1.BehaviorRuleEntry,
+      'BindingParameterEntry': $tom_som_dart_v0_1.BindingParameterEntry,
       'BiometricAuthenticationPolicy':
           $tom_som_dart_v0_1.BiometricAuthenticationPolicy,
       'BoundaryAssumptionEntry': $tom_som_dart_v0_1.BoundaryAssumptionEntry,
@@ -15152,6 +15196,7 @@ class SomV0Bridge {
       'FamilyComponentRef': $tom_som_dart_v0_1.FamilyComponentRef,
       'FeatureDependencies': $tom_som_dart_v0_1.FeatureDependencies,
       'FeatureDependencyEntry': $tom_som_dart_v0_1.FeatureDependencyEntry,
+      'FeatureHookEntry': $tom_som_dart_v0_1.FeatureHookEntry,
       'FeatureModuleEntry': $tom_som_dart_v0_1.FeatureModuleEntry,
       'FeaturePrioritization': $tom_som_dart_v0_1.FeaturePrioritization,
       'FeaturePriorityEntry': $tom_som_dart_v0_1.FeaturePriorityEntry,
@@ -15213,6 +15258,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.HealthChecksAndDiagnosticsSection,
       'HighAvailabilityRequirements':
           $tom_som_dart_v0_1.HighAvailabilityRequirements,
+      'HookMethodEntry': $tom_som_dart_v0_1.HookMethodEntry,
       'IdeRequirementEntry': $tom_som_dart_v0_1.IdeRequirementEntry,
       'Identification': $tom_som_dart_v0_1.Identification,
       'IdentificationAndAuthentication':
@@ -15439,6 +15485,7 @@ class SomV0Bridge {
       'OnboardingHelp': $tom_som_dart_v0_1.OnboardingHelp,
       'OngoingTrainingEntry': $tom_som_dart_v0_1.OngoingTrainingEntry,
       'OperatingEnvironment': $tom_som_dart_v0_1.OperatingEnvironment,
+      'OperationBindingEntry': $tom_som_dart_v0_1.OperationBindingEntry,
       'OperationalMonitoring': $tom_som_dart_v0_1.OperationalMonitoring,
       'OperationalPainPoints': $tom_som_dart_v0_1.OperationalPainPoints,
       'OperationsRequirements': $tom_som_dart_v0_1.OperationsRequirements,
@@ -15576,6 +15623,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements':
           $tom_som_dart_v0_1.ProtocolComplianceRequirements,
       'ProtocolEntry': $tom_som_dart_v0_1.ProtocolEntry,
+      'ProtocolFeatureEntry': $tom_som_dart_v0_1.ProtocolFeatureEntry,
       'ProtocolsAndStandardsSection':
           $tom_som_dart_v0_1.ProtocolsAndStandardsSection,
       'Prototype': $tom_som_dart_v0_1.Prototype,
@@ -16503,6 +16551,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.BatchJobManagementMonitoringForm,
       'BehaviorRuleEntryContentForm':
           $tom_som_dart_v0_1.BehaviorRuleEntryContentForm,
+      'BindingParameterEntryContentForm':
+          $tom_som_dart_v0_1.BindingParameterEntryContentForm,
       'BiometricAuthenticationPolicyContentForm':
           $tom_som_dart_v0_1.BiometricAuthenticationPolicyContentForm,
       'BoundaryAssumptionEntryContentForm':
@@ -18104,6 +18154,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.FeatureDependenciesContentForm,
       'FeatureDependencyEntryContentForm':
           $tom_som_dart_v0_1.FeatureDependencyEntryContentForm,
+      'FeatureHookEntryContentForm':
+          $tom_som_dart_v0_1.FeatureHookEntryContentForm,
       'FeatureModuleEntryConfigurationForm':
           $tom_som_dart_v0_1.FeatureModuleEntryConfigurationForm,
       'FeatureModuleEntryContentForm':
@@ -18310,6 +18362,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.HighAvailabilityRequirementsLoadBalancingForm,
       'HighAvailabilityRequirementsRedundancyForm':
           $tom_som_dart_v0_1.HighAvailabilityRequirementsRedundancyForm,
+      'HookMethodEntryContentForm':
+          $tom_som_dart_v0_1.HookMethodEntryContentForm,
       'IdeRequirementEntryConfigurationForm':
           $tom_som_dart_v0_1.IdeRequirementEntryConfigurationForm,
       'IdeRequirementEntryContentForm':
@@ -19184,6 +19238,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.OngoingTrainingEntryContentManagementForm,
       'OngoingTrainingEntryScheduleForm':
           $tom_som_dart_v0_1.OngoingTrainingEntryScheduleForm,
+      'OperationBindingEntryContentForm':
+          $tom_som_dart_v0_1.OperationBindingEntryContentForm,
       'OperationalMonitoringAlertingForm':
           $tom_som_dart_v0_1.OperationalMonitoringAlertingForm,
       'OperationalMonitoringAutomationForm':
@@ -19573,6 +19629,8 @@ class SomV0Bridge {
       'ProtocolComplianceRequirementsObservabilityForm':
           $tom_som_dart_v0_1.ProtocolComplianceRequirementsObservabilityForm,
       'ProtocolEntryContentForm': $tom_som_dart_v0_1.ProtocolEntryContentForm,
+      'ProtocolFeatureEntryContentForm':
+          $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm,
       'PrototypeFeatureEntryContentForm':
           $tom_som_dart_v0_1.PrototypeFeatureEntryContentForm,
       'PrototypeFeatureSubsetFeatureSubsetContentForm':
@@ -21695,6 +21753,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.BasicTechnicalRequirements$Nav,
       'BatchJobManagement\$Nav': $tom_som_dart_v0_2.BatchJobManagement$Nav,
       'BehaviorRuleEntry\$Nav': $tom_som_dart_v0_2.BehaviorRuleEntry$Nav,
+      'BindingParameterEntry\$Nav':
+          $tom_som_dart_v0_2.BindingParameterEntry$Nav,
       'BiometricAuthenticationPolicy\$Nav':
           $tom_som_dart_v0_2.BiometricAuthenticationPolicy$Nav,
       'BoundaryAssumptionEntry\$Nav':
@@ -22228,6 +22288,7 @@ class SomV0Bridge {
       'FeatureDependencies\$Nav': $tom_som_dart_v0_2.FeatureDependencies$Nav,
       'FeatureDependencyEntry\$Nav':
           $tom_som_dart_v0_2.FeatureDependencyEntry$Nav,
+      'FeatureHookEntry\$Nav': $tom_som_dart_v0_2.FeatureHookEntry$Nav,
       'FeatureModuleEntry\$Nav': $tom_som_dart_v0_2.FeatureModuleEntry$Nav,
       'FeaturePrioritization\$Nav':
           $tom_som_dart_v0_2.FeaturePrioritization$Nav,
@@ -22303,6 +22364,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.HealthChecksAndDiagnosticsSection$Nav,
       'HighAvailabilityRequirements\$Nav':
           $tom_som_dart_v0_2.HighAvailabilityRequirements$Nav,
+      'HookMethodEntry\$Nav': $tom_som_dart_v0_2.HookMethodEntry$Nav,
       'IdeRequirementEntry\$Nav': $tom_som_dart_v0_2.IdeRequirementEntry$Nav,
       'Identification\$Nav': $tom_som_dart_v0_2.Identification$Nav,
       'IdentificationAndAuthentication\$Nav':
@@ -22591,6 +22653,8 @@ class SomV0Bridge {
       'OnboardingHelp\$Nav': $tom_som_dart_v0_2.OnboardingHelp$Nav,
       'OngoingTrainingEntry\$Nav': $tom_som_dart_v0_2.OngoingTrainingEntry$Nav,
       'OperatingEnvironment\$Nav': $tom_som_dart_v0_2.OperatingEnvironment$Nav,
+      'OperationBindingEntry\$Nav':
+          $tom_som_dart_v0_2.OperationBindingEntry$Nav,
       'OperationalMonitoring\$Nav':
           $tom_som_dart_v0_2.OperationalMonitoring$Nav,
       'OperationalPainPoints\$Nav':
@@ -22762,6 +22826,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements\$Nav':
           $tom_som_dart_v0_2.ProtocolComplianceRequirements$Nav,
       'ProtocolEntry\$Nav': $tom_som_dart_v0_2.ProtocolEntry$Nav,
+      'ProtocolFeatureEntry\$Nav': $tom_som_dart_v0_2.ProtocolFeatureEntry$Nav,
       'ProtocolsAndStandardsSection\$Nav':
           $tom_som_dart_v0_2.ProtocolsAndStandardsSection$Nav,
       'Prototype\$Nav': $tom_som_dart_v0_2.Prototype$Nav,
@@ -23473,6 +23538,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.AuthorizationRoleEntry$Id,
       'BackupPolicyEntry\$Id': $tom_som_dart_v0_2.BackupPolicyEntry$Id,
       'BehaviorRuleEntry\$Id': $tom_som_dart_v0_2.BehaviorRuleEntry$Id,
+      'BindingParameterEntry\$Id': $tom_som_dart_v0_2.BindingParameterEntry$Id,
       'BoundaryAssumptionEntry\$Id':
           $tom_som_dart_v0_2.BoundaryAssumptionEntry$Id,
       'BoundaryInteractionPatterns\$Id':
@@ -23702,6 +23768,7 @@ class SomV0Bridge {
       'FamilyComponentRef\$Id': $tom_som_dart_v0_2.FamilyComponentRef$Id,
       'FeatureDependencyEntry\$Id':
           $tom_som_dart_v0_2.FeatureDependencyEntry$Id,
+      'FeatureHookEntry\$Id': $tom_som_dart_v0_2.FeatureHookEntry$Id,
       'FeatureModuleEntry\$Id': $tom_som_dart_v0_2.FeatureModuleEntry$Id,
       'FeaturePriorityEntry\$Id': $tom_som_dart_v0_2.FeaturePriorityEntry$Id,
       'FeatureStageMapping\$Id': $tom_som_dart_v0_2.FeatureStageMapping$Id,
@@ -23729,6 +23796,7 @@ class SomV0Bridge {
           $tom_som_dart_v0_2.GradedAccessLevelEntry$Id,
       'HandlingRequirementEntry\$Id':
           $tom_som_dart_v0_2.HandlingRequirementEntry$Id,
+      'HookMethodEntry\$Id': $tom_som_dart_v0_2.HookMethodEntry$Id,
       'IdeRequirementEntry\$Id': $tom_som_dart_v0_2.IdeRequirementEntry$Id,
       'IdentityAttributeMappingEntry\$Id':
           $tom_som_dart_v0_2.IdentityAttributeMappingEntry$Id,
@@ -23830,6 +23898,7 @@ class SomV0Bridge {
       'ObjectOperationEntry\$Id': $tom_som_dart_v0_2.ObjectOperationEntry$Id,
       'ObjectStateEntry\$Id': $tom_som_dart_v0_2.ObjectStateEntry$Id,
       'OngoingTrainingEntry\$Id': $tom_som_dart_v0_2.OngoingTrainingEntry$Id,
+      'OperationBindingEntry\$Id': $tom_som_dart_v0_2.OperationBindingEntry$Id,
       'OrgChangeRisks\$Id': $tom_som_dart_v0_2.OrgChangeRisks$Id,
       'OrgImplementationActivity\$Id':
           $tom_som_dart_v0_2.OrgImplementationActivity$Id,
@@ -23890,6 +23959,7 @@ class SomV0Bridge {
       'ProgrammingLanguageEntry\$Id':
           $tom_som_dart_v0_2.ProgrammingLanguageEntry$Id,
       'ProtocolEntry\$Id': $tom_som_dart_v0_2.ProtocolEntry$Id,
+      'ProtocolFeatureEntry\$Id': $tom_som_dart_v0_2.ProtocolFeatureEntry$Id,
       'PrototypeFeatureEntry\$Id': $tom_som_dart_v0_2.PrototypeFeatureEntry$Id,
       'PrototypeGoalEntry\$Id': $tom_som_dart_v0_2.PrototypeGoalEntry$Id,
       'QualityCategoryEntry\$Id': $tom_som_dart_v0_2.QualityCategoryEntry$Id,
@@ -24308,6 +24378,7 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BatchJobManagement': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BehaviorRuleEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BindingParameterEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BiometricAuthenticationPolicy':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BoundaryAssumptionEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -24767,6 +24838,7 @@ class SomV0Bridge {
       'FamilyComponentRef': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureDependencies': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureDependencyEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'FeatureHookEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureModuleEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeaturePrioritization': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeaturePriorityEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -24834,6 +24906,7 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'HighAvailabilityRequirements':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'HookMethodEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'IdeRequirementEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Identification': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'IdentificationAndAuthentication':
@@ -25079,6 +25152,7 @@ class SomV0Bridge {
       'OnboardingHelp': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OngoingTrainingEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperatingEnvironment': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'OperationBindingEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperationalMonitoring': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperationalPainPoints': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperationsRequirements': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -25228,6 +25302,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProtocolEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ProtocolFeatureEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProtocolsAndStandardsSection':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Prototype': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -26218,6 +26293,8 @@ class SomV0Bridge {
       'BatchJobManagementMonitoringForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BehaviorRuleEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BindingParameterEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BiometricAuthenticationPolicyContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -27840,6 +27917,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureDependencyEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'FeatureHookEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureModuleEntryConfigurationForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FeatureModuleEntryContentForm':
@@ -28051,6 +28130,8 @@ class SomV0Bridge {
       'HighAvailabilityRequirementsLoadBalancingForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'HighAvailabilityRequirementsRedundancyForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'HookMethodEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'IdeRequirementEntryConfigurationForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -28933,6 +29014,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OngoingTrainingEntryScheduleForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'OperationBindingEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperationalMonitoringAlertingForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'OperationalMonitoringAutomationForm':
@@ -29327,6 +29410,8 @@ class SomV0Bridge {
       'ProtocolComplianceRequirementsObservabilityForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProtocolEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ProtocolFeatureEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'PrototypeFeatureEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -31537,6 +31622,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BehaviorRuleEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'BindingParameterEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BiometricAuthenticationPolicy\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BoundaryAssumptionEntry\$Nav':
@@ -32218,6 +32305,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeatureDependencyEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'FeatureHookEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeatureModuleEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeaturePrioritization\$Nav':
@@ -32310,6 +32399,8 @@ class SomV0Bridge {
       'HealthChecksAndDiagnosticsSection\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'HighAvailabilityRequirements\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'HookMethodEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'IdeRequirementEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -32674,6 +32765,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OperatingEnvironment\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'OperationBindingEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OperationalMonitoring\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OperationalPainPoints\$Nav':
@@ -32893,6 +32986,8 @@ class SomV0Bridge {
       'ProtocolComplianceRequirements\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'ProtocolEntry\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ProtocolFeatureEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'ProtocolsAndStandardsSection\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'Prototype\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -33816,6 +33911,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BehaviorRuleEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'BindingParameterEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BoundaryAssumptionEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'BoundaryInteractionPatterns\$Id':
@@ -34118,6 +34215,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeatureDependencyEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'FeatureHookEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeatureModuleEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'FeaturePriorityEntry\$Id':
@@ -34152,6 +34251,8 @@ class SomV0Bridge {
       'GradedAccessLevelEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'HandlingRequirementEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'HookMethodEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'IdeRequirementEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -34292,6 +34393,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OngoingTrainingEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'OperationBindingEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OrgChangeRisks\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'OrgImplementationActivity\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -34375,6 +34478,8 @@ class SomV0Bridge {
       'ProgrammingLanguageEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'ProtocolEntry\$Id': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'ProtocolFeatureEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'PrototypeFeatureEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'PrototypeGoalEntry\$Id':
@@ -34867,6 +34972,7 @@ class SomV0Bridge {
       'BasicTechnicalRequirements': ['SomNode'],
       'BatchJobManagement': ['SomNode'],
       'BehaviorRuleEntry': ['SomNode'],
+      'BindingParameterEntry': ['SomNode'],
       'BiometricAuthenticationPolicy': ['SomNode'],
       'BoundaryAssumptionEntry': ['SomNode'],
       'BoundaryAssumptions': ['SomNode'],
@@ -35214,6 +35320,7 @@ class SomV0Bridge {
       'FamilyComponentRef': ['SomNode'],
       'FeatureDependencies': ['SomNode'],
       'FeatureDependencyEntry': ['SomNode'],
+      'FeatureHookEntry': ['SomNode'],
       'FeatureModuleEntry': ['SomNode'],
       'FeaturePrioritization': ['SomNode'],
       'FeaturePriorityEntry': ['SomNode'],
@@ -35265,6 +35372,7 @@ class SomV0Bridge {
       'HealthCheckEndpoints': ['SomNode'],
       'HealthChecksAndDiagnosticsSection': ['SomNode'],
       'HighAvailabilityRequirements': ['SomNode'],
+      'HookMethodEntry': ['SomNode'],
       'IdeRequirementEntry': ['SomNode'],
       'Identification': ['SomNode'],
       'IdentificationAndAuthentication': ['SomNode'],
@@ -35451,6 +35559,7 @@ class SomV0Bridge {
       'OnboardingHelp': ['SomNode'],
       'OngoingTrainingEntry': ['SomNode'],
       'OperatingEnvironment': ['SomNode'],
+      'OperationBindingEntry': ['SomNode'],
       'OperationalMonitoring': ['SomNode'],
       'OperationalPainPoints': ['SomNode'],
       'OperationsRequirements': ['SomNode'],
@@ -35565,6 +35674,7 @@ class SomV0Bridge {
       'ProjectTeamStaffing': ['SomNode'],
       'ProtocolComplianceRequirements': ['SomNode'],
       'ProtocolEntry': ['SomNode'],
+      'ProtocolFeatureEntry': ['SomNode'],
       'ProtocolsAndStandardsSection': ['SomNode'],
       'Prototype': ['SomNode'],
       'PrototypeFeatureEntry': ['SomNode'],
@@ -36224,6 +36334,7 @@ class SomV0Bridge {
       'BatchJobManagementExecutionForm': ['SomNode'],
       'BatchJobManagementMonitoringForm': ['SomNode'],
       'BehaviorRuleEntryContentForm': ['SomNode'],
+      'BindingParameterEntryContentForm': ['SomNode'],
       'BiometricAuthenticationPolicyContentForm': ['SomNode'],
       'BoundaryAssumptionEntryContentForm': ['SomNode'],
       'BoundaryAssumptionEntryRiskForm': ['SomNode'],
@@ -37041,6 +37152,7 @@ class SomV0Bridge {
       'FamilyComponentRefContentForm': ['SomNode'],
       'FeatureDependenciesContentForm': ['SomNode'],
       'FeatureDependencyEntryContentForm': ['SomNode'],
+      'FeatureHookEntryContentForm': ['SomNode'],
       'FeatureModuleEntryConfigurationForm': ['SomNode'],
       'FeatureModuleEntryContentForm': ['SomNode'],
       'FeatureModuleEntryDependenciesForm': ['SomNode'],
@@ -37152,6 +37264,7 @@ class SomV0Bridge {
       'HighAvailabilityRequirementsFailoverForm': ['SomNode'],
       'HighAvailabilityRequirementsLoadBalancingForm': ['SomNode'],
       'HighAvailabilityRequirementsRedundancyForm': ['SomNode'],
+      'HookMethodEntryContentForm': ['SomNode'],
       'IdeRequirementEntryConfigurationForm': ['SomNode'],
       'IdeRequirementEntryContentForm': ['SomNode'],
       'IdeRequirementEntryIntegrationForm': ['SomNode'],
@@ -37597,6 +37710,7 @@ class SomV0Bridge {
       'OngoingTrainingEntryContentForm': ['SomNode'],
       'OngoingTrainingEntryContentManagementForm': ['SomNode'],
       'OngoingTrainingEntryScheduleForm': ['SomNode'],
+      'OperationBindingEntryContentForm': ['SomNode'],
       'OperationalMonitoringAlertingForm': ['SomNode'],
       'OperationalMonitoringAutomationForm': ['SomNode'],
       'OperationalMonitoringContentForm': ['SomNode'],
@@ -37799,6 +37913,7 @@ class SomV0Bridge {
       'ProtocolComplianceRequirementsEventsForm': ['SomNode'],
       'ProtocolComplianceRequirementsObservabilityForm': ['SomNode'],
       'ProtocolEntryContentForm': ['SomNode'],
+      'ProtocolFeatureEntryContentForm': ['SomNode'],
       'PrototypeFeatureEntryContentForm': ['SomNode'],
       'PrototypeFeatureSubsetFeatureSubsetContentForm': ['SomNode'],
       'PrototypeFeatureSubsetFidelityForm': ['SomNode'],
@@ -38937,6 +39052,7 @@ class SomV0Bridge {
       'BasicTechnicalRequirements\$Nav': ['SomMetaRef'],
       'BatchJobManagement\$Nav': ['SomMetaRef'],
       'BehaviorRuleEntry\$Nav': ['SomMetaRef'],
+      'BindingParameterEntry\$Nav': ['SomMetaRef'],
       'BiometricAuthenticationPolicy\$Nav': ['SomMetaRef'],
       'BoundaryAssumptionEntry\$Nav': ['SomMetaRef'],
       'BoundaryAssumptions\$Nav': ['SomMetaRef'],
@@ -39285,6 +39401,7 @@ class SomV0Bridge {
       'FamilyComponentRef\$Nav': ['SomMetaRef'],
       'FeatureDependencies\$Nav': ['SomMetaRef'],
       'FeatureDependencyEntry\$Nav': ['SomMetaRef'],
+      'FeatureHookEntry\$Nav': ['SomMetaRef'],
       'FeatureModuleEntry\$Nav': ['SomMetaRef'],
       'FeaturePrioritization\$Nav': ['SomMetaRef'],
       'FeaturePriorityEntry\$Nav': ['SomMetaRef'],
@@ -39336,6 +39453,7 @@ class SomV0Bridge {
       'HealthCheckEndpoints\$Nav': ['SomMetaRef'],
       'HealthChecksAndDiagnosticsSection\$Nav': ['SomMetaRef'],
       'HighAvailabilityRequirements\$Nav': ['SomMetaRef'],
+      'HookMethodEntry\$Nav': ['SomMetaRef'],
       'IdeRequirementEntry\$Nav': ['SomMetaRef'],
       'Identification\$Nav': ['SomMetaRef'],
       'IdentificationAndAuthentication\$Nav': ['SomMetaRef'],
@@ -39522,6 +39640,7 @@ class SomV0Bridge {
       'OnboardingHelp\$Nav': ['SomMetaRef'],
       'OngoingTrainingEntry\$Nav': ['SomMetaRef'],
       'OperatingEnvironment\$Nav': ['SomMetaRef'],
+      'OperationBindingEntry\$Nav': ['SomMetaRef'],
       'OperationalMonitoring\$Nav': ['SomMetaRef'],
       'OperationalPainPoints\$Nav': ['SomMetaRef'],
       'OperationsRequirements\$Nav': ['SomMetaRef'],
@@ -39636,6 +39755,7 @@ class SomV0Bridge {
       'ProjectTeamStaffing\$Nav': ['SomMetaRef'],
       'ProtocolComplianceRequirements\$Nav': ['SomMetaRef'],
       'ProtocolEntry\$Nav': ['SomMetaRef'],
+      'ProtocolFeatureEntry\$Nav': ['SomMetaRef'],
       'ProtocolsAndStandardsSection\$Nav': ['SomMetaRef'],
       'Prototype\$Nav': ['SomMetaRef'],
       'PrototypeFeatureEntry\$Nav': ['SomMetaRef'],
@@ -40122,6 +40242,7 @@ class SomV0Bridge {
       'AuthorizationRoleEntry\$Id': ['SomMetaRef'],
       'BackupPolicyEntry\$Id': ['SomMetaRef'],
       'BehaviorRuleEntry\$Id': ['SomMetaRef'],
+      'BindingParameterEntry\$Id': ['SomMetaRef'],
       'BoundaryAssumptionEntry\$Id': ['SomMetaRef'],
       'BoundaryInteractionPatterns\$Id': ['SomMetaRef'],
       'BoundedContextEntry\$Id': ['SomMetaRef'],
@@ -40276,6 +40397,7 @@ class SomV0Bridge {
       'ExternalSystemContextEntry\$Id': ['SomMetaRef'],
       'FamilyComponentRef\$Id': ['SomMetaRef'],
       'FeatureDependencyEntry\$Id': ['SomMetaRef'],
+      'FeatureHookEntry\$Id': ['SomMetaRef'],
       'FeatureModuleEntry\$Id': ['SomMetaRef'],
       'FeaturePriorityEntry\$Id': ['SomMetaRef'],
       'FeatureStageMapping\$Id': ['SomMetaRef'],
@@ -40296,6 +40418,7 @@ class SomV0Bridge {
       'GoalRiskEntry\$Id': ['SomMetaRef'],
       'GradedAccessLevelEntry\$Id': ['SomMetaRef'],
       'HandlingRequirementEntry\$Id': ['SomMetaRef'],
+      'HookMethodEntry\$Id': ['SomMetaRef'],
       'IdeRequirementEntry\$Id': ['SomMetaRef'],
       'IdentityAttributeMappingEntry\$Id': ['SomMetaRef'],
       'IdentityProviderDetails\$Id': ['SomMetaRef'],
@@ -40368,6 +40491,7 @@ class SomV0Bridge {
       'ObjectOperationEntry\$Id': ['SomMetaRef'],
       'ObjectStateEntry\$Id': ['SomMetaRef'],
       'OngoingTrainingEntry\$Id': ['SomMetaRef'],
+      'OperationBindingEntry\$Id': ['SomMetaRef'],
       'OrgChangeRisks\$Id': ['SomMetaRef'],
       'OrgImplementationActivity\$Id': ['SomMetaRef'],
       'OrganizationalChangeEntry\$Id': ['SomMetaRef'],
@@ -40412,6 +40536,7 @@ class SomV0Bridge {
       'ProcessTriggerEntry\$Id': ['SomMetaRef'],
       'ProgrammingLanguageEntry\$Id': ['SomMetaRef'],
       'ProtocolEntry\$Id': ['SomMetaRef'],
+      'ProtocolFeatureEntry\$Id': ['SomMetaRef'],
       'PrototypeFeatureEntry\$Id': ['SomMetaRef'],
       'PrototypeGoalEntry\$Id': ['SomMetaRef'],
       'QualityCategoryEntry\$Id': ['SomMetaRef'],
@@ -40651,6 +40776,18 @@ class SomV0Bridge {
         name: 'BasicAuthorizationRequirementKind',
         values: $tom_som_dart_v0_1.BasicAuthorizationRequirementKind.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.BindingErrorFormat>(
+        name: 'BindingErrorFormat',
+        values: $tom_som_dart_v0_1.BindingErrorFormat.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.BindingHttpMethod>(
+        name: 'BindingHttpMethod',
+        values: $tom_som_dart_v0_1.BindingHttpMethod.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.BindingParameterSource>(
+        name: 'BindingParameterSource',
+        values: $tom_som_dart_v0_1.BindingParameterSource.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.ClientApplicationKind>(
         name: 'ClientApplicationKind',
         values: $tom_som_dart_v0_1.ClientApplicationKind.values,
@@ -40698,6 +40835,10 @@ class SomV0Bridge {
       BridgedEnumDefinition<$tom_som_dart_v0_1.Probability>(
         name: 'Probability',
         values: $tom_som_dart_v0_1.Probability.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.ProtocolFeatureKind>(
+        name: 'ProtocolFeatureKind',
+        values: $tom_som_dart_v0_1.ProtocolFeatureKind.values,
       ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.ReportColumnKind>(
         name: 'ReportColumnKind',
@@ -40757,6 +40898,9 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BasicAuthorizationRequirementKind':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BindingErrorFormat': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BindingHttpMethod': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BindingParameterSource': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ClientApplicationKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataAttributeKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExportFieldKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -40769,6 +40913,7 @@ class SomV0Bridge {
       'ObjectLifecycleKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Priority': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Probability': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ProtocolFeatureKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ReportColumnKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ReportFilterValueKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ScheduledJobTrigger': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -41404,6 +41549,9 @@ class SomV0Bridge {
     'ActionTriggerKind',
     'AuthorizationRequirementKind',
     'BasicAuthorizationRequirementKind',
+    'BindingErrorFormat',
+    'BindingHttpMethod',
+    'BindingParameterSource',
     'ClientApplicationKind',
     'DataAttributeKind',
     'ExportFieldKind',
@@ -41416,6 +41564,7 @@ class SomV0Bridge {
     'ObjectLifecycleKind',
     'Priority',
     'Probability',
+    'ProtocolFeatureKind',
     'ReportColumnKind',
     'ReportFilterValueKind',
     'ScheduledJobTrigger',
@@ -56618,6 +56767,137 @@ BridgedClass _createBehaviorRuleEntryBridge() {
     },
     getterSignatures: {
       'content': 'BehaviorRuleEntryContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// BindingParameterEntry Bridge
+// =============================================================================
+
+BridgedClass _createBindingParameterEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.BindingParameterEntry,
+    name: 'BindingParameterEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.BindingParameterEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'BindingParameterEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'BindingParameterEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'BindingParameterEntry',
+        );
+        return $tom_som_dart_v0_1.BindingParameterEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+            target,
+            'BindingParameterEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+                target,
+                'BindingParameterEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+                target,
+                'BindingParameterEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.BindingParameterEntry>(
+                target,
+                'BindingParameterEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'BindingParameterEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'BindingParameterEntryContentForm get content',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -112647,6 +112927,144 @@ BridgedClass _createFeatureDependencyEntryBridge() {
 }
 
 // =============================================================================
+// FeatureHookEntry Bridge
+// =============================================================================
+
+BridgedClass _createFeatureHookEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.FeatureHookEntry,
+    name: 'FeatureHookEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.FeatureHookEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'FeatureHookEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'FeatureHookEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'FeatureHookEntry',
+        );
+        return $tom_som_dart_v0_1.FeatureHookEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .content,
+      'methods': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .methods,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+            target,
+            'FeatureHookEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+                target,
+                'FeatureHookEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+                target,
+                'FeatureHookEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntry>(
+                target,
+                'FeatureHookEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'FeatureHookEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'FeatureHookEntryContentForm get content',
+      'methods': 'SomList<HookMethodEntry> get methods',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // FeatureModuleEntry Bridge
 // =============================================================================
 
@@ -120189,6 +120607,137 @@ BridgedClass _createHighAvailabilityRequirementsBridge() {
           'HighAvailabilityRequirementsLoadBalancingForm get loadBalancing',
       'disasterRecovery':
           'HighAvailabilityRequirementsDisasterRecoveryForm get disasterRecovery',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// HookMethodEntry Bridge
+// =============================================================================
+
+BridgedClass _createHookMethodEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.HookMethodEntry,
+    name: 'HookMethodEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.HookMethodEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'HookMethodEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'HookMethodEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'HookMethodEntry',
+        );
+        return $tom_som_dart_v0_1.HookMethodEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+            target,
+            'HookMethodEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+                target,
+                'HookMethodEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+                target,
+                'HookMethodEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntry>(
+                target,
+                'HookMethodEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'HookMethodEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'HookMethodEntryContentForm get content',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -148675,6 +149224,144 @@ BridgedClass _createOperatingEnvironmentBridge() {
 }
 
 // =============================================================================
+// OperationBindingEntry Bridge
+// =============================================================================
+
+BridgedClass _createOperationBindingEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.OperationBindingEntry,
+    name: 'OperationBindingEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.OperationBindingEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'OperationBindingEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'OperationBindingEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'OperationBindingEntry',
+        );
+        return $tom_som_dart_v0_1.OperationBindingEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .content,
+      'parameters': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .parameters,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+            target,
+            'OperationBindingEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+                target,
+                'OperationBindingEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+                target,
+                'OperationBindingEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.OperationBindingEntry>(
+                target,
+                'OperationBindingEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'OperationBindingEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'OperationBindingEntryContentForm get content',
+      'parameters': 'SomList<BindingParameterEntry> get parameters',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // OperationalMonitoring Bridge
 // =============================================================================
 
@@ -165835,6 +166522,144 @@ BridgedClass _createProtocolEntryBridge() {
     constructorSignatures: {'': 'ProtocolEntry(SpecDocument doc, String path)'},
     getterSignatures: {
       'content': 'ProtocolEntryContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ProtocolFeatureEntry Bridge
+// =============================================================================
+
+BridgedClass _createProtocolFeatureEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ProtocolFeatureEntry,
+    name: 'ProtocolFeatureEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.ProtocolFeatureEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ProtocolFeatureEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ProtocolFeatureEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ProtocolFeatureEntry',
+        );
+        return $tom_som_dart_v0_1.ProtocolFeatureEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .content,
+      'hooks': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .hooks,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+            target,
+            'ProtocolFeatureEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+                target,
+                'ProtocolFeatureEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+                target,
+                'ProtocolFeatureEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntry>(
+                target,
+                'ProtocolFeatureEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ProtocolFeatureEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'ProtocolFeatureEntryContentForm get content',
+      'hooks': 'SomList<FeatureHookEntry> get hooks',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -194099,6 +194924,12 @@ BridgedClass _createServerOperationEntryBridge() {
             'ServerOperationEntry',
           )
           .responseMembers,
+      'bindings': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ServerOperationEntry>(
+            target,
+            'ServerOperationEntry',
+          )
+          .bindings,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ServerOperationEntry>(
             target,
@@ -194184,6 +195015,7 @@ BridgedClass _createServerOperationEntryBridge() {
           'SomList<ServerOperationMemberEntry> get requestMembers',
       'responseMembers':
           'SomList<ServerOperationMemberEntry> get responseMembers',
+      'bindings': 'SomList<OperationBindingEntry> get bindings',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -194378,6 +195210,12 @@ BridgedClass _createServerOperationRegistryBridge() {
             'ServerOperationRegistry',
           )
           .operations,
+      'protocolFeatures': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ServerOperationRegistry>(
+            target,
+            'ServerOperationRegistry',
+          )
+          .protocolFeatures,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ServerOperationRegistry>(
             target,
@@ -194464,6 +195302,7 @@ BridgedClass _createServerOperationRegistryBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'operations': 'SomList<ServerOperationEntry> get operations',
+      'protocolFeatures': 'SomList<ProtocolFeatureEntry> get protocolFeatures',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -279766,6 +280605,179 @@ BridgedClass _createBehaviorRuleEntryContentFormBridge() {
       'keyOperations': 'set keyOperations(String value)',
       'validationRules': 'set validationRules(String value)',
       'calculatedProperties': 'set calculatedProperties(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// BindingParameterEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createBindingParameterEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.BindingParameterEntryContentForm,
+    name: 'BindingParameterEntryContentForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.BindingParameterEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'BindingParameterEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'BindingParameterEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'BindingParameterEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.BindingParameterEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .content,
+      'source': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .source,
+      'requestMember': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .requestMember,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.BindingParameterEntryContentForm>(
+            target,
+            'BindingParameterEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'source': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .source = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.BindingParameterSource
+              >(value, 'source'),
+      'requestMember': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .requestMember = D4.extractBridgedArg<String>(
+            value,
+            'requestMember',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BindingParameterEntryContentForm
+              >(target, 'BindingParameterEntryContentForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'BindingParameterEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'source': 'BindingParameterSource? get source',
+      'requestMember': 'String get requestMember',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'source': 'set source(BindingParameterSource? value)',
+      'requestMember': 'set requestMember(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -446430,6 +447442,166 @@ BridgedClass _createFeatureDependencyEntryContentFormBridge() {
 }
 
 // =============================================================================
+// FeatureHookEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createFeatureHookEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.FeatureHookEntryContentForm,
+    name: 'FeatureHookEntryContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.FeatureHookEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'FeatureHookEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'FeatureHookEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'FeatureHookEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.FeatureHookEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .content,
+      'hook': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .hook,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+            target,
+            'FeatureHookEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+                target,
+                'FeatureHookEntryContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'hook': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+                target,
+                'FeatureHookEntryContentForm',
+              )
+              .hook = D4.extractBridgedArg<String>(
+            value,
+            'hook',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+                target,
+                'FeatureHookEntryContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+                target,
+                'FeatureHookEntryContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.FeatureHookEntryContentForm>(
+                target,
+                'FeatureHookEntryContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'FeatureHookEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'hook': 'String get hook',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'hook': 'set hook(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // FeatureModuleEntryConfigurationForm Bridge
 // =============================================================================
 
@@ -469176,6 +470348,202 @@ BridgedClass _createHighAvailabilityRequirementsRedundancyFormBridge() {
       'redundancyScope': 'set redundancyScope(String value)',
       'geographicRedundancy': 'set geographicRedundancy(bool? value)',
       'activeActiveMode': 'set activeActiveMode(bool? value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// HookMethodEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createHookMethodEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.HookMethodEntryContentForm,
+    name: 'HookMethodEntryContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.HookMethodEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'HookMethodEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'HookMethodEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'HookMethodEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.HookMethodEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .content,
+      'callsOperations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .callsOperations,
+      'readsEntities': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .readsEntities,
+      'writesEntities': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .writesEntities,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+            target,
+            'HookMethodEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'callsOperations': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .callsOperations = D4.extractBridgedArg<String>(
+            value,
+            'callsOperations',
+          ),
+      'readsEntities': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .readsEntities = D4.extractBridgedArg<String>(
+            value,
+            'readsEntities',
+          ),
+      'writesEntities': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .writesEntities = D4.extractBridgedArg<String>(
+            value,
+            'writesEntities',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.HookMethodEntryContentForm>(
+                target,
+                'HookMethodEntryContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'HookMethodEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'callsOperations': 'String get callsOperations',
+      'readsEntities': 'String get readsEntities',
+      'writesEntities': 'String get writesEntities',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'callsOperations': 'set callsOperations(String value)',
+      'readsEntities': 'set readsEntities(String value)',
+      'writesEntities': 'set writesEntities(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -561102,6 +562470,300 @@ BridgedClass _createOngoingTrainingEntryScheduleFormBridge() {
 }
 
 // =============================================================================
+// OperationBindingEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createOperationBindingEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.OperationBindingEntryContentForm,
+    name: 'OperationBindingEntryContentForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.OperationBindingEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'OperationBindingEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'OperationBindingEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'OperationBindingEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.OperationBindingEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .content,
+      'httpMethod': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .httpMethod,
+      'pathTemplate': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .pathTemplate,
+      'versionPrefix': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .versionPrefix,
+      'successStatus': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .successStatus,
+      'responseHeaders': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .responseHeaders,
+      'consumes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .consumes,
+      'produces': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .produces,
+      'errorFormat': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .errorFormat,
+      'servedInterface': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .servedInterface,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.OperationBindingEntryContentForm>(
+            target,
+            'OperationBindingEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'httpMethod': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .httpMethod = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.BindingHttpMethod>(
+                value,
+                'httpMethod',
+              ),
+      'pathTemplate': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .pathTemplate = D4.extractBridgedArg<String>(
+            value,
+            'pathTemplate',
+          ),
+      'versionPrefix': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .versionPrefix = D4.extractBridgedArg<String>(
+            value,
+            'versionPrefix',
+          ),
+      'successStatus': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .successStatus = D4.extractBridgedArgOrNull<int>(
+            value,
+            'successStatus',
+          ),
+      'responseHeaders': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .responseHeaders = D4.extractBridgedArg<String>(
+            value,
+            'responseHeaders',
+          ),
+      'consumes': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .consumes = D4.extractBridgedArg<String>(
+            value,
+            'consumes',
+          ),
+      'produces': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .produces = D4.extractBridgedArg<String>(
+            value,
+            'produces',
+          ),
+      'errorFormat': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .errorFormat = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.BindingErrorFormat>(
+                value,
+                'errorFormat',
+              ),
+      'servedInterface': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .servedInterface = D4.extractBridgedArg<String>(
+            value,
+            'servedInterface',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.OperationBindingEntryContentForm
+              >(target, 'OperationBindingEntryContentForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'OperationBindingEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'httpMethod': 'BindingHttpMethod? get httpMethod',
+      'pathTemplate': 'String get pathTemplate',
+      'versionPrefix': 'String get versionPrefix',
+      'successStatus': 'int? get successStatus',
+      'responseHeaders': 'String get responseHeaders',
+      'consumes': 'String get consumes',
+      'produces': 'String get produces',
+      'errorFormat': 'BindingErrorFormat? get errorFormat',
+      'servedInterface': 'String get servedInterface',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'httpMethod': 'set httpMethod(BindingHttpMethod? value)',
+      'pathTemplate': 'set pathTemplate(String value)',
+      'versionPrefix': 'set versionPrefix(String value)',
+      'successStatus': 'set successStatus(int? value)',
+      'responseHeaders': 'set responseHeaders(String value)',
+      'consumes': 'set consumes(String value)',
+      'produces': 'set produces(String value)',
+      'errorFormat': 'set errorFormat(BindingErrorFormat? value)',
+      'servedInterface': 'set servedInterface(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // OperationalMonitoringAlertingForm Bridge
 // =============================================================================
 
@@ -604794,6 +606456,180 @@ BridgedClass _createProtocolEntryContentFormBridge() {
       'transportLayer': 'set transportLayer(String value)',
       'directionality': 'set directionality(String value)',
       'notes': 'set notes(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ProtocolFeatureEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createProtocolFeatureEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm,
+    name: 'ProtocolFeatureEntryContentForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ProtocolFeatureEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ProtocolFeatureEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ProtocolFeatureEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .content,
+      'feature': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .feature,
+      'purpose': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .purpose,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ProtocolFeatureEntryContentForm>(
+            target,
+            'ProtocolFeatureEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'feature': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .feature = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ProtocolFeatureKind>(
+                value,
+                'feature',
+              ),
+      'purpose': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .purpose = D4.extractBridgedArg<String>(
+            value,
+            'purpose',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProtocolFeatureEntryContentForm
+              >(target, 'ProtocolFeatureEntryContentForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ProtocolFeatureEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'feature': 'ProtocolFeatureKind? get feature',
+      'purpose': 'String get purpose',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'feature': 'set feature(ProtocolFeatureKind? value)',
+      'purpose': 'set purpose(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -832872,6 +834708,72 @@ BridgedClass _createBehaviorRuleEntry$NavBridge() {
 }
 
 // =============================================================================
+// BindingParameterEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createBindingParameterEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.BindingParameterEntry$Nav,
+    name: 'BindingParameterEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.BindingParameterEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'BindingParameterEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'BindingParameterEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'BindingParameterEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.BindingParameterEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Nav>(
+            target,
+            'BindingParameterEntry\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Nav>(
+            target,
+            'BindingParameterEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Nav>(
+            target,
+            'BindingParameterEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Nav>(
+            target,
+            'BindingParameterEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'BindingParameterEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // BiometricAuthenticationPolicy$Nav Bridge
 // =============================================================================
 
@@ -864875,6 +866777,79 @@ BridgedClass _createFeatureDependencyEntry$NavBridge() {
 }
 
 // =============================================================================
+// FeatureHookEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createFeatureHookEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.FeatureHookEntry$Nav,
+    name: 'FeatureHookEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.FeatureHookEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'FeatureHookEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'FeatureHookEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'FeatureHookEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.FeatureHookEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Nav>(
+            target,
+            'FeatureHookEntry\$Nav',
+          )
+          .content,
+      'methods': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Nav>(
+            target,
+            'FeatureHookEntry\$Nav',
+          )
+          .methods,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Nav>(
+            target,
+            'FeatureHookEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Nav>(
+            target,
+            'FeatureHookEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Nav>(
+            target,
+            'FeatureHookEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'FeatureHookEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'methods': 'SomListMetaRef<HookMethodEntry\$Nav> get methods',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // FeatureModuleEntry$Nav Bridge
 // =============================================================================
 
@@ -869207,6 +871182,72 @@ BridgedClass _createHighAvailabilityRequirements$NavBridge() {
       'failover': 'SomMetaRef get failover',
       'loadBalancing': 'SomMetaRef get loadBalancing',
       'disasterRecovery': 'SomMetaRef get disasterRecovery',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// HookMethodEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createHookMethodEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.HookMethodEntry$Nav,
+    name: 'HookMethodEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.HookMethodEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'HookMethodEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'HookMethodEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'HookMethodEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.HookMethodEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Nav>(
+            target,
+            'HookMethodEntry\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Nav>(
+            target,
+            'HookMethodEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Nav>(
+            target,
+            'HookMethodEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Nav>(
+            target,
+            'HookMethodEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'HookMethodEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -885560,6 +887601,79 @@ BridgedClass _createOperatingEnvironment$NavBridge() {
 }
 
 // =============================================================================
+// OperationBindingEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createOperationBindingEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.OperationBindingEntry$Nav,
+    name: 'OperationBindingEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.OperationBindingEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'OperationBindingEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'OperationBindingEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'OperationBindingEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.OperationBindingEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Nav>(
+            target,
+            'OperationBindingEntry\$Nav',
+          )
+          .content,
+      'parameters': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Nav>(
+            target,
+            'OperationBindingEntry\$Nav',
+          )
+          .parameters,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Nav>(
+            target,
+            'OperationBindingEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Nav>(
+            target,
+            'OperationBindingEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Nav>(
+            target,
+            'OperationBindingEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'OperationBindingEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'parameters': 'SomListMetaRef<BindingParameterEntry\$Nav> get parameters',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // OperationalMonitoring$Nav Bridge
 // =============================================================================
 
@@ -895072,6 +897186,79 @@ BridgedClass _createProtocolEntry$NavBridge() {
     },
     getterSignatures: {
       'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// ProtocolFeatureEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createProtocolFeatureEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ProtocolFeatureEntry$Nav,
+    name: 'ProtocolFeatureEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ProtocolFeatureEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ProtocolFeatureEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ProtocolFeatureEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ProtocolFeatureEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.ProtocolFeatureEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Nav>(
+            target,
+            'ProtocolFeatureEntry\$Nav',
+          )
+          .content,
+      'hooks': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Nav>(
+            target,
+            'ProtocolFeatureEntry\$Nav',
+          )
+          .hooks,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Nav>(
+            target,
+            'ProtocolFeatureEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Nav>(
+            target,
+            'ProtocolFeatureEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Nav>(
+            target,
+            'ProtocolFeatureEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ProtocolFeatureEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'hooks': 'SomListMetaRef<FeatureHookEntry\$Nav> get hooks',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -911146,6 +913333,12 @@ BridgedClass _createServerOperationEntry$NavBridge() {
             'ServerOperationEntry\$Nav',
           )
           .responseMembers,
+      'bindings': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ServerOperationEntry$Nav>(
+            target,
+            'ServerOperationEntry\$Nav',
+          )
+          .bindings,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.ServerOperationEntry$Nav>(
             target,
@@ -911175,6 +913368,7 @@ BridgedClass _createServerOperationEntry$NavBridge() {
           'SomListMetaRef<ServerOperationMemberEntry\$Nav> get requestMembers',
       'responseMembers':
           'SomListMetaRef<ServerOperationMemberEntry\$Nav> get responseMembers',
+      'bindings': 'SomListMetaRef<OperationBindingEntry\$Nav> get bindings',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -911289,6 +913483,12 @@ BridgedClass _createServerOperationRegistry$NavBridge() {
             'ServerOperationRegistry\$Nav',
           )
           .operations,
+      'protocolFeatures': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ServerOperationRegistry$Nav>(
+            target,
+            'ServerOperationRegistry\$Nav',
+          )
+          .protocolFeatures,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.ServerOperationRegistry$Nav>(
             target,
@@ -911314,6 +913514,8 @@ BridgedClass _createServerOperationRegistry$NavBridge() {
     getterSignatures: {
       'content': 'SomMetaRef get content',
       'operations': 'SomListMetaRef<ServerOperationEntry\$Nav> get operations',
+      'protocolFeatures':
+          'SomListMetaRef<ProtocolFeatureEntry\$Nav> get protocolFeatures',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -937249,6 +939451,65 @@ BridgedClass _createBehaviorRuleEntry$IdBridge() {
 }
 
 // =============================================================================
+// BindingParameterEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createBindingParameterEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.BindingParameterEntry$Id,
+    name: 'BindingParameterEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.BindingParameterEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'BindingParameterEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'BindingParameterEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'BindingParameterEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.BindingParameterEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Id>(
+            target,
+            'BindingParameterEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Id>(
+            target,
+            'BindingParameterEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.BindingParameterEntry$Id>(
+            target,
+            'BindingParameterEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'BindingParameterEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // BoundaryAssumptionEntry$Id Bridge
 // =============================================================================
 
@@ -944001,6 +946262,12 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .SVOPE_OPER_LST,
+      'PROTF_FEAT_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .PROTF_FEAT_LST,
       'DMFUE_ENFU_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -950604,6 +952871,8 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
           'SomListMetaRef<MessageKeyEntry\$Id> get MSGKE_MKEY_LST',
       'SVOPE_OPER_LST':
           'SomListMetaRef<ServerOperationEntry\$Id> get SVOPE_OPER_LST',
+      'PROTF_FEAT_LST':
+          'SomListMetaRef<ProtocolFeatureEntry\$Id> get PROTF_FEAT_LST',
       'DMFUE_ENFU_LST':
           'SomListMetaRef<EntityFollowUpEntry\$Id> get DMFUE_ENFU_LST',
       'TRAREQ_TRAN': 'SomMetaRef get TRAREQ_TRAN',
@@ -952685,6 +954954,12 @@ BridgedClass _createD03InformationModel$IdBridge() {
             'D03InformationModel\$Id',
           )
           .SVOPE_OPER_LST,
+      'PROTF_FEAT_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Id>(
+            target,
+            'D03InformationModel\$Id',
+          )
+          .PROTF_FEAT_LST,
       'MIGTG_TARG_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D03InformationModel$Id>(
             target,
@@ -952743,6 +955018,8 @@ BridgedClass _createD03InformationModel$IdBridge() {
           'SomListMetaRef<MessageKeyEntry\$Id> get MSGKE_MKEY_LST',
       'SVOPE_OPER_LST':
           'SomListMetaRef<ServerOperationEntry\$Id> get SVOPE_OPER_LST',
+      'PROTF_FEAT_LST':
+          'SomListMetaRef<ProtocolFeatureEntry\$Id> get PROTF_FEAT_LST',
       'MIGTG_TARG_LST':
           'SomListMetaRef<MigrationTargetEntry\$Id> get MIGTG_TARG_LST',
       'SCMST_STEP_LST':
@@ -964028,6 +966305,12 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
             'D13CodeSpecsProjection\$Id',
           )
           .SVOPE_OPER_LST,
+      'PROTF_FEAT_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
+            target,
+            'D13CodeSpecsProjection\$Id',
+          )
+          .PROTF_FEAT_LST,
       'ACOVNA': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
@@ -965262,6 +967545,8 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
           'SomListMetaRef<SchemaMigrationStepEntry\$Id> get SCMST_STEP_LST',
       'SVOPE_OPER_LST':
           'SomListMetaRef<ServerOperationEntry\$Id> get SVOPE_OPER_LST',
+      'PROTF_FEAT_LST':
+          'SomListMetaRef<ProtocolFeatureEntry\$Id> get PROTF_FEAT_LST',
       'ACOVNA': 'SomMetaRef get ACOVNA',
       'ACEN_ACTO_LST': 'SomListMetaRef<ActorEntry\$Id> get ACEN_ACTO_LST',
       'ACCASU': 'SomMetaRef get ACCASU',
@@ -971871,6 +974156,73 @@ BridgedClass _createFeatureDependencyEntry$IdBridge() {
 }
 
 // =============================================================================
+// FeatureHookEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createFeatureHookEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.FeatureHookEntry$Id,
+    name: 'FeatureHookEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.FeatureHookEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'FeatureHookEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'FeatureHookEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'FeatureHookEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.FeatureHookEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'FEHOM_METH_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Id>(
+            target,
+            'FeatureHookEntry\$Id',
+          )
+          .FEHOM_METH_LST,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Id>(
+            target,
+            'FeatureHookEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Id>(
+            target,
+            'FeatureHookEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.FeatureHookEntry$Id>(
+            target,
+            'FeatureHookEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'FeatureHookEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'FEHOM_METH_LST':
+          'SomListMetaRef<HookMethodEntry\$Id> get FEHOM_METH_LST',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // FeatureModuleEntry$Id Bridge
 // =============================================================================
 
@@ -973474,6 +975826,65 @@ BridgedClass _createHandlingRequirementEntry$IdBridge() {
     },
     constructorSignatures: {
       '': 'HandlingRequirementEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// HookMethodEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createHookMethodEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.HookMethodEntry$Id,
+    name: 'HookMethodEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.HookMethodEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'HookMethodEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'HookMethodEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'HookMethodEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.HookMethodEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Id>(
+            target,
+            'HookMethodEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Id>(
+            target,
+            'HookMethodEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.HookMethodEntry$Id>(
+            target,
+            'HookMethodEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'HookMethodEntry\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
       'tree': 'SomMetaTree get tree',
@@ -979019,6 +981430,73 @@ BridgedClass _createOngoingTrainingEntry$IdBridge() {
 }
 
 // =============================================================================
+// OperationBindingEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createOperationBindingEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.OperationBindingEntry$Id,
+    name: 'OperationBindingEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.OperationBindingEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'OperationBindingEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'OperationBindingEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'OperationBindingEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.OperationBindingEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'SVOBP_PARA_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Id>(
+            target,
+            'OperationBindingEntry\$Id',
+          )
+          .SVOBP_PARA_LST,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Id>(
+            target,
+            'OperationBindingEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Id>(
+            target,
+            'OperationBindingEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.OperationBindingEntry$Id>(
+            target,
+            'OperationBindingEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'OperationBindingEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'SVOBP_PARA_LST':
+          'SomListMetaRef<BindingParameterEntry\$Id> get SVOBP_PARA_LST',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // OrgChangeRisks$Id Bridge
 // =============================================================================
 
@@ -982130,6 +984608,73 @@ BridgedClass _createProtocolEntry$IdBridge() {
       '': 'ProtocolEntry\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// ProtocolFeatureEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createProtocolFeatureEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.ProtocolFeatureEntry$Id,
+    name: 'ProtocolFeatureEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.ProtocolFeatureEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'ProtocolFeatureEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'ProtocolFeatureEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ProtocolFeatureEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.ProtocolFeatureEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'FEHOK_HOOK_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Id>(
+            target,
+            'ProtocolFeatureEntry\$Id',
+          )
+          .FEHOK_HOOK_LST,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Id>(
+            target,
+            'ProtocolFeatureEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Id>(
+            target,
+            'ProtocolFeatureEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ProtocolFeatureEntry$Id>(
+            target,
+            'ProtocolFeatureEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'ProtocolFeatureEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'FEHOK_HOOK_LST':
+          'SomListMetaRef<FeatureHookEntry\$Id> get FEHOK_HOOK_LST',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -989252,6 +991797,12 @@ BridgedClass _createServerOperationEntry$IdBridge() {
             'ServerOperationEntry\$Id',
           )
           .SVOPM_RESM_LST,
+      'SVOBI_BIND_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ServerOperationEntry$Id>(
+            target,
+            'ServerOperationEntry\$Id',
+          )
+          .SVOBI_BIND_LST,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.ServerOperationEntry$Id>(
             target,
@@ -989286,6 +991837,8 @@ BridgedClass _createServerOperationEntry$IdBridge() {
           'SomListMetaRef<ServerOperationMemberEntry\$Id> get SVOPM_REQM_LST',
       'SVOPM_RESM_LST':
           'SomListMetaRef<ServerOperationMemberEntry\$Id> get SVOPM_RESM_LST',
+      'SVOBI_BIND_LST':
+          'SomListMetaRef<OperationBindingEntry\$Id> get SVOBI_BIND_LST',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',

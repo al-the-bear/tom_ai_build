@@ -749,8 +749,11 @@ documents and reports four classes of defect:
 | Derivation contract satisfied | `validate_codespecs.dart` | No violation of the `codespecs_derivation_contract.md` §6 checks: no invented name, composed comment, fabricated value, unresolved reference or forbidden statement |
 | Output is determined, not preferred | `validate_codespecs.dart` (two runs) | Two production runs over one model yield the same file set and byte-identical contents |
 | Open questions closed in the specification | Todo review | No `decision-needed` todo of the run's open-question level is left standing, and each was closed by an answer in the specification rather than an assumption in the code |
+| Protocol bindings resolve | `validate_codespecs.dart` (checks 38, 39) | Every `@CsOperationBinding` names an operation the trio declares; no two bindings share a method and a route; every path capture is mapped (`codespecs_mapping.md` §5.30) |
+| Feature hooks complete | `validate_codespecs.dart` (check 40) | Every required hook of every enabled framework protocol feature is implemented exactly once, and no hook implements a contract tom_core does not ship |
+| No protocol endpoint re-declared | `validate_codespecs.dart` (check 41) | No binding declares a route under a path the framework reserves for a protocol feature |
 
-The last four are what PF-PHA-P4's two-pass production model makes checkable:
+The four rows from *Trio is self-sufficient* to *Output is determined, not preferred* are what PF-PHA-P4's two-pass production model makes checkable:
 pass 1 is verified by comparing extracts against their source, pass 2 by the
 validator and by the determinism the derivation contract obliges it to.
 

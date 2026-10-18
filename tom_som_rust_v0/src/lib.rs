@@ -322,6 +322,195 @@ pub fn parse_basic_authorization_requirement_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `BindingErrorFormat` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// The CE-ER Result envelope of the operation contract.
+pub const BINDING_ERROR_FORMAT_RESULT_ENVELOPE: &str = "resultEnvelope";
+/// RFC 9457 problem details (`application/problem+json`).
+pub const BINDING_ERROR_FORMAT_PROBLEM_JSON: &str = "problemJson";
+/// The SCIM 2.0 error schema (RFC 7644 §3.12).
+pub const BINDING_ERROR_FORMAT_SCIM: &str = "scim";
+/// The OAuth 2.0 error response (RFC 6749 §5.2).
+pub const BINDING_ERROR_FORMAT_OAUTH: &str = "oauth";
+
+/// BindingErrorFormat is the generated enum for `BindingErrorFormat` values.
+///
+/// The stored token is what [BindingErrorFormat::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum BindingErrorFormat {
+    /// The CE-ER Result envelope of the operation contract.
+    ResultEnvelope,
+    /// RFC 9457 problem details (`application/problem+json`).
+    ProblemJson,
+    /// The SCIM 2.0 error schema (RFC 7644 §3.12).
+    Scim,
+    /// The OAuth 2.0 error response (RFC 6749 §5.2).
+    Oauth,
+}
+
+impl BindingErrorFormat {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            BindingErrorFormat::ResultEnvelope => "resultEnvelope",
+            BindingErrorFormat::ProblemJson => "problemJson",
+            BindingErrorFormat::Scim => "scim",
+            BindingErrorFormat::Oauth => "oauth",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "resultEnvelope" => Some(BindingErrorFormat::ResultEnvelope),
+            "problemJson" => Some(BindingErrorFormat::ProblemJson),
+            "scim" => Some(BindingErrorFormat::Scim),
+            "oauth" => Some(BindingErrorFormat::Oauth),
+            _ => None,
+        }
+    }
+}
+
+/// parse_binding_error_format returns token when it is a known BindingErrorFormat value, else "".
+pub fn parse_binding_error_format(token: &str) -> String {
+    match token {
+        BINDING_ERROR_FORMAT_RESULT_ENVELOPE | BINDING_ERROR_FORMAT_PROBLEM_JSON | BINDING_ERROR_FORMAT_SCIM | BINDING_ERROR_FORMAT_OAUTH => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `BindingHttpMethod` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// A read with no side effect — a single resource or a listing.
+pub const BINDING_HTTP_METHOD_GET: &str = "get";
+/// A creation, or an action that is not a plain state change.
+pub const BINDING_HTTP_METHOD_POST: &str = "post";
+/// A full replacement of the resource at the path.
+pub const BINDING_HTTP_METHOD_PUT: &str = "put";
+/// A partial change of the resource at the path.
+pub const BINDING_HTTP_METHOD_PATCH: &str = "patch";
+/// A removal of the resource at the path.
+pub const BINDING_HTTP_METHOD_DELETE: &str = "delete";
+
+/// BindingHttpMethod is the generated enum for `BindingHttpMethod` values.
+///
+/// The stored token is what [BindingHttpMethod::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum BindingHttpMethod {
+    /// A read with no side effect — a single resource or a listing.
+    Get,
+    /// A creation, or an action that is not a plain state change.
+    Post,
+    /// A full replacement of the resource at the path.
+    Put,
+    /// A partial change of the resource at the path.
+    Patch,
+    /// A removal of the resource at the path.
+    Delete,
+}
+
+impl BindingHttpMethod {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            BindingHttpMethod::Get => "get",
+            BindingHttpMethod::Post => "post",
+            BindingHttpMethod::Put => "put",
+            BindingHttpMethod::Patch => "patch",
+            BindingHttpMethod::Delete => "delete",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "get" => Some(BindingHttpMethod::Get),
+            "post" => Some(BindingHttpMethod::Post),
+            "put" => Some(BindingHttpMethod::Put),
+            "patch" => Some(BindingHttpMethod::Patch),
+            "delete" => Some(BindingHttpMethod::Delete),
+            _ => None,
+        }
+    }
+}
+
+/// parse_binding_http_method returns token when it is a known BindingHttpMethod value, else "".
+pub fn parse_binding_http_method(token: &str) -> String {
+    match token {
+        BINDING_HTTP_METHOD_GET | BINDING_HTTP_METHOD_POST | BINDING_HTTP_METHOD_PUT | BINDING_HTTP_METHOD_PATCH | BINDING_HTTP_METHOD_DELETE => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `BindingParameterSource` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// A `{name}` capture in the path template.
+pub const BINDING_PARAMETER_SOURCE_PATH: &str = "path";
+/// A query parameter.
+pub const BINDING_PARAMETER_SOURCE_QUERY: &str = "query";
+/// The request body, or one member of it.
+pub const BINDING_PARAMETER_SOURCE_BODY: &str = "body";
+/// A request header.
+pub const BINDING_PARAMETER_SOURCE_HEADER: &str = "header";
+
+/// BindingParameterSource is the generated enum for `BindingParameterSource` values.
+///
+/// The stored token is what [BindingParameterSource::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum BindingParameterSource {
+    /// A `{name}` capture in the path template.
+    Path,
+    /// A query parameter.
+    Query,
+    /// The request body, or one member of it.
+    Body,
+    /// A request header.
+    Header,
+}
+
+impl BindingParameterSource {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            BindingParameterSource::Path => "path",
+            BindingParameterSource::Query => "query",
+            BindingParameterSource::Body => "body",
+            BindingParameterSource::Header => "header",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "path" => Some(BindingParameterSource::Path),
+            "query" => Some(BindingParameterSource::Query),
+            "body" => Some(BindingParameterSource::Body),
+            "header" => Some(BindingParameterSource::Header),
+            _ => None,
+        }
+    }
+}
+
+/// parse_binding_parameter_source returns token when it is a known BindingParameterSource value, else "".
+pub fn parse_binding_parameter_source(token: &str) -> String {
+    match token {
+        BINDING_PARAMETER_SOURCE_PATH | BINDING_PARAMETER_SOURCE_QUERY | BINDING_PARAMETER_SOURCE_BODY | BINDING_PARAMETER_SOURCE_HEADER => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `ClientApplicationKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// A graphical application with screens, forms and navigation.
@@ -1518,6 +1707,55 @@ impl Probability {
 pub fn parse_probability(token: &str) -> String {
     match token {
         PROBABILITY_VERY_LOW | PROBABILITY_LOW | PROBABILITY_MEDIUM | PROBABILITY_HIGH | PROBABILITY_VERY_HIGH => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `ProtocolFeatureKind` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// An OAuth 2.0 / OpenID Connect authorization server.
+pub const PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER: &str = "oidcAuthorizationServer";
+/// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+pub const PROTOCOL_FEATURE_KIND_SCIM2_SERVER: &str = "scim2Server";
+
+/// ProtocolFeatureKind is the generated enum for `ProtocolFeatureKind` values.
+///
+/// The stored token is what [ProtocolFeatureKind::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ProtocolFeatureKind {
+    /// An OAuth 2.0 / OpenID Connect authorization server.
+    OidcAuthorizationServer,
+    /// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+    Scim2Server,
+}
+
+impl ProtocolFeatureKind {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ProtocolFeatureKind::OidcAuthorizationServer => "oidcAuthorizationServer",
+            ProtocolFeatureKind::Scim2Server => "scim2Server",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "oidcAuthorizationServer" => Some(ProtocolFeatureKind::OidcAuthorizationServer),
+            "scim2Server" => Some(ProtocolFeatureKind::Scim2Server),
+            _ => None,
+        }
+    }
+}
+
+/// parse_protocol_feature_kind returns token when it is a known ProtocolFeatureKind value, else "".
+pub fn parse_protocol_feature_kind(token: &str) -> String {
+    match token {
+        PROTOCOL_FEATURE_KIND_OIDC_AUTHORIZATION_SERVER | PROTOCOL_FEATURE_KIND_SCIM2_SERVER => token.to_string(),
         _ => String::new(),
     }
 }
@@ -7760,6 +7998,36 @@ impl BehaviorRuleEntry {
     /// §11.4 rule 7); the field values themselves live in [form].
     pub fn content(&self) -> BehaviorRuleEntryContentForm {
         BehaviorRuleEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// Where a protocol binding finds one request member (form).
+///
+/// The entry's headline is the parameter's name on the wire — the `{name}`
+/// capture, the query parameter, the body member or the header — and the form
+/// says where it is found and which request member it supplies.
+pub struct BindingParameterEntry {
+    pub node: som::SomNode,
+}
+
+impl BindingParameterEntry {
+    /// Binds a BindingParameterEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BindingParameterEntry {
+        BindingParameterEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> BindingParameterEntryContentForm {
+        BindingParameterEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -14874,7 +15142,7 @@ pub struct D00SolutionBlueprint {
 }
 
 /// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.5";
+pub const D00_SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "1.6";
 
 impl D00SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
@@ -15019,7 +15287,7 @@ pub struct D01CurrentLandscapeAssessment {
 }
 
 /// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.5";
+pub const D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION: &str = "1.6";
 
 impl D01CurrentLandscapeAssessment {
     /// Creates the typed facade at the document root and verifies the
@@ -15144,7 +15412,7 @@ pub struct D02TargetOperatingModel {
 }
 
 /// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.5";
+pub const D02_TARGET_OPERATING_MODEL_MODEL_VERSION: &str = "1.6";
 
 impl D02TargetOperatingModel {
     /// Creates the typed facade at the document root and verifies the
@@ -15285,7 +15553,7 @@ pub struct D03InformationModel {
 }
 
 /// D03_INFORMATION_MODEL_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.5";
+pub const D03_INFORMATION_MODEL_MODEL_VERSION: &str = "1.6";
 
 impl D03InformationModel {
     /// Creates the typed facade at the document root and verifies the
@@ -15501,7 +15769,7 @@ pub struct D04RequirementsSpecification {
 }
 
 /// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.5";
+pub const D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION: &str = "1.6";
 
 impl D04RequirementsSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -15630,7 +15898,7 @@ pub struct D05InteractionScenarios {
 }
 
 /// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.5";
+pub const D05_INTERACTION_SCENARIOS_MODEL_VERSION: &str = "1.6";
 
 impl D05InteractionScenarios {
     /// Creates the typed facade at the document root and verifies the
@@ -15751,7 +16019,7 @@ pub struct D06ArchitectureTechnologySpecification {
 }
 
 /// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.5";
+pub const D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION: &str = "1.6";
 
 impl D06ArchitectureTechnologySpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -15891,7 +16159,7 @@ pub struct D07IntegrationInterfaceSpecification {
 }
 
 /// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.5";
+pub const D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION: &str = "1.6";
 
 impl D07IntegrationInterfaceSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16037,7 +16305,7 @@ pub struct D08SecurityAccessSpecification {
 }
 
 /// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.5";
+pub const D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION: &str = "1.6";
 
 impl D08SecurityAccessSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16170,7 +16438,7 @@ pub struct D09ExperienceDesignSpecification {
 }
 
 /// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.5";
+pub const D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION: &str = "1.6";
 
 impl D09ExperienceDesignSpecification {
     /// Creates the typed facade at the document root and verifies the
@@ -16316,7 +16584,7 @@ pub struct D10QualityAcceptancePlan {
 }
 
 /// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.5";
+pub const D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION: &str = "1.6";
 
 impl D10QualityAcceptancePlan {
     /// Creates the typed facade at the document root and verifies the
@@ -16492,7 +16760,7 @@ pub struct D11DeliveryRoadmap {
 }
 
 /// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.5";
+pub const D11_DELIVERY_ROADMAP_MODEL_VERSION: &str = "1.6";
 
 impl D11DeliveryRoadmap {
     /// Creates the typed facade at the document root and verifies the
@@ -16623,7 +16891,7 @@ pub struct D12TransitionRolloutPlan {
 }
 
 /// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.5";
+pub const D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION: &str = "1.6";
 
 impl D12TransitionRolloutPlan {
     /// Creates the typed facade at the document root and verifies the
@@ -16774,7 +17042,7 @@ pub struct D13CodeSpecsProjection {
 }
 
 /// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
-pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.5";
+pub const D13_CODE_SPECS_PROJECTION_MODEL_VERSION: &str = "1.6";
 
 impl D13CodeSpecsProjection {
     /// Creates the typed facade at the document root and verifies the
@@ -26547,6 +26815,50 @@ impl FeatureDependencyEntry {
     }
 }
 
+/// One hook of a framework protocol feature that the system implements (form +
+/// method list).
+///
+/// The hook is a framework contract — SCIM's resource store, an authorization
+/// server's client registry — and the system's implementation of it is the
+/// CodeSpec. The contract's members are the framework's; what the system states
+/// is, per member, what the implementation does: the operations it calls, in
+/// order, and the entities it reads and writes, so the CodeSpec body is a
+/// sequence of calls and not invented logic.
+pub struct FeatureHookEntry {
+    pub node: som::SomNode,
+}
+
+impl FeatureHookEntry {
+    /// Binds a FeatureHookEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FeatureHookEntry {
+        FeatureHookEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> FeatureHookEntryContentForm {
+        FeatureHookEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.9.2.x. Methods — what each member of the hook contract does.
+    pub fn methods(&self) -> som::SomList<HookMethodEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FEHOM-METH-LST"),
+            Box::new(HookMethodEntry::new),
+            "FEHOM-METH-xxx".to_string(),
+        )
+    }
+}
+
 /// Feature module entry — a vertical slice feature.
 pub struct FeatureModuleEntry {
     pub node: som::SomNode,
@@ -28916,6 +29228,36 @@ impl HighAvailabilityRequirements {
     /// Disaster recovery alignment.
     pub fn disaster_recovery(&self) -> HighAvailabilityRequirementsDisasterRecoveryForm {
         HighAvailabilityRequirementsDisasterRecoveryForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "HARDR"))
+    }
+}
+
+/// What one member of a hook contract does (form).
+///
+/// The entry's headline is the contract member's name. The operations it calls
+/// are listed in the order the implementation calls them; that order is the
+/// CodeSpec body.
+pub struct HookMethodEntry {
+    pub node: som::SomNode,
+}
+
+impl HookMethodEntry {
+    /// Binds a HookMethodEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> HookMethodEntry {
+        HookMethodEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> HookMethodEntryContentForm {
+        HookMethodEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -37700,6 +38042,48 @@ impl OperatingEnvironment {
     }
 }
 
+/// One standard-protocol shape of a server operation (form + parameter list).
+///
+/// The operation stays the unit of behaviour; the binding only says how a
+/// third-party caller reaches it: the method, the path template, where each
+/// request member is found, the success status and headers, the content types,
+/// the error format and the version prefix. A REST listing, a save and a state
+/// transition are each one binding of their operation.
+pub struct OperationBindingEntry {
+    pub node: som::SomNode,
+}
+
+impl OperationBindingEntry {
+    /// Binds a OperationBindingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OperationBindingEntry {
+        OperationBindingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> OperationBindingEntryContentForm {
+        OperationBindingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.9.x. Parameters — where the binding finds each request member.
+    pub fn parameters(&self) -> som::SomList<BindingParameterEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVOBP-PARA-LST"),
+            Box::new(BindingParameterEntry::new),
+            "SVOBP-PARA-xxx".to_string(),
+        )
+    }
+}
+
 /// 11.4.3. Monitoring quality.
 pub struct OperationalMonitoring {
     pub node: som::SomNode,
@@ -42763,6 +43147,49 @@ impl ProtocolEntry {
     /// §11.4 rule 7); the field values themselves live in [form].
     pub fn content(&self) -> ProtocolEntryContentForm {
         ProtocolEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A standard protocol server the framework provides, enabled by the system
+/// (form + hook list).
+///
+/// The framework owns the protocol's endpoints, wire format and error format;
+/// the system writes no protocol endpoint of its own. What the system supplies
+/// are the **hooks** — the extension points through which the protocol reaches
+/// the system's domain (`codespecs_mapping.md` §5.30).
+pub struct ProtocolFeatureEntry {
+    pub node: som::SomNode,
+}
+
+impl ProtocolFeatureEntry {
+    /// Binds a ProtocolFeatureEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ProtocolFeatureEntry {
+        ProtocolFeatureEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> ProtocolFeatureEntryContentForm {
+        ProtocolFeatureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.9.2.x. Hooks — the extension points of the feature the system
+    /// implements.
+    pub fn hooks(&self) -> som::SomList<FeatureHookEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "FEHOK-HOOK-LST"),
+            Box::new(FeatureHookEntry::new),
+            "FEHOK-HOOK-xxx".to_string(),
+        )
     }
 }
 
@@ -51627,6 +52054,22 @@ impl ServerOperationEntry {
             "SVOPM-RESM-xxx".to_string(),
         )
     }
+
+    /// 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+    /// also served under, for third-party callers.
+    ///
+    /// The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+    /// application's own client calls it by name. A binding is a second shape of
+    /// the same operation — an HTTP method, a path, where each request member is
+    /// found, the success status and headers — and an operation may have several.
+    pub fn bindings(&self) -> som::SomList<OperationBindingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVOBI-BIND-LST"),
+            Box::new(OperationBindingEntry::new),
+            "SVOBI-BIND-xxx".to_string(),
+        )
+    }
 }
 
 /// A single member of an operation's request or response shape (form).
@@ -51688,6 +52131,11 @@ impl ServerOperationMemberEntry {
 ///   errors;
 /// - no encoding, header, redirect, CORS or credential plumbing — framework
 ///   transport members, never spec input.
+///
+/// Third-party HTTP shapes are added beside the contract, not inside it: an
+/// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+/// and [protocolFeatures] lists the framework protocol servers the system
+/// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 pub struct ServerOperationRegistry {
     pub node: som::SomNode,
 }
@@ -51724,6 +52172,18 @@ impl ServerOperationRegistry {
             format!("{}/{}", self.node.path(), "SVOPE-OPER-LST"),
             Box::new(ServerOperationEntry::new),
             "SVOPE-OPER-xxx".to_string(),
+        )
+    }
+
+    /// 7.9.2. Protocol Features — the standard protocol servers the framework
+    /// provides that the system enables, each with the hooks the system
+    /// implements.
+    pub fn protocol_features(&self) -> som::SomList<ProtocolFeatureEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "PROTF-FEAT-LST"),
+            Box::new(ProtocolFeatureEntry::new),
+            "PROTF-FEAT-xxx".to_string(),
         )
     }
 }
@@ -79560,6 +80020,55 @@ impl BehaviorRuleEntryContentForm {
     pub fn set_calculated_properties(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "calculatedProperties", value);
+    }
+}
+
+/// BindingParameterEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct BindingParameterEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl BindingParameterEntryContentForm {
+    /// Binds a BindingParameterEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BindingParameterEntryContentForm {
+        BindingParameterEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn source(&self) -> Option<BindingParameterSource> {
+        BindingParameterSource::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "source"))
+    }
+
+    pub fn set_source(&self, value: Option<BindingParameterSource>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "source", text);
+    }
+
+    pub fn request_member(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requestMember")
+    }
+
+    pub fn set_request_member(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requestMember", value);
     }
 }
 
@@ -133463,6 +133972,45 @@ impl FeatureDependencyEntryContentForm {
     }
 }
 
+/// FeatureHookEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct FeatureHookEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl FeatureHookEntryContentForm {
+    /// Binds a FeatureHookEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> FeatureHookEntryContentForm {
+        FeatureHookEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn hook(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "hook")
+    }
+
+    pub fn set_hook(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "hook", value);
+    }
+}
+
 /// FeatureModuleEntryConfigurationForm is the generated section facade for the `configuration` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct FeatureModuleEntryConfigurationForm {
@@ -140918,6 +141466,63 @@ impl HighAvailabilityRequirementsRedundancyForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "activeActiveMode", &text);
+    }
+}
+
+/// HookMethodEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct HookMethodEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl HookMethodEntryContentForm {
+    /// Binds a HookMethodEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> HookMethodEntryContentForm {
+        HookMethodEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn calls_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "callsOperations")
+    }
+
+    pub fn set_calls_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "callsOperations", value);
+    }
+
+    pub fn reads_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "readsEntities")
+    }
+
+    pub fn set_reads_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "readsEntities", value);
+    }
+
+    pub fn writes_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "writesEntities")
+    }
+
+    pub fn set_writes_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "writesEntities", value);
     }
 }
 
@@ -170992,6 +171597,121 @@ impl OngoingTrainingEntryScheduleForm {
     }
 }
 
+/// OperationBindingEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct OperationBindingEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl OperationBindingEntryContentForm {
+    /// Binds a OperationBindingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> OperationBindingEntryContentForm {
+        OperationBindingEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn http_method(&self) -> Option<BindingHttpMethod> {
+        BindingHttpMethod::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "httpMethod"))
+    }
+
+    pub fn set_http_method(&self, value: Option<BindingHttpMethod>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "httpMethod", text);
+    }
+
+    pub fn path_template(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "pathTemplate")
+    }
+
+    pub fn set_path_template(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "pathTemplate", value);
+    }
+
+    pub fn version_prefix(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "versionPrefix")
+    }
+
+    pub fn set_version_prefix(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "versionPrefix", value);
+    }
+
+    pub fn success_status(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "successStatus");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_success_status(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "successStatus", &text);
+    }
+
+    pub fn response_headers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "responseHeaders")
+    }
+
+    pub fn set_response_headers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "responseHeaders", value);
+    }
+
+    pub fn consumes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "consumes")
+    }
+
+    pub fn set_consumes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "consumes", value);
+    }
+
+    pub fn produces(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "produces")
+    }
+
+    pub fn set_produces(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "produces", value);
+    }
+
+    pub fn error_format(&self) -> Option<BindingErrorFormat> {
+        BindingErrorFormat::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "errorFormat"))
+    }
+
+    pub fn set_error_format(&self, value: Option<BindingErrorFormat>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "errorFormat", text);
+    }
+
+    pub fn served_interface(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "servedInterface")
+    }
+
+    pub fn set_served_interface(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "servedInterface", value);
+    }
+}
+
 /// OperationalMonitoringAlertingForm is the generated section facade for the `alerting` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct OperationalMonitoringAlertingForm {
@@ -185650,6 +186370,55 @@ impl ProtocolEntryContentForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ProtocolFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ProtocolFeatureEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ProtocolFeatureEntryContentForm {
+    /// Binds a ProtocolFeatureEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ProtocolFeatureEntryContentForm {
+        ProtocolFeatureEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn feature(&self) -> Option<ProtocolFeatureKind> {
+        ProtocolFeatureKind::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "feature"))
+    }
+
+    pub fn set_feature(&self, value: Option<ProtocolFeatureKind>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "feature", text);
+    }
+
+    pub fn purpose(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
+    }
+
+    pub fn set_purpose(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
     }
 }
 

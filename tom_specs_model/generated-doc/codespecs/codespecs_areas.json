@@ -210,10 +210,11 @@
       "canonicalId": "ServerApi",
       "part": "serverApi",
       "annotations": [
-        "CsEndpoint"
+        "CsEndpoint",
+        "CsOperationBinding"
       ],
       "builtOn": "`TomApi` / `TomApiEndpoint<R,Q>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`) (§5.6.1)",
-      "attributeSurface": "§5.6, §5.6.1, §5.14",
+      "attributeSurface": "§5.6, §5.6.1, §5.14, §5.30",
       "slices": [
         2,
         4
@@ -229,10 +230,11 @@
       "canonicalId": "ServiceUnit",
       "part": "serviceUnit",
       "annotations": [
-        "CsServiceUnit"
+        "CsServiceUnit",
+        "CsFeatureHook"
       ],
       "builtOn": "**no gap** — ordinary **(abstract) classes** clustering the server API into functional-group *closures*, carrying the `tom_core_server` server-API mapping annotations (`@tomService` / `TomApiImplementation`) (§5.1, §5.6.2)",
-      "attributeSurface": "§5.1, §5.6, §5.6.2, §5.17",
+      "attributeSurface": "§5.1, §5.6, §5.6.2, §5.17, §5.30",
       "slices": [
         4
       ],
@@ -1081,6 +1083,30 @@
         "className": "NotificationTypeEntry",
         "member": "content",
         "formField": "bodyMessageKey"
+      },
+      {
+        "area": "CE-API",
+        "marker": "@CsOperationBinding",
+        "argument": "operation",
+        "className": "ServerOperationEntry",
+        "member": "content",
+        "formField": "operationName"
+      },
+      {
+        "area": "CE-SU",
+        "marker": "@CsFeatureHook",
+        "argument": "feature",
+        "className": "ProtocolFeatureEntry",
+        "member": "content",
+        "formField": "feature"
+      },
+      {
+        "area": "CE-SU",
+        "marker": "@CsFeatureHook",
+        "argument": "hook",
+        "className": "FeatureHookEntry",
+        "member": "content",
+        "formField": "hook"
       }
     ],
     "carriers": [
@@ -1257,6 +1283,36 @@
         "member": "enumerationTypeOptions",
         "formField": "domainEnum",
         "introducedBy": "`codespecs_derivation_contract.md` §3.3.2 (enumeration typing)"
+      },
+      {
+        "className": "OperationBindingEntry",
+        "member": "content",
+        "formField": "httpMethod",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.5 (protocol binding)"
+      },
+      {
+        "className": "OperationBindingEntry",
+        "member": "content",
+        "formField": "pathTemplate",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.5 (protocol binding)"
+      },
+      {
+        "className": "OperationBindingEntry",
+        "member": "parameters",
+        "formField": null,
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.5 (protocol binding)"
+      },
+      {
+        "className": "BindingParameterEntry",
+        "member": "content",
+        "formField": "source",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.5 (protocol binding)"
+      },
+      {
+        "className": "HookMethodEntry",
+        "member": "content",
+        "formField": "callsOperations",
+        "introducedBy": "`codespecs_derivation_contract.md` §3.4.6 (hook body)"
       }
     ]
   }

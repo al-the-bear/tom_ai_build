@@ -1,5 +1,5 @@
 # Generated from the TomSpecs object model — do not edit.
-# Schema: solution-blueprint/1.5
+# Schema: solution-blueprint/1.6
 
 title-format: "# <!--[SBP]--> Solution Blueprint"
 section-types:
@@ -1831,6 +1831,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per extension step.
+  fehok-hook-lst:
+    prefix: FEHOK_HOOK_LST
+    subsection-types:
+      fehok-hook:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per hook the system implements. Every hook the feature requires needs an entry.
+  fehom-meth-lst:
+    prefix: FEHOM_METH_LST
+    subsection-types:
+      fehom-meth:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry."
   fldhp-fiel-lst:
     prefix: FLDHP_FIEL_LST
     subsection-types:
@@ -2349,6 +2365,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Define specific permission entries for fine-grained access.
+  protf-feat-lst:
+    prefix: PROTF_FEAT_LST
+    subsection-types:
+      protf-feat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.
   pscen-item-lst:
     prefix: PSCEN_ITEM_LST
     subsection-types:
@@ -2809,6 +2833,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+  svobi-bind-lst:
+    prefix: SVOBI_BIND_LST
+    subsection-types:
+      svobi-bind:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it."
+  svobp-para-lst:
+    prefix: SVOBP_PARA_LST
+    subsection-types:
+      svobp-para:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one."
   svope-oper-lst:
     prefix: SVOPE_OPER_LST
     subsection-types:
@@ -6987,6 +7027,21 @@ section-types:
       pattern: ^EXTST-STEP-.+$
       error-message: IDs of this section must match EXTST-STEP-xxx
     description: Add one entry per extension step.
+  fehok-hook:
+    prefix: FEHOK_HOOK_
+    subsection-types:
+      fehom-meth-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FEHOK-HOOK-.+$
+      error-message: IDs of this section must match FEHOK-HOOK-xxx
+    description: Add one entry per hook the system implements. Every hook the feature requires needs an entry.
+  fehom-meth:
+    prefix: FEHOM_METH_
+    pattern-check-id:
+      pattern: ^FEHOM-METH-.+$
+      error-message: IDs of this section must match FEHOM-METH-xxx
+    description: "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry."
   fldhp-fiel:
     prefix: FLDHP_FIEL_
     pattern-check-id:
@@ -7654,6 +7709,15 @@ section-types:
       pattern: ^PRMTX-PERM-.+$
       error-message: IDs of this section must match PRMTX-PERM-xxx
     description: Define specific permission entries for fine-grained access.
+  protf-feat:
+    prefix: PROTF_FEAT_
+    subsection-types:
+      fehok-hook-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PROTF-FEAT-.+$
+      error-message: IDs of this section must match PROTF-FEAT-xxx
+    description: Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.
   protot-prot:
     prefix: PROTOT_PROT
     format: protot-prot-form
@@ -8300,6 +8364,21 @@ section-types:
       pattern: ^SVCST-STEP-.+$
       error-message: IDs of this section must match SVCST-STEP-xxx
     description: "Fill this in only where the step reaches the server. Add one entry per thing that has to happen to assemble the request, to apply the response, or to surface an error — in the order it happens, each entry saying which of the three it belongs to."
+  svobi-bind:
+    prefix: SVOBI_BIND_
+    subsection-types:
+      svobp-para-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SVOBI-BIND-.+$
+      error-message: IDs of this section must match SVOBI-BIND-xxx
+    description: "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it."
+  svobp-para:
+    prefix: SVOBP_PARA_
+    pattern-check-id:
+      pattern: ^SVOBP-PARA-.+$
+      error-message: IDs of this section must match SVOBP-PARA-xxx
+    description: "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one."
   svope-oper:
     prefix: SVOPE_OPER_
     subsection-types:
@@ -8308,6 +8387,8 @@ section-types:
       svopm-reqm-lst:
         max-count: 1
       svopm-resm-lst:
+        max-count: 1
+      svobi-bind-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^SVOPE-OPER-.+$
@@ -18768,6 +18849,8 @@ section-types:
     prefix: SVOPR
     subsection-types:
       svope-oper-lst:
+        max-count: 1
+      protf-feat-lst:
         max-count: 1
     description: 7.9. Server Operation Registry.
   swdlv:

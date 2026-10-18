@@ -20,7 +20,7 @@ import (
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
 // in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
-const Version = "v1.5.0"
+const Version = "v1.6.0"
 
 // ActionTriggerKind is the generated named type for `ActionTriggerKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
@@ -143,6 +143,92 @@ func parseBasicAuthorizationRequirementKind(token string) BasicAuthorizationRequ
 	switch BasicAuthorizationRequirementKind(token) {
 	case BasicAuthorizationRequirementKindRole, BasicAuthorizationRequirementKindGroup, BasicAuthorizationRequirementKindEntitlement, BasicAuthorizationRequirementKindResourceKey, BasicAuthorizationRequirementKindCustom, BasicAuthorizationRequirementKindDenied, BasicAuthorizationRequirementKindPublic, BasicAuthorizationRequirementKindAuthenticated, BasicAuthorizationRequirementKindGuest:
 		return BasicAuthorizationRequirementKind(token)
+	}
+	return ""
+}
+
+// BindingErrorFormat is the generated named type for `BindingErrorFormat` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type BindingErrorFormat string
+
+const (
+	// The CE-ER Result envelope of the operation contract.
+	BindingErrorFormatResultEnvelope BindingErrorFormat = "resultEnvelope"
+	// RFC 9457 problem details (`application/problem+json`).
+	BindingErrorFormatProblemJson BindingErrorFormat = "problemJson"
+	// The SCIM 2.0 error schema (RFC 7644 §3.12).
+	BindingErrorFormatScim BindingErrorFormat = "scim"
+	// The OAuth 2.0 error response (RFC 6749 §5.2).
+	BindingErrorFormatOauth BindingErrorFormat = "oauth"
+)
+
+// parseBindingErrorFormat returns the BindingErrorFormat whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseBindingErrorFormat(token string) BindingErrorFormat {
+	switch BindingErrorFormat(token) {
+	case BindingErrorFormatResultEnvelope, BindingErrorFormatProblemJson, BindingErrorFormatScim, BindingErrorFormatOauth:
+		return BindingErrorFormat(token)
+	}
+	return ""
+}
+
+// BindingHttpMethod is the generated named type for `BindingHttpMethod` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type BindingHttpMethod string
+
+const (
+	// A read with no side effect — a single resource or a listing.
+	BindingHttpMethodGet BindingHttpMethod = "get"
+	// A creation, or an action that is not a plain state change.
+	BindingHttpMethodPost BindingHttpMethod = "post"
+	// A full replacement of the resource at the path.
+	BindingHttpMethodPut BindingHttpMethod = "put"
+	// A partial change of the resource at the path.
+	BindingHttpMethodPatch BindingHttpMethod = "patch"
+	// A removal of the resource at the path.
+	BindingHttpMethodDelete BindingHttpMethod = "delete"
+)
+
+// parseBindingHttpMethod returns the BindingHttpMethod whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseBindingHttpMethod(token string) BindingHttpMethod {
+	switch BindingHttpMethod(token) {
+	case BindingHttpMethodGet, BindingHttpMethodPost, BindingHttpMethodPut, BindingHttpMethodPatch, BindingHttpMethodDelete:
+		return BindingHttpMethod(token)
+	}
+	return ""
+}
+
+// BindingParameterSource is the generated named type for `BindingParameterSource` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type BindingParameterSource string
+
+const (
+	// A `{name}` capture in the path template.
+	BindingParameterSourcePath BindingParameterSource = "path"
+	// A query parameter.
+	BindingParameterSourceQuery BindingParameterSource = "query"
+	// The request body, or one member of it.
+	BindingParameterSourceBody BindingParameterSource = "body"
+	// A request header.
+	BindingParameterSourceHeader BindingParameterSource = "header"
+)
+
+// parseBindingParameterSource returns the BindingParameterSource whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseBindingParameterSource(token string) BindingParameterSource {
+	switch BindingParameterSource(token) {
+	case BindingParameterSourcePath, BindingParameterSourceQuery, BindingParameterSourceBody, BindingParameterSourceHeader:
+		return BindingParameterSource(token)
 	}
 	return ""
 }
@@ -702,6 +788,30 @@ func parseProbability(token string) Probability {
 	switch Probability(token) {
 	case ProbabilityVeryLow, ProbabilityLow, ProbabilityMedium, ProbabilityHigh, ProbabilityVeryHigh:
 		return Probability(token)
+	}
+	return ""
+}
+
+// ProtocolFeatureKind is the generated named type for `ProtocolFeatureKind` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ProtocolFeatureKind string
+
+const (
+	// An OAuth 2.0 / OpenID Connect authorization server.
+	ProtocolFeatureKindOidcAuthorizationServer ProtocolFeatureKind = "oidcAuthorizationServer"
+	// A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+	ProtocolFeatureKindScim2Server ProtocolFeatureKind = "scim2Server"
+)
+
+// parseProtocolFeatureKind returns the ProtocolFeatureKind whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseProtocolFeatureKind(token string) ProtocolFeatureKind {
+	switch ProtocolFeatureKind(token) {
+	case ProtocolFeatureKindOidcAuthorizationServer, ProtocolFeatureKindScim2Server:
+		return ProtocolFeatureKind(token)
 	}
 	return ""
 }
@@ -5192,6 +5302,27 @@ func NewBehaviorRuleEntry(doc *som.SpecDocument, path string) *BehaviorRuleEntry
 // §11.4 rule 7); the field values themselves live in [form].
 func (x *BehaviorRuleEntry) Content() *BehaviorRuleEntryContentForm {
 	return NewBehaviorRuleEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Where a protocol binding finds one request member (form).
+//
+// The entry's headline is the parameter's name on the wire — the `{name}`
+// capture, the query parameter, the body member or the header — and the form
+// says where it is found and which request member it supplies.
+type BindingParameterEntry struct {
+	som.SomNode
+}
+
+// NewBindingParameterEntry binds a BindingParameterEntry facade to a document and a path.
+func NewBindingParameterEntry(doc *som.SpecDocument, path string) *BindingParameterEntry {
+	return &BindingParameterEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *BindingParameterEntry) Content() *BindingParameterEntryContentForm {
+	return NewBindingParameterEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Biometric authentication policy (form).
@@ -10994,7 +11125,7 @@ type D00SolutionBlueprint struct {
 
 // D00SolutionBlueprintModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D00SolutionBlueprintModelVersion = "1.5"
+const D00SolutionBlueprintModelVersion = "1.6"
 
 // NewD00SolutionBlueprint creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11144,7 +11275,7 @@ type D01CurrentLandscapeAssessment struct {
 
 // D01CurrentLandscapeAssessmentModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D01CurrentLandscapeAssessmentModelVersion = "1.5"
+const D01CurrentLandscapeAssessmentModelVersion = "1.6"
 
 // NewD01CurrentLandscapeAssessment creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11271,7 +11402,7 @@ type D02TargetOperatingModel struct {
 
 // D02TargetOperatingModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D02TargetOperatingModelModelVersion = "1.5"
+const D02TargetOperatingModelModelVersion = "1.6"
 
 // NewD02TargetOperatingModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11411,7 +11542,7 @@ type D03InformationModel struct {
 
 // D03InformationModelModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D03InformationModelModelVersion = "1.5"
+const D03InformationModelModelVersion = "1.6"
 
 // NewD03InformationModel creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11617,7 +11748,7 @@ type D04RequirementsSpecification struct {
 
 // D04RequirementsSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D04RequirementsSpecificationModelVersion = "1.5"
+const D04RequirementsSpecificationModelVersion = "1.6"
 
 // NewD04RequirementsSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11747,7 +11878,7 @@ type D05InteractionScenarios struct {
 
 // D05InteractionScenariosModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D05InteractionScenariosModelVersion = "1.5"
+const D05InteractionScenariosModelVersion = "1.6"
 
 // NewD05InteractionScenarios creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -11870,7 +12001,7 @@ type D06ArchitectureTechnologySpecification struct {
 
 // D06ArchitectureTechnologySpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D06ArchitectureTechnologySpecificationModelVersion = "1.5"
+const D06ArchitectureTechnologySpecificationModelVersion = "1.6"
 
 // NewD06ArchitectureTechnologySpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12015,7 +12146,7 @@ type D07IntegrationInterfaceSpecification struct {
 
 // D07IntegrationInterfaceSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D07IntegrationInterfaceSpecificationModelVersion = "1.5"
+const D07IntegrationInterfaceSpecificationModelVersion = "1.6"
 
 // NewD07IntegrationInterfaceSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12157,7 +12288,7 @@ type D08SecurityAccessSpecification struct {
 
 // D08SecurityAccessSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D08SecurityAccessSpecificationModelVersion = "1.5"
+const D08SecurityAccessSpecificationModelVersion = "1.6"
 
 // NewD08SecurityAccessSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12295,7 +12426,7 @@ type D09ExperienceDesignSpecification struct {
 
 // D09ExperienceDesignSpecificationModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D09ExperienceDesignSpecificationModelVersion = "1.5"
+const D09ExperienceDesignSpecificationModelVersion = "1.6"
 
 // NewD09ExperienceDesignSpecification creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12446,7 +12577,7 @@ type D10QualityAcceptancePlan struct {
 
 // D10QualityAcceptancePlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D10QualityAcceptancePlanModelVersion = "1.5"
+const D10QualityAcceptancePlanModelVersion = "1.6"
 
 // NewD10QualityAcceptancePlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12627,7 +12758,7 @@ type D11DeliveryRoadmap struct {
 
 // D11DeliveryRoadmapModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D11DeliveryRoadmapModelVersion = "1.5"
+const D11DeliveryRoadmapModelVersion = "1.6"
 
 // NewD11DeliveryRoadmap creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12760,7 +12891,7 @@ type D12TransitionRolloutPlan struct {
 
 // D12TransitionRolloutPlanModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D12TransitionRolloutPlanModelVersion = "1.5"
+const D12TransitionRolloutPlanModelVersion = "1.6"
 
 // NewD12TransitionRolloutPlan creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -12916,7 +13047,7 @@ type D13CodeSpecsProjection struct {
 
 // D13CodeSpecsProjectionModelVersion is the model version this object model was generated
 // against (SOM §4.2).
-const D13CodeSpecsProjectionModelVersion = "1.5"
+const D13CodeSpecsProjectionModelVersion = "1.6"
 
 // NewD13CodeSpecsProjection creates the typed facade at the document root and verifies the
 // document's authoring documentVersion is editable (SOM §4.2). A non-editable
@@ -21039,6 +21170,38 @@ func (x *FeatureDependencyEntry) Content() *FeatureDependencyEntryContentForm {
 	return NewFeatureDependencyEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// One hook of a framework protocol feature that the system implements (form +
+// method list).
+//
+// The hook is a framework contract — SCIM's resource store, an authorization
+// server's client registry — and the system's implementation of it is the
+// CodeSpec. The contract's members are the framework's; what the system states
+// is, per member, what the implementation does: the operations it calls, in
+// order, and the entities it reads and writes, so the CodeSpec body is a
+// sequence of calls and not invented logic.
+type FeatureHookEntry struct {
+	som.SomNode
+}
+
+// NewFeatureHookEntry binds a FeatureHookEntry facade to a document and a path.
+func NewFeatureHookEntry(doc *som.SpecDocument, path string) *FeatureHookEntry {
+	return &FeatureHookEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *FeatureHookEntry) Content() *FeatureHookEntryContentForm {
+	return NewFeatureHookEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9.2.x. Methods — what each member of the hook contract does.
+func (x *FeatureHookEntry) Methods() *som.SomList[*HookMethodEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/FEHOM-METH-LST", func(d *som.SpecDocument, p string) *HookMethodEntry {
+		return NewHookMethodEntry(d, p)
+	}, "FEHOM-METH-xxx")
+}
+
 // Feature module entry — a vertical slice feature.
 type FeatureModuleEntry struct {
 	som.SomNode
@@ -22966,6 +23129,27 @@ func (x *HighAvailabilityRequirements) LoadBalancing() *HighAvailabilityRequirem
 // Disaster recovery alignment.
 func (x *HighAvailabilityRequirements) DisasterRecovery() *HighAvailabilityRequirementsDisasterRecoveryForm {
 	return NewHighAvailabilityRequirementsDisasterRecoveryForm(x.Doc(), x.Path()+"/HARDR")
+}
+
+// What one member of a hook contract does (form).
+//
+// The entry's headline is the contract member's name. The operations it calls
+// are listed in the order the implementation calls them; that order is the
+// CodeSpec body.
+type HookMethodEntry struct {
+	som.SomNode
+}
+
+// NewHookMethodEntry binds a HookMethodEntry facade to a document and a path.
+func NewHookMethodEntry(doc *som.SpecDocument, path string) *HookMethodEntry {
+	return &HookMethodEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *HookMethodEntry) Content() *HookMethodEntryContentForm {
+	return NewHookMethodEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // IDE requirement entry — a required IDE or editor.
@@ -30119,6 +30303,36 @@ func (x *OperatingEnvironment) SetConstraintsAndDependencies(value string) {
 	x.Doc().SetContent(x.Path()+"/COANDE", value)
 }
 
+// One standard-protocol shape of a server operation (form + parameter list).
+//
+// The operation stays the unit of behaviour; the binding only says how a
+// third-party caller reaches it: the method, the path template, where each
+// request member is found, the success status and headers, the content types,
+// the error format and the version prefix. A REST listing, a save and a state
+// transition are each one binding of their operation.
+type OperationBindingEntry struct {
+	som.SomNode
+}
+
+// NewOperationBindingEntry binds a OperationBindingEntry facade to a document and a path.
+func NewOperationBindingEntry(doc *som.SpecDocument, path string) *OperationBindingEntry {
+	return &OperationBindingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *OperationBindingEntry) Content() *OperationBindingEntryContentForm {
+	return NewOperationBindingEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9.x. Parameters — where the binding finds each request member.
+func (x *OperationBindingEntry) Parameters() *som.SomList[*BindingParameterEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVOBP-PARA-LST", func(d *som.SpecDocument, p string) *BindingParameterEntry {
+		return NewBindingParameterEntry(d, p)
+	}, "SVOBP-PARA-xxx")
+}
+
 // 11.4.3. Monitoring quality.
 type OperationalMonitoring struct {
 	som.SomNode
@@ -34186,6 +34400,37 @@ func NewProtocolEntry(doc *som.SpecDocument, path string) *ProtocolEntry {
 // §11.4 rule 7); the field values themselves live in [form].
 func (x *ProtocolEntry) Content() *ProtocolEntryContentForm {
 	return NewProtocolEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// A standard protocol server the framework provides, enabled by the system
+// (form + hook list).
+//
+// The framework owns the protocol's endpoints, wire format and error format;
+// the system writes no protocol endpoint of its own. What the system supplies
+// are the **hooks** — the extension points through which the protocol reaches
+// the system's domain (`codespecs_mapping.md` §5.30).
+type ProtocolFeatureEntry struct {
+	som.SomNode
+}
+
+// NewProtocolFeatureEntry binds a ProtocolFeatureEntry facade to a document and a path.
+func NewProtocolFeatureEntry(doc *som.SpecDocument, path string) *ProtocolFeatureEntry {
+	return &ProtocolFeatureEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *ProtocolFeatureEntry) Content() *ProtocolFeatureEntryContentForm {
+	return NewProtocolFeatureEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9.2.x. Hooks — the extension points of the feature the system
+// implements.
+func (x *ProtocolFeatureEntry) Hooks() *som.SomList[*FeatureHookEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/FEHOK-HOOK-LST", func(d *som.SpecDocument, p string) *FeatureHookEntry {
+		return NewFeatureHookEntry(d, p)
+	}, "FEHOK-HOOK-xxx")
 }
 
 // 8.6.1. Protocols and Standards.
@@ -41417,6 +41662,19 @@ func (x *ServerOperationEntry) ResponseMembers() *som.SomList[*ServerOperationMe
 	}, "SVOPM-RESM-xxx")
 }
 
+// 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+// also served under, for third-party callers.
+//
+// The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+// application's own client calls it by name. A binding is a second shape of
+// the same operation — an HTTP method, a path, where each request member is
+// found, the success status and headers — and an operation may have several.
+func (x *ServerOperationEntry) Bindings() *som.SomList[*OperationBindingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVOBI-BIND-LST", func(d *som.SpecDocument, p string) *OperationBindingEntry {
+		return NewOperationBindingEntry(d, p)
+	}, "SVOBI-BIND-xxx")
+}
+
 // A single member of an operation's request or response shape (form).
 //
 // One named, typed member: its name, its type, whether it must be present, and
@@ -41467,6 +41725,11 @@ func (x *ServerOperationMemberEntry) Content() *ServerOperationMemberEntryConten
 //   errors;
 // - no encoding, header, redirect, CORS or credential plumbing — framework
 //   transport members, never spec input.
+//
+// Third-party HTTP shapes are added beside the contract, not inside it: an
+// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+// and [protocolFeatures] lists the framework protocol servers the system
+// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 type ServerOperationRegistry struct {
 	som.SomNode
 }
@@ -41498,6 +41761,15 @@ func (x *ServerOperationRegistry) Operations() *som.SomList[*ServerOperationEntr
 	return som.NewSomList(x.Doc(), x.Path()+"/SVOPE-OPER-LST", func(d *som.SpecDocument, p string) *ServerOperationEntry {
 		return NewServerOperationEntry(d, p)
 	}, "SVOPE-OPER-xxx")
+}
+
+// 7.9.2. Protocol Features — the standard protocol servers the framework
+// provides that the system enables, each with the hooks the system
+// implements.
+func (x *ServerOperationRegistry) ProtocolFeatures() *som.SomList[*ProtocolFeatureEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/PROTF-FEAT-LST", func(d *som.SpecDocument, p string) *ProtocolFeatureEntry {
+		return NewProtocolFeatureEntry(d, p)
+	}, "PROTF-FEAT-xxx")
 }
 
 // Server operating system requirements.
@@ -66607,6 +66879,48 @@ func (x *BehaviorRuleEntryContentForm) CalculatedProperties() string {
 
 func (x *BehaviorRuleEntryContentForm) SetCalculatedProperties(value string) {
 	x.Doc().SetFormField(x.Path(), "calculatedProperties", value)
+}
+
+// BindingParameterEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type BindingParameterEntryContentForm struct {
+	som.SomNode
+}
+
+// NewBindingParameterEntryContentForm binds a BindingParameterEntryContentForm facade to a document and a path.
+func NewBindingParameterEntryContentForm(doc *som.SpecDocument, path string) *BindingParameterEntryContentForm {
+	return &BindingParameterEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BindingParameterEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *BindingParameterEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *BindingParameterEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *BindingParameterEntryContentForm) Source() BindingParameterSource {
+	return parseBindingParameterSource(x.Doc().FormFieldOr(x.Path(), "source"))
+}
+
+func (x *BindingParameterEntryContentForm) SetSource(value BindingParameterSource) {
+	x.Doc().SetFormField(x.Path(), "source", string(value))
+}
+
+func (x *BindingParameterEntryContentForm) RequestMember() string {
+	return x.Doc().FormFieldOr(x.Path(), "requestMember")
+}
+
+func (x *BindingParameterEntryContentForm) SetRequestMember(value string) {
+	x.Doc().SetFormField(x.Path(), "requestMember", value)
 }
 
 // BiometricAuthenticationPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -116432,6 +116746,40 @@ func (x *FeatureDependencyEntryContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// FeatureHookEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type FeatureHookEntryContentForm struct {
+	som.SomNode
+}
+
+// NewFeatureHookEntryContentForm binds a FeatureHookEntryContentForm facade to a document and a path.
+func NewFeatureHookEntryContentForm(doc *som.SpecDocument, path string) *FeatureHookEntryContentForm {
+	return &FeatureHookEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *FeatureHookEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *FeatureHookEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *FeatureHookEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *FeatureHookEntryContentForm) Hook() string {
+	return x.Doc().FormFieldOr(x.Path(), "hook")
+}
+
+func (x *FeatureHookEntryContentForm) SetHook(value string) {
+	x.Doc().SetFormField(x.Path(), "hook", value)
+}
+
 // FeatureModuleEntryConfigurationForm is the generated section facade for the `configuration` @Form section: its own
 // content text followed by one typed member per form field.
 type FeatureModuleEntryConfigurationForm struct {
@@ -123490,6 +123838,56 @@ func (x *HighAvailabilityRequirementsRedundancyForm) SetActiveActiveMode(value *
 	} else {
 		x.Doc().SetFormField(x.Path(), "activeActiveMode", "false")
 	}
+}
+
+// HookMethodEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type HookMethodEntryContentForm struct {
+	som.SomNode
+}
+
+// NewHookMethodEntryContentForm binds a HookMethodEntryContentForm facade to a document and a path.
+func NewHookMethodEntryContentForm(doc *som.SpecDocument, path string) *HookMethodEntryContentForm {
+	return &HookMethodEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *HookMethodEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *HookMethodEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *HookMethodEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *HookMethodEntryContentForm) CallsOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "callsOperations")
+}
+
+func (x *HookMethodEntryContentForm) SetCallsOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "callsOperations", value)
+}
+
+func (x *HookMethodEntryContentForm) ReadsEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "readsEntities")
+}
+
+func (x *HookMethodEntryContentForm) SetReadsEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "readsEntities", value)
+}
+
+func (x *HookMethodEntryContentForm) WritesEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "writesEntities")
+}
+
+func (x *HookMethodEntryContentForm) SetWritesEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "writesEntities", value)
 }
 
 // IdeRequirementEntryConfigurationForm is the generated section facade for the `configuration` @Form section: its own
@@ -151655,6 +152053,116 @@ func (x *OngoingTrainingEntryScheduleForm) SetDuration(value string) {
 	x.Doc().SetFormField(x.Path(), "duration", value)
 }
 
+// OperationBindingEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type OperationBindingEntryContentForm struct {
+	som.SomNode
+}
+
+// NewOperationBindingEntryContentForm binds a OperationBindingEntryContentForm facade to a document and a path.
+func NewOperationBindingEntryContentForm(doc *som.SpecDocument, path string) *OperationBindingEntryContentForm {
+	return &OperationBindingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *OperationBindingEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *OperationBindingEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *OperationBindingEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *OperationBindingEntryContentForm) HttpMethod() BindingHttpMethod {
+	return parseBindingHttpMethod(x.Doc().FormFieldOr(x.Path(), "httpMethod"))
+}
+
+func (x *OperationBindingEntryContentForm) SetHttpMethod(value BindingHttpMethod) {
+	x.Doc().SetFormField(x.Path(), "httpMethod", string(value))
+}
+
+func (x *OperationBindingEntryContentForm) PathTemplate() string {
+	return x.Doc().FormFieldOr(x.Path(), "pathTemplate")
+}
+
+func (x *OperationBindingEntryContentForm) SetPathTemplate(value string) {
+	x.Doc().SetFormField(x.Path(), "pathTemplate", value)
+}
+
+func (x *OperationBindingEntryContentForm) VersionPrefix() string {
+	return x.Doc().FormFieldOr(x.Path(), "versionPrefix")
+}
+
+func (x *OperationBindingEntryContentForm) SetVersionPrefix(value string) {
+	x.Doc().SetFormField(x.Path(), "versionPrefix", value)
+}
+
+func (x *OperationBindingEntryContentForm) SuccessStatus() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "successStatus")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *OperationBindingEntryContentForm) SetSuccessStatus(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "successStatus", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "successStatus", strconv.Itoa(*value))
+}
+
+func (x *OperationBindingEntryContentForm) ResponseHeaders() string {
+	return x.Doc().FormFieldOr(x.Path(), "responseHeaders")
+}
+
+func (x *OperationBindingEntryContentForm) SetResponseHeaders(value string) {
+	x.Doc().SetFormField(x.Path(), "responseHeaders", value)
+}
+
+func (x *OperationBindingEntryContentForm) Consumes() string {
+	return x.Doc().FormFieldOr(x.Path(), "consumes")
+}
+
+func (x *OperationBindingEntryContentForm) SetConsumes(value string) {
+	x.Doc().SetFormField(x.Path(), "consumes", value)
+}
+
+func (x *OperationBindingEntryContentForm) Produces() string {
+	return x.Doc().FormFieldOr(x.Path(), "produces")
+}
+
+func (x *OperationBindingEntryContentForm) SetProduces(value string) {
+	x.Doc().SetFormField(x.Path(), "produces", value)
+}
+
+func (x *OperationBindingEntryContentForm) ErrorFormat() BindingErrorFormat {
+	return parseBindingErrorFormat(x.Doc().FormFieldOr(x.Path(), "errorFormat"))
+}
+
+func (x *OperationBindingEntryContentForm) SetErrorFormat(value BindingErrorFormat) {
+	x.Doc().SetFormField(x.Path(), "errorFormat", string(value))
+}
+
+func (x *OperationBindingEntryContentForm) ServedInterface() string {
+	return x.Doc().FormFieldOr(x.Path(), "servedInterface")
+}
+
+func (x *OperationBindingEntryContentForm) SetServedInterface(value string) {
+	x.Doc().SetFormField(x.Path(), "servedInterface", value)
+}
+
 // OperationalMonitoringAlertingForm is the generated section facade for the `alerting` @Form section: its own
 // content text followed by one typed member per form field.
 type OperationalMonitoringAlertingForm struct {
@@ -165201,6 +165709,48 @@ func (x *ProtocolEntryContentForm) Notes() string {
 
 func (x *ProtocolEntryContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ProtocolFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ProtocolFeatureEntryContentForm struct {
+	som.SomNode
+}
+
+// NewProtocolFeatureEntryContentForm binds a ProtocolFeatureEntryContentForm facade to a document and a path.
+func NewProtocolFeatureEntryContentForm(doc *som.SpecDocument, path string) *ProtocolFeatureEntryContentForm {
+	return &ProtocolFeatureEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProtocolFeatureEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ProtocolFeatureEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ProtocolFeatureEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ProtocolFeatureEntryContentForm) Feature() ProtocolFeatureKind {
+	return parseProtocolFeatureKind(x.Doc().FormFieldOr(x.Path(), "feature"))
+}
+
+func (x *ProtocolFeatureEntryContentForm) SetFeature(value ProtocolFeatureKind) {
+	x.Doc().SetFormField(x.Path(), "feature", string(value))
+}
+
+func (x *ProtocolFeatureEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ProtocolFeatureEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
 // PrototypeFeatureEntryContentForm is the generated section facade for the `content` @Form section: its own

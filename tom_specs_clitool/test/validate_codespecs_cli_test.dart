@@ -53,10 +53,10 @@ void main() {
       expect(json['formatVersion'], kCodeSpecsReportFormatVersion);
       expect(json['passed'], isTrue);
       expect(json['violations'], isEmpty);
-      expect((json['checks'] as List).length, 37);
+      expect((json['checks'] as List).length, 41);
       expect(
         [for (final n in json['notRun'] as List) ...(n['checks'] as List)],
-        containsAll([9, 13, 31]),
+        containsAll([9, 13, 31, 40, 41]),
         reason: 'an unrun check is named, never read as a pass',
       );
     });
@@ -104,7 +104,74 @@ void main() {
     test('the text report is unchanged by the option', () async {
       final (code, out, err) = await _run([..._trio(_sample), ...extracts]);
       expect(code, 0, reason: err);
-      expect(out.trim().split('\n').last, 'codespecs: 37 checks passed');
+      expect(out.trim().split('\n').last, 'codespecs: 41 checks passed');
+    });
+  });
+
+  group('--cs-vocabulary', () {
+    final vocabulary = p.normalize(
+      p.absolute('../tom_code_specs/lib/src/annotations/vocabulary.dart'),
+    );
+
+    test('runs checks 40 and 41 against the hook catalogue', () async {
+      final (code, out, err) = await _run([
+        ..._trio(_sample),
+        ...extracts,
+        '--cs-vocabulary',
+        vocabulary,
+        '--json',
+      ]);
+      expect(code, 0, reason: err);
+      final json = jsonDecode(out) as Map<String, dynamic>;
+      expect(json['passed'], isTrue);
+      final unrun = [
+        for (final n in json['notRun'] as List) ...(n['checks'] as List),
+      ];
+      expect(unrun, isNot(contains(40)));
+      expect(unrun, isNot(contains(41)));
+    });
+
+    test('omitted, checks 40 and 41 are announced unrun', () async {
+      final (code, out, _) = await _run([..._trio(_sample), ...extracts]);
+      expect(code, 0);
+      expect(
+        out,
+        contains(
+          'checks 40 and 41 (feature-hook completeness and reserved '
+          'protocol paths) not run — pass --cs-vocabulary',
+        ),
+      );
+    });
+
+    test('a source without the catalogue says so', () async {
+      final dir = Directory(p.join('.dart_tool', 'test_tmp', 'csvocab_empty'))
+        ..createSync(recursive: true);
+      File(p.join(dir.path, 'empty.dart')).writeAsStringSync('class A {}\n');
+      final (code, out, _) = await _run([
+        ..._trio(_sample),
+        '--cs-vocabulary',
+        dir.path,
+      ]);
+      expect(code, 0);
+      expect(out, contains('declares neither csFeatureHooks'));
+    });
+
+    test('an unreadable catalogue row is bad usage, exit 2', () async {
+      final dir = Directory(p.join('.dart_tool', 'test_tmp', 'csvocab_bad'))
+        ..createSync(recursive: true);
+      File(p.join(dir.path, 'vocabulary.dart')).writeAsStringSync('''
+const csFeatureHooks = [
+  CsFeatureHookSpec(CsProtocolFeature.scim2Server, 'scimStore'),
+];
+const csFeatureReservedPaths = {};
+''');
+      final (code, _, err) = await _run([
+        ..._trio(_sample),
+        '--cs-vocabulary',
+        dir.path,
+      ]);
+      expect(code, 2);
+      expect(err, contains('--cs-vocabulary: csFeatureHooks row'));
     });
   });
 

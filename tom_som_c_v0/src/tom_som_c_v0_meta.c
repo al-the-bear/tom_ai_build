@@ -159,6 +159,7 @@ static SomMetaNode **meta_children_bandwidth_requirements(SomStrList *stack, siz
 static SomMetaNode **meta_children_basic_technical_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_batch_job_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_behavior_rule_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_binding_parameter_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_biometric_authentication_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_boundary_assumption_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_boundary_assumptions(SomStrList *stack, size_t *len);
@@ -506,6 +507,7 @@ static SomMetaNode **meta_children_external_systems_context(SomStrList *stack, s
 static SomMetaNode **meta_children_family_component_ref(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_feature_dependencies(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_feature_dependency_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_feature_hook_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_feature_module_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_feature_prioritization(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_feature_priority_entry(SomStrList *stack, size_t *len);
@@ -557,6 +559,7 @@ static SomMetaNode **meta_children_hardware_requirements(SomStrList *stack, size
 static SomMetaNode **meta_children_health_check_endpoints(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_health_checks_and_diagnostics_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_high_availability_requirements(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_hook_method_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_ide_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_identification(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_identification_and_authentication(SomStrList *stack, size_t *len);
@@ -743,6 +746,7 @@ static SomMetaNode **meta_children_on_call_schedule_config(SomStrList *stack, si
 static SomMetaNode **meta_children_onboarding_help(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_ongoing_training_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_operating_environment(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_operation_binding_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_operational_monitoring(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_operational_pain_points(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_operations_requirements(SomStrList *stack, size_t *len);
@@ -857,6 +861,7 @@ static SomMetaNode **meta_children_project_organization_and_process(SomStrList *
 static SomMetaNode **meta_children_project_team_staffing(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_protocol_compliance_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_protocol_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_protocol_feature_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_protocols_and_standards_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_prototype(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_prototype_feature_entry(SomStrList *stack, size_t *len);
@@ -1733,6 +1738,7 @@ static void meta_build_batch_job_management_monitoring(SomMetaNode *n);
 static void meta_build_batch_job_management_scheduled_jobs(SomMetaNode *n);
 static void meta_build_batch_job_management_scheduled_jobs_elem(SomMetaNode *n);
 static void meta_build_behavior_rule_entry_content(SomMetaNode *n);
+static void meta_build_binding_parameter_entry_content(SomMetaNode *n);
 static void meta_build_biometric_authentication_policy_content(SomMetaNode *n);
 static void meta_build_biometric_authentication_policy_biometric_details(SomMetaNode *n);
 static void meta_build_boundary_assumption_entry_content(SomMetaNode *n);
@@ -3497,6 +3503,9 @@ static void meta_build_feature_dependencies_dependency_analysis(SomMetaNode *n);
 static void meta_build_feature_dependencies_items(SomMetaNode *n);
 static void meta_build_feature_dependencies_items_elem(SomMetaNode *n);
 static void meta_build_feature_dependency_entry_content(SomMetaNode *n);
+static void meta_build_feature_hook_entry_content(SomMetaNode *n);
+static void meta_build_feature_hook_entry_methods(SomMetaNode *n);
+static void meta_build_feature_hook_entry_methods_elem(SomMetaNode *n);
 static void meta_build_feature_module_entry_content(SomMetaNode *n);
 static void meta_build_feature_module_entry_description(SomMetaNode *n);
 static void meta_build_feature_module_entry_structure(SomMetaNode *n);
@@ -3707,6 +3716,7 @@ static void meta_build_high_availability_requirements_redundancy(SomMetaNode *n)
 static void meta_build_high_availability_requirements_failover(SomMetaNode *n);
 static void meta_build_high_availability_requirements_load_balancing(SomMetaNode *n);
 static void meta_build_high_availability_requirements_disaster_recovery(SomMetaNode *n);
+static void meta_build_hook_method_entry_content(SomMetaNode *n);
 static void meta_build_ide_requirement_entry_content(SomMetaNode *n);
 static void meta_build_ide_requirement_entry_configuration(SomMetaNode *n);
 static void meta_build_ide_requirement_entry_integration(SomMetaNode *n);
@@ -4527,6 +4537,9 @@ static void meta_build_operating_environment_organizational_environment(SomMetaN
 static void meta_build_operating_environment_functional_responsibilities(SomMetaNode *n);
 static void meta_build_operating_environment_technical_environment(SomMetaNode *n);
 static void meta_build_operating_environment_constraints_and_dependencies(SomMetaNode *n);
+static void meta_build_operation_binding_entry_content(SomMetaNode *n);
+static void meta_build_operation_binding_entry_parameters(SomMetaNode *n);
+static void meta_build_operation_binding_entry_parameters_elem(SomMetaNode *n);
 static void meta_build_operational_monitoring_content(SomMetaNode *n);
 static void meta_build_operational_monitoring_coverage(SomMetaNode *n);
 static void meta_build_operational_monitoring_automation(SomMetaNode *n);
@@ -4977,6 +4990,9 @@ static void meta_build_protocol_compliance_requirements_caching(SomMetaNode *n);
 static void meta_build_protocol_compliance_requirements_observability(SomMetaNode *n);
 static void meta_build_protocol_compliance_requirements_events(SomMetaNode *n);
 static void meta_build_protocol_entry_content(SomMetaNode *n);
+static void meta_build_protocol_feature_entry_content(SomMetaNode *n);
+static void meta_build_protocol_feature_entry_hooks(SomMetaNode *n);
+static void meta_build_protocol_feature_entry_hooks_elem(SomMetaNode *n);
 static void meta_build_protocols_and_standards_section_content(SomMetaNode *n);
 static void meta_build_protocols_and_standards_section_overview(SomMetaNode *n);
 static void meta_build_protocols_and_standards_section_protocols(SomMetaNode *n);
@@ -5759,10 +5775,14 @@ static void meta_build_server_operation_entry_request_members(SomMetaNode *n);
 static void meta_build_server_operation_entry_request_members_elem(SomMetaNode *n);
 static void meta_build_server_operation_entry_response_members(SomMetaNode *n);
 static void meta_build_server_operation_entry_response_members_elem(SomMetaNode *n);
+static void meta_build_server_operation_entry_bindings(SomMetaNode *n);
+static void meta_build_server_operation_entry_bindings_elem(SomMetaNode *n);
 static void meta_build_server_operation_member_entry_content(SomMetaNode *n);
 static void meta_build_server_operation_registry_content(SomMetaNode *n);
 static void meta_build_server_operation_registry_operations(SomMetaNode *n);
 static void meta_build_server_operation_registry_operations_elem(SomMetaNode *n);
+static void meta_build_server_operation_registry_protocol_features(SomMetaNode *n);
+static void meta_build_server_operation_registry_protocol_features_elem(SomMetaNode *n);
 static void meta_build_server_os_requirements_content(SomMetaNode *n);
 static void meta_build_server_os_requirements_hardening(SomMetaNode *n);
 static void meta_build_server_os_requirements_security(SomMetaNode *n);
@@ -7167,6 +7187,11 @@ static void *meta_nav_factory_behavior_rule_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_binding_parameter_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_binding_parameter_entry *r = (som_nav_binding_parameter_entry *)malloc(sizeof(som_nav_binding_parameter_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_boundary_assumption_entry(const SomMetaTree *tree, const char *path) {
   som_nav_boundary_assumption_entry *r = (som_nav_boundary_assumption_entry *)malloc(sizeof(som_nav_boundary_assumption_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7867,6 +7892,11 @@ static void *meta_nav_factory_feature_dependency_entry(const SomMetaTree *tree, 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_feature_hook_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_feature_hook_entry *r = (som_nav_feature_hook_entry *)malloc(sizeof(som_nav_feature_hook_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_feature_module_entry(const SomMetaTree *tree, const char *path) {
   som_nav_feature_module_entry *r = (som_nav_feature_module_entry *)malloc(sizeof(som_nav_feature_module_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7964,6 +7994,11 @@ static void *meta_nav_factory_graded_access_level_entry(const SomMetaTree *tree,
 }
 static void *meta_nav_factory_handling_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_nav_handling_requirement_entry *r = (som_nav_handling_requirement_entry *)malloc(sizeof(som_nav_handling_requirement_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_hook_method_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_hook_method_entry *r = (som_nav_hook_method_entry *)malloc(sizeof(som_nav_hook_method_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8327,6 +8362,11 @@ static void *meta_nav_factory_ongoing_training_entry(const SomMetaTree *tree, co
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_operation_binding_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_operation_binding_entry *r = (som_nav_operation_binding_entry *)malloc(sizeof(som_nav_operation_binding_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_org_change_risks(const SomMetaTree *tree, const char *path) {
   som_nav_org_change_risks *r = (som_nav_org_change_risks *)malloc(sizeof(som_nav_org_change_risks));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8544,6 +8584,11 @@ static void *meta_nav_factory_programming_language_entry(const SomMetaTree *tree
 }
 static void *meta_nav_factory_protocol_entry(const SomMetaTree *tree, const char *path) {
   som_nav_protocol_entry *r = (som_nav_protocol_entry *)malloc(sizeof(som_nav_protocol_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_protocol_feature_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_protocol_feature_entry *r = (som_nav_protocol_feature_entry *)malloc(sizeof(som_nav_protocol_feature_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9692,6 +9737,11 @@ static void *meta_id_factory_behavior_rule_entry(const SomMetaTree *tree, const 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_binding_parameter_entry(const SomMetaTree *tree, const char *path) {
+  som_id_binding_parameter_entry *r = (som_id_binding_parameter_entry *)malloc(sizeof(som_id_binding_parameter_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_boundary_assumption_entry(const SomMetaTree *tree, const char *path) {
   som_id_boundary_assumption_entry *r = (som_id_boundary_assumption_entry *)malloc(sizeof(som_id_boundary_assumption_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10392,6 +10442,11 @@ static void *meta_id_factory_feature_dependency_entry(const SomMetaTree *tree, c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_feature_hook_entry(const SomMetaTree *tree, const char *path) {
+  som_id_feature_hook_entry *r = (som_id_feature_hook_entry *)malloc(sizeof(som_id_feature_hook_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_feature_module_entry(const SomMetaTree *tree, const char *path) {
   som_id_feature_module_entry *r = (som_id_feature_module_entry *)malloc(sizeof(som_id_feature_module_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10489,6 +10544,11 @@ static void *meta_id_factory_graded_access_level_entry(const SomMetaTree *tree, 
 }
 static void *meta_id_factory_handling_requirement_entry(const SomMetaTree *tree, const char *path) {
   som_id_handling_requirement_entry *r = (som_id_handling_requirement_entry *)malloc(sizeof(som_id_handling_requirement_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_hook_method_entry(const SomMetaTree *tree, const char *path) {
+  som_id_hook_method_entry *r = (som_id_hook_method_entry *)malloc(sizeof(som_id_hook_method_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10852,6 +10912,11 @@ static void *meta_id_factory_ongoing_training_entry(const SomMetaTree *tree, con
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_operation_binding_entry(const SomMetaTree *tree, const char *path) {
+  som_id_operation_binding_entry *r = (som_id_operation_binding_entry *)malloc(sizeof(som_id_operation_binding_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_org_change_risks(const SomMetaTree *tree, const char *path) {
   som_id_org_change_risks *r = (som_id_org_change_risks *)malloc(sizeof(som_id_org_change_risks));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11069,6 +11134,11 @@ static void *meta_id_factory_programming_language_entry(const SomMetaTree *tree,
 }
 static void *meta_id_factory_protocol_entry(const SomMetaTree *tree, const char *path) {
   som_id_protocol_entry *r = (som_id_protocol_entry *)malloc(sizeof(som_id_protocol_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_protocol_feature_entry(const SomMetaTree *tree, const char *path) {
+  som_id_protocol_feature_entry *r = (som_id_protocol_feature_entry *)malloc(sizeof(som_id_protocol_feature_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -23534,6 +23604,36 @@ static void meta_build_behavior_rule_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Derived/calculated attributes (e.g., orderTotal, age)");
   n->form->fields[4].order = 4;
+}
+static void meta_build_binding_parameter_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "BindingParameterEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("source");
+  n->form->fields[0].type_name = som_strdup("BindingParameterSource");
+  n->form->fields[0].description = som_strdup("Source");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Where the parameter is found");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 4;
+  n->form->fields[0].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("path");
+  n->form->fields[0].enum_values[1] = som_strdup("query");
+  n->form->fields[0].enum_values[2] = som_strdup("body");
+  n->form->fields[0].enum_values[3] = som_strdup("header");
+  n->form->fields[1].name = som_strdup("requestMember");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Request Member");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The operation's request member the parameter supplies");
+  n->form->fields[1].order = 1;
 }
 static void meta_build_biometric_authentication_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "BiometricAuthenticationPolicy");
@@ -42186,7 +42286,7 @@ static void meta_build_d03_information_model_server_operation_registry(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 18;
   meta_set(&n->doc_comment, "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
 }
 static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -43854,7 +43954,7 @@ static void meta_build_d13_code_specs_projection_server_operation_registry(SomMe
   n->serialization_order = 15;
   meta_set(&n->comment, "locus: shared(CE-API contract)+server(CE-API operations)");
   meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (`codespecs_mapping.md` §5.17), so ownership is\nderived here rather than declared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
 }
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
@@ -67103,6 +67203,49 @@ static void meta_build_feature_dependency_entry_content(SomMetaNode *n) {
   n->form->fields[9].hint = som_strdup("Additional context or constraints");
   n->form->fields[9].order = 9;
 }
+static void meta_build_feature_hook_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "FeatureHookEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "State what the hook is for in this system: which domain objects the protocol's resources map onto, and any rule that applies to every member.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("hook");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Hook");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The hook's catalogue name, e.g. scimStore or clientRegistry (codespecs_mapping.md §5.30)");
+  n->form->fields[0].order = 0;
+}
+static void meta_build_feature_hook_entry_methods(SomMetaNode *n) {
+  meta_set(&n->class_name, "FeatureHookEntry");
+  meta_set(&n->member_name, "methods");
+  meta_set(&n->section_id, "FEHOM-METH-LST");
+  meta_set(&n->section_id_pattern, "FEHOM-METH-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "HookMethodEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per member of the hook contract, headed by the member's name (e.g. create, findByName). Every member the contract declares needs an entry.");
+  meta_set(&n->doc_comment, "7.9.2.x. Methods — what each member of the hook contract does.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"What each member of the hook contract does, in terms of operations and entities.\"}", NULL);
+}
+static void meta_build_feature_hook_entry_methods_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "HookMethodEntry");
+  meta_set(&n->class_section_id, "FEHOM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "HookMethodEntry");
+  meta_set(&n->doc_comment, "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.");
+  meta_set(&n->class_doc_comment, "What one member of a hook contract does (form).\n\nThe entry's headline is the contract member's name. The operations it calls\nare listed in the order the implementation calls them; that order is the\nCodeSpec body.");
+}
 static void meta_build_feature_module_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureModuleEntry");
   meta_set(&n->member_name, "content");
@@ -72839,6 +72982,46 @@ static void meta_build_high_availability_requirements_disaster_recovery(SomMetaN
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010 — performance efficiency / resource utilization\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"Captures the disaster-recovery site and replication method that back the high-availability model.\"}", NULL);
 }
+static void meta_build_hook_method_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "HookMethodEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "State what the member does and what it answers, in terms of the operations it calls and the entities it uses.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("callsOperations");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Calls Operations");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Comma-separated ServerOperationEntry.operationName values, in the order the member calls them");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SVOPE.operationName");
+  n->form->fields[1].name = som_strdup("readsEntities");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Reads Entities");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Comma-separated DataEntityEntry.entityName values the member reads");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[2].name = som_strdup("writesEntities");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Writes Entities");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Comma-separated DataEntityEntry.entityName values the member writes");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("DAENT.entityName");
+}
 static void meta_build_ide_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "IdeRequirementEntry");
   meta_set(&n->member_name, "content");
@@ -74876,7 +75059,7 @@ static void meta_build_information_and_data_model_server_operation_registry(SomM
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.");
-  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and `codespecs_mapping.md`\n§5.14 drops transport plumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by\n`codespecs_mapping.md` §7 / `codespecs_mapping.md` §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.\n\nThird-party HTTP shapes are added beside the contract, not inside it: an\noperation's [ServerOperationEntry.bindings] give it standard-protocol shapes,\nand [protocolFeatures] lists the framework protocol servers the system\nenables with the hooks it implements (`codespecs_mapping.md` §5.30).");
 }
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -95335,6 +95518,110 @@ static void meta_build_operating_environment_constraints_and_dependencies(SomMet
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §6 — operating environment & constraints\",\"PMBOK — constraints, assumptions & dependency management\"],\"connotation\":\"Frames how the operating-environment conditions in §4.6 give rise to constraints and dependencies, pointing to the canonical SBP.6 register.\"}", NULL);
 }
+static void meta_build_operation_binding_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "OperationBindingEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "State what this binding is for and who calls it. The fields fix its shape; the parameters below say where each request member is found.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 9;
+  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("httpMethod");
+  n->form->fields[0].type_name = som_strdup("BindingHttpMethod");
+  n->form->fields[0].description = som_strdup("HTTP Method");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The method the operation is served under");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 5;
+  n->form->fields[0].enum_values = (char **)calloc(5, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("get");
+  n->form->fields[0].enum_values[1] = som_strdup("post");
+  n->form->fields[0].enum_values[2] = som_strdup("put");
+  n->form->fields[0].enum_values[3] = som_strdup("patch");
+  n->form->fields[0].enum_values[4] = som_strdup("delete");
+  n->form->fields[1].name = som_strdup("pathTemplate");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Path Template");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The path after the version prefix, with {name} captures, e.g. /users/{userId}");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("versionPrefix");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Version Prefix");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The prefix the path is served under, e.g. /api/v1; from the interface's versioning convention");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("successStatus");
+  n->form->fields[3].type_name = som_strdup("int");
+  n->form->fields[3].description = som_strdup("Success Status");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The status a successful call answers with, e.g. 200, 201 or 204");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("responseHeaders");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Response Headers");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Comma-separated headers a success sets, e.g. Location, ETag");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("consumes");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Request Content Type");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("e.g. application/json; leave empty for a request without a body");
+  n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("produces");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Response Content Type");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("e.g. application/json");
+  n->form->fields[6].order = 6;
+  n->form->fields[7].name = som_strdup("errorFormat");
+  n->form->fields[7].type_name = som_strdup("BindingErrorFormat");
+  n->form->fields[7].description = som_strdup("Error Format");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("The format errors are answered in; the result envelope if empty");
+  n->form->fields[7].order = 7;
+  n->form->fields[7].enum_values_len = 4;
+  n->form->fields[7].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[7].enum_values[0] = som_strdup("resultEnvelope");
+  n->form->fields[7].enum_values[1] = som_strdup("problemJson");
+  n->form->fields[7].enum_values[2] = som_strdup("scim");
+  n->form->fields[7].enum_values[3] = som_strdup("oauth");
+  n->form->fields[8].name = som_strdup("servedInterface");
+  n->form->fields[8].type_name = som_strdup("String");
+  n->form->fields[8].description = som_strdup("Served Interface");
+  n->form->fields[8].required = 0;
+  n->form->fields[8].hint = som_strdup("The external interface (EIE) this binding belongs to, by its external system name");
+  n->form->fields[8].order = 8;
+}
+static void meta_build_operation_binding_entry_parameters(SomMetaNode *n) {
+  meta_set(&n->class_name, "OperationBindingEntry");
+  meta_set(&n->member_name, "parameters");
+  meta_set(&n->section_id, "SVOBP-PARA-LST");
+  meta_set(&n->section_id_pattern, "SVOBP-PARA-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "BindingParameterEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per request member the binding reads from the path, the query, the body or a header, headed by its name on the wire. Every {name} in the path template needs one.");
+  meta_set(&n->doc_comment, "7.9.x. Parameters — where the binding finds each request member.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"RFC 9110 — HTTP semantics (methods, status codes, header fields)\"],\"connotation\":\"Where the binding finds each request member of its operation.\"}", NULL);
+}
+static void meta_build_operation_binding_entry_parameters_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "BindingParameterEntry");
+  meta_set(&n->class_section_id, "SVOBP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "BindingParameterEntry");
+  meta_set(&n->doc_comment, "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.");
+  meta_set(&n->class_doc_comment, "Where a protocol binding finds one request member (form).\n\nThe entry's headline is the parameter's name on the wire — the `{name}`\ncapture, the query parameter, the body member or the header — and the form\nsays where it is found and which request member it supplies.");
+}
 static void meta_build_operational_monitoring_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OperationalMonitoring");
   meta_set(&n->member_name, "content");
@@ -107192,6 +107479,58 @@ static void meta_build_protocol_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Additional protocol notes");
   n->form->fields[4].order = 4;
+}
+static void meta_build_protocol_feature_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProtocolFeatureEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("feature");
+  n->form->fields[0].type_name = som_strdup("ProtocolFeatureKind");
+  n->form->fields[0].description = som_strdup("Feature");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The framework protocol server the system enables");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 2;
+  n->form->fields[0].enum_values = (char **)calloc(2, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("oidcAuthorizationServer");
+  n->form->fields[0].enum_values[1] = som_strdup("scim2Server");
+  n->form->fields[1].name = som_strdup("purpose");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Purpose");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What the system uses the feature for, and who its callers are");
+  n->form->fields[1].order = 1;
+}
+static void meta_build_protocol_feature_entry_hooks(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProtocolFeatureEntry");
+  meta_set(&n->member_name, "hooks");
+  meta_set(&n->section_id, "FEHOK-HOOK-LST");
+  meta_set(&n->section_id_pattern, "FEHOK-HOOK-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "FeatureHookEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per hook the system implements. Every hook the feature requires needs an entry.");
+  meta_set(&n->doc_comment, "7.9.2.x. Hooks — the extension points of the feature the system\nimplements.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"The hooks of the feature the system implements, each with its behaviour.\"}", NULL);
+}
+static void meta_build_protocol_feature_entry_hooks_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "FeatureHookEntry");
+  meta_set(&n->class_section_id, "FEHOK");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "FeatureHookEntry");
+  meta_set(&n->doc_comment, "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.");
+  meta_set(&n->class_doc_comment, "One hook of a framework protocol feature that the system implements (form +\nmethod list).\n\nThe hook is a framework contract — SCIM's resource store, an authorization\nserver's client registry — and the system's implementation of it is the\nCodeSpec. The contract's members are the framework's; what the system states\nis, per member, what the implementation does: the operations it calls, in\norder, and the entities it reads and writes, so the CodeSpec body is a\nsequence of calls and not invented logic.");
 }
 static void meta_build_protocols_and_standards_section_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ProtocolsAndStandardsSection");
@@ -128882,6 +129221,30 @@ static void meta_build_server_operation_entry_response_members_elem(SomMetaNode 
   meta_set(&n->doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
   meta_set(&n->class_doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
 }
+static void meta_build_server_operation_entry_bindings(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->member_name, "bindings");
+  meta_set(&n->section_id, "SVOBI-BIND-LST");
+  meta_set(&n->section_id_pattern, "SVOBI-BIND-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "OperationBindingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->content_help, "Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.");
+  meta_set(&n->doc_comment, "7.9.x. Protocol Bindings — the standard-protocol shapes this operation is\nalso served under, for third-party callers.\n\nThe operation itself keeps the `codespecs_mapping.md` §7 contract: the\napplication's own client calls it by name. A binding is a second shape of\nthe same operation — an HTTP method, a path, where each request member is\nfound, the success status and headers — and an operation may have several.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"RFC 9110 — HTTP semantics (methods, status codes, header fields)\",\"RFC 6570 — URI templates\"],\"connotation\":\"The HTTP shapes this operation is served under for third-party callers.\"}", NULL);
+}
+static void meta_build_server_operation_entry_bindings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "OperationBindingEntry");
+  meta_set(&n->class_section_id, "SVOBI");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "OperationBindingEntry");
+  meta_set(&n->doc_comment, "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.");
+  meta_set(&n->class_doc_comment, "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.");
+}
 static void meta_build_server_operation_member_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationMemberEntry");
   meta_set(&n->member_name, "content");
@@ -128946,7 +129309,7 @@ static void meta_build_server_operation_registry_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
+  meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes on the\noperation: the operation name carries the intent, and every outcome — success\nor structured error — is returned in the Result envelope (RSLTE). When third\nparties call an operation in a standard HTTP shape, add a **protocol binding**\nto the operation instead; when the system enables a standard protocol server\nthe framework provides (OIDC, SCIM), list it under **protocol features** with\nthe hooks the system implements.\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
 }
 static void meta_build_server_operation_registry_operations(SomMetaNode *n) {
@@ -128972,6 +129335,30 @@ static void meta_build_server_operation_registry_operations_elem(SomMetaNode *n)
   meta_set(&n->type_name, "ServerOperationEntry");
   meta_set(&n->doc_comment, "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).");
   meta_set(&n->class_doc_comment, "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n`ServerOperationEntry.primaryDataEntity` rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).");
+}
+static void meta_build_server_operation_registry_protocol_features(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "protocolFeatures");
+  meta_set(&n->section_id, "PROTF-FEAT-LST");
+  meta_set(&n->section_id_pattern, "PROTF-FEAT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ProtocolFeatureEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per standard protocol server the system enables. Leave empty when the system serves no standard protocol.");
+  meta_set(&n->doc_comment, "7.9.2. Protocol Features — the standard protocol servers the framework\nprovides that the system enables, each with the hooks the system\nimplements.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"The framework protocol servers the system enables and the hooks it plugs its domain into.\"}", NULL);
+}
+static void meta_build_server_operation_registry_protocol_features_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ProtocolFeatureEntry");
+  meta_set(&n->class_section_id, "PROTF");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ProtocolFeatureEntry");
+  meta_set(&n->doc_comment, "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).");
+  meta_set(&n->class_doc_comment, "A standard protocol server the framework provides, enabled by the system\n(form + hook list).\n\nThe framework owns the protocol's endpoints, wire format and error format;\nthe system writes no protocol endpoint of its own. What the system supplies\nare the **hooks** — the extension points through which the protocol reaches\nthe system's domain (`codespecs_mapping.md` §5.30).");
 }
 static void meta_build_server_os_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOsRequirements");
@@ -164854,6 +165241,19 @@ static SomMetaNode **meta_children_behavior_rule_entry(SomStrList *stack, size_t
   return arr;
 }
 
+static SomMetaNode **meta_children_binding_parameter_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_binding_parameter_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_biometric_authentication_policy(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -174129,6 +174529,24 @@ static SomMetaNode **meta_children_feature_dependency_entry(SomStrList *stack, s
   return arr;
 }
 
+static SomMetaNode **meta_children_feature_hook_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_feature_hook_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_feature_hook_entry_methods(ln);
+    ln->element_node = meta_cx("HookMethodEntry", stack, meta_children_hook_method_entry, meta_build_feature_hook_entry_methods_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_feature_module_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -175349,6 +175767,19 @@ static SomMetaNode **meta_children_high_availability_requirements(SomStrList *st
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_high_availability_requirements_disaster_recovery(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_hook_method_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_hook_method_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -180179,6 +180610,24 @@ static SomMetaNode **meta_children_operating_environment(SomStrList *stack, size
   return arr;
 }
 
+static SomMetaNode **meta_children_operation_binding_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_operation_binding_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_operation_binding_entry_parameters(ln);
+    ln->element_node = meta_cx("BindingParameterEntry", stack, meta_children_binding_parameter_entry, meta_build_operation_binding_entry_parameters_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_operational_monitoring(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -182851,6 +183300,24 @@ static SomMetaNode **meta_children_protocol_entry(SomStrList *stack, size_t *len
     SomMetaNode *n = som_meta_node_new();
     meta_build_protocol_entry_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_protocol_feature_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_protocol_feature_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_protocol_feature_entry_hooks(ln);
+    ln->element_node = meta_cx("FeatureHookEntry", stack, meta_children_feature_hook_entry, meta_build_protocol_feature_entry_hooks_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -187535,6 +188002,12 @@ static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, siz
     ln->element_node = meta_cx("ServerOperationMemberEntry", stack, meta_children_server_operation_member_entry, meta_build_server_operation_entry_response_members_elem);
     meta_push(&arr, len, &cap, ln);
   }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_server_operation_entry_bindings(ln);
+    ln->element_node = meta_cx("OperationBindingEntry", stack, meta_children_operation_binding_entry, meta_build_server_operation_entry_bindings_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   return arr;
 }
 
@@ -187564,6 +188037,12 @@ static SomMetaNode **meta_children_server_operation_registry(SomStrList *stack, 
     SomMetaNode *ln = som_meta_node_new();
     meta_build_server_operation_registry_operations(ln);
     ln->element_node = meta_cx("ServerOperationEntry", stack, meta_children_server_operation_entry, meta_build_server_operation_registry_operations_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_server_operation_registry_protocol_features(ln);
+    ln->element_node = meta_cx("ProtocolFeatureEntry", stack, meta_children_protocol_feature_entry, meta_build_server_operation_registry_protocol_features_elem);
     meta_push(&arr, len, &cap, ln);
   }
   return arr;
@@ -197953,6 +198432,13 @@ SomListMetaRef batch_job_management_nav_scheduled_jobs(som_nav_batch_job_managem
   return out;
 }
 SomMetaRef behavior_rule_entry_nav_content(som_nav_behavior_rule_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef binding_parameter_entry_nav_content(som_nav_binding_parameter_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -209075,6 +209561,20 @@ SomMetaRef feature_dependency_entry_nav_content(som_nav_feature_dependency_entry
   free(path);
   return out;
 }
+SomMetaRef feature_hook_entry_nav_content(som_nav_feature_hook_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef feature_hook_entry_nav_methods(som_nav_feature_hook_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "FEHOM-METH-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_hook_method_entry);
+  free(path);
+  return out;
+}
 SomMetaRef feature_module_entry_nav_content(som_nav_feature_module_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -210408,6 +210908,13 @@ SomMetaRef high_availability_requirements_nav_load_balancing(som_nav_high_availa
 SomMetaRef high_availability_requirements_nav_disaster_recovery(som_nav_high_availability_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "HARDR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef hook_method_entry_nav_content(som_nav_hook_method_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -215683,6 +216190,20 @@ SomMetaRef operating_environment_nav_constraints_and_dependencies(som_nav_operat
   free(path);
   return out;
 }
+SomMetaRef operation_binding_entry_nav_content(som_nav_operation_binding_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef operation_binding_entry_nav_parameters(som_nav_operation_binding_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOBP-PARA-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_binding_parameter_entry);
+  free(path);
+  return out;
+}
 SomMetaRef operational_monitoring_nav_content(som_nav_operational_monitoring x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -218417,6 +218938,20 @@ SomMetaRef protocol_entry_nav_content(som_nav_protocol_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef protocol_feature_entry_nav_content(som_nav_protocol_feature_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef protocol_feature_entry_nav_hooks(som_nav_protocol_feature_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "FEHOK-HOOK-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_feature_hook_entry);
   free(path);
   return out;
 }
@@ -223348,6 +223883,13 @@ SomListMetaRef server_operation_entry_nav_response_members(som_nav_server_operat
   free(path);
   return out;
 }
+SomListMetaRef server_operation_entry_nav_bindings(som_nav_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOBI-BIND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_operation_binding_entry);
+  free(path);
+  return out;
+}
 SomMetaRef server_operation_member_entry_nav_content(som_nav_server_operation_member_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -223366,6 +223908,13 @@ SomListMetaRef server_operation_registry_nav_operations(som_nav_server_operation
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SVOPE-OPER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_operation_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_registry_nav_protocol_features(som_nav_server_operation_registry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "PROTF-FEAT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_protocol_feature_entry);
   free(path);
   return out;
 }
@@ -235144,6 +235693,13 @@ SomListMetaRef d00_solution_blueprint_id_svope_oper_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_protf_feat_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/serverOperationRegistry/PROTF-FEAT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_protocol_feature_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_dmfue_enfu_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST");
@@ -243058,6 +243614,13 @@ SomListMetaRef d03_information_model_id_svope_oper_lst(som_id_d03_information_mo
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "serverOperationRegistry/SVOPE-OPER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_protf_feat_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry/PROTF-FEAT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_protocol_feature_entry);
   free(path);
   return out;
 }
@@ -255101,6 +255664,13 @@ SomListMetaRef d13_code_specs_projection_id_svope_oper_lst(som_id_d13_code_specs
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_protf_feat_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry/PROTF-FEAT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_protocol_feature_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d13_code_specs_projection_id_acovna(som_id_d13_code_specs_projection x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "processStepsAndActorInteractions/actorOverview/ACOVNA");
@@ -257299,6 +257869,13 @@ SomMetaRef external_system_context_entry_id_exsyco_data(som_id_external_system_c
   free(path);
   return out;
 }
+SomListMetaRef feature_hook_entry_id_fehom_meth_lst(som_id_feature_hook_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "FEHOM-METH-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_hook_method_entry);
+  free(path);
+  return out;
+}
 SomMetaRef feature_module_entry_id_fmed(som_id_feature_module_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "FMED");
@@ -258993,6 +259570,13 @@ SomMetaRef ongoing_training_entry_id_ontrenco(som_id_ongoing_training_entry x) {
   free(path);
   return out;
 }
+SomListMetaRef operation_binding_entry_id_svobp_para_lst(som_id_operation_binding_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOBP-PARA-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_binding_parameter_entry);
+  free(path);
+  return out;
+}
 SomMetaRef organizational_change_entry_id_ocidn(som_id_organizational_change_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "OCIDN");
@@ -259501,6 +260085,13 @@ SomMetaRef programming_language_entry_id_plgjt(som_id_programming_language_entry
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PLGJT");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef protocol_feature_entry_id_fehok_hook_lst(som_id_protocol_feature_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "FEHOK-HOOK-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_hook_entry);
   free(path);
   return out;
 }
@@ -261188,6 +261779,13 @@ SomListMetaRef server_operation_entry_id_svopm_resm_lst(som_id_server_operation_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "SVOPM-RESM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_member_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_id_svobi_bind_lst(som_id_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOBI-BIND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_operation_binding_entry);
   free(path);
   return out;
 }

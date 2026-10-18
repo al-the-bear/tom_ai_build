@@ -1,6 +1,7 @@
 # TomSpecs CodeSpecs API Reference: Vocabulary Module
 
-The sixteen closed catalogues the `Cs*` marker arguments select from. A
+The seventeen closed catalogues the `Cs*` marker arguments select from, and the
+protocol-feature hook catalogue. A
 catalogue is *closed*: adding a value is a reviewed taxonomy edit, not a
 free-form attribute a specification can invent in passing.
 
@@ -31,12 +32,14 @@ value means for a specification, see
   - [CsTriggerKind](#cstriggerkind)
   - [CsIdentityAttributePlacement](#csidentityattributeplacement)
   - [CsOverridableBy](#csoverridableby)
+  - [CsProtocolFeature](#csprotocolfeature)
 - [Classes](#classes)
 - [Global Functions and Constants](#global-functions-and-constants)
 
 ## Overview
 
-The module declares **16 enums** and no classes. Every catalogue
+The module declares **17 enums**, one class (`CsFeatureHookSpec`) and two
+constants (`csFeatureHooks`, `csFeatureReservedPaths`). Every catalogue
 carries the `Cs` prefix without exception.
 
 | Catalogue | Values | Selected by |
@@ -57,11 +60,14 @@ carries the `Cs` prefix without exception.
 | `CsTriggerKind` | 5 | `@CsTrigger(kind:)` |
 | `CsIdentityAttributePlacement` | 2 | `@CsIdentityAttribute(placement:)` |
 | `CsOverridableBy` | 4 | `@CsServerConfig`, `@CsClientConfig`, `@CsUserSetting` `(overridableBy:)` |
+| `CsProtocolFeature` | 2 | `@CsFeatureHook(feature, …)` |
 
 **Declared here, not imported.** `tom_code_specs` deliberately does not depend
 on `tom_core`, so a catalogue with a `tom_core` counterpart is a local mirror,
 and a validator check asserts the mirror is complete. No catalogue currently
 has such a counterpart, so that check stands ready rather than firing.
+`csFeatureHooks` mirrors `tom_core_server`'s hook *contracts* instead, and
+records per entry whether `tom_core` ships the contract yet.
 
 ## Enums
 
@@ -281,13 +287,49 @@ Which narrower configuration scope may shadow a setting (`codespecs_mapping.md` 
 | `user` | A per-user setting (CE-UP) may shadow this key; on a CE-CF declaration so may a client configuration value (CE-CC), the one scope between. A device setting (CE-DS) may not — that is what `device` opens. On a CE-CC declaration `user` opens CE-UP alone. |
 | `device` | A per-user-per-device setting may shadow this key. |
 
+### CsProtocolFeature
+
+A framework protocol feature: a `tom_core_server` standard protocol server an application enables (`codespecs_mapping.md` §5.30).
+
+**Selected by:** `@CsFeatureHook(feature, …)`
+
+| Value | Meaning |
+|-------|---------|
+| `oidcAuthorizationServer` | An OpenID Connect authorization server: the application issues identity and access tokens to third-party clients. |
+| `scim2Server` | A SCIM 2.0 server: identity providers provision and deprovision the application's users and groups. |
+
 ## Classes
 
-The module declares none. The two facet value classes a marker argument can
+### CsFeatureHookSpec
+
+One hook a `CsProtocolFeature` asks the application to implement (`codespecs_derivation_contract.md` §3.4.6).
+
+```dart
+const CsFeatureHookSpec(
+  this.feature,
+  this.hook, {
+  required this.contract,
+  required this.required,
+  required this.available,
+});
+```
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `feature` | `CsProtocolFeature` | The feature the hook belongs to. |
+| `hook` | `String` | The hook's catalogue name — the string `@CsFeatureHook` carries verbatim. |
+| `contract` | `String` | The `tom_core` type or member the hook implements. |
+| `required` | `bool` | Whether the feature cannot run without an implementation of this hook. |
+| `available` | `bool` | Whether `tom_core` ships `contract` today. |
+
+The two facet value classes a marker argument can
 take — `CsFileReference` and `CsGradedAccess` — live in
 `service_annotations.dart` and are documented in
 [api_summary_annotations.md](api_summary_annotations.md).
 
 ## Global Functions and Constants
 
-The module declares none.
+| Constant | Type | Description |
+|----------|------|-------------|
+| `csFeatureHooks` | `List<CsFeatureHookSpec>` | Every hook of every feature. SCIM: `scimStore` (`TomScimStore`, required), `scimIdentityDirectory` (`TomScimIdentityDirectory`), `scimSessionRevocation` (`TomScimService.revoke`) — all shipped. OIDC: `clientRegistry`, `subjectAuthentication`, `claimsProvider` (required), `consentStore` — requested from `tom_core`, contract names provisional. |
+| `csFeatureReservedPaths` | `Map<CsProtocolFeature, List<String>>` | The path prefixes the framework serves per feature (`/scim/v2`; `/.well-known/openid-configuration`, `/oauth2`), which no `@CsOperationBinding` may declare. |

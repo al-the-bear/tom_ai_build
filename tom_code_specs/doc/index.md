@@ -13,9 +13,9 @@ here cite it rather than restating it
 
 | Document | Covers |
 |----------|--------|
-| [marking_code.md](marking_code.md) | Applying the markers: `@CodeSpec` identity and forward trace, the 39 part markers, `@CsCollaborator`, the note-only / argument-carrying split, the two facet value classes, and placing a marker in the generated trio |
+| [marking_code.md](marking_code.md) | Applying the markers: `@CodeSpec` identity and forward trace, the 41 part markers, `@CsCollaborator`, the note-only / argument-carrying split, the two facet value classes, and placing a marker in the generated trio |
 | [cross_references.md](cross_references.md) | The 13 typed `Cs*Ref` consts, declaring an identity once, the qualifiable `CsElementRef`, what is deliberately not a ref, and the `@DocSpec` / `DocRef` back-links |
-| [vocabulary.md](vocabulary.md) | The 16 closed catalogues, why they are enums declared locally, the per-kind slot rule a `const` cannot enforce, and the three settings-scope catalogues |
+| [vocabulary.md](vocabulary.md) | The 17 closed catalogues and the protocol-feature hook catalogue, why they are enums declared locally, the per-kind slot rule a `const` cannot enforce, and the three settings-scope catalogues |
 
 ## API reference
 

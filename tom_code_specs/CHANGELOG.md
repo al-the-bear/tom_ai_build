@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.15.0
+
+- **`@CsOperationBinding(operation, {note})`** — a second CE-API marker, beside
+  `@CsEndpoint`: a protocol binding of one of the application's own operations,
+  the standard HTTP shape (method, path template, parameter mapping, success
+  status and headers, content types, error format, version prefix) a
+  third-party caller reaches the operation through. It marks a top-level const
+  `TomOperationBinding` in the server project, whose constructor arguments
+  carry the shape, so the marker holds only the `CsOperationRef` it binds and a
+  note. The operation keeps its §7 POST contract for the application's own
+  client; one operation may have several bindings (`codespecs_mapping.md`
+  §5.30, `codespecs_derivation_contract.md` §3.15).
+- **`@CsFeatureHook(feature, hook, {note})`** — a second CE-SU marker, beside
+  `@CsServiceUnit`: the class implementing one hook of a framework protocol
+  feature (a `tom_core_server` standard protocol server such as SCIM 2.0 or an
+  OIDC authorization server). It generalises §5.25's rule that the class
+  implementing the framework contract is the CodeSpec. `hook` is the catalogue
+  name from `csFeatureHooks`, verbatim; the body is form 3b.
+- **`vocabulary.dart`** gains `CsProtocolFeature` (`oidcAuthorizationServer`,
+  `scim2Server`), the `CsFeatureHookSpec` row class, the `csFeatureHooks`
+  catalogue (three SCIM hooks whose `tom_core_server` contracts exist, four
+  OIDC hooks whose contracts are requested from `tom_core` and provisional) and
+  `csFeatureReservedPaths`, the path prefixes each feature reserves for the
+  framework.
+- Counts: **41 part markers** plus `@CsCollaborator` (42 markers), **26 take
+  arguments**, 16 stay note-only; **17 closed enums**. README, `doc/` guides
+  and API summaries updated to match. 96 tests.
+
 ## 0.14.2
 
 - Documentation only. The README, the API summaries and the `doc/` pages link to

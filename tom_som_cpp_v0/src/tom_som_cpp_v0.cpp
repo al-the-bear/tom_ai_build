@@ -94,6 +94,57 @@ std::optional<std::string> BasicAuthorizationRequirementKind::parse(const std::s
   return std::nullopt;
 }
 
+std::optional<std::string> BindingErrorFormat::parse(const std::string& token) {
+  if (token == resultEnvelope) {
+    return token;
+  }
+  if (token == problemJson) {
+    return token;
+  }
+  if (token == scim) {
+    return token;
+  }
+  if (token == oauth) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> BindingHttpMethod::parse(const std::string& token) {
+  if (token == get) {
+    return token;
+  }
+  if (token == post) {
+    return token;
+  }
+  if (token == put) {
+    return token;
+  }
+  if (token == patch) {
+    return token;
+  }
+  if (token == delete_) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> BindingParameterSource::parse(const std::string& token) {
+  if (token == path) {
+    return token;
+  }
+  if (token == query) {
+    return token;
+  }
+  if (token == body) {
+    return token;
+  }
+  if (token == header) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> ClientApplicationKind::parse(const std::string& token) {
   if (token == graphicalApplication) {
     return token;
@@ -314,6 +365,16 @@ std::optional<std::string> Probability::parse(const std::string& token) {
     return token;
   }
   if (token == veryHigh) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ProtocolFeatureKind::parse(const std::string& token) {
+  if (token == oidcAuthorizationServer) {
+    return token;
+  }
+  if (token == scim2Server) {
     return token;
   }
   return std::nullopt;
@@ -2071,6 +2132,12 @@ BehaviorRuleEntry::BehaviorRuleEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 BehaviorRuleEntryContentForm BehaviorRuleEntry::content() const {
   return BehaviorRuleEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+BindingParameterEntry::BindingParameterEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+BindingParameterEntryContentForm BindingParameterEntry::content() const {
+  return BindingParameterEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 BiometricAuthenticationPolicy::BiometricAuthenticationPolicy(som::SpecDocument& doc, std::string path)
@@ -8510,6 +8577,15 @@ FeatureDependencyEntryContentForm FeatureDependencyEntry::content() const {
   return FeatureDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+FeatureHookEntry::FeatureHookEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+FeatureHookEntryContentForm FeatureHookEntry::content() const {
+  return FeatureHookEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList FeatureHookEntry::methods() const {
+  return som::SomList(doc(), som::joinPath(path(), "FEHOM-METH-LST"), "FEHOM-METH-xxx");
+}
+
 FeatureModuleEntry::FeatureModuleEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 FeatureModuleEntryContentForm FeatureModuleEntry::content() const {
@@ -9246,6 +9322,12 @@ HighAvailabilityRequirementsLoadBalancingForm HighAvailabilityRequirements::load
 }
 HighAvailabilityRequirementsDisasterRecoveryForm HighAvailabilityRequirements::disasterRecovery() const {
   return HighAvailabilityRequirementsDisasterRecoveryForm(doc(), som::joinPath(path(), "HARDR"));
+}
+
+HookMethodEntry::HookMethodEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+HookMethodEntryContentForm HookMethodEntry::content() const {
+  return HookMethodEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 IdeRequirementEntry::IdeRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -12062,6 +12144,15 @@ void OperatingEnvironment::setConstraintsAndDependencies(const std::string& valu
   doc().setContent(som::joinPath(path(), "COANDE"), value);
 }
 
+OperationBindingEntry::OperationBindingEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+OperationBindingEntryContentForm OperationBindingEntry::content() const {
+  return OperationBindingEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList OperationBindingEntry::parameters() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVOBP-PARA-LST"), "SVOBP-PARA-xxx");
+}
+
 OperationalMonitoring::OperationalMonitoring(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 OperationalMonitoringContentForm OperationalMonitoring::content() const {
@@ -13653,6 +13744,15 @@ ProtocolEntry::ProtocolEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 ProtocolEntryContentForm ProtocolEntry::content() const {
   return ProtocolEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+ProtocolFeatureEntry::ProtocolFeatureEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ProtocolFeatureEntryContentForm ProtocolFeatureEntry::content() const {
+  return ProtocolFeatureEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList ProtocolFeatureEntry::hooks() const {
+  return som::SomList(doc(), som::joinPath(path(), "FEHOK-HOOK-LST"), "FEHOK-HOOK-xxx");
 }
 
 ProtocolsAndStandardsSection::ProtocolsAndStandardsSection(som::SpecDocument& doc, std::string path)
@@ -16420,6 +16520,9 @@ som::SomList ServerOperationEntry::requestMembers() const {
 som::SomList ServerOperationEntry::responseMembers() const {
   return som::SomList(doc(), som::joinPath(path(), "SVOPM-RESM-LST"), "SVOPM-RESM-xxx");
 }
+som::SomList ServerOperationEntry::bindings() const {
+  return som::SomList(doc(), som::joinPath(path(), "SVOBI-BIND-LST"), "SVOBI-BIND-xxx");
+}
 
 ServerOperationMemberEntry::ServerOperationMemberEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -16437,6 +16540,9 @@ void ServerOperationRegistry::setContent(const std::string& value) {
 }
 som::SomList ServerOperationRegistry::operations() const {
   return som::SomList(doc(), som::joinPath(path(), "SVOPE-OPER-LST"), "SVOPE-OPER-xxx");
+}
+som::SomList ServerOperationRegistry::protocolFeatures() const {
+  return som::SomList(doc(), som::joinPath(path(), "PROTF-FEAT-LST"), "PROTF-FEAT-xxx");
 }
 
 ServerOsRequirements::ServerOsRequirements(som::SpecDocument& doc, std::string path)
@@ -28444,6 +28550,27 @@ std::string BehaviorRuleEntryContentForm::calculatedProperties() const {
 }
 void BehaviorRuleEntryContentForm::setCalculatedProperties(const std::string& value) {
   doc().setFormField(path(), "calculatedProperties", value);
+}
+
+BindingParameterEntryContentForm::BindingParameterEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string BindingParameterEntryContentForm::content() const {
+  return doc().content(path());
+}
+void BindingParameterEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string BindingParameterEntryContentForm::source() const {
+  return doc().formField(path(), "source");
+}
+void BindingParameterEntryContentForm::setSource(const std::string& value) {
+  doc().setFormField(path(), "source", value);
+}
+std::string BindingParameterEntryContentForm::requestMember() const {
+  return doc().formField(path(), "requestMember");
+}
+void BindingParameterEntryContentForm::setRequestMember(const std::string& value) {
+  doc().setFormField(path(), "requestMember", value);
 }
 
 BiometricAuthenticationPolicyContentForm::BiometricAuthenticationPolicyContentForm(som::SpecDocument& doc, std::string path)
@@ -55547,6 +55674,21 @@ void FeatureDependencyEntryContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
+FeatureHookEntryContentForm::FeatureHookEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string FeatureHookEntryContentForm::content() const {
+  return doc().content(path());
+}
+void FeatureHookEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string FeatureHookEntryContentForm::hook() const {
+  return doc().formField(path(), "hook");
+}
+void FeatureHookEntryContentForm::setHook(const std::string& value) {
+  doc().setFormField(path(), "hook", value);
+}
+
 FeatureModuleEntryConfigurationForm::FeatureModuleEntryConfigurationForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string FeatureModuleEntryConfigurationForm::content() const {
@@ -59338,6 +59480,33 @@ std::optional<bool> HighAvailabilityRequirementsRedundancyForm::activeActiveMode
 }
 void HighAvailabilityRequirementsRedundancyForm::setActiveActiveMode(std::optional<bool> value) {
   doc().setFormField(path(), "activeActiveMode", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+HookMethodEntryContentForm::HookMethodEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string HookMethodEntryContentForm::content() const {
+  return doc().content(path());
+}
+void HookMethodEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string HookMethodEntryContentForm::callsOperations() const {
+  return doc().formField(path(), "callsOperations");
+}
+void HookMethodEntryContentForm::setCallsOperations(const std::string& value) {
+  doc().setFormField(path(), "callsOperations", value);
+}
+std::string HookMethodEntryContentForm::readsEntities() const {
+  return doc().formField(path(), "readsEntities");
+}
+void HookMethodEntryContentForm::setReadsEntities(const std::string& value) {
+  doc().setFormField(path(), "readsEntities", value);
+}
+std::string HookMethodEntryContentForm::writesEntities() const {
+  return doc().formField(path(), "writesEntities");
+}
+void HookMethodEntryContentForm::setWritesEntities(const std::string& value) {
+  doc().setFormField(path(), "writesEntities", value);
 }
 
 IdeRequirementEntryConfigurationForm::IdeRequirementEntryConfigurationForm(som::SpecDocument& doc, std::string path)
@@ -74611,6 +74780,71 @@ void OngoingTrainingEntryScheduleForm::setDuration(const std::string& value) {
   doc().setFormField(path(), "duration", value);
 }
 
+OperationBindingEntryContentForm::OperationBindingEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string OperationBindingEntryContentForm::content() const {
+  return doc().content(path());
+}
+void OperationBindingEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string OperationBindingEntryContentForm::httpMethod() const {
+  return doc().formField(path(), "httpMethod");
+}
+void OperationBindingEntryContentForm::setHttpMethod(const std::string& value) {
+  doc().setFormField(path(), "httpMethod", value);
+}
+std::string OperationBindingEntryContentForm::pathTemplate() const {
+  return doc().formField(path(), "pathTemplate");
+}
+void OperationBindingEntryContentForm::setPathTemplate(const std::string& value) {
+  doc().setFormField(path(), "pathTemplate", value);
+}
+std::string OperationBindingEntryContentForm::versionPrefix() const {
+  return doc().formField(path(), "versionPrefix");
+}
+void OperationBindingEntryContentForm::setVersionPrefix(const std::string& value) {
+  doc().setFormField(path(), "versionPrefix", value);
+}
+std::optional<long> OperationBindingEntryContentForm::successStatus() const {
+  const std::string v = doc().formField(path(), "successStatus");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void OperationBindingEntryContentForm::setSuccessStatus(std::optional<long> value) {
+  doc().setFormField(path(), "successStatus", value.has_value() ? std::to_string(*value) : "");
+}
+std::string OperationBindingEntryContentForm::responseHeaders() const {
+  return doc().formField(path(), "responseHeaders");
+}
+void OperationBindingEntryContentForm::setResponseHeaders(const std::string& value) {
+  doc().setFormField(path(), "responseHeaders", value);
+}
+std::string OperationBindingEntryContentForm::consumes() const {
+  return doc().formField(path(), "consumes");
+}
+void OperationBindingEntryContentForm::setConsumes(const std::string& value) {
+  doc().setFormField(path(), "consumes", value);
+}
+std::string OperationBindingEntryContentForm::produces() const {
+  return doc().formField(path(), "produces");
+}
+void OperationBindingEntryContentForm::setProduces(const std::string& value) {
+  doc().setFormField(path(), "produces", value);
+}
+std::string OperationBindingEntryContentForm::errorFormat() const {
+  return doc().formField(path(), "errorFormat");
+}
+void OperationBindingEntryContentForm::setErrorFormat(const std::string& value) {
+  doc().setFormField(path(), "errorFormat", value);
+}
+std::string OperationBindingEntryContentForm::servedInterface() const {
+  return doc().formField(path(), "servedInterface");
+}
+void OperationBindingEntryContentForm::setServedInterface(const std::string& value) {
+  doc().setFormField(path(), "servedInterface", value);
+}
+
 OperationalMonitoringAlertingForm::OperationalMonitoringAlertingForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string OperationalMonitoringAlertingForm::content() const {
@@ -82215,6 +82449,27 @@ std::string ProtocolEntryContentForm::notes() const {
 }
 void ProtocolEntryContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+ProtocolFeatureEntryContentForm::ProtocolFeatureEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ProtocolFeatureEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ProtocolFeatureEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ProtocolFeatureEntryContentForm::feature() const {
+  return doc().formField(path(), "feature");
+}
+void ProtocolFeatureEntryContentForm::setFeature(const std::string& value) {
+  doc().setFormField(path(), "feature", value);
+}
+std::string ProtocolFeatureEntryContentForm::purpose() const {
+  return doc().formField(path(), "purpose");
+}
+void ProtocolFeatureEntryContentForm::setPurpose(const std::string& value) {
+  doc().setFormField(path(), "purpose", value);
 }
 
 PrototypeFeatureEntryContentForm::PrototypeFeatureEntryContentForm(som::SpecDocument& doc, std::string path)

@@ -1,8 +1,8 @@
 # TomSpecs CodeSpecs — The Closed Catalogues
 
-Twenty-four of the forty `Cs*` markers take arguments, and most of those
+Twenty-six of the forty-two `Cs*` markers take arguments, and most of those
 arguments select from a **closed catalogue** — an enum declared in
-`vocabulary.dart`. This guide covers the sixteen catalogues, why they are enums
+`vocabulary.dart`. This guide covers the seventeen catalogues, why they are enums
 rather than strings, why they are declared here rather than imported, and the
 per-kind slot rule that a `const` expression cannot enforce. What each value
 *means* for a specification is
@@ -16,7 +16,7 @@ code it produces is
 - [Overview](#overview)
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
-  - [The sixteen catalogues](#the-sixteen-catalogues)
+  - [The seventeen catalogues](#the-seventeen-catalogues)
   - [Why enums, and why declared here](#why-enums-and-why-declared-here)
 - [Per-kind slots and the exclusivity rule](#per-kind-slots-and-the-exclusivity-rule)
 - [The three settings-scope catalogues](#the-three-settings-scope-catalogues)
@@ -71,7 +71,7 @@ ordinary UI copy — needs neither argument.
 
 ## Core Components
 
-### The sixteen catalogues
+### The seventeen catalogues
 
 | Catalogue | Values | Selected by | Answers |
 |-----------|--------|-------------|---------|
@@ -91,6 +91,15 @@ ordinary UI copy — needs neither argument.
 | `CsClientKind` | 3 | `@CsClient(kind:)` | Which kind of client application this is |
 | `CsIdentityAttributePlacement` | 2 | `@CsIdentityAttribute(placement:)` | Where the attribute rides in the token payload |
 | `CsOverridableBy` | 4 | `@CsServerConfig`, `@CsClientConfig`, `@CsUserSetting` `(overridableBy:)` | Which narrower scope may shadow a setting |
+| `CsProtocolFeature` | 2 | `@CsFeatureHook(feature, …)` | Which framework protocol server a hook belongs to |
+
+Beside the enums, `vocabulary.dart` carries the **protocol-feature hook
+catalogue** (`codespecs_derivation_contract.md` §3.4.6): `csFeatureHooks` lists
+every hook of every `CsProtocolFeature` as a `CsFeatureHookSpec` — the hook name
+`@CsFeatureHook` carries verbatim, the `tom_core` contract it implements, whether
+the feature needs it and whether `tom_core` ships the contract today — and
+`csFeatureReservedPaths` names the path prefixes the framework serves per
+feature, which no `@CsOperationBinding` may declare.
 
 ```dart
 import 'package:tom_code_specs/tom_code_specs.dart';

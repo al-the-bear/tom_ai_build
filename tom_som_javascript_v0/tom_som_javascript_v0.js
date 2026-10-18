@@ -138,6 +138,83 @@ function _parseBasicAuthorizationRequirementKind(token) {
   return null;
 }
 
+// Generated enum for `BindingErrorFormat` values.
+const BindingErrorFormat = Object.freeze({
+  // The CE-ER Result envelope of the operation contract.
+  "resultEnvelope": "resultEnvelope",
+  // RFC 9457 problem details (`application/problem+json`).
+  "problemJson": "problemJson",
+  // The SCIM 2.0 error schema (RFC 7644 §3.12).
+  "scim": "scim",
+  // The OAuth 2.0 error response (RFC 6749 §5.2).
+  "oauth": "oauth",
+});
+
+// Parses a stored token into a BindingErrorFormat value, or null.
+function _parseBindingErrorFormat(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(BindingErrorFormat)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `BindingHttpMethod` values.
+const BindingHttpMethod = Object.freeze({
+  // A read with no side effect — a single resource or a listing.
+  "get": "get",
+  // A creation, or an action that is not a plain state change.
+  "post": "post",
+  // A full replacement of the resource at the path.
+  "put": "put",
+  // A partial change of the resource at the path.
+  "patch": "patch",
+  // A removal of the resource at the path.
+  "delete": "delete",
+});
+
+// Parses a stored token into a BindingHttpMethod value, or null.
+function _parseBindingHttpMethod(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(BindingHttpMethod)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `BindingParameterSource` values.
+const BindingParameterSource = Object.freeze({
+  // A `{name}` capture in the path template.
+  "path": "path",
+  // A query parameter.
+  "query": "query",
+  // The request body, or one member of it.
+  "body": "body",
+  // A request header.
+  "header": "header",
+});
+
+// Parses a stored token into a BindingParameterSource value, or null.
+function _parseBindingParameterSource(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(BindingParameterSource)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `ClientApplicationKind` values.
 const ClientApplicationKind = Object.freeze({
   // A graphical application with screens, forms and navigation.
@@ -654,6 +731,27 @@ function _parseProbability(token) {
     return null;
   }
   for (const value of Object.values(Probability)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ProtocolFeatureKind` values.
+const ProtocolFeatureKind = Object.freeze({
+  // An OAuth 2.0 / OpenID Connect authorization server.
+  "oidcAuthorizationServer": "oidcAuthorizationServer",
+  // A SCIM 2.0 provisioning server (RFC 7643, RFC 7644).
+  "scim2Server": "scim2Server",
+});
+
+// Parses a stored token into a ProtocolFeatureKind value, or null.
+function _parseProtocolFeatureKind(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ProtocolFeatureKind)) {
     if (value === token) {
       return value;
     }
@@ -4770,6 +4868,24 @@ class BehaviorRuleEntry extends SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   get content() {
     return new BehaviorRuleEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// Where a protocol binding finds one request member (form).
+//
+// The entry's headline is the parameter's name on the wire — the `{name}`
+// capture, the query parameter, the body member or the header — and the form
+// says where it is found and which request member it supplies.
+class BindingParameterEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new BindingParameterEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -9954,7 +10070,7 @@ class CutoverProcedure extends SomNode {
 // per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10084,7 +10200,7 @@ class D00SolutionBlueprint extends SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10189,7 +10305,7 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10305,7 +10421,7 @@ class D02TargetOperatingModel extends SomNode {
 // integrity constraints.
 class D03InformationModel extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10485,7 +10601,7 @@ class D03InformationModel extends SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10593,7 +10709,7 @@ class D04RequirementsSpecification extends SomNode {
 // and traceability.
 class D05InteractionScenarios extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10694,7 +10810,7 @@ class D05InteractionScenarios extends SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10819,7 +10935,7 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -10935,7 +11051,7 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11053,7 +11169,7 @@ class D08SecurityAccessSpecification extends SomNode {
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11184,7 +11300,7 @@ class D09ExperienceDesignSpecification extends SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11345,7 +11461,7 @@ class D10QualityAcceptancePlan extends SomNode {
 // framework.
 class D11DeliveryRoadmap extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11456,7 +11572,7 @@ class D11DeliveryRoadmap extends SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -11592,7 +11708,7 @@ class D12TransitionRolloutPlan extends SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
   // The model version this object model was generated against (SOM §4.2).
-  static MODEL_VERSION = "1.5";
+  static MODEL_VERSION = "1.6";
 
   // Creates the typed facade at the document root and verifies the
   // document's authoring documentVersion is editable (SOM §4.2).
@@ -18901,6 +19017,33 @@ class FeatureDependencyEntry extends SomNode {
   }
 }
 
+// One hook of a framework protocol feature that the system implements (form +
+// method list).
+//
+// The hook is a framework contract — SCIM's resource store, an authorization
+// server's client registry — and the system's implementation of it is the
+// CodeSpec. The contract's members are the framework's; what the system states
+// is, per member, what the implementation does: the operations it calls, in
+// order, and the entities it reads and writes, so the CodeSpec body is a
+// sequence of calls and not invented logic.
+class FeatureHookEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new FeatureHookEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.9.2.x. Methods — what each member of the hook contract does.
+  get methods() {
+    return new SomList(this.doc, this.path + "/FEHOM-METH-LST", (d, p) => new HookMethodEntry(d, p), "FEHOM-METH-xxx");
+  }
+}
+
 // Feature module entry — a vertical slice feature.
 class FeatureModuleEntry extends SomNode {
   constructor(doc, path) {
@@ -20632,6 +20775,24 @@ class HighAvailabilityRequirements extends SomNode {
   // Disaster recovery alignment.
   get disasterRecovery() {
     return new HighAvailabilityRequirementsDisasterRecoveryForm(this.doc, this.path + "/HARDR");
+  }
+}
+
+// What one member of a hook contract does (form).
+//
+// The entry's headline is the contract member's name. The operations it calls
+// are listed in the order the implementation calls them; that order is the
+// CodeSpec body.
+class HookMethodEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new HookMethodEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -27080,6 +27241,31 @@ class OperatingEnvironment extends SomNode {
   }
 }
 
+// One standard-protocol shape of a server operation (form + parameter list).
+//
+// The operation stays the unit of behaviour; the binding only says how a
+// third-party caller reaches it: the method, the path template, where each
+// request member is found, the success status and headers, the content types,
+// the error format and the version prefix. A REST listing, a save and a state
+// transition are each one binding of their operation.
+class OperationBindingEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new OperationBindingEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.9.x. Parameters — where the binding finds each request member.
+  get parameters() {
+    return new SomList(this.doc, this.path + "/SVOBP-PARA-LST", (d, p) => new BindingParameterEntry(d, p), "SVOBP-PARA-xxx");
+  }
+}
+
 // 11.4.3. Monitoring quality.
 class OperationalMonitoring extends SomNode {
   constructor(doc, path) {
@@ -30640,6 +30826,32 @@ class ProtocolEntry extends SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   get content() {
     return new ProtocolEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A standard protocol server the framework provides, enabled by the system
+// (form + hook list).
+//
+// The framework owns the protocol's endpoints, wire format and error format;
+// the system writes no protocol endpoint of its own. What the system supplies
+// are the **hooks** — the extension points through which the protocol reaches
+// the system's domain (`codespecs_mapping.md` §5.30).
+class ProtocolFeatureEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new ProtocolFeatureEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.9.2.x. Hooks — the extension points of the feature the system
+  // implements.
+  get hooks() {
+    return new SomList(this.doc, this.path + "/FEHOK-HOOK-LST", (d, p) => new FeatureHookEntry(d, p), "FEHOK-HOOK-xxx");
   }
 }
 
@@ -37100,6 +37312,17 @@ class ServerOperationEntry extends SomNode {
   get responseMembers() {
     return new SomList(this.doc, this.path + "/SVOPM-RESM-LST", (d, p) => new ServerOperationMemberEntry(d, p), "SVOPM-RESM-xxx");
   }
+
+  // 7.9.x. Protocol Bindings — the standard-protocol shapes this operation is
+  // also served under, for third-party callers.
+  //
+  // The operation itself keeps the `codespecs_mapping.md` §7 contract: the
+  // application's own client calls it by name. A binding is a second shape of
+  // the same operation — an HTTP method, a path, where each request member is
+  // found, the success status and headers — and an operation may have several.
+  get bindings() {
+    return new SomList(this.doc, this.path + "/SVOBI-BIND-LST", (d, p) => new OperationBindingEntry(d, p), "SVOBI-BIND-xxx");
+  }
 }
 
 // A single member of an operation's request or response shape (form).
@@ -37149,6 +37372,11 @@ class ServerOperationMemberEntry extends SomNode {
 //   errors;
 // - no encoding, header, redirect, CORS or credential plumbing — framework
 //   transport members, never spec input.
+//
+// Third-party HTTP shapes are added beside the contract, not inside it: an
+// operation's [ServerOperationEntry.bindings] give it standard-protocol shapes,
+// and [protocolFeatures] lists the framework protocol servers the system
+// enables with the hooks it implements (`codespecs_mapping.md` §5.30).
 class ServerOperationRegistry extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -37172,6 +37400,13 @@ class ServerOperationRegistry extends SomNode {
   // 7.9.1. Operations — one entry per operation the system answers.
   get operations() {
     return new SomList(this.doc, this.path + "/SVOPE-OPER-LST", (d, p) => new ServerOperationEntry(d, p), "SVOPE-OPER-xxx");
+  }
+
+  // 7.9.2. Protocol Features — the standard protocol servers the framework
+  // provides that the system enables, each with the hooks the system
+  // implements.
+  get protocolFeatures() {
+    return new SomList(this.doc, this.path + "/PROTF-FEAT-LST", (d, p) => new ProtocolFeatureEntry(d, p), "PROTF-FEAT-xxx");
   }
 }
 
@@ -58235,6 +58470,41 @@ class BehaviorRuleEntryContentForm extends SomNode {
 
   set calculatedProperties(value) {
     this.doc.setFormField(this.path, "calculatedProperties", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class BindingParameterEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get source() {
+    return this.doc.formField(this.path, "source") || '';
+  }
+
+  set source(value) {
+    this.doc.setFormField(this.path, "source", value);
+  }
+
+  get requestMember() {
+    return this.doc.formField(this.path, "requestMember") || '';
+  }
+
+  set requestMember(value) {
+    this.doc.setFormField(this.path, "requestMember", value);
   }
 }
 
@@ -99701,6 +99971,33 @@ class FeatureDependencyEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class FeatureHookEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get hook() {
+    return this.doc.formField(this.path, "hook") || '';
+  }
+
+  set hook(value) {
+    this.doc.setFormField(this.path, "hook", value);
+  }
+}
+
 // Generated section facade for the `configuration` @Form section: its own content text followed by one typed member per form field.
 class FeatureModuleEntryConfigurationForm extends SomNode {
   constructor(doc, path) {
@@ -105440,6 +105737,49 @@ class HighAvailabilityRequirementsRedundancyForm extends SomNode {
 
   set activeActiveMode(value) {
     this.doc.setFormField(this.path, "activeActiveMode", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class HookMethodEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get callsOperations() {
+    return this.doc.formField(this.path, "callsOperations") || '';
+  }
+
+  set callsOperations(value) {
+    this.doc.setFormField(this.path, "callsOperations", value);
+  }
+
+  get readsEntities() {
+    return this.doc.formField(this.path, "readsEntities") || '';
+  }
+
+  set readsEntities(value) {
+    this.doc.setFormField(this.path, "readsEntities", value);
+  }
+
+  get writesEntities() {
+    return this.doc.formField(this.path, "writesEntities") || '';
+  }
+
+  set writesEntities(value) {
+    this.doc.setFormField(this.path, "writesEntities", value);
   }
 }
 
@@ -128642,6 +128982,98 @@ class OngoingTrainingEntryScheduleForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class OperationBindingEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get httpMethod() {
+    return this.doc.formField(this.path, "httpMethod") || '';
+  }
+
+  set httpMethod(value) {
+    this.doc.setFormField(this.path, "httpMethod", value);
+  }
+
+  get pathTemplate() {
+    return this.doc.formField(this.path, "pathTemplate") || '';
+  }
+
+  set pathTemplate(value) {
+    this.doc.setFormField(this.path, "pathTemplate", value);
+  }
+
+  get versionPrefix() {
+    return this.doc.formField(this.path, "versionPrefix") || '';
+  }
+
+  set versionPrefix(value) {
+    this.doc.setFormField(this.path, "versionPrefix", value);
+  }
+
+  get successStatus() {
+    const v = this.doc.formField(this.path, "successStatus");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set successStatus(value) {
+    this.doc.setFormField(this.path, "successStatus", value == null ? '' : String(value));
+  }
+
+  get responseHeaders() {
+    return this.doc.formField(this.path, "responseHeaders") || '';
+  }
+
+  set responseHeaders(value) {
+    this.doc.setFormField(this.path, "responseHeaders", value);
+  }
+
+  get consumes() {
+    return this.doc.formField(this.path, "consumes") || '';
+  }
+
+  set consumes(value) {
+    this.doc.setFormField(this.path, "consumes", value);
+  }
+
+  get produces() {
+    return this.doc.formField(this.path, "produces") || '';
+  }
+
+  set produces(value) {
+    this.doc.setFormField(this.path, "produces", value);
+  }
+
+  get errorFormat() {
+    return this.doc.formField(this.path, "errorFormat") || '';
+  }
+
+  set errorFormat(value) {
+    this.doc.setFormField(this.path, "errorFormat", value);
+  }
+
+  get servedInterface() {
+    return this.doc.formField(this.path, "servedInterface") || '';
+  }
+
+  set servedInterface(value) {
+    this.doc.setFormField(this.path, "servedInterface", value);
+  }
+}
+
 // Generated section facade for the `alerting` @Form section: its own content text followed by one typed member per form field.
 class OperationalMonitoringAlertingForm extends SomNode {
   constructor(doc, path) {
@@ -140077,6 +140509,41 @@ class ProtocolEntryContentForm extends SomNode {
 
   set notes(value) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class ProtocolFeatureEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get feature() {
+    return this.doc.formField(this.path, "feature") || '';
+  }
+
+  set feature(value) {
+    this.doc.setFormField(this.path, "feature", value);
+  }
+
+  get purpose() {
+    return this.doc.formField(this.path, "purpose") || '';
+  }
+
+  set purpose(value) {
+    this.doc.setFormField(this.path, "purpose", value);
   }
 }
 
@@ -195613,6 +196080,9 @@ module.exports = {
   ActionTriggerKind,
   AuthorizationRequirementKind,
   BasicAuthorizationRequirementKind,
+  BindingErrorFormat,
+  BindingHttpMethod,
+  BindingParameterSource,
   ClientApplicationKind,
   DataAttributeKind,
   ExportFieldKind,
@@ -195625,6 +196095,7 @@ module.exports = {
   ObjectLifecycleKind,
   Priority,
   Probability,
+  ProtocolFeatureKind,
   ReportColumnKind,
   ReportFilterValueKind,
   ScheduledJobTrigger,
@@ -195737,6 +196208,7 @@ module.exports = {
   BasicTechnicalRequirements,
   BatchJobManagement,
   BehaviorRuleEntry,
+  BindingParameterEntry,
   BiometricAuthenticationPolicy,
   BoundaryAssumptionEntry,
   BoundaryAssumptions,
@@ -196084,6 +196556,7 @@ module.exports = {
   FamilyComponentRef,
   FeatureDependencies,
   FeatureDependencyEntry,
+  FeatureHookEntry,
   FeatureModuleEntry,
   FeaturePrioritization,
   FeaturePriorityEntry,
@@ -196135,6 +196608,7 @@ module.exports = {
   HealthCheckEndpoints,
   HealthChecksAndDiagnosticsSection,
   HighAvailabilityRequirements,
+  HookMethodEntry,
   IdeRequirementEntry,
   Identification,
   IdentificationAndAuthentication,
@@ -196321,6 +196795,7 @@ module.exports = {
   OnboardingHelp,
   OngoingTrainingEntry,
   OperatingEnvironment,
+  OperationBindingEntry,
   OperationalMonitoring,
   OperationalPainPoints,
   OperationsRequirements,
@@ -196435,6 +196910,7 @@ module.exports = {
   ProjectTeamStaffing,
   ProtocolComplianceRequirements,
   ProtocolEntry,
+  ProtocolFeatureEntry,
   ProtocolsAndStandardsSection,
   Prototype,
   PrototypeFeatureEntry,
@@ -197094,6 +197570,7 @@ module.exports = {
   BatchJobManagementExecutionForm,
   BatchJobManagementMonitoringForm,
   BehaviorRuleEntryContentForm,
+  BindingParameterEntryContentForm,
   BiometricAuthenticationPolicyContentForm,
   BoundaryAssumptionEntryContentForm,
   BoundaryAssumptionEntryRiskForm,
@@ -197909,6 +198386,7 @@ module.exports = {
   FamilyComponentRefContentForm,
   FeatureDependenciesContentForm,
   FeatureDependencyEntryContentForm,
+  FeatureHookEntryContentForm,
   FeatureModuleEntryConfigurationForm,
   FeatureModuleEntryContentForm,
   FeatureModuleEntryDependenciesForm,
@@ -198018,6 +198496,7 @@ module.exports = {
   HighAvailabilityRequirementsFailoverForm,
   HighAvailabilityRequirementsLoadBalancingForm,
   HighAvailabilityRequirementsRedundancyForm,
+  HookMethodEntryContentForm,
   IdeRequirementEntryConfigurationForm,
   IdeRequirementEntryContentForm,
   IdeRequirementEntryIntegrationForm,
@@ -198461,6 +198940,7 @@ module.exports = {
   OngoingTrainingEntryContentForm,
   OngoingTrainingEntryContentManagementForm,
   OngoingTrainingEntryScheduleForm,
+  OperationBindingEntryContentForm,
   OperationalMonitoringAlertingForm,
   OperationalMonitoringAutomationForm,
   OperationalMonitoringContentForm,
@@ -198661,6 +199141,7 @@ module.exports = {
   ProtocolComplianceRequirementsEventsForm,
   ProtocolComplianceRequirementsObservabilityForm,
   ProtocolEntryContentForm,
+  ProtocolFeatureEntryContentForm,
   PrototypeFeatureEntryContentForm,
   PrototypeFeatureSubsetFeatureSubsetContentForm,
   PrototypeFeatureSubsetFidelityForm,
