@@ -98,6 +98,10 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_model: >-
+    Since the 1.6.0 version line: the generic gate checklists G3-G8 and
+    tom_specs_gate_checklists.md §7 (qrc8), documentation only. 1.6.0 is not
+    published yet; this rides its release (qrc9).
   tom_specs_clitool: >-
     Since 0.6.0: validate_codespecs checks 38-41 (protocol bindings and
     framework protocol-feature hooks; 40-41 read csFeatureHooks /
