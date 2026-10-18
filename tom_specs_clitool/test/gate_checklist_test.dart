@@ -69,10 +69,10 @@ void main() {
           .toList()
         ..sort((a, b) => a.path.compareTo(b.path));
 
-  test('GC-1: the generic checklists exist, G2 among them', () {
+  test('GC-1: every gate G1 to G8 has a generic checklist', () {
     expect(
       files.map((f) => p.basename(f.path)),
-      containsAll(['G1.checklist.yaml', 'G2.checklist.yaml']),
+      containsAll([for (var n = 1; n <= 8; n++) 'G$n.checklist.yaml']),
     );
   });
 

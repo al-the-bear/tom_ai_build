@@ -1,0 +1,81 @@
+# Generic gate checklist — G8, Release Readiness.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G8. The deployment,
+# rollback, migration and monitoring checks run the project's own deployment
+# tooling, named by project items. The three multi-tenant criteria apply only
+# when the project parameter multiTenant is true; otherwise each passes with that
+# parameter as its evidence. Format, location, versioning and the gate report:
+# tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G8
+title: Release Readiness
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G8
+document: the release candidate, its deployment configuration and TRP
+items:
+  - id: G8-CONF-1
+    criterion: Deployment configuration valid
+    inspect: Every environment's configuration is present and valid.
+    method: tool
+    how: The project's configuration validation per environment (server configuration, client configuration, secrets present by name, never by value).
+    evidence: The validation result per environment.
+    pass: Every environment validates.
+  - id: G8-ROLL-1
+    criterion: Rollback tested
+    inspect: A rollback was executed successfully in a rehearsal.
+    method: tool
+    how: A rehearsal deployment followed by the rollback TRP describes.
+    evidence: The rehearsal record — what was deployed, what was rolled back, the system's state after.
+    pass: The rollback restored the previous release.
+  - id: G8-MIG-1
+    criterion: Data migration verified
+    inspect: Forward and backward migration work on production-like data.
+    method: tool
+    how: Run the CE-MG migrations forward and back on a copy of production-like data.
+    evidence: The migration run's log and a data check after each direction.
+    pass: Both directions complete and the data checks pass.
+  - id: G8-MON-1
+    criterion: Monitoring configured
+    inspect: Alert rules, dashboards and log routing are in place.
+    method: reading
+    how: Compare the monitoring configuration with the operations requirements (SBP/QACM and TRP).
+    evidence: Every required alert, dashboard or route that is missing.
+    pass: None.
+  - id: G8-SEC-1
+    criterion: Security hardening complete
+    inspect: The production security checklist passes.
+    method: tool
+    how: The project's production security checklist (a project item), run against the production configuration.
+    evidence: The checklist result.
+    pass: Every item passes.
+  - id: G8-TRP-1
+    criterion: Rollout plan executable
+    inspect: The TRP rollout steps, their timing and the communications are concrete.
+    method: query
+    how: TRP — each rollout step has an owner, a time and its communication; nothing is left to be decided.
+    evidence: Every step missing one of the three.
+    pass: None.
+  - id: G8-TEN-1
+    criterion: Tenant isolation verified *(multi-tenant only)*
+    inspect: No tenant can read or change another tenant's data.
+    method: tool
+    how: The project's isolation tests (when multiTenant is true).
+    evidence: The isolation test results, or the multiTenant parameter.
+    pass: All isolation tests pass, or multiTenant is false.
+    parameters: [multiTenant]
+  - id: G8-PROV-1
+    criterion: Provisioning verified *(multi-tenant only)*
+    inspect: A sample subscriber is provisioned and onboarded end to end.
+    method: tool
+    how: Provision a sample subscriber through Tom Provisioning and complete its onboarding (when multiTenant is true).
+    evidence: The provisioning and onboarding record, or the multiTenant parameter.
+    pass: The subscriber is provisioned and onboarded, or multiTenant is false.
+    parameters: [multiTenant]
+  - id: G8-QUOTA-1
+    criterion: Quota enforcement verified *(multi-tenant only)*
+    inspect: Plan quotas, user limits and feature toggles enforce correctly.
+    method: tool
+    how: The project's SQM tests over each plan (when multiTenant is true).
+    evidence: The SQM test results, or the multiTenant parameter.
+    pass: Every quota, limit and toggle enforces, or multiTenant is false.
+    parameters: [multiTenant]

@@ -1,0 +1,93 @@
+# Generic gate checklist — G5, Test Suite Derived.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G5. The suite is derived
+# from the CodeSpecs trio and the Phase-3 documents and is still red: nothing is
+# implemented yet. testkit is the workspace's runner; its baselines live in the
+# gitignored testlog/, so a baseline the gate relies on is copied into the
+# evidence store. Format, location, versioning and the gate report:
+# tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G5
+title: Test Suite Derived
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G5
+document: the derived test suite, the CodeSpecs trio and RSP, IIS, SAS, QAP
+items:
+  - id: G5-CS-1
+    criterion: Every CodeSpec has tests
+    inspect: Every CodeSpec emission unit is exercised by at least one test.
+    method: query
+    how: Map each test's subject (the CodeSpec it imports or names in its id) to the trio's @CodeSpec units.
+    evidence: Every unit with no test.
+    pass: None, at the project parameter codeSpecTestCoverage (default 100%).
+    parameters: [codeSpecTestCoverage]
+  - id: G5-REQ-1
+    criterion: Every requirement has tests
+    inspect: Every RSP requirement is reachable from at least one test.
+    method: query
+    how: Collect the requirement codes the tests cite (in their ids or descriptions) against RSP's requirement lists.
+    evidence: Every requirement no test reaches.
+    pass: None.
+  - id: G5-BOUND-1
+    criterion: Boundary conditions covered
+    inspect: Each specified limit and constraint has a test at the boundary.
+    method: reading
+    how: For each @CsValidation / @CsFieldRule limit and each numeric constraint in RSP, find the test at the limit and just past it.
+    evidence: Every limit without a boundary test.
+    pass: None.
+  - id: G5-ERR-1
+    criterion: Error paths covered
+    inspect: Each specified error and failure mode has a test.
+    method: query
+    how: Every CsErrorCode the trio declares (and each failure mode in RSP and IIS) against the tests that expect it.
+    evidence: Every error code no test expects.
+    pass: None.
+  - id: G5-AUTHZ-1
+    criterion: Authorization covered
+    inspect: Each SAS rule has both a permitted and a denied case.
+    method: query
+    how: For each @CsAuthorize (and the SAS rule it cites), find a test the rule admits and one it refuses.
+    evidence: Every rule missing one of the two.
+    pass: None.
+  - id: G5-INT-1
+    criterion: Integration scenarios defined
+    inspect: Every IIS interaction has an integration test.
+    method: query
+    how: IIS/EXIN/EIE-INTE-LST[] against the integration tests that name the interface.
+    evidence: Every interface with no test.
+    pass: None.
+  - id: G5-ACC-1
+    criterion: Acceptance scenarios covered
+    inspect: Every QAP scenario has a corresponding test.
+    method: query
+    how: The QAP acceptance criteria and UAT scenarios against the acceptance tests that cite them.
+    evidence: Every scenario with no test.
+    pass: None.
+  - id: G5-RED-1
+    criterion: Tests currently RED
+    inspect: Every derived test fails or skips — none passes before implementation.
+    method: tool
+    how: testkit :test in each test project.
+    evidence: The testkit result column.
+    pass: No test passes (a test that passes now asserts nothing the implementation has to do).
+  - id: G5-CONV-1
+    criterion: Conventions followed
+    inspect: Test files, groups and ids follow the workspace convention (`<ID>`, colon, description).
+    method: tool
+    how: testkit :baseline — it parses the convention; a test it cannot parse an id from is a finding. Plus the file-naming rule of _copilot_guidelines/dart/unit_tests.md.
+    evidence: Every test without a parsable id and every misnamed file.
+    pass: None.
+  - id: G5-RED-2
+    criterion: No redundant coverage
+    inspect: Tests do not unnecessarily overlap.
+    method: reading
+    how: Group the tests by the CodeSpec and requirement they cover; read each group with more than one test for the same case.
+    evidence: Each pair of tests that check the same thing the same way.
+    pass: None.
+  - id: G5-BASE-1
+    criterion: Baseline recorded
+    inspect: A test baseline exists for the Phase-6 comparison, and it is kept.
+    method: tool
+    how: testkit :baseline in each test project, then copy testlog/baseline_<stamp>.csv into the gate report's evidence folder (testlog/ is gitignored).
+    evidence: The copied baseline files.
+    pass: One baseline per test project in the evidence folder.

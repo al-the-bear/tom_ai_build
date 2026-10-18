@@ -1,0 +1,168 @@
+# Generic gate checklist — G3, Detailed Specifications Complete.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G3. G3 inspects the
+# Phase-3 document set: CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM
+# and TRP (the roots D01–D12), each against the Solution Blueprint (SBP) it
+# expands. Paths are SOM document paths from each document's own root. Format,
+# location, versioning and the gate report: tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G3
+title: Detailed Specifications Complete
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G3
+document: CLA, TOM, IFM, RSP, ISC, ATS, IIS, SAS, XDS, QAP, DRM, TRP
+items:
+  # ── All required documents present ─────────────────────────────────────────
+  - id: G3-SET-1
+    criterion: All required documents present
+    inspect: Every document of the Phase-3 set the project's scope requires exists.
+    method: tool
+    how: List the project's specification folder against the twelve roots; a document the scope does not need is listed in the project checklist's parameter phase3Documents with the reason.
+    evidence: The documents found per root and the documents the parameter excludes.
+    pass: Every root not excluded by phase3Documents has a document.
+    parameters: [phase3Documents]
+
+  # ── All documents schema-valid ─────────────────────────────────────────────
+  - id: G3-SCHEMA-1
+    criterion: All documents schema-valid
+    inspect: Each document decodes, validates against its DocSpecs schema and passes the instance tier.
+    method: tool
+    how: "dart run tom_specs_clitool:validate_spec <document>.docspecs.yaml --json, once per document (all fragments of one document in one call)"
+    evidence: One JSON report (format spec-validation) per document.
+    pass: Every report has exit code 0 — no finding on any tier.
+  - id: G3-SCHEMA-2
+    criterion: All documents schema-valid
+    inspect: No required section and no required form field is empty.
+    method: tool
+    how: The schema tier's missingRequiredSection, plus the project's required-field check for form fields declared on a section member, which the instance tier does not yet enforce (as at G2).
+    evidence: Every empty required field with its document and path.
+    pass: 0 in every document.
+
+  - id: G3-SCHEMA-3
+    criterion: All documents schema-valid
+    inspect: The set is ready for Phase 4 — the mechanical tier of the CodeSpecs gate passes on it.
+    method: tool
+    how: Stage A of codespecs_prompt.md §4 (A1–A5, CodeSpecsGate in any SOM runtime) over the specification document Phase 4 will read.
+    evidence: The gate's per-check result.
+    pass: A1–A5 pass. A failure here is found at G3 rather than as a refused Phase-4 run.
+
+  # ── All documents ACCEPTED ─────────────────────────────────────────────────
+  - id: G3-ACC-1
+    criterion: All documents ACCEPTED
+    inspect: Every document reached ACCEPTED in its own quality sequence.
+    method: query
+    how: The status field of each document's header (<ROOT>/DOCHD) and its approval records.
+    evidence: Each document's status and the approval that set it.
+    pass: Every document's status is ACCEPTED, and an approval records who accepted it.
+
+  # ── Cross-references resolved ──────────────────────────────────────────────
+  - id: G3-XREF-1
+    criterion: Cross-references resolved
+    inspect: Every reference inside a document resolves.
+    method: tool
+    how: The instance tier's danglingReference check of G3-SCHEMA-1.
+    evidence: Every unresolved reference with its document and path.
+    pass: 0 unresolved references.
+  - id: G3-XREF-2
+    criterion: Cross-references resolved
+    inspect: Every reference from one document into another resolves — section ids, requirement codes, operation and entity names cited across documents.
+    method: query
+    how: Collect every id one document cites and resolve it against the section ids and registry keys of the whole set (validate_spec over the assembled set where the documents are fragments of one).
+    evidence: Every unresolved cross-document reference with both documents.
+    pass: 0 unresolved references.
+
+  # ── No placeholder sections ────────────────────────────────────────────────
+  - id: G3-PLACE-1
+    criterion: No placeholder sections
+    inspect: No required section contains only placeholder text.
+    method: query
+    how: Scan every content and form value of every document for placeholder markers (TBD, TODO, FIXME, "to be defined", "lorem ipsum", "...", "n/a" as the whole value).
+    evidence: The hits with document and path.
+    pass: 0 hits in a required section; a hit in an optional one carries the open clarification that decides it.
+
+  # ── Blueprint coverage complete ────────────────────────────────────────────
+  - id: G3-MAP-1
+    criterion: Blueprint coverage complete
+    inspect: Every SBP region the model marks @MapsTo a Phase-3 document is expanded in that document.
+    method: query
+    how: For each SBP section class carrying @MapsTo(<document class>), compare the SBP instances with the target document's corresponding sections — every SBP item has its counterpart, by id or by the name the Blueprint gave it.
+    evidence: Per @MapsTo region, the SBP items found and those without a counterpart.
+    pass: Every SBP item has a counterpart.
+  - id: G3-MAP-2
+    criterion: Blueprint coverage complete
+    inspect: Nothing of the Blueprint is lost, and nothing is added that the Blueprint never asked for.
+    method: reading
+    how: Read each Phase-3 document's additions beyond its @MapsTo regions against the Blueprint.
+    evidence: Every addition with the Blueprint section it interprets, or marked as new.
+    pass: No addition is a new requirement; a new one goes back to the phase that owns requirements (tom_specs_project_flow.md §PF-ITR-REE).
+
+  # ── Integrations fully specified ───────────────────────────────────────────
+  - id: G3-INT-1
+    criterion: Integrations fully specified
+    inspect: Every IIS interaction has protocol, payload, error handling and retry semantics.
+    method: query
+    how: IIS/EXIN/EIE-INTE-LST[] — per interface the technical specification (protocol, message format, operations with their request and response formats) and its error handling (error format, retry strategy, maximum retries, timeouts).
+    evidence: Every interface with one of the four missing.
+    pass: None missing.
+  - id: G3-INT-2
+    criterion: Integrations fully specified
+    inspect: Every interface the Blueprint's external-interface list names is in IIS, and the inventory agrees with it.
+    method: query
+    how: Compare SBP/INSC/SYBO/EXIN/EIE-INTE-LST[] with IIS/EXIN/EIE-INTE-LST[], and both with IIS's system inventory (SYLAIN).
+    evidence: The interfaces present in one and missing in another.
+    pass: None missing.
+
+  # ── Roadmap phases fully defined ───────────────────────────────────────────
+  - id: G3-RMP-1
+    criterion: Roadmap phases fully defined
+    inspect: Every DRM stage has goals, deliverables and gate criteria.
+    method: query
+    how: DRM/STAGE-STAG-LST[] — STID.businessObjective (goals), STSC.scopeSummary and includedFeatures (deliverables), STQU.entryCriteria and exitCriteria (gate criteria); and DRM/PHGARE for the gate reviews.
+    evidence: Every stage with one of the three empty.
+    pass: None.
+
+  # ── Acceptance plan complete ───────────────────────────────────────────────
+  - id: G3-QAP-1
+    criterion: Acceptance plan complete
+    inspect: QAP defines the acceptance scenarios and their pass criteria.
+    method: query
+    how: QAP/ACRITL (the acceptance criteria — given, when, then, verificationMethod) and QAP/USACTE (the user acceptance test scenarios and its entry and exit criteria).
+    evidence: The criteria and scenarios found and every one without a pass condition.
+    pass: At least one scenario per in-scope feature area; every criterion has given / when / then and a verification method.
+  - id: G3-QAP-2
+    criterion: Acceptance plan complete
+    inspect: The sign-off process for G7 is stated.
+    method: query
+    how: QAP/SIOFPR — governance, evidence and acceptance.
+    evidence: The sign-off authority and the evidence it requires.
+    pass: Both are stated.
+
+  # ── Cross-document consistency ─────────────────────────────────────────────
+  - id: G3-CONS-1
+    criterion: Cross-document consistency
+    inspect: No value contradiction — the same quantity stated differently in two documents.
+    method: reading
+    how: Compare every numeric value with a unit (user counts, volumes, targets, limits) across the documents, per concept.
+    evidence: Each contradiction with both values and both paths.
+    pass: None.
+  - id: G3-CONS-2
+    criterion: Cross-document consistency
+    inspect: No scope contradiction — a feature in scope in one document and out of scope in another.
+    method: reading
+    how: Compare every in-scope, out-of-scope and deferred statement across the documents.
+    evidence: Each contradiction with both paths.
+    pass: None.
+  - id: G3-CONS-3
+    criterion: Cross-document consistency
+    inspect: No missing coverage — an element one document lists that a related document does not mention (an IIS system missing from the CLA inventory, an RSP requirement no ISC scenario exercises).
+    method: query
+    how: Compare the registries that must agree — systems (CLA, IIS), requirements (RSP, ISC, QAP), entities (IFM, SAS), roles (SAS, TOM) — by their keys.
+    evidence: Each element missing from the related document.
+    pass: None, or each difference states why.
+  - id: G3-CONS-4
+    criterion: Cross-document consistency
+    inspect: No terminology drift — one concept named differently in different documents.
+    method: reading
+    how: Compare the glossary (SBP glossary) with the names each document uses for its key concepts.
+    evidence: Each pair of names for one concept.
+    pass: None, or the glossary records the synonym.

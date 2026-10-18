@@ -1,0 +1,168 @@
+# Generic gate checklist — G4, CodeSpecs Complete.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G4. Most of them are
+# checks validate_codespecs already runs; an item names the check by its number
+# in codespecs_derivation_contract.md §6 and does not restate it. The trio is
+# the run's three CodeSpecs projects (shared, client, server). Format, location,
+# versioning and the gate report: tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G4
+title: CodeSpecs Complete
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G4
+document: the CodeSpecs trio, its extracts and the specification document
+items:
+  - id: G4-VAL-1
+    criterion: Derivation contract satisfied
+    inspect: Every codespecs_derivation_contract.md §6 check runs and passes, none of them unrun.
+    method: tool
+    how: "dart run tom_specs_clitool:validate_codespecs --shared <shared> --client <client> --server <server> --extracts <extracts> --migrations <CE-MG artifacts> --cs-vocabulary <tom_code_specs vocabulary.dart> --core-source <tom_core sources> --regenerated-shared … --json"
+    evidence: The JSON report (format codespecs-validation), stored with the gate report. The other G4 items cite its per-check results.
+    pass: Exit code 0, and no check reported as not run.
+  - id: G4-BUILD-1
+    criterion: Skeleton compiles
+    inspect: The three projects resolve and analyze clean.
+    method: tool
+    how: dart pub get and dart analyze in each of the three projects.
+    evidence: The analyzer output per project.
+    pass: 0 errors and 0 warnings in each.
+  - id: G4-COV-1
+    criterion: Specification coverage complete
+    inspect: Every specification fact the extracts route reaches code.
+    method: tool
+    how: Check 35 of G4-VAL-1 — every extract token is cited by a back-link in the trio.
+    evidence: Check 35's result.
+    pass: Check 35 passes.
+  - id: G4-COV-2
+    criterion: Specification coverage complete
+    inspect: Every area the gate record scoped in has code, and every area it scoped out says why.
+    method: query
+    how: The gate record (gate.verdicts.yaml) against the trio — every sufficient area has at least one declaration of its markers; every not-applicable or descoped area is recorded with its verdict.
+    evidence: Per area its verdict and the declarations found.
+    pass: No sufficient area without code.
+  - id: G4-TRACE-1
+    criterion: Back-trace complete
+    inspect: Every CodeSpec carries its @DocSpec back-reference, and the back-references are true.
+    method: tool
+    how: Checks 7 (the @CodeSpec and @DocSpec token sets agree) and 36 (every back-linked token exists in the extracts) of G4-VAL-1.
+    evidence: Checks 7 and 36.
+    pass: Both pass.
+  - id: G4-CORE-1
+    criterion: Built on `tom_core`
+    inspect: Every class a CodeSpec instantiates, extends or implements is a tom_core-family class (tom_core_kernel, _flutter, _server, _d4rt, tom_flutter_ui, tom_core_codespecs).
+    method: tool
+    how: Scan the trio's imports and supertypes; every package import is one of the tom_core family, tom_code_specs, dart:, or the trio's own projects.
+    evidence: Every other import or supertype found, with its file.
+    pass: None.
+  - id: G4-LOCUS-1
+    criterion: Locus split correct
+    inspect: Each part sits in the project the CGP projection assigns it, and the dependency arrow points from client and server to shared only.
+    method: tool
+    how: Check 11 of G4-VAL-1 for the arrow, and the projection's locus groups (D13CodeSpecsProjection, codespecs_mapping.md §4.2) against the marker found in each project.
+    evidence: Check 11 and every declaration in a project its part's locus does not name.
+    pass: Check 11 passes and no declaration is misplaced.
+  - id: G4-MARK-1
+    criterion: No ambiguity markers
+    inspect: No TODO, TBD or FIXME in the trio.
+    method: tool
+    how: A case-sensitive scan of every file in the three projects for TODO, TBD and FIXME.
+    evidence: The hits with file and line.
+    pass: 0 hits.
+  - id: G4-XREF-1
+    criterion: Cross-references valid
+    inspect: Every referenced type, member and Cs*Ref exists.
+    method: tool
+    how: Check 2 of G4-VAL-1 (every Cs*Ref resolves) and the analyzer run of G4-BUILD-1 (every type and member).
+    evidence: Check 2 and the analyzer output.
+    pass: Both clean.
+  - id: G4-API-1
+    criterion: API contracts complete
+    inspect: Every endpoint has request, response and error-result types, and its two halves agree.
+    method: tool
+    how: Check 12 of G4-VAL-1 for the agreement; per shared @CsEndpoint, its request and response DTOs and the CsErrorCode refs its operation may return.
+    evidence: Check 12 and every endpoint lacking one of the three.
+    pass: Check 12 passes and none lacks one.
+  - id: G4-DB-1
+    criterion: Persistence complete
+    inspect: Every data entity has table and column definitions and a migration skeleton, and the migrations converge on the model.
+    method: tool
+    how: Check 13 of G4-VAL-1 (cumulative CE-MG DDL converges on @CsTable / @CsColumn), and every @CsTable has at least one @CsColumn.
+    evidence: Check 13 and every table without a column.
+    pass: Check 13 passes and none lacks a column.
+  - id: G4-VALID-1
+    criterion: Validations declared
+    inspect: Every field constraint RSP and IFM state has a validation rule.
+    method: query
+    how: For each constrained attribute in IFM (and each RSP field constraint), find the @CsValidation, @CsFieldRule or @CsFormRule on the matching member.
+    evidence: Every constraint with no rule.
+    pass: None.
+  - id: G4-AUTHZ-1
+    criterion: Authorization declared
+    inspect: Every SAS rule maps to an authorization CodeSpec, and every endpoint is gated.
+    method: query
+    how: Every server @CsEndpoint carries a @CsAuthorize, and every SAS authorization rule is cited by one (through its @DocSpec back-link).
+    evidence: Every ungated endpoint and every SAS rule nothing cites.
+    pass: None of either.
+  - id: G4-IMPL-1
+    criterion: Implementable
+    inspect: Each CodeSpec has an unambiguous class, method and property shape.
+    method: reading
+    how: Read each declaration's signature, its collaborator and its stub body against the derivation contract entry of its marker.
+    evidence: A reader's note naming every ambiguous shape.
+    pass: None.
+  - id: G4-SELF-1
+    criterion: Trio is self-sufficient
+    inspect: The trio carries every fact its areas were routed from, so Phases 5 and 6 read code, not documents.
+    method: tool
+    how: Checks 35 and 36 of G4-VAL-1 (codespecs_mapping.md §9.6).
+    evidence: Checks 35 and 36.
+    pass: Both pass.
+  - id: G4-EXT-1
+    criterion: Extracts are verbatim
+    inspect: The committed extracts are what the extract generator writes from the document — copied and indexed, nothing composed.
+    method: tool
+    how: Re-run the extract generator over the specification document (spec_codespecs_extract, any SOM runtime) and compare with the committed <CE-CODE>.extract.yaml files byte for byte.
+    evidence: The comparison, file by file.
+    pass: No difference.
+  - id: G4-COMMENT-1
+    criterion: Extracts are verbatim
+    inspect: The trio's doc comments are the extracts' text, not prose the agent wrote.
+    method: tool
+    how: Checks 32, 33 and 34 of G4-VAL-1.
+    evidence: Checks 32–34.
+    pass: All pass.
+  - id: G4-DET-1
+    criterion: Output is determined, not preferred
+    inspect: Two production runs over one model yield the same file set and byte-identical contents.
+    method: tool
+    how: Check 31 of G4-VAL-1, with --regenerated-* pointing at a second run.
+    evidence: Check 31.
+    pass: Check 31 passes.
+  - id: G4-OPEN-1
+    criterion: Open questions closed in the specification
+    inspect: No open-question (csopen) todo of the run is left standing, and each was closed by an answer in the specification.
+    method: query
+    how: The quest's csopen* todos of this run (live, archived) — their status, and for each the specification change that answered it.
+    evidence: Each csopen todo with its status and the section its answer changed.
+    pass: None open, and none closed by an assumption in the code.
+  - id: G4-BIND-1
+    criterion: Protocol bindings resolve
+    inspect: Every binding names a declared operation, and routes and captures are consistent.
+    method: tool
+    how: Checks 38 and 39 of G4-VAL-1.
+    evidence: Checks 38 and 39.
+    pass: Both pass.
+  - id: G4-HOOK-1
+    criterion: Feature hooks complete
+    inspect: Every required hook of every enabled framework protocol feature is implemented exactly once, against a contract tom_core ships.
+    method: tool
+    how: Check 40 of G4-VAL-1 (it needs --cs-vocabulary).
+    evidence: Check 40.
+    pass: Check 40 passes.
+  - id: G4-PROTO-1
+    criterion: No protocol endpoint re-declared
+    inspect: No binding declares a route under a path the framework reserves for a protocol feature.
+    method: tool
+    how: Check 41 of G4-VAL-1.
+    evidence: Check 41.
+    pass: Check 41 passes.

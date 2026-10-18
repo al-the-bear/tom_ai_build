@@ -1,0 +1,71 @@
+# Generic gate checklist — G7, Business Acceptance Complete.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G7. This is the only gate
+# where human sign-off is a hard requirement; the agents assemble the evidence
+# and recommend. The acceptance, flow, integration and performance runs are
+# project tooling, named by project items. Format, location, versioning and the
+# gate report: tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G7
+title: Business Acceptance Complete
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G7
+document: the application candidate in its acceptance environment
+items:
+  - id: G7-ACC-1
+    criterion: Acceptance criteria met
+    inspect: Every QAP acceptance scenario passes.
+    method: tool
+    how: The project's acceptance suite in the acceptance environment (QAP/USACTE names the environment).
+    evidence: The acceptance run's results per scenario.
+    pass: Every scenario passes.
+  - id: G7-FLOW-1
+    criterion: User flows verified
+    inspect: Every ISC scenario executes correctly end to end.
+    method: tool
+    how: The project's end-to-end flow run over the ISC scenarios.
+    evidence: The result per scenario.
+    pass: Every scenario passes.
+  - id: G7-INT-1
+    criterion: Integrations verified
+    inspect: Every IIS external integration works against its real counterpart.
+    method: tool
+    how: The project's integration suite against the counterparts' test or production systems.
+    evidence: The result per interface.
+    pass: Every interface passes.
+  - id: G7-NFR-1
+    criterion: Non-functional targets met
+    inspect: Every RSP and ATS benchmark is within its target.
+    method: tool
+    how: The project's performance, load and availability measurements against the targets G2-NFR-2 made numeric.
+    evidence: Each target with its measured value.
+    pass: Every measured value is within its target (the targets are project parameters from RSP and ATS).
+    parameters: [nonFunctionalTargets]
+  - id: G7-OPS-1
+    criterion: Operability verified
+    inspect: Monitoring, logging and the support procedures are in place and usable.
+    method: reading
+    how: Walk the support procedure for one simulated incident — the alert fires, the logs show it, the procedure resolves it.
+    evidence: The walkthrough record.
+    pass: Each step worked.
+  - id: G7-DOC-1
+    criterion: Documentation complete
+    inspect: User and administrator documentation exists and matches the delivered system.
+    method: reading
+    how: Read the documentation against the delivered system's screens, operations and configuration.
+    evidence: Every gap or mismatch.
+    pass: None.
+  - id: G7-DEF-1
+    criterion: Open defects acceptable
+    inspect: No open critical or high defect; every remaining defect is explicitly accepted.
+    method: query
+    how: The defect store (quality/defects/) — open defects by severity, and the acceptance record of each open one.
+    evidence: The open defects with severity and acceptance.
+    pass: No open critical or high defect, and every other open defect is accepted.
+  - id: G7-SIGN-1
+    criterion: Human sign-off recorded
+    inspect: A signed acceptance record exists.
+    method: sign-off
+    how: The acceptance record under the QAP sign-off process (QAP/SIOFPR), signed by the sign-off authority it names.
+    evidence: The record's path, signer and date.
+    pass: The record exists and is signed by the named authority.

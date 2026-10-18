@@ -52,7 +52,7 @@ checklist that was in force: check out that package version and read the file.
 
 **Checked by.** `tom_specs_clitool/test/gate_checklist_test.dart` holds every
 file to this document:
-- the file parses and has the format below;
+- the file parses and has the format below, and every gate G1 to G8 has one;
 - item ids are unique and well-formed;
 - every criterion of the gate's criteria table in `tom_specs_project_flow.md`
   has at least one item, and
@@ -226,4 +226,14 @@ CodeSpecs gate record (`gate.verdicts.yaml`, `codespecs_prompt.md` §6.3).
 |------|-------------------|
 | G1 | [`gate_checklists/G1.checklist.yaml`](gate_checklists/G1.checklist.yaml) |
 | G2 | [`gate_checklists/G2.checklist.yaml`](gate_checklists/G2.checklist.yaml) |
-| G3–G8 | Not written yet. Until each is written, its gate runs one item per row of its criteria table in `tom_specs_project_flow.md`, with that row's check method and pass condition. |
+| G3 | [`gate_checklists/G3.checklist.yaml`](gate_checklists/G3.checklist.yaml) |
+| G4 | [`gate_checklists/G4.checklist.yaml`](gate_checklists/G4.checklist.yaml) |
+| G5 | [`gate_checklists/G5.checklist.yaml`](gate_checklists/G5.checklist.yaml) |
+| G6 | [`gate_checklists/G6.checklist.yaml`](gate_checklists/G6.checklist.yaml) |
+| G7 | [`gate_checklists/G7.checklist.yaml`](gate_checklists/G7.checklist.yaml) |
+| G8 | [`gate_checklists/G8.checklist.yaml`](gate_checklists/G8.checklist.yaml) |
+
+Every gate has one. Where an item's method is `tool` and the workspace has no
+tool for it — an acceptance suite, a security scanner, a deployment pipeline —
+its `how` names it as the project's own, and the project checklist narrows the
+item to the concrete command (§4).

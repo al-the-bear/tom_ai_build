@@ -1,0 +1,92 @@
+# Generic gate checklist — G6, Implementation Complete.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G6. Run the checks
+# fast-failure-first but run them all, so one remediation cycle sees every
+# finding (§PF-GAT-G6, Execution order). Format, location, versioning and the
+# gate report: tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G6
+title: Implementation Complete
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G6
+document: the implementation, its tests and its documentation
+items:
+  - id: G6-ANALYZE-1
+    criterion: Static analysis clean
+    inspect: The analyzer reports nothing.
+    method: tool
+    how: dart analyze in every package of the implementation (and the project's other linters).
+    evidence: The analyzer output per package.
+    pass: 0 errors and 0 warnings.
+  - id: G6-FORMAT-1
+    criterion: Formatting clean
+    inspect: No formatting deviation.
+    method: tool
+    how: dart format --output=none --set-exit-if-changed over every package.
+    evidence: The files the formatter would change.
+    pass: None.
+  - id: G6-TEST-1
+    criterion: All tests pass
+    inspect: Every test passes, business and unit.
+    method: tool
+    how: testkit :test in every test project.
+    evidence: The testkit result columns, copied into the evidence folder.
+    pass: 100% pass.
+  - id: G6-REGR-1
+    criterion: No regressions
+    inspect: No test that passed in the baseline fails now.
+    method: tool
+    how: The testkit result column against the G5 baseline (the X/OK cells).
+    evidence: Every regression with its test id.
+    pass: None.
+  - id: G6-REVIEW-1
+    criterion: Code review clear
+    inspect: The multi-pass code review finds nothing that must be fixed.
+    method: reading
+    how: The review passes of §PF-GAT-AGE — spec fidelity, code quality, security, performance, maintainability — each recording its findings with a severity.
+    evidence: The review findings with severity.
+    pass: 0 MUST-FIX findings.
+  - id: G6-SEC-1
+    criterion: Security audit clear
+    inspect: No critical or high security finding.
+    method: tool
+    how: The project's dependency-vulnerability and static scans (a project item names the tools), plus the security review pass over the business code.
+    evidence: The scan reports and the review findings.
+    pass: 0 critical or high findings, at the project parameter securityThreshold.
+    parameters: [securityThreshold]
+  - id: G6-FRAME-1
+    criterion: Framework compliance
+    inspect: No hand-rolled substitute for a Tom Framework service and no security-relevant workaround.
+    method: reading
+    how: Read the business code for authentication, authorization, transport, serialization, persistence or input handling done outside the framework.
+    evidence: Each substitute or workaround with its file.
+    pass: None.
+  - id: G6-TRACE-1
+    criterion: Traceability complete
+    inspect: The chain requirement → spec section → CodeSpec → test → code is unbroken.
+    method: query
+    how: From each RSP requirement, follow the @DocSpec back-links to the CodeSpec, the tests citing it (G5-REQ-1) and the implementation filling the CodeSpec.
+    evidence: Every requirement whose chain breaks, and where.
+    pass: None.
+  - id: G6-DOC-1
+    criterion: Documentation synced
+    inspect: The documentation matches the code.
+    method: reading
+    how: Read the user and developer documentation against the implemented behaviour; check every documented API name against the code.
+    evidence: Every drift found.
+    pass: None.
+  - id: G6-MARK-1
+    criterion: No untracked markers
+    inspect: No TODO or FIXME that no tracked todo owns.
+    method: tool
+    how: Scan the implementation for TODO and FIXME; each must name a todo id that exists.
+    evidence: Every marker and the todo it names, or none.
+    pass: 0 untracked markers.
+  - id: G6-COV-1
+    criterion: Coverage adequate
+    inspect: Line coverage is above the project threshold.
+    method: tool
+    how: dart test --coverage=coverage, then format_coverage into lcov (package:coverage).
+    evidence: The coverage summary per package.
+    pass: Line coverage at or above the project parameter coverageThreshold (default 80%).
+    parameters: [coverageThreshold]
