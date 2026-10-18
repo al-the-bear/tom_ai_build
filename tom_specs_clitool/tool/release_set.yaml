@@ -98,12 +98,6 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_specs_clitool: >-
-    Since 0.6.0: validate_codespecs checks 38-41 (protocol bindings and
-    framework protocol-feature hooks; 40-41 read csFeatureHooks /
-    csFeatureReservedPaths from --cs-vocabulary), with their docs and tests
-    (csprot1), and Field.code carried into the meta and all nine meta emitters
-    (uamtc3). Rides the release of the 1.6.x model chain.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced
@@ -124,4 +118,5 @@ unpublished_drift:
 # next bump supersedes it without anyone having to delete it. Quote both values:
 # a hash like 5e903509 is otherwise a YAML float, and is then ignored.
 published_from:
+  tom_specs_model: {version: '1.6.1', commit: '5d6be9ea'}
   tom_code_specs: {version: '0.14.2', commit: '47dba5ea'}
