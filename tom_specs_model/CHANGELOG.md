@@ -1,3 +1,23 @@
+## 1.5.0
+
+- **Document-breaking:** two section ids are renamed, because the old ones
+  collided with a list's item pattern and no document could carry them validly:
+  `CurrentWorkflowEntry`'s diagram is `CUWF-DIAG` (was `CUWF-WORK`), and
+  `ErrorRecovery`'s mechanisms form is `ERRE-MECH` (was `ERRE-RECO`). A
+  document written against 1.4.x that uses either section must rename the key
+  (YAML) or heading id (markdown).
+- Two additive CodeSpecs carriers: the `ActionTriggerKind` enum with
+  `triggerKind` on `ScreenElementAction` and `ComponentActionEntry`, and
+  `bodyMessageKey` (`refersTo` a message key) on `NotificationTypeEntry`.
+- SOM text: §11.5 (a pattern-list item's heading id is stored on import), §11.6
+  (a form-only section's prose is the form's preamble), §12.1 (an absent review
+  pass decodes as null), §12.3 rule 4 (an empty document keeps its root key),
+  §12.5 (one review-scalar rule) and §14 (DocSpecs findings carry their document
+  path).
+- `codespecs_prompt.md`: the extractor refuses a `@CodeSpecsProjection` root
+  (§5), and the gate record carries an insufficient area's gap lines (§6.3).
+- `tom_specs_model_meta_schema.md`: the meta's `modelHash`.
+
 ## 1.4.1
 
 - Test-only. `test/real_model_round_trip_test.dart` asserted the reachable

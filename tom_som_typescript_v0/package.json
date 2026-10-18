@@ -1,6 +1,6 @@
 {
   "name": "tom_som_typescript_v0",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "private": true,
   "license": "BSD-3-Clause",
   "repository": {
@@ -48,7 +48,7 @@
     "prepack": "npm run build"
   },
   "peerDependencies": {
-    "tom_som_typescript_runtime": "^1.4.1"
+    "tom_som_typescript_runtime": "^1.5.0"
   },
   "devDependencies": {
     "tom_som_typescript_runtime": "file:../tom_som_typescript_runtime",

@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.6.0
 
+- Requires the 1.5.0 model chain (`tom_som_dart_runtime`, `tom_som_dart_v0`).
 - The exported spec-model meta carries `modelHash`, the sha256 of its canonical
   content without the build keys (`specModelContentHash`), so a consumer can
   tell a changed model under an unchanged version. `validateSpecModelMeta`
