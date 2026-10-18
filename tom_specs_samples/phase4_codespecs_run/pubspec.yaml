@@ -14,6 +14,6 @@ environment:
 # consumer imports, and the file is what the other eight runtimes read
 # (SOM §10.3).
 dependencies:
-  tom_som_dart_v0: ^1.4.1
-  tom_som_dart_runtime: ^1.4.1
-  tom_specs_model: ^1.4.1
+  tom_som_dart_v0: ^1.5.0
+  tom_som_dart_runtime: ^1.5.0
+  tom_specs_model: ^1.5.0

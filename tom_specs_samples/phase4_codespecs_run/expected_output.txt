@@ -16,7 +16,7 @@ Variant A — a sufficient specification
    A3 routing totality     : pass — 0 findings
    A4 required arguments   : pass — 0 findings
    A5 structured carriers  : pass — 0 findings
-   (A4 held 25 required-argument rows, A5 26 carriers, both from the catalogue's gate tables)
+   (A4 held 28 required-argument rows, A5 29 carriers, both from the catalogue's gate tables)
    gate verdict             : PASS — the run may begin
 
 2. The extract generator                      [MECHANICAL]
@@ -172,7 +172,7 @@ both have `aggregateRoot` cleared. Nothing else changed.
    A3 routing totality     : pass — 0 findings
    A4 required arguments   : FAIL — 2 findings
    A5 structured carriers  : pass — 0 findings
-   (A4 held 25 required-argument rows, A5 26 carriers, both from the catalogue's gate tables)
+   (A4 held 28 required-argument rows, A5 29 carriers, both from the catalogue's gate tables)
    gate verdict             : REJECTED — the run may not begin
 
    What the gate names, per finding:

@@ -98,59 +98,6 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_specs_clitool: >-
-    NOT SHIPPED: `.pubignore` gained `tool/model_surface.stamp.json` after 0.5.0
-    was published (vsctsa45) — the file that excludes the stamp from the
-    archive is itself never in it. Since then also qrb1's archive-ignore gate
-    (lib/src/pub_archive_ignores.dart), a library the default suite runs and
-    no command exposes. Since then also qrb3's schema-generator fix: a
-    `@Reference` list's container admits the item types its element class is
-    owned under elsewhere. The README now records the package as the
-    exception to the tom_build_base CLI rule (qrb7), and
-    verify_published_tests.sh gained `--preflight` with the release procedure
-    in the README (qrb9), and validate_spec reports a schema finding's
-    document path and section id (vsctasb6), and the exported meta carries
-    `modelHash`, validated against its content, with generate_som warning when
-    the model changes under an unchanged version (vsctasb11). Rides the next
-    clitool release.
-  tom_core_codespecs: >-
-    DOCS ONLY since 0.12.3: the README status block names 0.12.3 (qrb1), and
-    the derivation contract names the stored sources of `@CsTrigger.kind` and
-    `@CsNotification.body`, so codespecs_mapping.md §10 has nothing open
-    (qrb6). Rides the next tom_core_codespecs release.
-  tom_specs_model: >-
-    MODEL ID FIXES since 1.4.1 (qrb3): CurrentWorkflowEntry's diagram is
-    `CUWF-DIAG` and ErrorRecovery's mechanisms form `ERRE-MECH`. Both old ids
-    collided with a list's item pattern (`CUWF-WORK-xxx`, `ERRE-RECO-xxx`), so no
-    document could write those sections validly. Also SOM §12.5 now states
-    the review-scalar rule (qrb4). And two additive CodeSpecs carriers (qrb6):
-    the `ActionTriggerKind` enum with `triggerKind` on SCELAC and CMAC, and
-    `bodyMessageKey` (refersTo MSGKE.key) on NTFTY, plus their A4/A5 rows in
-    codespecs_prompt.md and the regenerated codespecs_areas.json. Rides the
-    next model-chain release.
-  tom_som_dart_v0: >-
-    REGENERATED since 1.4.1 (qrb3) from the tom_specs_model id fixes and the
-    clitool's reference-list schema fix: two renamed ids in the facade and meta,
-    and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema;
-    and the qrb6 carriers (`ActionTriggerKind`, `triggerKind`,
-    `bodyMessageKey`); and the meta's `modelHash` (vsctasb11). Rides the next
-    model-chain release.
-  tom_som_dart_runtime: >-
-    Since 1.4.1: doc comments (qr1) say the review pass is carried and written
-    back and that applyMarkdownResult applies a parse; and the review writer
-    (qrb4) prints non-finite floats as `.inf`/`-.inf`/`.nan` under the SOM §12.5
-    review-scalar rule; its conformance test runs the catalogErrorCases
-    table (qrb5); and markdown import binds a form-only section's prose as the
-    form's preamble (qrb8); and `SpecYamlContents.review` is null when the
-    file has no review pass (vsctasb1, breaking); and queries know a list
-    item by its own section id (vsctasb3); and an empty document keeps its root
-    key in YAML (vsctasb4); and unreadable typed values are reported and
-    refused (vsctasb5); and schema findings carry their document path
-    (vsctasb6); and the CodeSpecs extractor refuses a @CodeSpecsProjection
-    root (vsctasb8); and Markdown import stores a pattern-list item's
-    heading id even when it equals the positional default (vsctasb10); and the
-    gate record reads and writes an insufficient entry's `gaps:` lines
-    (vsctasb12). Rides the next model-chain release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

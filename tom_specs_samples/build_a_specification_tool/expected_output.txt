@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.4.1+3.d88f1a59
-  generatedAt       = 2026-10-13T00:32:35.391054Z
+  modelVersionLabel = 1.5.0+4.974ff27f
+  generatedAt       = 2026-10-18T10:06:02.224485Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -135,7 +135,7 @@ a JSON-Schema validator will not find one, because the artifact the
 schema governs is not JSON.
 
   root section id : SBP
-  section types   : 3915
+  section types   : 3917
 
   That count is large because a Solution Blueprint SEEDS the twelve
   Phase-3 documents: its own section classes ARE those documents'
@@ -188,7 +188,7 @@ form slot the form does not declare:
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (8): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch
+  SpecValidationCode  (9): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
