@@ -98,12 +98,11 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_specs_model: >-
-    DOCS ONLY since 1.5.0: the generic gate checklists
-    (doc/gate_checklists/G1.checklist.yaml, G2.checklist.yaml) and their
-    authority, doc/tom_specs_gate_checklists.md; tom_specs_project_flow.md
-    §PF-GAT-CHK names them and §PF-GAT-EVD roots the evidence store at the
-    project's spec root (tsgate1). Rides the next model-chain release.
+  tom_specs_clitool: >-
+    Since 0.6.0: validate_codespecs checks 38-41 (protocol bindings and
+    framework protocol-feature hooks; 40-41 read csFeatureHooks /
+    csFeatureReservedPaths from --cs-vocabulary), with their docs and tests
+    (csprot1). Rides the release of the 1.6.0 model chain.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced
