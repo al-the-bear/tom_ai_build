@@ -1,7 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.7.0
 
+- Requires the 1.6.1 model chain (`tom_som_dart_runtime`, `tom_som_dart_v0`)
+  and `tom_specs_core` 0.2.3.
+- `validate_codespecs` checks 38–41: protocol bindings resolve
+  (`@CsOperationBinding`), and framework protocol-feature hooks are complete and
+  never re-declared as endpoints (`csFeatureHooks` / `csFeatureReservedPaths`,
+  read from `--cs-vocabulary`).
 - `Field.code` flows into the exported meta (`code: true` on a `formFields[]`
   entry, omitted when false) and into every language's generated form-field
   meta, so each runtime's markdown codec can write the value as a code span
