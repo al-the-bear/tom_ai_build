@@ -99,6 +99,11 @@ class FormFieldInfo {
   /// states no count. See `Field.countOf` in `tom_specs_core`.
   final List<String> countOf;
 
+  /// Whether the value is code rather than prose (`Field.code`), so the
+  /// markdown rendition writes it as a code span. See `Field.code` in
+  /// `tom_specs_core`.
+  final bool code;
+
   /// [name] and [typeName] are required — a slot without either is not
   /// addressable and not parseable. Every remaining property defaults to
   /// its *empty* value (`''` / `const []`) rather than null, so consumers
@@ -114,6 +119,7 @@ class FormFieldInfo {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.code = false,
   });
 }
 
@@ -966,6 +972,7 @@ class ModelReader {
                 .whereType<String>()
                 .toList() ??
             const <String>[];
+        final code = item.getField('code')?.toBoolValue() ?? false;
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -992,6 +999,7 @@ class ModelReader {
             enumValueDocs: enumValueDocs,
             refersTo: refersTo,
             countOf: countOf,
+            code: code,
           ),
         );
       }

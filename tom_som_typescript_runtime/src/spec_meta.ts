@@ -73,6 +73,7 @@ export interface SomFormFieldMetaInit {
   hint?: string | null;
   enumValues?: string[] | null;
   refersTo?: string[] | null;
+  code?: boolean;
 }
 
 /** One field of a `@Form` section (SOM §7.1 `FormMeta.fields`). */
@@ -103,6 +104,12 @@ export class SomFormFieldMeta {
    * reference naming several ids writes them comma-separated.
    */
   refersTo: string[];
+  /**
+   * Whether the value is code rather than prose (`Field.code`): the markdown
+   * codec writes it as an inline code span and unwraps it on import (SOM
+   * §11.4 rule 8).
+   */
+  code: boolean;
 
   constructor(init: SomFormFieldMetaInit) {
     this.name = init.name;
@@ -113,6 +120,7 @@ export class SomFormFieldMeta {
     this.order = init.order;
     this.enumValues = init.enumValues != null ? init.enumValues : [];
     this.refersTo = init.refersTo != null ? init.refersTo : [];
+    this.code = init.code != null ? init.code : false;
   }
 }
 

@@ -43,7 +43,7 @@
 //! zero-dependency promise; the message strings are byte-identical to Go.
 
 use std::cell::RefCell;
-use std::collections::{BTreeMap, BTreeSet, HashMap};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::rc::Rc;
 
 use crate::spec_document::{DocumentJson, ListJson, SpecDocument};
@@ -1060,7 +1060,14 @@ impl<'a> SpecDocumentMarkdown<'a> {
             if !field_buf.out.is_empty() {
                 field_buf.writeln("");
             }
-            let prepared = self.prepare_value(&value, path)?;
+            // SOM §11.4 rule 8: a single-line code value is written as an
+            // inline code span, so markdown leaves it literal (`](` is not a
+            // link).
+            let prepared = if f.code && md_is_inline_code(&value) {
+                md_encode_code_span(&value)
+            } else {
+                self.prepare_value(&value, path)?
+            };
             let mut lines = prepared.split('\n');
             let first = lines.next().unwrap_or("");
             field_buf.writeln(&format!("{}: {}", spec_markdown_form_label(&f.name), first));
@@ -1824,6 +1831,7 @@ position (under \"{}\")",
         let mut current_field = String::new();
         let mut current_form_path = String::new();
         let mut have_field = false;
+        let mut current_code = false;
         let mut current_lines: Vec<String> = Vec::new();
         let mut content_lines: Vec<String> = Vec::new();
 
@@ -1836,12 +1844,14 @@ position (under \"{}\")",
                                 &mut self.forms,
                                 &current_form_path,
                                 &current_field,
+                                current_code,
                                 &current_lines,
                             );
                         }
                         current_lines = Vec::new();
                         current_form_idx = idx;
                         have_field = true;
+                        current_code = field.code;
                         current_field = field.name;
                         current_form_path = format!("{}/{}", frame.path, form_slots[idx].rel);
                         current_lines.push(first.to_string());
@@ -1873,6 +1883,7 @@ position (under \"{}\")",
                 &mut self.forms,
                 &current_form_path,
                 &current_field,
+                current_code,
                 &current_lines,
             );
         }
@@ -1887,9 +1898,13 @@ position (under \"{}\")",
     /// rule 7); everything from the first label on binds to the named fields.
     fn finalize_form(&mut self, frame: &MdFrame, node: &SomMetaNode, path: &str) {
         let mut fields_by_lower: HashMap<String, String> = HashMap::new();
+        let mut code_fields: HashSet<String> = HashSet::new();
         if let Some(form) = &node.form {
             for f in &form.fields {
                 fields_by_lower.insert(f.name.to_lowercase(), f.name.clone());
+                if f.code {
+                    code_fields.insert(f.name.clone());
+                }
             }
         }
         let mut fence = MarkdownFenceTracker::new();
@@ -1902,7 +1917,8 @@ position (under \"{}\")",
                 if let Some((label, first)) = md_field_label(line) {
                     if let Some(field_name) = fields_by_lower.get(&label.to_lowercase()) {
                         let field_name = field_name.clone();
-                        self.flush_form_lines(path, have_field, &current_field, &current_lines);
+                        let code = code_fields.contains(&current_field);
+                        self.flush_form_lines(path, have_field, &current_field, code, &current_lines);
                         current_lines = Vec::new();
                         have_field = true;
                         current_field = field_name;
@@ -1920,7 +1936,8 @@ position (under \"{}\")",
             }
             fence.feed(line);
         }
-        self.flush_form_lines(path, have_field, &current_field, &current_lines);
+        let code = code_fields.contains(&current_field);
+        self.flush_form_lines(path, have_field, &current_field, code, &current_lines);
     }
 
     fn flush_form_lines(
@@ -1928,9 +1945,15 @@ position (under \"{}\")",
         path: &str,
         have_field: bool,
         current_field: &str,
+        code: bool,
         current_lines: &[String],
     ) {
-        let value = md_restore_value(current_lines);
+        let restored = md_restore_value(current_lines);
+        let value = if have_field && code {
+            md_decode_code_span(&restored)
+        } else {
+            restored
+        };
         if have_field {
             if !value.is_empty() {
                 self.forms
@@ -1948,9 +1971,15 @@ fn stage_form_value(
     forms: &mut BTreeMap<String, BTreeMap<String, String>>,
     path: &str,
     field: &str,
+    code: bool,
     lines: &[String],
 ) {
-    let value = md_restore_value(lines);
+    let restored = md_restore_value(lines);
+    let value = if code {
+        md_decode_code_span(&restored)
+    } else {
+        restored
+    };
     if !value.is_empty() {
         forms
             .entry(path.to_string())
@@ -2009,6 +2038,61 @@ fn md_is_value_leaf(kind: &str) -> bool {
 
 /// The parse-side value restoration (SOM §11.3): trim leading/trailing blank
 /// lines and unescape `\#`-escaped heading lines outside fences.
+/// Whether a code field's `value` is written as an inline code span (SOM §11.4
+/// rule 8): it is non-empty and on one line. A multi-line value keeps the prose
+/// rendering — a code span cannot cross a line break without markdown joining
+/// the lines.
+fn md_is_inline_code(value: &str) -> bool {
+    !value.is_empty() && !value.contains('\n')
+}
+
+/// `value` as a CommonMark inline code span: delimited by one backtick more
+/// than the longest backtick run inside it, and padded with one space on each
+/// side when it begins or ends with a backtick or a space — the padding
+/// CommonMark strips again, so the span's content is exactly `value`.
+fn md_encode_code_span(value: &str) -> String {
+    let mut longest = 0usize;
+    let mut run = 0usize;
+    for c in value.chars() {
+        if c == '`' {
+            run += 1;
+            longest = longest.max(run);
+        } else {
+            run = 0;
+        }
+    }
+    let fence = "`".repeat(longest + 1);
+    let edge = |c: Option<char>| matches!(c, Some('`') | Some(' '));
+    let pad = if edge(value.chars().next()) || edge(value.chars().last()) {
+        " "
+    } else {
+        ""
+    };
+    format!("{}{}{}{}{}", fence, pad, value, pad, fence)
+}
+
+/// The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
+/// `value` delimited by equal backtick runs loses them, and one padding space on
+/// each side when both are present. Anything else — a value written by hand
+/// without a span — is kept as written.
+fn md_decode_code_span(value: &str) -> String {
+    if value.contains('\n') {
+        return value.to_string();
+    }
+    // `^(`+)([\s\S]*[^`])(`+)$`: the maximal leading and trailing backtick
+    // runs around an inner part that holds at least one other character.
+    let lead = value.len() - value.trim_start_matches('`').len();
+    let trail = value.len() - value.trim_end_matches('`').len();
+    if lead == 0 || trail == 0 || lead == value.len() || lead != trail {
+        return value.to_string();
+    }
+    let inner = &value[lead..value.len() - trail];
+    if inner.len() >= 2 && inner.starts_with(' ') && inner.ends_with(' ') && !inner.trim().is_empty() {
+        return inner[1..inner.len() - 1].to_string();
+    }
+    inner.to_string()
+}
+
 fn md_restore_value(body: &[String]) -> String {
     let mut fence = MarkdownFenceTracker::new();
     let mut out: Vec<&str> = Vec::with_capacity(body.len());

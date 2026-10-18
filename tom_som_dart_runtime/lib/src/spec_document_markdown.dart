@@ -640,7 +640,11 @@ class SpecDocumentMarkdown {
       // ending a value cannot swallow the next label as a lazy continuation).
       // Parse trims each value's trailing blank lines, so it is lossless.
       if (fields.isNotEmpty) fields.writeln();
-      final lines = _prepareValue(value, path).split('\n');
+      // SOM §11.4 rule 8: a single-line code value is written as
+      // an inline code span, so markdown leaves it literal (`](` is not a link).
+      final lines = f.code && _isInlineCode(value)
+          ? [_encodeCodeSpan(value)]
+          : _prepareValue(value, path).split('\n');
       fields.writeln('${formLabel(f.name)}: ${lines.first}');
       for (final line in lines.skip(1)) {
         // SOM §11.4 generalised: any continuation line that could be mistaken
@@ -750,6 +754,26 @@ class SpecDocumentMarkdown {
   // A line the emitter must escape: an optional run of backslashes followed by
   // `#` at column 0 (the escape itself must survive the round-trip).
   static final RegExp _escapable = RegExp(r'^\\*#');
+
+  /// Whether a code field's [value] is written as an inline code span: it is
+  /// non-empty and on one line. A multi-line value keeps the prose rendering —
+  /// a code span cannot cross a line break without markdown joining the lines.
+  static bool _isInlineCode(String value) =>
+      value.isNotEmpty && !value.contains('\n');
+
+  /// [value] as a CommonMark inline code span: delimited by one backtick more
+  /// than the longest backtick run inside it, and padded with one space on
+  /// each side when it begins or ends with a backtick or a space — the padding
+  /// CommonMark strips again, so the span's content is exactly [value].
+  static String _encodeCodeSpan(String value) {
+    var longest = 0;
+    for (final m in RegExp('`+').allMatches(value)) {
+      if (m.group(0)!.length > longest) longest = m.group(0)!.length;
+    }
+    final fence = '`' * (longest + 1);
+    final pad = RegExp(r'^[` ]|[` ]$').hasMatch(value) ? ' ' : '';
+    return '$fence$pad$value$pad$fence';
+  }
 
   // A line that would parse as a form-field label: `Word:` at column 0
   // (optionally already space-prefixed — each emit pass adds one more space).
@@ -1274,6 +1298,7 @@ class _Parser {
     final fence = MarkdownFenceTracker();
     String? currentField;
     String? currentFormPath;
+    var currentCode = false;
     var currentLines = <String>[];
     final contentLines = <String>[];
 
@@ -1281,7 +1306,8 @@ class _Parser {
       final field = currentField;
       final formPath = currentFormPath;
       if (field != null && formPath != null) {
-        final value = _restoreValue(currentLines);
+        final restored = _restoreValue(currentLines);
+        final value = currentCode ? _decodeCodeSpan(restored) : restored;
         if (value.isNotEmpty) {
           forms.putIfAbsent(formPath, () => {})[field] = value;
         }
@@ -1300,6 +1326,7 @@ class _Parser {
             flush();
             _currentFormIdx = hit.$1;
             currentField = hit.$2.name;
+            currentCode = hit.$2.code;
             currentFormPath = '${frame.path}/${formSlots[hit.$1].$2}';
             currentLines = [m.group(2)!];
             fence.feed(line);
@@ -1337,12 +1364,19 @@ class _Parser {
       for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
         f.name.toLowerCase(): f.name,
     };
+    final codeFields = {
+      for (final f in node.form?.fields ?? const <SomFormFieldMeta>[])
+        if (f.code) f.name,
+    };
     final fence = MarkdownFenceTracker();
     String? currentField;
     var currentLines = <String>[];
 
     void flush(int lineNo) {
-      final value = _restoreValue(currentLines);
+      final restored = _restoreValue(currentLines);
+      final value = codeFields.contains(currentField)
+          ? _decodeCodeSpan(restored)
+          : restored;
       if (currentField != null) {
         if (value.isNotEmpty) {
           forms.putIfAbsent(path, () => {})[currentField] = value;
@@ -1377,6 +1411,24 @@ class _Parser {
       fence.feed(line);
     }
     flush(frame.line + frame.body.length);
+  }
+
+  /// The inverse of the emitter's code span (SOM §11.4 rule 8):
+  /// a single-line [value] delimited by equal backtick runs loses them, and
+  /// one padding space on each side when both are present. Anything else — a
+  /// value written by hand without a span — is kept as written.
+  static String _decodeCodeSpan(String value) {
+    if (value.contains('\n')) return value;
+    final m = RegExp(r'^(`+)([\s\S]*[^`])(`+)$').firstMatch(value);
+    if (m == null || m.group(1)!.length != m.group(3)!.length) return value;
+    final inner = m.group(2)!;
+    if (inner.length >= 2 &&
+        inner.startsWith(' ') &&
+        inner.endsWith(' ') &&
+        inner.trim().isNotEmpty) {
+      return inner.substring(1, inner.length - 1);
+    }
+    return inner;
   }
 
   /// Parse-side value restoration (SOM §11.3): trim leading/trailing blank

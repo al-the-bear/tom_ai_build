@@ -3100,6 +3100,7 @@ class ElementValidationRuleEntry extends DocSpecsSection {
       String,
       'Rule Expression',
       hint: 'Validation expression or pattern',
+      code: true,
     ),
     Field(
       'errorCode',

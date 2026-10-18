@@ -100,6 +100,11 @@ class SomFormFieldMeta {
   /// dangling id instead of generating broken code.
   final List<String> refersTo;
 
+  /// Whether the value is code rather than prose (`Field.code`): the markdown
+  /// codec writes it as an inline code span and unwraps it on import (SOM
+  /// §11.4 rule 8).
+  final bool code;
+
   /// [name], [typeName] and [order] are required — they are the field's
   /// identity and its fixed place in the form's serialization and render
   /// order. Everything else describes an annotation the model may simply not
@@ -116,6 +121,7 @@ class SomFormFieldMeta {
     required this.order,
     this.enumValues = const [],
     this.refersTo = const [],
+    this.code = false,
   });
 }
 

@@ -110,6 +110,19 @@ class Field {
   /// the stored document differ from what a reader sees.
   final List<String> countOf;
 
+  /// Declares that the field's value is **code, not prose** — a regular
+  /// expression, a CHECK expression, a formula.
+  ///
+  /// The markdown rendition writes such a value as an inline code span, so the
+  /// characters markdown would otherwise interpret stay literal: the regex
+  /// `^[a-z0-9](-?[a-z0-9]){1,62}$` written as prose becomes a link, reads
+  /// wrongly, and fails every link check that sees it. The import unwraps the
+  /// span again, so the stored value is the bare code either way
+  /// (SOM §11.4 rule 8). The
+  /// flag says nothing about the value's language and is not checked against
+  /// it; it only changes how the value is written.
+  final bool code;
+
   /// Declares a form field called [name] holding a value of [type].
   ///
   /// The three positional arguments are the ones every field has; the named
@@ -123,5 +136,6 @@ class Field {
     this.hint,
     this.refersTo = const [],
     this.countOf = const [],
+    this.code = false,
   });
 }

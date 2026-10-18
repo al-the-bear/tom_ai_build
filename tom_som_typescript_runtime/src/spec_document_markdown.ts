@@ -243,6 +243,59 @@ const _FIELD_LABEL = /^([A-Za-z][A-Za-z0-9_]*): ?(.*)$/;
 const _CONTINUATION_LABEL = /^ +[A-Za-z][A-Za-z0-9_]*:/;
 const _ESCAPED_HEADING = /^\\+#/;
 
+/**
+ * Whether a code field's `value` is written as an inline code span: it is
+ * non-empty and on one line. A multi-line value keeps the prose rendering — a
+ * code span cannot cross a line break without markdown joining the lines.
+ */
+function _isInlineCode(value: string): boolean {
+  return value !== '' && !value.includes('\n');
+}
+
+/**
+ * `value` as a CommonMark inline code span: delimited by one backtick more
+ * than the longest backtick run inside it, and padded with one space on each
+ * side when it begins or ends with a backtick or a space — the padding
+ * CommonMark strips again, so the span's content is exactly `value`.
+ */
+function _encodeCodeSpan(value: string): string {
+  let longest = 0;
+  for (const m of value.matchAll(/`+/g)) {
+    if (m[0].length > longest) {
+      longest = m[0].length;
+    }
+  }
+  const fence = '`'.repeat(longest + 1);
+  const pad = /^[` ]|[` ]$/.test(value) ? ' ' : '';
+  return `${fence}${pad}${value}${pad}${fence}`;
+}
+
+/**
+ * The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
+ * `value` delimited by equal backtick runs loses them, and one padding space
+ * on each side when both are present. Anything else — a value written by hand
+ * without a span — is kept as written.
+ */
+function _decodeCodeSpan(value: string): string {
+  if (value.includes('\n')) {
+    return value;
+  }
+  const m = /^(`+)([\s\S]*[^`])(`+)$/.exec(value);
+  if (m === null || m[1].length !== m[3].length) {
+    return value;
+  }
+  const inner = m[2];
+  if (
+    inner.length >= 2 &&
+    inner.startsWith(' ') &&
+    inner.endsWith(' ') &&
+    inner.trim() !== ''
+  ) {
+    return inner.substring(1, inner.length - 1);
+  }
+  return inner;
+}
+
 /** A body slot / effective child: the node plus its relative path. */
 type _NodeRel = [SomMetaNode, string];
 
@@ -817,7 +870,12 @@ export class SpecDocumentMarkdown {
       if (fieldBuf.toString() !== '') {
         fieldBuf.writeln();
       }
-      const lines = this._prepareValue(value, path).split('\n');
+      // SOM §11.4 rule 8: a single-line code value is written as an inline
+      // code span, so markdown leaves it literal (`](` is not a link).
+      const lines =
+        f.code && _isInlineCode(value)
+          ? [_encodeCodeSpan(value)]
+          : this._prepareValue(value, path).split('\n');
       fieldBuf.writeln(`${SpecDocumentMarkdown.formLabel(f.name)}: ${lines[0]}`);
       for (const line of lines.slice(1)) {
         // SOM §11.4 generalised: any continuation line that could be mistaken
@@ -1421,12 +1479,14 @@ class _Parser {
     const fence = new MarkdownFenceTracker();
     let currentField: string | null = null;
     let currentFormPath: string | null = null;
+    let currentCode = false;
     let currentLines: string[] = [];
     const contentLines: string[] = [];
 
     const flush = (): void => {
       if (currentField !== null && currentFormPath !== null) {
-        const value = _Parser._restoreValue(currentLines);
+        const restored = _Parser._restoreValue(currentLines);
+        const value = currentCode ? _decodeCodeSpan(restored) : restored;
         if (value) {
           if (!this.forms[currentFormPath]) {
             this.forms[currentFormPath] = {};
@@ -1448,6 +1508,7 @@ class _Parser {
             flush();
             this._currentFormIdx = hit[0];
             currentField = hit[1].name;
+            currentCode = hit[1].code;
             currentFormPath = `${frame.path}/${formSlots[hit[0]][1]}`;
             currentLines = [m[2]];
             fence.feed(line);
@@ -1487,12 +1548,19 @@ class _Parser {
     const fieldsByLower = new Map<string, string>(
       fields.map((f) => [f.name.toLowerCase(), f.name]),
     );
+    const codeFields = new Set<string>(
+      fields.filter((f) => f.code).map((f) => f.name),
+    );
     const fence = new MarkdownFenceTracker();
     let currentField: string | null = null;
     let currentLines: string[] = [];
 
     const flush = (_lineNo: number): void => {
-      const value = _Parser._restoreValue(currentLines);
+      const restored = _Parser._restoreValue(currentLines);
+      const value =
+        currentField !== null && codeFields.has(currentField)
+          ? _decodeCodeSpan(restored)
+          : restored;
       if (currentField !== null) {
         if (value) {
           if (!this.forms[path]) {

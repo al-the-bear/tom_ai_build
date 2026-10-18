@@ -1830,6 +1830,15 @@ Map<String, dynamic> _buildMeta() => {
               'type': 'Priority',
               'enumValues': ['low', 'high'],
             },
+            // SOM §11.4 rule 8: a `code` value is written as an
+            // inline code span and unwrapped on import. The golden value
+            // holds `](`, which as prose markdown reads as a link.
+            {
+              'name': 'pattern',
+              'label': 'Pattern',
+              'type': 'String',
+              'code': true,
+            },
           ],
         },
         {
@@ -2313,6 +2322,14 @@ Map<String, dynamic> _buildMeta() => {
           'kind': 'form',
           'formFields': [
             {'name': 'note', 'label': 'Note', 'type': 'String'},
+            // The code-field rule on the transparent-form parse path, which is
+            // a different branch from an id-bearing form's in every port.
+            {
+              'name': 'selector',
+              'label': 'Selector',
+              'type': 'String',
+              'code': true,
+            },
           ],
         },
       ],
@@ -2369,6 +2386,9 @@ SpecDocument _buildDocument() {
   d.setFormField('DEMO/DET', 'owner', 'Bob');
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
+  // SOM §11.4 rule 8: rendered as an inline code span, so the
+  // `](` stays literal instead of becoming a markdown link.
+  d.setFormField('DEMO/DET', 'pattern', r'^[a-z0-9](-?[a-z0-9]){1,62}$');
   // A multi-line form value ending in a markdown list, followed (in model
   // order) by another field. SOM §11.4 rule 2 separates consecutive field
   // groups with one blank line; without it a markdown viewer reads the next
@@ -2907,6 +2927,7 @@ List<Map<String, dynamic>> _editorScript() => [
       'tally',
       'active',
       'priority',
+      'pattern',
     ],
   },
   {'op': 'formFieldNamesThrows', 'path': 'DEMO/CNT'},
@@ -3837,6 +3858,50 @@ Map<String, dynamic> _markdownImportCases() {
           'headlines': {'DEMO/DET': 'Details & Contacts'},
         },
       ),
+      // SOM §11.4 rule 8. The span's delimiter is one backtick
+      // longer than any run inside the value, padded with a space when the
+      // value begins or ends with a backtick; import strips both again. A code
+      // field written by hand without a span keeps exactly what was written.
+      c(
+        name:
+            'a code field written as a code span imports as the bare code, '
+            'and one written without a span is kept as written',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[DET]--> Details & Contacts', //                     3
+          '', //                                                       4
+          'Owner: `Bob`', //                                           5
+          '', //                                                       6
+          'Pattern: `` `x`](y) ``', //                                 7
+        ],
+        rejections: const <Map<String, dynamic>>[],
+        document: {
+          'forms': {
+            'DEMO/DET': {'owner': '`Bob`', 'pattern': '`x`](y)'},
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
+      c(
+        name:
+            'a code field with no span around it keeps its text, backticks '
+            'and all',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[DET]--> Details & Contacts', //                     3
+          '', //                                                       4
+          'Pattern: [a-z](x) and `y`', //                              5
+        ],
+        rejections: const <Map<String, dynamic>>[],
+        document: {
+          'forms': {
+            'DEMO/DET': {'pattern': '[a-z](x) and `y`'},
+          },
+          'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
       // The layout written before the blank-line separator — consecutive
       // `Field:` lines — still imports to the same values: the separator is a
       // rendering aid, never a field boundary.
@@ -3990,6 +4055,8 @@ Map<String, dynamic> _markdownImportCases() {
           ' Caveat: label-shaped prose, escaped by the emitter.',
           '',
           'Note: first card',
+          '',
+          'Selector: ``a`b``',
         ],
         rejections: [],
         document: {
@@ -3999,7 +4066,10 @@ Map<String, dynamic> _markdownImportCases() {
                 'Caveat: label-shaped prose, escaped by the emitter.',
           },
           'forms': {
-            'DEMO/CARD-LST-1/content': {'note': 'first card'},
+            'DEMO/CARD-LST-1/content': {
+              'note': 'first card',
+              'selector': 'a`b',
+            },
           },
           'lists': {
             'DEMO/CARD-LST': {

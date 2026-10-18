@@ -4739,6 +4739,7 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
       String,
       'Constraint Expression',
       hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))',
+      code: true,
     ),
     // Why: this narrows a value set, it never declares one. An attribute typed
     // by a domain enum names its enum in `DAATT-DTEN`, and the enum's values are
@@ -4759,6 +4760,7 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
       String,
       'Pattern/Regex',
       hint: r'Regex for validation (e.g., ^[A-Z]{2}-\d{6}$ for order IDs)',
+      code: true,
     ),
   ])
   @override

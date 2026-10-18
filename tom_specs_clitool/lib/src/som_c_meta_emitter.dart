@@ -1009,6 +1009,11 @@ class SomCMetaEmitter {
           );
         }
       }
+      // SOM §11.4 rule 8: a code field is written as an inline code span;
+      // calloc has already zero-inited `code` for a prose field.
+      if (ff.code) {
+        b.writeln('\tn->form->fields[$i].code = 1;');
+      }
     }
   }
 

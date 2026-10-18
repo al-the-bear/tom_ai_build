@@ -32,6 +32,8 @@ document:
       active: true
       priority: |2-
         high
+      pattern: |2-
+        ^[a-z0-9](-?[a-z0-9]){1,62}$
     items:
       headline: |2-
         Work Items

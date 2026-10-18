@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 25 files
-// Generated: 2026-10-18T13:48:28.341549 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-18T15:44:43.661011 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -8336,6 +8336,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
             named.containsKey('refersTo') && named['refersTo'] != null
             ? D4.coerceList<String>(named['refersTo'], 'refersTo')
             : const <String>[];
+        final code = D4.getNamedArgWithDefault<bool>(named, 'code', false);
         return $tom_som_dart_runtime_12.SomFormFieldMeta(
           name: name,
           typeName: typeName,
@@ -8345,6 +8346,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
           order: order,
           enumValues: enumValues,
           refersTo: refersTo,
+          code: code,
         );
       },
     },
@@ -8397,9 +8399,15 @@ BridgedClass _createSomFormFieldMetaBridge() {
             'SomFormFieldMeta',
           )
           .refersTo,
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_12.SomFormFieldMeta>(
+            target,
+            'SomFormFieldMeta',
+          )
+          .code,
     },
     constructorSignatures: {
-      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const []})',
+      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const [], bool code = false})',
     },
     getterSignatures: {
       'name': 'String get name',
@@ -8410,6 +8418,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
       'order': 'int get order',
       'enumValues': 'List<String> get enumValues',
       'refersTo': 'List<String> get refersTo',
+      'code': 'bool get code',
     },
   );
 }
@@ -9326,6 +9335,7 @@ BridgedClass _createFormFieldSpecBridge() {
         final countOf = named.containsKey('countOf') && named['countOf'] != null
             ? D4.coerceList<String>(named['countOf'], 'countOf')
             : const <String>[];
+        final code = D4.getNamedArgWithDefault<bool>(named, 'code', false);
         return $tom_som_dart_runtime_15.FormFieldSpec(
           name: name,
           label: label,
@@ -9336,6 +9346,7 @@ BridgedClass _createFormFieldSpecBridge() {
           enumValueDocs: enumValueDocs,
           refersTo: refersTo,
           countOf: countOf,
+          code: code,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -9404,9 +9415,15 @@ BridgedClass _createFormFieldSpecBridge() {
             'FormFieldSpec',
           )
           .countOf,
+      'code': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .code,
     },
     constructorSignatures: {
-      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const []})',
+      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const [], bool code = false})',
       'fromJson': 'factory FormFieldSpec.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -9419,6 +9436,7 @@ BridgedClass _createFormFieldSpecBridge() {
       'enumValueDocs': 'Map<String, String> get enumValueDocs',
       'refersTo': 'List<String> get refersTo',
       'countOf': 'List<String> get countOf',
+      'code': 'bool get code',
     },
   );
 }

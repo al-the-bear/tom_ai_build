@@ -40,6 +40,13 @@ public final class SomFormFieldMeta {
    */
   public final java.util.List<String> refersTo;
 
+  /**
+   * Whether the value is code rather than prose ({@code Field.code}): the
+   * markdown codec writes it as an inline code span and unwraps it on import
+   * (SOM §11.4 rule 8).
+   */
+  public final boolean code;
+
   public SomFormFieldMeta(
       String name,
       String typeName,
@@ -71,6 +78,20 @@ public final class SomFormFieldMeta {
       int order,
       java.util.List<String> enumValues,
       java.util.List<String> refersTo) {
+    this(name, typeName, description, required, hint, order, enumValues,
+        refersTo, false);
+  }
+
+  public SomFormFieldMeta(
+      String name,
+      String typeName,
+      String description,
+      boolean required,
+      String hint,
+      int order,
+      java.util.List<String> enumValues,
+      java.util.List<String> refersTo,
+      boolean code) {
     this.name = name;
     this.typeName = typeName;
     this.description = description;
@@ -79,5 +100,6 @@ public final class SomFormFieldMeta {
     this.order = order;
     this.enumValues = enumValues;
     this.refersTo = refersTo;
+    this.code = code;
   }
 }

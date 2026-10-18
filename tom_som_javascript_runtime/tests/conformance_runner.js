@@ -1019,6 +1019,9 @@ function _buildFixtureDocument() {
   d.setFormField('DEMO/DET', 'owner', 'Bob');
   d.setFormField('DEMO/DET', 'active', 'true');
   d.setFormField('DEMO/DET', 'estimate', '8');
+  // SOM §11.4 rule 8: rendered as an inline code span, so the
+  // `](` stays literal instead of becoming a markdown link.
+  d.setFormField('DEMO/DET', 'pattern', '^[a-z0-9](-?[a-z0-9]){1,62}$');
   // A multi-line value ending in a markdown list (SOM §11.4 rule 2).
   d.setFormField(
     'DEMO/DET',

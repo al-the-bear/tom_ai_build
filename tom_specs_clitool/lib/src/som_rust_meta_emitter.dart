@@ -455,7 +455,8 @@ class SomRustMetaEmitter {
           'hint: ${_strLit(ff.hint ?? '')}, '
           'order: $i, '
           'enum_values: vec![${ff.enumValues.map(_strLit).join(', ')}], '
-          'refers_to: vec![${ff.refersTo.map(_strLit).join(', ')}] }',
+          'refers_to: vec![${ff.refersTo.map(_strLit).join(', ')}], '
+          'code: ${ff.code} }',
         );
       }
       add(

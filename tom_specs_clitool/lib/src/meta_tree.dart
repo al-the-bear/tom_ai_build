@@ -126,6 +126,11 @@ class MetaFormField {
   /// the instance-tier dangling-reference check too.
   final List<String> refersTo;
 
+  /// Whether the value is code rather than prose (`Field.code`): every
+  /// language's markdown codec writes it as an inline code span and unwraps it
+  /// on import (SOM §11.4 rule 8).
+  final bool code;
+
   /// [name], [typeName] and [order] are required: a slot is not addressable
   /// without a name and a type, and [order] is the authored position, which
   /// the caller knows and this class cannot recompute. Everything else
@@ -141,6 +146,7 @@ class MetaFormField {
     required this.order,
     this.enumValues = const [],
     this.refersTo = const [],
+    this.code = false,
   });
 }
 
@@ -440,6 +446,7 @@ class MetaNode {
                 'order': f.order,
                 if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
                 if (f.refersTo.isNotEmpty) 'refersTo': f.refersTo,
+                if (f.code) 'code': true,
               },
             )
             .toList(),
@@ -888,6 +895,7 @@ class _SlotCollector {
           order: i,
           enumValues: f.enumValues,
           refersTo: f.refersTo,
+          code: f.code,
         ),
       );
     }

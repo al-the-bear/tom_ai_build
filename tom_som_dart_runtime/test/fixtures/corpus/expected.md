@@ -39,6 +39,8 @@ Active: true
 
 Priority: high
 
+Pattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`
+
 ## <!--[items]--> Work Items
 
 ### <!--[items-1]--> Task 1

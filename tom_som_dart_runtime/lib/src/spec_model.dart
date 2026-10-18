@@ -205,6 +205,11 @@ class FormFieldSpec {
   /// document (`countMismatch`).
   final List<String> countOf;
 
+  /// Whether the value is code rather than prose (`Field.code`): the markdown
+  /// codec writes it as an inline code span and unwraps it on import (SOM
+  /// §11.4 rule 8). Omitted from the export when `false`.
+  final bool code;
+
   /// Only [name], [label] and [type] are required — the three a form line
   /// cannot be written without. Everything else defaults to the "nothing was
   /// declared" state: no [hint], not [required], and empty [enumValues] /
@@ -219,6 +224,7 @@ class FormFieldSpec {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.code = false,
   });
 
   /// Reads one `formFields[]` entry
@@ -242,6 +248,7 @@ class FormFieldSpec {
         (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
     countOf:
         (j['countOf'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    code: j['code'] as bool? ?? false,
   );
 }
 

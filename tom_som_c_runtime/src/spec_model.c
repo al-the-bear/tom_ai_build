@@ -287,6 +287,7 @@ static void field_from_json(const SomJson *f, SpecField *out) {
       strlist_from_json(ff, "enumValues", &out->form_fields[i].enum_values);
       strlist_from_json(ff, "refersTo", &out->form_fields[i].refers_to);
       strlist_from_json(ff, "countOf", &out->form_fields[i].count_of);
+      out->form_fields[i].code = som_json_bool_or(ff, "code");
     }
     out->form_fields_len = fn;
   }

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `Field.code` flows into the exported meta (`code: true` on a `formFields[]`
+  entry, omitted when false) and into every language's generated form-field
+  meta, so each runtime's markdown codec can write the value as a code span
+  (SOM §11.4 rule 8). Requires `tom_specs_core` 0.2.3 and the 1.6.1 Dart chain.
+
 ## 0.6.0
 
 - Requires the 1.5.0 model chain (`tom_som_dart_runtime`, `tom_som_dart_v0`).

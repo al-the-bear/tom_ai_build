@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-18T11:13:15.691853Z",
+  "generatedAt": "2026-10-18T13:10:09.134730Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.0+5.e0f9f8f8",
+  "modelVersionLabel": "1.6.1+6.80c6bb4e",
   "classCount": 1259,
   "rootCount": 14,
-  "modelHash": "7892b4152c4ea5c37247cce9da8a14eccdcc0d50656a82f3761f777ac8af41f2",
+  "modelHash": "265befef355c05115034498e823288d317ae98c6f32fc9e7779211ed34148f93",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -64381,7 +64381,8 @@
               "label": "Constraint Expression",
               "hint": "CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             },
             {
               "name": "allowedValues",
@@ -64395,7 +64396,8 @@
               "label": "Pattern/Regex",
               "hint": "Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             }
           ]
         }
@@ -94956,7 +94958,8 @@
               "label": "Rule Expression",
               "hint": "Validation expression or pattern",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             },
             {
               "name": "errorCode",
@@ -112966,7 +112969,8 @@
               "label": "Rule Expression / Formula",
               "hint": "Expression or formula implementing the rule",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             },
             {
               "name": "errorCode",
@@ -122444,7 +122448,8 @@
               "label": "Transformation Expression",
               "hint": "Expression if Custom/RegexExtract, e.g. {firstName} {lastName}",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             },
             {
               "name": "defaultValue",
@@ -227164,7 +227169,8 @@
               "label": "Validation Pattern (regex)",
               "hint": "Regular expression the input must match",
               "type": "String",
-              "required": false
+              "required": false,
+              "code": true
             }
           ]
         },

@@ -639,8 +639,11 @@ public final class SpecDocumentMarkdown {
       if (fieldBuf.length() > 0) {
         writeln(fieldBuf, "");
       }
-      String prepared = prepareValue(value, path);
-      String[] lines = splitLines(prepared);
+      // SOM §11.4 rule 8: a single-line code value is written as an inline
+      // code span, so markdown leaves it literal (`](` is not a link).
+      String[] lines = f.code && isInlineCode(value)
+          ? new String[] {encodeCodeSpan(value)}
+          : splitLines(prepareValue(value, path));
       writeln(fieldBuf, formLabel(f.name) + ": " + lines[0]);
       for (int i = 1; i < lines.length; i++) {
         String line = lines[i];
@@ -710,6 +713,61 @@ public final class SpecDocumentMarkdown {
     }
     writeln(b, prepared);
     writeln(b, "");
+  }
+
+  private static final Pattern BACKTICK_RUN = Pattern.compile("`+");
+  private static final Pattern CODE_PAD_NEEDED = Pattern.compile("^[` ]|[` ]$");
+  private static final Pattern CODE_SPAN =
+      Pattern.compile("^(`+)([\\s\\S]*[^`])(`+)$");
+
+  /**
+   * Whether a code field's {@code value} is written as an inline code span: it
+   * is non-empty and on one line. A multi-line value keeps the prose rendering
+   * — a code span cannot cross a line break without markdown joining the lines.
+   */
+  static boolean isInlineCode(String value) {
+    return !value.isEmpty() && value.indexOf('\n') < 0;
+  }
+
+  /**
+   * {@code value} as a CommonMark inline code span: delimited by one backtick
+   * more than the longest backtick run inside it, and padded with one space on
+   * each side when it begins or ends with a backtick or a space — the padding
+   * CommonMark strips again, so the span's content is exactly {@code value}.
+   */
+  static String encodeCodeSpan(String value) {
+    int longest = 0;
+    Matcher m = BACKTICK_RUN.matcher(value);
+    while (m.find()) {
+      longest = Math.max(longest, m.group().length());
+    }
+    String fence = "`".repeat(longest + 1);
+    String pad = CODE_PAD_NEEDED.matcher(value).find() ? " " : "";
+    return fence + pad + value + pad + fence;
+  }
+
+  /**
+   * The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
+   * {@code value} delimited by equal backtick runs loses them, and one padding
+   * space on each side when both are present. Anything else — a value written
+   * by hand without a span — is kept as written.
+   */
+  static String decodeCodeSpan(String value) {
+    if (value.indexOf('\n') >= 0) {
+      return value;
+    }
+    Matcher m = CODE_SPAN.matcher(value);
+    if (!m.matches() || m.group(1).length() != m.group(3).length()) {
+      return value;
+    }
+    String inner = m.group(2);
+    if (inner.length() >= 2
+        && inner.startsWith(" ")
+        && inner.endsWith(" ")
+        && !inner.trim().isEmpty()) {
+      return inner.substring(1, inner.length() - 1);
+    }
+    return inner;
   }
 
   /**
@@ -1252,6 +1310,7 @@ public final class SpecDocumentMarkdown {
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
       String currentField = "";
       String currentFormPath = "";
+      boolean currentCode = false;
       boolean haveField = false;
       List<String> currentLines = new ArrayList<>();
       List<String> contentLines = new ArrayList<>();
@@ -1282,7 +1341,8 @@ public final class SpecDocumentMarkdown {
             }
             if (foundIdx >= 0) {
               if (haveField) {
-                String value = restoreValue(currentLines);
+                String restored = restoreValue(currentLines);
+                String value = currentCode ? decodeCodeSpan(restored) : restored;
                 if (!value.isEmpty()) {
                   forms.computeIfAbsent(currentFormPath, k -> new LinkedHashMap<>())
                       .put(currentField, value);
@@ -1292,6 +1352,7 @@ public final class SpecDocumentMarkdown {
               currentFormIdx = foundIdx;
               haveField = true;
               currentField = found.name;
+              currentCode = found.code;
               currentFormPath = frame.path + "/" + formSlots.get(foundIdx).rel;
               currentLines.add(m.group(2));
               bodyFence.feed(line);
@@ -1315,7 +1376,8 @@ public final class SpecDocumentMarkdown {
         bodyFence.feed(line);
       }
       if (haveField) {
-        String value = restoreValue(currentLines);
+        String restored = restoreValue(currentLines);
+        String value = currentCode ? decodeCodeSpan(restored) : restored;
         if (!value.isEmpty()) {
           forms.computeIfAbsent(currentFormPath, k -> new LinkedHashMap<>())
               .put(currentField, value);
@@ -1336,8 +1398,12 @@ public final class SpecDocumentMarkdown {
       List<SomFormFieldMeta> fields =
           node.form != null ? node.form.fields : new ArrayList<>();
       Map<String, String> fieldsByLower = new LinkedHashMap<>();
+      Set<String> codeFields = new HashSet<>();
       for (SomFormFieldMeta f : fields) {
         fieldsByLower.put(f.name.toLowerCase(), f.name);
+        if (f.code) {
+          codeFields.add(f.name);
+        }
       }
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
       String[] currentField = {""};
@@ -1351,7 +1417,8 @@ public final class SpecDocumentMarkdown {
           if (m.matches()) {
             String fieldName = fieldsByLower.get(m.group(1).toLowerCase());
             if (fieldName != null) {
-              flushForm(haveField, currentField, currentLines, path, frame.line + i);
+              flushForm(haveField, currentField, currentLines, path, frame.line + i,
+                  codeFields);
               haveField[0] = true;
               currentField[0] = fieldName;
               currentLines.add(m.group(2));
@@ -1369,12 +1436,16 @@ public final class SpecDocumentMarkdown {
         bodyFence.feed(line);
       }
       flushForm(haveField, currentField, currentLines, path,
-          frame.line + frame.body.size());
+          frame.line + frame.body.size(), codeFields);
     }
 
     private void flushForm(boolean[] haveField, String[] currentField,
-        List<String> currentLines, String path, int lineNo) {
-      String value = restoreValue(currentLines);
+        List<String> currentLines, String path, int lineNo,
+        Set<String> codeFields) {
+      String restored = restoreValue(currentLines);
+      String value = haveField[0] && codeFields.contains(currentField[0])
+          ? decodeCodeSpan(restored)
+          : restored;
       if (haveField[0]) {
         if (!value.isEmpty()) {
           forms.computeIfAbsent(path, k -> new LinkedHashMap<>())

@@ -232,6 +232,7 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
         copy_strlist(&ff->enum_values, &out->enum_values,
                      &out->enum_values_len);
         copy_strlist(&ff->refers_to, &out->refers_to, &out->refers_to_len);
+        out->code = ff->code;
       }
     }
   }

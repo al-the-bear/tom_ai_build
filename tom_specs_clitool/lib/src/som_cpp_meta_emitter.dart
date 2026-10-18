@@ -854,12 +854,15 @@ class SomCppMetaEmitter {
       final refersToArg =
           ', std::vector<std::string>{'
           '${ff.refersTo.map((e) => '"${_cppStr(e)}"').join(', ')}}';
+      // SOM §11.4 rule 8: the code-field flag, the trailing aggregate member,
+      // likewise always emitted so the initializer stays complete.
+      final codeArg = ', ${ff.code}';
       b.writeln(
         '$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
         '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
         '"${_cppStr(ff.label)}", ${ff.required}, '
         '"${_cppStr(ff.hint ?? '')}", $i'
-        '$enumArg$refersToArg});',
+        '$enumArg$refersToArg$codeArg});',
       );
     }
   }

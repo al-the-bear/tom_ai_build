@@ -243,7 +243,7 @@ public final class SomMetaBridge {
         FormFieldSpec ff = field.formFields.get(i);
         fields.add(new SomFormFieldMeta(
             ff.name, ff.type, ff.label, ff.required, ff.hint, i, ff.enumValues,
-            ff.refersTo));
+            ff.refersTo, ff.code));
       }
       form = new SomFormMeta(fields);
     }

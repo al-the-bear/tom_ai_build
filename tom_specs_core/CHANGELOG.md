@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.3
+
+- `Field.code`: a form field whose value is code, not prose — a regular
+  expression, a CHECK expression, a formula. The markdown rendition writes it
+  as an inline code span and the import unwraps it, so `](` in a regex stays
+  literal instead of becoming a link.
+
 ## 0.2.2
 
 - `Field.countOf`: a form field stating a count of entries the document holds

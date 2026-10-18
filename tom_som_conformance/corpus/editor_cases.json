@@ -382,7 +382,8 @@
       "weight",
       "tally",
       "active",
-      "priority"
+      "priority",
+      "pattern"
     ]
   },
   {

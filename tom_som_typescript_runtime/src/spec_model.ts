@@ -90,6 +90,12 @@ export class FormFieldSpec {
    * (`countMismatch`).
    */
   countOf: string[];
+  /**
+   * Whether the value is code rather than prose (`Field.code`): the markdown
+   * codec writes it as an inline code span and unwraps it on import (SOM
+   * §11.4 rule 8). Omitted from the export when `false`.
+   */
+  code: boolean;
 
   constructor(props: {
     name: string;
@@ -100,6 +106,7 @@ export class FormFieldSpec {
     enumValues?: string[];
     refersTo?: string[];
     countOf?: string[];
+    code?: boolean;
   }) {
     this.name = props.name;
     this.label = props.label;
@@ -109,6 +116,7 @@ export class FormFieldSpec {
     this.enumValues = props.enumValues || [];
     this.refersTo = props.refersTo || [];
     this.countOf = props.countOf || [];
+    this.code = Boolean(props.code || false);
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -121,6 +129,7 @@ export class FormFieldSpec {
       enumValues: (j.enumValues || []).map((e: unknown) => String(e)),
       refersTo: (j.refersTo || []).map((e: unknown) => String(e)),
       countOf: (j.countOf || []).map((e: unknown) => String(e)),
+      code: j.code === true,
     });
   }
 }

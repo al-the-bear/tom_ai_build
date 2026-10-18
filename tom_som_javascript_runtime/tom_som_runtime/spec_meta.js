@@ -76,6 +76,7 @@ class SomFormFieldMeta {
     hint = null,
     enumValues = null,
     refersTo = null,
+    code = false,
   }) {
     /** The exact model field name (`approvedBy`). */
     this.name = name;
@@ -103,6 +104,12 @@ class SomFormFieldMeta {
      * registry; a reference naming several ids writes them comma-separated.
      */
     this.refersTo = refersTo || [];
+    /**
+     * Whether the value is code rather than prose (`Field.code`): the markdown
+     * codec writes it as an inline code span and unwraps it on import (SOM
+     * §11.4 rule 8).
+     */
+    this.code = Boolean(code);
   }
 }
 

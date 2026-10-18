@@ -821,11 +821,18 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 		if fieldBuf.String() != "" {
 			fieldBuf.writeln("")
 		}
-		prepared, err := c.prepareValue(value, path)
-		if err != nil {
-			return err
+		// SOM §11.4 rule 8: a single-line code value is written as an inline
+		// code span, so markdown leaves it literal (`](` is not a link).
+		var lines []string
+		if f.Code && mdIsInlineCode(value) {
+			lines = []string{mdEncodeCodeSpan(value)}
+		} else {
+			prepared, err := c.prepareValue(value, path)
+			if err != nil {
+				return err
+			}
+			lines = strings.Split(prepared, "\n")
 		}
-		lines := strings.Split(prepared, "\n")
 		fieldBuf.writeln(SpecMarkdownFormLabel(f.Name) + ": " + lines[0])
 		for _, line := range lines[1:] {
 			// SOM §11.4 generalised: any continuation line that could be mistaken
@@ -899,6 +906,59 @@ func (c *SpecDocumentMarkdown) writeBody(b *mdBuffer, value, path string) error 
 	b.writeln(prepared)
 	b.writeln("")
 	return nil
+}
+
+// mdIsInlineCode reports whether a code field's value is written as an inline
+// code span: it is non-empty and on one line. A multi-line value keeps the
+// prose rendering — a code span cannot cross a line break without markdown
+// joining the lines.
+func mdIsInlineCode(value string) bool {
+	return value != "" && !strings.Contains(value, "\n")
+}
+
+var mdBacktickRunRE = regexp.MustCompile("`+")
+
+// mdEncodeCodeSpan returns value as a CommonMark inline code span: delimited
+// by one backtick more than the longest backtick run inside it, and padded
+// with one space on each side when it begins or ends with a backtick or a
+// space — the padding CommonMark strips again, so the span's content is
+// exactly value.
+func mdEncodeCodeSpan(value string) string {
+	longest := 0
+	for _, run := range mdBacktickRunRE.FindAllString(value, -1) {
+		if len(run) > longest {
+			longest = len(run)
+		}
+	}
+	fence := strings.Repeat("`", longest+1)
+	pad := ""
+	first, last := value[0], value[len(value)-1]
+	if first == '`' || first == ' ' || last == '`' || last == ' ' {
+		pad = " "
+	}
+	return fence + pad + value + pad + fence
+}
+
+var mdCodeSpanRE = regexp.MustCompile("^(`+)([\\s\\S]*[^`])(`+)$")
+
+// mdDecodeCodeSpan is the inverse of the emitter's code span (SOM §11.4 rule
+// 8): a single-line value delimited by equal backtick runs loses them, and one
+// padding space on each side when both are present. Anything else — a value
+// written by hand without a span — is kept as written.
+func mdDecodeCodeSpan(value string) string {
+	if strings.Contains(value, "\n") {
+		return value
+	}
+	m := mdCodeSpanRE.FindStringSubmatch(value)
+	if m == nil || len(m[1]) != len(m[3]) {
+		return value
+	}
+	inner := m[2]
+	if len(inner) >= 2 && strings.HasPrefix(inner, " ") &&
+		strings.HasSuffix(inner, " ") && strings.TrimSpace(inner) != "" {
+		return inner[1 : len(inner)-1]
+	}
+	return inner
 }
 
 // prepareValue is the emit-side value normalisation (SOM §11.3): collapse 2+
@@ -1468,6 +1528,7 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	fence := &MarkdownFenceTracker{}
 	currentField := ""
 	currentFormPath := ""
+	currentCode := false
 	haveField := false
 	var currentLines []string
 	var contentLines []string
@@ -1475,6 +1536,9 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	flush := func() {
 		if haveField {
 			value := mdRestoreValue(currentLines)
+			if currentCode {
+				value = mdDecodeCodeSpan(value)
+			}
 			if value != "" {
 				if p.forms[currentFormPath] == nil {
 					p.forms[currentFormPath] = map[string]string{}
@@ -1494,6 +1558,7 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 					p.currentFormIdx = idx
 					haveField = true
 					currentField = f.Name
+					currentCode = f.Code
 					currentFormPath = frame.path + "/" + formSlots[idx].rel
 					currentLines = []string{m[2]}
 					fence.Feed(line)
@@ -1532,6 +1597,12 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 	for _, f := range fields {
 		fieldsByLower[strings.ToLower(f.Name)] = f.Name
 	}
+	codeFields := map[string]bool{}
+	for _, f := range fields {
+		if f.Code {
+			codeFields[f.Name] = true
+		}
+	}
 	fence := &MarkdownFenceTracker{}
 	currentField := ""
 	haveField := false
@@ -1539,6 +1610,9 @@ func (p *mdParser) finalizeForm(frame *mdFrame, node *SomMetaNode, path string) 
 
 	flush := func(lineNo int) {
 		value := mdRestoreValue(currentLines)
+		if haveField && codeFields[currentField] {
+			value = mdDecodeCodeSpan(value)
+		}
 		if haveField {
 			if value != "" {
 				if p.forms[path] == nil {

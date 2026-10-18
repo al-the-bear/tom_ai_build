@@ -465,11 +465,15 @@ class SomJavaMetaEmitter {
         // by overloads: the 6-arg form for a plain field, the 7-arg form for an
         // enum-typed one (YRD7), and the 8-arg form once a reference target is
         // present (csrb3) — which must then also pass the (possibly empty)
-        // enum domain positionally.
+        // enum domain positionally — and the 9-arg form for a code field.
         final enums =
             'java.util.List.of(${ff.enumValues.map(_str).join(', ')})';
-        if (ff.refersTo.isNotEmpty) {
-          final refs = 'java.util.List.of(${ff.refersTo.map(_str).join(', ')})';
+        final refs = 'java.util.List.of(${ff.refersTo.map(_str).join(', ')})';
+        if (ff.code) {
+          // SOM §11.4 rule 8: the 9-arg form carries the code flag, so it also
+          // passes the (possibly empty) enum domain and reference targets.
+          fields.add('$head$i, $enums, $refs, true)');
+        } else if (ff.refersTo.isNotEmpty) {
           fields.add('$head$i, $enums, $refs)');
         } else if (ff.enumValues.isNotEmpty) {
           fields.add('$head$i, $enums)');

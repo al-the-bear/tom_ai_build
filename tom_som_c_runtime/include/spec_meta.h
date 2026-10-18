@@ -84,6 +84,10 @@ typedef struct {
                            * registry; a reference naming several ids writes
                            * them comma-separated */
   size_t refers_to_len;   /* number of entries in refers_to */
+  int code;               /* whether the value is code rather than prose
+                           * (`Field.code`): the markdown codec writes it as an
+                           * inline code span and unwraps it on import (SOM
+                           * §11.4 rule 8) */
 } SomFormFieldMeta;
 
 /* SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta). */

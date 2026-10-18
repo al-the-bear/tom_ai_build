@@ -1,3 +1,14 @@
+## 1.6.1
+
+- Code-valued form fields: `patternRegex` and `constraintExpression`
+  (`DATAA`), the text-input `pattern`, `transformationExpression` and both
+  `ruleExpression` fields declare `code: true`. The markdown rendition writes
+  their single-line values as inline code spans, so a regex's `](` stays
+  literal instead of becoming a link (`som_multiplatform_spec_model.md` §11.4
+  rule 8, `tom_specs_model_rules.md` §6.2.3). A stored value is the bare code:
+  a document that wrapped a pattern in backticks by hand should drop them.
+  Requires `tom_specs_core` 0.2.3 (`Field.code`).
+
 ## 1.6.0
 
 - Protocol bindings: a `ServerOperationEntry` has a `bindings` list of

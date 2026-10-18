@@ -204,6 +204,10 @@ type FormFieldSpec struct {
 	// empty for a field that states no count. The instance tier holds the
 	// stated number to the document (`countMismatch`).
 	CountOf []string `json:"countOf"`
+	// Code is whether the value is code rather than prose (`Field.code`): the
+	// markdown codec writes it as an inline code span and unwraps it on import
+	// (SOM §11.4 rule 8). Omitted from the export when false.
+	Code bool `json:"code"`
 }
 
 // SpecField is a single field of a SpecClass.

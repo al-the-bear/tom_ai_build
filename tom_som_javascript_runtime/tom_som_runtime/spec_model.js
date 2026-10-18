@@ -243,6 +243,7 @@ class FormFieldSpec {
     enumValues = [],
     refersTo = [],
     countOf = [],
+    code = false,
   }) {
     this.name = name;
     this.label = label;
@@ -273,6 +274,13 @@ class FormFieldSpec {
      * @type {string[]}
      */
     this.countOf = countOf;
+    /**
+     * Whether the value is code rather than prose (`Field.code`): the markdown
+     * codec writes it as an inline code span and unwraps it on import (SOM
+     * §11.4 rule 8). Omitted from the export when `false`.
+     * @type {boolean}
+     */
+    this.code = code;
   }
 
   static fromJson(j) {
@@ -285,6 +293,7 @@ class FormFieldSpec {
       enumValues: (j.enumValues || []).map(String),
       refersTo: (j.refersTo || []).map(String),
       countOf: (j.countOf || []).map(String),
+      code: j.code === true,
     });
   }
 }

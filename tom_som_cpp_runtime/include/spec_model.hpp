@@ -159,6 +159,10 @@ struct FormFieldSpec {
   // count. The stated number must equal the count the document holds
   // (`countMismatch`).
   std::vector<std::string> countOf;
+  // Whether the value is code rather than prose (`Field.code`): the markdown
+  // codec writes it as an inline code span and unwraps it on import (SOM
+  // §11.4 rule 8). Omitted from the export when false.
+  bool code = false;
 };
 
 struct SpecField {

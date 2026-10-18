@@ -223,6 +223,7 @@ std::unique_ptr<SomMetaNode> bridgeFieldNode(const SpecModel& model,
       out.order = static_cast<long long>(i);
       out.enumValues = ff.enumValues;
       out.refersTo = ff.refersTo;
+      out.code = ff.code;
       form.fields.push_back(std::move(out));
     }
     node->form = std::move(form);

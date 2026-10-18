@@ -176,6 +176,9 @@ def _build_document() -> SpecDocument:
     d.set_form_field("DEMO/DET", "owner", "Bob")
     d.set_form_field("DEMO/DET", "active", "true")
     d.set_form_field("DEMO/DET", "estimate", "8")
+    # SOM §11.4 rule 8: rendered as an inline code span, so the `](` stays
+    # literal instead of becoming a markdown link.
+    d.set_form_field("DEMO/DET", "pattern", r"^[a-z0-9](-?[a-z0-9]){1,62}$")
     # A multi-line value ending in a markdown list (SOM §11.4 rule 2).
     d.set_form_field(
         "DEMO/DET",

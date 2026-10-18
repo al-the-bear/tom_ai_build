@@ -25139,9 +25139,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("unique", "String", "Unique", false, "Uniqueness constraint: Unique | UniqueWithinParent | NotUnique", 2),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Default value or expression (e.g., NOW(), 0, \"Draft\")", 3),
             new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, "Business validation rules (e.g., must be positive, max 100)", 4),
-            new SomFormFieldMeta("constraintExpression", "String", "Constraint Expression", false, "CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", 5),
+            new SomFormFieldMeta("constraintExpression", "String", "Constraint Expression", false, "CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", 5, java.util.List.of(), java.util.List.of(), true),
             new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted", 6),
-            new SomFormFieldMeta("patternRegex", "String", "Pattern/Regex", false, "Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", 7)));
+            new SomFormFieldMeta("patternRegex", "String", "Pattern/Regex", false, "Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", 7, java.util.List.of(), java.util.List.of(), true)));
         out.add(n);
       }
       return out;
@@ -36105,7 +36105,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0),
-            new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1),
+            new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1, java.util.List.of(), java.util.List.of(), true),
             new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, java.util.List.of(), java.util.List.of("ERCEN.code")),
             new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Message key (MSGKR registry) for validation error message", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Error/Warning/Info", 4),
@@ -42527,7 +42527,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", true, "Required, Pattern, Range, Length, Custom, or CrossField", 0),
-            new SomFormFieldMeta("ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1),
+            new SomFormFieldMeta("ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1, java.util.List.of(), java.util.List.of(), true),
             new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, java.util.List.of(), java.util.List.of("ERCEN.code")),
             new SomFormFieldMeta("errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 3),
             new SomFormFieldMeta("severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 4),
@@ -46079,7 +46079,7 @@ public final class TomSomV0Meta {
         n.docComment = "Transformation and defaulting behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("transformationRule", "String", "Transformation Rule", false, "None / Lowercase / Uppercase / Trim / RegexExtract / Concatenate / MapValues / Custom", 0),
-            new SomFormFieldMeta("transformationExpression", "String", "Transformation Expression", false, "Expression if Custom/RegexExtract, e.g. {firstName} {lastName}", 1),
+            new SomFormFieldMeta("transformationExpression", "String", "Transformation Expression", false, "Expression if Custom/RegexExtract, e.g. {firstName} {lastName}", 1, java.util.List.of(), java.util.List.of(), true),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Value used when source attribute is missing or null", 2),
             new SomFormFieldMeta("multiValueHandling", "String", "Multi-Value Handling", false, "FirstValue / AllValues / Concatenate / PrimaryOnly", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("SCIM 2.0 (RFC 7643/7644) — cross-domain identity provisioning", "ISO/IEC 24760 — IAM: a framework for identity management"), "connotation", "Describes how a mapped identity attribute is transformed and defaulted when moving between systems.")));
@@ -82665,7 +82665,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("minLength", "String", "Minimum Length", false, "Minimum allowed input length in characters", 0),
             new SomFormFieldMeta("maxLength", "String", "Maximum Length", false, "Maximum allowed input length in characters", 1),
-            new SomFormFieldMeta("pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 2)));
+            new SomFormFieldMeta("pattern", "String", "Validation Pattern (regex)", false, "Regular expression the input must match", 2, java.util.List.of(), java.util.List.of(), true)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"), "connotation", "The input constraints that only apply to a text-valued screen field — its length bounds and the regular expression the input must match.")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.text")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.multilineText")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.email")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.phone")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.url")), new SomMetaExtra("Case", metaArgs("value", "ScreenFieldKind.password")));
         out.add(n);
       }

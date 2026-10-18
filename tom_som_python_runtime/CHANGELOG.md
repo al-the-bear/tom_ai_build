@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.1
+
+- Code fields (SOM §11.4 rule 8): a form field whose meta carries `code: true`
+  (`FormFieldSpec.code`, `SomFormFieldMeta.code`) is written as an inline code
+  span when its value is on one line — delimited by one backtick more than the
+  longest run inside it, padded with a space when the value begins or ends with
+  a backtick or a space — and the markdown import unwraps the span again, on
+  both the id-bearing form section and the transparent form-slot path. A value
+  written without a span is kept as written; a multi-line value keeps the plain
+  rendering. Pinned by the regenerated corpus (`expected.md`, the new
+  `Demo.details.pattern` and `Card.content.selector` fields, and two new
+  `markdown_import_cases.json` cases).
+
 ## 1.5.0
 
 - Released in lockstep with `tom_specs_model` 1.5.0. Two changes break a caller: the YAML decode's `review` is null when the file has no `review:` key (check for null where it was read as a map), and the model renames two section ids (see `tom_specs_model` 1.5.0).

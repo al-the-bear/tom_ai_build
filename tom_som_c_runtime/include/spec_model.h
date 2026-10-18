@@ -158,6 +158,11 @@ typedef struct {
      count. The stated number must equal the count the document holds
      (`countMismatch`). */
   SomStrList count_of;
+  /* Whether the value is code rather than prose (`Field.code`): the markdown
+     codec writes it as an inline code span and unwraps it on import (SOM
+     §11.4 rule 8). Read from the `code` key; omitted from the export when
+     false. */
+  int code;
 } FormFieldSpec;
 
 typedef struct {

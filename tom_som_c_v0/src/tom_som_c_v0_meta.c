@@ -44738,6 +44738,7 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))");
   n->form->fields[5].order = 5;
+  n->form->fields[5].code = 1;
   n->form->fields[6].name = som_strdup("allowedValues");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Allowed Values");
@@ -44750,6 +44751,7 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)");
   n->form->fields[7].order = 7;
+  n->form->fields[7].code = 1;
 }
 static void meta_build_data_attribute_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
@@ -59774,6 +59776,7 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Validation expression or pattern");
   n->form->fields[1].order = 1;
+  n->form->fields[1].code = 1;
   n->form->fields[2].name = som_strdup("errorCode");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Error Code");
@@ -68821,6 +68824,7 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Expression or formula implementing the rule");
   n->form->fields[1].order = 1;
+  n->form->fields[1].code = 1;
   n->form->fields[2].name = som_strdup("errorCode");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Error Code");
@@ -73435,6 +73439,7 @@ static void meta_build_identity_attribute_mapping_entry_transformation(SomMetaNo
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Expression if Custom/RegexExtract, e.g. {firstName} {lastName}");
   n->form->fields[1].order = 1;
+  n->form->fields[1].code = 1;
   n->form->fields[2].name = som_strdup("defaultValue");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Default Value");
@@ -125216,6 +125221,7 @@ static void meta_build_screen_field_entry_text_constraints(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Regular expression the input must match");
   n->form->fields[2].order = 2;
+  n->form->fields[2].code = 1;
   n->extra_len = 7;
   n->extra = (SomMetaExtra *)calloc(7, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");

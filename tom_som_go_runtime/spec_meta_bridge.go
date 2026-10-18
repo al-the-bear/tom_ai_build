@@ -258,6 +258,7 @@ func bridgeFieldNode(
 				Order:       i,
 				EnumValues:  ff.EnumValues,
 				RefersTo:    ff.RefersTo,
+				Code:        ff.Code,
 			})
 		}
 		form = &SomFormMeta{Fields: fields}

@@ -212,7 +212,7 @@ the same rule the DocSpecs schema generator applies when it gives the section
 an `<id>-form` format. Each entry always carries `name`, `label`
 (the declared description, else the field name split on PascalCase), `type` (the
 Dart type name) and `required`; `hint`, `enumValues`, `refersTo` and `countOf`
-are omitted when empty.
+are omitted when empty, and `code` is omitted when `false`.
 
 `enumValues` lists the constant names when `type` is a model enum, so a runtime
 can validate and convert a value without the analyzer. `enumValueDocs` is its
@@ -250,6 +250,11 @@ members holds that value in that form field. The stated count must equal the
 sum over the elements. Consumers use it for the instance-tier `countMismatch`
 check (SOM §9). As with `refersTo`, a target outside the document's scope is
 skipped, and an empty value is not checked.
+
+`code: true` states that the field's value is **code, not prose**
+(`Field.code`). Consumers use it in the markdown codec, which writes a
+single-line value as an inline code span and unwraps it on import (SOM §11.4
+rule 8). It never constrains the value.
 
 ## Validation contract
 

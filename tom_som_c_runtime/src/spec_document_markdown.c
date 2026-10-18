@@ -911,6 +911,53 @@ static int prepare_value(const char *value, const char *path, char **out,
   return 1;
 }
 
+/* isInlineCode: whether a code field's `value` is written as an inline code
+ * span (SOM §11.4 rule 8): it is non-empty and on one line. A multi-line value
+ * keeps the prose rendering — a code span cannot cross a line break without
+ * markdown joining the lines. */
+static int is_inline_code(const char *value) {
+  return value[0] != '\0' && strchr(value, '\n') == NULL;
+}
+
+/* encodeCodeSpan: `value` as a CommonMark inline code span — delimited by one
+ * backtick more than the longest backtick run inside it, and padded with one
+ * space on each side when it begins or ends with a backtick or a space (the
+ * padding CommonMark strips again, so the span's content is exactly `value`).
+ * Returns an owned string. */
+static char *encode_code_span(const char *value) {
+  size_t longest = 0;
+  size_t run = 0;
+  for (const char *q = value; *q != '\0'; q++) {
+    if (*q == '`') {
+      run++;
+      if (run > longest) {
+        longest = run;
+      }
+    } else {
+      run = 0;
+    }
+  }
+  size_t n = strlen(value);
+  int pad = n > 0 && (value[0] == '`' || value[0] == ' ' ||
+                      value[n - 1] == '`' || value[n - 1] == ' ');
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t i = 0; i <= longest; i++) {
+    som_buf_putc(&b, '`');
+  }
+  if (pad) {
+    som_buf_putc(&b, ' ');
+  }
+  som_buf_puts(&b, value);
+  if (pad) {
+    som_buf_putc(&b, ' ');
+  }
+  for (size_t i = 0; i <= longest; i++) {
+    som_buf_putc(&b, '`');
+  }
+  return som_buf_take(&b);
+}
+
 /* Forward decls. */
 static int write_children(MdCodec *c, SomBuf *b, const SomMetaNode *node,
                           const char *base_path, int depth, char **err);
@@ -1050,8 +1097,12 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
     if (fieldbuf.len > 0) {
       som_buf_putc(&fieldbuf, '\n');
     }
+    /* SOM §11.4 rule 8: a single-line code value is written as an inline code
+     * span, so markdown leaves it literal (`](` is not a link). */
     char *prepared = NULL;
-    if (!prepare_value(value, path, &prepared, err)) {
+    if (f->code && is_inline_code(value)) {
+      prepared = encode_code_span(value);
+    } else if (!prepare_value(value, path, &prepared, err)) {
       som_buf_free(&fieldbuf);
       return 0;
     }
@@ -1612,6 +1663,52 @@ static char *restore_value(char *const *body, size_t body_len) {
   return out;
 }
 
+/* decodeCodeSpan: the inverse of the emitter's code span (SOM §11.4 rule 8).
+ * A single-line `value` delimited by equal backtick runs loses them, and one
+ * padding space on each side when both are present. Anything else — a value
+ * written by hand without a span — is kept as written. Takes ownership of
+ * `value` and returns an owned string. */
+static char *decode_code_span(char *value) {
+  if (strchr(value, '\n') != NULL) {
+    return value;
+  }
+  size_t n = strlen(value);
+  size_t lead = 0;
+  while (lead < n && value[lead] == '`') {
+    lead++;
+  }
+  if (lead == 0 || lead == n) {
+    return value;
+  }
+  size_t trail = 0;
+  while (trail < n - lead && value[n - 1 - trail] == '`') {
+    trail++;
+  }
+  if (trail != lead) {
+    return value;
+  }
+  size_t start = lead;
+  size_t len = n - lead - trail;
+  if (len >= 2 && value[start] == ' ' && value[start + len - 1] == ' ') {
+    int all_spaces = 1;
+    for (size_t i = 0; i < len; i++) {
+      if (value[start + i] != ' ') {
+        all_spaces = 0;
+        break;
+      }
+    }
+    if (!all_spaces) {
+      start++;
+      len -= 2;
+    }
+  }
+  char *out = (char *)malloc(len + 1);
+  memcpy(out, value + start, len);
+  out[len] = '\0';
+  free(value);
+  return out;
+}
+
 /* ---- form-field lookup (case-insensitive) ------------------------------- */
 
 /* Returns the model form field matching `label` (case-insensitive) in node's
@@ -1659,6 +1756,7 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
   SpecMarkdownFenceTracker fence;
   spec_markdown_fence_init(&fence);
   const char *current_field = NULL;
+  int current_code = 0;
   int have_field = 0;
   LineVec current;
   lv_init(&current);
@@ -1669,6 +1767,9 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
     (void)(lineNo);                                                           \
     char *value = restore_value(current.items, current.len);                 \
     if (have_field) {                                                         \
+      if (current_code) {                                                     \
+        value = decode_code_span(value);                                      \
+      }                                                                       \
       if (value[0] != '\0') {                                                 \
         staged_set_form(p, path, current_field, value);                      \
       }                                                                       \
@@ -1691,6 +1792,7 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
           FORM_FLUSH(frame->line + i);
           have_field = 1;
           current_field = field->name;
+          current_code = field->code;
           lv_push(&current, value);
           value = NULL;
           spec_markdown_fence_feed(&fence, line);
@@ -1777,6 +1879,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
   spec_markdown_fence_init(&fence);
   const char *current_field = NULL;
   char *current_form_path = NULL;
+  int current_code = 0;
   int have_field = 0;
   LineVec current;
   LineVec content_lines;
@@ -1820,6 +1923,9 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           /* flush current field */
           if (have_field) {
             char *v = restore_value(current.items, current.len);
+            if (current_code) {
+              v = decode_code_span(v);
+            }
             if (v[0] != '\0') {
               staged_set_form(p, current_form_path, current_field, v);
             }
@@ -1830,6 +1936,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
           p->current_form_idx = found_idx;
           have_field = 1;
           current_field = found_field->name;
+          current_code = found_field->code;
           free(current_form_path);
           current_form_path =
               spec_path_join(frame->path, forms.items[found_idx].rel);
@@ -1864,6 +1971,9 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
   /* final flush */
   if (have_field) {
     char *v = restore_value(current.items, current.len);
+    if (current_code) {
+      v = decode_code_span(v);
+    }
     if (v[0] != '\0') {
       staged_set_form(p, current_form_path, current_field, v);
     }

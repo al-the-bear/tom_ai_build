@@ -33,6 +33,12 @@ public final class FormFieldSpec {
    * against the entries the document holds.
    */
   public final List<String> countOf;
+  /**
+   * Whether the value is code rather than prose ({@code Field.code}): the
+   * markdown codec writes it as an inline code span and unwraps it on import
+   * (SOM §11.4 rule 8). Omitted from the export when {@code false}.
+   */
+  public final boolean code;
 
   public FormFieldSpec(
       String name, String label, String type, String hint, boolean required) {
@@ -59,6 +65,19 @@ public final class FormFieldSpec {
       List<String> enumValues,
       List<String> refersTo,
       List<String> countOf) {
+    this(name, label, type, hint, required, enumValues, refersTo, countOf, false);
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf,
+      boolean code) {
     this.name = name;
     this.label = label;
     this.type = type;
@@ -67,6 +86,7 @@ public final class FormFieldSpec {
     this.enumValues = enumValues;
     this.refersTo = refersTo;
     this.countOf = countOf;
+    this.code = code;
   }
 
   public static FormFieldSpec fromJson(Map<String, Object> j) {
@@ -81,7 +101,8 @@ public final class FormFieldSpec {
         Boolean.TRUE.equals(j.get("required")),
         stringList(j.get("enumValues")),
         stringList(j.get("refersTo")),
-        stringList(j.get("countOf")));
+        stringList(j.get("countOf")),
+        Boolean.TRUE.equals(j.get("code")));
   }
 
   private static List<String> stringList(Object raw) {

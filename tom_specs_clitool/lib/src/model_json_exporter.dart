@@ -225,6 +225,9 @@ class ModelJsonExporter {
                 // `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, so every
                 // runtime's instance tier can hold the count to the document.
                 if (ff.countOf.isNotEmpty) 'countOf': ff.countOf,
+                // The value is code, not prose: every markdown codec writes it
+                // as a code span and unwraps it on import (SOM §11.4).
+                if (ff.code) 'code': true,
               },
             )
             .toList();

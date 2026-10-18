@@ -685,7 +685,14 @@ class SpecDocumentMarkdown:
             # blank lines, so it is lossless.
             if str(field_buf):
                 field_buf.writeln()
-            lines = self._prepare_value(value, path).split("\n")
+            # SOM §11.4 rule 8: a single-line code value is written as an
+            # inline code span, so markdown leaves it literal (`](` is not a
+            # link).
+            lines = (
+                [self._encode_code_span(value)]
+                if f.code and self._is_inline_code(value)
+                else self._prepare_value(value, path).split("\n")
+            )
             field_buf.writeln(f"{self.form_label(f.name)}: {lines[0]}")
             for line in lines[1:]:
                 # SOM §11.4 generalised: any continuation line that could be
@@ -749,6 +756,26 @@ class SpecDocumentMarkdown:
             return
         b.writeln(prepared)
         b.writeln()
+
+    @staticmethod
+    def _is_inline_code(value: str) -> bool:
+        """Whether a code field's *value* is written as an inline code span:
+        it is non-empty and on one line. A multi-line value keeps the prose
+        rendering — a code span cannot cross a line break without markdown
+        joining the lines."""
+        return bool(value) and "\n" not in value
+
+    @staticmethod
+    def _encode_code_span(value: str) -> str:
+        """*value* as a CommonMark inline code span: delimited by one backtick
+        more than the longest backtick run inside it, and padded with one
+        space on each side when it begins or ends with a backtick or a space —
+        the padding CommonMark strips again, so the span's content is exactly
+        *value*."""
+        longest = max((len(m) for m in re.findall(r"`+", value)), default=0)
+        fence = "`" * (longest + 1)
+        pad = " " if re.search(r"^[` ]|[` ]$", value) else ""
+        return f"{fence}{pad}{value}{pad}{fence}"
 
     def _prepare_value(self, value: str, path: str) -> str:
         """Emit-side value normalisation (SOM §11.3): collapse 2+ blank lines
@@ -1268,13 +1295,19 @@ class _Parser:
         fence = MarkdownFenceTracker()
         current_field: Optional[str] = None
         current_form_path: Optional[str] = None
+        current_code = False
         current_lines: list[str] = []
         content_lines: list[str] = []
 
         def flush() -> None:
             nonlocal current_lines
             if current_field is not None and current_form_path is not None:
-                value = self._restore_value(current_lines)
+                restored = self._restore_value(current_lines)
+                value = (
+                    self._decode_code_span(restored)
+                    if current_code
+                    else restored
+                )
                 if value:
                     self.forms.setdefault(current_form_path, {})[
                         current_field
@@ -1291,6 +1324,7 @@ class _Parser:
                         flush()
                         self._current_form_idx = hit[0]
                         current_field = hit[1].name
+                        current_code = hit[1].code
                         current_form_path = (
                             f"{frame.path}/{form_slots[hit[0]][1]}"
                         )
@@ -1325,13 +1359,19 @@ class _Parser:
         form = node.form
         fields = form.fields if form is not None else []
         fields_by_lower = {f.name.lower(): f.name for f in fields}
+        code_fields = {f.name for f in fields if f.code}
         fence = MarkdownFenceTracker()
         current_field: Optional[str] = None
         current_lines: list[str] = []
 
         def flush(line_no: int) -> None:
             nonlocal current_lines
-            value = self._restore_value(current_lines)
+            restored = self._restore_value(current_lines)
+            value = (
+                self._decode_code_span(restored)
+                if current_field in code_fields
+                else restored
+            )
             if current_field is not None:
                 if value:
                     self.forms.setdefault(path, {})[current_field] = value
@@ -1360,6 +1400,27 @@ class _Parser:
                 current_lines.append(line)
             fence.feed(line)
         flush(frame.line + len(frame.body))
+
+    @staticmethod
+    def _decode_code_span(value: str) -> str:
+        """The inverse of the emitter's code span (SOM §11.4 rule 8): a
+        single-line *value* delimited by equal backtick runs loses them, and
+        one padding space on each side when both are present. Anything else —
+        a value written by hand without a span — is kept as written."""
+        if "\n" in value:
+            return value
+        m = re.match(r"^(`+)([\s\S]*[^`])(`+)$", value)
+        if m is None or len(m.group(1)) != len(m.group(3)):
+            return value
+        inner = m.group(2)
+        if (
+            len(inner) >= 2
+            and inner.startswith(" ")
+            and inner.endswith(" ")
+            and inner.strip()
+        ):
+            return inner[1:-1]
+        return inner
 
     @staticmethod
     def _restore_value(body: list[str]) -> str:

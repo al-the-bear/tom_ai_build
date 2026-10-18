@@ -9317,6 +9317,7 @@ class ScreenFieldEntry extends DocSpecsSection {
       String,
       'Validation Pattern (regex)',
       hint: 'Regular expression the input must match',
+      code: true,
     ),
   ])
   @SerializationOrder(4)
@@ -9533,6 +9534,7 @@ class FieldValidationRule extends DocSpecsSection {
       String,
       'Rule Expression / Formula',
       hint: 'Expression or formula implementing the rule',
+      code: true,
     ),
     Field(
       'errorCode',

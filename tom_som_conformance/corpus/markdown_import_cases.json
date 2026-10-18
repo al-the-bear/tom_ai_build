@@ -168,6 +168,37 @@
       }
     },
     {
+      "name": "a code field written as a code span imports as the bare code, and one written without a span is kept as written",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nOwner: `Bob`\n\nPattern: `` `x`](y) ``\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "owner": "`Bob`",
+            "pattern": "`x`](y)"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    },
+    {
+      "name": "a code field with no span around it keeps its text, backticks and all",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nPattern: [a-z](x) and `y`\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "pattern": "[a-z](x) and `y`"
+          }
+        },
+        "headlines": {
+          "DEMO/DET": "Details & Contacts"
+        }
+      }
+    },
+    {
       "name": "the legacy layout with no blank line between form fields still imports to the same values",
       "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nOwner: Bob\nContact: bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item\nEstimate: 8\n",
       "rejections": [],
@@ -264,7 +295,7 @@
     },
     {
       "name": "prose in a section whose only member is a class-level @Form is that form's preamble, not a value on the section itself",
-      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-1]--> Card 1\n\nCard prose, before the fields.\n Caveat: label-shaped prose, escaped by the emitter.\n\nNote: first card\n",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-1]--> Card 1\n\nCard prose, before the fields.\n Caveat: label-shaped prose, escaped by the emitter.\n\nNote: first card\n\nSelector: ``a`b``\n",
       "rejections": [],
       "document": {
         "content": {
@@ -272,7 +303,8 @@
         },
         "forms": {
           "DEMO/CARD-LST-1/content": {
-            "note": "first card"
+            "note": "first card",
+            "selector": "a`b"
           }
         },
         "lists": {

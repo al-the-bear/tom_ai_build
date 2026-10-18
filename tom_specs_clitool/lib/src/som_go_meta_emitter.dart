@@ -492,6 +492,7 @@ class SomGoMetaEmitter {
             'EnumValues: []string{${ff.enumValues.map(_str).join(', ')}}',
           if (ff.refersTo.isNotEmpty)
             'RefersTo: []string{${ff.refersTo.map(_str).join(', ')}}',
+          if (ff.code) 'Code: true',
         ];
         fields.add('{${ffArgs.join(', ')}}');
       }

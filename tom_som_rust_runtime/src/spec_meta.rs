@@ -86,6 +86,10 @@ pub struct SomFormFieldMeta {
     /// not a reference. A value is valid when it resolves in *any* listed
     /// registry; a reference naming several ids writes them comma-separated.
     pub refers_to: Vec<String>,
+    /// Whether the value is code rather than prose (`Field.code`): the
+    /// markdown codec writes it as an inline code span and unwraps it on
+    /// import (SOM §11.4 rule 8).
+    pub code: bool,
 }
 
 /// The form metadata of a `@Form` node (SOM §7.1 FormMeta).

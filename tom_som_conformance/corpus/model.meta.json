@@ -145,6 +145,12 @@
                 "low",
                 "high"
               ]
+            },
+            {
+              "name": "pattern",
+              "label": "Pattern",
+              "type": "String",
+              "code": true
             }
           ]
         },
@@ -625,6 +631,12 @@
               "name": "note",
               "label": "Note",
               "type": "String"
+            },
+            {
+              "name": "selector",
+              "label": "Selector",
+              "type": "String",
+              "code": true
             }
           ]
         }

@@ -831,6 +831,25 @@ requirement summary forms (`FR-SUMM`, `TR1-SUMM`, `SR1-SUMM`, `OR-SUMM`). The
 requirement's `category` is free text. `SR1-SUMM` has no low-priority bucket,
 so its buckets need not add up to its total.
 
+#### 6.2.3 Code-valued form fields (`code:`)
+
+A form field whose value is **code, not prose** — a regular expression, a CHECK
+expression, a formula — declares `code: true`:
+
+```dart
+Field('patternRegex', String, 'Pattern/Regex', code: true),
+```
+
+The flag changes how the value is **written**, never what it may hold. The
+markdown rendition writes a single-line value as an inline code span, and the
+import unwraps it (`som_multiplatform_spec_model.md` §11.4 rule 8), so a regex
+such as `^[a-z0-9](-?[a-z0-9]){1,62}$` stays literal instead of turning into a
+markdown link. The stored value is the bare code; an author never writes the
+backticks into the YAML. Nothing checks the value against a language.
+
+Declare it on a field whose value markdown would otherwise interpret: patterns,
+expressions, formulas. A field that only *mentions* code in prose stays prose.
+
 ### 6.3 Form decomposition
 
 `@Form` sections target **3–10 fields**. Larger forms are decomposed so the

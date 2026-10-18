@@ -204,6 +204,7 @@ function _fieldNode(model, owner, field, stack) {
             order: i,
             enumValues: ff.enumValues,
             refersTo: ff.refersTo,
+            code: ff.code,
           }),
       ),
     );

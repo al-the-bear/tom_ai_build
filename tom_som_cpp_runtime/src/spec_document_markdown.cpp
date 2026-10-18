@@ -704,6 +704,38 @@ std::string pathFenceErr(const std::string& path) {
          "represented in the DocSpecs markdown format";
 }
 
+/* Whether a code field's `value` is written as an inline code span (SOM §11.4
+ * rule 8): it is non-empty and on one line. A multi-line value keeps the prose
+ * rendering — a code span cannot cross a line break without markdown joining
+ * the lines. */
+bool isInlineCode(const std::string& value) {
+  return !value.empty() && value.find('\n') == std::string::npos;
+}
+
+/* `value` as a CommonMark inline code span: delimited by one backtick more
+ * than the longest backtick run inside it, and padded with one space on each
+ * side when it begins or ends with a backtick or a space — the padding
+ * CommonMark strips again, so the span's content is exactly `value`. */
+std::string encodeCodeSpan(const std::string& value) {
+  std::size_t longest = 0;
+  std::size_t run = 0;
+  for (char c : value) {
+    if (c == '`') {
+      run++;
+      if (run > longest) {
+        longest = run;
+      }
+    } else {
+      run = 0;
+    }
+  }
+  std::string fence(longest + 1, '`');
+  auto padChar = [](char c) { return c == '`' || c == ' '; };
+  bool pad = !value.empty() && (padChar(value.front()) || padChar(value.back()));
+  std::string p = pad ? " " : "";
+  return fence + p + value + p + fence;
+}
+
 /* prepareValue: collapse blank runs, escape heading-like lines outside fences.
  * Throws std::invalid_argument on an unterminated fence. */
 std::string prepareValue(const std::string& value, const std::string& path) {
@@ -841,8 +873,12 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
       if (!fields.empty()) {
         fields.push_back('\n');
       }
-      std::string prepared = prepareValue(*value, path);
-      std::vector<std::string> plines = splitLines(prepared);
+      /* SOM §11.4 rule 8: a single-line code value is written as an inline
+       * code span, so markdown leaves it literal (`](` is not a link). */
+      std::vector<std::string> plines =
+          f.code && isInlineCode(*value)
+              ? std::vector<std::string>{encodeCodeSpan(*value)}
+              : splitLines(prepareValue(*value, path));
       fields += formLabel(f.name);
       fields += ": ";
       fields += !plines.empty() ? plines[0] : "";
@@ -1256,6 +1292,38 @@ std::string restoreValue(const std::vector<std::string>& body) {
   return stripBlankLines(b);
 }
 
+/* The inverse of the emitter's code span (SOM §11.4 rule 8): a single-line
+ * `value` delimited by equal backtick runs loses them, and one padding space
+ * on each side when both are present. Anything else — a value written by hand
+ * without a span — is kept as written. */
+std::string decodeCodeSpan(const std::string& value) {
+  if (value.find('\n') != std::string::npos || value.empty()) {
+    return value;
+  }
+  std::size_t lead = 0;
+  while (lead < value.size() && value[lead] == '`') {
+    lead++;
+  }
+  if (lead == 0 || lead == value.size()) {
+    return value;
+  }
+  std::size_t trail = 0;
+  while (trail < value.size() && value[value.size() - 1 - trail] == '`') {
+    trail++;
+  }
+  // `^(`+)(.*[^`])(`+)$` with both runs taken greedily: the inner part is
+  // what lies between the full leading and full trailing backtick runs.
+  if (lead != trail) {
+    return value;
+  }
+  std::string inner = value.substr(lead, value.size() - lead - trail);
+  if (inner.size() >= 2 && inner.front() == ' ' && inner.back() == ' ' &&
+      inner.find_first_not_of(' ') != std::string::npos) {
+    return inner.substr(1, inner.size() - 2);
+  }
+  return inner;
+}
+
 /* Returns the model form field matching `label` (case-insensitive), or
  * nullptr. */
 const SomFormFieldMeta* formFieldCi(const SomMetaNode& node,
@@ -1279,12 +1347,16 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
                             const std::string& path) {
   SpecMarkdownFenceTracker fence;
   const std::string* currentField = nullptr;
+  bool currentCode = false;
   bool haveField = false;
   std::vector<std::string> current;
 
   auto flush = [&](std::size_t lineNo) {
     (void)lineNo;
     std::string value = restoreValue(current);
+    if (haveField && currentCode) {
+      value = decodeCodeSpan(value);
+    }
     if (haveField) {
       if (!value.empty()) {
         stagedSetForm(path, *currentField, value);
@@ -1305,6 +1377,7 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
           flush(frame.line + i);
           haveField = true;
           currentField = &field->name;
+          currentCode = field->code;
           current.push_back(value);
           fence.feed(line);
           continue;
@@ -1366,6 +1439,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
 
   SpecMarkdownFenceTracker fence;
   const std::string* currentField = nullptr;
+  bool currentCode = false;
   std::string currentFormPath;
   bool haveField = false;
   std::vector<std::string> current;
@@ -1400,6 +1474,9 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
         if (foundIdx >= 0) {
           if (haveField) {
             std::string v = restoreValue(current);
+            if (currentCode) {
+              v = decodeCodeSpan(v);
+            }
             if (!v.empty()) {
               stagedSetForm(currentFormPath, *currentField, v);
             }
@@ -1408,6 +1485,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           currentFormIdx_ = foundIdx;
           haveField = true;
           currentField = &found->name;
+          currentCode = found->code;
           currentFormPath = specPathJoin(frame.path, forms[foundIdx].rel);
           current.push_back(value);
           fence.feed(line);
@@ -1431,6 +1509,9 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   }
   if (haveField) {
     std::string v = restoreValue(current);
+    if (currentCode) {
+      v = decodeCodeSpan(v);
+    }
     if (!v.empty()) {
       stagedSetForm(currentFormPath, *currentField, v);
     }

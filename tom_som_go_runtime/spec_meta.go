@@ -91,6 +91,10 @@ type SomFormFieldMeta struct {
 	// listed registry; a reference naming several ids writes them
 	// comma-separated.
 	RefersTo []string
+	// Code is whether the value is code rather than prose (`Field.code`): the
+	// markdown codec writes it as an inline code span and unwraps it on import
+	// (SOM §11.4 rule 8).
+	Code bool
 }
 
 // SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta).

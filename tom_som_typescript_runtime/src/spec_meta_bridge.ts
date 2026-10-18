@@ -218,6 +218,7 @@ function _fieldNode(
             order: i,
             enumValues: ff.enumValues,
             refersTo: ff.refersTo,
+            code: ff.code,
           }),
       ),
     );

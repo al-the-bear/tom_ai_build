@@ -85,6 +85,10 @@ class FormFieldSpec:
     #: field that states no count. The instance tier holds the stated number to
     #: the document (``countMismatch``).
     count_of: list[str] = field(default_factory=list)
+    #: Whether the value is code rather than prose (``Field.code``): the
+    #: markdown codec writes it as an inline code span and unwraps it on import
+    #: (SOM §11.4 rule 8). Omitted from the export when ``False``.
+    code: bool = False
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -97,6 +101,7 @@ class FormFieldSpec:
             enum_values=[str(e) for e in (j.get("enumValues") or [])],
             refers_to=[str(e) for e in (j.get("refersTo") or [])],
             count_of=[str(e) for e in (j.get("countOf") or [])],
+            code=bool(j.get("code") or False),
         )
 
 

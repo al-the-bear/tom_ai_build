@@ -36,6 +36,7 @@
           "contact": "bob@example.com\n- on call: weekdays\n- backup: alice@example.com",
           "estimate": "8",
           "owner": "Bob",
+          "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
           "priority": "high",
           "weight": "2.5"
         }

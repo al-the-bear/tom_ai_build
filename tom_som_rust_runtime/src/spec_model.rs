@@ -233,6 +233,10 @@ pub struct FormFieldSpec {
     /// count. The instance tier checks the stated number against the entries
     /// the document holds.
     pub count_of: Vec<String>,
+    /// Whether the value is code rather than prose (`Field.code`): the
+    /// markdown codec writes it as an inline code span and unwraps it on
+    /// import (SOM §11.4 rule 8). Omitted from the export when `false`.
+    pub code: bool,
 }
 
 /// A single field of a [`SpecClass`].
@@ -834,6 +838,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 enum_values: ff_enum_values,
                 refers_to: ff_refers_to,
                 count_of: ff_count_of,
+                code: ff.bool_or("code"),
             });
         }
     }

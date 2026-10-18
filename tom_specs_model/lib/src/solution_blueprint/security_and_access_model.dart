@@ -3103,6 +3103,7 @@ class IdentityAttributeMappingEntry extends DocSpecsSection {
       String,
       'Transformation Expression',
       hint: 'Expression if Custom/RegexExtract, e.g. {firstName} {lastName}',
+      code: true,
     ),
     Field(
       'defaultValue',

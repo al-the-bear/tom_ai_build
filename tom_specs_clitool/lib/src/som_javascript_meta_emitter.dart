@@ -394,6 +394,7 @@ class SomJavaScriptMetaEmitter {
             'enumValues: [${ff.enumValues.map(_str).join(', ')}]',
           if (ff.refersTo.isNotEmpty)
             'refersTo: [${ff.refersTo.map(_str).join(', ')}]',
+          if (ff.code) 'code: true',
         ];
         fields.add('new SomFormFieldMeta({${ffArgs.join(', ')}})');
       }

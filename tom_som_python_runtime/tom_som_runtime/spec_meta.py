@@ -80,6 +80,7 @@ class SomFormFieldMeta:
         hint: Optional[str] = None,
         enum_values: Optional[list[str]] = None,
         refers_to: Optional[list[str]] = None,
+        code: bool = False,
     ) -> None:
         #: The exact model field name (``approvedBy``).
         self.name = name
@@ -104,6 +105,10 @@ class SomFormFieldMeta:
         #: listed registry; a reference naming several ids writes them
         #: comma-separated.
         self.refers_to = list(refers_to) if refers_to else []
+        #: Whether the value is code rather than prose (``Field.code``): the
+        #: markdown codec writes it as an inline code span and unwraps it on
+        #: import (SOM §11.4 rule 8).
+        self.code = code
 
 
 class SomFormMeta:

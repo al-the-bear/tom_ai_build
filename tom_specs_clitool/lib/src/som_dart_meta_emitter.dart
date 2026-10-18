@@ -333,6 +333,7 @@ class SomDartMetaEmitter {
             'enumValues: [${ff.enumValues.map(_str).join(', ')}]',
           if (ff.refersTo.isNotEmpty)
             'refersTo: [${ff.refersTo.map(_str).join(', ')}]',
+          if (ff.code) 'code: true',
         ];
         fields.add('SomFormFieldMeta(${ffArgs.join(', ')})');
       }

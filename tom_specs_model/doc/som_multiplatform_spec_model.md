@@ -1264,6 +1264,19 @@ ReviewCount: 3
    the ones that follow a label: the parser reaches the first label before it
    knows where the preamble ended, so an unescaped `Word:` line at column 0
    would mis-split into a field.
+8. **Code fields.** A field declared `code: true` (`tom_specs_model_rules.md`
+   §6.2.3) holds code, not prose, and a single-line value is written as an
+   inline code span, so markdown leaves a regex's `](` literal instead of
+   reading it as a link. The delimiter is one backtick longer than the longest
+   backtick run inside the value. When the value begins or ends with a backtick
+   or a space it is padded with one space on each side, which CommonMark strips
+   again. Parse reverses it: a single-line value whose leading and trailing
+   backtick runs have equal length loses them, and loses one padding space on
+   each side when both are present. A value written without a span — by hand,
+   or in a document older than the rule — is kept exactly as written. A
+   multi-line code value keeps the plain rendering of rules 1–3, because a
+   span cannot cross a line break. The YAML codec stores the bare value either
+   way.
 
 ### 11.5 Lists
 
