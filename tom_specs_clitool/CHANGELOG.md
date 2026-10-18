@@ -1,5 +1,26 @@
 # Changelog
 
+## Unreleased
+
+- The exported spec-model meta carries `modelHash`, the sha256 of its canonical
+  content without the build keys (`specModelContentHash`), so a consumer can
+  tell a changed model under an unchanged version. `validateSpecModelMeta`
+  refuses a `modelHash` that does not match the content. A canonical
+  `generate_som` run records hash and version in `tool/model_surface.stamp.json`
+  and warns when the hash moved but the `tom_specs_model` version did not
+  (`modelChangeWithoutVersionBump`).
+- `validate_spec` reports a schema finding's document path and section id.
+- `tool/verify_published_tests.sh --preflight` runs every release member's own
+  suite on the local tree before a publish; the README carries the release
+  procedure.
+- The schema generator lets a `@Reference` list's container admit the item
+  types its element class is owned under elsewhere.
+- The default suite gained the archive-ignore gate
+  (`lib/src/pub_archive_ignores.dart`): every release member is dry-run
+  published, and no tracked file may be dropped from its archive.
+- The README records the package as the exception to the `tom_build_base` CLI
+  rule.
+
 ## 0.5.0
 
 - The model reader and JSON export carry `Field.countOf` into the meta, and the

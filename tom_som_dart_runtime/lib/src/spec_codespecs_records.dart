@@ -209,7 +209,8 @@ class CodeSpecsGateGap {
     required this.carrier,
   });
 
-  /// The gap as the §6.3 output line, without its indentation.
+  /// The gap as the `codespecs_prompt.md` §6.3 output line, without its
+  /// indentation.
   String get line =>
       '$sectionId — $required — should have been carried by $carrier';
 }

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- The CodeSpecs gate record carries Stage B's gap lines: an `insufficient` entry may hold `gaps:`, each a `CodeSpecsGateGap` with `sectionId`, `required` and `carrier` (`<section-id>.<field>`) and its `codespecs_prompt.md` §6.3 `line`. The reader refuses gaps on any other verdict, an unknown key in a gap, an empty field and a malformed carrier; the writer puts `gaps:` after `resolution`. Additive, so `formatVersion` stays 1. Pinned by new `codespecs_record_cases.json` cases.
+- Markdown import stores a pattern-list item's heading id even when it equals the positional pattern default (`UCE-USER-1`), so the id survives a later move or insert and a document's `.md` imports to the same memory as its `.yaml` (SOM §11.5). A pattern-less list's `<member>-<n>` id stays positional. Pinned by the regenerated corpus (`state.json`, `expected.docspecs.yaml`) and each v0 package's Meridian import test.
+- `CodeSpecsExtractor` refuses a root that is a generation projection (D13, `CGP`) with a `CodeSpecsExtractError` naming the root, instead of answering every area with an empty extract (`codespecs_prompt.md` §5). Keyed on `SpecModel.isGenerationInput`, the root class's `@CodeSpecsProjection` marker, never on a type name. Pinned by two new `codespecs_extract_cases.json` root cases.
 - DocSpecs schema findings on a SOM document name the document path to fix:
   `SpecDocument.toMarkdownWithMap` / `SpecDocumentMarkdown.exportRootWithMap`
   return the rendition with its heading-line → path map

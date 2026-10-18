@@ -601,6 +601,13 @@ The table has five parts, and each pins something the others cannot:
   and state. The shared `model.meta.json` is a valid model by construction, so a
   port in a language without cheap structural editing would otherwise have to
   break the fixture to reach this case.
+- **`rootCases`** — which `@Document` root the extractor walks
+  (`codespecs_prompt.md` §5), over a model of its own with two document roots
+  and a generation-projection root. An explicit root scopes the walk, the
+  default is the one root the document populates, and a section id names a
+  root as well as its type does. The failures are a named root the document
+  never populates, more than one populated root, an unknown root and a root
+  marked `@CodeSpecsProjection`, which is refused whatever it holds.
 
 The tier's load-bearing assertion is the **verbatim guard**: every scalar in
 every extract must occur character-for-character among the document's stored
@@ -637,7 +644,10 @@ against exactly what the extractor emits:
   byte-stably, replace a verdict in place, and refuse what `codespecs_prompt.md` §6.3 does not allow:
   an unknown verdict or key, a resolution other than `descoped` or on a
   non-insufficient area, a duplicate area, an area that is not a `CE-*` code,
-  and — against the catalogue — an area the catalogue does not have.
+  and — against the catalogue — an area the catalogue does not have. An
+  insufficient entry's `gaps:` lines are read and written too, and refused on
+  any other verdict, with an unknown key, with an empty field, or with a
+  carrier that is not `<section-id>.<field>`.
 - **`scopeCases`** — `CodeSpecsExtractSet.fromFiles`: a set of files, scoped by
   its gate record exactly as the validator scopes its checks. The files are a
   list of `[name, text]` pairs rather than an object, because source order is
