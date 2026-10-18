@@ -866,16 +866,23 @@ Checklists are versioned alongside the prompt templates that execute them, so a
 gate result can always be replayed against the criteria that were in force when
 it was taken.
 
+The generic checklists are the files in `gate_checklists/` beside this document,
+one per gate (`G2.checklist.yaml`, …). `tom_specs_gate_checklists.md` is the
+authority for their format and versioning, for the project checklist a project
+derives from one (`<spec-root>/gates/G<N>.checklist.yaml`), and for the gate
+report.
+
 ### PF-GAT-EVD Evidence Store
 
 Every check writes structured evidence. Gate decisions are made from the store,
-never from memory or narrative.
+never from memory or narrative. The store belongs to the project and is
+committed with its specification, at `<spec-root>/quality/`:
 
 ```
-_ai/quality/
+<spec-root>/quality/
 ├── dashboard.md              # Generated quality dashboard
 ├── evidence/
-│   ├── gates/                # G1_<timestamp>.yaml … one per gate evaluation
+│   ├── gates/                # G<N>_<stamp>.gate.yaml + .gate.md, one pair per gate evaluation
 │   ├── static_analysis/
 │   ├── test_results/
 │   ├── code_reviews/
@@ -890,7 +897,7 @@ _ai/quality/
 ```
 
 A gate report contains, for each criterion: its ID, its status, and the evidence
-that produced the status. The overall result, the list of failed criteria, and
+that produced the status. Its format is `tom_specs_gate_checklists.md` §5. The overall result, the list of failed criteria, and
 the required remediation are machine-readable; a markdown summary accompanies
 them for human review.
 

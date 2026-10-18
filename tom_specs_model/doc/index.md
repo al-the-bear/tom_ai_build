@@ -16,7 +16,7 @@ is the authority for that tier, and it owns the membership test that assigns a
 fact to one tier or the other. The two never restate each other: a package
 document cites a document in this folder, it does not paraphrase one.
 
-**Fourteen documents plus this index.** Twelve are in this folder; the two
+**Fifteen documents plus this index.** Thirteen are in this folder; the two
 CodeSpecs documents ship with `tom_core_codespecs`, the package they specify,
 and are linked there. Each holds exactly one authority and is listed exactly
 once below — if two documents could answer the same question, one
@@ -171,6 +171,7 @@ generated language runtimes and two file formats.
 | Document | Authority for |
 |----------|---------------|
 | [tom_specs_project_flow.md](tom_specs_project_flow.md) | **How a system is created with TomSpecs.** The eight phases from project idea to production with their inputs and outputs, the quality-gate framework, the iteration and phase-re-entry rules, the role and decision-authority model, tooling, the issue workflow and upgrade cycles. |
+| [tom_specs_gate_checklists.md](tom_specs_gate_checklists.md) | **How a gate is executed against a checklist.** Where the generic gate checklists live ([`gate_checklists/`](gate_checklists/), one `G<N>.checklist.yaml` per gate) and how they are versioned, the checklist item format, the project checklist a project derives from one, and the format and location of the gate report. The gate criteria themselves stay in `tom_specs_project_flow.md`. |
 
 ## The applications and their agent
 

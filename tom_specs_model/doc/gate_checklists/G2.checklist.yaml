@@ -1,0 +1,233 @@
+# Generic gate checklist — G2, Solution Blueprint Complete.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G2; this file expands each
+# one into the items an orchestrator inspects. A project copies it into its
+# project checklist under the adaptation rules of §PF-GAT-CHK. Format, location,
+# versioning and the gate report: tom_specs_gate_checklists.md.
+#
+# Paths are SOM document paths in the Blueprint (`SBP/...`, section ids;
+# `[]` marks a list whose items are inspected one by one).
+formatVersion: 1
+gate: G2
+title: Solution Blueprint Complete
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G2
+document: SBP
+items:
+  # ── Blueprint schema-valid ─────────────────────────────────────────────────
+  - id: G2-SCHEMA-1
+    criterion: Blueprint schema-valid
+    inspect: The Blueprint decodes against the model, its markdown rendition validates against the solution-blueprint DocSpecs schema, and its values pass the instance-tier validator.
+    method: tool
+    how: "dart run tom_specs_clitool:validate_spec <blueprint>.docspecs.yaml --json (all fragments of the document in one call)"
+    evidence: The JSON report (format spec-validation), stored with the gate report.
+    pass: Exit code 0 — no finding on the decode, schema or instance tier.
+  - id: G2-SCHEMA-2
+    criterion: Blueprint schema-valid
+    inspect: No required section and no required form field is empty.
+    method: tool
+    how: The schema tier reports missingRequiredSection. Required form fields of a form declared on a section member are not yet enforced by the instance tier, so the project adds a required-field check over every form field the model marks required.
+    evidence: The required-field check's report — every empty required field with its document path.
+    pass: 0 empty required sections and 0 empty required form fields.
+  - id: G2-SCHEMA-3
+    criterion: Blueprint schema-valid
+    inspect: No required section is filled only with placeholder text.
+    method: query
+    how: Scan every content and form value for placeholder markers (TBD, TODO, FIXME, "to be defined", "lorem ipsum", "...", "n/a" as the whole value).
+    evidence: The list of hits with their document paths.
+    pass: 0 hits, or every hit carries the id of an open clarification that decides it.
+
+  # ── Scope defined ──────────────────────────────────────────────────────────
+  - id: G2-SCOPE-1
+    criterion: Scope defined
+    inspect: The in-scope and out-of-scope boundaries are stated item by item.
+    method: query
+    how: SBP/INSC/SYDSC/SYPUP/SCBND — inScopeItems[] and outOfScopeItems[]; each item's itemDescription and category.
+    evidence: The item counts and every item lacking a description or category.
+    pass: At least one in-scope item; the out-of-scope list holds at least one item or the section states why there is none; every item has a description and a category.
+  - id: G2-SCOPE-2
+    criterion: Scope defined
+    inspect: The external actors — people and systems outside the boundary — are named.
+    method: query
+    how: SBP/INSC/SYDSC/SYCTX — externalActors and externalSystems.
+    evidence: The actors and systems found.
+    pass: Both are non-empty.
+  - id: G2-SCOPE-3
+    criterion: Scope defined
+    inspect: No requirement, interface or roadmap stage contradicts the out-of-scope list.
+    method: reading
+    how: Read each out-of-scope and deferred item against the requirements (SBP/INSC/RO) and the roadmap (SBP/DTRO).
+    evidence: A reader's note naming every contradiction found, with both section ids.
+    pass: No contradiction.
+
+  # ── Stakeholders identified ────────────────────────────────────────────────
+  - id: G2-STAKE-1
+    criterion: Stakeholders identified
+    inspect: Each stakeholder has a role and an interest.
+    method: query
+    how: SBP/STKG/STKRE-STAK-LST[] — the role and interest fields of each entry.
+    evidence: The entry count and every entry with an empty role or interest.
+    pass: At least one entry; every entry has both.
+  - id: G2-STAKE-2
+    criterion: Stakeholders identified
+    inspect: The stakeholders the system's purpose names are in the register.
+    method: reading
+    how: Compare SBP/INSC/SYDSC/SYPUP/SAB (primary and secondary stakeholders) with SBP/STKG/STKRE-STAK-LST[].
+    evidence: Every stakeholder named in the purpose but missing from the register.
+    pass: None missing.
+  - id: G2-STAKE-3
+    criterion: Stakeholders identified
+    inspect: The product owner and the business approver of the gate are named.
+    method: reading
+    how: The register and SBP/STKG's project organization.
+    evidence: The two names and their section ids.
+    pass: Both are named.
+
+  # ── Requirements traceable ─────────────────────────────────────────────────
+  - id: G2-REQ-1
+    criterion: Requirements traceable
+    inspect: Every requirement has an id of its own.
+    method: query
+    how: SBP/INSC/RO — FR/FRE-REQU-LST[], TR1/TERQ-REQU-LST[], SR1/SECRQ-REQU-LST[], OR/ORRQ-REQU-LST[]; each item's stored section id.
+    evidence: The requirement count per list and every item with no stored id.
+    pass: Every requirement carries a stored section id.
+  - id: G2-REQ-2
+    criterion: Requirements traceable
+    inspect: Every requirement states its source.
+    method: query
+    how: The source field of each requirement — FRES.source for functional, TRED.source for technical requirements, and each other list's source or rationale field.
+    evidence: Every requirement with an empty source.
+    pass: None.
+  - id: G2-REQ-3
+    criterion: Requirements traceable
+    inspect: Nothing of the Project Idea is lost — every Project Idea item is covered by a requirement or by a recorded exclusion.
+    method: tool
+    how: A coverage measurement mapping each Project Idea id to the requirements citing it; project-specific, because the Project Idea is free-form.
+    evidence: The coverage table — covered, excluded with reason, uncovered.
+    pass: Uncovered count at or below the project parameter requirementSourceCoverage (default 0 uncovered).
+    parameters: [requirementSourceCoverage]
+  - id: G2-REQ-4
+    criterion: Requirements traceable
+    inspect: Cross-references between requirements resolve.
+    method: tool
+    how: The instance tier's danglingReference check (part of G2-SCHEMA-1), plus a scan of ids cited in prose against the document's section ids.
+    evidence: Every unresolved reference with its path.
+    pass: 0 unresolved references.
+
+  # ── System context documented ──────────────────────────────────────────────
+  - id: G2-CTX-1
+    criterion: System context documented
+    inspect: The system's position in the landscape is described.
+    method: query
+    how: SBP/INSC/SYDSC/SYCTX — itLandscapePosition and the context diagram.
+    evidence: Whether each is filled.
+    pass: Both are non-empty.
+  - id: G2-CTX-2
+    criterion: System context documented
+    inspect: The external-system inventory is complete per entry.
+    method: query
+    how: SBP/INSC/SYDSC/SYCTX/ESC/EXSYCO-SYST-LST[] — systemOwner, systemType, integrationDirection, integrationMethod.
+    evidence: The inventory count and every entry with one of the four empty.
+    pass: Every entry has all four.
+  - id: G2-CTX-3
+    criterion: System context documented
+    inspect: The inventory and the interfaces agree.
+    method: query
+    how: Match SBP/INSC/SYDSC/SYCTX/ESC/EXSYCO-SYST-LST[] against SBP/INSC/SYBO/EXIN/EIE-INTE-LST[] (externalSystem).
+    evidence: Systems with no interface and interfaces to a system not in the inventory.
+    pass: Both lists are empty, or each difference states why.
+
+  # ── Non-functional targets set ─────────────────────────────────────────────
+  - id: G2-NFR-1
+    criterion: Non-functional targets set
+    inspect: Performance, security, availability and capacity each have at least one target.
+    method: query
+    how: SBP/INSC/RO/TR1/TERQ-REQU-LST[] by category, with SBP/QACM/SYQG/RELC/AVQU (availability) and SBP/SOAT/TECH/SOAM/CPS (capacity).
+    evidence: The targets found per class.
+    pass: Each of the four classes has at least one target.
+  - id: G2-NFR-2
+    criterion: Non-functional targets set
+    inspect: Every target is numeric, with a unit and a measurement method.
+    method: query
+    how: TREM.targetValue, TREM.metric and TREM.measurementMethod of each technical requirement that states a target.
+    evidence: Every target that is not a number with a unit, or has no measurement method.
+    pass: None.
+  - id: G2-NFR-3
+    criterion: Non-functional targets set
+    inspect: A working figure that waits on an open question says so.
+    method: reading
+    how: Each target whose value is provisional.
+    evidence: The provisional targets and the clarification ids they cite.
+    pass: Every provisional target cites the open clarification that decides it.
+
+  # ── Integrations identified ────────────────────────────────────────────────
+  - id: G2-INT-1
+    criterion: Integrations identified
+    inspect: Every external interaction is named and typed.
+    method: query
+    how: SBP/INSC/SYBO/EXIN/EIE-INTE-LST[] — EIE-IDEN externalSystem, interfaceCategory and integrationPattern.
+    evidence: Every interface with one of the three empty.
+    pass: None.
+  - id: G2-INT-2
+    criterion: Integrations identified
+    inspect: No requirement or use case relies on an interaction the interface list lacks.
+    method: reading
+    how: Read the requirements and scenarios that mention an external system against the interface list.
+    evidence: Every interaction found with no interface entry.
+    pass: None.
+
+  # ── Architecture decisions recorded ────────────────────────────────────────
+  - id: G2-ADR-1
+    criterion: Architecture decisions recorded
+    inspect: The decisions are recorded with their rationale.
+    method: query
+    how: SBP/SOAT/TECH/BTREQ/AS/ARDE-DECI-LST[] — ADRO.decision, ADRO.rationale and the status.
+    evidence: The decision count and every record with an empty decision, rationale or status.
+    pass: At least one record; every record has all three.
+  - id: G2-ADR-2
+    criterion: Architecture decisions recorded
+    inspect: The key technology and pattern areas are decided — platform and language, architecture style, persistence, integration approach, security approach.
+    method: reading
+    how: Read the decision list against SBP/SOAT/TECH/BTREQ (platformAndLanguage, architectureStyle, designPatternsAndStandards).
+    evidence: The areas covered and the areas left open.
+    pass: Every key area has a decision, or an open clarification that will decide it before G3.
+
+  # ── Delivery roadmap drafted ───────────────────────────────────────────────
+  - id: G2-RMP-1
+    criterion: Delivery roadmap drafted
+    inspect: The initial phase structure is stated with goals.
+    method: query
+    how: SBP/DTRO — the staging strategy and its stages.
+    evidence: The stages and every stage without a goal.
+    pass: At least one stage; every stage has a goal.
+  - id: G2-RMP-2
+    criterion: Delivery roadmap drafted
+    inspect: Each stage has its gate criteria.
+    method: query
+    how: SBP/DTRO/SSPL/STGO/PHGARE/PHGREV-ITEM-LST[] — PHGAEN.entryCriteria and PHGAEX.exitCriteria.
+    evidence: Every stage gate with empty entry or exit criteria.
+    pass: None. Dates are not required at G2; whether they are is the project parameter roadmapDatesRequired.
+    parameters: [roadmapDatesRequired]
+
+  # ── Business review recorded ───────────────────────────────────────────────
+  - id: G2-REV-1
+    criterion: Business review recorded
+    inspect: The business approval of the Blueprint is recorded in the document.
+    method: sign-off
+    how: SBP/DOCTL/APREC-APRV-LST[] — an entry with the business approver's role, a date and status approved.
+    evidence: The approval entry's path and values.
+    pass: The entry exists with status approved.
+  - id: G2-REV-2
+    criterion: Business review recorded
+    inspect: The review's findings are closed.
+    method: reading
+    how: The project's review-findings record for this Blueprint version.
+    evidence: Each finding with its resolution — fixed, accepted, or moved to a later phase with a reason.
+    pass: No finding is open.
+  - id: G2-REV-3
+    criterion: Business review recorded
+    inspect: No open question blocks Phase 3.
+    method: reading
+    how: The project's clarification register.
+    evidence: The open questions and, for each, whether it blocks Phase 3.
+    pass: No open question marked as blocking Phase 3.

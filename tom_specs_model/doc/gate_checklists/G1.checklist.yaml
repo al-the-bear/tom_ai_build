@@ -1,0 +1,61 @@
+# Generic gate checklist — G1, Project Idea Captured.
+#
+# The criteria are tom_specs_project_flow.md §PF-GAT-G1. The Project Idea is
+# free-form, so most items are readings; the evidence is the reader's note.
+# Format, location, versioning and the gate report: tom_specs_gate_checklists.md.
+formatVersion: 1
+gate: G1
+title: Project Idea Captured
+checklistVersion: 1.0.0
+criteria: tom_specs_project_flow.md §PF-GAT-G1
+document: PI
+items:
+  - id: G1-DOC-1
+    criterion: Idea document exists
+    inspect: The Project Idea exists in the project's specification folder and is more than a title.
+    method: tool
+    how: File existence and size of the Project Idea document(s).
+    evidence: The paths and their sizes.
+    pass: At least one Project Idea document with meaningful content.
+  - id: G1-PROB-1
+    criterion: Problem statement present
+    inspect: What the system solves is stated, for whom, and why now.
+    method: reading
+    how: The problem statement section of the Project Idea.
+    evidence: A reader's note quoting the statement's location.
+    pass: The problem is stated in the Project Idea's own words.
+  - id: G1-USER-1
+    criterion: Users and stakeholders named
+    inspect: The primary user groups and the owner are identified.
+    method: reading
+    how: The users and stakeholders part of the Project Idea.
+    evidence: The user groups and the owner found.
+    pass: At least one primary user group and the owner are named.
+  - id: G1-SCOPE-1
+    criterion: Rough scope stated
+    inspect: In-scope and out-of-scope boundaries are sketched.
+    method: reading
+    how: The scope part of the Project Idea.
+    evidence: The boundaries found.
+    pass: At least one in-scope and one out-of-scope statement.
+  - id: G1-SRC-1
+    criterion: Sources recorded
+    inspect: Every source the idea was drawn from is listed and can be retrieved.
+    method: tool
+    how: Resolve each listed source (a file path, a URL, a referenced document).
+    evidence: Each source with its resolution result.
+    pass: Every listed source resolves.
+  - id: G1-ID-1
+    criterion: Sources recorded
+    inspect: The Project Idea's items carry ids, so the Blueprint can trace to them.
+    method: query
+    how: Count the id-carrying items of the Project Idea.
+    evidence: The id count and any item without an id.
+    pass: Every item the Blueprint will need to cite has an id.
+  - id: G1-CLAR-1
+    criterion: No blocking clarifications
+    inspect: No open clarification prevents Blueprint work.
+    method: reading
+    how: The project's clarification files.
+    evidence: The open clarifications and whether each blocks Phase 2.
+    pass: None blocks Phase 2.
