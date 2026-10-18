@@ -109,7 +109,10 @@ unpublished_drift:
     exception to the tom_build_base CLI rule (qrb7), and
     verify_published_tests.sh gained `--preflight` with the release procedure
     in the README (qrb9), and validate_spec reports a schema finding's
-    document path and section id (vsctasb6). Rides the next clitool release.
+    document path and section id (vsctasb6), and the exported meta carries
+    `modelHash`, validated against its content, with generate_som warning when
+    the model changes under an unchanged version (vsctasb11). Rides the next
+    clitool release.
   tom_core_codespecs: >-
     DOCS ONLY since 0.12.3: the README status block names 0.12.3 (qrb1), and
     the derivation contract names the stored sources of `@CsTrigger.kind` and
@@ -130,7 +133,8 @@ unpublished_drift:
     clitool's reference-list schema fix: two renamed ids in the facade and meta,
     and `wae-part-ref` admitting `wse-step` in the solution-blueprint schema;
     and the qrb6 carriers (`ActionTriggerKind`, `triggerKind`,
-    `bodyMessageKey`). Rides the next model-chain release.
+    `bodyMessageKey`); and the meta's `modelHash` (vsctasb11). Rides the next
+    model-chain release.
   tom_som_dart_runtime: >-
     Since 1.4.1: doc comments (qr1) say the review pass is carried and written
     back and that applyMarkdownResult applies a parse; and the review writer

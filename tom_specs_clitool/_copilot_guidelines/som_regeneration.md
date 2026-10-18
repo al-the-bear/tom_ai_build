@@ -162,6 +162,28 @@ see. That case is self-announcing in practice: every emitter has a golden test i
 `test/`, so an emitter change already arrives with a visible "output moved"
 signal — but the regeneration still has to be run by hand.
 
+## A model change bumps the model version
+
+The freshness check above holds the *committed packages* to the model source. It
+says nothing to a consumer that took a copy earlier — the VS Code extension packs
+the TypeScript pair from this checkout, and a CLI may bundle a meta. Those
+consumers compare versions, and `modelVersionLabel` and `generatedAt` both come
+from `version.versioner.dart`, which a model edit does not move. So a model
+change under an unchanged version is invisible to them.
+
+Two things close it:
+
+- **Every meta carries `modelHash`**, the sha256 of its content without the build
+  keys (`tom_specs_model/doc/tom_specs_model_meta_schema.md`). A consumer compares
+  its copy's hash with the source's; the extension's pack step records it in
+  `vendor/tom_som/versions.json` and a guard test compares it with this checkout.
+- **A model change comes with at least a patch bump** of `tom_specs_model`
+  (`buildkit -p . :bumpversion` in `tom_specs_model`), whether or not it is
+  published. A canonical `generate_som` run records the hash and version in
+  `tool/model_surface.stamp.json` and prints a `WARNING` when the hash moved
+  while the version did not. It warns rather than fails, because the bump is a
+  release decision; the consumer-side check is what fails.
+
 ## How to regenerate
 
 From the `tom_specs_clitool` package root:

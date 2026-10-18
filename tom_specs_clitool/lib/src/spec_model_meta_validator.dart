@@ -14,6 +14,8 @@
 ///   It changes every time the object model changes, independent of the format.
 library;
 
+import 'model_content_hash.dart';
+
 /// The on-disk meta-data schema version this build understands. Bump only when
 /// the file's structure changes in a way older readers cannot parse.
 const int specModelMetaSchemaVersion = 1;
@@ -59,6 +61,19 @@ List<String> validateSpecModelMeta(Object? meta) {
   _expectType<String>(meta, 'generatedAt', errors);
   _expectType<List>(meta, 'roots', errors);
   _expectType<Map>(meta, 'classes', errors);
+
+  // `modelHash` is optional (a file written before it existed has none), but
+  // when present it must be the content's own hash: a hand-edited or partially
+  // regenerated meta whose hash no longer matches would tell a consumer it is
+  // current when it is not.
+  _expectType<String>(meta, 'modelHash', errors);
+  final hash = meta['modelHash'];
+  if (hash is String && hash != specModelContentHash(meta)) {
+    errors.add(
+      'key "modelHash" does not match the content (a hand edit, or a meta '
+      'changed after it was generated) — regenerate it',
+    );
+  }
 
   final schemaVersion = meta['metaSchemaVersion'];
   if (schemaVersion is int && schemaVersion > specModelMetaSchemaVersion) {

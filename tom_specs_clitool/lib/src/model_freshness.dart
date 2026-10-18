@@ -105,6 +105,8 @@ class ModelSurface {
     required this.fileCount,
     required this.declarationCount,
     required this.packages,
+    this.modelHash,
+    this.modelVersion,
   });
 
   /// Hash over the model's rendered token stream — the single value the guard
@@ -124,6 +126,31 @@ class ModelSurface {
   /// thing it guards has grown — see [somPackageCoverageMismatch].
   final List<String> packages;
 
+  /// The `modelHash` the certified metas carry (`model_content_hash.dart`), or
+  /// `null` in a stamp written before the hash existed.
+  ///
+  /// Not part of the freshness comparison, which is over the model *source*.
+  /// It is the baseline `generate_som` holds the next run's hash against, to
+  /// say when the content moved while [modelVersion] did not.
+  final String? modelHash;
+
+  /// The `tom_specs_model` version the certified packages were generated at
+  /// (`1.4.1`), or `null` in a stamp written before it was recorded.
+  final String? modelVersion;
+
+  /// A copy carrying [modelHash] and [modelVersion].
+  ModelSurface withModel({
+    required String modelHash,
+    required String version,
+  }) => ModelSurface(
+    fingerprint: fingerprint,
+    fileCount: fileCount,
+    declarationCount: declarationCount,
+    packages: packages,
+    modelHash: modelHash,
+    modelVersion: version,
+  );
+
   /// Serializes the stamp for `tool/model_surface.stamp.json`.
   ///
   /// The key names are the on-disk contract: [fromJson] requires every one of
@@ -133,11 +160,14 @@ class ModelSurface {
     'fileCount': fileCount,
     'declarationCount': declarationCount,
     'packages': packages,
+    if (modelHash != null) 'modelHash': modelHash,
+    if (modelVersion != null) 'modelVersion': modelVersion,
   };
 
   /// Reads a stamp back from its JSON form.
   ///
-  /// Every field is required and unchecked (`!`): a stamp missing a key is a
+  /// Every field but the two model fields is required and unchecked (`!`): a
+  /// stamp missing a key is a
   /// corrupt or hand-edited file, and failing loudly is right — silently
   /// defaulting would let the guard compare against a stamp that means
   /// something other than it says.
@@ -146,6 +176,9 @@ class ModelSurface {
     fileCount: json['fileCount']! as int,
     declarationCount: json['declarationCount']! as int,
     packages: (json['packages']! as List).cast<String>(),
+    // Optional: absent in a stamp written before they were recorded.
+    modelHash: json['modelHash'] as String?,
+    modelVersion: json['modelVersion'] as String?,
   );
 }
 

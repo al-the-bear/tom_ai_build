@@ -1,3 +1,4 @@
+import 'model_content_hash.dart';
 import 'model_reader.dart';
 import 'spec_model_meta_validator.dart';
 
@@ -80,7 +81,7 @@ class ModelJsonExporter {
       return (a['title'] as String).compareTo(b['title'] as String);
     });
 
-    return {
+    final meta = <String, Object?>{
       'generatedAt': DateTime.now().toUtc().toIso8601String(),
       // The file format's own version, distinct from `modelVersion` (which
       // model version this was generated against). See [specModelMetaSchemaVersion].
@@ -97,6 +98,15 @@ class ModelJsonExporter {
       'containerRoot': findContainerRoot(classes),
       'roots': roots,
       'classes': classMap,
+    };
+    // The content identity, placed in the header beside the version stamps it
+    // complements: those say which build, this says which model.
+    final hash = specModelContentHash(meta);
+    return {
+      for (final e in meta.entries) ...{
+        e.key: e.value,
+        if (e.key == 'rootCount') 'modelHash': hash,
+      },
     };
   }
 

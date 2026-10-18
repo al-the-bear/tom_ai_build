@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -269,8 +270,11 @@ Future<void> main(List<String> arguments) async {
   };
   final packageVersion = packageVersionFromModel(stamp.version);
 
+  // Every target's meta, read back after the run for its `modelHash`.
+  final metaPaths = <String>[];
   for (final target in config.languages) {
     final outputRoot = p.normalize(p.join(configDir, target.outputRoot));
+    metaPaths.add(p.join(outputRoot, 'meta', 'spec_model.meta.json'));
     switch (target.language) {
       case SomLanguage.dart:
         stdout.writeln('\n── generating ${target.language.slug} → $outputRoot');
@@ -494,11 +498,29 @@ Future<void> main(List<String> arguments) async {
       args.option('model') == null &&
       args.option('model-version') == null;
   if (isCanonicalRun) {
+    // The nine metas describe one model, so they must carry one `modelHash`;
+    // it becomes the baseline the next run's hash is compared with.
+    final hashes = {
+      for (final m in metaPaths)
+        (jsonDecode(File(m).readAsStringSync()) as Map)['modelHash'] as String?,
+    };
+    if (hashes.length != 1 || hashes.single == null) {
+      _fail('the generated metas disagree on modelHash: $hashes');
+    }
+    final modelHash = hashes.single!;
+    final previous = readModelSurfaceStamp(clitoolRoot: clitoolRoot);
+    final bumpWarning = modelChangeWithoutVersionBump(
+      previousHash: previous?.modelHash,
+      previousVersion: previous?.modelVersion,
+      modelHash: modelHash,
+      version: stamp.version,
+    );
     final surface = computeModelSurface(
       modelPackagePath: modelDir,
       packages: configuredPackageNames(config),
-    );
+    ).withModel(modelHash: modelHash, version: stamp.version);
     writeModelSurfaceStamp(surface, clitoolRoot: clitoolRoot);
+    if (bumpWarning != null) stderr.writeln('\nWARNING: $bumpWarning');
     stdout.writeln(
       '\ngenerate_som: stamped model surface → '
       '$modelSurfaceStampPath',
@@ -506,7 +528,8 @@ Future<void> main(List<String> arguments) async {
     stdout.writeln(
       '  fingerprint: ${surface.fingerprint.substring(0, 16)}…  '
       'files: ${surface.fileCount}  '
-      'declarations: ${surface.declarationCount}',
+      'declarations: ${surface.declarationCount}  '
+      'modelHash: ${modelHash.substring(0, 16)}…  version: ${stamp.version}',
     );
     stdout.writeln(
       '  COMMIT THE STAMP WITH THE REGENERATED PACKAGES — it is '

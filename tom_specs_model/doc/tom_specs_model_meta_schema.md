@@ -19,6 +19,7 @@ The file carries two version numbers that must never be conflated:
 | --- | --- | --- |
 | `metaSchemaVersion` | The **file format's** own version. | The on-disk shape of *this file* changes in a way older readers cannot parse. |
 | `modelVersion` / `modelVersionLabel` | **Which model version** the meta-data was generated against (the `tom_specs_model` version stamp). | The object model changes — independent of the file format. |
+| `modelHash` | **Which model** the file describes: the sha256 of its own content. | Any change to the model content; never on a version bump alone. |
 
 A reader refuses a file whose `metaSchemaVersion` is **newer** than the version
 it was built for (`specModelMetaSchemaVersion`), because the structure may have
@@ -43,6 +44,26 @@ consistent pair, which is why every committed artifact goes through it; a stamp
 whose parts disagree describes no model that ever existed. The two mistakes the
 invariant catches are a `0` (no derivation ran) and a build *number* written
 into the model *major* slot.
+
+### `modelHash` is the content's identity
+
+`modelVersionLabel` and `generatedAt` both come from the version stamp, and a
+model edit does not move the stamp until somebody bumps it. A consumer holding a
+packaged copy — the VS Code extension's vendored facade, a CLI's bundled meta —
+therefore sees "same version" for a model that has changed. `modelHash` is
+derived from the content instead: the sha256 (lowercase hex) of the file's
+canonical JSON, with map keys sorted at every depth, list order kept, and the
+four build keys `generatedAt`, `modelVersion`, `modelVersionLabel` and
+`modelHash` left out (`specModelContentHash`). Two metas carry the same hash
+exactly when they describe the same model.
+
+Leaving the version keys out is what separates the two failures. A bumped
+version with an unchanged hash is a release with no model change; an unchanged
+version with a changed hash is a model change nobody bumped, which
+`generate_som` warns about (it compares the hash and version recorded in
+`tom_specs_clitool/tool/model_surface.stamp.json` by the previous canonical
+run). The rule it enforces: a model change comes with at least a **patch** bump
+of `tom_specs_model`, published or not.
 
 Consumers resolve the pair through `somModelVersionString(int, String?)`, which
 **prefers the label** — it returns `major.minor` from the label's core, falling
@@ -110,12 +131,15 @@ Ad-hoc exports to any other location stay freely stampable and default to
 | `modelVersionLabel` | `String` | no | The model build the export was generated from, `<version>+<buildNumber>[.<gitCommit>]` (e.g. `1.0.0+3.50e0102`). Omitted when unstamped. |
 | `classCount` | `int` | yes | Number of entries in `classes`. |
 | `rootCount` | `int` | yes | Number of entries in `roots`. |
+| `modelHash` | `String` | no | The content hash described above. Absent only in a file written before it existed; when present it must match the content. |
 | `containerRoot` | `String?` | no | Name of the canonical container class (the single true tree root), or `null` for a container-less model. |
 | `roots` | `List` | yes | Document entry points (each `@Document` class). |
 | `classes` | `Map<String, Object?>` | yes | The class graph: each class once, keyed by name. |
 
-`modelVersionLabel` and `containerRoot` are **not** required — the label is
-optional and the container root is legitimately `null`.
+`modelVersionLabel`, `modelHash` and `containerRoot` are **not** required — the
+label is optional, a file written before the hash existed has none, and the
+container root is legitimately `null`. Adding `modelHash` did not change
+`metaSchemaVersion`: an older reader ignores the key.
 
 ### `roots[]` entry
 
@@ -238,7 +262,9 @@ in order:
 3. each required value carries its expected JSON type
    (`metaSchemaVersion`/`modelVersion`/`classCount`/`rootCount` are `int`,
    `generatedAt` is `String`, `roots` is `List`, `classes` is `Map`);
-4. `metaSchemaVersion` is not **newer** than `specModelMetaSchemaVersion`.
+4. a present `modelHash` is a `String` equal to `specModelContentHash` of the
+   file, so a hand-edited or partly regenerated meta is refused;
+5. `metaSchemaVersion` is not **newer** than `specModelMetaSchemaVersion`.
 
 Both `validateSpecModelMeta`, `specModelMetaSchemaVersion`, and
 `requiredSpecModelMetaKeys` are exported from `package:tom_specs_clitool`.
