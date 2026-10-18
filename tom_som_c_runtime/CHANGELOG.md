@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- `spec_document_has_values_under` answers from a lazily built prefix index —
+  every key of the content, form, list, headline and codeSpec stores plus
+  every prefix of one that ends right before a `/` or a `-` — instead of
+  scanning every stored key per call. The index is built on the first query,
+  dropped by every mutator and freed by `spec_document_free`; answers are
+  unchanged. The markdown emitter, the validator and the query engine ask once
+  per model node, so rendering a large document is no longer quadratic.
+  `SpecDocument` gains an opaque `value_index` member. Pinned by the new
+  `tests/value_index_test.c` (VI-1 agreement with a full scan after every
+  mutator, VI-2 complexity guard).
+
 ## 1.6.1
 
 - Code fields (SOM §11.4 rule 8): a form field whose meta carries `code: true`

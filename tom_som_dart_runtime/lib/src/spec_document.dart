@@ -80,6 +80,7 @@ class SpecDocument {
   /// a normalizer folds *routes to the same section*, so the loser is a
   /// duplicate of the winner, not a distinct value.
   void installPathNormalizer(String Function(String path) normalizer) {
+    _dropValueIndex();
     _pathNormalizer = normalizer;
     _migrate(_content, normalizer);
     _migrate(_form, normalizer);
@@ -302,6 +303,7 @@ class SpecDocument {
 
   /// Sets the content string at [path]. An empty value clears it (D4).
   void setContent(String path, String value) {
+    _dropValueIndex();
     final key = _key(path);
     if (value.isEmpty) {
       _content.remove(key);
@@ -317,6 +319,7 @@ class SpecDocument {
   /// Sets the stored headline at [path]. An empty value clears it, returning
   /// the section to its effective default title (YRD3).
   void setHeadline(String path, String value) {
+    _dropValueIndex();
     final key = _key(path);
     if (value.isEmpty) {
       _headline.remove(key);
@@ -338,6 +341,7 @@ class SpecDocument {
   /// CodeSpecs code locations). An empty value clears it, returning the section
   /// to "no code mapping" (codespecs_mapping.md §9.2).
   void setCodeSpec(String path, String value) {
+    _dropValueIndex();
     final key = _key(path);
     if (value.isEmpty) {
       _codeSpec.remove(key);
@@ -356,6 +360,7 @@ class SpecDocument {
   /// Sets form [field] at [path]. An empty value clears that field (and the
   /// whole form entry once its last field is gone).
   void setFormField(String path, String field, String value) {
+    _dropValueIndex();
     final key = _key(path);
     final fields = _form.putIfAbsent(key, () => {});
     if (value.isEmpty) {
@@ -382,6 +387,7 @@ class SpecDocument {
   /// `@SectionIdPattern` lives in the caller (it needs the pattern); this layer
   /// only stores and guards uniqueness.
   String addListItem(String listPath, {String? sectionId}) {
+    _dropValueIndex();
     final key = _key(listPath);
     if (sectionId != null) _assertSectionIdFree(key, sectionId, null);
     final seq = (_listSeq[key] ?? 0) + 1;
@@ -403,6 +409,7 @@ class SpecDocument {
   /// equal to the item's current id is a no-op. Throws [ArgumentError] if
   /// [itemPath] is not a live list item.
   void setItemSectionId(String itemPath, String id) {
+    _dropValueIndex();
     final key = _key(itemPath);
     final owningList = _owningListOf(key);
     if (owningList == null) {
@@ -467,6 +474,7 @@ class SpecDocument {
     int toIndex, {
     String? toList,
   }) {
+    _dropValueIndex();
     final item = _key(itemPath);
     final from = _owningListOf(item);
     if (from == null) {
@@ -633,6 +641,7 @@ class SpecDocument {
   /// counter is deliberately left untouched so future items keep getting fresh
   /// sequence numbers (no renumbering — D3).
   bool removeListItem(String itemPath) {
+    _dropValueIndex();
     final key = _key(itemPath);
     final owningList = _owningListOf(key);
     if (owningList == null) return false;
@@ -648,6 +657,7 @@ class SpecDocument {
   /// [prefix] must already be a **storage key** — every caller normalizes
   /// first, because the scan is a raw prefix match over the stores.
   void _purgeUnder(String prefix) {
+    _dropValueIndex();
     bool isUnder(String key) =>
         key == prefix ||
         key.startsWith('$prefix/') ||
@@ -691,16 +701,42 @@ class SpecDocument {
   /// The scan runs in **storage space**: [prefix] is normalized first, and a
   /// [pathNormalizer] is required to be prefix-preserving, so a subtree of the
   /// caller's paths is still a subtree of the keys held here.
-  bool hasValuesUnder(String prefix) {
-    final root = _key(prefix);
-    bool isUnder(String key) =>
-        key == root || key.startsWith('$root/') || key.startsWith('$root-');
-    return _content.keys.any(isUnder) ||
-        _form.keys.any(isUnder) ||
-        _listItems.keys.any(isUnder) ||
-        _headline.keys.any(isUnder) ||
-        _codeSpec.keys.any(isUnder);
+  bool hasValuesUnder(String prefix) =>
+      (_valueIndex ??= _buildValueIndex()).contains(_key(prefix));
+
+  /// Every stored key plus every prefix of one that ends right before a `/` or
+  /// a `-` — exactly the paths for which "a key equals it, or continues it
+  /// after `/` or `-`" holds, so [hasValuesUnder] is one set lookup.
+  ///
+  /// Why: the markdown emitter, the validator and the query engine ask
+  /// [hasValuesUnder] once per model node, and a scan of every stored key per
+  /// question made rendering a large specification quadratic (minutes for a
+  /// Solution Blueprint of ten thousand values). Built on the first question
+  /// and dropped by every mutator ([_dropValueIndex]).
+  Set<String>? _valueIndex;
+
+  Set<String> _buildValueIndex() {
+    final index = <String>{};
+    for (final keys in [
+      _content.keys,
+      _form.keys,
+      _listItems.keys,
+      _headline.keys,
+      _codeSpec.keys,
+    ]) {
+      for (final key in keys) {
+        index.add(key);
+        for (var i = 0; i < key.length; i++) {
+          final c = key.codeUnitAt(i);
+          if (c == 0x2f || c == 0x2d) index.add(key.substring(0, i));
+        }
+      }
+    }
+    return index;
   }
+
+  /// Called first by every method that changes a store's key set.
+  void _dropValueIndex() => _valueIndex = null;
 
   /// All content-leaf paths currently set (unordered snapshot).
   Iterable<String> get contentPaths => _content.keys;
@@ -773,6 +809,7 @@ class SpecDocument {
   /// scalars always parse back as strings). Unknown/empty entries are skipped
   /// so a hand-edited file can't smuggle in malformed state.
   void loadJson(Map<dynamic, dynamic> json) {
+    _dropValueIndex();
     _content.clear();
     _form.clear();
     _listItems.clear();
@@ -864,6 +901,7 @@ class SpecDocument {
   /// every store is overwritten, so a snapshot can be applied regardless of
   /// intervening edits.
   void restoreState(SpecDocumentState state) {
+    _dropValueIndex();
     _content
       ..clear()
       ..addAll(state._content);

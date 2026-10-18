@@ -66,6 +66,7 @@ SpecMarkdownImport SpecDocument::fromMarkdown(const std::string& text,
 
 void SpecDocument::applyMarkdownResult(const SpecMarkdownResult& result,
                                        bool allowRejections) {
+  dropValueIndex();
   if (!allowRejections && !result.rejections.empty()) {
     const SpecMarkdownRejection& first = result.rejections.front();
     throw std::runtime_error(
@@ -380,6 +381,7 @@ bool SpecDocument::hasContent(const std::string& path) const {
 }
 
 void SpecDocument::setContent(const std::string& path, const std::string& value) {
+  dropValueIndex();
   if (value.empty()) {
     content_.erase(path);
   } else {
@@ -408,6 +410,7 @@ std::string SpecDocument::formField(const std::string& path,
 void SpecDocument::setFormField(const std::string& path,
                                 const std::string& fieldName,
                                 const std::string& value) {
+  dropValueIndex();
   if (value.empty()) {
     auto it = forms_.find(path);
     if (it != forms_.end()) {
@@ -436,6 +439,7 @@ std::vector<std::string> SpecDocument::listItems(
 }
 
 std::string SpecDocument::addListItem(const std::string& listPath) {
+  dropValueIndex();
   long long seq = 0;
   auto it = listSeq_.find(listPath);
   if (it != listSeq_.end()) {
@@ -482,6 +486,7 @@ void SpecDocument::assertSectionIdFree(const std::string& listPath,
 
 std::string SpecDocument::addListItemWithSectionId(const std::string& listPath,
                                                    const std::string& sectionId) {
+  dropValueIndex();
   assertSectionIdFree(listPath, sectionId, "");
   std::string itemPath = addListItem(listPath);
   itemSectionId_[itemPath] = sectionId;
@@ -501,6 +506,7 @@ std::string SpecDocument::itemSectionId(const std::string& itemPath) const {
 
 void SpecDocument::setItemSectionId(const std::string& itemPath,
                                     const std::string& id) {
+  dropValueIndex();
   std::string owning = owningListOf(itemPath);
   if (owning.empty()) {
     throw SomSectionIdError::notLiveItem(itemPath);
@@ -543,6 +549,7 @@ std::string SpecDocument::headline(const std::string& path) const {
 
 void SpecDocument::setHeadline(const std::string& path,
                                const std::string& value) {
+  dropValueIndex();
   if (value.empty()) {
     headline_.erase(path);
   } else {
@@ -572,6 +579,7 @@ std::string SpecDocument::codeSpec(const std::string& path) const {
 
 void SpecDocument::setCodeSpec(const std::string& path,
                                const std::string& value) {
+  dropValueIndex();
   if (value.empty()) {
     codeSpec_.erase(path);
   } else {
@@ -588,10 +596,12 @@ std::vector<std::string> SpecDocument::codeSpecPaths() const {
 }
 
 void SpecDocument::removeValuesUnder(const std::string& prefix) {
+  dropValueIndex();
   purgeUnder(prefix);
 }
 
 void SpecDocument::purgeUnder(const std::string& prefix) {
+  dropValueIndex();
   for (auto it = content_.begin(); it != content_.end();) {
     if (isUnder(it->first, prefix)) {
       it = content_.erase(it);
@@ -644,6 +654,7 @@ void SpecDocument::purgeUnder(const std::string& prefix) {
 }
 
 bool SpecDocument::removeListItem(const std::string& itemPath) {
+  dropValueIndex();
   std::string owning;
   bool found = false;
   for (const auto& kv : listItems_) {
@@ -683,32 +694,34 @@ bool SpecDocument::isEmpty() const {
 }
 
 bool SpecDocument::hasValuesUnder(const std::string& prefix) const {
-  for (const auto& kv : content_) {
-    if (isUnder(kv.first, prefix)) {
-      return true;
-    }
+  return valueIndex().count(prefix) != 0;
+}
+
+/* Every stored key plus every prefix of one that ends right before a `/` or a
+ * `-` — exactly the paths p for which "a key equals p, or continues it after
+ * `/` or `-`" (isUnder) holds, so hasValuesUnder is one set lookup.
+ *
+ * Why: a scan of every stored key per question made rendering a large
+ * specification quadratic (minutes for ten thousand values). */
+const std::unordered_set<std::string>& SpecDocument::valueIndex() const {
+  if (!valueIndex_.keys) {
+    std::unordered_set<std::string> index;
+    auto addKey = [&index](const std::string& key) {
+      for (std::size_t i = 0; i < key.size(); i++) {
+        if (key[i] == '/' || key[i] == '-') {
+          index.insert(key.substr(0, i));
+        }
+      }
+      index.insert(key);
+    };
+    for (const auto& kv : content_) addKey(kv.first);
+    for (const auto& kv : forms_) addKey(kv.first);
+    for (const auto& kv : listItems_) addKey(kv.first);
+    for (const auto& kv : headline_) addKey(kv.first);
+    for (const auto& kv : codeSpec_) addKey(kv.first);
+    valueIndex_.keys = std::move(index);
   }
-  for (const auto& kv : forms_) {
-    if (isUnder(kv.first, prefix)) {
-      return true;
-    }
-  }
-  for (const auto& kv : listItems_) {
-    if (isUnder(kv.first, prefix)) {
-      return true;
-    }
-  }
-  for (const auto& kv : headline_) {
-    if (isUnder(kv.first, prefix)) {
-      return true;
-    }
-  }
-  for (const auto& kv : codeSpec_) {
-    if (isUnder(kv.first, prefix)) {
-      return true;
-    }
-  }
-  return false;
+  return *valueIndex_.keys;
 }
 
 std::vector<std::string> SpecDocument::contentPaths() const {
@@ -839,6 +852,7 @@ static std::map<std::string, V> rekeyStore(const std::map<std::string, V>& store
 SpecListItemMove SpecDocument::moveListItem(
     const SpecModel& model, const std::string& itemPath, long long toIndex,
     const std::optional<std::string>& toList) {
+  dropValueIndex();
   // A copy: `itemPath` may be borrowed from a store the move replaces.
   const std::string item = itemPath;
   const std::string from = owningListOf(item);
@@ -1015,6 +1029,7 @@ DocumentJson SpecDocument::toJson() const {
 }
 
 void SpecDocument::loadJson(const DocumentJson& j) {
+  dropValueIndex();
   content_.clear();
   forms_.clear();
   listItems_.clear();

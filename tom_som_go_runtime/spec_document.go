@@ -69,6 +69,16 @@ type SpecDocument struct {
 	// means "no code mapping".
 	codeSpec map[string]string
 
+	// valueIndex holds every stored key of content, form, listItems, headline
+	// and codeSpec plus every prefix of one that ends right before a '/' or a
+	// '-' — exactly the paths for which "a key equals it, or continues it after
+	// '/' or '-'" holds, so HasValuesUnder is one map lookup. The markdown
+	// emitter, the validator and the query engine ask HasValuesUnder once per
+	// model node, and a scan of every stored key per question made rendering a
+	// large document quadratic. Built on the first question (nil = not built)
+	// and dropped by every mutator (dropValueIndex).
+	valueIndex map[string]struct{}
+
 	// ModelVersion is the authoring object-model version (major.minor) this
 	// document was loaded from, or "" for a brand-new / unstamped document. Go's
 	// idiomatic nullable string is the empty string, matching DecodeYaml's
@@ -163,6 +173,7 @@ func (d *SpecDocument) HasContent(path string) bool {
 
 // SetContent sets the content string at path. An empty value clears it.
 func (d *SpecDocument) SetContent(path, value string) {
+	d.dropValueIndex()
 	d.ensure()
 	if value == "" {
 		delete(d.content, path)
@@ -194,6 +205,7 @@ func (d *SpecDocument) FormFieldOr(path, fieldName string) string {
 // SetFormField sets form fieldName at path. An empty value clears that field
 // (and the whole form entry once its last field is gone).
 func (d *SpecDocument) SetFormField(path, fieldName, value string) {
+	d.dropValueIndex()
 	d.ensure()
 	if value == "" {
 		if fields, ok := d.form[path]; ok {
@@ -229,6 +241,7 @@ func (d *SpecDocument) HeadlineOr(path string) string {
 // SetHeadline sets the stored headline at path. An empty value clears it
 // (reverting the section to its derived default heading).
 func (d *SpecDocument) SetHeadline(path, value string) {
+	d.dropValueIndex()
 	d.ensure()
 	if value == "" {
 		delete(d.headline, path)
@@ -266,6 +279,7 @@ func (d *SpecDocument) CodeSpecOr(path string) string {
 // of CodeSpecs code locations). An empty value clears it, returning the section
 // to "no code mapping" (codespecs_mapping.md §9.2).
 func (d *SpecDocument) SetCodeSpec(path, value string) {
+	d.dropValueIndex()
 	d.ensure()
 	if value == "" {
 		delete(d.codeSpec, path)
@@ -297,6 +311,7 @@ func (d *SpecDocument) ListItems(listPath string) []string {
 // AddListItem appends a new item to the list at listPath and returns its stable
 // path.
 func (d *SpecDocument) AddListItem(listPath string) string {
+	d.dropValueIndex()
 	d.ensure()
 	seq := d.listSeq[listPath] + 1
 	d.listSeq[listPath] = seq
@@ -312,6 +327,7 @@ func (d *SpecDocument) AddListItem(listPath string) string {
 // id *generation* from a @SectionIdPattern lives in the caller (it needs the
 // pattern); this layer only stores and guards uniqueness.
 func (d *SpecDocument) AddListItemWithSectionID(listPath, sectionID string) (string, error) {
+	d.dropValueIndex()
 	d.ensure()
 	if err := d.assertSectionIDFree(listPath, sectionID, ""); err != nil {
 		return "", err
@@ -339,6 +355,7 @@ func (d *SpecDocument) ItemSectionIDOr(itemPath string) string {
 // Assigning an id equal to the item's current id is a no-op. Returns an error if
 // itemPath is not a live list item.
 func (d *SpecDocument) SetItemSectionID(itemPath, id string) error {
+	d.dropValueIndex()
 	d.ensure()
 	owningList, ok := d.owningListOf(itemPath)
 	if !ok {
@@ -418,6 +435,7 @@ func (d *SpecDocument) assertSectionIDFree(listPath, id, exceptItemPath string) 
 func (d *SpecDocument) MoveListItem(
 	model *SpecModel, itemPath string, toIndex int, toList string,
 ) (*SpecListItemMove, error) {
+	d.dropValueIndex()
 	d.ensure()
 	item := itemPath
 	from, ok := d.owningListOf(item)
@@ -705,6 +723,7 @@ func sectionIDFitsPattern(pattern, id string) bool {
 // beneath it. The counter is left untouched so future items keep getting fresh
 // sequence numbers (no renumbering). Returns whether an item was removed.
 func (d *SpecDocument) RemoveListItem(itemPath string) bool {
+	d.dropValueIndex()
 	owningList := ""
 	found := false
 	for key, items := range d.listItems {
@@ -751,6 +770,7 @@ func hasPrefix(s, prefix string) bool {
 }
 
 func (d *SpecDocument) purgeUnder(prefix string) {
+	d.dropValueIndex()
 	for k := range d.content {
 		if isUnder(k, prefix) {
 			delete(d.content, k)
@@ -1001,33 +1021,46 @@ func (d *SpecDocument) IsEmpty() bool {
 // — the structural "empty = no value" test (the exact inverse of the purge
 // predicate, so emptiness and purge stay in lock-step).
 func (d *SpecDocument) HasValuesUnder(prefix string) bool {
-	for k := range d.content {
-		if isUnder(k, prefix) {
-			return true
+	if d.valueIndex == nil {
+		d.valueIndex = d.buildValueIndex()
+	}
+	_, ok := d.valueIndex[prefix]
+	return ok
+}
+
+// buildValueIndex collects every stored key of the five value stores plus every
+// prefix of a key that ends right before a '/' or a '-' byte (see valueIndex).
+func (d *SpecDocument) buildValueIndex() map[string]struct{} {
+	index := map[string]struct{}{}
+	add := func(key string) {
+		index[key] = struct{}{}
+		for i := 0; i < len(key); i++ {
+			if c := key[i]; c == '/' || c == '-' {
+				index[key[:i]] = struct{}{}
+			}
 		}
+	}
+	for k := range d.content {
+		add(k)
 	}
 	for k := range d.form {
-		if isUnder(k, prefix) {
-			return true
-		}
+		add(k)
 	}
 	for k := range d.listItems {
-		if isUnder(k, prefix) {
-			return true
-		}
+		add(k)
 	}
 	for k := range d.headline {
-		if isUnder(k, prefix) {
-			return true
-		}
+		add(k)
 	}
 	for k := range d.codeSpec {
-		if isUnder(k, prefix) {
-			return true
-		}
+		add(k)
 	}
-	return false
+	return index
 }
+
+// dropValueIndex is called first by every method that can change a store's key
+// set, so the next HasValuesUnder rebuilds the index.
+func (d *SpecDocument) dropValueIndex() { d.valueIndex = nil }
 
 // ContentPaths returns the set of content paths (unordered).
 func (d *SpecDocument) ContentPaths() []string {
@@ -1146,6 +1179,7 @@ func (d *SpecDocument) SortedContentPaths() []string {
 // LoadJSON replaces every store from a DocumentJson-shaped value. Empty entries
 // are skipped, mirroring the other ports' loadJson.
 func (d *SpecDocument) LoadJSON(j *DocumentJson) {
+	d.dropValueIndex()
 	d.content = map[string]string{}
 	d.form = map[string]map[string]string{}
 	d.listItems = map[string][]string{}

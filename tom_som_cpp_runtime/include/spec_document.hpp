@@ -19,6 +19,7 @@
 #include <map>
 #include <optional>
 #include <string>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -271,6 +272,12 @@ class SpecDocument {
   std::vector<std::string> codeSpecPaths() const;
 
   bool isEmpty() const;
+  /* True iff a stored key of any store (content, forms, list containers,
+   * headlines, codeSpecs) is `prefix` itself or continues it after a `/` or a
+   * `-`. Answered from a lazily built prefix index (one set lookup), not a scan:
+   * the markdown emitter, the validator and the query engine ask it once per
+   * model node. Building the index on the first query mutates a cache, so
+   * concurrent const calls on one document need external synchronisation. */
   bool hasValuesUnder(const std::string& prefix) const;
 
   /* Removes every value at `prefix` and beneath it — content leaves, form
@@ -303,6 +310,33 @@ class SpecDocument {
   std::map<std::string, std::string> itemSectionId_;  // item path -> section id
   std::map<std::string, std::string> headline_;       // path -> stored headline
   std::map<std::string, std::string> codeSpec_;       // path -> stored codeSpec
+
+  /* The hasValuesUnder index: every stored key of the five stores plus every
+   * prefix of one that ends right before a `/` or a `-`. Built on the first
+   * query, dropped (dropValueIndex) by every method that changes a store's key
+   * set. Copying or moving a document never carries an index along — the
+   * copy, and both sides of a move, rebuild on their next query — so no
+   * document can answer from an index built for other stores. */
+  struct ValueIndexCache {
+    std::optional<std::unordered_set<std::string>> keys;
+    ValueIndexCache() = default;
+    ValueIndexCache(const ValueIndexCache&) {}
+    ValueIndexCache(ValueIndexCache&& other) noexcept { other.keys.reset(); }
+    ValueIndexCache& operator=(const ValueIndexCache&) {
+      keys.reset();
+      return *this;
+    }
+    ValueIndexCache& operator=(ValueIndexCache&& other) noexcept {
+      keys.reset();
+      other.keys.reset();
+      return *this;
+    }
+  };
+  mutable ValueIndexCache valueIndex_;
+
+  /* Called first by every method that changes a store's key set. */
+  void dropValueIndex() { valueIndex_.keys.reset(); }
+  const std::unordered_set<std::string>& valueIndex() const;
 
   void purgeUnder(const std::string& prefix);
 

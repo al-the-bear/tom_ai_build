@@ -66,6 +66,12 @@ class SpecDocument:
         #: stamp" class of bug); the generated ``load_yaml`` / ``load_file``
         #: classmethods apply it automatically.
         self.model_version: Optional[str] = None
+        #: Every stored key plus every prefix of one that ends right before a
+        #: ``/`` or a ``-`` — exactly the paths for which "a key equals it, or
+        #: continues it after ``/`` or ``-``" holds, so :meth:`has_values_under`
+        #: is one set lookup. Built on the first question, dropped (``None``) by
+        #: every mutator via :meth:`_drop_value_index`.
+        self._value_index: Optional[set[str]] = None
 
     # --- one-call loading (SOM §21) ---------------------------------------
 
@@ -267,6 +273,7 @@ class SpecDocument:
 
     def set_content(self, path: str, value: str) -> None:
         """Sets the content string at *path*. An empty value clears it."""
+        self._drop_value_index()
         if value == "":
             self._content.pop(path, None)
         else:
@@ -283,6 +290,7 @@ class SpecDocument:
     def set_headline(self, path: str, value: str) -> None:
         """Sets the stored headline at *path*. An empty value clears it,
         returning the section to its effective default title (YRD3)."""
+        self._drop_value_index()
         if value == "":
             self._headline.pop(path, None)
         else:
@@ -307,6 +315,7 @@ class SpecDocument:
         """Sets the stored codeSpec mapping at *path* (the comma-joined list of
         CodeSpecs code locations). An empty value clears it, returning the
         section to "no code mapping" (codespecs_mapping.md §9.2)."""
+        self._drop_value_index()
         if value == "":
             self._code_spec.pop(path, None)
         else:
@@ -326,6 +335,7 @@ class SpecDocument:
     def set_form_field(self, path: str, field_name: str, value: str) -> None:
         """Sets form *field_name* at *path*. An empty value clears that field
         (and the whole form entry once its last field is gone)."""
+        self._drop_value_index()
         fields = self._form.setdefault(path, {})
         if value == "":
             fields.pop(field_name, None)
@@ -348,6 +358,7 @@ class SpecDocument:
         collision raises :class:`SpecSectionIdCollision`. Section-id
         *generation* from a ``@SectionIdPattern`` lives in the caller (it needs
         the pattern); this layer only stores and guards uniqueness."""
+        self._drop_value_index()
         if section_id is not None:
             self._assert_section_id_free(list_path, section_id, None)
         seq = self._list_seq.get(list_path, 0) + 1
@@ -371,6 +382,7 @@ class SpecDocument:
         same owning list; a collision raises :class:`SpecSectionIdCollision`.
         Assigning an id equal to the item's current id is a no-op. Raises
         :class:`ValueError` if *item_path* is not a live list item."""
+        self._drop_value_index()
         owning_list = self._owning_list_of(item_path)
         if owning_list is None:
             raise ValueError(f"{item_path!r} is not a live list item")
@@ -435,6 +447,7 @@ class SpecDocument:
         changes. A *to_index* outside ``0..len(destination without the item)``
         raises :class:`IndexError`. An anonymous item takes its positional id
         in the destination."""
+        self._drop_value_index()
         from .spec_model import SpecFieldKind
         from .spec_reflection import SpecReflection
         from .spec_section_id import effective_list_item_section_id
@@ -570,6 +583,7 @@ class SpecDocument:
         """Removes the list item at *item_path* along with every value nested
         beneath it. The counter is left untouched so future items keep getting
         fresh sequence numbers (no renumbering)."""
+        self._drop_value_index()
         owning_list: Optional[str] = None
         for key, items in self._list_items.items():
             if item_path in items:
@@ -584,6 +598,7 @@ class SpecDocument:
         return True
 
     def _purge_under(self, prefix: str) -> None:
+        self._drop_value_index()
         def is_under(key: str) -> bool:
             return (
                 key == prefix
@@ -630,22 +645,36 @@ class SpecDocument:
     def has_values_under(self, prefix: str) -> bool:
         """Whether any value exists at *prefix* or nested beneath it — the
         structural "empty = no value" test (the exact inverse of the purge
-        predicate, so emptiness and purge stay in lock-step)."""
+        predicate, so emptiness and purge stay in lock-step).
 
-        def is_under(key: str) -> bool:
-            return (
-                key == prefix
-                or key.startswith(f"{prefix}/")
-                or key.startswith(f"{prefix}-")
-            )
+        Answered from a lazily built prefix index rather than a scan of every
+        stored key: the markdown emitter, the validator and the query engine
+        ask this once per model node, and a per-question scan made rendering a
+        large specification quadratic."""
+        index = self._value_index
+        if index is None:
+            index = self._value_index = self._build_value_index()
+        return prefix in index
 
-        return (
-            any(is_under(k) for k in self._content)
-            or any(is_under(k) for k in self._form)
-            or any(is_under(k) for k in self._list_items)
-            or any(is_under(k) for k in self._headline)
-            or any(is_under(k) for k in self._code_spec)
-        )
+    def _build_value_index(self) -> set[str]:
+        index: set[str] = set()
+        for store in (
+            self._content,
+            self._form,
+            self._list_items,
+            self._headline,
+            self._code_spec,
+        ):
+            for key in store:
+                index.add(key)
+                for i, c in enumerate(key):
+                    if c == "/" or c == "-":
+                        index.add(key[:i])
+        return index
+
+    def _drop_value_index(self) -> None:
+        """Called first by every method that changes a store's key set."""
+        self._value_index = None
 
     @property
     def content_paths(self) -> Iterable[str]:
@@ -709,6 +738,7 @@ class SpecDocument:
     def load_json(self, json: dict[str, Any]) -> None:
         """Replaces every store from a :meth:`to_json`-shaped map. Coerces leaf
         values to strings and skips unknown/empty entries."""
+        self._drop_value_index()
         self._content.clear()
         self._form.clear()
         self._list_items.clear()

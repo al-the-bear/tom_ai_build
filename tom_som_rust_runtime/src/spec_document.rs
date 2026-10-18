@@ -16,7 +16,8 @@
 //! counter that never reuses a number. Stores use `BTreeMap` so iteration is
 //! already sorted by path (the byte-stable codecs rely on this).
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
+use std::sync::OnceLock;
 
 use crate::json::{encode_str, Json};
 use crate::spec_document_markdown::{
@@ -277,6 +278,20 @@ pub struct SpecDocument {
     /// functions apply it automatically. Empty means "none", matching how
     /// [`decode_yaml`](crate::decode_yaml) reports the stamp.
     pub model_version: String,
+    /// Every stored key of the five value stores (content, form, list
+    /// containers, headline, code spec) plus every prefix of one that ends
+    /// right before a `/` or a `-` — exactly the paths for which "a key equals
+    /// it, or continues it after `/` or `-`" holds, so
+    /// [`has_values_under`](SpecDocument::has_values_under) is one set lookup.
+    ///
+    /// Why: the markdown emitter, the validator and the query engine ask
+    /// `has_values_under` once per model node, and a scan of every stored key
+    /// per question made rendering a large specification quadratic. Built on
+    /// the first question and dropped by every mutator
+    /// ([`drop_value_index`](SpecDocument::drop_value_index)). A `OnceLock`
+    /// keeps the document `Send + Sync`; a clone carries an index consistent
+    /// with its cloned stores, and the first mutation of either copy drops it.
+    value_index: OnceLock<HashSet<String>>,
 }
 
 impl SpecDocument {
@@ -385,6 +400,7 @@ impl SpecDocument {
         result: &SpecMarkdownResult,
         allow_rejections: bool,
     ) -> Result<(), String> {
+        self.drop_value_index();
         if let (false, Some(first)) = (allow_rejections, result.rejections.first()) {
             return Err(format!(
                 "markdown import has {} rejected block(s); first at line {}: {}",
@@ -462,6 +478,7 @@ impl SpecDocument {
 
     /// Sets the content string at `path`. An empty value clears it.
     pub fn set_content(&mut self, path: &str, value: &str) {
+        self.drop_value_index();
         if value.is_empty() {
             self.content.remove(path);
         } else {
@@ -488,6 +505,7 @@ impl SpecDocument {
     /// Sets form `field_name` at `path`. An empty value clears that field (and
     /// the whole form entry once its last field is gone).
     pub fn set_form_field(&mut self, path: &str, field_name: &str, value: &str) {
+        self.drop_value_index();
         if value.is_empty() {
             if let Some(fields) = self.form.get_mut(path) {
                 fields.remove(field_name);
@@ -512,6 +530,7 @@ impl SpecDocument {
 
     /// Appends a new item to the list at `list_path` and returns its stable path.
     pub fn add_list_item(&mut self, list_path: &str) -> String {
+        self.drop_value_index();
         let seq = self.list_seq.get(list_path).copied().unwrap_or(0) + 1;
         self.list_seq.insert(list_path.to_string(), seq);
         let item_path = format!("{}-{}", list_path, seq);
@@ -533,6 +552,7 @@ impl SpecDocument {
         list_path: &str,
         section_id: &str,
     ) -> Result<String, SpecSectionIdError> {
+        self.drop_value_index();
         self.assert_section_id_free(list_path, section_id, "")?;
         let item_path = self.add_list_item(list_path);
         self.item_section_id
@@ -557,6 +577,7 @@ impl SpecDocument {
     /// Assigning an id equal to the item's current id is a no-op. Returns
     /// [`SpecSectionIdError::NotLiveItem`] if `item_path` is not a live list item.
     pub fn set_item_section_id(&mut self, item_path: &str, id: &str) -> Result<(), SpecSectionIdError> {
+        self.drop_value_index();
         let owning_list = match self.owning_list_of(item_path) {
             Some(k) => k,
             None => {
@@ -630,6 +651,7 @@ impl SpecDocument {
     /// fresh sequence numbers (no renumbering). Returns whether an item was
     /// removed.
     pub fn remove_list_item(&mut self, item_path: &str) -> bool {
+        self.drop_value_index();
         let owning_list = self
             .list_items
             .iter()
@@ -676,6 +698,7 @@ impl SpecDocument {
         to_index: i64,
         to_list: Option<&str>,
     ) -> Result<SpecListItemMove, SpecListMoveError> {
+        self.drop_value_index();
         let item = item_path.to_string();
         let from = match self.owning_list_of(&item) {
             Some(k) => k,
@@ -840,10 +863,12 @@ impl SpecDocument {
     /// clears *values under a section path*; removing a single list item from its
     /// owning list is [`remove_list_item`](Self::remove_list_item).
     pub fn remove_values_under(&mut self, prefix: &str) {
+        self.drop_value_index();
         self.purge_under(prefix);
     }
 
     fn purge_under(&mut self, prefix: &str) {
+        self.drop_value_index();
         self.content.retain(|k, _| !is_under(k, prefix));
         self.form.retain(|k, _| !is_under(k, prefix));
         self.list_items.retain(|k, _| !is_under(k, prefix));
@@ -870,6 +895,7 @@ impl SpecDocument {
     /// Stores a headline for the section at `path` (YRD3). An empty value
     /// clears the stored headline, reverting to the derived default heading.
     pub fn set_headline(&mut self, path: &str, value: &str) {
+        self.drop_value_index();
         if value.is_empty() {
             self.headline.remove(path);
         } else {
@@ -901,6 +927,7 @@ impl SpecDocument {
     /// Stores a codeSpec mapping for the section at `path`
     /// (codespecs_mapping.md §9.2). An empty value clears the stored mapping.
     pub fn set_code_spec(&mut self, path: &str, value: &str) {
+        self.drop_value_index();
         if value.is_empty() {
             self.code_spec.remove(path);
         } else {
@@ -928,11 +955,34 @@ impl SpecDocument {
     /// structural "empty = no value" test (the exact inverse of the purge
     /// predicate, so emptiness and purge stay in lock-step).
     pub fn has_values_under(&self, prefix: &str) -> bool {
-        self.content.keys().any(|k| is_under(k, prefix))
-            || self.form.keys().any(|k| is_under(k, prefix))
-            || self.list_items.keys().any(|k| is_under(k, prefix))
-            || self.headline.keys().any(|k| is_under(k, prefix))
-            || self.code_spec.keys().any(|k| is_under(k, prefix))
+        self.value_index
+            .get_or_init(|| self.build_value_index())
+            .contains(prefix)
+    }
+
+    fn build_value_index(&self) -> HashSet<String> {
+        let mut index = HashSet::new();
+        let keys = self
+            .content
+            .keys()
+            .chain(self.form.keys())
+            .chain(self.list_items.keys())
+            .chain(self.headline.keys())
+            .chain(self.code_spec.keys());
+        for key in keys {
+            for (i, b) in key.bytes().enumerate() {
+                if b == b'/' || b == b'-' {
+                    index.insert(key[..i].to_string());
+                }
+            }
+            index.insert(key.clone());
+        }
+        index
+    }
+
+    /// Called first by every method that changes a store's key set.
+    fn drop_value_index(&mut self) {
+        self.value_index = OnceLock::new();
     }
 
     /// Returns the content paths (sorted).
@@ -1013,6 +1063,7 @@ impl SpecDocument {
     /// Replaces every store from a `DocumentJson`-shaped value. Empty entries
     /// are skipped, mirroring the other ports' loadJson.
     pub fn load_json(&mut self, j: &DocumentJson) {
+        self.drop_value_index();
         self.content.clear();
         self.form.clear();
         self.list_items.clear();

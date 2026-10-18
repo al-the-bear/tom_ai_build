@@ -283,6 +283,7 @@ export class SpecDocument {
 
   /** Sets the content string at `path`. An empty value clears it. */
   setContent(path: string, value: string): void {
+    this._dropValueIndex();
     if (value === '') {
       this._content.delete(path);
     } else {
@@ -305,6 +306,7 @@ export class SpecDocument {
    * whole form entry once its last field is gone).
    */
   setFormField(path: string, fieldName: string, value: string): void {
+    this._dropValueIndex();
     let fields = this._form.get(path);
     if (value === '') {
       if (fields) {
@@ -336,6 +338,7 @@ export class SpecDocument {
 
   /** Sets the stored headline at `path`. An empty value clears it. */
   setHeadline(path: string, value: string): void {
+    this._dropValueIndex();
     if (value === '') {
       this._headline.delete(path);
     } else {
@@ -368,6 +371,7 @@ export class SpecDocument {
    * to "no code mapping" (codespecs_mapping.md §9.2).
    */
   setCodeSpec(path: string, value: string): void {
+    this._dropValueIndex();
     if (value === '') {
       this._codeSpec.delete(path);
     } else {
@@ -397,6 +401,7 @@ export class SpecDocument {
    * layer only stores and guards uniqueness.
    */
   addListItem(listPath: string, sectionId: string | null = null): string {
+    this._dropValueIndex();
     if (sectionId !== null && sectionId !== undefined) {
       this._assertSectionIdFree(listPath, sectionId, null);
     }
@@ -434,6 +439,7 @@ export class SpecDocument {
    * not a live list item.
    */
   setItemSectionId(itemPath: string, id: string): void {
+    this._dropValueIndex();
     const owningList = this._owningListOf(itemPath);
     if (owningList === null) {
       throw new Error(`'${itemPath}' is not a live list item`);
@@ -518,6 +524,7 @@ export class SpecDocument {
     toIndex: number,
     toList: string | null = null,
   ): SpecListItemMove {
+    this._dropValueIndex();
     const item = itemPath;
     const from = this._owningListOf(item);
     if (from === null) {
@@ -662,6 +669,7 @@ export class SpecDocument {
    * numbers (no renumbering).
    */
   removeListItem(itemPath: string): boolean {
+    this._dropValueIndex();
     let owningList: string | null = null;
     for (const [key, items] of this._listItems) {
       if (items.includes(itemPath)) {
@@ -683,6 +691,7 @@ export class SpecDocument {
   }
 
   private _purgeUnder(prefix: string): void {
+    this._dropValueIndex();
     const isUnder = (key: string): boolean =>
       key === prefix ||
       key.startsWith(`${prefix}/`) ||
@@ -737,26 +746,48 @@ export class SpecDocument {
    * emptiness and purge stay in lock-step).
    */
   hasValuesUnder(prefix: string): boolean {
-    const isUnder = (key: string): boolean =>
-      key === prefix ||
-      key.startsWith(`${prefix}/`) ||
-      key.startsWith(`${prefix}-`);
-    for (const k of this._content.keys()) {
-      if (isUnder(k)) return true;
+    if (this._valueIndex === null) {
+      this._valueIndex = this._buildValueIndex();
     }
-    for (const k of this._form.keys()) {
-      if (isUnder(k)) return true;
+    return this._valueIndex.has(prefix);
+  }
+
+  /**
+   * Every stored key plus every prefix of one that ends right before a `/` or
+   * a `-` — exactly the paths for which "a key equals it, or continues it
+   * after `/` or `-`" holds, so {@link hasValuesUnder} is one set lookup.
+   *
+   * Why: the markdown emitter, the validator and the query engine ask
+   * {@link hasValuesUnder} once per model node, and a scan of every stored key
+   * per question made rendering a large specification quadratic. Built on the
+   * first question and dropped by every mutator ({@link _dropValueIndex}).
+   */
+  private _valueIndex: Set<string> | null = null;
+
+  private _buildValueIndex(): Set<string> {
+    const index = new Set<string>();
+    const stores: Map<string, unknown>[] = [
+      this._content,
+      this._form,
+      this._listItems,
+      this._headline,
+      this._codeSpec,
+    ];
+    for (const store of stores) {
+      for (const key of store.keys()) {
+        index.add(key);
+        for (let i = 0; i < key.length; i++) {
+          const c = key.charCodeAt(i);
+          if (c === 0x2f || c === 0x2d) index.add(key.substring(0, i));
+        }
+      }
     }
-    for (const k of this._listItems.keys()) {
-      if (isUnder(k)) return true;
-    }
-    for (const k of this._headline.keys()) {
-      if (isUnder(k)) return true;
-    }
-    for (const k of this._codeSpec.keys()) {
-      if (isUnder(k)) return true;
-    }
-    return false;
+    return index;
+  }
+
+  /** Called first by every method that changes a store's key set. */
+  private _dropValueIndex(): void {
+    this._valueIndex = null;
   }
 
   get contentPaths(): Iterable<string> {
@@ -856,6 +887,7 @@ export class SpecDocument {
    * values to strings and skips unknown/empty entries.
    */
   loadJson(json: any): void {
+    this._dropValueIndex();
     this._content.clear();
     this._form.clear();
     this._listItems.clear();

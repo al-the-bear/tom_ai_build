@@ -77,6 +77,10 @@ typedef struct {
   SomStrList items;
 } DocListItems;
 
+/* Opaque lazily built prefix index behind `spec_document_has_values_under`
+ * (private to spec_document.c). */
+typedef struct SpecValueIndex SpecValueIndex;
+
 typedef struct {
   SomMap content;
   DocFormEntry *forms;
@@ -97,6 +101,12 @@ typedef struct {
                             * thread `decoded.model_version` to the typed facade
                             * by hand; the generated `<root>_load_yaml` /
                             * `<root>_load_file` functions apply it automatically. */
+  SpecValueIndex *value_index; /* owned cache, NULL until the first
+                                * `spec_document_has_values_under`; every key
+                                * of the five value stores plus every prefix of
+                                * one that ends right before a '/' or a '-'.
+                                * Dropped by every mutator, freed by
+                                * `spec_document_free`. Never touch directly. */
 } SpecDocument;
 
 void spec_document_init(SpecDocument *d);
@@ -182,6 +192,10 @@ void spec_document_set_code_spec(SpecDocument *d, const char *path,
 void spec_document_code_spec_paths(const SpecDocument *d, SomStrList *out);
 
 int spec_document_is_empty(const SpecDocument *d);
+/* Returns 1 iff a key of the content, form, list, headline or codeSpec store
+ * equals `prefix` or continues it after a '/' or a '-'. Answered by one lookup
+ * in a prefix index built on the first call and dropped by every mutator, so
+ * a caller asking once per model node stays linear. */
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix);
 
 /* Removes every value at `prefix` and beneath it — content, form entries, list

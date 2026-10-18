@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- `SpecDocument::hasValuesUnder` answers from a lazily built prefix index (every
+  stored key plus each of its prefixes ending before a `/` or a `-`) instead of
+  scanning every key of the five stores per call; every mutator drops the
+  index, and a copied or moved document never carries one along. Results are
+  unchanged; rendering, validating or querying a large document is no longer
+  quadratic. Pinned by `tests/has_values_under_index_test.cpp`.
+
 ## 1.6.1
 
 - Code fields (SOM §11.4 rule 8): a form field whose meta carries `code: true`

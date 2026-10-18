@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- `SpecDocument.hasValuesUnder` answers from a lazily built prefix index (every
+  stored key plus each of its prefixes ending before a `/` or `-`), built on
+  the first query and dropped by every mutator; rendering a large document is
+  no longer quadratic. Results are identical to the former scan.
+
 ## 1.6.1
 
 - Code fields (SOM §11.4 rule 8): a form field whose meta carries `code: true`

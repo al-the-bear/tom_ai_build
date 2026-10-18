@@ -24,6 +24,143 @@ static int is_under(const char *key, const char *prefix) {
   return key[pn] == '/' || key[pn] == '-';
 }
 
+/* ---- value index (hasValuesUnder) --------------------------------------- */
+
+/* Every stored key of the five value stores plus every prefix of one that
+ * ends right before a '/' or a '-' — exactly the paths for which "a key
+ * equals it, or continues it after '/' or '-'" holds, so
+ * `spec_document_has_values_under` is one set lookup.
+ *
+ * Why: the markdown emitter, the validator and the query engine ask once per
+ * model node, and a scan of every stored key per question made rendering a
+ * large specification quadratic. Built on the first question and dropped by
+ * every mutator (`drop_value_index`). An open-addressing hash set of owned
+ * strings (FNV-1a, power-of-two capacity, load <= 1/2). */
+struct SpecValueIndex {
+  char **slots;
+  size_t *hashes;
+  size_t cap;
+  size_t len;
+};
+
+static size_t vi_hash(const char *s, size_t n) {
+  size_t h = (size_t)1469598103934665603ULL;
+  for (size_t i = 0; i < n; i++) {
+    h ^= (unsigned char)s[i];
+    h *= (size_t)1099511628211ULL;
+  }
+  return h;
+}
+
+static void vi_free(SpecValueIndex *ix) {
+  if (ix == NULL) {
+    return;
+  }
+  for (size_t i = 0; i < ix->cap; i++) {
+    free(ix->slots[i]);
+  }
+  free(ix->slots);
+  free(ix->hashes);
+  free(ix);
+}
+
+static void vi_place(SpecValueIndex *ix, char *owned, size_t h) {
+  size_t mask = ix->cap - 1;
+  size_t i = h & mask;
+  while (ix->slots[i] != NULL) {
+    i = (i + 1) & mask;
+  }
+  ix->slots[i] = owned;
+  ix->hashes[i] = h;
+}
+
+static void vi_grow(SpecValueIndex *ix) {
+  size_t old_cap = ix->cap;
+  char **old_slots = ix->slots;
+  size_t *old_hashes = ix->hashes;
+  ix->cap = old_cap ? old_cap * 2 : 16;
+  ix->slots = (char **)calloc(ix->cap, sizeof(char *));
+  ix->hashes = (size_t *)calloc(ix->cap, sizeof(size_t));
+  for (size_t i = 0; i < old_cap; i++) {
+    if (old_slots[i] != NULL) {
+      vi_place(ix, old_slots[i], old_hashes[i]);
+    }
+  }
+  free(old_slots);
+  free(old_hashes);
+}
+
+/* Index of the slot holding the first `n` bytes of `s`, or (size_t)-1. */
+static size_t vi_find(const SpecValueIndex *ix, const char *s, size_t n,
+                      size_t h) {
+  if (ix->cap == 0) {
+    return (size_t)-1;
+  }
+  size_t mask = ix->cap - 1;
+  size_t i = h & mask;
+  while (ix->slots[i] != NULL) {
+    if (ix->hashes[i] == h && strncmp(ix->slots[i], s, n) == 0 &&
+        ix->slots[i][n] == '\0') {
+      return i;
+    }
+    i = (i + 1) & mask;
+  }
+  return (size_t)-1;
+}
+
+/* Adds the first `n` bytes of `s` (copied) unless already present. */
+static void vi_add(SpecValueIndex *ix, const char *s, size_t n) {
+  size_t h = vi_hash(s, n);
+  if (vi_find(ix, s, n, h) != (size_t)-1) {
+    return;
+  }
+  if ((ix->len + 1) * 2 > ix->cap) {
+    vi_grow(ix);
+  }
+  char *owned = (char *)malloc(n + 1);
+  memcpy(owned, s, n);
+  owned[n] = '\0';
+  vi_place(ix, owned, h);
+  ix->len++;
+}
+
+/* Adds `key` and every prefix of it that ends right before a '/' or '-'. */
+static void vi_add_key(SpecValueIndex *ix, const char *key) {
+  size_t n = strlen(key);
+  for (size_t i = 0; i < n; i++) {
+    if (key[i] == '/' || key[i] == '-') {
+      vi_add(ix, key, i);
+    }
+  }
+  vi_add(ix, key, n);
+}
+
+static SpecValueIndex *build_value_index(const SpecDocument *d) {
+  SpecValueIndex *ix = (SpecValueIndex *)calloc(1, sizeof(SpecValueIndex));
+  for (size_t i = 0; i < d->content.len; i++) {
+    vi_add_key(ix, d->content.entries[i].key);
+  }
+  for (size_t i = 0; i < d->forms_len; i++) {
+    vi_add_key(ix, d->forms[i].key);
+  }
+  for (size_t i = 0; i < d->list_items_len; i++) {
+    vi_add_key(ix, d->list_items[i].key);
+  }
+  for (size_t i = 0; i < d->headline.len; i++) {
+    vi_add_key(ix, d->headline.entries[i].key);
+  }
+  for (size_t i = 0; i < d->code_spec.len; i++) {
+    vi_add_key(ix, d->code_spec.entries[i].key);
+  }
+  return ix;
+}
+
+/* Called first by every function that changes a store's key set. */
+static void drop_value_index(SpecDocument *d) {
+  vi_free(d->value_index);
+  d->value_index = NULL;
+}
+
 /* ---- form store (byte-sorted array of DocFormEntry) --------------------- */
 
 /* Binary search; returns 1 and writes `*pos` to the index when found, else 0
@@ -478,9 +615,11 @@ void spec_document_init(SpecDocument *d) {
   som_map_init(&d->headline);
   som_map_init(&d->code_spec);
   d->model_version = NULL;
+  d->value_index = NULL;
 }
 
 void spec_document_free(SpecDocument *d) {
+  drop_value_index(d);
   som_map_free(&d->content);
   for (size_t i = 0; i < d->forms_len; i++) {
     free(d->forms[i].key);
@@ -515,6 +654,7 @@ int spec_document_has_content(const SpecDocument *d, const char *path) {
 
 void spec_document_set_content(SpecDocument *d, const char *path,
                                const char *value) {
+  drop_value_index(d);
   if (value == NULL || value[0] == '\0') {
     som_map_remove(&d->content, path);
   } else {
@@ -535,6 +675,7 @@ const char *spec_document_form_field(const SpecDocument *d, const char *path,
 
 void spec_document_set_form_field(SpecDocument *d, const char *path,
                                   const char *field_name, const char *value) {
+  drop_value_index(d);
   if (value == NULL || value[0] == '\0') {
     DocFormEntry *e = form_get(d->forms, d->forms_len, path);
     if (e != NULL) {
@@ -559,6 +700,7 @@ const SomStrList *spec_document_list_items(const SpecDocument *d,
 }
 
 char *spec_document_add_list_item(SpecDocument *d, const char *list_path) {
+  drop_value_index(d);
   long long seq = 0;
   const char *cur = som_map_get(&d->list_seq, list_path);
   if (cur != NULL) {
@@ -625,6 +767,7 @@ char *spec_document_add_list_item_with_section_id(SpecDocument *d,
                                                   const char *list_path,
                                                   const char *section_id,
                                                   SpecSectionIdError *err) {
+  drop_value_index(d);
   if (!assert_section_id_free(d, list_path, section_id, NULL, err)) {
     return NULL;
   }
@@ -640,6 +783,7 @@ const char *spec_document_item_section_id(const SpecDocument *d,
 
 int spec_document_set_item_section_id(SpecDocument *d, const char *item_path,
                                       const char *id, SpecSectionIdError *err) {
+  drop_value_index(d);
   const char *owning = owning_list_of(d, item_path);
   if (owning == NULL) {
     if (err != NULL) {
@@ -678,6 +822,7 @@ void spec_document_list_item_section_ids(const SpecDocument *d,
 }
 
 static void purge_under(SpecDocument *d, const char *prefix) {
+  drop_value_index(d);
   for (size_t i = 0; i < d->content.len;) {
     if (is_under(d->content.entries[i].key, prefix)) {
       free(d->content.entries[i].key);
@@ -754,10 +899,12 @@ static void purge_under(SpecDocument *d, const char *prefix) {
 }
 
 void spec_document_remove_values_under(SpecDocument *d, const char *prefix) {
+  drop_value_index(d);
   purge_under(d, prefix);
 }
 
 int spec_document_remove_list_item(SpecDocument *d, const char *item_path) {
+  drop_value_index(d);
   size_t owning = d->list_items_len;
   for (size_t i = 0; i < d->list_items_len && owning == d->list_items_len; i++) {
     if (som_strlist_contains(&d->list_items[i].items, item_path)) {
@@ -789,6 +936,7 @@ const char *spec_document_headline(const SpecDocument *d, const char *path) {
 
 void spec_document_set_headline(SpecDocument *d, const char *path,
                                 const char *value) {
+  drop_value_index(d);
   if (value == NULL || value[0] == '\0') {
     som_map_remove(&d->headline, path);
   } else {
@@ -811,6 +959,7 @@ const char *spec_document_code_spec(const SpecDocument *d, const char *path) {
 
 void spec_document_set_code_spec(SpecDocument *d, const char *path,
                                  const char *value) {
+  drop_value_index(d);
   if (value == NULL || value[0] == '\0') {
     som_map_remove(&d->code_spec, path);
   } else {
@@ -833,32 +982,12 @@ int spec_document_is_empty(const SpecDocument *d) {
 }
 
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix) {
-  for (size_t i = 0; i < d->content.len; i++) {
-    if (is_under(d->content.entries[i].key, prefix)) {
-      return 1;
-    }
+  if (d->value_index == NULL) {
+    /* A lazily built cache: logically const, so the query may fill it. */
+    ((SpecDocument *)d)->value_index = build_value_index(d);
   }
-  for (size_t i = 0; i < d->forms_len; i++) {
-    if (is_under(d->forms[i].key, prefix)) {
-      return 1;
-    }
-  }
-  for (size_t i = 0; i < d->list_items_len; i++) {
-    if (is_under(d->list_items[i].key, prefix)) {
-      return 1;
-    }
-  }
-  for (size_t i = 0; i < d->headline.len; i++) {
-    if (is_under(d->headline.entries[i].key, prefix)) {
-      return 1;
-    }
-  }
-  for (size_t i = 0; i < d->code_spec.len; i++) {
-    if (is_under(d->code_spec.entries[i].key, prefix)) {
-      return 1;
-    }
-  }
-  return 0;
+  size_t n = strlen(prefix);
+  return vi_find(d->value_index, prefix, n, vi_hash(prefix, n)) != (size_t)-1;
 }
 
 void spec_document_content_paths(const SpecDocument *d, SomStrList *out) {
@@ -949,6 +1078,7 @@ void spec_document_to_json(const SpecDocument *d, DocumentJson *out) {
 }
 
 void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
+  drop_value_index(d);
   /* clear all stores */
   som_map_clear(&d->content);
   for (size_t i = 0; i < d->forms_len; i++) {
@@ -1223,6 +1353,7 @@ int spec_document_move_list_item(SpecDocument *d, const SpecModel *model,
                                  const char *item_path, long long to_index,
                                  const char *to_list, SpecListItemMove *out,
                                  SpecListMoveError *err) {
+  drop_value_index(d);
   spec_list_item_move_init(out);
   const char *owning = owning_list_of(d, item_path);
   if (owning == NULL) {

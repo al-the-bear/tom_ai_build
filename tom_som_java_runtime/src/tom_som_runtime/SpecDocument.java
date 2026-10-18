@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -332,6 +333,7 @@ public final class SpecDocument {
 
   /** Sets the content string at {@code path}. An empty value clears it. */
   public void setContent(String path, String value) {
+    dropValueIndex();
     if (value.isEmpty()) {
       content.remove(path);
     } else {
@@ -355,6 +357,7 @@ public final class SpecDocument {
    * returning the section to its default title.
    */
   public void setHeadline(String path, String value) {
+    dropValueIndex();
     if (value.isEmpty()) {
       headline.remove(path);
     } else {
@@ -385,6 +388,7 @@ public final class SpecDocument {
    * to carrying no mapping.
    */
   public void setCodeSpec(String path, String value) {
+    dropValueIndex();
     if (value.isEmpty()) {
       codeSpec.remove(path);
     } else {
@@ -409,6 +413,7 @@ public final class SpecDocument {
    * (and the whole form entry once its last field is gone).
    */
   public void setFormField(String path, String fieldName, String value) {
+    dropValueIndex();
     Map<String, String> fields = form.computeIfAbsent(path, k -> new LinkedHashMap<>());
     if (value.isEmpty()) {
       fields.remove(fieldName);
@@ -443,6 +448,7 @@ public final class SpecDocument {
    * this layer only stores and guards uniqueness.
    */
   public String addListItem(String listPath, String sectionId) {
+    dropValueIndex();
     if (sectionId != null) {
       assertSectionIdFree(listPath, sectionId, null);
     }
@@ -472,6 +478,7 @@ public final class SpecDocument {
    * {@link IllegalArgumentException} if {@code itemPath} is not a live list item.
    */
   public void setItemSectionId(String itemPath, String id) {
+    dropValueIndex();
     String owningList = owningListOf(itemPath);
     if (owningList == null) {
       throw new IllegalArgumentException("\"" + itemPath + "\" is not a live list item");
@@ -555,6 +562,7 @@ public final class SpecDocument {
    */
   public SpecListItemMove moveListItem(
       SpecModel model, String itemPath, int toIndex, String toList) {
+    dropValueIndex();
     final String item = itemPath;
     final String from = owningListOf(item);
     if (from == null) {
@@ -762,6 +770,7 @@ public final class SpecDocument {
    * sequence numbers (no renumbering).
    */
   public boolean removeListItem(String itemPath) {
+    dropValueIndex();
     String owningList = null;
     for (Map.Entry<String, List<String>> e : listItems.entrySet()) {
       if (e.getValue().contains(itemPath)) {
@@ -788,6 +797,7 @@ public final class SpecDocument {
   }
 
   private void purgeUnder(String prefix) {
+    dropValueIndex();
     content.keySet().removeIf(k -> isUnder(k, prefix));
     form.keySet().removeIf(k -> isUnder(k, prefix));
     listItems.keySet().removeIf(k -> isUnder(k, prefix));
@@ -824,33 +834,49 @@ public final class SpecDocument {
    * predicate).
    */
   public boolean hasValuesUnder(String prefix) {
-    for (String k : content.keySet()) {
-      if (isUnder(k, prefix)) {
-        return true;
-      }
+    if (valueIndex == null) {
+      valueIndex = buildValueIndex();
     }
-    for (String k : form.keySet()) {
-      if (isUnder(k, prefix)) {
-        return true;
-      }
-    }
-    for (String k : listItems.keySet()) {
-      if (isUnder(k, prefix)) {
-        return true;
-      }
-    }
-    for (String k : headline.keySet()) {
-      if (isUnder(k, prefix)) {
-        return true;
-      }
-    }
-    for (String k : codeSpec.keySet()) {
-      if (isUnder(k, prefix)) {
-        return true;
-      }
-    }
-    return false;
+    return valueIndex.contains(prefix);
   }
+
+  /**
+   * Every stored key plus every prefix of one that ends right before a {@code /}
+   * or a {@code -} — exactly the paths for which "a key equals it, or continues
+   * it after {@code /} or {@code -}" holds, so {@link #hasValuesUnder} is one set
+   * lookup.
+   *
+   * <p>Why: the markdown emitter, the validator and the query engine ask
+   * {@link #hasValuesUnder} once per model node, and a scan of every stored key
+   * per question made rendering a large specification quadratic. Built on the
+   * first question and dropped by every mutator ({@link #dropValueIndex}).
+   */
+  private Set<String> valueIndex;
+
+  private Set<String> buildValueIndex() {
+    Set<String> index = new HashSet<>();
+    List<Set<String>> stores = List.of(
+        content.keySet(), form.keySet(), listItems.keySet(),
+        headline.keySet(), codeSpec.keySet());
+    for (Set<String> keys : stores) {
+      for (String key : keys) {
+        index.add(key);
+        for (int i = 0; i < key.length(); i++) {
+          char c = key.charAt(i);
+          if (c == '/' || c == '-') {
+            index.add(key.substring(0, i));
+          }
+        }
+      }
+    }
+    return index;
+  }
+
+  /** Called first by every method that changes a store's key set. */
+  private void dropValueIndex() {
+    valueIndex = null;
+  }
+
 
   public Set<String> contentPaths() {
     return content.keySet();
@@ -928,6 +954,7 @@ public final class SpecDocument {
    */
   @SuppressWarnings("unchecked")
   public void loadJson(Map<String, Object> json) {
+    dropValueIndex();
     content.clear();
     form.clear();
     listItems.clear();

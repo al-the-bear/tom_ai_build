@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.6.2
+
+- `SpecDocument.hasValuesUnder` answers from a prefix index (every stored key
+  plus each prefix ending before a `/` or `-`), built on the first question and
+  dropped by every mutator, instead of scanning every stored key per call. The
+  markdown emitter, the validator and the query engine ask it once per model
+  node, so rendering a large document was quadratic: the tom_uam Solution
+  Blueprint (about 10,000 values) took 299 s to render and `validate_spec` 6 min
+  41 s; they now take about 2 s and 10 s, with a byte-identical rendition.
+  Guarded by `spec_document_values_index_test.dart` (VI-1: agreement with a full
+  scan after every mutator; VI-2: 20,000 values and 20,000 queries under 2 s).
+
 ## 1.6.1
 
 - Code fields (SOM §11.4 rule 8): a form field whose meta carries `code: true`
