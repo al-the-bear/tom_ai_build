@@ -1943,6 +1943,14 @@ class ScreenEntry extends DocSpecsSection {
       'Primary Action',
       hint: 'Main user action on this screen',
     ),
+    Field(
+      'serverOperations',
+      String,
+      'Server Operations',
+      hint:
+          'The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)',
+      refersTo: ['SVOPE.operationName'],
+    ),
   ])
   @SerializationOrder(3)
   DocSpecsSection? traceability;
@@ -6116,6 +6124,21 @@ class ReportEntry extends DocSpecsSection {
       'Related Data Entities',
       hint: 'IFM entity references used as data sources',
     ),
+    Field(
+      'exportOperation',
+      String,
+      'Export Operation',
+      hint:
+          'The server operation that produces or exports this report — its operationName (SVOPE)',
+      refersTo: ['SVOPE.operationName'],
+    ),
+    Field(
+      'displayScreen',
+      String,
+      'Display Screen',
+      hint: 'The screen that shows this report — a screen section id (SCREN-…)',
+      refersTo: ['SCREN.@sectionId'],
+    ),
   ])
   @SerializationOrder(1)
   DocSpecsSection? identity;
@@ -7648,7 +7671,9 @@ class ReportFilterEntry extends DocSpecsSection {
       'entityType',
       String,
       'Entity Type',
-      hint: 'Referenced entity, e.g. Customer',
+      hint:
+          'The entity this filter selects — an entity name the entity registry (DAENT) declares',
+      refersTo: ['DAENT.entityName'],
     ),
     Field(
       'queryFilter',
@@ -13301,9 +13326,10 @@ class FamilyComponentRef extends DocSpecsSection {
       'componentId',
       String,
       'Component ID',
+      hint:
+          'The referenced UI component — a UI component section id (UICOM-COMP-…)',
       required: true,
-      hint: 'The referenced component — a component section id (CMPNT-COMP-…)',
-      refersTo: ['CMPNT.@sectionId'],
+      refersTo: ['UICOM.@sectionId'],
     ),
     Field(
       'familyRole',

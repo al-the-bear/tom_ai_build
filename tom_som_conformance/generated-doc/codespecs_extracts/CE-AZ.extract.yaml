@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EN", "CE-EL", "CE-FM", "CE-TX", "CE-VA", "CE-AC", "CE-SC", "CE-API", "CE-SU", "CE-DB", "CE-ST", "CE-NV", "CE-ER", "CE-CF", "CE-AU", "CE-ID", "CE-MG", "CE-LG", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 57
+    entryCount: 61
   entries:
     - sectionId: "ACID"
       headline: "ACT-01 Order Clerk"
@@ -281,6 +281,50 @@ extract:
       routedAt: "ActorEntry"
       routingNote: "an actor is the subject of authorization: its permissions seed the role matrix"
       value: "Single distribution centre"
+    - sectionId: "DCLSE-IDEN"
+      headline: "Internal"
+      instanceId: "DCLSE-ITEM-1"
+      path: "SBP/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST-1/DCLSE-IDEN"
+      className: "DataClassificationEntry"
+      fieldName: "identity"
+      formField: "classificationLevel"
+      routedBy: "CodeSpecPart.authorization"
+      routedAt: "DataClassificationEntry"
+      routingNote: null
+      value: "Internal"
+    - sectionId: "DCLSE-IDEN"
+      headline: "Internal"
+      instanceId: "DCLSE-ITEM-1"
+      path: "SBP/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST-1/DCLSE-IDEN"
+      className: "DataClassificationEntry"
+      fieldName: "identity"
+      formField: "description"
+      routedBy: "CodeSpecPart.authorization"
+      routedAt: "DataClassificationEntry"
+      routingNote: null
+      value: "Internal data of the ordering core."
+    - sectionId: "DCLSE-IDEN"
+      headline: "Confidential"
+      instanceId: "DCLSE-ITEM-2"
+      path: "SBP/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST-2/DCLSE-IDEN"
+      className: "DataClassificationEntry"
+      fieldName: "identity"
+      formField: "classificationLevel"
+      routedBy: "CodeSpecPart.authorization"
+      routedAt: "DataClassificationEntry"
+      routingNote: null
+      value: "Confidential"
+    - sectionId: "DCLSE-IDEN"
+      headline: "Confidential"
+      instanceId: "DCLSE-ITEM-2"
+      path: "SBP/informationAndDataModel/dataModel/dataClassification/DCLSE-ITEM-LST-2/DCLSE-IDEN"
+      className: "DataClassificationEntry"
+      fieldName: "identity"
+      formField: "description"
+      routedBy: "CodeSpecPart.authorization"
+      routedAt: "DataClassificationEntry"
+      routingNote: null
+      value: "Confidential data of the ordering core."
     - sectionId: "content"
       headline: null
       instanceId: "SVOPE-OPER-1"

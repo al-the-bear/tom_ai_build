@@ -69979,6 +69979,13 @@ char *component_entry_vendor_form_purpose(const ComponentEntryVendorForm *self) 
 void component_entry_vendor_form_set_purpose(ComponentEntryVendorForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "purpose", value);
 }
+char *component_entry_vendor_form_library_ref(const ComponentEntryVendorForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "libraryRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void component_entry_vendor_form_set_library_ref(ComponentEntryVendorForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "libraryRef", value);
+}
 char *component_entry_vendor_form_vendor_name(const ComponentEntryVendorForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "vendorName");
   return som_strdup(v != NULL ? v : "");
@@ -97177,6 +97184,13 @@ char *function_data_matrix_entry_content_form_content(const FunctionDataMatrixEn
 void function_data_matrix_entry_content_form_set_content(FunctionDataMatrixEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
+char *function_data_matrix_entry_content_form_function_ref(const FunctionDataMatrixEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionRef");
+  return som_strdup(v != NULL ? v : "");
+}
+void function_data_matrix_entry_content_form_set_function_ref(FunctionDataMatrixEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "functionRef", value);
+}
 char *function_data_matrix_entry_content_form_entity_name(const FunctionDataMatrixEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
   return som_strdup(v != NULL ? v : "");
@@ -104370,6 +104384,13 @@ char *interface_operation_entry_content_form_operation_id(const InterfaceOperati
 }
 void interface_operation_entry_content_form_set_operation_id(InterfaceOperationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operationId", value);
+}
+char *interface_operation_entry_content_form_server_operation(const InterfaceOperationEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void interface_operation_entry_content_form_set_server_operation(InterfaceOperationEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperation", value);
 }
 char *interface_operation_entry_content_form_http_method(const InterfaceOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "httpMethod");
@@ -133469,6 +133490,20 @@ char *report_entry_identity_form_related_data_entities(const ReportEntryIdentity
 void report_entry_identity_form_set_related_data_entities(ReportEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "relatedDataEntities", value);
 }
+char *report_entry_identity_form_export_operation(const ReportEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "exportOperation");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_entry_identity_form_set_export_operation(ReportEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "exportOperation", value);
+}
+char *report_entry_identity_form_display_screen(const ReportEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayScreen");
+  return som_strdup(v != NULL ? v : "");
+}
+void report_entry_identity_form_set_display_screen(ReportEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "displayScreen", value);
+}
 
 void report_entry_interactivity_form_init(ReportEntryInteractivityForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -142957,6 +142992,13 @@ char *screen_entry_traceability_form_primary_action(const ScreenEntryTraceabilit
 }
 void screen_entry_traceability_form_set_primary_action(ScreenEntryTraceabilityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "primaryAction", value);
+}
+char *screen_entry_traceability_form_server_operations(const ScreenEntryTraceabilityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serverOperations");
+  return som_strdup(v != NULL ? v : "");
+}
+void screen_entry_traceability_form_set_server_operations(ScreenEntryTraceabilityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "serverOperations", value);
 }
 
 void screen_field_entry_choice_options_form_init(ScreenFieldEntryChoiceOptionsForm *self, SpecDocument *doc, const char *path) {

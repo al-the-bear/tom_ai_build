@@ -142,6 +142,20 @@ void main() {
     ('TESCBU', 'businessProcessRef'): ['BPREN'],
     ('TESCTR', 'acceptanceCriterionRef'): ['DACEN'],
     ('FESTAS', 'targetStage'): ['STAGE'],
+    // uamtc8: links to the right registry. A target written `X.field` resolves
+    // against the values entries of X declare in that field.
+    ('IOE', 'serverOperation'): ['SVOPE.operationName'],
+    ('FNDMX', 'functionRef'): ['FUNCT'],
+    ('FNDMX', 'entityName'): ['DAENT.entityName'],
+    ('DAATT-SECU', 'sensitivityLevel'): ['DCLSE'],
+    ('MOENOW', 'owningContext'): ['BCE.contextName'],
+    ('CMPVD', 'libraryRef'): ['FRREEN', 'THPALI'],
+    ('FAMREF', 'componentId'): ['UICOM'],
+    ('SCETR', 'serverOperations'): ['SVOPE.operationName'],
+    ('REID', 'exportOperation'): ['SVOPE.operationName'],
+    ('REID', 'displayScreen'): ['SCREN'],
+    ('RFEIE', 'entityType'): ['DAENT.entityName'],
+    ('QLWGT', 'qualityCategory'): ['QCATE'],
   };
 
   String? formKey(String path) {
@@ -150,6 +164,30 @@ void main() {
     if (own != null) return own;
     final parent = path.substring(0, path.lastIndexOf('/'));
     return refl.resolve(parent)?.targetClass?.sectionId;
+  }
+
+  /// The registry key a table entry stands for: `X` is `X.@sectionId`.
+  String key(String target) =>
+      target.contains('.') ? target : '$target.$kSectionIdSlot';
+
+  /// A value the registry [target] declares in [doc]: an entry's section id,
+  /// or for `X.field` the value one of X's forms holds (written there when the
+  /// sample leaves it empty).
+  String declaredValue(SpecDocument doc, String target) {
+    if (!target.contains('.')) return firstId(doc, target);
+    final [registry, slot] = target.split('.');
+    for (final path in {...doc.contentPaths, ...doc.formPaths}) {
+      final parent = path.substring(0, path.lastIndexOf('/'));
+      final owner = refl.resolve(parent)?.targetClass?.sectionId;
+      if (formKey(path) != registry && owner != registry) continue;
+      final fields = refl.resolve(path)?.field?.formFields ?? const [];
+      if (!fields.any((f) => f.name == slot)) continue;
+      final value = doc.formField(path, slot);
+      if (value != null && value.trim().isNotEmpty) return value.trim();
+      doc.setFormField(path, slot, 'RS3-DECLARED');
+      return 'RS3-DECLARED';
+    }
+    throw StateError('the sample holds no $target');
   }
 
   for (final MapEntry(key: (form, field), value: targets)
@@ -173,7 +211,7 @@ void main() {
             .formFields
             .firstWhere((f) => f.name == field)
             .refersTo;
-        expect(declared, [for (final t in targets) '$t.$kSectionIdSlot']);
+        expect(declared, [for (final t in targets) key(t)]);
 
         List<SpecValidationError> dangling() => [
           for (final e in validateDocument(model, doc))
@@ -182,7 +220,7 @@ void main() {
                 e.message.contains('"$field"'))
               e,
         ];
-        final id = firstId(doc, targets.first);
+        final id = declaredValue(doc, targets.first);
         for (final path in paths) {
           doc.setFormField(path, field, id);
         }

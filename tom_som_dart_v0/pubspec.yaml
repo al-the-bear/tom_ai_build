@@ -4,7 +4,7 @@ description: >-
   Generated typed TomSpecs object model (v0). An editing facade over the
   generic tom_som_dart_runtime; see the meta-data file and DocSpecs schemas in
   this package. Regenerate with tom_specs_clitool/bin/generate_som.dart.
-version: 1.6.3
+version: 1.6.4
 repository: https://github.com/al-the-bear/tom_ai_build
 
 environment:

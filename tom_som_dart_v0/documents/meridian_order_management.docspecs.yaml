@@ -1176,7 +1176,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-2:
@@ -1194,7 +1194,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-3:
@@ -1215,7 +1215,7 @@ document:
                     OrderChannel
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-4:
@@ -1236,7 +1236,7 @@ document:
                     OrderStatus
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-5:
@@ -1254,7 +1254,7 @@ document:
                     timestamptz
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
             KEATT-KEYA-LST keyAttributes:
@@ -1309,7 +1309,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-2:
@@ -1327,7 +1327,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-3:
@@ -1345,7 +1345,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-4:
@@ -1376,7 +1376,7 @@ document:
                         quantity > 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-5:
@@ -1407,7 +1407,7 @@ document:
                         unit_price >= 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
             KEATT-KEYA-LST keyAttributes:
@@ -1475,7 +1475,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-2:
@@ -1493,7 +1493,7 @@ document:
                     varchar(200)
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Confidential
+                    DCLSE-ITEM-2
                   isPii: |2-
                     true
               DAATT-ATTR-3:
@@ -1524,7 +1524,7 @@ document:
                         credit_limit >= 0
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Confidential
+                    DCLSE-ITEM-2
                   isPii: |2-
                     false
             KEATT-KEYA-LST keyAttributes:
@@ -1579,7 +1579,7 @@ document:
                     uuid
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-2:
@@ -1612,7 +1612,7 @@ document:
                         ^[A-Z0-9]{4}-[A-Z0-9]{4}$
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
               DAATT-ATTR-3:
@@ -1630,7 +1630,7 @@ document:
                     varchar(200)
                 DAATT-SECU securityClassification:
                   sensitivityLevel: |2-
-                    Internal
+                    DCLSE-ITEM-1
                   isPii: |2-
                     false
             KEATT-KEYA-LST keyAttributes:
@@ -1732,6 +1732,24 @@ document:
               ENRLE-TARG-REF targetEntityRef:
                 ref: |2-
                   DAENT-ENTI-4
+        DATCL dataClassification:
+          DCLSE-ITEM-LST items:
+            DCLSE-ITEM-1:
+              headline: |2-
+                Internal
+              DCLSE-IDEN identity:
+                classificationLevel: |2-
+                  Internal
+                description: |2-
+                  Internal data of the ordering core.
+            DCLSE-ITEM-2:
+              headline: |2-
+                Confidential
+              DCLSE-IDEN identity:
+                classificationLevel: |2-
+                  Confidential
+                description: |2-
+                  Confidential data of the ordering core.
       DOMEN domainEnumRegistry:
         DMENE-ENUM-LST enums:
           DMENE-ENUM-1:

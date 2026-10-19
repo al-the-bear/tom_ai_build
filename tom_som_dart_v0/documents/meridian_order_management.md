@@ -1236,7 +1236,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1256,7 +1256,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1280,7 +1280,7 @@ DomainEnum: OrderChannel
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1304,7 +1304,7 @@ DomainEnum: OrderStatus
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1324,7 +1324,7 @@ PhysicalType: timestamptz
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1384,7 +1384,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1404,7 +1404,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1424,7 +1424,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1456,7 +1456,7 @@ ConstraintExpression: `quantity > 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1488,7 +1488,7 @@ ConstraintExpression: `unit_price >= 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1560,7 +1560,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1580,7 +1580,7 @@ PhysicalType: varchar(200)
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Confidential
+SensitivityLevel: DCLSE-ITEM-2
 
 IsPii: true
 
@@ -1612,7 +1612,7 @@ ConstraintExpression: `credit_limit >= 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Confidential
+SensitivityLevel: DCLSE-ITEM-2
 
 IsPii: false
 
@@ -1672,7 +1672,7 @@ PhysicalType: uuid
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1706,7 +1706,7 @@ PatternRegex: `^[A-Z0-9]{4}-[A-Z0-9]{4}$`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1726,7 +1726,7 @@ PhysicalType: varchar(200)
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
-SensitivityLevel: Internal
+SensitivityLevel: DCLSE-ITEM-1
 
 IsPii: false
 
@@ -1841,6 +1841,26 @@ Ref: DAENT-ENTI-2
 ####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
 Ref: DAENT-ENTI-4
+
+#### <!--[DATCL]--> Data Classification
+
+##### <!--[DCLSE-ITEM-LST]--> Items
+
+###### <!--[DCLSE-ITEM-1]--> Internal
+
+####### <!--[DCLSE-IDEN]--> Identity
+
+ClassificationLevel: Internal
+
+Description: Internal data of the ordering core.
+
+###### <!--[DCLSE-ITEM-2]--> Confidential
+
+####### <!--[DCLSE-IDEN]--> Identity
+
+ClassificationLevel: Confidential
+
+Description: Confidential data of the ordering core.
 
 ### <!--[DOMEN]--> Domain Enum Registry
 

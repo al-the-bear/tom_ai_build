@@ -4129,7 +4129,9 @@ class QualityWeightEntry extends DocSpecsSection {
       'qualityCategory',
       String,
       'Category',
-      hint: 'User, Technical, Operations, Documentation',
+      hint:
+          'The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)',
+      refersTo: ['QCATE.@sectionId'],
     ),
     Field(
       'weight',

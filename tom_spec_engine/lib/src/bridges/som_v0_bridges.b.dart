@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-19T21:15:52.101761 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-19T22:35:17.157952 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -328067,6 +328067,12 @@ BridgedClass _createComponentEntryVendorFormBridge() {
             'ComponentEntryVendorForm',
           )
           .purpose,
+      'libraryRef': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ComponentEntryVendorForm>(
+            target,
+            'ComponentEntryVendorForm',
+          )
+          .libraryRef,
       'vendorName': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ComponentEntryVendorForm>(
             target,
@@ -328147,6 +328153,16 @@ BridgedClass _createComponentEntryVendorFormBridge() {
             value,
             'purpose',
           ),
+      'libraryRef': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ComponentEntryVendorForm>(
+                target,
+                'ComponentEntryVendorForm',
+              )
+              .libraryRef = D4.extractBridgedArg<String>(
+            value,
+            'libraryRef',
+          ),
       'vendorName': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.ComponentEntryVendorForm>(
@@ -328206,6 +328222,7 @@ BridgedClass _createComponentEntryVendorFormBridge() {
       'content': 'String get content',
       'version': 'String get version',
       'purpose': 'String get purpose',
+      'libraryRef': 'String get libraryRef',
       'vendorName': 'String get vendorName',
       'vendorStability': 'String get vendorStability',
       'doc': 'SpecDocument get doc',
@@ -328219,6 +328236,7 @@ BridgedClass _createComponentEntryVendorFormBridge() {
       'content': 'set content(String value)',
       'version': 'set version(String value)',
       'purpose': 'set purpose(String value)',
+      'libraryRef': 'set libraryRef(String value)',
       'vendorName': 'set vendorName(String value)',
       'vendorStability': 'set vendorStability(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
@@ -460641,6 +460659,11 @@ BridgedClass _createFunctionDataMatrixEntryContentFormBridge() {
             $tom_som_dart_v0_1.FunctionDataMatrixEntryContentForm
           >(target, 'FunctionDataMatrixEntryContentForm')
           .content,
+      'functionRef': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.FunctionDataMatrixEntryContentForm
+          >(target, 'FunctionDataMatrixEntryContentForm')
+          .functionRef,
       'entityName': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.FunctionDataMatrixEntryContentForm
@@ -460706,6 +460729,15 @@ BridgedClass _createFunctionDataMatrixEntryContentFormBridge() {
               .content = D4.extractBridgedArg<String>(
             value,
             'content',
+          ),
+      'functionRef': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.FunctionDataMatrixEntryContentForm
+              >(target, 'FunctionDataMatrixEntryContentForm')
+              .functionRef = D4.extractBridgedArg<String>(
+            value,
+            'functionRef',
           ),
       'entityName': (visitor, target, value) =>
           D4
@@ -460786,6 +460818,7 @@ BridgedClass _createFunctionDataMatrixEntryContentFormBridge() {
     getterSignatures: {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
+      'functionRef': 'String get functionRef',
       'entityName': 'String get entityName',
       'accessType': 'String get accessType',
       'accessFrequency': 'String get accessFrequency',
@@ -460800,6 +460833,7 @@ BridgedClass _createFunctionDataMatrixEntryContentFormBridge() {
     },
     setterSignatures: {
       'content': 'set content(String value)',
+      'functionRef': 'set functionRef(String value)',
       'entityName': 'set entityName(String value)',
       'accessType': 'set accessType(String value)',
       'accessFrequency': 'set accessFrequency(String value)',
@@ -496067,6 +496101,11 @@ BridgedClass _createInterfaceOperationEntryContentFormBridge() {
             $tom_som_dart_v0_1.InterfaceOperationEntryContentForm
           >(target, 'InterfaceOperationEntryContentForm')
           .operationId,
+      'serverOperation': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.InterfaceOperationEntryContentForm
+          >(target, 'InterfaceOperationEntryContentForm')
+          .serverOperation,
       'httpMethod': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.InterfaceOperationEntryContentForm
@@ -496156,6 +496195,15 @@ BridgedClass _createInterfaceOperationEntryContentFormBridge() {
               .operationId = D4.extractBridgedArg<String>(
             value,
             'operationId',
+          ),
+      'serverOperation': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.InterfaceOperationEntryContentForm
+              >(target, 'InterfaceOperationEntryContentForm')
+              .serverOperation = D4.extractBridgedArg<String>(
+            value,
+            'serverOperation',
           ),
       'httpMethod': (visitor, target, value) =>
           D4
@@ -496264,6 +496312,7 @@ BridgedClass _createInterfaceOperationEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'operationId': 'String get operationId',
+      'serverOperation': 'String get serverOperation',
       'httpMethod': 'String get httpMethod',
       'path_': 'String get path_',
       'purpose': 'String get purpose',
@@ -496282,6 +496331,7 @@ BridgedClass _createInterfaceOperationEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'operationId': 'set operationId(String value)',
+      'serverOperation': 'set serverOperation(String value)',
       'httpMethod': 'set httpMethod(String value)',
       'path_': 'set path_(String value)',
       'purpose': 'set purpose(String value)',
@@ -634272,6 +634322,18 @@ BridgedClass _createReportEntryIdentityFormBridge() {
             'ReportEntryIdentityForm',
           )
           .relatedDataEntities,
+      'exportOperation': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
+            target,
+            'ReportEntryIdentityForm',
+          )
+          .exportOperation,
+      'displayScreen': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
+            target,
+            'ReportEntryIdentityForm',
+          )
+          .displayScreen,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
             target,
@@ -634370,6 +634432,26 @@ BridgedClass _createReportEntryIdentityFormBridge() {
             value,
             'relatedDataEntities',
           ),
+      'exportOperation': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
+                target,
+                'ReportEntryIdentityForm',
+              )
+              .exportOperation = D4.extractBridgedArg<String>(
+            value,
+            'exportOperation',
+          ),
+      'displayScreen': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
+                target,
+                'ReportEntryIdentityForm',
+              )
+              .displayScreen = D4.extractBridgedArg<String>(
+            value,
+            'displayScreen',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.ReportEntryIdentityForm>(
@@ -634412,6 +634494,8 @@ BridgedClass _createReportEntryIdentityFormBridge() {
       'relatedUseCases': 'String get relatedUseCases',
       'relatedBusinessProcesses': 'String get relatedBusinessProcesses',
       'relatedDataEntities': 'String get relatedDataEntities',
+      'exportOperation': 'String get exportOperation',
+      'displayScreen': 'String get displayScreen',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -634426,6 +634510,8 @@ BridgedClass _createReportEntryIdentityFormBridge() {
       'relatedUseCases': 'set relatedUseCases(String value)',
       'relatedBusinessProcesses': 'set relatedBusinessProcesses(String value)',
       'relatedDataEntities': 'set relatedDataEntities(String value)',
+      'exportOperation': 'set exportOperation(String value)',
+      'displayScreen': 'set displayScreen(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -680745,6 +680831,12 @@ BridgedClass _createScreenEntryTraceabilityFormBridge() {
             'ScreenEntryTraceabilityForm',
           )
           .primaryAction,
+      'serverOperations': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ScreenEntryTraceabilityForm>(
+            target,
+            'ScreenEntryTraceabilityForm',
+          )
+          .serverOperations,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ScreenEntryTraceabilityForm>(
             target,
@@ -680843,6 +680935,16 @@ BridgedClass _createScreenEntryTraceabilityFormBridge() {
             value,
             'primaryAction',
           ),
+      'serverOperations': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.ScreenEntryTraceabilityForm>(
+                target,
+                'ScreenEntryTraceabilityForm',
+              )
+              .serverOperations = D4.extractBridgedArg<String>(
+            value,
+            'serverOperations',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.ScreenEntryTraceabilityForm>(
@@ -680885,6 +680987,7 @@ BridgedClass _createScreenEntryTraceabilityFormBridge() {
       'relatedBusinessProcesses': 'String get relatedBusinessProcesses',
       'dataEntities': 'String get dataEntities',
       'primaryAction': 'String get primaryAction',
+      'serverOperations': 'String get serverOperations',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -680899,6 +681002,7 @@ BridgedClass _createScreenEntryTraceabilityFormBridge() {
       'relatedBusinessProcesses': 'set relatedBusinessProcesses(String value)',
       'dataEntities': 'set dataEntities(String value)',
       'primaryAction': 'set primaryAction(String value)',
+      'serverOperations': 'set serverOperations(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',

@@ -1069,6 +1069,16 @@ void _scnStep(ScenarioStepEntry s, String number, String actor, String action,
 // ---------------------------------------------------------------------------
 void _authorDataModel(D00SolutionBlueprint sbp) {
   final dm = sbp.informationAndDataModel.dataModel;
+  // Data classifications: the registry an attribute's sensitivityLevel names
+  // (`refersTo: DCLSE.@sectionId`). Their ids are the positional ones
+  // `_normalizeListItemIds` stamps, in the order of [_classificationIds].
+  for (final level in _classificationIds.keys) {
+    final c = dm.dataClassification.items.add();
+    c.$headline = level;
+    c.identity
+      ..classificationLevel = level
+      ..description = '$level data of the ordering core.';
+  }
   dm.content = _md('''
 The relational core of MOM.
 
@@ -1263,7 +1273,7 @@ void _attr(DataAttributeEntry a, String name, String column, String description,
     ..dataType = dataType
     ..physicalType = physicalType;
   a.securityClassification
-    ..sensitivityLevel = sensitivity
+    ..sensitivityLevel = _classificationIds[sensitivity]!
     ..isPii = pii ? 'true' : 'false';
 }
 
@@ -1316,6 +1326,12 @@ void _rel(EntityRelationshipEntry r, String name, String type, String descriptio
   r.sourceEntityRef.ref = _entityIds[sourceEntity]!;
   r.targetEntityRef.ref = _entityIds[targetEntity]!;
 }
+
+/// The data classifications' section ids, by level.
+const _classificationIds = {
+  'Internal': 'DCLSE-ITEM-1',
+  'Confidential': 'DCLSE-ITEM-2',
+};
 
 /// The data entities' section ids, by entity name. A reference section holds
 /// the id of the entry it names (`refersTo: DAENT.@sectionId`); the ids are the

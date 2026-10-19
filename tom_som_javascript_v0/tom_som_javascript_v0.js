@@ -70184,6 +70184,14 @@ class ComponentEntryVendorForm extends SomNode {
     this.doc.setFormField(this.path, "purpose", value);
   }
 
+  get libraryRef() {
+    return this.doc.formField(this.path, "libraryRef") || '';
+  }
+
+  set libraryRef(value) {
+    this.doc.setFormField(this.path, "libraryRef", value);
+  }
+
   get vendorName() {
     return this.doc.formField(this.path, "vendorName") || '';
   }
@@ -103278,6 +103286,14 @@ class FunctionDataMatrixEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get functionRef() {
+    return this.doc.formField(this.path, "functionRef") || '';
+  }
+
+  set functionRef(value) {
+    this.doc.setFormField(this.path, "functionRef", value);
+  }
+
   get entityName() {
     return this.doc.formField(this.path, "entityName") || '';
   }
@@ -112029,6 +112045,14 @@ class InterfaceOperationEntryContentForm extends SomNode {
 
   set operationId(value) {
     this.doc.setFormField(this.path, "operationId", value);
+  }
+
+  get serverOperation() {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value) {
+    this.doc.setFormField(this.path, "serverOperation", value);
   }
 
   get httpMethod() {
@@ -147307,6 +147331,22 @@ class ReportEntryIdentityForm extends SomNode {
   set relatedDataEntities(value) {
     this.doc.setFormField(this.path, "relatedDataEntities", value);
   }
+
+  get exportOperation() {
+    return this.doc.formField(this.path, "exportOperation") || '';
+  }
+
+  set exportOperation(value) {
+    this.doc.setFormField(this.path, "exportOperation", value);
+  }
+
+  get displayScreen() {
+    return this.doc.formField(this.path, "displayScreen") || '';
+  }
+
+  set displayScreen(value) {
+    this.doc.setFormField(this.path, "displayScreen", value);
+  }
 }
 
 // Generated section facade for the `interactivity` @Form section: its own content text followed by one typed member per form field.
@@ -158804,6 +158844,14 @@ class ScreenEntryTraceabilityForm extends SomNode {
 
   set primaryAction(value) {
     this.doc.setFormField(this.path, "primaryAction", value);
+  }
+
+  get serverOperations() {
+    return this.doc.formField(this.path, "serverOperations") || '';
+  }
+
+  set serverOperations(value) {
+    this.doc.setFormField(this.path, "serverOperations", value);
   }
 }
 

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T18:03:22.816657Z",
+  "generatedAt": "2026-10-19T20:05:57.647637Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.3+10.97bf8159",
+  "modelVersionLabel": "1.6.4+11.c6d66f15",
   "classCount": 1259,
   "rootCount": 14,
-  "modelHash": "31e0787baed0e6451806d693a694ec20fb4b85abd879059dfa6d0122d7b0ee1a",
+  "modelHash": "b0eaab09683f2ba164d24a44b361e3739c37091af56a054345de4412c9cd6b17",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -45686,6 +45686,17 @@
               "required": false
             },
             {
+              "name": "libraryRef",
+              "label": "Library",
+              "hint": "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "FRREEN.@sectionId",
+                "THPALI.@sectionId"
+              ]
+            },
+            {
               "name": "vendorName",
               "label": "Vendor / Publisher",
               "hint": "Company or organization behind the component",
@@ -49684,7 +49695,7 @@
             {
               "name": "componentRef",
               "label": "Component",
-              "hint": "The component this risk applies to — a component section id (CMPNT-COMP-…)",
+              "hint": "The components this risk applies to, comma-separated — component section ids (CMPNT-COMP-…)",
               "type": "String",
               "required": false,
               "refersTo": [
@@ -65218,9 +65229,12 @@
             {
               "name": "sensitivityLevel",
               "label": "Sensitivity Level",
-              "hint": "Public | Internal | Confidential | Restricted | PII | PHI",
+              "hint": "The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DCLSE.@sectionId"
+              ]
             },
             {
               "name": "isPii",
@@ -109604,11 +109618,11 @@
             {
               "name": "componentId",
               "label": "Component ID",
-              "hint": "The referenced component — a component section id (CMPNT-COMP-…)",
+              "hint": "The referenced UI component — a UI component section id (UICOM-COMP-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "CMPNT.@sectionId"
+                "UICOM.@sectionId"
               ]
             },
             {
@@ -115605,11 +115619,24 @@
           ],
           "formFields": [
             {
+              "name": "functionRef",
+              "label": "Function",
+              "hint": "The function accessing the entity — a function section id (FUNCT-FUNC-…)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "FUNCT.@sectionId"
+              ]
+            },
+            {
               "name": "entityName",
               "label": "Entity Name",
               "hint": "Data entity being accessed",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
             },
             {
               "name": "accessType",
@@ -133441,6 +133468,16 @@
               "hint": "The name the built interface exposes for this operation, e.g. createOrder",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "serverOperation",
+              "label": "Server Operation",
+              "hint": "The server operation this interface operation calls — its operationName in the operation registry (SVOPE); empty for an operation the protocol layer answers itself",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             },
             {
               "name": "httpMethod",
@@ -155642,9 +155679,12 @@
             {
               "name": "owningContext",
               "label": "Owning Context",
-              "hint": "Bounded context this belongs to",
+              "hint": "Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
             },
             {
               "name": "owningTeam",
@@ -196303,9 +196343,12 @@
             {
               "name": "qualityCategory",
               "label": "Category",
-              "hint": "User, Technical, Operations, Documentation",
+              "hint": "The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "QCATE.@sectionId"
+              ]
             },
             {
               "name": "weight",
@@ -203107,6 +203150,26 @@
               "hint": "IFM entity references used as data sources",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "exportOperation",
+              "label": "Export Operation",
+              "hint": "The server operation that produces or exports this report — its operationName (SVOPE)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
+            },
+            {
+              "name": "displayScreen",
+              "label": "Display Screen",
+              "hint": "The screen that shows this report — a screen section id (SCREN-…)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SCREN.@sectionId"
+              ]
             }
           ]
         },
@@ -204728,9 +204791,12 @@
             {
               "name": "entityType",
               "label": "Entity Type",
-              "hint": "Referenced entity, e.g. Customer",
+              "hint": "The entity this filter selects — an entity name the entity registry (DAENT) declares",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
             },
             {
               "name": "queryFilter",
@@ -226686,6 +226752,16 @@
               "hint": "Main user action on this screen",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "serverOperations",
+              "label": "Server Operations",
+              "hint": "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },

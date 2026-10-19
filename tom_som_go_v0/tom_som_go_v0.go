@@ -81094,6 +81094,14 @@ func (x *ComponentEntryVendorForm) SetPurpose(value string) {
 	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
+func (x *ComponentEntryVendorForm) LibraryRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "libraryRef")
+}
+
+func (x *ComponentEntryVendorForm) SetLibraryRef(value string) {
+	x.Doc().SetFormField(x.Path(), "libraryRef", value)
+}
+
 func (x *ComponentEntryVendorForm) VendorName() string {
 	return x.Doc().FormFieldOr(x.Path(), "vendorName")
 }
@@ -120881,6 +120889,14 @@ func (x *FunctionDataMatrixEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
+func (x *FunctionDataMatrixEntryContentForm) FunctionRef() string {
+	return x.Doc().FormFieldOr(x.Path(), "functionRef")
+}
+
+func (x *FunctionDataMatrixEntryContentForm) SetFunctionRef(value string) {
+	x.Doc().SetFormField(x.Path(), "functionRef", value)
+}
+
 func (x *FunctionDataMatrixEntryContentForm) EntityName() string {
 	return x.Doc().FormFieldOr(x.Path(), "entityName")
 }
@@ -131461,6 +131477,14 @@ func (x *InterfaceOperationEntryContentForm) OperationId() string {
 
 func (x *InterfaceOperationEntryContentForm) SetOperationId(value string) {
 	x.Doc().SetFormField(x.Path(), "operationId", value)
+}
+
+func (x *InterfaceOperationEntryContentForm) ServerOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperation")
+}
+
+func (x *InterfaceOperationEntryContentForm) SetServerOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperation", value)
 }
 
 func (x *InterfaceOperationEntryContentForm) HttpMethod() string {
@@ -173842,6 +173866,22 @@ func (x *ReportEntryIdentityForm) SetRelatedDataEntities(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedDataEntities", value)
 }
 
+func (x *ReportEntryIdentityForm) ExportOperation() string {
+	return x.Doc().FormFieldOr(x.Path(), "exportOperation")
+}
+
+func (x *ReportEntryIdentityForm) SetExportOperation(value string) {
+	x.Doc().SetFormField(x.Path(), "exportOperation", value)
+}
+
+func (x *ReportEntryIdentityForm) DisplayScreen() string {
+	return x.Doc().FormFieldOr(x.Path(), "displayScreen")
+}
+
+func (x *ReportEntryIdentityForm) SetDisplayScreen(value string) {
+	x.Doc().SetFormField(x.Path(), "displayScreen", value)
+}
+
 // ReportEntryInteractivityForm is the generated section facade for the `interactivity` @Form section: its own
 // content text followed by one typed member per form field.
 type ReportEntryInteractivityForm struct {
@@ -187603,6 +187643,14 @@ func (x *ScreenEntryTraceabilityForm) PrimaryAction() string {
 
 func (x *ScreenEntryTraceabilityForm) SetPrimaryAction(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryAction", value)
+}
+
+func (x *ScreenEntryTraceabilityForm) ServerOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "serverOperations")
+}
+
+func (x *ScreenEntryTraceabilityForm) SetServerOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "serverOperations", value)
 }
 
 // ScreenFieldEntryChoiceOptionsForm is the generated section facade for the `choiceOptions` @Form section: its own

@@ -33025,7 +33025,7 @@ form-types:
   daatt-secu-form:
     fields:
       - fieldname: sensitivityLevel
-        description: "Public | Internal | Confidential | Restricted | PII | PHI"
+        description: The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)
       - fieldname: isPii
         description: "Personally identifiable information: Yes | No"
       - fieldname: maskingRule
@@ -34785,7 +34785,7 @@ form-types:
   moenow-form:
     fields:
       - fieldname: owningContext
-        description: Bounded context this belongs to
+        description: "Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context"
       - fieldname: owningTeam
         description: Team responsible for this module
       - fieldname: maintainer
@@ -40717,6 +40717,8 @@ form-types:
         description: Current version in use or targeted
       - fieldname: purpose
         description: Why this component is needed in business terms
+      - fieldname: libraryRef
+        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorName
         description: Company or organization behind the component
       - fieldname: vendorStability
@@ -43323,6 +43325,8 @@ form-types:
         description: IFM entity references displayed/edited
       - fieldname: primaryAction
         description: Main user action on this screen
+      - fieldname: serverOperations
+        description: "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)"
   scenpr-form:
     fields:
       - fieldname: pageTitleResource
@@ -44373,6 +44377,10 @@ form-types:
         description: TOM references where this report is used
       - fieldname: relatedDataEntities
         description: IFM entity references used as data sources
+      - fieldname: exportOperation
+        description: The server operation that produces or exports this report — its operationName (SVOPE)
+      - fieldname: displayScreen
+        description: The screen that shows this report — a screen section id (SCREN-…)
   redaso-form:
     fields:
       - fieldname: dataSource
@@ -44688,7 +44696,7 @@ form-types:
       - fieldname: inputType
         description: Autocomplete / Dialog-Picker / Tree-Picker
       - fieldname: entityType
-        description: "Referenced entity, e.g. Customer"
+        description: The entity this filter selects — an entity name the entity registry (DAENT) declares
       - fieldname: queryFilter
         description: Restriction applied to the lookup query
       - fieldname: displayAttribute

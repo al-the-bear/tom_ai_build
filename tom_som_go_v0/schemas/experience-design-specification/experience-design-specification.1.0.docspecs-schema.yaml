@@ -3057,6 +3057,8 @@ form-types:
         description: IFM entity references displayed/edited
       - fieldname: primaryAction
         description: Main user action on this screen
+      - fieldname: serverOperations
+        description: "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)"
   scenpr-form:
     fields:
       - fieldname: pageTitleResource
@@ -3691,6 +3693,10 @@ form-types:
         description: TOM references where this report is used
       - fieldname: relatedDataEntities
         description: IFM entity references used as data sources
+      - fieldname: exportOperation
+        description: The server operation that produces or exports this report — its operationName (SVOPE)
+      - fieldname: displayScreen
+        description: The screen that shows this report — a screen section id (SCREN-…)
   redaso-form:
     fields:
       - fieldname: dataSource
@@ -4006,7 +4012,7 @@ form-types:
       - fieldname: inputType
         description: Autocomplete / Dialog-Picker / Tree-Picker
       - fieldname: entityType
-        description: "Referenced entity, e.g. Customer"
+        description: The entity this filter selects — an entity name the entity registry (DAENT) declares
       - fieldname: queryFilter
         description: Restriction applied to the lookup query
       - fieldname: displayAttribute

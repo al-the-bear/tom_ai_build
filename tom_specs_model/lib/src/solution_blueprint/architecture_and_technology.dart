@@ -6064,7 +6064,9 @@ class ModuleEntry extends DocSpecsSection {
       'owningContext',
       String,
       'Owning Context',
-      hint: 'Bounded context this belongs to',
+      hint:
+          'Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context',
+      refersTo: ['BCE.contextName'],
     ),
     Field(
       'owningTeam',

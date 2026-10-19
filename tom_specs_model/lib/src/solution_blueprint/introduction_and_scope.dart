@@ -15428,6 +15428,14 @@ class InterfaceOperationEntry extends DocSpecsSection {
           'createOrder',
     ),
     Field(
+      'serverOperation',
+      String,
+      'Server Operation',
+      hint:
+          'The server operation this interface operation calls — its operationName in the operation registry (SVOPE); empty for an operation the protocol layer answers itself',
+      refersTo: ['SVOPE.operationName'],
+    ),
+    Field(
       'httpMethod',
       String,
       'HTTP Method (GET, POST, PUT, DELETE, etc.)',

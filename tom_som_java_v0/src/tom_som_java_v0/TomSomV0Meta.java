@@ -16613,8 +16613,9 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("version", "String", "Version", false, "Current version in use or targeted", 0),
             new SomFormFieldMeta("purpose", "String", "Business Purpose", false, "Why this component is needed in business terms", 1),
-            new SomFormFieldMeta("vendorName", "String", "Vendor / Publisher", false, "Company or organization behind the component", 2),
-            new SomFormFieldMeta("vendorStability", "String", "Vendor Stability Assessment", false, "Financial health, market position, acquisition risk", 3)));
+            new SomFormFieldMeta("libraryRef", "String", "Library", false, "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once", 2, java.util.List.of(), java.util.List.of("FRREEN.@sectionId", "THPALI.@sectionId")),
+            new SomFormFieldMeta("vendorName", "String", "Vendor / Publisher", false, "Company or organization behind the component", 3),
+            new SomFormFieldMeta("vendorStability", "String", "Vendor Stability Assessment", false, "Financial health, market position, acquisition risk", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing component identity, versions, and licenses"), "connotation", "Captures the version, business purpose, vendor identity, and vendor stability for a component.")));
         out.add(n);
       }
@@ -17899,7 +17900,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentRef", "String", "Component", false, "The component this risk applies to — a component section id (CMPNT-COMP-…)", 0, java.util.List.of(), java.util.List.of("CMPNT.@sectionId"))));
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "The components this risk applies to, comma-separated — component section ids (CMPNT-COMP-…)", 0, java.util.List.of(), java.util.List.of("CMPNT.@sectionId"))));
         out.add(n);
       }
       {
@@ -25315,7 +25316,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 11;
         n.docComment = "How exposed this single attribute is, independently of its entity.\n\nSensitivity is an attribute-level fact. An otherwise ordinary customer\nrecord holds one national-identifier column, and classifying the whole\nentity at that column's level over-protects everything else while\nclassifying it at the entity's level under-protects the column. This band\nis therefore where masking, field-level encryption and audit depth are\ndecided per column. The level names it uses come from the scheme authored\nin [DataClassification]; the rules that follow from each level are stated\nthere once instead of being repeated on every attribute.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0),
+            new SomFormFieldMeta("sensitivityLevel", "String", "Sensitivity Level", false, "The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("DCLSE.@sectionId")),
             new SomFormFieldMeta("isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1),
             new SomFormFieldMeta("maskingRule", "String", "Masking Rule", false, "How to mask in logs/displays: None | Partial | Full | Hash", 2),
             new SomFormFieldMeta("encryptionLevel", "String", "Encryption Level", false, "Field-level encryption: None | Encrypted | Tokenized", 3),
@@ -41431,7 +41432,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentId", "String", "Component ID", true, "The referenced component — a component section id (CMPNT-COMP-…)", 0, java.util.List.of(), java.util.List.of("CMPNT.@sectionId")),
+            new SomFormFieldMeta("componentId", "String", "Component ID", true, "The referenced UI component — a UI component section id (UICOM-COMP-…)", 0, java.util.List.of(), java.util.List.of("UICOM.@sectionId")),
             new SomFormFieldMeta("familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 1),
             new SomFormFieldMeta("relationToOthers", "String", "Relation to Others", false, "How it relates to other family members", 2)));
         out.add(n);
@@ -43443,11 +43444,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Data entity being accessed", 0),
-            new SomFormFieldMeta("accessType", "String", "Access Type", false, "CRUD access: C | R | U | D or combinations", 1),
-            new SomFormFieldMeta("accessFrequency", "String", "Access Frequency", false, "How often function accesses this entity", 2),
-            new SomFormFieldMeta("isOwner", "String", "Is Owner", false, "Whether this function owns the entity: Yes | No", 3),
-            new SomFormFieldMeta("accessReason", "String", "Access Reason", false, "Why this function needs this access", 4)));
+            new SomFormFieldMeta("functionRef", "String", "Function", false, "The function accessing the entity — a function section id (FUNCT-FUNC-…)", 0, java.util.List.of(), java.util.List.of("FUNCT.@sectionId")),
+            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Data entity being accessed", 1, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("accessType", "String", "Access Type", false, "CRUD access: C | R | U | D or combinations", 2),
+            new SomFormFieldMeta("accessFrequency", "String", "Access Frequency", false, "How often function accesses this entity", 3),
+            new SomFormFieldMeta("isOwner", "String", "Is Owner", false, "Whether this function owns the entity: Yes | No", 4),
+            new SomFormFieldMeta("accessReason", "String", "Access Reason", false, "Why this function needs this access", 5)));
         out.add(n);
       }
       return out;
@@ -49750,14 +49752,15 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operationId", "String", "Operation ID", true, "The name the built interface exposes for this operation, e.g. createOrder", 0),
-            new SomFormFieldMeta("httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 1),
-            new SomFormFieldMeta("path", "String", "Path/Endpoint", false, "Resource path or endpoint for the operation", 2),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does", 3),
-            new SomFormFieldMeta("idempotent", "bool", "Idempotent", false, "Whether repeated calls have the same effect", 4),
-            new SomFormFieldMeta("requestFormat", "String", "Request Format", false, "Format/schema of the request payload", 5),
-            new SomFormFieldMeta("responseFormat", "String", "Response Format", false, "Format/schema of the response payload", 6),
-            new SomFormFieldMeta("paginationSupport", "bool", "Pagination Supported", false, "Whether the operation supports pagination", 7),
-            new SomFormFieldMeta("filteringSupport", "String", "Filtering/Query Parameters", false, "Supported filtering or query parameters", 8)));
+            new SomFormFieldMeta("serverOperation", "String", "Server Operation", false, "The server operation this interface operation calls — its operationName in the operation registry (SVOPE); empty for an operation the protocol layer answers itself", 1, java.util.List.of(), java.util.List.of("SVOPE.operationName")),
+            new SomFormFieldMeta("httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 2),
+            new SomFormFieldMeta("path", "String", "Path/Endpoint", false, "Resource path or endpoint for the operation", 3),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does", 4),
+            new SomFormFieldMeta("idempotent", "bool", "Idempotent", false, "Whether repeated calls have the same effect", 5),
+            new SomFormFieldMeta("requestFormat", "String", "Request Format", false, "Format/schema of the request payload", 6),
+            new SomFormFieldMeta("responseFormat", "String", "Response Format", false, "Format/schema of the response payload", 7),
+            new SomFormFieldMeta("paginationSupport", "bool", "Pagination Supported", false, "Whether the operation supports pagination", 8),
+            new SomFormFieldMeta("filteringSupport", "String", "Filtering/Query Parameters", false, "Supported filtering or query parameters", 9)));
         out.add(n);
       }
       return out;
@@ -57596,7 +57599,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Ownership information.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("owningContext", "String", "Owning Context", false, "Bounded context this belongs to", 0),
+            new SomFormFieldMeta("owningContext", "String", "Owning Context", false, "Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context", 0, java.util.List.of(), java.util.List.of("BCE.contextName")),
             new SomFormFieldMeta("owningTeam", "String", "Owning Team", false, "Team responsible for this module", 1),
             new SomFormFieldMeta("maintainer", "String", "Maintainer", false, "Primary maintainer", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Records which context, team, and maintainer own a module.")));
@@ -72478,7 +72481,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("qualityAttribute", "String", "Quality Attribute", true, null, 0),
-            new SomFormFieldMeta("qualityCategory", "String", "Category", false, "User, Technical, Operations, Documentation", 1),
+            new SomFormFieldMeta("qualityCategory", "String", "Category", false, "The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)", 1, java.util.List.of(), java.util.List.of("QCATE.@sectionId")),
             new SomFormFieldMeta("weight", "int", "Weight (1-100)", false, "Numeric weight from 1 to 100", 2),
             new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "Qualitative priority band.", 3, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this weight", 4),
@@ -74698,7 +74701,9 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("reportCategory", "String", "Report Category", false, "Operational / Analytical / Compliance / Financial / Audit", 1),
             new SomFormFieldMeta("relatedUseCases", "String", "Related Use Cases", false, "ISC references this report serves", 2),
             new SomFormFieldMeta("relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this report is used", 3),
-            new SomFormFieldMeta("relatedDataEntities", "String", "Related Data Entities", false, "IFM entity references used as data sources", 4)));
+            new SomFormFieldMeta("relatedDataEntities", "String", "Related Data Entities", false, "IFM entity references used as data sources", 4),
+            new SomFormFieldMeta("exportOperation", "String", "Export Operation", false, "The server operation that produces or exports this report — its operationName (SVOPE)", 5, java.util.List.of(), java.util.List.of("SVOPE.operationName")),
+            new SomFormFieldMeta("displayScreen", "String", "Display Screen", false, "The screen that shows this report — a screen section id (SCREN-…)", 6, java.util.List.of(), java.util.List.of("SCREN.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26514:2022 — identifies and describes information for use as a report", "ISO/IEC/IEEE 29148:2018 — traces the report to the requirements it satisfies"), "connotation", "Identity and context describing the report purpose category and related references.")));
         out.add(n);
       }
@@ -75136,7 +75141,7 @@ public final class TomSomV0Meta {
         n.docComment = "Entity-reference filter options — a promoted `@OneOf` case (csra4).\n\nPresent only for entity-reference filters; carries the lookup control and\nthe entity query that backs it. Distinct from the enumeration case\nbecause the value set is resolved from an entity, not a declared list.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("inputType", "String", "Input Type", false, "Autocomplete / Dialog-Picker / Tree-Picker", 0),
-            new SomFormFieldMeta("entityType", "String", "Entity Type", false, "Referenced entity, e.g. Customer", 1),
+            new SomFormFieldMeta("entityType", "String", "Entity Type", false, "The entity this filter selects — an entity name the entity registry (DAENT) declares", 1, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("queryFilter", "String", "Query Filter", false, "Restriction applied to the lookup query", 2),
             new SomFormFieldMeta("displayAttribute", "String", "Display Attribute", false, "Entity attribute shown to the user, e.g. name", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — form fields with input assistance and lookup", "ER modeling (Chen / Barker notation)"), "connotation", "The lookup control and backing entity query for an entity-reference report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.entityRef")));
@@ -82427,7 +82432,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this screen appears", 2),
             new SomFormFieldMeta("dataEntities", "String", "Data Entities", false, "IFM entity references displayed/edited", 3),
-            new SomFormFieldMeta("primaryAction", "String", "Primary Action", false, "Main user action on this screen", 4)));
+            new SomFormFieldMeta("primaryAction", "String", "Primary Action", false, "Main user action on this screen", 4),
+            new SomFormFieldMeta("serverOperations", "String", "Server Operations", false, "The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)", 5, java.util.List.of(), java.util.List.of("SVOPE.operationName"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-210:2019 — linkage of screens to the user tasks and requirements they serve", "ISO/IEC 25010:2023 — interaction capability traced to product requirements"), "connotation", "The traceability metadata linking a screen to the use cases, requirements, and data entities it serves.")));
         out.add(n);
       }

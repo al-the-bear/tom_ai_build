@@ -9741,7 +9741,7 @@ form-types:
   moenow-form:
     fields:
       - fieldname: owningContext
-        description: Bounded context this belongs to
+        description: "Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context"
       - fieldname: owningTeam
         description: Team responsible for this module
       - fieldname: maintainer
@@ -15673,6 +15673,8 @@ form-types:
         description: Current version in use or targeted
       - fieldname: purpose
         description: Why this component is needed in business terms
+      - fieldname: libraryRef
+        description: "The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once"
       - fieldname: vendorName
         description: Company or organization behind the component
       - fieldname: vendorStability

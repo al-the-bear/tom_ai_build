@@ -1415,7 +1415,9 @@ class DataAttributeEntry extends DocSpecsSection {
       'sensitivityLevel',
       String,
       'Sensitivity Level',
-      hint: 'Public | Internal | Confidential | Restricted | PII | PHI',
+      hint:
+          'The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)',
+      refersTo: ['DCLSE.@sectionId'],
     ),
     Field(
       'isPii',
@@ -4030,11 +4032,20 @@ class SubFunctionEntry extends DocSpecsSection {
 class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
     Field(
+      'functionRef',
+      String,
+      'Function',
+      hint:
+          'The function accessing the entity — a function section id (FUNCT-FUNC-…)',
+      refersTo: ['FUNCT.@sectionId'],
+    ),
+    Field(
       'entityName',
       String,
       'Entity Name',
       required: true,
       hint: 'Data entity being accessed',
+      refersTo: ['DAENT.entityName'],
     ),
     Field(
       'accessType',

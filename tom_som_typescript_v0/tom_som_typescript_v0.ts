@@ -69599,6 +69599,14 @@ export class ComponentEntryVendorForm extends SomNode {
     this.doc.setFormField(this.path, "purpose", value);
   }
 
+  get libraryRef(): string {
+    return this.doc.formField(this.path, "libraryRef") || '';
+  }
+
+  set libraryRef(value: string) {
+    this.doc.setFormField(this.path, "libraryRef", value);
+  }
+
   get vendorName(): string {
     return this.doc.formField(this.path, "vendorName") || '';
   }
@@ -102693,6 +102701,14 @@ export class FunctionDataMatrixEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
+  get functionRef(): string {
+    return this.doc.formField(this.path, "functionRef") || '';
+  }
+
+  set functionRef(value: string) {
+    this.doc.setFormField(this.path, "functionRef", value);
+  }
+
   get entityName(): string {
     return this.doc.formField(this.path, "entityName") || '';
   }
@@ -111444,6 +111460,14 @@ export class InterfaceOperationEntryContentForm extends SomNode {
 
   set operationId(value: string) {
     this.doc.setFormField(this.path, "operationId", value);
+  }
+
+  get serverOperation(): string {
+    return this.doc.formField(this.path, "serverOperation") || '';
+  }
+
+  set serverOperation(value: string) {
+    this.doc.setFormField(this.path, "serverOperation", value);
   }
 
   get httpMethod(): string {
@@ -146722,6 +146746,22 @@ export class ReportEntryIdentityForm extends SomNode {
   set relatedDataEntities(value: string) {
     this.doc.setFormField(this.path, "relatedDataEntities", value);
   }
+
+  get exportOperation(): string {
+    return this.doc.formField(this.path, "exportOperation") || '';
+  }
+
+  set exportOperation(value: string) {
+    this.doc.setFormField(this.path, "exportOperation", value);
+  }
+
+  get displayScreen(): string {
+    return this.doc.formField(this.path, "displayScreen") || '';
+  }
+
+  set displayScreen(value: string) {
+    this.doc.setFormField(this.path, "displayScreen", value);
+  }
 }
 
 // Generated section facade for the `interactivity` @Form section: its own content text followed by one typed member per form field.
@@ -158219,6 +158259,14 @@ export class ScreenEntryTraceabilityForm extends SomNode {
 
   set primaryAction(value: string) {
     this.doc.setFormField(this.path, "primaryAction", value);
+  }
+
+  get serverOperations(): string {
+    return this.doc.formField(this.path, "serverOperations") || '';
+  }
+
+  set serverOperations(value: string) {
+    this.doc.setFormField(this.path, "serverOperations", value);
   }
 }
 

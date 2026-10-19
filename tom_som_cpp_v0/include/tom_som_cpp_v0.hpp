@@ -41017,6 +41017,8 @@ class ComponentEntryVendorForm : public som::SomNode {
   void setVersion(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
+  std::string libraryRef() const;
+  void setLibraryRef(const std::string& value);
   std::string vendorName() const;
   void setVendorName(const std::string& value);
   std::string vendorStability() const;
@@ -52625,6 +52627,8 @@ class FunctionDataMatrixEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
+  std::string functionRef() const;
+  void setFunctionRef(const std::string& value);
   std::string entityName() const;
   void setEntityName(const std::string& value);
   std::string accessType() const;
@@ -55719,6 +55723,8 @@ class InterfaceOperationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string operationId() const;
   void setOperationId(const std::string& value);
+  std::string serverOperation() const;
+  void setServerOperation(const std::string& value);
   std::string httpMethod() const;
   void setHttpMethod(const std::string& value);
   std::string path_() const;
@@ -67907,6 +67913,10 @@ class ReportEntryIdentityForm : public som::SomNode {
   void setRelatedBusinessProcesses(const std::string& value);
   std::string relatedDataEntities() const;
   void setRelatedDataEntities(const std::string& value);
+  std::string exportOperation() const;
+  void setExportOperation(const std::string& value);
+  std::string displayScreen() const;
+  void setDisplayScreen(const std::string& value);
 };
 
 // Generated section facade for the `interactivity` @Form section: its own `content` text followed by one typed member per form field.
@@ -71953,6 +71963,8 @@ class ScreenEntryTraceabilityForm : public som::SomNode {
   void setDataEntities(const std::string& value);
   std::string primaryAction() const;
   void setPrimaryAction(const std::string& value);
+  std::string serverOperations() const;
+  void setServerOperations(const std::string& value);
 };
 
 // Generated section facade for the `choiceOptions` @Form section: its own `content` text followed by one typed member per form field.

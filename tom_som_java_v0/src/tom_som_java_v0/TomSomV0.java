@@ -74193,6 +74193,15 @@ public final class TomSomV0 {
       doc.setFormField(path, "purpose", value);
     }
 
+    public String libraryRef() {
+      String v = doc.formField(path, "libraryRef");
+      return v == null ? "" : v;
+    }
+
+    public void libraryRef(String value) {
+      doc.setFormField(path, "libraryRef", value);
+    }
+
     public String vendorName() {
       String v = doc.formField(path, "vendorName");
       return v == null ? "" : v;
@@ -111776,6 +111785,15 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
+    public String functionRef() {
+      String v = doc.formField(path, "functionRef");
+      return v == null ? "" : v;
+    }
+
+    public void functionRef(String value) {
+      doc.setFormField(path, "functionRef", value);
+    }
+
     public String entityName() {
       String v = doc.formField(path, "entityName");
       return v == null ? "" : v;
@@ -121712,6 +121730,15 @@ public final class TomSomV0 {
 
     public void operationId(String value) {
       doc.setFormField(path, "operationId", value);
+    }
+
+    public String serverOperation() {
+      String v = doc.formField(path, "serverOperation");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperation(String value) {
+      doc.setFormField(path, "serverOperation", value);
     }
 
     public String httpMethod() {
@@ -161745,6 +161772,24 @@ public final class TomSomV0 {
     public void relatedDataEntities(String value) {
       doc.setFormField(path, "relatedDataEntities", value);
     }
+
+    public String exportOperation() {
+      String v = doc.formField(path, "exportOperation");
+      return v == null ? "" : v;
+    }
+
+    public void exportOperation(String value) {
+      doc.setFormField(path, "exportOperation", value);
+    }
+
+    public String displayScreen() {
+      String v = doc.formField(path, "displayScreen");
+      return v == null ? "" : v;
+    }
+
+    public void displayScreen(String value) {
+      doc.setFormField(path, "displayScreen", value);
+    }
   }
 
   // Generated section facade for the `interactivity` @Form section: its own content
@@ -174791,6 +174836,15 @@ public final class TomSomV0 {
 
     public void primaryAction(String value) {
       doc.setFormField(path, "primaryAction", value);
+    }
+
+    public String serverOperations() {
+      String v = doc.formField(path, "serverOperations");
+      return v == null ? "" : v;
+    }
+
+    public void serverOperations(String value) {
+      doc.setFormField(path, "serverOperations", value);
     }
   }
 

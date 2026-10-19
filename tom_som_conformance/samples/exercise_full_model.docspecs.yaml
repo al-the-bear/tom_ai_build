@@ -3685,7 +3685,7 @@ document:
           FNDMX-MATR-1:
             content:
               content: Exercise form preamble.
-              entityName: "Exercise value."
+              entityName: "exercise-daent-entityname"
         BIRU-BUSI-LST businessRules:
           BIRU-BUSI-1:
             content: Exercise text.
@@ -8213,7 +8213,7 @@ document:
                 FAMREF-COMP-1:
                   content:
                     content: Exercise form preamble.
-                    componentId: "CMPNT-COMP-1"
+                    componentId: "UICOM-COMP-1"
       REDF reportDefinitions:
         content: Exercise text.
         REPENT-REPO-LST reports:

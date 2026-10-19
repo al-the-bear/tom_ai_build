@@ -61902,6 +61902,12 @@ class ComponentEntryVendorForm extends SomNode {
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
+  /// Library.
+  ///
+  /// The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once
+  String get libraryRef => doc.formField(path, 'libraryRef') ?? '';
+  set libraryRef(String value) => doc.setFormField(path, 'libraryRef', value);
+
   /// Vendor / Publisher.
   ///
   /// Company or organization behind the component
@@ -63342,7 +63348,7 @@ class ComponentRiskEntryContentForm extends SomNode {
 
   /// Component.
   ///
-  /// The component this risk applies to — a component section id (CMPNT-COMP-…)
+  /// The components this risk applies to, comma-separated — component section ids (CMPNT-COMP-…)
   String get componentRef => doc.formField(path, 'componentRef') ?? '';
   set componentRef(String value) => doc.setFormField(path, 'componentRef', value);
 }
@@ -67518,7 +67524,7 @@ class DataAttributeEntrySecurityClassificationForm extends SomNode {
 
   /// Sensitivity Level.
   ///
-  /// Public | Internal | Confidential | Restricted | PII | PHI
+  /// The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)
   String get sensitivityLevel => doc.formField(path, 'sensitivityLevel') ?? '';
   set sensitivityLevel(String value) => doc.setFormField(path, 'sensitivityLevel', value);
 
@@ -84062,7 +84068,7 @@ class FamilyComponentRefContentForm extends SomNode {
 
   /// Component ID.
   ///
-  /// The referenced component — a component section id (CMPNT-COMP-…)
+  /// The referenced UI component — a UI component section id (UICOM-COMP-…)
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get componentId => doc.formField(path, 'componentId') ?? '';
@@ -86611,6 +86617,12 @@ class FunctionDataMatrixEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
+
+  /// Function.
+  ///
+  /// The function accessing the entity — a function section id (FUNCT-FUNC-…)
+  String get functionRef => doc.formField(path, 'functionRef') ?? '';
+  set functionRef(String value) => doc.setFormField(path, 'functionRef', value);
 
   /// Entity Name.
   ///
@@ -93111,6 +93123,12 @@ class InterfaceOperationEntryContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get operationId => doc.formField(path, 'operationId') ?? '';
   set operationId(String value) => doc.setFormField(path, 'operationId', value);
+
+  /// Server Operation.
+  ///
+  /// The server operation this interface operation calls — its operationName in the operation registry (SVOPE); empty for an operation the protocol layer answers itself
+  String get serverOperation => doc.formField(path, 'serverOperation') ?? '';
+  set serverOperation(String value) => doc.setFormField(path, 'serverOperation', value);
 
   /// HTTP Method (GET, POST, PUT, DELETE, etc.).
   ///
@@ -101746,7 +101764,7 @@ class ModuleEntryOwnershipForm extends SomNode {
 
   /// Owning Context.
   ///
-  /// Bounded context this belongs to
+  /// Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context
   String get owningContext => doc.formField(path, 'owningContext') ?? '';
   set owningContext(String value) => doc.setFormField(path, 'owningContext', value);
 
@@ -116334,7 +116352,7 @@ class QualityWeightEntryContentForm extends SomNode {
 
   /// Category.
   ///
-  /// User, Technical, Operations, Documentation
+  /// The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)
   String get qualityCategory => doc.formField(path, 'qualityCategory') ?? '';
   set qualityCategory(String value) => doc.setFormField(path, 'qualityCategory', value);
 
@@ -119427,6 +119445,18 @@ class ReportEntryIdentityForm extends SomNode {
   /// IFM entity references used as data sources
   String get relatedDataEntities => doc.formField(path, 'relatedDataEntities') ?? '';
   set relatedDataEntities(String value) => doc.setFormField(path, 'relatedDataEntities', value);
+
+  /// Export Operation.
+  ///
+  /// The server operation that produces or exports this report — its operationName (SVOPE)
+  String get exportOperation => doc.formField(path, 'exportOperation') ?? '';
+  set exportOperation(String value) => doc.setFormField(path, 'exportOperation', value);
+
+  /// Display Screen.
+  ///
+  /// The screen that shows this report — a screen section id (SCREN-…)
+  String get displayScreen => doc.formField(path, 'displayScreen') ?? '';
+  set displayScreen(String value) => doc.setFormField(path, 'displayScreen', value);
 }
 
 /// Generated section facade for the `interactivity` `@Form` section:
@@ -119766,7 +119796,7 @@ class ReportFilterEntryEntityFilterOptionsForm extends SomNode {
 
   /// Entity Type.
   ///
-  /// Referenced entity, e.g. Customer
+  /// The entity this filter selects — an entity name the entity registry (DAENT) declares
   String get entityType => doc.formField(path, 'entityType') ?? '';
   set entityType(String value) => doc.setFormField(path, 'entityType', value);
 
@@ -128131,6 +128161,12 @@ class ScreenEntryTraceabilityForm extends SomNode {
   /// Main user action on this screen
   String get primaryAction => doc.formField(path, 'primaryAction') ?? '';
   set primaryAction(String value) => doc.setFormField(path, 'primaryAction', value);
+
+  /// Server Operations.
+  ///
+  /// The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)
+  String get serverOperations => doc.formField(path, 'serverOperations') ?? '';
+  set serverOperations(String value) => doc.setFormField(path, 'serverOperations', value);
 }
 
 /// Generated section facade for the `choiceOptions` `@Form` section:

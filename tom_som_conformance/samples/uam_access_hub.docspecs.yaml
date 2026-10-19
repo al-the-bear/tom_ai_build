@@ -739,8 +739,7 @@ document:
                   physicalType: |2-
                     INT AUTO_INCREMENT
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-2:
@@ -772,8 +771,7 @@ document:
                       constraintExpression: |2-
                         CONSTRAINT UNIQUE (name)
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-3:
@@ -791,8 +789,7 @@ document:
                   physicalType: |2-
                     MEDIUMTEXT
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
             KEATT-KEYA-LST keyAttributes:
@@ -848,8 +845,7 @@ document:
                   physicalType: |2-
                     INT
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-2:
@@ -881,8 +877,7 @@ document:
                       constraintExpression: |2-
                         CONSTRAINT UNIQUE (client_id, email)
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Confidential
+                  sensitivityLevel: DCLSE-ITEM-2
                   isPii: |2-
                     Yes
               DAATT-ATTR-3:
@@ -900,8 +895,7 @@ document:
                   physicalType: |2-
                     VARCHAR(512)
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Secret
+                  sensitivityLevel: DCLSE-ITEM-3
                   isPii: |2-
                     No
               DAATT-ATTR-4:
@@ -921,8 +915,7 @@ document:
                   domainEnum: |2-
                     TwoFactorType
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Confidential
+                  sensitivityLevel: DCLSE-ITEM-2
                   isPii: |2-
                     No
             KEATT-KEYA-LST keyAttributes:
@@ -991,8 +984,7 @@ document:
                   physicalType: |2-
                     VARCHAR(100)
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-2:
@@ -1010,8 +1002,7 @@ document:
                   physicalType: |2-
                     TEXT
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-3:
@@ -1030,8 +1021,7 @@ document:
                   physicalType: |2-
                     TEXT
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
             KEATT-KEYA-LST keyAttributes:
@@ -1088,8 +1078,7 @@ document:
                   physicalType: |2-
                     VARCHAR(255)
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
               DAATT-ATTR-2:
@@ -1110,8 +1099,7 @@ document:
                   domainEnum: |2-
                     TomAuthState
                 DAATT-SECU securityClassification:
-                  sensitivityLevel: |2-
-                    Internal
+                  sensitivityLevel: DCLSE-ITEM-1
                   isPii: |2-
                     No
             KEATT-KEYA-LST keyAttributes:
@@ -1225,6 +1213,32 @@ document:
                 ref: DAENT-ENTI-3
               ENRLE-TARG-REF targetEntityRef:
                 ref: DAENT-ENTI-4
+        DATCL dataClassification:
+          DCLSE-ITEM-LST items:
+            DCLSE-ITEM-1:
+              headline: |2-
+                Internal
+              DCLSE-IDEN identity:
+                classificationLevel: |2-
+                  Internal
+                description: |2-
+                  Internal data of the access hub.
+            DCLSE-ITEM-2:
+              headline: |2-
+                Confidential
+              DCLSE-IDEN identity:
+                classificationLevel: |2-
+                  Confidential
+                description: |2-
+                  Confidential data of the access hub.
+            DCLSE-ITEM-3:
+              headline: |2-
+                Secret
+              DCLSE-IDEN identity:
+                classificationLevel: |2-
+                  Secret
+                description: |2-
+                  Secret data of the access hub.
       DOMEN domainEnumRegistry:
         DMENE-ENUM-LST enums:
           DMENE-ENUM-1:

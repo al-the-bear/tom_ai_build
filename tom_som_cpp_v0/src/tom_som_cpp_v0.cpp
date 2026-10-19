@@ -36186,6 +36186,12 @@ std::string ComponentEntryVendorForm::purpose() const {
 void ComponentEntryVendorForm::setPurpose(const std::string& value) {
   doc().setFormField(path(), "purpose", value);
 }
+std::string ComponentEntryVendorForm::libraryRef() const {
+  return doc().formField(path(), "libraryRef");
+}
+void ComponentEntryVendorForm::setLibraryRef(const std::string& value) {
+  doc().setFormField(path(), "libraryRef", value);
+}
 std::string ComponentEntryVendorForm::vendorName() const {
   return doc().formField(path(), "vendorName");
 }
@@ -57858,6 +57864,12 @@ std::string FunctionDataMatrixEntryContentForm::content() const {
 void FunctionDataMatrixEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
+std::string FunctionDataMatrixEntryContentForm::functionRef() const {
+  return doc().formField(path(), "functionRef");
+}
+void FunctionDataMatrixEntryContentForm::setFunctionRef(const std::string& value) {
+  doc().setFormField(path(), "functionRef", value);
+}
 std::string FunctionDataMatrixEntryContentForm::entityName() const {
   return doc().formField(path(), "entityName");
 }
@@ -63568,6 +63580,12 @@ std::string InterfaceOperationEntryContentForm::operationId() const {
 }
 void InterfaceOperationEntryContentForm::setOperationId(const std::string& value) {
   doc().setFormField(path(), "operationId", value);
+}
+std::string InterfaceOperationEntryContentForm::serverOperation() const {
+  return doc().formField(path(), "serverOperation");
+}
+void InterfaceOperationEntryContentForm::setServerOperation(const std::string& value) {
+  doc().setFormField(path(), "serverOperation", value);
 }
 std::string InterfaceOperationEntryContentForm::httpMethod() const {
   return doc().formField(path(), "httpMethod");
@@ -86875,6 +86893,18 @@ std::string ReportEntryIdentityForm::relatedDataEntities() const {
 void ReportEntryIdentityForm::setRelatedDataEntities(const std::string& value) {
   doc().setFormField(path(), "relatedDataEntities", value);
 }
+std::string ReportEntryIdentityForm::exportOperation() const {
+  return doc().formField(path(), "exportOperation");
+}
+void ReportEntryIdentityForm::setExportOperation(const std::string& value) {
+  doc().setFormField(path(), "exportOperation", value);
+}
+std::string ReportEntryIdentityForm::displayScreen() const {
+  return doc().formField(path(), "displayScreen");
+}
+void ReportEntryIdentityForm::setDisplayScreen(const std::string& value) {
+  doc().setFormField(path(), "displayScreen", value);
+}
 
 ReportEntryInteractivityForm::ReportEntryInteractivityForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -94386,6 +94416,12 @@ std::string ScreenEntryTraceabilityForm::primaryAction() const {
 }
 void ScreenEntryTraceabilityForm::setPrimaryAction(const std::string& value) {
   doc().setFormField(path(), "primaryAction", value);
+}
+std::string ScreenEntryTraceabilityForm::serverOperations() const {
+  return doc().formField(path(), "serverOperations");
+}
+void ScreenEntryTraceabilityForm::setServerOperations(const std::string& value) {
+  doc().setFormField(path(), "serverOperations", value);
 }
 
 ScreenFieldEntryChoiceOptionsForm::ScreenFieldEntryChoiceOptionsForm(som::SpecDocument& doc, std::string path)

@@ -1360,7 +1360,7 @@ form-types:
   daatt-secu-form:
     fields:
       - fieldname: sensitivityLevel
-        description: "Public | Internal | Confidential | Restricted | PII | PHI"
+        description: The data classification this attribute falls under — a classification section id (DCLSE-ITEM-…)
       - fieldname: isPii
         description: "Personally identifiable information: Yes | No"
       - fieldname: maskingRule

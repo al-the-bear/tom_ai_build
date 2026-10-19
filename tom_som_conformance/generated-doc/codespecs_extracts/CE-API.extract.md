@@ -199,7 +199,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 17. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -271,7 +271,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 23. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -355,7 +355,7 @@ OrderChannel
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 30. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -439,7 +439,7 @@ OrderStatus
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 37. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -511,7 +511,7 @@ timestamptz
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 43. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -704,7 +704,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 60. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -776,7 +776,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 66. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -848,7 +848,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 72. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -968,7 +968,7 @@ quantity > 0
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 82. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1088,7 +1088,7 @@ unit_price >= 0
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 92. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1281,7 +1281,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 109. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1353,7 +1353,7 @@ varchar(200)
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Confidential
+DCLSE-ITEM-2
 ```
 
 ### 115. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1473,7 +1473,7 @@ credit_limit >= 0
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Confidential
+DCLSE-ITEM-2
 ```
 
 ### 125. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1666,7 +1666,7 @@ uuid
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 142. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1798,7 +1798,7 @@ required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 153. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`
@@ -1870,7 +1870,7 @@ varchar(200)
 - routing note: A persisted attribute becomes a table column; a file-reference attribute becomes a file-reference column (csra10); display/label detail feeds CE-TX/CE-ST via DisplayPropertyEntry. The attribute set also types the CE-API entity wire DTO of an entity that crosses the wire (codespecs_derivation_contract.md §3.2.11).
 
 ``` text
-Internal
+DCLSE-ITEM-1
 ```
 
 ### 159. `DAATT-SECU` — `DataAttributeEntry.securityClassification.isPii`

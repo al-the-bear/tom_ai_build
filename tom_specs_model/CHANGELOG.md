@@ -1,3 +1,18 @@
+## 1.6.4
+
+- Links to the right registry (tom_uam findings): IOE gains `serverOperation`
+  (`SVOPE.operationName`) beside the exposed `operationId`; the
+  function-to-data matrix entry gains `functionRef` (`FUNCT`) and its
+  `entityName` resolves (`DAENT.entityName`); DAATT-SECU `sensitivityLevel`
+  names a data classification (`DCLSE`); a module's `owningContext` names
+  bounded contexts (`BCE.contextName`, empty for a platform module); a component
+  gains `libraryRef` to its framework or library (`FRREEN` / `THPALI`); a
+  component risk may name several components; FAMREF `componentId` names a UI
+  component (`UICOM`, not `CMPNT`); a screen gains `serverOperations`, a report
+  `exportOperation` and `displayScreen` (`SCREN`); a report filter's
+  `entityType` names an entity; a quality weight's `qualityCategory` names its
+  category (`QCATE`). A wrong value is a `danglingReference` in every runtime.
+
 ## 1.6.3
 
 - SCCO `relatedInteractions` resolves against the interactions (`INEN`).

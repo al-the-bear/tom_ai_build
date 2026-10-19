@@ -39189,6 +39189,8 @@ char *component_entry_vendor_form_version(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_version(ComponentEntryVendorForm *self, const char *value);
 char *component_entry_vendor_form_purpose(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_purpose(ComponentEntryVendorForm *self, const char *value);
+char *component_entry_vendor_form_library_ref(const ComponentEntryVendorForm *self);
+void component_entry_vendor_form_set_library_ref(ComponentEntryVendorForm *self, const char *value);
 char *component_entry_vendor_form_vendor_name(const ComponentEntryVendorForm *self);
 void component_entry_vendor_form_set_vendor_name(ComponentEntryVendorForm *self, const char *value);
 char *component_entry_vendor_form_vendor_stability(const ComponentEntryVendorForm *self);
@@ -48865,6 +48867,8 @@ void function_data_matrix_entry_content_form_free(FunctionDataMatrixEntryContent
 // The section's own free-text content, before the form fields (owned).
 char *function_data_matrix_entry_content_form_content(const FunctionDataMatrixEntryContentForm *self);
 void function_data_matrix_entry_content_form_set_content(FunctionDataMatrixEntryContentForm *self, const char *value);
+char *function_data_matrix_entry_content_form_function_ref(const FunctionDataMatrixEntryContentForm *self);
+void function_data_matrix_entry_content_form_set_function_ref(FunctionDataMatrixEntryContentForm *self, const char *value);
 char *function_data_matrix_entry_content_form_entity_name(const FunctionDataMatrixEntryContentForm *self);
 void function_data_matrix_entry_content_form_set_entity_name(FunctionDataMatrixEntryContentForm *self, const char *value);
 char *function_data_matrix_entry_content_form_access_type(const FunctionDataMatrixEntryContentForm *self);
@@ -51434,6 +51438,8 @@ char *interface_operation_entry_content_form_content(const InterfaceOperationEnt
 void interface_operation_entry_content_form_set_content(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_operation_id(const InterfaceOperationEntryContentForm *self);
 void interface_operation_entry_content_form_set_operation_id(InterfaceOperationEntryContentForm *self, const char *value);
+char *interface_operation_entry_content_form_server_operation(const InterfaceOperationEntryContentForm *self);
+void interface_operation_entry_content_form_set_server_operation(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_http_method(const InterfaceOperationEntryContentForm *self);
 void interface_operation_entry_content_form_set_http_method(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_path(const InterfaceOperationEntryContentForm *self);
@@ -61666,6 +61672,10 @@ char *report_entry_identity_form_related_business_processes(const ReportEntryIde
 void report_entry_identity_form_set_related_business_processes(ReportEntryIdentityForm *self, const char *value);
 char *report_entry_identity_form_related_data_entities(const ReportEntryIdentityForm *self);
 void report_entry_identity_form_set_related_data_entities(ReportEntryIdentityForm *self, const char *value);
+char *report_entry_identity_form_export_operation(const ReportEntryIdentityForm *self);
+void report_entry_identity_form_set_export_operation(ReportEntryIdentityForm *self, const char *value);
+char *report_entry_identity_form_display_screen(const ReportEntryIdentityForm *self);
+void report_entry_identity_form_set_display_screen(ReportEntryIdentityForm *self, const char *value);
 
 // ReportEntryInteractivityForm is the generated section facade for the `interactivity` @Form section: its own `content` text followed by one typed member per form field.
 void report_entry_interactivity_form_init(ReportEntryInteractivityForm *self, SpecDocument *doc, const char *path);
@@ -65034,6 +65044,8 @@ char *screen_entry_traceability_form_data_entities(const ScreenEntryTraceability
 void screen_entry_traceability_form_set_data_entities(ScreenEntryTraceabilityForm *self, const char *value);
 char *screen_entry_traceability_form_primary_action(const ScreenEntryTraceabilityForm *self);
 void screen_entry_traceability_form_set_primary_action(ScreenEntryTraceabilityForm *self, const char *value);
+char *screen_entry_traceability_form_server_operations(const ScreenEntryTraceabilityForm *self);
+void screen_entry_traceability_form_set_server_operations(ScreenEntryTraceabilityForm *self, const char *value);
 
 // ScreenFieldEntryChoiceOptionsForm is the generated section facade for the `choiceOptions` @Form section: its own `content` text followed by one typed member per form field.
 void screen_field_entry_choice_options_form_init(ScreenFieldEntryChoiceOptionsForm *self, SpecDocument *doc, const char *path);

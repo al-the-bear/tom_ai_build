@@ -67433,6 +67433,14 @@ class ComponentEntryVendorForm(SomNode):
         self.doc.set_form_field(self.path, "purpose", value)
 
     @property
+    def libraryRef(self) -> str:
+        return self.doc.form_field(self.path, "libraryRef") or ""
+
+    @libraryRef.setter
+    def libraryRef(self, value):
+        self.doc.set_form_field(self.path, "libraryRef", value)
+
+    @property
     def vendorName(self) -> str:
         return self.doc.form_field(self.path, "vendorName") or ""
 
@@ -99474,6 +99482,14 @@ class FunctionDataMatrixEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
+    def functionRef(self) -> str:
+        return self.doc.form_field(self.path, "functionRef") or ""
+
+    @functionRef.setter
+    def functionRef(self, value):
+        self.doc.set_form_field(self.path, "functionRef", value)
+
+    @property
     def entityName(self) -> str:
         return self.doc.form_field(self.path, "entityName") or ""
 
@@ -107975,6 +107991,14 @@ class InterfaceOperationEntryContentForm(SomNode):
     @operationId.setter
     def operationId(self, value):
         self.doc.set_form_field(self.path, "operationId", value)
+
+    @property
+    def serverOperation(self) -> str:
+        return self.doc.form_field(self.path, "serverOperation") or ""
+
+    @serverOperation.setter
+    def serverOperation(self, value):
+        self.doc.set_form_field(self.path, "serverOperation", value)
 
     @property
     def httpMethod(self) -> str:
@@ -142279,6 +142303,22 @@ class ReportEntryIdentityForm(SomNode):
     def relatedDataEntities(self, value):
         self.doc.set_form_field(self.path, "relatedDataEntities", value)
 
+    @property
+    def exportOperation(self) -> str:
+        return self.doc.form_field(self.path, "exportOperation") or ""
+
+    @exportOperation.setter
+    def exportOperation(self, value):
+        self.doc.set_form_field(self.path, "exportOperation", value)
+
+    @property
+    def displayScreen(self) -> str:
+        return self.doc.form_field(self.path, "displayScreen") or ""
+
+    @displayScreen.setter
+    def displayScreen(self, value):
+        self.doc.set_form_field(self.path, "displayScreen", value)
+
 class ReportEntryInteractivityForm(SomNode):
     """Generated section facade for the `interactivity` @Form section: its own content text followed by one typed member per form field."""
 
@@ -153509,6 +153549,14 @@ class ScreenEntryTraceabilityForm(SomNode):
     @primaryAction.setter
     def primaryAction(self, value):
         self.doc.set_form_field(self.path, "primaryAction", value)
+
+    @property
+    def serverOperations(self) -> str:
+        return self.doc.form_field(self.path, "serverOperations") or ""
+
+    @serverOperations.setter
+    def serverOperations(self, value):
+        self.doc.set_form_field(self.path, "serverOperations", value)
 
 class ScreenFieldEntryChoiceOptionsForm(SomNode):
     """Generated section facade for the `choiceOptions` @Form section: its own content text followed by one typed member per form field."""

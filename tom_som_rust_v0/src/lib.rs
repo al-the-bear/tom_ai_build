@@ -95294,6 +95294,15 @@ impl ComponentEntryVendorForm {
         self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
     }
 
+    pub fn library_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "libraryRef")
+    }
+
+    pub fn set_library_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "libraryRef", value);
+    }
+
     pub fn vendor_name(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "vendorName")
     }
@@ -138269,6 +138278,15 @@ impl FunctionDataMatrixEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
+    pub fn function_ref(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "functionRef")
+    }
+
+    pub fn set_function_ref(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "functionRef", value);
+    }
+
     pub fn entity_name(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "entityName")
     }
@@ -149681,6 +149699,15 @@ impl InterfaceOperationEntryContentForm {
     pub fn set_operation_id(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "operationId", value);
+    }
+
+    pub fn server_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperation")
+    }
+
+    pub fn set_server_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperation", value);
     }
 
     pub fn http_method(&self) -> String {
@@ -195217,6 +195244,24 @@ impl ReportEntryIdentityForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "relatedDataEntities", value);
     }
+
+    pub fn export_operation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "exportOperation")
+    }
+
+    pub fn set_export_operation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "exportOperation", value);
+    }
+
+    pub fn display_screen(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "displayScreen")
+    }
+
+    pub fn set_display_screen(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "displayScreen", value);
+    }
 }
 
 /// ReportEntryInteractivityForm is the generated section facade for the `interactivity` @Form section: its own
@@ -210175,6 +210220,15 @@ impl ScreenEntryTraceabilityForm {
     pub fn set_primary_action(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "primaryAction", value);
+    }
+
+    pub fn server_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "serverOperations")
+    }
+
+    pub fn set_server_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "serverOperations", value);
     }
 }
 

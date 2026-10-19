@@ -717,6 +717,14 @@ class ComponentEntry extends DocSpecsSection {
       hint: 'Why this component is needed in business terms',
     ),
     Field(
+      'libraryRef',
+      String,
+      'Library',
+      hint:
+          'The framework or third-party library this component is — a framework (FRREEN-…) or library (THPALI-…) section id, so one library is described once',
+      refersTo: ['FRREEN.@sectionId', 'THPALI.@sectionId'],
+    ),
+    Field(
       'vendorName',
       String,
       'Vendor / Publisher',
@@ -2340,8 +2348,7 @@ class ComponentRiskEntry extends DocSpecsSection {
       String,
       'Component',
       hint:
-          'The component this risk applies to — a component section id '
-          '(CMPNT-COMP-…)',
+          'The components this risk applies to, comma-separated — component section ids (CMPNT-COMP-…)',
       refersTo: ['CMPNT.@sectionId'],
     ),
   ])
