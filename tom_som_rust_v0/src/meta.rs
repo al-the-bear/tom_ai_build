@@ -193,6 +193,12 @@ fn meta_children_access_control_model_selection(_s: &mut HashSet<String>) -> Vec
     ]
 }
 
+fn meta_children_access_handler_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "AccessHandlerEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "handlerName".to_string(), type_name: "String".to_string(), description: "Handler Name".to_string(), required: true, hint: "The name custom authorization requirements use to select this handler.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Short description".to_string(), required: false, hint: "What the handler decides, in business terms.".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "inputs".to_string(), type_name: "String".to_string(), description: "Inputs".to_string(), required: false, hint: "What the handler reads to decide — the caller, a resource id, the state of an object.".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_access_level_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AccessLevelEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "levelRank".to_string(), type_name: "int".to_string(), description: "Level Rank".to_string(), required: false, hint: "Numeric rank (higher = more permissions)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
@@ -1154,7 +1160,7 @@ fn meta_children_authorization_requirement_spec(s: &mut HashSet<String>) -> Vec<
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRequirementSpec".to_string(), member_name: "groupRequirement".to_string(), section_id: "AZREQ-GRUP".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Group requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "groups".to_string(), type_name: "String".to_string(), description: "Groups".to_string(), required: true, hint: "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.group".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRequirementSpec".to_string(), member_name: "entitlementRequirement".to_string(), section_id: "AZREQ-ENTL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Entitlement requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "patterns".to_string(), type_name: "String".to_string(), description: "Entitlement Patterns".to_string(), required: true, hint: "Comma-separated entitlement match patterns; the caller must match at least one".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.entitlement".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRequirementSpec".to_string(), member_name: "resourceKeyRequirement".to_string(), section_id: "AZREQ-RKEY".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Resource-key requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "resourceKey".to_string(), type_name: "String".to_string(), description: "Resource Key".to_string(), required: true, hint: "The resource key from the resource-key catalogue the caller must hold a grant on".to_string(), order: 0, enum_values: vec![], refers_to: vec!["RESKEY.resourceKey".to_string()], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.resourceKey".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "AuthorizationRequirementSpec".to_string(), member_name: "customRequirement".to_string(), section_id: "AZREQ-CUST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Custom requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "handler".to_string(), type_name: "String".to_string(), description: "Handler".to_string(), required: true, hint: "The registered access handler that decides".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "resourceId".to_string(), type_name: "String".to_string(), description: "Resource ID".to_string(), required: false, hint: "The resource id passed to the handler, where it needs one".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "decisionRule".to_string(), type_name: "String".to_string(), description: "Decision Rule".to_string(), required: true, hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.custom".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "AuthorizationRequirementSpec".to_string(), member_name: "customRequirement".to_string(), section_id: "AZREQ-CUST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Custom requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "handler".to_string(), type_name: "String".to_string(), description: "Handler".to_string(), required: true, hint: "The registered access handler that decides, by its name in the access-handler catalogue".to_string(), order: 0, enum_values: vec![], refers_to: vec!["AZHAN.handlerName".to_string()], code: false }, som::SomFormFieldMeta { name: "resourceId".to_string(), type_name: "String".to_string(), description: "Resource ID".to_string(), required: false, hint: "The resource id passed to the handler, where it needs one".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "decisionRule".to_string(), type_name: "String".to_string(), description: "Decision Rule".to_string(), required: true, hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.custom".to_string()))] }], ..som::SomMetaNode::default() }),
         meta_cx("GradedAuthorizationRequirement", s, meta_children_graded_authorization_requirement, |r, c| som::SomMetaNode {
             class_name: "GradedAuthorizationRequirement".to_string(), member_name: "gradedRequirement".to_string(), class_section_id: "AZGRD".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GradedAuthorizationRequirement".to_string(), serialization_order: Some(6), doc_comment: "Graded requirement payload — a promoted `@OneOf` case.".to_string(), class_doc_comment: "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate\n— the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)\n— and removing it by pointing the levels back at\n[AuthorizationRequirementSpec] reintroduces the cycle.".to_string(), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("AuthorizationRequirementKind.graded".to_string()))] }],
             recursive: r, children: c, ..som::SomMetaNode::default()
@@ -7718,7 +7724,7 @@ fn meta_children_graded_access_level_entry(_s: &mut HashSet<String>) -> Vec<Rc<s
         Rc::new(som::SomMetaNode { class_name: "GradedAccessLevelEntry".to_string(), member_name: "groupRequirement".to_string(), section_id: "AZLVL-GRUP".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Group requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "groups".to_string(), type_name: "String".to_string(), description: "Groups".to_string(), required: true, hint: "Comma-separated group names the caller must belong to (at least one)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("BasicAuthorizationRequirementKind.group".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "GradedAccessLevelEntry".to_string(), member_name: "entitlementRequirement".to_string(), section_id: "AZLVL-ENTL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Entitlement requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "patterns".to_string(), type_name: "String".to_string(), description: "Entitlement Patterns".to_string(), required: true, hint: "Comma-separated entitlement match patterns; the caller must match at least one".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("BasicAuthorizationRequirementKind.entitlement".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "GradedAccessLevelEntry".to_string(), member_name: "resourceKeyRequirement".to_string(), section_id: "AZLVL-RKEY".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Resource-key requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "resourceKey".to_string(), type_name: "String".to_string(), description: "Resource Key".to_string(), required: true, hint: "The resource key from the resource-key catalogue the caller must hold a grant on".to_string(), order: 0, enum_values: vec![], refers_to: vec!["RESKEY.resourceKey".to_string()], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("BasicAuthorizationRequirementKind.resourceKey".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "GradedAccessLevelEntry".to_string(), member_name: "customRequirement".to_string(), section_id: "AZLVL-CUST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Custom requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "handler".to_string(), type_name: "String".to_string(), description: "Handler".to_string(), required: true, hint: "The registered access handler that decides".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "resourceId".to_string(), type_name: "String".to_string(), description: "Resource ID".to_string(), required: false, hint: "The resource id passed to the handler, where it needs one".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "decisionRule".to_string(), type_name: "String".to_string(), description: "Decision Rule".to_string(), required: true, hint: "What the handler must decide, in business terms".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("BasicAuthorizationRequirementKind.custom".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "GradedAccessLevelEntry".to_string(), member_name: "customRequirement".to_string(), section_id: "AZLVL-CUST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Custom requirement payload — a promoted `@OneOf` case.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "handler".to_string(), type_name: "String".to_string(), description: "Handler".to_string(), required: true, hint: "The registered access handler that decides, by its name in the access-handler catalogue".to_string(), order: 0, enum_values: vec![], refers_to: vec!["AZHAN.handlerName".to_string()], code: false }, som::SomFormFieldMeta { name: "resourceId".to_string(), type_name: "String".to_string(), description: "Resource ID".to_string(), required: false, hint: "The resource id passed to the handler, where it needs one".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "decisionRule".to_string(), type_name: "String".to_string(), description: "Decision Rule".to_string(), required: true, hint: "What the handler must decide, in business terms".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("BasicAuthorizationRequirementKind.custom".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17382,6 +17388,14 @@ fn meta_children_user_authorization(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             class_name: "TenantIsolation".to_string(), member_name: "tenantIsolation".to_string(), class_section_id: "TEIS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TenantIsolation".to_string(), serialization_order: Some(7), doc_comment: "9.4.7. Tenant Isolation.".to_string(), class_doc_comment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        {
+            let mut n = som::SomMetaNode { class_name: "UserAuthorization".to_string(), member_name: "accessHandlers".to_string(), section_id: "AZHAN-HAND-LST".to_string(), section_id_pattern: "AZHAN-HAND-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AccessHandlerEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per registered access handler.".to_string(), doc_comment: "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-162 — attribute-based access control (ABAC)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of registered access handlers that decide custom authorization requirements.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("AccessHandlerEntry", s, meta_children_access_handler_entry, |r, c| som::SomMetaNode {
+                class_name: "AccessHandlerEntry".to_string(), class_section_id: "AZHAN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AccessHandlerEntry".to_string(), doc_comment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).".to_string(), class_doc_comment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -18556,6 +18570,37 @@ impl<'a> AccessControlModelSelectionNav<'a> {
 
     pub fn access_control_model_details(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControlModelDetails"))
+    }
+}
+
+/// AccessHandlerEntryNav holds the dot-notation accessors of `AccessHandlerEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct AccessHandlerEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> AccessHandlerEntryNav<'a> {
+    /// Binds a AccessHandlerEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> AccessHandlerEntryNav<'a> {
+        AccessHandlerEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -70410,6 +70455,10 @@ impl<'a> UserAuthorizationNav<'a> {
     pub fn tenant_isolation(&self) -> TenantIsolationNav<'a> {
         TenantIsolationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "tenantIsolation"))
     }
+
+    pub fn access_handlers(&self) -> som::SomListMetaRef<'a, AccessHandlerEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AZHAN-HAND-LST"), AccessHandlerEntryNav::new)
+    }
 }
 
 /// UserCategoryDefinitionNav holds the dot-notation accessors of `UserCategoryDefinition` (SOM §8).
@@ -72825,6 +72874,32 @@ impl<'a> AcceptanceStepEntryId<'a> {
 
     pub fn ASEO(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ASEO"))
+    }
+}
+
+/// AccessHandlerEntryId holds the ID-tree accessors of `AccessHandlerEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct AccessHandlerEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> AccessHandlerEntryId<'a> {
+    /// Binds a AccessHandlerEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> AccessHandlerEntryId<'a> {
+        AccessHandlerEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 
@@ -80165,6 +80240,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
     }
 
+    pub fn AZHAN_HAND_LST(&self) -> som::SomListMetaRef<'a, AccessHandlerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST"), AccessHandlerEntryId::new)
+    }
+
     pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
     }
@@ -85025,6 +85104,10 @@ impl<'a> D08SecurityAccessSpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userAuthorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
     }
 
+    pub fn AZHAN_HAND_LST(&self) -> som::SomListMetaRef<'a, AccessHandlerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userAuthorization/AZHAN-HAND-LST"), AccessHandlerEntryId::new)
+    }
+
     pub fn ENDACA_ENCR_LST(&self) -> som::SomListMetaRef<'a, EncryptedDataCategoryEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST"), EncryptedDataCategoryEntryId::new)
     }
@@ -89129,6 +89212,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn TNCS_TENA_LST(&self) -> som::SomListMetaRef<'a, TenantCustomizationEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
+    }
+
+    pub fn AZHAN_HAND_LST(&self) -> som::SomListMetaRef<'a, AccessHandlerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/AZHAN-HAND-LST"), AccessHandlerEntryId::new)
     }
 
     pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {

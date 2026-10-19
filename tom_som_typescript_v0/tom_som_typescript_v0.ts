@@ -1937,6 +1937,21 @@ export class AccessControlModelSelection extends SomNode {
   // (skipped: accessControlModelDetails has no target type)
 }
 
+// A registered access handler (form): the code that decides a custom
+// authorization requirement (`codespecs_mapping.md` §5.15).
+export class AccessHandlerEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): AccessHandlerEntryContentForm {
+    return new AccessHandlerEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // An access level entry (form).
 export class AccessLevelEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -44412,6 +44427,15 @@ export class UserAuthorization extends SomNode {
   get tenantIsolation(): TenantIsolation {
     return new TenantIsolation(this.doc, this.path + "/tenantIsolation");
   }
+
+  // 9.4.8. Access Handlers — contains 0+× Access Handler.
+  //
+  // The registry a custom authorization requirement names its handler from
+  // (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+  // requirement deciding through it resolves against it.
+  get accessHandlers(): SomList<AccessHandlerEntry> {
+    return new SomList(this.doc, this.path + "/AZHAN-HAND-LST", (d: SpecDocument, p: string) => new AccessHandlerEntry(d, p), "AZHAN-HAND-xxx");
+  }
 }
 
 // A user category definition (form).
@@ -47070,6 +47094,49 @@ export class AccessControlModelSelectionContentForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AccessHandlerEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get handlerName(): string {
+    return this.doc.formField(this.path, "handlerName") || '';
+  }
+
+  set handlerName(value: string) {
+    this.doc.setFormField(this.path, "handlerName", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get inputs(): string {
+    return this.doc.formField(this.path, "inputs") || '';
+  }
+
+  set inputs(value: string) {
+    this.doc.setFormField(this.path, "inputs", value);
   }
 }
 

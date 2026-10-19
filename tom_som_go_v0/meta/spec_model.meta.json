@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T20:05:57.647637Z",
+  "generatedAt": "2026-10-19T21:04:37.465360Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.4+11.c6d66f15",
-  "classCount": 1259,
+  "modelVersionLabel": "1.6.5+12.f8020348",
+  "classCount": 1260,
   "rootCount": 14,
-  "modelHash": "b0eaab09683f2ba164d24a44b361e3739c37091af56a054345de4412c9cd6b17",
+  "modelHash": "9a83d3bbbfabf0b31a3d2d5356912e5748569ca78dbfd358a45e6d77f4a76e39",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -2189,6 +2189,87 @@
           ],
           "contentType": "text",
           "sectionType": "TextSection"
+        }
+      ]
+    },
+    "AccessHandlerEntry": {
+      "name": "AccessHandlerEntry",
+      "sectionId": "AZHAN",
+      "doc": "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-162 — attribute-based access control (ABAC)"
+        ],
+        "connotation": "Declares a registered access handler that decides custom authorization requirements."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-162 — attribute-based access control (ABAC)"
+            ],
+            "connotation": "Declares a registered access handler that decides custom authorization requirements."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "AZHAN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "handlerName",
+              "label": "Handler Name",
+              "hint": "The name custom authorization requirements use to select this handler.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "description",
+              "label": "Short description",
+              "hint": "What the handler decides, in business terms.",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "inputs",
+              "label": "Inputs",
+              "hint": "What the handler reads to decide — the caller, a resource id, the state of an object.",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -18560,9 +18641,12 @@
             {
               "name": "handler",
               "label": "Handler",
-              "hint": "The registered access handler that decides",
+              "hint": "The registered access handler that decides, by its name in the access-handler catalogue",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "AZHAN.handlerName"
+              ]
             },
             {
               "name": "resourceId",
@@ -120454,9 +120538,12 @@
             {
               "name": "handler",
               "label": "Handler",
-              "hint": "The registered access handler that decides",
+              "hint": "The registered access handler that decides, by its name in the access-handler catalogue",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "AZHAN.handlerName"
+              ]
             },
             {
               "name": "resourceId",
@@ -290429,6 +290516,58 @@
             }
           ],
           "type": "TenantIsolation"
+        },
+        {
+          "name": "accessHandlers",
+          "kind": "list",
+          "doc": "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.",
+          "help": "Add one entry per registered access handler.",
+          "sectionId": "AZHAN-HAND-LST",
+          "sectionIdPattern": "AZHAN-HAND-xxx",
+          "standardReferences": {
+            "standards": [
+              "NIST SP 800-162 — attribute-based access control (ABAC)"
+            ],
+            "connotation": "The catalog of registered access handlers that decide custom authorization requirements."
+          },
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "NIST SP 800-162 — attribute-based access control (ABAC)"
+                ],
+                "connotation": "The catalog of registered access handlers that decide custom authorization requirements."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZHAN-HAND-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "AZHAN-HAND-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per registered access handler."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "elementType": "AccessHandlerEntry",
+          "elementIsComplex": true
         }
       ]
     },

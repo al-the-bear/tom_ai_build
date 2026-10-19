@@ -1196,6 +1196,7 @@ class AccessChannels;
 class AccessConstraintPolicies;
 class AccessControlModel;
 class AccessControlModelSelection;
+class AccessHandlerEntry;
 class AccessLevelEntry;
 class AccessLevels;
 class AccessRestrictionEntry;
@@ -2458,6 +2459,7 @@ class AcceptanceStepEntryFlowForm;
 class AcceptanceStepEntryOutcomeForm;
 class AccessConstraintPoliciesContentForm;
 class AccessControlModelSelectionContentForm;
+class AccessHandlerEntryContentForm;
 class AccessLevelEntryContentForm;
 class AccessLevelEntryGovernanceForm;
 class AccessLevelEntryPermissionsForm;
@@ -5516,6 +5518,17 @@ class AccessControlModelSelection : public som::SomNode {
   AccessControlModelSelectionContentForm content() const;
   // Access Control Model Details (text).
   // (skipped: accessControlModelDetails has no target type)
+};
+
+// A registered access handler (form): the code that decides a custom
+// authorization requirement (`codespecs_mapping.md` §5.15).
+class AccessHandlerEntry : public som::SomNode {
+ public:
+  AccessHandlerEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  AccessHandlerEntryContentForm content() const;
 };
 
 // An access level entry (form).
@@ -31772,6 +31785,13 @@ class UserAuthorization : public som::SomNode {
   RoleHierarchy roleHierarchy() const;
   // 9.4.7. Tenant Isolation.
   TenantIsolation tenantIsolation() const;
+  // 9.4.8. Access Handlers — contains 0+× Access Handler.
+  //
+  // The registry a custom authorization requirement names its handler from
+  // (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+  // requirement deciding through it resolves against it.
+  // Returns the list view; element type: AccessHandlerEntry (construct from item paths).
+  som::SomList accessHandlers() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -33191,6 +33211,22 @@ class AccessControlModelSelectionContentForm : public som::SomNode {
   void setDelegationModel(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AccessHandlerEntryContentForm : public som::SomNode {
+ public:
+  AccessHandlerEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string handlerName() const;
+  void setHandlerName(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
+  std::string inputs() const;
+  void setInputs(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

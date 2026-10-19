@@ -1132,6 +1132,7 @@ typedef struct { SomNode node; } AccessChannels;
 typedef struct { SomNode node; } AccessConstraintPolicies;
 typedef struct { SomNode node; } AccessControlModel;
 typedef struct { SomNode node; } AccessControlModelSelection;
+typedef struct { SomNode node; } AccessHandlerEntry;
 typedef struct { SomNode node; } AccessLevelEntry;
 typedef struct { SomNode node; } AccessLevels;
 typedef struct { SomNode node; } AccessRestrictionEntry;
@@ -2394,6 +2395,7 @@ typedef struct { SomNode node; } AcceptanceStepEntryFlowForm;
 typedef struct { SomNode node; } AcceptanceStepEntryOutcomeForm;
 typedef struct { SomNode node; } AccessConstraintPoliciesContentForm;
 typedef struct { SomNode node; } AccessControlModelSelectionContentForm;
+typedef struct { SomNode node; } AccessHandlerEntryContentForm;
 typedef struct { SomNode node; } AccessLevelEntryContentForm;
 typedef struct { SomNode node; } AccessLevelEntryGovernanceForm;
 typedef struct { SomNode node; } AccessLevelEntryPermissionsForm;
@@ -5443,6 +5445,18 @@ int access_control_model_selection_can_have_content(const AccessControlModelSele
 AccessControlModelSelectionContentForm access_control_model_selection_content(const AccessControlModelSelection *self);
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
+
+// A registered access handler (form): the code that decides a custom
+// authorization requirement (`codespecs_mapping.md` §5.15).
+// Binds a AccessHandlerEntry facade to a document and a path (path copied).
+void access_handler_entry_init(AccessHandlerEntry *self, SpecDocument *doc, const char *path);
+void access_handler_entry_free(AccessHandlerEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int access_handler_entry_can_have_content(const AccessHandlerEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+AccessHandlerEntryContentForm access_handler_entry_content(const AccessHandlerEntry *self);
 
 // An access level entry (form).
 // Binds a AccessLevelEntry facade to a document and a path (path copied).
@@ -31305,6 +31319,13 @@ SomList user_authorization_resource_keys(const UserAuthorization *self);
 RoleHierarchy user_authorization_role_hierarchy(const UserAuthorization *self);
 // 9.4.7. Tenant Isolation.
 TenantIsolation user_authorization_tenant_isolation(const UserAuthorization *self);
+// 9.4.8. Access Handlers — contains 0+× Access Handler.
+//
+// The registry a custom authorization requirement names its handler from
+// (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+// requirement deciding through it resolves against it.
+// Returns the list view; element type: AccessHandlerEntry (construct from item paths).
+SomList user_authorization_access_handlers(const UserAuthorization *self);
 
 // A user category definition (form).
 // Binds a UserCategoryDefinition facade to a document and a path (path copied).
@@ -32644,6 +32665,19 @@ char *access_control_model_selection_content_form_delegation_model(const AccessC
 void access_control_model_selection_content_form_set_delegation_model(AccessControlModelSelectionContentForm *self, const char *value);
 char *access_control_model_selection_content_form_notes(const AccessControlModelSelectionContentForm *self);
 void access_control_model_selection_content_form_set_notes(AccessControlModelSelectionContentForm *self, const char *value);
+
+// AccessHandlerEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void access_handler_entry_content_form_init(AccessHandlerEntryContentForm *self, SpecDocument *doc, const char *path);
+void access_handler_entry_content_form_free(AccessHandlerEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *access_handler_entry_content_form_content(const AccessHandlerEntryContentForm *self);
+void access_handler_entry_content_form_set_content(AccessHandlerEntryContentForm *self, const char *value);
+char *access_handler_entry_content_form_handler_name(const AccessHandlerEntryContentForm *self);
+void access_handler_entry_content_form_set_handler_name(AccessHandlerEntryContentForm *self, const char *value);
+char *access_handler_entry_content_form_description(const AccessHandlerEntryContentForm *self);
+void access_handler_entry_content_form_set_description(AccessHandlerEntryContentForm *self, const char *value);
+char *access_handler_entry_content_form_inputs(const AccessHandlerEntryContentForm *self);
+void access_handler_entry_content_form_set_inputs(AccessHandlerEntryContentForm *self, const char *value);
 
 // AccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void access_level_entry_content_form_init(AccessLevelEntryContentForm *self, SpecDocument *doc, const char *path);

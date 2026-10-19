@@ -37,15 +37,15 @@ make install
 c++ myapp.cpp $(pkg-config --cflags --libs tom_som_cpp_v0) -o myapp
 ```
 
-The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version 1.6.4`.
+The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version 1.6.5`.
 
-`tom_som_cpp_v0` and `tom_som_cpp_runtime` both carry version `1.6.4`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_cpp_v0` and `tom_som_cpp_runtime` both carry version `1.6.5`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
 ### Document roots
 
-Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1259 model classes are reached through it.
+Each root is a whole TomSpecs document, and the first segment of every path beneath it is its section id. Construct the root you need over a `SpecDocument`; the 1260 model classes are reached through it.
 
 | Section id | Document | Generated root type |
 | ---------- | -------- | ------------------- |
@@ -243,7 +243,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.6.4**, tracking the TomSpecs model version and matching `tom_som_cpp_runtime`. Generated surface: 14 document roots, 1259 model classes. Verify the package with:
+Version **1.6.5**, tracking the TomSpecs model version and matching `tom_som_cpp_runtime`. Generated surface: 14 document roots, 1260 model classes. Verify the package with:
 
 ```bash
 make -C ../tom_som_cpp_runtime

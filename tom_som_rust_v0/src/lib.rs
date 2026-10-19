@@ -3882,6 +3882,33 @@ impl AccessControlModelSelection {
     // (skipped: accessControlModelDetails has no target type)
 }
 
+/// A registered access handler (form): the code that decides a custom
+/// authorization requirement (`codespecs_mapping.md` §5.15).
+pub struct AccessHandlerEntry {
+    pub node: som::SomNode,
+}
+
+impl AccessHandlerEntry {
+    /// Binds a AccessHandlerEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccessHandlerEntry {
+        AccessHandlerEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> AccessHandlerEntryContentForm {
+        AccessHandlerEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// An access level entry (form).
 pub struct AccessLevelEntry {
     pub node: som::SomNode,
@@ -62424,6 +62451,20 @@ impl UserAuthorization {
     pub fn tenant_isolation(&self) -> TenantIsolation {
         TenantIsolation::new(self.node.doc(), format!("{}/{}", self.node.path(), "tenantIsolation"))
     }
+
+    /// 9.4.8. Access Handlers — contains 0+× Access Handler.
+    ///
+    /// The registry a custom authorization requirement names its handler from
+    /// (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+    /// requirement deciding through it resolves against it.
+    pub fn access_handlers(&self) -> som::SomList<AccessHandlerEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "AZHAN-HAND-LST"),
+            Box::new(AccessHandlerEntry::new),
+            "AZHAN-HAND-xxx".to_string(),
+        )
+    }
 }
 
 /// A user category definition (form).
@@ -66085,6 +66126,63 @@ impl AccessControlModelSelectionContentForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// AccessHandlerEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AccessHandlerEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl AccessHandlerEntryContentForm {
+    /// Binds a AccessHandlerEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AccessHandlerEntryContentForm {
+        AccessHandlerEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn handler_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "handlerName")
+    }
+
+    pub fn set_handler_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "handlerName", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
+    }
+
+    pub fn inputs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "inputs")
+    }
+
+    pub fn set_inputs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "inputs", value);
     }
 }
 

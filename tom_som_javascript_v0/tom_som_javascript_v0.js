@@ -1858,6 +1858,21 @@ class AccessControlModelSelection extends SomNode {
   }
 }
 
+// A registered access handler (form): the code that decides a custom
+// authorization requirement (`codespecs_mapping.md` §5.15).
+class AccessHandlerEntry extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content() {
+    return new AccessHandlerEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // An access level entry (form).
 class AccessLevelEntry extends SomNode {
   constructor(doc, path) {
@@ -44973,6 +44988,15 @@ class UserAuthorization extends SomNode {
   get tenantIsolation() {
     return new TenantIsolation(this.doc, this.path + "/tenantIsolation");
   }
+
+  // 9.4.8. Access Handlers — contains 0+× Access Handler.
+  //
+  // The registry a custom authorization requirement names its handler from
+  // (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+  // requirement deciding through it resolves against it.
+  get accessHandlers() {
+    return new SomList(this.doc, this.path + "/AZHAN-HAND-LST", (d, p) => new AccessHandlerEntry(d, p), "AZHAN-HAND-xxx");
+  }
 }
 
 // A user category definition (form).
@@ -47655,6 +47679,49 @@ class AccessControlModelSelectionContentForm extends SomNode {
 
   set notes(value) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+class AccessHandlerEntryContentForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get handlerName() {
+    return this.doc.formField(this.path, "handlerName") || '';
+  }
+
+  set handlerName(value) {
+    this.doc.setFormField(this.path, "handlerName", value);
+  }
+
+  get description() {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value) {
+    this.doc.setFormField(this.path, "description", value);
+  }
+
+  get inputs() {
+    return this.doc.formField(this.path, "inputs") || '';
+  }
+
+  set inputs(value) {
+    this.doc.setFormField(this.path, "inputs", value);
   }
 }
 
@@ -196607,6 +196674,7 @@ module.exports = {
   AccessConstraintPolicies,
   AccessControlModel,
   AccessControlModelSelection,
+  AccessHandlerEntry,
   AccessLevelEntry,
   AccessLevels,
   AccessRestrictionEntry,
@@ -197869,6 +197937,7 @@ module.exports = {
   AcceptanceStepEntryOutcomeForm,
   AccessConstraintPoliciesContentForm,
   AccessControlModelSelectionContentForm,
+  AccessHandlerEntryContentForm,
   AccessLevelEntryContentForm,
   AccessLevelEntryGovernanceForm,
   AccessLevelEntryPermissionsForm,

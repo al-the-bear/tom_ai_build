@@ -841,6 +841,12 @@ AccessControlModelSelectionContentForm AccessControlModelSelection::content() co
   return AccessControlModelSelectionContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+AccessHandlerEntry::AccessHandlerEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+AccessHandlerEntryContentForm AccessHandlerEntry::content() const {
+  return AccessHandlerEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 AccessLevelEntry::AccessLevelEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AccessLevelEntryContentForm AccessLevelEntry::content() const {
@@ -19910,6 +19916,9 @@ RoleHierarchy UserAuthorization::roleHierarchy() const {
 TenantIsolation UserAuthorization::tenantIsolation() const {
   return TenantIsolation(doc(), som::joinPath(path(), "tenantIsolation"));
 }
+som::SomList UserAuthorization::accessHandlers() const {
+  return som::SomList(doc(), som::joinPath(path(), "AZHAN-HAND-LST"), "AZHAN-HAND-xxx");
+}
 
 UserCategoryDefinition::UserCategoryDefinition(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -21294,6 +21303,33 @@ std::string AccessControlModelSelectionContentForm::notes() const {
 }
 void AccessControlModelSelectionContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+AccessHandlerEntryContentForm::AccessHandlerEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AccessHandlerEntryContentForm::content() const {
+  return doc().content(path());
+}
+void AccessHandlerEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AccessHandlerEntryContentForm::handlerName() const {
+  return doc().formField(path(), "handlerName");
+}
+void AccessHandlerEntryContentForm::setHandlerName(const std::string& value) {
+  doc().setFormField(path(), "handlerName", value);
+}
+std::string AccessHandlerEntryContentForm::description() const {
+  return doc().formField(path(), "description");
+}
+void AccessHandlerEntryContentForm::setDescription(const std::string& value) {
+  doc().setFormField(path(), "description", value);
+}
+std::string AccessHandlerEntryContentForm::inputs() const {
+  return doc().formField(path(), "inputs");
+}
+void AccessHandlerEntryContentForm::setInputs(const std::string& value) {
+  doc().setFormField(path(), "inputs", value);
 }
 
 AccessLevelEntryContentForm::AccessLevelEntryContentForm(som::SpecDocument& doc, std::string path)

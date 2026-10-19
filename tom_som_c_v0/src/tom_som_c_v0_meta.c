@@ -68,6 +68,7 @@ static SomMetaNode **meta_children_access_channels(SomStrList *stack, size_t *le
 static SomMetaNode **meta_children_access_constraint_policies(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_access_control_model(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_access_control_model_selection(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_access_handler_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_access_level_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_access_levels(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_access_restriction_entry(SomStrList *stack, size_t *len);
@@ -1361,6 +1362,7 @@ static void meta_build_access_control_model_authorization(SomMetaNode *n);
 static void meta_build_access_control_model_role_matrix(SomMetaNode *n);
 static void meta_build_access_control_model_selection_content(SomMetaNode *n);
 static void meta_build_access_control_model_selection_access_control_model_details(SomMetaNode *n);
+static void meta_build_access_handler_entry_content(SomMetaNode *n);
 static void meta_build_access_level_entry_content(SomMetaNode *n);
 static void meta_build_access_level_entry_scope(SomMetaNode *n);
 static void meta_build_access_level_entry_permissions(SomMetaNode *n);
@@ -6800,6 +6802,8 @@ static void meta_build_user_authorization_resource_keys(SomMetaNode *n);
 static void meta_build_user_authorization_resource_keys_elem(SomMetaNode *n);
 static void meta_build_user_authorization_role_hierarchy(SomMetaNode *n);
 static void meta_build_user_authorization_tenant_isolation(SomMetaNode *n);
+static void meta_build_user_authorization_access_handlers(SomMetaNode *n);
+static void meta_build_user_authorization_access_handlers_elem(SomMetaNode *n);
 static void meta_build_user_category_definition_content(SomMetaNode *n);
 static void meta_build_user_category_entry_content(SomMetaNode *n);
 static void meta_build_user_category_entry_usage(SomMetaNode *n);
@@ -7033,6 +7037,11 @@ static void *meta_nav_factory_acceptance_criterion_entry(const SomMetaTree *tree
 }
 static void *meta_nav_factory_acceptance_step_entry(const SomMetaTree *tree, const char *path) {
   som_nav_acceptance_step_entry *r = (som_nav_acceptance_step_entry *)malloc(sizeof(som_nav_acceptance_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_access_handler_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_access_handler_entry *r = (som_nav_access_handler_entry *)malloc(sizeof(som_nav_access_handler_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9583,6 +9592,11 @@ static void *meta_id_factory_acceptance_criterion_entry(const SomMetaTree *tree,
 }
 static void *meta_id_factory_acceptance_step_entry(const SomMetaTree *tree, const char *path) {
   som_id_acceptance_step_entry *r = (som_id_acceptance_step_entry *)malloc(sizeof(som_id_acceptance_step_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_access_handler_entry(const SomMetaTree *tree, const char *path) {
+  som_id_access_handler_entry *r = (som_id_access_handler_entry *)malloc(sizeof(som_id_access_handler_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -13151,6 +13165,36 @@ static void meta_build_access_control_model_selection_access_control_model_detai
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Access Control Model Details (text).");
+}
+static void meta_build_access_handler_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "AccessHandlerEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("handlerName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Handler Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The name custom authorization requirements use to select this handler.");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("description");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Short description");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What the handler decides, in business terms.");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("inputs");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Inputs");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("What the handler reads to decide — the caller, a resource id, the state of an object.");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_access_level_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AccessLevelEntry");
@@ -21437,8 +21481,11 @@ static void meta_build_authorization_requirement_spec_custom_requirement(SomMeta
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Handler");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The registered access handler that decides");
+  n->form->fields[0].hint = som_strdup("The registered access handler that decides, by its name in the access-handler catalogue");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZHAN.handlerName");
   n->form->fields[1].name = som_strdup("resourceId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Resource ID");
@@ -72502,8 +72549,11 @@ static void meta_build_graded_access_level_entry_custom_requirement(SomMetaNode 
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Handler");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The registered access handler that decides");
+  n->form->fields[0].hint = som_strdup("The registered access handler that decides, by its name in the access-handler catalogue");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZHAN.handlerName");
   n->form->fields[1].name = som_strdup("resourceId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Resource ID");
@@ -157601,6 +157651,30 @@ static void meta_build_user_authorization_tenant_isolation(SomMetaNode *n) {
   meta_set(&n->doc_comment, "9.4.7. Tenant Isolation.");
   meta_set(&n->class_doc_comment, "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.");
 }
+static void meta_build_user_authorization_access_handlers(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserAuthorization");
+  meta_set(&n->member_name, "accessHandlers");
+  meta_set(&n->section_id, "AZHAN-HAND-LST");
+  meta_set(&n->section_id_pattern, "AZHAN-HAND-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "AccessHandlerEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 8;
+  meta_set(&n->content_help, "Add one entry per registered access handler.");
+  meta_set(&n->doc_comment, "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"NIST SP 800-162 — attribute-based access control (ABAC)\"],\"connotation\":\"The catalog of registered access handlers that decide custom authorization requirements.\"}", NULL);
+}
+static void meta_build_user_authorization_access_handlers_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "AccessHandlerEntry");
+  meta_set(&n->class_section_id, "AZHAN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AccessHandlerEntry");
+  meta_set(&n->doc_comment, "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).");
+  meta_set(&n->class_doc_comment, "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).");
+}
 static void meta_build_user_category_definition_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserCategoryDefinition");
   meta_set(&n->member_name, "content");
@@ -163322,6 +163396,19 @@ static SomMetaNode **meta_children_access_control_model_selection(SomStrList *st
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_access_control_model_selection_access_control_model_details(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_access_handler_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_access_handler_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -194036,6 +194123,12 @@ static SomMetaNode **meta_children_user_authorization(SomStrList *stack, size_t 
   }
   meta_push(&arr, len, &cap, meta_cx("RoleHierarchy", stack, meta_children_role_hierarchy, meta_build_user_authorization_role_hierarchy));
   meta_push(&arr, len, &cap, meta_cx("TenantIsolation", stack, meta_children_tenant_isolation, meta_build_user_authorization_tenant_isolation));
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_user_authorization_access_handlers(ln);
+    ln->element_node = meta_cx("AccessHandlerEntry", stack, meta_children_access_handler_entry, meta_build_user_authorization_access_handlers_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   return arr;
 }
 
@@ -196329,6 +196422,13 @@ SomMetaRef access_control_model_selection_nav_content(som_nav_access_control_mod
 SomMetaRef access_control_model_selection_nav_access_control_model_details(som_nav_access_control_model_selection x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "accessControlModelDetails");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef access_handler_entry_nav_content(som_nav_access_handler_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -230703,6 +230803,13 @@ som_nav_tenant_isolation user_authorization_nav_tenant_isolation(som_nav_user_au
   free(path);
   return out;
 }
+SomListMetaRef user_authorization_nav_access_handlers(som_nav_user_authorization x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZHAN-HAND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_access_handler_entry);
+  free(path);
+  return out;
+}
 SomMetaRef user_category_definition_nav_content(som_nav_user_category_definition x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -240798,6 +240905,13 @@ SomListMetaRef d00_solution_blueprint_id_tncs_tena_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_azhan_hand_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_access_handler_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_sevt_cust_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST");
@@ -248939,6 +249053,13 @@ SomListMetaRef d08_security_access_specification_id_tncs_tena_lst(som_id_d08_sec
   free(path);
   return out;
 }
+SomListMetaRef d08_security_access_specification_id_azhan_hand_lst(som_id_d08_security_access_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "userAuthorization/AZHAN-HAND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_access_handler_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d08_security_access_specification_id_endaca_encr_lst(som_id_d08_security_access_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST");
@@ -255894,6 +256015,13 @@ SomListMetaRef d13_code_specs_projection_id_tncs_tena_lst(som_id_d13_code_specs_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_tenant_customization_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_azhan_hand_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "accessControl/authorization/AZHAN-HAND-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_access_handler_entry);
   free(path);
   return out;
 }

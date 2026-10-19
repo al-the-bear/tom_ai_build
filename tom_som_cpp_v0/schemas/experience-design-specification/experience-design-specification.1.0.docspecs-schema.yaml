@@ -3009,7 +3009,7 @@ form-types:
     fields:
       - fieldname: handler
         required: true
-        description: The registered access handler that decides
+        description: "The registered access handler that decides, by its name in the access-handler catalogue"
       - fieldname: resourceId
         description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule
@@ -3039,7 +3039,7 @@ form-types:
     fields:
       - fieldname: handler
         required: true
-        description: The registered access handler that decides
+        description: "The registered access handler that decides, by its name in the access-handler catalogue"
       - fieldname: resourceId
         description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule

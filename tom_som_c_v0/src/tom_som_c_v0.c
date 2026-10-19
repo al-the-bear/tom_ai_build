@@ -772,6 +772,24 @@ AccessControlModelSelectionContentForm access_control_model_selection_content(co
   return out;
 }
 
+void access_handler_entry_init(AccessHandlerEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void access_handler_entry_free(AccessHandlerEntry *self) {
+  som_node_free(&self->node);
+}
+int access_handler_entry_can_have_content(const AccessHandlerEntry *self) {
+  (void)self;
+  return 0;
+}
+AccessHandlerEntryContentForm access_handler_entry_content(const AccessHandlerEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  AccessHandlerEntryContentForm out;
+  access_handler_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void access_level_entry_init(AccessLevelEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -48739,6 +48757,13 @@ TenantIsolation user_authorization_tenant_isolation(const UserAuthorization *sel
   free(path);
   return out;
 }
+SomList user_authorization_access_handlers(const UserAuthorization *self) {
+  char *path = spec_path_join(self->node.path, "AZHAN-HAND-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "AZHAN-HAND-xxx");
+  free(path);
+  return out;
+}
 
 void user_category_definition_init(UserCategoryDefinition *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -51504,6 +51529,41 @@ char *access_control_model_selection_content_form_notes(const AccessControlModel
 }
 void access_control_model_selection_content_form_set_notes(AccessControlModelSelectionContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
+}
+
+void access_handler_entry_content_form_init(AccessHandlerEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void access_handler_entry_content_form_free(AccessHandlerEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *access_handler_entry_content_form_content(const AccessHandlerEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void access_handler_entry_content_form_set_content(AccessHandlerEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *access_handler_entry_content_form_handler_name(const AccessHandlerEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "handlerName");
+  return som_strdup(v != NULL ? v : "");
+}
+void access_handler_entry_content_form_set_handler_name(AccessHandlerEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "handlerName", value);
+}
+char *access_handler_entry_content_form_description(const AccessHandlerEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
+  return som_strdup(v != NULL ? v : "");
+}
+void access_handler_entry_content_form_set_description(AccessHandlerEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
+}
+char *access_handler_entry_content_form_inputs(const AccessHandlerEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputs");
+  return som_strdup(v != NULL ? v : "");
+}
+void access_handler_entry_content_form_set_inputs(AccessHandlerEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "inputs", value);
 }
 
 void access_level_entry_content_form_init(AccessLevelEntryContentForm *self, SpecDocument *doc, const char *path) {

@@ -281,7 +281,10 @@ framework. It is not something to restate per site.
       String,
       'Handler',
       required: true,
-      hint: 'The registered access handler that decides',
+      refersTo: ['AZHAN.handlerName'],
+      hint:
+          'The registered access handler that decides, by its name in the '
+          'access-handler catalogue',
     ),
     Field(
       'resourceId',
@@ -523,7 +526,10 @@ itself be graded.
       String,
       'Handler',
       required: true,
-      hint: 'The registered access handler that decides',
+      refersTo: ['AZHAN.handlerName'],
+      hint:
+          'The registered access handler that decides, by its name in the '
+          'access-handler catalogue',
     ),
     Field(
       'resourceId',

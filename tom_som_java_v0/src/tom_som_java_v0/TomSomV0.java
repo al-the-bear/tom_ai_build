@@ -2397,6 +2397,21 @@ public final class TomSomV0 {
     // (skipped: accessControlModelDetails has no target type)
   }
 
+  // A registered access handler (form): the code that decides a custom
+  // authorization requirement (`codespecs_mapping.md` §5.15).
+  public static final class AccessHandlerEntry extends SomNode {
+    public AccessHandlerEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public AccessHandlerEntryContentForm content() {
+      return new AccessHandlerEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // An access level entry (form).
   public static final class AccessLevelEntry extends SomNode {
     public AccessLevelEntry(SpecDocument doc, String path) {
@@ -45799,6 +45814,15 @@ public final class TomSomV0 {
     public TenantIsolation tenantIsolation() {
       return new TenantIsolation(doc, path + "/tenantIsolation");
     }
+
+    // 9.4.8. Access Handlers — contains 0+× Access Handler.
+    //
+    // The registry a custom authorization requirement names its handler from
+    // (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+    // requirement deciding through it resolves against it.
+    public SomList<AccessHandlerEntry> accessHandlers() {
+      return new SomList<>(doc, path + "/AZHAN-HAND-LST", (d, p) -> new AccessHandlerEntry(d, p), "AZHAN-HAND-xxx");
+    }
   }
 
   // A user category definition (form).
@@ -48620,6 +48644,55 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AccessHandlerEntryContentForm extends SomNode {
+    public AccessHandlerEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String handlerName() {
+      String v = doc.formField(path, "handlerName");
+      return v == null ? "" : v;
+    }
+
+    public void handlerName(String value) {
+      doc.setFormField(path, "handlerName", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
+    }
+
+    public String inputs() {
+      String v = doc.formField(path, "inputs");
+      return v == null ? "" : v;
+    }
+
+    public void inputs(String value) {
+      doc.setFormField(path, "inputs", value);
     }
   }
 

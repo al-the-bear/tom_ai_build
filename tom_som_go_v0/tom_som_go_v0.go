@@ -1984,6 +1984,24 @@ func (x *AccessControlModelSelection) Content() *AccessControlModelSelectionCont
 // Access Control Model Details (text).
 // (skipped: accessControlModelDetails has no target type)
 
+// A registered access handler (form): the code that decides a custom
+// authorization requirement (`codespecs_mapping.md` §5.15).
+type AccessHandlerEntry struct {
+	som.SomNode
+}
+
+// NewAccessHandlerEntry binds a AccessHandlerEntry facade to a document and a path.
+func NewAccessHandlerEntry(doc *som.SpecDocument, path string) *AccessHandlerEntry {
+	return &AccessHandlerEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *AccessHandlerEntry) Content() *AccessHandlerEntryContentForm {
+	return NewAccessHandlerEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // An access level entry (form).
 type AccessLevelEntry struct {
 	som.SomNode
@@ -50172,6 +50190,17 @@ func (x *UserAuthorization) TenantIsolation() *TenantIsolation {
 	return NewTenantIsolation(x.Doc(), x.Path()+"/tenantIsolation")
 }
 
+// 9.4.8. Access Handlers — contains 0+× Access Handler.
+//
+// The registry a custom authorization requirement names its handler from
+// (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+// requirement deciding through it resolves against it.
+func (x *UserAuthorization) AccessHandlers() *som.SomList[*AccessHandlerEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/AZHAN-HAND-LST", func(d *som.SpecDocument, p string) *AccessHandlerEntry {
+		return NewAccessHandlerEntry(d, p)
+	}, "AZHAN-HAND-xxx")
+}
+
 // A user category definition (form).
 type UserCategoryDefinition struct {
 	som.SomNode
@@ -53321,6 +53350,56 @@ func (x *AccessControlModelSelectionContentForm) Notes() string {
 
 func (x *AccessControlModelSelectionContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// AccessHandlerEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AccessHandlerEntryContentForm struct {
+	som.SomNode
+}
+
+// NewAccessHandlerEntryContentForm binds a AccessHandlerEntryContentForm facade to a document and a path.
+func NewAccessHandlerEntryContentForm(doc *som.SpecDocument, path string) *AccessHandlerEntryContentForm {
+	return &AccessHandlerEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AccessHandlerEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AccessHandlerEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AccessHandlerEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AccessHandlerEntryContentForm) HandlerName() string {
+	return x.Doc().FormFieldOr(x.Path(), "handlerName")
+}
+
+func (x *AccessHandlerEntryContentForm) SetHandlerName(value string) {
+	x.Doc().SetFormField(x.Path(), "handlerName", value)
+}
+
+func (x *AccessHandlerEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *AccessHandlerEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
+}
+
+func (x *AccessHandlerEntryContentForm) Inputs() string {
+	return x.Doc().FormFieldOr(x.Path(), "inputs")
+}
+
+func (x *AccessHandlerEntryContentForm) SetInputs(value string) {
+	x.Doc().SetFormField(x.Path(), "inputs", value)
 }
 
 // AccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own

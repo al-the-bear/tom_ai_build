@@ -179,6 +179,12 @@ func metaChildrenAccessControlModelSelection(s map[string]bool) []*som.SomMetaNo
 	}
 }
 
+func metaChildrenAccessHandlerEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "AccessHandlerEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "handlerName", TypeName: "String", Description: "Handler Name", Required: true, Hint: "The name custom authorization requirements use to select this handler.", Order: 0}, {Name: "description", TypeName: "String", Description: "Short description", Hint: "What the handler decides, in business terms.", Order: 1}, {Name: "inputs", TypeName: "String", Description: "Inputs", Hint: "What the handler reads to decide — the caller, a resource id, the state of an object.", Order: 2}}}},
+	}
+}
+
 func metaChildrenAccessLevelEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AccessLevelEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "levelRank", TypeName: "int", Description: "Level Rank", Hint: "Numeric rank (higher = more permissions)", Order: 0}}}},
@@ -1067,7 +1073,7 @@ func metaChildrenAuthorizationRequirementSpec(s map[string]bool) []*som.SomMetaN
 		{ClassName: "AuthorizationRequirementSpec", MemberName: "groupRequirement", SectionID: "AZREQ-GRUP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Group requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "groups", TypeName: "String", Description: "Groups", Required: true, Hint: "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.group"}}}},
 		{ClassName: "AuthorizationRequirementSpec", MemberName: "entitlementRequirement", SectionID: "AZREQ-ENTL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Entitlement requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "patterns", TypeName: "String", Description: "Entitlement Patterns", Required: true, Hint: "Comma-separated entitlement match patterns; the caller must match at least one", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.entitlement"}}}},
 		{ClassName: "AuthorizationRequirementSpec", MemberName: "resourceKeyRequirement", SectionID: "AZREQ-RKEY", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Resource-key requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "resourceKey", TypeName: "String", Description: "Resource Key", Required: true, Hint: "The resource key from the resource-key catalogue the caller must hold a grant on", Order: 0, RefersTo: []string{"RESKEY.resourceKey"}}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.resourceKey"}}}},
-		{ClassName: "AuthorizationRequirementSpec", MemberName: "customRequirement", SectionID: "AZREQ-CUST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Custom requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "handler", TypeName: "String", Description: "Handler", Required: true, Hint: "The registered access handler that decides", Order: 0}, {Name: "resourceId", TypeName: "String", Description: "Resource ID", Hint: "The resource id passed to the handler, where it needs one", Order: 1}, {Name: "decisionRule", TypeName: "String", Description: "Decision Rule", Required: true, Hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.custom"}}}},
+		{ClassName: "AuthorizationRequirementSpec", MemberName: "customRequirement", SectionID: "AZREQ-CUST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Custom requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "handler", TypeName: "String", Description: "Handler", Required: true, Hint: "The registered access handler that decides, by its name in the access-handler catalogue", Order: 0, RefersTo: []string{"AZHAN.handlerName"}}, {Name: "resourceId", TypeName: "String", Description: "Resource ID", Hint: "The resource id passed to the handler, where it needs one", Order: 1}, {Name: "decisionRule", TypeName: "String", Description: "Decision Rule", Required: true, Hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.custom"}}}},
 		metaCx("GradedAuthorizationRequirement", s, metaChildrenGradedAuthorizationRequirement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "GradedAuthorizationRequirement", MemberName: "gradedRequirement", ClassSectionID: "AZGRD", Kind: som.SomMetaKindComplex, TypeName: "GradedAuthorizationRequirement", SerializationOrder: metaIntPtr(6), DocComment: "Graded requirement payload — a promoted `@OneOf` case.", ClassDocComment: "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate\n— the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2)\n— and removing it by pointing the levels back at\n[AuthorizationRequirementSpec] reintroduces the cycle.", Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "AuthorizationRequirementKind.graded"}}}, Recursive: r, Children: c}
 		}),
@@ -7010,7 +7016,7 @@ func metaChildrenGradedAccessLevelEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "GradedAccessLevelEntry", MemberName: "groupRequirement", SectionID: "AZLVL-GRUP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Group requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "groups", TypeName: "String", Description: "Groups", Required: true, Hint: "Comma-separated group names the caller must belong to (at least one)", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "BasicAuthorizationRequirementKind.group"}}}},
 		{ClassName: "GradedAccessLevelEntry", MemberName: "entitlementRequirement", SectionID: "AZLVL-ENTL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Entitlement requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "patterns", TypeName: "String", Description: "Entitlement Patterns", Required: true, Hint: "Comma-separated entitlement match patterns; the caller must match at least one", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "BasicAuthorizationRequirementKind.entitlement"}}}},
 		{ClassName: "GradedAccessLevelEntry", MemberName: "resourceKeyRequirement", SectionID: "AZLVL-RKEY", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Resource-key requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "resourceKey", TypeName: "String", Description: "Resource Key", Required: true, Hint: "The resource key from the resource-key catalogue the caller must hold a grant on", Order: 0, RefersTo: []string{"RESKEY.resourceKey"}}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "BasicAuthorizationRequirementKind.resourceKey"}}}},
-		{ClassName: "GradedAccessLevelEntry", MemberName: "customRequirement", SectionID: "AZLVL-CUST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Custom requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "handler", TypeName: "String", Description: "Handler", Required: true, Hint: "The registered access handler that decides", Order: 0}, {Name: "resourceId", TypeName: "String", Description: "Resource ID", Hint: "The resource id passed to the handler, where it needs one", Order: 1}, {Name: "decisionRule", TypeName: "String", Description: "Decision Rule", Required: true, Hint: "What the handler must decide, in business terms", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "BasicAuthorizationRequirementKind.custom"}}}},
+		{ClassName: "GradedAccessLevelEntry", MemberName: "customRequirement", SectionID: "AZLVL-CUST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Custom requirement payload — a promoted `@OneOf` case.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "handler", TypeName: "String", Description: "Handler", Required: true, Hint: "The registered access handler that decides, by its name in the access-handler catalogue", Order: 0, RefersTo: []string{"AZHAN.handlerName"}}, {Name: "resourceId", TypeName: "String", Description: "Resource ID", Hint: "The resource id passed to the handler, where it needs one", Order: 1}, {Name: "decisionRule", TypeName: "String", Description: "Decision Rule", Required: true, Hint: "What the handler must decide, in business terms", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "BasicAuthorizationRequirementKind.custom"}}}},
 	}
 }
 
@@ -15969,6 +15975,13 @@ func metaChildrenUserAuthorization(s map[string]bool) []*som.SomMetaNode {
 		metaCx("TenantIsolation", s, metaChildrenTenantIsolation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TenantIsolation", MemberName: "tenantIsolation", ClassSectionID: "TEIS", Kind: som.SomMetaKindComplex, TypeName: "TenantIsolation", SerializationOrder: metaIntPtr(7), DocComment: "9.4.7. Tenant Isolation.", ClassDocComment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.", Recursive: r, Children: c}
 		}),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "UserAuthorization", MemberName: "accessHandlers", SectionID: "AZHAN-HAND-LST", SectionIDPattern: "AZHAN-HAND-xxx", Kind: som.SomMetaKindList, TypeName: "AccessHandlerEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per registered access handler.", DocComment: "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-162 — attribute-based access control (ABAC)"}, "connotation": "The catalog of registered access handlers that decide custom authorization requirements."}}}}
+			n.ElementNode = metaCx("AccessHandlerEntry", s, metaChildrenAccessHandlerEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "AccessHandlerEntry", ClassSectionID: "AZHAN", Kind: som.SomMetaKindComplex, TypeName: "AccessHandlerEntry", DocComment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).", ClassDocComment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -16967,6 +16980,24 @@ func (x *AccessControlModelSelectionNav) Content() *som.SomMetaRef {
 
 func (x *AccessControlModelSelectionNav) AccessControlModelDetails() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessControlModelDetails"}
+}
+
+// AccessHandlerEntryNav holds the dot-notation accessors of `AccessHandlerEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type AccessHandlerEntryNav struct {
+	som.SomMetaRef
+}
+
+// newAccessHandlerEntryNav binds a AccessHandlerEntryNav accessor to a tree and a path.
+func newAccessHandlerEntryNav(tree *som.SomMetaTree, path string) *AccessHandlerEntryNav {
+	return &AccessHandlerEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *AccessHandlerEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // AccessLevelEntryNav holds the dot-notation accessors of `AccessLevelEntry` (SOM §8).
@@ -54477,6 +54508,12 @@ func (x *UserAuthorizationNav) TenantIsolation() *TenantIsolationNav {
 	return newTenantIsolationNav(x.Tree, x.Path+"/tenantIsolation")
 }
 
+func (x *UserAuthorizationNav) AccessHandlers() *som.SomListMetaRef[*AccessHandlerEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/AZHAN-HAND-LST", func(t *som.SomMetaTree, p string) *AccessHandlerEntryNav {
+		return newAccessHandlerEntryNav(t, p)
+	})
+}
+
 // UserCategoryDefinitionNav holds the dot-notation accessors of `UserCategoryDefinition` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -56165,6 +56202,19 @@ func (x *AcceptanceStepEntryID) ASEF() *som.SomMetaRef {
 
 func (x *AcceptanceStepEntryID) ASEO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ASEO"}
+}
+
+// AccessHandlerEntryID holds the ID-tree accessors of `AccessHandlerEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type AccessHandlerEntryID struct {
+	som.SomMetaRef
+}
+
+// newAccessHandlerEntryID binds a AccessHandlerEntryID accessor to a tree and a path.
+func newAccessHandlerEntryID(tree *som.SomMetaTree, path string) *AccessHandlerEntryID {
+	return &AccessHandlerEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // AccessLevelEntryID holds the ID-tree accessors of `AccessLevelEntry` (SOM §8): methods
@@ -62992,6 +63042,12 @@ func (x *D00SolutionBlueprintID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCust
 	})
 }
 
+func (x *D00SolutionBlueprintID) AZHAN_HAND_LST() *som.SomListMetaRef[*AccessHandlerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST", func(t *som.SomMetaTree, p string) *AccessHandlerEntryID {
+		return newAccessHandlerEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
 		return newSecurityEventEntryID(t, p)
@@ -68252,6 +68308,12 @@ func (x *D08SecurityAccessSpecificationID) TNCS_TENA_LST() *som.SomListMetaRef[*
 	})
 }
 
+func (x *D08SecurityAccessSpecificationID) AZHAN_HAND_LST() *som.SomListMetaRef[*AccessHandlerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/userAuthorization/AZHAN-HAND-LST", func(t *som.SomMetaTree, p string) *AccessHandlerEntryID {
+		return newAccessHandlerEntryID(t, p)
+	})
+}
+
 func (x *D08SecurityAccessSpecificationID) ENDACA_ENCR_LST() *som.SomListMetaRef[*EncryptedDataCategoryEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST", func(t *som.SomMetaTree, p string) *EncryptedDataCategoryEntryID {
 		return newEncryptedDataCategoryEntryID(t, p)
@@ -72626,6 +72688,12 @@ func (x *D13CodeSpecsProjectionID) GBRLX_GLOB_LST() *som.SomListMetaRef[*GlobalR
 func (x *D13CodeSpecsProjectionID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCustomizationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", func(t *som.SomMetaTree, p string) *TenantCustomizationEntryID {
 		return newTenantCustomizationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) AZHAN_HAND_LST() *som.SomListMetaRef[*AccessHandlerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/AZHAN-HAND-LST", func(t *som.SomMetaTree, p string) *AccessHandlerEntryID {
+		return newAccessHandlerEntryID(t, p)
 	})
 }
 

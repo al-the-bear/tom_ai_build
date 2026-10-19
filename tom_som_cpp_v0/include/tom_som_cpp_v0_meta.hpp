@@ -27,6 +27,7 @@ struct NavAccessChannels { som::SomMetaRef ref; };
 struct NavAccessConstraintPolicies { som::SomMetaRef ref; };
 struct NavAccessControlModel { som::SomMetaRef ref; };
 struct NavAccessControlModelSelection { som::SomMetaRef ref; };
+struct NavAccessHandlerEntry { som::SomMetaRef ref; };
 struct NavAccessLevelEntry { som::SomMetaRef ref; };
 struct NavAccessLevels { som::SomMetaRef ref; };
 struct NavAccessRestrictionEntry { som::SomMetaRef ref; };
@@ -1281,6 +1282,7 @@ struct NavWorkplaceSupportResources { som::SomMetaRef ref; };
 // with the dot-notation surface for every position.
 struct IdAcceptanceCriterionEntry { som::SomMetaRef ref; };
 struct IdAcceptanceStepEntry { som::SomMetaRef ref; };
+struct IdAccessHandlerEntry { som::SomMetaRef ref; };
 struct IdAccessLevelEntry { som::SomMetaRef ref; };
 struct IdAccessRestrictionEntry { som::SomMetaRef ref; };
 struct IdAccessibilityCheckEntry { som::SomMetaRef ref; };
@@ -1847,6 +1849,7 @@ NavUserAuthorization navAccessControlModel_authorization(NavAccessControlModel x
 NavRoleMatrix navAccessControlModel_roleMatrix(NavAccessControlModel x);
 som::SomMetaRef navAccessControlModelSelection_content(NavAccessControlModelSelection x);
 som::SomMetaRef navAccessControlModelSelection_accessControlModelDetails(NavAccessControlModelSelection x);
+som::SomMetaRef navAccessHandlerEntry_content(NavAccessHandlerEntry x);
 som::SomMetaRef navAccessLevelEntry_content(NavAccessLevelEntry x);
 som::SomMetaRef navAccessLevelEntry_scope(NavAccessLevelEntry x);
 som::SomMetaRef navAccessLevelEntry_permissions(NavAccessLevelEntry x);
@@ -6757,6 +6760,7 @@ som::SomListMetaRef navUserAuthorization_entitlements(NavUserAuthorization x);
 som::SomListMetaRef navUserAuthorization_resourceKeys(NavUserAuthorization x);
 NavRoleHierarchy navUserAuthorization_roleHierarchy(NavUserAuthorization x);
 NavTenantIsolation navUserAuthorization_tenantIsolation(NavUserAuthorization x);
+som::SomListMetaRef navUserAuthorization_accessHandlers(NavUserAuthorization x);
 som::SomMetaRef navUserCategoryDefinition_content(NavUserCategoryDefinition x);
 som::SomMetaRef navUserCategoryEntry_content(NavUserCategoryEntry x);
 som::SomMetaRef navUserCategoryEntry_usage(NavUserCategoryEntry x);
@@ -8201,6 +8205,7 @@ som::SomListMetaRef idD00SolutionBlueprint_RLINH_INHE_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_RLCMB_COMB_LST(IdD00SolutionBlueprint x);
 som::SomListMetaRef idD00SolutionBlueprint_GBRLX_GLOB_LST(IdD00SolutionBlueprint x);
 som::SomListMetaRef idD00SolutionBlueprint_TNCS_TENA_LST(IdD00SolutionBlueprint x);
+som::SomListMetaRef idD00SolutionBlueprint_AZHAN_HAND_LST(IdD00SolutionBlueprint x);
 som::SomListMetaRef idD00SolutionBlueprint_SEVT_CUST_LST(IdD00SolutionBlueprint x);
 som::SomListMetaRef idD00SolutionBlueprint_ENDACA_ENCR_LST(IdD00SolutionBlueprint x);
 som::SomListMetaRef idD00SolutionBlueprint_COCHEN_COMM_LST(IdD00SolutionBlueprint x);
@@ -9364,6 +9369,7 @@ som::SomListMetaRef idD08SecurityAccessSpecification_RLINH_INHE_LST(IdD08Securit
 som::SomListMetaRef idD08SecurityAccessSpecification_RLCMB_COMB_LST(IdD08SecurityAccessSpecification x);
 som::SomListMetaRef idD08SecurityAccessSpecification_GBRLX_GLOB_LST(IdD08SecurityAccessSpecification x);
 som::SomListMetaRef idD08SecurityAccessSpecification_TNCS_TENA_LST(IdD08SecurityAccessSpecification x);
+som::SomListMetaRef idD08SecurityAccessSpecification_AZHAN_HAND_LST(IdD08SecurityAccessSpecification x);
 som::SomListMetaRef idD08SecurityAccessSpecification_ENDACA_ENCR_LST(IdD08SecurityAccessSpecification x);
 som::SomListMetaRef idD08SecurityAccessSpecification_COCHEN_COMM_LST(IdD08SecurityAccessSpecification x);
 som::SomListMetaRef idD08SecurityAccessSpecification_SEVT_CUST_LST(IdD08SecurityAccessSpecification x);
@@ -10358,6 +10364,7 @@ som::SomListMetaRef idD13CodeSpecsProjection_RLINH_INHE_LST(IdD13CodeSpecsProjec
 som::SomListMetaRef idD13CodeSpecsProjection_RLCMB_COMB_LST(IdD13CodeSpecsProjection x);
 som::SomListMetaRef idD13CodeSpecsProjection_GBRLX_GLOB_LST(IdD13CodeSpecsProjection x);
 som::SomListMetaRef idD13CodeSpecsProjection_TNCS_TENA_LST(IdD13CodeSpecsProjection x);
+som::SomListMetaRef idD13CodeSpecsProjection_AZHAN_HAND_LST(IdD13CodeSpecsProjection x);
 som::SomListMetaRef idD13CodeSpecsProjection_SEVT_CUST_LST(IdD13CodeSpecsProjection x);
 som::SomListMetaRef idD13CodeSpecsProjection_ENDACA_ENCR_LST(IdD13CodeSpecsProjection x);
 som::SomListMetaRef idD13CodeSpecsProjection_COCHEN_COMM_LST(IdD13CodeSpecsProjection x);

@@ -1863,6 +1863,22 @@ class AccessControlModelSelection extends SomNode {
   // (skipped: accessControlModelDetails has no target type)
 }
 
+/// A registered access handler (form): the code that decides a custom
+/// authorization requirement (`codespecs_mapping.md` §5.15).
+class AccessHandlerEntry extends SomNode {
+  /// Names the `AccessHandlerEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  AccessHandlerEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  AccessHandlerEntryContentForm get content => AccessHandlerEntryContentForm(doc, '$path/content');
+}
+
 /// An access level entry (form).
 class AccessLevelEntry extends SomNode {
   /// Names the `AccessLevelEntry` section at [path] inside [doc].
@@ -42737,6 +42753,15 @@ class UserAuthorization extends SomNode {
 
   /// 9.4.7. Tenant Isolation.
   TenantIsolation get tenantIsolation => TenantIsolation(doc, '$path/tenantIsolation');
+
+  /// 9.4.8. Access Handlers — contains 0+× Access Handler.
+  /// 
+  /// The registry a custom authorization requirement names its handler from
+  /// (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+  /// requirement deciding through it resolves against it.
+  ///
+  /// **Authoring guidance.** Add one entry per registered access handler.
+  SomList<AccessHandlerEntry> get accessHandlers => SomList<AccessHandlerEntry>(doc, '$path/AZHAN-HAND-LST', (d, p) => AccessHandlerEntry(d, p), pattern: 'AZHAN-HAND-xxx');
 }
 
 /// A user category definition (form).
@@ -45135,6 +45160,40 @@ class AccessControlModelSelectionContentForm extends SomNode {
   /// Additional access control model selection notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AccessHandlerEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  AccessHandlerEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Handler Name.
+  ///
+  /// The name custom authorization requirements use to select this handler.
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get handlerName => doc.formField(path, 'handlerName') ?? '';
+  set handlerName(String value) => doc.setFormField(path, 'handlerName', value);
+
+  /// Short description.
+  ///
+  /// What the handler decides, in business terms.
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
+
+  /// Inputs.
+  ///
+  /// What the handler reads to decide — the caller, a resource id, the state of an object.
+  String get inputs => doc.formField(path, 'inputs') ?? '';
+  set inputs(String value) => doc.setFormField(path, 'inputs', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51414,7 +51473,7 @@ class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
 
   /// Handler.
   ///
-  /// The registered access handler that decides
+  /// The registered access handler that decides, by its name in the access-handler catalogue
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get handler => doc.formField(path, 'handler') ?? '';
@@ -88104,7 +88163,7 @@ class GradedAccessLevelEntryCustomRequirementForm extends SomNode {
 
   /// Handler.
   ///
-  /// The registered access handler that decides
+  /// The registered access handler that decides, by its name in the access-handler catalogue
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get handler => doc.formField(path, 'handler') ?? '';

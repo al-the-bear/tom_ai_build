@@ -22,6 +22,7 @@ typedef struct { SomMetaRef ref; } som_nav_access_channels;
 typedef struct { SomMetaRef ref; } som_nav_access_constraint_policies;
 typedef struct { SomMetaRef ref; } som_nav_access_control_model;
 typedef struct { SomMetaRef ref; } som_nav_access_control_model_selection;
+typedef struct { SomMetaRef ref; } som_nav_access_handler_entry;
 typedef struct { SomMetaRef ref; } som_nav_access_level_entry;
 typedef struct { SomMetaRef ref; } som_nav_access_levels;
 typedef struct { SomMetaRef ref; } som_nav_access_restriction_entry;
@@ -1276,6 +1277,7 @@ typedef struct { SomMetaRef ref; } som_nav_workplace_support_resources;
 /* node agree with the dot-notation surface for every position. */
 typedef struct { SomMetaRef ref; } som_id_acceptance_criterion_entry;
 typedef struct { SomMetaRef ref; } som_id_acceptance_step_entry;
+typedef struct { SomMetaRef ref; } som_id_access_handler_entry;
 typedef struct { SomMetaRef ref; } som_id_access_level_entry;
 typedef struct { SomMetaRef ref; } som_id_access_restriction_entry;
 typedef struct { SomMetaRef ref; } som_id_accessibility_check_entry;
@@ -1842,6 +1844,7 @@ som_nav_user_authorization access_control_model_nav_authorization(som_nav_access
 som_nav_role_matrix access_control_model_nav_role_matrix(som_nav_access_control_model x);
 SomMetaRef access_control_model_selection_nav_content(som_nav_access_control_model_selection x);
 SomMetaRef access_control_model_selection_nav_access_control_model_details(som_nav_access_control_model_selection x);
+SomMetaRef access_handler_entry_nav_content(som_nav_access_handler_entry x);
 SomMetaRef access_level_entry_nav_content(som_nav_access_level_entry x);
 SomMetaRef access_level_entry_nav_scope(som_nav_access_level_entry x);
 SomMetaRef access_level_entry_nav_permissions(som_nav_access_level_entry x);
@@ -6752,6 +6755,7 @@ SomListMetaRef user_authorization_nav_entitlements(som_nav_user_authorization x)
 SomListMetaRef user_authorization_nav_resource_keys(som_nav_user_authorization x);
 som_nav_role_hierarchy user_authorization_nav_role_hierarchy(som_nav_user_authorization x);
 som_nav_tenant_isolation user_authorization_nav_tenant_isolation(som_nav_user_authorization x);
+SomListMetaRef user_authorization_nav_access_handlers(som_nav_user_authorization x);
 SomMetaRef user_category_definition_nav_content(som_nav_user_category_definition x);
 SomMetaRef user_category_entry_nav_content(som_nav_user_category_entry x);
 SomMetaRef user_category_entry_nav_usage(som_nav_user_category_entry x);
@@ -8196,6 +8200,7 @@ SomListMetaRef d00_solution_blueprint_id_rlinh_inhe_lst(som_id_d00_solution_blue
 SomListMetaRef d00_solution_blueprint_id_rlcmb_comb_lst(som_id_d00_solution_blueprint x);
 SomListMetaRef d00_solution_blueprint_id_gbrlx_glob_lst(som_id_d00_solution_blueprint x);
 SomListMetaRef d00_solution_blueprint_id_tncs_tena_lst(som_id_d00_solution_blueprint x);
+SomListMetaRef d00_solution_blueprint_id_azhan_hand_lst(som_id_d00_solution_blueprint x);
 SomListMetaRef d00_solution_blueprint_id_sevt_cust_lst(som_id_d00_solution_blueprint x);
 SomListMetaRef d00_solution_blueprint_id_endaca_encr_lst(som_id_d00_solution_blueprint x);
 SomListMetaRef d00_solution_blueprint_id_cochen_comm_lst(som_id_d00_solution_blueprint x);
@@ -9359,6 +9364,7 @@ SomListMetaRef d08_security_access_specification_id_rlinh_inhe_lst(som_id_d08_se
 SomListMetaRef d08_security_access_specification_id_rlcmb_comb_lst(som_id_d08_security_access_specification x);
 SomListMetaRef d08_security_access_specification_id_gbrlx_glob_lst(som_id_d08_security_access_specification x);
 SomListMetaRef d08_security_access_specification_id_tncs_tena_lst(som_id_d08_security_access_specification x);
+SomListMetaRef d08_security_access_specification_id_azhan_hand_lst(som_id_d08_security_access_specification x);
 SomListMetaRef d08_security_access_specification_id_endaca_encr_lst(som_id_d08_security_access_specification x);
 SomListMetaRef d08_security_access_specification_id_cochen_comm_lst(som_id_d08_security_access_specification x);
 SomListMetaRef d08_security_access_specification_id_sevt_cust_lst(som_id_d08_security_access_specification x);
@@ -10353,6 +10359,7 @@ SomListMetaRef d13_code_specs_projection_id_rlinh_inhe_lst(som_id_d13_code_specs
 SomListMetaRef d13_code_specs_projection_id_rlcmb_comb_lst(som_id_d13_code_specs_projection x);
 SomListMetaRef d13_code_specs_projection_id_gbrlx_glob_lst(som_id_d13_code_specs_projection x);
 SomListMetaRef d13_code_specs_projection_id_tncs_tena_lst(som_id_d13_code_specs_projection x);
+SomListMetaRef d13_code_specs_projection_id_azhan_hand_lst(som_id_d13_code_specs_projection x);
 SomListMetaRef d13_code_specs_projection_id_sevt_cust_lst(som_id_d13_code_specs_projection x);
 SomListMetaRef d13_code_specs_projection_id_endaca_encr_lst(som_id_d13_code_specs_projection x);
 SomListMetaRef d13_code_specs_projection_id_cochen_comm_lst(som_id_d13_code_specs_projection x);

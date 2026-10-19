@@ -46,6 +46,7 @@ void buildAccessChannelsChildren(som::SomMetaNode& parent, std::vector<std::stri
 void buildAccessConstraintPoliciesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAccessControlModelChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAccessControlModelSelectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildAccessHandlerEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAccessLevelEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAccessLevelsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAccessRestrictionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -2038,6 +2039,25 @@ void buildAccessControlModelSelectionChildren(som::SomMetaNode& parent, std::vec
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).docComment = "Access Control Model Details (text).";
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildAccessHandlerEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AccessHandlerEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"handlerName", "String", "Handler Name", true, "The name custom authorization requirements use to select this handler.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Short description", false, "What the handler decides, in business terms.", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputs", "String", "Inputs", false, "What the handler reads to decide — the caller, a resource id, the state of an object.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -7054,7 +7074,7 @@ void buildAuthorizationRequirementSpecChildren(som::SomMetaNode& parent, std::ve
     (*n).serializationOrder = 5;
     (*n).docComment = "Custom requirement payload — a promoted `@OneOf` case.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides, by its name in the access-handler catalogue", 0, std::vector<std::string>{}, std::vector<std::string>{"AZHAN.handlerName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.custom\"}", nullptr)});
@@ -40353,7 +40373,7 @@ void buildGradedAccessLevelEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).serializationOrder = 5;
     (*n).docComment = "Custom requirement payload — a promoted `@OneOf` case.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides, by its name in the access-handler catalogue", 0, std::vector<std::string>{}, std::vector<std::string>{"AZHAN.handlerName"}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.custom\"}", nullptr)});
@@ -91785,6 +91805,31 @@ void buildUserAuthorizationChildren(som::SomMetaNode& parent, std::vector<std::s
       buildTenantIsolationChildren);
     parent.addChild(std::move(n));
   }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "UserAuthorization";
+    (*ln).memberName = "accessHandlers";
+    (*ln).sectionId = "AZHAN-HAND-LST";
+    (*ln).sectionIdPattern = "AZHAN-HAND-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "AccessHandlerEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 8;
+    (*ln).contentHelp = "Add one entry per registered access handler.";
+    (*ln).docComment = "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"NIST SP 800-162 — attribute-based access control (ABAC)\"],\"connotation\":\"The catalog of registered access handlers that decide custom authorization requirements.\"}", nullptr)});
+    ln->elementNode = metaCx("AccessHandlerEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AccessHandlerEntry";
+        n.classSectionId = "AZHAN";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AccessHandlerEntry";
+        n.docComment = "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).";
+        n.classDocComment = "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).";
+      },
+      buildAccessHandlerEntryChildren);
+    parent.addChild(std::move(ln));
+  }
 }
 
 void buildUserCategoryDefinitionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
@@ -95375,6 +95420,9 @@ void* metaNavFactoryAcceptanceCriterionEntry(const som::SomMetaTree* tree, const
 void* metaNavFactoryAcceptanceStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavAcceptanceStepEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryAccessHandlerEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavAccessHandlerEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryAccessLevelEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavAccessLevelEntry{som::SomMetaRef(tree, path)};
 }
@@ -96904,6 +96952,9 @@ void* metaIdFactoryAcceptanceCriterionEntry(const som::SomMetaTree* tree, const 
 }
 void* metaIdFactoryAcceptanceStepEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdAcceptanceStepEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryAccessHandlerEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdAccessHandlerEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryAccessLevelEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdAccessLevelEntry{som::SomMetaRef(tree, path)};
@@ -98965,6 +99016,9 @@ som::SomMetaRef navAccessControlModelSelection_content(NavAccessControlModelSele
 }
 som::SomMetaRef navAccessControlModelSelection_accessControlModelDetails(NavAccessControlModelSelection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControlModelDetails"));
+}
+som::SomMetaRef navAccessHandlerEntry_content(NavAccessHandlerEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navAccessLevelEntry_content(NavAccessLevelEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -113696,6 +113750,9 @@ NavRoleHierarchy navUserAuthorization_roleHierarchy(NavUserAuthorization x) {
 NavTenantIsolation navUserAuthorization_tenantIsolation(NavUserAuthorization x) {
   return NavTenantIsolation{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "tenantIsolation"))};
 }
+som::SomListMetaRef navUserAuthorization_accessHandlers(NavUserAuthorization x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZHAN-HAND-LST"), metaNavFactoryAccessHandlerEntry);
+}
 som::SomMetaRef navUserCategoryDefinition_content(NavUserCategoryDefinition x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -118023,6 +118080,9 @@ som::SomListMetaRef idD00SolutionBlueprint_GBRLX_GLOB_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_TNCS_TENA_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), metaIdFactoryTenantCustomizationEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_AZHAN_HAND_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST"), metaIdFactoryAccessHandlerEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_SEVT_CUST_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
 }
@@ -121512,6 +121572,9 @@ som::SomListMetaRef idD08SecurityAccessSpecification_GBRLX_GLOB_LST(IdD08Securit
 som::SomListMetaRef idD08SecurityAccessSpecification_TNCS_TENA_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userAuthorization/tenantIsolation/TNCS-TENA-LST"), metaIdFactoryTenantCustomizationEntry);
 }
+som::SomListMetaRef idD08SecurityAccessSpecification_AZHAN_HAND_LST(IdD08SecurityAccessSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userAuthorization/AZHAN-HAND-LST"), metaIdFactoryAccessHandlerEntry);
+}
 som::SomListMetaRef idD08SecurityAccessSpecification_ENDACA_ENCR_LST(IdD08SecurityAccessSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST"), metaIdFactoryEncryptedDataCategoryEntry);
 }
@@ -124493,6 +124556,9 @@ som::SomListMetaRef idD13CodeSpecsProjection_GBRLX_GLOB_LST(IdD13CodeSpecsProjec
 }
 som::SomListMetaRef idD13CodeSpecsProjection_TNCS_TENA_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), metaIdFactoryTenantCustomizationEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_AZHAN_HAND_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControl/authorization/AZHAN-HAND-LST"), metaIdFactoryAccessHandlerEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_SEVT_CUST_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);

@@ -571,6 +571,17 @@ void registerSpecOps() {
     ),
   );
   SpecRegistry.register(
+    AccessHandlerEntry,
+    SpecClassOps(
+      slots: (o) => const [],
+      cloneShallow: (o) {
+        final n = o as AccessHandlerEntry;
+        return AccessHandlerEntry()..content = n.content;
+      },
+      yamlScalar: (o) => (o as AccessHandlerEntry).content,
+    ),
+  );
+  SpecRegistry.register(
     AccessLevelEntry,
     SpecClassOps(
       slots: (o) {
@@ -44672,6 +44683,12 @@ void registerSpecOps() {
             label: 'tenantIsolation',
             sectionId: 'TEIS',
           ),
+          SpecSlot.list(
+            () => n.accessHandlers,
+            (v) => n.accessHandlers = v.cast<AccessHandlerEntry>(),
+            label: 'accessHandlers',
+            sectionId: 'AZHAN-HAND-LST',
+          ),
         ];
       },
       cloneShallow: (o) {
@@ -44684,7 +44701,8 @@ void registerSpecOps() {
           ..entitlements = n.entitlements
           ..resourceKeys = n.resourceKeys
           ..roleHierarchy = n.roleHierarchy
-          ..tenantIsolation = n.tenantIsolation;
+          ..tenantIsolation = n.tenantIsolation
+          ..accessHandlers = n.accessHandlers;
       },
       yamlScalar: (o) => (o as UserAuthorization).content,
     ),

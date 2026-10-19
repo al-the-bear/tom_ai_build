@@ -10330,6 +10330,60 @@ Aligned with Tom Core authorization model.
   /// 9.4.7. Tenant Isolation.
   @SerializationOrder(7)
   TenantIsolation tenantIsolation = TenantIsolation();
+
+  /// 9.4.8. Access Handlers — contains 0+× Access Handler.
+  ///
+  /// The registry a custom authorization requirement names its handler from
+  /// (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+  /// requirement deciding through it resolves against it.
+  @StandardReferences(
+    ['NIST SP 800-162 — attribute-based access control (ABAC)'],
+    'The catalog of registered access handlers that decide custom authorization requirements.',
+  )
+  @SectionId('AZHAN-HAND-LST')
+  @SectionIdPattern('AZHAN-HAND-xxx')
+  @ContentHelp('Add one entry per registered access handler.')
+  @SerializationOrder(8)
+  List<AccessHandlerEntry> accessHandlers = [];
+}
+
+/// A registered access handler (form): the code that decides a custom
+/// authorization requirement (`codespecs_mapping.md` §5.15).
+@StandardReferences(
+  ['NIST SP 800-162 — attribute-based access control (ABAC)'],
+  'Declares a registered access handler that decides custom authorization requirements.',
+)
+@SectionId('AZHAN')
+@CodeSpecKind([CodeSpecPart.authorization])
+class AccessHandlerEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'handlerName',
+      String,
+      'Handler Name',
+      required: true,
+      hint:
+          'The name custom authorization requirements use to select this '
+          'handler.',
+    ),
+    Field(
+      'description',
+      String,
+      'Short description',
+      hint: 'What the handler decides, in business terms.',
+    ),
+    Field(
+      'inputs',
+      String,
+      'Inputs',
+      hint:
+          'What the handler reads to decide — the caller, a resource id, the '
+          'state of an object.',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

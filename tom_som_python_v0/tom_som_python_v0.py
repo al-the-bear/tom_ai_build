@@ -1749,6 +1749,20 @@ class AccessControlModelSelection(SomNode):
     def accessControlModelDetails(self):
         return None  # (skipped: no target type)
 
+class AccessHandlerEntry(SomNode):
+    """A registered access handler (form): the code that decides a custom
+    authorization requirement (`codespecs_mapping.md` §5.15).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return AccessHandlerEntryContentForm(self.doc, f"{self.path}/content")
+
 class AccessLevelEntry(SomNode):
     """An access level entry (form)."""
     def __init__(self, doc, path):
@@ -43068,6 +43082,15 @@ class UserAuthorization(SomNode):
     def tenantIsolation(self):
         return TenantIsolation(self.doc, f"{self.path}/tenantIsolation")
 
+    # 9.4.8. Access Handlers — contains 0+× Access Handler.
+    #
+    # The registry a custom authorization requirement names its handler from
+    # (`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every
+    # requirement deciding through it resolves against it.
+    @property
+    def accessHandlers(self):
+        return SomList(self.doc, f"{self.path}/AZHAN-HAND-LST", lambda d, p: AccessHandlerEntry(d, p), pattern="AZHAN-HAND-xxx")
+
 class UserCategoryDefinition(SomNode):
     """A user category definition (form)."""
     def __init__(self, doc, path):
@@ -45633,6 +45656,47 @@ class AccessControlModelSelectionContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class AccessHandlerEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def handlerName(self) -> str:
+        return self.doc.form_field(self.path, "handlerName") or ""
+
+    @handlerName.setter
+    def handlerName(self, value):
+        self.doc.set_form_field(self.path, "handlerName", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
+
+    @property
+    def inputs(self) -> str:
+        return self.doc.form_field(self.path, "inputs") or ""
+
+    @inputs.setter
+    def inputs(self, value):
+        self.doc.set_form_field(self.path, "inputs", value)
 
 class AccessLevelEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

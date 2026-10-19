@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-19T22:35:17.157952 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-19T23:28:49.054267 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -36,6 +36,7 @@ class SomV0Bridge {
       _createAccessConstraintPoliciesBridge(),
       _createAccessControlModelBridge(),
       _createAccessControlModelSelectionBridge(),
+      _createAccessHandlerEntryBridge(),
       _createAccessLevelEntryBridge(),
       _createAccessLevelsBridge(),
       _createAccessRestrictionEntryBridge(),
@@ -1298,6 +1299,7 @@ class SomV0Bridge {
       _createAcceptanceStepEntryOutcomeFormBridge(),
       _createAccessConstraintPoliciesContentFormBridge(),
       _createAccessControlModelSelectionContentFormBridge(),
+      _createAccessHandlerEntryContentFormBridge(),
       _createAccessLevelEntryContentFormBridge(),
       _createAccessLevelEntryGovernanceFormBridge(),
       _createAccessLevelEntryPermissionsFormBridge(),
@@ -4127,6 +4129,7 @@ class SomV0Bridge {
       _createAccessConstraintPolicies$NavBridge(),
       _createAccessControlModel$NavBridge(),
       _createAccessControlModelSelection$NavBridge(),
+      _createAccessHandlerEntry$NavBridge(),
       _createAccessLevelEntry$NavBridge(),
       _createAccessLevels$NavBridge(),
       _createAccessRestrictionEntry$NavBridge(),
@@ -5378,6 +5381,7 @@ class SomV0Bridge {
       _createWorkplaceSupportResources$NavBridge(),
       _createAcceptanceCriterionEntry$IdBridge(),
       _createAcceptanceStepEntry$IdBridge(),
+      _createAccessHandlerEntry$IdBridge(),
       _createAccessLevelEntry$IdBridge(),
       _createAccessRestrictionEntry$IdBridge(),
       _createAccessibilityCheckEntry$IdBridge(),
@@ -5920,6 +5924,7 @@ class SomV0Bridge {
       'AccessConstraintPolicies': _createAccessConstraintPoliciesBridge,
       'AccessControlModel': _createAccessControlModelBridge,
       'AccessControlModelSelection': _createAccessControlModelSelectionBridge,
+      'AccessHandlerEntry': _createAccessHandlerEntryBridge,
       'AccessLevelEntry': _createAccessLevelEntryBridge,
       'AccessLevels': _createAccessLevelsBridge,
       'AccessRestrictionEntry': _createAccessRestrictionEntryBridge,
@@ -7293,6 +7298,8 @@ class SomV0Bridge {
           _createAccessConstraintPoliciesContentFormBridge,
       'AccessControlModelSelectionContentForm':
           _createAccessControlModelSelectionContentFormBridge,
+      'AccessHandlerEntryContentForm':
+          _createAccessHandlerEntryContentFormBridge,
       'AccessLevelEntryContentForm': _createAccessLevelEntryContentFormBridge,
       'AccessLevelEntryGovernanceForm':
           _createAccessLevelEntryGovernanceFormBridge,
@@ -12431,6 +12438,7 @@ class SomV0Bridge {
       'AccessControlModel\$Nav': _createAccessControlModel$NavBridge,
       'AccessControlModelSelection\$Nav':
           _createAccessControlModelSelection$NavBridge,
+      'AccessHandlerEntry\$Nav': _createAccessHandlerEntry$NavBridge,
       'AccessLevelEntry\$Nav': _createAccessLevelEntry$NavBridge,
       'AccessLevels\$Nav': _createAccessLevels$NavBridge,
       'AccessRestrictionEntry\$Nav': _createAccessRestrictionEntry$NavBridge,
@@ -14062,6 +14070,7 @@ class SomV0Bridge {
           _createWorkplaceSupportResources$NavBridge,
       'AcceptanceCriterionEntry\$Id': _createAcceptanceCriterionEntry$IdBridge,
       'AcceptanceStepEntry\$Id': _createAcceptanceStepEntry$IdBridge,
+      'AccessHandlerEntry\$Id': _createAccessHandlerEntry$IdBridge,
       'AccessLevelEntry\$Id': _createAccessLevelEntry$IdBridge,
       'AccessRestrictionEntry\$Id': _createAccessRestrictionEntry$IdBridge,
       'AccessibilityCheckEntry\$Id': _createAccessibilityCheckEntry$IdBridge,
@@ -14717,6 +14726,7 @@ class SomV0Bridge {
       'AccessControlModel': $tom_som_dart_v0_1.AccessControlModel,
       'AccessControlModelSelection':
           $tom_som_dart_v0_1.AccessControlModelSelection,
+      'AccessHandlerEntry': $tom_som_dart_v0_1.AccessHandlerEntry,
       'AccessLevelEntry': $tom_som_dart_v0_1.AccessLevelEntry,
       'AccessLevels': $tom_som_dart_v0_1.AccessLevels,
       'AccessRestrictionEntry': $tom_som_dart_v0_1.AccessRestrictionEntry,
@@ -16233,6 +16243,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.AccessConstraintPoliciesContentForm,
       'AccessControlModelSelectionContentForm':
           $tom_som_dart_v0_1.AccessControlModelSelectionContentForm,
+      'AccessHandlerEntryContentForm':
+          $tom_som_dart_v0_1.AccessHandlerEntryContentForm,
       'AccessLevelEntryContentForm':
           $tom_som_dart_v0_1.AccessLevelEntryContentForm,
       'AccessLevelEntryGovernanceForm':
@@ -21699,6 +21711,7 @@ class SomV0Bridge {
       'AccessControlModel\$Nav': $tom_som_dart_v0_2.AccessControlModel$Nav,
       'AccessControlModelSelection\$Nav':
           $tom_som_dart_v0_2.AccessControlModelSelection$Nav,
+      'AccessHandlerEntry\$Nav': $tom_som_dart_v0_2.AccessHandlerEntry$Nav,
       'AccessLevelEntry\$Nav': $tom_som_dart_v0_2.AccessLevelEntry$Nav,
       'AccessLevels\$Nav': $tom_som_dart_v0_2.AccessLevels$Nav,
       'AccessRestrictionEntry\$Nav':
@@ -23586,6 +23599,7 @@ class SomV0Bridge {
       'AcceptanceCriterionEntry\$Id':
           $tom_som_dart_v0_2.AcceptanceCriterionEntry$Id,
       'AcceptanceStepEntry\$Id': $tom_som_dart_v0_2.AcceptanceStepEntry$Id,
+      'AccessHandlerEntry\$Id': $tom_som_dart_v0_2.AccessHandlerEntry$Id,
       'AccessLevelEntry\$Id': $tom_som_dart_v0_2.AccessLevelEntry$Id,
       'AccessRestrictionEntry\$Id':
           $tom_som_dart_v0_2.AccessRestrictionEntry$Id,
@@ -24350,6 +24364,7 @@ class SomV0Bridge {
       'AccessControlModel': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessControlModelSelection':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'AccessHandlerEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessLevelEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessLevels': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessRestrictionEntry': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -26005,6 +26020,8 @@ class SomV0Bridge {
       'AccessConstraintPoliciesContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessControlModelSelectionContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'AccessHandlerEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AccessLevelEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -31575,6 +31592,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AccessControlModelSelection\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'AccessHandlerEntry\$Nav':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AccessLevelEntry\$Nav':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AccessLevels\$Nav': 'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
@@ -33983,6 +34002,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AcceptanceStepEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
+      'AccessHandlerEntry\$Id':
+          'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AccessLevelEntry\$Id':
           'package:tom_som_dart_v0/tom_som_dart_v0_meta.dart',
       'AccessRestrictionEntry\$Id':
@@ -35008,6 +35029,7 @@ class SomV0Bridge {
       'AccessConstraintPolicies': ['SomNode'],
       'AccessControlModel': ['SomNode'],
       'AccessControlModelSelection': ['SomNode'],
+      'AccessHandlerEntry': ['SomNode'],
       'AccessLevelEntry': ['SomNode'],
       'AccessLevels': ['SomNode'],
       'AccessRestrictionEntry': ['SomNode'],
@@ -36270,6 +36292,7 @@ class SomV0Bridge {
       'AcceptanceStepEntryOutcomeForm': ['SomNode'],
       'AccessConstraintPoliciesContentForm': ['SomNode'],
       'AccessControlModelSelectionContentForm': ['SomNode'],
+      'AccessHandlerEntryContentForm': ['SomNode'],
       'AccessLevelEntryContentForm': ['SomNode'],
       'AccessLevelEntryGovernanceForm': ['SomNode'],
       'AccessLevelEntryPermissionsForm': ['SomNode'],
@@ -39106,6 +39129,7 @@ class SomV0Bridge {
       'AccessConstraintPolicies\$Nav': ['SomMetaRef'],
       'AccessControlModel\$Nav': ['SomMetaRef'],
       'AccessControlModelSelection\$Nav': ['SomMetaRef'],
+      'AccessHandlerEntry\$Nav': ['SomMetaRef'],
       'AccessLevelEntry\$Nav': ['SomMetaRef'],
       'AccessLevels\$Nav': ['SomMetaRef'],
       'AccessRestrictionEntry\$Nav': ['SomMetaRef'],
@@ -40357,6 +40381,7 @@ class SomV0Bridge {
       'WorkplaceSupportResources\$Nav': ['SomMetaRef'],
       'AcceptanceCriterionEntry\$Id': ['SomMetaRef'],
       'AcceptanceStepEntry\$Id': ['SomMetaRef'],
+      'AccessHandlerEntry\$Id': ['SomMetaRef'],
       'AccessLevelEntry\$Id': ['SomMetaRef'],
       'AccessRestrictionEntry\$Id': ['SomMetaRef'],
       'AccessibilityCheckEntry\$Id': ['SomMetaRef'],
@@ -43275,6 +43300,137 @@ BridgedClass _createAccessControlModelSelectionBridge() {
     },
     getterSignatures: {
       'content': 'AccessControlModelSelectionContentForm get content',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      'canHaveContent': 'bool get canHaveContent',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// AccessHandlerEntry Bridge
+// =============================================================================
+
+BridgedClass _createAccessHandlerEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.AccessHandlerEntry,
+    name: 'AccessHandlerEntry',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.AccessHandlerEntry,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'AccessHandlerEntry');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'AccessHandlerEntry',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AccessHandlerEntry',
+        );
+        return $tom_som_dart_v0_1.AccessHandlerEntry(doc, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .content,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .isEmpty,
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .canHaveContent,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+            target,
+            'AccessHandlerEntry',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+                target,
+                'AccessHandlerEntry',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+                target,
+                'AccessHandlerEntry',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntry>(
+                target,
+                'AccessHandlerEntry',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'AccessHandlerEntry(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'content': 'AccessHandlerEntryContentForm get content',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -227347,6 +227503,12 @@ BridgedClass _createUserAuthorizationBridge() {
             'UserAuthorization',
           )
           .tenantIsolation,
+      'accessHandlers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.UserAuthorization>(
+            target,
+            'UserAuthorization',
+          )
+          .accessHandlers,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.UserAuthorization>(
             target,
@@ -227439,6 +227601,7 @@ BridgedClass _createUserAuthorizationBridge() {
       'resourceKeys': 'SomList<ResourceKeyEntry> get resourceKeys',
       'roleHierarchy': 'RoleHierarchy get roleHierarchy',
       'tenantIsolation': 'TenantIsolation get tenantIsolation',
+      'accessHandlers': 'SomList<AccessHandlerEntry> get accessHandlers',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -239352,6 +239515,202 @@ BridgedClass _createAccessControlModelSelectionContentFormBridge() {
       'policyInformationPoint': 'set policyInformationPoint(String value)',
       'delegationModel': 'set delegationModel(String value)',
       'notes': 'set notes(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// AccessHandlerEntryContentForm Bridge
+// =============================================================================
+
+BridgedClass _createAccessHandlerEntryContentFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.AccessHandlerEntryContentForm,
+    name: 'AccessHandlerEntryContentForm',
+    isAssignable: (v) => v is $tom_som_dart_v0_1.AccessHandlerEntryContentForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'AccessHandlerEntryContentForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'AccessHandlerEntryContentForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AccessHandlerEntryContentForm',
+        );
+        return $tom_som_dart_v0_1.AccessHandlerEntryContentForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .content,
+      'handlerName': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .handlerName,
+      'description': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .description,
+      'inputs': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .inputs,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+            target,
+            'AccessHandlerEntryContentForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'handlerName': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .handlerName = D4.extractBridgedArg<String>(
+            value,
+            'handlerName',
+          ),
+      'description': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .description = D4.extractBridgedArg<String>(
+            value,
+            'description',
+          ),
+      'inputs': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .inputs = D4.extractBridgedArg<String>(
+            value,
+            'inputs',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.AccessHandlerEntryContentForm>(
+                target,
+                'AccessHandlerEntryContentForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'AccessHandlerEntryContentForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'handlerName': 'String get handlerName',
+      'description': 'String get description',
+      'inputs': 'String get inputs',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'handlerName': 'set handlerName(String value)',
+      'description': 'set description(String value)',
+      'inputs': 'set inputs(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -829771,6 +830130,72 @@ BridgedClass _createAccessControlModelSelection$NavBridge() {
 }
 
 // =============================================================================
+// AccessHandlerEntry$Nav Bridge
+// =============================================================================
+
+BridgedClass _createAccessHandlerEntry$NavBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.AccessHandlerEntry$Nav,
+    name: 'AccessHandlerEntry\$Nav',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.AccessHandlerEntry$Nav,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'AccessHandlerEntry\$Nav');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'AccessHandlerEntry\$Nav',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AccessHandlerEntry\$Nav',
+        );
+        return $tom_som_dart_v0_2.AccessHandlerEntry$Nav(tree, path);
+      },
+    },
+    getters: {
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Nav>(
+            target,
+            'AccessHandlerEntry\$Nav',
+          )
+          .content,
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Nav>(
+            target,
+            'AccessHandlerEntry\$Nav',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Nav>(
+            target,
+            'AccessHandlerEntry\$Nav',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Nav>(
+            target,
+            'AccessHandlerEntry\$Nav',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'AccessHandlerEntry\$Nav(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
+      'content': 'SomMetaRef get content',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
 // AccessLevelEntry$Nav Bridge
 // =============================================================================
 
@@ -935156,6 +935581,12 @@ BridgedClass _createUserAuthorization$NavBridge() {
             'UserAuthorization\$Nav',
           )
           .tenantIsolation,
+      'accessHandlers': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.UserAuthorization$Nav>(
+            target,
+            'UserAuthorization\$Nav',
+          )
+          .accessHandlers,
       'tree': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.UserAuthorization$Nav>(
             target,
@@ -935188,6 +935619,8 @@ BridgedClass _createUserAuthorization$NavBridge() {
       'resourceKeys': 'SomListMetaRef<ResourceKeyEntry\$Nav> get resourceKeys',
       'roleHierarchy': 'RoleHierarchy\$Nav get roleHierarchy',
       'tenantIsolation': 'TenantIsolation\$Nav get tenantIsolation',
+      'accessHandlers':
+          'SomListMetaRef<AccessHandlerEntry\$Nav> get accessHandlers',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -940145,6 +940578,65 @@ BridgedClass _createAcceptanceStepEntry$IdBridge() {
     getterSignatures: {
       'ASEF': 'SomMetaRef get ASEF',
       'ASEO': 'SomMetaRef get ASEO',
+      'tree': 'SomMetaTree get tree',
+      'path': 'String get path',
+      'meta': 'SomMetaNode get meta',
+    },
+  );
+}
+
+// =============================================================================
+// AccessHandlerEntry$Id Bridge
+// =============================================================================
+
+BridgedClass _createAccessHandlerEntry$IdBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_2.AccessHandlerEntry$Id,
+    name: 'AccessHandlerEntry\$Id',
+    isAssignable: (v) => v is $tom_som_dart_v0_2.AccessHandlerEntry$Id,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'AccessHandlerEntry\$Id');
+        final tree = D4.getRequiredArg<$tom_som_dart_runtime_3.SomMetaTree>(
+          positional,
+          0,
+          'tree',
+          'AccessHandlerEntry\$Id',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AccessHandlerEntry\$Id',
+        );
+        return $tom_som_dart_v0_2.AccessHandlerEntry$Id(tree, path);
+      },
+    },
+    getters: {
+      'tree': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Id>(
+            target,
+            'AccessHandlerEntry\$Id',
+          )
+          .tree,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Id>(
+            target,
+            'AccessHandlerEntry\$Id',
+          )
+          .path,
+      'meta': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.AccessHandlerEntry$Id>(
+            target,
+            'AccessHandlerEntry\$Id',
+          )
+          .meta,
+    },
+    constructorSignatures: {
+      '': 'AccessHandlerEntry\$Id(SomMetaTree tree, String path)',
+    },
+    getterSignatures: {
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -953276,6 +953768,12 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
             'D00SolutionBlueprint\$Id',
           )
           .TNCS_TENA_LST,
+      'AZHAN_HAND_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
+            target,
+            'D00SolutionBlueprint\$Id',
+          )
+          .AZHAN_HAND_LST,
       'SEVT_CUST_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D00SolutionBlueprint$Id>(
             target,
@@ -956557,6 +957055,8 @@ BridgedClass _createD00SolutionBlueprint$IdBridge() {
           'SomListMetaRef<GlobalRoleExclusionEntry\$Id> get GBRLX_GLOB_LST',
       'TNCS_TENA_LST':
           'SomListMetaRef<TenantCustomizationEntry\$Id> get TNCS_TENA_LST',
+      'AZHAN_HAND_LST':
+          'SomListMetaRef<AccessHandlerEntry\$Id> get AZHAN_HAND_LST',
       'SEVT_CUST_LST':
           'SomListMetaRef<SecurityEventEntry\$Id> get SEVT_CUST_LST',
       'ENDACA_ENCR_LST':
@@ -962586,6 +963086,12 @@ BridgedClass _createD08SecurityAccessSpecification$IdBridge() {
             'D08SecurityAccessSpecification\$Id',
           )
           .TNCS_TENA_LST,
+      'AZHAN_HAND_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D08SecurityAccessSpecification$Id>(
+            target,
+            'D08SecurityAccessSpecification\$Id',
+          )
+          .AZHAN_HAND_LST,
       'ENDACA_ENCR_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D08SecurityAccessSpecification$Id>(
             target,
@@ -962678,6 +963184,8 @@ BridgedClass _createD08SecurityAccessSpecification$IdBridge() {
           'SomListMetaRef<GlobalRoleExclusionEntry\$Id> get GBRLX_GLOB_LST',
       'TNCS_TENA_LST':
           'SomListMetaRef<TenantCustomizationEntry\$Id> get TNCS_TENA_LST',
+      'AZHAN_HAND_LST':
+          'SomListMetaRef<AccessHandlerEntry\$Id> get AZHAN_HAND_LST',
       'ENDACA_ENCR_LST':
           'SomListMetaRef<EncryptedDataCategoryEntry\$Id> get ENDACA_ENCR_LST',
       'COCHEN_COMM_LST':
@@ -969143,6 +969651,12 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
             'D13CodeSpecsProjection\$Id',
           )
           .TNCS_TENA_LST,
+      'AZHAN_HAND_LST': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
+            target,
+            'D13CodeSpecsProjection\$Id',
+          )
+          .AZHAN_HAND_LST,
       'SEVT_CUST_LST': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.D13CodeSpecsProjection$Id>(
             target,
@@ -970446,6 +970960,8 @@ BridgedClass _createD13CodeSpecsProjection$IdBridge() {
           'SomListMetaRef<GlobalRoleExclusionEntry\$Id> get GBRLX_GLOB_LST',
       'TNCS_TENA_LST':
           'SomListMetaRef<TenantCustomizationEntry\$Id> get TNCS_TENA_LST',
+      'AZHAN_HAND_LST':
+          'SomListMetaRef<AccessHandlerEntry\$Id> get AZHAN_HAND_LST',
       'SEVT_CUST_LST':
           'SomListMetaRef<SecurityEventEntry\$Id> get SEVT_CUST_LST',
       'ENDACA_ENCR_LST':

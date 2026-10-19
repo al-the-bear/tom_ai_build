@@ -156,6 +156,9 @@ void main() {
     ('REID', 'displayScreen'): ['SCREN'],
     ('RFEIE', 'entityType'): ['DAENT.entityName'],
     ('QLWGT', 'qualityCategory'): ['QCATE'],
+    // uamtcb4: a custom requirement names its handler from the catalogue.
+    ('AZREQ-CUST', 'handler'): ['AZHAN.handlerName'],
+    ('AZLVL-CUST', 'handler'): ['AZHAN.handlerName'],
   };
 
   String? formKey(String path) {

@@ -926,6 +926,38 @@ public final class TomSomV0Meta {
     }
   }
 
+  // AccessHandlerEntryNav holds the dot-notation accessors of `AccessHandlerEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class AccessHandlerEntryNav extends SomMetaRef {
+    public AccessHandlerEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `AccessHandlerEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("AccessHandlerEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("handlerName", "String", "Handler Name", true, "The name custom authorization requirements use to select this handler.", 0),
+            new SomFormFieldMeta("description", "String", "Short description", false, "What the handler decides, in business terms.", 1),
+            new SomFormFieldMeta("inputs", "String", "Inputs", false, "What the handler reads to decide — the caller, a resource id, the state of an object.", 2)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // AccessLevelEntryNav holds the dot-notation accessors of `AccessLevelEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -6861,7 +6893,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 5;
         n.docComment = "Custom requirement payload — a promoted `@OneOf` case.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides", 0),
+            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides, by its name in the access-handler catalogue", 0, java.util.List.of(), java.util.List.of("AZHAN.handlerName")),
             new SomFormFieldMeta("resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1),
             new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.custom")));
@@ -45212,7 +45244,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 5;
         n.docComment = "Custom requirement payload — a promoted `@OneOf` case.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides", 0),
+            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides, by its name in the access-handler catalogue", 0, java.util.List.of(), java.util.List.of("AZHAN.handlerName")),
             new SomFormFieldMeta("resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1),
             new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.custom")));
@@ -105276,6 +105308,26 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      {
+        SomMetaNode n = new SomMetaNode("UserAuthorization", SomMetaKind.LIST, "AccessHandlerEntry");
+        n.memberName = "accessHandlers";
+        n.sectionId = "AZHAN-HAND-LST";
+        n.sectionIdPattern = "AZHAN-HAND-xxx";
+        n.serializationOrder = 8;
+        n.contentHelp = "Add one entry per registered access handler.";
+        n.docComment = "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("NIST SP 800-162 — attribute-based access control (ABAC)"), "connotation", "The catalog of registered access handlers that decide custom authorization requirements.")));
+        n.elementNode = metaCx("AccessHandlerEntry", s, AccessHandlerEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("AccessHandlerEntry", SomMetaKind.COMPLEX, "AccessHandlerEntry");
+          e.classSectionId = "AZHAN";
+          e.docComment = "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).";
+          e.classDocComment = "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -105309,6 +105361,10 @@ public final class TomSomV0Meta {
 
     public TenantIsolationNav tenantIsolation() {
       return new TenantIsolationNav(tree, path + "/tenantIsolation");
+    }
+
+    public SomListMetaRef<AccessHandlerEntryNav> accessHandlers() {
+      return new SomListMetaRef<>(tree, path + "/AZHAN-HAND-LST", (t, p) -> new AccessHandlerEntryNav(t, p));
     }
   }
 
@@ -109637,6 +109693,16 @@ public final class TomSomV0Meta {
 
     public SomMetaRef ASEO() {
       return new SomMetaRef(tree, path + "/ASEO");
+    }
+  }
+
+  // AccessHandlerEntryId holds the ID-tree accessors of `AccessHandlerEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class AccessHandlerEntryId extends SomMetaRef {
+    public AccessHandlerEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
     }
   }
 
@@ -115521,6 +115587,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t, p) -> new TenantCustomizationEntryId(t, p));
     }
 
+    public SomListMetaRef<AccessHandlerEntryId> AZHAN_HAND_LST() {
+      return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST", (t, p) -> new AccessHandlerEntryId(t, p));
+    }
+
     public SomListMetaRef<SecurityEventEntryId> SEVT_CUST_LST() {
       return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) -> new SecurityEventEntryId(t, p));
     }
@@ -120253,6 +120323,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/userAuthorization/tenantIsolation/TNCS-TENA-LST", (t, p) -> new TenantCustomizationEntryId(t, p));
     }
 
+    public SomListMetaRef<AccessHandlerEntryId> AZHAN_HAND_LST() {
+      return new SomListMetaRef<>(tree, path + "/userAuthorization/AZHAN-HAND-LST", (t, p) -> new AccessHandlerEntryId(t, p));
+    }
+
     public SomListMetaRef<EncryptedDataCategoryEntryId> ENDACA_ENCR_LST() {
       return new SomListMetaRef<>(tree, path + "/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST", (t, p) -> new EncryptedDataCategoryEntryId(t, p));
     }
@@ -124277,6 +124351,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<TenantCustomizationEntryId> TNCS_TENA_LST() {
       return new SomListMetaRef<>(tree, path + "/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t, p) -> new TenantCustomizationEntryId(t, p));
+    }
+
+    public SomListMetaRef<AccessHandlerEntryId> AZHAN_HAND_LST() {
+      return new SomListMetaRef<>(tree, path + "/accessControl/authorization/AZHAN-HAND-LST", (t, p) -> new AccessHandlerEntryId(t, p));
     }
 
     public SomListMetaRef<SecurityEventEntryId> SEVT_CUST_LST() {

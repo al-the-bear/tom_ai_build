@@ -115,6 +115,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per responsibility reference.
+  azhan-hand-lst:
+    prefix: AZHAN_HAND_LST
+    subsection-types:
+      azhan-hand:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per registered access handler.
   gbrlx-glob-lst:
     prefix: GBRLX_GLOB_LST
     subsection-types:
@@ -352,6 +360,12 @@ section-types:
       pattern: ^RSPREF-RESP-.+$
       error-message: IDs of this section must match RSPREF-RESP-xxx
     description: Add one entry per responsibility reference.
+  azhan-hand:
+    prefix: AZHAN_HAND_
+    pattern-check-id:
+      pattern: ^AZHAN-HAND-.+$
+      error-message: IDs of this section must match AZHAN-HAND-xxx
+    description: Add one entry per registered access handler.
   gbrlx-glob:
     prefix: GBRLX_GLOB_
     pattern-check-id:
@@ -1374,6 +1388,8 @@ section-types:
       rohi:
         max-count: 1
       teis:
+        max-count: 1
+      azhan-hand-lst:
         max-count: 1
     description: User authorization.
   aap:

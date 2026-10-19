@@ -7349,6 +7349,11 @@ document:
                 content: Exercise text.
             tenantIsolationNotes:
               content: Exercise text.
+          AZHAN-HAND-LST accessHandlers:
+            AZHAN-HAND-1:
+              content:
+                content: Exercise form preamble.
+                handlerName: "exercise-azhan-handlername"
         ROMA roleMatrix:
           content: Exercise text.
       AUANLO auditAndLogging:
@@ -7668,7 +7673,7 @@ document:
                               requirementKind: "custom"
                             AZREQ-CUST customRequirement:
                               content: Exercise form preamble.
-                              handler: "Exercise value."
+                              handler: "exercise-azhan-handlername"
                               decisionRule: "Exercise value."
                           SCELENPR presentation:
                             content: Exercise form preamble.
@@ -7804,7 +7809,7 @@ document:
                             requirementKind: "custom"
                           AZLVL-CUST customRequirement:
                             content: Exercise form preamble.
-                            handler: "Exercise value."
+                            handler: "exercise-azhan-handlername"
                             decisionRule: "Exercise value."
                   NGES structure:
                     content: Exercise form preamble.

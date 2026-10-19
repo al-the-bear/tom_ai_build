@@ -490,6 +490,17 @@ List<SomMetaNode> _mc$AccessControlModelSelection(Set<String> s) => [
           docComment: 'Access Control Model Details (text).'),
     ];
 
+List<SomMetaNode> _mc$AccessHandlerEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'AccessHandlerEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'handlerName', typeName: 'String', description: 'Handler Name', required: true, hint: 'The name custom authorization requirements use to select this handler.', order: 0), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Short description', hint: 'What the handler decides, in business terms.', order: 1), SomFormFieldMeta(name: 'inputs', typeName: 'String', description: 'Inputs', hint: 'What the handler reads to decide — the caller, a resource id, the state of an object.', order: 2)])),
+    ];
+
 List<SomMetaNode> _mc$AccessLevelEntry(Set<String> s) => [
        SomMetaNode(
           className: 'AccessLevelEntry',
@@ -3393,7 +3404,7 @@ List<SomMetaNode> _mc$AuthorizationRequirementSpec(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 5,
           docComment: 'Custom requirement payload — a promoted `@OneOf` case.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'handler', typeName: 'String', description: 'Handler', required: true, hint: 'The registered access handler that decides', order: 0), SomFormFieldMeta(name: 'resourceId', typeName: 'String', description: 'Resource ID', hint: 'The resource id passed to the handler, where it needs one', order: 1), SomFormFieldMeta(name: 'decisionRule', typeName: 'String', description: 'Decision Rule', required: true, hint: 'What the handler must decide, in business terms — this is the specification the handler is implemented against', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'handler', typeName: 'String', description: 'Handler', required: true, hint: 'The registered access handler that decides, by its name in the access-handler catalogue', order: 0, refersTo: ['AZHAN.handlerName']), SomFormFieldMeta(name: 'resourceId', typeName: 'String', description: 'Resource ID', hint: 'The resource id passed to the handler, where it needs one', order: 1), SomFormFieldMeta(name: 'decisionRule', typeName: 'String', description: 'Decision Rule', required: true, hint: 'What the handler must decide, in business terms — this is the specification the handler is implemented against', order: 2)]),
           extra: [SomMetaExtra(annotation: 'Case', args: {'value': 'AuthorizationRequirementKind.custom'})]),
        _cx('GradedAuthorizationRequirement', s, _mc$GradedAuthorizationRequirement, (r, c) => SomMetaNode(
           className: 'GradedAuthorizationRequirement',
@@ -23195,7 +23206,7 @@ List<SomMetaNode> _mc$GradedAccessLevelEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 5,
           docComment: 'Custom requirement payload — a promoted `@OneOf` case.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'handler', typeName: 'String', description: 'Handler', required: true, hint: 'The registered access handler that decides', order: 0), SomFormFieldMeta(name: 'resourceId', typeName: 'String', description: 'Resource ID', hint: 'The resource id passed to the handler, where it needs one', order: 1), SomFormFieldMeta(name: 'decisionRule', typeName: 'String', description: 'Decision Rule', required: true, hint: 'What the handler must decide, in business terms', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'handler', typeName: 'String', description: 'Handler', required: true, hint: 'The registered access handler that decides, by its name in the access-handler catalogue', order: 0, refersTo: ['AZHAN.handlerName']), SomFormFieldMeta(name: 'resourceId', typeName: 'String', description: 'Resource ID', hint: 'The resource id passed to the handler, where it needs one', order: 1), SomFormFieldMeta(name: 'decisionRule', typeName: 'String', description: 'Decision Rule', required: true, hint: 'What the handler must decide, in business terms', order: 2)]),
           extra: [SomMetaExtra(annotation: 'Case', args: {'value': 'BasicAuthorizationRequirementKind.custom'})]),
     ];
 
@@ -52876,6 +52887,18 @@ List<SomMetaNode> _mc$UserAuthorization(Set<String> s) => [
           classDocComment: '9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.',
           recursive: r,
           children: c)),
+       SomMetaNode(
+          className: 'UserAuthorization',
+          memberName: 'accessHandlers',
+          sectionId: 'AZHAN-HAND-LST',
+          sectionIdPattern: 'AZHAN-HAND-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'AccessHandlerEntry',
+          serializationOrder: 8,
+          contentHelp: 'Add one entry per registered access handler.',
+          docComment: '9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['NIST SP 800-162 — attribute-based access control (ABAC)'], 'connotation': 'The catalog of registered access handlers that decide custom authorization requirements.'})],
+          elementNode: _cx('AccessHandlerEntry', s, _mc$AccessHandlerEntry, (r, c) => SomMetaNode(className: 'AccessHandlerEntry', classSectionId: 'AZHAN', kind: SomMetaKind.complex, typeName: 'AccessHandlerEntry', docComment: 'A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).', classDocComment: 'A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$UserCategoryDefinition(Set<String> s) => [
@@ -55482,6 +55505,15 @@ class AccessControlModelSelection$Nav extends SomMetaRef {
   AccessControlModelSelection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get accessControlModelDetails => SomMetaRef(tree, '$path/accessControlModelDetails');
+}
+
+/// Dot-notation accessors of `AccessHandlerEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class AccessHandlerEntry$Nav extends SomMetaRef {
+  AccessHandlerEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
 /// Dot-notation accessors of `AccessLevelEntry` (SOM §8). Every getter is one
@@ -69934,6 +69966,7 @@ class UserAuthorization$Nav extends SomMetaRef {
   SomListMetaRef<ResourceKeyEntry$Nav> get resourceKeys => SomListMetaRef(tree, '$path/RESKEY-RESO-LST', ResourceKeyEntry$Nav.new);
   RoleHierarchy$Nav get roleHierarchy => RoleHierarchy$Nav(tree, '$path/roleHierarchy');
   TenantIsolation$Nav get tenantIsolation => TenantIsolation$Nav(tree, '$path/tenantIsolation');
+  SomListMetaRef<AccessHandlerEntry$Nav> get accessHandlers => SomListMetaRef(tree, '$path/AZHAN-HAND-LST', AccessHandlerEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `UserCategoryDefinition` (SOM §8). Every getter is one
@@ -70613,6 +70646,13 @@ class AcceptanceStepEntry$Id extends SomMetaRef {
   AcceptanceStepEntry$Id(super.tree, super.path);
   SomMetaRef get ASEF => SomMetaRef(tree, '$path/ASEF');
   SomMetaRef get ASEO => SomMetaRef(tree, '$path/ASEO');
+}
+
+/// ID-tree accessors of `AccessHandlerEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class AccessHandlerEntry$Id extends SomMetaRef {
+  AccessHandlerEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `AccessLevelEntry` (SOM §8): getters named by section
@@ -72493,6 +72533,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<RoleCombinationConstraintEntry$Id> get RLCMB_COMB_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST', RoleCombinationConstraintEntry$Id.new);
   SomListMetaRef<GlobalRoleExclusionEntry$Id> get GBRLX_GLOB_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST', GlobalRoleExclusionEntry$Id.new);
   SomListMetaRef<TenantCustomizationEntry$Id> get TNCS_TENA_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST', TenantCustomizationEntry$Id.new);
+  SomListMetaRef<AccessHandlerEntry$Id> get AZHAN_HAND_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST', AccessHandlerEntry$Id.new);
   SomListMetaRef<SecurityEventEntry$Id> get SEVT_CUST_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST', SecurityEventEntry$Id.new);
   SomListMetaRef<EncryptedDataCategoryEntry$Id> get ENDACA_ENCR_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST', EncryptedDataCategoryEntry$Id.new);
   SomListMetaRef<CommunicationChannelEncryptionEntry$Id> get COCHEN_COMM_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST', CommunicationChannelEncryptionEntry$Id.new);
@@ -73712,6 +73753,7 @@ class D08SecurityAccessSpecification$Id extends SomMetaRef {
   SomListMetaRef<RoleCombinationConstraintEntry$Id> get RLCMB_COMB_LST => SomListMetaRef(tree, '$path/userAuthorization/roleHierarchy/RLCMB-COMB-LST', RoleCombinationConstraintEntry$Id.new);
   SomListMetaRef<GlobalRoleExclusionEntry$Id> get GBRLX_GLOB_LST => SomListMetaRef(tree, '$path/userAuthorization/roleHierarchy/GBRLX-GLOB-LST', GlobalRoleExclusionEntry$Id.new);
   SomListMetaRef<TenantCustomizationEntry$Id> get TNCS_TENA_LST => SomListMetaRef(tree, '$path/userAuthorization/tenantIsolation/TNCS-TENA-LST', TenantCustomizationEntry$Id.new);
+  SomListMetaRef<AccessHandlerEntry$Id> get AZHAN_HAND_LST => SomListMetaRef(tree, '$path/userAuthorization/AZHAN-HAND-LST', AccessHandlerEntry$Id.new);
   SomListMetaRef<EncryptedDataCategoryEntry$Id> get ENDACA_ENCR_LST => SomListMetaRef(tree, '$path/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST', EncryptedDataCategoryEntry$Id.new);
   SomListMetaRef<CommunicationChannelEncryptionEntry$Id> get COCHEN_COMM_LST => SomListMetaRef(tree, '$path/sensitiveDataEncryption/encryptionInTransit/COCHEN-COMM-LST', CommunicationChannelEncryptionEntry$Id.new);
   SomListMetaRef<SecurityEventEntry$Id> get SEVT_CUST_LST => SomListMetaRef(tree, '$path/auditAndLogging/securityEvents/SEVT-CUST-LST', SecurityEventEntry$Id.new);
@@ -74741,6 +74783,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomListMetaRef<RoleCombinationConstraintEntry$Id> get RLCMB_COMB_LST => SomListMetaRef(tree, '$path/accessControl/authorization/roleHierarchy/RLCMB-COMB-LST', RoleCombinationConstraintEntry$Id.new);
   SomListMetaRef<GlobalRoleExclusionEntry$Id> get GBRLX_GLOB_LST => SomListMetaRef(tree, '$path/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST', GlobalRoleExclusionEntry$Id.new);
   SomListMetaRef<TenantCustomizationEntry$Id> get TNCS_TENA_LST => SomListMetaRef(tree, '$path/accessControl/authorization/tenantIsolation/TNCS-TENA-LST', TenantCustomizationEntry$Id.new);
+  SomListMetaRef<AccessHandlerEntry$Id> get AZHAN_HAND_LST => SomListMetaRef(tree, '$path/accessControl/authorization/AZHAN-HAND-LST', AccessHandlerEntry$Id.new);
   SomListMetaRef<SecurityEventEntry$Id> get SEVT_CUST_LST => SomListMetaRef(tree, '$path/auditAndLogging/securityEvents/SEVT-CUST-LST', SecurityEventEntry$Id.new);
   SomListMetaRef<EncryptedDataCategoryEntry$Id> get ENDACA_ENCR_LST => SomListMetaRef(tree, '$path/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST', EncryptedDataCategoryEntry$Id.new);
   SomListMetaRef<CommunicationChannelEncryptionEntry$Id> get COCHEN_COMM_LST => SomListMetaRef(tree, '$path/sensitiveDataEncryption/encryptionInTransit/COCHEN-COMM-LST', CommunicationChannelEncryptionEntry$Id.new);

@@ -1457,6 +1457,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per assumption (ASM-NNN).
+  azhan-hand-lst:
+    prefix: AZHAN_HAND_LST
+    subsection-types:
+      azhan-hand:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per registered access handler.
   azlvl-leve-lst:
     prefix: AZLVL_LEVE_LST
     subsection-types:
@@ -6353,6 +6361,12 @@ section-types:
       pattern: ^ASMRE-ASMP-.+$
       error-message: IDs of this section must match ASMRE-ASMP-xxx
     description: Add one entry per assumption (ASM-NNN).
+  azhan-hand:
+    prefix: AZHAN_HAND_
+    pattern-check-id:
+      pattern: ^AZHAN-HAND-.+$
+      error-message: IDs of this section must match AZHAN-HAND-xxx
+    description: Add one entry per registered access handler.
   azlvl-leve:
     prefix: AZLVL_LEVE_
     subsection-types:
@@ -25471,6 +25485,8 @@ section-types:
         max-count: 1
       teis:
         max-count: 1
+      azhan-hand-lst:
+        max-count: 1
     description: 9.1.4. User Authorization.
   utna:
     prefix: UTNA
@@ -33491,7 +33507,7 @@ form-types:
     fields:
       - fieldname: handler
         required: true
-        description: The registered access handler that decides
+        description: "The registered access handler that decides, by its name in the access-handler catalogue"
       - fieldname: resourceId
         description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule
@@ -33521,7 +33537,7 @@ form-types:
     fields:
       - fieldname: handler
         required: true
-        description: The registered access handler that decides
+        description: "The registered access handler that decides, by its name in the access-handler catalogue"
       - fieldname: resourceId
         description: "The resource id passed to the handler, where it needs one"
       - fieldname: decisionRule

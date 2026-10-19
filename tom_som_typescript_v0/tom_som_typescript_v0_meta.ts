@@ -537,6 +537,19 @@ function _mc_AccessControlModelSelection(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_AccessHandlerEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "AccessHandlerEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "handlerName", typeName: "String", description: "Handler Name", required: true, hint: "The name custom authorization requirements use to select this handler.", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", hint: "What the handler decides, in business terms.", order: 1}), new SomFormFieldMeta({name: "inputs", typeName: "String", description: "Inputs", hint: "What the handler reads to decide — the caller, a resource id, the state of an object.", order: 2})])}),
+  ];
+}
+
 function _mc_AccessLevelEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -3645,7 +3658,7 @@ function _mc_AuthorizationRequirementSpec(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 5,
       docComment: "Custom requirement payload — a promoted `@OneOf` case.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "handler", typeName: "String", description: "Handler", required: true, hint: "The registered access handler that decides", order: 0}), new SomFormFieldMeta({name: "resourceId", typeName: "String", description: "Resource ID", hint: "The resource id passed to the handler, where it needs one", order: 1}), new SomFormFieldMeta({name: "decisionRule", typeName: "String", description: "Decision Rule", required: true, hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against", order: 2})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "handler", typeName: "String", description: "Handler", required: true, hint: "The registered access handler that decides, by its name in the access-handler catalogue", order: 0, refersTo: ["AZHAN.handlerName"]}), new SomFormFieldMeta({name: "resourceId", typeName: "String", description: "Resource ID", hint: "The resource id passed to the handler, where it needs one", order: 1}), new SomFormFieldMeta({name: "decisionRule", typeName: "String", description: "Decision Rule", required: true, hint: "What the handler must decide, in business terms — this is the specification the handler is implemented against", order: 2})]),
       extra: [new SomMetaExtra("Case", {"value": "AuthorizationRequirementKind.custom"})]}),
      _cx("GradedAuthorizationRequirement", s, _mc_GradedAuthorizationRequirement,
       (r, c) => new SomMetaNode({
@@ -24683,7 +24696,7 @@ function _mc_GradedAccessLevelEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 5,
       docComment: "Custom requirement payload — a promoted `@OneOf` case.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "handler", typeName: "String", description: "Handler", required: true, hint: "The registered access handler that decides", order: 0}), new SomFormFieldMeta({name: "resourceId", typeName: "String", description: "Resource ID", hint: "The resource id passed to the handler, where it needs one", order: 1}), new SomFormFieldMeta({name: "decisionRule", typeName: "String", description: "Decision Rule", required: true, hint: "What the handler must decide, in business terms", order: 2})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "handler", typeName: "String", description: "Handler", required: true, hint: "The registered access handler that decides, by its name in the access-handler catalogue", order: 0, refersTo: ["AZHAN.handlerName"]}), new SomFormFieldMeta({name: "resourceId", typeName: "String", description: "Resource ID", hint: "The resource id passed to the handler, where it needs one", order: 1}), new SomFormFieldMeta({name: "decisionRule", typeName: "String", description: "Decision Rule", required: true, hint: "What the handler must decide, in business terms", order: 2})]),
       extra: [new SomMetaExtra("Case", {"value": "BasicAuthorizationRequirementKind.custom"})]}),
   ];
 }
@@ -56174,6 +56187,18 @@ function _mc_UserAuthorization(s: Set<string>): SomMetaNode[] {
         classDocComment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.",
         recursive: r,
         children: c})),
+     new SomMetaNode({
+      className: "UserAuthorization",
+      memberName: "accessHandlers",
+      sectionId: "AZHAN-HAND-LST",
+      sectionIdPattern: "AZHAN-HAND-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "AccessHandlerEntry",
+      serializationOrder: 8,
+      contentHelp: "Add one entry per registered access handler.",
+      docComment: "9.4.8. Access Handlers — contains 0+× Access Handler.\n\nThe registry a custom authorization requirement names its handler from\n(`AZREQ-CUST` / `AZLVL-CUST`), so a handler is declared once and every\nrequirement deciding through it resolves against it.",
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST SP 800-162 — attribute-based access control (ABAC)"], "connotation": "The catalog of registered access handlers that decide custom authorization requirements."})],
+      elementNode: _cx("AccessHandlerEntry", s, _mc_AccessHandlerEntry, (r, c) => new SomMetaNode({className: "AccessHandlerEntry", classSectionId: "AZHAN", kind: SomMetaKind.COMPLEX, typeName: "AccessHandlerEntry", docComment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).", classDocComment: "A registered access handler (form): the code that decides a custom\nauthorization requirement (`codespecs_mapping.md` §5.15).", recursive: r, children: c}))}),
   ];
 }
 
@@ -58649,6 +58674,16 @@ export class AccessControlModelSelection$Nav extends SomMetaRef {
 
   get accessControlModelDetails(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/accessControlModelDetails");
+  }
+}
+
+// Dot-notation accessors of `AccessHandlerEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class AccessHandlerEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -85492,6 +85527,10 @@ export class UserAuthorization$Nav extends SomMetaRef {
   get tenantIsolation(): TenantIsolation$Nav {
     return new TenantIsolation$Nav(this.tree, this.path + "/tenantIsolation");
   }
+
+  get accessHandlers(): SomListMetaRef<AccessHandlerEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/AZHAN-HAND-LST", (t: SomMetaTree, p: string) => new AccessHandlerEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `UserCategoryDefinition` (SOM §8). Every getter is one
@@ -86649,6 +86688,12 @@ export class AcceptanceStepEntry$Id extends SomMetaRef {
   get ASEO(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/ASEO");
   }
+}
+
+// ID-tree accessors of `AccessHandlerEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class AccessHandlerEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `AccessLevelEntry` (SOM §8): getters named by section id
@@ -92114,6 +92159,10 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t: SomMetaTree, p: string) => new TenantCustomizationEntry$Id(t, p));
   }
 
+  get AZHAN_HAND_LST(): SomListMetaRef<AccessHandlerEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/accessControl/authorization/AZHAN-HAND-LST", (t: SomMetaTree, p: string) => new AccessHandlerEntry$Id(t, p));
+  }
+
   get SEVT_CUST_LST(): SomListMetaRef<SecurityEventEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", (t: SomMetaTree, p: string) => new SecurityEventEntry$Id(t, p));
   }
@@ -96806,6 +96855,10 @@ export class D08SecurityAccessSpecification$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/userAuthorization/tenantIsolation/TNCS-TENA-LST", (t: SomMetaTree, p: string) => new TenantCustomizationEntry$Id(t, p));
   }
 
+  get AZHAN_HAND_LST(): SomListMetaRef<AccessHandlerEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/userAuthorization/AZHAN-HAND-LST", (t: SomMetaTree, p: string) => new AccessHandlerEntry$Id(t, p));
+  }
+
   get ENDACA_ENCR_LST(): SomListMetaRef<EncryptedDataCategoryEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/sensitiveDataEncryption/encryptionAtRest/ENDACA-ENCR-LST", (t: SomMetaTree, p: string) => new EncryptedDataCategoryEntry$Id(t, p));
   }
@@ -100805,6 +100858,10 @@ export class D13CodeSpecsProjection$Id extends SomMetaRef {
 
   get TNCS_TENA_LST(): SomListMetaRef<TenantCustomizationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", (t: SomMetaTree, p: string) => new TenantCustomizationEntry$Id(t, p));
+  }
+
+  get AZHAN_HAND_LST(): SomListMetaRef<AccessHandlerEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/accessControl/authorization/AZHAN-HAND-LST", (t: SomMetaTree, p: string) => new AccessHandlerEntry$Id(t, p));
   }
 
   get SEVT_CUST_LST(): SomListMetaRef<SecurityEventEntry$Id> {
