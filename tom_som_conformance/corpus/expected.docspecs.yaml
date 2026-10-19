@@ -85,3 +85,25 @@ document:
       remarks:
         content: |2-
           Wrapper-section text
+    MIX mixed:
+      headline: |2-
+        Mixed
+        slots
+      content:
+        content: |2-
+          _Extrapolated._
+        lead: |2-
+          Ada
+        risk: |2-
+          low
+      narrative: |2-
+        First narrative.
+
+
+        After two blank lines.
+        Lead: label-shaped prose
+      tail: |2-
+        Tail text.
+      alt:
+        lead: |2-
+          Bob

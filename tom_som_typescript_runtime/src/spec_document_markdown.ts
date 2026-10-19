@@ -27,9 +27,9 @@
  *
  * Escaping (SOM §11.3): a content line starting with `#` at column 0 is
  * emitted as `\#` (and a leading `\#`… run gains one more backslash), except
- * inside fenced code blocks, which shield their lines verbatim. Consecutive
- * blank lines are collapsed to one on emit; parse trims each value of
- * leading/trailing blank lines and does not re-collapse.
+ * inside fenced code blocks, which shield their lines verbatim. Blank lines
+ * inside a value are kept as written; parse trims each value of
+ * leading/trailing blank lines only.
  *
  * The codec is free of any UI: it reads from / resolves against a
  * {@link SpecModel} (through the {@link buildSomMetaTree} metadata tree) and a
@@ -242,6 +242,10 @@ const _LABEL_SHAPED = /^ *[A-Za-z][A-Za-z0-9_]*:/;
 const _FIELD_LABEL = /^([A-Za-z][A-Za-z0-9_]*): ?(.*)$/;
 const _CONTINUATION_LABEL = /^ +[A-Za-z][A-Za-z0-9_]*:/;
 const _ESCAPED_HEADING = /^\\+#/;
+
+// A slot marker line (SOM §11.6): `<!-- slot: <rel> -->`, `<rel>` a body
+// slot's path relative to its owner, or `.` for the owner itself.
+const _SLOT_MARKER = /^<!-- slot: (\S+) -->$/;
 
 /**
  * Whether a code field's `value` is written as an inline code span: it is
@@ -630,19 +634,104 @@ export class SpecDocumentMarkdown {
    * Writes the body region of a section heading: the section path's own
    * content value plus every transparent body slot (id-less content text and
    * form blocks, hoisted through transparent sections) in model order.
+   *
+   * A slot whose text the parser would otherwise bind elsewhere is preceded
+   * by a slot marker (SOM §11.6): text after anything already written, a form
+   * preamble that is not the region's default target, and a form whose labels
+   * another form of the region shares. A body the parser reads correctly
+   * without markers gets none, so such documents render as before.
    */
   private _writeSectionBody(b: _Buffer, node: SomMetaNode, path: string): void {
-    this._writeBody(b, this.document.content(path), path);
-    for (const [slot, rel] of this._bodySlots(node)) {
+    const slots = this._bodySlots(node);
+    if (slots.length === 0) {
+      this._writeBody(b, this.document.content(path), path);
+      return;
+    }
+    const formSlots = slots.filter(([s]) => s.kind === SomMetaKind.FORM);
+    const hasForms = formSlots.length > 0;
+    const defaultRel = this._defaultBodyRel(slots);
+    let written = false;
+
+    const marker = (rel: string): void => {
+      b.writeln(`<!-- slot: ${rel} -->`);
+      b.writeln();
+    };
+
+    const text = (
+      rel: string,
+      value: string | null | undefined,
+      valuePath: string,
+    ): void => {
+      if (value === null || value === undefined) {
+        return;
+      }
+      const prepared = this._prepareValue(value, valuePath);
+      if (prepared === '') {
+        return;
+      }
+      if (written || rel !== defaultRel) {
+        marker(rel);
+      }
+      for (const line of prepared.split('\n')) {
+        b.writeln(hasForms && _LABEL_SHAPED.test(line) ? ` ${line}` : line);
+      }
+      b.writeln();
+      written = true;
+    };
+
+    text('.', this.document.content(path), path);
+    for (const [slot, rel] of slots) {
       const slotPath = `${path}/${rel}`;
-      if (slot.kind === SomMetaKind.FORM) {
-        if (this._formHasValues(slot, slotPath)) {
-          this._writeForm(b, slot, slotPath);
-        }
-      } else {
-        this._writeBody(b, this.document.content(slotPath), slotPath);
+      if (slot.kind !== SomMetaKind.FORM) {
+        text(rel, this.document.content(slotPath), slotPath);
+        continue;
+      }
+      if (!this._formHasValues(slot, slotPath)) {
+        continue;
+      }
+      const preamble = this.document.content(slotPath);
+      const hasPreamble =
+        preamble !== null &&
+        preamble !== undefined &&
+        this._prepareValue(preamble, slotPath) !== '';
+      const fieldsOf = (n: SomMetaNode): SomFormFieldMeta[] =>
+        n.form !== null && n.form !== undefined ? n.form.fields : [];
+      const labels = new Set(fieldsOf(slot).map((f) => f.name.toLowerCase()));
+      const collides = formSlots.some(
+        ([o, oRel]) =>
+          oRel !== rel &&
+          fieldsOf(o).some((f) => labels.has(f.name.toLowerCase())),
+      );
+      const needsMarker = hasPreamble
+        ? written || rel !== defaultRel
+        : collides && (written || formSlots[0][1] !== rel);
+      if (needsMarker) {
+        marker(rel);
+      }
+      this._writeForm(b, slot, slotPath);
+      written = true;
+    }
+  }
+
+  /**
+   * The body slot unmarked body text binds to on import (SOM §11.6): the
+   * first non-form slot; with none, the form on the `content` member, else
+   * the first form; with no slot at all the owner itself (`.`).
+   *
+   * @internal
+   */
+  _defaultBodyRel(slots: _NodeRel[]): string {
+    for (const [slot, rel] of slots) {
+      if (slot.kind !== SomMetaKind.FORM) {
+        return rel;
       }
     }
+    for (const [, rel] of slots) {
+      if (rel === 'content') {
+        return rel;
+      }
+    }
+    return slots.length === 0 ? '.' : slots[0][1];
   }
 
   private _writeChildren(
@@ -927,7 +1016,10 @@ export class SpecDocumentMarkdown {
       codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
         ? ` codeSpec="${codeSpec}"`
         : '';
-    b.writeln(`${'#'.repeat(depth)} <!--[${id}]${code}--> ${title}`);
+    // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    b.writeln(
+      `${'#'.repeat(depth)} <!--[${id}]${code}--> ${title.replace(/\n/g, '<br>')}`,
+    );
     b.writeln();
   }
 
@@ -948,13 +1040,12 @@ export class SpecDocumentMarkdown {
   }
 
   /**
-   * Emit-side value normalisation (SOM §11.3): collapse 2+ blank lines to one,
+   * Emit-side value normalisation (SOM §11.3): blank lines are kept as written;
    * trim leading/trailing blank lines, escape heading-like lines outside
    * fences. Throws an {@link Error} for an unterminated fence.
    */
   private _prepareValue(value: string, path: string): string {
-    let collapsed = value.replace(/\n{3,}/g, '\n\n');
-    collapsed = collapsed.replace(/^\n+/, '');
+    let collapsed = value.replace(/^\n+/, '');
     collapsed = collapsed.replace(/\n+$/, '');
     const fence = new MarkdownFenceTracker();
     const out: string[] = [];
@@ -1153,7 +1244,7 @@ class _Parser {
     }
     const id = m[1];
     const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
-    const title = m[3].trim();
+    const title = m[3].trim().replace(/<br>/g, '\n');
 
     if (this._stack.length === 0) {
       this._openRoot(level, id, title, codeSpec, lineNo);
@@ -1430,36 +1521,21 @@ class _Parser {
 
   /**
    * Binds a heading's body region against the owner's transparent body slots
-   * (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
-   * fields route to that form (nearest form in slot order, wrapping); all
-   * other text binds to the first non-form slot. With no non-form slot the
-   * text is a form's **preamble** (SOM §11.6) — the form slot named `content`
-   * (typically a class-level `@Form` on the `content` member), else the first
-   * form slot — and a label-shaped preamble line has its one escape space
-   * stripped, exactly as continuation lines are. Only an owner with no slot
-   * at all takes the text on its own path.
+   * (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
+   * to that form (nearest form in slot order, wrapping); a slot marker
+   * (`<!-- slot: <rel> -->`, SOM §11.6) sends the text after it to the named
+   * slot — a content slot, a form's preamble, or the owner itself (`.`) — and
+   * ends any open field. Unmarked text binds to the first content slot; with
+   * no content slot it is a form's **preamble** (SOM §11.4 rule 7) — the
+   * class-level `@Form` on the `content` member, else the first form — which
+   * is where the YAML codec keeps it; only an owner with no slot at all takes
+   * it on its own path.
    */
   private _finalizeBodySlots(frame: _Frame, slots: _NodeRel[]): void {
     const formSlots = slots.filter(([s]) => s.kind === SomMetaKind.FORM);
-    const contentSlots = slots.filter(([s]) => s.kind !== SomMetaKind.FORM);
-    const preambleSlot: _NodeRel | null =
-      contentSlots.length === 0 && formSlots.length > 0
-        ? (formSlots.find(([, name]) => name === 'content') ?? formSlots[0])
-        : null;
-    const contentPath =
-      contentSlots.length > 0
-        ? `${frame.path}/${contentSlots[0][1]}`
-        : preambleSlot !== null
-          ? `${frame.path}/${preambleSlot[1]}`
-          : frame.path;
-
-    if (formSlots.length === 0) {
-      const value = _Parser._restoreValue(frame.body);
-      if (value) {
-        this.content[contentPath] = value;
-      }
-      return;
-    }
+    const defaultRel = this.codec._defaultBodyRel(slots);
+    const pathOf = (rel: string): string =>
+      rel === '.' ? frame.path : `${frame.path}/${rel}`;
 
     const findField = (label: string): [number, SomFormFieldMeta] | null => {
       const lower = label.toLowerCase();
@@ -1481,7 +1557,20 @@ class _Parser {
     let currentFormPath: string | null = null;
     let currentCode = false;
     let currentLines: string[] = [];
-    const contentLines: string[] = [];
+    // Unlabelled text per target path, in the order the targets were opened;
+    // a target opened twice gets its parts joined by a blank line.
+    const textParts = new Map<string, string[][]>();
+    const openText = (targetPath: string): string[] => {
+      const lines: string[] = [];
+      let parts = textParts.get(targetPath);
+      if (parts === undefined) {
+        parts = [];
+        textParts.set(targetPath, parts);
+      }
+      parts.push(lines);
+      return lines;
+    };
+    let contentLines = openText(pathOf(defaultRel));
 
     const flush = (): void => {
       if (currentField !== null && currentFormPath !== null) {
@@ -1501,6 +1590,22 @@ class _Parser {
     for (let i = 0; i < frame.body.length; i++) {
       const line = frame.body[i];
       if (!fence.inFence) {
+        const marker = _SLOT_MARKER.exec(line);
+        if (marker !== null) {
+          const rel = marker[1];
+          const slot =
+            rel === '.' ? undefined : slots.find(([, r]) => r === rel);
+          if (rel === '.' || slot !== undefined) {
+            flush();
+            currentField = null;
+            currentFormPath = null;
+            if (slot !== undefined && slot[0].kind === SomMetaKind.FORM) {
+              this._currentFormIdx = formSlots.indexOf(slot);
+            }
+            contentLines = openText(pathOf(rel));
+            continue;
+          }
+        }
         const m = _FIELD_LABEL.exec(line);
         if (m !== null) {
           const hit = findField(m[1]);
@@ -1517,11 +1622,11 @@ class _Parser {
         }
       }
       const target = currentField === null ? contentLines : currentLines;
-      // Continuation — and a form preamble line, which the emitter escapes
-      // the same way: strip the one escape space of a label-shaped line.
+      // In a region with forms every label-shaped text line carries the one
+      // escape space the emitter adds (SOM §11.4 rule 3); strip it.
       if (
         !fence.inFence &&
-        (currentField !== null || preambleSlot !== null) &&
+        formSlots.length > 0 &&
         _CONTINUATION_LABEL.test(line)
       ) {
         target.push(line.slice(1));
@@ -1531,9 +1636,14 @@ class _Parser {
       fence.feed(line);
     }
     flush();
-    const value = _Parser._restoreValue(contentLines);
-    if (value) {
-      this.content[contentPath] = value;
+    for (const [targetPath, parts] of textParts) {
+      const value = parts
+        .map((part) => _Parser._restoreValue(part))
+        .filter((v) => v !== '')
+        .join('\n\n');
+      if (value) {
+        this.content[targetPath] = value;
+      }
     }
   }
 

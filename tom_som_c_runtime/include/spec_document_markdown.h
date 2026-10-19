@@ -21,9 +21,9 @@
  *
  * Escaping (SOM §11.3): a content line starting with `#` at column 0 is
  * emitted as `\#` (and a leading `\#`… run gains one more backslash), except
- * inside fenced code blocks, which shield their lines verbatim. Consecutive
- * blank lines are collapsed to one on emit; parse trims each value of
- * leading/trailing blank lines and does not re-collapse.
+ * inside fenced code blocks, which shield their lines verbatim. Blank lines
+ * inside a value are kept as written; parse trims each value of
+ * leading/trailing blank lines only.
  *
  * `spec_markdown_parse` does not mutate any document — it returns staged
  * values keyed exactly like `spec_document_to_json` plus a rejection report

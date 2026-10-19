@@ -1159,7 +1159,8 @@ Schema id = kebab-case of the `@Document` name; version = model `major.minor`.
   `## <!--[INSC]--> Introduction And Scope`. The machine identity is the
   DocSpecs headline comment `<!--[id]-->`; the heading text is the section's
   headline (stored > `@Headline` default > derived,
-  `tom_specs_model_rules.md` §8).
+  `tom_specs_model_rules.md` §8). A heading is one line, so a line break in a
+  stored headline is written as `<br>` and read back as a line break.
 - The heading id is the member's field-level `@SectionId` when present, else
   the target class's `@SectionId`; a member with neither is *transparent*
   (§11.6).
@@ -1205,8 +1206,8 @@ no anchors:
    export fails rather than write a file that will not read back. That and the
    undeclared form field (§11.4 rule 4) are the two conditions on which a
    markdown export refuses.
-5. Runs of blank lines collapse to one on emit (idempotent; mirrors §12.4);
-   parse does not re-collapse.
+5. Blank lines inside a value are kept as written, runs included (as in
+   §12.4); only leading and trailing blank lines are trimmed.
 
 ### 11.4 Form sections
 
@@ -1337,22 +1338,43 @@ target) is **transparent** — not a section of its own:
   id.
 - **Lists are never transparent.**
 
-Three canonicalisation losses are accepted and normative:
+**Default target.** Unmarked body text binds to the owner's first non-form
+slot. When the owner has **no** content slot — a section whose only body member
+is a form, typically the class-level `@Form` on its `content` member — it is that
+form's preamble (the form named `content` first, else the first form slot),
+which is where the YAML codec keeps it. Only an owner with no body slot at all
+takes the text on its own path.
 
-1. Multiple transparent content members of one owner merge on parse (all text
-   binds to the first slot).
-2. Colliding transparent-form labels bind to the nearest form in slot order.
-3. A transparent form's **preamble** (§11.4 rule 7) emits into the owner's body
-   region, where nothing separates it from the owner's own content; on parse the
-   two merge into the first content slot. Loss 1 with a form on one side.
+**Slot markers.** Without help, three things in one body region cannot be told
+apart on parse: two content slots (the second would merge into the first), text
+after a form field (it would continue the field) and a form preamble that is
+not the default target (it would land in the content slot). The emitter
+therefore writes a **slot marker**, an HTML comment on a line of its own
 
-When the owner has **no** content slot — a section whose only body member is a
-form, typically the class-level `@Form` on its `content` member — the body's
-unlabelled text is that form's preamble and binds there (the form named
-`content` first, else the first form slot), with the same escape stripped from
-a label-shaped line as in a form body. That is where the YAML codec keeps it, so
-yaml → md → document is the identity for such a section. Only an owner with no
-body slot at all takes the text on its own path.
+```markdown
+<!-- slot: migrationStrategyNarrative -->
+```
+
+before a slot whose text would otherwise land elsewhere: a text unit (a content
+slot, or the owner's own content as `.`) written after anything else in the
+region, or one that is not the default target; a form preamble on the same
+terms; and a form whose field labels another form of the region shares, unless
+it is the first form and nothing precedes it. `<rel>` is the slot's path
+relative to its owner, through transparent sections. A body that reads back
+correctly without markers gets none, so most documents render as before, and
+a reader of the rendered markdown sees nothing.
+
+On parse a marker ends any open field and sends the text after it to the named
+slot; for a form slot, its labels are searched first. A marker naming no slot of
+the owner is not a marker and stays text. Hand-written markdown without markers
+is read by the default rules: unmarked text binds to the default target and
+labels to the nearest form in slot order.
+
+In a region with forms, every label-shaped text line, in a content slot as in a
+form, carries the one escape space of §11.4 rule 3, and parse strips it.
+
+Together these make `parse(emit(doc))` stage exactly the document's values:
+every content value, form field, list and headline comes back at its own path.
 
 Stored list-item ids are **not** among the losses: they round-trip through md
 (`tom_specs_model_rules.md` §7.6).
@@ -1371,8 +1393,8 @@ reason is one classification with several causes: `unknownSection` covers "no
 match at this position", "unresolvable parent" and "no such document root".
 `orphanContent` means text before the document root heading — and only that:
 text before a form's first field label is the form's preamble and has a home
-(§11.4 rule 7). `emit(parse(emit(doc)))` is byte-identical (modulo the idempotent blank-line
-collapse and the §11.6 transparency canonicalisations).
+(§11.4 rule 7). `parse(emit(doc))` stages exactly `doc`'s values, and
+`emit(parse(emit(doc)))` is byte-identical.
 
 Applying a parse is a runtime operation, not each caller's own code.
 `SpecDocument.applyMarkdownResult(result, allowRejections)` is a **full
@@ -1534,9 +1556,8 @@ key. Normative escaping:
 2. Newline-free, YAML-safe values may be plain one-line scalars; when in doubt
    the emitter uses `|-`. Parsers accept plain, quoted, and block scalars
    interchangeably.
-3. **Runs of 2+ blank lines collapse to one before serialization** — the
-   deliberate, documented lossy normalization shared with the md emitter
-   (§11.3 rule 5). Round-trip guarantees are stated "modulo empty-line dedup".
+3. Blank lines are kept as written, runs included, as in the md codec (§11.3
+   rule 5), so a text value round-trips exactly.
 4. Tabs are preserved verbatim.
 
 ### 12.5 Non-text values and the YAML 1.1/1.2 rule
@@ -1612,8 +1633,7 @@ document:
 
 ### 12.7 Round-trip contract
 
-`decode(encode(doc))` reproduces every value byte-identically, except the
-blank-line collapse. `encode` output is deterministic (stable key order,
+`decode(encode(doc))` reproduces every value byte-identically. `encode` output is deterministic (stable key order,
 stable scalar styles). The shared conformance sample
 (`tom_som_dart_v0/documents/meridian_order_management.*`) round-trips in
 md, yaml, and the schema identically across all nine languages.

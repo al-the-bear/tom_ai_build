@@ -199,6 +199,25 @@
       }
     },
     {
+      "name": "a slot marker routes the following text to its slot, and a marker naming no slot stays text",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[MIX]--> Two<br>lines\n\nLead: Ada\n<!-- slot: tail -->\nTail text.\n<!-- slot: nowhere -->\n\n<!-- slot: narrative -->\nNarrative.\n",
+      "rejections": [],
+      "document": {
+        "content": {
+          "DEMO/MIX/narrative": "Narrative.",
+          "DEMO/MIX/tail": "Tail text.\n<!-- slot: nowhere -->"
+        },
+        "forms": {
+          "DEMO/MIX/content": {
+            "lead": "Ada"
+          }
+        },
+        "headlines": {
+          "DEMO/MIX": "Two\nlines"
+        }
+      }
+    },
+    {
       "name": "the legacy layout with no blank line between form fields still imports to the same values",
       "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details & Contacts\n\nOwner: Bob\nContact: bob@example.com\n- on call: weekdays\n- Owner: not a label, a list item\nEstimate: 8\n",
       "rejections": [],

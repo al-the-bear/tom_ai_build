@@ -120,3 +120,29 @@ Wrapper-section text
 
 Section-kind body
 
+## <!--[MIX]--> Mixed<br>slots
+
+<!-- slot: content -->
+
+_Extrapolated._
+
+Lead: Ada
+
+Risk: low
+
+<!-- slot: narrative -->
+
+First narrative.
+
+
+After two blank lines.
+ Lead: label-shaped prose
+
+<!-- slot: tail -->
+
+Tail text.
+
+<!-- slot: alt -->
+
+Lead: Bob
+

@@ -3,7 +3,7 @@
     {
       "name": "fromMarkdown loads the golden into a fresh document",
       "op": "fromMarkdown",
-      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n## <!--[MIX]--> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\nLead: Ada\n\nRisk: low\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\nLead: Bob\n\n",
       "expect": {
         "refused": false,
         "rejectionCount": 0,
@@ -16,6 +16,9 @@
             "DEMO/META/tags-2": "no",
             "DEMO/META/tags-3": "1:30",
             "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
             "DEMO/PRI": "high",
             "DEMO/REF-LST-1": "spec §1.2",
             "DEMO/REF-LST-2": "ADR7",
@@ -45,6 +48,13 @@
               "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
               "priority": "high",
               "weight": "2.5"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
             }
           },
           "lists": {
@@ -90,6 +100,7 @@
           "headlines": {
             "DEMO/CARD-LST-1": "Alpha Card",
             "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
             "DEMO/REF-LST-1": "Reference to the Spec",
             "DEMO/SUM": "Executive Summary",
             "DEMO/items": "Work Items"
@@ -123,7 +134,7 @@
           }
         }
       },
-      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n## <!--[MIX]--> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\nLead: Ada\n\nRisk: low\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\nLead: Bob\n\n",
       "allowRejections": false,
       "expect": {
         "refused": false,
@@ -137,6 +148,9 @@
             "DEMO/META/tags-2": "no",
             "DEMO/META/tags-3": "1:30",
             "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
             "DEMO/PRI": "high",
             "DEMO/REF-LST-1": "spec §1.2",
             "DEMO/REF-LST-2": "ADR7",
@@ -167,6 +181,13 @@
               "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
               "priority": "high",
               "weight": "2.5"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
             }
           },
           "lists": {
@@ -212,6 +233,7 @@
           "headlines": {
             "DEMO/CARD-LST-1": "Alpha Card",
             "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
             "DEMO/REF-LST-1": "Reference to the Spec",
             "DEMO/SUM": "Executive Summary",
             "DEMO/items": "Work Items",
@@ -249,7 +271,7 @@
           }
         }
       },
-      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n## <!--[MIX]--> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\nLead: Ada\n\nRisk: low\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\nLead: Bob\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
       "allowRejections": false,
       "expect": {
         "refused": true,
@@ -305,7 +327,7 @@
           }
         }
       },
-      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
+      "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n\n## <!--[SUM]--> Executive Summary\n\nLine one\nLine two\n\nLine four\n\n## <!--[PRI]--> Priority\n\nhigh\n\n## <!--[CNT]--> Count\n\n3\n\n## <!--[DET]--> Details & Contacts\n\nCaptured during the November review.\n Owner: this line is prose, not the field.\n\nOwner: Bob\n\nContact: bob@example.com\n- on call: weekdays\n- backup: alice@example.com\n\nEstimate: 8\n\nWeight: 2.5\n\nActive: true\n\nPriority: high\n\nPattern: `^[a-z0-9](-?[a-z0-9]){1,62}$`\n\n## <!--[items]--> Work Items\n\n### <!--[items-1]--> Task 1\n\nFirst\n\n#### <!--[STS]--> Status\n\nopen\n\n### <!--[items-2]--> Task 2\n\nSecond line A\nwith ```triple``` ticks\n\n#### <!--[STS]--> Status\n\ndone\n\n## <!--[REF-LST]--> Refs\n\n### <!--[REF-SPEC]--> Reference to the Spec\n\nspec §1.2\n\n### <!--[REF-2]--> Refs 2\n\nADR7\n\n## <!--[CARD-LST]--> Cards\n\n### <!--[CARD-ALPHA]--> Alpha Card\n\nNote: first card\n\n### <!--[CARD-2]--> Card 2\n\nNote: second card\n\n## <!--[META]--> Meta\n\n### <!--[OWNR]--> Owner\n\nalice\n\n### <!--[tags]--> Tags\n\n#### <!--[tags-1]--> Tags 1\n\non\n\n#### <!--[tags-2]--> Tags 2\n\nno\n\n#### <!--[tags-3]--> Tags 3\n\n1:30\n\n#### <!--[tags-4]--> Tags 4\n\nplain\n\n## <!--[CTRL]--> Control\n\nctrl-owner\n\n### <!--[CTRL-SUM]--> Summary\n\nControlled summary\n\n## <!--[NOTE]--> Notes\n\nWrapper-section text\n\n### <!--[NOTE-BDY]--> Body\n\nSection-kind body\n\n## <!--[MIX]--> Mixed<br>slots\n\n<!-- slot: content -->\n\n_Extrapolated._\n\nLead: Ada\n\nRisk: low\n\n<!-- slot: narrative -->\n\nFirst narrative.\n\n\nAfter two blank lines.\n Lead: label-shaped prose\n\n<!-- slot: tail -->\n\nTail text.\n\n<!-- slot: alt -->\n\nLead: Bob\n\n\n## <!--[NOPE]--> Not A Section\n\nText with no home.\n",
       "allowRejections": true,
       "expect": {
         "refused": false,
@@ -319,6 +341,9 @@
             "DEMO/META/tags-2": "no",
             "DEMO/META/tags-3": "1:30",
             "DEMO/META/tags-4": "plain",
+            "DEMO/MIX/content": "_Extrapolated._",
+            "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+            "DEMO/MIX/tail": "Tail text.",
             "DEMO/PRI": "high",
             "DEMO/REF-LST-1": "spec §1.2",
             "DEMO/REF-LST-2": "ADR7",
@@ -349,6 +374,13 @@
               "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
               "priority": "high",
               "weight": "2.5"
+            },
+            "DEMO/MIX/alt": {
+              "lead": "Bob"
+            },
+            "DEMO/MIX/content": {
+              "lead": "Ada",
+              "risk": "low"
             }
           },
           "lists": {
@@ -394,6 +426,7 @@
           "headlines": {
             "DEMO/CARD-LST-1": "Alpha Card",
             "DEMO/DET": "Details & Contacts",
+            "DEMO/MIX": "Mixed\nslots",
             "DEMO/REF-LST-1": "Reference to the Spec",
             "DEMO/SUM": "Executive Summary",
             "DEMO/items": "Work Items",

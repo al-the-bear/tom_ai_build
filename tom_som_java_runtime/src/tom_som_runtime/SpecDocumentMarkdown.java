@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -40,8 +41,8 @@ import java.util.regex.Pattern;
  * <p>Escaping (SOM §11.3): a content line starting with {@code #} at column 0
  * is emitted as {@code \#} (and a leading {@code \#}… run gains one more
  * backslash), except inside fenced code blocks, which shield their lines
- * verbatim. Consecutive blank lines are collapsed to one on emit; parse trims
- * each value of leading/trailing blank lines and does not re-collapse.
+ * verbatim. Blank lines inside a value are kept as written; parse trims each
+ * value of leading/trailing blank lines only.
  *
  * <p>The codec is free of any UI: it reads from / resolves against a
  * {@link SpecModel} (through the {@link SomMetaBridge#buildSomMetaTree}
@@ -101,10 +102,12 @@ public final class SpecDocumentMarkdown {
       Pattern.compile("^([A-Za-z][A-Za-z0-9_]*): ?(.*)$");
   private static final Pattern CONTINUATION_LABEL =
       Pattern.compile("^ +[A-Za-z][A-Za-z0-9_]*:");
+  // A slot marker line (SOM §11.6): `<rel>` a body slot's path relative to its
+  // owner, or `.` for the owner itself.
+  private static final Pattern SLOT_MARKER = Pattern.compile("^<!-- slot: (\\S+) -->$");
   private static final Pattern ESCAPED_HEADING = Pattern.compile("^\\\\+#");
 
   private static final Pattern TRAILING_WS = Pattern.compile("\\s+$");
-  private static final Pattern BLANK_RUN = Pattern.compile("\\n{3,}");
   private static final Pattern LEADING_NL = Pattern.compile("^\\n+");
   private static final Pattern TRAILING_NL = Pattern.compile("\\n+$");
   private static final Pattern LEADING_BLANK_LN = Pattern.compile("^([ \\t]*\\n)+");
@@ -419,26 +422,128 @@ public final class SpecDocumentMarkdown {
    * Writes the body region of a section heading: the section path's own
    * content value plus every transparent body slot (id-less content text and
    * form blocks, hoisted through transparent sections) in model order.
+   *
+   * <p>A slot whose text the parser would otherwise bind elsewhere is preceded
+   * by a slot marker (SOM §11.6): text after anything already written, a form
+   * preamble that is not the region's default target, and a form whose labels
+   * another form of the region shares. A body the parser reads correctly
+   * without markers gets none, so such documents render as before.
    */
   private void writeSectionBody(StringBuilder b, SomMetaNode node, String path) {
-    String value = document.content(path);
-    if (value != null) {
-      writeBody(b, value, path);
+    List<NodeRel> slots = bodySlots(node);
+    if (slots.isEmpty()) {
+      String value = document.content(path);
+      if (value != null) {
+        writeBody(b, value, path);
+      }
+      return;
     }
-    for (NodeRel slot : bodySlots(node)) {
-      String slotPath = path + "/" + slot.rel;
-      if (SomMetaKind.FORM.equals(slot.node.kind)) {
-        if (formHasValues(slot.node, slotPath)) {
-          writeForm(b, slot.node, slotPath);
-        }
-      } else {
-        String slotValue = document.content(slotPath);
-        if (slotValue != null) {
-          writeBody(b, slotValue, slotPath);
-        }
+    List<NodeRel> formSlots = new ArrayList<>();
+    for (NodeRel s : slots) {
+      if (SomMetaKind.FORM.equals(s.node.kind)) {
+        formSlots.add(s);
       }
     }
+    boolean hasForms = !formSlots.isEmpty();
+    String defaultRel = defaultBodyRel(slots);
+    boolean[] written = {false};
+
+    writeBodyText(b, ".", document.content(path), path, defaultRel, hasForms, written);
+    for (NodeRel slot : slots) {
+      String slotPath = path + "/" + slot.rel;
+      if (!SomMetaKind.FORM.equals(slot.node.kind)) {
+        writeBodyText(b, slot.rel, document.content(slotPath), slotPath, defaultRel,
+            hasForms, written);
+        continue;
+      }
+      if (!formHasValues(slot.node, slotPath)) {
+        continue;
+      }
+      String preamble = document.content(slotPath);
+      boolean hasPreamble =
+          preamble != null && !prepareValue(preamble, slotPath).isEmpty();
+      Set<String> labels = new HashSet<>();
+      if (slot.node.form != null) {
+        for (SomFormFieldMeta f : slot.node.form.fields) {
+          labels.add(f.name.toLowerCase(Locale.ROOT));
+        }
+      }
+      boolean collides = false;
+      for (NodeRel o : formSlots) {
+        if (o.rel.equals(slot.rel) || o.node.form == null) {
+          continue;
+        }
+        for (SomFormFieldMeta f : o.node.form.fields) {
+          if (labels.contains(f.name.toLowerCase(Locale.ROOT))) {
+            collides = true;
+            break;
+          }
+        }
+        if (collides) {
+          break;
+        }
+      }
+      boolean needsMarker = hasPreamble
+          ? (written[0] || !slot.rel.equals(defaultRel))
+          : (collides && (written[0] || !formSlots.get(0).rel.equals(slot.rel)));
+      if (needsMarker) {
+        writeSlotMarker(b, slot.rel);
+      }
+      writeForm(b, slot.node, slotPath);
+      written[0] = true;
+    }
   }
+
+  /** Writes a slot marker line (SOM §11.6) and the blank line after it. */
+  private static void writeSlotMarker(StringBuilder b, String rel) {
+    writeln(b, "<!-- slot: " + rel + " -->");
+    writeln(b, "");
+  }
+
+  /**
+   * Writes one text unit of a body region (the owner's content or a content
+   * slot): a marker when something precedes it or it is not the default
+   * target, then its lines — label-shaped ones escaped by one space in a
+   * region with forms — and a blank line.
+   */
+  private void writeBodyText(StringBuilder b, String rel, String value, String valuePath,
+      String defaultRel, boolean hasForms, boolean[] written) {
+    if (value == null) {
+      return;
+    }
+    String prepared = prepareValue(value, valuePath);
+    if (prepared.isEmpty()) {
+      return;
+    }
+    if (written[0] || !rel.equals(defaultRel)) {
+      writeSlotMarker(b, rel);
+    }
+    for (String line : splitLines(prepared)) {
+      writeln(b, hasForms && LABEL_SHAPED.matcher(line).find() ? " " + line : line);
+    }
+    writeln(b, "");
+    written[0] = true;
+  }
+
+  /**
+   * The body slot unmarked body text binds to on import (SOM §11.6): the
+   * first non-form slot; with none, the form on the {@code content} member,
+   * else the first form; with no slot at all the owner itself ({@code .}).
+   */
+  String defaultBodyRel(List<NodeRel> slots) {
+    for (NodeRel s : slots) {
+      if (!SomMetaKind.FORM.equals(s.node.kind)) {
+        return s.rel;
+      }
+    }
+    for (NodeRel s : slots) {
+      if ("content".equals(s.rel)) {
+        return s.rel;
+      }
+    }
+    return slots.isEmpty() ? "." : slots.get(0).rel;
+  }
+
 
   private void writeChildren(StringBuilder b, SomMetaNode node, String basePath, int depth) {
     for (NodeRel entry : effectiveChildren(node)) {
@@ -698,7 +803,9 @@ public final class SpecDocumentMarkdown {
     String cs = (codeSpec != null && !codeSpec.isEmpty())
         ? " codeSpec=\"" + codeSpec + "\""
         : "";
-    writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> " + title);
+    // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    writeln(b, "#".repeat(depth) + " <!--[" + id + "]" + cs + "--> "
+        + title.replace("\n", "<br>"));
     writeln(b, "");
   }
 
@@ -771,13 +878,12 @@ public final class SpecDocumentMarkdown {
   }
 
   /**
-   * The emit-side value normalisation (SOM §11.3): collapse 2+ blank lines to
-   * one, trim leading/trailing blank lines, escape heading-like lines outside
+   * The emit-side value normalisation (SOM §11.3): blank lines inside the
+   * value are kept as written; trim leading/trailing blank lines, escape heading-like lines outside
    * fences. Throws {@link IllegalStateException} for an unterminated fence.
    */
   private String prepareValue(String value, String path) {
-    String collapsed = BLANK_RUN.matcher(value).replaceAll("\n\n");
-    collapsed = LEADING_NL.matcher(collapsed).replaceAll("");
+    String collapsed = LEADING_NL.matcher(value).replaceAll("");
     collapsed = TRAILING_NL.matcher(collapsed).replaceAll("");
     MarkdownFenceTracker fence = new MarkdownFenceTracker();
     List<String> out = new ArrayList<>();
@@ -1001,7 +1107,7 @@ public final class SpecDocumentMarkdown {
       }
       String id = m.group(1);
       String codeSpec = codeSpecOf(m.group(2));
-      String title = m.group(3).trim();
+      String title = m.group(3).trim().replace("<br>", "\n");
 
       if (stack.isEmpty()) {
         openRoot(level, id, title, codeSpec, lineNo);
@@ -1262,50 +1368,25 @@ public final class SpecDocumentMarkdown {
 
     /**
      * Binds a heading's body region against the owner's transparent body
-     * slots (SOM §11.2 transparency): {@code FieldName:} lines matching a
-     * transparent form's fields route to that form (nearest form in slot
-     * order, wrapping); all other text binds to the first non-form slot. With
-     * no non-form slot the text is a form's <b>preamble</b> (SOM §11.6) — the
-     * form slot named {@code content} (typically a class-level {@code @Form}
-     * on the {@code content} member), else the first form slot — and a
-     * label-shaped preamble line has its one escape space stripped, exactly as
-     * continuation lines are. Only an owner with no slot at all takes the text
-     * on its own path.
+     * slots (SOM §11.6): {@code FieldName:} lines matching a transparent
+     * form's fields route to that form (nearest form in slot order, wrapping);
+     * a slot marker ({@code <!-- slot: <rel> -->}) sends the text after it to
+     * the named slot — a content slot, a form's preamble, or the owner itself
+     * ({@code .}) — and ends any open field. Unmarked text binds to the first
+     * content slot; with no content slot it is a form's <b>preamble</b> (SOM
+     * §11.4 rule 7) — the form slot named {@code content}, else the first form
+     * slot — which is where the YAML codec keeps it; only an owner with no
+     * slot at all takes it on its own path. In a region with forms every
+     * label-shaped text line carries one escape space, which is stripped.
      */
     void finalizeBodySlots(MdFrame frame, List<NodeRel> slots) {
       List<NodeRel> formSlots = new ArrayList<>();
-      List<NodeRel> contentSlots = new ArrayList<>();
       for (NodeRel s : slots) {
         if (SomMetaKind.FORM.equals(s.node.kind)) {
           formSlots.add(s);
-        } else {
-          contentSlots.add(s);
         }
       }
-      NodeRel preambleSlot = null;
-      if (contentSlots.isEmpty() && !formSlots.isEmpty()) {
-        preambleSlot = formSlots.get(0);
-        for (NodeRel s : formSlots) {
-          if ("content".equals(s.rel)) {
-            preambleSlot = s;
-            break;
-          }
-        }
-      }
-      String contentPath = frame.path;
-      if (!contentSlots.isEmpty()) {
-        contentPath = frame.path + "/" + contentSlots.get(0).rel;
-      } else if (preambleSlot != null) {
-        contentPath = frame.path + "/" + preambleSlot.rel;
-      }
-
-      if (formSlots.isEmpty()) {
-        String value = restoreValue(frame.body);
-        if (!value.isEmpty()) {
-          content.put(contentPath, value);
-        }
-        return;
-      }
+      String defaultRel = codec.defaultBodyRel(slots);
 
       MarkdownFenceTracker bodyFence = new MarkdownFenceTracker();
       String currentField = "";
@@ -1313,12 +1394,47 @@ public final class SpecDocumentMarkdown {
       boolean currentCode = false;
       boolean haveField = false;
       List<String> currentLines = new ArrayList<>();
+      // Unlabelled text per target path, in the order the targets were
+      // opened; a target opened twice gets its parts joined by a blank line.
+      Map<String, List<List<String>>> textParts = new LinkedHashMap<>();
+      String contentTarget = bodyPathOf(frame.path, defaultRel);
       List<String> contentLines = new ArrayList<>();
+      textParts.computeIfAbsent(contentTarget, k -> new ArrayList<>()).add(contentLines);
 
       currentFormIdx = 0;
       for (int i = 0; i < frame.body.size(); i++) {
         String line = frame.body.get(i);
         if (!bodyFence.inFence()) {
+          Matcher mk = SLOT_MARKER.matcher(line);
+          if (mk.matches()) {
+            String rel = mk.group(1);
+            NodeRel slot = null;
+            if (!".".equals(rel)) {
+              for (NodeRel s : slots) {
+                if (s.rel.equals(rel)) {
+                  slot = s;
+                  break;
+                }
+              }
+            }
+            if (".".equals(rel) || slot != null) {
+              if (haveField) {
+                putField(currentFormPath, currentField, currentLines, currentCode);
+              }
+              haveField = false;
+              currentField = "";
+              currentFormPath = "";
+              currentLines = new ArrayList<>();
+              if (slot != null && SomMetaKind.FORM.equals(slot.node.kind)) {
+                currentFormIdx = formSlots.indexOf(slot);
+              }
+              contentTarget = bodyPathOf(frame.path, rel);
+              contentLines = new ArrayList<>();
+              textParts.computeIfAbsent(contentTarget, k -> new ArrayList<>())
+                  .add(contentLines);
+              continue;
+            }
+          }
           Matcher m = FIELD_LABEL.matcher(line);
           if (m.matches()) {
             int foundIdx = -1;
@@ -1341,12 +1457,7 @@ public final class SpecDocumentMarkdown {
             }
             if (foundIdx >= 0) {
               if (haveField) {
-                String restored = restoreValue(currentLines);
-                String value = currentCode ? decodeCodeSpan(restored) : restored;
-                if (!value.isEmpty()) {
-                  forms.computeIfAbsent(currentFormPath, k -> new LinkedHashMap<>())
-                      .put(currentField, value);
-                }
+                putField(currentFormPath, currentField, currentLines, currentCode);
               }
               currentLines = new ArrayList<>();
               currentFormIdx = foundIdx;
@@ -1360,11 +1471,11 @@ public final class SpecDocumentMarkdown {
             }
           }
         }
-        // Continuation — and a form preamble line, which the emitter escapes
-        // the same way: strip the one escape space of a label-shaped line.
+        // In a region with forms every label-shaped text line carries the one
+        // escape space the emitter adds (SOM §11.4 rule 3); strip it.
         String text = line;
         if (!bodyFence.inFence()
-            && (haveField || preambleSlot != null)
+            && !formSlots.isEmpty()
             && CONTINUATION_LABEL.matcher(line).find()) {
           text = line.substring(1);
         }
@@ -1376,17 +1487,34 @@ public final class SpecDocumentMarkdown {
         bodyFence.feed(line);
       }
       if (haveField) {
-        String restored = restoreValue(currentLines);
-        String value = currentCode ? decodeCodeSpan(restored) : restored;
+        putField(currentFormPath, currentField, currentLines, currentCode);
+      }
+      for (Map.Entry<String, List<List<String>>> e : textParts.entrySet()) {
+        List<String> values = new ArrayList<>();
+        for (List<String> part : e.getValue()) {
+          String v = restoreValue(part);
+          if (!v.isEmpty()) {
+            values.add(v);
+          }
+        }
+        String value = String.join("\n\n", values);
         if (!value.isEmpty()) {
-          forms.computeIfAbsent(currentFormPath, k -> new LinkedHashMap<>())
-              .put(currentField, value);
+          content.put(e.getKey(), value);
         }
       }
-      String value = restoreValue(contentLines);
+    }
+
+    /** Stores a body-region field's restored value (unwrapping a code span). */
+    private void putField(String formPath, String field, List<String> lines, boolean code) {
+      String restored = restoreValue(lines);
+      String value = code ? decodeCodeSpan(restored) : restored;
       if (!value.isEmpty()) {
-        content.put(contentPath, value);
+        forms.computeIfAbsent(formPath, k -> new LinkedHashMap<>()).put(field, value);
       }
+    }
+
+    private static String bodyPathOf(String ownerPath, String rel) {
+      return ".".equals(rel) ? ownerPath : ownerPath + "/" + rel;
     }
 
     /**

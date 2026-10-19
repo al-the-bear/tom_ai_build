@@ -5,8 +5,8 @@
  * The codec walks the document root's SomMetaTree: sections nest, keys are
  * `<section-id> <member-name>`, list items key by stored section id (or an
  * anonymous positional `<member>-<n>`), body text uses the literal `content`
- * key, and form fields use their bare names. Round-trip is lossless modulo
- * the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
+ * key, and form fields use their bare names. Round-trip is lossless (SOM
+ * §12.4 keeps runs of empty lines); version-1 files and unmatched keys are
  * structured load errors.
  *
  * 80 checks; check names byte-match the Go suite. Exit status is the number
@@ -482,7 +482,7 @@ static void yaml_test_round_trip(void) {
     }
   }
 
-  /* runs of 2+ empty lines collapse to one on write (SOM §12.4) */
+  /* runs of empty lines are kept as written (SOM §12.4) */
   {
     SpecDocument doc;
     spec_document_init(&doc);
@@ -490,7 +490,8 @@ static void yaml_test_round_trip(void) {
     SpecYamlContents c;
     yaml_round_trip(&doc, &c);
     check("rt.emptyLineDedup",
-          str_eq(content_or(&c.document, "D00/D00-OVR"), "a\n\nb\n\nc"), "");
+          str_eq(content_or(&c.document, "D00/D00-OVR"), "a\n\n\n\nb\n\n\nc"),
+          "");
     spec_yaml_contents_free(&c);
     spec_document_free(&doc);
   }

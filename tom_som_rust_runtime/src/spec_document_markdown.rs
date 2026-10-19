@@ -24,9 +24,9 @@
 //!
 //! Escaping (SOM §11.3): a content line starting with `#` at column 0 is
 //! emitted as `\#` (and a leading `\#`… run gains one more backslash), except
-//! inside fenced code blocks, which shield their lines verbatim. Consecutive
-//! blank lines are collapsed to one on emit; parse trims each value of
-//! leading/trailing blank lines and does not re-collapse.
+//! inside fenced code blocks, which shield their lines verbatim. Blank lines
+//! inside a value are kept as written; parse trims each value of
+//! leading/trailing blank lines only.
 //!
 //! The codec is free of any UI: it reads from / resolves against a
 //! [`SpecModel`] (through the [`build_som_meta_tree`] metadata tree) and a
@@ -451,24 +451,9 @@ fn md_field_label(line: &str) -> Option<(&str, &str)> {
 
 // --- Value normalisation helpers ----------------------------------------------
 
-/// `mdBlankRunRE` (`\n{3,}` → `\n\n`), then `^\n+` / `\n+$` trims.
-fn md_collapse_blank_runs(value: &str) -> String {
-    let mut out = String::with_capacity(value.len());
-    let mut run = 0;
-    for ch in value.chars() {
-        if ch == '\n' {
-            run += 1;
-            if run <= 2 {
-                out.push('\n');
-            }
-        } else {
-            run = 0;
-            out.push(ch);
-        }
-    }
-    let out = out.trim_start_matches('\n');
-    let out = out.trim_end_matches('\n');
-    out.to_string()
+/// `^\n+` / `\n+$` trims; blank lines inside a value are kept as written.
+fn md_trim_blank_ends(value: &str) -> &str {
+    value.trim_start_matches('\n').trim_end_matches('\n')
 }
 
 /// `mdLeadingBlankLnRE`: strips `^([ \t]*\n)+`.
@@ -511,6 +496,30 @@ fn md_strip_trailing_blank_lines(s: &str) -> &str {
 struct MdNodeRel {
     node: Rc<SomMetaNode>,
     rel: String,
+}
+
+/// The body slot unmarked body text binds to on import (SOM §11.6): the first
+/// non-form slot; with none, the form on the `content` member, else the first
+/// form; with no slot at all the owner itself (`.`).
+fn md_default_body_rel(slots: &[MdNodeRel]) -> String {
+    if let Some(s) = slots.iter().find(|s| s.node.kind != SOM_META_KIND_FORM) {
+        return s.rel.clone();
+    }
+    if slots.iter().any(|s| s.rel == "content") {
+        return "content".to_string();
+    }
+    slots.first().map(|s| s.rel.clone()).unwrap_or_else(|| ".".to_string())
+}
+
+/// A slot marker line (SOM §11.6): `<!-- slot: <rel> -->`, `<rel>` a body
+/// slot's path relative to its owner (no whitespace), or `.` for the owner
+/// itself. Returns `<rel>`.
+fn md_slot_marker(line: &str) -> Option<&str> {
+    let rel = line.strip_prefix("<!-- slot: ")?.strip_suffix(" -->")?;
+    if rel.is_empty() || rel.chars().any(char::is_whitespace) {
+        return None;
+    }
+    Some(rel)
 }
 
 /// Reports a value member (content/scalar/enum/form) with no `@SectionId`:
@@ -769,24 +778,112 @@ impl<'a> SpecDocumentMarkdown<'a> {
     /// Writes the body region of a section heading: the section path's own
     /// content value plus every transparent body slot (id-less content text
     /// and form blocks, hoisted through transparent sections) in model order.
+    ///
+    /// A slot whose text the parser would otherwise bind elsewhere is preceded
+    /// by a slot marker (SOM §11.6): text after anything already written, a
+    /// form preamble that is not the region's default target, and a form whose
+    /// labels another form of the region shares. A body the parser reads
+    /// correctly without markers gets none, so such documents render as
+    /// before.
     fn write_section_body(
         &self,
         b: &mut MdBuffer,
         node: &SomMetaNode,
         path: &str,
     ) -> Result<(), String> {
-        if let Some(value) = self.document.content(path) {
-            self.write_body(b, value, path)?;
-        }
-        for slot in self.body_slots(node) {
-            let slot_path = format!("{}/{}", path, slot.rel);
-            if slot.node.kind == SOM_META_KIND_FORM {
-                if self.form_has_values(&slot.node, &slot_path) {
-                    self.write_form(b, &slot.node, &slot_path)?;
-                }
-            } else if let Some(value) = self.document.content(&slot_path) {
-                self.write_body(b, value, &slot_path)?;
+        let slots = self.body_slots(node);
+        if slots.is_empty() {
+            if let Some(value) = self.document.content(path) {
+                self.write_body(b, value, path)?;
             }
+            return Ok(());
+        }
+        let form_slots: Vec<&MdNodeRel> = slots
+            .iter()
+            .filter(|s| s.node.kind == SOM_META_KIND_FORM)
+            .collect();
+        let has_forms = !form_slots.is_empty();
+        let default_rel = md_default_body_rel(&slots);
+        let mut written = false;
+
+        fn marker(b: &mut MdBuffer, rel: &str) {
+            b.writeln(&format!("<!-- slot: {} -->", rel));
+            b.writeln("");
+        }
+
+        let text = |b: &mut MdBuffer,
+                        written: &mut bool,
+                        rel: &str,
+                        value: Option<&String>,
+                        value_path: &str|
+         -> Result<(), String> {
+            let value = match value {
+                Some(v) => v,
+                None => return Ok(()),
+            };
+            let prepared = self.prepare_value(value, value_path)?;
+            if prepared.is_empty() {
+                return Ok(());
+            }
+            if *written || rel != default_rel {
+                marker(b, rel);
+            }
+            for line in prepared.split('\n') {
+                if has_forms && md_label_shaped(line) {
+                    b.writeln(&format!(" {}", line));
+                } else {
+                    b.writeln(line);
+                }
+            }
+            b.writeln("");
+            *written = true;
+            Ok(())
+        };
+
+        text(b, &mut written, ".", self.document.content(path), path)?;
+        for slot in &slots {
+            let slot_path = format!("{}/{}", path, slot.rel);
+            if slot.node.kind != SOM_META_KIND_FORM {
+                text(
+                    b,
+                    &mut written,
+                    &slot.rel,
+                    self.document.content(&slot_path),
+                    &slot_path,
+                )?;
+                continue;
+            }
+            if !self.form_has_values(&slot.node, &slot_path) {
+                continue;
+            }
+            let has_preamble = match self.document.content(&slot_path) {
+                Some(p) => !self.prepare_value(p, &slot_path)?.is_empty(),
+                None => false,
+            };
+            let labels: Vec<String> = slot
+                .node
+                .form
+                .as_ref()
+                .map(|f| f.fields.iter().map(|x| x.name.to_lowercase()).collect())
+                .unwrap_or_default();
+            let collides = form_slots.iter().any(|o| {
+                o.rel != slot.rel
+                    && o.node.form.as_ref().is_some_and(|f| {
+                        f.fields
+                            .iter()
+                            .any(|x| labels.contains(&x.name.to_lowercase()))
+                    })
+            });
+            let needs_marker = if has_preamble {
+                written || slot.rel != default_rel
+            } else {
+                collides && (written || form_slots[0].rel != slot.rel)
+            };
+            if needs_marker {
+                marker(b, &slot.rel);
+            }
+            self.write_form(b, &slot.node, &slot_path)?;
+            written = true;
         }
         Ok(())
     }
@@ -1119,11 +1216,11 @@ impl<'a> SpecDocumentMarkdown<'a> {
         Ok(())
     }
 
-    /// The emit-side value normalisation (SOM §11.3): collapse 2+ blank lines
-    /// to one, trim leading/trailing blank lines, escape heading-like lines
-    /// outside fences. Returns an error for an unterminated fence.
+    /// The emit-side value normalisation (SOM §11.3): trim leading/trailing
+    /// blank lines, escape heading-like lines outside fences. Blank lines
+    /// inside the value are kept. Returns an error for an unterminated fence.
     fn prepare_value(&self, value: &str, path: &str) -> Result<String, String> {
-        let collapsed = md_collapse_blank_runs(value);
+        let collapsed = md_trim_blank_ends(value);
         let mut fence = MarkdownFenceTracker::new();
         let mut out: Vec<String> = Vec::new();
         for line in collapsed.split('\n') {
@@ -1185,7 +1282,7 @@ fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_
         "#".repeat(depth),
         id,
         code,
-        title
+        title.replace('\n', "<br>")
     ));
     b.writeln("");
 }
@@ -1450,7 +1547,7 @@ impl<'c, 'a> MdParser<'c, 'a> {
     fn open_heading(&mut self, level: usize, rest: &str, line_no: usize) {
         let (id, code_spec, title) = match md_headline_comment(rest.trim()) {
             Some((id, region, title)) => {
-                (id.to_string(), md_code_spec_of(region), title.to_string())
+                (id.to_string(), md_code_spec_of(region), title.replace("<br>", "\n"))
             }
             None => {
                 self.rejections.push(SpecMarkdownRejection {
@@ -1758,52 +1855,30 @@ position (under \"{}\")",
     }
 
     /// Binds a heading's body region against the owner's transparent body
-    /// slots (SOM §11.2 transparency): `FieldName:` lines matching a
-    /// transparent form's fields route to that form (nearest form in slot
-    /// order, wrapping); all other text binds to the first non-form slot. With
-    /// no non-form slot the text is a form's preamble (SOM §11.6): it binds to
-    /// the form slot named `content` (the class-level `@Form` on the `content`
-    /// member), else the first form slot, and a label-shaped preamble line has
-    /// its one escape space stripped exactly as a continuation line does. Only
-    /// an owner with no slot at all takes the text on its own path.
+    /// slots (SOM §11.6): `FieldName:` lines matching a transparent form's
+    /// fields route to that form (nearest form in slot order, wrapping); a
+    /// slot marker (`<!-- slot: <rel> -->`) sends the text after it to the
+    /// named slot — a content slot, a form's preamble, or the owner itself
+    /// (`.`) — and ends any open field. Unmarked text binds to the first
+    /// content slot; with no content slot it is a form's preamble (SOM §11.4
+    /// rule 7) — the form slot named `content`, else the first form slot.
+    /// Only an owner with no slot at all takes the text on its own path. In a
+    /// region with forms every label-shaped text line carries one escape
+    /// space, which is stripped.
     fn finalize_body_slots(&mut self, frame: &MdFrame, slots: Vec<MdNodeRel>) {
-        let mut form_slots: Vec<MdNodeRel> = Vec::new();
-        let mut content_slots: Vec<MdNodeRel> = Vec::new();
-        for s in slots {
-            if s.node.kind == SOM_META_KIND_FORM {
-                form_slots.push(s);
+        let default_rel = md_default_body_rel(&slots);
+        let path_of = |rel: &str| -> String {
+            if rel == "." {
+                frame.path.clone()
             } else {
-                content_slots.push(s);
+                format!("{}/{}", frame.path, rel)
             }
-        }
-        let preamble_rel: Option<String> = if content_slots.is_empty() && !form_slots.is_empty() {
-            Some(
-                form_slots
-                    .iter()
-                    .find(|s| s.rel == "content")
-                    .unwrap_or(&form_slots[0])
-                    .rel
-                    .clone(),
-            )
-        } else {
-            None
         };
-        let content_path = if let Some(first) = content_slots.first() {
-            format!("{}/{}", frame.path, first.rel)
-        } else if let Some(rel) = &preamble_rel {
-            format!("{}/{}", frame.path, rel)
-        } else {
-            frame.path.clone()
-        };
-        let is_preamble = preamble_rel.is_some();
-
-        if form_slots.is_empty() {
-            let value = md_restore_value(&frame.body);
-            if !value.is_empty() {
-                self.content.insert(content_path, value);
-            }
-            return;
-        }
+        let form_slots: Vec<&MdNodeRel> = slots
+            .iter()
+            .filter(|s| s.node.kind == SOM_META_KIND_FORM)
+            .collect();
+        let has_forms = !form_slots.is_empty();
 
         // Rolling pointer into the body region's transparent form slots —
         // labels bind to the nearest form at or after the last hit (wrapping),
@@ -1833,10 +1908,57 @@ position (under \"{}\")",
         let mut have_field = false;
         let mut current_code = false;
         let mut current_lines: Vec<String> = Vec::new();
-        let mut content_lines: Vec<String> = Vec::new();
+        // Unlabelled text per target path, in the order the targets were
+        // opened; a target opened twice gets its parts joined by a blank line.
+        let mut text_parts: Vec<(String, Vec<Vec<String>>)> =
+            vec![(path_of(&default_rel), vec![Vec::new()])];
+        let mut target_idx: usize = 0;
 
         for line in frame.body.iter() {
             if !fence.in_fence() {
+                if let Some(rel) = md_slot_marker(line) {
+                    let slot = if rel == "." {
+                        None
+                    } else {
+                        slots.iter().find(|s| s.rel == rel)
+                    };
+                    if rel == "." || slot.is_some() {
+                        if have_field {
+                            stage_form_value(
+                                &mut self.forms,
+                                &current_form_path,
+                                &current_field,
+                                current_code,
+                                &current_lines,
+                            );
+                        }
+                        have_field = false;
+                        current_lines = Vec::new();
+                        current_field = String::new();
+                        current_form_path = String::new();
+                        if let Some(slot) = slot {
+                            if slot.node.kind == SOM_META_KIND_FORM {
+                                if let Some(i) =
+                                    form_slots.iter().position(|f| f.rel == slot.rel)
+                                {
+                                    current_form_idx = i;
+                                }
+                            }
+                        }
+                        let target = path_of(rel);
+                        target_idx = match text_parts.iter().position(|(p, _)| *p == target) {
+                            Some(i) => {
+                                text_parts[i].1.push(Vec::new());
+                                i
+                            }
+                            None => {
+                                text_parts.push((target, vec![Vec::new()]));
+                                text_parts.len() - 1
+                            }
+                        };
+                        continue;
+                    }
+                }
                 if let Some((label, first)) = md_field_label(line) {
                     if let Some((idx, field)) = find_field(current_form_idx, label) {
                         if have_field {
@@ -1860,13 +1982,9 @@ position (under \"{}\")",
                     }
                 }
             }
-            // Continuation — and a form preamble line, which the emitter
-            // escapes the same way: strip the one escape space of a
-            // label-shaped line.
-            let text = if !fence.in_fence()
-                && (have_field || is_preamble)
-                && md_continuation_label(line)
-            {
+            // In a region with forms every label-shaped text line carries the
+            // one escape space the emitter adds (SOM §11.4 rule 3); strip it.
+            let text = if !fence.in_fence() && has_forms && md_continuation_label(line) {
                 &line[1..]
             } else {
                 line.as_str()
@@ -1874,7 +1992,11 @@ position (under \"{}\")",
             if have_field {
                 current_lines.push(text.to_string());
             } else {
-                content_lines.push(text.to_string());
+                text_parts[target_idx]
+                    .1
+                    .last_mut()
+                    .unwrap()
+                    .push(text.to_string());
             }
             fence.feed(line);
         }
@@ -1887,9 +2009,16 @@ position (under \"{}\")",
                 &current_lines,
             );
         }
-        let value = md_restore_value(&content_lines);
-        if !value.is_empty() {
-            self.content.insert(content_path, value);
+        for (target, parts) in text_parts {
+            let value = parts
+                .iter()
+                .map(|part| md_restore_value(part))
+                .filter(|v| !v.is_empty())
+                .collect::<Vec<_>>()
+                .join("\n\n");
+            if !value.is_empty() {
+                self.content.insert(target, value);
+            }
         }
     }
 

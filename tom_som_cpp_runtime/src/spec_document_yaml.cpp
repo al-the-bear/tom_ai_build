@@ -396,7 +396,7 @@ class YamlEncoder {
 
   void writeText(std::string& b, std::size_t indent, const std::string& key,
                  const std::string& value) {
-    std::string repr = scalarRepr(specYamlDedupEmptyLines(value));
+    std::string repr = scalarRepr(value);  // text as stored (SOM §12.4)
     writeRendered(b, indent, specYamlPlainKey(key), repr);
   }
 

@@ -474,17 +474,15 @@ static int encoder_take_code_spec(YamlEncoder *e, const char *path,
   return 1;
 }
 
-/* writeText: empty-line dedup, then a self-verified block scalar (or the
- * JSON-quoted fallback). */
+/* writeText: the text value as stored — a self-verified block scalar (or the
+ * JSON-quoted fallback). Runs of empty lines are kept (SOM §12.4). */
 static void encoder_write_text(SomBuf *b, size_t indent, const char *key,
                                const char *value) {
-  char *deduped = spec_yaml_dedup_empty_lines(value);
-  char *repr = scalar_repr(deduped);
+  char *repr = scalar_repr(value);
   char *pk = spec_yaml_plain_key(key);
   write_rendered(b, indent, pk, repr);
   free(pk);
   free(repr);
-  free(deduped);
 }
 
 /* writeValue: a non-text value (SOM §12.5) — plain when it self-verifies, else the

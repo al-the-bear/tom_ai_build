@@ -1662,7 +1662,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 12,
+  'classCount': 13,
   'rootCount': 2,
   'roots': [
     {
@@ -1915,6 +1915,18 @@ Map<String, dynamic> _buildMeta() => {
           'name': 'notes',
           'kind': 'section',
           'type': 'Notes',
+        },
+        {
+          // SOM §11.6 slot markers: an owner whose body holds an id-less form
+          // with a preamble, two id-less content slots and a second form
+          // sharing a label with the first. Without markers the narrative
+          // reads back as the last field's continuation, the second slot
+          // merges into the first and the preamble lands in the narrative;
+          // the markers keep every value at its own path.
+          'name': 'mixed',
+          'kind': 'section',
+          'type': 'Mixed',
+          'sectionId': 'MIX',
         },
         {
           // csrf3: the two instance-tier checks — cross-registry
@@ -2268,6 +2280,36 @@ Map<String, dynamic> _buildMeta() => {
         },
       ],
     },
+    'Mixed': {
+      'name': 'Mixed',
+      'annotations': [
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.text'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {'name': 'lead', 'label': 'Lead', 'type': 'String'},
+            {'name': 'risk', 'label': 'Risk', 'type': 'String'},
+          ],
+        },
+        {'name': 'narrative', 'kind': 'content'},
+        {'name': 'tail', 'kind': 'content'},
+        {
+          'name': 'alt',
+          'kind': 'form',
+          'formFields': [
+            {'name': 'lead', 'label': 'Lead', 'type': 'String'},
+          ],
+        },
+      ],
+    },
     'Item': {
       'name': 'Item',
       // YRD4: class-level @Headline default — drives the item title stem
@@ -2480,6 +2522,21 @@ SpecDocument _buildDocument() {
   // the Notes heading's body and parses back to this path (the first and only
   // non-form body slot there).
   d.setContent('DEMO/notes/remarks', 'Wrapper-section text');
+  // SOM §11.6 slot markers, SOM §11.2 headline line breaks, SOM §11.3 blank lines: a
+  // two-line headline, a form preamble that is not the default target, a
+  // narrative after a form field, a second content slot, a label-shaped
+  // narrative line, two blank lines kept as written, and a second form whose
+  // `Lead` label the first form shares.
+  d.setHeadline('DEMO/MIX', 'Mixed\nslots');
+  d.setContent('DEMO/MIX/content', '_Extrapolated._');
+  d.setFormField('DEMO/MIX/content', 'lead', 'Ada');
+  d.setFormField('DEMO/MIX/content', 'risk', 'low');
+  d.setContent(
+    'DEMO/MIX/narrative',
+    'First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose',
+  );
+  d.setContent('DEMO/MIX/tail', 'Tail text.');
+  d.setFormField('DEMO/MIX/alt', 'lead', 'Bob');
   return d;
 }
 
@@ -3900,6 +3957,38 @@ Map<String, dynamic> _markdownImportCases() {
             'DEMO/DET': {'pattern': '[a-z](x) and `y`'},
           },
           'headlines': {'DEMO/DET': 'Details & Contacts'},
+        },
+      ),
+      // SOM §11.6: a slot marker routes the text after it to the named slot
+      // and ends the open field; a marker naming no slot of the owner is not
+      // a marker, so it stays text where it stands.
+      c(
+        name:
+            'a slot marker routes the following text to its slot, and a '
+            'marker naming no slot stays text',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document', //                          1
+          '', //                                                       2
+          '## <!--[MIX]--> Two<br>lines', //                            3
+          '', //                                                       4
+          'Lead: Ada', //                                              5
+          '<!-- slot: tail -->', //                                    6
+          'Tail text.', //                                             7
+          '<!-- slot: nowhere -->', //                                 8
+          '', //                                                       9
+          '<!-- slot: narrative -->', //                              10
+          'Narrative.', //                                            11
+        ],
+        rejections: const <Map<String, dynamic>>[],
+        document: {
+          'content': {
+            'DEMO/MIX/narrative': 'Narrative.',
+            'DEMO/MIX/tail': 'Tail text.\n<!-- slot: nowhere -->',
+          },
+          'forms': {
+            'DEMO/MIX/content': {'lead': 'Ada'},
+          },
+          'headlines': {'DEMO/MIX': 'Two\nlines'},
         },
       ),
       // The layout written before the blank-line separator — consecutive

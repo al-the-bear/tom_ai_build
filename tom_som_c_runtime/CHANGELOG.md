@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- Exact markdown round trip (SOM §11.2, §11.3, §11.6, §11.7, §12.4). In a
+  heading's body region the emitter writes a slot marker
+  `<!-- slot: <rel> -->` (rel relative to the owner, `.` for the owner itself)
+  before text that would otherwise bind elsewhere — text after anything
+  already written, text or a form preamble that is not the region's default
+  target (first content slot; else the `content` form; else the first form),
+  and a form whose labels another form of the region shares — and the parser
+  (`finalize_body_slots`) routes the text after a marker to that slot, joining
+  repeated targets with a blank line; a marker naming no slot stays text. In a
+  region with any form every label-shaped text line carries one escape space,
+  which import strips. A headline's line breaks are written as `<br>` in the
+  heading and read back as `\n`. Blank lines inside a value are no longer
+  collapsed: neither `prepare_value` nor the YAML encoder applies the
+  `\n{3,}`→`\n\n` normalisation (`spec_yaml_dedup_empty_lines` stays as a
+  helper). Pinned by the regenerated corpus (the new `Mixed` class at
+  `Demo.mixed`, the new marker import case) and `rt.emptyLineDedup`, which
+  now asserts the blank lines are kept.
+
 - `spec_document_has_values_under` answers from a lazily built prefix index —
   every key of the content, form, list, headline and codeSpec stores plus
   every prefix of one that ends right before a `/` or a `-` — instead of

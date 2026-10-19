@@ -18,9 +18,8 @@
  * Text values are written as literal block scalars (`|2-`), with the SOM §12.4
  * escaping rules: the emitter is **self-verifying** (it re-parses each scalar
  * it produces via the hand-rolled yaml reader and falls back to a double-quoted
- * JSON-escaped flow scalar when the parse differs), and runs of 2+ consecutive
- * empty lines are collapsed to one before serialization (a deliberate,
- * documented lossy normalization). Non-text values (`int` / `double` / `bool`,
+ * JSON-escaped flow scalar when the parse differs). Text is written as stored:
+ * runs of empty lines are kept, so a value round-trips exactly. Non-text values (`int` / `double` / `bool`,
  * enum member names) are plain scalars when they self-verify (SOM §12.5).
  *
  * Both `encodeYaml` and `decodeYaml` walk the SomMetaTree of the document root:
@@ -157,9 +156,9 @@ std::string specYamlNodeKey(const SomMetaNode& node);
  * ids, member names, `<id> <name>` pairs), else a JSON-quoted one. */
 std::string specYamlPlainKey(const std::string& key);
 
-/* Collapses runs of two or more consecutive empty lines to a single empty line
- * (SOM §12.4 — the deliberate lossy normalization applied to every text value
- * before serialization). */
+/* Collapses runs of two or more consecutive empty lines to a single empty line.
+ * A helper for callers that want that normalisation; the codec itself writes
+ * text as stored (SOM §12.4), so a value round-trips exactly. */
 std::string specYamlDedupEmptyLines(const std::string& value);
 
 /* Appends `<indent><key>: <scalar>` to `out`, where the scalar is a

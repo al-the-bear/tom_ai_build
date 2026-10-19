@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.6.3
+
+- The markdown codec round-trips exactly: `parse(toMarkdown(doc))` stages every
+  content value, form field, list and headline at its own path (SOM §11.6,
+  §11.7). For the tom_uam Solution Blueprint that was 86 form values, 703
+  content values and 20 headlines read back elsewhere or merged.
+  - **Slot markers.** Where the parser could not tell an owner's id-less body
+    slots apart, the emitter writes `<!-- slot: <rel> -->` before the slot: text
+    after anything else in the region, a form preamble that is not the default
+    target, a form whose labels another form shares. The parser routes the
+    following text to that slot and ends any open field. A body that reads back
+    without markers gets none, so most documents render unchanged.
+  - In a region with forms, label-shaped lines of a content slot carry the
+    escape space too, and parse strips it.
+  - A line break in a stored headline is written as `<br>` and read back.
+  - Blank lines inside a value are kept, in the markdown and the YAML codec
+    alike (SOM §11.3, §12.4); `SpecDocumentYaml.dedupEmptyLines` stays as a
+    helper but the codec no longer applies it.
+- Pinned by the regenerated corpus: a `Demo.mixed` (`MIX`) section with an
+  id-less form and preamble, two id-less content slots, a second form sharing
+  a label, a two-line headline and a value with two blank lines; and a
+  `markdown_import_cases.json` case for a marker, an unknown marker and `<br>`.
+
 ## 1.6.2
 
 - `SpecDocument.hasValuesUnder` answers from a prefix index (every stored key

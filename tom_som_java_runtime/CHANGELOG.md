@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+- Exact markdown round trip (SOM §11.3, §11.6, §11.7, §12.4). A body region
+  whose units the parser would otherwise bind elsewhere carries slot markers
+  (`<!-- slot: <rel> -->`, `.` for the owner): text written after anything
+  else or not aimed at the region's default slot, a form preamble that is not
+  the default target, and a form sharing a field label with another form of
+  the region. The parser sends the text after a marker to the named slot (a
+  marker naming no slot stays text) and joins repeated parts with a blank
+  line. In a region with any form, every label-shaped text line is escaped by
+  one leading space and unescaped on import. A headline's line breaks are
+  written as `<br>` in the heading and read back as `\n`. Blank-line runs
+  inside a value are kept: neither the markdown emitter nor the YAML encoder
+  collapses them any more (`SpecDocumentYaml.dedupEmptyLines` stays as a
+  helper). Bodies that parsed correctly without markers render as before.
+  Pinned by the regenerated corpus (the new `Mixed` class).
 - `SpecDocument.hasValuesUnder` answers from a lazily built prefix index
   instead of scanning every stored key per call; rendering a large document is
   no longer quadratic. Every mutator drops the index; results are unchanged.

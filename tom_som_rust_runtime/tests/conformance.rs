@@ -218,7 +218,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.root.type", root.type_ == "Demo", &root.type_);
     c.check(
         "model.classCount",
-        model.classes.len() == 12,
+        model.classes.len() == 13,
         &model.classes.len().to_string(),
     );
     let demo = model.class_named("Demo");
@@ -229,7 +229,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
         // class; `notes` is the fixture's one `section`-kind member.
         let want = [
             "title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs",
-            "cards", "meta", "control", "notes", "registry",
+            "cards", "meta", "control", "notes", "mixed", "registry",
         ];
         c.check("model.Demo.fields", names == want, &names.join(","));
     }

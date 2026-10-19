@@ -473,7 +473,7 @@ public final class ConformanceRunner {
     SpecRoot root = model.roots.get(0);
     check("model.root.sectionId", "DEMO".equals(root.sectionId), String.valueOf(root.sectionId));
     check("model.root.type", "Demo".equals(root.type), String.valueOf(root.type));
-    check("model.classCount", model.classes.size() == 12, String.valueOf(model.classes.size()));
+    check("model.classCount", model.classes.size() == 13, String.valueOf(model.classes.size()));
     SpecClass demo = model.classNamed("Demo");
     check("model.Demo.found", demo != null, "");
     if (demo != null) {
@@ -484,7 +484,7 @@ public final class ConformanceRunner {
       List<String> want =
           List.of(
               "title", "summary", "priority", "count", "ratio", "score", "details", "items",
-              "refs", "cards", "meta", "control", "notes", "registry");
+              "refs", "cards", "meta", "control", "notes", "mixed", "registry");
       check("model.Demo.fields", names.equals(want), names.toString());
     }
   }
@@ -1646,6 +1646,20 @@ public final class ConformanceRunner {
     // and keys on the target class's id when the field carries none.
     d.setContent("DEMO/notes/NOTE-BDY", "Section-kind body");
     d.setContent("DEMO/notes/remarks", "Wrapper-section text");
+    // `Mixed` (SOM §11.6 slot markers): a body region holding the owner's
+    // preamble form, a content slot, a second content slot and a second form
+    // sharing a label — every unit needs its marker to land where it was
+    // written. The headline carries a line break (written as `<br>`) and the
+    // narrative keeps its two blank lines (no collapse).
+    d.setHeadline("DEMO/MIX", "Mixed\nslots");
+    d.setContent("DEMO/MIX/content", "_Extrapolated._");
+    d.setFormField("DEMO/MIX/content", "lead", "Ada");
+    d.setFormField("DEMO/MIX/content", "risk", "low");
+    d.setContent(
+        "DEMO/MIX/narrative",
+        "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose");
+    d.setContent("DEMO/MIX/tail", "Tail text.");
+    d.setFormField("DEMO/MIX/alt", "lead", "Bob");
     return d;
   }
 

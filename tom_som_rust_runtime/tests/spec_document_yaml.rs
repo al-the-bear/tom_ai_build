@@ -8,8 +8,8 @@
 //! The codec walks the document root's SomMetaTree: sections nest, keys are
 //! `<section-id> <member-name>`, list items key by stored section id (or an
 //! anonymous positional `<member>-<n>`), body text uses the literal `content`
-//! key, and form fields use their bare names. Round-trip is lossless modulo
-//! the SOM §12.4 empty-line dedup; version-1 files and unmatched keys are
+//! key, and form fields use their bare names. Round-trip is lossless (runs of
+//! empty lines are kept, SOM §12.4); version-1 files and unmatched keys are
 //! structured load errors.
 
 use tom_som_rust_runtime::spec_document::SpecDocument;
@@ -422,12 +422,12 @@ fn yaml_test_round_trip(c: &mut Checker, tree: &SomMetaTree) {
         );
     }
 
-    // runs of 2+ empty lines collapse to one on write (SOM §12.4)
+    // runs of empty lines are kept as written (SOM §12.4)
     let mut doc = SpecDocument::new();
     doc.set_content("D00/D00-OVR", "a\n\n\n\nb\n\n\nc");
     c.check(
-        "rt.emptyLineDedup",
-        yaml_round_trip(tree, &doc).content_or("D00/D00-OVR") == "a\n\nb\n\nc",
+        "rt.emptyLinesKept",
+        yaml_round_trip(tree, &doc).content_or("D00/D00-OVR") == "a\n\n\n\nb\n\n\nc",
         "",
     );
 

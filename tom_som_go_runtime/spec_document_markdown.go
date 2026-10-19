@@ -26,9 +26,9 @@ package somruntime
 //
 // Escaping (SOM §11.3): a content line starting with `#` at column 0 is
 // emitted as `\#` (and a leading `\#`… run gains one more backslash), except
-// inside fenced code blocks, which shield their lines verbatim. Consecutive
-// blank lines are collapsed to one on emit; parse trims each value of
-// leading/trailing blank lines and does not re-collapse.
+// inside fenced code blocks, which shield their lines verbatim. Blank lines
+// inside a value are kept as written; parse trims each value of
+// leading/trailing blank lines only.
 //
 // The codec is free of any UI: it reads from / resolves against a SpecModel
 // (through the BuildSomMetaTree metadata tree) and a SpecDocument. Parse does
@@ -238,10 +238,12 @@ var (
 	mdContinuationLabelRE = regexp.MustCompile(`^ +[A-Za-z][A-Za-z0-9_]*:`)
 	mdEscapedHeadingRE    = regexp.MustCompile(`^\\+#`)
 
-	mdTrailingWSRE      = regexp.MustCompile(`\s+$`)
-	mdBlankRunRE        = regexp.MustCompile(`\n{3,}`)
-	mdLeadingNLRE       = regexp.MustCompile(`^\n+`)
-	mdTrailingNLRE      = regexp.MustCompile(`\n+$`)
+	mdTrailingWSRE = regexp.MustCompile(`\s+$`)
+	mdLeadingNLRE  = regexp.MustCompile(`^\n+`)
+	mdTrailingNLRE = regexp.MustCompile(`\n+$`)
+	// A slot marker line (SOM §11.6): `<!-- slot: <rel> -->`, `<rel>` a body
+	// slot's path relative to its owner, or `.` for the owner itself.
+	mdSlotMarkerRE      = regexp.MustCompile(`^<!-- slot: (\S+) -->$`)
 	mdLeadingBlankLnRE  = regexp.MustCompile(`^([ \t]*\n)+`)
 	mdTrailingBlankLnRE = regexp.MustCompile(`(\n[ \t]*)+$`)
 )
@@ -599,27 +601,142 @@ func (c *SpecDocumentMarkdown) exportRoot(root *SpecRoot) (string, error) {
 // writeSectionBody writes the body region of a section heading: the section
 // path's own content value plus every transparent body slot (id-less content
 // text and form blocks, hoisted through transparent sections) in model order.
+//
+// A slot whose text the parser would otherwise bind elsewhere is preceded by a
+// slot marker (SOM §11.6): text after anything already written, a form
+// preamble that is not the region's default target, and a form whose labels
+// another form of the region shares. A body the parser reads correctly without
+// markers gets none, so such documents render as before.
 func (c *SpecDocumentMarkdown) writeSectionBody(b *mdBuffer, node *SomMetaNode, path string) error {
-	if value, ok := c.Document.Content(path); ok {
-		if err := c.writeBody(b, value, path); err != nil {
+	slots := c.bodySlots(node)
+	if len(slots) == 0 {
+		if value, ok := c.Document.Content(path); ok {
+			return c.writeBody(b, value, path)
+		}
+		return nil
+	}
+	var formSlots []mdNodeRel
+	for _, s := range slots {
+		if s.node.Kind == SomMetaKindForm {
+			formSlots = append(formSlots, s)
+		}
+	}
+	hasForms := len(formSlots) > 0
+	defaultRel := mdDefaultBodyRel(slots)
+	written := false
+
+	marker := func(rel string) {
+		b.writeln("<!-- slot: " + rel + " -->")
+		b.writeln("")
+	}
+	text := func(rel, valuePath string) error {
+		value, ok := c.Document.Content(valuePath)
+		if !ok {
+			return nil
+		}
+		prepared, err := c.prepareValue(value, valuePath)
+		if err != nil {
 			return err
 		}
-	}
-	for _, slot := range c.bodySlots(node) {
-		slotPath := path + "/" + slot.rel
-		if slot.node.Kind == SomMetaKindForm {
-			if c.formHasValues(slot.node, slotPath) {
-				if err := c.writeForm(b, slot.node, slotPath); err != nil {
-					return err
-				}
-			}
-		} else if value, ok := c.Document.Content(slotPath); ok {
-			if err := c.writeBody(b, value, slotPath); err != nil {
-				return err
+		if prepared == "" {
+			return nil
+		}
+		if written || rel != defaultRel {
+			marker(rel)
+		}
+		for _, line := range strings.Split(prepared, "\n") {
+			if hasForms && mdLabelShapedRE.MatchString(line) {
+				b.writeln(" " + line)
+			} else {
+				b.writeln(line)
 			}
 		}
+		b.writeln("")
+		written = true
+		return nil
+	}
+	formFieldNames := func(n *SomMetaNode) []string {
+		var out []string
+		if n.Form != nil {
+			for _, f := range n.Form.Fields {
+				out = append(out, strings.ToLower(f.Name))
+			}
+		}
+		return out
+	}
+
+	if err := text(".", path); err != nil {
+		return err
+	}
+	for _, slot := range slots {
+		slotPath := path + "/" + slot.rel
+		if slot.node.Kind != SomMetaKindForm {
+			if err := text(slot.rel, slotPath); err != nil {
+				return err
+			}
+			continue
+		}
+		if !c.formHasValues(slot.node, slotPath) {
+			continue
+		}
+		hasPreamble := false
+		if preamble, ok := c.Document.Content(slotPath); ok {
+			prepared, err := c.prepareValue(preamble, slotPath)
+			if err != nil {
+				return err
+			}
+			hasPreamble = prepared != ""
+		}
+		labels := map[string]bool{}
+		for _, name := range formFieldNames(slot.node) {
+			labels[name] = true
+		}
+		collides := false
+		for _, o := range formSlots {
+			if o.rel == slot.rel {
+				continue
+			}
+			for _, name := range formFieldNames(o.node) {
+				if labels[name] {
+					collides = true
+				}
+			}
+		}
+		var needsMarker bool
+		if hasPreamble {
+			needsMarker = written || slot.rel != defaultRel
+		} else {
+			needsMarker = collides && (written || formSlots[0].rel != slot.rel)
+		}
+		if needsMarker {
+			marker(slot.rel)
+		}
+		if err := c.writeForm(b, slot.node, slotPath); err != nil {
+			return err
+		}
+		written = true
 	}
 	return nil
+}
+
+// mdDefaultBodyRel returns the body slot unmarked body text binds to on import
+// (SOM §11.6): the first non-form slot; with none, the form on the `content`
+// member, else the first form; with no slot at all the owner itself (`.`).
+func mdDefaultBodyRel(slots []mdNodeRel) string {
+	for _, s := range slots {
+		if s.node.Kind != SomMetaKindForm {
+			return s.rel
+		}
+	}
+	for _, s := range slots {
+		if s.rel == "content" {
+			return s.rel
+		}
+	}
+	if len(slots) == 0 {
+		return "."
+	}
+	return slots[0].rel
 }
 
 func (c *SpecDocumentMarkdown) writeChildren(
@@ -889,7 +1006,9 @@ func (c *SpecDocumentMarkdown) writeHeading(b *mdBuffer, depth int, id, title, p
 	if codeSpec != "" {
 		code = ` codeSpec="` + codeSpec + `"`
 	}
-	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> " + title)
+	// A heading is one line: a stored headline's line breaks travel as `<br>`.
+	b.writeln(strings.Repeat("#", depth) + " <!--[" + id + "]" + code + "--> " +
+		strings.ReplaceAll(title, "\n", "<br>"))
 	b.writeln("")
 }
 
@@ -961,12 +1080,12 @@ func mdDecodeCodeSpan(value string) string {
 	return inner
 }
 
-// prepareValue is the emit-side value normalisation (SOM §11.3): collapse 2+
-// blank lines to one, trim leading/trailing blank lines, escape heading-like
-// lines outside fences. Returns an error for an unterminated fence.
+// prepareValue is the emit-side value normalisation (SOM §11.3): trim
+// leading/trailing blank lines, escape heading-like lines outside fences.
+// Blank lines inside the value are kept. Returns an error for an unterminated
+// fence.
 func (c *SpecDocumentMarkdown) prepareValue(value, path string) (string, error) {
-	collapsed := mdBlankRunRE.ReplaceAllString(value, "\n\n")
-	collapsed = mdLeadingNLRE.ReplaceAllString(collapsed, "")
+	collapsed := mdLeadingNLRE.ReplaceAllString(value, "")
 	collapsed = mdTrailingNLRE.ReplaceAllString(collapsed, "")
 	fence := &MarkdownFenceTracker{}
 	var out []string
@@ -1184,7 +1303,7 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	}
 	id := m[1]
 	codeSpec := mdCodeSpecOf(m[2])
-	title := strings.TrimSpace(m[3])
+	title := strings.ReplaceAll(strings.TrimSpace(m[3]), "<br>", "\n")
 
 	if len(p.stack) == 0 {
 		p.openRoot(level, id, title, codeSpec, lineNo)
@@ -1465,47 +1584,29 @@ func (p *mdParser) finalize(frame *mdFrame) {
 }
 
 // finalizeBodySlots binds a heading's body region against the owner's
-// transparent body slots (SOM §11.2 transparency): `FieldName:` lines matching
-// a transparent form's fields route to that form (nearest form in slot order,
-// wrapping); all other text binds to the first non-form slot. With no
-// non-form slot the text is a form's preamble (SOM §11.6): it binds to the
-// form slot named `content` (the class-level `@Form` on the `content` member),
-// else the first form slot, and a label-shaped preamble line has its one
-// escape space stripped exactly as a continuation line does. Only an owner with
-// no slot at all takes the text on its own path.
+// transparent body slots (SOM §11.6): `FieldName:` lines matching a
+// transparent form's fields route to that form (nearest form in slot order,
+// wrapping); a slot marker (`<!-- slot: <rel> -->`) sends the text after it to
+// the named slot — a content slot, a form's preamble, or the owner itself
+// (`.`) — and ends any open field. Unmarked text binds to the first content
+// slot; with no content slot it is a form's preamble (SOM §11.4 rule 7) — the
+// class-level `@Form` on the `content` member, else the first form — which is
+// where the YAML codec keeps it; only an owner with no slot at all takes it on
+// its own path. In a region with forms every label-shaped text line carries
+// the one escape space the emitter adds; it is stripped.
 func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	var formSlots []mdNodeRel
-	var contentSlots []mdNodeRel
 	for _, s := range slots {
 		if s.node.Kind == SomMetaKindForm {
 			formSlots = append(formSlots, s)
-		} else {
-			contentSlots = append(contentSlots, s)
 		}
 	}
-	var preambleSlot *mdNodeRel
-	if len(contentSlots) == 0 && len(formSlots) > 0 {
-		preambleSlot = &formSlots[0]
-		for i := range formSlots {
-			if formSlots[i].rel == "content" {
-				preambleSlot = &formSlots[i]
-				break
-			}
+	defaultRel := mdDefaultBodyRel(slots)
+	pathOf := func(rel string) string {
+		if rel == "." {
+			return frame.path
 		}
-	}
-	contentPath := frame.path
-	if len(contentSlots) > 0 {
-		contentPath = frame.path + "/" + contentSlots[0].rel
-	} else if preambleSlot != nil {
-		contentPath = frame.path + "/" + preambleSlot.rel
-	}
-
-	if len(formSlots) == 0 {
-		value := mdRestoreValue(frame.body)
-		if value != "" {
-			p.content[contentPath] = value
-		}
-		return
+		return frame.path + "/" + rel
 	}
 
 	findField := func(label string) (int, *SomFormFieldMeta, bool) {
@@ -1531,7 +1632,19 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	currentCode := false
 	haveField := false
 	var currentLines []string
-	var contentLines []string
+	// Unlabelled text per target path, in the order the targets were opened;
+	// a target opened twice gets its parts joined by a blank line.
+	var textOrder []string
+	textParts := map[string][]*[]string{}
+	openText := func(target string) *[]string {
+		lines := &[]string{}
+		if _, ok := textParts[target]; !ok {
+			textOrder = append(textOrder, target)
+		}
+		textParts[target] = append(textParts[target], lines)
+		return lines
+	}
+	contentLines := openText(pathOf(defaultRel))
 
 	flush := func() {
 		if haveField {
@@ -1552,6 +1665,34 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 	p.currentFormIdx = 0
 	for _, line := range frame.body {
 		if !fence.InFence() {
+			if mm := mdSlotMarkerRE.FindStringSubmatch(line); mm != nil {
+				rel := mm[1]
+				slotIdx := -1
+				if rel != "." {
+					for i, s := range slots {
+						if s.rel == rel {
+							slotIdx = i
+							break
+						}
+					}
+				}
+				if rel == "." || slotIdx >= 0 {
+					flush()
+					haveField = false
+					currentField = ""
+					currentFormPath = ""
+					if slotIdx >= 0 && slots[slotIdx].node.Kind == SomMetaKindForm {
+						for i, fs := range formSlots {
+							if fs.rel == rel {
+								p.currentFormIdx = i
+								break
+							}
+						}
+					}
+					contentLines = openText(pathOf(rel))
+					continue
+				}
+			}
 			if m := mdFieldLabelRE.FindStringSubmatch(line); m != nil {
 				if idx, f, ok := findField(m[1]); ok {
 					flush()
@@ -1566,22 +1707,30 @@ func (p *mdParser) finalizeBodySlots(frame *mdFrame, slots []mdNodeRel) {
 				}
 			}
 		}
-		// Continuation — and a form preamble line, which the emitter escapes
-		// the same way: strip the one escape space of a label-shaped line.
+		// In a region with forms every label-shaped text line carries the one
+		// escape space the emitter adds (SOM §11.4 rule 3); strip it.
 		text := line
-		if !fence.InFence() && (haveField || preambleSlot != nil) && mdContinuationLabelRE.MatchString(line) {
+		if !fence.InFence() && len(formSlots) > 0 && mdContinuationLabelRE.MatchString(line) {
 			text = line[1:]
 		}
 		if haveField {
 			currentLines = append(currentLines, text)
 		} else {
-			contentLines = append(contentLines, text)
+			*contentLines = append(*contentLines, text)
 		}
 		fence.Feed(line)
 	}
 	flush()
-	if value := mdRestoreValue(contentLines); value != "" {
-		p.content[contentPath] = value
+	for _, target := range textOrder {
+		var values []string
+		for _, part := range textParts[target] {
+			if v := mdRestoreValue(*part); v != "" {
+				values = append(values, v)
+			}
+		}
+		if value := strings.Join(values, "\n\n"); value != "" {
+			p.content[target] = value
+		}
 	}
 }
 

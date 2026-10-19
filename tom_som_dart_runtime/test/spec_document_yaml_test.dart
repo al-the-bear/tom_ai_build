@@ -548,10 +548,10 @@ void main() {
       }
     });
 
-    test('runs of 2+ empty lines collapse to one on write (SOM §12.4)', () {
+    test('runs of empty lines are kept as written (SOM §12.4)', () {
       final doc = SpecDocument()
         ..setContent('D00/D00-OVR', 'a\n\n\n\nb\n\n\nc');
-      expect(roundTrip(doc).content('D00/D00-OVR'), 'a\n\nb\n\nc');
+      expect(roundTrip(doc).content('D00/D00-OVR'), 'a\n\n\n\nb\n\n\nc');
     });
 
     test('an empty complex list item round-trips as `{}`', () {

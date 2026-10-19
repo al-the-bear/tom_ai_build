@@ -312,34 +312,34 @@ bool matchFieldLabel(const std::string& s, std::string* label,
   return true;
 }
 
-/* mdBlankRunRE `\n{3,}`→`\n\n`, then strip leading + trailing newlines. */
-std::string collapseBlankRuns(const std::string& value) {
-  std::string b;
-  std::size_t i = 0;
-  while (i < value.size()) {
-    if (value[i] == '\n') {
-      std::size_t run = 0;
-      while (i + run < value.size() && value[i + run] == '\n') {
-        run++;
-      }
-      std::size_t emit = run >= 3 ? 2 : run;
-      for (std::size_t k = 0; k < emit; k++) {
-        b.push_back('\n');
-      }
-      i += run;
-    } else {
-      b.push_back(value[i]);
-      i++;
-    }
-  }
-  std::size_t start = 0, n = b.size();
-  while (start < n && b[start] == '\n') {
+/* Strip leading + trailing newlines (SOM §11.3). Blank lines inside the value
+ * are kept as written, so a value round-trips exactly. */
+std::string trimNewlines(const std::string& value) {
+  std::size_t start = 0, n = value.size();
+  while (start < n && value[start] == '\n') {
     start++;
   }
-  while (n > start && b[n - 1] == '\n') {
+  while (n > start && value[n - 1] == '\n') {
     n--;
   }
-  return b.substr(start, n - start);
+  return value.substr(start, n - start);
+}
+
+/* Replaces every occurrence of `from` in `s` with `to`. */
+std::string replaceAllStr(const std::string& s, const std::string& from,
+                          const std::string& to) {
+  std::string out;
+  std::size_t pos = 0;
+  for (;;) {
+    std::size_t hit = s.find(from, pos);
+    if (hit == std::string::npos) {
+      out.append(s, pos, std::string::npos);
+      return out;
+    }
+    out.append(s, pos, hit - pos);
+    out += to;
+    pos = hit + from.size();
+  }
 }
 
 /* mdLeadingBlankLnRE `^([ \t]*\n)+` and mdTrailingBlankLnRE `(\n[ \t]*)+$`. */
@@ -601,6 +601,23 @@ std::vector<NodeRel> bodySlots(MdCodec& c, const SomMetaNode& node) {
   return out;
 }
 
+/* The body slot unmarked body text binds to on import (SOM §11.6): the first
+ * non-form slot; with none, the form on the `content` member, else the first
+ * form; with no slot at all the owner itself (`.`). */
+std::string defaultBodyRel(const std::vector<NodeRel>& slots) {
+  for (const auto& s : slots) {
+    if (!kindEq(s.node->kind, kSomMetaKindForm)) {
+      return s.rel;
+    }
+  }
+  for (const auto& s : slots) {
+    if (s.rel == "content") {
+      return s.rel;
+    }
+  }
+  return slots.empty() ? std::string(".") : slots.front().rel;
+}
+
 void effectiveChildrenCollect(MdCodec& c, const SomMetaNode& n,
                               const std::string& prefix,
                               std::vector<NodeRel>& out) {
@@ -693,7 +710,8 @@ void mdWriteHeading(MdCodec& c, std::string& b, int depth,
     b.push_back('"');
   }
   b += "--> ";
-  b += title;
+  // A heading is one line: a stored headline's line breaks travel as `<br>`.
+  b += replaceAllStr(title, "\n", "<br>");
   b.push_back('\n');
   b.push_back('\n');
 }
@@ -736,10 +754,11 @@ std::string encodeCodeSpan(const std::string& value) {
   return fence + p + value + p + fence;
 }
 
-/* prepareValue: collapse blank runs, escape heading-like lines outside fences.
+/* prepareValue: trim leading/trailing blank lines (inner blank lines are kept),
+ * escape heading-like lines outside fences.
  * Throws std::invalid_argument on an unterminated fence. */
 std::string prepareValue(const std::string& value, const std::string& path) {
-  std::string collapsed = collapseBlankRuns(value);
+  std::string collapsed = trimNewlines(value);
   std::vector<std::string> lines = splitLines(collapsed);
   SpecMarkdownFenceTracker fence;
   std::string b;
@@ -922,29 +941,108 @@ void writeForm(std::string& b, const SpecDocument& doc, const SomMetaNode& node,
 void writeChildren(MdCodec& c, std::string& b, const SomMetaNode& node,
                    const std::string& basePath, int depth);
 
+/* Writes the body region of a section heading: the section path's own content
+ * value plus every transparent body slot (id-less content text and form
+ * blocks, hoisted through transparent sections) in model order.
+ *
+ * A slot whose text the parser would otherwise bind elsewhere is preceded by a
+ * slot marker (SOM §11.6): text after anything already written, a form
+ * preamble that is not the region's default target, and a form whose labels
+ * another form of the region shares. A body the parser reads correctly
+ * without markers gets none, so such documents render as before. */
 void writeSectionBody(MdCodec& c, std::string& b, const SomMetaNode& node,
                       const std::string& path) {
   const SpecDocument& doc = *c.document();
-  bool present = false;
-  std::string value = contentOf(doc, path, &present);
-  if (present) {
-    writeBody(b, value, path);
-  }
   std::vector<NodeRel> slots = bodySlots(c, node);
+  if (slots.empty()) {
+    bool present = false;
+    std::string value = contentOf(doc, path, &present);
+    if (present) {
+      writeBody(b, value, path);
+    }
+    return;
+  }
+  std::vector<NodeRel> formSlots;
+  for (const auto& s : slots) {
+    if (kindEq(s.node->kind, kSomMetaKindForm)) {
+      formSlots.push_back(s);
+    }
+  }
+  const bool hasForms = !formSlots.empty();
+  const std::string defRel = defaultBodyRel(slots);
+  bool written = false;
+
+  auto marker = [&b](const std::string& rel) {
+    b += "<!-- slot: ";
+    b += rel;
+    b += " -->\n\n";
+  };
+  auto text = [&](const std::string& rel, const std::string& valuePath) {
+    const std::string* value = doc.contentOpt(valuePath);
+    if (value == nullptr) {
+      return;
+    }
+    std::string prepared = prepareValue(*value, valuePath);
+    if (prepared.empty()) {
+      return;
+    }
+    if (written || rel != defRel) {
+      marker(rel);
+    }
+    for (const auto& line : splitLines(prepared)) {
+      if (hasForms && matchLabelShaped(line)) {
+        b.push_back(' ');
+      }
+      b += line;
+      b.push_back('\n');
+    }
+    b.push_back('\n');
+    written = true;
+  };
+
+  text(".", path);
   for (const auto& slot : slots) {
     std::string slotPath = specPathJoin(path, slot.rel);
     const SomMetaNode* sn = slot.node;
-    if (kindEq(sn->kind, kSomMetaKindForm)) {
-      if (formHasValues(doc, *sn, slotPath)) {
-        writeForm(b, doc, *sn, slotPath);
-      }
-    } else {
-      bool p2 = false;
-      std::string v = contentOf(doc, slotPath, &p2);
-      if (p2) {
-        writeBody(b, v, slotPath);
+    if (!kindEq(sn->kind, kSomMetaKindForm)) {
+      text(slot.rel, slotPath);
+      continue;
+    }
+    if (!formHasValues(doc, *sn, slotPath)) {
+      continue;
+    }
+    const std::string* preamble = doc.contentOpt(slotPath);
+    const bool hasPreamble =
+        preamble != nullptr && !prepareValue(*preamble, slotPath).empty();
+    std::set<std::string> labels;
+    if (sn->form.has_value()) {
+      for (const auto& f : sn->form->fields) {
+        labels.insert(lowerDup(f.name));
       }
     }
+    bool collides = false;
+    for (const auto& o : formSlots) {
+      if (o.rel == slot.rel || !o.node->form.has_value()) {
+        continue;
+      }
+      for (const auto& f : o.node->form->fields) {
+        if (labels.count(lowerDup(f.name)) != 0) {
+          collides = true;
+          break;
+        }
+      }
+      if (collides) {
+        break;
+      }
+    }
+    const bool needsMarker =
+        hasPreamble ? (written || slot.rel != defRel)
+                    : (collides && (written || formSlots.front().rel != slot.rel));
+    if (needsMarker) {
+      marker(slot.rel);
+    }
+    writeForm(b, doc, *sn, slotPath);
+    written = true;
   }
 }
 
@@ -1394,48 +1492,67 @@ void MdParser::finalizeForm(MdFrame& frame, const SomMetaNode& node,
   flush(frame.line + frame.body.size());
 }
 
+/* A slot marker line (SOM §11.6): exactly `<!-- slot: <rel> -->`, `<rel>` a
+ * non-empty run of non-whitespace — a body slot's path relative to its owner,
+ * or `.` for the owner itself. */
+bool matchSlotMarker(const std::string& line, std::string* rel) {
+  static const std::string open = "<!-- slot: ";
+  static const std::string close = " -->";
+  if (line.size() <= open.size() + close.size() ||
+      line.compare(0, open.size(), open) != 0 ||
+      line.compare(line.size() - close.size(), close.size(), close) != 0) {
+    return false;
+  }
+  std::string r =
+      line.substr(open.size(), line.size() - open.size() - close.size());
+  for (char ch : r) {
+    if (isWs(ch)) {
+      return false;
+    }
+  }
+  *rel = r;
+  return true;
+}
+
 // Binds a heading's body region against the owner's transparent body slots
-// (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
-// fields route to that form (nearest form in slot order, wrapping); all other
-// text binds to the first non-form slot. With no non-form slot the text is a
-// form's preamble (SOM §11.6) — the form slot named `content` (the class-level
-// `@Form` on the `content` member), else the first form slot — and a
-// label-shaped preamble line has its one escape space stripped, exactly as a
-// continuation line does. Only an owner with no slot at all takes the text on
-// its own path.
+// (SOM §11.6): `FieldName:` lines matching a transparent form's fields route to
+// that form (nearest form in slot order, wrapping); a slot marker
+// (`<!-- slot: <rel> -->`) sends the text after it to the named slot — a
+// content slot, a form's preamble, or the owner itself (`.`) — and ends any
+// open field. Unmarked text binds to the first content slot; with no content
+// slot it is a form's preamble (SOM §11.4 rule 7) — the class-level `@Form` on
+// the `content` member, else the first form — and only an owner with no slot
+// at all takes it on its own path. In a region with forms, every label-shaped
+// text line has its one escape space stripped.
 void MdParser::finalizeBodySlots(MdFrame& frame,
                                  const std::vector<NodeRel>& slots) {
   std::vector<NodeRel> forms;
-  std::vector<NodeRel> contents;
   for (const auto& s : slots) {
     if (kindEq(s.node->kind, kSomMetaKindForm)) {
       forms.push_back(s);
-    } else {
-      contents.push_back(s);
     }
   }
-  const NodeRel* preambleSlot = nullptr;
-  if (contents.empty() && !forms.empty()) {
-    preambleSlot = &forms[0];
-    for (const auto& f : forms) {
-      if (f.rel == "content") {
-        preambleSlot = &f;
-        break;
+  const std::string defRel = defaultBodyRel(slots);
+  auto pathOf = [&frame](const std::string& rel) {
+    return rel == "." ? frame.path : specPathJoin(frame.path, rel);
+  };
+
+  // Unlabelled text per target path, in the order the targets were opened; a
+  // target opened twice gets its parts joined by a blank line.
+  std::vector<std::pair<std::string, std::vector<std::vector<std::string>>>>
+      textParts;
+  auto openTarget = [&textParts](const std::string& target) {
+    for (auto& e : textParts) {
+      if (e.first == target) {
+        e.second.emplace_back();
+        return std::make_pair(&e - textParts.data(), e.second.size() - 1);
       }
     }
-  }
-  std::string contentPath =
-      !contents.empty()       ? specPathJoin(frame.path, contents[0].rel)
-      : preambleSlot != nullptr ? specPathJoin(frame.path, preambleSlot->rel)
-                                : frame.path;
-
-  if (forms.empty()) {
-    std::string value = restoreValue(frame.body);
-    if (!value.empty()) {
-      stagedSetContent(contentPath, value);
-    }
-    return;
-  }
+    textParts.push_back({target, {std::vector<std::string>()}});
+    return std::make_pair(static_cast<std::ptrdiff_t>(textParts.size() - 1),
+                          static_cast<std::size_t>(0));
+  };
+  auto cur = openTarget(pathOf(defRel));
 
   SpecMarkdownFenceTracker fence;
   const std::string* currentField = nullptr;
@@ -1443,14 +1560,54 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
   std::string currentFormPath;
   bool haveField = false;
   std::vector<std::string> current;
-  std::vector<std::string> contentLines;
   currentFormIdx_ = 0;
+
+  auto flush = [&]() {
+    if (haveField) {
+      std::string v = restoreValue(current);
+      if (currentCode) {
+        v = decodeCodeSpan(v);
+      }
+      if (!v.empty()) {
+        stagedSetForm(currentFormPath, *currentField, v);
+      }
+    }
+    current.clear();
+  };
 
   for (std::size_t i = 0; i < frame.body.size(); i++) {
     const std::string& line = frame.body[i];
     if (!fence.inFence()) {
+      std::string rel;
+      if (matchSlotMarker(line, &rel)) {
+        const NodeRel* slot = nullptr;
+        if (rel != ".") {
+          for (const auto& s : slots) {
+            if (s.rel == rel) {
+              slot = &s;
+              break;
+            }
+          }
+        }
+        if (rel == "." || slot != nullptr) {
+          flush();
+          haveField = false;
+          currentField = nullptr;
+          currentFormPath.clear();
+          if (slot != nullptr && kindEq(slot->node->kind, kSomMetaKindForm)) {
+            for (std::size_t k = 0; k < forms.size(); k++) {
+              if (forms[k].rel == slot->rel) {
+                currentFormIdx_ = (int)k;
+                break;
+              }
+            }
+          }
+          cur = openTarget(pathOf(rel));
+          continue;
+        }
+      }
       std::string label, value;
-      if (matchFieldLabel(line, &label, &value)) {
+      if (!forms.empty() && matchFieldLabel(line, &label, &value)) {
         int foundIdx = -1;
         const SomFormFieldMeta* found = nullptr;
         std::string lower = lowerDup(label);
@@ -1472,16 +1629,7 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
           }
         }
         if (foundIdx >= 0) {
-          if (haveField) {
-            std::string v = restoreValue(current);
-            if (currentCode) {
-              v = decodeCodeSpan(v);
-            }
-            if (!v.empty()) {
-              stagedSetForm(currentFormPath, *currentField, v);
-            }
-          }
-          current.clear();
+          flush();
           currentFormIdx_ = foundIdx;
           haveField = true;
           currentField = &found->name;
@@ -1493,33 +1641,34 @@ void MdParser::finalizeBodySlots(MdFrame& frame,
         }
       }
     }
-    // Continuation — and a form preamble line, which the emitter escapes the
-    // same way: strip the one escape space of a label-shaped line.
+    // In a region with forms every label-shaped text line carries the one
+    // escape space the emitter adds (SOM §11.4 rule 3); strip it.
     std::string text = line;
-    if (!fence.inFence() && (haveField || preambleSlot != nullptr) &&
-        matchContinuationLabel(line)) {
+    if (!fence.inFence() && !forms.empty() && matchContinuationLabel(line)) {
       text = line.substr(1);
     }
     if (haveField) {
       current.push_back(text);
     } else {
-      contentLines.push_back(text);
+      textParts[cur.first].second[cur.second].push_back(text);
     }
     fence.feed(line);
   }
-  if (haveField) {
-    std::string v = restoreValue(current);
-    if (currentCode) {
-      v = decodeCodeSpan(v);
+  flush();
+  for (const auto& e : textParts) {
+    std::string value;
+    for (const auto& part : e.second) {
+      std::string v = restoreValue(part);
+      if (v.empty()) {
+        continue;
+      }
+      if (!value.empty()) {
+        value += "\n\n";
+      }
+      value += v;
     }
-    if (!v.empty()) {
-      stagedSetForm(currentFormPath, *currentField, v);
-    }
-  }
-  {
-    std::string cv = restoreValue(contentLines);
-    if (!cv.empty()) {
-      stagedSetContent(contentPath, cv);
+    if (!value.empty()) {
+      stagedSetContent(e.first, value);
     }
   }
 }
@@ -1768,6 +1917,8 @@ void MdParser::openHeading(int level, const std::string& rest,
     pushIgnoredFrame(level, line);
     return;
   }
+  // A `<br>` in a heading title is a stored line break (SOM §11.2).
+  title = replaceAllStr(title, "<br>", "\n");
   // codespecs_mapping.md §9.2: the codeSpec mapping parsed from the heading
   // comment's key=value region, "" when the heading carries no `codeSpec` key.
   std::string codeSpec = codeSpecOf(region);

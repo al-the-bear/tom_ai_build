@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Exact Markdown round trip (SOM §11.3, §11.6, §11.7, §12.4): a heading's body
+  region writes a slot marker `<!-- slot: <rel> -->` before a body slot the
+  parser would otherwise bind elsewhere (text after anything already written,
+  a form preamble that is not the region's default target, a form whose labels
+  another form of the region shares), and the parser routes the text after a
+  marker to the named slot (`.` for the owner itself); a marker naming no slot
+  stays text. In a region with any form slot every label-shaped text line
+  carries one escape space, stripped on import. A headline's line breaks travel
+  as `<br>` in the heading and come back as `\n`. Blank lines inside a value
+  are kept as written by both the Markdown emitter and the YAML encoder (no
+  more collapse of 2+ blank lines; `dedupEmptyLines` stays as a helper).
 - `SpecDocument.hasValuesUnder` answers from a lazily built prefix index (every
   stored key plus each of its prefixes ending before a `/` or `-`), built on
   the first query and dropped by every mutator; rendering a large document is

@@ -21,7 +21,7 @@ import tom_som_runtime.SpecYamlFormatException;
  * {@code <section-id> <member-name>}, list items key by stored section id (or
  * an anonymous positional {@code <member>-<n>}), body text uses the literal
  * {@code content} key, and form fields use their bare names. Round-trip is
- * lossless modulo the SOM §12.4 empty-line dedup; version-1 files and
+ * lossless (runs of empty lines are kept, SOM §12.4); version-1 files and
  * unmatched keys are structured load errors.
  *
  * <p>JUnit is unavailable on the build host, so this is a plain {@code main()}
@@ -356,12 +356,12 @@ public final class SpecDocumentYamlTest {
           "got " + quote(got) + " want " + quote(edge));
     }
 
-    // runs of 2+ empty lines collapse to one on write (SOM §12.4)
+    // runs of empty lines are kept as written (SOM §12.4)
     SpecDocument doc = new SpecDocument();
     doc.setContent("D00/D00-OVR", "a\n\n\n\nb\n\n\nc");
     check(
-        "rt.emptyLineDedup",
-        "a\n\nb\n\nc".equals(roundTrip(tree, doc).content("D00/D00-OVR")),
+        "rt.emptyLinesKept",
+        "a\n\n\n\nb\n\n\nc".equals(roundTrip(tree, doc).content("D00/D00-OVR")),
         "");
 
     // an empty complex list item round-trips as `{}`

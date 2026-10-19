@@ -191,7 +191,7 @@ function testModelMeta(model: SpecModel): void {
   const root = model.roots[0];
   _check('model.root.sectionId', root.sectionId === 'DEMO', String(root.sectionId));
   _check('model.root.type', root.type === 'Demo', root.type);
-  _check('model.classCount', model.classes.size === 12, String(model.classes.size));
+  _check('model.classCount', model.classes.size === 13, String(model.classes.size));
   const demo = model.classNamed('Demo');
   _check('model.Demo.found', demo !== null);
   if (demo !== null) {
@@ -212,6 +212,7 @@ function testModelMeta(model: SpecModel): void {
         'meta',
         'control',
         'notes',
+        'mixed',
         'registry',
       ]),
       String(names),
@@ -1235,6 +1236,21 @@ function _buildFixtureDocument(): SpecDocument {
   // and keys on the target class's id when the field carries none.
   d.setContent('DEMO/notes/NOTE-BDY', 'Section-kind body');
   d.setContent('DEMO/notes/remarks', 'Wrapper-section text');
+  // SOM §11.6 slot markers, §11.2 headline line breaks, §11.3 blank lines: a
+  // two-line headline, a form preamble that is not the default target, a
+  // narrative after a form field, a second content slot, a label-shaped
+  // narrative line, two blank lines kept as written, and a second form whose
+  // `Lead` label the first form shares.
+  d.setHeadline('DEMO/MIX', 'Mixed\nslots');
+  d.setContent('DEMO/MIX/content', '_Extrapolated._');
+  d.setFormField('DEMO/MIX/content', 'lead', 'Ada');
+  d.setFormField('DEMO/MIX/content', 'risk', 'low');
+  d.setContent(
+    'DEMO/MIX/narrative',
+    'First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose',
+  );
+  d.setContent('DEMO/MIX/tail', 'Tail text.');
+  d.setFormField('DEMO/MIX/alt', 'lead', 'Bob');
   return d;
 }
 

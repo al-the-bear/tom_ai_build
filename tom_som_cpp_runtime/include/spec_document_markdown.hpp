@@ -20,8 +20,10 @@
  *
  * Escaping (SOM §11.3): a content line starting with `#` at column 0 is emitted
  * as `\#`, except inside fenced code blocks, which shield their lines verbatim.
- * Consecutive blank lines are collapsed to one on emit; parse trims each value
- * of leading/trailing blank lines and does not re-collapse.
+ * Blank lines inside a value are kept as written; parse trims each value of
+ * leading/trailing blank lines only. A stored headline's line breaks travel as
+ * `<br>` in the heading title. Body slots the parser would otherwise bind
+ * elsewhere are preceded by a `<!-- slot: <rel> -->` marker (SOM §11.6).
  *
  * `markdownParse` does not mutate the document — it returns staged values keyed
  * exactly like DocumentJson plus a rejection report (SOM §11.7); the caller

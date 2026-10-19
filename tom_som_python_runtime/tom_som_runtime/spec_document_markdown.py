@@ -28,9 +28,9 @@ headings without a field-level ``@SectionId`` carry the target class's
 
 Escaping (SOM §11.3): a content line starting with ``#`` at column 0 is emitted
 as ``\\#`` (and a leading ``\\#``… run gains one more backslash), except inside
-fenced code blocks, which shield their lines verbatim. Consecutive blank lines
-are collapsed to one on emit; parse trims each value of leading/trailing blank
-lines and does not re-collapse.
+fenced code blocks, which shield their lines verbatim. Blank lines inside a
+value are kept as written; parse trims each value of leading/trailing blank
+lines only.
 
 The codec is free of any UI: it reads from / resolves against a
 :class:`SpecModel` (through the :func:`build_som_meta_tree` metadata tree) and
@@ -485,15 +485,89 @@ class SpecDocumentMarkdown:
         """Writes the body region of a section heading: the section path's own
         content value plus every transparent body slot (id-less content text
         and form blocks, hoisted through transparent sections) in model
-        order."""
-        self._write_body(b, self.document.content(path), path)
-        for slot, rel in self._body_slots(node):
+        order.
+
+        A slot whose text the parser would otherwise bind elsewhere is
+        preceded by a slot marker (SOM §11.6): text after anything already
+        written, a form preamble that is not the region's default target, and
+        a form whose labels another form of the region shares. A body the
+        parser reads correctly without markers gets none, so such documents
+        render as before."""
+        slots = self._body_slots(node)
+        if not slots:
+            self._write_body(b, self.document.content(path), path)
+            return
+        form_slots = [s for s in slots if s[0].kind == SomMetaKind.FORM]
+        has_forms = bool(form_slots)
+        default_rel = self._default_body_rel(slots)
+        written = False
+
+        def marker(rel: str) -> None:
+            b.writeln(f"<!-- slot: {rel} -->")
+            b.writeln()
+
+        def text(rel: str, value: Optional[str], value_path: str) -> None:
+            nonlocal written
+            if value is None:
+                return
+            prepared = self._prepare_value(value, value_path)
+            if not prepared:
+                return
+            if written or rel != default_rel:
+                marker(rel)
+            for line in prepared.split("\n"):
+                b.writeln(
+                    f" {line}"
+                    if has_forms and self._label_shaped.match(line)
+                    else line
+                )
+            b.writeln()
+            written = True
+
+        def field_names(slot: SomMetaNode) -> set[str]:
+            fields = slot.form.fields if slot.form is not None else []
+            return {f.name.lower() for f in fields}
+
+        text(".", self.document.content(path), path)
+        for slot, rel in slots:
             slot_path = f"{path}/{rel}"
-            if slot.kind == SomMetaKind.FORM:
-                if self._form_has_values(slot, slot_path):
-                    self._write_form(b, slot, slot_path)
-            else:
-                self._write_body(b, self.document.content(slot_path), slot_path)
+            if slot.kind != SomMetaKind.FORM:
+                text(rel, self.document.content(slot_path), slot_path)
+                continue
+            if not self._form_has_values(slot, slot_path):
+                continue
+            preamble = self.document.content(slot_path)
+            has_preamble = preamble is not None and bool(
+                self._prepare_value(preamble, slot_path)
+            )
+            labels = field_names(slot)
+            collides = any(
+                o_rel != rel and bool(field_names(o) & labels)
+                for o, o_rel in form_slots
+            )
+            needs_marker = (
+                (written or rel != default_rel)
+                if has_preamble
+                else (collides and (written or form_slots[0][1] != rel))
+            )
+            if needs_marker:
+                marker(rel)
+            self._write_form(b, slot, slot_path)
+            written = True
+
+    @staticmethod
+    def _default_body_rel(slots: list[tuple[SomMetaNode, str]]) -> str:
+        """The body slot unmarked body text binds to on import (SOM §11.6):
+        the first non-form slot; with none, the form on the ``content``
+        member, else the first form; with no slot at all the owner itself
+        (``.``)."""
+        for slot, rel in slots:
+            if slot.kind != SomMetaKind.FORM:
+                return rel
+        for _, rel in slots:
+            if rel == "content":
+                return rel
+        return slots[0][1] if slots else "."
 
     def _write_children(
         self, b: _Buffer, node: SomMetaNode, base_path: str, depth: int
@@ -741,7 +815,11 @@ class SpecDocumentMarkdown:
         ``## <!--[ID] codeSpec="A,B"--> Title``."""
         self._heading_paths.append(path)
         code = f' codeSpec="{code_spec}"' if code_spec else ""
-        b.writeln(f"{'#' * depth} <!--[{id}]{code}--> {title}")
+        # A heading is one line: a stored headline's line breaks travel as
+        # ``<br>``.
+        b.writeln(
+            f"{'#' * depth} <!--[{id}]{code}--> {title.replace(chr(10), '<br>')}"
+        )
         b.writeln()
 
     def _write_body(
@@ -778,12 +856,11 @@ class SpecDocumentMarkdown:
         return f"{fence}{pad}{value}{pad}{fence}"
 
     def _prepare_value(self, value: str, path: str) -> str:
-        """Emit-side value normalisation (SOM §11.3): collapse 2+ blank lines
-        to one, trim leading/trailing blank lines, escape heading-like lines
-        outside fences. Raises :class:`ValueError` for an unterminated
-        fence."""
-        collapsed = re.sub(r"\n{3,}", "\n\n", value)
-        collapsed = re.sub(r"^\n+", "", collapsed)
+        """Emit-side value normalisation (SOM §11.3): trim leading/trailing
+        blank lines, escape heading-like lines outside fences. Blank lines
+        inside the value are kept. Raises :class:`ValueError` for an
+        unterminated fence."""
+        collapsed = re.sub(r"^\n+", "", value)
         collapsed = re.sub(r"\n+$", "", collapsed)
         fence = MarkdownFenceTracker()
         out: list[str] = []
@@ -879,6 +956,9 @@ class _ListState:
 
 _FIELD_LABEL = re.compile(r"^([A-Za-z][A-Za-z0-9_]*): ?(.*)$")
 _CONTINUATION_LABEL = re.compile(r"^ +[A-Za-z][A-Za-z0-9_]*:")
+#: A slot marker line (SOM §11.6): ``<!-- slot: <rel> -->``, ``<rel>`` a body
+#: slot's path relative to its owner, or ``.`` for the owner itself.
+_SLOT_MARKER = re.compile(r"^<!-- slot: (\S+) -->$")
 _ESCAPED_HEADING = re.compile(r"^\\+#")
 
 
@@ -956,7 +1036,7 @@ class _Parser:
             return
         id = m.group(1)
         code_spec = SpecDocumentMarkdown.code_spec_of(m.group(2))
-        title = m.group(3).strip()
+        title = m.group(3).strip().replace("<br>", "\n")
 
         if not self._stack:
             self._open_root(level, id, title, code_spec, line_no)
@@ -1249,35 +1329,20 @@ class _Parser:
         self, frame: _Frame, slots: list[tuple[SomMetaNode, str]]
     ) -> None:
         """Binds a heading's body region against the owner's transparent body
-        slots (SOM §11.2 transparency): ``FieldName:`` lines matching a
-        transparent form's fields route to that form (nearest form in slot
-        order, wrapping); all other text binds to the first non-form slot.
-
-        With no non-form slot the text is a form's **preamble** (SOM §11.6,
-        §11.4 rule 7): it binds to the form slot named ``content`` (the
-        class-level ``@Form`` on the ``content`` member), else the first form
-        slot — where the YAML codec keeps it — and a label-shaped preamble line
-        has its one escape space stripped, as continuation lines do. Only an
-        owner with no slot at all takes the text on its own path."""
+        slots (SOM §11.6): ``FieldName:`` lines matching a transparent form's
+        fields route to that form (nearest form in slot order, wrapping); a
+        slot marker (``<!-- slot: <rel> -->``) sends the text after it to the
+        named slot — a content slot, a form's preamble, or the owner itself
+        (``.``) — and ends any open field. Unmarked text binds to the first
+        content slot; with no content slot it is a form's **preamble**
+        (SOM §11.4 rule 7) — the class-level ``@Form`` on the ``content``
+        member, else the first form — which is where the YAML codec keeps it;
+        only an owner with no slot at all takes it on its own path."""
         form_slots = [s for s in slots if s[0].kind == SomMetaKind.FORM]
-        content_slots = [s for s in slots if s[0].kind != SomMetaKind.FORM]
-        preamble_slot = (
-            next((s for s in form_slots if s[1] == "content"), form_slots[0])
-            if not content_slots and form_slots
-            else None
-        )
-        if content_slots:
-            content_path = f"{frame.path}/{content_slots[0][1]}"
-        elif preamble_slot is not None:
-            content_path = f"{frame.path}/{preamble_slot[1]}"
-        else:
-            content_path = frame.path
+        default_rel = SpecDocumentMarkdown._default_body_rel(slots)
 
-        if not form_slots:
-            value = self._restore_value(frame.body)
-            if value:
-                self.content[content_path] = value
-            return
+        def path_of(rel: str) -> str:
+            return frame.path if rel == "." else f"{frame.path}/{rel}"
 
         def find_field(
             label: str,
@@ -1297,7 +1362,11 @@ class _Parser:
         current_form_path: Optional[str] = None
         current_code = False
         current_lines: list[str] = []
+        # Unlabelled text per target path, in the order the targets were
+        # opened; a target opened twice gets its parts joined by a blank line.
+        text_parts: dict[str, list[list[str]]] = {}
         content_lines: list[str] = []
+        text_parts.setdefault(path_of(default_rel), []).append(content_lines)
 
         def flush() -> None:
             nonlocal current_lines
@@ -1317,6 +1386,25 @@ class _Parser:
         self._current_form_idx = 0
         for i, line in enumerate(frame.body):
             if not fence.in_fence:
+                mk = _SLOT_MARKER.match(line)
+                if mk is not None:
+                    rel = mk.group(1)
+                    slot = (
+                        None
+                        if rel == "."
+                        else next((s for s in slots if s[1] == rel), None)
+                    )
+                    if rel == "." or slot is not None:
+                        flush()
+                        current_field = None
+                        current_form_path = None
+                        if slot is not None and slot[0].kind == SomMetaKind.FORM:
+                            self._current_form_idx = form_slots.index(slot)
+                        content_lines = []
+                        text_parts.setdefault(path_of(rel), []).append(
+                            content_lines
+                        )
+                        continue
                 m = _FIELD_LABEL.match(line)
                 if m is not None:
                     hit = find_field(m.group(1))
@@ -1332,12 +1420,11 @@ class _Parser:
                         fence.feed(line)
                         continue
             target = content_lines if current_field is None else current_lines
-            # Continuation — and a form preamble line, which the emitter
-            # escapes the same way: strip the one escape space of a
-            # label-shaped line.
+            # In a region with forms every label-shaped text line carries the
+            # one escape space the emitter adds (SOM §11.4 rule 3); strip it.
             if (
                 not fence.in_fence
-                and (current_field is not None or preamble_slot is not None)
+                and form_slots
                 and _CONTINUATION_LABEL.match(line)
             ):
                 target.append(line[1:])
@@ -1345,9 +1432,12 @@ class _Parser:
                 target.append(line)
             fence.feed(line)
         flush()
-        value = self._restore_value(content_lines)
-        if value:
-            self.content[content_path] = value
+        for target_path, parts in text_parts.items():
+            value = "\n\n".join(
+                v for v in (self._restore_value(p) for p in parts) if v
+            )
+            if value:
+                self.content[target_path] = value
 
     def _finalize_form(
         self, frame: _Frame, node: SomMetaNode, path: str

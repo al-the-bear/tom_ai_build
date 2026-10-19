@@ -7,6 +7,19 @@
   first question and dropped by every mutator, instead of scanning every stored
   key per call. Results are unchanged; rendering, validating or querying a
   large document is no longer quadratic.
+- Exact markdown round trip (SOM §11.2, §11.3, §11.6, §11.7, §12.4): a body
+  region's text the parser would otherwise bind elsewhere is preceded by a slot
+  marker `<!-- slot: <rel> -->` (text after anything already written, a form
+  preamble that is not the region's default target, a form whose labels another
+  form of the region shares), and the import routes the text after a marker to
+  the named slot — the owner (`.`), a content slot or a form's preamble — and
+  ends any open field; a marker naming no slot stays text. A headline's line
+  breaks are written as `<br>` and read back as `\n`. Blank lines inside a
+  value are kept as written by both the markdown emitter and the YAML encoder
+  (no more collapse of 2+ blank lines; `dedupEmptyLines` stays as a helper). In
+  a region with any form, every label-shaped text line carries one escape space
+  on emit and loses it on import. Documents that need no marker render as
+  before.
 
 ## 1.6.1
 

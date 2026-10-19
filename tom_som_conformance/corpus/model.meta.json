@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 12,
+  "classCount": 13,
   "rootCount": 2,
   "roots": [
     {
@@ -200,6 +200,12 @@
           "name": "notes",
           "kind": "section",
           "type": "Notes"
+        },
+        {
+          "name": "mixed",
+          "kind": "section",
+          "type": "Mixed",
+          "sectionId": "MIX"
         },
         {
           "name": "registry",
@@ -574,6 +580,56 @@
           "kind": "section",
           "contentType": "text",
           "sectionType": "TextSection"
+        }
+      ]
+    },
+    "Mixed": {
+      "name": "Mixed",
+      "annotations": [
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.text"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "lead",
+              "label": "Lead",
+              "type": "String"
+            },
+            {
+              "name": "risk",
+              "label": "Risk",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "narrative",
+          "kind": "content"
+        },
+        {
+          "name": "tail",
+          "kind": "content"
+        },
+        {
+          "name": "alt",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "lead",
+              "label": "Lead",
+              "type": "String"
+            }
+          ]
         }
       ]
     },

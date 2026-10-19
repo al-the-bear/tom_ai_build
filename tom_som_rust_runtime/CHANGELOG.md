@@ -7,6 +7,20 @@
   `/` or `-`), built on the first query and dropped by every mutator, instead
   of scanning every stored key per call. Results are unchanged; rendering,
   validating or querying a large document is no longer quadratic.
+- Exact markdown round trip (SOM §11.2, §11.3, §11.6, §11.7, §12.4): a heading
+  body region whose text the parser would otherwise bind to another slot gets
+  a slot marker line `<!-- slot: <rel> -->` (`.` for the owner's own content)
+  — text after anything already written, text of a slot that is not the
+  region's default target, a form preamble off the default target, and a form
+  whose field labels another form of the region shares; the parser routes the
+  text after a marker to the named slot and ends any open field (a marker
+  naming no slot stays text). A stored headline's line breaks are written as
+  `<br>` in the heading and read back as `\n`. Blank-line runs inside a value
+  are no longer collapsed by the markdown emitter or the YAML encoder
+  (`dedup_empty_lines` stays as a public helper). In a region with any form
+  slot, every label-shaped text line (owner content, content slot, preamble)
+  carries one escape space that the parser strips. Pinned by the regenerated
+  corpus (the new `Mixed` class, `Demo.mixed`).
 
 ## 1.6.1
 

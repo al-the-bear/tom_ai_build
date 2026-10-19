@@ -28,9 +28,9 @@
 ///
 /// Escaping (SOM §11.3): a content line starting with `#` at column 0 is
 /// emitted as `\#` (and a leading `\#`… run gains one more backslash), except
-/// inside fenced code blocks, which shield their lines verbatim. Consecutive
-/// blank lines are collapsed to one on emit; parse trims each value of
-/// leading/trailing blank lines and does not re-collapse.
+/// inside fenced code blocks, which shield their lines verbatim. Blank lines
+/// inside a value are kept as written; parse trims each value of
+/// leading/trailing blank lines only.
 ///
 /// The codec is value-free of any UI: it reads from / resolves against a
 /// [SpecModel] (through the [buildSomMetaTree] metadata tree) and a
@@ -436,16 +436,84 @@ class SpecDocumentMarkdown {
   /// Writes the body region of a section heading: the section path's own
   /// content value plus every transparent body slot (id-less content text and
   /// form blocks, hoisted through transparent sections) in model order.
+  ///
+  /// A slot whose text the parser would otherwise bind elsewhere is preceded
+  /// by a slot marker (SOM §11.6): text after anything already written, a form
+  /// preamble that is not the region's default target, and a form whose labels
+  /// another form of the region shares. A body the parser reads correctly
+  /// without markers gets none, so such documents render as before.
   void _writeSectionBody(StringBuffer b, SomMetaNode node, String path) {
-    _writeBody(b, document.content(path), path);
-    for (final (slot, rel) in _bodySlots(node)) {
-      final slotPath = '$path/$rel';
-      if (slot.kind == SomMetaKind.form) {
-        if (_formHasValues(slot, slotPath)) _writeForm(b, slot, slotPath);
-      } else {
-        _writeBody(b, document.content(slotPath), slotPath);
+    final slots = _bodySlots(node);
+    final formSlots = [
+      for (final s in slots)
+        if (s.$1.kind == SomMetaKind.form) s,
+    ];
+    final hasForms = formSlots.isNotEmpty;
+    final defaultRel = _defaultBodyRel(slots);
+    var written = false;
+
+    void marker(String rel) => b
+      ..writeln('<!-- slot: $rel -->')
+      ..writeln();
+
+    void text(String rel, String? value, String valuePath) {
+      if (value == null) return;
+      final prepared = _prepareValue(value, valuePath);
+      if (prepared.isEmpty) return;
+      if (written || rel != defaultRel) marker(rel);
+      for (final line in prepared.split('\n')) {
+        b.writeln(hasForms && _labelShaped.hasMatch(line) ? ' $line' : line);
       }
+      b.writeln();
+      written = true;
     }
+
+    if (slots.isEmpty) {
+      _writeBody(b, document.content(path), path);
+      return;
+    }
+    text('.', document.content(path), path);
+    for (final (slot, rel) in slots) {
+      final slotPath = '$path/$rel';
+      if (slot.kind != SomMetaKind.form) {
+        text(rel, document.content(slotPath), slotPath);
+        continue;
+      }
+      if (!_formHasValues(slot, slotPath)) continue;
+      final preamble = document.content(slotPath);
+      final hasPreamble =
+          preamble != null && _prepareValue(preamble, slotPath).isNotEmpty;
+      final labels = {
+        for (final f in slot.form?.fields ?? const <SomFormFieldMeta>[])
+          f.name.toLowerCase(),
+      };
+      final collides = formSlots.any(
+        (o) =>
+            o.$2 != rel &&
+            (o.$1.form?.fields ?? const <SomFormFieldMeta>[]).any(
+              (f) => labels.contains(f.name.toLowerCase()),
+            ),
+      );
+      final needsMarker = hasPreamble
+          ? (written || rel != defaultRel)
+          : (collides && (written || formSlots.first.$2 != rel));
+      if (needsMarker) marker(rel);
+      _writeForm(b, slot, slotPath);
+      written = true;
+    }
+  }
+
+  /// The body slot unmarked body text binds to on import (SOM §11.6): the
+  /// first non-form slot; with none, the form on the `content` member, else
+  /// the first form; with no slot at all the owner itself (`.`).
+  String _defaultBodyRel(List<(SomMetaNode, String)> slots) {
+    for (final (slot, rel) in slots) {
+      if (slot.kind != SomMetaKind.form) return rel;
+    }
+    for (final (_, rel) in slots) {
+      if (rel == 'content') return rel;
+    }
+    return slots.isEmpty ? '.' : slots.first.$2;
   }
 
   void _writeChildren(
@@ -691,7 +759,10 @@ class SpecDocumentMarkdown {
     final code = (codeSpec != null && codeSpec.isNotEmpty)
         ? ' codeSpec="$codeSpec"'
         : '';
-    b.writeln('${'#' * depth} <!--[$id]$code--> $title');
+    // A heading is one line: a stored headline's line breaks travel as `<br>`.
+    b.writeln(
+      '${'#' * depth} <!--[$id]$code--> ${title.replaceAll('\n', '<br>')}',
+    );
     b.writeln();
   }
 
@@ -705,12 +776,11 @@ class SpecDocumentMarkdown {
     b.writeln();
   }
 
-  /// Emit-side value normalisation (SOM §11.3): collapse 2+ blank lines to one,
+  /// Emit-side value normalisation (SOM §11.3):
   /// trim leading/trailing blank lines, escape heading-like lines outside
   /// fences. Throws [ArgumentError] for an unterminated fence.
   String _prepareValue(String value, String path) {
     final collapsed = value
-        .replaceAll(RegExp(r'\n{3,}'), '\n\n')
         .replaceAll(RegExp(r'^\n+'), '')
         .replaceAll(RegExp(r'\n+$'), '');
     final fence = MarkdownFenceTracker();
@@ -983,7 +1053,7 @@ class _Parser {
     }
     final id = m.group(1)!;
     final codeSpec = SpecDocumentMarkdown.codeSpecOf(m.group(2)!);
-    final title = m.group(3)!.trim();
+    final title = m.group(3)!.trim().replaceAll('<br>', '\n');
 
     if (_stack.isEmpty) {
       _openRoot(level, id, title, codeSpec, lineNo);
@@ -1250,38 +1320,22 @@ class _Parser {
   }
 
   /// Binds a heading's body region against the owner's transparent body slots
-  /// (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
-  /// fields route to that form (nearest form in slot order, wrapping); all
-  /// other text binds to the first non-form slot. With no non-form slot the
-  /// text is a form's **preamble** (SOM §11.4 rule 7) — the class-level `@Form`
-  /// on the `content` member, else the first form — which is where the YAML
-  /// codec keeps it; only an owner with no slot at all takes it on its own path.
+  /// (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
+  /// to that form (nearest form in slot order, wrapping); a slot marker
+  /// (`<!-- slot: <rel> -->`, SOM §11.6) sends the text after it to the named
+  /// slot — a content slot, a form's preamble, or the owner itself (`.`) — and
+  /// ends any open field. Unmarked text binds to the first content slot; with
+  /// no content slot it is a form's **preamble** (SOM §11.4 rule 7) — the
+  /// class-level `@Form` on the `content` member, else the first form — which
+  /// is where the YAML codec keeps it; only an owner with no slot at all takes
+  /// it on its own path.
   void _finalizeBodySlots(_Frame frame, List<(SomMetaNode, String)> slots) {
     final formSlots = [
       for (final s in slots)
         if (s.$1.kind == SomMetaKind.form) s,
     ];
-    final contentSlots = [
-      for (final s in slots)
-        if (s.$1.kind != SomMetaKind.form) s,
-    ];
-    final preambleSlot = contentSlots.isEmpty && formSlots.isNotEmpty
-        ? formSlots.firstWhere(
-            (s) => s.$2 == 'content',
-            orElse: () => formSlots.first,
-          )
-        : null;
-    final contentPath = contentSlots.isNotEmpty
-        ? '${frame.path}/${contentSlots.first.$2}'
-        : preambleSlot != null
-        ? '${frame.path}/${preambleSlot.$2}'
-        : frame.path;
-
-    if (formSlots.isEmpty) {
-      final value = _restoreValue(frame.body);
-      if (value.isNotEmpty) content[contentPath] = value;
-      return;
-    }
+    final defaultRel = codec._defaultBodyRel(slots);
+    String pathOf(String rel) => rel == '.' ? frame.path : '${frame.path}/$rel';
 
     (int, SomFormFieldMeta)? findField(String label) {
       final lower = label.toLowerCase();
@@ -1300,7 +1354,12 @@ class _Parser {
     String? currentFormPath;
     var currentCode = false;
     var currentLines = <String>[];
-    final contentLines = <String>[];
+    // Unlabelled text per target path, in the order the targets were opened;
+    // a target opened twice gets its parts joined by a blank line.
+    final textParts = <String, List<List<String>>>{};
+    var contentTarget = pathOf(defaultRel);
+    var contentLines = <String>[];
+    textParts.putIfAbsent(contentTarget, () => []).add(contentLines);
 
     void flush() {
       final field = currentField;
@@ -1319,6 +1378,25 @@ class _Parser {
     for (var i = 0; i < frame.body.length; i++) {
       final line = frame.body[i];
       if (!fence.inFence) {
+        final marker = _slotMarker.firstMatch(line);
+        if (marker != null) {
+          final rel = marker.group(1)!;
+          final slot = rel == '.'
+              ? null
+              : slots.where((s) => s.$2 == rel).firstOrNull;
+          if (rel == '.' || slot != null) {
+            flush();
+            currentField = null;
+            currentFormPath = null;
+            if (slot != null && slot.$1.kind == SomMetaKind.form) {
+              _currentFormIdx = formSlots.indexOf(slot);
+            }
+            contentTarget = pathOf(rel);
+            contentLines = <String>[];
+            textParts.putIfAbsent(contentTarget, () => []).add(contentLines);
+            continue;
+          }
+        }
         final m = RegExp(r'^([A-Za-z][A-Za-z0-9_]*): ?(.*)$').firstMatch(line);
         if (m != null) {
           final hit = findField(m.group(1)!);
@@ -1335,11 +1413,11 @@ class _Parser {
         }
       }
       final target = currentField == null ? contentLines : currentLines;
-      // Continuation — and a form preamble line, which the emitter escapes the
-      // same way: strip the one escape space of a label-shaped line.
+      // In a region with forms every label-shaped text line carries the one
+      // escape space the emitter adds (SOM §11.4 rule 3); strip it.
       target.add(
         !fence.inFence &&
-                (currentField != null || preambleSlot != null) &&
+                formSlots.isNotEmpty &&
                 RegExp(r'^ +[A-Za-z][A-Za-z0-9_]*:').hasMatch(line)
             ? line.substring(1)
             : line,
@@ -1347,9 +1425,17 @@ class _Parser {
       fence.feed(line);
     }
     flush();
-    final value = _restoreValue(contentLines);
-    if (value.isNotEmpty) content[contentPath] = value;
+    for (final e in textParts.entries) {
+      final value = [
+        for (final part in e.value) _restoreValue(part),
+      ].where((v) => v.isNotEmpty).join('\n\n');
+      if (value.isNotEmpty) content[e.key] = value;
+    }
   }
+
+  /// A slot marker line (SOM §11.6): `<!-- slot: <rel> -->`, `<rel>` a body
+  /// slot's path relative to its owner, or `.` for the owner itself.
+  static final RegExp _slotMarker = RegExp(r'^<!-- slot: (\S+) -->$');
 
   /// Rolling pointer into a body region's transparent form slots — labels bind
   /// to the nearest form at or after the last hit (wrapping), so repeated field

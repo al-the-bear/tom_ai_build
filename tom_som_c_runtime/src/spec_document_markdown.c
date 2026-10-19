@@ -388,41 +388,18 @@ static int match_field_label(const char *s, char **label, char **value) {
   return 1;
 }
 
-/* mdBlankRunRE `\n{3,}`→`\n\n`, mdLeadingNLRE `^\n+`→``, mdTrailingNLRE
- * `\n+$`→``. Applied in that order, matching prepareValue. Owned. */
-static char *collapse_blank_runs(const char *value) {
-  SomBuf b;
-  som_buf_init(&b);
-  size_t i = 0;
-  while (value[i] != '\0') {
-    if (value[i] == '\n') {
-      size_t run = 0;
-      while (value[i + run] == '\n') {
-        run++;
-      }
-      size_t emit = run >= 3 ? 2 : run;
-      for (size_t k = 0; k < emit; k++) {
-        som_buf_putc(&b, '\n');
-      }
-      i += run;
-    } else {
-      som_buf_putc(&b, value[i]);
-      i++;
-    }
-  }
-  char *collapsed = som_buf_take(&b);
-  /* strip leading + trailing newlines */
-  size_t n = strlen(collapsed);
+/* mdLeadingNLRE `^\n+`→`` and mdTrailingNLRE `\n+$`→``, matching
+ * prepareValue. Blank lines inside the value are kept (SOM §11.3). Owned. */
+static char *strip_outer_newlines(const char *value) {
+  size_t n = strlen(value);
   size_t start = 0;
-  while (start < n && collapsed[start] == '\n') {
+  while (start < n && value[start] == '\n') {
     start++;
   }
-  while (n > start && collapsed[n - 1] == '\n') {
+  while (n > start && value[n - 1] == '\n') {
     n--;
   }
-  char *out = som_strdup_n(collapsed + start, n - start);
-  free(collapsed);
-  return out;
+  return som_strdup_n(value + start, n - start);
 }
 
 /* mdLeadingBlankLnRE `^([ \t]*\n)+` and mdTrailingBlankLnRE `(\n[ \t]*)+$`:
@@ -865,20 +842,28 @@ static void md_write_heading(MdCodec *c, SomBuf *b, int depth, const char *id,
     som_buf_putc(b, '"');
   }
   som_buf_puts(b, "--> ");
-  som_buf_puts(b, title);
+  /* A heading is one line: a stored headline's line breaks travel as `<br>`. */
+  for (const char *q = title; *q != '\0'; q++) {
+    if (*q == '\n') {
+      som_buf_puts(b, "<br>");
+    } else {
+      som_buf_putc(b, *q);
+    }
+  }
   som_buf_putc(b, '\n');
   som_buf_putc(b, '\n');
 }
 
-/* prepareValue: collapse blank runs, escape heading-like lines outside fences.
+/* prepareValue: trim leading/trailing blank lines, escape heading-like lines
+ * outside fences.
  * Returns 1 writing owned `*out`; on an unterminated fence returns 0 writing
  * `*err`. */
 static int prepare_value(const char *value, const char *path, char **out,
                          char **err) {
-  char *collapsed = collapse_blank_runs(value);
+  char *trimmed = strip_outer_newlines(value);
   LineVec lines;
-  split_lines(collapsed, &lines);
-  free(collapsed);
+  split_lines(trimmed, &lines);
+  free(trimmed);
   SpecMarkdownFenceTracker fence;
   spec_markdown_fence_init(&fence);
   SomBuf b;
@@ -1163,41 +1148,168 @@ static int write_form(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   return 1;
 }
 
-static int write_section_body(MdCodec *c, SomBuf *b, const SomMetaNode *node,
-                              const char *path, char **err) {
-  const char *value = spec_document_content(c->document, path);
-  if (value != NULL) {
-    if (!write_body(c, b, value, path, err)) {
-      return 0;
+/* The body slot unmarked body text binds to on import (SOM §11.6): the first
+ * non-form slot; with none, the form on the `content` member, else the first
+ * form; with no slot at all the owner itself (`.`). Borrowed from `slots` (or
+ * a string literal). */
+static const char *default_body_rel(const NodeRelVec *slots) {
+  for (size_t i = 0; i < slots->len; i++) {
+    if (strcmp(slots->items[i].node->kind, SOM_META_KIND_FORM) != 0) {
+      return slots->items[i].rel;
     }
   }
+  for (size_t i = 0; i < slots->len; i++) {
+    if (strcmp(slots->items[i].rel, "content") == 0) {
+      return slots->items[i].rel;
+    }
+  }
+  return slots->len == 0 ? "." : slots->items[0].rel;
+}
+
+/* Whether form slot `slots->items[k]` declares a field name (case-insensitive)
+ * that another form slot of the region also declares. */
+static int form_slot_collides(const NodeRelVec *slots, size_t k) {
+  const SomMetaNode *own = slots->items[k].node;
+  if (own->form == NULL) {
+    return 0;
+  }
+  for (size_t o = 0; o < slots->len; o++) {
+    const SomMetaNode *other = slots->items[o].node;
+    if (strcmp(other->kind, SOM_META_KIND_FORM) != 0 || other->form == NULL ||
+        strcmp(slots->items[o].rel, slots->items[k].rel) == 0) {
+      continue;
+    }
+    for (size_t fi = 0; fi < own->form->fields_len; fi++) {
+      char *a = lower_dup(own->form->fields[fi].name);
+      int hit = 0;
+      for (size_t gi = 0; gi < other->form->fields_len && !hit; gi++) {
+        char *bl = lower_dup(other->form->fields[gi].name);
+        hit = strcmp(a, bl) == 0;
+        free(bl);
+      }
+      free(a);
+      if (hit) {
+        return 1;
+      }
+    }
+  }
+  return 0;
+}
+
+static void write_slot_marker(SomBuf *b, const char *rel) {
+  som_buf_puts(b, "<!-- slot: ");
+  som_buf_puts(b, rel);
+  som_buf_puts(b, " -->\n\n");
+}
+
+/* One text unit of a body region (the owner's own content, or a content
+ * slot): skipped when absent or blank; preceded by a slot marker after
+ * anything already written or when `rel` is not the region's default target;
+ * label-shaped lines gain one escape space when the region has a form. */
+static int write_region_text(SomBuf *b, const char *rel, const char *value,
+                             const char *value_path, const char *default_rel,
+                             int has_forms, int *written, char **err) {
+  if (value == NULL) {
+    return 1;
+  }
+  char *prepared = NULL;
+  if (!prepare_value(value, value_path, &prepared, err)) {
+    return 0;
+  }
+  if (prepared[0] == '\0') {
+    free(prepared);
+    return 1;
+  }
+  if (*written || strcmp(rel, default_rel) != 0) {
+    write_slot_marker(b, rel);
+  }
+  LineVec lines;
+  split_lines(prepared, &lines);
+  free(prepared);
+  for (size_t li = 0; li < lines.len; li++) {
+    if (has_forms && match_label_shaped(lines.items[li])) {
+      som_buf_putc(b, ' ');
+    }
+    som_buf_puts(b, lines.items[li]);
+    som_buf_putc(b, '\n');
+  }
+  lv_free(&lines);
+  som_buf_putc(b, '\n');
+  *written = 1;
+  return 1;
+}
+
+/* writeSectionBody: the body region of a section heading — the section path's
+ * own content value plus every transparent body slot (id-less content text and
+ * form blocks, hoisted through transparent sections) in model order.
+ *
+ * A slot whose text the parser would otherwise bind elsewhere is preceded by a
+ * slot marker (SOM §11.6): text after anything already written, a form
+ * preamble that is not the region's default target, and a form whose labels
+ * another form of the region shares. A body the parser reads correctly without
+ * markers gets none. */
+static int write_section_body(MdCodec *c, SomBuf *b, const SomMetaNode *node,
+                              const char *path, char **err) {
   NodeRelVec slots;
   body_slots(c, node, &slots);
+  if (slots.len == 0) {
+    nrv_free(&slots);
+    const char *value = spec_document_content(c->document, path);
+    return value == NULL || write_body(c, b, value, path, err);
+  }
+  int has_forms = 0;
+  const char *first_form_rel = NULL;
   for (size_t i = 0; i < slots.len; i++) {
-    char *slot_path = spec_path_join(path, slots.items[i].rel);
+    if (strcmp(slots.items[i].node->kind, SOM_META_KIND_FORM) == 0) {
+      if (first_form_rel == NULL) {
+        first_form_rel = slots.items[i].rel;
+      }
+      has_forms = 1;
+    }
+  }
+  const char *default_rel = default_body_rel(&slots);
+  int written = 0;
+  int ok = write_region_text(b, ".", spec_document_content(c->document, path),
+                             path, default_rel, has_forms, &written, err);
+  for (size_t i = 0; ok && i < slots.len; i++) {
+    const char *rel = slots.items[i].rel;
     const SomMetaNode *sn = slots.items[i].node;
-    if (strcmp(sn->kind, SOM_META_KIND_FORM) == 0) {
-      if (form_has_values(c, sn, slot_path)) {
-        if (!write_form(c, b, sn, slot_path, err)) {
-          free(slot_path);
-          nrv_free(&slots);
-          return 0;
+    char *slot_path = spec_path_join(path, rel);
+    if (strcmp(sn->kind, SOM_META_KIND_FORM) != 0) {
+      ok = write_region_text(b, rel,
+                             spec_document_content(c->document, slot_path),
+                             slot_path, default_rel, has_forms, &written, err);
+    } else if (form_has_values(c, sn, slot_path)) {
+      const char *preamble = spec_document_content(c->document, slot_path);
+      int has_preamble = 0;
+      if (preamble != NULL) {
+        char *prepared = NULL;
+        if (prepare_value(preamble, slot_path, &prepared, err)) {
+          has_preamble = prepared[0] != '\0';
+          free(prepared);
+        } else {
+          ok = 0;
         }
       }
-    } else {
-      const char *v = spec_document_content(c->document, slot_path);
-      if (v != NULL) {
-        if (!write_body(c, b, v, slot_path, err)) {
-          free(slot_path);
-          nrv_free(&slots);
-          return 0;
+      if (ok) {
+        int needs_marker;
+        if (has_preamble) {
+          needs_marker = written || strcmp(rel, default_rel) != 0;
+        } else {
+          needs_marker = form_slot_collides(&slots, i) &&
+                         (written || strcmp(first_form_rel, rel) != 0);
         }
+        if (needs_marker) {
+          write_slot_marker(b, rel);
+        }
+        ok = write_form(c, b, sn, slot_path, err);
+        written = 1;
       }
     }
     free(slot_path);
   }
   nrv_free(&slots);
-  return 1;
+  return ok;
 }
 
 /* Emits list `node` as its `-LST` container heading (SOM §11.2/§11.5) at `depth`,
@@ -1819,62 +1931,82 @@ static void finalize_form(MdParser *p, MdFrame *frame, const SomMetaNode *node,
 
 /* ---- finalize body slots ------------------------------------------------ */
 
+/* mdSlotMarkerRE = `^<!-- slot: (\S+) -->$` (SOM §11.6). On match returns an
+ * owned copy of the rel (a body slot's path relative to its owner, or `.`). */
+static char *match_slot_marker(const char *line) {
+  static const char prefix[] = "<!-- slot: ";
+  static const char suffix[] = " -->";
+  size_t plen = sizeof(prefix) - 1;
+  if (strncmp(line, prefix, plen) != 0) {
+    return NULL;
+  }
+  const char *rel = line + plen;
+  size_t n = 0;
+  while (rel[n] != '\0' && !is_ws(rel[n])) {
+    n++;
+  }
+  if (n == 0 || strcmp(rel + n, suffix) != 0) {
+    return NULL;
+  }
+  return som_strdup_n(rel, n);
+}
+
+/* One run of unlabelled body text and the path it binds to. */
+typedef struct {
+  char *path; /* owned */
+  LineVec lines;
+} MdTextPart;
+
+typedef struct {
+  MdTextPart *items;
+  size_t len;
+  size_t cap;
+} MdTextParts;
+
+/* Opens a new text part targeting `path` (taken over); returns its index. */
+static size_t text_parts_open(MdTextParts *v, char *path) {
+  if (v->len == v->cap) {
+    v->cap = v->cap ? v->cap * 2 : 4;
+    v->items = (MdTextPart *)realloc(v->items, v->cap * sizeof(MdTextPart));
+  }
+  v->items[v->len].path = path;
+  lv_init(&v->items[v->len].lines);
+  return v->len++;
+}
+
+static void text_parts_free(MdTextParts *v) {
+  for (size_t i = 0; i < v->len; i++) {
+    free(v->items[i].path);
+    lv_free(&v->items[i].lines);
+  }
+  free(v->items);
+  v->items = NULL;
+  v->len = 0;
+  v->cap = 0;
+}
+
 /* Binds a heading's body region against the owner's transparent body slots
- * (SOM §11.2 transparency): `FieldName:` lines matching a transparent form's
- * fields route to that form (nearest form in slot order, wrapping); all other
- * text binds to the first non-form slot. With no non-form slot the text is a
- * form's preamble (SOM §11.6) — the form slot named `content` (the class-level
- * `@Form` on the `content` member), else the first form slot — and a
- * label-shaped preamble line has its one escape space stripped, exactly as a
- * continuation line does. Only an owner with no slot at all takes the text on
- * its own path. */
+ * (SOM §11.6): `FieldName:` lines matching a transparent form's fields route
+ * to that form (nearest form in slot order, wrapping); a slot marker
+ * (`<!-- slot: <rel> -->`) sends the text after it to the named slot — a
+ * content slot, a form's preamble, or the owner itself (`.`) — and ends any
+ * open field. Unmarked text binds to the first content slot; with no content
+ * slot it is a form's preamble (SOM §11.4 rule 7) — the form slot named
+ * `content`, else the first form slot. Only an owner with no slot at all takes
+ * the text on its own path. In a region with any form, a label-shaped text
+ * line has its one escape space stripped. A target opened more than once gets
+ * its parts joined by one blank line. */
 static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) {
-  /* partition into form slots and content slots (preserving order) */
+  /* form slots (borrowed nodes, copied rels), in slot order */
   NodeRelVec forms;
-  NodeRelVec contents;
   nrv_init(&forms);
-  nrv_init(&contents);
   for (size_t i = 0; i < slots->len; i++) {
     if (strcmp(slots->items[i].node->kind, SOM_META_KIND_FORM) == 0) {
       nrv_push(&forms, slots->items[i].node, som_strdup(slots->items[i].rel));
-    } else {
-      nrv_push(&contents, slots->items[i].node,
-               som_strdup(slots->items[i].rel));
     }
   }
-  /* preamble slot: borrowed from `forms`, only when there is no content slot */
-  const char *preamble_rel = NULL;
-  if (contents.len == 0 && forms.len > 0) {
-    preamble_rel = forms.items[0].rel;
-    for (size_t i = 0; i < forms.len; i++) {
-      if (strcmp(forms.items[i].rel, "content") == 0) {
-        preamble_rel = forms.items[i].rel;
-        break;
-      }
-    }
-  }
-  char *content_path;
-  if (contents.len > 0) {
-    content_path = spec_path_join(frame->path, contents.items[0].rel);
-  } else if (preamble_rel != NULL) {
-    content_path = spec_path_join(frame->path, preamble_rel);
-  } else {
-    content_path = som_strdup(frame->path);
-  }
+  const char *default_rel = default_body_rel(slots);
 
-  if (forms.len == 0) {
-    char *value = restore_value(frame->body.items, frame->body.len);
-    if (value[0] != '\0') {
-      staged_set_content(p, content_path, value);
-    }
-    free(value);
-    free(content_path);
-    nrv_free(&forms);
-    nrv_free(&contents);
-    return;
-  }
-
-  /* findField(label): scan formSlots from currentFormIdx, wrapping. */
   SpecMarkdownFenceTracker fence;
   spec_markdown_fence_init(&fence);
   const char *current_field = NULL;
@@ -1882,15 +2014,67 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
   int current_code = 0;
   int have_field = 0;
   LineVec current;
-  LineVec content_lines;
   lv_init(&current);
-  lv_init(&content_lines);
+  MdTextParts parts = {NULL, 0, 0};
+  size_t content_part = text_parts_open(
+      &parts, strcmp(default_rel, ".") == 0
+                  ? som_strdup(frame->path)
+                  : spec_path_join(frame->path, default_rel));
 
   p->current_form_idx = 0;
+
+#define SLOTS_FLUSH()                                                         \
+  do {                                                                        \
+    if (have_field) {                                                         \
+      char *v = restore_value(current.items, current.len);                   \
+      if (current_code) {                                                     \
+        v = decode_code_span(v);                                              \
+      }                                                                       \
+      if (v[0] != '\0') {                                                     \
+        staged_set_form(p, current_form_path, current_field, v);             \
+      }                                                                       \
+      free(v);                                                                \
+    }                                                                         \
+    lv_free(&current);                                                        \
+    lv_init(&current);                                                        \
+  } while (0)
 
   for (size_t i = 0; i < frame->body.len; i++) {
     const char *line = frame->body.items[i];
     if (!spec_markdown_fence_in_fence(&fence)) {
+      char *rel = match_slot_marker(line);
+      if (rel != NULL) {
+        int is_owner = strcmp(rel, ".") == 0;
+        size_t slot_idx = slots->len;
+        for (size_t k = 0; !is_owner && k < slots->len; k++) {
+          if (strcmp(slots->items[k].rel, rel) == 0) {
+            slot_idx = k;
+            break;
+          }
+        }
+        if (is_owner || slot_idx < slots->len) {
+          SLOTS_FLUSH();
+          have_field = 0;
+          current_field = NULL;
+          free(current_form_path);
+          current_form_path = NULL;
+          if (!is_owner && strcmp(slots->items[slot_idx].node->kind,
+                                  SOM_META_KIND_FORM) == 0) {
+            for (size_t k = 0; k < forms.len; k++) {
+              if (strcmp(forms.items[k].rel, rel) == 0) {
+                p->current_form_idx = (int)k;
+                break;
+              }
+            }
+          }
+          content_part = text_parts_open(
+              &parts, is_owner ? som_strdup(frame->path)
+                               : spec_path_join(frame->path, rel));
+          free(rel);
+          continue;
+        }
+        free(rel);
+      }
       char *label = NULL;
       char *value = NULL;
       if (match_field_label(line, &label, &value)) {
@@ -1920,19 +2104,7 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
         }
         free(lower);
         if (found_idx >= 0) {
-          /* flush current field */
-          if (have_field) {
-            char *v = restore_value(current.items, current.len);
-            if (current_code) {
-              v = decode_code_span(v);
-            }
-            if (v[0] != '\0') {
-              staged_set_form(p, current_form_path, current_field, v);
-            }
-            free(v);
-          }
-          lv_free(&current);
-          lv_init(&current);
+          SLOTS_FLUSH();
           p->current_form_idx = found_idx;
           have_field = 1;
           current_field = found_field->name;
@@ -1950,48 +2122,58 @@ static void finalize_body_slots(MdParser *p, MdFrame *frame, NodeRelVec *slots) 
         free(value);
       }
     }
-    /* continuation — and a form preamble line, which the emitter escapes the
-     * same way: strip the one escape space of a label-shaped line. */
+    /* In a region with forms every label-shaped text line carries the one
+     * escape space the emitter adds (SOM §11.4 rule 3); strip it. */
     const char *text = line;
-    char *stripped = NULL;
-    if (!spec_markdown_fence_in_fence(&fence) &&
-        (have_field || preamble_rel != NULL) &&
+    if (!spec_markdown_fence_in_fence(&fence) && forms.len > 0 &&
         match_continuation_label(line)) {
-      stripped = som_strdup(line + 1);
-      text = stripped;
+      text = line + 1;
     }
     if (have_field) {
       lv_push(&current, som_strdup(text));
     } else {
-      lv_push(&content_lines, som_strdup(text));
+      lv_push(&parts.items[content_part].lines, som_strdup(text));
     }
-    free(stripped);
     spec_markdown_fence_feed(&fence, line);
   }
-  /* final flush */
-  if (have_field) {
-    char *v = restore_value(current.items, current.len);
-    if (current_code) {
-      v = decode_code_span(v);
+  SLOTS_FLUSH();
+#undef SLOTS_FLUSH
+
+  /* one value per target path, in the order the targets were first opened */
+  for (size_t i = 0; i < parts.len; i++) {
+    int seen = 0;
+    for (size_t k = 0; k < i && !seen; k++) {
+      seen = strcmp(parts.items[k].path, parts.items[i].path) == 0;
     }
-    if (v[0] != '\0') {
-      staged_set_form(p, current_form_path, current_field, v);
+    if (seen) {
+      continue;
     }
-    free(v);
-  }
-  {
-    char *cv = restore_value(content_lines.items, content_lines.len);
-    if (cv[0] != '\0') {
-      staged_set_content(p, content_path, cv);
+    SomBuf b;
+    som_buf_init(&b);
+    for (size_t k = i; k < parts.len; k++) {
+      if (strcmp(parts.items[k].path, parts.items[i].path) != 0) {
+        continue;
+      }
+      char *v = restore_value(parts.items[k].lines.items,
+                              parts.items[k].lines.len);
+      if (v[0] != '\0') {
+        if (b.len > 0) {
+          som_buf_puts(&b, "\n\n");
+        }
+        som_buf_puts(&b, v);
+      }
+      free(v);
     }
-    free(cv);
+    char *value = som_buf_take(&b);
+    if (value[0] != '\0') {
+      staged_set_content(p, parts.items[i].path, value);
+    }
+    free(value);
   }
   lv_free(&current);
-  lv_free(&content_lines);
+  text_parts_free(&parts);
   free(current_form_path);
-  free(content_path);
   nrv_free(&forms);
-  nrv_free(&contents);
 }
 
 /* ---- finalize frame ----------------------------------------------------- */
@@ -2290,6 +2472,20 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     return;
   }
   free(trimmed);
+  /* A heading is one line: `<br>` in its title is a stored line break. */
+  {
+    char *t = title;
+    char *w = title;
+    while (*t != '\0') {
+      if (strncmp(t, "<br>", 4) == 0) {
+        *w++ = '\n';
+        t += 4;
+      } else {
+        *w++ = *t++;
+      }
+    }
+    *w = '\0';
+  }
   /* codespecs_mapping.md §9.2: the optional key=value region (group 2) carries the codeSpec. */
   char *code_spec = md_code_spec_of(region);
   free(region);

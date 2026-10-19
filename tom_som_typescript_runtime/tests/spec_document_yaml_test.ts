@@ -368,12 +368,12 @@ function testRoundTrip(): void {
     );
   }
 
-  // runs of 2+ empty lines collapse to one on write (SOM §12.4)
+  // runs of empty lines are kept as written (SOM §12.4)
   const doc = new SpecDocument();
   doc.setContent('D00/D00-OVR', 'a\n\n\n\nb\n\n\nc');
   _check(
-    'rt.emptyLineDedup',
-    _roundTrip(doc).content('D00/D00-OVR') === 'a\n\nb\n\nc',
+    'rt.emptyLinesKept',
+    _roundTrip(doc).content('D00/D00-OVR') === 'a\n\n\n\nb\n\n\nc',
   );
 
   // an empty complex list item round-trips as `{}`

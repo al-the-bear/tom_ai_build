@@ -6,6 +6,19 @@
   (every stored key plus each of its prefixes ending before a `/` or `-`),
   dropped by every mutator, instead of scanning every stored key per call.
   Rendering a large document is no longer quadratic; results are unchanged.
+- Exact markdown round trip (SOM §11.3, §11.6, §11.7, §12.4): a heading body
+  that holds several slots precedes a slot with a slot marker
+  (`<!-- slot: <rel> -->`) wherever the parser would otherwise bind its text
+  elsewhere — text after anything already written, a text slot that is not
+  the region's default target, a form preamble that is not the default
+  target, and a form whose labels another form of the region shares. The
+  import routes the text after a marker to the named slot (`.` for the owner
+  itself) and ends any open field; a marker naming no slot stays text. A
+  headline's line breaks are written as `<br>` and read back as `\n`. Blank
+  lines inside a value are kept on both the markdown and the YAML side (the
+  `\n{3,}` collapse is gone; `DedupEmptyLines` remains as a helper). In a
+  region with any form, every label-shaped text line — content, preamble or
+  continuation — carries one escape space, stripped again on import.
 
 ## 1.6.1
 

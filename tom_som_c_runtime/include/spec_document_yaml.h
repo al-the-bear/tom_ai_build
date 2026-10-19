@@ -15,9 +15,9 @@
  * Text values are written as literal block scalars (`|2-`), with the SOM §12.4
  * escaping rules: the emitter is **self-verifying** (it re-parses each scalar
  * it produces via the hand-rolled yaml reader and falls back to a
- * double-quoted JSON-escaped flow scalar when the parse differs), and runs of
- * 2+ consecutive empty lines are collapsed to one before serialization (a
- * deliberate, documented lossy normalization). Non-text values (`int` /
+ * double-quoted JSON-escaped flow scalar when the parse differs). Text is
+ * written as stored: runs of empty lines are kept, so a value round-trips
+ * exactly. Non-text values (`int` /
  * `double` / `bool`, enum member names) are plain scalars when they
  * self-verify (SOM §12.5). The JSON quoting is byte-for-byte identical to
  * JavaScript's JSON.stringify (`som_json_encode_str`) so output is stable
@@ -167,8 +167,9 @@ char *spec_yaml_node_key(const SomMetaNode *node);
 char *spec_yaml_plain_key(const char *key);
 
 /* Collapses runs of two or more consecutive empty lines to a single empty
- * line (SOM §12.4 — the deliberate lossy normalization applied to every text
- * value before serialization). Owned result. */
+ * line. A helper for callers that want that normalisation; the codec itself
+ * writes text as stored (SOM §12.4), so a value round-trips exactly. Owned
+ * result. */
 char *spec_yaml_dedup_empty_lines(const char *value);
 
 /* Writes `<indent><key>: <scalar>` into `out`, where the scalar is a

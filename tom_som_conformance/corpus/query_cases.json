@@ -375,6 +375,22 @@
         "spans": []
       },
       {
+        "path": "DEMO/MIX/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/alt",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/CHO/CHO-SEL",
         "kind": "form",
         "classId": null,
@@ -706,6 +722,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/MIX",
+        "kind": "section",
+        "classId": "Mixed",
+        "headline": "Mixed\nslots",
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG",
         "kind": "complex",
         "classId": "Registry",
@@ -996,6 +1020,46 @@
       {
         "path": "DEMO/notes/remarks",
         "kind": "section",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX",
+        "kind": "section",
+        "classId": "Mixed",
+        "headline": "Mixed\nslots",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/narrative",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/tail",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/alt",
+        "kind": "form",
         "classId": null,
         "headline": null,
         "snippet": null,
@@ -1419,6 +1483,46 @@
       {
         "path": "DEMO/notes/remarks",
         "kind": "section",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX",
+        "kind": "section",
+        "classId": "Mixed",
+        "headline": "Mixed\nslots",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/narrative",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/tail",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/alt",
+        "kind": "form",
         "classId": null,
         "headline": null,
         "snippet": null,
@@ -2110,6 +2214,46 @@
       {
         "path": "DEMO/notes/remarks",
         "kind": "section",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX",
+        "kind": "section",
+        "classId": "Mixed",
+        "headline": "Mixed\nslots",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/narrative",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/tail",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/MIX/alt",
+        "kind": "form",
         "classId": null,
         "headline": null,
         "snippet": null,

@@ -456,6 +456,72 @@
     "hasValue": true
   },
   {
+    "path": "DEMO/MIX",
+    "kind": "section",
+    "classId": "Mixed",
+    "sectionId": "MIX",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Mixed\nslots",
+    "searchableStrings": [
+      "Mixed\nslots"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/MIX/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Ada",
+      "low"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/MIX/narrative",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/MIX/tail",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Tail text."
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/MIX/alt",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Bob"
+    ],
+    "hasValue": true
+  },
+  {
     "path": "DEMO/REG",
     "kind": "complex",
     "classId": "Registry",

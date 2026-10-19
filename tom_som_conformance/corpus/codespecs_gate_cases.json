@@ -282,6 +282,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -311,6 +314,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -356,19 +366,26 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
         }
       },
       "expect": {
-        "passed": true,
+        "passed": false,
         "results": [
           {
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",
@@ -408,6 +425,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -437,6 +457,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -482,6 +509,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -636,6 +664,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -664,6 +695,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -709,6 +747,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -721,7 +760,13 @@
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 121: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",
@@ -767,6 +812,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -795,6 +843,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -840,6 +895,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -852,7 +908,13 @@
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 120: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",
@@ -898,6 +960,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -927,6 +992,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "low",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -972,6 +1044,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -984,7 +1057,13 @@
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",
@@ -1030,6 +1109,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -1059,6 +1141,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -1104,6 +1193,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -1183,7 +1273,13 @@
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",
@@ -1229,6 +1325,9 @@
           "DEMO/META/tags-2": "no",
           "DEMO/META/tags-3": "1:30",
           "DEMO/META/tags-4": "plain",
+          "DEMO/MIX/content": "_Extrapolated._",
+          "DEMO/MIX/narrative": "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+          "DEMO/MIX/tail": "Tail text.",
           "DEMO/PRI": "high",
           "DEMO/REF-LST-1": "spec §1.2",
           "DEMO/REF-LST-2": "ADR7",
@@ -1258,6 +1357,13 @@
             "pattern": "^[a-z0-9](-?[a-z0-9]){1,62}$",
             "priority": "high",
             "weight": "2.5"
+          },
+          "DEMO/MIX/alt": {
+            "lead": "Bob"
+          },
+          "DEMO/MIX/content": {
+            "lead": "Ada",
+            "risk": "low"
           }
         },
         "lists": {
@@ -1303,6 +1409,7 @@
         "headlines": {
           "DEMO/CARD-LST-1": "Alpha Card",
           "DEMO/DET": "Details & Contacts",
+          "DEMO/MIX": "Mixed\nslots",
           "DEMO/REF-LST-1": "Reference to the Spec",
           "DEMO/SUM": "Executive Summary",
           "DEMO/items": "Work Items"
@@ -1316,7 +1423,13 @@
             "check": "A1",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "unknownSection",
+                "location": "MIX",
+                "message": "line 123: section id \"MIX\" resolves to no section-type of the schema"
+              }
+            ]
           },
           {
             "check": "A2",

@@ -238,6 +238,21 @@ def _build_document() -> SpecDocument:
     # and keys on the target class's id when the field carries none.
     d.set_content("DEMO/notes/NOTE-BDY", "Section-kind body")
     d.set_content("DEMO/notes/remarks", "Wrapper-section text")
+    # SOM §11.6 slot markers, §11.2 headline line breaks, §11.3 blank lines:
+    # a two-line headline, a form preamble that is not the default target, a
+    # narrative after a form field, a second content slot, a label-shaped
+    # narrative line, two blank lines kept as written, and a second form whose
+    # `Lead` label the first form shares.
+    d.set_headline("DEMO/MIX", "Mixed\nslots")
+    d.set_content("DEMO/MIX/content", "_Extrapolated._")
+    d.set_form_field("DEMO/MIX/content", "lead", "Ada")
+    d.set_form_field("DEMO/MIX/content", "risk", "low")
+    d.set_content(
+        "DEMO/MIX/narrative",
+        "First narrative.\n\n\nAfter two blank lines.\nLead: label-shaped prose",
+    )
+    d.set_content("DEMO/MIX/tail", "Tail text.")
+    d.set_form_field("DEMO/MIX/alt", "lead", "Bob")
     return d
 
 
@@ -258,14 +273,14 @@ def test_model_meta(model: SpecModel) -> None:
     root = model.roots[0]
     _check("model.root.sectionId", root.section_id == "DEMO", str(root.section_id))
     _check("model.root.type", root.type == "Demo", root.type)
-    _check("model.classCount", len(model.classes) == 12, str(len(model.classes)))
+    _check("model.classCount", len(model.classes) == 13, str(len(model.classes)))
     demo = model.class_named("Demo")
     _check("model.Demo.found", demo is not None)
     if demo is not None:
         names = [f.name for f in demo.fields]
         _check(
             "model.Demo.fields",
-            names == ["title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "registry"],
+            names == ["title", "summary", "priority", "count", "ratio", "score", "details", "items", "refs", "cards", "meta", "control", "notes", "mixed", "registry"],
             str(names),
         )
 

@@ -222,21 +222,21 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   check(c, "model.root.type", strcmp(root->type, "Demo") == 0, root->type);
   char cnt[32];
   snprintf(cnt, sizeof(cnt), "%zu", model->classes_len);
-  check(c, "model.classCount", model->classes_len == 12, cnt);
+  check(c, "model.classCount", model->classes_len == 13, cnt);
   const SpecClass *demo = spec_model_class_named(model, "Demo");
   check(c, "model.Demo.found", demo != NULL, "");
   if (demo != NULL) {
     const char *want[] = {"title", "summary", "priority", "count",
                           "ratio", "score",   "details",  "items",
                           "refs",  "cards",   "meta",     "control",
-                          "notes", "registry"};
-    int ok = demo->fields_len == 14;
+                          "notes", "mixed",   "registry"};
+    int ok = demo->fields_len == 15;
     SomBuf names;
     som_buf_init(&names);
     for (size_t i = 0; i < demo->fields_len; i++) {
       if (i > 0) som_buf_putc(&names, ',');
       som_buf_puts(&names, demo->fields[i].name);
-      if (ok && i < 14 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
+      if (ok && i < 15 && strcmp(demo->fields[i].name, want[i]) != 0) ok = 0;
     }
     char *joined = som_buf_take(&names);
     check(c, "model.Demo.fields", ok, joined);

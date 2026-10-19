@@ -25,9 +25,8 @@
  * escaping rules: the emitter is **self-verifying** (it re-parses each scalar
  * it produces via the hand-rolled {@link yaml} — the runtime ships no external
  * YAML library — and falls back to a double-quoted JSON-escaped flow scalar
- * when the parse differs), and **runs of 2+ consecutive empty lines are
- * collapsed to one** before serialization (a deliberate, documented lossy
- * normalization — round-trip guarantees are stated "modulo empty-line dedup").
+ * when the parse differs). Text is written as stored: runs of empty lines are
+ * kept, so a value round-trips exactly.
  * Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
  * when they self-verify (SOM §12.5).
  *
@@ -150,9 +149,9 @@ function plainKey(key) {
 const _BLANK_RUNS = /\n{3,}/g;
 
 /**
- * Collapses runs of two or more consecutive empty lines to a single empty line
- * (SOM §12.4 — the deliberate lossy normalization applied to every text value
- * before serialization).
+ * Collapses runs of two or more consecutive empty lines to a single empty
+ * line. A helper for callers that want that normalisation; the codec itself
+ * writes text as stored (SOM §12.4), so a value round-trips exactly.
  */
 function dedupEmptyLines(value) {
   return value.replace(_BLANK_RUNS, '\n\n');
@@ -879,11 +878,11 @@ class _Encoder {
   }
 
   /**
-   * Text value: empty-line dedup, then a self-verified block scalar (or the
-   * JSON-quoted fallback).
+   * Text value as stored: a self-verified block scalar (or the JSON-quoted
+   * fallback).
    */
   _writeText(b, indent, key, value) {
-    _writeRendered(b, indent, plainKey(key), _scalar(dedupEmptyLines(value)));
+    _writeRendered(b, indent, plainKey(key), _scalar(value));
   }
 
   /** Non-text value (SOM §12.5): plain when it self-verifies, else the text path. */

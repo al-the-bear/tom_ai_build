@@ -310,11 +310,11 @@ func yamlTestRoundTrip(c *checker, t *testing.T, tree *som.SomMetaTree) {
 			"got "+quote(got)+" want "+quote(edge))
 	}
 
-	// runs of 2+ empty lines collapse to one on write (SOM §12.4)
+	// runs of empty lines are kept as written (SOM §12.4)
 	doc := som.NewSpecDocument()
 	doc.SetContent("D00/D00-OVR", "a\n\n\n\nb\n\n\nc")
-	c.check("rt.emptyLineDedup",
-		yamlRoundTrip(t, tree, doc).ContentOr("D00/D00-OVR") == "a\n\nb\n\nc", "")
+	c.check("rt.emptyLinesKept",
+		yamlRoundTrip(t, tree, doc).ContentOr("D00/D00-OVR") == "a\n\n\n\nb\n\n\nc", "")
 
 	// an empty complex list item round-trips as `{}`
 	emptyItem := som.NewSpecDocument()
