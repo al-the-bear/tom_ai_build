@@ -76141,6 +76141,13 @@ char *data_attribute_entry_enumeration_type_options_form_domain_enum(const DataA
 void data_attribute_entry_enumeration_type_options_form_set_domain_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "domainEnum", value);
 }
+char *data_attribute_entry_enumeration_type_options_form_proposed_enum(const DataAttributeEntryEnumerationTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "proposedEnum");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_enumeration_type_options_form_set_proposed_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "proposedEnum", value);
+}
 
 void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -104162,6 +104169,13 @@ char *interface_error_handling_content_form_error_codes(const InterfaceErrorHand
 }
 void interface_error_handling_content_form_set_error_codes(InterfaceErrorHandlingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "errorCodes", value);
+}
+char *interface_error_handling_content_form_protocol_error_codes(const InterfaceErrorHandlingContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "protocolErrorCodes");
+  return som_strdup(v != NULL ? v : "");
+}
+void interface_error_handling_content_form_set_protocol_error_codes(InterfaceErrorHandlingContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "protocolErrorCodes", value);
 }
 char *interface_error_handling_content_form_retryable_errors(const InterfaceErrorHandlingContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "retryableErrors");
@@ -141369,6 +141383,13 @@ char *scheduled_job_entry_failure_policy_form_failure_alert_message(const Schedu
 }
 void scheduled_job_entry_failure_policy_form_set_failure_alert_message(ScheduledJobEntryFailurePolicyForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failureAlertMessage", value);
+}
+char *scheduled_job_entry_failure_policy_form_failure_alert(const ScheduledJobEntryFailurePolicyForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "failureAlert");
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_entry_failure_policy_form_set_failure_alert(ScheduledJobEntryFailurePolicyForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "failureAlert", value);
 }
 
 void scheduled_job_entry_work_definition_form_init(ScheduledJobEntryWorkDefinitionForm *self, SpecDocument *doc, const char *path) {

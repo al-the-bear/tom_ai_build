@@ -74698,6 +74698,14 @@ class DataAttributeEntryEnumerationTypeOptionsForm(SomNode):
     def domainEnum(self, value):
         self.doc.set_form_field(self.path, "domainEnum", value)
 
+    @property
+    def proposedEnum(self) -> str:
+        return self.doc.form_field(self.path, "proposedEnum") or ""
+
+    @proposedEnum.setter
+    def proposedEnum(self, value):
+        self.doc.set_form_field(self.path, "proposedEnum", value)
+
 class DataAttributeEntryFileReferenceOptionsForm(SomNode):
     """Generated section facade for the `fileReferenceOptions` @Form section: its own content text followed by one typed member per form field."""
 
@@ -107722,6 +107730,14 @@ class InterfaceErrorHandlingContentForm(SomNode):
     @errorCodes.setter
     def errorCodes(self, value):
         self.doc.set_form_field(self.path, "errorCodes", value)
+
+    @property
+    def protocolErrorCodes(self) -> str:
+        return self.doc.form_field(self.path, "protocolErrorCodes") or ""
+
+    @protocolErrorCodes.setter
+    def protocolErrorCodes(self, value):
+        self.doc.set_form_field(self.path, "protocolErrorCodes", value)
 
     @property
     def retryableErrors(self) -> str:
@@ -151626,6 +151642,14 @@ class ScheduledJobEntryFailurePolicyForm(SomNode):
     @failureAlertMessage.setter
     def failureAlertMessage(self, value):
         self.doc.set_form_field(self.path, "failureAlertMessage", value)
+
+    @property
+    def failureAlert(self) -> str:
+        return self.doc.form_field(self.path, "failureAlert") or ""
+
+    @failureAlert.setter
+    def failureAlert(self, value):
+        self.doc.set_form_field(self.path, "failureAlert", value)
 
 class ScheduledJobEntryWorkDefinitionForm(SomNode):
     """Generated section facade for the `workDefinition` @Form section: its own content text followed by one typed member per form field."""

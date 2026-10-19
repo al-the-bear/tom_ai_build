@@ -159,6 +159,12 @@ void main() {
     // uamtcb4: a custom requirement names its handler from the catalogue.
     ('AZREQ-CUST', 'handler'): ['AZHAN.handlerName'],
     ('AZLVL-CUST', 'handler'): ['AZHAN.handlerName'],
+    // uamtc9: references that accept every registry the domain needs.
+    ('INERHA', 'errorCodes'): ['ERCEN.code'],
+    ('BAER', 'relatedRiskId'): ['RISENT', 'MGRSK', 'SYMIRI', 'GOLRS'],
+    ('SCJOB-FAIL', 'failureAlert'): ['ALERUL', 'ALEDEF'],
+    ('PFE', 'featureId'): ['FPE', 'FRE'],
+    ('FLDHP', 'fieldId'): ['SCREL.elementId', 'DAATT'],
   };
 
   String? formKey(String path) {
@@ -223,11 +229,14 @@ void main() {
                 e.message.contains('"$field"'))
               e,
         ];
-        final id = declaredValue(doc, targets.first);
-        for (final path in paths) {
-          doc.setFormField(path, field, id);
+        // Every registry the field names is accepted, not only the first.
+        for (final target in targets) {
+          final id = declaredValue(doc, target);
+          for (final path in paths) {
+            doc.setFormField(path, field, id);
+          }
+          expect(dangling(), isEmpty, reason: 'a declared $target id');
         }
-        expect(dangling(), isEmpty, reason: 'a declared ${targets.first} id');
         for (final path in paths) {
           doc.setFormField(path, field, 'NO-SUCH-ID');
         }

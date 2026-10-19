@@ -41391,6 +41391,8 @@ char *data_attribute_entry_enumeration_type_options_form_content(const DataAttri
 void data_attribute_entry_enumeration_type_options_form_set_content(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value);
 char *data_attribute_entry_enumeration_type_options_form_domain_enum(const DataAttributeEntryEnumerationTypeOptionsForm *self);
 void data_attribute_entry_enumeration_type_options_form_set_domain_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_enumeration_type_options_form_proposed_enum(const DataAttributeEntryEnumerationTypeOptionsForm *self);
+void data_attribute_entry_enumeration_type_options_form_set_proposed_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value);
 
 // DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path);
@@ -51371,6 +51373,8 @@ char *interface_error_handling_content_form_error_format(const InterfaceErrorHan
 void interface_error_handling_content_form_set_error_format(InterfaceErrorHandlingContentForm *self, const char *value);
 char *interface_error_handling_content_form_error_codes(const InterfaceErrorHandlingContentForm *self);
 void interface_error_handling_content_form_set_error_codes(InterfaceErrorHandlingContentForm *self, const char *value);
+char *interface_error_handling_content_form_protocol_error_codes(const InterfaceErrorHandlingContentForm *self);
+void interface_error_handling_content_form_set_protocol_error_codes(InterfaceErrorHandlingContentForm *self, const char *value);
 char *interface_error_handling_content_form_retryable_errors(const InterfaceErrorHandlingContentForm *self);
 void interface_error_handling_content_form_set_retryable_errors(InterfaceErrorHandlingContentForm *self, const char *value);
 
@@ -64477,6 +64481,8 @@ char *scheduled_job_entry_failure_policy_form_timeout(const ScheduledJobEntryFai
 void scheduled_job_entry_failure_policy_form_set_timeout(ScheduledJobEntryFailurePolicyForm *self, const char *value);
 char *scheduled_job_entry_failure_policy_form_failure_alert_message(const ScheduledJobEntryFailurePolicyForm *self);
 void scheduled_job_entry_failure_policy_form_set_failure_alert_message(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+char *scheduled_job_entry_failure_policy_form_failure_alert(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_failure_alert(ScheduledJobEntryFailurePolicyForm *self, const char *value);
 
 // ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.
 void scheduled_job_entry_work_definition_form_init(ScheduledJobEntryWorkDefinitionForm *self, SpecDocument *doc, const char *path);

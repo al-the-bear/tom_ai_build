@@ -3495,7 +3495,6 @@ document:
                   storageGroup: "Exercise value."
                 DAATT-DTEN enumerationTypeOptions:
                   content: Exercise form preamble.
-                  domainEnum: "exercise-dmene-enumname"
                 DATAA-CONS-LST constraints:
                   DATAA-CONS-1:
                     content:

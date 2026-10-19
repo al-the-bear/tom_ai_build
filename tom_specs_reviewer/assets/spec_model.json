@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T21:28:28.330492Z",
+  "generatedAt": "2026-10-19T22:14:09.348484Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.5+12.f8020348",
+  "modelVersionLabel": "1.6.6+13.e386e5ac",
   "classCount": 1260,
   "rootCount": 14,
-  "modelHash": "9a83d3bbbfabf0b31a3d2d5356912e5748569ca78dbfd358a45e6d77f4a76e39",
+  "modelHash": "b6b1d778153cd70d27ce75cd5112fe323a7e8c1babaa9d56b629ed9c0cbda0e2",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -23475,11 +23475,14 @@
             {
               "name": "relatedRiskId",
               "label": "Related Risk ID",
-              "hint": "The linked risk register entry — a risk section id (RISENT-KEYR-…)",
+              "hint": "The linked risk entry — the section id of a key risk (RISENT-KEYR-…), a migration risk (MGRSK-ITEM-…), a system migration risk (SYMIRI-RISK-…) or a goal risk (GOLRS-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "RISENT.@sectionId"
+                "RISENT.@sectionId",
+                "MGRSK.@sectionId",
+                "SYMIRI.@sectionId",
+                "GOLRS.@sectionId"
               ]
             }
           ]
@@ -65163,12 +65166,19 @@
             {
               "name": "domainEnum",
               "label": "Domain Enum",
-              "hint": "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here",
+              "hint": "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here. Leave empty while the enum is only proposed",
               "type": "String",
-              "required": true,
+              "required": false,
               "refersTo": [
                 "DMENE.enumName"
               ]
+            },
+            {
+              "name": "proposedEnum",
+              "label": "Proposed Enum",
+              "hint": "The name of an enum not yet in the domain enum register — set instead of domainEnum until the enum is registered, then moved there",
+              "type": "String",
+              "required": false
             }
           ]
         },
@@ -113074,11 +113084,12 @@
             {
               "name": "fieldId",
               "label": "Field ID",
-              "hint": "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name",
+              "hint": "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name — or, for a field the Blueprint does not model as a screen element, the section id of the data attribute it edits (DAATT-ATTR-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "SCREL.elementId"
+                "SCREL.elementId",
+                "DAATT.@sectionId"
               ]
             },
             {
@@ -132953,12 +132964,19 @@
             {
               "name": "errorCodes",
               "label": "Error Codes Used",
-              "hint": "Error codes the interface returns",
+              "hint": "Error codes of this application the interface returns — ErrorCodeEntry.code values, comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
                 "ERCEN.code"
               ]
+            },
+            {
+              "name": "protocolErrorCodes",
+              "label": "Protocol Error Codes",
+              "hint": "Error codes the protocol itself defines and the interface passes through (e.g. OAuth invalid_grant, SCIM scimType values) — not registered, as the application does not own them",
+              "type": "String",
+              "required": false
             },
             {
               "name": "retryableErrors",
@@ -192019,11 +192037,12 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "The feature this entry describes — a feature section id (FPE-ITEM-…)",
+              "hint": "The feature this entry describes — a prioritized feature (FPE-ITEM-…), or, before the roadmap prioritizes features, the functional requirement it prototypes (FRE-REQU-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.@sectionId"
+                "FPE.@sectionId",
+                "FRE.@sectionId"
               ]
             },
             {
@@ -222638,11 +222657,22 @@
             {
               "name": "failureAlertMessage",
               "label": "Failure Alert Message",
-              "hint": "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.",
+              "hint": "The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.",
               "type": "String",
               "required": false,
               "refersTo": [
                 "MSGKE.key"
+              ]
+            },
+            {
+              "name": "failureAlert",
+              "label": "Failure Alert",
+              "hint": "The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ALERUL.@sectionId",
+                "ALEDEF.@sectionId"
               ]
             }
           ]

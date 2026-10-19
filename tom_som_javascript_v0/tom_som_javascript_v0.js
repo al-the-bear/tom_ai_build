@@ -77675,6 +77675,14 @@ class DataAttributeEntryEnumerationTypeOptionsForm extends SomNode {
   set domainEnum(value) {
     this.doc.setFormField(this.path, "domainEnum", value);
   }
+
+  get proposedEnum() {
+    return this.doc.formField(this.path, "proposedEnum") || '';
+  }
+
+  set proposedEnum(value) {
+    this.doc.setFormField(this.path, "proposedEnum", value);
+  }
 }
 
 // Generated section facade for the `fileReferenceOptions` @Form section: its own content text followed by one typed member per form field.
@@ -111770,6 +111778,14 @@ class InterfaceErrorHandlingContentForm extends SomNode {
 
   set errorCodes(value) {
     this.doc.setFormField(this.path, "errorCodes", value);
+  }
+
+  get protocolErrorCodes() {
+    return this.doc.formField(this.path, "protocolErrorCodes") || '';
+  }
+
+  set protocolErrorCodes(value) {
+    this.doc.setFormField(this.path, "protocolErrorCodes", value);
   }
 
   get retryableErrors() {
@@ -156867,6 +156883,14 @@ class ScheduledJobEntryFailurePolicyForm extends SomNode {
 
   set failureAlertMessage(value) {
     this.doc.setFormField(this.path, "failureAlertMessage", value);
+  }
+
+  get failureAlert() {
+    return this.doc.formField(this.path, "failureAlert") || '';
+  }
+
+  set failureAlert(value) {
+    this.doc.setFormField(this.path, "failureAlert", value);
   }
 }
 

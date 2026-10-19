@@ -14128,7 +14128,9 @@ form-types:
       - fieldname: timeout
         description: "How long a single run may take before it is abandoned, if not the default"
       - fieldname: failureAlertMessage
-        description: The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.
+        description: The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.
+      - fieldname: failureAlert
+        description: The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)
   adenma-form:
     fields:
       - fieldname: environmentCatalog

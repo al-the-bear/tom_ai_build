@@ -15993,8 +15993,19 @@ class InterfaceErrorHandling extends DocSpecsSection {
       'errorCodes',
       String,
       'Error Codes Used',
-      hint: 'Error codes the interface returns',
+      hint:
+          'Error codes of this application the interface returns — '
+          'ErrorCodeEntry.code values, comma-separated',
       refersTo: ['ERCEN.code'],
+    ),
+    Field(
+      'protocolErrorCodes',
+      String,
+      'Protocol Error Codes',
+      hint:
+          'Error codes the protocol itself defines and the interface passes '
+          'through (e.g. OAuth invalid_grant, SCIM scimType values) — not '
+          'registered, as the application does not own them',
     ),
     Field(
       'retryableErrors',
@@ -16770,9 +16781,15 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
       String,
       'Related Risk ID',
       hint:
-          'The linked risk register entry — a risk section id '
-          '(RISENT-KEYR-…)',
-      refersTo: ['RISENT.@sectionId'],
+          'The linked risk entry — the section id of a key risk '
+          '(RISENT-KEYR-…), a migration risk (MGRSK-ITEM-…), a system '
+          'migration risk (SYMIRI-RISK-…) or a goal risk (GOLRS-ITEM-…)',
+      refersTo: [
+        'RISENT.@sectionId',
+        'MGRSK.@sectionId',
+        'SYMIRI.@sectionId',
+        'GOLRS.@sectionId',
+      ],
     ),
   ])
   @SerializationOrder(2)

@@ -90181,6 +90181,14 @@ func (x *DataAttributeEntryEnumerationTypeOptionsForm) SetDomainEnum(value strin
 	x.Doc().SetFormField(x.Path(), "domainEnum", value)
 }
 
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) ProposedEnum() string {
+	return x.Doc().FormFieldOr(x.Path(), "proposedEnum")
+}
+
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) SetProposedEnum(value string) {
+	x.Doc().SetFormField(x.Path(), "proposedEnum", value)
+}
+
 // DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own
 // content text followed by one typed member per form field.
 type DataAttributeEntryFileReferenceOptionsForm struct {
@@ -131154,6 +131162,14 @@ func (x *InterfaceErrorHandlingContentForm) ErrorCodes() string {
 
 func (x *InterfaceErrorHandlingContentForm) SetErrorCodes(value string) {
 	x.Doc().SetFormField(x.Path(), "errorCodes", value)
+}
+
+func (x *InterfaceErrorHandlingContentForm) ProtocolErrorCodes() string {
+	return x.Doc().FormFieldOr(x.Path(), "protocolErrorCodes")
+}
+
+func (x *InterfaceErrorHandlingContentForm) SetProtocolErrorCodes(value string) {
+	x.Doc().SetFormField(x.Path(), "protocolErrorCodes", value)
 }
 
 func (x *InterfaceErrorHandlingContentForm) RetryableErrors() string {
@@ -185288,6 +185304,14 @@ func (x *ScheduledJobEntryFailurePolicyForm) FailureAlertMessage() string {
 
 func (x *ScheduledJobEntryFailurePolicyForm) SetFailureAlertMessage(value string) {
 	x.Doc().SetFormField(x.Path(), "failureAlertMessage", value)
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) FailureAlert() string {
+	return x.Doc().FormFieldOr(x.Path(), "failureAlert")
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetFailureAlert(value string) {
+	x.Doc().SetFormField(x.Path(), "failureAlert", value)
 }
 
 // ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own

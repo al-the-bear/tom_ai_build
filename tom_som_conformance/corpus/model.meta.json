@@ -355,6 +355,15 @@
               ]
             },
             {
+              "name": "crossRefs",
+              "label": "Cross Refs",
+              "type": "String",
+              "refersTo": [
+                "RGE.@sectionId",
+                "RGL.@sectionId"
+              ]
+            },
+            {
               "name": "entryCount",
               "label": "Entry Count",
               "type": "int",

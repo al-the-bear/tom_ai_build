@@ -638,7 +638,7 @@ form-types:
       - fieldname: contingencyPlan
         description: Planned response if the assumption is invalidated
       - fieldname: relatedRiskId
-        description: The linked risk register entry — a risk section id (RISENT-KEYR-…)
+        description: "The linked risk entry — the section id of a key risk (RISENT-KEYR-…), a migration risk (MGRSK-ITEM-…), a system migration risk (SYMIRI-RISK-…) or a goal risk (GOLRS-ITEM-…)"
 document:
   sections:
     dochd:

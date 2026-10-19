@@ -105035,6 +105035,15 @@ impl DataAttributeEntryEnumerationTypeOptionsForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "domainEnum", value);
     }
+
+    pub fn proposed_enum(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "proposedEnum")
+    }
+
+    pub fn set_proposed_enum(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "proposedEnum", value);
+    }
 }
 
 /// DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own
@@ -149351,6 +149360,15 @@ impl InterfaceErrorHandlingContentForm {
     pub fn set_error_codes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "errorCodes", value);
+    }
+
+    pub fn protocol_error_codes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "protocolErrorCodes")
+    }
+
+    pub fn set_protocol_error_codes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "protocolErrorCodes", value);
     }
 
     pub fn retryable_errors(&self) -> String {
@@ -207653,6 +207671,15 @@ impl ScheduledJobEntryFailurePolicyForm {
     pub fn set_failure_alert_message(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "failureAlertMessage", value);
+    }
+
+    pub fn failure_alert(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failureAlert")
+    }
+
+    pub fn set_failure_alert(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failureAlert", value);
     }
 }
 

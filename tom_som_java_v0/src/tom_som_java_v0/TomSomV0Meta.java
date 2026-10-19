@@ -8529,7 +8529,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskIfWrong", "String", "Risk if Wrong", false, "What happens if the assumption proves false", 0),
             new SomFormFieldMeta("riskImpact", "ImportanceBand", "Impact Level", false, "Severity of the impact if the assumption fails.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("contingencyPlan", "String", "Contingency Plan", false, "Planned response if the assumption is invalidated", 2),
-            new SomFormFieldMeta("relatedRiskId", "String", "Related Risk ID", false, "The linked risk register entry — a risk section id (RISENT-KEYR-…)", 3, java.util.List.of(), java.util.List.of("RISENT.@sectionId"))));
+            new SomFormFieldMeta("relatedRiskId", "String", "Related Risk ID", false, "The linked risk entry — the section id of a key risk (RISENT-KEYR-…), a migration risk (MGRSK-ITEM-…), a system migration risk (SYMIRI-RISK-…) or a goal risk (GOLRS-ITEM-…)", 3, java.util.List.of(), java.util.List.of("RISENT.@sectionId", "MGRSK.@sectionId", "SYMIRI.@sectionId", "GOLRS.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management (assumption risk)", "PMBOK — scope management & assumption log"), "connotation", "Captures the consequences if an assumption proves false and the contingency plan to address it.")));
         out.add(n);
       }
@@ -25304,7 +25304,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 8;
         n.docComment = "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("domainEnum", "String", "Domain Enum", true, "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here", 0, java.util.List.of(), java.util.List.of("DMENE.enumName"))));
+            new SomFormFieldMeta("domainEnum", "String", "Domain Enum", false, "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here. Leave empty while the enum is only proposed", 0, java.util.List.of(), java.util.List.of("DMENE.enumName")),
+            new SomFormFieldMeta("proposedEnum", "String", "Proposed Enum", false, "The name of an enum not yet in the domain enum register — set instead of domainEnum until the enum is registered, then moved there", 1)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible value and representation of a data element"), "connotation", "The declared value set a domain-enum attribute draws from.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.enumeration")));
         out.add(n);
       }
@@ -42527,7 +42528,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name", 0, java.util.List.of(), java.util.List.of("SCREL.elementId")),
+            new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name — or, for a field the Blueprint does not model as a screen element, the section id of the data attribute it edits (DAATT-ATTR-…)", 0, java.util.List.of(), java.util.List.of("SCREL.elementId", "DAATT.@sectionId")),
             new SomFormFieldMeta("tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1),
             new SomFormFieldMeta("inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 2),
             new SomFormFieldMeta("extendedHelp", "String", "Extended Help", false, "Full help panel content", 3),
@@ -49602,8 +49603,9 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("errorFormat", "String", "Error Response Format", false, "Format/schema of error responses", 0),
-            new SomFormFieldMeta("errorCodes", "String", "Error Codes Used", false, "Error codes the interface returns", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
-            new SomFormFieldMeta("retryableErrors", "String", "Retryable Error Codes", false, "Which error codes are safe to retry", 2)));
+            new SomFormFieldMeta("errorCodes", "String", "Error Codes Used", false, "Error codes of this application the interface returns — ErrorCodeEntry.code values, comma-separated", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
+            new SomFormFieldMeta("protocolErrorCodes", "String", "Protocol Error Codes", false, "Error codes the protocol itself defines and the interface passes through (e.g. OAuth invalid_grant, SCIM scimType values) — not registered, as the application does not own them", 2),
+            new SomFormFieldMeta("retryableErrors", "String", "Retryable Error Codes", false, "Which error codes are safe to retry", 3)));
         out.add(n);
       }
       {
@@ -70934,7 +70936,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry describes — a feature section id (FPE-ITEM-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId")),
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry describes — a prioritized feature (FPE-ITEM-…), or, before the roadmap prioritizes features, the functional requirement it prototypes (FRE-REQU-…)", 0, java.util.List.of(), java.util.List.of("FPE.@sectionId", "FRE.@sectionId")),
             new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1),
             new SomFormFieldMeta("fidelityLevel", "ImportanceBand", "Fidelity Level", false, "Qualitative fidelity band.", 2, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 3),
@@ -81192,7 +81194,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("maxRetries", "int", "Maximum Retries", false, "How many times a failed run is retried, if not the default", 0),
             new SomFormFieldMeta("retryBackoff", "String", "Retry Backoff", false, "The delay before the first retry and how it grows, if not the default", 1),
             new SomFormFieldMeta("timeout", "String", "Timeout", false, "How long a single run may take before it is abandoned, if not the default", 2),
-            new SomFormFieldMeta("failureAlertMessage", "String", "Failure Alert Message", false, "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.", 3, java.util.List.of(), java.util.List.of("MSGKE.key"))));
+            new SomFormFieldMeta("failureAlertMessage", "String", "Failure Alert Message", false, "The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("failureAlert", "String", "Failure Alert", false, "The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)", 4, java.util.List.of(), java.util.List.of("ALERUL.@sectionId", "ALEDEF.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Google SRE — handling overload, retries and cascading failure", "AWS Well-Architected — reliability (failure management)"), "connotation", "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy.")));
         out.add(n);
       }

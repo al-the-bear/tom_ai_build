@@ -53449,7 +53449,7 @@ class BoundaryAssumptionEntryRiskForm extends SomNode {
 
   /// Related Risk ID.
   ///
-  /// The linked risk register entry — a risk section id (RISENT-KEYR-…)
+  /// The linked risk entry — the section id of a key risk (RISENT-KEYR-…), a migration risk (MGRSK-ITEM-…), a system migration risk (SYMIRI-RISK-…) or a goal risk (GOLRS-ITEM-…)
   String get relatedRiskId => doc.formField(path, 'relatedRiskId') ?? '';
   set relatedRiskId(String value) => doc.setFormField(path, 'relatedRiskId', value);
 }
@@ -67401,11 +67401,15 @@ class DataAttributeEntryEnumerationTypeOptionsForm extends SomNode {
 
   /// Domain Enum.
   ///
-  /// DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here. Leave empty while the enum is only proposed
   String get domainEnum => doc.formField(path, 'domainEnum') ?? '';
   set domainEnum(String value) => doc.setFormField(path, 'domainEnum', value);
+
+  /// Proposed Enum.
+  ///
+  /// The name of an enum not yet in the domain enum register — set instead of domainEnum until the enum is registered, then moved there
+  String get proposedEnum => doc.formField(path, 'proposedEnum') ?? '';
+  set proposedEnum(String value) => doc.setFormField(path, 'proposedEnum', value);
 }
 
 /// Generated section facade for the `fileReferenceOptions` `@Form` section:
@@ -85559,7 +85563,7 @@ class FieldHelpEntryContentForm extends SomNode {
 
   /// Field ID.
   ///
-  /// Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name
+  /// Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name — or, for a field the Blueprint does not model as a screen element, the section id of the data attribute it edits (DAATT-ATTR-…)
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get fieldId => doc.formField(path, 'fieldId') ?? '';
@@ -92923,9 +92927,15 @@ class InterfaceErrorHandlingContentForm extends SomNode {
 
   /// Error Codes Used.
   ///
-  /// Error codes the interface returns
+  /// Error codes of this application the interface returns — ErrorCodeEntry.code values, comma-separated
   String get errorCodes => doc.formField(path, 'errorCodes') ?? '';
   set errorCodes(String value) => doc.setFormField(path, 'errorCodes', value);
+
+  /// Protocol Error Codes.
+  ///
+  /// Error codes the protocol itself defines and the interface passes through (e.g. OAuth invalid_grant, SCIM scimType values) — not registered, as the application does not own them
+  String get protocolErrorCodes => doc.formField(path, 'protocolErrorCodes') ?? '';
+  set protocolErrorCodes(String value) => doc.setFormField(path, 'protocolErrorCodes', value);
 
   /// Retryable Error Codes.
   ///
@@ -114611,7 +114621,7 @@ class PrototypeFeatureEntryContentForm extends SomNode {
 
   /// Feature ID.
   ///
-  /// The feature this entry describes — a feature section id (FPE-ITEM-…)
+  /// The feature this entry describes — a prioritized feature (FPE-ITEM-…), or, before the roadmap prioritizes features, the functional requirement it prototypes (FRE-REQU-…)
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get featureId => doc.formField(path, 'featureId') ?? '';
@@ -126655,9 +126665,15 @@ class ScheduledJobEntryFailurePolicyForm extends SomNode {
 
   /// Failure Alert Message.
   ///
-  /// The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.
+  /// The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.
   String get failureAlertMessage => doc.formField(path, 'failureAlertMessage') ?? '';
   set failureAlertMessage(String value) => doc.setFormField(path, 'failureAlertMessage', value);
+
+  /// Failure Alert.
+  ///
+  /// The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)
+  String get failureAlert => doc.formField(path, 'failureAlert') ?? '';
+  set failureAlert(String value) => doc.setFormField(path, 'failureAlert', value);
 }
 
 /// Generated section facade for the `workDefinition` `@Form` section:

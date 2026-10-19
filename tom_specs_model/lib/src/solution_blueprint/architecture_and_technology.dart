@@ -28704,8 +28704,19 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'Failure Alert Message',
       refersTo: ['MSGKE.key'],
       hint:
-          'The message raised when this job fails permanently. The job names '
-          'the message; the deployment names where it is delivered.',
+          'The message a person is shown when this job fails permanently. '
+          'The job names the message; the deployment names where it is '
+          'delivered.',
+    ),
+    Field(
+      'failureAlert',
+      String,
+      'Failure Alert',
+      refersTo: ['ALERUL.@sectionId', 'ALEDEF.@sectionId'],
+      hint:
+          'The operational alert raised when this job fails permanently — '
+          'the section id of an alert rule (ALERUL-ALER-…) or alert '
+          'definition (ALEDEF-ALER-…)',
     ),
   ])
   @SerializationOrder(6)

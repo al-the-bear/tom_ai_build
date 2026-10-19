@@ -10806,8 +10806,10 @@ class FieldHelpEntry extends DocSpecsSection {
       required: true,
       hint:
           'Element ID (SCREL registry) of the input element this help is '
-          'attached to, e.g. fld-customer-name',
-      refersTo: ['SCREL.elementId'],
+          'attached to, e.g. fld-customer-name — or, for a field the '
+          'Blueprint does not model as a screen element, the section id of '
+          'the data attribute it edits (DAATT-ATTR-…)',
+      refersTo: ['SCREL.elementId', 'DAATT.@sectionId'],
     ),
     Field('tooltipText', String, 'Tooltip Text', hint: 'Brief tooltip content'),
     Field(
@@ -16639,10 +16641,11 @@ class PrototypeFeatureEntry extends DocSpecsSection {
       String,
       'Feature ID',
       required: true,
-      refersTo: ['FPE.@sectionId'],
+      refersTo: ['FPE.@sectionId', 'FRE.@sectionId'],
       hint:
-          'The feature this entry describes — a feature section id '
-          '(FPE-ITEM-…)',
+          'The feature this entry describes — a prioritized feature '
+          '(FPE-ITEM-…), or, before the roadmap prioritizes features, the '
+          'functional requirement it prototypes (FRE-REQU-…)',
     ),
     Field(
       'inclusionReason',

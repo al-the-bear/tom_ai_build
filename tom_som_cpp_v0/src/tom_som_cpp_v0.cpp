@@ -41096,6 +41096,12 @@ std::string DataAttributeEntryEnumerationTypeOptionsForm::domainEnum() const {
 void DataAttributeEntryEnumerationTypeOptionsForm::setDomainEnum(const std::string& value) {
   doc().setFormField(path(), "domainEnum", value);
 }
+std::string DataAttributeEntryEnumerationTypeOptionsForm::proposedEnum() const {
+  return doc().formField(path(), "proposedEnum");
+}
+void DataAttributeEntryEnumerationTypeOptionsForm::setProposedEnum(const std::string& value) {
+  doc().setFormField(path(), "proposedEnum", value);
+}
 
 DataAttributeEntryFileReferenceOptionsForm::DataAttributeEntryFileReferenceOptionsForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -63395,6 +63401,12 @@ std::string InterfaceErrorHandlingContentForm::errorCodes() const {
 }
 void InterfaceErrorHandlingContentForm::setErrorCodes(const std::string& value) {
   doc().setFormField(path(), "errorCodes", value);
+}
+std::string InterfaceErrorHandlingContentForm::protocolErrorCodes() const {
+  return doc().formField(path(), "protocolErrorCodes");
+}
+void InterfaceErrorHandlingContentForm::setProtocolErrorCodes(const std::string& value) {
+  doc().setFormField(path(), "protocolErrorCodes", value);
 }
 std::string InterfaceErrorHandlingContentForm::retryableErrors() const {
   return doc().formField(path(), "retryableErrors");
@@ -93123,6 +93135,12 @@ std::string ScheduledJobEntryFailurePolicyForm::failureAlertMessage() const {
 }
 void ScheduledJobEntryFailurePolicyForm::setFailureAlertMessage(const std::string& value) {
   doc().setFormField(path(), "failureAlertMessage", value);
+}
+std::string ScheduledJobEntryFailurePolicyForm::failureAlert() const {
+  return doc().formField(path(), "failureAlert");
+}
+void ScheduledJobEntryFailurePolicyForm::setFailureAlert(const std::string& value) {
+  doc().setFormField(path(), "failureAlert", value);
 }
 
 ScheduledJobEntryWorkDefinitionForm::ScheduledJobEntryWorkDefinitionForm(som::SpecDocument& doc, std::string path)

@@ -1319,12 +1319,20 @@ class DataAttributeEntry extends DocSpecsSection {
       'domainEnum',
       String,
       'Domain Enum',
-      required: true,
       hint:
           'DomainEnumEntry.enumName this attribute is typed by (e.g. '
           'OrderStatus) — declared once in the domain enum register, not '
-          'restated here',
+          'restated here. Leave empty while the enum is only proposed',
       refersTo: ['DMENE.enumName'],
+    ),
+    Field(
+      'proposedEnum',
+      String,
+      'Proposed Enum',
+      hint:
+          'The name of an enum not yet in the domain enum register — set '
+          'instead of domainEnum until the enum is registered, then moved '
+          'there',
     ),
   ])
   @SerializationOrder(8)

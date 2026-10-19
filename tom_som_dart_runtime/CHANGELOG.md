@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.6
+
+- Version aligned with the TomSpecs model (1.6.6); no library change.
+- Conformance: `referenceAcrossRegistries` / `referenceAcrossRegistriesDangling`
+  hold a reference field that names registries of two different classes — an
+  id either declares resolves, one neither declares is a `danglingReference`.
+  The corpus model's `RegistryLink` form gains the `crossRefs` field for it.
+
 ## 1.6.3
 
 - The markdown codec round-trips exactly: `parse(toMarkdown(doc))` stages every

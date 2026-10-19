@@ -82696,6 +82696,15 @@ public final class TomSomV0 {
     public void domainEnum(String value) {
       doc.setFormField(path, "domainEnum", value);
     }
+
+    public String proposedEnum() {
+      String v = doc.formField(path, "proposedEnum");
+      return v == null ? "" : v;
+    }
+
+    public void proposedEnum(String value) {
+      doc.setFormField(path, "proposedEnum", value);
+    }
   }
 
   // Generated section facade for the `fileReferenceOptions` @Form section: its own content
@@ -121414,6 +121423,15 @@ public final class TomSomV0 {
 
     public void errorCodes(String value) {
       doc.setFormField(path, "errorCodes", value);
+    }
+
+    public String protocolErrorCodes() {
+      String v = doc.formField(path, "protocolErrorCodes");
+      return v == null ? "" : v;
+    }
+
+    public void protocolErrorCodes(String value) {
+      doc.setFormField(path, "protocolErrorCodes", value);
     }
 
     public String retryableErrors() {
@@ -172589,6 +172607,15 @@ public final class TomSomV0 {
 
     public void failureAlertMessage(String value) {
       doc.setFormField(path, "failureAlertMessage", value);
+    }
+
+    public String failureAlert() {
+      String v = doc.formField(path, "failureAlert");
+      return v == null ? "" : v;
+    }
+
+    public void failureAlert(String value) {
+      doc.setFormField(path, "failureAlert", value);
     }
   }
 

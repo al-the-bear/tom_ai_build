@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-19T23:28:49.054267 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T00:14:30.988494 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -358108,6 +358108,11 @@ BridgedClass _createDataAttributeEntryEnumerationTypeOptionsFormBridge() {
             $tom_som_dart_v0_1.DataAttributeEntryEnumerationTypeOptionsForm
           >(target, 'DataAttributeEntryEnumerationTypeOptionsForm')
           .domainEnum,
+      'proposedEnum': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataAttributeEntryEnumerationTypeOptionsForm
+          >(target, 'DataAttributeEntryEnumerationTypeOptionsForm')
+          .proposedEnum,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.DataAttributeEntryEnumerationTypeOptionsForm
@@ -358158,6 +358163,15 @@ BridgedClass _createDataAttributeEntryEnumerationTypeOptionsFormBridge() {
             value,
             'domainEnum',
           ),
+      'proposedEnum': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataAttributeEntryEnumerationTypeOptionsForm
+              >(target, 'DataAttributeEntryEnumerationTypeOptionsForm')
+              .proposedEnum = D4.extractBridgedArg<String>(
+            value,
+            'proposedEnum',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -358193,6 +358207,7 @@ BridgedClass _createDataAttributeEntryEnumerationTypeOptionsFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'domainEnum': 'String get domainEnum',
+      'proposedEnum': 'String get proposedEnum',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -358203,6 +358218,7 @@ BridgedClass _createDataAttributeEntryEnumerationTypeOptionsFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'domainEnum': 'set domainEnum(String value)',
+      'proposedEnum': 'set proposedEnum(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -495049,6 +495065,12 @@ BridgedClass _createInterfaceErrorHandlingContentFormBridge() {
             'InterfaceErrorHandlingContentForm',
           )
           .errorCodes,
+      'protocolErrorCodes': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.InterfaceErrorHandlingContentForm>(
+            target,
+            'InterfaceErrorHandlingContentForm',
+          )
+          .protocolErrorCodes,
       'retryableErrors': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.InterfaceErrorHandlingContentForm>(
             target,
@@ -495120,6 +495142,15 @@ BridgedClass _createInterfaceErrorHandlingContentFormBridge() {
             value,
             'errorCodes',
           ),
+      'protocolErrorCodes': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.InterfaceErrorHandlingContentForm
+              >(target, 'InterfaceErrorHandlingContentForm')
+              .protocolErrorCodes = D4.extractBridgedArg<String>(
+            value,
+            'protocolErrorCodes',
+          ),
       'retryableErrors': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -495165,6 +495196,7 @@ BridgedClass _createInterfaceErrorHandlingContentFormBridge() {
       'content': 'String get content',
       'errorFormat': 'String get errorFormat',
       'errorCodes': 'String get errorCodes',
+      'protocolErrorCodes': 'String get protocolErrorCodes',
       'retryableErrors': 'String get retryableErrors',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -495177,6 +495209,7 @@ BridgedClass _createInterfaceErrorHandlingContentFormBridge() {
       'content': 'set content(String value)',
       'errorFormat': 'set errorFormat(String value)',
       'errorCodes': 'set errorCodes(String value)',
+      'protocolErrorCodes': 'set protocolErrorCodes(String value)',
       'retryableErrors': 'set retryableErrors(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -672906,6 +672939,11 @@ BridgedClass _createScheduledJobEntryFailurePolicyFormBridge() {
             $tom_som_dart_v0_1.ScheduledJobEntryFailurePolicyForm
           >(target, 'ScheduledJobEntryFailurePolicyForm')
           .failureAlertMessage,
+      'failureAlert': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryFailurePolicyForm
+          >(target, 'ScheduledJobEntryFailurePolicyForm')
+          .failureAlert,
       'doc': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.ScheduledJobEntryFailurePolicyForm
@@ -672983,6 +673021,15 @@ BridgedClass _createScheduledJobEntryFailurePolicyFormBridge() {
             value,
             'failureAlertMessage',
           ),
+      'failureAlert': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryFailurePolicyForm
+              >(target, 'ScheduledJobEntryFailurePolicyForm')
+              .failureAlert = D4.extractBridgedArg<String>(
+            value,
+            'failureAlert',
+          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -673021,6 +673068,7 @@ BridgedClass _createScheduledJobEntryFailurePolicyFormBridge() {
       'retryBackoff': 'String get retryBackoff',
       'timeout': 'String get timeout',
       'failureAlertMessage': 'String get failureAlertMessage',
+      'failureAlert': 'String get failureAlert',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -673034,6 +673082,7 @@ BridgedClass _createScheduledJobEntryFailurePolicyFormBridge() {
       'retryBackoff': 'set retryBackoff(String value)',
       'timeout': 'set timeout(String value)',
       'failureAlertMessage': 'set failureAlertMessage(String value)',
+      'failureAlert': 'set failureAlert(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',

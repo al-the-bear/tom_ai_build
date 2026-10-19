@@ -43653,6 +43653,8 @@ class DataAttributeEntryEnumerationTypeOptionsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string domainEnum() const;
   void setDomainEnum(const std::string& value);
+  std::string proposedEnum() const;
+  void setProposedEnum(const std::string& value);
 };
 
 // Generated section facade for the `fileReferenceOptions` @Form section: its own `content` text followed by one typed member per form field.
@@ -55637,6 +55639,8 @@ class InterfaceErrorHandlingContentForm : public som::SomNode {
   void setErrorFormat(const std::string& value);
   std::string errorCodes() const;
   void setErrorCodes(const std::string& value);
+  std::string protocolErrorCodes() const;
+  void setProtocolErrorCodes(const std::string& value);
   std::string retryableErrors() const;
   void setRetryableErrors(const std::string& value);
 };
@@ -71275,6 +71279,8 @@ class ScheduledJobEntryFailurePolicyForm : public som::SomNode {
   void setTimeout(const std::string& value);
   std::string failureAlertMessage() const;
   void setFailureAlertMessage(const std::string& value);
+  std::string failureAlert() const;
+  void setFailureAlert(const std::string& value);
 };
 
 // Generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.

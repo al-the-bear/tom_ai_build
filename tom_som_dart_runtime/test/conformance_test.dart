@@ -2068,6 +2068,14 @@ Map<String, dynamic> _buildMeta() => {
               'type': 'String',
               'refersTo': ['RGE.code', 'RGE.@sectionId'],
             },
+            {
+              // Two registries of different classes: a segment resolves
+              // when either declares it — an entry id or a link id.
+              'name': 'crossRefs',
+              'label': 'Cross Refs',
+              'type': 'String',
+              'refersTo': ['RGE.@sectionId', 'RGL.@sectionId'],
+            },
             // vsctsa43: two stated counts over the same registry — every
             // entry, and only the entries whose own form says `code: ALPHA`.
             {
@@ -2726,6 +2734,26 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         alphaCount: 'two',
       ),
     ),
+    // A field naming two registries accepts an id from either, and still
+    // reports a segment neither declares.
+    caseFor(
+      'referenceAcrossRegistries',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA',
+        crossRefs: 'RGE-ALPHA, RGL-1',
+      ),
+    ),
+    caseFor(
+      'referenceAcrossRegistriesDangling',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA',
+        crossRefs: 'RGE-2, RGL-9',
+      ),
+    ),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
@@ -2747,6 +2775,7 @@ Map<String, Object?> _registryState({
   required String anyRefs,
   String? entryCount,
   String? alphaCount,
+  String? crossRefs,
 }) => {
   'forms': {
     'DEMO/REG/RGE-LST-1/RGE-DET': {'code': 'ALPHA', 'label': 'Alpha'},
@@ -2757,6 +2786,7 @@ Map<String, Object?> _registryState({
       'anyRefs': anyRefs,
       'entryCount': ?entryCount,
       'alphaCount': ?alphaCount,
+      'crossRefs': ?crossRefs,
     },
   },
   'lists': {

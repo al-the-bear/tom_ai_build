@@ -13074,8 +13074,9 @@ form-types:
   daatt-dten-form:
     fields:
       - fieldname: domainEnum
-        required: true
-        description: "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here"
+        description: "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here. Leave empty while the enum is only proposed"
+      - fieldname: proposedEnum
+        description: "The name of an enum not yet in the domain enum register — set instead of domainEnum until the enum is registered, then moved there"
   daatt-deri-form:
     fields:
       - fieldname: isComputed
@@ -18803,7 +18804,9 @@ form-types:
       - fieldname: timeout
         description: "How long a single run may take before it is abandoned, if not the default"
       - fieldname: failureAlertMessage
-        description: The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.
+        description: The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.
+      - fieldname: failureAlert
+        description: The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)
   adenma-form:
     fields:
       - fieldname: environmentCatalog
