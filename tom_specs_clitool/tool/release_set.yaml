@@ -98,6 +98,11 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_model: >-
+    Since 1.6.1: documentation only. som_multiplatform_spec_model.md states the
+    exact markdown round trip (slot markers, <br> headlines, blank lines kept;
+    SOM §11.2/§11.3/§11.6/§11.7/§12.4/§12.7), which tom_som_dart_runtime 1.6.3
+    implements. Rides the next model release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced
