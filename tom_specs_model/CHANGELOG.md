@@ -1,3 +1,32 @@
+## 1.6.3
+
+- SCCO `relatedInteractions` resolves against the interactions (`INEN`).
+  Fields that hold prose rather than ids now say so in their hints instead of
+  promising `BR-xxx` / `INT-xxx` / `ISC-xxx` ids: the use-case rule lists
+  (validation, calculation, authorization, workflow, notification,
+  integration), MNSST `businessRuleApplied`, INTR `relatedUseCase` (ids of the
+  Interaction Scenarios document) and `earliestPossibleStage`.
+- Cross-references that were plain text resolve: `refersTo` on PICLS
+  `parentProcess` (`BPREN`), PCRLT `sourceProcess` / `targetProcess` (`BPREN`
+  or `CUBIPR`), INID `processReference` and INTR `relatedProcess` (`BPREN`),
+  INTR `relatedDataEntities` (`DAENT.entityName`), `relatedBusinessObjects`
+  (`BJOEN`), `relatedBusinessRules` (`BIRU`), `relatedIntegrations` (`EIE`),
+  SSEC `interactionReference` (`INEN`), TMED `dependsOnPhases` (`TRPHE`) and
+  `dependsOnMilestones` (`TRMIL`), TESCBU `businessProcessRef` (`BPREN`),
+  TESCTR `acceptanceCriterionRef` (`DACEN`), and every `targetStage` /
+  `fallbackStage` (`STAGE`). A wrong id is a `danglingReference` in every
+  runtime. The feature priority register's `targetStage` is no longer required:
+  a feature planned into no stage (Won't this time) leaves it empty.
+- The remaining nine `@Reference` sections hold a resolvable id too:
+  `KEATT-REFE-REF`, `ENRLE-SOUR-REF`, `ENRLE-TARG-REF` and `DAENRE-RELA-REF`
+  (data entity, `DAENT`), `BIRURE-RULE-REF` (business rule, `BIRU`),
+  `AFOB-OBJE-REF` (business object, `BJOEN`), `AFFN-FUNC-REF` (function,
+  `FUNCT`), `RQDEP-RELA-REF` (requirement: `FRE`, `TERQ`, `SECRQ` or `ORRQ`) and
+  `RQTSC-RELA-REF` (acceptance criterion, `ACE`) each have a one-field form `ref`
+  whose field declares `refersTo` its registries. Every `@Reference` of the
+  model now has that shape; a document that wrote the id as the section's text
+  moves it into `ref`.
+
 ## 1.6.2
 
 - Reference sections hold a resolvable id. `EXSDE-PRIM-REF`, `SYDE-SOUR-REF`,

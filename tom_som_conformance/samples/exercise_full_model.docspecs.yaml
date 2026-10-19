@@ -670,7 +670,8 @@ document:
                     content:
                       content: Exercise form preamble.
                       crudOperations: "Exercise value."
-                    DAENRE-RELA-REF relatedEntity: Exercise text.
+                    DAENRE-RELA-REF relatedEntity:
+                      content: Exercise form preamble.
               RUS uiSpecification:
                 content: Exercise text.
                 RUS-UIFO uiForm:
@@ -810,7 +811,8 @@ document:
                     content:
                       content: Exercise form preamble.
                       dependencyType: "Exercise value."
-                    RQDEP-RELA-REF relatedRequirement: Exercise text.
+                    RQDEP-RELA-REF relatedRequirement:
+                      content: Exercise form preamble.
               RT traceability:
                 content: Exercise text.
                 RT-TRAC traceabilityForm:
@@ -830,7 +832,8 @@ document:
                       expectedResult: "Exercise value."
                     RTCEA automation:
                       content: Exercise form preamble.
-                    RQTSC-RELA-REF relatedCriterion: Exercise text.
+                    RQTSC-RELA-REF relatedCriterion:
+                      content: Exercise form preamble.
         TR1 technicalRequirements:
           content: Exercise text.
           TR1-SUMM summaryForm:
@@ -3517,7 +3520,8 @@ document:
                   content: Exercise form preamble.
                 KEAGV governance:
                   content: Exercise form preamble.
-                KEATT-REFE-REF referencedEntityRef: Exercise text.
+                KEATT-REFE-REF referencedEntityRef:
+                  content: Exercise form preamble.
             ENIDX-INDE-LST indexes:
               ENIDX-INDE-1:
                 content:
@@ -3547,8 +3551,10 @@ document:
                 RELAT-RELA-1:
                   content:
                     content: Exercise form preamble.
-              ENRLE-SOUR-REF sourceEntityRef: Exercise text.
-              ENRLE-TARG-REF targetEntityRef: Exercise text.
+              ENRLE-SOUR-REF sourceEntityRef:
+                content: Exercise form preamble.
+              ENRLE-TARG-REF targetEntityRef:
+                content: Exercise form preamble.
         DATCL dataClassification:
           content: Exercise text.
           DATCL-OVER overview:
@@ -3621,7 +3627,8 @@ document:
               BIRURE-KEYB-1:
                 content:
                   content: Exercise form preamble.
-                BIRURE-RULE-REF ruleRef: Exercise text.
+                BIRURE-RULE-REF ruleRef:
+                  content: Exercise form preamble.
             LFTRS-LIFE-LST lifecycleTransitions:
               LFTRS-LIFE-1:
                 content:
@@ -3698,12 +3705,14 @@ document:
               AFOB-AFFE-1:
                 content:
                   content: Exercise form preamble.
-                AFOB-OBJE-REF objectRef: Exercise text.
+                AFOB-OBJE-REF objectRef:
+                  content: Exercise form preamble.
             AFFN-AFFE-LST affectedFunctions:
               AFFN-AFFE-1:
                 content:
                   content: Exercise form preamble.
-                AFFN-FUNC-REF functionRef: Exercise text.
+                AFFN-FUNC-REF functionRef:
+                  content: Exercise form preamble.
             RULEXM-EXAM-LST examples:
               RULEXM-EXAM-1:
                 content:
@@ -9644,7 +9653,6 @@ document:
                   moscowTier: "must"
                 FESTAS stageAssignment:
                   content: Exercise form preamble.
-                  targetStage: "Exercise value."
                 FEDEIN dependencies:
                   content: Exercise form preamble.
                 FEST-STAK-LST stakeholders:
@@ -9675,7 +9683,7 @@ document:
                   content: Exercise form preamble.
                 MESA stageAssignment:
                   content: Exercise form preamble.
-                  targetStage: "Exercise value."
+                  targetStage: "STAGE-STAG-1"
                 MOENTR traceability:
                   content: Exercise form preamble.
           FESTMA featureStageMatrix:
@@ -9690,7 +9698,7 @@ document:
                   featureId: "FPE-ITEM-1"
                 FSMA assignment:
                   content: Exercise form preamble.
-                  targetStage: "Exercise value."
+                  targetStage: "STAGE-STAG-1"
                 FSMR readiness:
                   content: Exercise form preamble.
                   readinessStatus: "Exercise value."

@@ -1572,17 +1572,12 @@ AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedF
   free(path);
   return out;
 }
-char *affected_function_entry_function_ref(const AffectedFunctionEntry *self) {
+AffectedFunctionEntryFunctionRefForm affected_function_entry_function_ref(const AffectedFunctionEntry *self) {
   char *path = spec_path_join(self->node.path, "AFFN-FUNC-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  AffectedFunctionEntryFunctionRefForm out;
+  affected_function_entry_function_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void affected_function_entry_set_function_ref(AffectedFunctionEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "AFFN-FUNC-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void affected_object_entry_init(AffectedObjectEntry *self, SpecDocument *doc, const char *path) {
@@ -1602,17 +1597,12 @@ AffectedObjectEntryContentForm affected_object_entry_content(const AffectedObjec
   free(path);
   return out;
 }
-char *affected_object_entry_object_ref(const AffectedObjectEntry *self) {
+AffectedObjectEntryObjectRefForm affected_object_entry_object_ref(const AffectedObjectEntry *self) {
   char *path = spec_path_join(self->node.path, "AFOB-OBJE-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  AffectedObjectEntryObjectRefForm out;
+  affected_object_entry_object_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void affected_object_entry_set_object_ref(AffectedObjectEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "AFOB-OBJE-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void alert_definition_entry_init(AlertDefinitionEntry *self, SpecDocument *doc, const char *path) {
@@ -5308,17 +5298,12 @@ BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(cons
   free(path);
   return out;
 }
-char *business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self) {
+BusinessRuleReferenceEntryRuleRefForm business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self) {
   char *path = spec_path_join(self->node.path, "BIRURE-RULE-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  BusinessRuleReferenceEntryRuleRefForm out;
+  business_rule_reference_entry_rule_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void business_rule_reference_entry_set_rule_ref(BusinessRuleReferenceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "BIRURE-RULE-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void capacity_planning_section_init(CapacityPlanningSection *self, SpecDocument *doc, const char *path) {
@@ -12780,17 +12765,12 @@ DataEntityReferenceEntryContentForm data_entity_reference_entry_content(const Da
   free(path);
   return out;
 }
-char *data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self) {
+DataEntityReferenceEntryRelatedEntityForm data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self) {
   char *path = spec_path_join(self->node.path, "DAENRE-RELA-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  DataEntityReferenceEntryRelatedEntityForm out;
+  data_entity_reference_entry_related_entity_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void data_entity_reference_entry_set_related_entity(DataEntityReferenceEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "DAENRE-RELA-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void data_format_compatibility_init(DataFormatCompatibility *self, SpecDocument *doc, const char *path) {
@@ -17807,29 +17787,19 @@ SomList entity_relationship_entry_relationship_attributes(const EntityRelationsh
   free(path);
   return out;
 }
-char *entity_relationship_entry_source_entity_ref(const EntityRelationshipEntry *self) {
+EntityRelationshipEntrySourceEntityRefForm entity_relationship_entry_source_entity_ref(const EntityRelationshipEntry *self) {
   char *path = spec_path_join(self->node.path, "ENRLE-SOUR-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  EntityRelationshipEntrySourceEntityRefForm out;
+  entity_relationship_entry_source_entity_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-void entity_relationship_entry_set_source_entity_ref(EntityRelationshipEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "ENRLE-SOUR-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
-}
-char *entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self) {
+EntityRelationshipEntryTargetEntityRefForm entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self) {
   char *path = spec_path_join(self->node.path, "ENRLE-TARG-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  EntityRelationshipEntryTargetEntityRefForm out;
+  entity_relationship_entry_target_entity_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void entity_relationship_entry_set_target_entity_ref(EntityRelationshipEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "ENRLE-TARG-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void entity_relationships_init(EntityRelationships *self, SpecDocument *doc, const char *path) {
@@ -24435,17 +24405,12 @@ KeyAttributeEntryGovernanceForm key_attribute_entry_governance(const KeyAttribut
   free(path);
   return out;
 }
-char *key_attribute_entry_referenced_entity_ref(const KeyAttributeEntry *self) {
+KeyAttributeEntryReferencedEntityRefForm key_attribute_entry_referenced_entity_ref(const KeyAttributeEntry *self) {
   char *path = spec_path_join(self->node.path, "KEATT-REFE-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  KeyAttributeEntryReferencedEntityRefForm out;
+  key_attribute_entry_referenced_entity_ref_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void key_attribute_entry_set_referenced_entity_ref(KeyAttributeEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "KEATT-REFE-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void key_compromise_recovery_policy_init(KeyCompromiseRecoveryPolicy *self, SpecDocument *doc, const char *path) {
@@ -35465,17 +35430,12 @@ RequirementDependencyEntryContentForm requirement_dependency_entry_content(const
   free(path);
   return out;
 }
-char *requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self) {
+RequirementDependencyEntryRelatedRequirementForm requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self) {
   char *path = spec_path_join(self->node.path, "RQDEP-RELA-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  RequirementDependencyEntryRelatedRequirementForm out;
+  requirement_dependency_entry_related_requirement_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void requirement_dependency_entry_set_related_requirement(RequirementDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "RQDEP-RELA-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void requirement_relationships_init(RequirementRelationships *self, SpecDocument *doc, const char *path) {
@@ -35557,17 +35517,12 @@ RequirementTestCaseEntryAutomationForm requirement_test_case_entry_automation(co
   free(path);
   return out;
 }
-char *requirement_test_case_entry_related_criterion(const RequirementTestCaseEntry *self) {
+RequirementTestCaseEntryRelatedCriterionForm requirement_test_case_entry_related_criterion(const RequirementTestCaseEntry *self) {
   char *path = spec_path_join(self->node.path, "RQTSC-RELA-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  RequirementTestCaseEntryRelatedCriterionForm out;
+  requirement_test_case_entry_related_criterion_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void requirement_test_case_entry_set_related_criterion(RequirementTestCaseEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "RQTSC-RELA-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void requirement_test_cases_init(RequirementTestCases *self, SpecDocument *doc, const char *path) {
@@ -53931,6 +53886,27 @@ void affected_function_entry_content_form_set_is_mandatory(AffectedFunctionEntry
   spec_document_set_form_field(self->node.doc, self->node.path, "isMandatory", value);
 }
 
+void affected_function_entry_function_ref_form_init(AffectedFunctionEntryFunctionRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void affected_function_entry_function_ref_form_free(AffectedFunctionEntryFunctionRefForm *self) {
+  som_node_free(&self->node);
+}
+char *affected_function_entry_function_ref_form_content(const AffectedFunctionEntryFunctionRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void affected_function_entry_function_ref_form_set_content(AffectedFunctionEntryFunctionRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *affected_function_entry_function_ref_form_ref(const AffectedFunctionEntryFunctionRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void affected_function_entry_function_ref_form_set_ref(AffectedFunctionEntryFunctionRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
 void affected_object_entry_content_form_init(AffectedObjectEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -53964,6 +53940,27 @@ char *affected_object_entry_content_form_access_type(const AffectedObjectEntryCo
 }
 void affected_object_entry_content_form_set_access_type(AffectedObjectEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "accessType", value);
+}
+
+void affected_object_entry_object_ref_form_init(AffectedObjectEntryObjectRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void affected_object_entry_object_ref_form_free(AffectedObjectEntryObjectRefForm *self) {
+  som_node_free(&self->node);
+}
+char *affected_object_entry_object_ref_form_content(const AffectedObjectEntryObjectRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void affected_object_entry_object_ref_form_set_content(AffectedObjectEntryObjectRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *affected_object_entry_object_ref_form_ref(const AffectedObjectEntryObjectRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void affected_object_entry_object_ref_form_set_ref(AffectedObjectEntryObjectRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void alert_definition_entry_condition_form_init(AlertDefinitionEntryConditionForm *self, SpecDocument *doc, const char *path) {
@@ -63104,6 +63101,27 @@ char *business_rule_reference_entry_content_form_consequence_on_violation(const 
 }
 void business_rule_reference_entry_content_form_set_consequence_on_violation(BusinessRuleReferenceEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "consequenceOnViolation", value);
+}
+
+void business_rule_reference_entry_rule_ref_form_init(BusinessRuleReferenceEntryRuleRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void business_rule_reference_entry_rule_ref_form_free(BusinessRuleReferenceEntryRuleRefForm *self) {
+  som_node_free(&self->node);
+}
+char *business_rule_reference_entry_rule_ref_form_content(const BusinessRuleReferenceEntryRuleRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void business_rule_reference_entry_rule_ref_form_set_content(BusinessRuleReferenceEntryRuleRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *business_rule_reference_entry_rule_ref_form_ref(const BusinessRuleReferenceEntryRuleRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void business_rule_reference_entry_rule_ref_form_set_ref(BusinessRuleReferenceEntryRuleRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void capacity_review_process_content_form_init(CapacityReviewProcessContentForm *self, SpecDocument *doc, const char *path) {
@@ -77283,6 +77301,27 @@ void data_entity_reference_entry_content_form_set_data_owner(DataEntityReference
   spec_document_set_form_field(self->node.doc, self->node.path, "dataOwner", value);
 }
 
+void data_entity_reference_entry_related_entity_form_init(DataEntityReferenceEntryRelatedEntityForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_entity_reference_entry_related_entity_form_free(DataEntityReferenceEntryRelatedEntityForm *self) {
+  som_node_free(&self->node);
+}
+char *data_entity_reference_entry_related_entity_form_content(const DataEntityReferenceEntryRelatedEntityForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_reference_entry_related_entity_form_set_content(DataEntityReferenceEntryRelatedEntityForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_entity_reference_entry_related_entity_form_ref(const DataEntityReferenceEntryRelatedEntityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_entity_reference_entry_related_entity_form_set_ref(DataEntityReferenceEntryRelatedEntityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
 void data_format_compatibility_content_form_init(DataFormatCompatibilityContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -89552,6 +89591,48 @@ char *entity_relationship_entry_referential_integrity_form_orphan_handling(const
 }
 void entity_relationship_entry_referential_integrity_form_set_orphan_handling(EntityRelationshipEntryReferentialIntegrityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "orphanHandling", value);
+}
+
+void entity_relationship_entry_source_entity_ref_form_init(EntityRelationshipEntrySourceEntityRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void entity_relationship_entry_source_entity_ref_form_free(EntityRelationshipEntrySourceEntityRefForm *self) {
+  som_node_free(&self->node);
+}
+char *entity_relationship_entry_source_entity_ref_form_content(const EntityRelationshipEntrySourceEntityRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void entity_relationship_entry_source_entity_ref_form_set_content(EntityRelationshipEntrySourceEntityRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *entity_relationship_entry_source_entity_ref_form_ref(const EntityRelationshipEntrySourceEntityRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void entity_relationship_entry_source_entity_ref_form_set_ref(EntityRelationshipEntrySourceEntityRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
+void entity_relationship_entry_target_entity_ref_form_init(EntityRelationshipEntryTargetEntityRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void entity_relationship_entry_target_entity_ref_form_free(EntityRelationshipEntryTargetEntityRefForm *self) {
+  som_node_free(&self->node);
+}
+char *entity_relationship_entry_target_entity_ref_form_content(const EntityRelationshipEntryTargetEntityRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void entity_relationship_entry_target_entity_ref_form_set_content(EntityRelationshipEntryTargetEntityRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *entity_relationship_entry_target_entity_ref_form_ref(const EntityRelationshipEntryTargetEntityRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void entity_relationship_entry_target_entity_ref_form_set_ref(EntityRelationshipEntryTargetEntityRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void entry_point_entry_content_form_init(EntryPointEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -106389,6 +106470,27 @@ char *key_attribute_entry_reference_form_on_update_action(const KeyAttributeEntr
 }
 void key_attribute_entry_reference_form_set_on_update_action(KeyAttributeEntryReferenceForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "onUpdateAction", value);
+}
+
+void key_attribute_entry_referenced_entity_ref_form_init(KeyAttributeEntryReferencedEntityRefForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void key_attribute_entry_referenced_entity_ref_form_free(KeyAttributeEntryReferencedEntityRefForm *self) {
+  som_node_free(&self->node);
+}
+char *key_attribute_entry_referenced_entity_ref_form_content(const KeyAttributeEntryReferencedEntityRefForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void key_attribute_entry_referenced_entity_ref_form_set_content(KeyAttributeEntryReferencedEntityRefForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *key_attribute_entry_referenced_entity_ref_form_ref(const KeyAttributeEntryReferencedEntityRefForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void key_attribute_entry_referenced_entity_ref_form_set_ref(KeyAttributeEntryReferencedEntityRefForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void key_compromise_recovery_policy_content_form_init(KeyCompromiseRecoveryPolicyContentForm *self, SpecDocument *doc, const char *path) {
@@ -134663,6 +134765,27 @@ void requirement_dependency_entry_content_form_set_impact(RequirementDependencyE
   spec_document_set_form_field(self->node.doc, self->node.path, "impact", value);
 }
 
+void requirement_dependency_entry_related_requirement_form_init(RequirementDependencyEntryRelatedRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void requirement_dependency_entry_related_requirement_form_free(RequirementDependencyEntryRelatedRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *requirement_dependency_entry_related_requirement_form_content(const RequirementDependencyEntryRelatedRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void requirement_dependency_entry_related_requirement_form_set_content(RequirementDependencyEntryRelatedRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *requirement_dependency_entry_related_requirement_form_ref(const RequirementDependencyEntryRelatedRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void requirement_dependency_entry_related_requirement_form_set_ref(RequirementDependencyEntryRelatedRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
 void requirement_screen_action_entry_content_form_init(RequirementScreenActionEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -134913,6 +135036,27 @@ char *requirement_test_case_entry_execution_form_expected_result(const Requireme
 }
 void requirement_test_case_entry_execution_form_set_expected_result(RequirementTestCaseEntryExecutionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "expectedResult", value);
+}
+
+void requirement_test_case_entry_related_criterion_form_init(RequirementTestCaseEntryRelatedCriterionForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void requirement_test_case_entry_related_criterion_form_free(RequirementTestCaseEntryRelatedCriterionForm *self) {
+  som_node_free(&self->node);
+}
+char *requirement_test_case_entry_related_criterion_form_content(const RequirementTestCaseEntryRelatedCriterionForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void requirement_test_case_entry_related_criterion_form_set_content(RequirementTestCaseEntryRelatedCriterionForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *requirement_test_case_entry_related_criterion_form_ref(const RequirementTestCaseEntryRelatedCriterionForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void requirement_test_case_entry_related_criterion_form_set_ref(RequirementTestCaseEntryRelatedCriterionForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void requirement_traceability_artifacts_form_init(RequirementTraceabilityArtifactsForm *self, SpecDocument *doc, const char *path) {

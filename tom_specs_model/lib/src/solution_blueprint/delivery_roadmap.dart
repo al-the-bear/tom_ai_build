@@ -3161,12 +3161,16 @@ class MoscowEntry extends DocSpecsSection {
       'Target Stage',
       hint: 'Stage in which this feature is planned for delivery',
       required: true,
+      refersTo: ['STAGE.@sectionId'],
     ),
     Field(
       'earliestPossibleStage',
       String,
       'Earliest Possible Stage',
-      hint: 'Earliest stage where prerequisites allow delivery',
+      hint:
+          'The earliest stage and what it waits for, as prose (e.g. '
+          "'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); "
+          'not resolved',
     ),
   ])
   @SerializationOrder(3)
@@ -3351,6 +3355,7 @@ class FeatureStageMapping extends DocSpecsSection {
       'Target Stage',
       hint: 'Stage in which this feature will be delivered',
       required: true,
+      refersTo: ['STAGE.@sectionId'],
     ),
     Field(
       'stagePhase',
@@ -3363,6 +3368,7 @@ class FeatureStageMapping extends DocSpecsSection {
       String,
       'Fallback Stage',
       hint: 'Stage to which this feature moves if cut from target stage',
+      refersTo: ['STAGE.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -3816,20 +3822,26 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'targetStage',
       String,
       'Target Stage',
-      hint: 'Planned delivery stage',
-      required: true,
+      hint:
+          'Planned delivery stage — a stage section id (STAGE-STAG-…); empty '
+          "for a feature planned into no stage (MoSCoW Won't this time)",
+      refersTo: ['STAGE.@sectionId'],
     ),
     Field(
       'earliestPossibleStage',
       String,
       'Earliest Possible Stage',
-      hint: 'Earliest stage prerequisites allow',
+      hint:
+          'The earliest stage and what it waits for, as prose (e.g. '
+          "'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); "
+          'not resolved',
     ),
     Field(
       'fallbackStage',
       String,
       'Fallback Stage',
       hint: 'Stage to defer to if cut from target',
+      refersTo: ['STAGE.@sectionId'],
     ),
     Field(
       'stageAssignmentRationale',

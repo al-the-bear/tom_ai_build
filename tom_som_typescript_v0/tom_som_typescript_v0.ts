@@ -2665,12 +2665,8 @@ export class AffectedFunctionEntry extends SomNode {
   // trigger point and the mandatory flag their meaning. Both are needed: one
   // rule may guard an entity that three functions write, and only one of those
   // functions may be entitled to skip the check.
-  get functionRef(): string {
-    return this.doc.content(this.path + "/AFFN-FUNC-REF") || '';
-  }
-
-  set functionRef(value: string) {
-    this.doc.setContent(this.path + "/AFFN-FUNC-REF", value);
+  get functionRef(): AffectedFunctionEntryFunctionRefForm {
+    return new AffectedFunctionEntryFunctionRefForm(this.doc, this.path + "/AFFN-FUNC-REF");
   }
 }
 
@@ -2697,12 +2693,8 @@ export class AffectedObjectEntry extends SomNode {
   // edge to the object itself, which is what lets a rule's impact set be
   // computed rather than read: given a rule, every object it touches, and
   // given an object, every rule that touches it.
-  get objectRef(): string {
-    return this.doc.content(this.path + "/AFOB-OBJE-REF") || '';
-  }
-
-  set objectRef(value: string) {
-    this.doc.setContent(this.path + "/AFOB-OBJE-REF", value);
+  get objectRef(): AffectedObjectEntryObjectRefForm {
+    return new AffectedObjectEntryObjectRefForm(this.doc, this.path + "/AFOB-OBJE-REF");
   }
 }
 
@@ -6005,12 +5997,8 @@ export class BusinessRuleReferenceEntry extends SomNode {
   // which is the whole point of the entry: the rule is stated once in
   // [BusinessRuleEntry] and cited from every object it governs, instead of
   // being copied into each of them and drifting.
-  get ruleRef(): string {
-    return this.doc.content(this.path + "/BIRURE-RULE-REF") || '';
-  }
-
-  set ruleRef(value: string) {
-    this.doc.setContent(this.path + "/BIRURE-RULE-REF", value);
+  get ruleRef(): BusinessRuleReferenceEntryRuleRefForm {
+    return new BusinessRuleReferenceEntryRuleRefForm(this.doc, this.path + "/BIRURE-RULE-REF");
   }
 }
 
@@ -12679,12 +12667,8 @@ export class DataEntityReferenceEntry extends SomNode {
   // It is also the edge the CE-DB data-access derivation reads
   // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
   // requirement whose data access cannot be generated.
-  get relatedEntity(): string {
-    return this.doc.content(this.path + "/DAENRE-RELA-REF") || '';
-  }
-
-  set relatedEntity(value: string) {
-    this.doc.setContent(this.path + "/DAENRE-RELA-REF", value);
+  get relatedEntity(): DataEntityReferenceEntryRelatedEntityForm {
+    return new DataEntityReferenceEntryRelatedEntityForm(this.doc, this.path + "/DAENRE-RELA-REF");
   }
 }
 
@@ -17067,12 +17051,8 @@ export class EntityRelationshipEntry extends SomNode {
   // outliner without recursing into it and validated by the schema generator
   // against the entity list. It is what makes an entity name that resolves to
   // nothing a detected error instead of a dangling string.
-  get sourceEntityRef(): string {
-    return this.doc.content(this.path + "/ENRLE-SOUR-REF") || '';
-  }
-
-  set sourceEntityRef(value: string) {
-    this.doc.setContent(this.path + "/ENRLE-SOUR-REF", value);
+  get sourceEntityRef(): EntityRelationshipEntrySourceEntityRefForm {
+    return new EntityRelationshipEntrySourceEntityRefForm(this.doc, this.path + "/ENRLE-SOUR-REF");
   }
 
   // The resolved link to the entity at the target end.
@@ -17083,12 +17063,8 @@ export class EntityRelationshipEntry extends SomNode {
   // `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
   // two ends changes what the cardinality band asserts even though the
   // business fact is unchanged.
-  get targetEntityRef(): string {
-    return this.doc.content(this.path + "/ENRLE-TARG-REF") || '';
-  }
-
-  set targetEntityRef(value: string) {
-    this.doc.setContent(this.path + "/ENRLE-TARG-REF", value);
+  get targetEntityRef(): EntityRelationshipEntryTargetEntityRefForm {
+    return new EntityRelationshipEntryTargetEntityRefForm(this.doc, this.path + "/ENRLE-TARG-REF");
   }
 }
 
@@ -22892,12 +22868,8 @@ export class KeyAttributeEntry extends SomNode {
   // makes an entity name that resolves to nothing a detected error rather than
   // a dangling string. Empty for every key type but a foreign key — a primary
   // or alternate key references nothing outside its own entity.
-  get referencedEntityRef(): string {
-    return this.doc.content(this.path + "/KEATT-REFE-REF") || '';
-  }
-
-  set referencedEntityRef(value: string) {
-    this.doc.setContent(this.path + "/KEATT-REFE-REF", value);
+  get referencedEntityRef(): KeyAttributeEntryReferencedEntityRefForm {
+    return new KeyAttributeEntryReferencedEntityRefForm(this.doc, this.path + "/KEATT-REFE-REF");
   }
 }
 
@@ -32641,12 +32613,8 @@ export class RequirementDependencyEntry extends SomNode {
   // (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
   // graph containing cycles — a conflict pair is one — without making the
   // document unwalkable.
-  get relatedRequirement(): string {
-    return this.doc.content(this.path + "/RQDEP-RELA-REF") || '';
-  }
-
-  set relatedRequirement(value: string) {
-    this.doc.setContent(this.path + "/RQDEP-RELA-REF", value);
+  get relatedRequirement(): RequirementDependencyEntryRelatedRequirementForm {
+    return new RequirementDependencyEntryRelatedRequirementForm(this.doc, this.path + "/RQDEP-RELA-REF");
   }
 }
 
@@ -32730,12 +32698,8 @@ export class RequirementTestCaseEntry extends SomNode {
   // It is also the coverage measure in the other direction: a criterion that
   // no test case points at is an acceptance condition nobody has undertaken
   // to check, and that is only visible when this link is filled in.
-  get relatedCriterion(): string {
-    return this.doc.content(this.path + "/RQTSC-RELA-REF") || '';
-  }
-
-  set relatedCriterion(value: string) {
-    this.doc.setContent(this.path + "/RQTSC-RELA-REF", value);
+  get relatedCriterion(): RequirementTestCaseEntryRelatedCriterionForm {
+    return new RequirementTestCaseEntryRelatedCriterionForm(this.doc, this.path + "/RQTSC-RELA-REF");
   }
 }
 
@@ -49964,6 +49928,33 @@ export class AffectedFunctionEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `functionRef` @Form section: its own content text followed by one typed member per form field.
+export class AffectedFunctionEntryFunctionRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class AffectedObjectEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -50004,6 +49995,33 @@ export class AffectedObjectEntryContentForm extends SomNode {
 
   set accessType(value: string) {
     this.doc.setFormField(this.path, "accessType", value);
+  }
+}
+
+// Generated section facade for the `objectRef` @Form section: its own content text followed by one typed member per form field.
+export class AffectedObjectEntryObjectRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -61192,6 +61210,33 @@ export class BusinessRuleReferenceEntryContentForm extends SomNode {
 
   set consequenceOnViolation(value: string) {
     this.doc.setFormField(this.path, "consequenceOnViolation", value);
+  }
+}
+
+// Generated section facade for the `ruleRef` @Form section: its own content text followed by one typed member per form field.
+export class BusinessRuleReferenceEntryRuleRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -78446,6 +78491,33 @@ export class DataEntityReferenceEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `relatedEntity` @Form section: its own content text followed by one typed member per form field.
+export class DataEntityReferenceEntryRelatedEntityForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class DataFormatCompatibilityContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -93397,6 +93469,60 @@ export class EntityRelationshipEntryReferentialIntegrityForm extends SomNode {
 
   set orphanHandling(value: string) {
     this.doc.setFormField(this.path, "orphanHandling", value);
+  }
+}
+
+// Generated section facade for the `sourceEntityRef` @Form section: its own content text followed by one typed member per form field.
+export class EntityRelationshipEntrySourceEntityRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
+// Generated section facade for the `targetEntityRef` @Form section: its own content text followed by one typed member per form field.
+export class EntityRelationshipEntryTargetEntityRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -113885,6 +114011,33 @@ export class KeyAttributeEntryReferenceForm extends SomNode {
 
   set onUpdateAction(value: string) {
     this.doc.setFormField(this.path, "onUpdateAction", value);
+  }
+}
+
+// Generated section facade for the `referencedEntityRef` @Form section: its own content text followed by one typed member per form field.
+export class KeyAttributeEntryReferencedEntityRefForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -148135,6 +148288,33 @@ export class RequirementDependencyEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `relatedRequirement` @Form section: its own content text followed by one typed member per form field.
+export class RequirementDependencyEntryRelatedRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class RequirementScreenActionEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -148432,6 +148612,33 @@ export class RequirementTestCaseEntryExecutionForm extends SomNode {
 
   set expectedResult(value: string) {
     this.doc.setFormField(this.path, "expectedResult", value);
+  }
+}
+
+// Generated section facade for the `relatedCriterion` @Form section: its own content text followed by one typed member per form field.
+export class RequirementTestCaseEntryRelatedCriterionForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 

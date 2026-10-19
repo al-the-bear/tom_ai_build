@@ -1215,7 +1215,7 @@ order_id
 References the owning order.
 ```
 
-### 103. `KEATT-REFE-REF` — `KeyAttributeEntry.referencedEntityRef`
+### 103. `KEATT-REFE-REF` — `KeyAttributeEntry.referencedEntityRef.ref`
 
 - headline: fk_line_order
 - instanceId: `KEATT-KEYA-2`
@@ -1223,7 +1223,7 @@ References the owning order.
 - routed by: `CodeSpecPart.dataAccess` declared on `KeyAttributeEntry`
 
 ``` text
-Order
+DAENT-ENTI-1
 ```
 
 ### 104. `DAENT-IDEN` — `DataEntityEntry.identity.entityName`
@@ -2179,7 +2179,7 @@ Bidirectional
 mom_order_line.order_id
 ```
 
-### 186. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
+### 186. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef.ref`
 
 - headline: Order-owns-Lines
 - instanceId: `ENRLE-ITEM-1`
@@ -2188,10 +2188,10 @@ mom_order_line.order_id
 - routing note: Foreign-key / association between tables.
 
 ``` text
-Order
+DAENT-ENTI-1
 ```
 
-### 187. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
+### 187. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef.ref`
 
 - headline: Order-owns-Lines
 - instanceId: `ENRLE-ITEM-1`
@@ -2200,7 +2200,7 @@ Order
 - routing note: Foreign-key / association between tables.
 
 ``` text
-OrderLine
+DAENT-ENTI-2
 ```
 
 ### 188. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.relationshipType`
@@ -2299,7 +2299,7 @@ Bidirectional
 mom_order.customer_id
 ```
 
-### 196. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
+### 196. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef.ref`
 
 - headline: Order-placed-by-Customer
 - instanceId: `ENRLE-ITEM-2`
@@ -2308,10 +2308,10 @@ mom_order.customer_id
 - routing note: Foreign-key / association between tables.
 
 ``` text
-Order
+DAENT-ENTI-1
 ```
 
-### 197. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
+### 197. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef.ref`
 
 - headline: Order-placed-by-Customer
 - instanceId: `ENRLE-ITEM-2`
@@ -2320,7 +2320,7 @@ Order
 - routing note: Foreign-key / association between tables.
 
 ``` text
-Customer
+DAENT-ENTI-3
 ```
 
 ### 198. `ENRLE-IDEN` — `EntityRelationshipEntry.identity.relationshipType`
@@ -2419,7 +2419,7 @@ Bidirectional
 mom_order_line.product_id
 ```
 
-### 206. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef`
+### 206. `ENRLE-SOUR-REF` — `EntityRelationshipEntry.sourceEntityRef.ref`
 
 - headline: Line-references-Product
 - instanceId: `ENRLE-ITEM-3`
@@ -2428,10 +2428,10 @@ mom_order_line.product_id
 - routing note: Foreign-key / association between tables.
 
 ``` text
-OrderLine
+DAENT-ENTI-2
 ```
 
-### 207. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef`
+### 207. `ENRLE-TARG-REF` — `EntityRelationshipEntry.targetEntityRef.ref`
 
 - headline: Line-references-Product
 - instanceId: `ENRLE-ITEM-3`
@@ -2440,6 +2440,6 @@ OrderLine
 - routing note: Foreign-key / association between tables.
 
 ``` text
-Product
+DAENT-ENTI-4
 ```
 

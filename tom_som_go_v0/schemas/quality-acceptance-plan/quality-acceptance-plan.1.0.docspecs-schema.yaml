@@ -2316,7 +2316,7 @@ form-types:
   tescbu-form:
     fields:
       - fieldname: businessProcessRef
-        description: ID or name of the business process being validated
+        description: The business process being validated — a section id (BPREN-PROC-…)
       - fieldname: businessRulesValidated
         description: Business rules this scenario verifies
       - fieldname: userRolePerforming
@@ -2330,7 +2330,7 @@ form-types:
       - fieldname: useCaseRef
         description: The related interaction — an interaction section id (INEN-INTE-…)
       - fieldname: acceptanceCriterionRef
-        description: Linked criterion ID
+        description: The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
       - fieldname: designRef
         description: UI screens or mockup references
   tescse-form:

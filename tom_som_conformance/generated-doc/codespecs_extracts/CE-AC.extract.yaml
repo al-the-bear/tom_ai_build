@@ -15,7 +15,7 @@ extract:
     citableParts: ["CE-EN", "CE-EL", "CE-FM", "CE-TX", "CE-VA", "CE-SC", "CE-API", "CE-ST", "CE-NV", "CE-AZ", "CE-ER", "CE-AU", "CE-ID", "CE-NT", "CE-RP"]
   document:
     root: "SBP"
-    entryCount: 154
+    entryCount: 151
   entries:
     - sectionId: "INID"
       headline: null
@@ -28,17 +28,6 @@ extract:
       routedAt: "InteractionEntry"
       routingNote: "CE-AC — a use case / interaction is a user-triggered action"
       value: "Capture Wholesale Order (EDI)"
-    - sectionId: "INID"
-      headline: null
-      instanceId: "INEN-INTE-UC-01"
-      path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-1/INID"
-      className: "InteractionEntry"
-      fieldName: "identification"
-      formField: "processReference"
-      routedBy: "CodeSpecPart.action"
-      routedAt: "InteractionEntry"
-      routingNote: "CE-AC — a use case / interaction is a user-triggered action"
-      value: "BP-Order-Capture"
     - sectionId: "INID"
       headline: null
       instanceId: "INEN-INTE-UC-01"
@@ -727,17 +716,6 @@ extract:
       path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/INID"
       className: "InteractionEntry"
       fieldName: "identification"
-      formField: "processReference"
-      routedBy: "CodeSpecPart.action"
-      routedAt: "InteractionEntry"
-      routingNote: "CE-AC — a use case / interaction is a user-triggered action"
-      value: "BP-Order-Exception"
-    - sectionId: "INID"
-      headline: null
-      instanceId: "INEN-INTE-UC-02"
-      path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-2/INID"
-      className: "InteractionEntry"
-      fieldName: "identification"
       formField: "briefDescription"
       routedBy: "CodeSpecPart.action"
       routedAt: "InteractionEntry"
@@ -974,17 +952,6 @@ extract:
       routedAt: "InteractionEntry"
       routingNote: "CE-AC — a use case / interaction is a user-triggered action"
       value: "Amend Order Line Before Dispatch"
-    - sectionId: "INID"
-      headline: null
-      instanceId: "INEN-INTE-UC-03"
-      path: "SBP/targetOperatingModelConcept/processStepsAndActorInteractions/interactionCatalog/INEN-INTE-LST-3/INID"
-      className: "InteractionEntry"
-      fieldName: "identification"
-      formField: "processReference"
-      routedBy: "CodeSpecPart.action"
-      routedAt: "InteractionEntry"
-      routingNote: "CE-AC — a use case / interaction is a user-triggered action"
-      value: "BP-Order-Amendment"
     - sectionId: "INID"
       headline: null
       instanceId: "INEN-INTE-UC-03"

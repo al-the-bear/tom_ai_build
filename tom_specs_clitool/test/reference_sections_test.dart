@@ -6,8 +6,8 @@
 //
 // RS-1 runs both halves over the real model for every such section, on the
 // full-model exercise sample, which holds at least one entry of every
-// registry. RS-2 holds the set of reference sections to the model, so a
-// reference added without a resolvable target fails here.
+// registry. RS-2 holds every `@Reference` section of the Blueprint to this
+// table, so a reference added without a resolvable target fails here.
 import 'dart:convert';
 import 'dart:io';
 
@@ -18,17 +18,27 @@ import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 final _aiBuild = p.normalize(p.join(Directory.current.path, '..'));
 
-/// Reference section id → the registry its `ref`/`refs` field resolves in.
+/// Reference section id → the registries its `ref`/`refs` field resolves in;
+/// the first is the one the test draws a valid id from.
 const _references = {
-  'EXSDE-PRIM-REF': 'ESENT',
-  'SYDE-SOUR-REF': 'ESENT',
-  'SYDE-TARG-REF': 'ESENT',
-  'SYIN-SOUR-REF': 'ESENT',
-  'SYIN-TARG-REF': 'ESENT',
-  'WAE-PART-REF': 'WSE',
-  'PME-PROC-REF': 'CUBIPR',
-  'SYTS-RELA-REF': 'INEN',
-  'GOLDE-RELA-REF': 'BGE',
+  'EXSDE-PRIM-REF': ['ESENT'],
+  'SYDE-SOUR-REF': ['ESENT'],
+  'SYDE-TARG-REF': ['ESENT'],
+  'SYIN-SOUR-REF': ['ESENT'],
+  'SYIN-TARG-REF': ['ESENT'],
+  'WAE-PART-REF': ['WSE'],
+  'PME-PROC-REF': ['CUBIPR'],
+  'SYTS-RELA-REF': ['INEN'],
+  'GOLDE-RELA-REF': ['BGE'],
+  'KEATT-REFE-REF': ['DAENT'],
+  'ENRLE-SOUR-REF': ['DAENT'],
+  'ENRLE-TARG-REF': ['DAENT'],
+  'DAENRE-RELA-REF': ['DAENT'],
+  'BIRURE-RULE-REF': ['BIRU'],
+  'AFOB-OBJE-REF': ['BJOEN'],
+  'AFFN-FUNC-REF': ['FUNCT'],
+  'RQDEP-RELA-REF': ['FRE', 'TERQ', 'SECRQ', 'ORRQ'],
+  'RQTSC-RELA-REF': ['ACE'],
 };
 
 void main() {
@@ -81,7 +91,9 @@ void main() {
       if (path.endsWith('/$referenceId')) path,
   ];
 
-  for (final MapEntry(key: referenceId, value: target) in _references.entries) {
+  for (final MapEntry(key: referenceId, value: targets)
+      in _references.entries) {
+    final target = targets.first;
     test('RS-1: $referenceId holds an id resolved against $target', () {
       final doc = sample();
       final paths = pathsOf(doc, referenceId);
@@ -111,6 +123,78 @@ void main() {
     });
   }
 
+  // RS-3: reference-valued form fields that used to be plain text. Each is
+  // keyed by its form's section id — a field-level `@Form`'s own id, else the
+  // id of the list entry whose transparent `content` form holds it.
+  const formReferences = {
+    ('PICLS', 'parentProcess'): ['BPREN'],
+    ('PCRLT', 'sourceProcess'): ['BPREN', 'CUBIPR'],
+    ('PCRLT', 'targetProcess'): ['BPREN', 'CUBIPR'],
+    ('INID', 'processReference'): ['BPREN'],
+    ('INTR', 'relatedProcess'): ['BPREN'],
+    ('INTR', 'relatedBusinessObjects'): ['BJOEN'],
+    ('INTR', 'relatedBusinessRules'): ['BIRU'],
+    ('INTR', 'relatedIntegrations'): ['EIE'],
+    ('SSEC', 'interactionReference'): ['INEN'],
+    ('SCCO', 'relatedInteractions'): ['INEN'],
+    ('TMED', 'dependsOnPhases'): ['TRPHE'],
+    ('TMED', 'dependsOnMilestones'): ['TRMIL'],
+    ('TESCBU', 'businessProcessRef'): ['BPREN'],
+    ('TESCTR', 'acceptanceCriterionRef'): ['DACEN'],
+    ('FESTAS', 'targetStage'): ['STAGE'],
+  };
+
+  String? formKey(String path) {
+    final res = refl.resolve(path);
+    final own = res?.field?.sectionId;
+    if (own != null) return own;
+    final parent = path.substring(0, path.lastIndexOf('/'));
+    return refl.resolve(parent)?.targetClass?.sectionId;
+  }
+
+  for (final MapEntry(key: (form, field), value: targets)
+      in formReferences.entries) {
+    test(
+      'RS-3: $form.$field holds ids resolved against ${targets.join('/')}',
+      () {
+        final doc = sample();
+        final paths = [
+          for (final path in {...doc.contentPaths, ...doc.formPaths})
+            if (formKey(path) == form &&
+                (refl.resolve(path)?.field?.formFields ?? const []).any(
+                  (f) => f.name == field,
+                ))
+              path,
+        ];
+        expect(paths, isNotEmpty, reason: 'no $form form in the sample');
+        final declared = refl
+            .resolve(paths.first)!
+            .field!
+            .formFields
+            .firstWhere((f) => f.name == field)
+            .refersTo;
+        expect(declared, [for (final t in targets) '$t.$kSectionIdSlot']);
+
+        List<SpecValidationError> dangling() => [
+          for (final e in validateDocument(model, doc))
+            if (e.code == SpecValidationCode.danglingReference &&
+                paths.contains(e.path) &&
+                e.message.contains('"$field"'))
+              e,
+        ];
+        final id = firstId(doc, targets.first);
+        for (final path in paths) {
+          doc.setFormField(path, field, id);
+        }
+        expect(dangling(), isEmpty, reason: 'a declared ${targets.first} id');
+        for (final path in paths) {
+          doc.setFormField(path, field, 'NO-SUCH-ID');
+        }
+        expect(dangling().map((e) => e.path).toSet(), paths.toSet());
+      },
+    );
+  }
+
   test('RS-2: every @Reference section of the Blueprint holds a reference', () {
     final found = <String>{};
     void walk(String className, Set<String> seen) {
@@ -118,13 +202,11 @@ void main() {
       final cls = model.classes[className];
       if (cls == null) return;
       for (final f in cls.fields) {
-        if (f.reference != null &&
-            f.sectionId != null &&
-            _references.containsKey(f.sectionId)) {
+        if (f.reference != null && f.sectionId != null) {
           found.add(f.sectionId!);
           expect(
             f.formFields.single.refersTo,
-            ['${_references[f.sectionId]}.$kSectionIdSlot'],
+            [for (final t in _references[f.sectionId]!) '$t.$kSectionIdSlot'],
             reason: '${f.sectionId} resolves against its registry',
           );
         }

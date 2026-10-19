@@ -812,7 +812,6 @@ void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
   uc1.$sectionId = 'INEN-INTE-UC-01';
   uc1.identification
     ..useCaseName = 'Capture Wholesale Order (EDI)'
-    ..processReference = 'BP-Order-Capture'
     ..briefDescription = 'A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.'
     ..fullDescription = _p('''
 The EDI adapter submits a translated purchase order to the capture command API.
@@ -891,7 +890,6 @@ transition so the work list and public tracking page stay current.''')
   uc2.$sectionId = 'INEN-INTE-UC-02';
   uc2.identification
     ..useCaseName = 'Release Order Hold'
-    ..processReference = 'BP-Order-Exception'
     ..briefDescription = 'A supervisor reviews an order on Hold and releases it back into the lifecycle.'
     ..fullDescription = _p('''
 A supervisor opens an order on Hold from the work list, reviews the hold reason,
@@ -924,7 +922,6 @@ on Hold — or cancels it, recording a reason in both cases.''')
   uc3.$sectionId = 'INEN-INTE-UC-03';
   uc3.identification
     ..useCaseName = 'Amend Order Line Before Dispatch'
-    ..processReference = 'BP-Order-Amendment'
     ..briefDescription = 'A clerk changes a line quantity before dispatch, re-running pricing and reservation.'
     ..fullDescription = _p('''
 A clerk edits the quantity of a line on a not-yet-dispatched order. The system
@@ -1172,7 +1169,7 @@ historical orders remain reproducible.''');
   final lineFk = line.keyAttributes.add();
   _key(lineFk, 'fk_line_order', 'Foreign', 'order_id',
       'References the owning order.');
-  lineFk.referencedEntityRef = 'Order';
+  lineFk.referencedEntityRef.ref = _entityIds['Order']!;
 
   // Customer.
   final customer = dm.entities.add();
@@ -1316,9 +1313,20 @@ void _rel(EntityRelationshipEntry r, String name, String type, String descriptio
   r.navigation
     ..navigability = 'Bidirectional'
     ..foreignKeyLocation = fk;
-  r.sourceEntityRef = sourceEntity;
-  r.targetEntityRef = targetEntity;
+  r.sourceEntityRef.ref = _entityIds[sourceEntity]!;
+  r.targetEntityRef.ref = _entityIds[targetEntity]!;
 }
+
+/// The data entities' section ids, by entity name. A reference section holds
+/// the id of the entry it names (`refersTo: DAENT.@sectionId`); the ids are the
+/// positional ones `_normalizeListItemIds` stamps, in the order the entities
+/// are added above.
+const _entityIds = {
+  'Order': 'DAENT-ENTI-1',
+  'OrderLine': 'DAENT-ENTI-2',
+  'Customer': 'DAENT-ENTI-3',
+  'Product': 'DAENT-ENTI-4',
+};
 
 // ---------------------------------------------------------------------------
 // Screens: two fully-detailed screens (work list + order detail) with sections,

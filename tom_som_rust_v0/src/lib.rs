@@ -4918,13 +4918,8 @@ impl AffectedFunctionEntry {
     /// trigger point and the mandatory flag their meaning. Both are needed: one
     /// rule may guard an entity that three functions write, and only one of those
     /// functions may be entitled to skip the check.
-    pub fn function_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AFFN-FUNC-REF"))
-    }
-
-    pub fn set_function_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "AFFN-FUNC-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn function_ref(&self) -> AffectedFunctionEntryFunctionRefForm {
+        AffectedFunctionEntryFunctionRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AFFN-FUNC-REF"))
     }
 }
 
@@ -4963,13 +4958,8 @@ impl AffectedObjectEntry {
     /// edge to the object itself, which is what lets a rule's impact set be
     /// computed rather than read: given a rule, every object it touches, and
     /// given an object, every rule that touches it.
-    pub fn object_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "AFOB-OBJE-REF"))
-    }
-
-    pub fn set_object_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "AFOB-OBJE-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn object_ref(&self) -> AffectedObjectEntryObjectRefForm {
+        AffectedObjectEntryObjectRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AFOB-OBJE-REF"))
     }
 }
 
@@ -9485,13 +9475,8 @@ impl BusinessRuleReferenceEntry {
     /// which is the whole point of the entry: the rule is stated once in
     /// [BusinessRuleEntry] and cited from every object it governs, instead of
     /// being copied into each of them and drifting.
-    pub fn rule_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "BIRURE-RULE-REF"))
-    }
-
-    pub fn set_rule_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "BIRURE-RULE-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn rule_ref(&self) -> BusinessRuleReferenceEntryRuleRefForm {
+        BusinessRuleReferenceEntryRuleRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BIRURE-RULE-REF"))
     }
 }
 
@@ -18335,13 +18320,8 @@ impl DataEntityReferenceEntry {
     /// It is also the edge the CE-DB data-access derivation reads
     /// (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
     /// requirement whose data access cannot be generated.
-    pub fn related_entity(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "DAENRE-RELA-REF"))
-    }
-
-    pub fn set_related_entity(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "DAENRE-RELA-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn related_entity(&self) -> DataEntityReferenceEntryRelatedEntityForm {
+        DataEntityReferenceEntryRelatedEntityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAENRE-RELA-REF"))
     }
 }
 
@@ -24383,13 +24363,8 @@ impl EntityRelationshipEntry {
     /// outliner without recursing into it and validated by the schema generator
     /// against the entity list. It is what makes an entity name that resolves to
     /// nothing a detected error instead of a dangling string.
-    pub fn source_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ENRLE-SOUR-REF"))
-    }
-
-    pub fn set_source_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "ENRLE-SOUR-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn source_entity_ref(&self) -> EntityRelationshipEntrySourceEntityRefForm {
+        EntityRelationshipEntrySourceEntityRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-SOUR-REF"))
     }
 
     /// The resolved link to the entity at the target end.
@@ -24400,13 +24375,8 @@ impl EntityRelationshipEntry {
     /// `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
     /// two ends changes what the cardinality band asserts even though the
     /// business fact is unchanged.
-    pub fn target_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "ENRLE-TARG-REF"))
-    }
-
-    pub fn set_target_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "ENRLE-TARG-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn target_entity_ref(&self) -> EntityRelationshipEntryTargetEntityRefForm {
+        EntityRelationshipEntryTargetEntityRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ENRLE-TARG-REF"))
     }
 }
 
@@ -32453,13 +32423,8 @@ impl KeyAttributeEntry {
     /// makes an entity name that resolves to nothing a detected error rather than
     /// a dangling string. Empty for every key type but a foreign key — a primary
     /// or alternate key references nothing outside its own entity.
-    pub fn referenced_entity_ref(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "KEATT-REFE-REF"))
-    }
-
-    pub fn set_referenced_entity_ref(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "KEATT-REFE-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn referenced_entity_ref(&self) -> KeyAttributeEntryReferencedEntityRefForm {
+        KeyAttributeEntryReferencedEntityRefForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "KEATT-REFE-REF"))
     }
 }
 
@@ -46131,13 +46096,8 @@ impl RequirementDependencyEntry {
     /// (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
     /// graph containing cycles — a conflict pair is one — without making the
     /// document unwalkable.
-    pub fn related_requirement(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RQDEP-RELA-REF"))
-    }
-
-    pub fn set_related_requirement(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "RQDEP-RELA-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn related_requirement(&self) -> RequirementDependencyEntryRelatedRequirementForm {
+        RequirementDependencyEntryRelatedRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RQDEP-RELA-REF"))
     }
 }
 
@@ -46259,13 +46219,8 @@ impl RequirementTestCaseEntry {
     /// It is also the coverage measure in the other direction: a criterion that
     /// no test case points at is an acceptance condition nobody has undertaken
     /// to check, and that is only visible when this link is filled in.
-    pub fn related_criterion(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "RQTSC-RELA-REF"))
-    }
-
-    pub fn set_related_criterion(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "RQTSC-RELA-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn related_criterion(&self) -> RequirementTestCaseEntryRelatedCriterionForm {
+        RequirementTestCaseEntryRelatedCriterionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RQTSC-RELA-REF"))
     }
 }
 
@@ -69743,6 +69698,45 @@ impl AffectedFunctionEntryContentForm {
     }
 }
 
+/// AffectedFunctionEntryFunctionRefForm is the generated section facade for the `functionRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AffectedFunctionEntryFunctionRefForm {
+    pub node: som::SomNode,
+}
+
+impl AffectedFunctionEntryFunctionRefForm {
+    /// Binds a AffectedFunctionEntryFunctionRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AffectedFunctionEntryFunctionRefForm {
+        AffectedFunctionEntryFunctionRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
 /// AffectedObjectEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct AffectedObjectEntryContentForm {
@@ -69797,6 +69791,45 @@ impl AffectedObjectEntryContentForm {
     pub fn set_access_type(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "accessType", value);
+    }
+}
+
+/// AffectedObjectEntryObjectRefForm is the generated section facade for the `objectRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AffectedObjectEntryObjectRefForm {
+    pub node: som::SomNode,
+}
+
+impl AffectedObjectEntryObjectRefForm {
+    /// Binds a AffectedObjectEntryObjectRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AffectedObjectEntryObjectRefForm {
+        AffectedObjectEntryObjectRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -84338,6 +84371,45 @@ impl BusinessRuleReferenceEntryContentForm {
     pub fn set_consequence_on_violation(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "consequenceOnViolation", value);
+    }
+}
+
+/// BusinessRuleReferenceEntryRuleRefForm is the generated section facade for the `ruleRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct BusinessRuleReferenceEntryRuleRefForm {
+    pub node: som::SomNode,
+}
+
+impl BusinessRuleReferenceEntryRuleRefForm {
+    /// Binds a BusinessRuleReferenceEntryRuleRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> BusinessRuleReferenceEntryRuleRefForm {
+        BusinessRuleReferenceEntryRuleRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -106745,6 +106817,45 @@ impl DataEntityReferenceEntryContentForm {
     }
 }
 
+/// DataEntityReferenceEntryRelatedEntityForm is the generated section facade for the `relatedEntity` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataEntityReferenceEntryRelatedEntityForm {
+    pub node: som::SomNode,
+}
+
+impl DataEntityReferenceEntryRelatedEntityForm {
+    /// Binds a DataEntityReferenceEntryRelatedEntityForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataEntityReferenceEntryRelatedEntityForm {
+        DataEntityReferenceEntryRelatedEntityForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
 /// DataFormatCompatibilityContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct DataFormatCompatibilityContentForm {
@@ -126203,6 +126314,84 @@ impl EntityRelationshipEntryReferentialIntegrityForm {
     pub fn set_orphan_handling(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "orphanHandling", value);
+    }
+}
+
+/// EntityRelationshipEntrySourceEntityRefForm is the generated section facade for the `sourceEntityRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct EntityRelationshipEntrySourceEntityRefForm {
+    pub node: som::SomNode,
+}
+
+impl EntityRelationshipEntrySourceEntityRefForm {
+    /// Binds a EntityRelationshipEntrySourceEntityRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EntityRelationshipEntrySourceEntityRefForm {
+        EntityRelationshipEntrySourceEntityRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
+/// EntityRelationshipEntryTargetEntityRefForm is the generated section facade for the `targetEntityRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct EntityRelationshipEntryTargetEntityRefForm {
+    pub node: som::SomNode,
+}
+
+impl EntityRelationshipEntryTargetEntityRefForm {
+    /// Binds a EntityRelationshipEntryTargetEntityRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> EntityRelationshipEntryTargetEntityRefForm {
+        EntityRelationshipEntryTargetEntityRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -152834,6 +153023,45 @@ impl KeyAttributeEntryReferenceForm {
     pub fn set_on_update_action(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "onUpdateAction", value);
+    }
+}
+
+/// KeyAttributeEntryReferencedEntityRefForm is the generated section facade for the `referencedEntityRef` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct KeyAttributeEntryReferencedEntityRefForm {
+    pub node: som::SomNode,
+}
+
+impl KeyAttributeEntryReferencedEntityRefForm {
+    /// Binds a KeyAttributeEntryReferencedEntityRefForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> KeyAttributeEntryReferencedEntityRefForm {
+        KeyAttributeEntryReferencedEntityRefForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -197025,6 +197253,45 @@ impl RequirementDependencyEntryContentForm {
     }
 }
 
+/// RequirementDependencyEntryRelatedRequirementForm is the generated section facade for the `relatedRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RequirementDependencyEntryRelatedRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl RequirementDependencyEntryRelatedRequirementForm {
+    /// Binds a RequirementDependencyEntryRelatedRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RequirementDependencyEntryRelatedRequirementForm {
+        RequirementDependencyEntryRelatedRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
 /// RequirementScreenActionEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct RequirementScreenActionEntryContentForm {
@@ -197395,6 +197662,45 @@ impl RequirementTestCaseEntryExecutionForm {
     pub fn set_expected_result(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expectedResult", value);
+    }
+}
+
+/// RequirementTestCaseEntryRelatedCriterionForm is the generated section facade for the `relatedCriterion` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RequirementTestCaseEntryRelatedCriterionForm {
+    pub node: som::SomNode,
+}
+
+impl RequirementTestCaseEntryRelatedCriterionForm {
+    /// Binds a RequirementTestCaseEntryRelatedCriterionForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RequirementTestCaseEntryRelatedCriterionForm {
+        RequirementTestCaseEntryRelatedCriterionForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 

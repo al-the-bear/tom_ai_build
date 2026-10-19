@@ -61,6 +61,7 @@ section-types:
     description: Add one entry per business rule reference.
   birure-rule-ref:
     prefix: BIRURE_RULE_REF
+    format: birure-rule-ref-form
     description: The resolved link to the business rule this entry cites.
   boinpa-boun-lst:
     prefix: BOINPA_BOUN_LST
@@ -225,6 +226,7 @@ section-types:
     description: "Add one entry per data entity this requirement reads, creates, updates, or deletes."
   daenre-rela-ref:
     prefix: DAENRE_RELA_REF
+    format: daenre-rela-ref-form
     description: "The data-model entity these operations act on, named by section id."
   daowen-owne-lst:
     prefix: DAOWEN_OWNE_LST
@@ -1734,9 +1736,11 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    format: enrle-sour-ref-form
     description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    format: enrle-targ-ref-form
     description: The resolved link to the entity at the target end.
   enven-item-lst:
     prefix: ENVEN_ITEM_LST
@@ -1990,6 +1994,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    format: keatt-refe-ref-form
     description: The resolved link to the entity a foreign key points at.
   kecon-conc-lst:
     prefix: KECON_CONC_LST
@@ -2561,9 +2566,11 @@ section-types:
     description: Add one entry per dependency on another requirement.
   rqdep-rela-ref:
     prefix: RQDEP_RELA_REF
+    format: rqdep-rela-ref-form
     description: "The other requirement in this dependency, named by section id."
   rqtsc-rela-ref:
     prefix: RQTSC_RELA_REF
+    format: rqtsc-rela-ref-form
     description: "The acceptance criterion this test case verifies, named by section id."
   rqtsc-test-lst:
     prefix: RQTSC_TEST_LST
@@ -3079,6 +3086,7 @@ section-types:
     description: Add one entry per affected function.
   affn-func-ref:
     prefix: AFFN_FUNC_REF
+    format: affn-func-ref-form
     description: The resolved link to the function in which this rule fires.
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
@@ -3090,6 +3098,7 @@ section-types:
     description: Add one entry per affected object.
   afob-obje-ref:
     prefix: AFOB_OBJE_REF
+    format: afob-obje-ref-form
     description: The resolved link to the business object this rule acts on.
   alfl-alte-lst:
     prefix: ALFL_ALTE_LST
@@ -28009,6 +28018,10 @@ form-types:
         description: Date the requirement was last modified
       - fieldname: modifiedBy
         description: Who last modified the requirement
+  daenre-rela-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   rus-uifo-form:
     fields:
       - fieldname: screenName
@@ -28091,6 +28104,10 @@ form-types:
         description: Order in which the field is displayed
       - fieldname: grouping
         description: Group or section the field belongs to
+  rqdep-rela-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)"
   rt-trac-form:
     fields:
       - fieldname: relatedGoals
@@ -28136,6 +28153,10 @@ form-types:
         description: Reference to the automation script
       - fieldname: priority
         description: Qualitative priority band.
+  rqtsc-rela-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the acceptance criterion (`ACE`)"
   tr1-summ-form:
     fields:
       - fieldname: totalTechnicalRequirements
@@ -31363,9 +31384,9 @@ form-types:
   tmed-form:
     fields:
       - fieldname: dependsOnPhases
-        description: The phases that must complete before this milestone can be achieved
+        description: "Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)"
       - fieldname: dependsOnMilestones
-        description: The prior milestones required before this milestone can be reached
+        description: "Milestones required first, comma-separated — transition milestone section ids"
       - fieldname: criticality
         description: How critical this milestone is to the transition.
   tmer-form:
@@ -32243,7 +32264,7 @@ form-types:
   picls-form:
     fields:
       - fieldname: parentProcess
-        description: The higher-level process this rolls up to
+        description: The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)
       - fieldname: processCategory
         description: The category the process falls into
       - fieldname: processType
@@ -32654,7 +32675,7 @@ form-types:
         required: true
         description: "Active-verb goal, e.g. \"Place order\""
       - fieldname: processReference
-        description: The TOM-xxx process this use case realizes
+        description: The business process this use case realizes — a section id (BPREN-PROC-…)
       - fieldname: briefDescription
         description: One-sentence summary of the goal
       - fieldname: fullDescription
@@ -32725,19 +32746,19 @@ form-types:
   intr-form:
     fields:
       - fieldname: relatedProcess
-        description: TOM-xxx process this interaction realizes
+        description: The business process this interaction realizes — a section id (BPREN-PROC-…)
       - fieldname: relatedRequirements
         description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: relatedUseCase
-        description: ISC-xxx use case in the ISC document
+        description: "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint"
       - fieldname: relatedDataEntities
-        description: Data entities read or written
+        description: "Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)"
       - fieldname: relatedBusinessObjects
-        description: BO-xxx business objects involved
+        description: "Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)"
       - fieldname: relatedBusinessRules
-        description: BR-xxx business rules referenced
+        description: "Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)"
       - fieldname: relatedIntegrations
-        description: INT-xxx integrations touched
+        description: "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)"
       - fieldname: relatedTestCases
         description: TC-xxx test cases covering this
   inpr-form:
@@ -32799,13 +32820,13 @@ form-types:
       - fieldname: outOfScope
         description: What this scenario deliberately excludes
       - fieldname: relatedInteractions
-        description: INT-xxx interactions referenced by this scenario
+        description: "Interactions referenced by this scenario, comma-separated — interaction section ids (INEN-INTE-…)"
   ssec-form:
     fields:
       - fieldname: expectedResult
         description: The observable outcome after the step
       - fieldname: interactionReference
-        description: INT-xxx interaction detailing this step
+        description: The interaction detailing this step — an interaction section id (INEN-INTE-…)
       - fieldname: dataInvolved
         description: Data read or written during the step
       - fieldname: uiElement
@@ -33047,6 +33068,10 @@ form-types:
     fields:
       - fieldname: deferrable
         description: "Whether constraint check can be deferred: Yes | No"
+  keatt-refe-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   enrle-iden-form:
     fields:
       - fieldname: relationshipType
@@ -33097,6 +33122,14 @@ form-types:
         description: "For many-to-many: name of the junction/bridge table"
       - fieldname: inverseRelationship
         description: Name of the relationship from the other side
+  enrle-sour-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
+  enrle-targ-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   datcl-over-form:
     fields:
       - fieldname: classificationFramework
@@ -33235,6 +33268,10 @@ form-types:
         description: "Public | Internal | Confidential | PII | PHI"
       - fieldname: displayOrder
         description: Order for UI presentation
+  birure-rule-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the business rule (`BIRU`)"
   ltet-form:
     fields:
       - fieldname: trigger
@@ -33391,6 +33428,14 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  afob-obje-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the business object (`BJOEN`)"
+  affn-func-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the function (`FUNCT`)"
   scmst-base-form:
     fields:
       - fieldname: createdEntities
@@ -46786,7 +46831,7 @@ form-types:
   tescbu-form:
     fields:
       - fieldname: businessProcessRef
-        description: ID or name of the business process being validated
+        description: The business process being validated — a section id (BPREN-PROC-…)
       - fieldname: businessRulesValidated
         description: Business rules this scenario verifies
       - fieldname: userRolePerforming
@@ -46800,7 +46845,7 @@ form-types:
       - fieldname: useCaseRef
         description: The related interaction — an interaction section id (INEN-INTE-…)
       - fieldname: acceptanceCriterionRef
-        description: Linked criterion ID
+        description: The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
       - fieldname: designRef
         description: UI screens or mockup references
   tescse-form:
@@ -47631,10 +47676,9 @@ form-types:
   festas-form:
     fields:
       - fieldname: targetStage
-        required: true
-        description: Planned delivery stage
+        description: Planned delivery stage — a stage section id (STAGE-STAG-…); empty for a feature planned into no stage (MoSCoW Won't this time)
       - fieldname: earliestPossibleStage
-        description: Earliest stage prerequisites allow
+        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
       - fieldname: fallbackStage
         description: Stage to defer to if cut from target
       - fieldname: stageAssignmentRationale
@@ -47698,7 +47742,7 @@ form-types:
         required: true
         description: Stage in which this feature is planned for delivery
       - fieldname: earliestPossibleStage
-        description: Earliest stage where prerequisites allow delivery
+        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
   moentr-form:
     fields:
       - fieldname: linkedRequirements

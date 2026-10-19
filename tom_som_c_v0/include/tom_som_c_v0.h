@@ -2438,7 +2438,9 @@ typedef struct { SomNode node; } AdministrationRequirementsSectionEnvironmentMan
 typedef struct { SomNode node; } AdministrativeEventPolicyContentForm;
 typedef struct { SomNode node; } AffectedDepartmentEntryContentForm;
 typedef struct { SomNode node; } AffectedFunctionEntryContentForm;
+typedef struct { SomNode node; } AffectedFunctionEntryFunctionRefForm;
 typedef struct { SomNode node; } AffectedObjectEntryContentForm;
+typedef struct { SomNode node; } AffectedObjectEntryObjectRefForm;
 typedef struct { SomNode node; } AlertDefinitionEntryConditionForm;
 typedef struct { SomNode node; } AlertDefinitionEntryContentForm;
 typedef struct { SomNode node; } AlertDefinitionEntryNotificationForm;
@@ -2653,6 +2655,7 @@ typedef struct { SomNode node; } BusinessRuleEntryIdentityForm;
 typedef struct { SomNode node; } BusinessRuleEntryImplementationForm;
 typedef struct { SomNode node; } BusinessRuleEntryRuleLogicForm;
 typedef struct { SomNode node; } BusinessRuleReferenceEntryContentForm;
+typedef struct { SomNode node; } BusinessRuleReferenceEntryRuleRefForm;
 typedef struct { SomNode node; } CapacityReviewProcessContentForm;
 typedef struct { SomNode node; } CapacityReviewProcessEscalationForm;
 typedef struct { SomNode node; } CapacityReviewProcessMonitoringForm;
@@ -2988,6 +2991,7 @@ typedef struct { SomNode node; } DataEntityEntryLifecyclePolicyForm;
 typedef struct { SomNode node; } DataEntityEntryRelationshipSummaryForm;
 typedef struct { SomNode node; } DataEntityMigrationEntryContentForm;
 typedef struct { SomNode node; } DataEntityReferenceEntryContentForm;
+typedef struct { SomNode node; } DataEntityReferenceEntryRelatedEntityForm;
 typedef struct { SomNode node; } DataFormatCompatibilityContentForm;
 typedef struct { SomNode node; } DataFormatCompatibilityDateTimeForm;
 typedef struct { SomNode node; } DataFormatCompatibilityFormatsForm;
@@ -3286,6 +3290,8 @@ typedef struct { SomNode node; } EntityRelationshipEntryCardinalityForm;
 typedef struct { SomNode node; } EntityRelationshipEntryIdentityForm;
 typedef struct { SomNode node; } EntityRelationshipEntryNavigationForm;
 typedef struct { SomNode node; } EntityRelationshipEntryReferentialIntegrityForm;
+typedef struct { SomNode node; } EntityRelationshipEntrySourceEntityRefForm;
+typedef struct { SomNode node; } EntityRelationshipEntryTargetEntityRefForm;
 typedef struct { SomNode node; } EntryPointEntryContentForm;
 typedef struct { SomNode node; } EnvironmentEntryAvailabilityForm;
 typedef struct { SomNode node; } EnvironmentEntryComplianceForm;
@@ -3685,6 +3691,7 @@ typedef struct { SomNode node; } KeyAttributeEntryContentForm;
 typedef struct { SomNode node; } KeyAttributeEntryGenerationForm;
 typedef struct { SomNode node; } KeyAttributeEntryGovernanceForm;
 typedef struct { SomNode node; } KeyAttributeEntryReferenceForm;
+typedef struct { SomNode node; } KeyAttributeEntryReferencedEntityRefForm;
 typedef struct { SomNode node; } KeyCompromiseRecoveryPolicyContentForm;
 typedef struct { SomNode node; } KeyConceptEntryContentForm;
 typedef struct { SomNode node; } KeyEscrowAndBackupPolicyContentForm;
@@ -4316,10 +4323,12 @@ typedef struct { SomNode node; } ReportSectionEntryLayoutForm;
 typedef struct { SomNode node; } ReportSectionEntrySortingForm;
 typedef struct { SomNode node; } RequirementBusinessRuleEntryContentForm;
 typedef struct { SomNode node; } RequirementDependencyEntryContentForm;
+typedef struct { SomNode node; } RequirementDependencyEntryRelatedRequirementForm;
 typedef struct { SomNode node; } RequirementScreenActionEntryContentForm;
 typedef struct { SomNode node; } RequirementTestCaseEntryAutomationForm;
 typedef struct { SomNode node; } RequirementTestCaseEntryContentForm;
 typedef struct { SomNode node; } RequirementTestCaseEntryExecutionForm;
+typedef struct { SomNode node; } RequirementTestCaseEntryRelatedCriterionForm;
 typedef struct { SomNode node; } RequirementTraceabilityArtifactsForm;
 typedef struct { SomNode node; } RequirementTraceabilityImplementationForm;
 typedef struct { SomNode node; } RequirementTraceabilityTraceabilityFormForm;
@@ -5889,8 +5898,7 @@ AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedF
 // trigger point and the mandatory flag their meaning. Both are needed: one
 // rule may guard an entity that three functions write, and only one of those
 // functions may be entitled to skip the check.
-char *affected_function_entry_function_ref(const AffectedFunctionEntry *self);
-void affected_function_entry_set_function_ref(AffectedFunctionEntry *self, const char *value);
+AffectedFunctionEntryFunctionRefForm affected_function_entry_function_ref(const AffectedFunctionEntry *self);
 
 // An affected object reference entry (form).
 //
@@ -5912,8 +5920,7 @@ AffectedObjectEntryContentForm affected_object_entry_content(const AffectedObjec
 // edge to the object itself, which is what lets a rule's impact set be
 // computed rather than read: given a rule, every object it touches, and
 // given an object, every rule that touches it.
-char *affected_object_entry_object_ref(const AffectedObjectEntry *self);
-void affected_object_entry_set_object_ref(AffectedObjectEntry *self, const char *value);
+AffectedObjectEntryObjectRefForm affected_object_entry_object_ref(const AffectedObjectEntry *self);
 
 // Alert definition entry.
 // Binds a AlertDefinitionEntry facade to a document and a path (path copied).
@@ -7944,8 +7951,7 @@ BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(cons
 // which is the whole point of the entry: the rule is stated once in
 // [BusinessRuleEntry] and cited from every object it governs, instead of
 // being copied into each of them and drifting.
-char *business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self);
-void business_rule_reference_entry_set_rule_ref(BusinessRuleReferenceEntry *self, const char *value);
+BusinessRuleReferenceEntryRuleRefForm business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self);
 
 // 8.7.3. Capacity Planning.
 // Binds a CapacityPlanningSection facade to a document and a path (path copied).
@@ -11963,8 +11969,7 @@ DataEntityReferenceEntryContentForm data_entity_reference_entry_content(const Da
 // It is also the edge the CE-DB data-access derivation reads
 // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
 // requirement whose data access cannot be generated.
-char *data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self);
-void data_entity_reference_entry_set_related_entity(DataEntityReferenceEntry *self, const char *value);
+DataEntityReferenceEntryRelatedEntityForm data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self);
 
 // Data format and encoding compatibility.
 // Binds a DataFormatCompatibility facade to a document and a path (path copied).
@@ -14606,8 +14611,7 @@ SomList entity_relationship_entry_relationship_attributes(const EntityRelationsh
 // outliner without recursing into it and validated by the schema generator
 // against the entity list. It is what makes an entity name that resolves to
 // nothing a detected error instead of a dangling string.
-char *entity_relationship_entry_source_entity_ref(const EntityRelationshipEntry *self);
-void entity_relationship_entry_set_source_entity_ref(EntityRelationshipEntry *self, const char *value);
+EntityRelationshipEntrySourceEntityRefForm entity_relationship_entry_source_entity_ref(const EntityRelationshipEntry *self);
 // The resolved link to the entity at the target end.
 //
 // The mirror of [sourceEntityRef], with one asymmetry worth knowing: which
@@ -14616,8 +14620,7 @@ void entity_relationship_entry_set_source_entity_ref(EntityRelationshipEntry *se
 // `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
 // two ends changes what the cardinality band asserts even though the
 // business fact is unchanged.
-char *entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self);
-void entity_relationship_entry_set_target_entity_ref(EntityRelationshipEntry *self, const char *value);
+EntityRelationshipEntryTargetEntityRefForm entity_relationship_entry_target_entity_ref(const EntityRelationshipEntry *self);
 
 // 7.1.2. Entity Relationships.
 // Binds a EntityRelationships facade to a document and a path (path copied).
@@ -18161,8 +18164,7 @@ KeyAttributeEntryGovernanceForm key_attribute_entry_governance(const KeyAttribut
 // makes an entity name that resolves to nothing a detected error rather than
 // a dangling string. Empty for every key type but a foreign key — a primary
 // or alternate key references nothing outside its own entity.
-char *key_attribute_entry_referenced_entity_ref(const KeyAttributeEntry *self);
-void key_attribute_entry_set_referenced_entity_ref(KeyAttributeEntry *self, const char *value);
+KeyAttributeEntryReferencedEntityRefForm key_attribute_entry_referenced_entity_ref(const KeyAttributeEntry *self);
 
 // Key compromise and recovery policy (form).
 //
@@ -24100,8 +24102,7 @@ RequirementDependencyEntryContentForm requirement_dependency_entry_content(const
 // (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
 // graph containing cycles — a conflict pair is one — without making the
 // document unwalkable.
-char *requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self);
-void requirement_dependency_entry_set_related_requirement(RequirementDependencyEntry *self, const char *value);
+RequirementDependencyEntryRelatedRequirementForm requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self);
 
 // 4.3.5. Requirement Relationships.
 //
@@ -24159,8 +24160,7 @@ RequirementTestCaseEntryAutomationForm requirement_test_case_entry_automation(co
 // It is also the coverage measure in the other direction: a criterion that
 // no test case points at is an acceptance condition nobody has undertaken
 // to check, and that is only visible when this link is filled in.
-char *requirement_test_case_entry_related_criterion(const RequirementTestCaseEntry *self);
-void requirement_test_case_entry_set_related_criterion(RequirementTestCaseEntry *self, const char *value);
+RequirementTestCaseEntryRelatedCriterionForm requirement_test_case_entry_related_criterion(const RequirementTestCaseEntry *self);
 
 // 4.3.1.n.7. Test Cases.
 //
@@ -33453,6 +33453,15 @@ void affected_function_entry_content_form_set_impact(AffectedFunctionEntryConten
 char *affected_function_entry_content_form_is_mandatory(const AffectedFunctionEntryContentForm *self);
 void affected_function_entry_content_form_set_is_mandatory(AffectedFunctionEntryContentForm *self, const char *value);
 
+// AffectedFunctionEntryFunctionRefForm is the generated section facade for the `functionRef` @Form section: its own `content` text followed by one typed member per form field.
+void affected_function_entry_function_ref_form_init(AffectedFunctionEntryFunctionRefForm *self, SpecDocument *doc, const char *path);
+void affected_function_entry_function_ref_form_free(AffectedFunctionEntryFunctionRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *affected_function_entry_function_ref_form_content(const AffectedFunctionEntryFunctionRefForm *self);
+void affected_function_entry_function_ref_form_set_content(AffectedFunctionEntryFunctionRefForm *self, const char *value);
+char *affected_function_entry_function_ref_form_ref(const AffectedFunctionEntryFunctionRefForm *self);
+void affected_function_entry_function_ref_form_set_ref(AffectedFunctionEntryFunctionRefForm *self, const char *value);
+
 // AffectedObjectEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void affected_object_entry_content_form_init(AffectedObjectEntryContentForm *self, SpecDocument *doc, const char *path);
 void affected_object_entry_content_form_free(AffectedObjectEntryContentForm *self);
@@ -33465,6 +33474,15 @@ char *affected_object_entry_content_form_impact(const AffectedObjectEntryContent
 void affected_object_entry_content_form_set_impact(AffectedObjectEntryContentForm *self, const char *value);
 char *affected_object_entry_content_form_access_type(const AffectedObjectEntryContentForm *self);
 void affected_object_entry_content_form_set_access_type(AffectedObjectEntryContentForm *self, const char *value);
+
+// AffectedObjectEntryObjectRefForm is the generated section facade for the `objectRef` @Form section: its own `content` text followed by one typed member per form field.
+void affected_object_entry_object_ref_form_init(AffectedObjectEntryObjectRefForm *self, SpecDocument *doc, const char *path);
+void affected_object_entry_object_ref_form_free(AffectedObjectEntryObjectRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *affected_object_entry_object_ref_form_content(const AffectedObjectEntryObjectRefForm *self);
+void affected_object_entry_object_ref_form_set_content(AffectedObjectEntryObjectRefForm *self, const char *value);
+char *affected_object_entry_object_ref_form_ref(const AffectedObjectEntryObjectRefForm *self);
+void affected_object_entry_object_ref_form_set_ref(AffectedObjectEntryObjectRefForm *self, const char *value);
 
 // AlertDefinitionEntryConditionForm is the generated section facade for the `condition` @Form section: its own `content` text followed by one typed member per form field.
 void alert_definition_entry_condition_form_init(AlertDefinitionEntryConditionForm *self, SpecDocument *doc, const char *path);
@@ -36715,6 +36733,15 @@ char *business_rule_reference_entry_content_form_affected_attributes(const Busin
 void business_rule_reference_entry_content_form_set_affected_attributes(BusinessRuleReferenceEntryContentForm *self, const char *value);
 char *business_rule_reference_entry_content_form_consequence_on_violation(const BusinessRuleReferenceEntryContentForm *self);
 void business_rule_reference_entry_content_form_set_consequence_on_violation(BusinessRuleReferenceEntryContentForm *self, const char *value);
+
+// BusinessRuleReferenceEntryRuleRefForm is the generated section facade for the `ruleRef` @Form section: its own `content` text followed by one typed member per form field.
+void business_rule_reference_entry_rule_ref_form_init(BusinessRuleReferenceEntryRuleRefForm *self, SpecDocument *doc, const char *path);
+void business_rule_reference_entry_rule_ref_form_free(BusinessRuleReferenceEntryRuleRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *business_rule_reference_entry_rule_ref_form_content(const BusinessRuleReferenceEntryRuleRefForm *self);
+void business_rule_reference_entry_rule_ref_form_set_content(BusinessRuleReferenceEntryRuleRefForm *self, const char *value);
+char *business_rule_reference_entry_rule_ref_form_ref(const BusinessRuleReferenceEntryRuleRefForm *self);
+void business_rule_reference_entry_rule_ref_form_set_ref(BusinessRuleReferenceEntryRuleRefForm *self, const char *value);
 
 // CapacityReviewProcessContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void capacity_review_process_content_form_init(CapacityReviewProcessContentForm *self, SpecDocument *doc, const char *path);
@@ -41755,6 +41782,15 @@ void data_entity_reference_entry_content_form_set_data_quality_rules(DataEntityR
 char *data_entity_reference_entry_content_form_data_owner(const DataEntityReferenceEntryContentForm *self);
 void data_entity_reference_entry_content_form_set_data_owner(DataEntityReferenceEntryContentForm *self, const char *value);
 
+// DataEntityReferenceEntryRelatedEntityForm is the generated section facade for the `relatedEntity` @Form section: its own `content` text followed by one typed member per form field.
+void data_entity_reference_entry_related_entity_form_init(DataEntityReferenceEntryRelatedEntityForm *self, SpecDocument *doc, const char *path);
+void data_entity_reference_entry_related_entity_form_free(DataEntityReferenceEntryRelatedEntityForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_entity_reference_entry_related_entity_form_content(const DataEntityReferenceEntryRelatedEntityForm *self);
+void data_entity_reference_entry_related_entity_form_set_content(DataEntityReferenceEntryRelatedEntityForm *self, const char *value);
+char *data_entity_reference_entry_related_entity_form_ref(const DataEntityReferenceEntryRelatedEntityForm *self);
+void data_entity_reference_entry_related_entity_form_set_ref(DataEntityReferenceEntryRelatedEntityForm *self, const char *value);
+
 // DataFormatCompatibilityContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void data_format_compatibility_content_form_init(DataFormatCompatibilityContentForm *self, SpecDocument *doc, const char *path);
 void data_format_compatibility_content_form_free(DataFormatCompatibilityContentForm *self);
@@ -46146,6 +46182,24 @@ char *entity_relationship_entry_referential_integrity_form_cascade_scope(const E
 void entity_relationship_entry_referential_integrity_form_set_cascade_scope(EntityRelationshipEntryReferentialIntegrityForm *self, const char *value);
 char *entity_relationship_entry_referential_integrity_form_orphan_handling(const EntityRelationshipEntryReferentialIntegrityForm *self);
 void entity_relationship_entry_referential_integrity_form_set_orphan_handling(EntityRelationshipEntryReferentialIntegrityForm *self, const char *value);
+
+// EntityRelationshipEntrySourceEntityRefForm is the generated section facade for the `sourceEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+void entity_relationship_entry_source_entity_ref_form_init(EntityRelationshipEntrySourceEntityRefForm *self, SpecDocument *doc, const char *path);
+void entity_relationship_entry_source_entity_ref_form_free(EntityRelationshipEntrySourceEntityRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *entity_relationship_entry_source_entity_ref_form_content(const EntityRelationshipEntrySourceEntityRefForm *self);
+void entity_relationship_entry_source_entity_ref_form_set_content(EntityRelationshipEntrySourceEntityRefForm *self, const char *value);
+char *entity_relationship_entry_source_entity_ref_form_ref(const EntityRelationshipEntrySourceEntityRefForm *self);
+void entity_relationship_entry_source_entity_ref_form_set_ref(EntityRelationshipEntrySourceEntityRefForm *self, const char *value);
+
+// EntityRelationshipEntryTargetEntityRefForm is the generated section facade for the `targetEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+void entity_relationship_entry_target_entity_ref_form_init(EntityRelationshipEntryTargetEntityRefForm *self, SpecDocument *doc, const char *path);
+void entity_relationship_entry_target_entity_ref_form_free(EntityRelationshipEntryTargetEntityRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *entity_relationship_entry_target_entity_ref_form_content(const EntityRelationshipEntryTargetEntityRefForm *self);
+void entity_relationship_entry_target_entity_ref_form_set_content(EntityRelationshipEntryTargetEntityRefForm *self, const char *value);
+char *entity_relationship_entry_target_entity_ref_form_ref(const EntityRelationshipEntryTargetEntityRefForm *self);
+void entity_relationship_entry_target_entity_ref_form_set_ref(EntityRelationshipEntryTargetEntityRefForm *self, const char *value);
 
 // EntryPointEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void entry_point_entry_content_form_init(EntryPointEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -52133,6 +52187,15 @@ char *key_attribute_entry_reference_form_on_delete_action(const KeyAttributeEntr
 void key_attribute_entry_reference_form_set_on_delete_action(KeyAttributeEntryReferenceForm *self, const char *value);
 char *key_attribute_entry_reference_form_on_update_action(const KeyAttributeEntryReferenceForm *self);
 void key_attribute_entry_reference_form_set_on_update_action(KeyAttributeEntryReferenceForm *self, const char *value);
+
+// KeyAttributeEntryReferencedEntityRefForm is the generated section facade for the `referencedEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+void key_attribute_entry_referenced_entity_ref_form_init(KeyAttributeEntryReferencedEntityRefForm *self, SpecDocument *doc, const char *path);
+void key_attribute_entry_referenced_entity_ref_form_free(KeyAttributeEntryReferencedEntityRefForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *key_attribute_entry_referenced_entity_ref_form_content(const KeyAttributeEntryReferencedEntityRefForm *self);
+void key_attribute_entry_referenced_entity_ref_form_set_content(KeyAttributeEntryReferencedEntityRefForm *self, const char *value);
+char *key_attribute_entry_referenced_entity_ref_form_ref(const KeyAttributeEntryReferencedEntityRefForm *self);
+void key_attribute_entry_referenced_entity_ref_form_set_ref(KeyAttributeEntryReferencedEntityRefForm *self, const char *value);
 
 // KeyCompromiseRecoveryPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void key_compromise_recovery_policy_content_form_init(KeyCompromiseRecoveryPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -62063,6 +62126,15 @@ void requirement_dependency_entry_content_form_set_description(RequirementDepend
 char *requirement_dependency_entry_content_form_impact(const RequirementDependencyEntryContentForm *self);
 void requirement_dependency_entry_content_form_set_impact(RequirementDependencyEntryContentForm *self, const char *value);
 
+// RequirementDependencyEntryRelatedRequirementForm is the generated section facade for the `relatedRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void requirement_dependency_entry_related_requirement_form_init(RequirementDependencyEntryRelatedRequirementForm *self, SpecDocument *doc, const char *path);
+void requirement_dependency_entry_related_requirement_form_free(RequirementDependencyEntryRelatedRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *requirement_dependency_entry_related_requirement_form_content(const RequirementDependencyEntryRelatedRequirementForm *self);
+void requirement_dependency_entry_related_requirement_form_set_content(RequirementDependencyEntryRelatedRequirementForm *self, const char *value);
+char *requirement_dependency_entry_related_requirement_form_ref(const RequirementDependencyEntryRelatedRequirementForm *self);
+void requirement_dependency_entry_related_requirement_form_set_ref(RequirementDependencyEntryRelatedRequirementForm *self, const char *value);
+
 // RequirementScreenActionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void requirement_screen_action_entry_content_form_init(RequirementScreenActionEntryContentForm *self, SpecDocument *doc, const char *path);
 void requirement_screen_action_entry_content_form_free(RequirementScreenActionEntryContentForm *self);
@@ -62146,6 +62218,15 @@ char *requirement_test_case_entry_execution_form_test_data(const RequirementTest
 void requirement_test_case_entry_execution_form_set_test_data(RequirementTestCaseEntryExecutionForm *self, const char *value);
 char *requirement_test_case_entry_execution_form_expected_result(const RequirementTestCaseEntryExecutionForm *self);
 void requirement_test_case_entry_execution_form_set_expected_result(RequirementTestCaseEntryExecutionForm *self, const char *value);
+
+// RequirementTestCaseEntryRelatedCriterionForm is the generated section facade for the `relatedCriterion` @Form section: its own `content` text followed by one typed member per form field.
+void requirement_test_case_entry_related_criterion_form_init(RequirementTestCaseEntryRelatedCriterionForm *self, SpecDocument *doc, const char *path);
+void requirement_test_case_entry_related_criterion_form_free(RequirementTestCaseEntryRelatedCriterionForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *requirement_test_case_entry_related_criterion_form_content(const RequirementTestCaseEntryRelatedCriterionForm *self);
+void requirement_test_case_entry_related_criterion_form_set_content(RequirementTestCaseEntryRelatedCriterionForm *self, const char *value);
+char *requirement_test_case_entry_related_criterion_form_ref(const RequirementTestCaseEntryRelatedCriterionForm *self);
+void requirement_test_case_entry_related_criterion_form_set_ref(RequirementTestCaseEntryRelatedCriterionForm *self, const char *value);
 
 // RequirementTraceabilityArtifactsForm is the generated section facade for the `artifacts` @Form section: its own `content` text followed by one typed member per form field.
 void requirement_traceability_artifacts_form_init(RequirementTraceabilityArtifactsForm *self, SpecDocument *doc, const char *path);

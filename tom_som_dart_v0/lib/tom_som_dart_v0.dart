@@ -2629,8 +2629,7 @@ class AffectedFunctionEntry extends SomNode {
   /// trigger point and the mandatory flag their meaning. Both are needed: one
   /// rule may guard an entity that three functions write, and only one of those
   /// functions may be entitled to skip the check.
-  String get functionRef => doc.content('$path/AFFN-FUNC-REF') ?? '';
-  set functionRef(String value) => doc.setContent('$path/AFFN-FUNC-REF', value);
+  AffectedFunctionEntryFunctionRefForm get functionRef => AffectedFunctionEntryFunctionRefForm(doc, '$path/AFFN-FUNC-REF');
 }
 
 /// An affected object reference entry (form).
@@ -2657,8 +2656,7 @@ class AffectedObjectEntry extends SomNode {
   /// edge to the object itself, which is what lets a rule's impact set be
   /// computed rather than read: given a rule, every object it touches, and
   /// given an object, every rule that touches it.
-  String get objectRef => doc.content('$path/AFOB-OBJE-REF') ?? '';
-  set objectRef(String value) => doc.setContent('$path/AFOB-OBJE-REF', value);
+  AffectedObjectEntryObjectRefForm get objectRef => AffectedObjectEntryObjectRefForm(doc, '$path/AFOB-OBJE-REF');
 }
 
 /// Alert definition entry.
@@ -5944,8 +5942,7 @@ class BusinessRuleReferenceEntry extends SomNode {
   /// which is the whole point of the entry: the rule is stated once in
   /// [BusinessRuleEntry] and cited from every object it governs, instead of
   /// being copied into each of them and drifting.
-  String get ruleRef => doc.content('$path/BIRURE-RULE-REF') ?? '';
-  set ruleRef(String value) => doc.setContent('$path/BIRURE-RULE-REF', value);
+  BusinessRuleReferenceEntryRuleRefForm get ruleRef => BusinessRuleReferenceEntryRuleRefForm(doc, '$path/BIRURE-RULE-REF');
 }
 
 /// 8.7.3. Capacity Planning.
@@ -12031,8 +12028,7 @@ class DataEntityReferenceEntry extends SomNode {
   /// It is also the edge the CE-DB data-access derivation reads
   /// (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
   /// requirement whose data access cannot be generated.
-  String get relatedEntity => doc.content('$path/DAENRE-RELA-REF') ?? '';
-  set relatedEntity(String value) => doc.setContent('$path/DAENRE-RELA-REF', value);
+  DataEntityReferenceEntryRelatedEntityForm get relatedEntity => DataEntityReferenceEntryRelatedEntityForm(doc, '$path/DAENRE-RELA-REF');
 }
 
 /// Data format and encoding compatibility.
@@ -16297,8 +16293,7 @@ class EntityRelationshipEntry extends SomNode {
   /// outliner without recursing into it and validated by the schema generator
   /// against the entity list. It is what makes an entity name that resolves to
   /// nothing a detected error instead of a dangling string.
-  String get sourceEntityRef => doc.content('$path/ENRLE-SOUR-REF') ?? '';
-  set sourceEntityRef(String value) => doc.setContent('$path/ENRLE-SOUR-REF', value);
+  EntityRelationshipEntrySourceEntityRefForm get sourceEntityRef => EntityRelationshipEntrySourceEntityRefForm(doc, '$path/ENRLE-SOUR-REF');
 
   /// The resolved link to the entity at the target end.
   /// 
@@ -16308,8 +16303,7 @@ class EntityRelationshipEntry extends SomNode {
   /// `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
   /// two ends changes what the cardinality band asserts even though the
   /// business fact is unchanged.
-  String get targetEntityRef => doc.content('$path/ENRLE-TARG-REF') ?? '';
-  set targetEntityRef(String value) => doc.setContent('$path/ENRLE-TARG-REF', value);
+  EntityRelationshipEntryTargetEntityRefForm get targetEntityRef => EntityRelationshipEntryTargetEntityRefForm(doc, '$path/ENRLE-TARG-REF');
 }
 
 /// 7.1.2. Entity Relationships.
@@ -21857,8 +21851,7 @@ class KeyAttributeEntry extends SomNode {
   /// makes an entity name that resolves to nothing a detected error rather than
   /// a dangling string. Empty for every key type but a foreign key — a primary
   /// or alternate key references nothing outside its own entity.
-  String get referencedEntityRef => doc.content('$path/KEATT-REFE-REF') ?? '';
-  set referencedEntityRef(String value) => doc.setContent('$path/KEATT-REFE-REF', value);
+  KeyAttributeEntryReferencedEntityRefForm get referencedEntityRef => KeyAttributeEntryReferencedEntityRefForm(doc, '$path/KEATT-REFE-REF');
 }
 
 /// Key compromise and recovery policy (form).
@@ -31234,8 +31227,7 @@ class RequirementDependencyEntry extends SomNode {
   /// (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
   /// graph containing cycles — a conflict pair is one — without making the
   /// document unwalkable.
-  String get relatedRequirement => doc.content('$path/RQDEP-RELA-REF') ?? '';
-  set relatedRequirement(String value) => doc.setContent('$path/RQDEP-RELA-REF', value);
+  RequirementDependencyEntryRelatedRequirementForm get relatedRequirement => RequirementDependencyEntryRelatedRequirementForm(doc, '$path/RQDEP-RELA-REF');
 }
 
 /// 4.3.5. Requirement Relationships.
@@ -31324,8 +31316,7 @@ class RequirementTestCaseEntry extends SomNode {
   /// It is also the coverage measure in the other direction: a criterion that
   /// no test case points at is an acceptance condition nobody has undertaken
   /// to check, and that is only visible when this link is filled in.
-  String get relatedCriterion => doc.content('$path/RQTSC-RELA-REF') ?? '';
-  set relatedCriterion(String value) => doc.setContent('$path/RQTSC-RELA-REF', value);
+  RequirementTestCaseEntryRelatedCriterionForm get relatedCriterion => RequirementTestCaseEntryRelatedCriterionForm(doc, '$path/RQTSC-RELA-REF');
 }
 
 /// 4.3.1.n.7. Test Cases.
@@ -47278,6 +47269,26 @@ class AffectedFunctionEntryContentForm extends SomNode {
   set isMandatory(String value) => doc.setFormField(path, 'isMandatory', value);
 }
 
+/// Generated section facade for the `functionRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AffectedFunctionEntryFunctionRefForm extends SomNode {
+  /// Names the `functionRef` form section at [path] inside [doc].
+  AffectedFunctionEntryFunctionRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Function Name.
+  ///
+  /// Section id of the function (`FUNCT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class AffectedObjectEntryContentForm extends SomNode {
@@ -47308,6 +47319,26 @@ class AffectedObjectEntryContentForm extends SomNode {
   /// Read | Write | Both
   String get accessType => doc.formField(path, 'accessType') ?? '';
   set accessType(String value) => doc.setFormField(path, 'accessType', value);
+}
+
+/// Generated section facade for the `objectRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AffectedObjectEntryObjectRefForm extends SomNode {
+  /// Names the `objectRef` form section at [path] inside [doc].
+  AffectedObjectEntryObjectRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Object Name.
+  ///
+  /// Section id of the business object (`BJOEN`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `condition` `@Form` section:
@@ -55674,6 +55705,26 @@ class BusinessRuleReferenceEntryContentForm extends SomNode {
   /// What happens when rule is violated
   String get consequenceOnViolation => doc.formField(path, 'consequenceOnViolation') ?? '';
   set consequenceOnViolation(String value) => doc.setFormField(path, 'consequenceOnViolation', value);
+}
+
+/// Generated section facade for the `ruleRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class BusinessRuleReferenceEntryRuleRefForm extends SomNode {
+  /// Names the `ruleRef` form section at [path] inside [doc].
+  BusinessRuleReferenceEntryRuleRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Rule Id.
+  ///
+  /// Section id of the business rule (`BIRU`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -68400,6 +68451,26 @@ class DataEntityReferenceEntryContentForm extends SomNode {
   set dataOwner(String value) => doc.setFormField(path, 'dataOwner', value);
 }
 
+/// Generated section facade for the `relatedEntity` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataEntityReferenceEntryRelatedEntityForm extends SomNode {
+  /// Names the `relatedEntity` form section at [path] inside [doc].
+  DataEntityReferenceEntryRelatedEntityForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Related Data Model Entity.
+  ///
+  /// Section id of the data entity (`DAENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class DataFormatCompatibilityContentForm extends SomNode {
@@ -79612,6 +79683,46 @@ class EntityRelationshipEntryReferentialIntegrityForm extends SomNode {
   set orphanHandling(String value) => doc.setFormField(path, 'orphanHandling', value);
 }
 
+/// Generated section facade for the `sourceEntityRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class EntityRelationshipEntrySourceEntityRefForm extends SomNode {
+  /// Names the `sourceEntityRef` form section at [path] inside [doc].
+  EntityRelationshipEntrySourceEntityRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Source Entity Name.
+  ///
+  /// Section id of the data entity (`DAENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
+/// Generated section facade for the `targetEntityRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class EntityRelationshipEntryTargetEntityRefForm extends SomNode {
+  /// Names the `targetEntityRef` form section at [path] inside [doc].
+  EntityRelationshipEntryTargetEntityRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Target Entity Name.
+  ///
+  /// Section id of the data entity (`DAENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class EntryPointEntryContentForm extends SomNode {
@@ -84901,15 +85012,13 @@ class FeaturePriorityEntryStageAssignmentForm extends SomNode {
 
   /// Target Stage.
   ///
-  /// Planned delivery stage
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Planned delivery stage — a stage section id (STAGE-STAG-…); empty for a feature planned into no stage (MoSCoW Won't this time)
   String get targetStage => doc.formField(path, 'targetStage') ?? '';
   set targetStage(String value) => doc.setFormField(path, 'targetStage', value);
 
   /// Earliest Possible Stage.
   ///
-  /// Earliest stage prerequisites allow
+  /// The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved
   String get earliestPossibleStage => doc.formField(path, 'earliestPossibleStage') ?? '';
   set earliestPossibleStage(String value) => doc.setFormField(path, 'earliestPossibleStage', value);
 
@@ -91611,39 +91720,39 @@ class InteractionBusinessRulesContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Validation Rules — BR-xxx for validation.
+  /// Validation Rules.
   ///
-  /// BR-xxx rules governing input validation
+  /// Rules governing input validation, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get validationRules => doc.formField(path, 'validationRules') ?? '';
   set validationRules(String value) => doc.setFormField(path, 'validationRules', value);
 
-  /// Calculation Rules — BR-xxx for calculations.
+  /// Calculation Rules.
   ///
-  /// BR-xxx rules governing calculations
+  /// Rules governing calculations, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get calculationRules => doc.formField(path, 'calculationRules') ?? '';
   set calculationRules(String value) => doc.setFormField(path, 'calculationRules', value);
 
-  /// Authorization Rules — BR-xxx for permissions.
+  /// Authorization Rules.
   ///
-  /// BR-xxx rules governing permissions
+  /// Rules governing permissions, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get authorizationRules => doc.formField(path, 'authorizationRules') ?? '';
   set authorizationRules(String value) => doc.setFormField(path, 'authorizationRules', value);
 
-  /// Workflow Rules — BR-xxx for flow.
+  /// Workflow Rules.
   ///
-  /// BR-xxx rules governing flow and routing
+  /// Rules governing flow and routing, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get workflowRules => doc.formField(path, 'workflowRules') ?? '';
   set workflowRules(String value) => doc.setFormField(path, 'workflowRules', value);
 
-  /// Notification Rules — BR-xxx for notifications.
+  /// Notification Rules.
   ///
-  /// BR-xxx rules governing notifications
+  /// Rules governing notifications, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get notificationRules => doc.formField(path, 'notificationRules') ?? '';
   set notificationRules(String value) => doc.setFormField(path, 'notificationRules', value);
 
-  /// Integration Rules — BR-xxx for integrations.
+  /// Integration Rules.
   ///
-  /// BR-xxx rules governing external integrations
+  /// Rules governing external integrations, as prose — a rule may cite its business rule (BIRU-…); not resolved
   String get integrationRules => doc.formField(path, 'integrationRules') ?? '';
   set integrationRules(String value) => doc.setFormField(path, 'integrationRules', value);
 }
@@ -92085,9 +92194,9 @@ class InteractionEntryIdentificationForm extends SomNode {
   String get useCaseName => doc.formField(path, 'useCaseName') ?? '';
   set useCaseName(String value) => doc.setFormField(path, 'useCaseName', value);
 
-  /// Process Reference — TOM-xxx.
+  /// Process Reference.
   ///
-  /// The TOM-xxx process this use case realizes
+  /// The business process this use case realizes — a section id (BPREN-PROC-…)
   String get processReference => doc.formField(path, 'processReference') ?? '';
   set processReference(String value) => doc.setFormField(path, 'processReference', value);
 
@@ -92315,9 +92424,9 @@ class InteractionEntryTraceabilityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  /// Related Process — TOM-xxx.
+  /// Related Process.
   ///
-  /// TOM-xxx process this interaction realizes
+  /// The business process this interaction realizes — a section id (BPREN-PROC-…)
   String get relatedProcess => doc.formField(path, 'relatedProcess') ?? '';
   set relatedProcess(String value) => doc.setFormField(path, 'relatedProcess', value);
 
@@ -92327,33 +92436,33 @@ class InteractionEntryTraceabilityForm extends SomNode {
   String get relatedRequirements => doc.formField(path, 'relatedRequirements') ?? '';
   set relatedRequirements(String value) => doc.setFormField(path, 'relatedRequirements', value);
 
-  /// Related Use Case — ISC-xxx in ISC document.
+  /// Related Use Case.
   ///
-  /// ISC-xxx use case in the ISC document
+  /// Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint
   String get relatedUseCase => doc.formField(path, 'relatedUseCase') ?? '';
   set relatedUseCase(String value) => doc.setFormField(path, 'relatedUseCase', value);
 
   /// Related Data Entities — entity names.
   ///
-  /// Data entities read or written
+  /// Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)
   String get relatedDataEntities => doc.formField(path, 'relatedDataEntities') ?? '';
   set relatedDataEntities(String value) => doc.setFormField(path, 'relatedDataEntities', value);
 
-  /// Related Business Objects — BO-xxx.
+  /// Related Business Objects.
   ///
-  /// BO-xxx business objects involved
+  /// Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)
   String get relatedBusinessObjects => doc.formField(path, 'relatedBusinessObjects') ?? '';
   set relatedBusinessObjects(String value) => doc.setFormField(path, 'relatedBusinessObjects', value);
 
-  /// Related Business Rules — BR-xxx.
+  /// Related Business Rules.
   ///
-  /// BR-xxx business rules referenced
+  /// Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)
   String get relatedBusinessRules => doc.formField(path, 'relatedBusinessRules') ?? '';
   set relatedBusinessRules(String value) => doc.setFormField(path, 'relatedBusinessRules', value);
 
-  /// Related Integrations — INT-xxx.
+  /// Related Integrations.
   ///
-  /// INT-xxx integrations touched
+  /// Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)
   String get relatedIntegrations => doc.formField(path, 'relatedIntegrations') ?? '';
   set relatedIntegrations(String value) => doc.setFormField(path, 'relatedIntegrations', value);
 
@@ -94910,6 +95019,26 @@ class KeyAttributeEntryReferenceForm extends SomNode {
   set onUpdateAction(String value) => doc.setFormField(path, 'onUpdateAction', value);
 }
 
+/// Generated section facade for the `referencedEntityRef` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class KeyAttributeEntryReferencedEntityRefForm extends SomNode {
+  /// Names the `referencedEntityRef` form section at [path] inside [doc].
+  KeyAttributeEntryReferencedEntityRefForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Referenced Entity.
+  ///
+  /// Section id of the data entity (`DAENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class KeyCompromiseRecoveryPolicyContentForm extends SomNode {
@@ -97331,9 +97460,9 @@ class MainScenarioStepEntryContentForm extends SomNode {
   String get dataInvolved => doc.formField(path, 'dataInvolved') ?? '';
   set dataInvolved(String value) => doc.setFormField(path, 'dataInvolved', value);
 
-  /// Business Rule Applied — BR-xxx reference.
+  /// Business Rule Applied.
   ///
-  /// BR-xxx rule enforced at this step
+  /// The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved
   String get businessRuleApplied => doc.formField(path, 'businessRuleApplied') ?? '';
   set businessRuleApplied(String value) => doc.setFormField(path, 'businessRuleApplied', value);
 
@@ -102279,7 +102408,7 @@ class MoscowEntryStageAssignmentForm extends SomNode {
 
   /// Earliest Possible Stage.
   ///
-  /// Earliest stage where prerequisites allow delivery
+  /// The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved
   String get earliestPossibleStage => doc.formField(path, 'earliestPossibleStage') ?? '';
   set earliestPossibleStage(String value) => doc.setFormField(path, 'earliestPossibleStage', value);
 }
@@ -112341,7 +112470,7 @@ class ProcessIdentificationClassificationForm extends SomNode {
 
   /// Parent Process — higher-level process this belongs to.
   ///
-  /// The higher-level process this rolls up to
+  /// The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)
   String get parentProcess => doc.formField(path, 'parentProcess') ?? '';
   set parentProcess(String value) => doc.setFormField(path, 'parentProcess', value);
 
@@ -113189,13 +113318,13 @@ class ProcessRelationshipEntryContentForm extends SomNode {
 
   /// Source Process.
   ///
-  /// Name the source process
+  /// The source process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)
   String get sourceProcess => doc.formField(path, 'sourceProcess') ?? '';
   set sourceProcess(String value) => doc.setFormField(path, 'sourceProcess', value);
 
   /// Target Process.
   ///
-  /// Name the target process
+  /// The target process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)
   String get targetProcess => doc.formField(path, 'targetProcess') ?? '';
   set targetProcess(String value) => doc.setFormField(path, 'targetProcess', value);
 
@@ -120476,6 +120605,26 @@ class RequirementDependencyEntryContentForm extends SomNode {
   set impact(String value) => doc.setFormField(path, 'impact', value);
 }
 
+/// Generated section facade for the `relatedRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RequirementDependencyEntryRelatedRequirementForm extends SomNode {
+  /// Names the `relatedRequirement` form section at [path] inside [doc].
+  RequirementDependencyEntryRelatedRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Related Requirement.
+  ///
+  /// Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class RequirementScreenActionEntryContentForm extends SomNode {
@@ -120706,6 +120855,26 @@ class RequirementTestCaseEntryExecutionForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get expectedResult => doc.formField(path, 'expectedResult') ?? '';
   set expectedResult(String value) => doc.setFormField(path, 'expectedResult', value);
+}
+
+/// Generated section facade for the `relatedCriterion` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RequirementTestCaseEntryRelatedCriterionForm extends SomNode {
+  /// Names the `relatedCriterion` form section at [path] inside [doc].
+  RequirementTestCaseEntryRelatedCriterionForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Related Acceptance Criterion.
+  ///
+  /// Section id of the acceptance criterion (`ACE`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `artifacts` `@Form` section:
@@ -125915,9 +126084,9 @@ class ScenarioEntryContextForm extends SomNode {
   String get outOfScope => doc.formField(path, 'outOfScope') ?? '';
   set outOfScope(String value) => doc.setFormField(path, 'outOfScope', value);
 
-  /// Related Interactions — INT-xxx references.
+  /// Related Interactions.
   ///
-  /// INT-xxx interactions referenced by this scenario
+  /// Interactions referenced by this scenario, comma-separated — interaction section ids (INEN-INTE-…)
   String get relatedInteractions => doc.formField(path, 'relatedInteractions') ?? '';
   set relatedInteractions(String value) => doc.setFormField(path, 'relatedInteractions', value);
 }
@@ -126195,9 +126364,9 @@ class ScenarioStepEntryContextForm extends SomNode {
   String get expectedResult => doc.formField(path, 'expectedResult') ?? '';
   set expectedResult(String value) => doc.setFormField(path, 'expectedResult', value);
 
-  /// Interaction Reference — INT-xxx if detailed.
+  /// Interaction Reference.
   ///
-  /// INT-xxx interaction detailing this step
+  /// The interaction detailing this step — an interaction section id (INEN-INTE-…)
   String get interactionReference => doc.formField(path, 'interactionReference') ?? '';
   set interactionReference(String value) => doc.setFormField(path, 'interactionReference', value);
 
@@ -144679,7 +144848,7 @@ class TestScenarioEntryBusinessForm extends SomNode {
 
   /// Business Process Reference.
   ///
-  /// ID or name of the business process being validated
+  /// The business process being validated — a section id (BPREN-PROC-…)
   String get businessProcessRef => doc.formField(path, 'businessProcessRef') ?? '';
   set businessProcessRef(String value) => doc.setFormField(path, 'businessProcessRef', value);
 
@@ -144897,7 +145066,7 @@ class TestScenarioEntryTraceabilityForm extends SomNode {
 
   /// Acceptance Criterion Reference.
   ///
-  /// Linked criterion ID
+  /// The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
   String get acceptanceCriterionRef => doc.formField(path, 'acceptanceCriterionRef') ?? '';
   set acceptanceCriterionRef(String value) => doc.setFormField(path, 'acceptanceCriterionRef', value);
 
@@ -148541,13 +148710,13 @@ class TransitionMilestoneEntryDependenciesForm extends SomNode {
 
   /// Depends on Phases — phases that must complete.
   ///
-  /// The phases that must complete before this milestone can be achieved
+  /// Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)
   String get dependsOnPhases => doc.formField(path, 'dependsOnPhases') ?? '';
   set dependsOnPhases(String value) => doc.setFormField(path, 'dependsOnPhases', value);
 
   /// Depends on Milestones — prior milestones required.
   ///
-  /// The prior milestones required before this milestone can be reached
+  /// Milestones required first, comma-separated — transition milestone section ids
   String get dependsOnMilestones => doc.formField(path, 'dependsOnMilestones') ?? '';
   set dependsOnMilestones(String value) => doc.setFormField(path, 'dependsOnMilestones', value);
 

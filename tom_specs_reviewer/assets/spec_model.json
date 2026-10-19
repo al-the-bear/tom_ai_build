@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T15:45:20.155430Z",
+  "generatedAt": "2026-10-19T19:15:06.644815Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.2+7.3b09bf72",
+  "modelVersionLabel": "1.6.3+10.97bf8159",
   "classCount": 1259,
   "rootCount": 14,
-  "modelHash": "9cc5ff721fb928933d0e74074293b8813f3edfafa57855fd7eeb55fad8417590",
+  "modelHash": "31e0787baed0e6451806d693a694ec20fb4b85abd879059dfa6d0122d7b0ee1a",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -7527,7 +7527,7 @@
         },
         {
           "name": "functionRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the function in which this rule fires.\n\nThe object side of a rule ([AffectedObjectEntry]) says what it acts on;\nthis side says where in the flow it is evaluated, which is what gives the\ntrigger point and the mandatory flag their meaning. Both are needed: one\nrule may guard an entity that three functions write, and only one of those\nfunctions may be entitled to skip the check.",
           "sectionId": "AFFN-FUNC-REF",
           "serializationOrder": 1,
@@ -7545,13 +7545,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Function Name",
+              "hint": "Section id of the function (`FUNCT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "FUNCT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -7636,7 +7653,7 @@
         },
         {
           "name": "objectRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the business object this rule acts on.\n\nThe surrounding entry says *how* the object is affected — which\nattributes, whether it is validated, constrained, modified or created, and\nwhether the access is a read or a write. This member is the followable\nedge to the object itself, which is what lets a rule's impact set be\ncomputed rather than read: given a rule, every object it touches, and\ngiven an object, every rule that touches it.",
           "sectionId": "AFOB-OBJE-REF",
           "serializationOrder": 1,
@@ -7654,13 +7671,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Object Name",
+              "hint": "Section id of the business object (`BJOEN`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BJOEN.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -29929,7 +29963,7 @@
         },
         {
           "name": "ruleRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the business rule this entry cites.\n\nThe entry's `ruleId` field holds the rule's section id as text; this\nmember is the followable edge to that rule's section, so a citation can be\nvalidated rather than trusted. The outliner shows it without recursing —\nwhich is the whole point of the entry: the rule is stated once in\n[BusinessRuleEntry] and cited from every object it governs, instead of\nbeing copied into each of them and drifting.",
           "sectionId": "BIRURE-RULE-REF",
           "serializationOrder": 1,
@@ -29947,13 +29981,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Rule Id",
+              "hint": "Section id of the business rule (`BIRU`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BIRU.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -67539,7 +67590,7 @@
         },
         {
           "name": "relatedEntity",
-          "kind": "content",
+          "kind": "form",
           "doc": "The data-model entity these operations act on, named by section id.\n\nThis entry describes *how a requirement touches* an entity — which CRUD\noperations, which attributes, at what volume, under which quality rules —\nand deliberately does not restate what the entity is. The link is what\nmakes that omission safe: the reader follows it to the information model\nfor the entity's fields, keys and relationships, stated once. Without it\nthe row names a string no schema is obliged to match.\n\nIt is also the edge the CE-DB data-access derivation reads\n(`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a\nrequirement whose data access cannot be generated.",
           "sectionId": "DAENRE-RELA-REF",
           "serializationOrder": 1,
@@ -67557,13 +67608,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Related Data Model Entity",
+              "hint": "Section id of the data entity (`DAENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -97563,7 +97631,7 @@
         },
         {
           "name": "sourceEntityRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the entity at the source end.\n\nThe participant list names the ends for a reader; this is the\nmachine-followable edge to the source entity's section, shown by the\noutliner without recursing into it and validated by the schema generator\nagainst the entity list. It is what makes an entity name that resolves to\nnothing a detected error instead of a dangling string.",
           "sectionId": "ENRLE-SOUR-REF",
           "serializationOrder": 7,
@@ -97581,17 +97649,34 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 7
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Source Entity Name",
+              "hint": "Section id of the data entity (`DAENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.@sectionId"
+              ]
+            }
+          ]
         },
         {
           "name": "targetEntityRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the entity at the target end.\n\nThe mirror of [sourceEntityRef], with one asymmetry worth knowing: which\nend is \"source\" is not arbitrary. It is the end the relationship is read\nfrom, and it is what `ENRLE-CARD.sourceCardinality` and\n`ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the\ntwo ends changes what the cardinality band asserts even though the\nbusiness fact is unchanged.",
           "sectionId": "ENRLE-TARG-REF",
           "serializationOrder": 8,
@@ -97609,13 +97694,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 8
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Target Entity Name",
+              "hint": "Section id of the data entity (`DAENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -111525,14 +111627,17 @@
             {
               "name": "targetStage",
               "label": "Target Stage",
-              "hint": "Planned delivery stage",
+              "hint": "Planned delivery stage — a stage section id (STAGE-STAG-…); empty for a feature planned into no stage (MoSCoW Won't this time)",
               "type": "String",
-              "required": true
+              "required": false,
+              "refersTo": [
+                "STAGE.@sectionId"
+              ]
             },
             {
               "name": "earliestPossibleStage",
               "label": "Earliest Possible Stage",
-              "hint": "Earliest stage prerequisites allow",
+              "hint": "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved",
               "type": "String",
               "required": false
             },
@@ -111541,7 +111646,10 @@
               "label": "Fallback Stage",
               "hint": "Stage to defer to if cut from target",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "STAGE.@sectionId"
+              ]
             },
             {
               "name": "stageAssignmentRationale",
@@ -112124,7 +112232,10 @@
               "label": "Target Stage",
               "hint": "Stage in which this feature will be delivered",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "STAGE.@sectionId"
+              ]
             },
             {
               "name": "stagePhase",
@@ -112138,7 +112249,10 @@
               "label": "Fallback Stage",
               "hint": "Stage to which this feature moves if cut from target stage",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "STAGE.@sectionId"
+              ]
             }
           ]
         },
@@ -129477,43 +129591,43 @@
           "formFields": [
             {
               "name": "validationRules",
-              "label": "Validation Rules — BR-xxx for validation",
-              "hint": "BR-xxx rules governing input validation",
+              "label": "Validation Rules",
+              "hint": "Rules governing input validation, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             },
             {
               "name": "calculationRules",
-              "label": "Calculation Rules — BR-xxx for calculations",
-              "hint": "BR-xxx rules governing calculations",
+              "label": "Calculation Rules",
+              "hint": "Rules governing calculations, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             },
             {
               "name": "authorizationRules",
-              "label": "Authorization Rules — BR-xxx for permissions",
-              "hint": "BR-xxx rules governing permissions",
+              "label": "Authorization Rules",
+              "hint": "Rules governing permissions, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             },
             {
               "name": "workflowRules",
-              "label": "Workflow Rules — BR-xxx for flow",
-              "hint": "BR-xxx rules governing flow and routing",
+              "label": "Workflow Rules",
+              "hint": "Rules governing flow and routing, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             },
             {
               "name": "notificationRules",
-              "label": "Notification Rules — BR-xxx for notifications",
-              "hint": "BR-xxx rules governing notifications",
+              "label": "Notification Rules",
+              "hint": "Rules governing notifications, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             },
             {
               "name": "integrationRules",
-              "label": "Integration Rules — BR-xxx for integrations",
-              "hint": "BR-xxx rules governing external integrations",
+              "label": "Integration Rules",
+              "hint": "Rules governing external integrations, as prose — a rule may cite its business rule (BIRU-…); not resolved",
               "type": "String",
               "required": false
             }
@@ -130730,10 +130844,13 @@
             },
             {
               "name": "processReference",
-              "label": "Process Reference — TOM-xxx",
-              "hint": "The TOM-xxx process this use case realizes",
+              "label": "Process Reference",
+              "hint": "The business process this use case realizes — a section id (BPREN-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId"
+              ]
             },
             {
               "name": "briefDescription",
@@ -131432,10 +131549,13 @@
           "formFields": [
             {
               "name": "relatedProcess",
-              "label": "Related Process — TOM-xxx",
-              "hint": "TOM-xxx process this interaction realizes",
+              "label": "Related Process",
+              "hint": "The business process this interaction realizes — a section id (BPREN-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId"
+              ]
             },
             {
               "name": "relatedRequirements",
@@ -131452,38 +131572,50 @@
             },
             {
               "name": "relatedUseCase",
-              "label": "Related Use Case — ISC-xxx in ISC document",
-              "hint": "ISC-xxx use case in the ISC document",
+              "label": "Related Use Case",
+              "hint": "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint",
               "type": "String",
               "required": false
             },
             {
               "name": "relatedDataEntities",
               "label": "Related Data Entities — entity names",
-              "hint": "Data entities read or written",
+              "hint": "Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
             },
             {
               "name": "relatedBusinessObjects",
-              "label": "Related Business Objects — BO-xxx",
-              "hint": "BO-xxx business objects involved",
+              "label": "Related Business Objects",
+              "hint": "Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BJOEN.@sectionId"
+              ]
             },
             {
               "name": "relatedBusinessRules",
-              "label": "Related Business Rules — BR-xxx",
-              "hint": "BR-xxx business rules referenced",
+              "label": "Related Business Rules",
+              "hint": "Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BIRU.@sectionId"
+              ]
             },
             {
               "name": "relatedIntegrations",
-              "label": "Related Integrations — INT-xxx",
-              "hint": "INT-xxx integrations touched",
+              "label": "Related Integrations",
+              "hint": "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "EIE.@sectionId"
+              ]
             },
             {
               "name": "relatedTestCases",
@@ -138297,7 +138429,7 @@
         },
         {
           "name": "referencedEntityRef",
-          "kind": "content",
+          "kind": "form",
           "doc": "The resolved link to the entity a foreign key points at.\n\nThe `referencedEntity` field of the reference band holds the target's name\nas text; this member is the followable edge to that entity's section,\nwhich the outliner shows in place of the target subtree rather than\nrecursing into it, and which the schema generator validates. It is what\nmakes an entity name that resolves to nothing a detected error rather than\na dangling string. Empty for every key type but a foreign key — a primary\nor alternate key references nothing outside its own entity.",
           "sectionId": "KEATT-REFE-REF",
           "serializationOrder": 4,
@@ -138315,13 +138447,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 4
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Referenced Entity",
+              "hint": "Section id of the data entity (`DAENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -144903,8 +145052,8 @@
             },
             {
               "name": "businessRuleApplied",
-              "label": "Business Rule Applied — BR-xxx reference",
-              "hint": "BR-xxx rule enforced at this step",
+              "label": "Business Rule Applied",
+              "hint": "The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved",
               "type": "String",
               "required": false
             },
@@ -157569,12 +157718,15 @@
               "label": "Target Stage",
               "hint": "Stage in which this feature is planned for delivery",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "STAGE.@sectionId"
+              ]
             },
             {
               "name": "earliestPossibleStage",
               "label": "Earliest Possible Stage",
-              "hint": "Earliest stage where prerequisites allow delivery",
+              "hint": "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved",
               "type": "String",
               "required": false
             }
@@ -184219,9 +184371,12 @@
             {
               "name": "parentProcess",
               "label": "Parent Process — higher-level process this belongs to",
-              "hint": "The higher-level process this rolls up to",
+              "hint": "The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId"
+              ]
             },
             {
               "name": "processCategory",
@@ -187370,16 +187525,24 @@
             {
               "name": "sourceProcess",
               "label": "Source Process",
-              "hint": "Name the source process",
+              "hint": "The source process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId",
+                "CUBIPR.@sectionId"
+              ]
             },
             {
               "name": "targetProcess",
               "label": "Target Process",
-              "hint": "Name the target process",
+              "hint": "The target process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId",
+                "CUBIPR.@sectionId"
+              ]
             },
             {
               "name": "relationshipType",
@@ -206708,7 +206871,7 @@
         },
         {
           "name": "relatedRequirement",
-          "kind": "content",
+          "kind": "form",
           "doc": "The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation — prerequisite, bidirectional,\nparent-child, conflict, refinement — and this names its far end; the\nrequirement that owns the entry is always the near end, so neither half\nis readable alone. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.",
           "sectionId": "RQDEP-RELA-REF",
           "serializationOrder": 1,
@@ -206726,13 +206889,33 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Related Requirement",
+              "hint": "Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -207288,7 +207471,7 @@
         },
         {
           "name": "relatedCriterion",
-          "kind": "content",
+          "kind": "form",
           "doc": "The acceptance criterion this test case verifies, named by section id.\n\nThis is the link that turns a test case from a suggestion into evidence.\nThe criterion states the condition under which the requirement is agreed\nto be met; the test states how that condition is demonstrated. Expect one\ncriterion at the far end — a test that would have to name several is\nverifying more than one thing and reads better as several tests, each of\nwhich can fail for its own reason.\n\nIt is also the coverage measure in the other direction: a criterion that\nno test case points at is an acceptance condition nobody has undertaken\nto check, and that is only visible when this link is filled in.",
           "sectionId": "RQTSC-RELA-REF",
           "serializationOrder": 3,
@@ -207306,13 +207489,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Related Acceptance Criterion",
+              "hint": "Section id of the acceptance criterion (`ACE`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ACE.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -221094,10 +221294,13 @@
             },
             {
               "name": "relatedInteractions",
-              "label": "Related Interactions — INT-xxx references",
-              "hint": "INT-xxx interactions referenced by this scenario",
+              "label": "Related Interactions",
+              "hint": "Interactions referenced by this scenario, comma-separated — interaction section ids (INEN-INTE-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.@sectionId"
+              ]
             }
           ]
         },
@@ -221634,10 +221837,13 @@
             },
             {
               "name": "interactionReference",
-              "label": "Interaction Reference — INT-xxx if detailed",
-              "hint": "INT-xxx interaction detailing this step",
+              "label": "Interaction Reference",
+              "hint": "The interaction detailing this step — an interaction section id (INEN-INTE-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.@sectionId"
+              ]
             },
             {
               "name": "dataInvolved",
@@ -272378,9 +272584,12 @@
             {
               "name": "businessProcessRef",
               "label": "Business Process Reference",
-              "hint": "ID or name of the business process being validated",
+              "hint": "The business process being validated — a section id (BPREN-PROC-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId"
+              ]
             },
             {
               "name": "businessRulesValidated",
@@ -272475,9 +272684,12 @@
             {
               "name": "acceptanceCriterionRef",
               "label": "Acceptance Criterion Reference",
-              "hint": "Linked criterion ID",
+              "hint": "The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DACEN.@sectionId"
+              ]
             },
             {
               "name": "designRef",
@@ -280832,16 +281044,22 @@
             {
               "name": "dependsOnPhases",
               "label": "Depends on Phases — phases that must complete",
-              "hint": "The phases that must complete before this milestone can be achieved",
+              "hint": "Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TRPHE.@sectionId"
+              ]
             },
             {
               "name": "dependsOnMilestones",
               "label": "Depends on Milestones — prior milestones required",
-              "hint": "The prior milestones required before this milestone can be reached",
+              "hint": "Milestones required first, comma-separated — transition milestone section ids",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TRMIL.@sectionId"
+              ]
             },
             {
               "name": "criticality",

@@ -2502,7 +2502,9 @@ class AdministrationRequirementsSectionEnvironmentManagementForm;
 class AdministrativeEventPolicyContentForm;
 class AffectedDepartmentEntryContentForm;
 class AffectedFunctionEntryContentForm;
+class AffectedFunctionEntryFunctionRefForm;
 class AffectedObjectEntryContentForm;
+class AffectedObjectEntryObjectRefForm;
 class AlertDefinitionEntryConditionForm;
 class AlertDefinitionEntryContentForm;
 class AlertDefinitionEntryNotificationForm;
@@ -2717,6 +2719,7 @@ class BusinessRuleEntryIdentityForm;
 class BusinessRuleEntryImplementationForm;
 class BusinessRuleEntryRuleLogicForm;
 class BusinessRuleReferenceEntryContentForm;
+class BusinessRuleReferenceEntryRuleRefForm;
 class CapacityReviewProcessContentForm;
 class CapacityReviewProcessEscalationForm;
 class CapacityReviewProcessMonitoringForm;
@@ -3052,6 +3055,7 @@ class DataEntityEntryLifecyclePolicyForm;
 class DataEntityEntryRelationshipSummaryForm;
 class DataEntityMigrationEntryContentForm;
 class DataEntityReferenceEntryContentForm;
+class DataEntityReferenceEntryRelatedEntityForm;
 class DataFormatCompatibilityContentForm;
 class DataFormatCompatibilityDateTimeForm;
 class DataFormatCompatibilityFormatsForm;
@@ -3350,6 +3354,8 @@ class EntityRelationshipEntryCardinalityForm;
 class EntityRelationshipEntryIdentityForm;
 class EntityRelationshipEntryNavigationForm;
 class EntityRelationshipEntryReferentialIntegrityForm;
+class EntityRelationshipEntrySourceEntityRefForm;
+class EntityRelationshipEntryTargetEntityRefForm;
 class EntryPointEntryContentForm;
 class EnvironmentEntryAvailabilityForm;
 class EnvironmentEntryComplianceForm;
@@ -3749,6 +3755,7 @@ class KeyAttributeEntryContentForm;
 class KeyAttributeEntryGenerationForm;
 class KeyAttributeEntryGovernanceForm;
 class KeyAttributeEntryReferenceForm;
+class KeyAttributeEntryReferencedEntityRefForm;
 class KeyCompromiseRecoveryPolicyContentForm;
 class KeyConceptEntryContentForm;
 class KeyEscrowAndBackupPolicyContentForm;
@@ -4380,10 +4387,12 @@ class ReportSectionEntryLayoutForm;
 class ReportSectionEntrySortingForm;
 class RequirementBusinessRuleEntryContentForm;
 class RequirementDependencyEntryContentForm;
+class RequirementDependencyEntryRelatedRequirementForm;
 class RequirementScreenActionEntryContentForm;
 class RequirementTestCaseEntryAutomationForm;
 class RequirementTestCaseEntryContentForm;
 class RequirementTestCaseEntryExecutionForm;
+class RequirementTestCaseEntryRelatedCriterionForm;
 class RequirementTraceabilityArtifactsForm;
 class RequirementTraceabilityImplementationForm;
 class RequirementTraceabilityTraceabilityFormForm;
@@ -5969,8 +5978,7 @@ class AffectedFunctionEntry : public som::SomNode {
   // trigger point and the mandatory flag their meaning. Both are needed: one
   // rule may guard an entity that three functions write, and only one of those
   // functions may be entitled to skip the check.
-  std::string functionRef() const;
-  void setFunctionRef(const std::string& value);
+  AffectedFunctionEntryFunctionRefForm functionRef() const;
 };
 
 // An affected object reference entry (form).
@@ -5991,8 +5999,7 @@ class AffectedObjectEntry : public som::SomNode {
   // edge to the object itself, which is what lets a rule's impact set be
   // computed rather than read: given a rule, every object it touches, and
   // given an object, every rule that touches it.
-  std::string objectRef() const;
-  void setObjectRef(const std::string& value);
+  AffectedObjectEntryObjectRefForm objectRef() const;
 };
 
 // Alert definition entry.
@@ -8037,8 +8044,7 @@ class BusinessRuleReferenceEntry : public som::SomNode {
   // which is the whole point of the entry: the rule is stated once in
   // [BusinessRuleEntry] and cited from every object it governs, instead of
   // being copied into each of them and drifting.
-  std::string ruleRef() const;
-  void setRuleRef(const std::string& value);
+  BusinessRuleReferenceEntryRuleRefForm ruleRef() const;
 };
 
 // 8.7.3. Capacity Planning.
@@ -12121,8 +12127,7 @@ class DataEntityReferenceEntry : public som::SomNode {
   // It is also the edge the CE-DB data-access derivation reads
   // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
   // requirement whose data access cannot be generated.
-  std::string relatedEntity() const;
-  void setRelatedEntity(const std::string& value);
+  DataEntityReferenceEntryRelatedEntityForm relatedEntity() const;
 };
 
 // Data format and encoding compatibility.
@@ -14801,8 +14806,7 @@ class EntityRelationshipEntry : public som::SomNode {
   // outliner without recursing into it and validated by the schema generator
   // against the entity list. It is what makes an entity name that resolves to
   // nothing a detected error instead of a dangling string.
-  std::string sourceEntityRef() const;
-  void setSourceEntityRef(const std::string& value);
+  EntityRelationshipEntrySourceEntityRefForm sourceEntityRef() const;
   // The resolved link to the entity at the target end.
   //
   // The mirror of [sourceEntityRef], with one asymmetry worth knowing: which
@@ -14811,8 +14815,7 @@ class EntityRelationshipEntry : public som::SomNode {
   // `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
   // two ends changes what the cardinality band asserts even though the
   // business fact is unchanged.
-  std::string targetEntityRef() const;
-  void setTargetEntityRef(const std::string& value);
+  EntityRelationshipEntryTargetEntityRefForm targetEntityRef() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -18405,8 +18408,7 @@ class KeyAttributeEntry : public som::SomNode {
   // makes an entity name that resolves to nothing a detected error rather than
   // a dangling string. Empty for every key type but a foreign key — a primary
   // or alternate key references nothing outside its own entity.
-  std::string referencedEntityRef() const;
-  void setReferencedEntityRef(const std::string& value);
+  KeyAttributeEntryReferencedEntityRefForm referencedEntityRef() const;
 };
 
 // Key compromise and recovery policy (form).
@@ -24465,8 +24467,7 @@ class RequirementDependencyEntry : public som::SomNode {
   // (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
   // graph containing cycles — a conflict pair is one — without making the
   // document unwalkable.
-  std::string relatedRequirement() const;
-  void setRelatedRequirement(const std::string& value);
+  RequirementDependencyEntryRelatedRequirementForm relatedRequirement() const;
 };
 
 // 4.3.5. Requirement Relationships.
@@ -24525,8 +24526,7 @@ class RequirementTestCaseEntry : public som::SomNode {
   // It is also the coverage measure in the other direction: a criterion that
   // no test case points at is an acceptance condition nobody has undertaken
   // to check, and that is only visible when this link is filled in.
-  std::string relatedCriterion() const;
-  void setRelatedCriterion(const std::string& value);
+  RequirementTestCaseEntryRelatedCriterionForm relatedCriterion() const;
 };
 
 // 4.3.1.n.7. Test Cases.
@@ -34133,6 +34133,18 @@ class AffectedFunctionEntryContentForm : public som::SomNode {
   void setIsMandatory(const std::string& value);
 };
 
+// Generated section facade for the `functionRef` @Form section: its own `content` text followed by one typed member per form field.
+class AffectedFunctionEntryFunctionRefForm : public som::SomNode {
+ public:
+  AffectedFunctionEntryFunctionRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class AffectedObjectEntryContentForm : public som::SomNode {
  public:
@@ -34147,6 +34159,18 @@ class AffectedObjectEntryContentForm : public som::SomNode {
   void setImpact(const std::string& value);
   std::string accessType() const;
   void setAccessType(const std::string& value);
+};
+
+// Generated section facade for the `objectRef` @Form section: its own `content` text followed by one typed member per form field.
+class AffectedObjectEntryObjectRefForm : public som::SomNode {
+ public:
+  AffectedObjectEntryObjectRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `condition` @Form section: its own `content` text followed by one typed member per form field.
@@ -38039,6 +38063,18 @@ class BusinessRuleReferenceEntryContentForm : public som::SomNode {
   void setAffectedAttributes(const std::string& value);
   std::string consequenceOnViolation() const;
   void setConsequenceOnViolation(const std::string& value);
+};
+
+// Generated section facade for the `ruleRef` @Form section: its own `content` text followed by one typed member per form field.
+class BusinessRuleReferenceEntryRuleRefForm : public som::SomNode {
+ public:
+  BusinessRuleReferenceEntryRuleRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -44085,6 +44121,18 @@ class DataEntityReferenceEntryContentForm : public som::SomNode {
   void setDataOwner(const std::string& value);
 };
 
+// Generated section facade for the `relatedEntity` @Form section: its own `content` text followed by one typed member per form field.
+class DataEntityReferenceEntryRelatedEntityForm : public som::SomNode {
+ public:
+  DataEntityReferenceEntryRelatedEntityForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class DataFormatCompatibilityContentForm : public som::SomNode {
  public:
@@ -49369,6 +49417,30 @@ class EntityRelationshipEntryReferentialIntegrityForm : public som::SomNode {
   void setCascadeScope(const std::string& value);
   std::string orphanHandling() const;
   void setOrphanHandling(const std::string& value);
+};
+
+// Generated section facade for the `sourceEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+class EntityRelationshipEntrySourceEntityRefForm : public som::SomNode {
+ public:
+  EntityRelationshipEntrySourceEntityRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
+// Generated section facade for the `targetEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+class EntityRelationshipEntryTargetEntityRefForm : public som::SomNode {
+ public:
+  EntityRelationshipEntryTargetEntityRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -56553,6 +56625,18 @@ class KeyAttributeEntryReferenceForm : public som::SomNode {
   void setOnDeleteAction(const std::string& value);
   std::string onUpdateAction() const;
   void setOnUpdateAction(const std::string& value);
+};
+
+// Generated section facade for the `referencedEntityRef` @Form section: its own `content` text followed by one typed member per form field.
+class KeyAttributeEntryReferencedEntityRefForm : public som::SomNode {
+ public:
+  KeyAttributeEntryReferencedEntityRefForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -68377,6 +68461,18 @@ class RequirementDependencyEntryContentForm : public som::SomNode {
   void setImpact(const std::string& value);
 };
 
+// Generated section facade for the `relatedRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class RequirementDependencyEntryRelatedRequirementForm : public som::SomNode {
+ public:
+  RequirementDependencyEntryRelatedRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class RequirementScreenActionEntryContentForm : public som::SomNode {
  public:
@@ -68471,6 +68567,18 @@ class RequirementTestCaseEntryExecutionForm : public som::SomNode {
   void setTestData(const std::string& value);
   std::string expectedResult() const;
   void setExpectedResult(const std::string& value);
+};
+
+// Generated section facade for the `relatedCriterion` @Form section: its own `content` text followed by one typed member per form field.
+class RequirementTestCaseEntryRelatedCriterionForm : public som::SomNode {
+ public:
+  RequirementTestCaseEntryRelatedCriterionForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `artifacts` @Form section: its own `content` text followed by one typed member per form field.

@@ -21,6 +21,7 @@ section-types:
     description: Add one entry per business rule reference.
   birure-rule-ref:
     prefix: BIRURE_RULE_REF
+    format: birure-rule-ref-form
     description: The resolved link to the business rule this entry cites.
   rulexm-exam-lst:
     prefix: RULEXM_EXAM_LST
@@ -148,9 +149,11 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    format: enrle-sour-ref-form
     description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    format: enrle-targ-ref-form
     description: The resolved link to the entity at the target end.
   ercen-code-lst:
     prefix: ERCEN_CODE_LST
@@ -218,6 +221,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    format: keatt-refe-ref-form
     description: The resolved link to the entity a foreign key points at.
   lftrs-life-lst:
     prefix: LFTRS_LIFE_LST
@@ -349,6 +353,7 @@ section-types:
     description: Add one entry per affected function.
   affn-func-ref:
     prefix: AFFN_FUNC_REF
+    format: affn-func-ref-form
     description: The resolved link to the function in which this rule fires.
   afob-affe-lst:
     prefix: AFOB_AFFE_LST
@@ -360,6 +365,7 @@ section-types:
     description: Add one entry per affected object.
   afob-obje-ref:
     prefix: AFOB_OBJE_REF
+    format: afob-obje-ref-form
     description: The resolved link to the business object this rule acts on.
   biru-busi-lst:
     prefix: BIRU_BUSI_LST
@@ -1397,6 +1403,10 @@ form-types:
     fields:
       - fieldname: deferrable
         description: "Whether constraint check can be deferred: Yes | No"
+  keatt-refe-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   enrle-iden-form:
     fields:
       - fieldname: relationshipType
@@ -1447,6 +1457,14 @@ form-types:
         description: "For many-to-many: name of the junction/bridge table"
       - fieldname: inverseRelationship
         description: Name of the relationship from the other side
+  enrle-sour-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
+  enrle-targ-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   datcl-over-form:
     fields:
       - fieldname: classificationFramework
@@ -1585,6 +1603,10 @@ form-types:
         description: "Public | Internal | Confidential | PII | PHI"
       - fieldname: displayOrder
         description: Order for UI presentation
+  birure-rule-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the business rule (`BIRU`)"
   ltet-form:
     fields:
       - fieldname: trigger
@@ -1721,6 +1743,14 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  afob-obje-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the business object (`BJOEN`)"
+  affn-func-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the function (`FUNCT`)"
   azreq-role-form:
     fields:
       - fieldname: roles

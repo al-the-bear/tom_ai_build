@@ -2615,11 +2615,7 @@ class AffectedFunctionEntry extends SomNode {
   // rule may guard an entity that three functions write, and only one of those
   // functions may be entitled to skip the check.
   get functionRef() {
-    return this.doc.content(this.path + "/AFFN-FUNC-REF") || '';
-  }
-
-  set functionRef(value) {
-    this.doc.setContent(this.path + "/AFFN-FUNC-REF", value);
+    return new AffectedFunctionEntryFunctionRefForm(this.doc, this.path + "/AFFN-FUNC-REF");
   }
 }
 
@@ -2647,11 +2643,7 @@ class AffectedObjectEntry extends SomNode {
   // computed rather than read: given a rule, every object it touches, and
   // given an object, every rule that touches it.
   get objectRef() {
-    return this.doc.content(this.path + "/AFOB-OBJE-REF") || '';
-  }
-
-  set objectRef(value) {
-    this.doc.setContent(this.path + "/AFOB-OBJE-REF", value);
+    return new AffectedObjectEntryObjectRefForm(this.doc, this.path + "/AFOB-OBJE-REF");
   }
 }
 
@@ -6007,11 +5999,7 @@ class BusinessRuleReferenceEntry extends SomNode {
   // [BusinessRuleEntry] and cited from every object it governs, instead of
   // being copied into each of them and drifting.
   get ruleRef() {
-    return this.doc.content(this.path + "/BIRURE-RULE-REF") || '';
-  }
-
-  set ruleRef(value) {
-    this.doc.setContent(this.path + "/BIRURE-RULE-REF", value);
+    return new BusinessRuleReferenceEntryRuleRefForm(this.doc, this.path + "/BIRURE-RULE-REF");
   }
 }
 
@@ -12745,11 +12733,7 @@ class DataEntityReferenceEntry extends SomNode {
   // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
   // requirement whose data access cannot be generated.
   get relatedEntity() {
-    return this.doc.content(this.path + "/DAENRE-RELA-REF") || '';
-  }
-
-  set relatedEntity(value) {
-    this.doc.setContent(this.path + "/DAENRE-RELA-REF", value);
+    return new DataEntityReferenceEntryRelatedEntityForm(this.doc, this.path + "/DAENRE-RELA-REF");
   }
 }
 
@@ -17183,11 +17167,7 @@ class EntityRelationshipEntry extends SomNode {
   // against the entity list. It is what makes an entity name that resolves to
   // nothing a detected error instead of a dangling string.
   get sourceEntityRef() {
-    return this.doc.content(this.path + "/ENRLE-SOUR-REF") || '';
-  }
-
-  set sourceEntityRef(value) {
-    this.doc.setContent(this.path + "/ENRLE-SOUR-REF", value);
+    return new EntityRelationshipEntrySourceEntityRefForm(this.doc, this.path + "/ENRLE-SOUR-REF");
   }
 
   // The resolved link to the entity at the target end.
@@ -17199,11 +17179,7 @@ class EntityRelationshipEntry extends SomNode {
   // two ends changes what the cardinality band asserts even though the
   // business fact is unchanged.
   get targetEntityRef() {
-    return this.doc.content(this.path + "/ENRLE-TARG-REF") || '';
-  }
-
-  set targetEntityRef(value) {
-    this.doc.setContent(this.path + "/ENRLE-TARG-REF", value);
+    return new EntityRelationshipEntryTargetEntityRefForm(this.doc, this.path + "/ENRLE-TARG-REF");
   }
 }
 
@@ -23076,11 +23052,7 @@ class KeyAttributeEntry extends SomNode {
   // a dangling string. Empty for every key type but a foreign key — a primary
   // or alternate key references nothing outside its own entity.
   get referencedEntityRef() {
-    return this.doc.content(this.path + "/KEATT-REFE-REF") || '';
-  }
-
-  set referencedEntityRef(value) {
-    this.doc.setContent(this.path + "/KEATT-REFE-REF", value);
+    return new KeyAttributeEntryReferencedEntityRefForm(this.doc, this.path + "/KEATT-REFE-REF");
   }
 }
 
@@ -33019,11 +32991,7 @@ class RequirementDependencyEntry extends SomNode {
   // graph containing cycles — a conflict pair is one — without making the
   // document unwalkable.
   get relatedRequirement() {
-    return this.doc.content(this.path + "/RQDEP-RELA-REF") || '';
-  }
-
-  set relatedRequirement(value) {
-    this.doc.setContent(this.path + "/RQDEP-RELA-REF", value);
+    return new RequirementDependencyEntryRelatedRequirementForm(this.doc, this.path + "/RQDEP-RELA-REF");
   }
 }
 
@@ -33108,11 +33076,7 @@ class RequirementTestCaseEntry extends SomNode {
   // no test case points at is an acceptance condition nobody has undertaken
   // to check, and that is only visible when this link is filled in.
   get relatedCriterion() {
-    return this.doc.content(this.path + "/RQTSC-RELA-REF") || '';
-  }
-
-  set relatedCriterion(value) {
-    this.doc.setContent(this.path + "/RQTSC-RELA-REF", value);
+    return new RequirementTestCaseEntryRelatedCriterionForm(this.doc, this.path + "/RQTSC-RELA-REF");
   }
 }
 
@@ -50549,6 +50513,33 @@ class AffectedFunctionEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `functionRef` @Form section: its own content text followed by one typed member per form field.
+class AffectedFunctionEntryFunctionRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class AffectedObjectEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -50589,6 +50580,33 @@ class AffectedObjectEntryContentForm extends SomNode {
 
   set accessType(value) {
     this.doc.setFormField(this.path, "accessType", value);
+  }
+}
+
+// Generated section facade for the `objectRef` @Form section: its own content text followed by one typed member per form field.
+class AffectedObjectEntryObjectRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -61777,6 +61795,33 @@ class BusinessRuleReferenceEntryContentForm extends SomNode {
 
   set consequenceOnViolation(value) {
     this.doc.setFormField(this.path, "consequenceOnViolation", value);
+  }
+}
+
+// Generated section facade for the `ruleRef` @Form section: its own content text followed by one typed member per form field.
+class BusinessRuleReferenceEntryRuleRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -79031,6 +79076,33 @@ class DataEntityReferenceEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `relatedEntity` @Form section: its own content text followed by one typed member per form field.
+class DataEntityReferenceEntryRelatedEntityForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class DataFormatCompatibilityContentForm extends SomNode {
   constructor(doc, path) {
@@ -93982,6 +94054,60 @@ class EntityRelationshipEntryReferentialIntegrityForm extends SomNode {
 
   set orphanHandling(value) {
     this.doc.setFormField(this.path, "orphanHandling", value);
+  }
+}
+
+// Generated section facade for the `sourceEntityRef` @Form section: its own content text followed by one typed member per form field.
+class EntityRelationshipEntrySourceEntityRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
+// Generated section facade for the `targetEntityRef` @Form section: its own content text followed by one typed member per form field.
+class EntityRelationshipEntryTargetEntityRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -114470,6 +114596,33 @@ class KeyAttributeEntryReferenceForm extends SomNode {
 
   set onUpdateAction(value) {
     this.doc.setFormField(this.path, "onUpdateAction", value);
+  }
+}
+
+// Generated section facade for the `referencedEntityRef` @Form section: its own content text followed by one typed member per form field.
+class KeyAttributeEntryReferencedEntityRefForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -148720,6 +148873,33 @@ class RequirementDependencyEntryContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `relatedRequirement` @Form section: its own content text followed by one typed member per form field.
+class RequirementDependencyEntryRelatedRequirementForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 class RequirementScreenActionEntryContentForm extends SomNode {
   constructor(doc, path) {
@@ -149017,6 +149197,33 @@ class RequirementTestCaseEntryExecutionForm extends SomNode {
 
   set expectedResult(value) {
     this.doc.setFormField(this.path, "expectedResult", value);
+  }
+}
+
+// Generated section facade for the `relatedCriterion` @Form section: its own content text followed by one typed member per form field.
+class RequirementTestCaseEntryRelatedCriterionForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref() {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -197658,7 +197865,9 @@ module.exports = {
   AdministrativeEventPolicyContentForm,
   AffectedDepartmentEntryContentForm,
   AffectedFunctionEntryContentForm,
+  AffectedFunctionEntryFunctionRefForm,
   AffectedObjectEntryContentForm,
+  AffectedObjectEntryObjectRefForm,
   AlertDefinitionEntryConditionForm,
   AlertDefinitionEntryContentForm,
   AlertDefinitionEntryNotificationForm,
@@ -197873,6 +198082,7 @@ module.exports = {
   BusinessRuleEntryImplementationForm,
   BusinessRuleEntryRuleLogicForm,
   BusinessRuleReferenceEntryContentForm,
+  BusinessRuleReferenceEntryRuleRefForm,
   CapacityReviewProcessContentForm,
   CapacityReviewProcessEscalationForm,
   CapacityReviewProcessMonitoringForm,
@@ -198208,6 +198418,7 @@ module.exports = {
   DataEntityEntryRelationshipSummaryForm,
   DataEntityMigrationEntryContentForm,
   DataEntityReferenceEntryContentForm,
+  DataEntityReferenceEntryRelatedEntityForm,
   DataFormatCompatibilityContentForm,
   DataFormatCompatibilityDateTimeForm,
   DataFormatCompatibilityFormatsForm,
@@ -198506,6 +198717,8 @@ module.exports = {
   EntityRelationshipEntryIdentityForm,
   EntityRelationshipEntryNavigationForm,
   EntityRelationshipEntryReferentialIntegrityForm,
+  EntityRelationshipEntrySourceEntityRefForm,
+  EntityRelationshipEntryTargetEntityRefForm,
   EntryPointEntryContentForm,
   EnvironmentEntryAvailabilityForm,
   EnvironmentEntryComplianceForm,
@@ -198905,6 +199118,7 @@ module.exports = {
   KeyAttributeEntryGenerationForm,
   KeyAttributeEntryGovernanceForm,
   KeyAttributeEntryReferenceForm,
+  KeyAttributeEntryReferencedEntityRefForm,
   KeyCompromiseRecoveryPolicyContentForm,
   KeyConceptEntryContentForm,
   KeyEscrowAndBackupPolicyContentForm,
@@ -199536,10 +199750,12 @@ module.exports = {
   ReportSectionEntrySortingForm,
   RequirementBusinessRuleEntryContentForm,
   RequirementDependencyEntryContentForm,
+  RequirementDependencyEntryRelatedRequirementForm,
   RequirementScreenActionEntryContentForm,
   RequirementTestCaseEntryAutomationForm,
   RequirementTestCaseEntryContentForm,
   RequirementTestCaseEntryExecutionForm,
+  RequirementTestCaseEntryRelatedCriterionForm,
   RequirementTraceabilityArtifactsForm,
   RequirementTraceabilityImplementationForm,
   RequirementTraceabilityTraceabilityFormForm,

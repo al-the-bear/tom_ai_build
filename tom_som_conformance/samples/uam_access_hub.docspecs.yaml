@@ -478,8 +478,6 @@ document:
               INID identification:
                 useCaseName: |2-
                   Grant graded role on a resource
-                processReference: |2-
-                  Authorization administration
                 briefDescription: |2-
                   A tenant administrator grades a (role, resource-key pattern)
                   pair with one of the four access levels.
@@ -948,8 +946,8 @@ document:
                     client_id
                   description: |2-
                     Owning tenant reference.
-                KEATT-REFE-REF referencedEntityRef: |2-
-                  DAENT-ENTI-1
+                KEATT-REFE-REF referencedEntityRef:
+                  ref: DAENT-ENTI-1
           DAENT-ENTI-3:
             DAENT-IDEN identity:
               entityName: |2-
@@ -1137,8 +1135,8 @@ document:
                     client_id, application_id, role_id
                   description: |2-
                     The graded role.
-                KEATT-REFE-REF referencedEntityRef: |2-
-                  DAENT-ENTI-3
+                KEATT-REFE-REF referencedEntityRef:
+                  ref: DAENT-ENTI-3
         ENREL entityRelationships:
           content: |2-
             The tenant owns everything; roles are scoped to applications; the
@@ -1168,10 +1166,10 @@ document:
                   Source to target
                 foreignKeyLocation: |2-
                   Target
-              ENRLE-SOUR-REF sourceEntityRef: |2-
-                DAENT-ENTI-1
-              ENRLE-TARG-REF targetEntityRef: |2-
-                DAENT-ENTI-2
+              ENRLE-SOUR-REF sourceEntityRef:
+                ref: DAENT-ENTI-1
+              ENRLE-TARG-REF targetEntityRef:
+                ref: DAENT-ENTI-2
             ENRLE-ITEM-2:
               headline: |2-
                 Tenant scopes roles
@@ -1196,10 +1194,10 @@ document:
                   Source to target
                 foreignKeyLocation: |2-
                   Target
-              ENRLE-SOUR-REF sourceEntityRef: |2-
-                DAENT-ENTI-1
-              ENRLE-TARG-REF targetEntityRef: |2-
-                DAENT-ENTI-3
+              ENRLE-SOUR-REF sourceEntityRef:
+                ref: DAENT-ENTI-1
+              ENRLE-TARG-REF targetEntityRef:
+                ref: DAENT-ENTI-3
             ENRLE-ITEM-3:
               headline: |2-
                 Grade refines role
@@ -1223,10 +1221,10 @@ document:
                   Bidirectional
                 foreignKeyLocation: |2-
                   Target
-              ENRLE-SOUR-REF sourceEntityRef: |2-
-                DAENT-ENTI-3
-              ENRLE-TARG-REF targetEntityRef: |2-
-                DAENT-ENTI-4
+              ENRLE-SOUR-REF sourceEntityRef:
+                ref: DAENT-ENTI-3
+              ENRLE-TARG-REF targetEntityRef:
+                ref: DAENT-ENTI-4
       DOMEN domainEnumRegistry:
         DMENE-ENUM-LST enums:
           DMENE-ENUM-1:

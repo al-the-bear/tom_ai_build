@@ -829,7 +829,9 @@ class ProcessIdentification extends DocSpecsSection {
       'parentProcess',
       String,
       'Parent Process — higher-level process this belongs to',
-      hint: 'The higher-level process this rolls up to',
+      hint:
+          'The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'processCategory',
@@ -2750,13 +2752,17 @@ class ProcessRelationshipEntry extends DocSpecsSection {
       'sourceProcess',
       String,
       'Source Process',
-      hint: 'Name the source process',
+      hint:
+          'The source process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)',
+      refersTo: ['BPREN.@sectionId', 'CUBIPR.@sectionId'],
     ),
     Field(
       'targetProcess',
       String,
       'Target Process',
-      hint: 'Name the target process',
+      hint:
+          'The target process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)',
+      refersTo: ['BPREN.@sectionId', 'CUBIPR.@sectionId'],
     ),
     Field(
       'relationshipType',
@@ -4103,8 +4109,10 @@ class InteractionEntry extends DocSpecsSection {
     Field(
       'processReference',
       String,
-      'Process Reference — TOM-xxx',
-      hint: 'The TOM-xxx process this use case realizes',
+      'Process Reference',
+      hint:
+          'The business process this use case realizes — a section id (BPREN-PROC-…)',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'briefDescription',
@@ -4420,8 +4428,10 @@ class InteractionEntry extends DocSpecsSection {
     Field(
       'relatedProcess',
       String,
-      'Related Process — TOM-xxx',
-      hint: 'TOM-xxx process this interaction realizes',
+      'Related Process',
+      hint:
+          'The business process this interaction realizes — a section id (BPREN-PROC-…)',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'relatedRequirements',
@@ -4441,32 +4451,42 @@ class InteractionEntry extends DocSpecsSection {
     Field(
       'relatedUseCase',
       String,
-      'Related Use Case — ISC-xxx in ISC document',
-      hint: 'ISC-xxx use case in the ISC document',
+      'Related Use Case',
+      hint:
+          'Use cases of the Interaction Scenarios document, as text (e.g. '
+          'UC-23) — another document\'s ids, not resolved in the Blueprint',
     ),
     Field(
       'relatedDataEntities',
       String,
       'Related Data Entities — entity names',
-      hint: 'Data entities read or written',
+      hint:
+          'Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)',
+      refersTo: ['DAENT.entityName'],
     ),
     Field(
       'relatedBusinessObjects',
       String,
-      'Related Business Objects — BO-xxx',
-      hint: 'BO-xxx business objects involved',
+      'Related Business Objects',
+      hint:
+          'Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)',
+      refersTo: ['BJOEN.@sectionId'],
     ),
     Field(
       'relatedBusinessRules',
       String,
-      'Related Business Rules — BR-xxx',
-      hint: 'BR-xxx business rules referenced',
+      'Related Business Rules',
+      hint:
+          'Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)',
+      refersTo: ['BIRU.@sectionId'],
     ),
     Field(
       'relatedIntegrations',
       String,
-      'Related Integrations — INT-xxx',
-      hint: 'INT-xxx integrations touched',
+      'Related Integrations',
+      hint:
+          'Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)',
+      refersTo: ['EIE.@sectionId'],
     ),
     Field(
       'relatedTestCases',
@@ -4779,8 +4799,10 @@ class MainScenarioStepEntry extends DocSpecsSection {
     Field(
       'businessRuleApplied',
       String,
-      'Business Rule Applied — BR-xxx reference',
-      hint: 'BR-xxx rule enforced at this step',
+      'Business Rule Applied',
+      hint:
+          'The rule enforced at this step, as prose — it may cite a business '
+          'rule (BIRU-…) or a Project Idea rule (C6.5); not resolved',
     ),
     Field(
       'uiElementUsed',
@@ -5333,38 +5355,50 @@ class InteractionBusinessRules extends DocSpecsSection {
     Field(
       'validationRules',
       String,
-      'Validation Rules — BR-xxx for validation',
-      hint: 'BR-xxx rules governing input validation',
+      'Validation Rules',
+      hint:
+          'Rules governing input validation, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
     Field(
       'calculationRules',
       String,
-      'Calculation Rules — BR-xxx for calculations',
-      hint: 'BR-xxx rules governing calculations',
+      'Calculation Rules',
+      hint:
+          'Rules governing calculations, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
     Field(
       'authorizationRules',
       String,
-      'Authorization Rules — BR-xxx for permissions',
-      hint: 'BR-xxx rules governing permissions',
+      'Authorization Rules',
+      hint:
+          'Rules governing permissions, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
     Field(
       'workflowRules',
       String,
-      'Workflow Rules — BR-xxx for flow',
-      hint: 'BR-xxx rules governing flow and routing',
+      'Workflow Rules',
+      hint:
+          'Rules governing flow and routing, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
     Field(
       'notificationRules',
       String,
-      'Notification Rules — BR-xxx for notifications',
-      hint: 'BR-xxx rules governing notifications',
+      'Notification Rules',
+      hint:
+          'Rules governing notifications, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
     Field(
       'integrationRules',
       String,
-      'Integration Rules — BR-xxx for integrations',
-      hint: 'BR-xxx rules governing external integrations',
+      'Integration Rules',
+      hint:
+          'Rules governing external integrations, as prose — a rule may cite its business '
+          'rule (BIRU-…); not resolved',
     ),
   ])
   @override
@@ -5605,8 +5639,11 @@ class ScenarioEntry extends DocSpecsSection {
     Field(
       'relatedInteractions',
       String,
-      'Related Interactions — INT-xxx references',
-      hint: 'INT-xxx interactions referenced by this scenario',
+      'Related Interactions',
+      hint:
+          'Interactions referenced by this scenario, comma-separated — '
+          'interaction section ids (INEN-INTE-…)',
+      refersTo: ['INEN.@sectionId'],
     ),
   ])
   @SerializationOrder(2)
@@ -5870,8 +5907,10 @@ class ScenarioStepEntry extends DocSpecsSection {
     Field(
       'interactionReference',
       String,
-      'Interaction Reference — INT-xxx if detailed',
-      hint: 'INT-xxx interaction detailing this step',
+      'Interaction Reference',
+      hint:
+          'The interaction detailing this step — an interaction section id (INEN-INTE-…)',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'dataInvolved',

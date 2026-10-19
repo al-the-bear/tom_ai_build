@@ -3143,13 +3143,8 @@ public final class TomSomV0 {
     // trigger point and the mandatory flag their meaning. Both are needed: one
     // rule may guard an entity that three functions write, and only one of those
     // functions may be entitled to skip the check.
-    public String functionRef() {
-      String v = doc.content(path + "/AFFN-FUNC-REF");
-      return v == null ? "" : v;
-    }
-
-    public void functionRef(String value) {
-      doc.setContent(path + "/AFFN-FUNC-REF", value);
+    public AffectedFunctionEntryFunctionRefForm functionRef() {
+      return new AffectedFunctionEntryFunctionRefForm(doc, path + "/AFFN-FUNC-REF");
     }
   }
 
@@ -3176,13 +3171,8 @@ public final class TomSomV0 {
     // edge to the object itself, which is what lets a rule's impact set be
     // computed rather than read: given a rule, every object it touches, and
     // given an object, every rule that touches it.
-    public String objectRef() {
-      String v = doc.content(path + "/AFOB-OBJE-REF");
-      return v == null ? "" : v;
-    }
-
-    public void objectRef(String value) {
-      doc.setContent(path + "/AFOB-OBJE-REF", value);
+    public AffectedObjectEntryObjectRefForm objectRef() {
+      return new AffectedObjectEntryObjectRefForm(doc, path + "/AFOB-OBJE-REF");
     }
   }
 
@@ -6538,13 +6528,8 @@ public final class TomSomV0 {
     // which is the whole point of the entry: the rule is stated once in
     // [BusinessRuleEntry] and cited from every object it governs, instead of
     // being copied into each of them and drifting.
-    public String ruleRef() {
-      String v = doc.content(path + "/BIRURE-RULE-REF");
-      return v == null ? "" : v;
-    }
-
-    public void ruleRef(String value) {
-      doc.setContent(path + "/BIRURE-RULE-REF", value);
+    public BusinessRuleReferenceEntryRuleRefForm ruleRef() {
+      return new BusinessRuleReferenceEntryRuleRefForm(doc, path + "/BIRURE-RULE-REF");
     }
   }
 
@@ -13416,13 +13401,8 @@ public final class TomSomV0 {
     // It is also the edge the CE-DB data-access derivation reads
     // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
     // requirement whose data access cannot be generated.
-    public String relatedEntity() {
-      String v = doc.content(path + "/DAENRE-RELA-REF");
-      return v == null ? "" : v;
-    }
-
-    public void relatedEntity(String value) {
-      doc.setContent(path + "/DAENRE-RELA-REF", value);
+    public DataEntityReferenceEntryRelatedEntityForm relatedEntity() {
+      return new DataEntityReferenceEntryRelatedEntityForm(doc, path + "/DAENRE-RELA-REF");
     }
   }
 
@@ -17900,13 +17880,8 @@ public final class TomSomV0 {
     // outliner without recursing into it and validated by the schema generator
     // against the entity list. It is what makes an entity name that resolves to
     // nothing a detected error instead of a dangling string.
-    public String sourceEntityRef() {
-      String v = doc.content(path + "/ENRLE-SOUR-REF");
-      return v == null ? "" : v;
-    }
-
-    public void sourceEntityRef(String value) {
-      doc.setContent(path + "/ENRLE-SOUR-REF", value);
+    public EntityRelationshipEntrySourceEntityRefForm sourceEntityRef() {
+      return new EntityRelationshipEntrySourceEntityRefForm(doc, path + "/ENRLE-SOUR-REF");
     }
 
     // The resolved link to the entity at the target end.
@@ -17917,13 +17892,8 @@ public final class TomSomV0 {
     // `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
     // two ends changes what the cardinality band asserts even though the
     // business fact is unchanged.
-    public String targetEntityRef() {
-      String v = doc.content(path + "/ENRLE-TARG-REF");
-      return v == null ? "" : v;
-    }
-
-    public void targetEntityRef(String value) {
-      doc.setContent(path + "/ENRLE-TARG-REF", value);
+    public EntityRelationshipEntryTargetEntityRefForm targetEntityRef() {
+      return new EntityRelationshipEntryTargetEntityRefForm(doc, path + "/ENRLE-TARG-REF");
     }
   }
 
@@ -23836,13 +23806,8 @@ public final class TomSomV0 {
     // makes an entity name that resolves to nothing a detected error rather than
     // a dangling string. Empty for every key type but a foreign key — a primary
     // or alternate key references nothing outside its own entity.
-    public String referencedEntityRef() {
-      String v = doc.content(path + "/KEATT-REFE-REF");
-      return v == null ? "" : v;
-    }
-
-    public void referencedEntityRef(String value) {
-      doc.setContent(path + "/KEATT-REFE-REF", value);
+    public KeyAttributeEntryReferencedEntityRefForm referencedEntityRef() {
+      return new KeyAttributeEntryReferencedEntityRefForm(doc, path + "/KEATT-REFE-REF");
     }
   }
 
@@ -33804,13 +33769,8 @@ public final class TomSomV0 {
     // (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
     // graph containing cycles — a conflict pair is one — without making the
     // document unwalkable.
-    public String relatedRequirement() {
-      String v = doc.content(path + "/RQDEP-RELA-REF");
-      return v == null ? "" : v;
-    }
-
-    public void relatedRequirement(String value) {
-      doc.setContent(path + "/RQDEP-RELA-REF", value);
+    public RequirementDependencyEntryRelatedRequirementForm relatedRequirement() {
+      return new RequirementDependencyEntryRelatedRequirementForm(doc, path + "/RQDEP-RELA-REF");
     }
   }
 
@@ -33896,13 +33856,8 @@ public final class TomSomV0 {
     // It is also the coverage measure in the other direction: a criterion that
     // no test case points at is an acceptance condition nobody has undertaken
     // to check, and that is only visible when this link is filled in.
-    public String relatedCriterion() {
-      String v = doc.content(path + "/RQTSC-RELA-REF");
-      return v == null ? "" : v;
-    }
-
-    public void relatedCriterion(String value) {
-      doc.setContent(path + "/RQTSC-RELA-REF", value);
+    public RequirementTestCaseEntryRelatedCriterionForm relatedCriterion() {
+      return new RequirementTestCaseEntryRelatedCriterionForm(doc, path + "/RQTSC-RELA-REF");
     }
   }
 
@@ -51903,6 +51858,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `functionRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AffectedFunctionEntryFunctionRefForm extends SomNode {
+    public AffectedFunctionEntryFunctionRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class AffectedObjectEntryContentForm extends SomNode {
@@ -51949,6 +51935,37 @@ public final class TomSomV0 {
 
     public void accessType(String value) {
       doc.setFormField(path, "accessType", value);
+    }
+  }
+
+  // Generated section facade for the `objectRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AffectedObjectEntryObjectRefForm extends SomNode {
+    public AffectedObjectEntryObjectRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -64646,6 +64663,37 @@ public final class TomSomV0 {
 
     public void consequenceOnViolation(String value) {
       doc.setFormField(path, "consequenceOnViolation", value);
+    }
+  }
+
+  // Generated section facade for the `ruleRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class BusinessRuleReferenceEntryRuleRefForm extends SomNode {
+    public BusinessRuleReferenceEntryRuleRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -84241,6 +84289,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `relatedEntity` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataEntityReferenceEntryRelatedEntityForm extends SomNode {
+    public DataEntityReferenceEntryRelatedEntityForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class DataFormatCompatibilityContentForm extends SomNode {
@@ -101231,6 +101310,68 @@ public final class TomSomV0 {
 
     public void orphanHandling(String value) {
       doc.setFormField(path, "orphanHandling", value);
+    }
+  }
+
+  // Generated section facade for the `sourceEntityRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class EntityRelationshipEntrySourceEntityRefForm extends SomNode {
+    public EntityRelationshipEntrySourceEntityRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
+  // Generated section facade for the `targetEntityRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class EntityRelationshipEntryTargetEntityRefForm extends SomNode {
+    public EntityRelationshipEntryTargetEntityRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -124487,6 +124628,37 @@ public final class TomSomV0 {
 
     public void onUpdateAction(String value) {
       doc.setFormField(path, "onUpdateAction", value);
+    }
+  }
+
+  // Generated section facade for the `referencedEntityRef` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class KeyAttributeEntryReferencedEntityRefForm extends SomNode {
+    public KeyAttributeEntryReferencedEntityRefForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -163352,6 +163524,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `relatedRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RequirementDependencyEntryRelatedRequirementForm extends SomNode {
+    public RequirementDependencyEntryRelatedRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class RequirementScreenActionEntryContentForm extends SomNode {
@@ -163688,6 +163891,37 @@ public final class TomSomV0 {
 
     public void expectedResult(String value) {
       doc.setFormField(path, "expectedResult", value);
+    }
+  }
+
+  // Generated section facade for the `relatedCriterion` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RequirementTestCaseEntryRelatedCriterionForm extends SomNode {
+    public RequirementTestCaseEntryRelatedCriterionForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 

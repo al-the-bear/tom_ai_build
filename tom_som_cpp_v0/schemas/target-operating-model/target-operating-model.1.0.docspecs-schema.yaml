@@ -622,7 +622,7 @@ form-types:
   picls-form:
     fields:
       - fieldname: parentProcess
-        description: The higher-level process this rolls up to
+        description: The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)
       - fieldname: processCategory
         description: The category the process falls into
       - fieldname: processType

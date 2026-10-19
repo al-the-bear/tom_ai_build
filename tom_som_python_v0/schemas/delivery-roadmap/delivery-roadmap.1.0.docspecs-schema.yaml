@@ -1861,10 +1861,9 @@ form-types:
   festas-form:
     fields:
       - fieldname: targetStage
-        required: true
-        description: Planned delivery stage
+        description: Planned delivery stage — a stage section id (STAGE-STAG-…); empty for a feature planned into no stage (MoSCoW Won't this time)
       - fieldname: earliestPossibleStage
-        description: Earliest stage prerequisites allow
+        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
       - fieldname: fallbackStage
         description: Stage to defer to if cut from target
       - fieldname: stageAssignmentRationale
@@ -1928,7 +1927,7 @@ form-types:
         required: true
         description: Stage in which this feature is planned for delivery
       - fieldname: earliestPossibleStage
-        description: Earliest stage where prerequisites allow delivery
+        description: "The earliest stage and what it waits for, as prose (e.g. 'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published'); not resolved"
   moentr-form:
     fields:
       - fieldname: linkedRequirements

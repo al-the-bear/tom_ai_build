@@ -2471,11 +2471,7 @@ class AffectedFunctionEntry(SomNode):
     # functions may be entitled to skip the check.
     @property
     def functionRef(self):
-        return self.doc.content(f"{self.path}/AFFN-FUNC-REF") or ""
-
-    @functionRef.setter
-    def functionRef(self, value):
-        self.doc.set_content(f"{self.path}/AFFN-FUNC-REF", value)
+        return AffectedFunctionEntryFunctionRefForm(self.doc, f"{self.path}/AFFN-FUNC-REF")
 
 class AffectedObjectEntry(SomNode):
     """An affected object reference entry (form).
@@ -2502,11 +2498,7 @@ class AffectedObjectEntry(SomNode):
     # given an object, every rule that touches it.
     @property
     def objectRef(self):
-        return self.doc.content(f"{self.path}/AFOB-OBJE-REF") or ""
-
-    @objectRef.setter
-    def objectRef(self, value):
-        self.doc.set_content(f"{self.path}/AFOB-OBJE-REF", value)
+        return AffectedObjectEntryObjectRefForm(self.doc, f"{self.path}/AFOB-OBJE-REF")
 
 class AlertDefinitionEntry(SomNode):
     """Alert definition entry."""
@@ -5726,11 +5718,7 @@ class BusinessRuleReferenceEntry(SomNode):
     # being copied into each of them and drifting.
     @property
     def ruleRef(self):
-        return self.doc.content(f"{self.path}/BIRURE-RULE-REF") or ""
-
-    @ruleRef.setter
-    def ruleRef(self, value):
-        self.doc.set_content(f"{self.path}/BIRURE-RULE-REF", value)
+        return BusinessRuleReferenceEntryRuleRefForm(self.doc, f"{self.path}/BIRURE-RULE-REF")
 
 class CapacityPlanningSection(SomNode):
     """8.7.3. Capacity Planning."""
@@ -12216,11 +12204,7 @@ class DataEntityReferenceEntry(SomNode):
     # requirement whose data access cannot be generated.
     @property
     def relatedEntity(self):
-        return self.doc.content(f"{self.path}/DAENRE-RELA-REF") or ""
-
-    @relatedEntity.setter
-    def relatedEntity(self, value):
-        self.doc.set_content(f"{self.path}/DAENRE-RELA-REF", value)
+        return DataEntityReferenceEntryRelatedEntityForm(self.doc, f"{self.path}/DAENRE-RELA-REF")
 
 class DataFormatCompatibility(SomNode):
     """Data format and encoding compatibility."""
@@ -16462,11 +16446,7 @@ class EntityRelationshipEntry(SomNode):
     # nothing a detected error instead of a dangling string.
     @property
     def sourceEntityRef(self):
-        return self.doc.content(f"{self.path}/ENRLE-SOUR-REF") or ""
-
-    @sourceEntityRef.setter
-    def sourceEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/ENRLE-SOUR-REF", value)
+        return EntityRelationshipEntrySourceEntityRefForm(self.doc, f"{self.path}/ENRLE-SOUR-REF")
 
     # The resolved link to the entity at the target end.
     #
@@ -16478,11 +16458,7 @@ class EntityRelationshipEntry(SomNode):
     # business fact is unchanged.
     @property
     def targetEntityRef(self):
-        return self.doc.content(f"{self.path}/ENRLE-TARG-REF") or ""
-
-    @targetEntityRef.setter
-    def targetEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/ENRLE-TARG-REF", value)
+        return EntityRelationshipEntryTargetEntityRefForm(self.doc, f"{self.path}/ENRLE-TARG-REF")
 
 class EntityRelationships(SomNode):
     """7.1.2. Entity Relationships."""
@@ -22107,11 +22083,7 @@ class KeyAttributeEntry(SomNode):
     # or alternate key references nothing outside its own entity.
     @property
     def referencedEntityRef(self):
-        return self.doc.content(f"{self.path}/KEATT-REFE-REF") or ""
-
-    @referencedEntityRef.setter
-    def referencedEntityRef(self, value):
-        self.doc.set_content(f"{self.path}/KEATT-REFE-REF", value)
+        return KeyAttributeEntryReferencedEntityRefForm(self.doc, f"{self.path}/KEATT-REFE-REF")
 
 class KeyCompromiseRecoveryPolicy(SomNode):
     """Key compromise and recovery policy (form).
@@ -31603,11 +31575,7 @@ class RequirementDependencyEntry(SomNode):
     # document unwalkable.
     @property
     def relatedRequirement(self):
-        return self.doc.content(f"{self.path}/RQDEP-RELA-REF") or ""
-
-    @relatedRequirement.setter
-    def relatedRequirement(self, value):
-        self.doc.set_content(f"{self.path}/RQDEP-RELA-REF", value)
+        return RequirementDependencyEntryRelatedRequirementForm(self.doc, f"{self.path}/RQDEP-RELA-REF")
 
 class RequirementRelationships(SomNode):
     """4.3.5. Requirement Relationships.
@@ -31688,11 +31656,7 @@ class RequirementTestCaseEntry(SomNode):
     # to check, and that is only visible when this link is filled in.
     @property
     def relatedCriterion(self):
-        return self.doc.content(f"{self.path}/RQTSC-RELA-REF") or ""
-
-    @relatedCriterion.setter
-    def relatedCriterion(self, value):
-        self.doc.set_content(f"{self.path}/RQTSC-RELA-REF", value)
+        return RequirementTestCaseEntryRelatedCriterionForm(self.doc, f"{self.path}/RQTSC-RELA-REF")
 
 class RequirementTestCases(SomNode):
     """4.3.1.n.7. Test Cases.
@@ -48472,6 +48436,31 @@ class AffectedFunctionEntryContentForm(SomNode):
     def isMandatory(self, value):
         self.doc.set_form_field(self.path, "isMandatory", value)
 
+class AffectedFunctionEntryFunctionRefForm(SomNode):
+    """Generated section facade for the `functionRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
 class AffectedObjectEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -48512,6 +48501,31 @@ class AffectedObjectEntryContentForm(SomNode):
     @accessType.setter
     def accessType(self, value):
         self.doc.set_form_field(self.path, "accessType", value)
+
+class AffectedObjectEntryObjectRefForm(SomNode):
+    """Generated section facade for the `objectRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class AlertDefinitionEntryConditionForm(SomNode):
     """Generated section facade for the `condition` @Form section: its own content text followed by one typed member per form field."""
@@ -59302,6 +59316,31 @@ class BusinessRuleReferenceEntryContentForm(SomNode):
     @consequenceOnViolation.setter
     def consequenceOnViolation(self, value):
         self.doc.set_form_field(self.path, "consequenceOnViolation", value)
+
+class BusinessRuleReferenceEntryRuleRefForm(SomNode):
+    """Generated section facade for the `ruleRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class CapacityReviewProcessContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -76029,6 +76068,31 @@ class DataEntityReferenceEntryContentForm(SomNode):
     def dataOwner(self, value):
         self.doc.set_form_field(self.path, "dataOwner", value)
 
+class DataEntityReferenceEntryRelatedEntityForm(SomNode):
+    """Generated section facade for the `relatedEntity` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
 class DataFormatCompatibilityContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -90456,6 +90520,56 @@ class EntityRelationshipEntryReferentialIntegrityForm(SomNode):
     @orphanHandling.setter
     def orphanHandling(self, value):
         self.doc.set_form_field(self.path, "orphanHandling", value)
+
+class EntityRelationshipEntrySourceEntityRefForm(SomNode):
+    """Generated section facade for the `sourceEntityRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
+class EntityRelationshipEntryTargetEntityRefForm(SomNode):
+    """Generated section facade for the `targetEntityRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class EntryPointEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -110326,6 +110440,31 @@ class KeyAttributeEntryReferenceForm(SomNode):
     @onUpdateAction.setter
     def onUpdateAction(self, value):
         self.doc.set_form_field(self.path, "onUpdateAction", value)
+
+class KeyAttributeEntryReferencedEntityRefForm(SomNode):
+    """Generated section facade for the `referencedEntityRef` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class KeyCompromiseRecoveryPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -143677,6 +143816,31 @@ class RequirementDependencyEntryContentForm(SomNode):
     def impact(self, value):
         self.doc.set_form_field(self.path, "impact", value)
 
+class RequirementDependencyEntryRelatedRequirementForm(SomNode):
+    """Generated section facade for the `relatedRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
 class RequirementScreenActionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -143968,6 +144132,31 @@ class RequirementTestCaseEntryExecutionForm(SomNode):
     @expectedResult.setter
     def expectedResult(self, value):
         self.doc.set_form_field(self.path, "expectedResult", value)
+
+class RequirementTestCaseEntryRelatedCriterionForm(SomNode):
+    """Generated section facade for the `relatedCriterion` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class RequirementTraceabilityArtifactsForm(SomNode):
     """Generated section facade for the `artifacts` @Form section: its own content text followed by one typed member per form field."""

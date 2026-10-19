@@ -1149,11 +1149,8 @@ AffectedFunctionEntry::AffectedFunctionEntry(som::SpecDocument& doc, std::string
 AffectedFunctionEntryContentForm AffectedFunctionEntry::content() const {
   return AffectedFunctionEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string AffectedFunctionEntry::functionRef() const {
-  return doc().content(som::joinPath(path(), "AFFN-FUNC-REF"));
-}
-void AffectedFunctionEntry::setFunctionRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "AFFN-FUNC-REF"), value);
+AffectedFunctionEntryFunctionRefForm AffectedFunctionEntry::functionRef() const {
+  return AffectedFunctionEntryFunctionRefForm(doc(), som::joinPath(path(), "AFFN-FUNC-REF"));
 }
 
 AffectedObjectEntry::AffectedObjectEntry(som::SpecDocument& doc, std::string path)
@@ -1161,11 +1158,8 @@ AffectedObjectEntry::AffectedObjectEntry(som::SpecDocument& doc, std::string pat
 AffectedObjectEntryContentForm AffectedObjectEntry::content() const {
   return AffectedObjectEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string AffectedObjectEntry::objectRef() const {
-  return doc().content(som::joinPath(path(), "AFOB-OBJE-REF"));
-}
-void AffectedObjectEntry::setObjectRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "AFOB-OBJE-REF"), value);
+AffectedObjectEntryObjectRefForm AffectedObjectEntry::objectRef() const {
+  return AffectedObjectEntryObjectRefForm(doc(), som::joinPath(path(), "AFOB-OBJE-REF"));
 }
 
 AlertDefinitionEntry::AlertDefinitionEntry(som::SpecDocument& doc, std::string path)
@@ -2619,11 +2613,8 @@ BusinessRuleReferenceEntry::BusinessRuleReferenceEntry(som::SpecDocument& doc, s
 BusinessRuleReferenceEntryContentForm BusinessRuleReferenceEntry::content() const {
   return BusinessRuleReferenceEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string BusinessRuleReferenceEntry::ruleRef() const {
-  return doc().content(som::joinPath(path(), "BIRURE-RULE-REF"));
-}
-void BusinessRuleReferenceEntry::setRuleRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "BIRURE-RULE-REF"), value);
+BusinessRuleReferenceEntryRuleRefForm BusinessRuleReferenceEntry::ruleRef() const {
+  return BusinessRuleReferenceEntryRuleRefForm(doc(), som::joinPath(path(), "BIRURE-RULE-REF"));
 }
 
 CapacityPlanningSection::CapacityPlanningSection(som::SpecDocument& doc, std::string path)
@@ -5789,11 +5780,8 @@ DataEntityReferenceEntry::DataEntityReferenceEntry(som::SpecDocument& doc, std::
 DataEntityReferenceEntryContentForm DataEntityReferenceEntry::content() const {
   return DataEntityReferenceEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string DataEntityReferenceEntry::relatedEntity() const {
-  return doc().content(som::joinPath(path(), "DAENRE-RELA-REF"));
-}
-void DataEntityReferenceEntry::setRelatedEntity(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "DAENRE-RELA-REF"), value);
+DataEntityReferenceEntryRelatedEntityForm DataEntityReferenceEntry::relatedEntity() const {
+  return DataEntityReferenceEntryRelatedEntityForm(doc(), som::joinPath(path(), "DAENRE-RELA-REF"));
 }
 
 DataFormatCompatibility::DataFormatCompatibility(som::SpecDocument& doc, std::string path)
@@ -7772,17 +7760,11 @@ EntityRelationshipEntryNavigationForm EntityRelationshipEntry::navigation() cons
 som::SomList EntityRelationshipEntry::relationshipAttributes() const {
   return som::SomList(doc(), som::joinPath(path(), "RELAT-RELA-LST"), "RELAT-RELA-xxx");
 }
-std::string EntityRelationshipEntry::sourceEntityRef() const {
-  return doc().content(som::joinPath(path(), "ENRLE-SOUR-REF"));
+EntityRelationshipEntrySourceEntityRefForm EntityRelationshipEntry::sourceEntityRef() const {
+  return EntityRelationshipEntrySourceEntityRefForm(doc(), som::joinPath(path(), "ENRLE-SOUR-REF"));
 }
-void EntityRelationshipEntry::setSourceEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "ENRLE-SOUR-REF"), value);
-}
-std::string EntityRelationshipEntry::targetEntityRef() const {
-  return doc().content(som::joinPath(path(), "ENRLE-TARG-REF"));
-}
-void EntityRelationshipEntry::setTargetEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "ENRLE-TARG-REF"), value);
+EntityRelationshipEntryTargetEntityRefForm EntityRelationshipEntry::targetEntityRef() const {
+  return EntityRelationshipEntryTargetEntityRefForm(doc(), som::joinPath(path(), "ENRLE-TARG-REF"));
 }
 
 EntityRelationships::EntityRelationships(som::SpecDocument& doc, std::string path)
@@ -10376,11 +10358,8 @@ KeyAttributeEntryReferenceForm KeyAttributeEntry::reference() const {
 KeyAttributeEntryGovernanceForm KeyAttributeEntry::governance() const {
   return KeyAttributeEntryGovernanceForm(doc(), som::joinPath(path(), "KEAGV"));
 }
-std::string KeyAttributeEntry::referencedEntityRef() const {
-  return doc().content(som::joinPath(path(), "KEATT-REFE-REF"));
-}
-void KeyAttributeEntry::setReferencedEntityRef(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "KEATT-REFE-REF"), value);
+KeyAttributeEntryReferencedEntityRefForm KeyAttributeEntry::referencedEntityRef() const {
+  return KeyAttributeEntryReferencedEntityRefForm(doc(), som::joinPath(path(), "KEATT-REFE-REF"));
 }
 
 KeyCompromiseRecoveryPolicy::KeyCompromiseRecoveryPolicy(som::SpecDocument& doc, std::string path)
@@ -14696,11 +14675,8 @@ RequirementDependencyEntry::RequirementDependencyEntry(som::SpecDocument& doc, s
 RequirementDependencyEntryContentForm RequirementDependencyEntry::content() const {
   return RequirementDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string RequirementDependencyEntry::relatedRequirement() const {
-  return doc().content(som::joinPath(path(), "RQDEP-RELA-REF"));
-}
-void RequirementDependencyEntry::setRelatedRequirement(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "RQDEP-RELA-REF"), value);
+RequirementDependencyEntryRelatedRequirementForm RequirementDependencyEntry::relatedRequirement() const {
+  return RequirementDependencyEntryRelatedRequirementForm(doc(), som::joinPath(path(), "RQDEP-RELA-REF"));
 }
 
 RequirementRelationships::RequirementRelationships(som::SpecDocument& doc, std::string path)
@@ -14732,11 +14708,8 @@ RequirementTestCaseEntryExecutionForm RequirementTestCaseEntry::execution() cons
 RequirementTestCaseEntryAutomationForm RequirementTestCaseEntry::automation() const {
   return RequirementTestCaseEntryAutomationForm(doc(), som::joinPath(path(), "RTCEA"));
 }
-std::string RequirementTestCaseEntry::relatedCriterion() const {
-  return doc().content(som::joinPath(path(), "RQTSC-RELA-REF"));
-}
-void RequirementTestCaseEntry::setRelatedCriterion(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "RQTSC-RELA-REF"), value);
+RequirementTestCaseEntryRelatedCriterionForm RequirementTestCaseEntry::relatedCriterion() const {
+  return RequirementTestCaseEntryRelatedCriterionForm(doc(), som::joinPath(path(), "RQTSC-RELA-REF"));
 }
 
 RequirementTestCases::RequirementTestCases(som::SpecDocument& doc, std::string path)
@@ -23257,6 +23230,21 @@ void AffectedFunctionEntryContentForm::setIsMandatory(const std::string& value) 
   doc().setFormField(path(), "isMandatory", value);
 }
 
+AffectedFunctionEntryFunctionRefForm::AffectedFunctionEntryFunctionRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AffectedFunctionEntryFunctionRefForm::content() const {
+  return doc().content(path());
+}
+void AffectedFunctionEntryFunctionRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AffectedFunctionEntryFunctionRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void AffectedFunctionEntryFunctionRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
 AffectedObjectEntryContentForm::AffectedObjectEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string AffectedObjectEntryContentForm::content() const {
@@ -23282,6 +23270,21 @@ std::string AffectedObjectEntryContentForm::accessType() const {
 }
 void AffectedObjectEntryContentForm::setAccessType(const std::string& value) {
   doc().setFormField(path(), "accessType", value);
+}
+
+AffectedObjectEntryObjectRefForm::AffectedObjectEntryObjectRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AffectedObjectEntryObjectRefForm::content() const {
+  return doc().content(path());
+}
+void AffectedObjectEntryObjectRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AffectedObjectEntryObjectRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void AffectedObjectEntryObjectRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 AlertDefinitionEntryConditionForm::AlertDefinitionEntryConditionForm(som::SpecDocument& doc, std::string path)
@@ -30692,6 +30695,21 @@ std::string BusinessRuleReferenceEntryContentForm::consequenceOnViolation() cons
 }
 void BusinessRuleReferenceEntryContentForm::setConsequenceOnViolation(const std::string& value) {
   doc().setFormField(path(), "consequenceOnViolation", value);
+}
+
+BusinessRuleReferenceEntryRuleRefForm::BusinessRuleReferenceEntryRuleRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string BusinessRuleReferenceEntryRuleRefForm::content() const {
+  return doc().content(path());
+}
+void BusinessRuleReferenceEntryRuleRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string BusinessRuleReferenceEntryRuleRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void BusinessRuleReferenceEntryRuleRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 CapacityReviewProcessContentForm::CapacityReviewProcessContentForm(som::SpecDocument& doc, std::string path)
@@ -42011,6 +42029,21 @@ void DataEntityReferenceEntryContentForm::setDataOwner(const std::string& value)
   doc().setFormField(path(), "dataOwner", value);
 }
 
+DataEntityReferenceEntryRelatedEntityForm::DataEntityReferenceEntryRelatedEntityForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataEntityReferenceEntryRelatedEntityForm::content() const {
+  return doc().content(path());
+}
+void DataEntityReferenceEntryRelatedEntityForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataEntityReferenceEntryRelatedEntityForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void DataEntityReferenceEntryRelatedEntityForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
 DataFormatCompatibilityContentForm::DataFormatCompatibilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string DataFormatCompatibilityContentForm::content() const {
@@ -51745,6 +51778,36 @@ std::string EntityRelationshipEntryReferentialIntegrityForm::orphanHandling() co
 }
 void EntityRelationshipEntryReferentialIntegrityForm::setOrphanHandling(const std::string& value) {
   doc().setFormField(path(), "orphanHandling", value);
+}
+
+EntityRelationshipEntrySourceEntityRefForm::EntityRelationshipEntrySourceEntityRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string EntityRelationshipEntrySourceEntityRefForm::content() const {
+  return doc().content(path());
+}
+void EntityRelationshipEntrySourceEntityRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string EntityRelationshipEntrySourceEntityRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void EntityRelationshipEntrySourceEntityRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
+EntityRelationshipEntryTargetEntityRefForm::EntityRelationshipEntryTargetEntityRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string EntityRelationshipEntryTargetEntityRefForm::content() const {
+  return doc().content(path());
+}
+void EntityRelationshipEntryTargetEntityRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string EntityRelationshipEntryTargetEntityRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void EntityRelationshipEntryTargetEntityRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 EntryPointEntryContentForm::EntryPointEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -65180,6 +65243,21 @@ std::string KeyAttributeEntryReferenceForm::onUpdateAction() const {
 }
 void KeyAttributeEntryReferenceForm::setOnUpdateAction(const std::string& value) {
   doc().setFormField(path(), "onUpdateAction", value);
+}
+
+KeyAttributeEntryReferencedEntityRefForm::KeyAttributeEntryReferencedEntityRefForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string KeyAttributeEntryReferencedEntityRefForm::content() const {
+  return doc().content(path());
+}
+void KeyAttributeEntryReferencedEntityRefForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string KeyAttributeEntryReferencedEntityRefForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void KeyAttributeEntryReferencedEntityRefForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 KeyCompromiseRecoveryPolicyContentForm::KeyCompromiseRecoveryPolicyContentForm(som::SpecDocument& doc, std::string path)
@@ -87817,6 +87895,21 @@ void RequirementDependencyEntryContentForm::setImpact(const std::string& value) 
   doc().setFormField(path(), "impact", value);
 }
 
+RequirementDependencyEntryRelatedRequirementForm::RequirementDependencyEntryRelatedRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RequirementDependencyEntryRelatedRequirementForm::content() const {
+  return doc().content(path());
+}
+void RequirementDependencyEntryRelatedRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RequirementDependencyEntryRelatedRequirementForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void RequirementDependencyEntryRelatedRequirementForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
 RequirementScreenActionEntryContentForm::RequirementScreenActionEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string RequirementScreenActionEntryContentForm::content() const {
@@ -88019,6 +88112,21 @@ std::string RequirementTestCaseEntryExecutionForm::expectedResult() const {
 }
 void RequirementTestCaseEntryExecutionForm::setExpectedResult(const std::string& value) {
   doc().setFormField(path(), "expectedResult", value);
+}
+
+RequirementTestCaseEntryRelatedCriterionForm::RequirementTestCaseEntryRelatedCriterionForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RequirementTestCaseEntryRelatedCriterionForm::content() const {
+  return doc().content(path());
+}
+void RequirementTestCaseEntryRelatedCriterionForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RequirementTestCaseEntryRelatedCriterionForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void RequirementTestCaseEntryRelatedCriterionForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 RequirementTraceabilityArtifactsForm::RequirementTraceabilityArtifactsForm(som::SpecDocument& doc, std::string path)

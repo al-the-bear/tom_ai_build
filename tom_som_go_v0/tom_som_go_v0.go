@@ -2816,12 +2816,8 @@ func (x *AffectedFunctionEntry) Content() *AffectedFunctionEntryContentForm {
 // trigger point and the mandatory flag their meaning. Both are needed: one
 // rule may guard an entity that three functions write, and only one of those
 // functions may be entitled to skip the check.
-func (x *AffectedFunctionEntry) FunctionRef() string {
-	return x.Doc().ContentOr(x.Path() + "/AFFN-FUNC-REF")
-}
-
-func (x *AffectedFunctionEntry) SetFunctionRef(value string) {
-	x.Doc().SetContent(x.Path()+"/AFFN-FUNC-REF", value)
+func (x *AffectedFunctionEntry) FunctionRef() *AffectedFunctionEntryFunctionRefForm {
+	return NewAffectedFunctionEntryFunctionRefForm(x.Doc(), x.Path()+"/AFFN-FUNC-REF")
 }
 
 // An affected object reference entry (form).
@@ -2851,12 +2847,8 @@ func (x *AffectedObjectEntry) Content() *AffectedObjectEntryContentForm {
 // edge to the object itself, which is what lets a rule's impact set be
 // computed rather than read: given a rule, every object it touches, and
 // given an object, every rule that touches it.
-func (x *AffectedObjectEntry) ObjectRef() string {
-	return x.Doc().ContentOr(x.Path() + "/AFOB-OBJE-REF")
-}
-
-func (x *AffectedObjectEntry) SetObjectRef(value string) {
-	x.Doc().SetContent(x.Path()+"/AFOB-OBJE-REF", value)
+func (x *AffectedObjectEntry) ObjectRef() *AffectedObjectEntryObjectRefForm {
+	return NewAffectedObjectEntryObjectRefForm(x.Doc(), x.Path()+"/AFOB-OBJE-REF")
 }
 
 // Alert definition entry.
@@ -6565,12 +6557,8 @@ func (x *BusinessRuleReferenceEntry) Content() *BusinessRuleReferenceEntryConten
 // which is the whole point of the entry: the rule is stated once in
 // [BusinessRuleEntry] and cited from every object it governs, instead of
 // being copied into each of them and drifting.
-func (x *BusinessRuleReferenceEntry) RuleRef() string {
-	return x.Doc().ContentOr(x.Path() + "/BIRURE-RULE-REF")
-}
-
-func (x *BusinessRuleReferenceEntry) SetRuleRef(value string) {
-	x.Doc().SetContent(x.Path()+"/BIRURE-RULE-REF", value)
+func (x *BusinessRuleReferenceEntry) RuleRef() *BusinessRuleReferenceEntryRuleRefForm {
+	return NewBusinessRuleReferenceEntryRuleRefForm(x.Doc(), x.Path()+"/BIRURE-RULE-REF")
 }
 
 // 8.7.3. Capacity Planning.
@@ -14182,12 +14170,8 @@ func (x *DataEntityReferenceEntry) Content() *DataEntityReferenceEntryContentFor
 // It is also the edge the CE-DB data-access derivation reads
 // (`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a
 // requirement whose data access cannot be generated.
-func (x *DataEntityReferenceEntry) RelatedEntity() string {
-	return x.Doc().ContentOr(x.Path() + "/DAENRE-RELA-REF")
-}
-
-func (x *DataEntityReferenceEntry) SetRelatedEntity(value string) {
-	x.Doc().SetContent(x.Path()+"/DAENRE-RELA-REF", value)
+func (x *DataEntityReferenceEntry) RelatedEntity() *DataEntityReferenceEntryRelatedEntityForm {
+	return NewDataEntityReferenceEntryRelatedEntityForm(x.Doc(), x.Path()+"/DAENRE-RELA-REF")
 }
 
 // Data format and encoding compatibility.
@@ -19135,12 +19119,8 @@ func (x *EntityRelationshipEntry) RelationshipAttributes() *som.SomList[*Relatio
 // outliner without recursing into it and validated by the schema generator
 // against the entity list. It is what makes an entity name that resolves to
 // nothing a detected error instead of a dangling string.
-func (x *EntityRelationshipEntry) SourceEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/ENRLE-SOUR-REF")
-}
-
-func (x *EntityRelationshipEntry) SetSourceEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/ENRLE-SOUR-REF", value)
+func (x *EntityRelationshipEntry) SourceEntityRef() *EntityRelationshipEntrySourceEntityRefForm {
+	return NewEntityRelationshipEntrySourceEntityRefForm(x.Doc(), x.Path()+"/ENRLE-SOUR-REF")
 }
 
 // The resolved link to the entity at the target end.
@@ -19151,12 +19131,8 @@ func (x *EntityRelationshipEntry) SetSourceEntityRef(value string) {
 // `ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the
 // two ends changes what the cardinality band asserts even though the
 // business fact is unchanged.
-func (x *EntityRelationshipEntry) TargetEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/ENRLE-TARG-REF")
-}
-
-func (x *EntityRelationshipEntry) SetTargetEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/ENRLE-TARG-REF", value)
+func (x *EntityRelationshipEntry) TargetEntityRef() *EntityRelationshipEntryTargetEntityRefForm {
+	return NewEntityRelationshipEntryTargetEntityRefForm(x.Doc(), x.Path()+"/ENRLE-TARG-REF")
 }
 
 // 7.1.2. Entity Relationships.
@@ -25725,12 +25701,8 @@ func (x *KeyAttributeEntry) Governance() *KeyAttributeEntryGovernanceForm {
 // makes an entity name that resolves to nothing a detected error rather than
 // a dangling string. Empty for every key type but a foreign key — a primary
 // or alternate key references nothing outside its own entity.
-func (x *KeyAttributeEntry) ReferencedEntityRef() string {
-	return x.Doc().ContentOr(x.Path() + "/KEATT-REFE-REF")
-}
-
-func (x *KeyAttributeEntry) SetReferencedEntityRef(value string) {
-	x.Doc().SetContent(x.Path()+"/KEATT-REFE-REF", value)
+func (x *KeyAttributeEntry) ReferencedEntityRef() *KeyAttributeEntryReferencedEntityRefForm {
+	return NewKeyAttributeEntryReferencedEntityRefForm(x.Doc(), x.Path()+"/KEATT-REFE-REF")
 }
 
 // Key compromise and recovery policy (form).
@@ -36843,12 +36815,8 @@ func (x *RequirementDependencyEntry) Content() *RequirementDependencyEntryConten
 // (`tom_specs_model_rules.md` §9.2), which is what allows a requirement
 // graph containing cycles — a conflict pair is one — without making the
 // document unwalkable.
-func (x *RequirementDependencyEntry) RelatedRequirement() string {
-	return x.Doc().ContentOr(x.Path() + "/RQDEP-RELA-REF")
-}
-
-func (x *RequirementDependencyEntry) SetRelatedRequirement(value string) {
-	x.Doc().SetContent(x.Path()+"/RQDEP-RELA-REF", value)
+func (x *RequirementDependencyEntry) RelatedRequirement() *RequirementDependencyEntryRelatedRequirementForm {
+	return NewRequirementDependencyEntryRelatedRequirementForm(x.Doc(), x.Path()+"/RQDEP-RELA-REF")
 }
 
 // 4.3.5. Requirement Relationships.
@@ -36945,12 +36913,8 @@ func (x *RequirementTestCaseEntry) Automation() *RequirementTestCaseEntryAutomat
 // It is also the coverage measure in the other direction: a criterion that
 // no test case points at is an acceptance condition nobody has undertaken
 // to check, and that is only visible when this link is filled in.
-func (x *RequirementTestCaseEntry) RelatedCriterion() string {
-	return x.Doc().ContentOr(x.Path() + "/RQTSC-RELA-REF")
-}
-
-func (x *RequirementTestCaseEntry) SetRelatedCriterion(value string) {
-	x.Doc().SetContent(x.Path()+"/RQTSC-RELA-REF", value)
+func (x *RequirementTestCaseEntry) RelatedCriterion() *RequirementTestCaseEntryRelatedCriterionForm {
+	return NewRequirementTestCaseEntryRelatedCriterionForm(x.Doc(), x.Path()+"/RQTSC-RELA-REF")
 }
 
 // 4.3.1.n.7. Test Cases.
@@ -56743,6 +56707,40 @@ func (x *AffectedFunctionEntryContentForm) SetIsMandatory(value string) {
 	x.Doc().SetFormField(x.Path(), "isMandatory", value)
 }
 
+// AffectedFunctionEntryFunctionRefForm is the generated section facade for the `functionRef` @Form section: its own
+// content text followed by one typed member per form field.
+type AffectedFunctionEntryFunctionRefForm struct {
+	som.SomNode
+}
+
+// NewAffectedFunctionEntryFunctionRefForm binds a AffectedFunctionEntryFunctionRefForm facade to a document and a path.
+func NewAffectedFunctionEntryFunctionRefForm(doc *som.SpecDocument, path string) *AffectedFunctionEntryFunctionRefForm {
+	return &AffectedFunctionEntryFunctionRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AffectedFunctionEntryFunctionRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AffectedFunctionEntryFunctionRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AffectedFunctionEntryFunctionRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AffectedFunctionEntryFunctionRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *AffectedFunctionEntryFunctionRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
 // AffectedObjectEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type AffectedObjectEntryContentForm struct {
@@ -56791,6 +56789,40 @@ func (x *AffectedObjectEntryContentForm) AccessType() string {
 
 func (x *AffectedObjectEntryContentForm) SetAccessType(value string) {
 	x.Doc().SetFormField(x.Path(), "accessType", value)
+}
+
+// AffectedObjectEntryObjectRefForm is the generated section facade for the `objectRef` @Form section: its own
+// content text followed by one typed member per form field.
+type AffectedObjectEntryObjectRefForm struct {
+	som.SomNode
+}
+
+// NewAffectedObjectEntryObjectRefForm binds a AffectedObjectEntryObjectRefForm facade to a document and a path.
+func NewAffectedObjectEntryObjectRefForm(doc *som.SpecDocument, path string) *AffectedObjectEntryObjectRefForm {
+	return &AffectedObjectEntryObjectRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AffectedObjectEntryObjectRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AffectedObjectEntryObjectRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AffectedObjectEntryObjectRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AffectedObjectEntryObjectRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *AffectedObjectEntryObjectRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // AlertDefinitionEntryConditionForm is the generated section facade for the `condition` @Form section: its own
@@ -70839,6 +70871,40 @@ func (x *BusinessRuleReferenceEntryContentForm) ConsequenceOnViolation() string 
 
 func (x *BusinessRuleReferenceEntryContentForm) SetConsequenceOnViolation(value string) {
 	x.Doc().SetFormField(x.Path(), "consequenceOnViolation", value)
+}
+
+// BusinessRuleReferenceEntryRuleRefForm is the generated section facade for the `ruleRef` @Form section: its own
+// content text followed by one typed member per form field.
+type BusinessRuleReferenceEntryRuleRefForm struct {
+	som.SomNode
+}
+
+// NewBusinessRuleReferenceEntryRuleRefForm binds a BusinessRuleReferenceEntryRuleRefForm facade to a document and a path.
+func NewBusinessRuleReferenceEntryRuleRefForm(doc *som.SpecDocument, path string) *BusinessRuleReferenceEntryRuleRefForm {
+	return &BusinessRuleReferenceEntryRuleRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *BusinessRuleReferenceEntryRuleRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *BusinessRuleReferenceEntryRuleRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *BusinessRuleReferenceEntryRuleRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *BusinessRuleReferenceEntryRuleRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *BusinessRuleReferenceEntryRuleRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // CapacityReviewProcessContentForm is the generated section facade for the `content` @Form section: its own
@@ -91728,6 +91794,40 @@ func (x *DataEntityReferenceEntryContentForm) SetDataOwner(value string) {
 	x.Doc().SetFormField(x.Path(), "dataOwner", value)
 }
 
+// DataEntityReferenceEntryRelatedEntityForm is the generated section facade for the `relatedEntity` @Form section: its own
+// content text followed by one typed member per form field.
+type DataEntityReferenceEntryRelatedEntityForm struct {
+	som.SomNode
+}
+
+// NewDataEntityReferenceEntryRelatedEntityForm binds a DataEntityReferenceEntryRelatedEntityForm facade to a document and a path.
+func NewDataEntityReferenceEntryRelatedEntityForm(doc *som.SpecDocument, path string) *DataEntityReferenceEntryRelatedEntityForm {
+	return &DataEntityReferenceEntryRelatedEntityForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataEntityReferenceEntryRelatedEntityForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataEntityReferenceEntryRelatedEntityForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataEntityReferenceEntryRelatedEntityForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataEntityReferenceEntryRelatedEntityForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *DataEntityReferenceEntryRelatedEntityForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
 // DataFormatCompatibilityContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type DataFormatCompatibilityContentForm struct {
@@ -109568,6 +109668,74 @@ func (x *EntityRelationshipEntryReferentialIntegrityForm) OrphanHandling() strin
 
 func (x *EntityRelationshipEntryReferentialIntegrityForm) SetOrphanHandling(value string) {
 	x.Doc().SetFormField(x.Path(), "orphanHandling", value)
+}
+
+// EntityRelationshipEntrySourceEntityRefForm is the generated section facade for the `sourceEntityRef` @Form section: its own
+// content text followed by one typed member per form field.
+type EntityRelationshipEntrySourceEntityRefForm struct {
+	som.SomNode
+}
+
+// NewEntityRelationshipEntrySourceEntityRefForm binds a EntityRelationshipEntrySourceEntityRefForm facade to a document and a path.
+func NewEntityRelationshipEntrySourceEntityRefForm(doc *som.SpecDocument, path string) *EntityRelationshipEntrySourceEntityRefForm {
+	return &EntityRelationshipEntrySourceEntityRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EntityRelationshipEntrySourceEntityRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *EntityRelationshipEntrySourceEntityRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *EntityRelationshipEntrySourceEntityRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *EntityRelationshipEntrySourceEntityRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *EntityRelationshipEntrySourceEntityRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
+// EntityRelationshipEntryTargetEntityRefForm is the generated section facade for the `targetEntityRef` @Form section: its own
+// content text followed by one typed member per form field.
+type EntityRelationshipEntryTargetEntityRefForm struct {
+	som.SomNode
+}
+
+// NewEntityRelationshipEntryTargetEntityRefForm binds a EntityRelationshipEntryTargetEntityRefForm facade to a document and a path.
+func NewEntityRelationshipEntryTargetEntityRefForm(doc *som.SpecDocument, path string) *EntityRelationshipEntryTargetEntityRefForm {
+	return &EntityRelationshipEntryTargetEntityRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *EntityRelationshipEntryTargetEntityRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *EntityRelationshipEntryTargetEntityRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *EntityRelationshipEntryTargetEntityRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *EntityRelationshipEntryTargetEntityRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *EntityRelationshipEntryTargetEntityRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // EntryPointEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -134385,6 +134553,40 @@ func (x *KeyAttributeEntryReferenceForm) OnUpdateAction() string {
 
 func (x *KeyAttributeEntryReferenceForm) SetOnUpdateAction(value string) {
 	x.Doc().SetFormField(x.Path(), "onUpdateAction", value)
+}
+
+// KeyAttributeEntryReferencedEntityRefForm is the generated section facade for the `referencedEntityRef` @Form section: its own
+// content text followed by one typed member per form field.
+type KeyAttributeEntryReferencedEntityRefForm struct {
+	som.SomNode
+}
+
+// NewKeyAttributeEntryReferencedEntityRefForm binds a KeyAttributeEntryReferencedEntityRefForm facade to a document and a path.
+func NewKeyAttributeEntryReferencedEntityRefForm(doc *som.SpecDocument, path string) *KeyAttributeEntryReferencedEntityRefForm {
+	return &KeyAttributeEntryReferencedEntityRefForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *KeyAttributeEntryReferencedEntityRefForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *KeyAttributeEntryReferencedEntityRefForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *KeyAttributeEntryReferencedEntityRefForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *KeyAttributeEntryReferencedEntityRefForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *KeyAttributeEntryReferencedEntityRefForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // KeyCompromiseRecoveryPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -175498,6 +175700,40 @@ func (x *RequirementDependencyEntryContentForm) SetImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "impact", value)
 }
 
+// RequirementDependencyEntryRelatedRequirementForm is the generated section facade for the `relatedRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type RequirementDependencyEntryRelatedRequirementForm struct {
+	som.SomNode
+}
+
+// NewRequirementDependencyEntryRelatedRequirementForm binds a RequirementDependencyEntryRelatedRequirementForm facade to a document and a path.
+func NewRequirementDependencyEntryRelatedRequirementForm(doc *som.SpecDocument, path string) *RequirementDependencyEntryRelatedRequirementForm {
+	return &RequirementDependencyEntryRelatedRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RequirementDependencyEntryRelatedRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RequirementDependencyEntryRelatedRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RequirementDependencyEntryRelatedRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RequirementDependencyEntryRelatedRequirementForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *RequirementDependencyEntryRelatedRequirementForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
 // RequirementScreenActionEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type RequirementScreenActionEntryContentForm struct {
@@ -175824,6 +176060,40 @@ func (x *RequirementTestCaseEntryExecutionForm) ExpectedResult() string {
 
 func (x *RequirementTestCaseEntryExecutionForm) SetExpectedResult(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedResult", value)
+}
+
+// RequirementTestCaseEntryRelatedCriterionForm is the generated section facade for the `relatedCriterion` @Form section: its own
+// content text followed by one typed member per form field.
+type RequirementTestCaseEntryRelatedCriterionForm struct {
+	som.SomNode
+}
+
+// NewRequirementTestCaseEntryRelatedCriterionForm binds a RequirementTestCaseEntryRelatedCriterionForm facade to a document and a path.
+func NewRequirementTestCaseEntryRelatedCriterionForm(doc *som.SpecDocument, path string) *RequirementTestCaseEntryRelatedCriterionForm {
+	return &RequirementTestCaseEntryRelatedCriterionForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RequirementTestCaseEntryRelatedCriterionForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RequirementTestCaseEntryRelatedCriterionForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RequirementTestCaseEntryRelatedCriterionForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RequirementTestCaseEntryRelatedCriterionForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *RequirementTestCaseEntryRelatedCriterionForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // RequirementTraceabilityArtifactsForm is the generated section facade for the `artifacts` @Form section: its own

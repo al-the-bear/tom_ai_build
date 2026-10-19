@@ -728,9 +728,11 @@ section-types:
     description: Add one entry per entity relationship.
   enrle-sour-ref:
     prefix: ENRLE_SOUR_REF
+    format: enrle-sour-ref-form
     description: The resolved link to the entity at the source end.
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+    format: enrle-targ-ref-form
     description: The resolved link to the entity at the target end.
   ercen-code-lst:
     prefix: ERCEN_CODE_LST
@@ -830,6 +832,7 @@ section-types:
     description: Add one entry per key attribute.
   keatt-refe-ref:
     prefix: KEATT_REFE_REF
+    format: keatt-refe-ref-form
     description: The resolved link to the entity a foreign key points at.
   lgfls-logi-lst:
     prefix: LGFLS_LOGI_LST
@@ -13113,6 +13116,10 @@ form-types:
     fields:
       - fieldname: deferrable
         description: "Whether constraint check can be deferred: Yes | No"
+  keatt-refe-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   enrle-iden-form:
     fields:
       - fieldname: relationshipType
@@ -13163,6 +13170,14 @@ form-types:
         description: "For many-to-many: name of the junction/bridge table"
       - fieldname: inverseRelationship
         description: Name of the relationship from the other side
+  enrle-sour-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
+  enrle-targ-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the data entity (`DAENT`)"
   datcl-over-form:
     fields:
       - fieldname: classificationFramework
@@ -23378,7 +23393,7 @@ form-types:
         required: true
         description: "Active-verb goal, e.g. \"Place order\""
       - fieldname: processReference
-        description: The TOM-xxx process this use case realizes
+        description: The business process this use case realizes — a section id (BPREN-PROC-…)
       - fieldname: briefDescription
         description: One-sentence summary of the goal
       - fieldname: fullDescription
@@ -23449,19 +23464,19 @@ form-types:
   intr-form:
     fields:
       - fieldname: relatedProcess
-        description: TOM-xxx process this interaction realizes
+        description: The business process this interaction realizes — a section id (BPREN-PROC-…)
       - fieldname: relatedRequirements
         description: "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: relatedUseCase
-        description: ISC-xxx use case in the ISC document
+        description: "Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document's ids, not resolved in the Blueprint"
       - fieldname: relatedDataEntities
-        description: Data entities read or written
+        description: "Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)"
       - fieldname: relatedBusinessObjects
-        description: BO-xxx business objects involved
+        description: "Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)"
       - fieldname: relatedBusinessRules
-        description: BR-xxx business rules referenced
+        description: "Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)"
       - fieldname: relatedIntegrations
-        description: INT-xxx integrations touched
+        description: "Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)"
       - fieldname: relatedTestCases
         description: TC-xxx test cases covering this
   inpr-form:
@@ -23523,13 +23538,13 @@ form-types:
       - fieldname: outOfScope
         description: What this scenario deliberately excludes
       - fieldname: relatedInteractions
-        description: INT-xxx interactions referenced by this scenario
+        description: "Interactions referenced by this scenario, comma-separated — interaction section ids (INEN-INTE-…)"
   ssec-form:
     fields:
       - fieldname: expectedResult
         description: The observable outcome after the step
       - fieldname: interactionReference
-        description: INT-xxx interaction detailing this step
+        description: The interaction detailing this step — an interaction section id (INEN-INTE-…)
       - fieldname: dataInvolved
         description: Data read or written during the step
       - fieldname: uiElement

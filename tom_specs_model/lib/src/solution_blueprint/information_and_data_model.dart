@@ -1651,6 +1651,15 @@ class KeyAttributeEntry extends DocSpecsSection {
   /// or alternate key references nothing outside its own entity.
   @SectionId('KEATT-REFE-REF')
   @Reference('referencedEntity')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Referenced Entity',
+      hint: 'Section id of the data entity (`DAENT`)',
+      refersTo: ['DAENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(4)
   DocSpecsSection? referencedEntityRef;
 }
@@ -2195,6 +2204,15 @@ class EntityRelationshipEntry extends DocSpecsSection {
   /// nothing a detected error instead of a dangling string.
   @SectionId('ENRLE-SOUR-REF')
   @Reference('sourceEntityName')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Source Entity Name',
+      hint: 'Section id of the data entity (`DAENT`)',
+      refersTo: ['DAENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(7)
   DocSpecsSection? sourceEntityRef;
 
@@ -2208,6 +2226,15 @@ class EntityRelationshipEntry extends DocSpecsSection {
   /// business fact is unchanged.
   @SectionId('ENRLE-TARG-REF')
   @Reference('targetEntityName')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Target Entity Name',
+      hint: 'Section id of the data entity (`DAENT`)',
+      refersTo: ['DAENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(8)
   DocSpecsSection? targetEntityRef;
 }
@@ -3355,6 +3382,15 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
   /// being copied into each of them and drifting.
   @SectionId('BIRURE-RULE-REF')
   @Reference('ruleId')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Rule Id',
+      hint: 'Section id of the business rule (`BIRU`)',
+      refersTo: ['BIRU.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? ruleRef;
 }
@@ -4394,6 +4430,15 @@ class AffectedObjectEntry extends DocSpecsSection {
   /// given an object, every rule that touches it.
   @SectionId('AFOB-OBJE-REF')
   @Reference('objectName')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Object Name',
+      hint: 'Section id of the business object (`BJOEN`)',
+      refersTo: ['BJOEN.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? objectRef;
 }
@@ -4436,6 +4481,15 @@ class AffectedFunctionEntry extends DocSpecsSection {
   /// functions may be entitled to skip the check.
   @SectionId('AFFN-FUNC-REF')
   @Reference('functionName')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Function Name',
+      hint: 'Section id of the function (`FUNCT`)',
+      refersTo: ['FUNCT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? functionRef;
 }

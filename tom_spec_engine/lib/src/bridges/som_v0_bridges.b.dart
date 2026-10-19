@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-19T17:46:15.612914 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-19T21:15:52.101761 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1342,7 +1342,9 @@ class SomV0Bridge {
       _createAdministrativeEventPolicyContentFormBridge(),
       _createAffectedDepartmentEntryContentFormBridge(),
       _createAffectedFunctionEntryContentFormBridge(),
+      _createAffectedFunctionEntryFunctionRefFormBridge(),
       _createAffectedObjectEntryContentFormBridge(),
+      _createAffectedObjectEntryObjectRefFormBridge(),
       _createAlertDefinitionEntryConditionFormBridge(),
       _createAlertDefinitionEntryContentFormBridge(),
       _createAlertDefinitionEntryNotificationFormBridge(),
@@ -1557,6 +1559,7 @@ class SomV0Bridge {
       _createBusinessRuleEntryImplementationFormBridge(),
       _createBusinessRuleEntryRuleLogicFormBridge(),
       _createBusinessRuleReferenceEntryContentFormBridge(),
+      _createBusinessRuleReferenceEntryRuleRefFormBridge(),
       _createCapacityReviewProcessContentFormBridge(),
       _createCapacityReviewProcessEscalationFormBridge(),
       _createCapacityReviewProcessMonitoringFormBridge(),
@@ -1892,6 +1895,7 @@ class SomV0Bridge {
       _createDataEntityEntryRelationshipSummaryFormBridge(),
       _createDataEntityMigrationEntryContentFormBridge(),
       _createDataEntityReferenceEntryContentFormBridge(),
+      _createDataEntityReferenceEntryRelatedEntityFormBridge(),
       _createDataFormatCompatibilityContentFormBridge(),
       _createDataFormatCompatibilityDateTimeFormBridge(),
       _createDataFormatCompatibilityFormatsFormBridge(),
@@ -2190,6 +2194,8 @@ class SomV0Bridge {
       _createEntityRelationshipEntryIdentityFormBridge(),
       _createEntityRelationshipEntryNavigationFormBridge(),
       _createEntityRelationshipEntryReferentialIntegrityFormBridge(),
+      _createEntityRelationshipEntrySourceEntityRefFormBridge(),
+      _createEntityRelationshipEntryTargetEntityRefFormBridge(),
       _createEntryPointEntryContentFormBridge(),
       _createEnvironmentEntryAvailabilityFormBridge(),
       _createEnvironmentEntryComplianceFormBridge(),
@@ -2589,6 +2595,7 @@ class SomV0Bridge {
       _createKeyAttributeEntryGenerationFormBridge(),
       _createKeyAttributeEntryGovernanceFormBridge(),
       _createKeyAttributeEntryReferenceFormBridge(),
+      _createKeyAttributeEntryReferencedEntityRefFormBridge(),
       _createKeyCompromiseRecoveryPolicyContentFormBridge(),
       _createKeyConceptEntryContentFormBridge(),
       _createKeyEscrowAndBackupPolicyContentFormBridge(),
@@ -3220,10 +3227,12 @@ class SomV0Bridge {
       _createReportSectionEntrySortingFormBridge(),
       _createRequirementBusinessRuleEntryContentFormBridge(),
       _createRequirementDependencyEntryContentFormBridge(),
+      _createRequirementDependencyEntryRelatedRequirementFormBridge(),
       _createRequirementScreenActionEntryContentFormBridge(),
       _createRequirementTestCaseEntryAutomationFormBridge(),
       _createRequirementTestCaseEntryContentFormBridge(),
       _createRequirementTestCaseEntryExecutionFormBridge(),
+      _createRequirementTestCaseEntryRelatedCriterionFormBridge(),
       _createRequirementTraceabilityArtifactsFormBridge(),
       _createRequirementTraceabilityImplementationFormBridge(),
       _createRequirementTraceabilityTraceabilityFormFormBridge(),
@@ -7361,8 +7370,12 @@ class SomV0Bridge {
           _createAffectedDepartmentEntryContentFormBridge,
       'AffectedFunctionEntryContentForm':
           _createAffectedFunctionEntryContentFormBridge,
+      'AffectedFunctionEntryFunctionRefForm':
+          _createAffectedFunctionEntryFunctionRefFormBridge,
       'AffectedObjectEntryContentForm':
           _createAffectedObjectEntryContentFormBridge,
+      'AffectedObjectEntryObjectRefForm':
+          _createAffectedObjectEntryObjectRefFormBridge,
       'AlertDefinitionEntryConditionForm':
           _createAlertDefinitionEntryConditionFormBridge,
       'AlertDefinitionEntryContentForm':
@@ -7768,6 +7781,8 @@ class SomV0Bridge {
           _createBusinessRuleEntryRuleLogicFormBridge,
       'BusinessRuleReferenceEntryContentForm':
           _createBusinessRuleReferenceEntryContentFormBridge,
+      'BusinessRuleReferenceEntryRuleRefForm':
+          _createBusinessRuleReferenceEntryRuleRefFormBridge,
       'CapacityReviewProcessContentForm':
           _createCapacityReviewProcessContentFormBridge,
       'CapacityReviewProcessEscalationForm':
@@ -8391,6 +8406,8 @@ class SomV0Bridge {
           _createDataEntityMigrationEntryContentFormBridge,
       'DataEntityReferenceEntryContentForm':
           _createDataEntityReferenceEntryContentFormBridge,
+      'DataEntityReferenceEntryRelatedEntityForm':
+          _createDataEntityReferenceEntryRelatedEntityFormBridge,
       'DataFormatCompatibilityContentForm':
           _createDataFormatCompatibilityContentFormBridge,
       'DataFormatCompatibilityDateTimeForm':
@@ -8946,6 +8963,10 @@ class SomV0Bridge {
           _createEntityRelationshipEntryNavigationFormBridge,
       'EntityRelationshipEntryReferentialIntegrityForm':
           _createEntityRelationshipEntryReferentialIntegrityFormBridge,
+      'EntityRelationshipEntrySourceEntityRefForm':
+          _createEntityRelationshipEntrySourceEntityRefFormBridge,
+      'EntityRelationshipEntryTargetEntityRefForm':
+          _createEntityRelationshipEntryTargetEntityRefFormBridge,
       'EntryPointEntryContentForm': _createEntryPointEntryContentFormBridge,
       'EnvironmentEntryAvailabilityForm':
           _createEnvironmentEntryAvailabilityFormBridge,
@@ -9699,6 +9720,8 @@ class SomV0Bridge {
           _createKeyAttributeEntryGovernanceFormBridge,
       'KeyAttributeEntryReferenceForm':
           _createKeyAttributeEntryReferenceFormBridge,
+      'KeyAttributeEntryReferencedEntityRefForm':
+          _createKeyAttributeEntryReferencedEntityRefFormBridge,
       'KeyCompromiseRecoveryPolicyContentForm':
           _createKeyCompromiseRecoveryPolicyContentFormBridge,
       'KeyConceptEntryContentForm': _createKeyConceptEntryContentFormBridge,
@@ -10828,6 +10851,8 @@ class SomV0Bridge {
           _createRequirementBusinessRuleEntryContentFormBridge,
       'RequirementDependencyEntryContentForm':
           _createRequirementDependencyEntryContentFormBridge,
+      'RequirementDependencyEntryRelatedRequirementForm':
+          _createRequirementDependencyEntryRelatedRequirementFormBridge,
       'RequirementScreenActionEntryContentForm':
           _createRequirementScreenActionEntryContentFormBridge,
       'RequirementTestCaseEntryAutomationForm':
@@ -10836,6 +10861,8 @@ class SomV0Bridge {
           _createRequirementTestCaseEntryContentFormBridge,
       'RequirementTestCaseEntryExecutionForm':
           _createRequirementTestCaseEntryExecutionFormBridge,
+      'RequirementTestCaseEntryRelatedCriterionForm':
+          _createRequirementTestCaseEntryRelatedCriterionFormBridge,
       'RequirementTraceabilityArtifactsForm':
           _createRequirementTraceabilityArtifactsFormBridge,
       'RequirementTraceabilityImplementationForm':
@@ -16288,8 +16315,12 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.AffectedDepartmentEntryContentForm,
       'AffectedFunctionEntryContentForm':
           $tom_som_dart_v0_1.AffectedFunctionEntryContentForm,
+      'AffectedFunctionEntryFunctionRefForm':
+          $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm,
       'AffectedObjectEntryContentForm':
           $tom_som_dart_v0_1.AffectedObjectEntryContentForm,
+      'AffectedObjectEntryObjectRefForm':
+          $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm,
       'AlertDefinitionEntryConditionForm':
           $tom_som_dart_v0_1.AlertDefinitionEntryConditionForm,
       'AlertDefinitionEntryContentForm':
@@ -16713,6 +16744,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.BusinessRuleEntryRuleLogicForm,
       'BusinessRuleReferenceEntryContentForm':
           $tom_som_dart_v0_1.BusinessRuleReferenceEntryContentForm,
+      'BusinessRuleReferenceEntryRuleRefForm':
+          $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm,
       'CapacityReviewProcessContentForm':
           $tom_som_dart_v0_1.CapacityReviewProcessContentForm,
       'CapacityReviewProcessEscalationForm':
@@ -17368,6 +17401,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.DataEntityMigrationEntryContentForm,
       'DataEntityReferenceEntryContentForm':
           $tom_som_dart_v0_1.DataEntityReferenceEntryContentForm,
+      'DataEntityReferenceEntryRelatedEntityForm':
+          $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm,
       'DataFormatCompatibilityContentForm':
           $tom_som_dart_v0_1.DataFormatCompatibilityContentForm,
       'DataFormatCompatibilityDateTimeForm':
@@ -17955,6 +17990,10 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.EntityRelationshipEntryNavigationForm,
       'EntityRelationshipEntryReferentialIntegrityForm':
           $tom_som_dart_v0_1.EntityRelationshipEntryReferentialIntegrityForm,
+      'EntityRelationshipEntrySourceEntityRefForm':
+          $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm,
+      'EntityRelationshipEntryTargetEntityRefForm':
+          $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm,
       'EntryPointEntryContentForm':
           $tom_som_dart_v0_1.EntryPointEntryContentForm,
       'EnvironmentEntryAvailabilityForm':
@@ -18736,6 +18775,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.KeyAttributeEntryGovernanceForm,
       'KeyAttributeEntryReferenceForm':
           $tom_som_dart_v0_1.KeyAttributeEntryReferenceForm,
+      'KeyAttributeEntryReferencedEntityRefForm':
+          $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm,
       'KeyCompromiseRecoveryPolicyContentForm':
           $tom_som_dart_v0_1.KeyCompromiseRecoveryPolicyContentForm,
       'KeyConceptEntryContentForm':
@@ -19955,6 +19996,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.RequirementBusinessRuleEntryContentForm,
       'RequirementDependencyEntryContentForm':
           $tom_som_dart_v0_1.RequirementDependencyEntryContentForm,
+      'RequirementDependencyEntryRelatedRequirementForm':
+          $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm,
       'RequirementScreenActionEntryContentForm':
           $tom_som_dart_v0_1.RequirementScreenActionEntryContentForm,
       'RequirementTestCaseEntryAutomationForm':
@@ -19963,6 +20006,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.RequirementTestCaseEntryContentForm,
       'RequirementTestCaseEntryExecutionForm':
           $tom_som_dart_v0_1.RequirementTestCaseEntryExecutionForm,
+      'RequirementTestCaseEntryRelatedCriterionForm':
+          $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm,
       'RequirementTraceabilityArtifactsForm':
           $tom_som_dart_v0_1.RequirementTraceabilityArtifactsForm,
       'RequirementTraceabilityImplementationForm':
@@ -26048,7 +26093,11 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AffectedFunctionEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'AffectedFunctionEntryFunctionRefForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AffectedObjectEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'AffectedObjectEntryObjectRefForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AlertDefinitionEntryConditionForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -26475,6 +26524,8 @@ class SomV0Bridge {
       'BusinessRuleEntryRuleLogicForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BusinessRuleReferenceEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'BusinessRuleReferenceEntryRuleRefForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'CapacityReviewProcessContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -27141,6 +27192,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataEntityReferenceEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'DataEntityReferenceEntryRelatedEntityForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataFormatCompatibilityContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataFormatCompatibilityDateTimeForm':
@@ -27733,6 +27786,10 @@ class SomV0Bridge {
       'EntityRelationshipEntryNavigationForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'EntityRelationshipEntryReferentialIntegrityForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'EntityRelationshipEntrySourceEntityRefForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'EntityRelationshipEntryTargetEntityRefForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'EntryPointEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -28524,6 +28581,8 @@ class SomV0Bridge {
       'KeyAttributeEntryGovernanceForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'KeyAttributeEntryReferenceForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'KeyAttributeEntryReferencedEntityRefForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'KeyCompromiseRecoveryPolicyContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -29763,6 +29822,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RequirementDependencyEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'RequirementDependencyEntryRelatedRequirementForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RequirementScreenActionEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RequirementTestCaseEntryAutomationForm':
@@ -29770,6 +29831,8 @@ class SomV0Bridge {
       'RequirementTestCaseEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RequirementTestCaseEntryExecutionForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'RequirementTestCaseEntryRelatedCriterionForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'RequirementTraceabilityArtifactsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -36251,7 +36314,9 @@ class SomV0Bridge {
       'AdministrativeEventPolicyContentForm': ['SomNode'],
       'AffectedDepartmentEntryContentForm': ['SomNode'],
       'AffectedFunctionEntryContentForm': ['SomNode'],
+      'AffectedFunctionEntryFunctionRefForm': ['SomNode'],
       'AffectedObjectEntryContentForm': ['SomNode'],
+      'AffectedObjectEntryObjectRefForm': ['SomNode'],
       'AlertDefinitionEntryConditionForm': ['SomNode'],
       'AlertDefinitionEntryContentForm': ['SomNode'],
       'AlertDefinitionEntryNotificationForm': ['SomNode'],
@@ -36466,6 +36531,7 @@ class SomV0Bridge {
       'BusinessRuleEntryImplementationForm': ['SomNode'],
       'BusinessRuleEntryRuleLogicForm': ['SomNode'],
       'BusinessRuleReferenceEntryContentForm': ['SomNode'],
+      'BusinessRuleReferenceEntryRuleRefForm': ['SomNode'],
       'CapacityReviewProcessContentForm': ['SomNode'],
       'CapacityReviewProcessEscalationForm': ['SomNode'],
       'CapacityReviewProcessMonitoringForm': ['SomNode'],
@@ -36801,6 +36867,7 @@ class SomV0Bridge {
       'DataEntityEntryRelationshipSummaryForm': ['SomNode'],
       'DataEntityMigrationEntryContentForm': ['SomNode'],
       'DataEntityReferenceEntryContentForm': ['SomNode'],
+      'DataEntityReferenceEntryRelatedEntityForm': ['SomNode'],
       'DataFormatCompatibilityContentForm': ['SomNode'],
       'DataFormatCompatibilityDateTimeForm': ['SomNode'],
       'DataFormatCompatibilityFormatsForm': ['SomNode'],
@@ -37101,6 +37168,8 @@ class SomV0Bridge {
       'EntityRelationshipEntryIdentityForm': ['SomNode'],
       'EntityRelationshipEntryNavigationForm': ['SomNode'],
       'EntityRelationshipEntryReferentialIntegrityForm': ['SomNode'],
+      'EntityRelationshipEntrySourceEntityRefForm': ['SomNode'],
+      'EntityRelationshipEntryTargetEntityRefForm': ['SomNode'],
       'EntryPointEntryContentForm': ['SomNode'],
       'EnvironmentEntryAvailabilityForm': ['SomNode'],
       'EnvironmentEntryComplianceForm': ['SomNode'],
@@ -37504,6 +37573,7 @@ class SomV0Bridge {
       'KeyAttributeEntryGenerationForm': ['SomNode'],
       'KeyAttributeEntryGovernanceForm': ['SomNode'],
       'KeyAttributeEntryReferenceForm': ['SomNode'],
+      'KeyAttributeEntryReferencedEntityRefForm': ['SomNode'],
       'KeyCompromiseRecoveryPolicyContentForm': ['SomNode'],
       'KeyConceptEntryContentForm': ['SomNode'],
       'KeyEscrowAndBackupPolicyContentForm': ['SomNode'],
@@ -38137,10 +38207,12 @@ class SomV0Bridge {
       'ReportSectionEntrySortingForm': ['SomNode'],
       'RequirementBusinessRuleEntryContentForm': ['SomNode'],
       'RequirementDependencyEntryContentForm': ['SomNode'],
+      'RequirementDependencyEntryRelatedRequirementForm': ['SomNode'],
       'RequirementScreenActionEntryContentForm': ['SomNode'],
       'RequirementTestCaseEntryAutomationForm': ['SomNode'],
       'RequirementTestCaseEntryContentForm': ['SomNode'],
       'RequirementTestCaseEntryExecutionForm': ['SomNode'],
+      'RequirementTestCaseEntryRelatedCriterionForm': ['SomNode'],
       'RequirementTraceabilityArtifactsForm': ['SomNode'],
       'RequirementTraceabilityImplementationForm': ['SomNode'],
       'RequirementTraceabilityTraceabilityFormForm': ['SomNode'],
@@ -46787,16 +46859,6 @@ BridgedClass _createAffectedFunctionEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'functionRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.AffectedFunctionEntry>(
-                target,
-                'AffectedFunctionEntry',
-              )
-              .functionRef = D4.extractBridgedArg<String>(
-            value,
-            'functionRef',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.AffectedFunctionEntry>(
@@ -46833,7 +46895,7 @@ BridgedClass _createAffectedFunctionEntryBridge() {
     },
     getterSignatures: {
       'content': 'AffectedFunctionEntryContentForm get content',
-      'functionRef': 'String get functionRef',
+      'functionRef': 'AffectedFunctionEntryFunctionRefForm get functionRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -46843,7 +46905,6 @@ BridgedClass _createAffectedFunctionEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'functionRef': 'set functionRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -46936,16 +46997,6 @@ BridgedClass _createAffectedObjectEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'objectRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntry>(
-                target,
-                'AffectedObjectEntry',
-              )
-              .objectRef = D4.extractBridgedArg<String>(
-            value,
-            'objectRef',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntry>(
@@ -46982,7 +47033,7 @@ BridgedClass _createAffectedObjectEntryBridge() {
     },
     getterSignatures: {
       'content': 'AffectedObjectEntryContentForm get content',
-      'objectRef': 'String get objectRef',
+      'objectRef': 'AffectedObjectEntryObjectRefForm get objectRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -46992,7 +47043,6 @@ BridgedClass _createAffectedObjectEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'objectRef': 'set objectRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -60926,16 +60976,6 @@ BridgedClass _createBusinessRuleReferenceEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'ruleRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.BusinessRuleReferenceEntry>(
-                target,
-                'BusinessRuleReferenceEntry',
-              )
-              .ruleRef = D4.extractBridgedArg<String>(
-            value,
-            'ruleRef',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.BusinessRuleReferenceEntry>(
@@ -60972,7 +61012,7 @@ BridgedClass _createBusinessRuleReferenceEntryBridge() {
     },
     getterSignatures: {
       'content': 'BusinessRuleReferenceEntryContentForm get content',
-      'ruleRef': 'String get ruleRef',
+      'ruleRef': 'BusinessRuleReferenceEntryRuleRefForm get ruleRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -60982,7 +61022,6 @@ BridgedClass _createBusinessRuleReferenceEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'ruleRef': 'set ruleRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -86124,16 +86163,6 @@ BridgedClass _createDataEntityReferenceEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'relatedEntity': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.DataEntityReferenceEntry>(
-                target,
-                'DataEntityReferenceEntry',
-              )
-              .relatedEntity = D4.extractBridgedArg<String>(
-            value,
-            'relatedEntity',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.DataEntityReferenceEntry>(
@@ -86170,7 +86199,8 @@ BridgedClass _createDataEntityReferenceEntryBridge() {
     },
     getterSignatures: {
       'content': 'DataEntityReferenceEntryContentForm get content',
-      'relatedEntity': 'String get relatedEntity',
+      'relatedEntity':
+          'DataEntityReferenceEntryRelatedEntityForm get relatedEntity',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -86180,7 +86210,6 @@ BridgedClass _createDataEntityReferenceEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'relatedEntity': 'set relatedEntity(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -105711,26 +105740,6 @@ BridgedClass _createEntityRelationshipEntryBridge() {
             value,
             'content',
           ),
-      'sourceEntityRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.EntityRelationshipEntry>(
-                target,
-                'EntityRelationshipEntry',
-              )
-              .sourceEntityRef = D4.extractBridgedArg<String>(
-            value,
-            'sourceEntityRef',
-          ),
-      'targetEntityRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.EntityRelationshipEntry>(
-                target,
-                'EntityRelationshipEntry',
-              )
-              .targetEntityRef = D4.extractBridgedArg<String>(
-            value,
-            'targetEntityRef',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.EntityRelationshipEntry>(
@@ -105776,8 +105785,10 @@ BridgedClass _createEntityRelationshipEntryBridge() {
       'navigation': 'EntityRelationshipEntryNavigationForm get navigation',
       'relationshipAttributes':
           'SomList<RelationshipAttributeEntry> get relationshipAttributes',
-      'sourceEntityRef': 'String get sourceEntityRef',
-      'targetEntityRef': 'String get targetEntityRef',
+      'sourceEntityRef':
+          'EntityRelationshipEntrySourceEntityRefForm get sourceEntityRef',
+      'targetEntityRef':
+          'EntityRelationshipEntryTargetEntityRefForm get targetEntityRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -105787,8 +105798,6 @@ BridgedClass _createEntityRelationshipEntryBridge() {
     },
     setterSignatures: {
       'content': 'set content(String value)',
-      'sourceEntityRef': 'set sourceEntityRef(String value)',
-      'targetEntityRef': 'set targetEntityRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -131385,16 +131394,6 @@ BridgedClass _createKeyAttributeEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'referencedEntityRef': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.KeyAttributeEntry>(
-                target,
-                'KeyAttributeEntry',
-              )
-              .referencedEntityRef = D4.extractBridgedArg<String>(
-            value,
-            'referencedEntityRef',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.KeyAttributeEntry>(
@@ -131434,7 +131433,8 @@ BridgedClass _createKeyAttributeEntryBridge() {
       'generation': 'KeyAttributeEntryGenerationForm get generation',
       'reference': 'KeyAttributeEntryReferenceForm get reference',
       'governance': 'KeyAttributeEntryGovernanceForm get governance',
-      'referencedEntityRef': 'String get referencedEntityRef',
+      'referencedEntityRef':
+          'KeyAttributeEntryReferencedEntityRefForm get referencedEntityRef',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -131444,7 +131444,6 @@ BridgedClass _createKeyAttributeEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'referencedEntityRef': 'set referencedEntityRef(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -176052,16 +176051,6 @@ BridgedClass _createRequirementDependencyEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'relatedRequirement': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.RequirementDependencyEntry>(
-                target,
-                'RequirementDependencyEntry',
-              )
-              .relatedRequirement = D4.extractBridgedArg<String>(
-            value,
-            'relatedRequirement',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.RequirementDependencyEntry>(
@@ -176098,7 +176087,8 @@ BridgedClass _createRequirementDependencyEntryBridge() {
     },
     getterSignatures: {
       'content': 'RequirementDependencyEntryContentForm get content',
-      'relatedRequirement': 'String get relatedRequirement',
+      'relatedRequirement':
+          'RequirementDependencyEntryRelatedRequirementForm get relatedRequirement',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -176108,7 +176098,6 @@ BridgedClass _createRequirementDependencyEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'relatedRequirement': 'set relatedRequirement(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -176493,16 +176482,6 @@ BridgedClass _createRequirementTestCaseEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'relatedCriterion': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.RequirementTestCaseEntry>(
-                target,
-                'RequirementTestCaseEntry',
-              )
-              .relatedCriterion = D4.extractBridgedArg<String>(
-            value,
-            'relatedCriterion',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.RequirementTestCaseEntry>(
@@ -176541,7 +176520,8 @@ BridgedClass _createRequirementTestCaseEntryBridge() {
       'content': 'RequirementTestCaseEntryContentForm get content',
       'execution': 'RequirementTestCaseEntryExecutionForm get execution',
       'automation': 'RequirementTestCaseEntryAutomationForm get automation',
-      'relatedCriterion': 'String get relatedCriterion',
+      'relatedCriterion':
+          'RequirementTestCaseEntryRelatedCriterionForm get relatedCriterion',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -176551,7 +176531,6 @@ BridgedClass _createRequirementTestCaseEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'relatedCriterion': 'set relatedCriterion(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -249786,6 +249765,160 @@ BridgedClass _createAffectedFunctionEntryContentFormBridge() {
 }
 
 // =============================================================================
+// AffectedFunctionEntryFunctionRefForm Bridge
+// =============================================================================
+
+BridgedClass _createAffectedFunctionEntryFunctionRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm,
+    name: 'AffectedFunctionEntryFunctionRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'AffectedFunctionEntryFunctionRefForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'AffectedFunctionEntryFunctionRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AffectedFunctionEntryFunctionRefForm',
+        );
+        return $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+          >(target, 'AffectedFunctionEntryFunctionRefForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+              >(target, 'AffectedFunctionEntryFunctionRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+              >(target, 'AffectedFunctionEntryFunctionRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+              >(target, 'AffectedFunctionEntryFunctionRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+              >(target, 'AffectedFunctionEntryFunctionRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedFunctionEntryFunctionRefForm
+              >(target, 'AffectedFunctionEntryFunctionRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'AffectedFunctionEntryFunctionRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // AffectedObjectEntryContentForm Bridge
 // =============================================================================
 
@@ -249967,6 +250100,162 @@ BridgedClass _createAffectedObjectEntryContentFormBridge() {
       'affectedAttributes': 'set affectedAttributes(String value)',
       'impact': 'set impact(String value)',
       'accessType': 'set accessType(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// AffectedObjectEntryObjectRefForm Bridge
+// =============================================================================
+
+BridgedClass _createAffectedObjectEntryObjectRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm,
+    name: 'AffectedObjectEntryObjectRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'AffectedObjectEntryObjectRefForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'AffectedObjectEntryObjectRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'AffectedObjectEntryObjectRefForm',
+        );
+        return $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm>(
+            target,
+            'AffectedObjectEntryObjectRefForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm
+              >(target, 'AffectedObjectEntryObjectRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm
+              >(target, 'AffectedObjectEntryObjectRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm
+              >(target, 'AffectedObjectEntryObjectRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm
+              >(target, 'AffectedObjectEntryObjectRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.AffectedObjectEntryObjectRefForm
+              >(target, 'AffectedObjectEntryObjectRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'AffectedObjectEntryObjectRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -294159,6 +294448,160 @@ BridgedClass _createBusinessRuleReferenceEntryContentFormBridge() {
       'triggerCondition': 'set triggerCondition(String value)',
       'affectedAttributes': 'set affectedAttributes(String value)',
       'consequenceOnViolation': 'set consequenceOnViolation(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// BusinessRuleReferenceEntryRuleRefForm Bridge
+// =============================================================================
+
+BridgedClass _createBusinessRuleReferenceEntryRuleRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm,
+    name: 'BusinessRuleReferenceEntryRuleRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'BusinessRuleReferenceEntryRuleRefForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'BusinessRuleReferenceEntryRuleRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'BusinessRuleReferenceEntryRuleRefForm',
+        );
+        return $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+          >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+              >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+              >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+              >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+              >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.BusinessRuleReferenceEntryRuleRefForm
+              >(target, 'BusinessRuleReferenceEntryRuleRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'BusinessRuleReferenceEntryRuleRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -362950,6 +363393,160 @@ BridgedClass _createDataEntityReferenceEntryContentFormBridge() {
 }
 
 // =============================================================================
+// DataEntityReferenceEntryRelatedEntityForm Bridge
+// =============================================================================
+
+BridgedClass _createDataEntityReferenceEntryRelatedEntityFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm,
+    name: 'DataEntityReferenceEntryRelatedEntityForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'DataEntityReferenceEntryRelatedEntityForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'DataEntityReferenceEntryRelatedEntityForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'DataEntityReferenceEntryRelatedEntityForm',
+        );
+        return $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+          >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+              >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+              >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+              >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+              >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.DataEntityReferenceEntryRelatedEntityForm
+              >(target, 'DataEntityReferenceEntryRelatedEntityForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'DataEntityReferenceEntryRelatedEntityForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // DataFormatCompatibilityContentForm Bridge
 // =============================================================================
 
@@ -423616,6 +424213,314 @@ BridgedClass _createEntityRelationshipEntryReferentialIntegrityFormBridge() {
       'isDeferrable': 'set isDeferrable(String value)',
       'cascadeScope': 'set cascadeScope(String value)',
       'orphanHandling': 'set orphanHandling(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// EntityRelationshipEntrySourceEntityRefForm Bridge
+// =============================================================================
+
+BridgedClass _createEntityRelationshipEntrySourceEntityRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm,
+    name: 'EntityRelationshipEntrySourceEntityRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'EntityRelationshipEntrySourceEntityRefForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'EntityRelationshipEntrySourceEntityRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'EntityRelationshipEntrySourceEntityRefForm',
+        );
+        return $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+          >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+              >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+              >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+              >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+              >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntrySourceEntityRefForm
+              >(target, 'EntityRelationshipEntrySourceEntityRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'EntityRelationshipEntrySourceEntityRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// EntityRelationshipEntryTargetEntityRefForm Bridge
+// =============================================================================
+
+BridgedClass _createEntityRelationshipEntryTargetEntityRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm,
+    name: 'EntityRelationshipEntryTargetEntityRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'EntityRelationshipEntryTargetEntityRefForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'EntityRelationshipEntryTargetEntityRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'EntityRelationshipEntryTargetEntityRefForm',
+        );
+        return $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+          >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+              >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+              >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+              >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+              >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.EntityRelationshipEntryTargetEntityRefForm
+              >(target, 'EntityRelationshipEntryTargetEntityRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'EntityRelationshipEntryTargetEntityRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -505596,6 +506501,160 @@ BridgedClass _createKeyAttributeEntryReferenceFormBridge() {
       'referencedKey': 'set referencedKey(String value)',
       'onDeleteAction': 'set onDeleteAction(String value)',
       'onUpdateAction': 'set onUpdateAction(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// KeyAttributeEntryReferencedEntityRefForm Bridge
+// =============================================================================
+
+BridgedClass _createKeyAttributeEntryReferencedEntityRefFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm,
+    name: 'KeyAttributeEntryReferencedEntityRefForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'KeyAttributeEntryReferencedEntityRefForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'KeyAttributeEntryReferencedEntityRefForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'KeyAttributeEntryReferencedEntityRefForm',
+        );
+        return $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+          >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+              >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+              >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+              >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+              >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.KeyAttributeEntryReferencedEntityRefForm
+              >(target, 'KeyAttributeEntryReferencedEntityRefForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'KeyAttributeEntryReferencedEntityRefForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -639803,6 +640862,161 @@ BridgedClass _createRequirementDependencyEntryContentFormBridge() {
 }
 
 // =============================================================================
+// RequirementDependencyEntryRelatedRequirementForm Bridge
+// =============================================================================
+
+BridgedClass _createRequirementDependencyEntryRelatedRequirementFormBridge() {
+  return BridgedClass(
+    nativeType:
+        $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm,
+    name: 'RequirementDependencyEntryRelatedRequirementForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'RequirementDependencyEntryRelatedRequirementForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'RequirementDependencyEntryRelatedRequirementForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'RequirementDependencyEntryRelatedRequirementForm',
+        );
+        return $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+          >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+              >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+              >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+              >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+              >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementDependencyEntryRelatedRequirementForm
+              >(target, 'RequirementDependencyEntryRelatedRequirementForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'RequirementDependencyEntryRelatedRequirementForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // RequirementScreenActionEntryContentForm Bridge
 // =============================================================================
 
@@ -640792,6 +642006,160 @@ BridgedClass _createRequirementTestCaseEntryExecutionFormBridge() {
       'testSteps': 'set testSteps(String value)',
       'testData': 'set testData(String value)',
       'expectedResult': 'set expectedResult(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// RequirementTestCaseEntryRelatedCriterionForm Bridge
+// =============================================================================
+
+BridgedClass _createRequirementTestCaseEntryRelatedCriterionFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm,
+    name: 'RequirementTestCaseEntryRelatedCriterionForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'RequirementTestCaseEntryRelatedCriterionForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'RequirementTestCaseEntryRelatedCriterionForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'RequirementTestCaseEntryRelatedCriterionForm',
+        );
+        return $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+          >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+              >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+              >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+              >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+              >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RequirementTestCaseEntryRelatedCriterionForm
+              >(target, 'RequirementTestCaseEntryRelatedCriterionForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'RequirementTestCaseEntryRelatedCriterionForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',

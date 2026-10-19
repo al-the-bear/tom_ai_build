@@ -9001,6 +9001,15 @@ class DataEntityReferenceEntry extends DocSpecsSection {
   /// requirement whose data access cannot be generated.
   @SectionId('DAENRE-RELA-REF')
   @Reference('Related Data Model Entity')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Related Data Model Entity',
+      hint: 'Section id of the data entity (`DAENT`)',
+      refersTo: ['DAENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? relatedEntity;
 }
@@ -9973,6 +9982,20 @@ class RequirementDependencyEntry extends DocSpecsSection {
   /// document unwalkable.
   @SectionId('RQDEP-RELA-REF')
   @Reference('Related Requirement')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Related Requirement',
+      hint: 'Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
+      ],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? relatedRequirement;
 }
@@ -10273,6 +10296,15 @@ class RequirementTestCaseEntry extends DocSpecsSection {
   /// to check, and that is only visible when this link is filled in.
   @SectionId('RQTSC-RELA-REF')
   @Reference('Related Acceptance Criterion')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Related Acceptance Criterion',
+      hint: 'Section id of the acceptance criterion (`ACE`)',
+      refersTo: ['ACE.@sectionId'],
+    ),
+  ])
   @SerializationOrder(3)
   DocSpecsSection? relatedCriterion;
 }

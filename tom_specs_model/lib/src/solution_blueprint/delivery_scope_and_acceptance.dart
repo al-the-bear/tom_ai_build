@@ -1923,7 +1923,9 @@ class TestScenarioEntry extends DocSpecsSection {
       'businessProcessRef',
       String,
       'Business Process Reference',
-      hint: 'ID or name of the business process being validated',
+      hint:
+          'The business process being validated — a section id (BPREN-PROC-…)',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'businessRulesValidated',
@@ -1982,7 +1984,9 @@ class TestScenarioEntry extends DocSpecsSection {
       'acceptanceCriterionRef',
       String,
       'Acceptance Criterion Reference',
-      hint: 'Linked criterion ID',
+      hint:
+          'The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)',
+      refersTo: ['DACEN.@sectionId'],
     ),
     Field(
       'designRef',

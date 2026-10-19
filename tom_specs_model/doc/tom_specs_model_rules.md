@@ -658,8 +658,9 @@ How to choose:
 
   A reference to several entries of one owned collection is the same shape with
   `refs`; it points at a *different* owned collection and is never a subset of a
-  sibling list in the same class (§5.9). A `@Reference` whose form does not yet
-  name its target holds its text as the section's content and is not resolved.
+  sibling list in the same class (§5.9). Every `@Reference` of the model has
+  this shape, so none holds free text; `tom_specs_clitool`'s
+  `reference_sections_test.dart` holds the Solution Blueprint's to it.
 
 **`@Reference` marks the section; `refersTo:` carries the contract.**
 `@Reference` sits on the member: it says the section is an edge to data owned

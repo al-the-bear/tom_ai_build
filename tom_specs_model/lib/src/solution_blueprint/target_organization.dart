@@ -1214,16 +1214,16 @@ class TransitionMilestoneEntry extends DocSpecsSection {
       String,
       'Depends on Phases — phases that must complete',
       hint:
-          'The phases that must complete before this milestone can be '
-          'achieved',
+          'Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)',
+      refersTo: ['TRPHE.@sectionId'],
     ),
     Field(
       'dependsOnMilestones',
       String,
       'Depends on Milestones — prior milestones required',
       hint:
-          'The prior milestones required before this milestone can be '
-          'reached',
+          'Milestones required first, comma-separated — transition milestone section ids',
+      refersTo: ['TRMIL.@sectionId'],
     ),
     Field(
       'criticality',

@@ -1,4 +1,4 @@
-<!-- docspec: solution-blueprint/1.3 -->
+<!-- docspec: solution-blueprint/1.6 -->
 # <!--[SBP]--> Solution Blueprint
 
 Solution Blueprint for the **Meridian Order Management (MOM)** programme.
@@ -785,8 +785,6 @@ GeographicDistribution: Single distribution centre
 
 UseCaseName: Capture Wholesale Order (EDI)
 
-ProcessReference: BP-Order-Capture
-
 BriefDescription: A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
 
 FullDescription: The EDI adapter submits a translated purchase order to the capture command API. The system validates the customer and lines, prices each line synchronously, reserves stock, and confirms the order — emitting a domain event at every transition so the work list and public tracking page stay current.
@@ -957,8 +955,6 @@ Response: The order is partially reserved; the held line is flagged for follow-u
 
 UseCaseName: Release Order Hold
 
-ProcessReference: BP-Order-Exception
-
 BriefDescription: A supervisor reviews an order on Hold and releases it back into the lifecycle.
 
 FullDescription: A supervisor opens an order on Hold from the work list, reviews the hold reason, and either releases it — resuming the lifecycle at the transition that placed it on Hold — or cancels it, recording a reason in both cases.
@@ -1022,8 +1018,6 @@ BusinessRuleApplied: FR-06 hold release
 ####### <!--[INID]--> Identification
 
 UseCaseName: Amend Order Line Before Dispatch
-
-ProcessReference: BP-Order-Amendment
 
 BriefDescription: A clerk changes a line quantity before dispatch, re-running pricing and reservation.
 
@@ -1458,7 +1452,7 @@ Nullable: No
 
 ValidationRules: required, min:1
 
-ConstraintExpression: quantity > 0
+ConstraintExpression: `quantity > 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
@@ -1490,7 +1484,7 @@ Nullable: No
 
 ValidationRules: required, min:0
 
-ConstraintExpression: unit_price >= 0
+ConstraintExpression: `unit_price >= 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
@@ -1518,7 +1512,7 @@ Description: References the owning order.
 
 ######## <!--[KEATT-REFE-REF]--> Referenced Entity Ref
 
-Order
+Ref: DAENT-ENTI-1
 
 ##### <!--[DAENT-ENTI-3]--> Data Entity 3
 
@@ -1614,7 +1608,7 @@ Nullable: No
 
 ValidationRules: required, min:0
 
-ConstraintExpression: credit_limit >= 0
+ConstraintExpression: `credit_limit >= 0`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
@@ -1708,7 +1702,7 @@ Unique: Unique
 
 ValidationRules: required, pattern:^[A-Z0-9]{4}-[A-Z0-9]{4}$
 
-PatternRegex: ^[A-Z0-9]{4}-[A-Z0-9]{4}$
+PatternRegex: `^[A-Z0-9]{4}-[A-Z0-9]{4}$`
 
 ######## <!--[DAATT-SECU]--> Security Classification
 
@@ -1778,11 +1772,11 @@ ForeignKeyLocation: mom_order_line.order_id
 
 ####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
 
-Order
+Ref: DAENT-ENTI-1
 
 ####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
-OrderLine
+Ref: DAENT-ENTI-2
 
 ###### <!--[ENRLE-ITEM-2]--> Order-placed-by-Customer
 
@@ -1810,11 +1804,11 @@ ForeignKeyLocation: mom_order.customer_id
 
 ####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
 
-Order
+Ref: DAENT-ENTI-1
 
 ####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
-Customer
+Ref: DAENT-ENTI-3
 
 ###### <!--[ENRLE-ITEM-3]--> Line-references-Product
 
@@ -1842,11 +1836,11 @@ ForeignKeyLocation: mom_order_line.product_id
 
 ####### <!--[ENRLE-SOUR-REF]--> Source Entity Ref
 
-OrderLine
+Ref: DAENT-ENTI-2
 
 ####### <!--[ENRLE-TARG-REF]--> Target Entity Ref
 
-Product
+Ref: DAENT-ENTI-4
 
 ### <!--[DOMEN]--> Domain Enum Registry
 

@@ -1346,11 +1346,11 @@ List<SomMetaNode> _mc$AffectedFunctionEntry(Set<String> s) => [
           className: 'AffectedFunctionEntry',
           memberName: 'functionRef',
           sectionId: 'AFFN-FUNC-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the function in which this rule fires.\n\nThe object side of a rule ([AffectedObjectEntry]) says what it acts on;\nthis side says where in the flow it is evaluated, which is what gives the\ntrigger point and the mandatory flag their meaning. Both are needed: one\nrule may guard an entity that three functions write, and only one of those\nfunctions may be entitled to skip the check.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Function Name', hint: 'Section id of the function (`FUNCT`)', order: 0, refersTo: ['FUNCT.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'functionName'})]),
     ];
 
@@ -1367,11 +1367,11 @@ List<SomMetaNode> _mc$AffectedObjectEntry(Set<String> s) => [
           className: 'AffectedObjectEntry',
           memberName: 'objectRef',
           sectionId: 'AFOB-OBJE-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the business object this rule acts on.\n\nThe surrounding entry says *how* the object is affected — which\nattributes, whether it is validated, constrained, modified or created, and\nwhether the access is a read or a write. This member is the followable\nedge to the object itself, which is what lets a rule\'s impact set be\ncomputed rather than read: given a rule, every object it touches, and\ngiven an object, every rule that touches it.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Object Name', hint: 'Section id of the business object (`BJOEN`)', order: 0, refersTo: ['BJOEN.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'objectName'})]),
     ];
 
@@ -5544,11 +5544,11 @@ List<SomMetaNode> _mc$BusinessRuleReferenceEntry(Set<String> s) => [
           className: 'BusinessRuleReferenceEntry',
           memberName: 'ruleRef',
           sectionId: 'BIRURE-RULE-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the business rule this entry cites.\n\nThe entry\'s `ruleId` field holds the rule\'s section id as text; this\nmember is the followable edge to that rule\'s section, so a citation can be\nvalidated rather than trusted. The outliner shows it without recursing —\nwhich is the whole point of the entry: the rule is stated once in\n[BusinessRuleEntry] and cited from every object it governs, instead of\nbeing copied into each of them and drifting.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Rule Id', hint: 'Section id of the business rule (`BIRU`)', order: 0, refersTo: ['BIRU.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'ruleId'})]),
     ];
 
@@ -13613,11 +13613,11 @@ List<SomMetaNode> _mc$DataEntityReferenceEntry(Set<String> s) => [
           className: 'DataEntityReferenceEntry',
           memberName: 'relatedEntity',
           sectionId: 'DAENRE-RELA-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The data-model entity these operations act on, named by section id.\n\nThis entry describes *how a requirement touches* an entity — which CRUD\noperations, which attributes, at what volume, under which quality rules —\nand deliberately does not restate what the entity is. The link is what\nmakes that omission safe: the reader follows it to the information model\nfor the entity\'s fields, keys and relationships, stated once. Without it\nthe row names a string no schema is obliged to match.\n\nIt is also the edge the CE-DB data-access derivation reads\n(`codespecs_mapping.md` §5.13), so an entity nothing resolves to is a\nrequirement whose data access cannot be generated.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Related Data Model Entity', hint: 'Section id of the data entity (`DAENT`)', order: 0, refersTo: ['DAENT.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'Related Data Model Entity'})]),
     ];
 
@@ -19125,21 +19125,21 @@ List<SomMetaNode> _mc$EntityRelationshipEntry(Set<String> s) => [
           className: 'EntityRelationshipEntry',
           memberName: 'sourceEntityRef',
           sectionId: 'ENRLE-SOUR-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 7,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the entity at the source end.\n\nThe participant list names the ends for a reader; this is the\nmachine-followable edge to the source entity\'s section, shown by the\noutliner without recursing into it and validated by the schema generator\nagainst the entity list. It is what makes an entity name that resolves to\nnothing a detected error instead of a dangling string.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Source Entity Name', hint: 'Section id of the data entity (`DAENT`)', order: 0, refersTo: ['DAENT.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'sourceEntityName'})]),
        SomMetaNode(
           className: 'EntityRelationshipEntry',
           memberName: 'targetEntityRef',
           sectionId: 'ENRLE-TARG-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 8,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the entity at the target end.\n\nThe mirror of [sourceEntityRef], with one asymmetry worth knowing: which\nend is "source" is not arbitrary. It is the end the relationship is read\nfrom, and it is what `ENRLE-CARD.sourceCardinality` and\n`ENRLE-NAVI.foreignKeyLocation` are stated relative to — so swapping the\ntwo ends changes what the cardinality band asserts even though the\nbusiness fact is unchanged.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Target Entity Name', hint: 'Section id of the data entity (`DAENT`)', order: 0, refersTo: ['DAENT.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'targetEntityName'})]),
     ];
 
@@ -21663,7 +21663,7 @@ List<SomMetaNode> _mc$FeaturePriorityEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 5,
           docComment: 'Stage assignment.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', required: true, hint: 'Planned delivery stage', order: 0), SomFormFieldMeta(name: 'earliestPossibleStage', typeName: 'String', description: 'Earliest Possible Stage', hint: 'Earliest stage prerequisites allow', order: 1), SomFormFieldMeta(name: 'fallbackStage', typeName: 'String', description: 'Fallback Stage', hint: 'Stage to defer to if cut from target', order: 2), SomFormFieldMeta(name: 'stageAssignmentRationale', typeName: 'String', description: 'Stage Assignment Rationale', hint: 'Why this stage', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', hint: 'Planned delivery stage — a stage section id (STAGE-STAG-…); empty for a feature planned into no stage (MoSCoW Won\'t this time)', order: 0, refersTo: ['STAGE.@sectionId']), SomFormFieldMeta(name: 'earliestPossibleStage', typeName: 'String', description: 'Earliest Possible Stage', hint: 'The earliest stage and what it waits for, as prose (e.g. \'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published\'); not resolved', order: 1), SomFormFieldMeta(name: 'fallbackStage', typeName: 'String', description: 'Fallback Stage', hint: 'Stage to defer to if cut from target', order: 2, refersTo: ['STAGE.@sectionId']), SomFormFieldMeta(name: 'stageAssignmentRationale', typeName: 'String', description: 'Stage Assignment Rationale', hint: 'Why this stage', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management', 'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management'], 'connotation': 'Records the target, earliest possible, and fallback delivery stage for a feature and the rationale behind that assignment.'})]),
        SomMetaNode(
           className: 'FeaturePriorityEntry',
@@ -21750,7 +21750,7 @@ List<SomMetaNode> _mc$FeatureStageMapping(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Stage assignment details.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', required: true, hint: 'Stage in which this feature will be delivered', order: 0), SomFormFieldMeta(name: 'stagePhase', typeName: 'String', description: 'Stage Phase', hint: 'Sub-phase within the stage — Alpha / Beta / GA / Full rollout', order: 1), SomFormFieldMeta(name: 'fallbackStage', typeName: 'String', description: 'Fallback Stage', hint: 'Stage to which this feature moves if cut from target stage', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', required: true, hint: 'Stage in which this feature will be delivered', order: 0, refersTo: ['STAGE.@sectionId']), SomFormFieldMeta(name: 'stagePhase', typeName: 'String', description: 'Stage Phase', hint: 'Sub-phase within the stage — Alpha / Beta / GA / Full rollout', order: 1), SomFormFieldMeta(name: 'fallbackStage', typeName: 'String', description: 'Fallback Stage', hint: 'Stage to which this feature moves if cut from target stage', order: 2, refersTo: ['STAGE.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing', 'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management'], 'connotation': 'Captures the target stage, stage phase, and fallback stage assigned to a feature.'})]),
        SomMetaNode(
           className: 'FeatureStageMapping',
@@ -24811,7 +24811,7 @@ List<SomMetaNode> _mc$InteractionBusinessRules(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'validationRules', typeName: 'String', description: 'Validation Rules — BR-xxx for validation', hint: 'BR-xxx rules governing input validation', order: 0), SomFormFieldMeta(name: 'calculationRules', typeName: 'String', description: 'Calculation Rules — BR-xxx for calculations', hint: 'BR-xxx rules governing calculations', order: 1), SomFormFieldMeta(name: 'authorizationRules', typeName: 'String', description: 'Authorization Rules — BR-xxx for permissions', hint: 'BR-xxx rules governing permissions', order: 2), SomFormFieldMeta(name: 'workflowRules', typeName: 'String', description: 'Workflow Rules — BR-xxx for flow', hint: 'BR-xxx rules governing flow and routing', order: 3), SomFormFieldMeta(name: 'notificationRules', typeName: 'String', description: 'Notification Rules — BR-xxx for notifications', hint: 'BR-xxx rules governing notifications', order: 4), SomFormFieldMeta(name: 'integrationRules', typeName: 'String', description: 'Integration Rules — BR-xxx for integrations', hint: 'BR-xxx rules governing external integrations', order: 5)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'validationRules', typeName: 'String', description: 'Validation Rules', hint: 'Rules governing input validation, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 0), SomFormFieldMeta(name: 'calculationRules', typeName: 'String', description: 'Calculation Rules', hint: 'Rules governing calculations, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 1), SomFormFieldMeta(name: 'authorizationRules', typeName: 'String', description: 'Authorization Rules', hint: 'Rules governing permissions, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 2), SomFormFieldMeta(name: 'workflowRules', typeName: 'String', description: 'Workflow Rules', hint: 'Rules governing flow and routing, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 3), SomFormFieldMeta(name: 'notificationRules', typeName: 'String', description: 'Notification Rules', hint: 'Rules governing notifications, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 4), SomFormFieldMeta(name: 'integrationRules', typeName: 'String', description: 'Integration Rules', hint: 'Rules governing external integrations, as prose — a rule may cite its business rule (BIRU-…); not resolved', order: 5)])),
     ];
 
 List<SomMetaNode> _mc$InteractionCapabilityCharacteristic(Set<String> s) => [
@@ -25003,7 +25003,7 @@ List<SomMetaNode> _mc$InteractionEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Interaction identification (use case header).',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'useCaseName', typeName: 'String', description: 'Use Case Name — active verb goal phrase', required: true, hint: 'Active-verb goal, e.g. "Place order"', order: 0), SomFormFieldMeta(name: 'processReference', typeName: 'String', description: 'Process Reference — TOM-xxx', hint: 'The TOM-xxx process this use case realizes', order: 1), SomFormFieldMeta(name: 'briefDescription', typeName: 'String', description: 'Brief Description — one sentence', hint: 'One-sentence summary of the goal', order: 2), SomFormFieldMeta(name: 'fullDescription', typeName: 'String', description: 'Full Description — complete explanation', hint: 'Fuller narrative of what the interaction achieves', order: 3), SomFormFieldMeta(name: 'primaryActor', typeName: 'String', description: 'Primary Actor — who initiates', hint: 'The actor with the goal who starts the interaction', order: 4), SomFormFieldMeta(name: 'supportingActors', typeName: 'String', description: 'Supporting Actors — who else participates', hint: 'Other actors or systems that contribute', order: 5), SomFormFieldMeta(name: 'goalLevel', typeName: 'String', description: 'Goal Level — summary (+), user goal (!), subfunction (-)', hint: 'Cockburn level: + summary, ! user goal, - subfunction', order: 6), SomFormFieldMeta(name: 'designScope', typeName: 'String', description: 'Design Scope — organization, system, subsystem, component', hint: 'Boundary in view: organization, system, subsystem, component', order: 7)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'useCaseName', typeName: 'String', description: 'Use Case Name — active verb goal phrase', required: true, hint: 'Active-verb goal, e.g. "Place order"', order: 0), SomFormFieldMeta(name: 'processReference', typeName: 'String', description: 'Process Reference', hint: 'The business process this use case realizes — a section id (BPREN-PROC-…)', order: 1, refersTo: ['BPREN.@sectionId']), SomFormFieldMeta(name: 'briefDescription', typeName: 'String', description: 'Brief Description — one sentence', hint: 'One-sentence summary of the goal', order: 2), SomFormFieldMeta(name: 'fullDescription', typeName: 'String', description: 'Full Description — complete explanation', hint: 'Fuller narrative of what the interaction achieves', order: 3), SomFormFieldMeta(name: 'primaryActor', typeName: 'String', description: 'Primary Actor — who initiates', hint: 'The actor with the goal who starts the interaction', order: 4), SomFormFieldMeta(name: 'supportingActors', typeName: 'String', description: 'Supporting Actors — who else participates', hint: 'Other actors or systems that contribute', order: 5), SomFormFieldMeta(name: 'goalLevel', typeName: 'String', description: 'Goal Level — summary (+), user goal (!), subfunction (-)', hint: 'Cockburn level: + summary, ! user goal, - subfunction', order: 6), SomFormFieldMeta(name: 'designScope', typeName: 'String', description: 'Design Scope — organization, system, subsystem, component', hint: 'Boundary in view: organization, system, subsystem, component', order: 7)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Cockburn — Writing Effective Use Cases: use-case identity & scope', 'UML 2.5.1 (ISO/IEC 19505) — use cases'], 'connotation': 'Identifies a use case by id, name, actors, goal level and design scope — its header attributes.'})]),
        SomMetaNode(
           className: 'InteractionEntry',
@@ -25136,7 +25136,7 @@ List<SomMetaNode> _mc$InteractionEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 13,
           docComment: 'Related elements and traceability.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'relatedProcess', typeName: 'String', description: 'Related Process — TOM-xxx', hint: 'TOM-xxx process this interaction realizes', order: 0), SomFormFieldMeta(name: 'relatedRequirements', typeName: 'String', description: 'Related Requirements', hint: 'Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)', order: 1, refersTo: ['FRE.@sectionId', 'TERQ.@sectionId', 'SECRQ.@sectionId', 'ORRQ.@sectionId']), SomFormFieldMeta(name: 'relatedUseCase', typeName: 'String', description: 'Related Use Case — ISC-xxx in ISC document', hint: 'ISC-xxx use case in the ISC document', order: 2), SomFormFieldMeta(name: 'relatedDataEntities', typeName: 'String', description: 'Related Data Entities — entity names', hint: 'Data entities read or written', order: 3), SomFormFieldMeta(name: 'relatedBusinessObjects', typeName: 'String', description: 'Related Business Objects — BO-xxx', hint: 'BO-xxx business objects involved', order: 4), SomFormFieldMeta(name: 'relatedBusinessRules', typeName: 'String', description: 'Related Business Rules — BR-xxx', hint: 'BR-xxx business rules referenced', order: 5), SomFormFieldMeta(name: 'relatedIntegrations', typeName: 'String', description: 'Related Integrations — INT-xxx', hint: 'INT-xxx integrations touched', order: 6), SomFormFieldMeta(name: 'relatedTestCases', typeName: 'String', description: 'Related Test Cases — TC-xxx', hint: 'TC-xxx test cases covering this', order: 7)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'relatedProcess', typeName: 'String', description: 'Related Process', hint: 'The business process this interaction realizes — a section id (BPREN-PROC-…)', order: 0, refersTo: ['BPREN.@sectionId']), SomFormFieldMeta(name: 'relatedRequirements', typeName: 'String', description: 'Related Requirements', hint: 'Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)', order: 1, refersTo: ['FRE.@sectionId', 'TERQ.@sectionId', 'SECRQ.@sectionId', 'ORRQ.@sectionId']), SomFormFieldMeta(name: 'relatedUseCase', typeName: 'String', description: 'Related Use Case', hint: 'Use cases of the Interaction Scenarios document, as text (e.g. UC-23) — another document\'s ids, not resolved in the Blueprint', order: 2), SomFormFieldMeta(name: 'relatedDataEntities', typeName: 'String', description: 'Related Data Entities — entity names', hint: 'Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)', order: 3, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'relatedBusinessObjects', typeName: 'String', description: 'Related Business Objects', hint: 'Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)', order: 4, refersTo: ['BJOEN.@sectionId']), SomFormFieldMeta(name: 'relatedBusinessRules', typeName: 'String', description: 'Related Business Rules', hint: 'Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)', order: 5, refersTo: ['BIRU.@sectionId']), SomFormFieldMeta(name: 'relatedIntegrations', typeName: 'String', description: 'Related Integrations', hint: 'Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)', order: 6, refersTo: ['EIE.@sectionId']), SomFormFieldMeta(name: 'relatedTestCases', typeName: 'String', description: 'Related Test Cases — TC-xxx', hint: 'TC-xxx test cases covering this', order: 7)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148 §6 — operational scenarios & interface requirements', 'BABOK v3 — use cases & scenarios'], 'connotation': 'Traces the interaction to related processes, requirements, data, business objects, rules, integrations and test cases.'})]),
     ];
 
@@ -26325,11 +26325,11 @@ List<SomMetaNode> _mc$KeyAttributeEntry(Set<String> s) => [
           className: 'KeyAttributeEntry',
           memberName: 'referencedEntityRef',
           sectionId: 'KEATT-REFE-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 4,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The resolved link to the entity a foreign key points at.\n\nThe `referencedEntity` field of the reference band holds the target\'s name\nas text; this member is the followable edge to that entity\'s section,\nwhich the outliner shows in place of the target subtree rather than\nrecursing into it, and which the schema generator validates. It is what\nmakes an entity name that resolves to nothing a detected error rather than\na dangling string. Empty for every key type but a foreign key — a primary\nor alternate key references nothing outside its own entity.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Referenced Entity', hint: 'Section id of the data entity (`DAENT`)', order: 0, refersTo: ['DAENT.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'referencedEntity'})]),
     ];
 
@@ -27540,7 +27540,7 @@ List<SomMetaNode> _mc$MainScenarioStepEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'stepNumber', typeName: 'int', description: 'Step Number', required: true, hint: 'Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.', order: 0), SomFormFieldMeta(name: 'actorAction', typeName: 'String', description: 'Actor Action — what actor does', hint: 'What the actor does in this step', order: 1), SomFormFieldMeta(name: 'systemResponse', typeName: 'String', description: 'System Response — what system does', hint: 'How the system responds to the action', order: 2), SomFormFieldMeta(name: 'serverOperation', typeName: 'String', description: 'Server Operation', hint: 'ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.', order: 3, refersTo: ['SVOPE.operationName']), SomFormFieldMeta(name: 'dataInvolved', typeName: 'String', description: 'Data Involved — data read/written', hint: 'Data read or written during the step', order: 4), SomFormFieldMeta(name: 'businessRuleApplied', typeName: 'String', description: 'Business Rule Applied — BR-xxx reference', hint: 'BR-xxx rule enforced at this step', order: 5), SomFormFieldMeta(name: 'uiElementUsed', typeName: 'String', description: 'UI Element Used — screen/component', hint: 'Screen or component the actor interacts with', order: 6), SomFormFieldMeta(name: 'validationPerformed', typeName: 'String', description: 'Validation Performed — checks done', hint: 'Validations run during this step', order: 7), SomFormFieldMeta(name: 'expectedDuration', typeName: 'String', description: 'Expected Duration — time for this step', hint: 'Expected time to complete this step', order: 8)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'stepNumber', typeName: 'int', description: 'Step Number', required: true, hint: 'Sequential step number within the flow. This is the number the step is read by, not the handle it is referred to by: a branch names the step it attaches to by section id.', order: 0), SomFormFieldMeta(name: 'actorAction', typeName: 'String', description: 'Actor Action — what actor does', hint: 'What the actor does in this step', order: 1), SomFormFieldMeta(name: 'systemResponse', typeName: 'String', description: 'System Response — what system does', hint: 'How the system responds to the action', order: 2), SomFormFieldMeta(name: 'serverOperation', typeName: 'String', description: 'Server Operation', hint: 'ServerOperationEntry.operationName (SVOPR registry) this step calls. State it only where the step reaches the server: the client call is generated exactly where this is present, so a step that names nothing generates no call.', order: 3, refersTo: ['SVOPE.operationName']), SomFormFieldMeta(name: 'dataInvolved', typeName: 'String', description: 'Data Involved — data read/written', hint: 'Data read or written during the step', order: 4), SomFormFieldMeta(name: 'businessRuleApplied', typeName: 'String', description: 'Business Rule Applied', hint: 'The rule enforced at this step, as prose — it may cite a business rule (BIRU-…) or a Project Idea rule (C6.5); not resolved', order: 5), SomFormFieldMeta(name: 'uiElementUsed', typeName: 'String', description: 'UI Element Used — screen/component', hint: 'Screen or component the actor interacts with', order: 6), SomFormFieldMeta(name: 'validationPerformed', typeName: 'String', description: 'Validation Performed — checks done', hint: 'Validations run during this step', order: 7), SomFormFieldMeta(name: 'expectedDuration', typeName: 'String', description: 'Expected Duration — time for this step', hint: 'Expected time to complete this step', order: 8)])),
        SomMetaNode(
           className: 'MainScenarioStepEntry',
           memberName: 'serverCallSteps',
@@ -29741,7 +29741,7 @@ List<SomMetaNode> _mc$MoscowEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 3,
           docComment: 'Stage assignment.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', required: true, hint: 'Stage in which this feature is planned for delivery', order: 0), SomFormFieldMeta(name: 'earliestPossibleStage', typeName: 'String', description: 'Earliest Possible Stage', hint: 'Earliest stage where prerequisites allow delivery', order: 1)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetStage', typeName: 'String', description: 'Target Stage', required: true, hint: 'Stage in which this feature is planned for delivery', order: 0, refersTo: ['STAGE.@sectionId']), SomFormFieldMeta(name: 'earliestPossibleStage', typeName: 'String', description: 'Earliest Possible Stage', hint: 'The earliest stage and what it waits for, as prose (e.g. \'STAGE-STAG-P4-CODESPECS, once tom_core wave 1 is published\'); not resolved', order: 1)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing', 'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management'], 'connotation': 'Captures the target and earliest-possible delivery stage for a MoSCoW-classified feature.'})]),
        SomMetaNode(
           className: 'MoscowEntry',
@@ -34373,7 +34373,7 @@ List<SomMetaNode> _mc$ProcessIdentification(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Position in the process hierarchy and taxonomy.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'parentProcess', typeName: 'String', description: 'Parent Process — higher-level process this belongs to', hint: 'The higher-level process this rolls up to', order: 0), SomFormFieldMeta(name: 'processCategory', typeName: 'String', description: 'Process Category — operating, management, support', hint: 'The category the process falls into', order: 1), SomFormFieldMeta(name: 'processType', typeName: 'String', description: 'Process Type — core, enabling, strategic', hint: 'The functional type of the process', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'parentProcess', typeName: 'String', description: 'Parent Process — higher-level process this belongs to', hint: 'The higher-level process this rolls up to — a business process section id (BPREN-PROC-…)', order: 0, refersTo: ['BPREN.@sectionId']), SomFormFieldMeta(name: 'processCategory', typeName: 'String', description: 'Process Category — operating, management, support', hint: 'The category the process falls into', order: 1), SomFormFieldMeta(name: 'processType', typeName: 'String', description: 'Process Type — core, enabling, strategic', hint: 'The functional type of the process', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['APQC PCF — process hierarchy'], 'connotation': 'Places the process within the taxonomy by parent, category and type.'})]),
        SomMetaNode(
           className: 'ProcessIdentification',
@@ -34942,7 +34942,7 @@ List<SomMetaNode> _mc$ProcessRelationshipEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 0,
           docComment: 'The section\'s body content. For a `@Form`-annotated member this is the\nform\'s **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceProcess', typeName: 'String', description: 'Source Process', hint: 'Name the source process', order: 0), SomFormFieldMeta(name: 'targetProcess', typeName: 'String', description: 'Target Process', hint: 'Name the target process', order: 1), SomFormFieldMeta(name: 'relationshipType', typeName: 'String', description: 'Relationship Type — triggers, feeds, depends on, parallel with', hint: 'Classify the relationship type', order: 2), SomFormFieldMeta(name: 'dataExchanged', typeName: 'String', description: 'Data Exchanged — what flows between processes', hint: 'State what data flows between them', order: 3), SomFormFieldMeta(name: 'timingDependency', typeName: 'String', description: 'Timing Dependency — must complete before, can run parallel', hint: 'State the timing dependency', order: 4), SomFormFieldMeta(name: 'frequencyOfInteraction', typeName: 'String', description: 'Frequency of Interaction — how often they interact', hint: 'State how often they interact', order: 5), SomFormFieldMeta(name: 'criticality', typeName: 'String', description: 'Criticality — how critical is this relationship', hint: 'State how critical the relationship is', order: 6)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceProcess', typeName: 'String', description: 'Source Process', hint: 'The source process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)', order: 0, refersTo: ['BPREN.@sectionId', 'CUBIPR.@sectionId']), SomFormFieldMeta(name: 'targetProcess', typeName: 'String', description: 'Target Process', hint: 'The target process — a target or current business process section id (BPREN-PROC-… / CUBIPR-PROC-…)', order: 1, refersTo: ['BPREN.@sectionId', 'CUBIPR.@sectionId']), SomFormFieldMeta(name: 'relationshipType', typeName: 'String', description: 'Relationship Type — triggers, feeds, depends on, parallel with', hint: 'Classify the relationship type', order: 2), SomFormFieldMeta(name: 'dataExchanged', typeName: 'String', description: 'Data Exchanged — what flows between processes', hint: 'State what data flows between them', order: 3), SomFormFieldMeta(name: 'timingDependency', typeName: 'String', description: 'Timing Dependency — must complete before, can run parallel', hint: 'State the timing dependency', order: 4), SomFormFieldMeta(name: 'frequencyOfInteraction', typeName: 'String', description: 'Frequency of Interaction — how often they interact', hint: 'State how often they interact', order: 5), SomFormFieldMeta(name: 'criticality', typeName: 'String', description: 'Criticality — how critical is this relationship', hint: 'State how critical the relationship is', order: 6)])),
     ];
 
 List<SomMetaNode> _mc$ProcessRelationships(Set<String> s) => [
@@ -38241,11 +38241,11 @@ List<SomMetaNode> _mc$RequirementDependencyEntry(Set<String> s) => [
           className: 'RequirementDependencyEntry',
           memberName: 'relatedRequirement',
           sectionId: 'RQDEP-RELA-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The other requirement in this dependency, named by section id.\n\nThe row states the *kind* of relation — prerequisite, bidirectional,\nparent-child, conflict, refinement — and this names its far end; the\nrequirement that owns the entry is always the near end, so neither half\nis readable alone. Expect another requirement of this document there. A\ndependency on something that is not itself a requirement is a constraint\nand belongs with the assumptions and constraints instead.\n\nThe reference stores a section id and is never followed in traversal\n(`tom_specs_model_rules.md` §9.2), which is what allows a requirement\ngraph containing cycles — a conflict pair is one — without making the\ndocument unwalkable.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Related Requirement', hint: 'Section id of the requirement (`FRE`, `TERQ`, `SECRQ` or `ORRQ`)', order: 0, refersTo: ['FRE.@sectionId', 'TERQ.@sectionId', 'SECRQ.@sectionId', 'ORRQ.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'Related Requirement'})]),
     ];
 
@@ -38317,11 +38317,11 @@ List<SomMetaNode> _mc$RequirementTestCaseEntry(Set<String> s) => [
           className: 'RequirementTestCaseEntry',
           memberName: 'relatedCriterion',
           sectionId: 'RQTSC-RELA-REF',
-          kind: SomMetaKind.content,
+          kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 3,
-          contentType: SomContentTypeMeta(type: 'text', description: ''),
           docComment: 'The acceptance criterion this test case verifies, named by section id.\n\nThis is the link that turns a test case from a suggestion into evidence.\nThe criterion states the condition under which the requirement is agreed\nto be met; the test states how that condition is demonstrated. Expect one\ncriterion at the far end — a test that would have to name several is\nverifying more than one thing and reads better as several tests, each of\nwhich can fail for its own reason.\n\nIt is also the coverage measure in the other direction: a criterion that\nno test case points at is an acceptance condition nobody has undertaken\nto check, and that is only visible when this link is filled in.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'ref', typeName: 'String', description: 'Related Acceptance Criterion', hint: 'Section id of the acceptance criterion (`ACE`)', order: 0, refersTo: ['ACE.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'Reference', args: {'description': 'Related Acceptance Criterion'})]),
     ];
 
@@ -40597,7 +40597,7 @@ List<SomMetaNode> _mc$ScenarioEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 2,
           docComment: 'Scenario context.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'preconditions', typeName: 'String', description: 'Preconditions — required initial state', hint: 'State that must hold before the scenario starts', order: 0), SomFormFieldMeta(name: 'trigger', typeName: 'String', description: 'Trigger — what starts the scenario', hint: 'The event that initiates the scenario', order: 1), SomFormFieldMeta(name: 'successCondition', typeName: 'String', description: 'Success Condition — how to know it worked', hint: 'Observable state indicating success', order: 2), SomFormFieldMeta(name: 'failureCondition', typeName: 'String', description: 'Failure Condition — how to know it failed', hint: 'Observable state indicating failure', order: 3), SomFormFieldMeta(name: 'assumptions', typeName: 'String', description: 'Assumptions — what is assumed true', hint: 'Assumptions taken as given for this scenario', order: 4), SomFormFieldMeta(name: 'outOfScope', typeName: 'String', description: 'Out of Scope — what is not included', hint: 'What this scenario deliberately excludes', order: 5), SomFormFieldMeta(name: 'relatedInteractions', typeName: 'String', description: 'Related Interactions — INT-xxx references', hint: 'INT-xxx interactions referenced by this scenario', order: 6)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'preconditions', typeName: 'String', description: 'Preconditions — required initial state', hint: 'State that must hold before the scenario starts', order: 0), SomFormFieldMeta(name: 'trigger', typeName: 'String', description: 'Trigger — what starts the scenario', hint: 'The event that initiates the scenario', order: 1), SomFormFieldMeta(name: 'successCondition', typeName: 'String', description: 'Success Condition — how to know it worked', hint: 'Observable state indicating success', order: 2), SomFormFieldMeta(name: 'failureCondition', typeName: 'String', description: 'Failure Condition — how to know it failed', hint: 'Observable state indicating failure', order: 3), SomFormFieldMeta(name: 'assumptions', typeName: 'String', description: 'Assumptions — what is assumed true', hint: 'Assumptions taken as given for this scenario', order: 4), SomFormFieldMeta(name: 'outOfScope', typeName: 'String', description: 'Out of Scope — what is not included', hint: 'What this scenario deliberately excludes', order: 5), SomFormFieldMeta(name: 'relatedInteractions', typeName: 'String', description: 'Related Interactions', hint: 'Interactions referenced by this scenario, comma-separated — interaction section ids (INEN-INTE-…)', order: 6, refersTo: ['INEN.@sectionId'])]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Cockburn — Writing Effective Use Cases: preconditions, triggers & guarantees', 'ISO/IEC/IEEE 29148 §6 — operational scenarios'], 'connotation': 'Establishes the surrounding conditions of the scenario: preconditions, trigger, success/failure conditions, and scope.'})]),
        SomMetaNode(
           className: 'ScenarioEntry',
@@ -40673,7 +40673,7 @@ List<SomMetaNode> _mc$ScenarioStepEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Expected outcome and referenced artifacts.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'expectedResult', typeName: 'String', description: 'Expected Result — observable outcome', hint: 'The observable outcome after the step', order: 0), SomFormFieldMeta(name: 'interactionReference', typeName: 'String', description: 'Interaction Reference — INT-xxx if detailed', hint: 'INT-xxx interaction detailing this step', order: 1), SomFormFieldMeta(name: 'dataInvolved', typeName: 'String', description: 'Data Involved — input/output data', hint: 'Data read or written during the step', order: 2), SomFormFieldMeta(name: 'uiElement', typeName: 'String', description: 'UI Element — screen/component used', hint: 'Screen or component the actor uses', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'expectedResult', typeName: 'String', description: 'Expected Result — observable outcome', hint: 'The observable outcome after the step', order: 0), SomFormFieldMeta(name: 'interactionReference', typeName: 'String', description: 'Interaction Reference', hint: 'The interaction detailing this step — an interaction section id (INEN-INTE-…)', order: 1, refersTo: ['INEN.@sectionId']), SomFormFieldMeta(name: 'dataInvolved', typeName: 'String', description: 'Data Involved — input/output data', hint: 'Data read or written during the step', order: 2), SomFormFieldMeta(name: 'uiElement', typeName: 'String', description: 'UI Element — screen/component used', hint: 'Screen or component the actor uses', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Gherkin / BDD — given-when-then scenario steps', 'BPMN 2.0 — sequence flow / activities (scenario steps)'], 'connotation': 'Records the expected result of a scenario step and the artifacts, data, and UI elements it references.'})]),
        SomMetaNode(
           className: 'ScenarioStepEntry',
@@ -50062,7 +50062,7 @@ List<SomMetaNode> _mc$TestScenarioEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 2,
           docComment: 'Business context.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'businessProcessRef', typeName: 'String', description: 'Business Process Reference', hint: 'ID or name of the business process being validated', order: 0), SomFormFieldMeta(name: 'businessRulesValidated', typeName: 'String', description: 'Business Rules Validated', hint: 'Business rules this scenario verifies', order: 1), SomFormFieldMeta(name: 'userRolePerforming', typeName: 'String', description: 'User Role Performing Test', hint: 'Persona or role executing', order: 2), SomFormFieldMeta(name: 'regulatoryRelevance', typeName: 'String', description: 'Regulatory Relevance', hint: 'Compliance requirements addressed', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'businessProcessRef', typeName: 'String', description: 'Business Process Reference', hint: 'The business process being validated — a section id (BPREN-PROC-…)', order: 0, refersTo: ['BPREN.@sectionId']), SomFormFieldMeta(name: 'businessRulesValidated', typeName: 'String', description: 'Business Rules Validated', hint: 'Business rules this scenario verifies', order: 1), SomFormFieldMeta(name: 'userRolePerforming', typeName: 'String', description: 'User Role Performing Test', hint: 'Persona or role executing', order: 2), SomFormFieldMeta(name: 'regulatoryRelevance', typeName: 'String', description: 'Regulatory Relevance', hint: 'Compliance requirements addressed', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29119 2022 — the software testing standard frames business-oriented acceptance test conditions', 'ISO 21502:2020 — the guidance on project management frames validation of business processes against deliverables'], 'connotation': 'Captures the business process, business rules, user role, and regulatory relevance validated by an acceptance test scenario.'})]),
        SomMetaNode(
           className: 'TestScenarioEntry',
@@ -50072,7 +50072,7 @@ List<SomMetaNode> _mc$TestScenarioEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 3,
           docComment: 'Traceability.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementRef', typeName: 'String', description: 'Requirement Reference', hint: 'Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)', order: 0, refersTo: ['FRE.@sectionId', 'TERQ.@sectionId', 'SECRQ.@sectionId', 'ORRQ.@sectionId']), SomFormFieldMeta(name: 'useCaseRef', typeName: 'String', description: 'Use Case Reference', hint: 'The related interaction — an interaction section id (INEN-INTE-…)', order: 1, refersTo: ['INEN.@sectionId']), SomFormFieldMeta(name: 'acceptanceCriterionRef', typeName: 'String', description: 'Acceptance Criterion Reference', hint: 'Linked criterion ID', order: 2), SomFormFieldMeta(name: 'designRef', typeName: 'String', description: 'Design / Screen Reference', hint: 'UI screens or mockup references', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'requirementRef', typeName: 'String', description: 'Requirement Reference', hint: 'Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)', order: 0, refersTo: ['FRE.@sectionId', 'TERQ.@sectionId', 'SECRQ.@sectionId', 'ORRQ.@sectionId']), SomFormFieldMeta(name: 'useCaseRef', typeName: 'String', description: 'Use Case Reference', hint: 'The related interaction — an interaction section id (INEN-INTE-…)', order: 1, refersTo: ['INEN.@sectionId']), SomFormFieldMeta(name: 'acceptanceCriterionRef', typeName: 'String', description: 'Acceptance Criterion Reference', hint: 'The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)', order: 2, refersTo: ['DACEN.@sectionId']), SomFormFieldMeta(name: 'designRef', typeName: 'String', description: 'Design / Screen Reference', hint: 'UI screens or mockup references', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria', 'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements'], 'connotation': 'Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.'})]),
        SomMetaNode(
           className: 'TestScenarioEntry',
@@ -51359,7 +51359,7 @@ List<SomMetaNode> _mc$TransitionMilestoneEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 2,
           docComment: 'Dependencies and criticality.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dependsOnPhases', typeName: 'String', description: 'Depends on Phases — phases that must complete', hint: 'The phases that must complete before this milestone can be achieved', order: 0), SomFormFieldMeta(name: 'dependsOnMilestones', typeName: 'String', description: 'Depends on Milestones — prior milestones required', hint: 'The prior milestones required before this milestone can be reached', order: 1), SomFormFieldMeta(name: 'criticality', typeName: 'ImportanceBand', description: 'Criticality', hint: 'How critical this milestone is to the transition.', order: 2, enumValues: ['critical', 'high', 'medium', 'low'])]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dependsOnPhases', typeName: 'String', description: 'Depends on Phases — phases that must complete', hint: 'Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)', order: 0, refersTo: ['TRPHE.@sectionId']), SomFormFieldMeta(name: 'dependsOnMilestones', typeName: 'String', description: 'Depends on Milestones — prior milestones required', hint: 'Milestones required first, comma-separated — transition milestone section ids', order: 1, refersTo: ['TRMIL.@sectionId']), SomFormFieldMeta(name: 'criticality', typeName: 'ImportanceBand', description: 'Criticality', hint: 'How critical this milestone is to the transition.', order: 2, enumValues: ['critical', 'high', 'medium', 'low'])]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK — schedule management', 'ISO 31000 — risk management'], 'connotation': 'Records the phases and prior milestones a milestone depends on and its criticality to the transition.'})]),
        SomMetaNode(
           className: 'TransitionMilestoneEntry',
