@@ -205,6 +205,16 @@ class FormFieldSpec {
   /// document (`countMismatch`).
   final List<String> countOf;
 
+  /// The operands this field's value is the product of (`Field.productOf`,
+  /// uamtc10), each a form field of the same form or `<FORMSECTIONID>.<field>`
+  /// of a sibling form; empty for a field that states no product. The instance
+  /// tier holds the stated number to it (`derivedValueMismatch`).
+  final List<String> productOf;
+
+  /// The form field of the same form this field's value ranks by, highest
+  /// first (`Field.rankOf`, uamtc10); `null` for a field that states no rank.
+  final String? rankOf;
+
   /// Whether the value is code rather than prose (`Field.code`): the markdown
   /// codec writes it as an inline code span and unwraps it on import (SOM
   /// §11.4 rule 8). Omitted from the export when `false`.
@@ -224,6 +234,8 @@ class FormFieldSpec {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.productOf = const [],
+    this.rankOf,
     this.code = false,
   });
 
@@ -248,6 +260,10 @@ class FormFieldSpec {
         (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
     countOf:
         (j['countOf'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    productOf:
+        (j['productOf'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    rankOf: j['rankOf'] as String?,
     code: j['code'] as bool? ?? false,
   );
 }

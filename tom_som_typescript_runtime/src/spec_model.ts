@@ -91,6 +91,18 @@ export class FormFieldSpec {
    */
   countOf: string[];
   /**
+   * The operands this field's value is the product of (`Field.productOf`,
+   * uamtc10), each a form field of the same form or `<FORMSECTIONID>.<field>`
+   * of a sibling form; empty for a field that states no product. The instance
+   * tier holds the stated number to it (`derivedValueMismatch`).
+   */
+  productOf: string[];
+  /**
+   * The form field of the same form this field's value ranks by, highest first
+   * (`Field.rankOf`, uamtc10); `null` for a field that states no rank.
+   */
+  rankOf: string | null;
+  /**
    * Whether the value is code rather than prose (`Field.code`): the markdown
    * codec writes it as an inline code span and unwraps it on import (SOM
    * §11.4 rule 8). Omitted from the export when `false`.
@@ -106,6 +118,8 @@ export class FormFieldSpec {
     enumValues?: string[];
     refersTo?: string[];
     countOf?: string[];
+    productOf?: string[];
+    rankOf?: string | null;
     code?: boolean;
   }) {
     this.name = props.name;
@@ -116,6 +130,8 @@ export class FormFieldSpec {
     this.enumValues = props.enumValues || [];
     this.refersTo = props.refersTo || [];
     this.countOf = props.countOf || [];
+    this.productOf = props.productOf || [];
+    this.rankOf = props.rankOf != null ? props.rankOf : null;
     this.code = Boolean(props.code || false);
   }
 
@@ -129,6 +145,8 @@ export class FormFieldSpec {
       enumValues: (j.enumValues || []).map((e: unknown) => String(e)),
       refersTo: (j.refersTo || []).map((e: unknown) => String(e)),
       countOf: (j.countOf || []).map((e: unknown) => String(e)),
+      productOf: (j.productOf || []).map((e: unknown) => String(e)),
+      rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
     });
   }

@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Derived values (uamtc10): `FormFieldSpec.ProductOf` (meta
+  `formFields[].productOf`, absent → empty slice) and `FormFieldSpec.RankOf`
+  (meta `formFields[].rankOf`, absent → empty string). `ValidateDocument`
+  gains an instance-tier step right after the count check (one group ordered
+  by form path), reporting the new
+  `SpecValidationCodeDerivedValueMismatch` (`derivedValueMismatch`): a
+  `ProductOf` field must hold a number equal to the product of its operands
+  (`f` of the same form, `F.f` of the sibling form `F`; an enum operand
+  counts as its 1-based position) to the precision it is written in; a
+  `RankOf` field must rank the instances of its form 1 to n, each once, with
+  no instance ranked below one with a lower score. Undecidable operands skip
+  the check; a stated value that is no number is always reported. Such fields
+  are no longer reported as `valueTypeMismatch`. A `countOf` target written
+  `./X` now counts only the entries beneath the section holding the form.
+  The corpus cases `derivedValuesMatch`, `productMismatch`, `rankOutOfOrder`,
+  `rankDuplicate` and `scopedCountMismatch` pin it.
 - `SpecDocument.HasValuesUnder` answers from a lazily built prefix index
   (every stored key plus each of its prefixes ending before a `/` or `-`),
   dropped by every mutator, instead of scanning every stored key per call.

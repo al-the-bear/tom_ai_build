@@ -233,6 +233,15 @@ pub struct FormFieldSpec {
     /// count. The instance tier checks the stated number against the entries
     /// the document holds.
     pub count_of: Vec<String>,
+    /// The operands this field's value is the product of (`Field.productOf`,
+    /// uamtc10), each `f` (a field of the same form) or `FORMSID.f` (field `f`
+    /// of the form beside it); empty for a field that states no product. The
+    /// instance tier checks the stated number against the operands.
+    pub product_of: Vec<String>,
+    /// The sibling field of the same form whose score this field's value
+    /// ranks, highest first (`Field.rankOf`, uamtc10); `None` for a field that
+    /// states no rank.
+    pub rank_of: Option<String>,
     /// Whether the value is code rather than prose (`Field.code`): the
     /// markdown codec writes it as an inline code span and unwraps it on
     /// import (SOM §11.4 rule 8). Omitted from the export when `false`.
@@ -829,6 +838,18 @@ fn field_from_json(f: &Json) -> SpecField {
                     }
                 }
             }
+            let mut ff_product_of = Vec::new();
+            if let Some(arr) = ff.get("productOf").and_then(|v| v.as_array()) {
+                for v in arr {
+                    if let Some(s) = v.as_str() {
+                        ff_product_of.push(s.to_string());
+                    }
+                }
+            }
+            let ff_rank_of = ff
+                .get("rankOf")
+                .and_then(|v| v.as_str())
+                .map(|s| s.to_string());
             form_fields.push(FormFieldSpec {
                 name: fname,
                 label,
@@ -838,6 +859,8 @@ fn field_from_json(f: &Json) -> SpecField {
                 enum_values: ff_enum_values,
                 refers_to: ff_refers_to,
                 count_of: ff_count_of,
+                product_of: ff_product_of,
+                rank_of: ff_rank_of,
                 code: ff.bool_or("code"),
             });
         }

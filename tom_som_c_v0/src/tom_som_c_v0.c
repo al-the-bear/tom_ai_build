@@ -94627,12 +94627,19 @@ char *feature_dependency_entry_content_form_scheduling_impact(const FeatureDepen
 void feature_dependency_entry_content_form_set_scheduling_impact(FeatureDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "schedulingImpact", value);
 }
-char *feature_dependency_entry_content_form_cross_stage_dependency(const FeatureDependencyEntryContentForm *self) {
+bool feature_dependency_entry_content_form_cross_stage_dependency(const FeatureDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossStageDependency");
+  return v != NULL && strcmp(v, "true") == 0;
+}
+void feature_dependency_entry_content_form_set_cross_stage_dependency(FeatureDependencyEntryContentForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "crossStageDependency", value ? "true" : "false");
+}
+char *feature_dependency_entry_content_form_cross_stage_note(const FeatureDependencyEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossStageNote");
   return som_strdup(v != NULL ? v : "");
 }
-void feature_dependency_entry_content_form_set_cross_stage_dependency(FeatureDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "crossStageDependency", value);
+void feature_dependency_entry_content_form_set_cross_stage_note(FeatureDependencyEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "crossStageNote", value);
 }
 char *feature_dependency_entry_content_form_mitigation_strategy(const FeatureDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mitigationStrategy");

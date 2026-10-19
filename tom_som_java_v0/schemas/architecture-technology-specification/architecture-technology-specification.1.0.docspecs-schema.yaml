@@ -15934,7 +15934,7 @@ form-types:
       - fieldname: impact
         description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
-        description: Calculated score (probability × impact)
+        description: "Calculated score (probability × impact), each counted by its band (1-5)"
       - fieldname: riskTrend
         description: Increasing / Stable / Decreasing — direction since last review
   coriende-form:

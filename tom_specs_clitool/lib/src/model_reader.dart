@@ -99,6 +99,16 @@ class FormFieldInfo {
   /// states no count. See `Field.countOf` in `tom_specs_core`.
   final List<String> countOf;
 
+  /// The operands this field's value is the product of, each a form field of
+  /// the same form or `<FORMSECTIONID>.<field>` of a sibling form. Empty for a
+  /// field that states no product. See `Field.productOf` in `tom_specs_core`.
+  final List<String> productOf;
+
+  /// The form field of the same form this field's value ranks by, highest
+  /// first; empty when the field states no rank. See `Field.rankOf` in
+  /// `tom_specs_core`.
+  final String rankOf;
+
   /// Whether the value is code rather than prose (`Field.code`), so the
   /// markdown rendition writes it as a code span. See `Field.code` in
   /// `tom_specs_core`.
@@ -119,6 +129,8 @@ class FormFieldInfo {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.productOf = const [],
+    this.rankOf = '',
     this.code = false,
   });
 }
@@ -972,6 +984,15 @@ class ModelReader {
                 .whereType<String>()
                 .toList() ??
             const <String>[];
+        final productOf =
+            item
+                .getField('productOf')
+                ?.toListValue()
+                ?.map((e) => e.toStringValue())
+                .whereType<String>()
+                .toList() ??
+            const <String>[];
+        final rankOf = item.getField('rankOf')?.toStringValue() ?? '';
         final code = item.getField('code')?.toBoolValue() ?? false;
 
         // Extract type name from the Type literal; resolve enum constant
@@ -999,6 +1020,8 @@ class ModelReader {
             enumValueDocs: enumValueDocs,
             refersTo: refersTo,
             countOf: countOf,
+            productOf: productOf,
+            rankOf: rankOf,
             code: code,
           ),
         );

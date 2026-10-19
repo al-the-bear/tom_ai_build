@@ -108248,13 +108248,23 @@ public final class TomSomV0 {
       doc.setFormField(path, "schedulingImpact", value);
     }
 
-    public String crossStageDependency() {
+    public Boolean crossStageDependency() {
       String v = doc.formField(path, "crossStageDependency");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void crossStageDependency(Boolean value) {
+      doc.setFormField(path, "crossStageDependency", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String crossStageNote() {
+      String v = doc.formField(path, "crossStageNote");
       return v == null ? "" : v;
     }
 
-    public void crossStageDependency(String value) {
-      doc.setFormField(path, "crossStageDependency", value);
+    public void crossStageNote(String value) {
+      doc.setFormField(path, "crossStageNote", value);
     }
 
     public String mitigationStrategy() {

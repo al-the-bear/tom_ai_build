@@ -56,6 +56,14 @@ const SpecValidationCode = Object.freeze({
    * reported. Empty text is absence, not a bad value, and is not reported.
    */
   VALUE_TYPE_MISMATCH: 'valueTypeMismatch',
+  /**
+   * A form field whose value is derived from other fields — a product
+   * (`Field.productOf`) or a rank by a sibling field (`Field.rankOf`) — holds
+   * a value the fields it is derived from do not give, or no number at all
+   * (uamtc10). A risk score kept by hand drifts the first time probability or
+   * impact changes and the score does not.
+   */
+  DERIVED_VALUE_MISMATCH: 'derivedValueMismatch',
 });
 
 /** One problem found while validating a document. */
@@ -166,10 +174,18 @@ function validateDocument(model, doc) {
       }
       if (spec.enumValues.length === 0) {
         const text = doc.formField(path, name);
-        // A stated count (`countOf`) is checked by `countMismatch`, which
-        // already reports text that is no whole number; one finding is enough.
+        // A stated count (`countOf`) is checked by `countMismatch`, a derived
+        // value (`productOf`, `rankOf`) by `derivedValueMismatch`; both
+        // already report text that is no number; one finding is enough.
         const countOf = spec.countOf || [];
-        if (countOf.length === 0 && !somTypedTextReadable(spec.type, text)) {
+        const productOf = spec.productOf || [];
+        const rankOf = spec.rankOf == null ? null : spec.rankOf;
+        if (
+          countOf.length === 0 &&
+          productOf.length === 0 &&
+          rankOf === null &&
+          !somTypedTextReadable(spec.type, text)
+        ) {
           errors.push(
             new SpecValidationError(
               path,
@@ -250,6 +266,12 @@ function validateDocument(model, doc) {
   // A form field declaring `countOf` states how many entries the document
   // holds; only the instance tier can count them.
   errors.push(..._validateCountInstances(refl, doc));
+
+  // 7. Derived values (instance tier, uamtc10).
+  //
+  // A `productOf` field must hold the product of its operands, a `rankOf`
+  // field must rank its form's instances by their score.
+  errors.push(..._validateDerivedValues(refl, doc));
 
   return errors;
 }
@@ -590,8 +612,14 @@ function _resolvedForms(refl, doc) {
   return forms;
 }
 
-/** The section id of a `countOf` target — the part before any `.field=value`. */
+/**
+ * The section id of a `countOf` target — the part before any `.field=value`,
+ * without the `./` scope prefix.
+ */
 function _countTargetId(target) {
+  if (target.startsWith('./')) {
+    target = target.substring(2);
+  }
   const dot = target.indexOf('.');
   return dot < 0 ? target : target.substring(0, dot);
 }
@@ -665,17 +693,23 @@ function _validateCountInstances(refl, doc) {
     }
   }
 
-  const countTarget = (target) => {
+  // A target written `./…` counts only the entries beneath `owner`, the
+  // section holding the form; any other target counts the whole document.
+  const countTarget = (target, owner) => {
+    const scoped = target.startsWith('./');
+    if (scoped) {
+      target = target.substring(2);
+    }
+    const inScope = (item) => !scoped || item.startsWith(`${owner}/`);
     const dot = target.indexOf('.');
     if (dot < 0) {
-      const entries = entriesById.get(target);
-      return entries === undefined ? 0 : entries.length;
+      return (entriesById.get(target) || []).filter(inScope).length;
     }
     const id = target.substring(0, dot);
     const eq = target.indexOf('=', dot);
     const field = target.substring(dot + 1, eq < 0 ? target.length : eq);
     const value = eq < 0 ? '' : target.substring(eq + 1);
-    return (entriesById.get(id) || []).filter((item) => {
+    return (entriesById.get(id) || []).filter(inScope).filter((item) => {
       const byField = valuesByItem.get(item);
       const values = byField ? byField.get(field) : undefined;
       return values !== undefined && values.has(value);
@@ -700,7 +734,10 @@ function _validateCountInstances(refl, doc) {
       ) {
         continue;
       }
-      const counted = ff.countOf.map(countTarget).reduce((a, b) => a + b, 0);
+      const owner = form.path.substring(0, form.path.lastIndexOf('/'));
+      const counted = ff.countOf
+        .map((t) => countTarget(t, owner))
+        .reduce((a, b) => a + b, 0);
       const targets = ff.countOf.join(' + ');
       if (!/^[0-9]+$/.test(stated)) {
         errors.push(
@@ -725,6 +762,206 @@ function _validateCountInstances(refl, doc) {
     }
   }
   return errors;
+}
+
+/**
+ * Instance-tier derived-value check (uamtc10): a `productOf` field must hold
+ * the product of its operands, and a `rankOf` field must rank the instances of
+ * its form by their score, highest first.
+ *
+ * **Operands.** A plain operand is a field of the same form; `F.x` is field
+ * `x` of the form `F` beside it, at `<owner>/F` where `<owner>` is the section
+ * holding this form. A numeric operand contributes its number, an enum operand
+ * its 1-based position among the enum's values. When the value or any operand
+ * is empty — or an operand is unreadable, which other checks report — the
+ * product is undecidable and is skipped.
+ *
+ * **Precision.** The stated number is held to the precision it is written in:
+ * `2.8` matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+ *
+ * **Ranks.** Over every instance of the same form whose rank and score are
+ * both filled, the ranks must be the whole numbers 1 to n, each once, and an
+ * instance may not rank below one that scores lower. Equal scores take their
+ * ranks in any order. Each offending instance is reported once.
+ *
+ * @returns {SpecValidationError[]}
+ */
+function _validateDerivedValues(refl, doc) {
+  const forms = _resolvedForms(refl, doc);
+  if (
+    !forms.some((f) =>
+      f.field.formFields.some(
+        (ff) => (ff.productOf || []).length > 0 || ff.rankOf != null,
+      ),
+    )
+  ) {
+    return [];
+  }
+  const errors = [];
+  const numberPattern = /^-?[0-9]+(\.[0-9]+)?$/;
+  const trimmed = (formPath, name) => {
+    const raw = doc.formField(formPath, name);
+    return raw === null || raw === undefined ? '' : raw.trim();
+  };
+
+  // The number a filled form field contributes, or null when it is empty or
+  // unreadable.
+  const numberOf = (formPath, spec) => {
+    const v = trimmed(formPath, spec.name);
+    if (v === '') {
+      return null;
+    }
+    if (spec.enumValues.length > 0) {
+      const i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : i + 1;
+    }
+    return numberPattern.test(v) ? Number(v) : null;
+  };
+
+  // The spec of field `name` of the form at `path`, or null.
+  const specAt = (path, name) => {
+    const res = refl.resolve(path);
+    if (res === null || res === undefined || res.kind !== SpecNodeKind.FORM) {
+      return null;
+    }
+    for (const ff of (res.field && res.field.formFields) || []) {
+      if (ff.name === name) {
+        return ff;
+      }
+    }
+    return null;
+  };
+
+  const ranked = new Map();
+
+  for (const form of forms) {
+    const owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (const ff of form.field.formFields) {
+      const productOf = ff.productOf || [];
+      if (productOf.length > 0) {
+        const stated = trimmed(form.path, ff.name);
+        if (stated !== '') {
+          let product = 1;
+          for (const operand of productOf) {
+            const dot = operand.indexOf('.');
+            const path =
+              dot < 0 ? form.path : `${owner}/${operand.substring(0, dot)}`;
+            const name = dot < 0 ? operand : operand.substring(dot + 1);
+            const spec = specAt(path, name);
+            const n = spec === null ? null : numberOf(path, spec);
+            if (n === null) {
+              product = null;
+              break;
+            }
+            product *= n;
+          }
+          const operands = productOf.join(' × ');
+          if (!numberPattern.test(stated)) {
+            errors.push(
+              new SpecValidationError(
+                form.path,
+                SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                `form field "${ff.name}" states "${stated}", which is not a ` +
+                  `number — it is the product ${operands}`,
+              ),
+            );
+          } else if (product !== null) {
+            const dot = stated.indexOf('.');
+            const decimals = dot < 0 ? 0 : stated.length - dot - 1;
+            const tolerance = 0.5 * _pow10(-decimals) + 1e-9;
+            if (Math.abs(Number(stated) - product) > tolerance) {
+              errors.push(
+                new SpecValidationError(
+                  form.path,
+                  SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                  `form field "${ff.name}" states ${stated}, but ${operands} ` +
+                    `gives ${_formatNumber(product)}`,
+                ),
+              );
+            }
+          }
+        }
+      }
+      const by = ff.rankOf;
+      if (by !== null && by !== undefined) {
+        const stated = trimmed(form.path, ff.name);
+        const scoreSpec = specAt(form.path, by);
+        const score =
+          scoreSpec === null ? null : numberOf(form.path, scoreSpec);
+        if (stated !== '' && score !== null) {
+          const key = `${form.cls.name}#${form.field.name}#${ff.name}`;
+          if (!ranked.has(key)) {
+            ranked.set(key, []);
+          }
+          ranked.get(key).push({ path: form.path, name: ff.name, stated, score });
+        }
+      }
+    }
+  }
+
+  for (const group of ranked.values()) {
+    const n = group.length;
+    const rankOf = new Map();
+    const seen = new Map();
+    for (const e of group) {
+      if (!/^[0-9]+$/.test(e.stated)) {
+        continue;
+      }
+      const r = parseInt(e.stated, 10);
+      rankOf.set(e.path, r);
+      seen.set(r, (seen.get(r) || 0) + 1);
+    }
+    for (const e of group) {
+      const r = rankOf.has(e.path) ? rankOf.get(e.path) : null;
+      let problem = null;
+      if (r === null) {
+        problem = `states "${e.stated}", which is not a whole number`;
+      } else if (r < 1 || r > n || seen.get(r) > 1) {
+        problem =
+          `states rank ${r}, but the ${n} ranked entries take the ranks ` +
+          `1 to ${n}, each once`;
+      } else {
+        for (const o of group) {
+          const ro = rankOf.has(o.path) ? rankOf.get(o.path) : null;
+          if (ro !== null && o.score < e.score && ro < r) {
+            problem =
+              `ranks ${r} with score ${_formatNumber(e.score)}, below an ` +
+              `entry ranked ${ro} with the lower score ` +
+              `${_formatNumber(o.score)}`;
+            break;
+          }
+        }
+      }
+      if (problem !== null) {
+        errors.push(
+          new SpecValidationError(
+            e.path,
+            SpecValidationCode.DERIVED_VALUE_MISMATCH,
+            `form field "${e.name}" ${problem}`,
+          ),
+        );
+      }
+    }
+  }
+  // Like every phase's group, the findings are ordered by path (code-unit
+  // order); Array.prototype.sort is stable, so a path's own findings keep the
+  // order they were found in.
+  return errors.sort((a, b) =>
+    a.path < b.path ? -1 : a.path > b.path ? 1 : 0,
+  );
+}
+
+function _pow10(exponent) {
+  let v = 1;
+  for (let i = 0; i < Math.abs(exponent); i++) {
+    v *= 10;
+  }
+  return exponent < 0 ? 1 / v : v;
+}
+
+/** `15` for a whole number, `2.8` otherwise (JS already prints it so). */
+function _formatNumber(v) {
+  return String(v);
 }
 
 module.exports = {

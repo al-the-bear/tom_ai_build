@@ -134264,13 +134264,24 @@ impl FeatureDependencyEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "schedulingImpact", value);
     }
 
-    pub fn cross_stage_dependency(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageDependency")
+    pub fn cross_stage_dependency(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "crossStageDependency");
+        if v.is_empty() { None } else { Some(v == "true") }
     }
 
-    pub fn set_cross_stage_dependency(&self, value: &str) {
+    pub fn set_cross_stage_dependency(&self, value: Option<bool>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "crossStageDependency", value);
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "crossStageDependency", &text);
+    }
+
+    pub fn cross_stage_note(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "crossStageNote")
+    }
+
+    pub fn set_cross_stage_note(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "crossStageNote", value);
     }
 
     pub fn mitigation_strategy(&self) -> String {

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T22:14:09.348484Z",
+  "generatedAt": "2026-10-19T23:15:27.608525Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.6+13.e386e5ac",
+  "modelVersionLabel": "1.6.7+14.2fe53823",
   "classCount": 1260,
   "rootCount": 14,
-  "modelHash": "b6b1d778153cd70d27ce75cd5112fe323a7e8c1babaa9d56b629ed9c0cbda0e2",
+  "modelHash": "88fed43c78c336ac62094f640eb5db94b1d0da220ddf4b0816e474477452364e",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -49936,9 +49936,13 @@
             {
               "name": "riskScore",
               "label": "Risk Score",
-              "hint": "Calculated score (probability × impact)",
+              "hint": "Calculated score (probability × impact), each counted by its band (1-5)",
               "type": "int",
-              "required": false
+              "required": false,
+              "productOf": [
+                "probability",
+                "impact"
+              ]
             },
             {
               "name": "riskTrend",
@@ -109792,14 +109796,20 @@
               "label": "Total Dependency Count",
               "hint": "Total number of inter-feature dependencies",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FDE"
+              ]
             },
             {
               "name": "crossStageDependencyCount",
               "label": "Cross-Stage Dependency Count",
               "hint": "Dependencies spanning stage boundaries — highest scheduling risk",
               "type": "String",
-              "required": false
+              "required": false,
+              "countOf": [
+                "FDE.crossStageDependency=true"
+              ]
             },
             {
               "name": "criticalPathLength",
@@ -110004,7 +110014,14 @@
             {
               "name": "crossStageDependency",
               "label": "Cross-Stage",
-              "hint": "Yes / No — whether source and target are in different stages",
+              "hint": "Whether source and target are in different stages",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "crossStageNote",
+              "label": "Cross-Stage Note",
+              "hint": "Which stages or waves the two features pass through",
               "type": "String",
               "required": false
             },
@@ -119723,9 +119740,13 @@
             {
               "name": "riskScore",
               "label": "Risk Score (probability × impact)",
-              "hint": "Computed as probability multiplied by impact",
+              "hint": "Computed as probability multiplied by impact, each counted by its band (1-5)",
               "type": "String",
-              "required": false
+              "required": false,
+              "productOf": [
+                "probability",
+                "impact"
+              ]
             },
             {
               "name": "triggerConditions",
@@ -145341,7 +145362,10 @@
               "label": "Step Count — number of steps",
               "hint": "How many numbered steps the flow has",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "./MNSST"
+              ]
             }
           ]
         },
@@ -152908,7 +152932,11 @@
               "label": "Risk Score",
               "hint": "Probability × Impact (1-25)",
               "type": "int",
-              "required": false
+              "required": false,
+              "productOf": [
+                "MIRIPR.probabilityScore",
+                "MIRIIM.overallImpactScore"
+              ]
             },
             {
               "name": "riskPriority",
@@ -158423,7 +158451,10 @@
               "label": "Number of Must-Pass Criteria",
               "hint": "Total count of must-pass criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "MSTPCR"
+              ]
             },
             {
               "name": "criticalityDefinition",
@@ -214566,7 +214597,11 @@
               "label": "Risk Score — calculated (probability × impact)",
               "hint": "Computed score from probability times impact",
               "type": "double",
-              "required": false
+              "required": false,
+              "productOf": [
+                "probabilityValue",
+                "impactValue"
+              ]
             },
             {
               "name": "riskLevel",
@@ -214590,9 +214625,10 @@
             {
               "name": "riskRanking",
               "label": "Risk Ranking — priority relative to other risks",
-              "hint": "Priority rank relative to other risks",
+              "hint": "Priority rank relative to other risks — 1 is the highest score",
               "type": "int",
-              "required": false
+              "required": false,
+              "rankOf": "riskScore"
             },
             {
               "name": "analysisMethod",
@@ -246985,9 +247021,13 @@
             {
               "name": "riskScore",
               "label": "Risk Score",
-              "hint": "Calculated risk rating — Probability x Impact",
+              "hint": "Calculated risk rating — probability × impact, each counted by its band (1-5)",
               "type": "String",
-              "required": false
+              "required": false,
+              "productOf": [
+                "probability",
+                "impact"
+              ]
             },
             {
               "name": "impactAreas",
@@ -254056,63 +254096,90 @@
               "label": "Total Number of Criteria",
               "hint": "Total number of success criteria defined",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE"
+              ]
             },
             {
               "name": "criticalCount",
               "label": "Critical Criteria Count",
               "hint": "Number of critical-priority criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.weight=critical"
+              ]
             },
             {
               "name": "highPriorityCount",
               "label": "High Priority Count",
               "hint": "Number of high-priority criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.weight=high"
+              ]
             },
             {
               "name": "mediumPriorityCount",
               "label": "Medium Priority Count",
               "hint": "Number of medium-priority criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.weight=medium"
+              ]
             },
             {
               "name": "lowPriorityCount",
               "label": "Low Priority Count",
               "hint": "Number of low-priority criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.weight=low"
+              ]
             },
             {
               "name": "businessCriteriaCount",
               "label": "Business Criteria Count",
               "hint": "Number of business-focused criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.category=Business"
+              ]
             },
             {
               "name": "technicalCriteriaCount",
               "label": "Technical Criteria Count",
               "hint": "Number of technical-quality criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.category=Technical"
+              ]
             },
             {
               "name": "userCriteriaCount",
               "label": "User Satisfaction Criteria Count",
               "hint": "Number of user-satisfaction criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.category=User"
+              ]
             },
             {
               "name": "complianceCriteriaCount",
               "label": "Compliance Criteria Count",
               "hint": "Number of compliance-related criteria",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "SCE.category=Compliance"
+              ]
             },
             {
               "name": "minCriteriaMet",
@@ -261518,9 +261585,13 @@
             {
               "name": "riskScore",
               "label": "Risk Score",
-              "hint": "Combined probability/impact score",
+              "hint": "Combined probability/impact score — probability × impact, each counted by its band (1-5)",
               "type": "String",
-              "required": false
+              "required": false,
+              "productOf": [
+                "probability",
+                "impact"
+              ]
             },
             {
               "name": "mitigation",
@@ -287833,7 +287904,10 @@
               "label": "Extension Count — number of extensions",
               "hint": "How many extensions are documented",
               "type": "int",
-              "required": false
+              "required": false,
+              "countOf": [
+                "./EXTEN"
+              ]
             }
           ]
         },

@@ -8,7 +8,7 @@
 //! (mandatory-but-absent nodes) is a separate concern and is not reported here.
 
 use crate::spec_document::SpecDocument;
-use crate::spec_model::{SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM};
+use crate::spec_model::{FormFieldSpec, SpecClass, SpecField, SpecModel, SPEC_FIELD_KIND_FORM};
 use crate::spec_reflection::{
     SpecReflection, SPEC_NODE_KIND_FORM, SPEC_NODE_KIND_LIST, SPEC_NODE_KIND_SCALAR,
     SPEC_NODE_KIND_SECTION,
@@ -42,6 +42,12 @@ pub const SPEC_VALIDATION_CODE_COUNT_MISMATCH: &str = "countMismatch";
 /// it; this is where it is reported. Empty text is absence, not a bad value,
 /// and is not reported.
 pub const SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH: &str = "valueTypeMismatch";
+/// A form field whose value is derived from other fields — a product
+/// (`Field.productOf`) or a rank by a sibling field (`Field.rankOf`) — holds a
+/// value the fields it is derived from do not give, or no number at all
+/// (uamtc10). A risk score kept by hand drifts the first time probability or
+/// impact changes and the score does not.
+pub const SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH: &str = "derivedValueMismatch";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -160,10 +166,13 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
             };
             if spec.enum_values.is_empty() {
                 let text = doc.form_field_or(&path, &name);
-                // A stated count (`count_of`) is checked by countMismatch, which
-                // already reports text that is no whole number; one finding is
-                // enough.
+                // A stated count (`count_of`) is checked by countMismatch, a
+                // derived value (`product_of`, `rank_of`) by
+                // derivedValueMismatch; both already report text that is no
+                // number, and one finding is enough.
                 if spec.count_of.is_empty()
+                    && spec.product_of.is_empty()
+                    && spec.rank_of.is_none()
                     && !som_typed_text_readable(Some(&spec.type_), Some(&text))
                 {
                     errors.push(SpecValidationError {
@@ -255,6 +264,7 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
     // A form field declaring `countOf` states how many entries the document
     // holds; only the instance tier can count them.
     errors.extend(validate_count_instances(&refl, doc));
+    errors.extend(validate_derived_values(&refl, doc));
 
     errors
 }
@@ -599,10 +609,20 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
         }
     }
 
-    let count_target = |target: &str| -> usize {
+    // A target written `./…` counts only the entries beneath `owner`, the
+    // section holding the form; any other target counts the whole document.
+    let count_target = |target: &str, owner: &str| -> usize {
+        let scoped = target.starts_with("./");
+        let target = if scoped { &target[2..] } else { target };
+        let prefix = format!("{}/", owner);
+        let in_scope = |item: &String| !scoped || item.starts_with(&prefix);
         let dot = match target.find('.') {
             Some(d) => d,
-            None => return entries_by_id.get(target).map_or(0, |e| e.len()),
+            None => {
+                return entries_by_id
+                    .get(target)
+                    .map_or(0, |e| e.iter().filter(|i| in_scope(i)).count())
+            }
         };
         let id = &target[..dot];
         let eq = target[dot..].find('=').map(|e| dot + e);
@@ -611,6 +631,7 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
         entries_by_id.get(id).map_or(0, |items| {
             items
                 .iter()
+                .filter(|item| in_scope(item))
                 .filter(|item| {
                     values_by_item
                         .get(item.as_str())
@@ -638,7 +659,8 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
             {
                 continue;
             }
-            let counted: usize = ff.count_of.iter().map(|t| count_target(t)).sum();
+            let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
+            let counted: usize = ff.count_of.iter().map(|t| count_target(t, owner)).sum();
             let targets = ff.count_of.join(" + ");
             if !stated.bytes().all(|b| b.is_ascii_digit()) {
                 errors.push(SpecValidationError {
@@ -664,11 +686,230 @@ fn validate_count_instances(refl: &SpecReflection, doc: &SpecDocument) -> Vec<Sp
     errors
 }
 
-/// The section id of a `countOf` target — the part before any `.field=value`.
+/// The section id of a `countOf` target — the part before any `.field=value`,
+/// without the `./` scope prefix.
 fn count_target_id(target: &str) -> &str {
+    let target = target.strip_prefix("./").unwrap_or(target);
     match target.find('.') {
         Some(dot) => &target[..dot],
         None => target,
+    }
+}
+
+/// Instance-tier derived-value check (uamtc10): a `productOf` field must hold
+/// the product of its operands, and a `rankOf` field must rank the instances of
+/// its form by their score, highest first.
+///
+/// **Operands.** A plain operand is a field of the same form; `F.x` is field `x`
+/// of the form `F` beside it, at `<owner>/F` where `<owner>` is the section
+/// holding this form. A numeric operand contributes its number, an enum operand
+/// its 1-based position among the enum's values. When the value or any operand
+/// is empty — or an operand is unreadable, which other checks report — the
+/// product is undecidable and is skipped; a stated value that is no number at
+/// all is still reported.
+///
+/// **Precision.** The stated number is held to the precision it is written in:
+/// `2.8` matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+///
+/// **Ranks.** Over every instance of the same form whose rank and score are
+/// both filled, the ranks must be the whole numbers 1 to n, each once, and an
+/// instance may not rank below one that scores lower. Equal scores take their
+/// ranks in any order. Each offending instance is reported once.
+fn validate_derived_values(refl: &SpecReflection, doc: &SpecDocument) -> Vec<SpecValidationError> {
+    let forms = resolved_forms(refl, doc);
+    if !forms.iter().any(|f| {
+        f.field
+            .form_fields
+            .iter()
+            .any(|ff| !ff.product_of.is_empty() || ff.rank_of.is_some())
+    }) {
+        return Vec::new();
+    }
+
+    // The number a filled form field contributes, or `None` when it is empty or
+    // unreadable.
+    let number_of = |form_path: &str, spec: &FormFieldSpec| -> Option<f64> {
+        let v = doc.form_field_or(form_path, &spec.name).trim().to_string();
+        if v.is_empty() {
+            return None;
+        }
+        if !spec.enum_values.is_empty() {
+            return spec
+                .enum_values
+                .iter()
+                .position(|e| *e == v)
+                .map(|i| (i + 1) as f64);
+        }
+        if !is_decimal_number(&v) {
+            return None;
+        }
+        v.parse::<f64>().ok()
+    };
+
+    // The spec of field `name` on the form at `path`, or `None`.
+    let spec_at = |path: &str, name: &str| -> Option<FormFieldSpec> {
+        let res = refl.resolve(path)?;
+        if res.kind != SPEC_NODE_KIND_FORM {
+            return None;
+        }
+        res.field?.form_fields.into_iter().find(|ff| ff.name == name)
+    };
+
+    struct Ranked {
+        path: String,
+        name: String,
+        stated: String,
+        score: f64,
+    }
+    let mut ranked: Vec<(String, Vec<Ranked>)> = Vec::new();
+
+    let mut errors = Vec::new();
+    for form in &forms {
+        let owner = &form.path[..form.path.rfind('/').unwrap_or(0)];
+        for ff in &form.field.form_fields {
+            if !ff.product_of.is_empty() {
+                let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+                if !stated.is_empty() {
+                    let mut product: Option<f64> = Some(1.0);
+                    for operand in &ff.product_of {
+                        let (path, name) = match operand.find('.') {
+                            Some(dot) => (format!("{}/{}", owner, &operand[..dot]), &operand[dot + 1..]),
+                            None => (form.path.clone(), operand.as_str()),
+                        };
+                        let n = spec_at(&path, name).and_then(|spec| number_of(&path, &spec));
+                        match n {
+                            Some(n) => product = product.map(|p| p * n),
+                            None => {
+                                product = None;
+                                break;
+                            }
+                        }
+                    }
+                    let operands = ff.product_of.join(" × ");
+                    if !is_decimal_number(&stated) {
+                        errors.push(SpecValidationError {
+                            path: form.path.clone(),
+                            code: SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH.to_string(),
+                            message: format!(
+                                "form field \"{}\" states \"{}\", which is not a number — it is the product {}",
+                                ff.name, stated, operands
+                            ),
+                        });
+                    } else if let Some(product) = product {
+                        let decimals = stated.find('.').map_or(0, |dot| stated.len() - dot - 1);
+                        let tolerance = 0.5 * pow10(-(decimals as i32)) + 1e-9;
+                        let value: f64 = stated.parse().unwrap_or(f64::NAN);
+                        if !((value - product).abs() <= tolerance) {
+                            errors.push(SpecValidationError {
+                                path: form.path.clone(),
+                                code: SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH.to_string(),
+                                message: format!(
+                                    "form field \"{}\" states {}, but {} gives {}",
+                                    ff.name,
+                                    stated,
+                                    operands,
+                                    format_number(product)
+                                ),
+                            });
+                        }
+                    }
+                }
+            }
+            if let Some(by) = &ff.rank_of {
+                let stated = doc.form_field_or(&form.path, &ff.name).trim().to_string();
+                let score = spec_at(&form.path, by).and_then(|spec| number_of(&form.path, &spec));
+                if let (false, Some(score)) = (stated.is_empty(), score) {
+                    let key = format!("{}#{}#{}", form.cls.name, form.field.name, ff.name);
+                    let entry = Ranked {
+                        path: form.path.clone(),
+                        name: ff.name.clone(),
+                        stated,
+                        score,
+                    };
+                    match ranked.iter_mut().find(|(k, _)| *k == key) {
+                        Some((_, group)) => group.push(entry),
+                        None => ranked.push((key, vec![entry])),
+                    }
+                }
+            }
+        }
+    }
+
+    for (_, group) in &ranked {
+        let n = group.len();
+        let mut rank_of: BTreeMap<&str, usize> = BTreeMap::new();
+        let mut seen: BTreeMap<usize, usize> = BTreeMap::new();
+        for e in group {
+            if e.stated.is_empty() || !e.stated.bytes().all(|b| b.is_ascii_digit()) {
+                continue;
+            }
+            // Too large for a usize: out of range either way.
+            let r = e.stated.parse::<usize>().unwrap_or(n + 1);
+            rank_of.insert(e.path.as_str(), r);
+            *seen.entry(r).or_insert(0) += 1;
+        }
+        for e in group {
+            let problem = match rank_of.get(e.path.as_str()) {
+                None => Some(format!("states \"{}\", which is not a whole number", e.stated)),
+                Some(&r) if r < 1 || r > n || seen[&r] > 1 => Some(format!(
+                    "states rank {}, but the {} ranked entries take the ranks 1 to {}, each once",
+                    r, n, n
+                )),
+                Some(&r) => group.iter().find_map(|o| match rank_of.get(o.path.as_str()) {
+                    Some(&ro) if o.score < e.score && ro < r => Some(format!(
+                        "ranks {} with score {}, below an entry ranked {} with the lower score {}",
+                        r,
+                        format_number(e.score),
+                        ro,
+                        format_number(o.score)
+                    )),
+                    _ => None,
+                }),
+            };
+            if let Some(problem) = problem {
+                errors.push(SpecValidationError {
+                    path: e.path.clone(),
+                    code: SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH.to_string(),
+                    message: format!("form field \"{}\" {}", e.name, problem),
+                });
+            }
+        }
+    }
+    // Like every phase's group, the findings are ordered by path; the sort is
+    // stable, so a path's own findings keep the order they were found in.
+    errors.sort_by(|a, b| a.path.cmp(&b.path));
+    errors
+}
+
+/// Whether `s` matches the reference's `^-?[0-9]+(\.[0-9]+)?$`.
+fn is_decimal_number(s: &str) -> bool {
+    let s = s.strip_prefix('-').unwrap_or(s);
+    let digits = |p: &str| !p.is_empty() && p.bytes().all(|b| b.is_ascii_digit());
+    match s.split_once('.') {
+        Some((int_part, frac)) => digits(int_part) && digits(frac),
+        None => digits(s),
+    }
+}
+
+/// 10^`exponent` by repeated multiplication, as the reference computes it.
+fn pow10(exponent: i32) -> f64 {
+    let mut v = 1.0;
+    for _ in 0..exponent.unsigned_abs() {
+        v *= 10.0;
+    }
+    if exponent < 0 {
+        1.0 / v
+    } else {
+        v
+    }
+}
+
+/// A whole number without a fraction, any other number in its shortest form.
+fn format_number(v: f64) -> String {
+    if v == v.round() && v.abs() < 1e15 {
+        format!("{}", v as i64)
+    } else {
+        format!("{}", v)
     }
 }
 

@@ -17956,7 +17956,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band for this component risk.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("impact", "Impact", "Business Impact", false, "Qualitative consequence band if the risk lands.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
-            new SomFormFieldMeta("riskScore", "int", "Risk Score", false, "Calculated score (probability × impact)", 2),
+            new SomFormFieldMeta("riskScore", "int", "Risk Score", false, "Calculated score (probability × impact), each counted by its band (1-5)", 2),
             new SomFormFieldMeta("riskTrend", "String", "Risk Trend", false, "Increasing / Stable / Decreasing — direction since last review", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk"), "connotation", "Records the assessment of a component risk, including probability, business impact, risk score, and risk trend.")));
         out.add(n);
@@ -41574,10 +41574,11 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("dependencyStrength", "String", "Dependency Strength", false, "Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround", 3),
             new SomFormFieldMeta("impactIfBroken", "String", "Impact if Broken", false, "Consequence if not satisfied — rework, partial functionality, blocking", 4),
             new SomFormFieldMeta("schedulingImpact", "String", "Scheduling Impact", false, "Days of delay if target feature slips — e.g. 1:1 day-for-day, or buffered", 5),
-            new SomFormFieldMeta("crossStageDependency", "String", "Cross-Stage", false, "Yes / No — whether source and target are in different stages", 6),
-            new SomFormFieldMeta("mitigationStrategy", "String", "Mitigation Strategy", false, "How to handle if at risk — stub/mock, parallel development, interface contract", 7),
-            new SomFormFieldMeta("resolutionStatus", "String", "Resolution Status", false, "Open / Mitigated / Resolved / Accepted — current state", 8),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional context or constraints", 9)));
+            new SomFormFieldMeta("crossStageDependency", "bool", "Cross-Stage", false, "Whether source and target are in different stages", 6),
+            new SomFormFieldMeta("crossStageNote", "String", "Cross-Stage Note", false, "Which stages or waves the two features pass through", 7),
+            new SomFormFieldMeta("mitigationStrategy", "String", "Mitigation Strategy", false, "How to handle if at risk — stub/mock, parallel development, interface contract", 8),
+            new SomFormFieldMeta("resolutionStatus", "String", "Resolution Status", false, "Open / Mitigated / Resolved / Accepted — current state", 9),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional context or constraints", 10)));
         out.add(n);
       }
       return out;
@@ -44935,7 +44936,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band that this goal risk materializes.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band if the goal risk materializes.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
-            new SomFormFieldMeta("riskScore", "String", "Risk Score (probability × impact)", false, "Computed as probability multiplied by impact", 2),
+            new SomFormFieldMeta("riskScore", "String", "Risk Score (probability × impact)", false, "Computed as probability multiplied by impact, each counted by its band (1-5)", 2),
             new SomFormFieldMeta("triggerConditions", "String", "Trigger Conditions (early warning signs)", false, "Early warning signs the risk is materializing", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — risk management", "BABOK v3 §6 — risks"), "connotation", "Captures the probability, impact, score, and trigger conditions assessed for a goal risk.")));
         out.add(n);
@@ -78628,7 +78629,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("impactValue", "double", "Impact Value — numeric score (1-5 or monetary value)", false, "Numeric severity score or monetary value", 3),
             new SomFormFieldMeta("riskScore", "double", "Risk Score — calculated (probability × impact)", false, "Computed score from probability times impact", 4),
             new SomFormFieldMeta("riskLevel", "ImportanceBand", "Risk Level", false, "Overall risk level classification.", 5, java.util.List.of("critical", "high", "medium", "low")),
-            new SomFormFieldMeta("riskRanking", "int", "Risk Ranking — priority relative to other risks", false, "Priority rank relative to other risks", 6),
+            new SomFormFieldMeta("riskRanking", "int", "Risk Ranking — priority relative to other risks", false, "Priority rank relative to other risks — 1 is the highest score", 6),
             new SomFormFieldMeta("analysisMethod", "String", "Analysis Method — Qualitative, Semi-quantitative, Quantitative", false, "Method used to assess the risk", 7),
             new SomFormFieldMeta("confidenceLevel", "String", "Confidence Level — in probability/impact estimates", false, "Confidence in the probability and impact estimates", 8),
             new SomFormFieldMeta("analysisNotes", "String", "Analysis Notes — methodology and findings", false, "Notes on methodology and findings", 9)));
@@ -89661,7 +89662,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("probability", "Probability", "Probability", true, "Qualitative likelihood band for this migration risk.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("impact", "Impact", "Impact", true, "Qualitative consequence band if the risk lands.", 1, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
-            new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Calculated risk rating — Probability x Impact", 2),
+            new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Calculated risk rating — probability × impact, each counted by its band (1-5)", 2),
             new SomFormFieldMeta("impactAreas", "String", "Impact Areas", false, "DataIntegrity / SystemAvailability / Compliance / Budget", 3),
             new SomFormFieldMeta("affectedPhases", "String", "Affected Phases", false, "Which migration phases are exposed", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidance defines risk analysis in terms of likelihood and consequence", "ISO/IEC 25012:2008 — the data quality model defines characteristics used to assess the impact on migrated data"), "connotation", "Captures the probability, impact, computed score, impacted areas, and affected phases for a migration risk.")));
@@ -94784,7 +94785,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskDescription", "String", "Risk Description", true, "What the risk is", 0),
             new SomFormFieldMeta("probability", "Probability", "Probability", false, "Qualitative likelihood band that this migration risk occurs.", 1, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("impact", "Impact", "Impact", false, "Qualitative consequence band if the migration risk occurs.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
-            new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Combined probability/impact score", 3),
+            new SomFormFieldMeta("riskScore", "String", "Risk Score", false, "Combined probability/impact score — probability × impact, each counted by its band (1-5)", 3),
             new SomFormFieldMeta("mitigation", "String", "Mitigation Strategy", false, "How the risk will be reduced", 4),
             new SomFormFieldMeta("contingency", "String", "Contingency Plan", false, "Fallback if the risk materializes", 5),
             new SomFormFieldMeta("owner", "String", "Risk Owner", false, "Person accountable for the risk", 6)));

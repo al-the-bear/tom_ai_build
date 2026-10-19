@@ -157,8 +157,17 @@ struct FormFieldSpec {
   // written `<SECTIONID>` (every entry) or `<SECTIONID>.<field>=<value>` (the
   // entries whose own form holds that value); empty for a field that states no
   // count. The stated number must equal the count the document holds
-  // (`countMismatch`).
+  // (`countMismatch`). A target written `./<SECTIONID>...` counts only the
+  // entries beneath the section holding the form (uamtc10).
   std::vector<std::string> countOf;
+  // The operands this field's value is the product of (`Field.productOf`,
+  // uamtc10): `name` (a field of the same form) or `FORMSID.name` (field `name`
+  // of the sibling form `FORMSID`); empty for a field that states no product.
+  // The instance tier holds the stated number to it (`derivedValueMismatch`).
+  std::vector<std::string> productOf;
+  // The sibling field whose score this field ranks, highest first
+  // (`Field.rankOf`, uamtc10); unset for a field that states no rank.
+  std::optional<std::string> rankOf;
   // Whether the value is code rather than prose (`Field.code`): the markdown
   // codec writes it as an inline code span and unwraps it on import (SOM
   // §11.4 rule 8). Omitted from the export when false.

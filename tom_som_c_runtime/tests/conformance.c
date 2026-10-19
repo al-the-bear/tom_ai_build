@@ -222,7 +222,7 @@ static void test_model_meta(Checker *c, const SpecModel *model) {
   check(c, "model.root.type", strcmp(root->type, "Demo") == 0, root->type);
   char cnt[32];
   snprintf(cnt, sizeof(cnt), "%zu", model->classes_len);
-  check(c, "model.classCount", model->classes_len == 13, cnt);
+  check(c, "model.classCount", model->classes_len == 14, cnt);
   const SpecClass *demo = spec_model_class_named(model, "Demo");
   check(c, "model.Demo.found", demo != NULL, "");
   if (demo != NULL) {

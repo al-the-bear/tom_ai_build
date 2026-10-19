@@ -4722,6 +4722,7 @@ class MainSuccessScenario extends DocSpecsSection {
       int,
       'Step Count — number of steps',
       hint: 'How many numbered steps the flow has',
+      countOf: ['./MNSST'],
     ),
   ])
   @override
@@ -4978,6 +4979,7 @@ class UseCaseExtensions extends DocSpecsSection {
       int,
       'Extension Count — number of extensions',
       hint: 'How many extensions are documented',
+      countOf: ['./EXTEN'],
     ),
   ])
   @override

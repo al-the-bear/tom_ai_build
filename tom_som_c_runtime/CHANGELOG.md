@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Derived values (uamtc10). `FormFieldSpec` gains `product_of` (a
+  `SomStrList`, read from the meta's `formFields[].productOf`) and `rank_of`
+  (owned string or NULL, from `rankOf`), both freed with the model.
+  `validate_document` gains phase 7, after the count check: a `productOf`
+  field must hold the product of its operands (`name` of the same form or
+  `FORMSID.name` of the sibling form; an enum operand counts as its 1-based
+  position), held to the precision the value is written in; a `rankOf` field
+  must rank the instances of its form 1 to n, each once, highest score first.
+  Either is reported as `SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH`
+  (`"derivedValueMismatch"`) at the form path; the phase's findings are
+  stable-sorted by path. Such fields are no longer reported as
+  `valueTypeMismatch`. A `countOf` target written `./X` (or `./X.f=v`) now
+  counts only the entries beneath the section holding the form. Pinned by the
+  `derivedValuesMatch`, `productMismatch`, `rankOutOfOrder`, `rankDuplicate`
+  and `scopedCountMismatch` validation cases.
+
 - Exact markdown round trip (SOM §11.2, §11.3, §11.6, §11.7, §12.4). In a
   heading's body region the emitter writes a slot marker
   `<!-- slot: <rel> -->` (rel relative to the owner, `.` for the owner itself)

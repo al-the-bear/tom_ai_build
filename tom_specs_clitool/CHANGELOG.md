@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0
+
+- Requires `tom_specs_core` 0.3.0 and the 1.6.7 model chain.
+- The model reader and meta export carry `Field.productOf` / `Field.rankOf`;
+  the static tier (invariant `REFERS-TO`) checks that every operand and rank
+  key is a numeric or enum field of its form or a sibling form, and accepts
+  `./`-scoped `countOf` targets.
+
 ## 0.7.0
 
 - Requires the 1.6.1 model chain (`tom_som_dart_runtime`, `tom_som_dart_v0`)

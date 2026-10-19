@@ -102,14 +102,36 @@ class Field {
   /// only the entries one of whose own forms (a form member of the entry
   /// class) holds [value] in that form field. The count is the **sum** over
   /// the elements, so `['TERQ', 'SECRQ']` counts technical and security
-  /// requirements together. Like [refersTo], a target the document's root
-  /// cannot reach is skipped rather than reported, and an empty value is not
-  /// checked — it is completeness, which the schema tier owns.
+  /// requirements together. A target written `./<SECTIONID>…` counts only the
+  /// entries beneath the section that holds this form — a use case's own
+  /// steps rather than every step in the document. Like [refersTo], a target
+  /// the document's root cannot reach is skipped rather than reported, and an
+  /// empty value is not checked — it is completeness, which the schema tier
+  /// owns.
   ///
   /// The value is still written by the author: the field states the count,
   /// the check holds it to the document. Deriving it at render time would make
   /// the stored document differ from what a reader sees.
   final List<String> countOf;
+
+  /// Declares that this field's value is the **product** of other fields — a
+  /// risk score from probability and impact. The instance tier checks the
+  /// stated number against it (`derivedValueMismatch`).
+  ///
+  /// Each operand is a form field of this form, or `<FORMSECTIONID>.<field>`
+  /// for a form that sits beside this one on the same section. A numeric
+  /// operand contributes its number; an enum operand its 1-based position in
+  /// the enum, so `medium` × `critical` on the five-band scales is 3 × 5. The
+  /// check runs only when the value and every operand are filled.
+  final List<String> productOf;
+
+  /// Declares that this field's value is a **rank** by another field of the
+  /// same form, highest first — a risk's ranking by its score. Over every
+  /// instance of this form in the document whose rank and score are filled,
+  /// the ranks must be the whole numbers 1 to n, each once, and a higher score
+  /// may never rank below a lower one; equal scores may take their ranks in
+  /// any order. A violation is a `derivedValueMismatch`.
+  final String? rankOf;
 
   /// Declares that the field's value is **code, not prose** — a regular
   /// expression, a CHECK expression, a formula.
@@ -137,6 +159,8 @@ class Field {
     this.hint,
     this.refersTo = const [],
     this.countOf = const [],
+    this.productOf = const [],
+    this.rankOf,
     this.code = false,
   });
 }

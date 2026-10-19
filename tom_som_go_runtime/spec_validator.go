@@ -11,6 +11,7 @@ package somruntime
 // (mandatory-but-absent nodes) is a separate concern and is not reported here.
 
 import (
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -42,6 +43,12 @@ const (
 	// still carry it; this is where it is reported. Empty text is absence, not
 	// a bad value, and is not reported.
 	SpecValidationCodeValueTypeMismatch = "valueTypeMismatch"
+	// A form field whose value is derived from other fields — a product
+	// (`FormFieldSpec.ProductOf`) or a rank by a sibling field
+	// (`FormFieldSpec.RankOf`) — holds a value the fields it is derived from do
+	// not give, or no number at all (uamtc10). A risk score kept by hand drifts
+	// the first time probability or impact changes and the score does not.
+	SpecValidationCodeDerivedValueMismatch = "derivedValueMismatch"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -145,10 +152,11 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 			}
 			if len(spec.EnumValues) == 0 {
 				text := doc.FormFieldOr(path, name)
-				// A stated count (CountOf) is checked by countMismatch, which
-				// already reports text that is no whole number; one finding is
-				// enough.
-				if len(spec.CountOf) == 0 && !SomTypedTextReadable(spec.Type, text) {
+				// A stated count (CountOf) is checked by countMismatch, a derived
+				// value (ProductOf, RankOf) by derivedValueMismatch; both already
+				// report text that is no number, and one finding is enough.
+				if len(spec.CountOf) == 0 && len(spec.ProductOf) == 0 && spec.RankOf == "" &&
+					!SomTypedTextReadable(spec.Type, text) {
 					errors = append(errors, SpecValidationError{
 						Path: path,
 						Code: SpecValidationCodeValueTypeMismatch,
@@ -229,6 +237,7 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 	// A form field declaring `countOf` states how many entries the document
 	// holds; only the instance tier can count them.
 	errors = append(errors, validateCountInstances(refl, doc)...)
+	errors = append(errors, validateDerivedValues(refl, doc)...)
 
 	return errors
 }
@@ -586,10 +595,25 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 		}
 	}
 
-	countTarget := func(target string) int {
+	// A target written `./…` counts only the entries beneath owner, the section
+	// holding the form; any other target counts the whole document.
+	countTarget := func(target, owner string) int {
+		scoped := strings.HasPrefix(target, "./")
+		if scoped {
+			target = target[2:]
+		}
+		inScope := func(item string) bool {
+			return !scoped || strings.HasPrefix(item, owner+"/")
+		}
 		dot := strings.Index(target, ".")
 		if dot < 0 {
-			return len(entriesByID[target])
+			n := 0
+			for _, item := range entriesByID[target] {
+				if inScope(item) {
+					n++
+				}
+			}
+			return n
 		}
 		id := target[:dot]
 		field := target[dot+1:]
@@ -600,7 +624,7 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 		}
 		n := 0
 		for _, item := range entriesByID[id] {
-			if valuesByItem[item][field][value] {
+			if inScope(item) && valuesByItem[item][field][value] {
 				n++
 			}
 		}
@@ -627,9 +651,10 @@ func validateCountInstances(refl *SpecReflection, doc *SpecDocument) []SpecValid
 			if !allInScope {
 				continue
 			}
+			owner := form.path[:strings.LastIndex(form.path, "/")]
 			counted := 0
 			for _, target := range ff.CountOf {
-				counted += countTarget(target)
+				counted += countTarget(target, owner)
 			}
 			targets := strings.Join(ff.CountOf, " + ")
 			countedText := strconv.Itoa(counted)
@@ -671,12 +696,251 @@ func isWholeNumber(s string) bool {
 }
 
 // countTargetID returns the section id of a `countOf` target — the part before
-// any `.field=value`.
+// any `.field=value`, without the `./` scope prefix.
 func countTargetID(target string) string {
+	target = strings.TrimPrefix(target, "./")
 	if dot := strings.Index(target, "."); dot >= 0 {
 		return target[:dot]
 	}
 	return target
+}
+
+// validateDerivedValues is the instance-tier derived-value check (uamtc10): a
+// `productOf` field must hold the product of its operands, and a `rankOf` field
+// must rank the instances of its form by their score, highest first.
+//
+// Operands. A plain operand is a field of the same form; `F.x` is field `x` of
+// the form `F` beside it, at `<owner>/F` where `<owner>` is the section holding
+// this form. A numeric operand contributes its number, an enum operand its
+// 1-based position among the enum's values. When the value or any operand is
+// empty — or an operand is unreadable, which other checks report — the product
+// is undecidable and is skipped; a stated value that is no number at all is
+// still reported.
+//
+// Precision. The stated number is held to the precision it is written in: `2.8`
+// matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+//
+// Ranks. Over every instance of the same form whose rank and score are both
+// filled, the ranks must be the whole numbers 1 to n, each once, and an
+// instance may not rank below one that scores lower. Equal scores take their
+// ranks in any order. Each offending instance is reported once.
+func validateDerivedValues(refl *SpecReflection, doc *SpecDocument) []SpecValidationError {
+	forms := resolvedForms(refl, doc)
+	anyDerived := false
+	for _, form := range forms {
+		for _, ff := range form.field.FormFields {
+			if len(ff.ProductOf) > 0 || ff.RankOf != "" {
+				anyDerived = true
+			}
+		}
+	}
+	if !anyDerived {
+		return nil
+	}
+
+	// The number a filled form field contributes, or ok=false when it is empty
+	// or unreadable.
+	numberOf := func(formPath string, spec *FormFieldSpec) (float64, bool) {
+		v := strings.TrimSpace(doc.FormFieldOr(formPath, spec.Name))
+		if v == "" {
+			return 0, false
+		}
+		if len(spec.EnumValues) > 0 {
+			for i, e := range spec.EnumValues {
+				if e == v {
+					return float64(i + 1), true
+				}
+			}
+			return 0, false
+		}
+		if !isDecimalNumber(v) {
+			return 0, false
+		}
+		f, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			return 0, false
+		}
+		return f, true
+	}
+
+	// The spec of field name on the form at path, or nil.
+	specAt := func(path, name string) *FormFieldSpec {
+		res := refl.Resolve(path)
+		if res == nil || res.Kind != SpecNodeKindForm || res.Field == nil {
+			return nil
+		}
+		for i := range res.Field.FormFields {
+			if res.Field.FormFields[i].Name == name {
+				return res.Field.FormFields[i]
+			}
+		}
+		return nil
+	}
+
+	type rankedEntry struct {
+		path, name, stated string
+		score              float64
+	}
+	ranked := map[string][]rankedEntry{}
+	var rankedOrder []string
+
+	var errors []SpecValidationError
+	for _, form := range forms {
+		owner := form.path[:strings.LastIndex(form.path, "/")]
+		for i := range form.field.FormFields {
+			ff := form.field.FormFields[i]
+			if len(ff.ProductOf) > 0 {
+				stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+				if stated != "" {
+					product := 1.0
+					decidable := true
+					for _, operand := range ff.ProductOf {
+						path, name := form.path, operand
+						if dot := strings.Index(operand, "."); dot >= 0 {
+							path = owner + "/" + operand[:dot]
+							name = operand[dot+1:]
+						}
+						spec := specAt(path, name)
+						if spec == nil {
+							decidable = false
+							break
+						}
+						n, ok := numberOf(path, spec)
+						if !ok {
+							decidable = false
+							break
+						}
+						product *= n
+					}
+					operands := strings.Join(ff.ProductOf, " × ")
+					if !isDecimalNumber(stated) {
+						errors = append(errors, SpecValidationError{
+							Path: form.path,
+							Code: SpecValidationCodeDerivedValueMismatch,
+							Message: "form field \"" + ff.Name + "\" states \"" + stated +
+								"\", which is not a number — it is the product " + operands,
+						})
+					} else if decidable {
+						decimals := 0
+						if dot := strings.Index(stated, "."); dot >= 0 {
+							decimals = len(stated) - dot - 1
+						}
+						tolerance := 0.5*pow10(-decimals) + 1e-9
+						value, _ := strconv.ParseFloat(stated, 64)
+						if math.Abs(value-product) > tolerance {
+							errors = append(errors, SpecValidationError{
+								Path: form.path,
+								Code: SpecValidationCodeDerivedValueMismatch,
+								Message: "form field \"" + ff.Name + "\" states " + stated +
+									", but " + operands + " gives " + formatNumber(product),
+							})
+						}
+					}
+				}
+			}
+			if ff.RankOf != "" {
+				stated := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
+				scoreSpec := specAt(form.path, ff.RankOf)
+				if stated != "" && scoreSpec != nil {
+					if score, ok := numberOf(form.path, scoreSpec); ok {
+						key := form.cls.Name + "#" + form.field.Name + "#" + ff.Name
+						if _, seen := ranked[key]; !seen {
+							rankedOrder = append(rankedOrder, key)
+						}
+						ranked[key] = append(ranked[key], rankedEntry{
+							path: form.path, name: ff.Name, stated: stated, score: score,
+						})
+					}
+				}
+			}
+		}
+	}
+
+	for _, key := range rankedOrder {
+		group := ranked[key]
+		n := len(group)
+		rankOf := map[string]int{}
+		seen := map[int]int{}
+		for _, e := range group {
+			if !isWholeNumber(e.stated) {
+				continue
+			}
+			r, err := strconv.Atoi(e.stated)
+			if err != nil {
+				// Too large for an int: out of range either way.
+				r = n + 1
+			}
+			rankOf[e.path] = r
+			seen[r]++
+		}
+		for _, e := range group {
+			r, valid := rankOf[e.path]
+			problem := ""
+			if !valid {
+				problem = "states \"" + e.stated + "\", which is not a whole number"
+			} else if r < 1 || r > n || seen[r] > 1 {
+				problem = "states rank " + strconv.Itoa(r) + ", but the " + strconv.Itoa(n) +
+					" ranked entries take the ranks 1 to " + strconv.Itoa(n) + ", each once"
+			} else {
+				for _, o := range group {
+					ro, ok := rankOf[o.path]
+					if ok && o.score < e.score && ro < r {
+						problem = "ranks " + strconv.Itoa(r) + " with score " + formatNumber(e.score) +
+							", below an entry ranked " + strconv.Itoa(ro) +
+							" with the lower score " + formatNumber(o.score)
+						break
+					}
+				}
+			}
+			if problem != "" {
+				errors = append(errors, SpecValidationError{
+					Path:    e.path,
+					Code:    SpecValidationCodeDerivedValueMismatch,
+					Message: "form field \"" + e.name + "\" " + problem,
+				})
+			}
+		}
+	}
+	// Like every phase's group, the findings are ordered by path; the sort is
+	// stable, so a path's own findings keep the order they were found in.
+	sort.SliceStable(errors, func(i, j int) bool { return errors[i].Path < errors[j].Path })
+	return errors
+}
+
+// isDecimalNumber reports whether s matches the reference's
+// `^-?[0-9]+(\.[0-9]+)?$`.
+func isDecimalNumber(s string) bool {
+	s = strings.TrimPrefix(s, "-")
+	intPart, frac, hasDot := strings.Cut(s, ".")
+	if !isWholeNumber(intPart) {
+		return false
+	}
+	return !hasDot || isWholeNumber(frac)
+}
+
+// pow10 returns 10^exponent by repeated multiplication, as the reference does.
+func pow10(exponent int) float64 {
+	v := 1.0
+	abs := exponent
+	if abs < 0 {
+		abs = -abs
+	}
+	for i := 0; i < abs; i++ {
+		v *= 10
+	}
+	if exponent < 0 {
+		return 1 / v
+	}
+	return v
+}
+
+// formatNumber renders a whole number without a fraction, any other number in
+// its shortest form.
+func formatNumber(v float64) string {
+	if v == math.Round(v) && math.Abs(v) < 1e15 {
+		return strconv.FormatInt(int64(v), 10)
+	}
+	return strconv.FormatFloat(v, 'g', -1, 64)
 }
 
 // resolvedForms returns every form instance in doc with its field and the class

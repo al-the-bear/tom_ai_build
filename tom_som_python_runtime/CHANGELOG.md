@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Derived values (uamtc10): `FormFieldSpec.product_of` and `rank_of` read the
+  meta's `formFields[].productOf` / `rankOf` (absent → empty / `None`), and
+  `validate_document` gains a seventh, instance-tier step after the count
+  check. A `product_of` field must hold the product of its operands (a field
+  of the same form, or `FORMSID.field` of the sibling form at
+  `<owner>/FORMSID`; an enum operand counts as its 1-based position), to the
+  precision the stated number is written in; a stated value that is no number
+  is reported even when an operand is empty. A `rank_of` field ranks the
+  instances of its form by the named score, highest first: over the instances
+  with both filled the ranks are 1 to n, each once, and no instance ranks
+  below one with a lower score. Both report the new
+  `SpecValidationCode.DERIVED_VALUE_MISMATCH` (`derivedValueMismatch`),
+  ordered by form path, and such fields are no longer reported as `valueTypeMismatch`. A `count_of`
+  target written `./X` now counts only the entries beneath the section holding
+  the form. The corpus cases `derivedValuesMatch`, `productMismatch`,
+  `rankOutOfOrder`, `rankDuplicate` and `scopedCountMismatch` pin it.
 - `SpecDocument.has_values_under` answers from a lazily built prefix index
   (every stored key plus each of its prefixes ending before a `/` or `-`),
   built on the first query and dropped by every mutator; rendering a large

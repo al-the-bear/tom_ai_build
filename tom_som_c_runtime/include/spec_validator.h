@@ -41,8 +41,16 @@
  * refuses such text rather than answering none, and the setters refuse to
  * store it, but a document edited by hand or by another tool can still carry
  * it; this is where it is reported. Empty text is absence, not a bad value,
- * and is not reported. A `countOf` form field is left to countMismatch. */
+ * and is not reported. A `countOf` form field is left to countMismatch, a
+ * `productOf` / `rankOf` one to derivedValueMismatch. */
 #define SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH "valueTypeMismatch"
+/* A form field whose value is derived from other fields — a product
+ * (`Field.productOf`) or a rank by a sibling field (`Field.rankOf`) — holding
+ * a value the fields it is derived from do not give, or no number at all
+ * (uamtc10). A risk score kept by hand drifts the first time probability or
+ * impact changes and the score does not. A `productOf` / `rankOf` form field
+ * is not reported as valueTypeMismatch. */
+#define SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH "derivedValueMismatch"
 
 typedef struct {
   char *path;    /* owned */
@@ -59,7 +67,8 @@ typedef struct {
 /* Validates `doc` against `model`, writing problems into `out` (initialised by
  * the callee) in stable order: content paths, then forms, then lists, then
  * `@OneOf` case instances, then `refersTo` references, then `countOf` stated
- * counts; each group sorted by path. An empty list means the document is valid. */
+ * counts, then `productOf` / `rankOf` derived values (one group); each group
+ * sorted by path. An empty list means the document is valid. */
 void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out);
 

@@ -218,7 +218,7 @@ fn test_model_meta(c: &mut Checker, model: &SpecModel) {
     c.check("model.root.type", root.type_ == "Demo", &root.type_);
     c.check(
         "model.classCount",
-        model.classes.len() == 13,
+        model.classes.len() == 14,
         &model.classes.len().to_string(),
     );
     let demo = model.class_named("Demo");

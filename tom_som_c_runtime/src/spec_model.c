@@ -287,6 +287,12 @@ static void field_from_json(const SomJson *f, SpecField *out) {
       strlist_from_json(ff, "enumValues", &out->form_fields[i].enum_values);
       strlist_from_json(ff, "refersTo", &out->form_fields[i].refers_to);
       strlist_from_json(ff, "countOf", &out->form_fields[i].count_of);
+      strlist_from_json(ff, "productOf", &out->form_fields[i].product_of);
+      {
+        const char *rank_of = som_json_as_str(som_json_get(ff, "rankOf"));
+        out->form_fields[i].rank_of =
+            rank_of != NULL ? som_strdup(rank_of) : NULL;
+      }
       out->form_fields[i].code = som_json_bool_or(ff, "code");
     }
     out->form_fields_len = fn;
@@ -634,6 +640,8 @@ static void field_free(SpecField *f) {
     som_strlist_free(&f->form_fields[i].enum_values);
     som_strlist_free(&f->form_fields[i].refers_to);
     som_strlist_free(&f->form_fields[i].count_of);
+    som_strlist_free(&f->form_fields[i].product_of);
+    free(f->form_fields[i].rank_of);
   }
   free(f->form_fields);
   annotations_free(&f->annotations);

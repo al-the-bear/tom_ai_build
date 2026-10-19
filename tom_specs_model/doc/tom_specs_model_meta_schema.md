@@ -247,8 +247,17 @@ holds** (`Field.countOf`). It is a list, each element either `<SECTIONID>` —
 every list entry of the class carrying that section id — or
 `<SECTIONID>.<formField>=<value>`, only the entries one of whose own form
 members holds that value in that form field. The stated count must equal the
-sum over the elements. Consumers use it for the instance-tier `countMismatch`
-check (SOM §9). As with `refersTo`, a target outside the document's scope is
+sum over the elements; a target written `./…` counts only the entries beneath
+the section holding the form. Consumers use it for the instance-tier
+`countMismatch` check (SOM §9).
+
+`productOf` states that the field's value is the **product of other fields**
+(`Field.productOf`): a list of operands, each a form field of the same form or
+`<FORMSECTIONID>.<field>` of a form beside it on the same section. A numeric
+operand contributes its number, an enum operand its 1-based position. `rankOf`
+names the form field of the same form the value **ranks by**, highest first
+(`Field.rankOf`). Both are checked by the instance tier as
+`derivedValueMismatch` (SOM §9). As with `refersTo`, a target outside the document's scope is
 skipped, and an empty value is not checked.
 
 `code: true` states that the field's value is **code, not prose**

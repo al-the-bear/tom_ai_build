@@ -1056,6 +1056,7 @@ void _validateStructuralInvariants(
   // vsctsa43): each target must name a class whose instances are list
   // entries, and a filter a form field those entries actually carry.
   _validateCountTargets(classes, reachable, errors);
+  _validateDerivedFields(classes, reachable, errors);
 
   // --- Step 10 — `tom_specs_model_rules.md` §10.2 invariant NO-RESTATED-NAME: no restated heading
   //
@@ -1465,7 +1466,9 @@ void _validateCountTargets(
         if (field.isList && field.listElementIsComplex)
           ?field.listElementTypeName,
   };
-  final grammar = RegExp(r'^([A-Za-z0-9-]+)(?:\.([A-Za-z0-9_]+)=(.+))?$');
+  final grammar = RegExp(
+    r'^(?:\./)?([A-Za-z0-9-]+)(?:\.([A-Za-z0-9_]+)=(.+))?$',
+  );
 
   for (final className in reachable) {
     final cls = classes[className];
@@ -1477,7 +1480,8 @@ void _validateCountTargets(
         if (m == null) {
           errors.add(
             '$_invariants countOf: $where declares target "$target" — a target '
-            'must be written <SECTIONID> or <SECTIONID>.<formField>=<value>',
+            'must be written [./]<SECTIONID> or '
+            '[./]<SECTIONID>.<formField>=<value>',
           );
           continue;
         }
@@ -1519,6 +1523,80 @@ void _validateCountTargets(
             'is not a constant of ${ff.typeName} '
             '(${ff.enumValues.join(', ')})',
           );
+        }
+      }
+    }
+  }
+}
+
+/// Static enforcement of `Field.productOf` and `Field.rankOf` (uamtc10), under
+/// `tom_specs_model_rules.md` §10.2 invariant `REFERS-TO`. The instance tier
+/// can only derive what the declaration resolves:
+///
+///   (i)   a plain operand (and a `rankOf` field) is a field of the same form;
+///   (ii)  a qualified operand `<FORMSECTIONID>.<field>` names a form member of
+///         the same class carrying that section id, and a field of its form;
+///   (iii) every operand and rank key is numeric (`int`, `double`, `num`) or an
+///         enum, so it has a number to contribute.
+void _validateDerivedFields(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  List<String> errors,
+) {
+  bool numeric(FormFieldInfo f) =>
+      f.enumValues.isNotEmpty ||
+      const {'int', 'double', 'num'}.contains(f.typeName);
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    // Every form of the class with the fields it holds, keyed by the form
+    // member's section id ('' for the class-level form).
+    final formsById = <String, List<FormFieldInfo>>{
+      if (cls.formFields.isNotEmpty) '': cls.formFields,
+      for (final field in cls.fields)
+        if (field.formFields.isNotEmpty)
+          '${field.getAnnotation('SectionId')?.arguments['id'] ?? field.name}':
+              field.formFields,
+    };
+    for (final form in formsById.values) {
+      for (final ff in form) {
+        final where = '$className.${ff.name}';
+        void check(String operand, String what) {
+          final dot = operand.indexOf('.');
+          final FormFieldInfo? target;
+          if (dot < 0) {
+            target = form.where((f) => f.name == operand).firstOrNull;
+          } else {
+            final sibling = formsById[operand.substring(0, dot)];
+            final name = operand.substring(dot + 1);
+            target = sibling?.where((f) => f.name == name).firstOrNull;
+          }
+          if (target == null) {
+            errors.add(
+              '$_invariants $what: $where names "$operand", which is not a '
+              'field of its form or of a sibling form of $className',
+            );
+          } else if (!numeric(target)) {
+            errors.add(
+              '$_invariants $what: $where names "$operand", whose type '
+              '${target.typeName} has no number to contribute',
+            );
+          }
+        }
+
+        for (final operand in ff.productOf) {
+          check(operand, 'productOf');
+        }
+        if (ff.rankOf.isNotEmpty) {
+          if (ff.rankOf.contains('.')) {
+            errors.add(
+              '$_invariants rankOf: $where ranks by "${ff.rankOf}" — a rank '
+              'is by a field of the same form',
+            );
+          } else {
+            check(ff.rankOf, 'rankOf');
+          }
         }
       }
     }

@@ -825,6 +825,9 @@ Field('mustHaveFunctional', String, '…', countOf: ['FRE.priority=must']),
   class carrying that section id — or `<SECTIONID>.<formField>=<value>`, only
   the entries one of whose own form members holds that value. The stated
   number must equal the **sum** over the elements.
+- **Scope.** A target written `./<SECTIONID>…` counts only the entries beneath
+  the section that holds the form, so a use case's `stepCount` counts its own
+  steps (`countOf: ['./MNSST']`) rather than every step in the document.
 - **Static tier** (§10.2 `REFERS-TO`). The grammar parses, the section id names
   exactly one class, that class is the element type of some list, and a
   filter's form field is one of the class's own form fields, with an enum's
@@ -844,6 +847,11 @@ requirement summary forms (`FR-SUMM`, `TR1-SUMM`, `SR1-SUMM`, `OR-SUMM`). The
 requirement's `category` is free text. `SR1-SUMM` has no low-priority bucket,
 so its buckets need not add up to its total.
 
+The Solution Blueprint also declares it on the success-criteria summary
+(`SCS`, by `weight` and `category`), a use case's `stepCount` and
+`extensionCount` (scoped), the must-pass count (`MUPACR-MUST`) and the feature
+dependency totals (`FEDE`).
+
 #### 6.2.3 Code-valued form fields (`code:`)
 
 A form field whose value is **code, not prose** — a regular expression, a CHECK
@@ -862,6 +870,40 @@ backticks into the YAML. Nothing checks the value against a language.
 
 Declare it on a field whose value markdown would otherwise interpret: patterns,
 expressions, formulas. A field that only *mentions* code in prose stays prose.
+
+#### 6.2.4 Derived form fields (`productOf:`, `rankOf:`)
+
+Some values are not counts but are still **derived** from others: a risk score
+is probability times impact, and a risk ranking orders the risks by that score.
+Kept by hand, they drift the first time an input changes. Two `Field`
+qualifiers name the derivation, and the instance tier holds the stated value
+to it as `derivedValueMismatch` (`som_multiplatform_spec_model.md` §9):
+
+```dart
+Field('riskScore', double, '…', productOf: ['probabilityValue', 'impactValue']),
+Field('riskRanking', int, '…', rankOf: 'riskScore'),
+Field('riskScore', int, '…',
+    productOf: ['MIRIPR.probabilityScore', 'MIRIIM.overallImpactScore']),
+```
+
+- **`productOf`.** Each operand is a form field of the same form, or
+  `<FORMSECTIONID>.<field>` of the form beside it on the same section. A
+  numeric operand contributes its number, an enum operand its 1-based position
+  (`medium` × `critical` on the five-band scales is 3 × 5). The stated value is
+  held to the precision it is written in: `2.8` matches 0.7 × 4.0. The check
+  runs only when the value and every operand are filled; a filled value that
+  is no number is a finding.
+- **`rankOf`.** Over every instance of the form whose rank and score are
+  filled, the ranks are the whole numbers 1 to n, each once, and an instance
+  never ranks below one that scores lower; equal scores take their ranks in
+  any order.
+- **Static tier** (§10.2 `REFERS-TO`). Every operand and rank key resolves to a
+  field of its form or of a sibling form, and that field is numeric or an enum.
+- **Still authored**, for the reason given for `countOf`.
+
+The Solution Blueprint declares `productOf` on every risk score whose inputs
+sit in the same entry (`RIAN`, `CREA`, `GREA`, `SYMIRI`, `SMRPI`, `MIRIQU`) and
+`rankOf` on the key-risk ranking (`RIAN`).
 
 ### 6.3 Form decomposition
 
@@ -1570,14 +1612,15 @@ enforceable rather than aspirational.
    compatibility, and **cycle detection**. The one invariant enforced in
    `validateModel()` rather than `validateStructuralInvariants()` — see the
    note above the list.
-9. **`REFERS-TO`** — **The `refersTo` and `countOf` target contracts** (§6.2, §6.2.2) — target grammar, existence and
+9. **`REFERS-TO`** — **The `refersTo`, `countOf`, `productOf` and `rankOf` target contracts** (§6.2, §6.2.2, §6.2.4) — target grammar, existence and
    unambiguity of the named section id, the required/enumerated form-field slot
    or the patterned-list element requirement for `@sectionId`, and
    **co-reachability**: every target must be reachable together with its
    referring class from at least one `@Document` root (§6.2.1). A non-`String`
    reference field is a warning; the rest are errors. For `countOf`, the target
    must also name a list-element class, and a filter a form field of that class
-   (an enum's value one of its constants).
+   (an enum's value one of its constants). A `productOf` operand or `rankOf`
+   key must name a numeric or enum field of its own form or of a sibling form.
 10. **`NO-RESTATED-NAME`** — **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
     field beneath a list-entry class, whose stem is that entry's own subject, is
     an error unless it is a registry key or carries a `refersTo` of its own

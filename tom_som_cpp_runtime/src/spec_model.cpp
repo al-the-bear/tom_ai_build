@@ -297,6 +297,10 @@ static SpecField fieldFromJson(const JsonRef& f) {
     ffs_out.enumValues = strListFromJson(ff, "enumValues");
     ffs_out.refersTo = strListFromJson(ff, "refersTo");
     ffs_out.countOf = strListFromJson(ff, "countOf");
+    ffs_out.productOf = strListFromJson(ff, "productOf");
+    if (const std::string* rankOf = jsonAsStr(jsonGet(ff, "rankOf"))) {
+      ffs_out.rankOf = *rankOf;
+    }
     ffs_out.code = jsonBoolOr(ff, "code");
     out.formFields.push_back(std::move(ffs_out));
   }

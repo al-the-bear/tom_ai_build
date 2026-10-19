@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Derived values (uamtc10). `FormFieldSpec` gains `productOf` (read from the
+  meta's `formFields[].productOf`; empty when absent) and `rankOf`
+  (`std::optional<std::string>`, from `rankOf`). `validateDocument` gains
+  phase 7, after the count check: a `productOf` field must hold the product of
+  its operands (`name` of the same form or `FORMSID.name` of the sibling form;
+  an enum operand counts as its 1-based position), held to the precision the
+  value is written in; a `rankOf` field must rank the instances of its form 1
+  to n, each once, highest score first. Either is reported as
+  `kSpecValidationCodeDerivedValueMismatch` (`"derivedValueMismatch"`) at the
+  form path; the phase's findings are stable-sorted by path. Such fields are
+  no longer reported as `valueTypeMismatch`. A `countOf` target written `./X`
+  (or `./X.f=v`) now counts only the entries beneath the section holding the
+  form. Pinned by the `derivedValuesMatch`, `productMismatch`,
+  `rankOutOfOrder`, `rankDuplicate` and `scopedCountMismatch` validation cases.
+
 - Exact markdown round trip (SOM §11.3, §11.6, §11.7, §12.4): a section's body
   region writes a slot marker `<!-- slot: <rel> -->` before text the parser
   would otherwise bind elsewhere — text after anything already written, text

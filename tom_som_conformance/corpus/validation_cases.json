@@ -558,6 +558,339 @@
     ]
   },
   {
+    "name": "derivedValuesMatch",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "factor": "1.5",
+          "score": "9",
+          "rank": "1",
+          "noteCount": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "level": "mid",
+          "factor": "1.5",
+          "score": "6.0",
+          "rank": "2",
+          "noteCount": "1"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET": {
+          "text": "one"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET": {
+          "text": "two"
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET": {
+          "text": "three"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1/RGN-LST-1",
+            "DEMO/REG/RGE-LST-1/RGN-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-2/RGN-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "productMismatch",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "factor": "1.5",
+          "score": "2.0",
+          "rank": "1",
+          "noteCount": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "level": "mid",
+          "factor": "1.5",
+          "score": "lots",
+          "rank": "2",
+          "noteCount": "1"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET": {
+          "text": "one"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET": {
+          "text": "two"
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET": {
+          "text": "three"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1/RGN-LST-1",
+            "DEMO/REG/RGE-LST-1/RGN-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-2/RGN-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "derivedValueMismatch"
+      },
+      {
+        "path": "DEMO/REG/RGE-LST-2/RGE-DET",
+        "code": "derivedValueMismatch"
+      }
+    ]
+  },
+  {
+    "name": "rankOutOfOrder",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "factor": "1.5",
+          "score": "9",
+          "rank": "2",
+          "noteCount": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "level": "mid",
+          "factor": "1.5",
+          "score": "6.0",
+          "rank": "1",
+          "noteCount": "1"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET": {
+          "text": "one"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET": {
+          "text": "two"
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET": {
+          "text": "three"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1/RGN-LST-1",
+            "DEMO/REG/RGE-LST-1/RGN-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-2/RGN-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "derivedValueMismatch"
+      }
+    ]
+  },
+  {
+    "name": "rankDuplicate",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "factor": "1.5",
+          "score": "9",
+          "rank": "1",
+          "noteCount": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "level": "mid",
+          "factor": "1.5",
+          "score": "6.0",
+          "rank": "1",
+          "noteCount": "1"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET": {
+          "text": "one"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET": {
+          "text": "two"
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET": {
+          "text": "three"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1/RGN-LST-1",
+            "DEMO/REG/RGE-LST-1/RGN-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-2/RGN-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "derivedValueMismatch"
+      },
+      {
+        "path": "DEMO/REG/RGE-LST-2/RGE-DET",
+        "code": "derivedValueMismatch"
+      }
+    ]
+  },
+  {
+    "name": "scopedCountMismatch",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "factor": "1.5",
+          "score": "9",
+          "rank": "1",
+          "noteCount": "3"
+        },
+        "DEMO/REG/RGE-LST-1/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "level": "mid",
+          "factor": "1.5",
+          "score": "6.0",
+          "rank": "2",
+          "noteCount": "1"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-EXT": {
+          "boost": "2"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET": {
+          "text": "one"
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET": {
+          "text": "two"
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET": {
+          "text": "three"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-1/RGN-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1/RGN-LST-1",
+            "DEMO/REG/RGE-LST-1/RGN-LST-2"
+          ]
+        },
+        "DEMO/REG/RGE-LST-2/RGN-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-2/RGN-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "countMismatch"
+      }
+    ]
+  },
+  {
     "name": "oneOfCaseSelected",
     "state": {
       "content": {

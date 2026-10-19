@@ -698,19 +698,20 @@ promised per language in §1/§6.
 
 Concretely, all nine emit the same nine codes, in the same six phases, in this
 order — content leaves, form sections, lists, `@OneOf` cases, `refersTo`
-references, stated counts, each group sorted by path:
+references, stated counts, derived values, each group sorted by path:
 
 | Code | Phase | What it reports |
 | --- | --- | --- |
 | `danglingPath` | 1 | a set path that resolves to no model node |
 | `kindMismatch` | 1 | a value stored at a node whose kind cannot hold one |
 | `unknownFormField` | 2 | a form sub-key naming no field of that form |
-| `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf` field is left to `countMismatch` |
+| `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf`, `productOf` or `rankOf` field is left to its own check |
 | `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
 | `countMismatch` | 6 | a `countOf` value (`tom_specs_model_rules.md` §6.2.2) that is not a whole number, or not the number of entries the document holds |
+| `derivedValueMismatch` | 7 | a `productOf` value that is not a number or not the product of its operands, or a `rankOf` value that is not a rank 1 to n used once, or ranks below an entry scoring lower (`tom_specs_model_rules.md` §6.2.4) |
 
 Phase 1 has one exemption, and it is not optional: a **form** node may carry
 content. That content is the form's preamble (§11.4 rule 7), stored in the same

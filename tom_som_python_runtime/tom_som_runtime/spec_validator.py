@@ -16,7 +16,13 @@ from enum import Enum
 from typing import Optional
 
 from .spec_document import SpecDocument
-from .spec_model import SpecClass, SpecField, SpecFieldKind, SpecModel
+from .spec_model import (
+    FormFieldSpec,
+    SpecClass,
+    SpecField,
+    SpecFieldKind,
+    SpecModel,
+)
 from .spec_reflection import SpecNodeKind, SpecReflection
 from .spec_section_id import K_SECTION_ID_SLOT, effective_list_item_section_id
 from .spec_typed_values import som_scalar_base, som_typed_text_readable
@@ -54,6 +60,13 @@ class SpecValidationCode(Enum):
     #: carry it; this is where it is reported. Empty text is absence, not a bad
     #: value, and is not reported.
     VALUE_TYPE_MISMATCH = "valueTypeMismatch"
+    #: A form field whose value is derived from other fields — a product
+    #: (``FormFieldSpec.product_of``) or a rank by a sibling field
+    #: (``FormFieldSpec.rank_of``) — holds a value the fields it is derived
+    #: from do not give, or no number at all (uamtc10). A risk score kept by
+    #: hand drifts the first time probability or impact changes and the score
+    #: does not.
+    DERIVED_VALUE_MISMATCH = "derivedValueMismatch"
 
 
 @dataclass(frozen=True)
@@ -164,9 +177,15 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
                 continue
             if not spec.enum_values:
                 text = doc.form_field(path, name)
-                # A stated count (`count_of`) is checked by `countMismatch`,
-                # which already reports text that is no whole number.
-                if not spec.count_of and not som_typed_text_readable(
+                # A stated count (`count_of`) is checked by `countMismatch`, a
+                # product or rank (`product_of`, `rank_of`) by
+                # `derivedValueMismatch`; both already report text that is no
+                # number, and one finding is enough.
+                if (
+                    not spec.count_of
+                    and not spec.product_of
+                    and spec.rank_of is None
+                ) and not som_typed_text_readable(
                     spec.type, text
                 ):
                     errors.append(
@@ -246,6 +265,12 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
     # A form field declaring `countOf` states how many entries the document
     # holds; only the instance tier can count them.
     errors.extend(_validate_count_instances(refl, doc))
+
+    # 7. Derived values (instance tier, uamtc10).
+    #
+    # A `productOf` field must hold the product of its operands, a `rankOf`
+    # field must rank the instances of its form by their score.
+    errors.extend(_validate_derived_values(refl, doc))
 
     return errors
 
@@ -577,10 +602,19 @@ def _validate_count_instances(
                 continue
             values_by_item.setdefault(owner, {}).setdefault(ff.name, set()).add(v)
 
-    def count_target(target: str) -> int:
+    # A target written `./…` counts only the entries beneath *owner*, the
+    # section holding the form; any other target counts the whole document.
+    def count_target(target: str, owner: str) -> int:
+        scoped = target.startswith("./")
+        if scoped:
+            target = target[2:]
+
+        def in_scope(item: str) -> bool:
+            return not scoped or item.startswith(owner + "/")
+
         dot = target.find(".")
         if dot < 0:
-            return len(entries_by_id.get(target, []))
+            return sum(1 for item in entries_by_id.get(target, []) if in_scope(item))
         id = target[:dot]
         eq = target.find("=", dot)
         field_name = target[dot + 1:eq if eq >= 0 else len(target)]
@@ -588,7 +622,8 @@ def _validate_count_instances(
         return sum(
             1
             for item in entries_by_id.get(id, [])
-            if value in values_by_item.get(item, {}).get(field_name, ())
+            if in_scope(item)
+            and value in values_by_item.get(item, {}).get(field_name, ())
         )
 
     errors: list[SpecValidationError] = []
@@ -605,7 +640,8 @@ def _validate_count_instances(
                 for t in ff.count_of
             ):
                 continue
-            counted = sum(count_target(t) for t in ff.count_of)
+            owner = form_path[: form_path.rfind("/")]
+            counted = sum(count_target(t, owner) for t in ff.count_of)
             targets = " + ".join(ff.count_of)
             if not _WHOLE_NUMBER.fullmatch(stated):
                 errors.append(
@@ -637,9 +673,184 @@ def _validate_count_instances(
 _WHOLE_NUMBER = re.compile(r"[0-9]+")
 
 
+def _validate_derived_values(
+    refl: SpecReflection, doc: SpecDocument
+) -> list[SpecValidationError]:
+    """Instance-tier derived-value check (uamtc10): a ``productOf`` field must
+    hold the product of its operands, and a ``rankOf`` field must rank the
+    instances of its form by their score, highest first.
+
+    **Operands.** A plain operand is a field of the same form; ``F.x`` is field
+    ``x`` of the form ``F`` beside it, at ``<owner>/F`` where ``<owner>`` is the
+    section holding this form. A numeric operand contributes its number, an
+    enum operand its 1-based position among the enum's values. When the value
+    or any operand is empty — or an operand is unreadable, which other checks
+    report — the product is undecidable and is skipped.
+
+    **Precision.** The stated number is held to the precision it is written
+    in: ``2.8`` matches 0.7 × 4.0, and ``15`` matches 3 × 5, but ``2.9`` does
+    not.
+
+    **Ranks.** Over every instance of the same form whose rank and score are
+    both filled, the ranks must be the whole numbers 1 to n, each once, and an
+    instance may not rank below one that scores lower. Equal scores take their
+    ranks in any order. Each offending instance is reported once.
+    """
+    forms = _resolved_forms(refl, doc)
+    if not any(
+        ff.product_of or ff.rank_of is not None
+        for _, _, field in forms
+        for ff in field.form_fields
+    ):
+        return []
+    errors: list[SpecValidationError] = []
+
+    def number_of(form_path: str, spec: FormFieldSpec) -> Optional[float]:
+        """The number a filled form field contributes, or ``None`` when it is
+        empty or unreadable."""
+        raw = doc.form_field(form_path, spec.name)
+        v = raw.strip() if raw is not None else None
+        if not v:
+            return None
+        if spec.enum_values:
+            try:
+                return float(spec.enum_values.index(v) + 1)
+            except ValueError:
+                return None
+        return float(v) if _DECIMAL_NUMBER.fullmatch(v) else None
+
+    def spec_at(path: str, name: str) -> Optional[FormFieldSpec]:
+        """The spec of field *name* of the form at *path*, or ``None``."""
+        res = refl.resolve(path)
+        if res is None or res.kind != SpecNodeKind.FORM or res.field is None:
+            return None
+        for ff in res.field.form_fields:
+            if ff.name == name:
+                return ff
+        return None
+
+    # (path, field name, stated rank, score) per (class, form, rank field).
+    ranked: dict[tuple[str, str, str], list[tuple[str, str, str, float]]] = {}
+
+    for form_path, cls, field in forms:
+        owner = form_path[: form_path.rfind("/")]
+        for ff in field.form_fields:
+            if ff.product_of:
+                raw = doc.form_field(form_path, ff.name)
+                stated = raw.strip() if raw is not None else None
+                if stated:
+                    product: Optional[float] = 1.0
+                    for operand in ff.product_of:
+                        dot = operand.find(".")
+                        path = (
+                            form_path if dot < 0 else f"{owner}/{operand[:dot]}"
+                        )
+                        name = operand if dot < 0 else operand[dot + 1:]
+                        spec = spec_at(path, name)
+                        n = None if spec is None else number_of(path, spec)
+                        if n is None:
+                            product = None
+                            break
+                        product *= n
+                    operands = " × ".join(ff.product_of)
+                    if not _DECIMAL_NUMBER.fullmatch(stated):
+                        errors.append(
+                            SpecValidationError(
+                                path=form_path,
+                                code=SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                                message=(
+                                    f'form field "{ff.name}" states "{stated}", '
+                                    f"which is not a number — it is the product "
+                                    f"{operands}"
+                                ),
+                            )
+                        )
+                    elif product is not None:
+                        dot = stated.find(".")
+                        decimals = 0 if dot < 0 else len(stated) - dot - 1
+                        tolerance = 0.5 * 10.0 ** (-decimals) + 1e-9
+                        if abs(float(stated) - product) > tolerance:
+                            errors.append(
+                                SpecValidationError(
+                                    path=form_path,
+                                    code=SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                                    message=(
+                                        f'form field "{ff.name}" states {stated}, '
+                                        f"but {operands} gives "
+                                        f"{_format_number(product)}"
+                                    ),
+                                )
+                            )
+            by = ff.rank_of
+            if by is not None:
+                raw = doc.form_field(form_path, ff.name)
+                stated = raw.strip() if raw is not None else None
+                score_spec = spec_at(form_path, by)
+                score = (
+                    None if score_spec is None else number_of(form_path, score_spec)
+                )
+                if stated and score is not None:
+                    ranked.setdefault((cls.name, field.name, ff.name), []).append(
+                        (form_path, ff.name, stated, score)
+                    )
+
+    for group in ranked.values():
+        n = len(group)
+        rank_by_path: dict[str, int] = {}
+        seen: dict[int, int] = {}
+        for path, _name, stated, _score in group:
+            if not _WHOLE_NUMBER.fullmatch(stated):
+                continue
+            r = int(stated)
+            rank_by_path[path] = r
+            seen[r] = seen.get(r, 0) + 1
+        for path, name, stated, score in group:
+            r = rank_by_path.get(path)
+            problem: Optional[str] = None
+            if r is None:
+                problem = f'states "{stated}", which is not a whole number'
+            elif r < 1 or r > n or seen[r] > 1:
+                problem = (
+                    f"states rank {r}, but the {n} ranked entries take the "
+                    f"ranks 1 to {n}, each once"
+                )
+            else:
+                for o_path, _o_name, _o_stated, o_score in group:
+                    ro = rank_by_path.get(o_path)
+                    if ro is not None and o_score < score and ro < r:
+                        problem = (
+                            f"ranks {r} with score {_format_number(score)}, "
+                            f"below an entry ranked {ro} with the lower score "
+                            f"{_format_number(o_score)}"
+                        )
+                        break
+            if problem is not None:
+                errors.append(
+                    SpecValidationError(
+                        path=path,
+                        code=SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                        message=f'form field "{name}" {problem}',
+                    )
+                )
+    # Like every phase's group, the findings are ordered by path; the sort is
+    # stable, so a path's own findings keep the order they were found in.
+    return sorted(errors, key=lambda e: e.path)
+
+
+#: A stated or operand number, as the reference's ``^-?[0-9]+(\.[0-9]+)?$``.
+_DECIMAL_NUMBER = re.compile(r"-?[0-9]+(\.[0-9]+)?")
+
+
+def _format_number(v: float) -> str:
+    """*v* without a trailing ``.0`` when it is whole."""
+    return str(int(v)) if v == round(v) else repr(v)
+
+
 def _count_target_id(target: str) -> str:
     """The section id of a ``countOf`` target — the part before any
-    ``.field=value``."""
+    ``.field=value``, without the ``./`` scope prefix."""
+    if target.startswith("./"):
+        target = target[2:]
     dot = target.find(".")
     return target if dot < 0 else target[:dot]
 

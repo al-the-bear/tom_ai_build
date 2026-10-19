@@ -1662,7 +1662,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 13,
+  'classCount': 14,
   'rootCount': 2,
   'roots': [
     {
@@ -2022,6 +2022,72 @@ Map<String, dynamic> _buildMeta() => {
           'formFields': [
             {'name': 'code', 'label': 'Code', 'type': 'String'},
             {'name': 'label', 'label': 'Label', 'type': 'String'},
+            // uamtc10: derived values. `score` is the product of an enum
+            // (its 1-based position), a number of this form and a number of
+            // the sibling form `RGE-EXT`; `rank` ranks the entries by it;
+            // `noteCount` counts only this entry's own notes (`./`).
+            {
+              'name': 'level',
+              'label': 'Level',
+              'type': 'Level',
+              'enumValues': ['low', 'mid', 'high'],
+            },
+            {'name': 'factor', 'label': 'Factor', 'type': 'double'},
+            {
+              'name': 'score',
+              'label': 'Score',
+              'type': 'double',
+              'productOf': ['level', 'factor', 'RGE-EXT.boost'],
+            },
+            {'name': 'rank', 'label': 'Rank', 'type': 'int', 'rankOf': 'score'},
+            {
+              'name': 'noteCount',
+              'label': 'Note Count',
+              'type': 'int',
+              'countOf': ['./RGN'],
+            },
+          ],
+        },
+        {
+          'name': 'extra',
+          'kind': 'form',
+          'sectionId': 'RGE-EXT',
+          'formFields': [
+            {'name': 'boost', 'label': 'Boost', 'type': 'int'},
+          ],
+        },
+        {
+          'name': 'notes',
+          'kind': 'list',
+          'sectionId': 'RGN-LST',
+          'sectionIdPattern': 'RGN-xxx',
+          'elementType': 'EntryNote',
+          'elementIsComplex': true,
+        },
+      ],
+    },
+    'EntryNote': {
+      'name': 'EntryNote',
+      'sectionId': 'RGN',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'RGN'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.dataAccess'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'RGN-DET',
+          'formFields': [
+            {'name': 'text', 'label': 'Text', 'type': 'String'},
           ],
         },
       ],
@@ -2754,6 +2820,20 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         crossRefs: 'RGE-2, RGL-9',
       ),
     ),
+    // uamtc10: values derived from other fields, and counts scoped to the
+    // section holding the form. Entry 1 (level high = 3) and entry 2
+    // (level mid = 2) both have factor 1.5 and boost 2.
+    caseFor('derivedValuesMatch', _derivedState()),
+    // 2.0 is not 2 × 1.5 × 2 = 6, and "lots" is no number: two findings.
+    caseFor('productMismatch', _derivedState(score1: '2.0', score2: 'lots')),
+    // Entry 2 scores lower (6) but ranks above entry 1 (9): the higher score
+    // ranks below a lower one, reported at entry 1.
+    caseFor('rankOutOfOrder', _derivedState(rank1: '2', rank2: '1')),
+    // Two entries ranked 1: neither rank is used once.
+    caseFor('rankDuplicate', _derivedState(rank1: '1', rank2: '1')),
+    // Entry 1 has two notes of its own and entry 2 one; stating the
+    // document's total (3) on entry 1 is wrong.
+    caseFor('scopedCountMismatch', _derivedState(noteCount1: '3')),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
@@ -2801,6 +2881,55 @@ Map<String, Object?> _registryState({
     'DEMO/REG/RGL-LST': {
       'seq': 1,
       'items': ['DEMO/REG/RGL-LST-1'],
+    },
+  },
+};
+
+/// A document state for the derived-value checks: two registry entries with
+/// level, factor, a sibling-form boost, a stated score, rank and note count,
+/// and three notes — two under entry 1, one under entry 2.
+Map<String, Object?> _derivedState({
+  String score1 = '9',
+  String score2 = '6.0',
+  String rank1 = '1',
+  String rank2 = '2',
+  String noteCount1 = '2',
+}) => {
+  'forms': {
+    'DEMO/REG/RGE-LST-1/RGE-DET': {
+      'code': 'ALPHA',
+      'level': 'high',
+      'factor': '1.5',
+      'score': score1,
+      'rank': rank1,
+      'noteCount': noteCount1,
+    },
+    'DEMO/REG/RGE-LST-1/RGE-EXT': {'boost': '2'},
+    'DEMO/REG/RGE-LST-2/RGE-DET': {
+      'code': 'BETA',
+      'level': 'mid',
+      'factor': '1.5',
+      'score': score2,
+      'rank': rank2,
+      'noteCount': '1',
+    },
+    'DEMO/REG/RGE-LST-2/RGE-EXT': {'boost': '2'},
+    'DEMO/REG/RGE-LST-1/RGN-LST-1/RGN-DET': {'text': 'one'},
+    'DEMO/REG/RGE-LST-1/RGN-LST-2/RGN-DET': {'text': 'two'},
+    'DEMO/REG/RGE-LST-2/RGN-LST-1/RGN-DET': {'text': 'three'},
+  },
+  'lists': {
+    'DEMO/REG/RGE-LST': {
+      'seq': 2,
+      'items': ['DEMO/REG/RGE-LST-1', 'DEMO/REG/RGE-LST-2'],
+    },
+    'DEMO/REG/RGE-LST-1/RGN-LST': {
+      'seq': 2,
+      'items': ['DEMO/REG/RGE-LST-1/RGN-LST-1', 'DEMO/REG/RGE-LST-1/RGN-LST-2'],
+    },
+    'DEMO/REG/RGE-LST-2/RGN-LST': {
+      'seq': 1,
+      'items': ['DEMO/REG/RGE-LST-2/RGN-LST-1'],
     },
   },
 };

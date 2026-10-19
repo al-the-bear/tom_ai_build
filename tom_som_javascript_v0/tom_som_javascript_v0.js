@@ -100167,11 +100167,20 @@ class FeatureDependencyEntryContentForm extends SomNode {
   }
 
   get crossStageDependency() {
-    return this.doc.formField(this.path, "crossStageDependency") || '';
+    const v = this.doc.formField(this.path, "crossStageDependency");
+    return v == null ? null : v === 'true';
   }
 
   set crossStageDependency(value) {
-    this.doc.setFormField(this.path, "crossStageDependency", value);
+    this.doc.setFormField(this.path, "crossStageDependency", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get crossStageNote() {
+    return this.doc.formField(this.path, "crossStageNote") || '';
+  }
+
+  set crossStageNote(value) {
+    this.doc.setFormField(this.path, "crossStageNote", value);
   }
 
   get mitigationStrategy() {

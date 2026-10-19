@@ -49,9 +49,18 @@ inline constexpr const char* kSpecValidationCodeCountMismatch =
  * refuses such text rather than answering null, and the setters refuse to
  * store it, but a document edited by hand or by another tool can still carry
  * it; this is where it is reported. Empty text is absence, not a bad value,
- * and is not reported. A `countOf` form field is left to countMismatch. */
+ * and is not reported. A `countOf` form field is left to countMismatch, a
+ * `productOf` / `rankOf` one to derivedValueMismatch. */
 inline constexpr const char* kSpecValidationCodeValueTypeMismatch =
     "valueTypeMismatch";
+/* A form field whose value is derived from other fields — a product
+ * (`Field.productOf`) or a rank by a sibling field (`Field.rankOf`) — holding
+ * a value the fields it is derived from do not give, or no number at all
+ * (uamtc10). A risk score kept by hand drifts the first time probability or
+ * impact changes and the score does not. A `productOf` / `rankOf` form field
+ * is not reported as valueTypeMismatch. */
+inline constexpr const char* kSpecValidationCodeDerivedValueMismatch =
+    "derivedValueMismatch";
 
 struct SpecValidationError {
   std::string path;
@@ -61,8 +70,9 @@ struct SpecValidationError {
 
 /* Validates `doc` against `model`, returning problems in stable order: content
  * paths, then forms, then lists, then `@OneOf` case instances, then `refersTo`
- * references, then `countOf` stated counts; each group sorted by path. An empty list means the document is
- * valid. */
+ * references, then `countOf` stated counts, then `productOf` / `rankOf`
+ * derived values (one group); each group sorted by path. An empty list means
+ * the document is valid. */
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,
                                                   const SpecDocument& doc);
 

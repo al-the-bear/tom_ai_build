@@ -51575,8 +51575,10 @@ class FeatureDependencyEntryContentForm : public som::SomNode {
   void setImpactIfBroken(const std::string& value);
   std::string schedulingImpact() const;
   void setSchedulingImpact(const std::string& value);
-  std::string crossStageDependency() const;
-  void setCrossStageDependency(const std::string& value);
+  std::optional<bool> crossStageDependency() const;
+  void setCrossStageDependency(std::optional<bool> value);
+  std::string crossStageNote() const;
+  void setCrossStageNote(const std::string& value);
   std::string mitigationStrategy() const;
   void setMitigationStrategy(const std::string& value);
   std::string resolutionStatus() const;

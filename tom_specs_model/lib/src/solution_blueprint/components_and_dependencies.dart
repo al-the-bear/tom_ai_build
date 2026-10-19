@@ -2407,7 +2407,10 @@ class ComponentRiskEntry extends DocSpecsSection {
       'riskScore',
       int,
       'Risk Score',
-      hint: 'Calculated score (probability × impact)',
+      hint:
+          'Calculated score (probability × impact), each counted by its '
+          'band (1-5)',
+      productOf: ['probability', 'impact'],
     ),
     Field(
       'riskTrend',

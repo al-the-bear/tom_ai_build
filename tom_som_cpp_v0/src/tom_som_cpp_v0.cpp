@@ -55769,11 +55769,19 @@ std::string FeatureDependencyEntryContentForm::schedulingImpact() const {
 void FeatureDependencyEntryContentForm::setSchedulingImpact(const std::string& value) {
   doc().setFormField(path(), "schedulingImpact", value);
 }
-std::string FeatureDependencyEntryContentForm::crossStageDependency() const {
-  return doc().formField(path(), "crossStageDependency");
+std::optional<bool> FeatureDependencyEntryContentForm::crossStageDependency() const {
+  const std::string v = doc().formField(path(), "crossStageDependency");
+  if (v.empty()) return std::nullopt;
+  return v == "true";
 }
-void FeatureDependencyEntryContentForm::setCrossStageDependency(const std::string& value) {
-  doc().setFormField(path(), "crossStageDependency", value);
+void FeatureDependencyEntryContentForm::setCrossStageDependency(std::optional<bool> value) {
+  doc().setFormField(path(), "crossStageDependency", value.has_value() ? (*value ? "true" : "false") : "");
+}
+std::string FeatureDependencyEntryContentForm::crossStageNote() const {
+  return doc().formField(path(), "crossStageNote");
+}
+void FeatureDependencyEntryContentForm::setCrossStageNote(const std::string& value) {
+  doc().setFormField(path(), "crossStageNote", value);
 }
 std::string FeatureDependencyEntryContentForm::mitigationStrategy() const {
   return doc().formField(path(), "mitigationStrategy");

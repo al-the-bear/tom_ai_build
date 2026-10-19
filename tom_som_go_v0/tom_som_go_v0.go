@@ -117001,12 +117001,33 @@ func (x *FeatureDependencyEntryContentForm) SetSchedulingImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "schedulingImpact", value)
 }
 
-func (x *FeatureDependencyEntryContentForm) CrossStageDependency() string {
-	return x.Doc().FormFieldOr(x.Path(), "crossStageDependency")
+func (x *FeatureDependencyEntryContentForm) CrossStageDependency() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "crossStageDependency")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
 }
 
-func (x *FeatureDependencyEntryContentForm) SetCrossStageDependency(value string) {
-	x.Doc().SetFormField(x.Path(), "crossStageDependency", value)
+func (x *FeatureDependencyEntryContentForm) SetCrossStageDependency(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "crossStageDependency", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "crossStageDependency", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "crossStageDependency", "false")
+	}
+}
+
+func (x *FeatureDependencyEntryContentForm) CrossStageNote() string {
+	return x.Doc().FormFieldOr(x.Path(), "crossStageNote")
+}
+
+func (x *FeatureDependencyEntryContentForm) SetCrossStageNote(value string) {
+	x.Doc().SetFormField(x.Path(), "crossStageNote", value)
 }
 
 func (x *FeatureDependencyEntryContentForm) MitigationStrategy() string {

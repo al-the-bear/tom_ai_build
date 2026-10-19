@@ -1,6 +1,7 @@
 #include "spec_validator.h"
 
 #include <ctype.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -629,9 +630,12 @@ typedef struct {
   const char *item_path;
 } CountEntry;
 
-/* The section id of a `countOf` target — the part before any `.field=value`.
-   Owned result. */
+/* The section id of a `countOf` target — the part before any `.field=value`,
+   without the `./` scope prefix. Owned result. */
 static char *count_target_id(const char *target) {
+  if (strncmp(target, "./", 2) == 0) {
+    target += 2;
+  }
   const char *dot = strchr(target, '.');
   return dot == NULL ? som_strdup(target)
                      : som_strdup_n(target, (size_t)(dot - target));
@@ -678,18 +682,31 @@ static int item_holds(const SpecReflection *refl, const SpecDocument *doc,
   return 0;
 }
 
+/* Whether `item_path` lies beneath `owner` (`<owner>/...`). */
+static int item_in_scope(const char *item_path, const char *owner) {
+  size_t n = strlen(owner);
+  return strncmp(item_path, owner, n) == 0 && item_path[n] == '/';
+}
+
 /* How many entries `target` counts: every entry of section id `X` for target
-   `X`, only those holding `v` in form field `f` for `X.f=v`. */
+   `X`, only those holding `v` in form field `f` for `X.f=v`. A target written
+   `./...` counts only the entries beneath `owner`, the section holding the
+   form; any other target counts the whole document. */
 static long long count_target(const SpecReflection *refl,
                               const SpecDocument *doc,
                               const SomStrList *form_paths,
                               const CountEntry *entries, size_t entries_len,
-                              const char *target) {
+                              const char *target, const char *owner) {
+  int scoped = strncmp(target, "./", 2) == 0;
+  if (scoped) {
+    target += 2;
+  }
   const char *dot = strchr(target, '.');
   long long n = 0;
   if (dot == NULL) {
     for (size_t i = 0; i < entries_len; i++) {
-      if (strcmp(entries[i].section_id, target) == 0) {
+      if (strcmp(entries[i].section_id, target) == 0 &&
+          (!scoped || item_in_scope(entries[i].item_path, owner))) {
         n++;
       }
     }
@@ -704,6 +721,7 @@ static long long count_target(const SpecReflection *refl,
   if (value[0] != '\0') {
     for (size_t i = 0; i < entries_len; i++) {
       if (strcmp(entries[i].section_id, id) == 0 &&
+          (!scoped || item_in_scope(entries[i].item_path, owner)) &&
           item_holds(refl, doc, form_paths, entries[i].item_path, field,
                      value)) {
         n++;
@@ -837,11 +855,17 @@ static void validate_count_instances(const SpecReflection *refl,
         free(stated);
         continue;
       }
+      const char *last_slash = strrchr(forms[i].path, '/');
+      char *owner = last_slash == NULL
+                        ? som_strdup("")
+                        : som_strdup_n(forms[i].path,
+                                       (size_t)(last_slash - forms[i].path));
       long long counted = 0;
       for (size_t t = 0; t < ff->count_of.len; t++) {
         counted += count_target(refl, doc, &form_paths, entries, entries_len,
-                                ff->count_of.items[t]);
+                                ff->count_of.items[t], owner);
       }
+      free(owner);
       if (!all_digits(stated)) {
         char *targets = som_strlist_join(&ff->count_of, " + ");
         SomBuf mb;
@@ -883,6 +907,410 @@ static void validate_count_instances(const SpecReflection *refl,
   free(entries);
   som_strlist_free(&scope);
   form_instances_free(forms, forms_len);
+}
+
+/* ---- phase 7: derived values (uamtc10) ----------------------------------- */
+
+/* Whether `s` reads as `^-?[0-9]+(\.[0-9]+)?$`. */
+static int is_number_text(const char *s) {
+  if (*s == '-') {
+    s++;
+  }
+  if (*s < '0' || *s > '9') {
+    return 0;
+  }
+  while (*s >= '0' && *s <= '9') {
+    s++;
+  }
+  if (*s == '.') {
+    s++;
+    if (*s < '0' || *s > '9') {
+      return 0;
+    }
+    while (*s >= '0' && *s <= '9') {
+      s++;
+    }
+  }
+  return *s == '\0';
+}
+
+static double pow10_int(int exponent) {
+  double v = 1.0;
+  int n = exponent < 0 ? -exponent : exponent;
+  for (int i = 0; i < n; i++) {
+    v *= 10.0;
+  }
+  return exponent < 0 ? 1.0 / v : v;
+}
+
+/* Appends `v` to `b`: as a whole number when it is one, else with up to 17
+   significant digits. */
+static void buf_put_number(SomBuf *b, double v) {
+  char text[64];
+  if (v > -9e18 && v < 9e18 && (double)(long long)v == v) {
+    som_buf_puti(b, (long long)v);
+    return;
+  }
+  snprintf(text, sizeof(text), "%.17g", v);
+  /* Prefer the shortest text that reads back as the same double. */
+  for (int prec = 1; prec <= 17; prec++) {
+    char shorter[64];
+    snprintf(shorter, sizeof(shorter), "%.*g", prec, v);
+    if (strtod(shorter, NULL) == v) {
+      som_buf_puts(b, shorter);
+      return;
+    }
+  }
+  som_buf_puts(b, text);
+}
+
+/* The spec of form field `name` of the form at `path`, or NULL when `path` is
+   no form or the form declares no such field. */
+static const FormFieldSpec *form_field_spec_at(const SpecReflection *refl,
+                                               const char *path,
+                                               const char *name) {
+  SpecResolution res;
+  if (!spec_reflection_resolve(refl, path, &res)) {
+    return NULL;
+  }
+  const FormFieldSpec *found = NULL;
+  if (strcmp(res.kind, SPEC_NODE_KIND_FORM) == 0 && res.field != NULL) {
+    for (size_t k = 0; k < res.field->form_fields_len; k++) {
+      if (strcmp(res.field->form_fields[k].name, name) == 0) {
+        found = &res.field->form_fields[k];
+        break;
+      }
+    }
+  }
+  spec_resolution_free(&res);
+  return found;
+}
+
+/* The number the filled form field `spec` of the form at `path` contributes:
+   an enum value its 1-based position among the enum's values, any other a
+   number written `^-?[0-9]+(\.[0-9]+)?$`. Returns 0 when it is empty or
+   unreadable (undecidable). */
+static int number_of(const SpecDocument *doc, const char *path,
+                     const FormFieldSpec *spec, double *out) {
+  const char *raw = spec_document_form_field(doc, path, spec->name);
+  if (raw == NULL) {
+    return 0;
+  }
+  char *v = trim_dup(raw);
+  int ok = 0;
+  if (v[0] != '\0') {
+    if (spec->enum_values.len > 0) {
+      for (size_t k = 0; k < spec->enum_values.len; k++) {
+        if (strcmp(spec->enum_values.items[k], v) == 0) {
+          *out = (double)(k + 1);
+          ok = 1;
+          break;
+        }
+      }
+    } else if (is_number_text(v)) {
+      *out = strtod(v, NULL);
+      ok = 1;
+    }
+  }
+  free(v);
+  return ok;
+}
+
+/* One ranked instance. `path` borrows from the form instances, `name` from
+   the model; `stated` is owned. */
+typedef struct {
+  const char *path;
+  const char *name;
+  char *stated;
+  double score;
+  int has_rank;
+  long long rank;
+} RankEntry;
+
+typedef struct {
+  char *key; /* owned: class#field#rankField */
+  RankEntry *items;
+  size_t len;
+  size_t cap;
+} RankGroup;
+
+/* Instance-tier derived-value check (uamtc10): a `productOf` field must hold
+   the product of its operands, and a `rankOf` field must rank the instances of
+   its form by their score, highest first.
+
+   **Operands.** A plain operand is a field of the same form; `F.x` is field
+   `x` of the form `F` beside it, at `<owner>/F` where `<owner>` is the section
+   holding this form. A numeric operand contributes its number, an enum operand
+   its 1-based position among the enum's values. When the value or any operand
+   is empty — or an operand is unreadable, which other checks report — the
+   product is undecidable and is skipped; a stated value that is no number is
+   reported regardless.
+
+   **Precision.** The stated number is held to the precision it is written in:
+   `2.8` matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+
+   **Ranks.** Over every instance of the same form whose rank and score are
+   both filled, the ranks must be the whole numbers 1 to n, each once, and an
+   instance may not rank below one that scores lower. Equal scores take their
+   ranks in any order. Each offending instance is reported once.
+
+   The phase's findings, products and ranks together, are stable-sorted by
+   form path. */
+static void validate_derived_values(const SpecReflection *refl,
+                                    const SpecDocument *doc,
+                                    SpecValidationErrors *out) {
+  FormInstance *forms = NULL;
+  size_t forms_len = 0;
+  resolved_forms(refl, doc, &forms, &forms_len);
+  int any = 0;
+  for (size_t i = 0; i < forms_len && !any; i++) {
+    for (size_t j = 0; j < forms[i].field->form_fields_len && !any; j++) {
+      const FormFieldSpec *ff = &forms[i].field->form_fields[j];
+      any = ff->product_of.len > 0 || ff->rank_of != NULL;
+    }
+  }
+  if (!any) {
+    form_instances_free(forms, forms_len);
+    return;
+  }
+
+  /* This phase's findings start here; they are ordered by path at the end. */
+  size_t first = out->len;
+  RankGroup *groups = NULL;
+  size_t groups_len = 0;
+  size_t groups_cap = 0;
+
+  for (size_t i = 0; i < forms_len; i++) {
+    const char *path = forms[i].path;
+    const char *last_slash = strrchr(path, '/');
+    char *owner = last_slash == NULL
+                      ? som_strdup("")
+                      : som_strdup_n(path, (size_t)(last_slash - path));
+    for (size_t j = 0; j < forms[i].field->form_fields_len; j++) {
+      const FormFieldSpec *ff = &forms[i].field->form_fields[j];
+      if (ff->product_of.len > 0) {
+        const char *raw = spec_document_form_field(doc, path, ff->name);
+        char *stated = raw == NULL ? NULL : trim_dup(raw);
+        if (stated != NULL && stated[0] != '\0') {
+          double product = 1.0;
+          int decidable = 1;
+          for (size_t t = 0; t < ff->product_of.len && decidable; t++) {
+            const char *operand = ff->product_of.items[t];
+            const char *dot = strchr(operand, '.');
+            char *opath;
+            const char *oname;
+            if (dot == NULL) {
+              opath = som_strdup(path);
+              oname = operand;
+            } else {
+              SomBuf pb;
+              som_buf_init(&pb);
+              som_buf_puts(&pb, owner);
+              som_buf_putc(&pb, '/');
+              som_buf_putn(&pb, operand, (size_t)(dot - operand));
+              opath = som_buf_take(&pb);
+              oname = dot + 1;
+            }
+            const FormFieldSpec *ospec = form_field_spec_at(refl, opath, oname);
+            double n = 0.0;
+            if (ospec == NULL || !number_of(doc, opath, ospec, &n)) {
+              decidable = 0;
+            } else {
+              product *= n;
+            }
+            free(opath);
+          }
+          if (!is_number_text(stated)) {
+            char *operands = som_strlist_join(&ff->product_of, " \xC3\x97 ");
+            SomBuf mb;
+            som_buf_init(&mb);
+            som_buf_puts(&mb, "form field \"");
+            som_buf_puts(&mb, ff->name);
+            som_buf_puts(&mb, "\" states \"");
+            som_buf_puts(&mb, stated);
+            som_buf_puts(&mb, "\", which is not a number \xE2\x80\x94 it is the product ");
+            som_buf_puts(&mb, operands);
+            free(operands);
+            errors_push(out, path, SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH,
+                        som_buf_take(&mb));
+          } else if (decidable) {
+            const char *sdot = strchr(stated, '.');
+            int decimals = sdot == NULL ? 0 : (int)strlen(sdot + 1);
+            double tolerance = 0.5 * pow10_int(-decimals) + 1e-9;
+            double diff = strtod(stated, NULL) - product;
+            if (diff < 0) {
+              diff = -diff;
+            }
+            if (diff > tolerance) {
+              char *operands = som_strlist_join(&ff->product_of, " \xC3\x97 ");
+              SomBuf mb;
+              som_buf_init(&mb);
+              som_buf_puts(&mb, "form field \"");
+              som_buf_puts(&mb, ff->name);
+              som_buf_puts(&mb, "\" states ");
+              som_buf_puts(&mb, stated);
+              som_buf_puts(&mb, ", but ");
+              som_buf_puts(&mb, operands);
+              som_buf_puts(&mb, " gives ");
+              buf_put_number(&mb, product);
+              free(operands);
+              errors_push(out, path,
+                          SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH,
+                          som_buf_take(&mb));
+            }
+          }
+        }
+        free(stated);
+      }
+      if (ff->rank_of != NULL) {
+        const char *raw = spec_document_form_field(doc, path, ff->name);
+        char *stated = raw == NULL ? NULL : trim_dup(raw);
+        const FormFieldSpec *sspec = form_field_spec_at(refl, path, ff->rank_of);
+        double score = 0.0;
+        if (stated != NULL && stated[0] != '\0' && sspec != NULL &&
+            number_of(doc, path, sspec, &score)) {
+          SomBuf kb;
+          som_buf_init(&kb);
+          som_buf_puts(&kb, forms[i].cls != NULL ? forms[i].cls->name : "");
+          som_buf_putc(&kb, '#');
+          som_buf_puts(&kb, forms[i].field->name);
+          som_buf_putc(&kb, '#');
+          som_buf_puts(&kb, ff->name);
+          char *key = som_buf_take(&kb);
+          RankGroup *g = NULL;
+          for (size_t k = 0; k < groups_len; k++) {
+            if (strcmp(groups[k].key, key) == 0) {
+              g = &groups[k];
+              break;
+            }
+          }
+          if (g == NULL) {
+            if (groups_len == groups_cap) {
+              groups_cap = groups_cap ? groups_cap * 2 : 4;
+              groups = (RankGroup *)realloc(groups,
+                                            groups_cap * sizeof(RankGroup));
+            }
+            g = &groups[groups_len++];
+            g->key = key;
+            g->items = NULL;
+            g->len = 0;
+            g->cap = 0;
+          } else {
+            free(key);
+          }
+          if (g->len == g->cap) {
+            g->cap = g->cap ? g->cap * 2 : 4;
+            g->items = (RankEntry *)realloc(g->items,
+                                            g->cap * sizeof(RankEntry));
+          }
+          RankEntry *e = &g->items[g->len++];
+          e->path = path;
+          e->name = ff->name;
+          e->stated = stated;
+          e->score = score;
+          e->has_rank = 0;
+          e->rank = 0;
+          stated = NULL;
+        }
+        free(stated);
+      }
+    }
+    free(owner);
+  }
+
+  for (size_t gi = 0; gi < groups_len; gi++) {
+    RankGroup *g = &groups[gi];
+    long long n = (long long)g->len;
+    for (size_t k = 0; k < g->len; k++) {
+      RankEntry *e = &g->items[k];
+      /* A rank too long for any integer type is out of 1..n anyway. */
+      if (all_digits(e->stated)) {
+        e->has_rank = 1;
+        e->rank = strlen(e->stated) > 18 ? n + 1 : strtoll(e->stated, NULL, 10);
+      }
+    }
+    for (size_t k = 0; k < g->len; k++) {
+      RankEntry *e = &g->items[k];
+      SomBuf mb;
+      som_buf_init(&mb);
+      int problem = 0;
+      if (!e->has_rank) {
+        som_buf_puts(&mb, "states \"");
+        som_buf_puts(&mb, e->stated);
+        som_buf_puts(&mb, "\", which is not a whole number");
+        problem = 1;
+      } else {
+        size_t uses = 0;
+        for (size_t o = 0; o < g->len; o++) {
+          if (g->items[o].has_rank && g->items[o].rank == e->rank) {
+            uses++;
+          }
+        }
+        if (e->rank < 1 || e->rank > n || uses > 1) {
+          som_buf_puts(&mb, "states rank ");
+          som_buf_puti(&mb, e->rank);
+          som_buf_puts(&mb, ", but the ");
+          som_buf_puti(&mb, n);
+          som_buf_puts(&mb, " ranked entries take the ranks 1 to ");
+          som_buf_puti(&mb, n);
+          som_buf_puts(&mb, ", each once");
+          problem = 1;
+        } else {
+          for (size_t o = 0; o < g->len; o++) {
+            const RankEntry *other = &g->items[o];
+            if (other->has_rank && other->score < e->score &&
+                other->rank < e->rank) {
+              som_buf_puts(&mb, "ranks ");
+              som_buf_puti(&mb, e->rank);
+              som_buf_puts(&mb, " with score ");
+              buf_put_number(&mb, e->score);
+              som_buf_puts(&mb, ", below an entry ranked ");
+              som_buf_puti(&mb, other->rank);
+              som_buf_puts(&mb, " with the lower score ");
+              buf_put_number(&mb, other->score);
+              problem = 1;
+              break;
+            }
+          }
+        }
+      }
+      char *problem_text = som_buf_take(&mb);
+      if (problem) {
+        SomBuf eb;
+        som_buf_init(&eb);
+        som_buf_puts(&eb, "form field \"");
+        som_buf_puts(&eb, e->name);
+        som_buf_puts(&eb, "\" ");
+        som_buf_puts(&eb, problem_text);
+        errors_push(out, e->path, SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH,
+                    som_buf_take(&eb));
+      }
+      free(problem_text);
+    }
+  }
+
+  for (size_t gi = 0; gi < groups_len; gi++) {
+    for (size_t k = 0; k < groups[gi].len; k++) {
+      free(groups[gi].items[k].stated);
+    }
+    free(groups[gi].items);
+    free(groups[gi].key);
+  }
+  free(groups);
+  form_instances_free(forms, forms_len);
+
+  /* Like every phase's group, the findings are ordered by path; the sort is
+     stable (insertion), so a path's own findings keep the order they were
+     found in — product findings before rank findings. */
+  for (size_t i = first + 1; i < out->len; i++) {
+    SpecValidationError moving = out->items[i];
+    size_t j = i;
+    while (j > first && strcmp(out->items[j - 1].path, moving.path) > 0) {
+      out->items[j] = out->items[j - 1];
+      j--;
+    }
+    out->items[j] = moving;
+  }
 }
 
 void validate_document(const SpecModel *model, const SpecDocument *doc,
@@ -979,9 +1407,11 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
       }
       if (spec->enum_values.len == 0) {
         const char *text = spec_document_form_field(doc, path, names.items[j]);
-        /* A stated count (`countOf`) is checked by countMismatch, which already
-           reports text that is no whole number; one finding is enough. */
-        if (spec->count_of.len == 0 &&
+        /* A stated count (`countOf`) is checked by countMismatch, a derived
+           value (`productOf` / `rankOf`) by derivedValueMismatch, which already
+           report text that is no number; one finding is enough. */
+        if (spec->count_of.len == 0 && spec->product_of.len == 0 &&
+            spec->rank_of == NULL &&
             !som_typed_text_readable(spec->type, text)) {
           char *base = som_scalar_base(spec->type);
           SomBuf b;
@@ -1084,6 +1514,10 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
   /* 6. Stated counts: a `countOf` form field states how many entries the
      document holds; only the instance tier can count them. */
   validate_count_instances(&refl, doc, out);
+
+  /* 7. Derived values: a `productOf` field holds the product of its operands,
+     a `rankOf` field ranks the instances of its form by their score. */
+  validate_derived_values(&refl, doc, out);
 }
 
 void spec_validation_errors_free(SpecValidationErrors *errs) {

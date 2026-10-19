@@ -2240,7 +2240,7 @@ form-types:
         required: true
         description: Qualitative consequence band if the risk lands.
       - fieldname: riskScore
-        description: Calculated risk rating — Probability x Impact
+        description: "Calculated risk rating — probability × impact, each counted by its band (1-5)"
       - fieldname: impactAreas
         description: DataIntegrity / SystemAvailability / Compliance / Budget
       - fieldname: affectedPhases

@@ -85,6 +85,14 @@ class FormFieldSpec:
     #: field that states no count. The instance tier holds the stated number to
     #: the document (``countMismatch``).
     count_of: list[str] = field(default_factory=list)
+    #: The operands this field's value is the product of (``Field.productOf``,
+    #: uamtc10), each a field of the same form or ``<FORMSID>.<field>`` of a
+    #: sibling form; empty for a field that states no product. The instance
+    #: tier holds the stated number to it (``derivedValueMismatch``).
+    product_of: list[str] = field(default_factory=list)
+    #: The field of the same form whose number this field ranks, highest first
+    #: (``Field.rankOf``, uamtc10); ``None`` for a field that states no rank.
+    rank_of: Optional[str] = None
     #: Whether the value is code rather than prose (``Field.code``): the
     #: markdown codec writes it as an inline code span and unwraps it on import
     #: (SOM §11.4 rule 8). Omitted from the export when ``False``.
@@ -101,6 +109,8 @@ class FormFieldSpec:
             enum_values=[str(e) for e in (j.get("enumValues") or [])],
             refers_to=[str(e) for e in (j.get("refersTo") or [])],
             count_of=[str(e) for e in (j.get("countOf") or [])],
+            product_of=[str(e) for e in (j.get("productOf") or [])],
+            rank_of=(str(j["rankOf"]) if j.get("rankOf") is not None else None),
             code=bool(j.get("code") or False),
         )
 

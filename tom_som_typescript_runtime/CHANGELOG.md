@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Derived values (uamtc10): `FormFieldSpec.productOf` (meta
+  `formFields[].productOf`, absent → empty) and `FormFieldSpec.rankOf` (meta
+  `formFields[].rankOf`, absent → `null`), and `validateDocument` reports
+  `SpecValidationCode.DERIVED_VALUE_MISMATCH` (`derivedValueMismatch`, run
+  right after the count check). A `productOf` field must state a number equal,
+  to the precision it is written in, to the product of its operands — a field
+  of the same form or `FORMSID.field` of a sibling form; an enum operand
+  contributes its 1-based position; an empty or unreadable operand makes the
+  product undecidable. A `rankOf` field must rank the instances of its form
+  with a filled rank and score 1 to n, each once, highest score first.
+  `countOf` targets written `./X` count only the entries beneath the section
+  holding the form. Fields with `countOf`, `productOf` or `rankOf` are no
+  longer reported as `valueTypeMismatch`. Conformance: the `derivedValuesMatch`
+  / `productMismatch` / `rankOutOfOrder` / `rankDuplicate` /
+  `scopedCountMismatch` validation cases.
 - Exact Markdown round trip (SOM §11.3, §11.6, §11.7, §12.4): a heading's body
   region writes a slot marker `<!-- slot: <rel> -->` before a body slot the
   parser would otherwise bind elsewhere (text after anything already written,

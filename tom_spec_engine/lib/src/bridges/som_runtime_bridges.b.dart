@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 25 files
-// Generated: 2026-10-20T00:14:22.642804 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T01:15:54.522907 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -9335,6 +9335,11 @@ BridgedClass _createFormFieldSpecBridge() {
         final countOf = named.containsKey('countOf') && named['countOf'] != null
             ? D4.coerceList<String>(named['countOf'], 'countOf')
             : const <String>[];
+        final productOf =
+            named.containsKey('productOf') && named['productOf'] != null
+            ? D4.coerceList<String>(named['productOf'], 'productOf')
+            : const <String>[];
+        final rankOf = D4.getOptionalNamedArg<String?>(named, 'rankOf');
         final code = D4.getNamedArgWithDefault<bool>(named, 'code', false);
         return $tom_som_dart_runtime_15.FormFieldSpec(
           name: name,
@@ -9346,6 +9351,8 @@ BridgedClass _createFormFieldSpecBridge() {
           enumValueDocs: enumValueDocs,
           refersTo: refersTo,
           countOf: countOf,
+          productOf: productOf,
+          rankOf: rankOf,
           code: code,
         );
       },
@@ -9415,6 +9422,18 @@ BridgedClass _createFormFieldSpecBridge() {
             'FormFieldSpec',
           )
           .countOf,
+      'productOf': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .productOf,
+      'rankOf': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_15.FormFieldSpec>(
+            target,
+            'FormFieldSpec',
+          )
+          .rankOf,
       'code': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_15.FormFieldSpec>(
             target,
@@ -9423,7 +9442,7 @@ BridgedClass _createFormFieldSpecBridge() {
           .code,
     },
     constructorSignatures: {
-      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const [], bool code = false})',
+      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], Map<String, String> enumValueDocs = const {}, List<String> refersTo = const [], List<String> countOf = const [], List<String> productOf = const [], String? rankOf, bool code = false})',
       'fromJson': 'factory FormFieldSpec.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -9436,6 +9455,8 @@ BridgedClass _createFormFieldSpecBridge() {
       'enumValueDocs': 'Map<String, String> get enumValueDocs',
       'refersTo': 'List<String> get refersTo',
       'countOf': 'List<String> get countOf',
+      'productOf': 'List<String> get productOf',
+      'rankOf': 'String? get rankOf',
       'code': 'bool get code',
     },
   );

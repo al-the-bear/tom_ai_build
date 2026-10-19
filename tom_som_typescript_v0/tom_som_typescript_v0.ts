@@ -99581,12 +99581,21 @@ export class FeatureDependencyEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "schedulingImpact", value);
   }
 
-  get crossStageDependency(): string {
-    return this.doc.formField(this.path, "crossStageDependency") || '';
+  get crossStageDependency(): boolean | null {
+    const v = this.doc.formField(this.path, "crossStageDependency");
+    return v == null ? null : v === 'true';
   }
 
-  set crossStageDependency(value: string) {
-    this.doc.setFormField(this.path, "crossStageDependency", value);
+  set crossStageDependency(value: boolean | null) {
+    this.doc.setFormField(this.path, "crossStageDependency", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get crossStageNote(): string {
+    return this.doc.formField(this.path, "crossStageNote") || '';
+  }
+
+  set crossStageNote(value: string) {
+    this.doc.setFormField(this.path, "crossStageNote", value);
   }
 
   get mitigationStrategy(): string {

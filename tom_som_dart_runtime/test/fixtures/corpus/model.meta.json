@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 13,
+  "classCount": 14,
   "rootCount": 2,
   "roots": [
     {
@@ -298,6 +298,99 @@
             {
               "name": "label",
               "label": "Label",
+              "type": "String"
+            },
+            {
+              "name": "level",
+              "label": "Level",
+              "type": "Level",
+              "enumValues": [
+                "low",
+                "mid",
+                "high"
+              ]
+            },
+            {
+              "name": "factor",
+              "label": "Factor",
+              "type": "double"
+            },
+            {
+              "name": "score",
+              "label": "Score",
+              "type": "double",
+              "productOf": [
+                "level",
+                "factor",
+                "RGE-EXT.boost"
+              ]
+            },
+            {
+              "name": "rank",
+              "label": "Rank",
+              "type": "int",
+              "rankOf": "score"
+            },
+            {
+              "name": "noteCount",
+              "label": "Note Count",
+              "type": "int",
+              "countOf": [
+                "./RGN"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "extra",
+          "kind": "form",
+          "sectionId": "RGE-EXT",
+          "formFields": [
+            {
+              "name": "boost",
+              "label": "Boost",
+              "type": "int"
+            }
+          ]
+        },
+        {
+          "name": "notes",
+          "kind": "list",
+          "sectionId": "RGN-LST",
+          "sectionIdPattern": "RGN-xxx",
+          "elementType": "EntryNote",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "EntryNote": {
+      "name": "EntryNote",
+      "sectionId": "RGN",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGN"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RGN-DET",
+          "formFields": [
+            {
+              "name": "text",
+              "label": "Text",
               "type": "String"
             }
           ]

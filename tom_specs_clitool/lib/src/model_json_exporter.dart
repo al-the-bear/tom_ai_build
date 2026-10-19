@@ -225,6 +225,11 @@ class ModelJsonExporter {
                 // `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, so every
                 // runtime's instance tier can hold the count to the document.
                 if (ff.countOf.isNotEmpty) 'countOf': ff.countOf,
+                // uamtc10: a value derived from other fields — a product of
+                // operands, or a rank by a sibling field — held to them by
+                // every runtime's instance tier (derivedValueMismatch).
+                if (ff.productOf.isNotEmpty) 'productOf': ff.productOf,
+                if (ff.rankOf.isNotEmpty) 'rankOf': ff.rankOf,
                 // The value is code, not prose: every markdown codec writes it
                 // as a code span and unwraps it on import (SOM §11.4).
                 if (ff.code) 'code': true,

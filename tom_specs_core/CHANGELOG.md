@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+- `Field.productOf`: a value stated as the product of other fields (numbers,
+  or an enum's 1-based position), checked by the instance tier
+  (`derivedValueMismatch`).
+- `Field.rankOf`: a value stated as a rank by another field of the same form,
+  highest first, checked over every instance of the form.
+- `Field.countOf` targets may start with `./` to count only the entries
+  beneath the section holding the form.
+
 ## 0.2.3
 
 - `Field.code`: a form field whose value is code, not prose — a regular

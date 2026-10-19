@@ -4616,6 +4616,7 @@ class MustPassCriteria extends DocSpecsSection {
       int,
       'Number of Must-Pass Criteria',
       hint: 'Total count of must-pass criteria',
+      countOf: ['MSTPCR'],
     ),
     Field(
       'criticalityDefinition',

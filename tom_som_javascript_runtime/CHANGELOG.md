@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Derived values (uamtc10): `FormFieldSpec.productOf` (meta
+  `formFields[].productOf`, absent → empty) and `FormFieldSpec.rankOf` (meta
+  `formFields[].rankOf`, absent → `null`), and `validateDocument` reports
+  `SpecValidationCode.DERIVED_VALUE_MISMATCH` (`derivedValueMismatch`, run
+  right after the count check). A `productOf` field must state a number equal,
+  to the precision it is written in, to the product of its operands — a field
+  of the same form or `FORMSID.field` of a sibling form; an enum operand
+  contributes its 1-based position; an empty or unreadable operand makes the
+  product undecidable. A `rankOf` field must rank the instances of its form
+  with a filled rank and score 1 to n, each once, highest score first.
+  `countOf` targets written `./X` count only the entries beneath the section
+  holding the form. Fields with `countOf`, `productOf` or `rankOf` are no
+  longer reported as `valueTypeMismatch`. Conformance: the `derivedValuesMatch`
+  / `productMismatch` / `rankOutOfOrder` / `rankDuplicate` /
+  `scopedCountMismatch` validation cases.
 - `SpecDocument.hasValuesUnder` answers from a lazily built prefix index (every
   stored key plus each prefix ending right before a `/` or a `-`), built on the
   first question and dropped by every mutator, instead of scanning every stored

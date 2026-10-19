@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.6.7
+
+- Derived values are checked (`derivedValueMismatch`): a `productOf` field
+  holds the product of its operands — numbers, or an enum's 1-based position,
+  in the same form or a sibling form — to the precision it is written in, and
+  a `rankOf` field ranks the instances of its form by their score, 1 to n,
+  highest first.
+- `countOf` targets written `./…` count only the entries beneath the section
+  holding the form.
+- `FormFieldSpec.productOf` / `FormFieldSpec.rankOf` read from the meta.
+
 ## 1.6.6
 
 - Version aligned with the TomSpecs model (1.6.6); no library change.

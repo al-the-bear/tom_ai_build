@@ -65,6 +65,13 @@ enum SpecValidationCode {
   /// tool can still carry it; this is where it is reported. Empty text is
   /// absence, not a bad value, and is not reported.
   valueTypeMismatch,
+
+  /// A form field whose value is derived from other fields — a product
+  /// (`Field.productOf`) or a rank by a sibling field (`Field.rankOf`) — holds
+  /// a value the fields it is derived from do not give, or no number at all
+  /// (uamtc10). A risk score kept by hand drifts the first time probability or
+  /// impact changes and the score does not.
+  derivedValueMismatch,
 }
 
 /// One problem found while validating a document.
@@ -182,7 +189,10 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
         final text = doc.formField(path, name);
         // A stated count (`countOf`) is checked by `countMismatch`, which
         // already reports text that is no whole number; one finding is enough.
-        if (spec.countOf.isEmpty && !somTypedTextReadable(spec.type, text)) {
+        if (spec.countOf.isEmpty &&
+            spec.productOf.isEmpty &&
+            spec.rankOf == null &&
+            !somTypedTextReadable(spec.type, text)) {
           errors.add(
             SpecValidationError(
               path: path,
@@ -267,6 +277,7 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // A form field declaring `countOf` states how many entries the document
   // holds; only the instance tier can count them.
   errors.addAll(_validateCountInstances(refl, doc));
+  errors.addAll(_validateDerivedValues(refl, doc));
 
   return errors;
 }
@@ -563,14 +574,22 @@ List<SpecValidationError> _validateCountInstances(
     }
   }
 
-  int countTarget(String target) {
+  // A target written `./…` counts only the entries beneath [owner], the
+  // section holding the form; any other target counts the whole document.
+  int countTarget(String target, String owner) {
+    final scoped = target.startsWith('./');
+    if (scoped) target = target.substring(2);
+    bool inScope(String item) => !scoped || item.startsWith('$owner/');
     final dot = target.indexOf('.');
-    if (dot < 0) return entriesById[target]?.length ?? 0;
+    if (dot < 0) {
+      return (entriesById[target] ?? const <String>[]).where(inScope).length;
+    }
     final id = target.substring(0, dot);
     final eq = target.indexOf('=', dot);
     final field = target.substring(dot + 1, eq < 0 ? target.length : eq);
     final value = eq < 0 ? '' : target.substring(eq + 1);
     return (entriesById[id] ?? const <String>[])
+        .where(inScope)
         .where((item) => valuesByItem[item]?[field]?.contains(value) ?? false)
         .length;
   }
@@ -586,7 +605,10 @@ List<SpecValidationError> _validateCountInstances(
       )) {
         continue;
       }
-      final counted = ff.countOf.map(countTarget).fold(0, (a, b) => a + b);
+      final owner = form.path.substring(0, form.path.lastIndexOf('/'));
+      final counted = ff.countOf
+          .map((t) => countTarget(t, owner))
+          .fold(0, (a, b) => a + b);
       final targets = ff.countOf.join(' + ');
       if (!RegExp(r'^[0-9]+$').hasMatch(stated)) {
         errors.add(
@@ -615,8 +637,198 @@ List<SpecValidationError> _validateCountInstances(
   return errors;
 }
 
-/// The section id of a `countOf` target — the part before any `.field=value`.
+/// Instance-tier derived-value check (uamtc10): a `productOf` field must hold
+/// the product of its operands, and a `rankOf` field must rank the instances
+/// of its form by their score, highest first.
+///
+/// **Operands.** A plain operand is a field of the same form; `F.x` is field
+/// `x` of the form `F` beside it, at `<owner>/F` where `<owner>` is the
+/// section holding this form. A numeric operand contributes its number, an
+/// enum operand its 1-based position among the enum's values. When the value
+/// or any operand is empty — or an operand is unreadable, which other checks
+/// report — the product is undecidable and is skipped.
+///
+/// **Precision.** The stated number is held to the precision it is written
+/// in: `2.8` matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+///
+/// **Ranks.** Over every instance of the same form whose rank and score are
+/// both filled, the ranks must be the whole numbers 1 to n, each once, and an
+/// instance may not rank below one that scores lower. Equal scores take their
+/// ranks in any order. Each offending instance is reported once.
+List<SpecValidationError> _validateDerivedValues(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final forms = _resolvedForms(refl, doc);
+  if (!forms.any(
+    (f) => f.field.formFields.any(
+      (ff) => ff.productOf.isNotEmpty || ff.rankOf != null,
+    ),
+  )) {
+    return const [];
+  }
+  final errors = <SpecValidationError>[];
+  final numberPattern = RegExp(r'^-?[0-9]+(\.[0-9]+)?$');
+
+  // The number a filled form field contributes, or null when it is empty or
+  // unreadable.
+  double? numberOf(String formPath, FormFieldSpec spec) {
+    final v = doc.formField(formPath, spec.name)?.trim();
+    if (v == null || v.isEmpty) return null;
+    if (spec.enumValues.isNotEmpty) {
+      final i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : (i + 1).toDouble();
+    }
+    return numberPattern.hasMatch(v) ? double.parse(v) : null;
+  }
+
+  // The form at [path] and the spec of its field [name], or null.
+  FormFieldSpec? specAt(String path, String name) {
+    final res = refl.resolve(path);
+    if (res == null || res.kind != SpecNodeKind.form) return null;
+    for (final ff in res.field?.formFields ?? const <FormFieldSpec>[]) {
+      if (ff.name == name) return ff;
+    }
+    return null;
+  }
+
+  final ranked =
+      <
+        String,
+        List<({String path, String name, String stated, double score})>
+      >{};
+
+  for (final form in forms) {
+    final owner = form.path.substring(0, form.path.lastIndexOf('/'));
+    for (final ff in form.field.formFields) {
+      if (ff.productOf.isNotEmpty) {
+        final stated = doc.formField(form.path, ff.name)?.trim();
+        if (stated != null && stated.isNotEmpty) {
+          double? product = 1;
+          for (final operand in ff.productOf) {
+            final dot = operand.indexOf('.');
+            final path = dot < 0
+                ? form.path
+                : '$owner/${operand.substring(0, dot)}';
+            final name = dot < 0 ? operand : operand.substring(dot + 1);
+            final spec = specAt(path, name);
+            final n = spec == null ? null : numberOf(path, spec);
+            if (n == null) {
+              product = null;
+              break;
+            }
+            product = product! * n;
+          }
+          final operands = ff.productOf.join(' × ');
+          if (!numberPattern.hasMatch(stated)) {
+            errors.add(
+              SpecValidationError(
+                path: form.path,
+                code: SpecValidationCode.derivedValueMismatch,
+                message:
+                    'form field "${ff.name}" states "$stated", which is not a '
+                    'number — it is the product $operands',
+              ),
+            );
+          } else if (product != null) {
+            final dot = stated.indexOf('.');
+            final decimals = dot < 0 ? 0 : stated.length - dot - 1;
+            final tolerance = 0.5 * _pow10(-decimals) + 1e-9;
+            if ((double.parse(stated) - product).abs() > tolerance) {
+              errors.add(
+                SpecValidationError(
+                  path: form.path,
+                  code: SpecValidationCode.derivedValueMismatch,
+                  message:
+                      'form field "${ff.name}" states $stated, but $operands '
+                      'gives ${_formatNumber(product)}',
+                ),
+              );
+            }
+          }
+        }
+      }
+      final by = ff.rankOf;
+      if (by != null) {
+        final stated = doc.formField(form.path, ff.name)?.trim();
+        final scoreSpec = specAt(form.path, by);
+        final score = scoreSpec == null ? null : numberOf(form.path, scoreSpec);
+        if (stated != null && stated.isNotEmpty && score != null) {
+          (ranked['${form.cls.name}#${form.field.name}#${ff.name}'] ??= []).add(
+            (path: form.path, name: ff.name, stated: stated, score: score),
+          );
+        }
+      }
+    }
+  }
+
+  for (final group in ranked.values) {
+    final n = group.length;
+    final rankOf = <String, int>{};
+    final seen = <int, int>{};
+    for (final e in group) {
+      if (!RegExp(r'^[0-9]+$').hasMatch(e.stated)) continue;
+      final r = int.parse(e.stated);
+      rankOf[e.path] = r;
+      seen[r] = (seen[r] ?? 0) + 1;
+    }
+    for (final e in group) {
+      final r = rankOf[e.path];
+      String? problem;
+      if (r == null) {
+        problem = 'states "${e.stated}", which is not a whole number';
+      } else if (r < 1 || r > n || seen[r]! > 1) {
+        problem =
+            'states rank $r, but the $n ranked entries take the ranks '
+            '1 to $n, each once';
+      } else {
+        for (final o in group) {
+          final ro = rankOf[o.path];
+          if (ro != null && o.score < e.score && ro < r) {
+            problem =
+                'ranks $r with score ${_formatNumber(e.score)}, below '
+                'an entry ranked $ro with the lower score '
+                '${_formatNumber(o.score)}';
+            break;
+          }
+        }
+      }
+      if (problem != null) {
+        errors.add(
+          SpecValidationError(
+            path: e.path,
+            code: SpecValidationCode.derivedValueMismatch,
+            message: 'form field "${e.name}" $problem',
+          ),
+        );
+      }
+    }
+  }
+  // Like every phase's group, the findings are ordered by path; the sort is
+  // stable, so a path's own findings keep the order they were found in.
+  final ordered = [for (var i = 0; i < errors.length; i++) (i, errors[i])]
+    ..sort((a, b) {
+      final byPath = a.$2.path.compareTo(b.$2.path);
+      return byPath != 0 ? byPath : a.$1.compareTo(b.$1);
+    });
+  return [for (final e in ordered) e.$2];
+}
+
+double _pow10(int exponent) {
+  var v = 1.0;
+  for (var i = 0; i < exponent.abs(); i++) {
+    v *= 10;
+  }
+  return exponent < 0 ? 1 / v : v;
+}
+
+String _formatNumber(double v) =>
+    v == v.roundToDouble() ? v.toInt().toString() : v.toString();
+
+/// The section id of a `countOf` target — the part before any `.field=value`,
+/// without the `./` scope prefix.
 String _countTargetId(String target) {
+  if (target.startsWith('./')) target = target.substring(2);
   final dot = target.indexOf('.');
   return dot < 0 ? target : target.substring(0, dot);
 }

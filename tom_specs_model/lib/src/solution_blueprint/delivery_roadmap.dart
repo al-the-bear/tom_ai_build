@@ -4102,6 +4102,7 @@ class FeatureDependencies extends DocSpecsSection {
       String,
       'Total Dependency Count',
       hint: 'Total number of inter-feature dependencies',
+      countOf: ['FDE'],
     ),
     Field(
       'crossStageDependencyCount',
@@ -4110,6 +4111,7 @@ class FeatureDependencies extends DocSpecsSection {
       hint:
           'Dependencies spanning stage boundaries — highest '
           'scheduling risk',
+      countOf: ['FDE.crossStageDependency=true'],
     ),
     Field(
       'criticalPathLength',
@@ -4234,11 +4236,15 @@ class FeatureDependencyEntry extends DocSpecsSection {
     ),
     Field(
       'crossStageDependency',
-      String,
+      bool,
       'Cross-Stage',
-      hint:
-          'Yes / No — whether source and target are in '
-          'different stages',
+      hint: 'Whether source and target are in different stages',
+    ),
+    Field(
+      'crossStageNote',
+      String,
+      'Cross-Stage Note',
+      hint: 'Which stages or waves the two features pass through',
     ),
     // --- Resolution ---
     Field(
@@ -5866,7 +5872,10 @@ class StageMigrationRiskEntry extends DocSpecsSection {
       'riskScore',
       String,
       'Risk Score',
-      hint: 'Calculated risk rating — Probability x Impact',
+      hint:
+          'Calculated risk rating — probability × impact, each counted by '
+          'its band (1-5)',
+      productOf: ['probability', 'impact'],
     ),
     Field(
       'impactAreas',

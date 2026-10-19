@@ -63381,7 +63381,7 @@ class ComponentRiskEntryAssessmentForm extends SomNode {
 
   /// Risk Score.
   ///
-  /// Calculated score (probability × impact)
+  /// Calculated score (probability × impact), each counted by its band (1-5)
   int? get riskScore => somParseInt(doc.formField(path, 'riskScore'));
   set riskScore(int? value) => doc.setFormField(path, 'riskScore', somFormatInt(value));
 
@@ -84251,9 +84251,15 @@ class FeatureDependencyEntryContentForm extends SomNode {
 
   /// Cross-Stage.
   ///
-  /// Yes / No — whether source and target are in different stages
-  String get crossStageDependency => doc.formField(path, 'crossStageDependency') ?? '';
-  set crossStageDependency(String value) => doc.setFormField(path, 'crossStageDependency', value);
+  /// Whether source and target are in different stages
+  bool? get crossStageDependency => somParseBool(doc.formField(path, 'crossStageDependency'));
+  set crossStageDependency(bool? value) => doc.setFormField(path, 'crossStageDependency', somFormatBool(value));
+
+  /// Cross-Stage Note.
+  ///
+  /// Which stages or waves the two features pass through
+  String get crossStageNote => doc.formField(path, 'crossStageNote') ?? '';
+  set crossStageNote(String value) => doc.setFormField(path, 'crossStageNote', value);
 
   /// Mitigation Strategy.
   ///
@@ -88005,7 +88011,7 @@ class GoalRiskEntryAssessmentForm extends SomNode {
 
   /// Risk Score (probability × impact).
   ///
-  /// Computed as probability multiplied by impact
+  /// Computed as probability multiplied by impact, each counted by its band (1-5)
   String get riskScore => doc.formField(path, 'riskScore') ?? '';
   set riskScore(String value) => doc.setFormField(path, 'riskScore', value);
 
@@ -123391,7 +123397,7 @@ class RiskEntryAnalysisForm extends SomNode {
 
   /// Risk Ranking — priority relative to other risks.
   ///
-  /// Priority rank relative to other risks
+  /// Priority rank relative to other risks — 1 is the highest score
   int? get riskRanking => somParseInt(doc.formField(path, 'riskRanking'));
   set riskRanking(int? value) => doc.setFormField(path, 'riskRanking', somFormatInt(value));
 
@@ -135995,7 +136001,7 @@ class StageMigrationRiskEntryProbabilityImpactForm extends SomNode {
 
   /// Risk Score.
   ///
-  /// Calculated risk rating — Probability x Impact
+  /// Calculated risk rating — probability × impact, each counted by its band (1-5)
   String get riskScore => doc.formField(path, 'riskScore') ?? '';
   set riskScore(String value) => doc.setFormField(path, 'riskScore', value);
 
@@ -141379,7 +141385,7 @@ class SystemMigrationRiskEntryContentForm extends SomNode {
 
   /// Risk Score.
   ///
-  /// Combined probability/impact score
+  /// Combined probability/impact score — probability × impact, each counted by its band (1-5)
   String get riskScore => doc.formField(path, 'riskScore') ?? '';
   set riskScore(String value) => doc.setFormField(path, 'riskScore', value);
 

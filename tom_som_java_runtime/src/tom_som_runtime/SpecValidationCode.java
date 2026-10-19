@@ -31,7 +31,15 @@ public enum SpecValidationCode {
    * by another tool can still carry it; this is where it is reported. Empty text
    * is absence, not a bad value, and is not reported.
    */
-  VALUE_TYPE_MISMATCH("valueTypeMismatch");
+  VALUE_TYPE_MISMATCH("valueTypeMismatch"),
+  /**
+   * A form field whose value is derived from other fields — a product
+   * ({@code Field.productOf}) or a rank by a sibling field ({@code Field.rankOf})
+   * — holds a value the fields it is derived from do not give, or no number at
+   * all (uamtc10). A risk score kept by hand drifts the first time probability
+   * or impact changes and the score does not.
+   */
+  DERIVED_VALUE_MISMATCH("derivedValueMismatch");
 
   public final String value;
 

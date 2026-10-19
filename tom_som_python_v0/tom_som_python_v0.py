@@ -96458,12 +96458,21 @@ class FeatureDependencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "schedulingImpact", value)
 
     @property
-    def crossStageDependency(self) -> str:
-        return self.doc.form_field(self.path, "crossStageDependency") or ""
+    def crossStageDependency(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "crossStageDependency")
+        return None if v is None else (v == "true")
 
     @crossStageDependency.setter
     def crossStageDependency(self, value):
-        self.doc.set_form_field(self.path, "crossStageDependency", value)
+        self.doc.set_form_field(self.path, "crossStageDependency", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def crossStageNote(self) -> str:
+        return self.doc.form_field(self.path, "crossStageNote") or ""
+
+    @crossStageNote.setter
+    def crossStageNote(self, value):
+        self.doc.set_form_field(self.path, "crossStageNote", value)
 
     @property
     def mitigationStrategy(self) -> str:

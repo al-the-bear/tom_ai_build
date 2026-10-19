@@ -6639,7 +6639,10 @@ class GoalRiskEntry extends DocSpecsSection {
       'riskScore',
       String,
       'Risk Score (probability × impact)',
-      hint: 'Computed as probability multiplied by impact',
+      hint:
+          'Computed as probability multiplied by impact, each counted by '
+          'its band (1-5)',
+      productOf: ['probability', 'impact'],
     ),
     Field(
       'triggerConditions',
@@ -7523,54 +7526,63 @@ class SuccessCriteria extends DocSpecsSection {
       int,
       'Total Number of Criteria',
       hint: 'Total number of success criteria defined',
+      countOf: ['SCE'],
     ),
     Field(
       'criticalCount',
       int,
       'Critical Criteria Count',
       hint: 'Number of critical-priority criteria',
+      countOf: ['SCE.weight=critical'],
     ),
     Field(
       'highPriorityCount',
       int,
       'High Priority Count',
       hint: 'Number of high-priority criteria',
+      countOf: ['SCE.weight=high'],
     ),
     Field(
       'mediumPriorityCount',
       int,
       'Medium Priority Count',
       hint: 'Number of medium-priority criteria',
+      countOf: ['SCE.weight=medium'],
     ),
     Field(
       'lowPriorityCount',
       int,
       'Low Priority Count',
       hint: 'Number of low-priority criteria',
+      countOf: ['SCE.weight=low'],
     ),
     Field(
       'businessCriteriaCount',
       int,
       'Business Criteria Count',
       hint: 'Number of business-focused criteria',
+      countOf: ['SCE.category=Business'],
     ),
     Field(
       'technicalCriteriaCount',
       int,
       'Technical Criteria Count',
       hint: 'Number of technical-quality criteria',
+      countOf: ['SCE.category=Technical'],
     ),
     Field(
       'userCriteriaCount',
       int,
       'User Satisfaction Criteria Count',
       hint: 'Number of user-satisfaction criteria',
+      countOf: ['SCE.category=User'],
     ),
     Field(
       'complianceCriteriaCount',
       int,
       'Compliance Criteria Count',
       hint: 'Number of compliance-related criteria',
+      countOf: ['SCE.category=Compliance'],
     ),
     Field(
       'minCriteriaMet',
@@ -13348,7 +13360,10 @@ class SystemMigrationRiskEntry extends DocSpecsSection {
       'riskScore',
       String,
       'Risk Score',
-      hint: 'Combined probability/impact score',
+      hint:
+          'Combined probability/impact score — probability × impact, each '
+          'counted by its band (1-5)',
+      productOf: ['probability', 'impact'],
     ),
     Field(
       'mitigation',
@@ -14346,7 +14361,13 @@ class MigrationRiskEntry extends DocSpecsSection {
     'expected monetary value, and best/worst/most-likely scenarios.',
   )
   @Form([
-    Field('riskScore', int, 'Risk Score', hint: 'Probability × Impact (1-25)'),
+    Field(
+      'riskScore',
+      int,
+      'Risk Score',
+      hint: 'Probability × Impact (1-25)',
+      productOf: ['MIRIPR.probabilityScore', 'MIRIIM.overallImpactScore'],
+    ),
     Field(
       'riskPriority',
       ImportanceBand,
@@ -18579,6 +18600,7 @@ class RiskEntry extends DocSpecsSection {
       double,
       'Risk Score — calculated (probability × impact)',
       hint: 'Computed score from probability times impact',
+      productOf: ['probabilityValue', 'impactValue'],
     ),
     Field(
       'riskLevel',
@@ -18590,7 +18612,8 @@ class RiskEntry extends DocSpecsSection {
       'riskRanking',
       int,
       'Risk Ranking — priority relative to other risks',
-      hint: 'Priority rank relative to other risks',
+      hint: 'Priority rank relative to other risks — 1 is the highest score',
+      rankOf: 'riskScore',
     ),
     Field(
       'analysisMethod',

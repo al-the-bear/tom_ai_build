@@ -34,6 +34,20 @@ public final class FormFieldSpec {
    */
   public final List<String> countOf;
   /**
+   * The operands this field's value is the product of ({@code Field.productOf},
+   * uamtc10), each a field of the same form or {@code FORMSID.field} of the
+   * sibling form at {@code <owner>/FORMSID}; empty for a field that states no
+   * product. The instance tier holds the stated number to it
+   * ({@code derivedValueMismatch}).
+   */
+  public final List<String> productOf;
+  /**
+   * The field of the same form whose number this field ranks, highest first
+   * ({@code Field.rankOf}, uamtc10); {@code null} for a field that states no
+   * rank.
+   */
+  public final String rankOf;
+  /**
    * Whether the value is code rather than prose ({@code Field.code}): the
    * markdown codec writes it as an inline code span and unwraps it on import
    * (SOM §11.4 rule 8). Omitted from the export when {@code false}.
@@ -78,6 +92,21 @@ public final class FormFieldSpec {
       List<String> refersTo,
       List<String> countOf,
       boolean code) {
+    this(name, label, type, hint, required, enumValues, refersTo, countOf, code, List.of(), null);
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf,
+      boolean code,
+      List<String> productOf,
+      String rankOf) {
     this.name = name;
     this.label = label;
     this.type = type;
@@ -87,6 +116,8 @@ public final class FormFieldSpec {
     this.refersTo = refersTo;
     this.countOf = countOf;
     this.code = code;
+    this.productOf = productOf;
+    this.rankOf = rankOf;
   }
 
   public static FormFieldSpec fromJson(Map<String, Object> j) {
@@ -102,7 +133,9 @@ public final class FormFieldSpec {
         stringList(j.get("enumValues")),
         stringList(j.get("refersTo")),
         stringList(j.get("countOf")),
-        Boolean.TRUE.equals(j.get("code")));
+        Boolean.TRUE.equals(j.get("code")),
+        stringList(j.get("productOf")),
+        j.get("rankOf") != null ? j.get("rankOf").toString() : null);
   }
 
   private static List<String> stringList(Object raw) {

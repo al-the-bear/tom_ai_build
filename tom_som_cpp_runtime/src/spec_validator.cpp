@@ -2,7 +2,10 @@
 #include "spec_validator.hpp"
 
 #include <algorithm>
+#include <cstdio>
+#include <cstdlib>
 #include <map>
+#include <optional>
 #include <set>
 
 #include "som_util.hpp"
@@ -374,8 +377,10 @@ std::vector<SpecValidationError> validateReferenceInstances(
   return errors;
 }
 
-/* The section id of a `countOf` target — the part before any `.field=value`. */
-std::string countTargetId(const std::string& target) {
+/* The section id of a `countOf` target — the part before any `.field=value`,
+   without the `./` scope prefix. */
+std::string countTargetId(std::string target) {
+  if (target.rfind("./", 0) == 0) target = target.substr(2);
   std::size_t dot = target.find('.');
   return dot == std::string::npos ? target : target.substr(0, dot);
 }
@@ -457,12 +462,22 @@ std::vector<SpecValidationError> validateCountInstances(
     }
   }
 
-  auto countTarget = [&](const std::string& target) -> long long {
+  // A target written `./...` counts only the entries beneath `owner`, the
+  // section holding the form; any other target counts the whole document.
+  auto countTarget = [&](std::string target,
+                         const std::string& owner) -> long long {
+    const bool scoped = target.rfind("./", 0) == 0;
+    if (scoped) target = target.substr(2);
+    const std::string prefix = owner + "/";
+    auto inScope = [&](const std::string& item) {
+      return !scoped || item.rfind(prefix, 0) == 0;
+    };
     std::size_t dot = target.find('.');
     if (dot == std::string::npos) {
       auto it = entriesById.find(target);
-      return it == entriesById.end() ? 0
-                                     : static_cast<long long>(it->second.size());
+      if (it == entriesById.end()) return 0;
+      return static_cast<long long>(
+          std::count_if(it->second.begin(), it->second.end(), inScope));
     }
     const std::string id = target.substr(0, dot);
     std::size_t eq = target.find('=', dot);
@@ -476,6 +491,7 @@ std::vector<SpecValidationError> validateCountInstances(
     }
     long long n = 0;
     for (const std::string& item : it->second) {
+      if (!inScope(item)) continue;
       auto byItem = valuesByItem.find(item);
       if (byItem == valuesByItem.end()) continue;
       auto byField = byItem->second.find(field);
@@ -503,10 +519,14 @@ std::vector<SpecValidationError> validateCountInstances(
       if (!allInScope) {
         continue;
       }
+      const std::size_t lastSlash = form.path.rfind('/');
+      const std::string owner = lastSlash == std::string::npos
+                                    ? std::string()
+                                    : form.path.substr(0, lastSlash);
       long long counted = 0;
       std::string targets;
       for (const std::string& t : ff.countOf) {
-        counted += countTarget(t);
+        counted += countTarget(t, owner);
         if (!targets.empty()) targets += " + ";
         targets += t;
       }
@@ -525,6 +545,241 @@ std::vector<SpecValidationError> validateCountInstances(
       }
     }
   }
+  return errors;
+}
+
+/* Whether `s` reads as `^-?[0-9]+(\.[0-9]+)?$`. */
+bool isNumberText(const std::string& s) {
+  std::size_t i = 0;
+  if (i < s.size() && s[i] == '-') i++;
+  std::size_t start = i;
+  while (i < s.size() && s[i] >= '0' && s[i] <= '9') i++;
+  if (i == start) return false;
+  if (i < s.size() && s[i] == '.') {
+    i++;
+    std::size_t frac = i;
+    while (i < s.size() && s[i] >= '0' && s[i] <= '9') i++;
+    if (i == frac) return false;
+  }
+  return i == s.size();
+}
+
+double pow10Int(int exponent) {
+  double v = 1.0;
+  for (int i = 0; i < (exponent < 0 ? -exponent : exponent); i++) v *= 10.0;
+  return exponent < 0 ? 1.0 / v : v;
+}
+
+/* `v` as a whole number when it is one, else the shortest text that reads
+   back as the same double. */
+std::string formatNumber(double v) {
+  if (v > -9e18 && v < 9e18 && static_cast<double>(static_cast<long long>(v)) == v) {
+    return std::to_string(static_cast<long long>(v));
+  }
+  char buf[64];
+  for (int prec = 1; prec <= 17; prec++) {
+    std::snprintf(buf, sizeof(buf), "%.*g", prec, v);
+    if (std::strtod(buf, nullptr) == v) return buf;
+  }
+  std::snprintf(buf, sizeof(buf), "%.17g", v);
+  return buf;
+}
+
+/* Instance-tier derived-value check (uamtc10): a `productOf` field must hold
+   the product of its operands, and a `rankOf` field must rank the instances of
+   its form by their score, highest first.
+
+   **Operands.** A plain operand is a field of the same form; `F.x` is field
+   `x` of the form `F` beside it, at `<owner>/F` where `<owner>` is the section
+   holding this form. A numeric operand contributes its number, an enum operand
+   its 1-based position among the enum's values. When the value or any operand
+   is empty — or an operand is unreadable, which other checks report — the
+   product is undecidable and is skipped; a stated value that is no number is
+   reported regardless.
+
+   **Precision.** The stated number is held to the precision it is written in:
+   `2.8` matches 0.7 × 4.0, and `15` matches 3 × 5, but `2.9` does not.
+
+   **Ranks.** Over every instance of the same form whose rank and score are
+   both filled, the ranks must be the whole numbers 1 to n, each once, and an
+   instance may not rank below one that scores lower. Equal scores take their
+   ranks in any order. Each offending instance is reported once.
+
+   The phase's findings, products and ranks together, are stable-sorted by
+   form path. */
+std::vector<SpecValidationError> validateDerivedValues(
+    const SpecReflection& refl, const SpecDocument& doc) {
+  const std::vector<FormInstance> forms = resolvedForms(refl, doc);
+  bool any = std::any_of(forms.begin(), forms.end(), [](const FormInstance& f) {
+    return std::any_of(f.field->formFields.begin(), f.field->formFields.end(),
+                       [](const FormFieldSpec& ff) {
+                         return !ff.productOf.empty() || ff.rankOf.has_value();
+                       });
+  });
+  if (!any) {
+    return {};
+  }
+
+  // The number a filled form field contributes, or unset when it is empty or
+  // unreadable.
+  auto numberOf = [&](const std::string& formPath,
+                      const FormFieldSpec& spec) -> std::optional<double> {
+    const std::string v = trimmed(doc.formField(formPath, spec.name));
+    if (v.empty()) return std::nullopt;
+    if (!spec.enumValues.empty()) {
+      auto it = std::find(spec.enumValues.begin(), spec.enumValues.end(), v);
+      if (it == spec.enumValues.end()) return std::nullopt;
+      return static_cast<double>(it - spec.enumValues.begin() + 1);
+    }
+    if (!isNumberText(v)) return std::nullopt;
+    return std::strtod(v.c_str(), nullptr);
+  };
+
+  // The spec of field `name` of the form at `path`, or null.
+  auto specAt = [&](const std::string& path,
+                    const std::string& name) -> const FormFieldSpec* {
+    auto res = refl.resolve(path);
+    if (!res.has_value() || res->kind != kSpecNodeKindForm ||
+        res->field == nullptr) {
+      return nullptr;
+    }
+    for (const FormFieldSpec& ff : res->field->formFields) {
+      if (ff.name == name) return &ff;
+    }
+    return nullptr;
+  };
+
+  struct Ranked {
+    std::string path;
+    std::string name;
+    std::string stated;
+    double score;
+  };
+  std::vector<std::string> groupKeys;
+  std::map<std::string, std::vector<Ranked>> ranked;
+
+  std::vector<SpecValidationError> errors;
+  for (const FormInstance& form : forms) {
+    const std::size_t slash = form.path.rfind('/');
+    const std::string owner =
+        slash == std::string::npos ? std::string() : form.path.substr(0, slash);
+    for (const FormFieldSpec& ff : form.field->formFields) {
+      if (!ff.productOf.empty()) {
+        const std::string stated = trimmed(doc.formField(form.path, ff.name));
+        if (!stated.empty()) {
+          std::optional<double> product = 1.0;
+          for (const std::string& operand : ff.productOf) {
+            const std::size_t dot = operand.find('.');
+            const std::string path = dot == std::string::npos
+                                         ? form.path
+                                         : owner + "/" + operand.substr(0, dot);
+            const std::string name =
+                dot == std::string::npos ? operand : operand.substr(dot + 1);
+            const FormFieldSpec* spec = specAt(path, name);
+            std::optional<double> n =
+                spec == nullptr ? std::nullopt : numberOf(path, *spec);
+            if (!n.has_value()) {
+              product.reset();
+              break;
+            }
+            *product *= *n;
+          }
+          std::string operands;
+          for (const std::string& operand : ff.productOf) {
+            if (!operands.empty()) operands += " \xC3\x97 ";
+            operands += operand;
+          }
+          if (!isNumberText(stated)) {
+            errors.push_back({form.path, kSpecValidationCodeDerivedValueMismatch,
+                              "form field \"" + ff.name + "\" states \"" +
+                                  stated +
+                                  "\", which is not a number \xE2\x80\x94 it is "
+                                  "the product " +
+                                  operands});
+          } else if (product.has_value()) {
+            const std::size_t sdot = stated.find('.');
+            const int decimals =
+                sdot == std::string::npos
+                    ? 0
+                    : static_cast<int>(stated.size() - sdot - 1);
+            const double tolerance = 0.5 * pow10Int(-decimals) + 1e-9;
+            double diff = std::strtod(stated.c_str(), nullptr) - *product;
+            if (diff < 0) diff = -diff;
+            if (diff > tolerance) {
+              errors.push_back(
+                  {form.path, kSpecValidationCodeDerivedValueMismatch,
+                   "form field \"" + ff.name + "\" states " + stated + ", but " +
+                       operands + " gives " + formatNumber(*product)});
+            }
+          }
+        }
+      }
+      if (ff.rankOf.has_value()) {
+        const std::string stated = trimmed(doc.formField(form.path, ff.name));
+        const FormFieldSpec* scoreSpec = specAt(form.path, *ff.rankOf);
+        std::optional<double> score =
+            scoreSpec == nullptr ? std::nullopt : numberOf(form.path, *scoreSpec);
+        if (!stated.empty() && score.has_value()) {
+          const std::string key = (form.cls != nullptr ? form.cls->name : "") +
+                                  "#" + form.field->name + "#" + ff.name;
+          if (ranked.find(key) == ranked.end()) groupKeys.push_back(key);
+          ranked[key].push_back({form.path, ff.name, stated, *score});
+        }
+      }
+    }
+  }
+
+  for (const std::string& key : groupKeys) {
+    const std::vector<Ranked>& group = ranked[key];
+    const long long n = static_cast<long long>(group.size());
+    std::vector<std::optional<long long>> rankAt(group.size());
+    std::map<long long, int> seen;
+    for (std::size_t i = 0; i < group.size(); i++) {
+      if (!allDigits(group[i].stated)) continue;
+      // A rank too long for any integer type is out of 1..n anyway.
+      long long r = group[i].stated.size() > 18
+                        ? n + 1
+                        : std::strtoll(group[i].stated.c_str(), nullptr, 10);
+      rankAt[i] = r;
+      seen[r]++;
+    }
+    for (std::size_t i = 0; i < group.size(); i++) {
+      const Ranked& e = group[i];
+      std::string problem;
+      if (!rankAt[i].has_value()) {
+        problem = "states \"" + e.stated + "\", which is not a whole number";
+      } else {
+        const long long r = *rankAt[i];
+        if (r < 1 || r > n || seen[r] > 1) {
+          problem = "states rank " + std::to_string(r) + ", but the " +
+                    std::to_string(n) + " ranked entries take the ranks 1 to " +
+                    std::to_string(n) + ", each once";
+        } else {
+          for (std::size_t o = 0; o < group.size(); o++) {
+            if (rankAt[o].has_value() && group[o].score < e.score &&
+                *rankAt[o] < r) {
+              problem = "ranks " + std::to_string(r) + " with score " +
+                        formatNumber(e.score) + ", below an entry ranked " +
+                        std::to_string(*rankAt[o]) + " with the lower score " +
+                        formatNumber(group[o].score);
+              break;
+            }
+          }
+        }
+      }
+      if (!problem.empty()) {
+        errors.push_back({e.path, kSpecValidationCodeDerivedValueMismatch,
+                          "form field \"" + e.name + "\" " + problem});
+      }
+    }
+  }
+
+  // Like every phase's group, the findings are ordered by path; the sort is
+  // stable, so a path's own findings keep the order they were found in.
+  std::stable_sort(errors.begin(), errors.end(),
+                   [](const SpecValidationError& a, const SpecValidationError& b) {
+                     return a.path < b.path;
+                   });
   return errors;
 }
 
@@ -603,9 +858,12 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
       }
       if (spec->enumValues.empty()) {
         const std::string text = doc.formField(path, name);
-        // A stated count (`countOf`) is checked by countMismatch, which already
-        // reports text that is no whole number; one finding is enough.
-        if (spec->countOf.empty() && !somTypedTextReadable(spec->type, text)) {
+        // A stated count (`countOf`) is checked by countMismatch, a derived
+        // value (`productOf` / `rankOf`) by derivedValueMismatch, which already
+        // report text that is no number; one finding is enough.
+        if (spec->countOf.empty() && spec->productOf.empty() &&
+            !spec->rankOf.has_value() &&
+            !somTypedTextReadable(spec->type, text)) {
           push(path, kSpecValidationCodeValueTypeMismatch,
                "form field \"" + name + "\" holds \"" + text +
                    "\", which is not readable as " + somScalarBase(spec->type));
@@ -680,6 +938,12 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
   // 6. Stated counts: a `countOf` form field states how many entries the
   // document holds; only the instance tier can count them.
   for (SpecValidationError& e : validateCountInstances(refl, doc)) {
+    out.push_back(std::move(e));
+  }
+
+  // 7. Derived values: a `productOf` field holds the product of its operands,
+  // a `rankOf` field ranks the instances of its form by their score.
+  for (SpecValidationError& e : validateDerivedValues(refl, doc)) {
     out.push_back(std::move(e));
   }
 

@@ -204,6 +204,16 @@ type FormFieldSpec struct {
 	// empty for a field that states no count. The instance tier holds the
 	// stated number to the document (`countMismatch`).
 	CountOf []string `json:"countOf"`
+	// ProductOf holds the operands this field's value is the product of
+	// (`Field.productOf`, uamtc10), each `<field>` (a field of the same form)
+	// or `<FORMSID>.<field>` (a field of the form beside it); empty for a field
+	// that states no product. The instance tier holds the stated number to the
+	// operands (`derivedValueMismatch`).
+	ProductOf []string `json:"productOf"`
+	// RankOf names the sibling field of the same form whose score this field's
+	// value ranks, highest first (`Field.rankOf`, uamtc10); empty for a field
+	// that states no rank.
+	RankOf string `json:"rankOf"`
 	// Code is whether the value is code rather than prose (`Field.code`): the
 	// markdown codec writes it as an inline code span and unwraps it on import
 	// (SOM §11.4 rule 8). Omitted from the export when false.
@@ -706,6 +716,9 @@ func SpecModelFromJSON(data []byte) (*SpecModel, error) {
 				}
 				if form.CountOf == nil {
 					form.CountOf = []string{}
+				}
+				if form.ProductOf == nil {
+					form.ProductOf = []string{}
 				}
 			}
 		}

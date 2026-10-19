@@ -243,6 +243,8 @@ class FormFieldSpec {
     enumValues = [],
     refersTo = [],
     countOf = [],
+    productOf = [],
+    rankOf = null,
     code = false,
   }) {
     this.name = name;
@@ -275,6 +277,21 @@ class FormFieldSpec {
      */
     this.countOf = countOf;
     /**
+     * The operands this field's value is the product of (`Field.productOf`,
+     * uamtc10), each a form field of the same form or
+     * `<FORMSECTIONID>.<field>` of a sibling form; empty for a field that
+     * states no product. The instance tier holds the stated number to it
+     * (`derivedValueMismatch`).
+     * @type {string[]}
+     */
+    this.productOf = productOf;
+    /**
+     * The form field of the same form this field's value ranks by, highest
+     * first (`Field.rankOf`, uamtc10); `null` for a field that states no rank.
+     * @type {string|null}
+     */
+    this.rankOf = rankOf;
+    /**
      * Whether the value is code rather than prose (`Field.code`): the markdown
      * codec writes it as an inline code span and unwraps it on import (SOM
      * §11.4 rule 8). Omitted from the export when `false`.
@@ -293,6 +310,8 @@ class FormFieldSpec {
       enumValues: (j.enumValues || []).map(String),
       refersTo: (j.refersTo || []).map(String),
       countOf: (j.countOf || []).map(String),
+      productOf: (j.productOf || []).map(String),
+      rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
     });
   }

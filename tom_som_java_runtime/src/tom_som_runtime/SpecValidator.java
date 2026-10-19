@@ -103,9 +103,13 @@ public final class SpecValidator {
         }
         if (spec.enumValues.isEmpty()) {
           String text = doc.formField(path, name);
-          // A stated count (countOf) is checked by countMismatch, which already
-          // reports text that is no whole number; one finding is enough.
-          if (spec.countOf.isEmpty() && !SpecTypedValues.somTypedTextReadable(spec.type, text)) {
+          // A stated count (countOf) is checked by countMismatch, a product or
+          // rank (productOf, rankOf) by derivedValueMismatch; both already
+          // report text that is no number, and one finding is enough.
+          if (spec.countOf.isEmpty()
+              && spec.productOf.isEmpty()
+              && spec.rankOf == null
+              && !SpecTypedValues.somTypedTextReadable(spec.type, text)) {
             errors.add(
                 new SpecValidationError(
                     path,
@@ -185,6 +189,12 @@ public final class SpecValidator {
     // A form field declaring `countOf` states how many entries the document
     // holds; only the instance tier can count them.
     errors.addAll(validateCountInstances(refl, doc));
+
+    // 7. Derived values (instance tier, uamtc10).
+    //
+    // A `productOf` field must hold the product of its operands, a `rankOf`
+    // field must rank the instances of its form by their score.
+    errors.addAll(validateDerivedValues(refl, doc));
 
     return errors;
   }
@@ -585,9 +595,10 @@ public final class SpecValidator {
         if (!allInScope) {
           continue;
         }
+        String owner = form.path.substring(0, form.path.lastIndexOf('/'));
         int counted = 0;
         for (String target : ff.countOf) {
-          counted += countTarget(target, entriesById, valuesByItem);
+          counted += countTarget(target, owner, entriesById, valuesByItem);
         }
         String targets = String.join(" + ", ff.countOf);
         if (!stated.matches("[0-9]+")) {
@@ -626,16 +637,29 @@ public final class SpecValidator {
   /**
    * The number of entries one {@code countOf} target names: every entry of
    * section id {@code X}, or — for {@code X.f=v} — those whose own forms hold
-   * {@code v} in form field {@code f}.
+   * {@code v} in form field {@code f}. A target written {@code ./…} counts
+   * only the entries beneath {@code owner}, the section holding the form; any
+   * other target counts the whole document.
    */
   private static int countTarget(
       String target,
+      String owner,
       Map<String, List<String>> entriesById,
       Map<String, Map<String, Set<String>>> valuesByItem) {
+    boolean scoped = target.startsWith("./");
+    if (scoped) {
+      target = target.substring(2);
+    }
+    String prefix = owner + "/";
     int dot = target.indexOf('.');
     if (dot < 0) {
-      List<String> entries = entriesById.get(target);
-      return entries == null ? 0 : entries.size();
+      int n = 0;
+      for (String item : entriesById.getOrDefault(target, Collections.emptyList())) {
+        if (!scoped || item.startsWith(prefix)) {
+          n++;
+        }
+      }
+      return n;
     }
     String id = target.substring(0, dot);
     int eq = target.indexOf('=', dot);
@@ -643,6 +667,9 @@ public final class SpecValidator {
     String value = eq < 0 ? "" : target.substring(eq + 1);
     int n = 0;
     for (String item : entriesById.getOrDefault(id, Collections.emptyList())) {
+      if (scoped && !item.startsWith(prefix)) {
+        continue;
+      }
       Map<String, Set<String>> byField = valuesByItem.get(item);
       Set<String> values = byField == null ? null : byField.get(field);
       if (values != null && values.contains(value)) {
@@ -652,8 +679,227 @@ public final class SpecValidator {
     return n;
   }
 
-  /** The section id of a {@code countOf} target — the part before any {@code .field=value}. */
+  /**
+   * Instance-tier derived-value check (uamtc10): a {@code productOf} field must
+   * hold the product of its operands, and a {@code rankOf} field must rank the
+   * instances of its form by their score, highest first.
+   *
+   * <p><b>Operands.</b> A plain operand is a field of the same form;
+   * {@code F.x} is field {@code x} of the form {@code F} beside it, at
+   * {@code <owner>/F} where {@code <owner>} is the section holding this form. A
+   * numeric operand contributes its number, an enum operand its 1-based
+   * position among the enum's values. When the value or any operand is empty —
+   * or an operand is unreadable, which other checks report — the product is
+   * undecidable and is skipped.
+   *
+   * <p><b>Precision.</b> The stated number is held to the precision it is
+   * written in: {@code 2.8} matches 0.7 × 4.0, and {@code 15} matches 3 × 5, but
+   * {@code 2.9} does not.
+   *
+   * <p><b>Ranks.</b> Over every instance of the same form whose rank and score
+   * are both filled, the ranks must be the whole numbers 1 to n, each once, and
+   * an instance may not rank below one that scores lower. Equal scores take
+   * their ranks in any order. Each offending instance is reported once.
+   */
+  private static List<SpecValidationError> validateDerivedValues(
+      SpecReflection refl, SpecDocument doc) {
+    List<FormInstance> forms = resolvedForms(refl, doc);
+    boolean anyDerived = false;
+    for (FormInstance form : forms) {
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (!ff.productOf.isEmpty() || ff.rankOf != null) {
+          anyDerived = true;
+        }
+      }
+    }
+    if (!anyDerived) {
+      return Collections.emptyList();
+    }
+    List<SpecValidationError> errors = new ArrayList<>();
+    // Insertion-ordered so groups are reported in the order they first appear.
+    Map<String, List<RankedInstance>> ranked = new java.util.LinkedHashMap<>();
+
+    for (FormInstance form : forms) {
+      String owner = form.path.substring(0, form.path.lastIndexOf('/'));
+      for (FormFieldSpec ff : form.field.formFields) {
+        if (!ff.productOf.isEmpty()) {
+          String stated = doc.formField(form.path, ff.name);
+          stated = stated == null ? null : stated.trim();
+          if (stated != null && !stated.isEmpty()) {
+            Double product = 1.0;
+            for (String operand : ff.productOf) {
+              int dot = operand.indexOf('.');
+              String path = dot < 0 ? form.path : owner + "/" + operand.substring(0, dot);
+              String name = dot < 0 ? operand : operand.substring(dot + 1);
+              FormFieldSpec spec = formFieldSpecAt(refl, path, name);
+              Double n = spec == null ? null : derivedNumberOf(doc, path, spec);
+              if (n == null) {
+                product = null;
+                break;
+              }
+              product = product * n;
+            }
+            String operands = String.join(" × ", ff.productOf);
+            if (!stated.matches(DECIMAL_NUMBER)) {
+              errors.add(
+                  new SpecValidationError(
+                      form.path,
+                      SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                      "form field \"" + ff.name + "\" states \"" + stated
+                          + "\", which is not a number — it is the product " + operands));
+            } else if (product != null) {
+              int dot = stated.indexOf('.');
+              int decimals = dot < 0 ? 0 : stated.length() - dot - 1;
+              double tolerance = 0.5 * Math.pow(10, -decimals) + 1e-9;
+              if (Math.abs(Double.parseDouble(stated) - product) > tolerance) {
+                errors.add(
+                    new SpecValidationError(
+                        form.path,
+                        SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                        "form field \"" + ff.name + "\" states " + stated + ", but "
+                            + operands + " gives " + formatNumber(product)));
+              }
+            }
+          }
+        }
+        String by = ff.rankOf;
+        if (by != null) {
+          String stated = doc.formField(form.path, ff.name);
+          stated = stated == null ? null : stated.trim();
+          FormFieldSpec scoreSpec = formFieldSpecAt(refl, form.path, by);
+          Double score = scoreSpec == null ? null : derivedNumberOf(doc, form.path, scoreSpec);
+          if (stated != null && !stated.isEmpty() && score != null) {
+            ranked
+                .computeIfAbsent(
+                    form.cls.name + "#" + form.field.name + "#" + ff.name,
+                    k -> new ArrayList<>())
+                .add(new RankedInstance(form.path, ff.name, stated, score));
+          }
+        }
+      }
+    }
+
+    for (List<RankedInstance> group : ranked.values()) {
+      int n = group.size();
+      Map<String, Integer> rankByPath = new HashMap<>();
+      Map<Integer, Integer> seen = new HashMap<>();
+      for (RankedInstance e : group) {
+        if (!e.stated.matches("[0-9]+")) {
+          continue;
+        }
+        int r;
+        try {
+          r = Integer.parseInt(e.stated);
+        } catch (NumberFormatException ex) {
+          r = Integer.MAX_VALUE; // beyond any rank a group can take
+        }
+        rankByPath.put(e.path, r);
+        seen.merge(r, 1, Integer::sum);
+      }
+      for (RankedInstance e : group) {
+        Integer r = rankByPath.get(e.path);
+        String problem = null;
+        if (r == null) {
+          problem = "states \"" + e.stated + "\", which is not a whole number";
+        } else if (r < 1 || r > n || seen.get(r) > 1) {
+          problem =
+              "states rank " + r + ", but the " + n + " ranked entries take the ranks 1 to "
+                  + n + ", each once";
+        } else {
+          for (RankedInstance o : group) {
+            Integer ro = rankByPath.get(o.path);
+            if (ro != null && o.score < e.score && ro < r) {
+              problem =
+                  "ranks " + r + " with score " + formatNumber(e.score)
+                      + ", below an entry ranked " + ro + " with the lower score "
+                      + formatNumber(o.score);
+              break;
+            }
+          }
+        }
+        if (problem != null) {
+          errors.add(
+              new SpecValidationError(
+                  e.path,
+                  SpecValidationCode.DERIVED_VALUE_MISMATCH,
+                  "form field \"" + e.name + "\" " + problem));
+        }
+      }
+    }
+    // Like every phase's group, the findings are ordered by path; the sort is
+    // stable, so a path's own findings keep the order they were found in.
+    errors.sort((a, b) -> a.path.compareTo(b.path));
+    return errors;
+  }
+
+  /** A stated or operand number, as the reference's {@code ^-?[0-9]+(\.[0-9]+)?$}. */
+  private static final String DECIMAL_NUMBER = "-?[0-9]+(\\.[0-9]+)?";
+
+  /** One instance taking part in a rank: its form path, field, stated rank and score. */
+  private static final class RankedInstance {
+    final String path;
+    final String name;
+    final String stated;
+    final double score;
+
+    RankedInstance(String path, String name, String stated, double score) {
+      this.path = path;
+      this.name = name;
+      this.stated = stated;
+      this.score = score;
+    }
+  }
+
+  /**
+   * The number a filled form field contributes to a derived value, or
+   * {@code null} when it is empty or unreadable: an enum field its 1-based
+   * position, any other field its decimal value.
+   */
+  private static Double derivedNumberOf(SpecDocument doc, String formPath, FormFieldSpec spec) {
+    String v = doc.formField(formPath, spec.name);
+    if (v == null) {
+      return null;
+    }
+    v = v.trim();
+    if (v.isEmpty()) {
+      return null;
+    }
+    if (!spec.enumValues.isEmpty()) {
+      int i = spec.enumValues.indexOf(v);
+      return i < 0 ? null : (double) (i + 1);
+    }
+    return v.matches(DECIMAL_NUMBER) ? Double.parseDouble(v) : null;
+  }
+
+  /** The spec of field {@code name} of the form at {@code path}, or {@code null}. */
+  private static FormFieldSpec formFieldSpecAt(SpecReflection refl, String path, String name) {
+    SpecResolution res = refl.resolve(path);
+    if (res == null || res.kind != SpecNodeKind.FORM || res.field == null) {
+      return null;
+    }
+    for (FormFieldSpec ff : res.field.formFields) {
+      if (ff.name.equals(name)) {
+        return ff;
+      }
+    }
+    return null;
+  }
+
+  /** {@code v} without a trailing {@code .0} when it is whole. */
+  private static String formatNumber(double v) {
+    return v == Math.rint(v) && !Double.isInfinite(v)
+        ? java.math.BigDecimal.valueOf(v).toBigInteger().toString()
+        : Double.toString(v);
+  }
+
+  /**
+   * The section id of a {@code countOf} target — the part before any
+   * {@code .field=value}, without the {@code ./} scope prefix.
+   */
   private static String countTargetId(String target) {
+    if (target.startsWith("./")) {
+      target = target.substring(2);
+    }
     int dot = target.indexOf('.');
     return dot < 0 ? target : target.substring(0, dot);
   }
