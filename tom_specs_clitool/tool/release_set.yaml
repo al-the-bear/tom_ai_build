@@ -98,6 +98,11 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
+  tom_specs_core: >-
+    Since 0.2.3: documentation only. The README's @Reference row and the doc
+    comments of Reference and Field.refersTo describe a reference section as
+    the model has it since tom_specs_model 1.6.2 (a one-field ref form with
+    refersTo). Rides the next tom_specs_core release.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced

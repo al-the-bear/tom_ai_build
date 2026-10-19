@@ -182,7 +182,7 @@ annotation here without deciding where it lands fails a test.
 
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
-| `@Reference` | `Reference(String description)` | M | A typed field pointing at another section class (the field type is the target). Not recursed into by the outliner; used for cross-reference validation. |
+| `@Reference` | `Reference(String description)` | M | A section member that points at data owned elsewhere: it holds the target entry's section id in a one-field `@Form` (`ref`, or `refs` for several) whose `Field.refersTo` names the registry, so the instance tier resolves it. Not recursed into by the outliner. |
 | `@AccessKey` | `AccessKey(String key)` | M | The key a section is reached by in the DocSpecs access API, overriding its section-type name; also the value a `@ForEach` on the matching registry keys against. Top-level sections only. |
 | `@ForEach` | `ForEach(String registryType, String key)` | M | A list that must correspond 1:1 to entries in another registry, named by its **section id**. The registry must be reachable from the same document root. Top-level sections only. |
 

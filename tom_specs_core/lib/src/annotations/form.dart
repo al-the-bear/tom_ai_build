@@ -84,11 +84,12 @@ class Field {
   /// resolves each segment, so a single- and a multi-valued reference need no
   /// different declaration.
   ///
-  /// This is deliberately **not** the `@Reference` annotation. `@Reference`
-  /// marks a *Dart model member whose type is a section class* — a structural
-  /// link the outliner declines to recurse into. This marks a *form field whose
-  /// String value is an id*. Different carrier, different value kind; the two
-  /// never apply to the same declaration.
+  /// This is not the `@Reference` annotation, though the two meet. `@Reference`
+  /// marks a *member* as an edge to data owned elsewhere, which the outliner
+  /// declines to recurse into; this marks a *form field whose String value is
+  /// an id* and names where the id comes from. A `@Reference` section holds its
+  /// id in exactly such a field, and a form field may carry `refersTo` without
+  /// any `@Reference` — an id written among an entry's other facts.
   final List<String> refersTo;
 
   /// Declares that this field states a **count of entries the document

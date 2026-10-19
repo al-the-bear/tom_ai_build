@@ -1,8 +1,11 @@
 /// Declares a field as a reference to data owned elsewhere in the model tree.
 ///
-/// Applied to singular or list fields whose Dart type is the referenced
-/// section class. The outliner shows the reference but does not recurse into
-/// the referenced tree. The schema generator validates cross-references.
+/// Applied to a `DocSpecsSection` member that holds the referenced entry's
+/// section id in a one-field `@Form` — `ref` for one id, `refs` for several,
+/// comma-separated — whose [Field.refersTo] names the registry it is drawn
+/// from, so the instance tier resolves it and reports a wrong id
+/// (`tom_specs_model_rules.md` §6.1, **ref**). The outliner shows the
+/// reference but does not recurse into the referenced tree.
 ///
 /// [description] is a human-readable label for the reference.
 class Reference {
