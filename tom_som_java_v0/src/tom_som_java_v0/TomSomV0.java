@@ -19621,8 +19621,8 @@ public final class TomSomV0 {
     // "Primary" is a deliberate narrowing, not a completeness claim. The full
     // consumer set is a property of the systems and is stated there; repeating
     // it here would only give it a second place to be wrong.
-    public ExistingSystemEntry primaryDependentSystem() {
-      return new ExistingSystemEntry(doc, path + "/EXSDE-PRIM-REF");
+    public ExternalServiceDependencyEntryPrimaryDependentSystemForm primaryDependentSystem() {
+      return new ExternalServiceDependencyEntryPrimaryDependentSystemForm(doc, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -21003,13 +21003,8 @@ public final class TomSomV0 {
     // The reference stores a section id and is not traversed
     // (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
     // metrics stay in one place and cannot drift into a second.
-    public String relatedGoal() {
-      String v = doc.content(path + "/GOLDE-RELA-REF");
-      return v == null ? "" : v;
-    }
-
-    public void relatedGoal(String value) {
-      doc.setContent(path + "/GOLDE-RELA-REF", value);
+    public GoalDependencyEntryRelatedGoalForm relatedGoal() {
+      return new GoalDependencyEntryRelatedGoalForm(doc, path + "/GOLDE-RELA-REF");
     }
   }
 
@@ -30823,8 +30818,8 @@ public final class TomSomV0 {
     // It is also what makes the current value usable as a baseline: a target set
     // in the future state is only comparable to it if both are anchored to the
     // same process.
-    public CurrentBusinessProcess processReference() {
-      return new CurrentBusinessProcess(doc, path + "/PME-PROC-REF");
+    public ProcessMetricEntryProcessReferenceForm processReference() {
+      return new ProcessMetricEntryProcessReferenceForm(doc, path + "/PME-PROC-REF");
     }
   }
 
@@ -41252,8 +41247,8 @@ public final class TomSomV0 {
     // A dependency is not symmetric: the availability requirement, the SLA and
     // the fallback procedure above are all obligations owed *to* this end *by*
     // [targetSystem], so reading the pair backwards inverts every one of them.
-    public ExistingSystemEntry sourceSystem() {
-      return new ExistingSystemEntry(doc, path + "/SYDE-SOUR-REF");
+    public SystemDependencyEntrySourceSystemForm sourceSystem() {
+      return new SystemDependencyEntrySourceSystemForm(doc, path + "/SYDE-SOUR-REF");
     }
 
     // The depended-upon end — the system that owes the availability and the SLA
@@ -41264,8 +41259,8 @@ public final class TomSomV0 {
     // existing-systems inventory of this document: a reliance on something
     // outside the current estate is an external-service dependency and is
     // recorded as one.
-    public ExistingSystemEntry targetSystem() {
-      return new ExistingSystemEntry(doc, path + "/SYDE-TARG-REF");
+    public SystemDependencyEntryTargetSystemForm targetSystem() {
+      return new SystemDependencyEntryTargetSystemForm(doc, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -41501,8 +41496,8 @@ public final class TomSomV0 {
     // The source is where a record originates and is therefore where it is
     // authoritative — which is what a reader needs in order to decide which
     // side a discrepancy between the two copies is resolved against.
-    public ExistingSystemEntry sourceSystem() {
-      return new ExistingSystemEntry(doc, path + "/SYIN-SOUR-REF");
+    public SystemIntegrationEntrySourceSystemForm sourceSystem() {
+      return new SystemIntegrationEntrySourceSystemForm(doc, path + "/SYIN-SOUR-REF");
     }
 
     // The system data flows into, named by section id.
@@ -41511,8 +41506,8 @@ public final class TomSomV0 {
     // the protocol, format, throughput and error-handling facts above all
     // describe the movement between exactly these two systems and are not
     // properties of either one on its own.
-    public ExistingSystemEntry targetSystem() {
-      return new ExistingSystemEntry(doc, path + "/SYIN-TARG-REF");
+    public SystemIntegrationEntryTargetSystemForm targetSystem() {
+      return new SystemIntegrationEntryTargetSystemForm(doc, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -42198,13 +42193,8 @@ public final class TomSomV0 {
     // not owned here and its text is never copied here. An empty link is itself
     // a finding: a task no use case accounts for is either out of scope or a
     // use case that was never written.
-    public String relatedUseCase() {
-      String v = doc.content(path + "/SYTS-RELA-REF");
-      return v == null ? "" : v;
-    }
-
-    public void relatedUseCase(String value) {
-      doc.setContent(path + "/SYTS-RELA-REF", value);
+    public SystemTaskEntryRelatedUseCaseForm relatedUseCase() {
+      return new SystemTaskEntryRelatedUseCaseForm(doc, path + "/SYTS-RELA-REF");
     }
 
     // Task workflow steps.
@@ -47283,8 +47273,8 @@ public final class TomSomV0 {
     }
 
     // Steps this actor participates in.
-    public SomList<WorkflowStepEntry> participatingSteps() {
-      return new SomList<>(doc, path + "/WAE-PART-REF", (d, p) -> new WorkflowStepEntry(d, p));
+    public WorkflowActorEntryParticipatingStepsForm participatingSteps() {
+      return new WorkflowActorEntryParticipatingStepsForm(doc, path + "/WAE-PART-REF");
     }
   }
 
@@ -107475,6 +107465,37 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `primaryDependentSystem` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExternalServiceDependencyEntryPrimaryDependentSystemForm extends SomNode {
+    public ExternalServiceDependencyEntryPrimaryDependentSystemForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
   // Generated section facade for the `relationship` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ExternalServiceDependencyEntryRelationshipForm extends SomNode {
@@ -113340,6 +113361,37 @@ public final class TomSomV0 {
 
     public void status(String value) {
       doc.setFormField(path, "status", value);
+    }
+  }
+
+  // Generated section facade for the `relatedGoal` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GoalDependencyEntryRelatedGoalForm extends SomNode {
+    public GoalDependencyEntryRelatedGoalForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -151809,6 +151861,37 @@ public final class TomSomV0 {
 
     public void frequency(String value) {
       doc.setFormField(path, "frequency", value);
+    }
+  }
+
+  // Generated section facade for the `processReference` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ProcessMetricEntryProcessReferenceForm extends SomNode {
+    public ProcessMetricEntryProcessReferenceForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -192662,6 +192745,68 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `sourceSystem` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemDependencyEntrySourceSystemForm extends SomNode {
+    public SystemDependencyEntrySourceSystemForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
+  // Generated section facade for the `targetSystem` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemDependencyEntryTargetSystemForm extends SomNode {
+    public SystemDependencyEntryTargetSystemForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
   // Generated section facade for the `descriptionSummary` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class SystemDescriptionDescriptionSummaryForm extends SomNode {
@@ -193832,6 +193977,68 @@ public final class TomSomV0 {
 
     public void authenticationMethod(String value) {
       doc.setFormField(path, "authenticationMethod", value);
+    }
+  }
+
+  // Generated section facade for the `sourceSystem` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemIntegrationEntrySourceSystemForm extends SomNode {
+    public SystemIntegrationEntrySourceSystemForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
+    }
+  }
+
+  // Generated section facade for the `targetSystem` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemIntegrationEntryTargetSystemForm extends SomNode {
+    public SystemIntegrationEntryTargetSystemForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -195372,6 +195579,37 @@ public final class TomSomV0 {
 
     public void trigger(String value) {
       doc.setFormField(path, "trigger", value);
+    }
+  }
+
+  // Generated section facade for the `relatedUseCase` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SystemTaskEntryRelatedUseCaseForm extends SomNode {
+    public SystemTaskEntryRelatedUseCaseForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String ref() {
+      String v = doc.formField(path, "ref");
+      return v == null ? "" : v;
+    }
+
+    public void ref(String value) {
+      doc.setFormField(path, "ref", value);
     }
   }
 
@@ -215874,6 +216112,37 @@ public final class TomSomV0 {
 
     public void headcount(Integer value) {
       doc.setFormField(path, "headcount", value == null ? "" : String.valueOf(value));
+    }
+  }
+
+  // Generated section facade for the `participatingSteps` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class WorkflowActorEntryParticipatingStepsForm extends SomNode {
+    public WorkflowActorEntryParticipatingStepsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String refs() {
+      String v = doc.formField(path, "refs");
+      return v == null ? "" : v;
+    }
+
+    public void refs(String value) {
+      doc.setFormField(path, "refs", value);
     }
   }
 

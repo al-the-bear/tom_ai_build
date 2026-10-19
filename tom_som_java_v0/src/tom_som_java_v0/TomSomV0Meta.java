@@ -41222,19 +41222,17 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (external dependency risk)"), "connotation", "The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history.")));
         out.add(n);
       }
-      out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
+      {
+        SomMetaNode n = new SomMetaNode("ExternalServiceDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "primaryDependentSystem";
         n.sectionId = "EXSDE-PRIM-REF";
-        n.classSectionId = "ESENT";
         n.serializationOrder = 4;
         n.docComment = "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Primary Dependent System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, java.util.List.of(), java.util.List.of("ESENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Primary Dependent System")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        out.add(n);
+      }
       return out;
     }
 
@@ -41254,8 +41252,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EXSRK");
     }
 
-    public ExistingSystemEntryNav primaryDependentSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/EXSDE-PRIM-REF");
+    public SomMetaRef primaryDependentSystem() {
+      return new SomMetaRef(tree, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -44627,12 +44625,13 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
-        SomMetaNode n = new SomMetaNode("GoalDependencyEntry", SomMetaKind.CONTENT, "String");
+        SomMetaNode n = new SomMetaNode("GoalDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "relatedGoal";
         n.sectionId = "GOLDE-RELA-REF";
         n.serializationOrder = 1;
-        n.contentType = new SomContentTypeMeta("text", "");
         n.docComment = "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Related Goal", false, "Section id of the business goal (`BGE`)", 0, java.util.List.of(), java.util.List.of("BGE.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Goal")));
         out.add(n);
       }
@@ -68520,19 +68519,17 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (metric target and benchmark)"), "connotation", "The target and benchmarking context for a metric: its target value, trend, and industry benchmark.")));
         out.add(n);
       }
-      out.add(metaCx("CurrentBusinessProcess", s, CurrentBusinessProcessNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("CurrentBusinessProcess", SomMetaKind.COMPLEX, "CurrentBusinessProcess");
+      {
+        SomMetaNode n = new SomMetaNode("ProcessMetricEntry", SomMetaKind.FORM, "String");
         n.memberName = "processReference";
         n.sectionId = "PME-PROC-REF";
-        n.classSectionId = "CUBIPR";
         n.serializationOrder = 3;
         n.docComment = "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.";
-        n.classDocComment = "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Process Reference", false, "Section id of the current business process (`CUBIPR`)", 0, java.util.List.of(), java.util.List.of("CUBIPR.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Process Reference")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        out.add(n);
+      }
       return out;
     }
 
@@ -68548,8 +68545,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/PMET");
     }
 
-    public CurrentBusinessProcessNav processReference() {
-      return new CurrentBusinessProcessNav(tree, path + "/PME-PROC-REF");
+    public SomMetaRef processReference() {
+      return new SomMetaRef(tree, path + "/PME-PROC-REF");
     }
   }
 
@@ -93756,32 +93753,28 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (dependency operations)"), "connotation", "The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment.")));
         out.add(n);
       }
-      out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
+      {
+        SomMetaNode n = new SomMetaNode("SystemDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "sourceSystem";
         n.sectionId = "SYDE-SOUR-REF";
-        n.classSectionId = "ESENT";
         n.serializationOrder = 5;
         n.docComment = "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Source System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, java.util.List.of(), java.util.List.of("ESENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Source System")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
-      out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("SystemDependencyEntry", SomMetaKind.FORM, "String");
         n.memberName = "targetSystem";
         n.sectionId = "SYDE-TARG-REF";
-        n.classSectionId = "ESENT";
         n.serializationOrder = 6;
         n.docComment = "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Target System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, java.util.List.of(), java.util.List.of("ESENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Target System")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        out.add(n);
+      }
       return out;
     }
 
@@ -93805,12 +93798,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SDEO");
     }
 
-    public ExistingSystemEntryNav sourceSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/SYDE-SOUR-REF");
+    public SomMetaRef sourceSystem() {
+      return new SomMetaRef(tree, path + "/SYDE-SOUR-REF");
     }
 
-    public ExistingSystemEntryNav targetSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/SYDE-TARG-REF");
+    public SomMetaRef targetSystem() {
+      return new SomMetaRef(tree, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -94388,32 +94381,28 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 §10 — current-state analysis (integration ownership)"), "connotation", "The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture.")));
         out.add(n);
       }
-      out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
+      {
+        SomMetaNode n = new SomMetaNode("SystemIntegrationEntry", SomMetaKind.FORM, "String");
         n.memberName = "sourceSystem";
         n.sectionId = "SYIN-SOUR-REF";
-        n.classSectionId = "ESENT";
         n.serializationOrder = 7;
         n.docComment = "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Source System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, java.util.List.of(), java.util.List.of("ESENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Source System")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
-      out.add(metaCx("ExistingSystemEntry", s, ExistingSystemEntryNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("ExistingSystemEntry", SomMetaKind.COMPLEX, "ExistingSystemEntry");
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("SystemIntegrationEntry", SomMetaKind.FORM, "String");
         n.memberName = "targetSystem";
         n.sectionId = "SYIN-TARG-REF";
-        n.classSectionId = "ESENT";
         n.serializationOrder = 8;
         n.docComment = "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Target System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, java.util.List.of(), java.util.List.of("ESENT.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Target System")));
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
+        out.add(n);
+      }
       return out;
     }
 
@@ -94445,12 +94434,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SYINOW");
     }
 
-    public ExistingSystemEntryNav sourceSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/SYIN-SOUR-REF");
+    public SomMetaRef sourceSystem() {
+      return new SomMetaRef(tree, path + "/SYIN-SOUR-REF");
     }
 
-    public ExistingSystemEntryNav targetSystem() {
-      return new ExistingSystemEntryNav(tree, path + "/SYIN-TARG-REF");
+    public SomMetaRef targetSystem() {
+      return new SomMetaRef(tree, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -96079,12 +96068,13 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
-        SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.CONTENT, "String");
+        SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.FORM, "String");
         n.memberName = "relatedUseCase";
         n.sectionId = "SYTS-RELA-REF";
         n.serializationOrder = 4;
-        n.contentType = new SomContentTypeMeta("text", "");
         n.docComment = "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("ref", "String", "Related Use Case", false, "Section id of the use case (interaction entry, `INEN`)", 0, java.util.List.of(), java.util.List.of("INEN.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Related Use Case")));
         out.add(n);
       }
@@ -108585,21 +108575,14 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
-        SomMetaNode n = new SomMetaNode("WorkflowActorEntry", SomMetaKind.LIST, "WorkflowStepEntry");
+        SomMetaNode n = new SomMetaNode("WorkflowActorEntry", SomMetaKind.FORM, "String");
         n.memberName = "participatingSteps";
         n.sectionId = "WAE-PART-REF";
         n.serializationOrder = 1;
         n.docComment = "Steps this actor participates in.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("refs", "String", "Participating Steps", false, "Section id of the workflow step entries (`WSE`), comma-separated", 0, java.util.List.of(), java.util.List.of("WSE.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("Reference", metaArgs("description", "Participating Steps")));
-        n.elementNode = metaCx("WorkflowStepEntry", s, WorkflowStepEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("WorkflowStepEntry", SomMetaKind.COMPLEX, "WorkflowStepEntry");
-          e.classSectionId = "WSE";
-          e.docComment = "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.";
-          e.classDocComment = "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
         out.add(n);
       }
       return out;
@@ -108609,8 +108592,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/content");
     }
 
-    public SomListMetaRef<WorkflowStepEntryNav> participatingSteps() {
-      return new SomListMetaRef<>(tree, path + "/WAE-PART-REF", (t, p) -> new WorkflowStepEntryNav(t, p));
+    public SomMetaRef participatingSteps() {
+      return new SomMetaRef(tree, path + "/WAE-PART-REF");
     }
   }
 
@@ -126357,8 +126340,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EXSRK");
     }
 
-    public ExistingSystemEntryId EXSDE_PRIM_REF() {
-      return new ExistingSystemEntryId(tree, path + "/EXSDE-PRIM-REF");
+    public SomMetaRef EXSDE_PRIM_REF() {
+      return new SomMetaRef(tree, path + "/EXSDE-PRIM-REF");
     }
   }
 
@@ -128953,8 +128936,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/PMET");
     }
 
-    public CurrentBusinessProcessId PME_PROC_REF() {
-      return new CurrentBusinessProcessId(tree, path + "/PME-PROC-REF");
+    public SomMetaRef PME_PROC_REF() {
+      return new SomMetaRef(tree, path + "/PME-PROC-REF");
     }
   }
 
@@ -131599,12 +131582,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SDEO");
     }
 
-    public ExistingSystemEntryId SYDE_SOUR_REF() {
-      return new ExistingSystemEntryId(tree, path + "/SYDE-SOUR-REF");
+    public SomMetaRef SYDE_SOUR_REF() {
+      return new SomMetaRef(tree, path + "/SYDE-SOUR-REF");
     }
 
-    public ExistingSystemEntryId SYDE_TARG_REF() {
-      return new ExistingSystemEntryId(tree, path + "/SYDE-TARG-REF");
+    public SomMetaRef SYDE_TARG_REF() {
+      return new SomMetaRef(tree, path + "/SYDE-TARG-REF");
     }
   }
 
@@ -131659,12 +131642,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SYINOW");
     }
 
-    public ExistingSystemEntryId SYIN_SOUR_REF() {
-      return new ExistingSystemEntryId(tree, path + "/SYIN-SOUR-REF");
+    public SomMetaRef SYIN_SOUR_REF() {
+      return new SomMetaRef(tree, path + "/SYIN-SOUR-REF");
     }
 
-    public ExistingSystemEntryId SYIN_TARG_REF() {
-      return new ExistingSystemEntryId(tree, path + "/SYIN-TARG-REF");
+    public SomMetaRef SYIN_TARG_REF() {
+      return new SomMetaRef(tree, path + "/SYIN-TARG-REF");
     }
   }
 
@@ -133043,8 +133026,8 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<WorkflowStepEntryId> WAE_PART_REF() {
-      return new SomListMetaRef<>(tree, path + "/WAE-PART-REF", (t, p) -> new WorkflowStepEntryId(t, p));
+    public SomMetaRef WAE_PART_REF() {
+      return new SomMetaRef(tree, path + "/WAE-PART-REF");
     }
   }
 

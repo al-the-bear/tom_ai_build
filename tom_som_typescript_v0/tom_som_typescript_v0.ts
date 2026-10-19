@@ -18752,8 +18752,8 @@ export class ExternalServiceDependencyEntry extends SomNode {
   // "Primary" is a deliberate narrowing, not a completeness claim. The full
   // consumer set is a property of the systems and is stated there; repeating
   // it here would only give it a second place to be wrong.
-  get primaryDependentSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/EXSDE-PRIM-REF");
+  get primaryDependentSystem(): ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+    return new ExternalServiceDependencyEntryPrimaryDependentSystemForm(this.doc, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -20115,12 +20115,8 @@ export class GoalDependencyEntry extends SomNode {
   // The reference stores a section id and is not traversed
   // (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
   // metrics stay in one place and cannot drift into a second.
-  get relatedGoal(): string {
-    return this.doc.content(this.path + "/GOLDE-RELA-REF") || '';
-  }
-
-  set relatedGoal(value: string) {
-    this.doc.setContent(this.path + "/GOLDE-RELA-REF", value);
+  get relatedGoal(): GoalDependencyEntryRelatedGoalForm {
+    return new GoalDependencyEntryRelatedGoalForm(this.doc, this.path + "/GOLDE-RELA-REF");
   }
 }
 
@@ -29729,8 +29725,8 @@ export class ProcessMetricEntry extends SomNode {
   // It is also what makes the current value usable as a baseline: a target set
   // in the future state is only comparable to it if both are anchored to the
   // same process.
-  get processReference(): CurrentBusinessProcess {
-    return new CurrentBusinessProcess(this.doc, this.path + "/PME-PROC-REF");
+  get processReference(): ProcessMetricEntryProcessReferenceForm {
+    return new ProcessMetricEntryProcessReferenceForm(this.doc, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -39950,8 +39946,8 @@ export class SystemDependencyEntry extends SomNode {
   // A dependency is not symmetric: the availability requirement, the SLA and
   // the fallback procedure above are all obligations owed *to* this end *by*
   // [targetSystem], so reading the pair backwards inverts every one of them.
-  get sourceSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-SOUR-REF");
+  get sourceSystem(): SystemDependencyEntrySourceSystemForm {
+    return new SystemDependencyEntrySourceSystemForm(this.doc, this.path + "/SYDE-SOUR-REF");
   }
 
   // The depended-upon end — the system that owes the availability and the SLA
@@ -39962,8 +39958,8 @@ export class SystemDependencyEntry extends SomNode {
   // existing-systems inventory of this document: a reliance on something
   // outside the current estate is an external-service dependency and is
   // recorded as one.
-  get targetSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/SYDE-TARG-REF");
+  get targetSystem(): SystemDependencyEntryTargetSystemForm {
+    return new SystemDependencyEntryTargetSystemForm(this.doc, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -40195,8 +40191,8 @@ export class SystemIntegrationEntry extends SomNode {
   // The source is where a record originates and is therefore where it is
   // authoritative — which is what a reader needs in order to decide which
   // side a discrepancy between the two copies is resolved against.
-  get sourceSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-SOUR-REF");
+  get sourceSystem(): SystemIntegrationEntrySourceSystemForm {
+    return new SystemIntegrationEntrySourceSystemForm(this.doc, this.path + "/SYIN-SOUR-REF");
   }
 
   // The system data flows into, named by section id.
@@ -40205,8 +40201,8 @@ export class SystemIntegrationEntry extends SomNode {
   // the protocol, format, throughput and error-handling facts above all
   // describe the movement between exactly these two systems and are not
   // properties of either one on its own.
-  get targetSystem(): ExistingSystemEntry {
-    return new ExistingSystemEntry(this.doc, this.path + "/SYIN-TARG-REF");
+  get targetSystem(): SystemIntegrationEntryTargetSystemForm {
+    return new SystemIntegrationEntryTargetSystemForm(this.doc, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -40877,12 +40873,8 @@ export class SystemTaskEntry extends SomNode {
   // not owned here and its text is never copied here. An empty link is itself
   // a finding: a task no use case accounts for is either out of scope or a
   // use case that was never written.
-  get relatedUseCase(): string {
-    return this.doc.content(this.path + "/SYTS-RELA-REF") || '';
-  }
-
-  set relatedUseCase(value: string) {
-    this.doc.setContent(this.path + "/SYTS-RELA-REF", value);
+  get relatedUseCase(): SystemTaskEntryRelatedUseCaseForm {
+    return new SystemTaskEntryRelatedUseCaseForm(this.doc, this.path + "/SYTS-RELA-REF");
   }
 
   // Task workflow steps.
@@ -45846,8 +45838,8 @@ export class WorkflowActorEntry extends SomNode {
   }
 
   // Steps this actor participates in.
-  get participatingSteps(): SomList<WorkflowStepEntry> {
-    return new SomList(this.doc, this.path + "/WAE-PART-REF", (d: SpecDocument, p: string) => new WorkflowStepEntry(d, p));
+  get participatingSteps(): WorkflowActorEntryParticipatingStepsForm {
+    return new WorkflowActorEntryParticipatingStepsForm(this.doc, this.path + "/WAE-PART-REF");
   }
 }
 
@@ -98895,6 +98887,33 @@ export class ExternalServiceDependencyEntryOperationsForm extends SomNode {
   }
 }
 
+// Generated section facade for the `primaryDependentSystem` @Form section: its own content text followed by one typed member per form field.
+export class ExternalServiceDependencyEntryPrimaryDependentSystemForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `relationship` @Form section: its own content text followed by one typed member per form field.
 export class ExternalServiceDependencyEntryRelationshipForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -104071,6 +104090,33 @@ export class GoalDependencyEntryContentForm extends SomNode {
 
   set status(value: string) {
     this.doc.setFormField(this.path, "status", value);
+  }
+}
+
+// Generated section facade for the `relatedGoal` @Form section: its own content text followed by one typed member per form field.
+export class GoalDependencyEntryRelatedGoalForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -137966,6 +138012,33 @@ export class ProcessMetricEntryMeasurementForm extends SomNode {
 
   set frequency(value: string) {
     this.doc.setFormField(this.path, "frequency", value);
+  }
+}
+
+// Generated section facade for the `processReference` @Form section: its own content text followed by one typed member per form field.
+export class ProcessMetricEntryProcessReferenceForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -173973,6 +174046,60 @@ export class SystemDependencyEntryReliabilityForm extends SomNode {
   }
 }
 
+// Generated section facade for the `sourceSystem` @Form section: its own content text followed by one typed member per form field.
+export class SystemDependencyEntrySourceSystemForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
+// Generated section facade for the `targetSystem` @Form section: its own content text followed by one typed member per form field.
+export class SystemDependencyEntryTargetSystemForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
 // Generated section facade for the `descriptionSummary` @Form section: its own content text followed by one typed member per form field.
 export class SystemDescriptionDescriptionSummaryForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -175004,6 +175131,60 @@ export class SystemIntegrationEntryProtocolForm extends SomNode {
 
   set authenticationMethod(value: string) {
     this.doc.setFormField(this.path, "authenticationMethod", value);
+  }
+}
+
+// Generated section facade for the `sourceSystem` @Form section: its own content text followed by one typed member per form field.
+export class SystemIntegrationEntrySourceSystemForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
+  }
+}
+
+// Generated section facade for the `targetSystem` @Form section: its own content text followed by one typed member per form field.
+export class SystemIntegrationEntryTargetSystemForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -176363,6 +176544,33 @@ export class SystemTaskEntryExecutionForm extends SomNode {
 
   set trigger(value: string) {
     this.doc.setFormField(this.path, "trigger", value);
+  }
+}
+
+// Generated section facade for the `relatedUseCase` @Form section: its own content text followed by one typed member per form field.
+export class SystemTaskEntryRelatedUseCaseForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get ref(): string {
+    return this.doc.formField(this.path, "ref") || '';
+  }
+
+  set ref(value: string) {
+    this.doc.setFormField(this.path, "ref", value);
   }
 }
 
@@ -194428,6 +194636,33 @@ export class WorkflowActorEntryContentForm extends SomNode {
 
   set headcount(value: number | null) {
     this.doc.setFormField(this.path, "headcount", value == null ? '' : String(value));
+  }
+}
+
+// Generated section facade for the `participatingSteps` @Form section: its own content text followed by one typed member per form field.
+export class WorkflowActorEntryParticipatingStepsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get refs(): string {
+    return this.doc.formField(this.path, "refs") || '';
+  }
+
+  set refs(value: string) {
+    this.doc.setFormField(this.path, "refs", value);
   }
 }
 

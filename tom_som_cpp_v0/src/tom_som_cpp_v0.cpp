@@ -8519,8 +8519,8 @@ ExternalServiceDependencyEntryOperationsForm ExternalServiceDependencyEntry::ope
 ExternalServiceDependencyEntryRiskForm ExternalServiceDependencyEntry::risk() const {
   return ExternalServiceDependencyEntryRiskForm(doc(), som::joinPath(path(), "EXSRK"));
 }
-ExistingSystemEntry ExternalServiceDependencyEntry::primaryDependentSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "EXSDE-PRIM-REF"));
+ExternalServiceDependencyEntryPrimaryDependentSystemForm ExternalServiceDependencyEntry::primaryDependentSystem() const {
+  return ExternalServiceDependencyEntryPrimaryDependentSystemForm(doc(), som::joinPath(path(), "EXSDE-PRIM-REF"));
 }
 
 ExternalSystemContextEntry::ExternalSystemContextEntry(som::SpecDocument& doc, std::string path)
@@ -9104,11 +9104,8 @@ GoalDependencyEntry::GoalDependencyEntry(som::SpecDocument& doc, std::string pat
 GoalDependencyEntryContentForm GoalDependencyEntry::content() const {
   return GoalDependencyEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-std::string GoalDependencyEntry::relatedGoal() const {
-  return doc().content(som::joinPath(path(), "GOLDE-RELA-REF"));
-}
-void GoalDependencyEntry::setRelatedGoal(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "GOLDE-RELA-REF"), value);
+GoalDependencyEntryRelatedGoalForm GoalDependencyEntry::relatedGoal() const {
+  return GoalDependencyEntryRelatedGoalForm(doc(), som::joinPath(path(), "GOLDE-RELA-REF"));
 }
 
 GoalKeyResults::GoalKeyResults(som::SpecDocument& doc, std::string path)
@@ -13388,8 +13385,8 @@ ProcessMetricEntryMeasurementForm ProcessMetricEntry::measurement() const {
 ProcessMetricEntryTargetsForm ProcessMetricEntry::targets() const {
   return ProcessMetricEntryTargetsForm(doc(), som::joinPath(path(), "PMET"));
 }
-CurrentBusinessProcess ProcessMetricEntry::processReference() const {
-  return CurrentBusinessProcess(doc(), som::joinPath(path(), "PME-PROC-REF"));
+ProcessMetricEntryProcessReferenceForm ProcessMetricEntry::processReference() const {
+  return ProcessMetricEntryProcessReferenceForm(doc(), som::joinPath(path(), "PME-PROC-REF"));
 }
 
 ProcessMetrics::ProcessMetrics(som::SpecDocument& doc, std::string path)
@@ -17900,11 +17897,11 @@ SystemDependencyEntryReliabilityForm SystemDependencyEntry::reliability() const 
 SystemDependencyEntryOperationsForm SystemDependencyEntry::operations() const {
   return SystemDependencyEntryOperationsForm(doc(), som::joinPath(path(), "SDEO"));
 }
-ExistingSystemEntry SystemDependencyEntry::sourceSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYDE-SOUR-REF"));
+SystemDependencyEntrySourceSystemForm SystemDependencyEntry::sourceSystem() const {
+  return SystemDependencyEntrySourceSystemForm(doc(), som::joinPath(path(), "SYDE-SOUR-REF"));
 }
-ExistingSystemEntry SystemDependencyEntry::targetSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYDE-TARG-REF"));
+SystemDependencyEntryTargetSystemForm SystemDependencyEntry::targetSystem() const {
+  return SystemDependencyEntryTargetSystemForm(doc(), som::joinPath(path(), "SYDE-TARG-REF"));
 }
 
 SystemDescription::SystemDescription(som::SpecDocument& doc, std::string path)
@@ -18014,11 +18011,11 @@ SystemIntegrationEntryMonitoringForm SystemIntegrationEntry::monitoring() const 
 SystemIntegrationEntryOwnershipForm SystemIntegrationEntry::ownership() const {
   return SystemIntegrationEntryOwnershipForm(doc(), som::joinPath(path(), "SYINOW"));
 }
-ExistingSystemEntry SystemIntegrationEntry::sourceSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYIN-SOUR-REF"));
+SystemIntegrationEntrySourceSystemForm SystemIntegrationEntry::sourceSystem() const {
+  return SystemIntegrationEntrySourceSystemForm(doc(), som::joinPath(path(), "SYIN-SOUR-REF"));
 }
-ExistingSystemEntry SystemIntegrationEntry::targetSystem() const {
-  return ExistingSystemEntry(doc(), som::joinPath(path(), "SYIN-TARG-REF"));
+SystemIntegrationEntryTargetSystemForm SystemIntegrationEntry::targetSystem() const {
+  return SystemIntegrationEntryTargetSystemForm(doc(), som::joinPath(path(), "SYIN-TARG-REF"));
 }
 
 SystemInventory::SystemInventory(som::SpecDocument& doc, std::string path)
@@ -18326,11 +18323,8 @@ SystemTaskEntryDataForm SystemTaskEntry::data() const {
 SystemTaskEntryContextForm SystemTaskEntry::context() const {
   return SystemTaskEntryContextForm(doc(), som::joinPath(path(), "STEC"));
 }
-std::string SystemTaskEntry::relatedUseCase() const {
-  return doc().content(som::joinPath(path(), "SYTS-RELA-REF"));
-}
-void SystemTaskEntry::setRelatedUseCase(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "SYTS-RELA-REF"), value);
+SystemTaskEntryRelatedUseCaseForm SystemTaskEntry::relatedUseCase() const {
+  return SystemTaskEntryRelatedUseCaseForm(doc(), som::joinPath(path(), "SYTS-RELA-REF"));
 }
 som::SomList SystemTaskEntry::workflowSteps() const {
   return som::SomList(doc(), som::joinPath(path(), "SYTS-WORK-LST"), "SYTS-WORK-xxx");
@@ -20561,8 +20555,8 @@ WorkflowActorEntry::WorkflowActorEntry(som::SpecDocument& doc, std::string path)
 WorkflowActorEntryContentForm WorkflowActorEntry::content() const {
   return WorkflowActorEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
-som::SomList WorkflowActorEntry::participatingSteps() const {
-  return som::SomList(doc(), som::joinPath(path(), "WAE-PART-REF"), "");
+WorkflowActorEntryParticipatingStepsForm WorkflowActorEntry::participatingSteps() const {
+  return WorkflowActorEntryParticipatingStepsForm(doc(), som::joinPath(path(), "WAE-PART-REF"));
 }
 
 WorkflowBusinessRule::WorkflowBusinessRule(som::SpecDocument& doc, std::string path)
@@ -55353,6 +55347,21 @@ void ExternalServiceDependencyEntryOperationsForm::setSecurityCertifications(con
   doc().setFormField(path(), "securityCertifications", value);
 }
 
+ExternalServiceDependencyEntryPrimaryDependentSystemForm::ExternalServiceDependencyEntryPrimaryDependentSystemForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExternalServiceDependencyEntryPrimaryDependentSystemForm::content() const {
+  return doc().content(path());
+}
+void ExternalServiceDependencyEntryPrimaryDependentSystemForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExternalServiceDependencyEntryPrimaryDependentSystemForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void ExternalServiceDependencyEntryPrimaryDependentSystemForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
 ExternalServiceDependencyEntryRelationshipForm::ExternalServiceDependencyEntryRelationshipForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ExternalServiceDependencyEntryRelationshipForm::content() const {
@@ -58775,6 +58784,21 @@ std::string GoalDependencyEntryContentForm::status() const {
 }
 void GoalDependencyEntryContentForm::setStatus(const std::string& value) {
   doc().setFormField(path(), "status", value);
+}
+
+GoalDependencyEntryRelatedGoalForm::GoalDependencyEntryRelatedGoalForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GoalDependencyEntryRelatedGoalForm::content() const {
+  return doc().content(path());
+}
+void GoalDependencyEntryRelatedGoalForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GoalDependencyEntryRelatedGoalForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void GoalDependencyEntryRelatedGoalForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 GoalMilestoneEntryContentForm::GoalMilestoneEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -81140,6 +81164,21 @@ std::string ProcessMetricEntryMeasurementForm::frequency() const {
 }
 void ProcessMetricEntryMeasurementForm::setFrequency(const std::string& value) {
   doc().setFormField(path(), "frequency", value);
+}
+
+ProcessMetricEntryProcessReferenceForm::ProcessMetricEntryProcessReferenceForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ProcessMetricEntryProcessReferenceForm::content() const {
+  return doc().content(path());
+}
+void ProcessMetricEntryProcessReferenceForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ProcessMetricEntryProcessReferenceForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void ProcessMetricEntryProcessReferenceForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 ProcessMetricEntryTargetsForm::ProcessMetricEntryTargetsForm(som::SpecDocument& doc, std::string path)
@@ -104819,6 +104858,36 @@ void SystemDependencyEntryReliabilityForm::setFallbackProcedure(const std::strin
   doc().setFormField(path(), "fallbackProcedure", value);
 }
 
+SystemDependencyEntrySourceSystemForm::SystemDependencyEntrySourceSystemForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemDependencyEntrySourceSystemForm::content() const {
+  return doc().content(path());
+}
+void SystemDependencyEntrySourceSystemForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemDependencyEntrySourceSystemForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void SystemDependencyEntrySourceSystemForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
+SystemDependencyEntryTargetSystemForm::SystemDependencyEntryTargetSystemForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemDependencyEntryTargetSystemForm::content() const {
+  return doc().content(path());
+}
+void SystemDependencyEntryTargetSystemForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemDependencyEntryTargetSystemForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void SystemDependencyEntryTargetSystemForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
 SystemDescriptionDescriptionSummaryForm::SystemDescriptionDescriptionSummaryForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string SystemDescriptionDescriptionSummaryForm::content() const {
@@ -105514,6 +105583,36 @@ std::string SystemIntegrationEntryProtocolForm::authenticationMethod() const {
 }
 void SystemIntegrationEntryProtocolForm::setAuthenticationMethod(const std::string& value) {
   doc().setFormField(path(), "authenticationMethod", value);
+}
+
+SystemIntegrationEntrySourceSystemForm::SystemIntegrationEntrySourceSystemForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemIntegrationEntrySourceSystemForm::content() const {
+  return doc().content(path());
+}
+void SystemIntegrationEntrySourceSystemForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemIntegrationEntrySourceSystemForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void SystemIntegrationEntrySourceSystemForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
+}
+
+SystemIntegrationEntryTargetSystemForm::SystemIntegrationEntryTargetSystemForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemIntegrationEntryTargetSystemForm::content() const {
+  return doc().content(path());
+}
+void SystemIntegrationEntryTargetSystemForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemIntegrationEntryTargetSystemForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void SystemIntegrationEntryTargetSystemForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 SystemIntegrationEntryThroughputForm::SystemIntegrationEntryThroughputForm(som::SpecDocument& doc, std::string path)
@@ -106399,6 +106498,21 @@ std::string SystemTaskEntryExecutionForm::trigger() const {
 }
 void SystemTaskEntryExecutionForm::setTrigger(const std::string& value) {
   doc().setFormField(path(), "trigger", value);
+}
+
+SystemTaskEntryRelatedUseCaseForm::SystemTaskEntryRelatedUseCaseForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string SystemTaskEntryRelatedUseCaseForm::content() const {
+  return doc().content(path());
+}
+void SystemTaskEntryRelatedUseCaseForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string SystemTaskEntryRelatedUseCaseForm::ref() const {
+  return doc().formField(path(), "ref");
+}
+void SystemTaskEntryRelatedUseCaseForm::setRef(const std::string& value) {
+  doc().setFormField(path(), "ref", value);
 }
 
 SystemTechnicalAssessmentContentForm::SystemTechnicalAssessmentContentForm(som::SpecDocument& doc, std::string path)
@@ -118357,6 +118471,21 @@ std::optional<long> WorkflowActorEntryContentForm::headcount() const {
 }
 void WorkflowActorEntryContentForm::setHeadcount(std::optional<long> value) {
   doc().setFormField(path(), "headcount", value.has_value() ? std::to_string(*value) : "");
+}
+
+WorkflowActorEntryParticipatingStepsForm::WorkflowActorEntryParticipatingStepsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string WorkflowActorEntryParticipatingStepsForm::content() const {
+  return doc().content(path());
+}
+void WorkflowActorEntryParticipatingStepsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string WorkflowActorEntryParticipatingStepsForm::refs() const {
+  return doc().formField(path(), "refs");
+}
+void WorkflowActorEntryParticipatingStepsForm::setRefs(const std::string& value) {
+  doc().setFormField(path(), "refs", value);
 }
 
 WorkflowBusinessRuleContentForm::WorkflowBusinessRuleContentForm(som::SpecDocument& doc, std::string path)

@@ -6970,7 +6970,6 @@ static void meta_build_weighted_quality_matrix_matrix_visualization(SomMetaNode 
 static void meta_build_wireframes_and_mockups_content(SomMetaNode *n);
 static void meta_build_workflow_actor_entry_content(SomMetaNode *n);
 static void meta_build_workflow_actor_entry_participating_steps(SomMetaNode *n);
-static void meta_build_workflow_actor_entry_participating_steps_elem(SomMetaNode *n);
 static void meta_build_workflow_business_rule_content(SomMetaNode *n);
 static void meta_build_workflow_decision_point_content(SomMetaNode *n);
 static void meta_build_workflow_descriptions_content(SomMetaNode *n);
@@ -66817,16 +66816,26 @@ static void meta_build_external_service_dependency_entry_risk(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (external dependency risk)\"],\"connotation\":\"The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history.\"}", NULL);
 }
 static void meta_build_external_service_dependency_entry_primary_dependent_system(SomMetaNode *n) {
-  meta_set(&n->class_name, "ExistingSystemEntry");
+  meta_set(&n->class_name, "ExternalServiceDependencyEntry");
   meta_set(&n->member_name, "primaryDependentSystem");
   meta_set(&n->section_id, "EXSDE-PRIM-REF");
-  meta_set(&n->class_section_id, "ESENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ExistingSystemEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.");
-  meta_set(&n->class_doc_comment, "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Primary Dependent System");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the existing-systems inventory entry (`ESENT`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ESENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -71736,14 +71745,23 @@ static void meta_build_goal_dependency_entry_related_goal(SomMetaNode *n) {
   meta_set(&n->class_name, "GoalDependencyEntry");
   meta_set(&n->member_name, "relatedGoal");
   meta_set(&n->section_id, "GOLDE-RELA-REF");
-  n->kind = SOM_META_KIND_CONTENT;
+  n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Related Goal");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the business goal (`BGE`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BGE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -105137,16 +105155,26 @@ static void meta_build_process_metric_entry_targets(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (metric target and benchmark)\"],\"connotation\":\"The target and benchmarking context for a metric: its target value, trend, and industry benchmark.\"}", NULL);
 }
 static void meta_build_process_metric_entry_process_reference(SomMetaNode *n) {
-  meta_set(&n->class_name, "CurrentBusinessProcess");
+  meta_set(&n->class_name, "ProcessMetricEntry");
   meta_set(&n->member_name, "processReference");
   meta_set(&n->section_id, "PME-PROC-REF");
-  meta_set(&n->class_section_id, "CUBIPR");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "CurrentBusinessProcess");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.");
-  meta_set(&n->class_doc_comment, "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Process Reference");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the current business process (`CUBIPR`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("CUBIPR.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -140988,32 +141016,52 @@ static void meta_build_system_dependency_entry_operations(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (dependency operations)\"],\"connotation\":\"The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment.\"}", NULL);
 }
 static void meta_build_system_dependency_entry_source_system(SomMetaNode *n) {
-  meta_set(&n->class_name, "ExistingSystemEntry");
+  meta_set(&n->class_name, "SystemDependencyEntry");
   meta_set(&n->member_name, "sourceSystem");
   meta_set(&n->section_id, "SYDE-SOUR-REF");
-  meta_set(&n->class_section_id, "ESENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ExistingSystemEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.");
-  meta_set(&n->class_doc_comment, "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Source System");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the existing-systems inventory entry (`ESENT`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ESENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
   n->extra[0].args = som_json_parse("{\"description\":\"Source System\"}", NULL);
 }
 static void meta_build_system_dependency_entry_target_system(SomMetaNode *n) {
-  meta_set(&n->class_name, "ExistingSystemEntry");
+  meta_set(&n->class_name, "SystemDependencyEntry");
   meta_set(&n->member_name, "targetSystem");
   meta_set(&n->section_id, "SYDE-TARG-REF");
-  meta_set(&n->class_section_id, "ESENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ExistingSystemEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
   meta_set(&n->doc_comment, "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.");
-  meta_set(&n->class_doc_comment, "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Target System");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the existing-systems inventory entry (`ESENT`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ESENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -142000,32 +142048,52 @@ static void meta_build_system_integration_entry_ownership(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (integration ownership)\"],\"connotation\":\"The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture.\"}", NULL);
 }
 static void meta_build_system_integration_entry_source_system(SomMetaNode *n) {
-  meta_set(&n->class_name, "ExistingSystemEntry");
+  meta_set(&n->class_name, "SystemIntegrationEntry");
   meta_set(&n->member_name, "sourceSystem");
   meta_set(&n->section_id, "SYIN-SOUR-REF");
-  meta_set(&n->class_section_id, "ESENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ExistingSystemEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.");
-  meta_set(&n->class_doc_comment, "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Source System");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the existing-systems inventory entry (`ESENT`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ESENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
   n->extra[0].args = som_json_parse("{\"description\":\"Source System\"}", NULL);
 }
 static void meta_build_system_integration_entry_target_system(SomMetaNode *n) {
-  meta_set(&n->class_name, "ExistingSystemEntry");
+  meta_set(&n->class_name, "SystemIntegrationEntry");
   meta_set(&n->member_name, "targetSystem");
   meta_set(&n->section_id, "SYIN-TARG-REF");
-  meta_set(&n->class_section_id, "ESENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ExistingSystemEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.");
-  meta_set(&n->class_doc_comment, "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Target System");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the existing-systems inventory entry (`ESENT`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ESENT.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -143867,14 +143935,23 @@ static void meta_build_system_task_entry_related_use_case(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemTaskEntry");
   meta_set(&n->member_name, "relatedUseCase");
   meta_set(&n->section_id, "SYTS-RELA-REF");
-  n->kind = SOM_META_KIND_CONTENT;
+  n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
-  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
-  n->content_type->type = som_strdup("text");
-  n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("ref");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Related Use Case");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the use case (interaction entry, `INEN`)");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("INEN.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
@@ -161653,23 +161730,27 @@ static void meta_build_workflow_actor_entry_participating_steps(SomMetaNode *n) 
   meta_set(&n->class_name, "WorkflowActorEntry");
   meta_set(&n->member_name, "participatingSteps");
   meta_set(&n->section_id, "WAE-PART-REF");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "WorkflowStepEntry");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Steps this actor participates in.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("refs");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Participating Steps");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Section id of the workflow step entries (`WSE`), comma-separated");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("WSE.@sectionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("Reference");
   n->extra[0].args = som_json_parse("{\"description\":\"Participating Steps\"}", NULL);
-}
-static void meta_build_workflow_actor_entry_participating_steps_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "WorkflowStepEntry");
-  meta_set(&n->class_section_id, "WSE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "WorkflowStepEntry");
-  meta_set(&n->doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
-  meta_set(&n->class_doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
 }
 static void meta_build_workflow_business_rule_content(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowBusinessRule");
@@ -174408,6 +174489,7 @@ static SomMetaNode **meta_children_external_service_dependencies(SomStrList *sta
 }
 
 static SomMetaNode **meta_children_external_service_dependency_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -174431,7 +174513,11 @@ static SomMetaNode **meta_children_external_service_dependency_entry(SomStrList 
     meta_build_external_service_dependency_entry_risk(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("ExistingSystemEntry", stack, meta_children_existing_system_entry, meta_build_external_service_dependency_entry_primary_dependent_system));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_external_service_dependency_entry_primary_dependent_system(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -182721,6 +182807,7 @@ static SomMetaNode **meta_children_process_metric_category(SomStrList *stack, si
 }
 
 static SomMetaNode **meta_children_process_metric_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -182739,7 +182826,11 @@ static SomMetaNode **meta_children_process_metric_entry(SomStrList *stack, size_
     meta_build_process_metric_entry_targets(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("CurrentBusinessProcess", stack, meta_children_current_business_process, meta_build_process_metric_entry_process_reference));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_process_metric_entry_process_reference(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -190340,6 +190431,7 @@ static SomMetaNode **meta_children_system_data_scope(SomStrList *stack, size_t *
 }
 
 static SomMetaNode **meta_children_system_dependency_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -190368,8 +190460,16 @@ static SomMetaNode **meta_children_system_dependency_entry(SomStrList *stack, si
     meta_build_system_dependency_entry_operations(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("ExistingSystemEntry", stack, meta_children_existing_system_entry, meta_build_system_dependency_entry_source_system));
-  meta_push(&arr, len, &cap, meta_cx("ExistingSystemEntry", stack, meta_children_existing_system_entry, meta_build_system_dependency_entry_target_system));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_dependency_entry_source_system(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_dependency_entry_target_system(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -190505,6 +190605,7 @@ static SomMetaNode **meta_children_system_error_display(SomStrList *stack, size_
 }
 
 static SomMetaNode **meta_children_system_integration_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -190543,8 +190644,16 @@ static SomMetaNode **meta_children_system_integration_entry(SomStrList *stack, s
     meta_build_system_integration_entry_ownership(n);
     meta_push(&arr, len, &cap, n);
   }
-  meta_push(&arr, len, &cap, meta_cx("ExistingSystemEntry", stack, meta_children_existing_system_entry, meta_build_system_integration_entry_source_system));
-  meta_push(&arr, len, &cap, meta_cx("ExistingSystemEntry", stack, meta_children_existing_system_entry, meta_build_system_integration_entry_target_system));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_integration_entry_source_system(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_system_integration_entry_target_system(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -194707,6 +194816,7 @@ static SomMetaNode **meta_children_wireframes_and_mockups(SomStrList *stack, siz
 }
 
 static SomMetaNode **meta_children_workflow_actor_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -194716,10 +194826,9 @@ static SomMetaNode **meta_children_workflow_actor_entry(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_workflow_actor_entry_participating_steps(ln);
-    ln->element_node = meta_cx("WorkflowStepEntry", stack, meta_children_workflow_step_entry, meta_build_workflow_actor_entry_participating_steps_elem);
-    meta_push(&arr, len, &cap, ln);
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_workflow_actor_entry_participating_steps(n);
+    meta_push(&arr, len, &cap, n);
   }
   return arr;
 }
@@ -209476,10 +209585,10 @@ SomMetaRef external_service_dependency_entry_nav_risk(som_nav_external_service_d
   free(path);
   return out;
 }
-som_nav_existing_system_entry external_service_dependency_entry_nav_primary_dependent_system(som_nav_external_service_dependency_entry x) {
-  som_nav_existing_system_entry out;
+SomMetaRef external_service_dependency_entry_nav_primary_dependent_system(som_nav_external_service_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EXSDE-PRIM-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -218352,10 +218461,10 @@ SomMetaRef process_metric_entry_nav_targets(som_nav_process_metric_entry x) {
   free(path);
   return out;
 }
-som_nav_current_business_process process_metric_entry_nav_process_reference(som_nav_process_metric_entry x) {
-  som_nav_current_business_process out;
+SomMetaRef process_metric_entry_nav_process_reference(som_nav_process_metric_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PME-PROC-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -226528,17 +226637,17 @@ SomMetaRef system_dependency_entry_nav_operations(som_nav_system_dependency_entr
   free(path);
   return out;
 }
-som_nav_existing_system_entry system_dependency_entry_nav_source_system(som_nav_system_dependency_entry x) {
-  som_nav_existing_system_entry out;
+SomMetaRef system_dependency_entry_nav_source_system(som_nav_system_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYDE-SOUR-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-som_nav_existing_system_entry system_dependency_entry_nav_target_system(som_nav_system_dependency_entry x) {
-  som_nav_existing_system_entry out;
+SomMetaRef system_dependency_entry_nav_target_system(som_nav_system_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYDE-TARG-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -226752,17 +226861,17 @@ SomMetaRef system_integration_entry_nav_ownership(som_nav_system_integration_ent
   free(path);
   return out;
 }
-som_nav_existing_system_entry system_integration_entry_nav_source_system(som_nav_system_integration_entry x) {
-  som_nav_existing_system_entry out;
+SomMetaRef system_integration_entry_nav_source_system(som_nav_system_integration_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYIN-SOUR-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-som_nav_existing_system_entry system_integration_entry_nav_target_system(som_nav_system_integration_entry x) {
-  som_nav_existing_system_entry out;
+SomMetaRef system_integration_entry_nav_target_system(som_nav_system_integration_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYIN-TARG-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -231470,10 +231579,10 @@ SomMetaRef workflow_actor_entry_nav_content(som_nav_workflow_actor_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef workflow_actor_entry_nav_participating_steps(som_nav_workflow_actor_entry x) {
-  SomListMetaRef out;
+SomMetaRef workflow_actor_entry_nav_participating_steps(som_nav_workflow_actor_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WAE-PART-REF");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_workflow_step_entry);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -257840,10 +257949,10 @@ SomMetaRef external_service_dependency_entry_id_exsrk(som_id_external_service_de
   free(path);
   return out;
 }
-som_id_existing_system_entry external_service_dependency_entry_id_exsde_prim_ref(som_id_external_service_dependency_entry x) {
-  som_id_existing_system_entry out;
+SomMetaRef external_service_dependency_entry_id_exsde_prim_ref(som_id_external_service_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EXSDE-PRIM-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -260038,10 +260147,10 @@ SomMetaRef process_metric_entry_id_pmet(som_id_process_metric_entry x) {
   free(path);
   return out;
 }
-som_id_current_business_process process_metric_entry_id_pme_proc_ref(som_id_process_metric_entry x) {
-  som_id_current_business_process out;
+SomMetaRef process_metric_entry_id_pme_proc_ref(som_id_process_metric_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "PME-PROC-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262306,17 +262415,17 @@ SomMetaRef system_dependency_entry_id_sdeo(som_id_system_dependency_entry x) {
   free(path);
   return out;
 }
-som_id_existing_system_entry system_dependency_entry_id_syde_sour_ref(som_id_system_dependency_entry x) {
-  som_id_existing_system_entry out;
+SomMetaRef system_dependency_entry_id_syde_sour_ref(som_id_system_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYDE-SOUR-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-som_id_existing_system_entry system_dependency_entry_id_syde_targ_ref(som_id_system_dependency_entry x) {
-  som_id_existing_system_entry out;
+SomMetaRef system_dependency_entry_id_syde_targ_ref(som_id_system_dependency_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYDE-TARG-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -262376,17 +262485,17 @@ SomMetaRef system_integration_entry_id_syinow(som_id_system_integration_entry x)
   free(path);
   return out;
 }
-som_id_existing_system_entry system_integration_entry_id_syin_sour_ref(som_id_system_integration_entry x) {
-  som_id_existing_system_entry out;
+SomMetaRef system_integration_entry_id_syin_sour_ref(som_id_system_integration_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYIN-SOUR-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-som_id_existing_system_entry system_integration_entry_id_syin_targ_ref(som_id_system_integration_entry x) {
-  som_id_existing_system_entry out;
+SomMetaRef system_integration_entry_id_syin_targ_ref(som_id_system_integration_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SYIN-TARG-REF");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -263783,10 +263892,10 @@ SomMetaRef vpn_requirement_entry_id_vrea(som_id_vpn_requirement_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef workflow_actor_entry_id_wae_part_ref(som_id_workflow_actor_entry x) {
-  SomListMetaRef out;
+SomMetaRef workflow_actor_entry_id_wae_part_ref(som_id_workflow_actor_entry x) {
+  SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WAE-PART-REF");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_step_entry);
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

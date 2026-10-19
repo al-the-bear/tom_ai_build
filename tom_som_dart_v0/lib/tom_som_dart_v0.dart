@@ -17861,7 +17861,7 @@ class ExternalServiceDependencyEntry extends SomNode {
   /// "Primary" is a deliberate narrowing, not a completeness claim. The full
   /// consumer set is a property of the systems and is stated there; repeating
   /// it here would only give it a second place to be wrong.
-  ExistingSystemEntry get primaryDependentSystem => ExistingSystemEntry(doc, '$path/EXSDE-PRIM-REF');
+  ExternalServiceDependencyEntryPrimaryDependentSystemForm get primaryDependentSystem => ExternalServiceDependencyEntryPrimaryDependentSystemForm(doc, '$path/EXSDE-PRIM-REF');
 }
 
 /// An external system context entry (form).
@@ -19135,8 +19135,7 @@ class GoalDependencyEntry extends SomNode {
   /// The reference stores a section id and is not traversed
   /// (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
   /// metrics stay in one place and cannot drift into a second.
-  String get relatedGoal => doc.content('$path/GOLDE-RELA-REF') ?? '';
-  set relatedGoal(String value) => doc.setContent('$path/GOLDE-RELA-REF', value);
+  GoalDependencyEntryRelatedGoalForm get relatedGoal => GoalDependencyEntryRelatedGoalForm(doc, '$path/GOLDE-RELA-REF');
 }
 
 /// 4.2.1.n.1. Key Results.
@@ -28542,7 +28541,7 @@ class ProcessMetricEntry extends SomNode {
   /// It is also what makes the current value usable as a baseline: a target set
   /// in the future state is only comparable to it if both are anchored to the
   /// same process.
-  CurrentBusinessProcess get processReference => CurrentBusinessProcess(doc, '$path/PME-PROC-REF');
+  ProcessMetricEntryProcessReferenceForm get processReference => ProcessMetricEntryProcessReferenceForm(doc, '$path/PME-PROC-REF');
 }
 
 /// 1.2.2. Process Metrics.
@@ -38481,7 +38480,7 @@ class SystemDependencyEntry extends SomNode {
   /// A dependency is not symmetric: the availability requirement, the SLA and
   /// the fallback procedure above are all obligations owed *to* this end *by*
   /// [targetSystem], so reading the pair backwards inverts every one of them.
-  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/SYDE-SOUR-REF');
+  SystemDependencyEntrySourceSystemForm get sourceSystem => SystemDependencyEntrySourceSystemForm(doc, '$path/SYDE-SOUR-REF');
 
   /// The depended-upon end — the system that owes the availability and the SLA
   /// — named by section id.
@@ -38491,7 +38490,7 @@ class SystemDependencyEntry extends SomNode {
   /// existing-systems inventory of this document: a reliance on something
   /// outside the current estate is an external-service dependency and is
   /// recorded as one.
-  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/SYDE-TARG-REF');
+  SystemDependencyEntryTargetSystemForm get targetSystem => SystemDependencyEntryTargetSystemForm(doc, '$path/SYDE-TARG-REF');
 }
 
 /// 4.1. System Description.
@@ -38687,7 +38686,7 @@ class SystemIntegrationEntry extends SomNode {
   /// The source is where a record originates and is therefore where it is
   /// authoritative — which is what a reader needs in order to decide which
   /// side a discrepancy between the two copies is resolved against.
-  ExistingSystemEntry get sourceSystem => ExistingSystemEntry(doc, '$path/SYIN-SOUR-REF');
+  SystemIntegrationEntrySourceSystemForm get sourceSystem => SystemIntegrationEntrySourceSystemForm(doc, '$path/SYIN-SOUR-REF');
 
   /// The system data flows into, named by section id.
   /// 
@@ -38695,7 +38694,7 @@ class SystemIntegrationEntry extends SomNode {
   /// the protocol, format, throughput and error-handling facts above all
   /// describe the movement between exactly these two systems and are not
   /// properties of either one on its own.
-  ExistingSystemEntry get targetSystem => ExistingSystemEntry(doc, '$path/SYIN-TARG-REF');
+  SystemIntegrationEntryTargetSystemForm get targetSystem => SystemIntegrationEntryTargetSystemForm(doc, '$path/SYIN-TARG-REF');
 }
 
 /// 1.1.1. System Inventory.
@@ -39370,8 +39369,7 @@ class SystemTaskEntry extends SomNode {
   /// not owned here and its text is never copied here. An empty link is itself
   /// a finding: a task no use case accounts for is either out of scope or a
   /// use case that was never written.
-  String get relatedUseCase => doc.content('$path/SYTS-RELA-REF') ?? '';
-  set relatedUseCase(String value) => doc.setContent('$path/SYTS-RELA-REF', value);
+  SystemTaskEntryRelatedUseCaseForm get relatedUseCase => SystemTaskEntryRelatedUseCaseForm(doc, '$path/SYTS-RELA-REF');
 
   /// Task workflow steps.
   ///
@@ -44110,7 +44108,7 @@ class WorkflowActorEntry extends SomNode {
   WorkflowActorEntryContentForm get content => WorkflowActorEntryContentForm(doc, '$path/content');
 
   /// Steps this actor participates in.
-  SomList<WorkflowStepEntry> get participatingSteps => SomList<WorkflowStepEntry>(doc, '$path/WAE-PART-REF', (d, p) => WorkflowStepEntry(d, p));
+  WorkflowActorEntryParticipatingStepsForm get participatingSteps => WorkflowActorEntryParticipatingStepsForm(doc, '$path/WAE-PART-REF');
 }
 
 /// A business rule governing workflow behavior.
@@ -83696,6 +83694,26 @@ class ExternalServiceDependencyEntryOperationsForm extends SomNode {
   set securityCertifications(String value) => doc.setFormField(path, 'securityCertifications', value);
 }
 
+/// Generated section facade for the `primaryDependentSystem` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExternalServiceDependencyEntryPrimaryDependentSystemForm extends SomNode {
+  /// Names the `primaryDependentSystem` form section at [path] inside [doc].
+  ExternalServiceDependencyEntryPrimaryDependentSystemForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Primary Dependent System.
+  ///
+  /// Section id of the existing-systems inventory entry (`ESENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `relationship` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ExternalServiceDependencyEntryRelationshipForm extends SomNode {
@@ -87642,6 +87660,26 @@ class GoalDependencyEntryContentForm extends SomNode {
   /// Open, In Progress, Resolved, or Blocked
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);
+}
+
+/// Generated section facade for the `relatedGoal` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GoalDependencyEntryRelatedGoalForm extends SomNode {
+  /// Names the `relatedGoal` form section at [path] inside [doc].
+  GoalDependencyEntryRelatedGoalForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Related Goal.
+  ///
+  /// Section id of the business goal (`BGE`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -112866,6 +112904,26 @@ class ProcessMetricEntryMeasurementForm extends SomNode {
   /// Measurement Frequency.
   String get frequency => doc.formField(path, 'frequency') ?? '';
   set frequency(String value) => doc.setFormField(path, 'frequency', value);
+}
+
+/// Generated section facade for the `processReference` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ProcessMetricEntryProcessReferenceForm extends SomNode {
+  /// Names the `processReference` form section at [path] inside [doc].
+  ProcessMetricEntryProcessReferenceForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Process Reference.
+  ///
+  /// Section id of the current business process (`CUBIPR`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `targets` `@Form` section:
@@ -139946,6 +140004,46 @@ class SystemDependencyEntryReliabilityForm extends SomNode {
   set fallbackProcedure(String value) => doc.setFormField(path, 'fallbackProcedure', value);
 }
 
+/// Generated section facade for the `sourceSystem` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SystemDependencyEntrySourceSystemForm extends SomNode {
+  /// Names the `sourceSystem` form section at [path] inside [doc].
+  SystemDependencyEntrySourceSystemForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Source System.
+  ///
+  /// Section id of the existing-systems inventory entry (`ESENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
+/// Generated section facade for the `targetSystem` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SystemDependencyEntryTargetSystemForm extends SomNode {
+  /// Names the `targetSystem` form section at [path] inside [doc].
+  SystemDependencyEntryTargetSystemForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Target System.
+  ///
+  /// Section id of the existing-systems inventory entry (`ESENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
 /// Generated section facade for the `descriptionSummary` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class SystemDescriptionDescriptionSummaryForm extends SomNode {
@@ -140706,6 +140804,46 @@ class SystemIntegrationEntryProtocolForm extends SomNode {
   /// OAuth2 / APIKey / mTLS / BasicAuth / SAML / None
   String get authenticationMethod => doc.formField(path, 'authenticationMethod') ?? '';
   set authenticationMethod(String value) => doc.setFormField(path, 'authenticationMethod', value);
+}
+
+/// Generated section facade for the `sourceSystem` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SystemIntegrationEntrySourceSystemForm extends SomNode {
+  /// Names the `sourceSystem` form section at [path] inside [doc].
+  SystemIntegrationEntrySourceSystemForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Source System.
+  ///
+  /// Section id of the existing-systems inventory entry (`ESENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
+}
+
+/// Generated section facade for the `targetSystem` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SystemIntegrationEntryTargetSystemForm extends SomNode {
+  /// Names the `targetSystem` form section at [path] inside [doc].
+  SystemIntegrationEntryTargetSystemForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Target System.
+  ///
+  /// Section id of the existing-systems inventory entry (`ESENT`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `throughput` `@Form` section:
@@ -141732,6 +141870,26 @@ class SystemTaskEntryExecutionForm extends SomNode {
   /// Event or condition that initiates this task
   String get trigger => doc.formField(path, 'trigger') ?? '';
   set trigger(String value) => doc.setFormField(path, 'trigger', value);
+}
+
+/// Generated section facade for the `relatedUseCase` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SystemTaskEntryRelatedUseCaseForm extends SomNode {
+  /// Names the `relatedUseCase` form section at [path] inside [doc].
+  SystemTaskEntryRelatedUseCaseForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Related Use Case.
+  ///
+  /// Section id of the use case (interaction entry, `INEN`)
+  String get ref => doc.formField(path, 'ref') ?? '';
+  set ref(String value) => doc.setFormField(path, 'ref', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -155098,6 +155256,26 @@ class WorkflowActorEntryContentForm extends SomNode {
   /// Headcount (number of people in this role).
   int? get headcount => somParseInt(doc.formField(path, 'headcount'));
   set headcount(int? value) => doc.setFormField(path, 'headcount', somFormatInt(value));
+}
+
+/// Generated section facade for the `participatingSteps` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class WorkflowActorEntryParticipatingStepsForm extends SomNode {
+  /// Names the `participatingSteps` form section at [path] inside [doc].
+  WorkflowActorEntryParticipatingStepsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Participating Steps.
+  ///
+  /// Section id of the workflow step entries (`WSE`), comma-separated
+  String get refs => doc.formField(path, 'refs') ?? '';
+  set refs(String value) => doc.setFormField(path, 'refs', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

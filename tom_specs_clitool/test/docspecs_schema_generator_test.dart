@@ -651,17 +651,17 @@ void main() {
       }
     });
 
-    test('a @Reference list admits the item ids its element class is owned '
-        'under elsewhere', () {
-      // WorkflowActorEntry.participatingSteps points at workflow steps owned
-      // by another list, so an item carries that list's id (`WSE-STEP-1`,
-      // type `wse-step`) — not the element class's own `WSE`. Before the
-      // reference was resolved, no document could write a valid item.
+    test('a @Reference section is a form holding the referenced ids', () {
+      // WorkflowActorEntry.participatingSteps names workflow steps owned by
+      // another list. It holds their section ids in its `refs` form field
+      // (`refersTo: WSE.@sectionId`), resolved by the instance tier, so its
+      // section type is a form with no item subsections of its own.
       final schema = DocSpecsSchemaGenerator(
         classes,
       ).generateFor('D00SolutionBlueprint');
-      final container = schema.sectionTypes['wae-part-ref']!;
-      expect(container.subsectionTypes!.keys, contains('wse-step'));
+      final section = schema.sectionTypes['wae-part-ref']!;
+      expect(section.format, 'wae-part-ref-form');
+      expect(section.subsectionTypes ?? const {}, isEmpty);
     });
 
     test('SOM §13: every generated schema round-trips through the DocSpecs '

@@ -22619,20 +22619,16 @@ function _mc_ExternalServiceDependencyEntry(s: Set<string>): SomMetaNode[] {
       docComment: "Risk and fallback considerations.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "vendorLockIn", typeName: "String", description: "Vendor Lock-In Risk", hint: "None / Low / Moderate / High / Severe", order: 0}), new SomFormFieldMeta({name: "switchingCost", typeName: "String", description: "Switching Cost", hint: "Estimated effort to migrate to alternative", order: 1}), new SomFormFieldMeta({name: "alternativeProviders", typeName: "String", description: "Alternative Providers", hint: "Known alternatives if migration needed", order: 2}), new SomFormFieldMeta({name: "fallbackProcedure", typeName: "String", description: "Fallback Procedure", hint: "Manual workaround or degraded operation mode", order: 3}), new SomFormFieldMeta({name: "lastOutage", typeName: "String", description: "Last Significant Outage", hint: "Date and impact of last vendor outage", order: 4}), new SomFormFieldMeta({name: "communicationChannel", typeName: "String", description: "Support Communication Channel", hint: "How incidents are reported and tracked", order: 5})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (external dependency risk)"], "connotation": "The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history."})]}),
-     _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-      (r, c) => new SomMetaNode({
-        className: "ExistingSystemEntry",
-        memberName: "primaryDependentSystem",
-        sectionId: "EXSDE-PRIM-REF",
-        classSectionId: "ESENT",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ExistingSystemEntry",
-        serializationOrder: 4,
-        docComment: "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.",
-        classDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-        extra: [new SomMetaExtra("Reference", {"description": "Primary Dependent System"})],
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "ExternalServiceDependencyEntry",
+      memberName: "primaryDependentSystem",
+      sectionId: "EXSDE-PRIM-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 4,
+      docComment: "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Primary Dependent System", hint: "Section id of the existing-systems inventory entry (`ESENT`)", order: 0, refersTo: ["ESENT.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Primary Dependent System"})]}),
   ];
 }
 
@@ -24377,11 +24373,11 @@ function _mc_GoalDependencyEntry(s: Set<string>): SomMetaNode[] {
       className: "GoalDependencyEntry",
       memberName: "relatedGoal",
       sectionId: "GOLDE-RELA-REF",
-      kind: SomMetaKind.CONTENT,
+      kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 1,
-      contentType: new SomContentTypeMeta("text", ""),
       docComment: "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Related Goal", hint: "Section id of the business goal (`BGE`)", order: 0, refersTo: ["BGE.@sectionId"]})]),
       extra: [new SomMetaExtra("Reference", {"description": "Related Goal"})]}),
   ];
 }
@@ -36868,20 +36864,16 @@ function _mc_ProcessMetricEntry(s: Set<string>): SomMetaNode[] {
       docComment: "Target setting and benchmarking context.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "targetValue", typeName: "String", description: "Target Value", order: 0}), new SomFormFieldMeta({name: "trend", typeName: "String", description: "Trend (Improving, Stable, Declining)", order: 1}), new SomFormFieldMeta({name: "benchmark", typeName: "String", description: "Industry Benchmark", order: 2})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (metric target and benchmark)"], "connotation": "The target and benchmarking context for a metric: its target value, trend, and industry benchmark."})]}),
-     _cx("CurrentBusinessProcess", s, _mc_CurrentBusinessProcess,
-      (r, c) => new SomMetaNode({
-        className: "CurrentBusinessProcess",
-        memberName: "processReference",
-        sectionId: "PME-PROC-REF",
-        classSectionId: "CUBIPR",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "CurrentBusinessProcess",
-        serializationOrder: 3,
-        docComment: "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.",
-        classDocComment: "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.",
-        extra: [new SomMetaExtra("Reference", {"description": "Process Reference"})],
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "ProcessMetricEntry",
+      memberName: "processReference",
+      sectionId: "PME-PROC-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 3,
+      docComment: "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Process Reference", hint: "Section id of the current business process (`CUBIPR`)", order: 0, refersTo: ["CUBIPR.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Process Reference"})]}),
   ];
 }
 
@@ -50015,34 +50007,26 @@ function _mc_SystemDependencyEntry(s: Set<string>): SomMetaNode[] {
       docComment: "Operations and documentation.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "monitoringStatus", typeName: "String", description: "Monitoring Status", hint: "Monitored / PartiallyMonitored / Unmonitored", order: 0}), new SomFormFieldMeta({name: "documentationStatus", typeName: "String", description: "Documentation Status", hint: "Documented / PartiallyDocumented / Undocumented", order: 1}), new SomFormFieldMeta({name: "dependencyOwner", typeName: "String", description: "Dependency Owner", hint: "Team or role responsible for maintaining this dependency", order: 2}), new SomFormFieldMeta({name: "technicalDebt", typeName: "String", description: "Technical Debt Assessment", hint: "None / Low / Moderate / High — accumulated technical debt", order: 3}), new SomFormFieldMeta({name: "technicalDebtDetails", typeName: "String", description: "Technical Debt Details", hint: "Description of known issues, outdated protocols, or maintenance burden", order: 4}), new SomFormFieldMeta({name: "plannedChanges", typeName: "String", description: "Planned Changes", hint: "Any known upcoming changes to this dependency", order: 5})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (dependency operations)"], "connotation": "The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment."})]}),
-     _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-      (r, c) => new SomMetaNode({
-        className: "ExistingSystemEntry",
-        memberName: "sourceSystem",
-        sectionId: "SYDE-SOUR-REF",
-        classSectionId: "ESENT",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ExistingSystemEntry",
-        serializationOrder: 5,
-        docComment: "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.",
-        classDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-        extra: [new SomMetaExtra("Reference", {"description": "Source System"})],
-        recursive: r,
-        children: c})),
-     _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-      (r, c) => new SomMetaNode({
-        className: "ExistingSystemEntry",
-        memberName: "targetSystem",
-        sectionId: "SYDE-TARG-REF",
-        classSectionId: "ESENT",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ExistingSystemEntry",
-        serializationOrder: 6,
-        docComment: "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.",
-        classDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-        extra: [new SomMetaExtra("Reference", {"description": "Target System"})],
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "SystemDependencyEntry",
+      memberName: "sourceSystem",
+      sectionId: "SYDE-SOUR-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 5,
+      docComment: "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Source System", hint: "Section id of the existing-systems inventory entry (`ESENT`)", order: 0, refersTo: ["ESENT.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Source System"})]}),
+     new SomMetaNode({
+      className: "SystemDependencyEntry",
+      memberName: "targetSystem",
+      sectionId: "SYDE-TARG-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 6,
+      docComment: "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Target System", hint: "Section id of the existing-systems inventory entry (`ESENT`)", order: 0, refersTo: ["ESENT.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Target System"})]}),
   ];
 }
 
@@ -50372,34 +50356,26 @@ function _mc_SystemIntegrationEntry(s: Set<string>): SomMetaNode[] {
       docComment: "Ownership and documentation.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "integrationAge", typeName: "String", description: "Integration Age", hint: "When established, e.g. 2019, 7 years", order: 0}), new SomFormFieldMeta({name: "documentationQuality", typeName: "String", description: "Documentation Quality", hint: "Comprehensive / Adequate / Minimal / Undocumented", order: 1}), new SomFormFieldMeta({name: "maintenanceOwner", typeName: "String", description: "Maintenance Owner", hint: "Team or role responsible", order: 2}), new SomFormFieldMeta({name: "securityClassification", typeName: "String", description: "Security Classification", hint: "Public / Internal / Confidential / Restricted", order: 3}), new SomFormFieldMeta({name: "complianceRequirements", typeName: "String", description: "Compliance Requirements", hint: "PCI-DSS, GDPR data transfer", order: 4}), new SomFormFieldMeta({name: "technicalDebt", typeName: "String", description: "Technical Debt", hint: "None / Low / Moderate / High", order: 5})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["BABOK v3 §10 — current-state analysis (integration ownership)"], "connotation": "The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture."})]}),
-     _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-      (r, c) => new SomMetaNode({
-        className: "ExistingSystemEntry",
-        memberName: "sourceSystem",
-        sectionId: "SYIN-SOUR-REF",
-        classSectionId: "ESENT",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ExistingSystemEntry",
-        serializationOrder: 7,
-        docComment: "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.",
-        classDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-        extra: [new SomMetaExtra("Reference", {"description": "Source System"})],
-        recursive: r,
-        children: c})),
-     _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-      (r, c) => new SomMetaNode({
-        className: "ExistingSystemEntry",
-        memberName: "targetSystem",
-        sectionId: "SYIN-TARG-REF",
-        classSectionId: "ESENT",
-        kind: SomMetaKind.COMPLEX,
-        typeName: "ExistingSystemEntry",
-        serializationOrder: 8,
-        docComment: "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.",
-        classDocComment: "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-        extra: [new SomMetaExtra("Reference", {"description": "Target System"})],
-        recursive: r,
-        children: c})),
+     new SomMetaNode({
+      className: "SystemIntegrationEntry",
+      memberName: "sourceSystem",
+      sectionId: "SYIN-SOUR-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 7,
+      docComment: "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Source System", hint: "Section id of the existing-systems inventory entry (`ESENT`)", order: 0, refersTo: ["ESENT.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Source System"})]}),
+     new SomMetaNode({
+      className: "SystemIntegrationEntry",
+      memberName: "targetSystem",
+      sectionId: "SYIN-TARG-REF",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 8,
+      docComment: "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Target System", hint: "Section id of the existing-systems inventory entry (`ESENT`)", order: 0, refersTo: ["ESENT.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Target System"})]}),
   ];
 }
 
@@ -51432,11 +51408,11 @@ function _mc_SystemTaskEntry(s: Set<string>): SomMetaNode[] {
       className: "SystemTaskEntry",
       memberName: "relatedUseCase",
       sectionId: "SYTS-RELA-REF",
-      kind: SomMetaKind.CONTENT,
+      kind: SomMetaKind.FORM,
       typeName: "String",
       serializationOrder: 4,
-      contentType: new SomContentTypeMeta("text", ""),
       docComment: "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "ref", typeName: "String", description: "Related Use Case", hint: "Section id of the use case (interaction entry, `INEN`)", order: 0, refersTo: ["INEN.@sectionId"]})]),
       extra: [new SomMetaExtra("Reference", {"description": "Related Use Case"})]}),
      new SomMetaNode({
       className: "SystemTaskEntry",
@@ -57957,12 +57933,12 @@ function _mc_WorkflowActorEntry(s: Set<string>): SomMetaNode[] {
       className: "WorkflowActorEntry",
       memberName: "participatingSteps",
       sectionId: "WAE-PART-REF",
-      kind: SomMetaKind.LIST,
-      typeName: "WorkflowStepEntry",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
       serializationOrder: 1,
       docComment: "Steps this actor participates in.",
-      extra: [new SomMetaExtra("Reference", {"description": "Participating Steps"})],
-      elementNode: _cx("WorkflowStepEntry", s, _mc_WorkflowStepEntry, (r, c) => new SomMetaNode({className: "WorkflowStepEntry", classSectionId: "WSE", kind: SomMetaKind.COMPLEX, typeName: "WorkflowStepEntry", docComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", classDocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", recursive: r, children: c}))}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "refs", typeName: "String", description: "Participating Steps", hint: "Section id of the workflow step entries (`WSE`), comma-separated", order: 0, refersTo: ["WSE.@sectionId"]})]),
+      extra: [new SomMetaExtra("Reference", {"description": "Participating Steps"})]}),
   ];
 }
 
@@ -69037,8 +69013,8 @@ export class ExternalServiceDependencyEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/EXSRK");
   }
 
-  get primaryDependentSystem(): ExistingSystemEntry$Nav {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/EXSDE-PRIM-REF");
+  get primaryDependentSystem(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -76113,8 +76089,8 @@ export class ProcessMetricEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/PMET");
   }
 
-  get processReference(): CurrentBusinessProcess$Nav {
-    return new CurrentBusinessProcess$Nav(this.tree, this.path + "/PME-PROC-REF");
+  get processReference(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -82579,12 +82555,12 @@ export class SystemDependencyEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SDEO");
   }
 
-  get sourceSystem(): ExistingSystemEntry$Nav {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYDE-SOUR-REF");
+  get sourceSystem(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYDE-SOUR-REF");
   }
 
-  get targetSystem(): ExistingSystemEntry$Nav {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYDE-TARG-REF");
+  get targetSystem(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -82737,12 +82713,12 @@ export class SystemIntegrationEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SYINOW");
   }
 
-  get sourceSystem(): ExistingSystemEntry$Nav {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYIN-SOUR-REF");
+  get sourceSystem(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYIN-SOUR-REF");
   }
 
-  get targetSystem(): ExistingSystemEntry$Nav {
-    return new ExistingSystemEntry$Nav(this.tree, this.path + "/SYIN-TARG-REF");
+  get targetSystem(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -86387,8 +86363,8 @@ export class WorkflowActorEntry$Nav extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
 
-  get participatingSteps(): SomListMetaRef<WorkflowStepEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/WAE-PART-REF", (t: SomMetaTree, p: string) => new WorkflowStepEntry$Nav(t, p));
+  get participatingSteps(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/WAE-PART-REF");
   }
 }
 
@@ -102552,8 +102528,8 @@ export class ExternalServiceDependencyEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/EXSRK");
   }
 
-  get EXSDE_PRIM_REF(): ExistingSystemEntry$Id {
-    return new ExistingSystemEntry$Id(this.tree, this.path + "/EXSDE-PRIM-REF");
+  get EXSDE_PRIM_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/EXSDE-PRIM-REF");
   }
 }
 
@@ -104544,8 +104520,8 @@ export class ProcessMetricEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/PMET");
   }
 
-  get PME_PROC_REF(): CurrentBusinessProcess$Id {
-    return new CurrentBusinessProcess$Id(this.tree, this.path + "/PME-PROC-REF");
+  get PME_PROC_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/PME-PROC-REF");
   }
 }
 
@@ -106589,12 +106565,12 @@ export class SystemDependencyEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SDEO");
   }
 
-  get SYDE_SOUR_REF(): ExistingSystemEntry$Id {
-    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYDE-SOUR-REF");
+  get SYDE_SOUR_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYDE-SOUR-REF");
   }
 
-  get SYDE_TARG_REF(): ExistingSystemEntry$Id {
-    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYDE-TARG-REF");
+  get SYDE_TARG_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYDE-TARG-REF");
   }
 }
 
@@ -106639,12 +106615,12 @@ export class SystemIntegrationEntry$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/SYINOW");
   }
 
-  get SYIN_SOUR_REF(): ExistingSystemEntry$Id {
-    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYIN-SOUR-REF");
+  get SYIN_SOUR_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYIN-SOUR-REF");
   }
 
-  get SYIN_TARG_REF(): ExistingSystemEntry$Id {
-    return new ExistingSystemEntry$Id(this.tree, this.path + "/SYIN-TARG-REF");
+  get SYIN_TARG_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SYIN-TARG-REF");
   }
 }
 
@@ -107764,8 +107740,8 @@ export class WcagSuccessCriterionEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class WorkflowActorEntry$Id extends SomMetaRef {
-  get WAE_PART_REF(): SomListMetaRef<WorkflowStepEntry$Id> {
-    return new SomListMetaRef(this.tree, this.path + "/WAE-PART-REF", (t: SomMetaTree, p: string) => new WorkflowStepEntry$Id(t, p));
+  get WAE_PART_REF(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/WAE-PART-REF");
   }
 }
 

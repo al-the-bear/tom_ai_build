@@ -1797,23 +1797,7 @@ section-types:
     description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
   exsde-prim-ref:
     prefix: EXSDE_PRIM_REF
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
+    format: exsde-prim-ref-form
     description: "The in-house system that stops working when this external service does,"
   exten-exte-lst:
     prefix: EXTEN_EXTE_LST
@@ -1905,6 +1889,7 @@ section-types:
     description: "Add one entry per dependency, including its type and impact."
   golde-rela-ref:
     prefix: GOLDE_RELA_REF
+    format: golde-rela-ref-form
     description: "The goal whose achievement this dependency blocks, named by section id."
   golms-item-lst:
     prefix: GOLMS_ITEM_LST
@@ -3813,43 +3798,11 @@ section-types:
     description: "Add one entry per dependency between internal systems. Capture the mechanism, coupling strength, data flow, and failure impact of each."
   syde-sour-ref:
     prefix: SYDE_SOUR_REF
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
+    format: syde-sour-ref-form
     description: The depending end — the system that stops working if the dependency
   syde-targ-ref:
     prefix: SYDE_TARG_REF
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
+    format: syde-targ-ref-form
     description: The depended-upon end — the system that owes the availability and the SLA
   syin-item-lst:
     prefix: SYIN_ITEM_LST
@@ -3861,43 +3814,11 @@ section-types:
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
   syin-sour-ref:
     prefix: SYIN_SOUR_REF
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
+    format: syin-sour-ref-form
     description: "The system data flows out of, named by section id."
   syin-targ-ref:
     prefix: SYIN_TARG_REF
-    subsection-types:
-      estec:
-        max-count: 1
-      esbct:
-        max-count: 1
-      esusg:
-        max-count: 1
-      eslcy:
-        max-count: 1
-      esint:
-        max-count: 1
-      esinf:
-        max-count: 1
-      limet-know-lst:
-        max-count: 1
-      esqua:
-        max-count: 1
+    format: syin-targ-ref-form
     description: "The system data flows into, named by section id."
   syqg-attr-lst:
     prefix: SYQG_ATTR_LST
@@ -3917,6 +3838,7 @@ section-types:
     description: System-specific training.
   syts-rela-ref:
     prefix: SYTS_RELA_REF
+    format: syts-rela-ref-form
     description: "The use case this task appears in, named by section id."
   syts-syst-lst:
     prefix: SYTS_SYST_LST
@@ -5349,16 +5271,8 @@ section-types:
     description: "Add one entry per metric in this category, with its current value, unit, and measurement details."
   pme-proc-ref:
     prefix: PME_PROC_REF
-    subsection-types:
-      pc:
-        max-count: 1
-      wode:
-        max-count: 1
-      pm:
-        max-count: 1
-      prpapo:
-        max-count: 1
-    description: "Document each business process that the project will impact. Include process maps (BPMN recommended), actor descriptions, and quantitative metrics. Identify manual steps and error-prone areas."
+    format: pme-proc-ref-form
+    description: "The current business process this metric measures, named by section id."
   poangu-post:
     prefix: POANGU_POST_
     pattern-check-id:
@@ -6321,13 +6235,7 @@ section-types:
     description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
   wae-part-ref:
     prefix: WAE_PART_REF
-    subsection-types:
-      wse:
-        max-count: infinite
-      wse-step:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+    format: wae-part-ref-form
     description: Steps this actor participates in.
   wasele-serv:
     prefix: WASELE_SERV_
@@ -26588,20 +26496,6 @@ section-types:
       upd-repr-lst:
         max-count: 1
     description: Describe the persona in detail to help designers and developers understand and empathize with this user type.
-  wse:
-    prefix: WSE
-    subsection-types:
-      wostsy-syst-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wostis-know-lst:
-        max-count: 1
-    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   xcs:
     prefix: XCS
     subsection-types:
@@ -27493,6 +27387,10 @@ form-types:
     fields:
       - fieldname: toolsUsed
         description: Systems or tools involved in performing this task
+  syts-rela-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the use case (interaction entry, `INEN`)"
   uap-perm-form:
     fields:
       - fieldname: accessLevel
@@ -27824,6 +27722,10 @@ form-types:
         description: Monetary or quantitative benefit expected
       - fieldname: riskOfNotAchieving
         description: Consequences if the goal is not achieved
+  golde-rela-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the business goal (`BGE`)"
   grea-form:
     fields:
       - fieldname: probability
@@ -30478,6 +30380,14 @@ form-types:
         description: "Description of known issues, outdated protocols, or maintenance burden"
       - fieldname: plannedChanges
         description: Any known upcoming changes to this dependency
+  syde-sour-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the existing-systems inventory entry (`ESENT`)"
+  syde-targ-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the existing-systems inventory entry (`ESENT`)"
   exsrl-form:
     fields:
       - fieldname: dependentSystems
@@ -30514,6 +30424,10 @@ form-types:
         description: Date and impact of last vendor outage
       - fieldname: communicationChannel
         description: How incidents are reported and tracked
+  exsde-prim-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the existing-systems inventory entry (`ESENT`)"
   sier-form:
     fields:
       - fieldname: criticality
@@ -30597,6 +30511,14 @@ form-types:
         description: "PCI-DSS, GDPR data transfer"
       - fieldname: technicalDebt
         description: None / Low / Moderate / High
+  syin-sour-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the existing-systems inventory entry (`ESENT`)"
+  syin-targ-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the existing-systems inventory entry (`ESENT`)"
   pmem-form:
     fields:
       - fieldname: measurementMethod
@@ -30607,6 +30529,10 @@ form-types:
       - fieldname: targetValue
       - fieldname: trend
       - fieldname: benchmark
+  pme-proc-ref-form:
+    fields:
+      - fieldname: ref
+        description: "Section id of the current business process (`CUBIPR`)"
   pc-form:
     fields:
       - fieldname: businessPurpose
@@ -30615,6 +30541,10 @@ form-types:
       - fieldname: slaRequirements
       - fieldname: upstreamDependencies
       - fieldname: downstreamConsumers
+  wae-part-ref-form:
+    fields:
+      - fieldname: refs
+        description: "Section id of the workflow step entries (`WSE`), comma-separated"
   woti-form:
     fields:
       - fieldname: startToEndTime

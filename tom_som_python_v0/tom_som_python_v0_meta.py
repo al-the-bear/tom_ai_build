@@ -22609,20 +22609,16 @@ def _mc_ExternalServiceDependencyEntry(s):
             doc_comment="Risk and fallback considerations.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="vendorLockIn", type_name="String", description="Vendor Lock-In Risk", hint="None / Low / Moderate / High / Severe", order=0), SomFormFieldMeta(name="switchingCost", type_name="String", description="Switching Cost", hint="Estimated effort to migrate to alternative", order=1), SomFormFieldMeta(name="alternativeProviders", type_name="String", description="Alternative Providers", hint="Known alternatives if migration needed", order=2), SomFormFieldMeta(name="fallbackProcedure", type_name="String", description="Fallback Procedure", hint="Manual workaround or degraded operation mode", order=3), SomFormFieldMeta(name="lastOutage", type_name="String", description="Last Significant Outage", hint="Date and impact of last vendor outage", order=4), SomFormFieldMeta(name="communicationChannel", type_name="String", description="Support Communication Channel", hint="How incidents are reported and tracked", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 §10 — current-state analysis (external dependency risk)"], "connotation": "The risk and fallback facts for one external-service dependency: lock-in, switching cost, alternatives, fallback procedure, and outage history."})]),
-         _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-            lambda r, c: SomMetaNode(
-                class_name="ExistingSystemEntry",
-                member_name="primaryDependentSystem",
-                section_id="EXSDE-PRIM-REF",
-                class_section_id="ESENT",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ExistingSystemEntry",
-                serialization_order=4,
-                doc_comment="The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.",
-                class_doc_comment="An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Primary Dependent System"})],
-                recursive=r,
-                children=c)),
+         SomMetaNode(
+            class_name="ExternalServiceDependencyEntry",
+            member_name="primaryDependentSystem",
+            section_id="EXSDE-PRIM-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Primary Dependent System", hint="Section id of the existing-systems inventory entry (`ESENT`)", order=0, refers_to=["ESENT.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Primary Dependent System"})]),
     ]
 
 
@@ -24367,11 +24363,11 @@ def _mc_GoalDependencyEntry(s):
             class_name="GoalDependencyEntry",
             member_name="relatedGoal",
             section_id="GOLDE-RELA-REF",
-            kind=SomMetaKind.CONTENT,
+            kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=1,
-            content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Related Goal", hint="Section id of the business goal (`BGE`)", order=0, refers_to=["BGE.@sectionId"])]),
             extra=[SomMetaExtra(annotation="Reference", args={"description": "Related Goal"})]),
     ]
 
@@ -36858,20 +36854,16 @@ def _mc_ProcessMetricEntry(s):
             doc_comment="Target setting and benchmarking context.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="targetValue", type_name="String", description="Target Value", order=0), SomFormFieldMeta(name="trend", type_name="String", description="Trend (Improving, Stable, Declining)", order=1), SomFormFieldMeta(name="benchmark", type_name="String", description="Industry Benchmark", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 §10 — current-state analysis (metric target and benchmark)"], "connotation": "The target and benchmarking context for a metric: its target value, trend, and industry benchmark."})]),
-         _cx("CurrentBusinessProcess", s, _mc_CurrentBusinessProcess,
-            lambda r, c: SomMetaNode(
-                class_name="CurrentBusinessProcess",
-                member_name="processReference",
-                section_id="PME-PROC-REF",
-                class_section_id="CUBIPR",
-                kind=SomMetaKind.COMPLEX,
-                type_name="CurrentBusinessProcess",
-                serialization_order=3,
-                doc_comment="The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.",
-                class_doc_comment="A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Process Reference"})],
-                recursive=r,
-                children=c)),
+         SomMetaNode(
+            class_name="ProcessMetricEntry",
+            member_name="processReference",
+            section_id="PME-PROC-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Process Reference", hint="Section id of the current business process (`CUBIPR`)", order=0, refers_to=["CUBIPR.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Process Reference"})]),
     ]
 
 
@@ -50005,34 +49997,26 @@ def _mc_SystemDependencyEntry(s):
             doc_comment="Operations and documentation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="monitoringStatus", type_name="String", description="Monitoring Status", hint="Monitored / PartiallyMonitored / Unmonitored", order=0), SomFormFieldMeta(name="documentationStatus", type_name="String", description="Documentation Status", hint="Documented / PartiallyDocumented / Undocumented", order=1), SomFormFieldMeta(name="dependencyOwner", type_name="String", description="Dependency Owner", hint="Team or role responsible for maintaining this dependency", order=2), SomFormFieldMeta(name="technicalDebt", type_name="String", description="Technical Debt Assessment", hint="None / Low / Moderate / High — accumulated technical debt", order=3), SomFormFieldMeta(name="technicalDebtDetails", type_name="String", description="Technical Debt Details", hint="Description of known issues, outdated protocols, or maintenance burden", order=4), SomFormFieldMeta(name="plannedChanges", type_name="String", description="Planned Changes", hint="Any known upcoming changes to this dependency", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 §10 — current-state analysis (dependency operations)"], "connotation": "The operational facts for one inter-system dependency: its monitoring, documentation, ownership, and technical-debt assessment."})]),
-         _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-            lambda r, c: SomMetaNode(
-                class_name="ExistingSystemEntry",
-                member_name="sourceSystem",
-                section_id="SYDE-SOUR-REF",
-                class_section_id="ESENT",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ExistingSystemEntry",
-                serialization_order=5,
-                doc_comment="The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.",
-                class_doc_comment="An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Source System"})],
-                recursive=r,
-                children=c)),
-         _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-            lambda r, c: SomMetaNode(
-                class_name="ExistingSystemEntry",
-                member_name="targetSystem",
-                section_id="SYDE-TARG-REF",
-                class_section_id="ESENT",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ExistingSystemEntry",
-                serialization_order=6,
-                doc_comment="The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.",
-                class_doc_comment="An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Target System"})],
-                recursive=r,
-                children=c)),
+         SomMetaNode(
+            class_name="SystemDependencyEntry",
+            member_name="sourceSystem",
+            section_id="SYDE-SOUR-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Source System", hint="Section id of the existing-systems inventory entry (`ESENT`)", order=0, refers_to=["ESENT.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Source System"})]),
+         SomMetaNode(
+            class_name="SystemDependencyEntry",
+            member_name="targetSystem",
+            section_id="SYDE-TARG-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Target System", hint="Section id of the existing-systems inventory entry (`ESENT`)", order=0, refers_to=["ESENT.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Target System"})]),
     ]
 
 
@@ -50362,34 +50346,26 @@ def _mc_SystemIntegrationEntry(s):
             doc_comment="Ownership and documentation.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationAge", type_name="String", description="Integration Age", hint="When established, e.g. 2019, 7 years", order=0), SomFormFieldMeta(name="documentationQuality", type_name="String", description="Documentation Quality", hint="Comprehensive / Adequate / Minimal / Undocumented", order=1), SomFormFieldMeta(name="maintenanceOwner", type_name="String", description="Maintenance Owner", hint="Team or role responsible", order=2), SomFormFieldMeta(name="securityClassification", type_name="String", description="Security Classification", hint="Public / Internal / Confidential / Restricted", order=3), SomFormFieldMeta(name="complianceRequirements", type_name="String", description="Compliance Requirements", hint="PCI-DSS, GDPR data transfer", order=4), SomFormFieldMeta(name="technicalDebt", type_name="String", description="Technical Debt", hint="None / Low / Moderate / High", order=5)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BABOK v3 §10 — current-state analysis (integration ownership)"], "connotation": "The ownership and documentation facts for one integration: its age, documentation quality, maintenance owner, and compliance posture."})]),
-         _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-            lambda r, c: SomMetaNode(
-                class_name="ExistingSystemEntry",
-                member_name="sourceSystem",
-                section_id="SYIN-SOUR-REF",
-                class_section_id="ESENT",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ExistingSystemEntry",
-                serialization_order=7,
-                doc_comment="The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.",
-                class_doc_comment="An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Source System"})],
-                recursive=r,
-                children=c)),
-         _cx("ExistingSystemEntry", s, _mc_ExistingSystemEntry,
-            lambda r, c: SomMetaNode(
-                class_name="ExistingSystemEntry",
-                member_name="targetSystem",
-                section_id="SYIN-TARG-REF",
-                class_section_id="ESENT",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ExistingSystemEntry",
-                serialization_order=8,
-                doc_comment="The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.",
-                class_doc_comment="An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.",
-                extra=[SomMetaExtra(annotation="Reference", args={"description": "Target System"})],
-                recursive=r,
-                children=c)),
+         SomMetaNode(
+            class_name="SystemIntegrationEntry",
+            member_name="sourceSystem",
+            section_id="SYIN-SOUR-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=7,
+            doc_comment="The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Source System", hint="Section id of the existing-systems inventory entry (`ESENT`)", order=0, refers_to=["ESENT.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Source System"})]),
+         SomMetaNode(
+            class_name="SystemIntegrationEntry",
+            member_name="targetSystem",
+            section_id="SYIN-TARG-REF",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=8,
+            doc_comment="The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Target System", hint="Section id of the existing-systems inventory entry (`ESENT`)", order=0, refers_to=["ESENT.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Target System"})]),
     ]
 
 
@@ -51422,11 +51398,11 @@ def _mc_SystemTaskEntry(s):
             class_name="SystemTaskEntry",
             member_name="relatedUseCase",
             section_id="SYTS-RELA-REF",
-            kind=SomMetaKind.CONTENT,
+            kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=4,
-            content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ref", type_name="String", description="Related Use Case", hint="Section id of the use case (interaction entry, `INEN`)", order=0, refers_to=["INEN.@sectionId"])]),
             extra=[SomMetaExtra(annotation="Reference", args={"description": "Related Use Case"})]),
          SomMetaNode(
             class_name="SystemTaskEntry",
@@ -57947,12 +57923,12 @@ def _mc_WorkflowActorEntry(s):
             class_name="WorkflowActorEntry",
             member_name="participatingSteps",
             section_id="WAE-PART-REF",
-            kind=SomMetaKind.LIST,
-            type_name="WorkflowStepEntry",
+            kind=SomMetaKind.FORM,
+            type_name="String",
             serialization_order=1,
             doc_comment="Steps this actor participates in.",
-            extra=[SomMetaExtra(annotation="Reference", args={"description": "Participating Steps"})],
-            element_node=_cx("WorkflowStepEntry", s, _mc_WorkflowStepEntry, lambda r, c: SomMetaNode(class_name="WorkflowStepEntry", class_section_id="WSE", kind=SomMetaKind.COMPLEX, type_name="WorkflowStepEntry", doc_comment="A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", class_doc_comment="A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", recursive=r, children=c))),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="refs", type_name="String", description="Participating Steps", hint="Section id of the workflow step entries (`WSE`), comma-separated", order=0, refers_to=["WSE.@sectionId"])]),
+            extra=[SomMetaExtra(annotation="Reference", args={"description": "Participating Steps"})]),
     ]
 
 
@@ -69474,7 +69450,7 @@ class ExternalServiceDependencyEntryNav(SomMetaRef):
 
     @property
     def primaryDependentSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/EXSDE-PRIM-REF")
+        return SomMetaRef(self.tree, f"{self.path}/EXSDE-PRIM-REF")
 
 
 class ExternalSystemContextEntryNav(SomMetaRef):
@@ -76884,7 +76860,7 @@ class ProcessMetricEntryNav(SomMetaRef):
 
     @property
     def processReference(self):
-        return CurrentBusinessProcessNav(self.tree, f"{self.path}/PME-PROC-REF")
+        return SomMetaRef(self.tree, f"{self.path}/PME-PROC-REF")
 
 
 class ProcessMetricsNav(SomMetaRef):
@@ -83649,11 +83625,11 @@ class SystemDependencyEntryNav(SomMetaRef):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYDE-SOUR-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYDE-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYDE-TARG-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYDE-TARG-REF")
 
 
 class SystemDescriptionNav(SomMetaRef):
@@ -83812,11 +83788,11 @@ class SystemIntegrationEntryNav(SomMetaRef):
 
     @property
     def sourceSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYIN-SOUR-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYIN-SOUR-REF")
 
     @property
     def targetSystem(self):
-        return ExistingSystemEntryNav(self.tree, f"{self.path}/SYIN-TARG-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYIN-TARG-REF")
 
 
 class SystemInventoryNav(SomMetaRef):
@@ -87621,7 +87597,7 @@ class WorkflowActorEntryNav(SomMetaRef):
 
     @property
     def participatingSteps(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WAE-PART-REF", WorkflowStepEntryNav)
+        return SomMetaRef(self.tree, f"{self.path}/WAE-PART-REF")
 
 
 class WorkflowBusinessRuleNav(SomMetaRef):
@@ -104098,7 +104074,7 @@ class ExternalServiceDependencyEntryId(SomMetaRef):
 
     @property
     def EXSDE_PRIM_REF(self):
-        return ExistingSystemEntryId(self.tree, f"{self.path}/EXSDE-PRIM-REF")
+        return SomMetaRef(self.tree, f"{self.path}/EXSDE-PRIM-REF")
 
 
 class ExternalSystemContextEntryId(SomMetaRef):
@@ -106292,7 +106268,7 @@ class ProcessMetricEntryId(SomMetaRef):
 
     @property
     def PME_PROC_REF(self):
-        return CurrentBusinessProcessId(self.tree, f"{self.path}/PME-PROC-REF")
+        return SomMetaRef(self.tree, f"{self.path}/PME-PROC-REF")
 
 
 class ProcessOutputEntryId(SomMetaRef):
@@ -108533,11 +108509,11 @@ class SystemDependencyEntryId(SomMetaRef):
 
     @property
     def SYDE_SOUR_REF(self):
-        return ExistingSystemEntryId(self.tree, f"{self.path}/SYDE-SOUR-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYDE-SOUR-REF")
 
     @property
     def SYDE_TARG_REF(self):
-        return ExistingSystemEntryId(self.tree, f"{self.path}/SYDE-TARG-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYDE-TARG-REF")
 
 
 class SystemErrorCodeEntryId(SomMetaRef):
@@ -108587,11 +108563,11 @@ class SystemIntegrationEntryId(SomMetaRef):
 
     @property
     def SYIN_SOUR_REF(self):
-        return ExistingSystemEntryId(self.tree, f"{self.path}/SYIN-SOUR-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYIN-SOUR-REF")
 
     @property
     def SYIN_TARG_REF(self):
-        return ExistingSystemEntryId(self.tree, f"{self.path}/SYIN-TARG-REF")
+        return SomMetaRef(self.tree, f"{self.path}/SYIN-TARG-REF")
 
 
 class SystemMigrationRiskEntryId(SomMetaRef):
@@ -109797,7 +109773,7 @@ class WorkflowActorEntryId(SomMetaRef):
 
     @property
     def WAE_PART_REF(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WAE-PART-REF", WorkflowStepEntryId)
+        return SomMetaRef(self.tree, f"{self.path}/WAE-PART-REF")
 
 
 class WorkflowBusinessRuleId(SomMetaRef):

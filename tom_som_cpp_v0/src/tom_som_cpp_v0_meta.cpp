@@ -36922,6 +36922,7 @@ void buildExternalServiceDependenciesChildren(som::SomMetaNode& parent, std::vec
 }
 
 void buildExternalServiceDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExternalServiceDependencyEntry";
@@ -36994,21 +36995,18 @@ void buildExternalServiceDependencyEntryChildren(som::SomMetaNode& parent, std::
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ExistingSystemEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ExistingSystemEntry";
-        n.memberName = "primaryDependentSystem";
-        n.sectionId = "EXSDE-PRIM-REF";
-        n.classSectionId = "ESENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ExistingSystemEntry";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
-        n.docComment = "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Primary Dependent System\"}", nullptr)});
-      },
-      buildExistingSystemEntryChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ExternalServiceDependencyEntry";
+    (*n).memberName = "primaryDependentSystem";
+    (*n).sectionId = "EXSDE-PRIM-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Primary Dependent System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, std::vector<std::string>{}, std::vector<std::string>{"ESENT.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Primary Dependent System\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -39867,12 +39865,13 @@ void buildGoalDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).className = "GoalDependencyEntry";
     (*n).memberName = "relatedGoal";
     (*n).sectionId = "GOLDE-RELA-REF";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).docComment = "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Related Goal", false, "Section id of the business goal (`BGE`)", 0, std::vector<std::string>{}, std::vector<std::string>{"BGE.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Goal\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -60085,6 +60084,7 @@ void buildProcessMetricCategoryChildren(som::SomMetaNode& parent, std::vector<st
 }
 
 void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ProcessMetricEntry";
@@ -60137,21 +60137,18 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("CurrentBusinessProcess", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "CurrentBusinessProcess";
-        n.memberName = "processReference";
-        n.sectionId = "PME-PROC-REF";
-        n.classSectionId = "CUBIPR";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "CurrentBusinessProcess";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
-        n.docComment = "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.";
-        n.classDocComment = "A current business process.\n\nDetailed documentation of a single business process including its\nworkflows, actors, metrics, and pain points.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Process Reference\"}", nullptr)});
-      },
-      buildCurrentBusinessProcessChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ProcessMetricEntry";
+    (*n).memberName = "processReference";
+    (*n).sectionId = "PME-PROC-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Process Reference", false, "Section id of the current business process (`CUBIPR`)", 0, std::vector<std::string>{}, std::vector<std::string>{"CUBIPR.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Process Reference\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -81660,6 +81657,7 @@ void buildSystemDataScopeChildren(som::SomMetaNode& parent, std::vector<std::str
 }
 
 void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemDependencyEntry";
@@ -81749,39 +81747,33 @@ void buildSystemDependencyEntryChildren(som::SomMetaNode& parent, std::vector<st
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ExistingSystemEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ExistingSystemEntry";
-        n.memberName = "sourceSystem";
-        n.sectionId = "SYDE-SOUR-REF";
-        n.classSectionId = "ESENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ExistingSystemEntry";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
-        n.docComment = "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
-      },
-      buildExistingSystemEntryChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemDependencyEntry";
+    (*n).memberName = "sourceSystem";
+    (*n).sectionId = "SYDE-SOUR-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Source System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, std::vector<std::string>{}, std::vector<std::string>{"ESENT.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ExistingSystemEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ExistingSystemEntry";
-        n.memberName = "targetSystem";
-        n.sectionId = "SYDE-TARG-REF";
-        n.classSectionId = "ESENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ExistingSystemEntry";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
-        n.docComment = "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
-      },
-      buildExistingSystemEntryChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemDependencyEntry";
+    (*n).memberName = "targetSystem";
+    (*n).sectionId = "SYDE-TARG-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Target System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, std::vector<std::string>{}, std::vector<std::string>{"ESENT.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -82208,6 +82200,7 @@ void buildSystemErrorDisplayChildren(som::SomMetaNode& parent, std::vector<std::
 }
 
 void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "SystemIntegrationEntry";
@@ -82330,39 +82323,33 @@ void buildSystemIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<s
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ExistingSystemEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ExistingSystemEntry";
-        n.memberName = "sourceSystem";
-        n.sectionId = "SYIN-SOUR-REF";
-        n.classSectionId = "ESENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ExistingSystemEntry";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
-        n.docComment = "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
-      },
-      buildExistingSystemEntryChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemIntegrationEntry";
+    (*n).memberName = "sourceSystem";
+    (*n).sectionId = "SYIN-SOUR-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).docComment = "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Source System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, std::vector<std::string>{}, std::vector<std::string>{"ESENT.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Source System\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("ExistingSystemEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ExistingSystemEntry";
-        n.memberName = "targetSystem";
-        n.sectionId = "SYIN-TARG-REF";
-        n.classSectionId = "ESENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ExistingSystemEntry";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
-        n.docComment = "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.";
-        n.classDocComment = "An existing system entry (form).\n\nCaptures comprehensive information about an existing system including\nidentity, technology, business context, usage metrics, lifecycle, and risks.";
-        n.extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
-      },
-      buildExistingSystemEntryChildren);
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "SystemIntegrationEntry";
+    (*n).memberName = "targetSystem";
+    (*n).sectionId = "SYIN-TARG-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 8;
+    (*n).docComment = "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Target System", false, "Section id of the existing-systems inventory entry (`ESENT`)", 0, std::vector<std::string>{}, std::vector<std::string>{"ESENT.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Target System\"}", nullptr)});
     parent.addChild(std::move(n));
   }
 }
@@ -83867,12 +83854,13 @@ void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).className = "SystemTaskEntry";
     (*n).memberName = "relatedUseCase";
     (*n).sectionId = "SYTS-RELA-REF";
-    (*n).kind = som::kSomMetaKindContent;
+    (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 4;
-    (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).docComment = "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ref", "String", "Related Use Case", false, "Section id of the use case (interaction entry, `INEN`)", 0, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}, false});
     (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Related Use Case\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -94538,6 +94526,7 @@ void buildWireframesAndMockupsChildren(som::SomMetaNode& parent, std::vector<std
 }
 
 void buildWorkflowActorEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "WorkflowActorEntry";
@@ -94558,27 +94547,19 @@ void buildWorkflowActorEntryChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "WorkflowActorEntry";
-    (*ln).memberName = "participatingSteps";
-    (*ln).sectionId = "WAE-PART-REF";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "WorkflowStepEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
-    (*ln).docComment = "Steps this actor participates in.";
-    (*ln).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Participating Steps\"}", nullptr)});
-    ln->elementNode = metaCx("WorkflowStepEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "WorkflowStepEntry";
-        n.classSectionId = "WSE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "WorkflowStepEntry";
-        n.docComment = "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.";
-        n.classDocComment = "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.";
-      },
-      buildWorkflowStepEntryChildren);
-    parent.addChild(std::move(ln));
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "WorkflowActorEntry";
+    (*n).memberName = "participatingSteps";
+    (*n).sectionId = "WAE-PART-REF";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).docComment = "Steps this actor participates in.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"refs", "String", "Participating Steps", false, "Section id of the workflow step entries (`WSE`), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"WSE.@sectionId"}, false});
+    (*n).extra.push_back(som::SomMetaExtra{"Reference", som::jsonParse("{\"description\":\"Participating Steps\"}", nullptr)});
+    parent.addChild(std::move(n));
   }
 }
 
@@ -104742,8 +104723,8 @@ som::SomMetaRef navExternalServiceDependencyEntry_operations(NavExternalServiceD
 som::SomMetaRef navExternalServiceDependencyEntry_risk(NavExternalServiceDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSRK"));
 }
-NavExistingSystemEntry navExternalServiceDependencyEntry_primaryDependentSystem(NavExternalServiceDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"))};
+som::SomMetaRef navExternalServiceDependencyEntry_primaryDependentSystem(NavExternalServiceDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"));
 }
 som::SomMetaRef navExternalSystemContextEntry_content(NavExternalSystemContextEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -108546,8 +108527,8 @@ som::SomMetaRef navProcessMetricEntry_measurement(NavProcessMetricEntry x) {
 som::SomMetaRef navProcessMetricEntry_targets(NavProcessMetricEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PMET"));
 }
-NavCurrentBusinessProcess navProcessMetricEntry_processReference(NavProcessMetricEntry x) {
-  return NavCurrentBusinessProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"))};
+som::SomMetaRef navProcessMetricEntry_processReference(NavProcessMetricEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"));
 }
 som::SomMetaRef navProcessMetrics_content(NavProcessMetrics x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112050,11 +112031,11 @@ som::SomMetaRef navSystemDependencyEntry_reliability(NavSystemDependencyEntry x)
 som::SomMetaRef navSystemDependencyEntry_operations(NavSystemDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SDEO"));
 }
-NavExistingSystemEntry navSystemDependencyEntry_sourceSystem(NavSystemDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"))};
+som::SomMetaRef navSystemDependencyEntry_sourceSystem(NavSystemDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"));
 }
-NavExistingSystemEntry navSystemDependencyEntry_targetSystem(NavSystemDependencyEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"))};
+som::SomMetaRef navSystemDependencyEntry_targetSystem(NavSystemDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"));
 }
 som::SomMetaRef navSystemDescription_content(NavSystemDescription x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112146,11 +112127,11 @@ som::SomMetaRef navSystemIntegrationEntry_monitoring(NavSystemIntegrationEntry x
 som::SomMetaRef navSystemIntegrationEntry_ownership(NavSystemIntegrationEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYINOW"));
 }
-NavExistingSystemEntry navSystemIntegrationEntry_sourceSystem(NavSystemIntegrationEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"))};
+som::SomMetaRef navSystemIntegrationEntry_sourceSystem(NavSystemIntegrationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"));
 }
-NavExistingSystemEntry navSystemIntegrationEntry_targetSystem(NavSystemIntegrationEntry x) {
-  return NavExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"))};
+som::SomMetaRef navSystemIntegrationEntry_targetSystem(NavSystemIntegrationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"));
 }
 som::SomMetaRef navSystemInventory_content(NavSystemInventory x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -114168,8 +114149,8 @@ som::SomMetaRef navWireframesAndMockups_content(NavWireframesAndMockups x) {
 som::SomMetaRef navWorkflowActorEntry_content(NavWorkflowActorEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
-som::SomListMetaRef navWorkflowActorEntry_participatingSteps(NavWorkflowActorEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"), metaNavFactoryWorkflowStepEntry);
+som::SomMetaRef navWorkflowActorEntry_participatingSteps(NavWorkflowActorEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"));
 }
 som::SomMetaRef navWorkflowBusinessRule_content(NavWorkflowBusinessRule x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -125470,8 +125451,8 @@ som::SomMetaRef idExternalServiceDependencyEntry_EXSOP(IdExternalServiceDependen
 som::SomMetaRef idExternalServiceDependencyEntry_EXSRK(IdExternalServiceDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSRK"));
 }
-IdExistingSystemEntry idExternalServiceDependencyEntry_EXSDE_PRIM_REF(IdExternalServiceDependencyEntry x) {
-  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"))};
+som::SomMetaRef idExternalServiceDependencyEntry_EXSDE_PRIM_REF(IdExternalServiceDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSDE-PRIM-REF"));
 }
 som::SomMetaRef idExternalSystemContextEntry_EXSYCOENIN(IdExternalSystemContextEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCOENIN"));
@@ -126412,8 +126393,8 @@ som::SomMetaRef idProcessMetricEntry_PMEM(IdProcessMetricEntry x) {
 som::SomMetaRef idProcessMetricEntry_PMET(IdProcessMetricEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PMET"));
 }
-IdCurrentBusinessProcess idProcessMetricEntry_PME_PROC_REF(IdProcessMetricEntry x) {
-  return IdCurrentBusinessProcess{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"))};
+som::SomMetaRef idProcessMetricEntry_PME_PROC_REF(IdProcessMetricEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PME-PROC-REF"));
 }
 som::SomMetaRef idProcessRoleEntry_PREE(IdProcessRoleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PREE"));
@@ -127384,11 +127365,11 @@ som::SomMetaRef idSystemDependencyEntry_SDER(IdSystemDependencyEntry x) {
 som::SomMetaRef idSystemDependencyEntry_SDEO(IdSystemDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SDEO"));
 }
-IdExistingSystemEntry idSystemDependencyEntry_SYDE_SOUR_REF(IdSystemDependencyEntry x) {
-  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"))};
+som::SomMetaRef idSystemDependencyEntry_SYDE_SOUR_REF(IdSystemDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-SOUR-REF"));
 }
-IdExistingSystemEntry idSystemDependencyEntry_SYDE_TARG_REF(IdSystemDependencyEntry x) {
-  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"))};
+som::SomMetaRef idSystemDependencyEntry_SYDE_TARG_REF(IdSystemDependencyEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDE-TARG-REF"));
 }
 som::SomMetaRef idSystemErrorCodeEntry_SECEH(IdSystemErrorCodeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SECEH"));
@@ -127414,11 +127395,11 @@ som::SomMetaRef idSystemIntegrationEntry_SYINMO(IdSystemIntegrationEntry x) {
 som::SomMetaRef idSystemIntegrationEntry_SYINOW(IdSystemIntegrationEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYINOW"));
 }
-IdExistingSystemEntry idSystemIntegrationEntry_SYIN_SOUR_REF(IdSystemIntegrationEntry x) {
-  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"))};
+som::SomMetaRef idSystemIntegrationEntry_SYIN_SOUR_REF(IdSystemIntegrationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-SOUR-REF"));
 }
-IdExistingSystemEntry idSystemIntegrationEntry_SYIN_TARG_REF(IdSystemIntegrationEntry x) {
-  return IdExistingSystemEntry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"))};
+som::SomMetaRef idSystemIntegrationEntry_SYIN_TARG_REF(IdSystemIntegrationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYIN-TARG-REF"));
 }
 som::SomMetaRef idSystemTaskEntry_STEE(IdSystemTaskEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "STEE"));
@@ -128017,8 +127998,8 @@ som::SomMetaRef idVpnRequirementEntry_VPREENPE(IdVpnRequirementEntry x) {
 som::SomMetaRef idVpnRequirementEntry_VREA(IdVpnRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VREA"));
 }
-som::SomListMetaRef idWorkflowActorEntry_WAE_PART_REF(IdWorkflowActorEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"), metaIdFactoryWorkflowStepEntry);
+som::SomMetaRef idWorkflowActorEntry_WAE_PART_REF(IdWorkflowActorEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WAE-PART-REF"));
 }
 som::SomListMetaRef idWorkflowStepEntry_WOSTSY_SYST_LST(IdWorkflowStepEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WOSTSY-SYST-LST"), metaIdFactoryWorkflowStepSystem);

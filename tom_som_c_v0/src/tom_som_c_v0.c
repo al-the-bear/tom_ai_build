@@ -19672,10 +19672,10 @@ ExternalServiceDependencyEntryRiskForm external_service_dependency_entry_risk(co
   free(path);
   return out;
 }
-ExistingSystemEntry external_service_dependency_entry_primary_dependent_system(const ExternalServiceDependencyEntry *self) {
+ExternalServiceDependencyEntryPrimaryDependentSystemForm external_service_dependency_entry_primary_dependent_system(const ExternalServiceDependencyEntry *self) {
   char *path = spec_path_join(self->node.path, "EXSDE-PRIM-REF");
-  ExistingSystemEntry out;
-  existing_system_entry_init(&out, self->node.doc, path);
+  ExternalServiceDependencyEntryPrimaryDependentSystemForm out;
+  external_service_dependency_entry_primary_dependent_system_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -21185,17 +21185,12 @@ GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependenc
   free(path);
   return out;
 }
-char *goal_dependency_entry_related_goal(const GoalDependencyEntry *self) {
+GoalDependencyEntryRelatedGoalForm goal_dependency_entry_related_goal(const GoalDependencyEntry *self) {
   char *path = spec_path_join(self->node.path, "GOLDE-RELA-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  GoalDependencyEntryRelatedGoalForm out;
+  goal_dependency_entry_related_goal_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void goal_dependency_entry_set_related_goal(GoalDependencyEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "GOLDE-RELA-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 
 void goal_key_results_init(GoalKeyResults *self, SpecDocument *doc, const char *path) {
@@ -32131,10 +32126,10 @@ ProcessMetricEntryTargetsForm process_metric_entry_targets(const ProcessMetricEn
   free(path);
   return out;
 }
-CurrentBusinessProcess process_metric_entry_process_reference(const ProcessMetricEntry *self) {
+ProcessMetricEntryProcessReferenceForm process_metric_entry_process_reference(const ProcessMetricEntry *self) {
   char *path = spec_path_join(self->node.path, "PME-PROC-REF");
-  CurrentBusinessProcess out;
-  current_business_process_init(&out, self->node.doc, path);
+  ProcessMetricEntryProcessReferenceForm out;
+  process_metric_entry_process_reference_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -43633,17 +43628,17 @@ SystemDependencyEntryOperationsForm system_dependency_entry_operations(const Sys
   free(path);
   return out;
 }
-ExistingSystemEntry system_dependency_entry_source_system(const SystemDependencyEntry *self) {
+SystemDependencyEntrySourceSystemForm system_dependency_entry_source_system(const SystemDependencyEntry *self) {
   char *path = spec_path_join(self->node.path, "SYDE-SOUR-REF");
-  ExistingSystemEntry out;
-  existing_system_entry_init(&out, self->node.doc, path);
+  SystemDependencyEntrySourceSystemForm out;
+  system_dependency_entry_source_system_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ExistingSystemEntry system_dependency_entry_target_system(const SystemDependencyEntry *self) {
+SystemDependencyEntryTargetSystemForm system_dependency_entry_target_system(const SystemDependencyEntry *self) {
   char *path = spec_path_join(self->node.path, "SYDE-TARG-REF");
-  ExistingSystemEntry out;
-  existing_system_entry_init(&out, self->node.doc, path);
+  SystemDependencyEntryTargetSystemForm out;
+  system_dependency_entry_target_system_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -43915,17 +43910,17 @@ SystemIntegrationEntryOwnershipForm system_integration_entry_ownership(const Sys
   free(path);
   return out;
 }
-ExistingSystemEntry system_integration_entry_source_system(const SystemIntegrationEntry *self) {
+SystemIntegrationEntrySourceSystemForm system_integration_entry_source_system(const SystemIntegrationEntry *self) {
   char *path = spec_path_join(self->node.path, "SYIN-SOUR-REF");
-  ExistingSystemEntry out;
-  existing_system_entry_init(&out, self->node.doc, path);
+  SystemIntegrationEntrySourceSystemForm out;
+  system_integration_entry_source_system_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
-ExistingSystemEntry system_integration_entry_target_system(const SystemIntegrationEntry *self) {
+SystemIntegrationEntryTargetSystemForm system_integration_entry_target_system(const SystemIntegrationEntry *self) {
   char *path = spec_path_join(self->node.path, "SYIN-TARG-REF");
-  ExistingSystemEntry out;
-  existing_system_entry_init(&out, self->node.doc, path);
+  SystemIntegrationEntryTargetSystemForm out;
+  system_integration_entry_target_system_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -44683,17 +44678,12 @@ SystemTaskEntryContextForm system_task_entry_context(const SystemTaskEntry *self
   free(path);
   return out;
 }
-char *system_task_entry_related_use_case(const SystemTaskEntry *self) {
+SystemTaskEntryRelatedUseCaseForm system_task_entry_related_use_case(const SystemTaskEntry *self) {
   char *path = spec_path_join(self->node.path, "SYTS-RELA-REF");
-  const char *v = spec_document_content(self->node.doc, path);
-  char *out = som_strdup(v != NULL ? v : "");
+  SystemTaskEntryRelatedUseCaseForm out;
+  system_task_entry_related_use_case_form_init(&out, self->node.doc, path);
   free(path);
   return out;
-}
-void system_task_entry_set_related_use_case(SystemTaskEntry *self, const char *value) {
-  char *path = spec_path_join(self->node.path, "SYTS-RELA-REF");
-  spec_document_set_content(self->node.doc, path, value);
-  free(path);
 }
 SomList system_task_entry_workflow_steps(const SystemTaskEntry *self) {
   char *path = spec_path_join(self->node.path, "SYTS-WORK-LST");
@@ -50358,10 +50348,10 @@ WorkflowActorEntryContentForm workflow_actor_entry_content(const WorkflowActorEn
   free(path);
   return out;
 }
-SomList workflow_actor_entry_participating_steps(const WorkflowActorEntry *self) {
+WorkflowActorEntryParticipatingStepsForm workflow_actor_entry_participating_steps(const WorkflowActorEntry *self) {
   char *path = spec_path_join(self->node.path, "WAE-PART-REF");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "");
+  WorkflowActorEntryParticipatingStepsForm out;
+  workflow_actor_entry_participating_steps_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -94084,6 +94074,27 @@ void external_service_dependency_entry_operations_form_set_security_certificatio
   spec_document_set_form_field(self->node.doc, self->node.path, "securityCertifications", value);
 }
 
+void external_service_dependency_entry_primary_dependent_system_form_init(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void external_service_dependency_entry_primary_dependent_system_form_free(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self) {
+  som_node_free(&self->node);
+}
+char *external_service_dependency_entry_primary_dependent_system_form_content(const ExternalServiceDependencyEntryPrimaryDependentSystemForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void external_service_dependency_entry_primary_dependent_system_form_set_content(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *external_service_dependency_entry_primary_dependent_system_form_ref(const ExternalServiceDependencyEntryPrimaryDependentSystemForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void external_service_dependency_entry_primary_dependent_system_form_set_ref(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
 void external_service_dependency_entry_relationship_form_init(ExternalServiceDependencyEntryRelationshipForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -98339,6 +98350,27 @@ char *goal_dependency_entry_content_form_status(const GoalDependencyEntryContent
 }
 void goal_dependency_entry_content_form_set_status(GoalDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "status", value);
+}
+
+void goal_dependency_entry_related_goal_form_init(GoalDependencyEntryRelatedGoalForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void goal_dependency_entry_related_goal_form_free(GoalDependencyEntryRelatedGoalForm *self) {
+  som_node_free(&self->node);
+}
+char *goal_dependency_entry_related_goal_form_content(const GoalDependencyEntryRelatedGoalForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void goal_dependency_entry_related_goal_form_set_content(GoalDependencyEntryRelatedGoalForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *goal_dependency_entry_related_goal_form_ref(const GoalDependencyEntryRelatedGoalForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void goal_dependency_entry_related_goal_form_set_ref(GoalDependencyEntryRelatedGoalForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void goal_milestone_entry_content_form_init(GoalMilestoneEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -126262,6 +126294,27 @@ char *process_metric_entry_measurement_form_frequency(const ProcessMetricEntryMe
 }
 void process_metric_entry_measurement_form_set_frequency(ProcessMetricEntryMeasurementForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "frequency", value);
+}
+
+void process_metric_entry_process_reference_form_init(ProcessMetricEntryProcessReferenceForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void process_metric_entry_process_reference_form_free(ProcessMetricEntryProcessReferenceForm *self) {
+  som_node_free(&self->node);
+}
+char *process_metric_entry_process_reference_form_content(const ProcessMetricEntryProcessReferenceForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void process_metric_entry_process_reference_form_set_content(ProcessMetricEntryProcessReferenceForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *process_metric_entry_process_reference_form_ref(const ProcessMetricEntryProcessReferenceForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void process_metric_entry_process_reference_form_set_ref(ProcessMetricEntryProcessReferenceForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void process_metric_entry_targets_form_init(ProcessMetricEntryTargetsForm *self, SpecDocument *doc, const char *path) {
@@ -156004,6 +156057,48 @@ void system_dependency_entry_reliability_form_set_fallback_procedure(SystemDepen
   spec_document_set_form_field(self->node.doc, self->node.path, "fallbackProcedure", value);
 }
 
+void system_dependency_entry_source_system_form_init(SystemDependencyEntrySourceSystemForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void system_dependency_entry_source_system_form_free(SystemDependencyEntrySourceSystemForm *self) {
+  som_node_free(&self->node);
+}
+char *system_dependency_entry_source_system_form_content(const SystemDependencyEntrySourceSystemForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void system_dependency_entry_source_system_form_set_content(SystemDependencyEntrySourceSystemForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *system_dependency_entry_source_system_form_ref(const SystemDependencyEntrySourceSystemForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void system_dependency_entry_source_system_form_set_ref(SystemDependencyEntrySourceSystemForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
+void system_dependency_entry_target_system_form_init(SystemDependencyEntryTargetSystemForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void system_dependency_entry_target_system_form_free(SystemDependencyEntryTargetSystemForm *self) {
+  som_node_free(&self->node);
+}
+char *system_dependency_entry_target_system_form_content(const SystemDependencyEntryTargetSystemForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void system_dependency_entry_target_system_form_set_content(SystemDependencyEntryTargetSystemForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *system_dependency_entry_target_system_form_ref(const SystemDependencyEntryTargetSystemForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void system_dependency_entry_target_system_form_set_ref(SystemDependencyEntryTargetSystemForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
 void system_description_description_summary_form_init(SystemDescriptionDescriptionSummaryForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -156848,6 +156943,48 @@ char *system_integration_entry_protocol_form_authentication_method(const SystemI
 }
 void system_integration_entry_protocol_form_set_authentication_method(SystemIntegrationEntryProtocolForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "authenticationMethod", value);
+}
+
+void system_integration_entry_source_system_form_init(SystemIntegrationEntrySourceSystemForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void system_integration_entry_source_system_form_free(SystemIntegrationEntrySourceSystemForm *self) {
+  som_node_free(&self->node);
+}
+char *system_integration_entry_source_system_form_content(const SystemIntegrationEntrySourceSystemForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void system_integration_entry_source_system_form_set_content(SystemIntegrationEntrySourceSystemForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *system_integration_entry_source_system_form_ref(const SystemIntegrationEntrySourceSystemForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void system_integration_entry_source_system_form_set_ref(SystemIntegrationEntrySourceSystemForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
+}
+
+void system_integration_entry_target_system_form_init(SystemIntegrationEntryTargetSystemForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void system_integration_entry_target_system_form_free(SystemIntegrationEntryTargetSystemForm *self) {
+  som_node_free(&self->node);
+}
+char *system_integration_entry_target_system_form_content(const SystemIntegrationEntryTargetSystemForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void system_integration_entry_target_system_form_set_content(SystemIntegrationEntryTargetSystemForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *system_integration_entry_target_system_form_ref(const SystemIntegrationEntryTargetSystemForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void system_integration_entry_target_system_form_set_ref(SystemIntegrationEntryTargetSystemForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void system_integration_entry_throughput_form_init(SystemIntegrationEntryThroughputForm *self, SpecDocument *doc, const char *path) {
@@ -157971,6 +158108,27 @@ char *system_task_entry_execution_form_trigger(const SystemTaskEntryExecutionFor
 }
 void system_task_entry_execution_form_set_trigger(SystemTaskEntryExecutionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "trigger", value);
+}
+
+void system_task_entry_related_use_case_form_init(SystemTaskEntryRelatedUseCaseForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void system_task_entry_related_use_case_form_free(SystemTaskEntryRelatedUseCaseForm *self) {
+  som_node_free(&self->node);
+}
+char *system_task_entry_related_use_case_form_content(const SystemTaskEntryRelatedUseCaseForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void system_task_entry_related_use_case_form_set_content(SystemTaskEntryRelatedUseCaseForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *system_task_entry_related_use_case_form_ref(const SystemTaskEntryRelatedUseCaseForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ref");
+  return som_strdup(v != NULL ? v : "");
+}
+void system_task_entry_related_use_case_form_set_ref(SystemTaskEntryRelatedUseCaseForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "ref", value);
 }
 
 void system_technical_assessment_content_form_init(SystemTechnicalAssessmentContentForm *self, SpecDocument *doc, const char *path) {
@@ -172901,6 +173059,27 @@ void workflow_actor_entry_content_form_set_headcount(WorkflowActorEntryContentFo
   char buf[32];
   snprintf(buf, sizeof(buf), "%ld", value);
   spec_document_set_form_field(self->node.doc, self->node.path, "headcount", buf);
+}
+
+void workflow_actor_entry_participating_steps_form_init(WorkflowActorEntryParticipatingStepsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void workflow_actor_entry_participating_steps_form_free(WorkflowActorEntryParticipatingStepsForm *self) {
+  som_node_free(&self->node);
+}
+char *workflow_actor_entry_participating_steps_form_content(const WorkflowActorEntryParticipatingStepsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void workflow_actor_entry_participating_steps_form_set_content(WorkflowActorEntryParticipatingStepsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *workflow_actor_entry_participating_steps_form_refs(const WorkflowActorEntryParticipatingStepsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "refs");
+  return som_strdup(v != NULL ? v : "");
+}
+void workflow_actor_entry_participating_steps_form_set_refs(WorkflowActorEntryParticipatingStepsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "refs", value);
 }
 
 void workflow_business_rule_content_form_init(WorkflowBusinessRuleContentForm *self, SpecDocument *doc, const char *path) {

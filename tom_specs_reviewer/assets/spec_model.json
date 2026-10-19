@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-18T14:16:55.234836Z",
+  "generatedAt": "2026-10-19T15:45:20.155430Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.1+6.80c6bb4e",
+  "modelVersionLabel": "1.6.2+7.3b09bf72",
   "classCount": 1259,
   "rootCount": 14,
-  "modelHash": "265befef355c05115034498e823288d317ae98c6f32fc9e7779211ed34148f93",
+  "modelHash": "9cc5ff721fb928933d0e74074293b8813f3edfafa57855fd7eeb55fad8417590",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -108977,7 +108977,7 @@
         },
         {
           "name": "primaryDependentSystem",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The in-house system that stops working when this external service does,\nnamed by section id.\n\nAn external service is usually consumed by more than one system; this\nnames the one whose exposure is the reason the dependency is being\nrecorded at all, so the lock-in, fallback and outage facts above have a\nblast radius attached to them instead of floating free. Expect an entry\nfrom the existing-systems inventory at the far end.\n\n\"Primary\" is a deliberate narrowing, not a completeness claim. The full\nconsumer set is a property of the systems and is stated there; repeating\nit here would only give it a second place to be wrong.",
           "sectionId": "EXSDE-PRIM-REF",
           "serializationOrder": 4,
@@ -108995,13 +108995,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 4
               }
             }
           ],
-          "type": "ExistingSystemEntry"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Primary Dependent System",
+              "hint": "Section id of the existing-systems inventory entry (`ESENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ESENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -118751,7 +118768,7 @@
         },
         {
           "name": "relatedGoal",
-          "kind": "content",
+          "kind": "form",
           "doc": "The goal whose achievement this dependency blocks, named by section id.\n\nA dependency entry is written from the dependency's side — what is\nneeded, who controls it, when it is expected, what happens if it does not\narrive — and this is the only thing on the entry that says what is at\nrisk. Expect a goal of this document at the far end; a dependency that\nwould have to name several goals is really several dependencies, because\neach of those goals has a different exposure to it.\n\nThe reference stores a section id and is not traversed\n(`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and\nmetrics stay in one place and cannot drift into a second.",
           "sectionId": "GOLDE-RELA-REF",
           "serializationOrder": 1,
@@ -118769,13 +118786,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Related Goal",
+              "hint": "Section id of the business goal (`BGE`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BGE.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -185946,7 +185980,7 @@
         },
         {
           "name": "processReference",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The current business process this metric measures, named by section id.\n\nA metric only means something against the thing it is a metric *of*: the\nsame \"average handling time\" is a different number for two processes, and\ncomparing them across processes is the mistake this link exists to\nprevent. Expect a [CurrentBusinessProcess] at the far end — a figure about\nthe estate as a whole is not a process metric and belongs with the\nlandscape assessment.\n\nIt is also what makes the current value usable as a baseline: a target set\nin the future state is only comparable to it if both are anchored to the\nsame process.",
           "sectionId": "PME-PROC-REF",
           "serializationOrder": 3,
@@ -185964,13 +185998,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
               }
             }
           ],
-          "type": "CurrentBusinessProcess"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Process Reference",
+              "hint": "Section id of the current business process (`CUBIPR`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "CUBIPR.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -258204,7 +258255,7 @@
         },
         {
           "name": "sourceSystem",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The depending end — the system that stops working if the dependency\nfails — named by section id.\n\nDirection is what this pair carries, and nothing else on the entry does.\nA dependency is not symmetric: the availability requirement, the SLA and\nthe fallback procedure above are all obligations owed *to* this end *by*\n[targetSystem], so reading the pair backwards inverts every one of them.",
           "sectionId": "SYDE-SOUR-REF",
           "serializationOrder": 5,
@@ -258222,17 +258273,34 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 5
               }
             }
           ],
-          "type": "ExistingSystemEntry"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Source System",
+              "hint": "Section id of the existing-systems inventory entry (`ESENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ESENT.@sectionId"
+              ]
+            }
+          ]
         },
         {
           "name": "targetSystem",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The depended-upon end — the system that owes the availability and the SLA\n— named by section id.\n\nPaired with [sourceSystem]; the two together *are* the direction of the\ndependency, so neither means anything alone. Both point into the\nexisting-systems inventory of this document: a reliance on something\noutside the current estate is an external-service dependency and is\nrecorded as one.",
           "sectionId": "SYDE-TARG-REF",
           "serializationOrder": 6,
@@ -258250,13 +258318,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 6
               }
             }
           ],
-          "type": "ExistingSystemEntry"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Target System",
+              "hint": "Section id of the existing-systems inventory entry (`ESENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ESENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -260153,7 +260238,7 @@
         },
         {
           "name": "sourceSystem",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The system data flows out of, named by section id.\n\nFor an integration the pair is the direction of *data*, not of dependency.\nThe source is where a record originates and is therefore where it is\nauthoritative — which is what a reader needs in order to decide which\nside a discrepancy between the two copies is resolved against.",
           "sectionId": "SYIN-SOUR-REF",
           "serializationOrder": 7,
@@ -260171,17 +260256,34 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 7
               }
             }
           ],
-          "type": "ExistingSystemEntry"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Source System",
+              "hint": "Section id of the existing-systems inventory entry (`ESENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ESENT.@sectionId"
+              ]
+            }
+          ]
         },
         {
           "name": "targetSystem",
-          "kind": "complex",
+          "kind": "form",
           "doc": "The system data flows into, named by section id.\n\nThe consuming end, holding the derived copy. Paired with [sourceSystem];\nthe protocol, format, throughput and error-handling facts above all\ndescribe the movement between exactly these two systems and are not\nproperties of either one on its own.",
           "sectionId": "SYIN-TARG-REF",
           "serializationOrder": 8,
@@ -260199,13 +260301,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 8
               }
             }
           ],
-          "type": "ExistingSystemEntry"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Target System",
+              "hint": "Section id of the existing-systems inventory entry (`ESENT`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ESENT.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -263733,7 +263852,7 @@
         },
         {
           "name": "relatedUseCase",
-          "kind": "content",
+          "kind": "form",
           "doc": "The use case this task appears in, named by section id.\n\nA task is written from the user's side — what a person sets out to do —\nwhile a use case is written from the system's side, as an interaction\nwith actors, flows and an outcome. The link asserts that the two describe\nthe same piece of work seen from opposite ends, so a reader who follows\nit should find the same actor and the same outcome restated in\ninteraction terms, not a wider or narrower slice of scope.\n\nA `@Reference` stores a section id and nothing else, and is never\nfollowed in traversal (`tom_specs_model_rules.md` §9.2) — the use case is\nnot owned here and its text is never copied here. An empty link is itself\na finding: a task no use case accounts for is either out of scope or a\nuse case that was never written.",
           "sectionId": "SYTS-RELA-REF",
           "serializationOrder": 4,
@@ -263751,13 +263870,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 4
               }
             }
           ],
-          "contentType": "text"
+          "formFields": [
+            {
+              "name": "ref",
+              "label": "Related Use Case",
+              "hint": "Section id of the use case (interaction entry, `INEN`)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "INEN.@sectionId"
+              ]
+            }
+          ]
         },
         {
           "name": "workflowSteps",
@@ -299047,7 +299183,7 @@
         },
         {
           "name": "participatingSteps",
-          "kind": "list",
+          "kind": "form",
           "doc": "Steps this actor participates in.",
           "sectionId": "WAE-PART-REF",
           "serializationOrder": 1,
@@ -299065,14 +299201,30 @@
               }
             },
             {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 1
               }
             }
           ],
-          "elementType": "WorkflowStepEntry",
-          "elementIsComplex": true
+          "formFields": [
+            {
+              "name": "refs",
+              "label": "Participating Steps",
+              "hint": "Section id of the workflow step entries (`WSE`), comma-separated",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "WSE.@sectionId"
+              ]
+            }
+          ]
         }
       ]
     },

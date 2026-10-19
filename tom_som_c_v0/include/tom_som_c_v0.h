@@ -3392,6 +3392,7 @@ typedef struct { SomNode node; } ExternalPartnerConnectionEntryReliabilityForm;
 typedef struct { SomNode node; } ExternalPartnerOperationsContentForm;
 typedef struct { SomNode node; } ExternalServiceDependencyEntryContentForm;
 typedef struct { SomNode node; } ExternalServiceDependencyEntryOperationsForm;
+typedef struct { SomNode node; } ExternalServiceDependencyEntryPrimaryDependentSystemForm;
 typedef struct { SomNode node; } ExternalServiceDependencyEntryRelationshipForm;
 typedef struct { SomNode node; } ExternalServiceDependencyEntryRiskForm;
 typedef struct { SomNode node; } ExternalSystemContextEntryContentForm;
@@ -3488,6 +3489,7 @@ typedef struct { SomNode node; } GeographicDistributionRequirementsRoutingForm;
 typedef struct { SomNode node; } GlobalRoleExclusionEntryContentForm;
 typedef struct { SomNode node; } GlossaryEntryContentForm;
 typedef struct { SomNode node; } GoalDependencyEntryContentForm;
+typedef struct { SomNode node; } GoalDependencyEntryRelatedGoalForm;
 typedef struct { SomNode node; } GoalMilestoneEntryContentForm;
 typedef struct { SomNode node; } GoalResourcesResourcesFormForm;
 typedef struct { SomNode node; } GoalRiskEntryAssessmentForm;
@@ -4123,6 +4125,7 @@ typedef struct { SomNode node; } ProcessKpiEntryMeasurementForm;
 typedef struct { SomNode node; } ProcessKpiEntryOperationsForm;
 typedef struct { SomNode node; } ProcessMetricEntryContentForm;
 typedef struct { SomNode node; } ProcessMetricEntryMeasurementForm;
+typedef struct { SomNode node; } ProcessMetricEntryProcessReferenceForm;
 typedef struct { SomNode node; } ProcessMetricEntryTargetsForm;
 typedef struct { SomNode node; } ProcessOutputEntryContentForm;
 typedef struct { SomNode node; } ProcessOverviewDiagramOverviewForm;
@@ -4802,6 +4805,8 @@ typedef struct { SomNode node; } SystemDependencyEntryDataExchangeForm;
 typedef struct { SomNode node; } SystemDependencyEntryMechanismForm;
 typedef struct { SomNode node; } SystemDependencyEntryOperationsForm;
 typedef struct { SomNode node; } SystemDependencyEntryReliabilityForm;
+typedef struct { SomNode node; } SystemDependencyEntrySourceSystemForm;
+typedef struct { SomNode node; } SystemDependencyEntryTargetSystemForm;
 typedef struct { SomNode node; } SystemDescriptionDescriptionSummaryForm;
 typedef struct { SomNode node; } SystemDiagnosticToolsContentForm;
 typedef struct { SomNode node; } SystemDiagnosticToolsLogsForm;
@@ -4821,6 +4826,8 @@ typedef struct { SomNode node; } SystemIntegrationEntryErrorHandlingForm;
 typedef struct { SomNode node; } SystemIntegrationEntryMonitoringForm;
 typedef struct { SomNode node; } SystemIntegrationEntryOwnershipForm;
 typedef struct { SomNode node; } SystemIntegrationEntryProtocolForm;
+typedef struct { SomNode node; } SystemIntegrationEntrySourceSystemForm;
+typedef struct { SomNode node; } SystemIntegrationEntryTargetSystemForm;
 typedef struct { SomNode node; } SystemIntegrationEntryThroughputForm;
 typedef struct { SomNode node; } SystemKnowledgeTransferContentForm;
 typedef struct { SomNode node; } SystemMigrationPlanContentForm;
@@ -4848,6 +4855,7 @@ typedef struct { SomNode node; } SystemTaskEntryContentForm;
 typedef struct { SomNode node; } SystemTaskEntryContextForm;
 typedef struct { SomNode node; } SystemTaskEntryDataForm;
 typedef struct { SomNode node; } SystemTaskEntryExecutionForm;
+typedef struct { SomNode node; } SystemTaskEntryRelatedUseCaseForm;
 typedef struct { SomNode node; } SystemTechnicalAssessmentContentForm;
 typedef struct { SomNode node; } SystemTechnicalAssessmentLifecycleForm;
 typedef struct { SomNode node; } SystemTechnicalAssessmentPlatformForm;
@@ -5176,6 +5184,7 @@ typedef struct { SomNode node; } WcagComplianceWcagComplianceContentForm;
 typedef struct { SomNode node; } WcagSuccessCriterionEntryContentForm;
 typedef struct { SomNode node; } WeightedQualityMatrixMatrixConfigContentForm;
 typedef struct { SomNode node; } WorkflowActorEntryContentForm;
+typedef struct { SomNode node; } WorkflowActorEntryParticipatingStepsForm;
 typedef struct { SomNode node; } WorkflowBusinessRuleContentForm;
 typedef struct { SomNode node; } WorkflowDecisionPointContentForm;
 typedef struct { SomNode node; } WorkflowExceptionEntryContentForm;
@@ -15601,7 +15610,7 @@ ExternalServiceDependencyEntryRiskForm external_service_dependency_entry_risk(co
 // "Primary" is a deliberate narrowing, not a completeness claim. The full
 // consumer set is a property of the systems and is stated there; repeating
 // it here would only give it a second place to be wrong.
-ExistingSystemEntry external_service_dependency_entry_primary_dependent_system(const ExternalServiceDependencyEntry *self);
+ExternalServiceDependencyEntryPrimaryDependentSystemForm external_service_dependency_entry_primary_dependent_system(const ExternalServiceDependencyEntry *self);
 
 // An external system context entry (form).
 // Binds a ExternalSystemContextEntry facade to a document and a path (path copied).
@@ -16472,8 +16481,7 @@ GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependenc
 // The reference stores a section id and is not traversed
 // (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
 // metrics stay in one place and cannot drift into a second.
-char *goal_dependency_entry_related_goal(const GoalDependencyEntry *self);
-void goal_dependency_entry_set_related_goal(GoalDependencyEntry *self, const char *value);
+GoalDependencyEntryRelatedGoalForm goal_dependency_entry_related_goal(const GoalDependencyEntry *self);
 
 // 4.2.1.n.1. Key Results.
 //
@@ -22334,7 +22342,7 @@ ProcessMetricEntryTargetsForm process_metric_entry_targets(const ProcessMetricEn
 // It is also what makes the current value usable as a baseline: a target set
 // in the future state is only comparable to it if both are anchored to the
 // same process.
-CurrentBusinessProcess process_metric_entry_process_reference(const ProcessMetricEntry *self);
+ProcessMetricEntryProcessReferenceForm process_metric_entry_process_reference(const ProcessMetricEntry *self);
 
 // 1.2.2. Process Metrics.
 //
@@ -28626,7 +28634,7 @@ SystemDependencyEntryOperationsForm system_dependency_entry_operations(const Sys
 // A dependency is not symmetric: the availability requirement, the SLA and
 // the fallback procedure above are all obligations owed *to* this end *by*
 // [targetSystem], so reading the pair backwards inverts every one of them.
-ExistingSystemEntry system_dependency_entry_source_system(const SystemDependencyEntry *self);
+SystemDependencyEntrySourceSystemForm system_dependency_entry_source_system(const SystemDependencyEntry *self);
 // The depended-upon end — the system that owes the availability and the SLA
 // — named by section id.
 //
@@ -28635,7 +28643,7 @@ ExistingSystemEntry system_dependency_entry_source_system(const SystemDependency
 // existing-systems inventory of this document: a reliance on something
 // outside the current estate is an external-service dependency and is
 // recorded as one.
-ExistingSystemEntry system_dependency_entry_target_system(const SystemDependencyEntry *self);
+SystemDependencyEntryTargetSystemForm system_dependency_entry_target_system(const SystemDependencyEntry *self);
 
 // 4.1. System Description.
 //
@@ -28766,14 +28774,14 @@ SystemIntegrationEntryOwnershipForm system_integration_entry_ownership(const Sys
 // The source is where a record originates and is therefore where it is
 // authoritative — which is what a reader needs in order to decide which
 // side a discrepancy between the two copies is resolved against.
-ExistingSystemEntry system_integration_entry_source_system(const SystemIntegrationEntry *self);
+SystemIntegrationEntrySourceSystemForm system_integration_entry_source_system(const SystemIntegrationEntry *self);
 // The system data flows into, named by section id.
 //
 // The consuming end, holding the derived copy. Paired with [sourceSystem];
 // the protocol, format, throughput and error-handling facts above all
 // describe the movement between exactly these two systems and are not
 // properties of either one on its own.
-ExistingSystemEntry system_integration_entry_target_system(const SystemIntegrationEntry *self);
+SystemIntegrationEntryTargetSystemForm system_integration_entry_target_system(const SystemIntegrationEntry *self);
 
 // 1.1.1. System Inventory.
 //
@@ -29150,8 +29158,7 @@ SystemTaskEntryContextForm system_task_entry_context(const SystemTaskEntry *self
 // not owned here and its text is never copied here. An empty link is itself
 // a finding: a task no use case accounts for is either out of scope or a
 // use case that was never written.
-char *system_task_entry_related_use_case(const SystemTaskEntry *self);
-void system_task_entry_set_related_use_case(SystemTaskEntry *self, const char *value);
+SystemTaskEntryRelatedUseCaseForm system_task_entry_related_use_case(const SystemTaskEntry *self);
 // Task workflow steps.
 // Returns the list view; element type: scalar (construct from item paths).
 SomList system_task_entry_workflow_steps(const SystemTaskEntry *self);
@@ -32126,8 +32133,7 @@ int workflow_actor_entry_can_have_content(const WorkflowActorEntry *self);
 // §11.4 rule 7); the field values themselves live in [form].
 WorkflowActorEntryContentForm workflow_actor_entry_content(const WorkflowActorEntry *self);
 // Steps this actor participates in.
-// Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-SomList workflow_actor_entry_participating_steps(const WorkflowActorEntry *self);
+WorkflowActorEntryParticipatingStepsForm workflow_actor_entry_participating_steps(const WorkflowActorEntry *self);
 
 // A business rule governing workflow behavior.
 // Binds a WorkflowBusinessRule facade to a document and a path (path copied).
@@ -47743,6 +47749,15 @@ void external_service_dependency_entry_operations_form_set_data_residency(Extern
 char *external_service_dependency_entry_operations_form_security_certifications(const ExternalServiceDependencyEntryOperationsForm *self);
 void external_service_dependency_entry_operations_form_set_security_certifications(ExternalServiceDependencyEntryOperationsForm *self, const char *value);
 
+// ExternalServiceDependencyEntryPrimaryDependentSystemForm is the generated section facade for the `primaryDependentSystem` @Form section: its own `content` text followed by one typed member per form field.
+void external_service_dependency_entry_primary_dependent_system_form_init(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, SpecDocument *doc, const char *path);
+void external_service_dependency_entry_primary_dependent_system_form_free(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *external_service_dependency_entry_primary_dependent_system_form_content(const ExternalServiceDependencyEntryPrimaryDependentSystemForm *self);
+void external_service_dependency_entry_primary_dependent_system_form_set_content(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, const char *value);
+char *external_service_dependency_entry_primary_dependent_system_form_ref(const ExternalServiceDependencyEntryPrimaryDependentSystemForm *self);
+void external_service_dependency_entry_primary_dependent_system_form_set_ref(ExternalServiceDependencyEntryPrimaryDependentSystemForm *self, const char *value);
+
 // ExternalServiceDependencyEntryRelationshipForm is the generated section facade for the `relationship` @Form section: its own `content` text followed by one typed member per form field.
 void external_service_dependency_entry_relationship_form_init(ExternalServiceDependencyEntryRelationshipForm *self, SpecDocument *doc, const char *path);
 void external_service_dependency_entry_relationship_form_free(ExternalServiceDependencyEntryRelationshipForm *self);
@@ -49244,6 +49259,15 @@ char *goal_dependency_entry_content_form_mitigation_strategy(const GoalDependenc
 void goal_dependency_entry_content_form_set_mitigation_strategy(GoalDependencyEntryContentForm *self, const char *value);
 char *goal_dependency_entry_content_form_status(const GoalDependencyEntryContentForm *self);
 void goal_dependency_entry_content_form_set_status(GoalDependencyEntryContentForm *self, const char *value);
+
+// GoalDependencyEntryRelatedGoalForm is the generated section facade for the `relatedGoal` @Form section: its own `content` text followed by one typed member per form field.
+void goal_dependency_entry_related_goal_form_init(GoalDependencyEntryRelatedGoalForm *self, SpecDocument *doc, const char *path);
+void goal_dependency_entry_related_goal_form_free(GoalDependencyEntryRelatedGoalForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *goal_dependency_entry_related_goal_form_content(const GoalDependencyEntryRelatedGoalForm *self);
+void goal_dependency_entry_related_goal_form_set_content(GoalDependencyEntryRelatedGoalForm *self, const char *value);
+char *goal_dependency_entry_related_goal_form_ref(const GoalDependencyEntryRelatedGoalForm *self);
+void goal_dependency_entry_related_goal_form_set_ref(GoalDependencyEntryRelatedGoalForm *self, const char *value);
 
 // GoalMilestoneEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void goal_milestone_entry_content_form_init(GoalMilestoneEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -59091,6 +59115,15 @@ char *process_metric_entry_measurement_form_data_source(const ProcessMetricEntry
 void process_metric_entry_measurement_form_set_data_source(ProcessMetricEntryMeasurementForm *self, const char *value);
 char *process_metric_entry_measurement_form_frequency(const ProcessMetricEntryMeasurementForm *self);
 void process_metric_entry_measurement_form_set_frequency(ProcessMetricEntryMeasurementForm *self, const char *value);
+
+// ProcessMetricEntryProcessReferenceForm is the generated section facade for the `processReference` @Form section: its own `content` text followed by one typed member per form field.
+void process_metric_entry_process_reference_form_init(ProcessMetricEntryProcessReferenceForm *self, SpecDocument *doc, const char *path);
+void process_metric_entry_process_reference_form_free(ProcessMetricEntryProcessReferenceForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *process_metric_entry_process_reference_form_content(const ProcessMetricEntryProcessReferenceForm *self);
+void process_metric_entry_process_reference_form_set_content(ProcessMetricEntryProcessReferenceForm *self, const char *value);
+char *process_metric_entry_process_reference_form_ref(const ProcessMetricEntryProcessReferenceForm *self);
+void process_metric_entry_process_reference_form_set_ref(ProcessMetricEntryProcessReferenceForm *self, const char *value);
 
 // ProcessMetricEntryTargetsForm is the generated section facade for the `targets` @Form section: its own `content` text followed by one typed member per form field.
 void process_metric_entry_targets_form_init(ProcessMetricEntryTargetsForm *self, SpecDocument *doc, const char *path);
@@ -69573,6 +69606,24 @@ void system_dependency_entry_reliability_form_set_sla(SystemDependencyEntryRelia
 char *system_dependency_entry_reliability_form_fallback_procedure(const SystemDependencyEntryReliabilityForm *self);
 void system_dependency_entry_reliability_form_set_fallback_procedure(SystemDependencyEntryReliabilityForm *self, const char *value);
 
+// SystemDependencyEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own `content` text followed by one typed member per form field.
+void system_dependency_entry_source_system_form_init(SystemDependencyEntrySourceSystemForm *self, SpecDocument *doc, const char *path);
+void system_dependency_entry_source_system_form_free(SystemDependencyEntrySourceSystemForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *system_dependency_entry_source_system_form_content(const SystemDependencyEntrySourceSystemForm *self);
+void system_dependency_entry_source_system_form_set_content(SystemDependencyEntrySourceSystemForm *self, const char *value);
+char *system_dependency_entry_source_system_form_ref(const SystemDependencyEntrySourceSystemForm *self);
+void system_dependency_entry_source_system_form_set_ref(SystemDependencyEntrySourceSystemForm *self, const char *value);
+
+// SystemDependencyEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own `content` text followed by one typed member per form field.
+void system_dependency_entry_target_system_form_init(SystemDependencyEntryTargetSystemForm *self, SpecDocument *doc, const char *path);
+void system_dependency_entry_target_system_form_free(SystemDependencyEntryTargetSystemForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *system_dependency_entry_target_system_form_content(const SystemDependencyEntryTargetSystemForm *self);
+void system_dependency_entry_target_system_form_set_content(SystemDependencyEntryTargetSystemForm *self, const char *value);
+char *system_dependency_entry_target_system_form_ref(const SystemDependencyEntryTargetSystemForm *self);
+void system_dependency_entry_target_system_form_set_ref(SystemDependencyEntryTargetSystemForm *self, const char *value);
+
 // SystemDescriptionDescriptionSummaryForm is the generated section facade for the `descriptionSummary` @Form section: its own `content` text followed by one typed member per form field.
 void system_description_description_summary_form_init(SystemDescriptionDescriptionSummaryForm *self, SpecDocument *doc, const char *path);
 void system_description_description_summary_form_free(SystemDescriptionDescriptionSummaryForm *self);
@@ -69869,6 +69920,24 @@ char *system_integration_entry_protocol_form_middleware_used(const SystemIntegra
 void system_integration_entry_protocol_form_set_middleware_used(SystemIntegrationEntryProtocolForm *self, const char *value);
 char *system_integration_entry_protocol_form_authentication_method(const SystemIntegrationEntryProtocolForm *self);
 void system_integration_entry_protocol_form_set_authentication_method(SystemIntegrationEntryProtocolForm *self, const char *value);
+
+// SystemIntegrationEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own `content` text followed by one typed member per form field.
+void system_integration_entry_source_system_form_init(SystemIntegrationEntrySourceSystemForm *self, SpecDocument *doc, const char *path);
+void system_integration_entry_source_system_form_free(SystemIntegrationEntrySourceSystemForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *system_integration_entry_source_system_form_content(const SystemIntegrationEntrySourceSystemForm *self);
+void system_integration_entry_source_system_form_set_content(SystemIntegrationEntrySourceSystemForm *self, const char *value);
+char *system_integration_entry_source_system_form_ref(const SystemIntegrationEntrySourceSystemForm *self);
+void system_integration_entry_source_system_form_set_ref(SystemIntegrationEntrySourceSystemForm *self, const char *value);
+
+// SystemIntegrationEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own `content` text followed by one typed member per form field.
+void system_integration_entry_target_system_form_init(SystemIntegrationEntryTargetSystemForm *self, SpecDocument *doc, const char *path);
+void system_integration_entry_target_system_form_free(SystemIntegrationEntryTargetSystemForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *system_integration_entry_target_system_form_content(const SystemIntegrationEntryTargetSystemForm *self);
+void system_integration_entry_target_system_form_set_content(SystemIntegrationEntryTargetSystemForm *self, const char *value);
+char *system_integration_entry_target_system_form_ref(const SystemIntegrationEntryTargetSystemForm *self);
+void system_integration_entry_target_system_form_set_ref(SystemIntegrationEntryTargetSystemForm *self, const char *value);
 
 // SystemIntegrationEntryThroughputForm is the generated section facade for the `throughput` @Form section: its own `content` text followed by one typed member per form field.
 void system_integration_entry_throughput_form_init(SystemIntegrationEntryThroughputForm *self, SpecDocument *doc, const char *path);
@@ -70268,6 +70337,15 @@ char *system_task_entry_execution_form_importance(const SystemTaskEntryExecution
 void system_task_entry_execution_form_set_importance(SystemTaskEntryExecutionForm *self, const char *value);
 char *system_task_entry_execution_form_trigger(const SystemTaskEntryExecutionForm *self);
 void system_task_entry_execution_form_set_trigger(SystemTaskEntryExecutionForm *self, const char *value);
+
+// SystemTaskEntryRelatedUseCaseForm is the generated section facade for the `relatedUseCase` @Form section: its own `content` text followed by one typed member per form field.
+void system_task_entry_related_use_case_form_init(SystemTaskEntryRelatedUseCaseForm *self, SpecDocument *doc, const char *path);
+void system_task_entry_related_use_case_form_free(SystemTaskEntryRelatedUseCaseForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *system_task_entry_related_use_case_form_content(const SystemTaskEntryRelatedUseCaseForm *self);
+void system_task_entry_related_use_case_form_set_content(SystemTaskEntryRelatedUseCaseForm *self, const char *value);
+char *system_task_entry_related_use_case_form_ref(const SystemTaskEntryRelatedUseCaseForm *self);
+void system_task_entry_related_use_case_form_set_ref(SystemTaskEntryRelatedUseCaseForm *self, const char *value);
 
 // SystemTechnicalAssessmentContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void system_technical_assessment_content_form_init(SystemTechnicalAssessmentContentForm *self, SpecDocument *doc, const char *path);
@@ -75496,6 +75574,15 @@ char *workflow_actor_entry_content_form_skill_requirements(const WorkflowActorEn
 void workflow_actor_entry_content_form_set_skill_requirements(WorkflowActorEntryContentForm *self, const char *value);
 long workflow_actor_entry_content_form_headcount(const WorkflowActorEntryContentForm *self);
 void workflow_actor_entry_content_form_set_headcount(WorkflowActorEntryContentForm *self, long value);
+
+// WorkflowActorEntryParticipatingStepsForm is the generated section facade for the `participatingSteps` @Form section: its own `content` text followed by one typed member per form field.
+void workflow_actor_entry_participating_steps_form_init(WorkflowActorEntryParticipatingStepsForm *self, SpecDocument *doc, const char *path);
+void workflow_actor_entry_participating_steps_form_free(WorkflowActorEntryParticipatingStepsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *workflow_actor_entry_participating_steps_form_content(const WorkflowActorEntryParticipatingStepsForm *self);
+void workflow_actor_entry_participating_steps_form_set_content(WorkflowActorEntryParticipatingStepsForm *self, const char *value);
+char *workflow_actor_entry_participating_steps_form_refs(const WorkflowActorEntryParticipatingStepsForm *self);
+void workflow_actor_entry_participating_steps_form_set_refs(WorkflowActorEntryParticipatingStepsForm *self, const char *value);
 
 // WorkflowBusinessRuleContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void workflow_business_rule_content_form_init(WorkflowBusinessRuleContentForm *self, SpecDocument *doc, const char *path);

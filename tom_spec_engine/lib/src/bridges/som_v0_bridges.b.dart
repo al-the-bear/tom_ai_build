@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-18T15:45:02.265187 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-19T17:46:15.612914 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2296,6 +2296,7 @@ class SomV0Bridge {
       _createExternalPartnerOperationsContentFormBridge(),
       _createExternalServiceDependencyEntryContentFormBridge(),
       _createExternalServiceDependencyEntryOperationsFormBridge(),
+      _createExternalServiceDependencyEntryPrimaryDependentSystemFormBridge(),
       _createExternalServiceDependencyEntryRelationshipFormBridge(),
       _createExternalServiceDependencyEntryRiskFormBridge(),
       _createExternalSystemContextEntryContentFormBridge(),
@@ -2392,6 +2393,7 @@ class SomV0Bridge {
       _createGlobalRoleExclusionEntryContentFormBridge(),
       _createGlossaryEntryContentFormBridge(),
       _createGoalDependencyEntryContentFormBridge(),
+      _createGoalDependencyEntryRelatedGoalFormBridge(),
       _createGoalMilestoneEntryContentFormBridge(),
       _createGoalResourcesResourcesFormFormBridge(),
       _createGoalRiskEntryAssessmentFormBridge(),
@@ -3027,6 +3029,7 @@ class SomV0Bridge {
       _createProcessKpiEntryOperationsFormBridge(),
       _createProcessMetricEntryContentFormBridge(),
       _createProcessMetricEntryMeasurementFormBridge(),
+      _createProcessMetricEntryProcessReferenceFormBridge(),
       _createProcessMetricEntryTargetsFormBridge(),
       _createProcessOutputEntryContentFormBridge(),
       _createProcessOverviewDiagramOverviewFormBridge(),
@@ -3706,6 +3709,8 @@ class SomV0Bridge {
       _createSystemDependencyEntryMechanismFormBridge(),
       _createSystemDependencyEntryOperationsFormBridge(),
       _createSystemDependencyEntryReliabilityFormBridge(),
+      _createSystemDependencyEntrySourceSystemFormBridge(),
+      _createSystemDependencyEntryTargetSystemFormBridge(),
       _createSystemDescriptionDescriptionSummaryFormBridge(),
       _createSystemDiagnosticToolsContentFormBridge(),
       _createSystemDiagnosticToolsLogsFormBridge(),
@@ -3725,6 +3730,8 @@ class SomV0Bridge {
       _createSystemIntegrationEntryMonitoringFormBridge(),
       _createSystemIntegrationEntryOwnershipFormBridge(),
       _createSystemIntegrationEntryProtocolFormBridge(),
+      _createSystemIntegrationEntrySourceSystemFormBridge(),
+      _createSystemIntegrationEntryTargetSystemFormBridge(),
       _createSystemIntegrationEntryThroughputFormBridge(),
       _createSystemKnowledgeTransferContentFormBridge(),
       _createSystemMigrationPlanContentFormBridge(),
@@ -3752,6 +3759,7 @@ class SomV0Bridge {
       _createSystemTaskEntryContextFormBridge(),
       _createSystemTaskEntryDataFormBridge(),
       _createSystemTaskEntryExecutionFormBridge(),
+      _createSystemTaskEntryRelatedUseCaseFormBridge(),
       _createSystemTechnicalAssessmentContentFormBridge(),
       _createSystemTechnicalAssessmentLifecycleFormBridge(),
       _createSystemTechnicalAssessmentPlatformFormBridge(),
@@ -4080,6 +4088,7 @@ class SomV0Bridge {
       _createWcagSuccessCriterionEntryContentFormBridge(),
       _createWeightedQualityMatrixMatrixConfigContentFormBridge(),
       _createWorkflowActorEntryContentFormBridge(),
+      _createWorkflowActorEntryParticipatingStepsFormBridge(),
       _createWorkflowBusinessRuleContentFormBridge(),
       _createWorkflowDecisionPointContentFormBridge(),
       _createWorkflowExceptionEntryContentFormBridge(),
@@ -9136,6 +9145,8 @@ class SomV0Bridge {
           _createExternalServiceDependencyEntryContentFormBridge,
       'ExternalServiceDependencyEntryOperationsForm':
           _createExternalServiceDependencyEntryOperationsFormBridge,
+      'ExternalServiceDependencyEntryPrimaryDependentSystemForm':
+          _createExternalServiceDependencyEntryPrimaryDependentSystemFormBridge,
       'ExternalServiceDependencyEntryRelationshipForm':
           _createExternalServiceDependencyEntryRelationshipFormBridge,
       'ExternalServiceDependencyEntryRiskForm':
@@ -9313,6 +9324,8 @@ class SomV0Bridge {
       'GlossaryEntryContentForm': _createGlossaryEntryContentFormBridge,
       'GoalDependencyEntryContentForm':
           _createGoalDependencyEntryContentFormBridge,
+      'GoalDependencyEntryRelatedGoalForm':
+          _createGoalDependencyEntryRelatedGoalFormBridge,
       'GoalMilestoneEntryContentForm':
           _createGoalMilestoneEntryContentFormBridge,
       'GoalResourcesResourcesFormForm':
@@ -10488,6 +10501,8 @@ class SomV0Bridge {
           _createProcessMetricEntryContentFormBridge,
       'ProcessMetricEntryMeasurementForm':
           _createProcessMetricEntryMeasurementFormBridge,
+      'ProcessMetricEntryProcessReferenceForm':
+          _createProcessMetricEntryProcessReferenceFormBridge,
       'ProcessMetricEntryTargetsForm':
           _createProcessMetricEntryTargetsFormBridge,
       'ProcessOutputEntryContentForm':
@@ -11660,6 +11675,10 @@ class SomV0Bridge {
           _createSystemDependencyEntryOperationsFormBridge,
       'SystemDependencyEntryReliabilityForm':
           _createSystemDependencyEntryReliabilityFormBridge,
+      'SystemDependencyEntrySourceSystemForm':
+          _createSystemDependencyEntrySourceSystemFormBridge,
+      'SystemDependencyEntryTargetSystemForm':
+          _createSystemDependencyEntryTargetSystemFormBridge,
       'SystemDescriptionDescriptionSummaryForm':
           _createSystemDescriptionDescriptionSummaryFormBridge,
       'SystemDiagnosticToolsContentForm':
@@ -11698,6 +11717,10 @@ class SomV0Bridge {
           _createSystemIntegrationEntryOwnershipFormBridge,
       'SystemIntegrationEntryProtocolForm':
           _createSystemIntegrationEntryProtocolFormBridge,
+      'SystemIntegrationEntrySourceSystemForm':
+          _createSystemIntegrationEntrySourceSystemFormBridge,
+      'SystemIntegrationEntryTargetSystemForm':
+          _createSystemIntegrationEntryTargetSystemFormBridge,
       'SystemIntegrationEntryThroughputForm':
           _createSystemIntegrationEntryThroughputFormBridge,
       'SystemKnowledgeTransferContentForm':
@@ -11741,6 +11764,8 @@ class SomV0Bridge {
       'SystemTaskEntryContextForm': _createSystemTaskEntryContextFormBridge,
       'SystemTaskEntryDataForm': _createSystemTaskEntryDataFormBridge,
       'SystemTaskEntryExecutionForm': _createSystemTaskEntryExecutionFormBridge,
+      'SystemTaskEntryRelatedUseCaseForm':
+          _createSystemTaskEntryRelatedUseCaseFormBridge,
       'SystemTechnicalAssessmentContentForm':
           _createSystemTechnicalAssessmentContentFormBridge,
       'SystemTechnicalAssessmentLifecycleForm':
@@ -12328,6 +12353,8 @@ class SomV0Bridge {
           _createWeightedQualityMatrixMatrixConfigContentFormBridge,
       'WorkflowActorEntryContentForm':
           _createWorkflowActorEntryContentFormBridge,
+      'WorkflowActorEntryParticipatingStepsForm':
+          _createWorkflowActorEntryParticipatingStepsFormBridge,
       'WorkflowBusinessRuleContentForm':
           _createWorkflowBusinessRuleContentFormBridge,
       'WorkflowDecisionPointContentForm':
@@ -18136,6 +18163,9 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.ExternalServiceDependencyEntryContentForm,
       'ExternalServiceDependencyEntryOperationsForm':
           $tom_som_dart_v0_1.ExternalServiceDependencyEntryOperationsForm,
+      'ExternalServiceDependencyEntryPrimaryDependentSystemForm':
+          $tom_som_dart_v0_1
+              .ExternalServiceDependencyEntryPrimaryDependentSystemForm,
       'ExternalServiceDependencyEntryRelationshipForm':
           $tom_som_dart_v0_1.ExternalServiceDependencyEntryRelationshipForm,
       'ExternalServiceDependencyEntryRiskForm':
@@ -18318,6 +18348,8 @@ class SomV0Bridge {
       'GlossaryEntryContentForm': $tom_som_dart_v0_1.GlossaryEntryContentForm,
       'GoalDependencyEntryContentForm':
           $tom_som_dart_v0_1.GoalDependencyEntryContentForm,
+      'GoalDependencyEntryRelatedGoalForm':
+          $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm,
       'GoalMilestoneEntryContentForm':
           $tom_som_dart_v0_1.GoalMilestoneEntryContentForm,
       'GoalResourcesResourcesFormForm':
@@ -19566,6 +19598,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.ProcessMetricEntryContentForm,
       'ProcessMetricEntryMeasurementForm':
           $tom_som_dart_v0_1.ProcessMetricEntryMeasurementForm,
+      'ProcessMetricEntryProcessReferenceForm':
+          $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm,
       'ProcessMetricEntryTargetsForm':
           $tom_som_dart_v0_1.ProcessMetricEntryTargetsForm,
       'ProcessOutputEntryContentForm':
@@ -20840,6 +20874,10 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.SystemDependencyEntryOperationsForm,
       'SystemDependencyEntryReliabilityForm':
           $tom_som_dart_v0_1.SystemDependencyEntryReliabilityForm,
+      'SystemDependencyEntrySourceSystemForm':
+          $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm,
+      'SystemDependencyEntryTargetSystemForm':
+          $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm,
       'SystemDescriptionDescriptionSummaryForm':
           $tom_som_dart_v0_1.SystemDescriptionDescriptionSummaryForm,
       'SystemDiagnosticToolsContentForm':
@@ -20878,6 +20916,10 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.SystemIntegrationEntryOwnershipForm,
       'SystemIntegrationEntryProtocolForm':
           $tom_som_dart_v0_1.SystemIntegrationEntryProtocolForm,
+      'SystemIntegrationEntrySourceSystemForm':
+          $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm,
+      'SystemIntegrationEntryTargetSystemForm':
+          $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm,
       'SystemIntegrationEntryThroughputForm':
           $tom_som_dart_v0_1.SystemIntegrationEntryThroughputForm,
       'SystemKnowledgeTransferContentForm':
@@ -20928,6 +20970,8 @@ class SomV0Bridge {
       'SystemTaskEntryDataForm': $tom_som_dart_v0_1.SystemTaskEntryDataForm,
       'SystemTaskEntryExecutionForm':
           $tom_som_dart_v0_1.SystemTaskEntryExecutionForm,
+      'SystemTaskEntryRelatedUseCaseForm':
+          $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm,
       'SystemTechnicalAssessmentContentForm':
           $tom_som_dart_v0_1.SystemTechnicalAssessmentContentForm,
       'SystemTechnicalAssessmentLifecycleForm':
@@ -21556,6 +21600,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.WeightedQualityMatrixMatrixConfigContentForm,
       'WorkflowActorEntryContentForm':
           $tom_som_dart_v0_1.WorkflowActorEntryContentForm,
+      'WorkflowActorEntryParticipatingStepsForm':
+          $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm,
       'WorkflowBusinessRuleContentForm':
           $tom_som_dart_v0_1.WorkflowBusinessRuleContentForm,
       'WorkflowDecisionPointContentForm':
@@ -27899,6 +27945,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExternalServiceDependencyEntryOperationsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ExternalServiceDependencyEntryPrimaryDependentSystemForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExternalServiceDependencyEntryRelationshipForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExternalServiceDependencyEntryRiskForm':
@@ -28084,6 +28132,8 @@ class SomV0Bridge {
       'GlossaryEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GoalDependencyEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'GoalDependencyEntryRelatedGoalForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GoalMilestoneEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -29344,6 +29394,8 @@ class SomV0Bridge {
       'ProcessMetricEntryContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProcessMetricEntryMeasurementForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ProcessMetricEntryProcessReferenceForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProcessMetricEntryTargetsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -30664,6 +30716,10 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemDependencyEntryReliabilityForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemDependencyEntrySourceSystemForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemDependencyEntryTargetSystemForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemDescriptionDescriptionSummaryForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemDiagnosticToolsContentForm':
@@ -30701,6 +30757,10 @@ class SomV0Bridge {
       'SystemIntegrationEntryOwnershipForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemIntegrationEntryProtocolForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemIntegrationEntrySourceSystemForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemIntegrationEntryTargetSystemForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemIntegrationEntryThroughputForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -30752,6 +30812,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemTaskEntryDataForm': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemTaskEntryExecutionForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'SystemTaskEntryRelatedUseCaseForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'SystemTechnicalAssessmentContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -31390,6 +31452,8 @@ class SomV0Bridge {
       'WeightedQualityMatrixMatrixConfigContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'WorkflowActorEntryContentForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'WorkflowActorEntryParticipatingStepsForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'WorkflowBusinessRuleContentForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -37143,6 +37207,7 @@ class SomV0Bridge {
       'ExternalPartnerOperationsContentForm': ['SomNode'],
       'ExternalServiceDependencyEntryContentForm': ['SomNode'],
       'ExternalServiceDependencyEntryOperationsForm': ['SomNode'],
+      'ExternalServiceDependencyEntryPrimaryDependentSystemForm': ['SomNode'],
       'ExternalServiceDependencyEntryRelationshipForm': ['SomNode'],
       'ExternalServiceDependencyEntryRiskForm': ['SomNode'],
       'ExternalSystemContextEntryContentForm': ['SomNode'],
@@ -37241,6 +37306,7 @@ class SomV0Bridge {
       'GlobalRoleExclusionEntryContentForm': ['SomNode'],
       'GlossaryEntryContentForm': ['SomNode'],
       'GoalDependencyEntryContentForm': ['SomNode'],
+      'GoalDependencyEntryRelatedGoalForm': ['SomNode'],
       'GoalMilestoneEntryContentForm': ['SomNode'],
       'GoalResourcesResourcesFormForm': ['SomNode'],
       'GoalRiskEntryAssessmentForm': ['SomNode'],
@@ -37880,6 +37946,7 @@ class SomV0Bridge {
       'ProcessKpiEntryOperationsForm': ['SomNode'],
       'ProcessMetricEntryContentForm': ['SomNode'],
       'ProcessMetricEntryMeasurementForm': ['SomNode'],
+      'ProcessMetricEntryProcessReferenceForm': ['SomNode'],
       'ProcessMetricEntryTargetsForm': ['SomNode'],
       'ProcessOutputEntryContentForm': ['SomNode'],
       'ProcessOverviewDiagramOverviewForm': ['SomNode'],
@@ -38559,6 +38626,8 @@ class SomV0Bridge {
       'SystemDependencyEntryMechanismForm': ['SomNode'],
       'SystemDependencyEntryOperationsForm': ['SomNode'],
       'SystemDependencyEntryReliabilityForm': ['SomNode'],
+      'SystemDependencyEntrySourceSystemForm': ['SomNode'],
+      'SystemDependencyEntryTargetSystemForm': ['SomNode'],
       'SystemDescriptionDescriptionSummaryForm': ['SomNode'],
       'SystemDiagnosticToolsContentForm': ['SomNode'],
       'SystemDiagnosticToolsLogsForm': ['SomNode'],
@@ -38578,6 +38647,8 @@ class SomV0Bridge {
       'SystemIntegrationEntryMonitoringForm': ['SomNode'],
       'SystemIntegrationEntryOwnershipForm': ['SomNode'],
       'SystemIntegrationEntryProtocolForm': ['SomNode'],
+      'SystemIntegrationEntrySourceSystemForm': ['SomNode'],
+      'SystemIntegrationEntryTargetSystemForm': ['SomNode'],
       'SystemIntegrationEntryThroughputForm': ['SomNode'],
       'SystemKnowledgeTransferContentForm': ['SomNode'],
       'SystemMigrationPlanContentForm': ['SomNode'],
@@ -38605,6 +38676,7 @@ class SomV0Bridge {
       'SystemTaskEntryContextForm': ['SomNode'],
       'SystemTaskEntryDataForm': ['SomNode'],
       'SystemTaskEntryExecutionForm': ['SomNode'],
+      'SystemTaskEntryRelatedUseCaseForm': ['SomNode'],
       'SystemTechnicalAssessmentContentForm': ['SomNode'],
       'SystemTechnicalAssessmentLifecycleForm': ['SomNode'],
       'SystemTechnicalAssessmentPlatformForm': ['SomNode'],
@@ -38933,6 +39005,7 @@ class SomV0Bridge {
       'WcagSuccessCriterionEntryContentForm': ['SomNode'],
       'WeightedQualityMatrixMatrixConfigContentForm': ['SomNode'],
       'WorkflowActorEntryContentForm': ['SomNode'],
+      'WorkflowActorEntryParticipatingStepsForm': ['SomNode'],
       'WorkflowBusinessRuleContentForm': ['SomNode'],
       'WorkflowDecisionPointContentForm': ['SomNode'],
       'WorkflowExceptionEntryContentForm': ['SomNode'],
@@ -112189,7 +112262,7 @@ BridgedClass _createExternalServiceDependencyEntryBridge() {
           'ExternalServiceDependencyEntryOperationsForm get operations',
       'risk': 'ExternalServiceDependencyEntryRiskForm get risk',
       'primaryDependentSystem':
-          'ExistingSystemEntry get primaryDependentSystem',
+          'ExternalServiceDependencyEntryPrimaryDependentSystemForm get primaryDependentSystem',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -118380,16 +118453,6 @@ BridgedClass _createGoalDependencyEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'relatedGoal': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.GoalDependencyEntry>(
-                target,
-                'GoalDependencyEntry',
-              )
-              .relatedGoal = D4.extractBridgedArg<String>(
-            value,
-            'relatedGoal',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.GoalDependencyEntry>(
@@ -118426,7 +118489,7 @@ BridgedClass _createGoalDependencyEntryBridge() {
     },
     getterSignatures: {
       'content': 'GoalDependencyEntryContentForm get content',
-      'relatedGoal': 'String get relatedGoal',
+      'relatedGoal': 'GoalDependencyEntryRelatedGoalForm get relatedGoal',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -118436,7 +118499,6 @@ BridgedClass _createGoalDependencyEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'relatedGoal': 'set relatedGoal(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -162715,7 +162777,8 @@ BridgedClass _createProcessMetricEntryBridge() {
       'content': 'ProcessMetricEntryContentForm get content',
       'measurement': 'ProcessMetricEntryMeasurementForm get measurement',
       'targets': 'ProcessMetricEntryTargetsForm get targets',
-      'processReference': 'CurrentBusinessProcess get processReference',
+      'processReference':
+          'ProcessMetricEntryProcessReferenceForm get processReference',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -208194,8 +208257,8 @@ BridgedClass _createSystemDependencyEntryBridge() {
       'dataExchange': 'SystemDependencyEntryDataExchangeForm get dataExchange',
       'reliability': 'SystemDependencyEntryReliabilityForm get reliability',
       'operations': 'SystemDependencyEntryOperationsForm get operations',
-      'sourceSystem': 'ExistingSystemEntry get sourceSystem',
-      'targetSystem': 'ExistingSystemEntry get targetSystem',
+      'sourceSystem': 'SystemDependencyEntrySourceSystemForm get sourceSystem',
+      'targetSystem': 'SystemDependencyEntryTargetSystemForm get targetSystem',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -209058,8 +209121,8 @@ BridgedClass _createSystemIntegrationEntryBridge() {
       'throughput': 'SystemIntegrationEntryThroughputForm get throughput',
       'monitoring': 'SystemIntegrationEntryMonitoringForm get monitoring',
       'ownership': 'SystemIntegrationEntryOwnershipForm get ownership',
-      'sourceSystem': 'ExistingSystemEntry get sourceSystem',
-      'targetSystem': 'ExistingSystemEntry get targetSystem',
+      'sourceSystem': 'SystemIntegrationEntrySourceSystemForm get sourceSystem',
+      'targetSystem': 'SystemIntegrationEntryTargetSystemForm get targetSystem',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -211428,16 +211491,6 @@ BridgedClass _createSystemTaskEntryBridge() {
           .$codeSpec,
     },
     setters: {
-      'relatedUseCase': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_som_dart_v0_1.SystemTaskEntry>(
-                target,
-                'SystemTaskEntry',
-              )
-              .relatedUseCase = D4.extractBridgedArg<String>(
-            value,
-            'relatedUseCase',
-          ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.SystemTaskEntry>(
@@ -211477,7 +211530,7 @@ BridgedClass _createSystemTaskEntryBridge() {
       'execution': 'SystemTaskEntryExecutionForm get execution',
       'data': 'SystemTaskEntryDataForm get data',
       'context': 'SystemTaskEntryContextForm get context',
-      'relatedUseCase': 'String get relatedUseCase',
+      'relatedUseCase': 'SystemTaskEntryRelatedUseCaseForm get relatedUseCase',
       'workflowSteps': 'SomList<SomScalar> get workflowSteps',
       'variationsAndExceptions':
           'SomList<SomScalar> get variationsAndExceptions',
@@ -211490,7 +211543,6 @@ BridgedClass _createSystemTaskEntryBridge() {
       '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
-      'relatedUseCase': 'set relatedUseCase(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -233679,7 +233731,8 @@ BridgedClass _createWorkflowActorEntryBridge() {
     },
     getterSignatures: {
       'content': 'WorkflowActorEntryContentForm get content',
-      'participatingSteps': 'SomList<WorkflowStepEntry> get participatingSteps',
+      'participatingSteps':
+          'WorkflowActorEntryParticipatingStepsForm get participatingSteps',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -445530,6 +445583,178 @@ BridgedClass _createExternalServiceDependencyEntryOperationsFormBridge() {
 }
 
 // =============================================================================
+// ExternalServiceDependencyEntryPrimaryDependentSystemForm Bridge
+// =============================================================================
+
+BridgedClass
+_createExternalServiceDependencyEntryPrimaryDependentSystemFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1
+        .ExternalServiceDependencyEntryPrimaryDependentSystemForm,
+    name: 'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+    isAssignable: (v) =>
+        v
+            is $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+        );
+        return $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+          >(target, 'ExternalServiceDependencyEntryPrimaryDependentSystemForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+              >(
+                target,
+                'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+              )
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+              >(
+                target,
+                'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+              )
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+              >(
+                target,
+                'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+              )
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+              >(
+                target,
+                'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+              )
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ExternalServiceDependencyEntryPrimaryDependentSystemForm
+              >(
+                target,
+                'ExternalServiceDependencyEntryPrimaryDependentSystemForm',
+              )
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ExternalServiceDependencyEntryPrimaryDependentSystemForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // ExternalServiceDependencyEntryRelationshipForm Bridge
 // =============================================================================
 
@@ -465825,6 +466050,153 @@ BridgedClass _createGoalDependencyEntryContentFormBridge() {
       'impact': 'set impact(String value)',
       'mitigationStrategy': 'set mitigationStrategy(String value)',
       'status': 'set status(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// GoalDependencyEntryRelatedGoalForm Bridge
+// =============================================================================
+
+BridgedClass _createGoalDependencyEntryRelatedGoalFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm,
+    name: 'GoalDependencyEntryRelatedGoalForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'GoalDependencyEntryRelatedGoalForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'GoalDependencyEntryRelatedGoalForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'GoalDependencyEntryRelatedGoalForm',
+        );
+        return $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+          >(target, 'GoalDependencyEntryRelatedGoalForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+              >(target, 'GoalDependencyEntryRelatedGoalForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+              >(target, 'GoalDependencyEntryRelatedGoalForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+              >(target, 'GoalDependencyEntryRelatedGoalForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+              >(target, 'GoalDependencyEntryRelatedGoalForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.GoalDependencyEntryRelatedGoalForm
+              >(target, 'GoalDependencyEntryRelatedGoalForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'GoalDependencyEntryRelatedGoalForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -599061,6 +599433,160 @@ BridgedClass _createProcessMetricEntryMeasurementFormBridge() {
       'measurementMethod': 'set measurementMethod(String value)',
       'dataSource': 'set dataSource(String value)',
       'frequency': 'set frequency(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// ProcessMetricEntryProcessReferenceForm Bridge
+// =============================================================================
+
+BridgedClass _createProcessMetricEntryProcessReferenceFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm,
+    name: 'ProcessMetricEntryProcessReferenceForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'ProcessMetricEntryProcessReferenceForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ProcessMetricEntryProcessReferenceForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ProcessMetricEntryProcessReferenceForm',
+        );
+        return $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+          >(target, 'ProcessMetricEntryProcessReferenceForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+              >(target, 'ProcessMetricEntryProcessReferenceForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+              >(target, 'ProcessMetricEntryProcessReferenceForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+              >(target, 'ProcessMetricEntryProcessReferenceForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+              >(target, 'ProcessMetricEntryProcessReferenceForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessMetricEntryProcessReferenceForm
+              >(target, 'ProcessMetricEntryProcessReferenceForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ProcessMetricEntryProcessReferenceForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -742130,6 +742656,314 @@ BridgedClass _createSystemDependencyEntryReliabilityFormBridge() {
 }
 
 // =============================================================================
+// SystemDependencyEntrySourceSystemForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemDependencyEntrySourceSystemFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm,
+    name: 'SystemDependencyEntrySourceSystemForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'SystemDependencyEntrySourceSystemForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemDependencyEntrySourceSystemForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemDependencyEntrySourceSystemForm',
+        );
+        return $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+          >(target, 'SystemDependencyEntrySourceSystemForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+              >(target, 'SystemDependencyEntrySourceSystemForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+              >(target, 'SystemDependencyEntrySourceSystemForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+              >(target, 'SystemDependencyEntrySourceSystemForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+              >(target, 'SystemDependencyEntrySourceSystemForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntrySourceSystemForm
+              >(target, 'SystemDependencyEntrySourceSystemForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemDependencyEntrySourceSystemForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SystemDependencyEntryTargetSystemForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemDependencyEntryTargetSystemFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm,
+    name: 'SystemDependencyEntryTargetSystemForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'SystemDependencyEntryTargetSystemForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemDependencyEntryTargetSystemForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemDependencyEntryTargetSystemForm',
+        );
+        return $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+          >(target, 'SystemDependencyEntryTargetSystemForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+              >(target, 'SystemDependencyEntryTargetSystemForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+              >(target, 'SystemDependencyEntryTargetSystemForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+              >(target, 'SystemDependencyEntryTargetSystemForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+              >(target, 'SystemDependencyEntryTargetSystemForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemDependencyEntryTargetSystemForm
+              >(target, 'SystemDependencyEntryTargetSystemForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemDependencyEntryTargetSystemForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // SystemDescriptionDescriptionSummaryForm Bridge
 // =============================================================================
 
@@ -746082,6 +746916,314 @@ BridgedClass _createSystemIntegrationEntryProtocolFormBridge() {
       'frequency': 'set frequency(String value)',
       'middlewareUsed': 'set middlewareUsed(String value)',
       'authenticationMethod': 'set authenticationMethod(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SystemIntegrationEntrySourceSystemForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemIntegrationEntrySourceSystemFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm,
+    name: 'SystemIntegrationEntrySourceSystemForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'SystemIntegrationEntrySourceSystemForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemIntegrationEntrySourceSystemForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemIntegrationEntrySourceSystemForm',
+        );
+        return $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+          >(target, 'SystemIntegrationEntrySourceSystemForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+              >(target, 'SystemIntegrationEntrySourceSystemForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+              >(target, 'SystemIntegrationEntrySourceSystemForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+              >(target, 'SystemIntegrationEntrySourceSystemForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+              >(target, 'SystemIntegrationEntrySourceSystemForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntrySourceSystemForm
+              >(target, 'SystemIntegrationEntrySourceSystemForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemIntegrationEntrySourceSystemForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SystemIntegrationEntryTargetSystemForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemIntegrationEntryTargetSystemFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm,
+    name: 'SystemIntegrationEntryTargetSystemForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'SystemIntegrationEntryTargetSystemForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemIntegrationEntryTargetSystemForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemIntegrationEntryTargetSystemForm',
+        );
+        return $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+          >(target, 'SystemIntegrationEntryTargetSystemForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+              >(target, 'SystemIntegrationEntryTargetSystemForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+              >(target, 'SystemIntegrationEntryTargetSystemForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+              >(target, 'SystemIntegrationEntryTargetSystemForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+              >(target, 'SystemIntegrationEntryTargetSystemForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemIntegrationEntryTargetSystemForm
+              >(target, 'SystemIntegrationEntryTargetSystemForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemIntegrationEntryTargetSystemForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -751650,6 +752792,162 @@ BridgedClass _createSystemTaskEntryExecutionFormBridge() {
       'complexity': 'set complexity(String value)',
       'importance': 'set importance(ImportanceBand? value)',
       'trigger': 'set trigger(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
+// SystemTaskEntryRelatedUseCaseForm Bridge
+// =============================================================================
+
+BridgedClass _createSystemTaskEntryRelatedUseCaseFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm,
+    name: 'SystemTaskEntryRelatedUseCaseForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'SystemTaskEntryRelatedUseCaseForm');
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'SystemTaskEntryRelatedUseCaseForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'SystemTaskEntryRelatedUseCaseForm',
+        );
+        return $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm(doc, path);
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .content,
+      'ref': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .ref,
+      'doc': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm>(
+            target,
+            'SystemTaskEntryRelatedUseCaseForm',
+          )
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm
+              >(target, 'SystemTaskEntryRelatedUseCaseForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'ref': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm
+              >(target, 'SystemTaskEntryRelatedUseCaseForm')
+              .ref = D4.extractBridgedArg<String>(
+            value,
+            'ref',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm
+              >(target, 'SystemTaskEntryRelatedUseCaseForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm
+              >(target, 'SystemTaskEntryRelatedUseCaseForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.SystemTaskEntryRelatedUseCaseForm
+              >(target, 'SystemTaskEntryRelatedUseCaseForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'SystemTaskEntryRelatedUseCaseForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'ref': 'String get ref',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'ref': 'set ref(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -821882,6 +823180,160 @@ BridgedClass _createWorkflowActorEntryContentFormBridge() {
 }
 
 // =============================================================================
+// WorkflowActorEntryParticipatingStepsForm Bridge
+// =============================================================================
+
+BridgedClass _createWorkflowActorEntryParticipatingStepsFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm,
+    name: 'WorkflowActorEntryParticipatingStepsForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'WorkflowActorEntryParticipatingStepsForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'WorkflowActorEntryParticipatingStepsForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'WorkflowActorEntryParticipatingStepsForm',
+        );
+        return $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .content,
+      'refs': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .refs,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+          >(target, 'WorkflowActorEntryParticipatingStepsForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+              >(target, 'WorkflowActorEntryParticipatingStepsForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'refs': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+              >(target, 'WorkflowActorEntryParticipatingStepsForm')
+              .refs = D4.extractBridgedArg<String>(
+            value,
+            'refs',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+              >(target, 'WorkflowActorEntryParticipatingStepsForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+              >(target, 'WorkflowActorEntryParticipatingStepsForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.WorkflowActorEntryParticipatingStepsForm
+              >(target, 'WorkflowActorEntryParticipatingStepsForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'WorkflowActorEntryParticipatingStepsForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'refs': 'String get refs',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'refs': 'set refs(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // WorkflowBusinessRuleContentForm Bridge
 // =============================================================================
 
@@ -866388,8 +867840,7 @@ BridgedClass _createExternalServiceDependencyEntry$NavBridge() {
       'relationship': 'SomMetaRef get relationship',
       'operations': 'SomMetaRef get operations',
       'risk': 'SomMetaRef get risk',
-      'primaryDependentSystem':
-          'ExistingSystemEntry\$Nav get primaryDependentSystem',
+      'primaryDependentSystem': 'SomMetaRef get primaryDependentSystem',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -895110,7 +896561,7 @@ BridgedClass _createProcessMetricEntry$NavBridge() {
       'content': 'SomMetaRef get content',
       'measurement': 'SomMetaRef get measurement',
       'targets': 'SomMetaRef get targets',
-      'processReference': 'CurrentBusinessProcess\$Nav get processReference',
+      'processReference': 'SomMetaRef get processReference',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -921087,8 +922538,8 @@ BridgedClass _createSystemDependencyEntry$NavBridge() {
       'dataExchange': 'SomMetaRef get dataExchange',
       'reliability': 'SomMetaRef get reliability',
       'operations': 'SomMetaRef get operations',
-      'sourceSystem': 'ExistingSystemEntry\$Nav get sourceSystem',
-      'targetSystem': 'ExistingSystemEntry\$Nav get targetSystem',
+      'sourceSystem': 'SomMetaRef get sourceSystem',
+      'targetSystem': 'SomMetaRef get targetSystem',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -921608,8 +923059,8 @@ BridgedClass _createSystemIntegrationEntry$NavBridge() {
       'throughput': 'SomMetaRef get throughput',
       'monitoring': 'SomMetaRef get monitoring',
       'ownership': 'SomMetaRef get ownership',
-      'sourceSystem': 'ExistingSystemEntry\$Nav get sourceSystem',
-      'targetSystem': 'ExistingSystemEntry\$Nav get targetSystem',
+      'sourceSystem': 'SomMetaRef get sourceSystem',
+      'targetSystem': 'SomMetaRef get targetSystem',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -935799,8 +937250,7 @@ BridgedClass _createWorkflowActorEntry$NavBridge() {
     },
     getterSignatures: {
       'content': 'SomMetaRef get content',
-      'participatingSteps':
-          'SomListMetaRef<WorkflowStepEntry\$Nav> get participatingSteps',
+      'participatingSteps': 'SomMetaRef get participatingSteps',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -973942,7 +975392,7 @@ BridgedClass _createExternalServiceDependencyEntry$IdBridge() {
       'EXSRL': 'SomMetaRef get EXSRL',
       'EXSOP': 'SomMetaRef get EXSOP',
       'EXSRK': 'SomMetaRef get EXSRK',
-      'EXSDE_PRIM_REF': 'ExistingSystemEntry\$Id get EXSDE_PRIM_REF',
+      'EXSDE_PRIM_REF': 'SomMetaRef get EXSDE_PRIM_REF',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -984086,7 +985536,7 @@ BridgedClass _createProcessMetricEntry$IdBridge() {
     getterSignatures: {
       'PMEM': 'SomMetaRef get PMEM',
       'PMET': 'SomMetaRef get PMET',
-      'PME_PROC_REF': 'CurrentBusinessProcess\$Id get PME_PROC_REF',
+      'PME_PROC_REF': 'SomMetaRef get PME_PROC_REF',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -994373,8 +995823,8 @@ BridgedClass _createSystemDependencyEntry$IdBridge() {
       'SDEDE': 'SomMetaRef get SDEDE',
       'SDER': 'SomMetaRef get SDER',
       'SDEO': 'SomMetaRef get SDEO',
-      'SYDE_SOUR_REF': 'ExistingSystemEntry\$Id get SYDE_SOUR_REF',
-      'SYDE_TARG_REF': 'ExistingSystemEntry\$Id get SYDE_TARG_REF',
+      'SYDE_SOUR_REF': 'SomMetaRef get SYDE_SOUR_REF',
+      'SYDE_TARG_REF': 'SomMetaRef get SYDE_TARG_REF',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -994561,8 +996011,8 @@ BridgedClass _createSystemIntegrationEntry$IdBridge() {
       'SYINTH': 'SomMetaRef get SYINTH',
       'SYINMO': 'SomMetaRef get SYINMO',
       'SYINOW': 'SomMetaRef get SYINOW',
-      'SYIN_SOUR_REF': 'ExistingSystemEntry\$Id get SYIN_SOUR_REF',
-      'SYIN_TARG_REF': 'ExistingSystemEntry\$Id get SYIN_TARG_REF',
+      'SYIN_SOUR_REF': 'SomMetaRef get SYIN_SOUR_REF',
+      'SYIN_TARG_REF': 'SomMetaRef get SYIN_TARG_REF',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',
@@ -999419,7 +1000869,7 @@ BridgedClass _createWorkflowActorEntry$IdBridge() {
       '': 'WorkflowActorEntry\$Id(SomMetaTree tree, String path)',
     },
     getterSignatures: {
-      'WAE_PART_REF': 'SomListMetaRef<WorkflowStepEntry\$Id> get WAE_PART_REF',
+      'WAE_PART_REF': 'SomMetaRef get WAE_PART_REF',
       'tree': 'SomMetaTree get tree',
       'path': 'String get path',
       'meta': 'SomMetaNode get meta',

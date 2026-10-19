@@ -1083,8 +1083,17 @@ class ExternalServiceDependencyEntry extends DocSpecsSection {
   /// it here would only give it a second place to be wrong.
   @SectionId('EXSDE-PRIM-REF')
   @Reference('Primary Dependent System')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Primary Dependent System',
+      hint: 'Section id of the existing-systems inventory entry (`ESENT`)',
+      refersTo: ['ESENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(4)
-  ExistingSystemEntry? primaryDependentSystem;
+  DocSpecsSection? primaryDependentSystem;
 }
 
 /// 1.1.3.3. Shared Infrastructure Dependencies.
@@ -1563,8 +1572,17 @@ class SystemDependencyEntry extends DocSpecsSection {
   /// [targetSystem], so reading the pair backwards inverts every one of them.
   @SectionId('SYDE-SOUR-REF')
   @Reference('Source System')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Source System',
+      hint: 'Section id of the existing-systems inventory entry (`ESENT`)',
+      refersTo: ['ESENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(5)
-  ExistingSystemEntry? sourceSystem;
+  DocSpecsSection? sourceSystem;
 
   /// The depended-upon end — the system that owes the availability and the SLA
   /// — named by section id.
@@ -1576,8 +1594,17 @@ class SystemDependencyEntry extends DocSpecsSection {
   /// recorded as one.
   @SectionId('SYDE-TARG-REF')
   @Reference('Target System')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Target System',
+      hint: 'Section id of the existing-systems inventory entry (`ESENT`)',
+      refersTo: ['ESENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(6)
-  ExistingSystemEntry? targetSystem;
+  DocSpecsSection? targetSystem;
 }
 
 /// A system integration entry (form).
@@ -1827,8 +1854,17 @@ class SystemIntegrationEntry extends DocSpecsSection {
   /// side a discrepancy between the two copies is resolved against.
   @SectionId('SYIN-SOUR-REF')
   @Reference('Source System')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Source System',
+      hint: 'Section id of the existing-systems inventory entry (`ESENT`)',
+      refersTo: ['ESENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(7)
-  ExistingSystemEntry? sourceSystem;
+  DocSpecsSection? sourceSystem;
 
   /// The system data flows into, named by section id.
   ///
@@ -1838,8 +1874,17 @@ class SystemIntegrationEntry extends DocSpecsSection {
   /// properties of either one on its own.
   @SectionId('SYIN-TARG-REF')
   @Reference('Target System')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Target System',
+      hint: 'Section id of the existing-systems inventory entry (`ESENT`)',
+      refersTo: ['ESENT.@sectionId'],
+    ),
+  ])
   @SerializationOrder(8)
-  ExistingSystemEntry? targetSystem;
+  DocSpecsSection? targetSystem;
 }
 
 // ---------------------------------------------------------------------------
@@ -2865,8 +2910,17 @@ class WorkflowActorEntry extends DocSpecsSection {
   /// Steps this actor participates in.
   @SectionId('WAE-PART-REF')
   @Reference('Participating Steps')
+  @Form([
+    Field(
+      'refs',
+      String,
+      'Participating Steps',
+      hint: 'Section id of the workflow step entries (`WSE`), comma-separated',
+      refersTo: ['WSE.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
-  List<WorkflowStepEntry> participatingSteps = [];
+  DocSpecsSection? participatingSteps;
 }
 
 /// A workflow input.
@@ -3372,8 +3426,17 @@ class ProcessMetricEntry extends DocSpecsSection {
   /// same process.
   @SectionId('PME-PROC-REF')
   @Reference('Process Reference')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Process Reference',
+      hint: 'Section id of the current business process (`CUBIPR`)',
+      refersTo: ['CUBIPR.@sectionId'],
+    ),
+  ])
   @SerializationOrder(3)
-  CurrentBusinessProcess? processReference;
+  DocSpecsSection? processReference;
 }
 
 // ---------------------------------------------------------------------------

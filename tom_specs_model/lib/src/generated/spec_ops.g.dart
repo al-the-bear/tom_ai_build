@@ -18029,7 +18029,7 @@ void registerSpecOps() {
           ),
           SpecSlot.node(
             () => n.primaryDependentSystem,
-            (v) => n.primaryDependentSystem = v as ExistingSystemEntry?,
+            (v) => n.primaryDependentSystem = v as DocSpecsSection?,
             label: 'primaryDependentSystem',
             sectionId: 'EXSDE-PRIM-REF',
           ),
@@ -29460,7 +29460,7 @@ void registerSpecOps() {
           ),
           SpecSlot.node(
             () => n.processReference,
-            (v) => n.processReference = v as CurrentBusinessProcess?,
+            (v) => n.processReference = v as DocSpecsSection?,
             label: 'processReference',
             sectionId: 'PME-PROC-REF',
           ),
@@ -39883,13 +39883,13 @@ void registerSpecOps() {
           ),
           SpecSlot.node(
             () => n.sourceSystem,
-            (v) => n.sourceSystem = v as ExistingSystemEntry?,
+            (v) => n.sourceSystem = v as DocSpecsSection?,
             label: 'sourceSystem',
             sectionId: 'SYDE-SOUR-REF',
           ),
           SpecSlot.node(
             () => n.targetSystem,
-            (v) => n.targetSystem = v as ExistingSystemEntry?,
+            (v) => n.targetSystem = v as DocSpecsSection?,
             label: 'targetSystem',
             sectionId: 'SYDE-TARG-REF',
           ),
@@ -40149,13 +40149,13 @@ void registerSpecOps() {
           ),
           SpecSlot.node(
             () => n.sourceSystem,
-            (v) => n.sourceSystem = v as ExistingSystemEntry?,
+            (v) => n.sourceSystem = v as DocSpecsSection?,
             label: 'sourceSystem',
             sectionId: 'SYIN-SOUR-REF',
           ),
           SpecSlot.node(
             () => n.targetSystem,
-            (v) => n.targetSystem = v as ExistingSystemEntry?,
+            (v) => n.targetSystem = v as DocSpecsSection?,
             label: 'targetSystem',
             sectionId: 'SYIN-TARG-REF',
           ),
@@ -46062,9 +46062,9 @@ void registerSpecOps() {
       slots: (o) {
         final n = o as WorkflowActorEntry;
         return [
-          SpecSlot.list(
+          SpecSlot.node(
             () => n.participatingSteps,
-            (v) => n.participatingSteps = v.cast<WorkflowStepEntry>(),
+            (v) => n.participatingSteps = v as DocSpecsSection?,
             label: 'participatingSteps',
             sectionId: 'WAE-PART-REF',
           ),

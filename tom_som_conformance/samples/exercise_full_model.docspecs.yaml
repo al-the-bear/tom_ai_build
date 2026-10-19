@@ -328,7 +328,8 @@ document:
                   content: Exercise form preamble.
                 STEC context:
                   content: Exercise form preamble.
-                SYTS-RELA-REF relatedUseCase: Exercise text.
+                SYTS-RELA-REF relatedUseCase:
+                  content: Exercise form preamble.
                 SYTS-WORK-LST workflowSteps:
                   SYTS-WORK-1: Exercise item.
                 SYTS-VARI-LST variationsAndExceptions:
@@ -517,7 +518,8 @@ document:
                     content:
                       content: Exercise form preamble.
                       dependencyType: "Exercise value."
-                    GOLDE-RELA-REF relatedGoal: Exercise text.
+                    GOLDE-RELA-REF relatedGoal:
+                      content: Exercise form preamble.
               GORI risks:
                 content: Exercise text.
                 GOLRS-ITEM-LST items:
@@ -1996,7 +1998,9 @@ document:
                 SDEO operations:
                   content: Exercise form preamble.
                 SYDE-SOUR-REF sourceSystem:
+                  content: Exercise form preamble.
                 SYDE-TARG-REF targetSystem:
+                  content: Exercise form preamble.
           EXTDP externalServiceDependencies:
             content: Exercise text.
             EXSDE-ITEM-LST items:
@@ -2010,6 +2014,7 @@ document:
                 EXSRK risk:
                   content: Exercise form preamble.
                 EXSDE-PRIM-REF primaryDependentSystem:
+                  content: Exercise form preamble.
           SHDEP sharedInfrastructureDependencies:
             content: Exercise text.
             SHIEN-ITEM-LST items:
@@ -2042,7 +2047,9 @@ document:
                 SYINOW ownership:
                   content: Exercise form preamble.
                 SYIN-SOUR-REF sourceSystem:
+                  content: Exercise form preamble.
                 SYIN-TARG-REF targetSystem:
+                  content: Exercise form preamble.
           INHESU healthSummary:
             content:
               content: Exercise form preamble.
@@ -2091,69 +2098,50 @@ document:
               PMET targets:
                 content: Exercise form preamble.
               PME-PROC-REF processReference:
+                content: Exercise form preamble.
+        CUBIPR-PROC-LST processes:
+          CUBIPR-PROC-1:
+            content:
+              content: Exercise form preamble.
+            PC processContext:
+              content: Exercise form preamble.
+            WODE workflowDescriptions:
+              content: Exercise text.
+              WODE-WORK workflowOverviewDiagram: |-
+                ```mermaid
+                flowchart TD
+                  A --> B
+                ```
+              WOSUTA summaryTable:
                 content:
                   content: Exercise form preamble.
-                PC processContext:
-                  content: Exercise form preamble.
-                WODE workflowDescriptions:
-                  content: Exercise text.
-                  WODE-WORK workflowOverviewDiagram: |-
+                WOSUEN-ENTR-LST entries:
+                  WOSUEN-ENTR-1:
+                    content:
+                      content: Exercise form preamble.
+              CUWF-WORK-LST workflows:
+                CUWF-WORK-1:
+                  content:
+                    content: Exercise form preamble.
+                  CUWF-DIAG workflowDiagram: |-
                     ```mermaid
                     flowchart TD
                       A --> B
                     ```
-                  WOSUTA summaryTable:
-                    content:
-                      content: Exercise form preamble.
-                    WOSUEN-ENTR-LST entries:
-                      WOSUEN-ENTR-1:
+                  WOTR triggers:
+                    content: Exercise text.
+                    WOTREN-TRIG-LST triggers:
+                      WOTREN-TRIG-1:
                         content:
                           content: Exercise form preamble.
-                  CUWF-WORK-LST workflows:
-                    CUWF-WORK-1:
+                  WSE-STEP-LST steps:
+                    WSE-STEP-1:
                       content:
                         content: Exercise form preamble.
-                      CUWF-DIAG workflowDiagram: |-
-                        ```mermaid
-                        flowchart TD
-                          A --> B
-                        ```
-                      WOTR triggers:
-                        content: Exercise text.
-                        WOTREN-TRIG-LST triggers:
-                          WOTREN-TRIG-1:
-                            content:
-                              content: Exercise form preamble.
-                      WSE-STEP-LST steps:
-                        WSE-STEP-1:
-                          content:
-                            content: Exercise form preamble.
-                          WOSTSY-SYST-LST systemsUsed:
-                            WOSTSY-SYST-1:
-                              content: Exercise text.
-                              WOSTSY-NAME name: Exercise text.
-                          WOINEN-INPU-LST inputs:
-                            WOINEN-INPU-1:
-                              content:
-                                content: Exercise form preamble.
-                          WOOUEN-OUTP-LST outputs:
-                            WOOUEN-OUTP-1:
-                              content:
-                                content: Exercise form preamble.
-                          WOBURU-BUSI-LST businessRules:
-                            WOBURU-BUSI-1:
-                              content:
-                                content: Exercise form preamble.
-                          WOSTIS-KNOW-LST knownIssues:
-                            WOSTIS-KNOW-1:
-                              content:
-                                content: Exercise form preamble.
-                      WAE-ACTO-LST actors:
-                        WAE-ACTO-1:
-                          content:
-                            content: Exercise form preamble.
-                          WAE-PART-REF participatingSteps:
-                            WSE-STEP-1: {}
+                      WOSTSY-SYST-LST systemsUsed:
+                        WOSTSY-SYST-1:
+                          content: Exercise text.
+                          WOSTSY-NAME name: Exercise text.
                       WOINEN-INPU-LST inputs:
                         WOINEN-INPU-1:
                           content:
@@ -2162,76 +2150,137 @@ document:
                         WOOUEN-OUTP-1:
                           content:
                             content: Exercise form preamble.
-                      WODEPO-DECI-LST decisionPoints:
-                        WODEPO-DECI-1:
-                          content:
-                            content: Exercise form preamble.
                       WOBURU-BUSI-LST businessRules:
                         WOBURU-BUSI-1:
                           content:
                             content: Exercise form preamble.
-                      WOTI timing:
-                        content: Exercise form preamble.
-                      WOEX exceptions:
-                        content: Exercise text.
-                        WOEXEN-EXCE-LST exceptions:
-                          WOEXEN-EXCE-1:
-                            content:
-                              content: Exercise form preamble.
-                PM processMetrics:
-                  content: Exercise text.
-                  MEDASU dashboardSummary:
-                    content:
-                      content: Exercise form preamble.
-                  PRMECA-EFFI-LST efficiencyMetrics:
-                    PRMECA-EFFI-1:
-                      content: Exercise text.
-                      PME-METR-LST metrics:
-                        PME-METR-1: {}
-                  PRMECA-QUAL-LST qualityMetrics:
-                    PRMECA-QUAL-1:
-                      content: Exercise text.
-                      PME-METR-LST metrics:
-                        PME-METR-1: {}
-                  PRMECA-VOLU-LST volumeMetrics:
-                    PRMECA-VOLU-1:
-                      content: Exercise text.
-                      PME-METR-LST metrics:
-                        PME-METR-1: {}
-                  PRMECA-COST-LST costMetrics:
-                    PRMECA-COST-1:
-                      content: Exercise text.
-                      PME-METR-LST metrics:
-                        PME-METR-1: {}
-                  PRMECA-MANU-LST manualInterventionMetrics:
-                    PRMECA-MANU-1:
-                      content: Exercise text.
-                      PME-METR-LST metrics:
-                        PME-METR-1: {}
-                  PME-ITEM-LST items:
-                    PME-ITEM-1: {}
-                  MEBATA baselineTable:
-                    content: Exercise text.
-                    MEBAEN-ENTR-LST entries:
-                      MEBAEN-ENTR-1:
-                        content:
-                          content: Exercise form preamble.
-                PRPAPO processPainPoints:
-                  content: Exercise text.
-                  CPIE-IMPR-LST improvements:
-                    CPIE-IMPR-1:
+                      WOSTIS-KNOW-LST knownIssues:
+                        WOSTIS-KNOW-1:
+                          content:
+                            content: Exercise form preamble.
+                  WAE-ACTO-LST actors:
+                    WAE-ACTO-1:
                       content:
                         content: Exercise form preamble.
-                        improvementArea: "Exercise value."
-        CUBIPR-PROC-LST processes:
-          CUBIPR-PROC-1:
-            content:
-              content: Exercise form preamble.
-            PC processContext:
-              content: Exercise form preamble.
-            WODE workflowDescriptions:
+                      WAE-PART-REF participatingSteps:
+                        content: Exercise form preamble.
+                  WOINEN-INPU-LST inputs:
+                    WOINEN-INPU-1:
+                      content:
+                        content: Exercise form preamble.
+                  WOOUEN-OUTP-LST outputs:
+                    WOOUEN-OUTP-1:
+                      content:
+                        content: Exercise form preamble.
+                  WODEPO-DECI-LST decisionPoints:
+                    WODEPO-DECI-1:
+                      content:
+                        content: Exercise form preamble.
+                  WOBURU-BUSI-LST businessRules:
+                    WOBURU-BUSI-1:
+                      content:
+                        content: Exercise form preamble.
+                  WOTI timing:
+                    content: Exercise form preamble.
+                  WOEX exceptions:
+                    content: Exercise text.
+                    WOEXEN-EXCE-LST exceptions:
+                      WOEXEN-EXCE-1:
+                        content:
+                          content: Exercise form preamble.
             PM processMetrics:
+              content: Exercise text.
+              MEDASU dashboardSummary:
+                content:
+                  content: Exercise form preamble.
+              PRMECA-EFFI-LST efficiencyMetrics:
+                PRMECA-EFFI-1:
+                  content: Exercise text.
+                  PME-METR-LST metrics:
+                    PME-METR-1:
+                      content:
+                        content: Exercise form preamble.
+                      PMEM measurement:
+                        content: Exercise form preamble.
+                      PMET targets:
+                        content: Exercise form preamble.
+                      PME-PROC-REF processReference:
+                        content: Exercise form preamble.
+              PRMECA-QUAL-LST qualityMetrics:
+                PRMECA-QUAL-1:
+                  content: Exercise text.
+                  PME-METR-LST metrics:
+                    PME-METR-1:
+                      content:
+                        content: Exercise form preamble.
+                      PMEM measurement:
+                        content: Exercise form preamble.
+                      PMET targets:
+                        content: Exercise form preamble.
+                      PME-PROC-REF processReference:
+                        content: Exercise form preamble.
+              PRMECA-VOLU-LST volumeMetrics:
+                PRMECA-VOLU-1:
+                  content: Exercise text.
+                  PME-METR-LST metrics:
+                    PME-METR-1:
+                      content:
+                        content: Exercise form preamble.
+                      PMEM measurement:
+                        content: Exercise form preamble.
+                      PMET targets:
+                        content: Exercise form preamble.
+                      PME-PROC-REF processReference:
+                        content: Exercise form preamble.
+              PRMECA-COST-LST costMetrics:
+                PRMECA-COST-1:
+                  content: Exercise text.
+                  PME-METR-LST metrics:
+                    PME-METR-1:
+                      content:
+                        content: Exercise form preamble.
+                      PMEM measurement:
+                        content: Exercise form preamble.
+                      PMET targets:
+                        content: Exercise form preamble.
+                      PME-PROC-REF processReference:
+                        content: Exercise form preamble.
+              PRMECA-MANU-LST manualInterventionMetrics:
+                PRMECA-MANU-1:
+                  content: Exercise text.
+                  PME-METR-LST metrics:
+                    PME-METR-1:
+                      content:
+                        content: Exercise form preamble.
+                      PMEM measurement:
+                        content: Exercise form preamble.
+                      PMET targets:
+                        content: Exercise form preamble.
+                      PME-PROC-REF processReference:
+                        content: Exercise form preamble.
+              PME-ITEM-LST items:
+                PME-ITEM-1:
+                  content:
+                    content: Exercise form preamble.
+                  PMEM measurement:
+                    content: Exercise form preamble.
+                  PMET targets:
+                    content: Exercise form preamble.
+                  PME-PROC-REF processReference:
+                    content: Exercise form preamble.
+              MEBATA baselineTable:
+                content: Exercise text.
+                MEBAEN-ENTR-LST entries:
+                  MEBAEN-ENTR-1:
+                    content:
+                      content: Exercise form preamble.
             PRPAPO processPainPoints:
+              content: Exercise text.
+              CPIE-IMPR-LST improvements:
+                CPIE-IMPR-1:
+                  content:
+                    content: Exercise form preamble.
+                    improvementArea: "Exercise value."
       PPAG painPointsAndGaps:
         content: Exercise text.
         PPAG-PAIN painPointsOverviewDiagram: |-

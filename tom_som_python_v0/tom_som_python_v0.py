@@ -18108,7 +18108,7 @@ class ExternalServiceDependencyEntry(SomNode):
     # it here would only give it a second place to be wrong.
     @property
     def primaryDependentSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/EXSDE-PRIM-REF")
+        return ExternalServiceDependencyEntryPrimaryDependentSystemForm(self.doc, f"{self.path}/EXSDE-PRIM-REF")
 
 class ExternalSystemContextEntry(SomNode):
     """An external system context entry (form)."""
@@ -19439,11 +19439,7 @@ class GoalDependencyEntry(SomNode):
     # metrics stay in one place and cannot drift into a second.
     @property
     def relatedGoal(self):
-        return self.doc.content(f"{self.path}/GOLDE-RELA-REF") or ""
-
-    @relatedGoal.setter
-    def relatedGoal(self, value):
-        self.doc.set_content(f"{self.path}/GOLDE-RELA-REF", value)
+        return GoalDependencyEntryRelatedGoalForm(self.doc, f"{self.path}/GOLDE-RELA-REF")
 
 class GoalKeyResults(SomNode):
     """4.2.1.n.1. Key Results.
@@ -28783,7 +28779,7 @@ class ProcessMetricEntry(SomNode):
     # same process.
     @property
     def processReference(self):
-        return CurrentBusinessProcess(self.doc, f"{self.path}/PME-PROC-REF")
+        return ProcessMetricEntryProcessReferenceForm(self.doc, f"{self.path}/PME-PROC-REF")
 
 class ProcessMetrics(SomNode):
     """1.2.2. Process Metrics.
@@ -38712,7 +38708,7 @@ class SystemDependencyEntry(SomNode):
     # [targetSystem], so reading the pair backwards inverts every one of them.
     @property
     def sourceSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-SOUR-REF")
+        return SystemDependencyEntrySourceSystemForm(self.doc, f"{self.path}/SYDE-SOUR-REF")
 
     # The depended-upon end — the system that owes the availability and the SLA
     # — named by section id.
@@ -38724,7 +38720,7 @@ class SystemDependencyEntry(SomNode):
     # recorded as one.
     @property
     def targetSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/SYDE-TARG-REF")
+        return SystemDependencyEntryTargetSystemForm(self.doc, f"{self.path}/SYDE-TARG-REF")
 
 class SystemDescription(SomNode):
     """4.1. System Description.
@@ -38952,7 +38948,7 @@ class SystemIntegrationEntry(SomNode):
     # side a discrepancy between the two copies is resolved against.
     @property
     def sourceSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-SOUR-REF")
+        return SystemIntegrationEntrySourceSystemForm(self.doc, f"{self.path}/SYIN-SOUR-REF")
 
     # The system data flows into, named by section id.
     #
@@ -38962,7 +38958,7 @@ class SystemIntegrationEntry(SomNode):
     # properties of either one on its own.
     @property
     def targetSystem(self):
-        return ExistingSystemEntry(self.doc, f"{self.path}/SYIN-TARG-REF")
+        return SystemIntegrationEntryTargetSystemForm(self.doc, f"{self.path}/SYIN-TARG-REF")
 
 class SystemInventory(SomNode):
     """1.1.1. System Inventory.
@@ -39628,11 +39624,7 @@ class SystemTaskEntry(SomNode):
     # use case that was never written.
     @property
     def relatedUseCase(self):
-        return self.doc.content(f"{self.path}/SYTS-RELA-REF") or ""
-
-    @relatedUseCase.setter
-    def relatedUseCase(self, value):
-        self.doc.set_content(f"{self.path}/SYTS-RELA-REF", value)
+        return SystemTaskEntryRelatedUseCaseForm(self.doc, f"{self.path}/SYTS-RELA-REF")
 
     # Task workflow steps.
     @property
@@ -44469,7 +44461,7 @@ class WorkflowActorEntry(SomNode):
     # Steps this actor participates in.
     @property
     def participatingSteps(self):
-        return SomList(self.doc, f"{self.path}/WAE-PART-REF", lambda d, p: WorkflowStepEntry(d, p))
+        return WorkflowActorEntryParticipatingStepsForm(self.doc, f"{self.path}/WAE-PART-REF")
 
 class WorkflowBusinessRule(SomNode):
     """A business rule governing workflow behavior."""
@@ -95805,6 +95797,31 @@ class ExternalServiceDependencyEntryOperationsForm(SomNode):
     def securityCertifications(self, value):
         self.doc.set_form_field(self.path, "securityCertifications", value)
 
+class ExternalServiceDependencyEntryPrimaryDependentSystemForm(SomNode):
+    """Generated section facade for the `primaryDependentSystem` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
 class ExternalServiceDependencyEntryRelationshipForm(SomNode):
     """Generated section facade for the `relationship` @Form section: its own content text followed by one typed member per form field."""
 
@@ -100811,6 +100828,31 @@ class GoalDependencyEntryContentForm(SomNode):
     @status.setter
     def status(self, value):
         self.doc.set_form_field(self.path, "status", value)
+
+class GoalDependencyEntryRelatedGoalForm(SomNode):
+    """Generated section facade for the `relatedGoal` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class GoalMilestoneEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -133751,6 +133793,31 @@ class ProcessMetricEntryMeasurementForm(SomNode):
     @frequency.setter
     def frequency(self, value):
         self.doc.set_form_field(self.path, "frequency", value)
+
+class ProcessMetricEntryProcessReferenceForm(SomNode):
+    """Generated section facade for the `processReference` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class ProcessMetricEntryTargetsForm(SomNode):
     """Generated section facade for the `targets` @Form section: its own content text followed by one typed member per form field."""
@@ -168863,6 +168930,56 @@ class SystemDependencyEntryReliabilityForm(SomNode):
     def fallbackProcedure(self, value):
         self.doc.set_form_field(self.path, "fallbackProcedure", value)
 
+class SystemDependencyEntrySourceSystemForm(SomNode):
+    """Generated section facade for the `sourceSystem` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
+class SystemDependencyEntryTargetSystemForm(SomNode):
+    """Generated section facade for the `targetSystem` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
 class SystemDescriptionDescriptionSummaryForm(SomNode):
     """Generated section facade for the `descriptionSummary` @Form section: its own content text followed by one typed member per form field."""
 
@@ -169873,6 +169990,56 @@ class SystemIntegrationEntryProtocolForm(SomNode):
     @authenticationMethod.setter
     def authenticationMethod(self, value):
         self.doc.set_form_field(self.path, "authenticationMethod", value)
+
+class SystemIntegrationEntrySourceSystemForm(SomNode):
+    """Generated section facade for the `sourceSystem` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
+
+class SystemIntegrationEntryTargetSystemForm(SomNode):
+    """Generated section facade for the `targetSystem` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class SystemIntegrationEntryThroughputForm(SomNode):
     """Generated section facade for the `throughput` @Form section: its own content text followed by one typed member per form field."""
@@ -171203,6 +171370,31 @@ class SystemTaskEntryExecutionForm(SomNode):
     @trigger.setter
     def trigger(self, value):
         self.doc.set_form_field(self.path, "trigger", value)
+
+class SystemTaskEntryRelatedUseCaseForm(SomNode):
+    """Generated section facade for the `relatedUseCase` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def ref(self) -> str:
+        return self.doc.form_field(self.path, "ref") or ""
+
+    @ref.setter
+    def ref(self, value):
+        self.doc.set_form_field(self.path, "ref", value)
 
 class SystemTechnicalAssessmentContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -188802,6 +188994,31 @@ class WorkflowActorEntryContentForm(SomNode):
     @headcount.setter
     def headcount(self, value):
         self.doc.set_form_field(self.path, "headcount", "" if value is None else str(value))
+
+class WorkflowActorEntryParticipatingStepsForm(SomNode):
+    """Generated section facade for the `participatingSteps` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def refs(self) -> str:
+        return self.doc.form_field(self.path, "refs") or ""
+
+    @refs.setter
+    def refs(self, value):
+        self.doc.set_form_field(self.path, "refs", value)
 
 class WorkflowBusinessRuleContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

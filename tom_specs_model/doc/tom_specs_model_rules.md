@@ -642,21 +642,33 @@ How to choose:
   the narrative its own class, so it can carry `@ContentType`, `@ContentHelp`,
   and its own children later without a shape change.
 - **ref** if the data is *owned by another section* and this field only points at
-  it. A `@Reference` renders as an ordinary content-kind inline sub-section keyed
-  by its field-level `…-REF` id whose value is the referenced section id, and is
-  never followed in traversal. A `@Reference` **list** points at a *different*
-  owned collection; it is never a subset of a sibling list in the same class
-  (§5.9).
+  it. A `@Reference` is an inline sub-section keyed by its field-level `…-REF`
+  id, typed `DocSpecsSection`, and is never followed in traversal. It holds the
+  referenced section id in a one-field `@Form` whose field declares the target
+  registry with `refersTo:` (§6.2) — `ref` for one id, `refs` for several,
+  comma-separated — so the instance tier resolves it like any reference-valued
+  form field and reports a wrong id as `danglingReference`:
 
-**`@Reference` is not the same thing as a reference-valued form field.**
-`@Reference` sits on a *Dart member whose type is a section class*: it is a
-structural edge between sections that the traversal deliberately does not
-follow. A reference-valued form field is a **form** field — a bare `String`
-inside a `@Form` — whose *value* is an id that some other section's registry
-declares. Different carrier, different value kind, so the two never overlap and
-neither replaces the other. The form field states its target with the `refersTo:`
-parameter on `Field` (§6.2); an ordinary `@Reference` needs no such parameter,
-because its target is its Dart type.
+  ```dart
+  @SectionId('SYDE-SOUR-REF')
+  @Reference('Source System')
+  @Form([Field('ref', String, 'Source System', refersTo: ['ESENT.@sectionId'])])
+  DocSpecsSection? sourceSystem;
+  ```
+
+  A reference to several entries of one owned collection is the same shape with
+  `refs`; it points at a *different* owned collection and is never a subset of a
+  sibling list in the same class (§5.9). A `@Reference` whose form does not yet
+  name its target holds its text as the section's content and is not resolved.
+
+**`@Reference` marks the section; `refersTo:` carries the contract.**
+`@Reference` sits on the member: it says the section is an edge to data owned
+elsewhere, which the traversal and the outliner deliberately do not follow. The
+id itself is a reference-valued form field inside that section, and the
+`refersTo:` parameter on its `Field` (§6.2) names the registry it is drawn from.
+A form field may carry `refersTo:` without any `@Reference` — an id written
+among other facts of an entry — but a `@Reference` section holds nothing except
+its one reference field.
 
 ### 6.2 Reference-valued form fields (`refersTo:`)
 

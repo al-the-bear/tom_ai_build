@@ -26619,8 +26619,8 @@ impl ExternalServiceDependencyEntry {
     /// "Primary" is a deliberate narrowing, not a completeness claim. The full
     /// consumer set is a property of the systems and is stated there; repeating
     /// it here would only give it a second place to be wrong.
-    pub fn primary_dependent_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXSDE-PRIM-REF"))
+    pub fn primary_dependent_system(&self) -> ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+        ExternalServiceDependencyEntryPrimaryDependentSystemForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXSDE-PRIM-REF"))
     }
 }
 
@@ -28540,13 +28540,8 @@ impl GoalDependencyEntry {
     /// The reference stores a section id and is not traversed
     /// (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
     /// metrics stay in one place and cannot drift into a second.
-    pub fn related_goal(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "GOLDE-RELA-REF"))
-    }
-
-    pub fn set_related_goal(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "GOLDE-RELA-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn related_goal(&self) -> GoalDependencyEntryRelatedGoalForm {
+        GoalDependencyEntryRelatedGoalForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "GOLDE-RELA-REF"))
     }
 }
 
@@ -42024,8 +42019,8 @@ impl ProcessMetricEntry {
     /// It is also what makes the current value usable as a baseline: a target set
     /// in the future state is only comparable to it if both are anchored to the
     /// same process.
-    pub fn process_reference(&self) -> CurrentBusinessProcess {
-        CurrentBusinessProcess::new(self.node.doc(), format!("{}/{}", self.node.path(), "PME-PROC-REF"))
+    pub fn process_reference(&self) -> ProcessMetricEntryProcessReferenceForm {
+        ProcessMetricEntryProcessReferenceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PME-PROC-REF"))
     }
 }
 
@@ -56296,8 +56291,8 @@ impl SystemDependencyEntry {
     /// A dependency is not symmetric: the availability requirement, the SLA and
     /// the fallback procedure above are all obligations owed *to* this end *by*
     /// [targetSystem], so reading the pair backwards inverts every one of them.
-    pub fn source_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-SOUR-REF"))
+    pub fn source_system(&self) -> SystemDependencyEntrySourceSystemForm {
+        SystemDependencyEntrySourceSystemForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-SOUR-REF"))
     }
 
     /// The depended-upon end — the system that owes the availability and the SLA
@@ -56308,8 +56303,8 @@ impl SystemDependencyEntry {
     /// existing-systems inventory of this document: a reliance on something
     /// outside the current estate is an external-service dependency and is
     /// recorded as one.
-    pub fn target_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-TARG-REF"))
+    pub fn target_system(&self) -> SystemDependencyEntryTargetSystemForm {
+        SystemDependencyEntryTargetSystemForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYDE-TARG-REF"))
     }
 }
 
@@ -56610,8 +56605,8 @@ impl SystemIntegrationEntry {
     /// The source is where a record originates and is therefore where it is
     /// authoritative — which is what a reader needs in order to decide which
     /// side a discrepancy between the two copies is resolved against.
-    pub fn source_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-SOUR-REF"))
+    pub fn source_system(&self) -> SystemIntegrationEntrySourceSystemForm {
+        SystemIntegrationEntrySourceSystemForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-SOUR-REF"))
     }
 
     /// The system data flows into, named by section id.
@@ -56620,8 +56615,8 @@ impl SystemIntegrationEntry {
     /// the protocol, format, throughput and error-handling facts above all
     /// describe the movement between exactly these two systems and are not
     /// properties of either one on its own.
-    pub fn target_system(&self) -> ExistingSystemEntry {
-        ExistingSystemEntry::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-TARG-REF"))
+    pub fn target_system(&self) -> SystemIntegrationEntryTargetSystemForm {
+        SystemIntegrationEntryTargetSystemForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYIN-TARG-REF"))
     }
 }
 
@@ -57480,13 +57475,8 @@ impl SystemTaskEntry {
     /// not owned here and its text is never copied here. An empty link is itself
     /// a finding: a task no use case accounts for is either out of scope or a
     /// use case that was never written.
-    pub fn related_use_case(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "SYTS-RELA-REF"))
-    }
-
-    pub fn set_related_use_case(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "SYTS-RELA-REF");
-        self.node.doc().borrow_mut().set_content(&path, value);
+    pub fn related_use_case(&self) -> SystemTaskEntryRelatedUseCaseForm {
+        SystemTaskEntryRelatedUseCaseForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SYTS-RELA-REF"))
     }
 
     /// Task workflow steps.
@@ -64400,13 +64390,8 @@ impl WorkflowActorEntry {
     }
 
     /// Steps this actor participates in.
-    pub fn participating_steps(&self) -> som::SomList<WorkflowStepEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WAE-PART-REF"),
-            Box::new(WorkflowStepEntry::new),
-            "".to_string(),
-        )
+    pub fn participating_steps(&self) -> WorkflowActorEntryParticipatingStepsForm {
+        WorkflowActorEntryParticipatingStepsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "WAE-PART-REF"))
     }
 }
 
@@ -133341,6 +133326,45 @@ impl ExternalServiceDependencyEntryOperationsForm {
     }
 }
 
+/// ExternalServiceDependencyEntryPrimaryDependentSystemForm is the generated section facade for the `primaryDependentSystem` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+    pub node: som::SomNode,
+}
+
+impl ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+    /// Binds a ExternalServiceDependencyEntryPrimaryDependentSystemForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+        ExternalServiceDependencyEntryPrimaryDependentSystemForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
 /// ExternalServiceDependencyEntryRelationshipForm is the generated section facade for the `relationship` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ExternalServiceDependencyEntryRelationshipForm {
@@ -140037,6 +140061,45 @@ impl GoalDependencyEntryContentForm {
     pub fn set_status(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "status", value);
+    }
+}
+
+/// GoalDependencyEntryRelatedGoalForm is the generated section facade for the `relatedGoal` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GoalDependencyEntryRelatedGoalForm {
+    pub node: som::SomNode,
+}
+
+impl GoalDependencyEntryRelatedGoalForm {
+    /// Binds a GoalDependencyEntryRelatedGoalForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GoalDependencyEntryRelatedGoalForm {
+        GoalDependencyEntryRelatedGoalForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -183872,6 +183935,45 @@ impl ProcessMetricEntryMeasurementForm {
     pub fn set_frequency(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "frequency", value);
+    }
+}
+
+/// ProcessMetricEntryProcessReferenceForm is the generated section facade for the `processReference` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ProcessMetricEntryProcessReferenceForm {
+    pub node: som::SomNode,
+}
+
+impl ProcessMetricEntryProcessReferenceForm {
+    /// Binds a ProcessMetricEntryProcessReferenceForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ProcessMetricEntryProcessReferenceForm {
+        ProcessMetricEntryProcessReferenceForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -230458,6 +230560,84 @@ impl SystemDependencyEntryReliabilityForm {
     }
 }
 
+/// SystemDependencyEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemDependencyEntrySourceSystemForm {
+    pub node: som::SomNode,
+}
+
+impl SystemDependencyEntrySourceSystemForm {
+    /// Binds a SystemDependencyEntrySourceSystemForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemDependencyEntrySourceSystemForm {
+        SystemDependencyEntrySourceSystemForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
+/// SystemDependencyEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemDependencyEntryTargetSystemForm {
+    pub node: som::SomNode,
+}
+
+impl SystemDependencyEntryTargetSystemForm {
+    /// Binds a SystemDependencyEntryTargetSystemForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemDependencyEntryTargetSystemForm {
+        SystemDependencyEntryTargetSystemForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
 /// SystemDescriptionDescriptionSummaryForm is the generated section facade for the `descriptionSummary` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct SystemDescriptionDescriptionSummaryForm {
@@ -231797,6 +231977,84 @@ impl SystemIntegrationEntryProtocolForm {
     pub fn set_authentication_method(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "authenticationMethod", value);
+    }
+}
+
+/// SystemIntegrationEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemIntegrationEntrySourceSystemForm {
+    pub node: som::SomNode,
+}
+
+impl SystemIntegrationEntrySourceSystemForm {
+    /// Binds a SystemIntegrationEntrySourceSystemForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemIntegrationEntrySourceSystemForm {
+        SystemIntegrationEntrySourceSystemForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
+    }
+}
+
+/// SystemIntegrationEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemIntegrationEntryTargetSystemForm {
+    pub node: som::SomNode,
+}
+
+impl SystemIntegrationEntryTargetSystemForm {
+    /// Binds a SystemIntegrationEntryTargetSystemForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemIntegrationEntryTargetSystemForm {
+        SystemIntegrationEntryTargetSystemForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -233569,6 +233827,45 @@ impl SystemTaskEntryExecutionForm {
     pub fn set_trigger(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "trigger", value);
+    }
+}
+
+/// SystemTaskEntryRelatedUseCaseForm is the generated section facade for the `relatedUseCase` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SystemTaskEntryRelatedUseCaseForm {
+    pub node: som::SomNode,
+}
+
+impl SystemTaskEntryRelatedUseCaseForm {
+    /// Binds a SystemTaskEntryRelatedUseCaseForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SystemTaskEntryRelatedUseCaseForm {
+        SystemTaskEntryRelatedUseCaseForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn ref_(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ref")
+    }
+
+    pub fn set_ref_(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ref", value);
     }
 }
 
@@ -256826,6 +257123,45 @@ impl WorkflowActorEntryContentForm {
         let path = self.node.path().to_string();
         let text = match value { Some(v) => v.to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "headcount", &text);
+    }
+}
+
+/// WorkflowActorEntryParticipatingStepsForm is the generated section facade for the `participatingSteps` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct WorkflowActorEntryParticipatingStepsForm {
+    pub node: som::SomNode,
+}
+
+impl WorkflowActorEntryParticipatingStepsForm {
+    /// Binds a WorkflowActorEntryParticipatingStepsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> WorkflowActorEntryParticipatingStepsForm {
+        WorkflowActorEntryParticipatingStepsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn refs(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "refs")
+    }
+
+    pub fn set_refs(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "refs", value);
     }
 }
 

@@ -1,3 +1,16 @@
+## 1.6.2
+
+- Reference sections hold a resolvable id. `EXSDE-PRIM-REF`, `SYDE-SOUR-REF`,
+  `SYDE-TARG-REF`, `SYIN-SOUR-REF`, `SYIN-TARG-REF`, `PME-PROC-REF`,
+  `SYTS-RELA-REF` and `GOLDE-RELA-REF` are `DocSpecsSection` members with a
+  one-field form `ref`; `WAE-PART-REF` has `refs` (comma-separated ids). Each
+  field declares `refersTo` its registry (`ESENT`, `CUBIPR`, `INEN`, `BGE`,
+  `WSE` — `.@sectionId`), so every runtime's instance tier resolves the id and
+  reports a wrong one as `danglingReference`. Before, the typed ones expanded
+  to the whole target class and the others held free text. A document that
+  wrote the id as a form preamble or a plain value moves it into `ref`
+  (`tom_specs_model_rules.md` §6.1, **ref**).
+
 ## 1.6.1
 
 - Code-valued form fields: `patternRegex` and `constraintExpression`

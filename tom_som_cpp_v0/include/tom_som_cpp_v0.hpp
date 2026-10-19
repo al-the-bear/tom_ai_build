@@ -3456,6 +3456,7 @@ class ExternalPartnerConnectionEntryReliabilityForm;
 class ExternalPartnerOperationsContentForm;
 class ExternalServiceDependencyEntryContentForm;
 class ExternalServiceDependencyEntryOperationsForm;
+class ExternalServiceDependencyEntryPrimaryDependentSystemForm;
 class ExternalServiceDependencyEntryRelationshipForm;
 class ExternalServiceDependencyEntryRiskForm;
 class ExternalSystemContextEntryContentForm;
@@ -3552,6 +3553,7 @@ class GeographicDistributionRequirementsRoutingForm;
 class GlobalRoleExclusionEntryContentForm;
 class GlossaryEntryContentForm;
 class GoalDependencyEntryContentForm;
+class GoalDependencyEntryRelatedGoalForm;
 class GoalMilestoneEntryContentForm;
 class GoalResourcesResourcesFormForm;
 class GoalRiskEntryAssessmentForm;
@@ -4187,6 +4189,7 @@ class ProcessKpiEntryMeasurementForm;
 class ProcessKpiEntryOperationsForm;
 class ProcessMetricEntryContentForm;
 class ProcessMetricEntryMeasurementForm;
+class ProcessMetricEntryProcessReferenceForm;
 class ProcessMetricEntryTargetsForm;
 class ProcessOutputEntryContentForm;
 class ProcessOverviewDiagramOverviewForm;
@@ -4866,6 +4869,8 @@ class SystemDependencyEntryDataExchangeForm;
 class SystemDependencyEntryMechanismForm;
 class SystemDependencyEntryOperationsForm;
 class SystemDependencyEntryReliabilityForm;
+class SystemDependencyEntrySourceSystemForm;
+class SystemDependencyEntryTargetSystemForm;
 class SystemDescriptionDescriptionSummaryForm;
 class SystemDiagnosticToolsContentForm;
 class SystemDiagnosticToolsLogsForm;
@@ -4885,6 +4890,8 @@ class SystemIntegrationEntryErrorHandlingForm;
 class SystemIntegrationEntryMonitoringForm;
 class SystemIntegrationEntryOwnershipForm;
 class SystemIntegrationEntryProtocolForm;
+class SystemIntegrationEntrySourceSystemForm;
+class SystemIntegrationEntryTargetSystemForm;
 class SystemIntegrationEntryThroughputForm;
 class SystemKnowledgeTransferContentForm;
 class SystemMigrationPlanContentForm;
@@ -4912,6 +4919,7 @@ class SystemTaskEntryContentForm;
 class SystemTaskEntryContextForm;
 class SystemTaskEntryDataForm;
 class SystemTaskEntryExecutionForm;
+class SystemTaskEntryRelatedUseCaseForm;
 class SystemTechnicalAssessmentContentForm;
 class SystemTechnicalAssessmentLifecycleForm;
 class SystemTechnicalAssessmentPlatformForm;
@@ -5240,6 +5248,7 @@ class WcagComplianceWcagComplianceContentForm;
 class WcagSuccessCriterionEntryContentForm;
 class WeightedQualityMatrixMatrixConfigContentForm;
 class WorkflowActorEntryContentForm;
+class WorkflowActorEntryParticipatingStepsForm;
 class WorkflowBusinessRuleContentForm;
 class WorkflowDecisionPointContentForm;
 class WorkflowExceptionEntryContentForm;
@@ -15828,7 +15837,7 @@ class ExternalServiceDependencyEntry : public som::SomNode {
   // "Primary" is a deliberate narrowing, not a completeness claim. The full
   // consumer set is a property of the systems and is stated there; repeating
   // it here would only give it a second place to be wrong.
-  ExistingSystemEntry primaryDependentSystem() const;
+  ExternalServiceDependencyEntryPrimaryDependentSystemForm primaryDependentSystem() const;
 };
 
 // An external system context entry (form).
@@ -16693,8 +16702,7 @@ class GoalDependencyEntry : public som::SomNode {
   // The reference stores a section id and is not traversed
   // (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
   // metrics stay in one place and cannot drift into a second.
-  std::string relatedGoal() const;
-  void setRelatedGoal(const std::string& value);
+  GoalDependencyEntryRelatedGoalForm relatedGoal() const;
 };
 
 // 4.2.1.n.1. Key Results.
@@ -22651,7 +22659,7 @@ class ProcessMetricEntry : public som::SomNode {
   // It is also what makes the current value usable as a baseline: a target set
   // in the future state is only comparable to it if both are anchored to the
   // same process.
-  CurrentBusinessProcess processReference() const;
+  ProcessMetricEntryProcessReferenceForm processReference() const;
 };
 
 // 1.2.2. Process Metrics.
@@ -29032,7 +29040,7 @@ class SystemDependencyEntry : public som::SomNode {
   // A dependency is not symmetric: the availability requirement, the SLA and
   // the fallback procedure above are all obligations owed *to* this end *by*
   // [targetSystem], so reading the pair backwards inverts every one of them.
-  ExistingSystemEntry sourceSystem() const;
+  SystemDependencyEntrySourceSystemForm sourceSystem() const;
   // The depended-upon end — the system that owes the availability and the SLA
   // — named by section id.
   //
@@ -29041,7 +29049,7 @@ class SystemDependencyEntry : public som::SomNode {
   // existing-systems inventory of this document: a reliance on something
   // outside the current estate is an external-service dependency and is
   // recorded as one.
-  ExistingSystemEntry targetSystem() const;
+  SystemDependencyEntryTargetSystemForm targetSystem() const;
 };
 
 // 4.1. System Description.
@@ -29175,14 +29183,14 @@ class SystemIntegrationEntry : public som::SomNode {
   // The source is where a record originates and is therefore where it is
   // authoritative — which is what a reader needs in order to decide which
   // side a discrepancy between the two copies is resolved against.
-  ExistingSystemEntry sourceSystem() const;
+  SystemIntegrationEntrySourceSystemForm sourceSystem() const;
   // The system data flows into, named by section id.
   //
   // The consuming end, holding the derived copy. Paired with [sourceSystem];
   // the protocol, format, throughput and error-handling facts above all
   // describe the movement between exactly these two systems and are not
   // properties of either one on its own.
-  ExistingSystemEntry targetSystem() const;
+  SystemIntegrationEntryTargetSystemForm targetSystem() const;
 };
 
 // 1.1.1. System Inventory.
@@ -29573,8 +29581,7 @@ class SystemTaskEntry : public som::SomNode {
   // not owned here and its text is never copied here. An empty link is itself
   // a finding: a task no use case accounts for is either out of scope or a
   // use case that was never written.
-  std::string relatedUseCase() const;
-  void setRelatedUseCase(const std::string& value);
+  SystemTaskEntryRelatedUseCaseForm relatedUseCase() const;
   // Task workflow steps.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList workflowSteps() const;
@@ -32628,8 +32635,7 @@ class WorkflowActorEntry : public som::SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   WorkflowActorEntryContentForm content() const;
   // Steps this actor participates in.
-  // Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-  som::SomList participatingSteps() const;
+  WorkflowActorEntryParticipatingStepsForm participatingSteps() const;
 };
 
 // A business rule governing workflow behavior.
@@ -51285,6 +51291,18 @@ class ExternalServiceDependencyEntryOperationsForm : public som::SomNode {
   void setSecurityCertifications(const std::string& value);
 };
 
+// Generated section facade for the `primaryDependentSystem` @Form section: its own `content` text followed by one typed member per form field.
+class ExternalServiceDependencyEntryPrimaryDependentSystemForm : public som::SomNode {
+ public:
+  ExternalServiceDependencyEntryPrimaryDependentSystemForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
 // Generated section facade for the `relationship` @Form section: its own `content` text followed by one typed member per form field.
 class ExternalServiceDependencyEntryRelationshipForm : public som::SomNode {
  public:
@@ -53073,6 +53091,18 @@ class GoalDependencyEntryContentForm : public som::SomNode {
   void setMitigationStrategy(const std::string& value);
   std::string status() const;
   void setStatus(const std::string& value);
+};
+
+// Generated section facade for the `relatedGoal` @Form section: its own `content` text followed by one typed member per form field.
+class GoalDependencyEntryRelatedGoalForm : public som::SomNode {
+ public:
+  GoalDependencyEntryRelatedGoalForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -64825,6 +64855,18 @@ class ProcessMetricEntryMeasurementForm : public som::SomNode {
   void setDataSource(const std::string& value);
   std::string frequency() const;
   void setFrequency(const std::string& value);
+};
+
+// Generated section facade for the `processReference` @Form section: its own `content` text followed by one typed member per form field.
+class ProcessMetricEntryProcessReferenceForm : public som::SomNode {
+ public:
+  ProcessMetricEntryProcessReferenceForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `targets` @Form section: its own `content` text followed by one typed member per form field.
@@ -77345,6 +77387,30 @@ class SystemDependencyEntryReliabilityForm : public som::SomNode {
   void setFallbackProcedure(const std::string& value);
 };
 
+// Generated section facade for the `sourceSystem` @Form section: its own `content` text followed by one typed member per form field.
+class SystemDependencyEntrySourceSystemForm : public som::SomNode {
+ public:
+  SystemDependencyEntrySourceSystemForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
+// Generated section facade for the `targetSystem` @Form section: its own `content` text followed by one typed member per form field.
+class SystemDependencyEntryTargetSystemForm : public som::SomNode {
+ public:
+  SystemDependencyEntryTargetSystemForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
 // Generated section facade for the `descriptionSummary` @Form section: its own `content` text followed by one typed member per form field.
 class SystemDescriptionDescriptionSummaryForm : public som::SomNode {
  public:
@@ -77697,6 +77763,30 @@ class SystemIntegrationEntryProtocolForm : public som::SomNode {
   void setMiddlewareUsed(const std::string& value);
   std::string authenticationMethod() const;
   void setAuthenticationMethod(const std::string& value);
+};
+
+// Generated section facade for the `sourceSystem` @Form section: its own `content` text followed by one typed member per form field.
+class SystemIntegrationEntrySourceSystemForm : public som::SomNode {
+ public:
+  SystemIntegrationEntrySourceSystemForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
+};
+
+// Generated section facade for the `targetSystem` @Form section: its own `content` text followed by one typed member per form field.
+class SystemIntegrationEntryTargetSystemForm : public som::SomNode {
+ public:
+  SystemIntegrationEntryTargetSystemForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `throughput` @Form section: its own `content` text followed by one typed member per form field.
@@ -78177,6 +78267,18 @@ class SystemTaskEntryExecutionForm : public som::SomNode {
   void setImportance(const std::string& value);
   std::string trigger() const;
   void setTrigger(const std::string& value);
+};
+
+// Generated section facade for the `relatedUseCase` @Form section: its own `content` text followed by one typed member per form field.
+class SystemTaskEntryRelatedUseCaseForm : public som::SomNode {
+ public:
+  SystemTaskEntryRelatedUseCaseForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string ref() const;
+  void setRef(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -84389,6 +84491,18 @@ class WorkflowActorEntryContentForm : public som::SomNode {
   void setSkillRequirements(const std::string& value);
   std::optional<long> headcount() const;
   void setHeadcount(std::optional<long> value);
+};
+
+// Generated section facade for the `participatingSteps` @Form section: its own `content` text followed by one typed member per form field.
+class WorkflowActorEntryParticipatingStepsForm : public som::SomNode {
+ public:
+  WorkflowActorEntryParticipatingStepsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string refs() const;
+  void setRefs(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

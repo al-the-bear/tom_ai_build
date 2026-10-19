@@ -21022,8 +21022,8 @@ func (x *ExternalServiceDependencyEntry) Risk() *ExternalServiceDependencyEntryR
 // "Primary" is a deliberate narrowing, not a completeness claim. The full
 // consumer set is a property of the systems and is stated there; repeating
 // it here would only give it a second place to be wrong.
-func (x *ExternalServiceDependencyEntry) PrimaryDependentSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/EXSDE-PRIM-REF")
+func (x *ExternalServiceDependencyEntry) PrimaryDependentSystem() *ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+	return NewExternalServiceDependencyEntryPrimaryDependentSystemForm(x.Doc(), x.Path()+"/EXSDE-PRIM-REF")
 }
 
 // An external system context entry (form).
@@ -22561,12 +22561,8 @@ func (x *GoalDependencyEntry) Content() *GoalDependencyEntryContentForm {
 // The reference stores a section id and is not traversed
 // (`tom_specs_model_rules.md` §9.2), so the goal's own wording, owner and
 // metrics stay in one place and cannot drift into a second.
-func (x *GoalDependencyEntry) RelatedGoal() string {
-	return x.Doc().ContentOr(x.Path() + "/GOLDE-RELA-REF")
-}
-
-func (x *GoalDependencyEntry) SetRelatedGoal(value string) {
-	x.Doc().SetContent(x.Path()+"/GOLDE-RELA-REF", value)
+func (x *GoalDependencyEntry) RelatedGoal() *GoalDependencyEntryRelatedGoalForm {
+	return NewGoalDependencyEntryRelatedGoalForm(x.Doc(), x.Path()+"/GOLDE-RELA-REF")
 }
 
 // 4.2.1.n.1. Key Results.
@@ -33503,8 +33499,8 @@ func (x *ProcessMetricEntry) Targets() *ProcessMetricEntryTargetsForm {
 // It is also what makes the current value usable as a baseline: a target set
 // in the future state is only comparable to it if both are anchored to the
 // same process.
-func (x *ProcessMetricEntry) ProcessReference() *CurrentBusinessProcess {
-	return NewCurrentBusinessProcess(x.Doc(), x.Path()+"/PME-PROC-REF")
+func (x *ProcessMetricEntry) ProcessReference() *ProcessMetricEntryProcessReferenceForm {
+	return NewProcessMetricEntryProcessReferenceForm(x.Doc(), x.Path()+"/PME-PROC-REF")
 }
 
 // 1.2.2. Process Metrics.
@@ -45110,8 +45106,8 @@ func (x *SystemDependencyEntry) Operations() *SystemDependencyEntryOperationsFor
 // A dependency is not symmetric: the availability requirement, the SLA and
 // the fallback procedure above are all obligations owed *to* this end *by*
 // [targetSystem], so reading the pair backwards inverts every one of them.
-func (x *SystemDependencyEntry) SourceSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYDE-SOUR-REF")
+func (x *SystemDependencyEntry) SourceSystem() *SystemDependencyEntrySourceSystemForm {
+	return NewSystemDependencyEntrySourceSystemForm(x.Doc(), x.Path()+"/SYDE-SOUR-REF")
 }
 
 // The depended-upon end — the system that owes the availability and the SLA
@@ -45122,8 +45118,8 @@ func (x *SystemDependencyEntry) SourceSystem() *ExistingSystemEntry {
 // existing-systems inventory of this document: a reliance on something
 // outside the current estate is an external-service dependency and is
 // recorded as one.
-func (x *SystemDependencyEntry) TargetSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYDE-TARG-REF")
+func (x *SystemDependencyEntry) TargetSystem() *SystemDependencyEntryTargetSystemForm {
+	return NewSystemDependencyEntryTargetSystemForm(x.Doc(), x.Path()+"/SYDE-TARG-REF")
 }
 
 // 4.1. System Description.
@@ -45380,8 +45376,8 @@ func (x *SystemIntegrationEntry) Ownership() *SystemIntegrationEntryOwnershipFor
 // The source is where a record originates and is therefore where it is
 // authoritative — which is what a reader needs in order to decide which
 // side a discrepancy between the two copies is resolved against.
-func (x *SystemIntegrationEntry) SourceSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYIN-SOUR-REF")
+func (x *SystemIntegrationEntry) SourceSystem() *SystemIntegrationEntrySourceSystemForm {
+	return NewSystemIntegrationEntrySourceSystemForm(x.Doc(), x.Path()+"/SYIN-SOUR-REF")
 }
 
 // The system data flows into, named by section id.
@@ -45390,8 +45386,8 @@ func (x *SystemIntegrationEntry) SourceSystem() *ExistingSystemEntry {
 // the protocol, format, throughput and error-handling facts above all
 // describe the movement between exactly these two systems and are not
 // properties of either one on its own.
-func (x *SystemIntegrationEntry) TargetSystem() *ExistingSystemEntry {
-	return NewExistingSystemEntry(x.Doc(), x.Path()+"/SYIN-TARG-REF")
+func (x *SystemIntegrationEntry) TargetSystem() *SystemIntegrationEntryTargetSystemForm {
+	return NewSystemIntegrationEntryTargetSystemForm(x.Doc(), x.Path()+"/SYIN-TARG-REF")
 }
 
 // 1.1.1. System Inventory.
@@ -46134,12 +46130,8 @@ func (x *SystemTaskEntry) Context() *SystemTaskEntryContextForm {
 // not owned here and its text is never copied here. An empty link is itself
 // a finding: a task no use case accounts for is either out of scope or a
 // use case that was never written.
-func (x *SystemTaskEntry) RelatedUseCase() string {
-	return x.Doc().ContentOr(x.Path() + "/SYTS-RELA-REF")
-}
-
-func (x *SystemTaskEntry) SetRelatedUseCase(value string) {
-	x.Doc().SetContent(x.Path()+"/SYTS-RELA-REF", value)
+func (x *SystemTaskEntry) RelatedUseCase() *SystemTaskEntryRelatedUseCaseForm {
+	return NewSystemTaskEntryRelatedUseCaseForm(x.Doc(), x.Path()+"/SYTS-RELA-REF")
 }
 
 // Task workflow steps.
@@ -51800,10 +51792,8 @@ func (x *WorkflowActorEntry) Content() *WorkflowActorEntryContentForm {
 }
 
 // Steps this actor participates in.
-func (x *WorkflowActorEntry) ParticipatingSteps() *som.SomList[*WorkflowStepEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/WAE-PART-REF", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
-		return NewWorkflowStepEntry(d, p)
-	}, "")
+func (x *WorkflowActorEntry) ParticipatingSteps() *WorkflowActorEntryParticipatingStepsForm {
+	return NewWorkflowActorEntryParticipatingStepsForm(x.Doc(), x.Path()+"/WAE-PART-REF")
 }
 
 // A business rule governing workflow behavior.
@@ -116192,6 +116182,40 @@ func (x *ExternalServiceDependencyEntryOperationsForm) SetSecurityCertifications
 	x.Doc().SetFormField(x.Path(), "securityCertifications", value)
 }
 
+// ExternalServiceDependencyEntryPrimaryDependentSystemForm is the generated section facade for the `primaryDependentSystem` @Form section: its own
+// content text followed by one typed member per form field.
+type ExternalServiceDependencyEntryPrimaryDependentSystemForm struct {
+	som.SomNode
+}
+
+// NewExternalServiceDependencyEntryPrimaryDependentSystemForm binds a ExternalServiceDependencyEntryPrimaryDependentSystemForm facade to a document and a path.
+func NewExternalServiceDependencyEntryPrimaryDependentSystemForm(doc *som.SpecDocument, path string) *ExternalServiceDependencyEntryPrimaryDependentSystemForm {
+	return &ExternalServiceDependencyEntryPrimaryDependentSystemForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ExternalServiceDependencyEntryPrimaryDependentSystemForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExternalServiceDependencyEntryPrimaryDependentSystemForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExternalServiceDependencyEntryPrimaryDependentSystemForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExternalServiceDependencyEntryPrimaryDependentSystemForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *ExternalServiceDependencyEntryPrimaryDependentSystemForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
 // ExternalServiceDependencyEntryRelationshipForm is the generated section facade for the `relationship` @Form section: its own
 // content text followed by one typed member per form field.
 type ExternalServiceDependencyEntryRelationshipForm struct {
@@ -122457,6 +122481,40 @@ func (x *GoalDependencyEntryContentForm) Status() string {
 
 func (x *GoalDependencyEntryContentForm) SetStatus(value string) {
 	x.Doc().SetFormField(x.Path(), "status", value)
+}
+
+// GoalDependencyEntryRelatedGoalForm is the generated section facade for the `relatedGoal` @Form section: its own
+// content text followed by one typed member per form field.
+type GoalDependencyEntryRelatedGoalForm struct {
+	som.SomNode
+}
+
+// NewGoalDependencyEntryRelatedGoalForm binds a GoalDependencyEntryRelatedGoalForm facade to a document and a path.
+func NewGoalDependencyEntryRelatedGoalForm(doc *som.SpecDocument, path string) *GoalDependencyEntryRelatedGoalForm {
+	return &GoalDependencyEntryRelatedGoalForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GoalDependencyEntryRelatedGoalForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GoalDependencyEntryRelatedGoalForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GoalDependencyEntryRelatedGoalForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GoalDependencyEntryRelatedGoalForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *GoalDependencyEntryRelatedGoalForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // GoalMilestoneEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -163398,6 +163456,40 @@ func (x *ProcessMetricEntryMeasurementForm) Frequency() string {
 
 func (x *ProcessMetricEntryMeasurementForm) SetFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "frequency", value)
+}
+
+// ProcessMetricEntryProcessReferenceForm is the generated section facade for the `processReference` @Form section: its own
+// content text followed by one typed member per form field.
+type ProcessMetricEntryProcessReferenceForm struct {
+	som.SomNode
+}
+
+// NewProcessMetricEntryProcessReferenceForm binds a ProcessMetricEntryProcessReferenceForm facade to a document and a path.
+func NewProcessMetricEntryProcessReferenceForm(doc *som.SpecDocument, path string) *ProcessMetricEntryProcessReferenceForm {
+	return &ProcessMetricEntryProcessReferenceForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ProcessMetricEntryProcessReferenceForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ProcessMetricEntryProcessReferenceForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ProcessMetricEntryProcessReferenceForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ProcessMetricEntryProcessReferenceForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *ProcessMetricEntryProcessReferenceForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // ProcessMetricEntryTargetsForm is the generated section facade for the `targets` @Form section: its own
@@ -206356,6 +206448,74 @@ func (x *SystemDependencyEntryReliabilityForm) SetFallbackProcedure(value string
 	x.Doc().SetFormField(x.Path(), "fallbackProcedure", value)
 }
 
+// SystemDependencyEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemDependencyEntrySourceSystemForm struct {
+	som.SomNode
+}
+
+// NewSystemDependencyEntrySourceSystemForm binds a SystemDependencyEntrySourceSystemForm facade to a document and a path.
+func NewSystemDependencyEntrySourceSystemForm(doc *som.SpecDocument, path string) *SystemDependencyEntrySourceSystemForm {
+	return &SystemDependencyEntrySourceSystemForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemDependencyEntrySourceSystemForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemDependencyEntrySourceSystemForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemDependencyEntrySourceSystemForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemDependencyEntrySourceSystemForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *SystemDependencyEntrySourceSystemForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
+// SystemDependencyEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemDependencyEntryTargetSystemForm struct {
+	som.SomNode
+}
+
+// NewSystemDependencyEntryTargetSystemForm binds a SystemDependencyEntryTargetSystemForm facade to a document and a path.
+func NewSystemDependencyEntryTargetSystemForm(doc *som.SpecDocument, path string) *SystemDependencyEntryTargetSystemForm {
+	return &SystemDependencyEntryTargetSystemForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemDependencyEntryTargetSystemForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemDependencyEntryTargetSystemForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemDependencyEntryTargetSystemForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemDependencyEntryTargetSystemForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *SystemDependencyEntryTargetSystemForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
 // SystemDescriptionDescriptionSummaryForm is the generated section facade for the `descriptionSummary` @Form section: its own
 // content text followed by one typed member per form field.
 type SystemDescriptionDescriptionSummaryForm struct {
@@ -207722,6 +207882,74 @@ func (x *SystemIntegrationEntryProtocolForm) AuthenticationMethod() string {
 
 func (x *SystemIntegrationEntryProtocolForm) SetAuthenticationMethod(value string) {
 	x.Doc().SetFormField(x.Path(), "authenticationMethod", value)
+}
+
+// SystemIntegrationEntrySourceSystemForm is the generated section facade for the `sourceSystem` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemIntegrationEntrySourceSystemForm struct {
+	som.SomNode
+}
+
+// NewSystemIntegrationEntrySourceSystemForm binds a SystemIntegrationEntrySourceSystemForm facade to a document and a path.
+func NewSystemIntegrationEntrySourceSystemForm(doc *som.SpecDocument, path string) *SystemIntegrationEntrySourceSystemForm {
+	return &SystemIntegrationEntrySourceSystemForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemIntegrationEntrySourceSystemForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemIntegrationEntrySourceSystemForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemIntegrationEntrySourceSystemForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemIntegrationEntrySourceSystemForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *SystemIntegrationEntrySourceSystemForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
+}
+
+// SystemIntegrationEntryTargetSystemForm is the generated section facade for the `targetSystem` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemIntegrationEntryTargetSystemForm struct {
+	som.SomNode
+}
+
+// NewSystemIntegrationEntryTargetSystemForm binds a SystemIntegrationEntryTargetSystemForm facade to a document and a path.
+func NewSystemIntegrationEntryTargetSystemForm(doc *som.SpecDocument, path string) *SystemIntegrationEntryTargetSystemForm {
+	return &SystemIntegrationEntryTargetSystemForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemIntegrationEntryTargetSystemForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemIntegrationEntryTargetSystemForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemIntegrationEntryTargetSystemForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemIntegrationEntryTargetSystemForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *SystemIntegrationEntryTargetSystemForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // SystemIntegrationEntryThroughputForm is the generated section facade for the `throughput` @Form section: its own
@@ -209337,6 +209565,40 @@ func (x *SystemTaskEntryExecutionForm) Trigger() string {
 
 func (x *SystemTaskEntryExecutionForm) SetTrigger(value string) {
 	x.Doc().SetFormField(x.Path(), "trigger", value)
+}
+
+// SystemTaskEntryRelatedUseCaseForm is the generated section facade for the `relatedUseCase` @Form section: its own
+// content text followed by one typed member per form field.
+type SystemTaskEntryRelatedUseCaseForm struct {
+	som.SomNode
+}
+
+// NewSystemTaskEntryRelatedUseCaseForm binds a SystemTaskEntryRelatedUseCaseForm facade to a document and a path.
+func NewSystemTaskEntryRelatedUseCaseForm(doc *som.SpecDocument, path string) *SystemTaskEntryRelatedUseCaseForm {
+	return &SystemTaskEntryRelatedUseCaseForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SystemTaskEntryRelatedUseCaseForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SystemTaskEntryRelatedUseCaseForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SystemTaskEntryRelatedUseCaseForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SystemTaskEntryRelatedUseCaseForm) Ref() string {
+	return x.Doc().FormFieldOr(x.Path(), "ref")
+}
+
+func (x *SystemTaskEntryRelatedUseCaseForm) SetRef(value string) {
+	x.Doc().SetFormField(x.Path(), "ref", value)
 }
 
 // SystemTechnicalAssessmentContentForm is the generated section facade for the `content` @Form section: its own
@@ -230920,6 +231182,40 @@ func (x *WorkflowActorEntryContentForm) SetHeadcount(value *int) {
 		return
 	}
 	x.Doc().SetFormField(x.Path(), "headcount", strconv.Itoa(*value))
+}
+
+// WorkflowActorEntryParticipatingStepsForm is the generated section facade for the `participatingSteps` @Form section: its own
+// content text followed by one typed member per form field.
+type WorkflowActorEntryParticipatingStepsForm struct {
+	som.SomNode
+}
+
+// NewWorkflowActorEntryParticipatingStepsForm binds a WorkflowActorEntryParticipatingStepsForm facade to a document and a path.
+func NewWorkflowActorEntryParticipatingStepsForm(doc *som.SpecDocument, path string) *WorkflowActorEntryParticipatingStepsForm {
+	return &WorkflowActorEntryParticipatingStepsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *WorkflowActorEntryParticipatingStepsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *WorkflowActorEntryParticipatingStepsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *WorkflowActorEntryParticipatingStepsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *WorkflowActorEntryParticipatingStepsForm) Refs() string {
+	return x.Doc().FormFieldOr(x.Path(), "refs")
+}
+
+func (x *WorkflowActorEntryParticipatingStepsForm) SetRefs(value string) {
+	x.Doc().SetFormField(x.Path(), "refs", value)
 }
 
 // WorkflowBusinessRuleContentForm is the generated section facade for the `content` @Form section: its own

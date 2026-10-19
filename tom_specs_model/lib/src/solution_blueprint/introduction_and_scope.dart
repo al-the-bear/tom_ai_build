@@ -5289,6 +5289,15 @@ class SystemTaskEntry extends DocSpecsSection {
   /// use case that was never written.
   @SectionId('SYTS-RELA-REF')
   @Reference('Related Use Case')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Related Use Case',
+      hint: 'Section id of the use case (interaction entry, `INEN`)',
+      refersTo: ['INEN.@sectionId'],
+    ),
+  ])
   @SerializationOrder(4)
   DocSpecsSection? relatedUseCase;
 
@@ -6534,6 +6543,15 @@ class GoalDependencyEntry extends DocSpecsSection {
   /// metrics stay in one place and cannot drift into a second.
   @SectionId('GOLDE-RELA-REF')
   @Reference('Related Goal')
+  @Form([
+    Field(
+      'ref',
+      String,
+      'Related Goal',
+      hint: 'Section id of the business goal (`BGE`)',
+      refersTo: ['BGE.@sectionId'],
+    ),
+  ])
   @SerializationOrder(1)
   DocSpecsSection? relatedGoal;
 }
