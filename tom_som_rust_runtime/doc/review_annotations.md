@@ -99,6 +99,7 @@ All are re-exported at the crate root.
 | `counts()` | The counts a report needs |
 | `next_comment_id(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
 | `insert_comment(path, field, after_paragraph, text, author, id)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given) |
 | `insert_question(path, field, after_paragraph, &question)` | A question block after a paragraph |
 | `insert_question_after_comment(comment_id, &question)` | A question block directly after a comment block |

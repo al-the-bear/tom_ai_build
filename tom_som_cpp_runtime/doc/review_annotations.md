@@ -98,6 +98,7 @@ All in namespace `som`.
 | `counts()` | The counts a report needs |
 | `nextCommentId(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `paragraphs(path, field)` | The value's paragraphs as `SpecParagraph`, each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws `SpecReviewAnnotationError` |
 | `insertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
 | `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |

@@ -635,6 +635,10 @@ function _runAnnotationOp(
       return api.stripped().toJson();
     case 'revision':
       return api.revision();
+    case 'paragraphs':
+      return api
+        .paragraphs({ path: op.path, field: op.field ?? null })
+        .map((p) => p.toJson());
     case 'listMarks':
       return api.listMarks({ path: op.path ?? null }).map((m) => m.toJson());
     case 'decideMarks':

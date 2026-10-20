@@ -3260,6 +3260,9 @@ fn run_annotation_case(
                 op.get("accept").and_then(|v| v.as_bool()).unwrap_or(true),
             )),
             "revision" => Ok(jstr(&api.revision())),
+            "paragraphs" => api
+                .paragraphs(s("path").unwrap_or(""), s("field"))
+                .map(|ps| Json::Array(ps.iter().map(|p| p.to_json()).collect())),
             "listMarks" => Ok(Json::Array(
                 api.list_marks(s("path"))
                     .iter()

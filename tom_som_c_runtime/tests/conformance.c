@@ -4288,6 +4288,20 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
     som_buf_puts(&b, q);
     free(q);
     free(rev);
+  } else if (strcmp(name, "paragraphs") == 0) {
+    SpecParagraphList l;
+    ok = spec_review_annotations_paragraphs(api, som_json_str_or(op, "path"),
+                                            json_opt_str(op, "field"), &l,
+                                            &err);
+    som_buf_putc(&b, '[');
+    for (size_t i = 0; i < l.len; i++) {
+      if (i > 0) som_buf_putc(&b, ',');
+      char *j = spec_paragraph_to_json(&l.items[i]);
+      som_buf_puts(&b, j);
+      free(j);
+    }
+    som_buf_putc(&b, ']');
+    spec_paragraph_list_free(&l);
   } else if (strcmp(name, "listMarks") == 0) {
     SpecMarkEntryList l;
     spec_review_annotations_list_marks(api, json_opt_str(op, "path"), &l);

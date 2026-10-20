@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Listing a value's paragraphs (SOM §11.9.1, annot8), a port of the Dart
+  reference: `spec_review_annotations_paragraphs(r, path, field, out, err)`
+  fills a `SpecParagraphList` of `SpecParagraph` (`index`, `start_line`,
+  `end_line`, `text`, and the `annotation` kind when the paragraph opens an
+  annotation block; `spec_paragraph_to_json`, `spec_paragraph_list_free`).
+  The index is exactly what `after_paragraph` of the inserts takes; a value
+  the document does not hold is refused. Conformance: the `paragraphs` op of
+  `annotation_cases.json`.
+
 - Question options (SOM §11.9.2, annot7), in `spec_review_annotations`, a
   port of the Dart reference: a listed question carries its options
   (`SpecQuestionOption`: `letter`, `text` with continuation lines joined,

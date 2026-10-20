@@ -2912,6 +2912,16 @@ static std::string run_annotation_op(const som::SpecModel& model,
       return "null";
     }
     if (name == "revision") return som::jsonEncodeStr(api.revision());
+    if (name == "paragraphs") {
+      std::string b = "[";
+      const auto paras =
+          api.paragraphs(som::jsonStrOr(op, "path"), json_opt_str(op, "field"));
+      for (std::size_t i = 0; i < paras.size(); i++) {
+        if (i > 0) b += ",";
+        b += paras[i].toJson();
+      }
+      return json_text_canon(b + "]");
+    }
     if (name == "listMarks") {
       std::string b = "[";
       const auto marks = api.listMarks(json_opt_str(op, "path"));

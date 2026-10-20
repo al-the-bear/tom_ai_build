@@ -2961,6 +2961,14 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			result = api.Stripped().ToJSON()
 		case "revision":
 			result = api.Revision()
+		case "paragraphs":
+			var paras []som.SpecParagraph
+			paras, err = api.Paragraphs(opString(op, "path"), opString(op, "field"))
+			list := []any{}
+			for _, p := range paras {
+				list = append(list, p.ToJSON())
+			}
+			result = list
 		case "listMarks":
 			list := []any{}
 			for _, m := range api.ListMarks(opString(op, "path")) {

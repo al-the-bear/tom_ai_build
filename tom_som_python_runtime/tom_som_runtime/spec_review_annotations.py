@@ -67,6 +67,35 @@ class SpecQuestionOption:
 
 
 @dataclass(frozen=True)
+class SpecParagraph:
+    """One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of
+    non-blank lines, where a blank line inside fenced code does not end the
+    run. Its ``index`` is what ``after_paragraph`` of the inserts takes."""
+
+    #: The 0-based position among the value's paragraphs.
+    index: int
+    #: The 0-based first line within the value.
+    start_line: int
+    #: The 0-based last line within the value (inclusive).
+    end_line: int
+    #: The paragraph's lines, verbatim, joined with ``\n``.
+    text: str
+    #: ``comment`` or ``question`` when the paragraph opens with an
+    #: annotation block of that kind, else None.
+    annotation: Optional[str] = None
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "index": self.index,
+            "startLine": self.start_line,
+            "endLine": self.end_line,
+            "text": self.text,
+            "annotation": self.annotation,
+        }
+
+
+@dataclass(frozen=True)
 class SpecReviewAnnotation:
     """One annotation, located by the value that holds it."""
 
@@ -1588,6 +1617,31 @@ class SpecReviewAnnotations:
         result = mark_change_text(earlier, self._get(path, field))
         self._set(path, field, result.text)
         return result
+
+    def paragraphs(self, path: str, field: Optional[str] = None) -> "list[SpecParagraph]":
+        """The paragraphs of the value at ``path`` / ``field``, in order — the
+        units ``after_paragraph`` of :meth:`insert_comment` and
+        :meth:`insert_question` counts. Raises
+        :class:`SpecReviewAnnotationError` when the document holds no such
+        value."""
+        value = self.doc.content(path) if field is None else self.doc.form_field(path, field)
+        if value is None:
+            where = path if field is None else f"{path} / {field}"
+            raise SpecReviewAnnotationError(f"no value at {where}")
+        p = _parse(value)
+        out: list[SpecParagraph] = []
+        for i, (s, e) in enumerate(_paragraphs(p.lines, p.code)):
+            annotation = next((b.kind.value for b in p.blocks if b.start == s), None)
+            out.append(
+                SpecParagraph(
+                    index=i,
+                    start_line=s,
+                    end_line=e,
+                    text="\n".join(p.lines[s : e + 1]),
+                    annotation=annotation,
+                )
+            )
+        return out
 
     def stripped(self) -> SpecDocument:
         """A copy of the document without any annotation, for reading. The

@@ -189,6 +189,7 @@ export {
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
   SpecQuestionOption,
+  SpecParagraph,
   SpecReviewAnnotationError,
   SpecReviewAnnotations,
   formatCommentBlock,

@@ -848,19 +848,27 @@ void annotationsOf(const Parsed& p, const std::string& path,
 
 /* The last line of every paragraph of a value, blank-separated and
  * fence-aware (a blank line inside a fenced block does not split). */
-std::vector<std::size_t> paragraphEnds(const std::vector<std::string>& lines,
-                                       const std::vector<bool>& code) {
-  std::vector<std::size_t> out;
+std::vector<std::pair<std::size_t, std::size_t>> paragraphRanges(
+    const std::vector<std::string>& lines, const std::vector<bool>& code) {
+  std::vector<std::pair<std::size_t, std::size_t>> out;
   std::size_t k = 0;
   while (k < lines.size()) {
     if (isBlank(lines[k]) && !code[k]) {
       k++;
       continue;
     }
+    const std::size_t s = k;
     while (k + 1 < lines.size() && !(isBlank(lines[k + 1]) && !code[k + 1])) k++;
-    out.push_back(k);
+    out.emplace_back(s, k);
     k++;
   }
+  return out;
+}
+
+std::vector<std::size_t> paragraphEnds(const std::vector<std::string>& lines,
+                                       const std::vector<bool>& code) {
+  std::vector<std::size_t> out;
+  for (const auto& r : paragraphRanges(lines, code)) out.push_back(r.second);
   return out;
 }
 
@@ -1373,6 +1381,45 @@ std::vector<std::string> SpecReviewAnnotations::assignCommentIds(long long floor
     if (any) setValue(*doc_, v.path, v.field, joinLines(lines));
   }
   return assigned;
+}
+
+std::string SpecParagraph::toJson() const {
+  return "{\"index\":" + std::to_string(index) +
+         ",\"startLine\":" + std::to_string(startLine) +
+         ",\"endLine\":" + std::to_string(endLine) +
+         ",\"text\":" + jsonEncodeStr(text) +
+         ",\"annotation\":" + jsonStrOrNull(annotation) + "}";
+}
+
+std::vector<SpecParagraph> SpecReviewAnnotations::paragraphs(
+    const std::string& path, const std::optional<std::string>& field) const {
+  const std::string* value =
+      field ? doc_->formFieldOpt(path, *field) : doc_->contentOpt(path);
+  if (value == nullptr) {
+    throw SpecReviewAnnotationError("no value at " + path +
+                                    (field ? " / " + *field : std::string()));
+  }
+  const Parsed p = parse(*value);
+  const auto ranges = paragraphRanges(p.lines, p.code);
+  std::vector<SpecParagraph> out;
+  for (std::size_t i = 0; i < ranges.size(); i++) {
+    SpecParagraph para;
+    para.index = i;
+    para.startLine = ranges[i].first;
+    para.endLine = ranges[i].second;
+    for (std::size_t k = ranges[i].first; k <= ranges[i].second; k++) {
+      if (k > ranges[i].first) para.text += '\n';
+      para.text += p.lines[k];
+    }
+    for (const Block& b : p.blocks) {
+      if (b.start == ranges[i].first) {
+        para.annotation = specReviewAnnotationKindName(b.kind);
+        break;
+      }
+    }
+    out.push_back(std::move(para));
+  }
+  return out;
 }
 
 std::string SpecReviewAnnotations::insertComment(

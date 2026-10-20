@@ -56,6 +56,22 @@ enum class SpecMarkKind {
  * `"deletion"`, `"substitution"`. */
 const char* specMarkKindName(SpecMarkKind kind);
 
+/* One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
+ * lines, where a blank line inside fenced code does not end the run. Its
+ * `index` is what `afterParagraph` of the inserts takes. */
+struct SpecParagraph {
+  std::size_t index = 0;      // the 0-based position among the value's paragraphs
+  std::size_t startLine = 0;  // the 0-based first line within the value
+  std::size_t endLine = 0;    // the 0-based last line within the value (inclusive)
+  std::string text;           // the paragraph's lines, verbatim, joined with `\n`
+  /* `comment` or `question` when the paragraph opens with an annotation block
+   * of that kind, else nullopt. */
+  std::optional<std::string> annotation;
+
+  /* The canonical JSON form the conformance corpus pins. */
+  std::string toJson() const;
+};
+
 /* One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
  * for the recommended one. */
 struct SpecQuestionOption {
@@ -312,6 +328,13 @@ class SpecReviewAnnotations {
   /* Gives every comment without an id the next one, in document order, and
    * returns the ids assigned. Nothing else changes. */
   std::vector<std::string> assignCommentIds(long long floor = 0);
+
+  /* The paragraphs of the value at `path` / `field`, in order — the units
+   * `afterParagraph` of `insertComment` and `insertQuestion` counts. Throws
+   * `SpecReviewAnnotationError` when the document holds no such value. */
+  std::vector<SpecParagraph> paragraphs(
+      const std::string& path,
+      const std::optional<std::string>& field = std::nullopt) const;
 
   /* Inserts a comment block after paragraph `afterParagraph` (0-based; -1: at
    * the start) of the value at `path` / `field`, and returns its id — `id`

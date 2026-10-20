@@ -8127,6 +8127,35 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
       ],
     },
     {
+      'name': 'the paragraphs afterParagraph counts',
+      'state': {
+        'content': {
+          'DEMO/SUM':
+              'First paragraph,\nover two lines.\n\n'
+              '- a list item\n- another item\n\n'
+              '```\ncode line\n\nstill code after a blank line\n```\n\n'
+              '> ⬆️ **C-1** (Alexis): a comment.\n\n'
+              '> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**\n\n'
+              '> A plain quote.\n\n\nLast paragraph after two blank lines.',
+        },
+        'forms': {
+          'DEMO/DET': {'contact': 'bob@example.com\n\nsecond paragraph'},
+        },
+      },
+      'ops': [
+        {'op': 'paragraphs', 'path': 'DEMO/SUM'},
+        {'op': 'paragraphs', 'path': 'DEMO/DET', 'field': 'contact'},
+        {'op': 'paragraphs', 'path': 'DEMO/MIX/tail'},
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 2,
+          'text': 'After the code block.',
+        },
+        {'op': 'paragraphs', 'path': 'DEMO/SUM'},
+      ],
+    },
+    {
       'name': 'round trip through YAML and Markdown',
       'state': base,
       'ops': [
@@ -8209,6 +8238,13 @@ Map<String, Object?> _runAnnotationCase(
         }(),
         'strip' => api.stripped().toJson(),
         'revision' => api.revision(),
+        'paragraphs' => [
+          for (final p in api.paragraphs(
+            path: op['path'] as String,
+            field: op['field'] as String?,
+          ))
+            p.toJson(),
+        ],
         'listMarks' => [
           for (final m in api.listMarks(path: op['path'] as String?))
             m.toJson(),

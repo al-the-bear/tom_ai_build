@@ -66,6 +66,7 @@ import tom_som_runtime.SpecModelStampCheck;
 import tom_som_runtime.SpecNodeCreator;
 import tom_som_runtime.SpecNodeKind;
 import tom_som_runtime.SpecNodeProjection;
+import tom_som_runtime.SpecParagraph;
 import tom_som_runtime.SpecQuery;
 import tom_som_runtime.SpecQueryCursor;
 import tom_som_runtime.SpecQueryEngine;
@@ -1079,6 +1080,15 @@ public final class ConformanceRunner {
         return api.stripped().toJson();
       case "revision":
         return api.revision();
+      case "paragraphs":
+        {
+          List<Object> out = new ArrayList<>();
+          for (SpecParagraph para :
+              api.paragraphs((String) op.get("path"), (String) op.get("field"))) {
+            out.add(para.toJson());
+          }
+          return out;
+        }
       case "listMarks":
         {
           List<Object> out = new ArrayList<>();

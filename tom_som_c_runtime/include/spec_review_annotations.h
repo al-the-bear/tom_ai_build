@@ -322,6 +322,31 @@ char *spec_strip_annotations_text(const char *value);
 
 /* ---- document level ----------------------------------------------------- */
 
+/* One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
+ * lines, where a blank line inside fenced code does not end the run. Its
+ * `index` is what `after_paragraph` of the inserts takes. Strings owned. */
+typedef struct {
+  size_t index;      /* the 0-based position among the value's paragraphs */
+  size_t start_line; /* the 0-based first line within the value */
+  size_t end_line;   /* the 0-based last line within the value (inclusive) */
+  char *text;        /* the paragraph's lines, verbatim, joined with `\n` */
+  /* `comment` or `question` (static) when the paragraph opens with an
+   * annotation block of that kind, else NULL. */
+  const char *annotation;
+} SpecParagraph;
+
+/* The canonical JSON form the conformance corpus pins. Owned. */
+char *spec_paragraph_to_json(const SpecParagraph *p);
+
+typedef struct {
+  SpecParagraph *items;
+  size_t len;
+  size_t cap;
+} SpecParagraphList;
+
+void spec_paragraph_list_init(SpecParagraphList *l);
+void spec_paragraph_list_free(SpecParagraphList *l);
+
 /* The annotations of a document, and the operations that edit them. */
 typedef struct {
   SpecDocument *doc; /* borrowed */
@@ -354,6 +379,15 @@ char *spec_review_annotations_next_comment_id(const SpecReviewAnnotations *r,
 void spec_review_annotations_assign_comment_ids(const SpecReviewAnnotations *r,
                                                 long long floor,
                                                 SomStrList *out);
+
+/* The paragraphs of the value at `path` / `field` (NULL: content), in
+ * order — the units `after_paragraph` of the inserts counts — written into
+ * `out` (initialised by the callee in every case). Returns 0, filling `*err`,
+ * when the document holds no such value; an empty value has no paragraphs. */
+int spec_review_annotations_paragraphs(const SpecReviewAnnotations *r,
+                                       const char *path, const char *field,
+                                       SpecParagraphList *out,
+                                       SpecReviewAnnotationError *err);
 
 /* Inserts a comment block after paragraph `after_paragraph` (0-based; -1: at
  * the start) of the value at `path` / `field` (NULL: content), and returns its

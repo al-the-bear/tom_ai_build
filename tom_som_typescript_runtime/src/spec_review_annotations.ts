@@ -46,6 +46,52 @@ export const SpecMarkKind = {
 export type SpecMarkKindValue = (typeof SpecMarkKind)[keyof typeof SpecMarkKind];
 
 /**
+ * One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
+ * lines, where a blank line inside fenced code does not end the run. Its
+ * `index` is what `afterParagraph` of the inserts takes.
+ */
+export class SpecParagraph {
+  /** The 0-based position among the value's paragraphs. */
+  readonly index: number;
+  /** The 0-based first line within the value. */
+  readonly startLine: number;
+  /** The 0-based last line within the value (inclusive). */
+  readonly endLine: number;
+  /** The paragraph's lines, verbatim, joined with `\n`. */
+  readonly text: string;
+  /**
+   * `comment` or `question` when the paragraph opens with an annotation
+   * block of that kind, else null.
+   */
+  readonly annotation: string | null;
+
+  constructor(init: {
+    index: number;
+    startLine: number;
+    endLine: number;
+    text: string;
+    annotation?: string | null;
+  }) {
+    this.index = init.index;
+    this.startLine = init.startLine;
+    this.endLine = init.endLine;
+    this.text = init.text;
+    this.annotation = init.annotation ?? null;
+  }
+
+  /** The canonical JSON form. */
+  toJson(): Record<string, unknown> {
+    return {
+      index: this.index,
+      startLine: this.startLine,
+      endLine: this.endLine,
+      text: this.text,
+      annotation: this.annotation,
+    };
+  }
+}
+
+/**
  * One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
  * for the recommended one.
  */
@@ -1862,6 +1908,32 @@ export class SpecReviewAnnotations {
     return result;
   }
 
+  /**
+   * The paragraphs of the value at `path` / `field`, in order — the units
+   * `afterParagraph` of `insertComment` and `insertQuestion` counts. Throws
+   * {@link SpecReviewAnnotationError} when the document holds no such value.
+   */
+  paragraphs(options: { path: string; field?: string | null }): SpecParagraph[] {
+    const field = options.field ?? null;
+    const value =
+      field === null ? this.doc.content(options.path) : this.doc.formField(options.path, field);
+    if (value === null || value === undefined) {
+      throw new SpecReviewAnnotationError(
+        `no value at ${options.path}${field === null ? '' : ` / ${field}`}`,
+      );
+    }
+    const p = _parse(value);
+    return _paragraphs(p.lines, p.code).map(([s, e], i) => {
+      const b = p.blocks.find((x) => x.start === s);
+      return new SpecParagraph({
+        index: i,
+        startLine: s,
+        endLine: e,
+        text: p.lines.slice(s, e + 1).join('\n'),
+        annotation: b ? b.kind : null,
+      });
+    });
+  }
 
   /**
    * A copy of the document without any annotation, for reading. The document

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-10-20T12:50:58.619896 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T21:33:49.777673 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -86,6 +86,7 @@ class SomRuntimeBridge {
       _createSpecAnswerCountsBridge(),
       _createSpecAnswerExtractBridge(),
       _createSpecAnswerRenderOptionsBridge(),
+      _createSpecParagraphBridge(),
       _createSpecQuestionOptionBridge(),
       _createSpecReviewAnnotationBridge(),
       _createSpecReviewAnnotationCountsBridge(),
@@ -200,6 +201,7 @@ class SomRuntimeBridge {
       'SpecAnswerCounts': _createSpecAnswerCountsBridge,
       'SpecAnswerExtract': _createSpecAnswerExtractBridge,
       'SpecAnswerRenderOptions': _createSpecAnswerRenderOptionsBridge,
+      'SpecParagraph': _createSpecParagraphBridge,
       'SpecQuestionOption': _createSpecQuestionOptionBridge,
       'SpecReviewAnnotation': _createSpecReviewAnnotationBridge,
       'SpecReviewAnnotationCounts': _createSpecReviewAnnotationCountsBridge,
@@ -315,6 +317,7 @@ class SomRuntimeBridge {
       'SpecAnswerExtract': $tom_som_dart_runtime_4.SpecAnswerExtract,
       'SpecAnswerRenderOptions':
           $tom_som_dart_runtime_4.SpecAnswerRenderOptions,
+      'SpecParagraph': $tom_som_dart_runtime_21.SpecParagraph,
       'SpecQuestionOption': $tom_som_dart_runtime_21.SpecQuestionOption,
       'SpecReviewAnnotation': $tom_som_dart_runtime_21.SpecReviewAnnotation,
       'SpecReviewAnnotationCounts':
@@ -446,6 +449,8 @@ class SomRuntimeBridge {
       'SpecAnswerExtract': 'package:tom_som_dart_runtime/src/spec_answers.dart',
       'SpecAnswerRenderOptions':
           'package:tom_som_dart_runtime/src/spec_answers.dart',
+      'SpecParagraph':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecQuestionOption':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecReviewAnnotation':
@@ -3753,6 +3758,102 @@ BridgedClass _createSpecAnswerRenderOptionsBridge() {
 }
 
 // =============================================================================
+// SpecParagraph Bridge
+// =============================================================================
+
+BridgedClass _createSpecParagraphBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_21.SpecParagraph,
+    name: 'SpecParagraph',
+    isAssignable: (v) => v is $tom_som_dart_runtime_21.SpecParagraph,
+    constructors: {
+      '': (visitor, positional, named) {
+        final index = D4.getRequiredNamedArg<int>(
+          named,
+          'index',
+          'SpecParagraph',
+        );
+        final startLine = D4.getRequiredNamedArg<int>(
+          named,
+          'startLine',
+          'SpecParagraph',
+        );
+        final endLine = D4.getRequiredNamedArg<int>(
+          named,
+          'endLine',
+          'SpecParagraph',
+        );
+        final text = D4.getRequiredNamedArg<String>(
+          named,
+          'text',
+          'SpecParagraph',
+        );
+        final annotation = D4.getOptionalNamedArg<String?>(named, 'annotation');
+        return $tom_som_dart_runtime_21.SpecParagraph(
+          index: index,
+          startLine: startLine,
+          endLine: endLine,
+          text: text,
+          annotation: annotation,
+        );
+      },
+    },
+    getters: {
+      'index': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+            target,
+            'SpecParagraph',
+          )
+          .index,
+      'startLine': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+            target,
+            'SpecParagraph',
+          )
+          .startLine,
+      'endLine': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+            target,
+            'SpecParagraph',
+          )
+          .endLine,
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+            target,
+            'SpecParagraph',
+          )
+          .text,
+      'annotation': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+            target,
+            'SpecParagraph',
+          )
+          .annotation,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_21.SpecParagraph>(
+          target,
+          'SpecParagraph',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecParagraph({required int index, required int startLine, required int endLine, required String text, String? annotation})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'index': 'int get index',
+      'startLine': 'int get startLine',
+      'endLine': 'int get endLine',
+      'text': 'String get text',
+      'annotation': 'String? get annotation',
+    },
+  );
+}
+
+// =============================================================================
 // SpecQuestionOption Bridge
 // =============================================================================
 
@@ -5110,6 +5211,20 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         );
         return t.markAgainst(path: path, field: field, earlier: earlier);
       },
+      'paragraphs': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'paragraphs',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        return t.paragraphs(path: path, field: field);
+      },
       'stripped': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotations>(
@@ -5157,6 +5272,8 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
           'SpecMarkedChange setMarked({required String path, String? field, required String text})',
       'markAgainst':
           'SpecMarkedChange markAgainst({required String path, String? field, required String earlier})',
+      'paragraphs':
+          'List<SpecParagraph> paragraphs({required String path, String? field})',
       'stripped': 'SpecDocument stripped()',
       'validate': 'List<SpecValidationError> validate()',
     },

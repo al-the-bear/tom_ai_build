@@ -1,3 +1,10 @@
+## 1.6.20
+
+- No model change. The chain moves with the runtimes, which list a value's
+  paragraphs, the units `afterParagraph` counts (SOM §11.9.1 "Paragraphs").
+  The model's documentation also carries the corrected `codespecs_prompt.md`
+  §4.2 / §10.2: the instance tier reports a cleared required field.
+
 ## 1.6.19
 
 - No model change. The chain moves with the runtimes, which read a question's

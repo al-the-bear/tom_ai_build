@@ -79,6 +79,7 @@ All are public classes of the `tom_som_runtime` package.
 | `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK` (`value`: `comment`, `question`, `mark`) |
 | `SpecMarkKind` | `COMMENT`, `HIGHLIGHT`, `INSERTION`, `DELETION`, `SUBSTITUTION` (`value` in lower case) |
 | `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `fromJson` reads the corpus form |
+| `SpecParagraph` | One paragraph of a value: `index`, `startLine`, `endLine` (0-based, inclusive), `text`, `annotation`; `toJson()` |
 | `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
 | `SpecReviewAnnotationCounts` | `questions`, `openQuestions`, `answeredQuestions`, `comments`, `marks`; `toJson()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there (unchecked) |
@@ -95,6 +96,7 @@ A `field` argument is null for a content value.
 | `counts()` | The counts a report needs |
 | `nextCommentId()` / `nextCommentId(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds()` / `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `paragraphs(path)` / `paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `afterParagraph` takes), `startLine` / `endLine` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else null). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold throws |
 | `insertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given; `author` and `id` may be null) |
 | `insertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `insertQuestionAfterComment(commentId, question)` | A question block directly after a comment block |

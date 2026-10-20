@@ -131,7 +131,7 @@ pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_review_annotations::{
     apply_inline_marks_text, format_comment_block, format_question_block, mark_change_text,
     strip_annotations_text, validate_review_annotations, SpecMarkDecision, SpecMarkEntry,
-    SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkedChange,
+    SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkedChange, SpecParagraph,
     SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation, SpecReviewAnnotationCounts,
     SpecReviewAnnotationError, SpecReviewAnnotationKind, SpecReviewAnnotations,
 };

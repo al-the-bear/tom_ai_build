@@ -104,6 +104,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `Counts()` | The counts a report needs |
 | `NextCommentID(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `AssignCommentIDs(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `Paragraphs(path, field)` | The value's paragraphs (`SpecParagraph`), each with its `Index` (what `afterParagraph` takes), `StartLine` / `EndLine` within the value, its `Text` and `Annotation` (`comment` / `question` for an annotation block). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is an error |
 | `InsertComment(path, field, afterParagraph, text, author, id)` | A comment block after paragraph `afterParagraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one when `id` is `""`) |
 | `InsertQuestion(path, field, afterParagraph, question)` | A question block after a paragraph |
 | `InsertQuestionAfterComment(commentID, question)` | A question block directly after a comment block |

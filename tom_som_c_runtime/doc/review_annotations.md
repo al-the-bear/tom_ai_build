@@ -120,6 +120,7 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 | `counts()` | The counts a report needs |
 | `next_comment_id(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor, out)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `paragraphs(path, field, out, err)` | The value's paragraphs as a `SpecParagraphList` of `SpecParagraph`, each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else `NULL`; `spec_paragraph_to_json`). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold is refused (returns 0) |
 | `insert_comment(path, field, after_paragraph, text, author, id, err)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless `id` is given) |
 | `insert_question(path, field, after_paragraph, question, err)` | A question block after a paragraph |
 | `insert_question_after_comment(comment_id, question, err)` | A question block directly after a comment block |

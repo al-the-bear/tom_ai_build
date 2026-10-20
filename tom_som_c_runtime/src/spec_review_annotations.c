@@ -1230,24 +1230,33 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
 /* The last line of every paragraph of a value, blank-separated and
  * fence-aware (a blank line inside a fenced block does not split). Returns
  * the count; `*ends` is owned by the caller. */
-static size_t paragraph_ends(const SomStrList *lines, const unsigned char *code,
-                             size_t **ends) {
-  size_t *out = NULL;
-  size_t len = 0, cap = 0;
+static size_t paragraph_bounds(const SomStrList *lines,
+                               const unsigned char *code, size_t **starts,
+                               size_t **ends) {
+  size_t *out = NULL, *outs = NULL;
+  size_t len = 0, cap = 0, slen = 0, scap = 0;
   size_t k = 0;
   while (k < lines->len) {
     if (is_blank(lines->items[k]) && !code[k]) {
       k++;
       continue;
     }
+    size_t s = k;
     while (k + 1 < lines->len &&
            !(is_blank(lines->items[k + 1]) && !code[k + 1]))
       k++;
+    if (starts != NULL) PUSH(outs, slen, scap, s);
     PUSH(out, len, cap, k);
     k++;
   }
+  if (starts != NULL) *starts = outs;
   *ends = out;
   return len;
+}
+
+static size_t paragraph_ends(const SomStrList *lines, const unsigned char *code,
+                             size_t **ends) {
+  return paragraph_bounds(lines, code, NULL, ends);
 }
 
 /* Inserts `block` after value line `end` (-1: at the start), one blank line
@@ -1727,6 +1736,79 @@ static int paragraph_last_line(const char *value, long long after_paragraph,
   free(code);
   som_strlist_free(&lines);
   return ok;
+}
+
+char *spec_paragraph_to_json(const SpecParagraph *p) {
+  SomBuf b;
+  som_buf_init(&b);
+  int first = 1;
+  som_buf_putc(&b, '{');
+  put_int(&b, &first, "index", (long long)p->index);
+  put_int(&b, &first, "startLine", (long long)p->start_line);
+  put_int(&b, &first, "endLine", (long long)p->end_line);
+  put_str(&b, &first, "text", p->text);
+  put_str(&b, &first, "annotation", p->annotation);
+  som_buf_putc(&b, '}');
+  return som_buf_take(&b);
+}
+
+void spec_paragraph_list_init(SpecParagraphList *l) {
+  l->items = NULL;
+  l->len = 0;
+  l->cap = 0;
+}
+
+void spec_paragraph_list_free(SpecParagraphList *l) {
+  for (size_t i = 0; i < l->len; i++) free(l->items[i].text);
+  free(l->items);
+  spec_paragraph_list_init(l);
+}
+
+int spec_review_annotations_paragraphs(const SpecReviewAnnotations *r,
+                                       const char *path, const char *field,
+                                       SpecParagraphList *out,
+                                       SpecReviewAnnotationError *err) {
+  spec_paragraph_list_init(out);
+  const char *value = field == NULL
+                          ? spec_document_content(r->doc, path)
+                          : spec_document_form_field(r->doc, path, field);
+  if (value == NULL) {
+    if (field == NULL) {
+      set_error(err, "no value at %s", path);
+    } else {
+      set_error(err, "no value at %s / %s", path, field);
+    }
+    return 0;
+  }
+  Parsed p;
+  parse(value, &p);
+  size_t *starts = NULL, *ends = NULL;
+  size_t n = paragraph_bounds(&p.lines, p.code, &starts, &ends);
+  for (size_t i = 0; i < n; i++) {
+    SpecParagraph para;
+    para.index = i;
+    para.start_line = starts[i];
+    para.end_line = ends[i];
+    SomBuf t;
+    som_buf_init(&t);
+    for (size_t k = starts[i]; k <= ends[i]; k++) {
+      if (k > starts[i]) som_buf_putc(&t, '\n');
+      som_buf_puts(&t, LINE(&p, k));
+    }
+    para.text = som_buf_take(&t);
+    para.annotation = NULL;
+    for (size_t bi = 0; bi < p.blocks_len; bi++) {
+      if (p.blocks[bi].start == starts[i]) {
+        para.annotation = spec_review_annotation_kind_name(p.blocks[bi].kind);
+        break;
+      }
+    }
+    PUSH(out->items, out->len, out->cap, para);
+  }
+  free(starts);
+  free(ends);
+  parsed_free(&p);
+  return 1;
 }
 
 char *spec_review_annotations_insert_comment(const SpecReviewAnnotations *r,

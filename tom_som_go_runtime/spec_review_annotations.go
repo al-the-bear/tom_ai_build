@@ -139,6 +139,34 @@ func (a SpecReviewAnnotation) AnswerLetter() *string {
 	return annLeadingLetter(a.Answer)
 }
 
+// SpecParagraph is one paragraph of a value (SOM §11.9.1, "Paragraphs"): a
+// run of non-blank lines, where a blank line inside fenced code does not end
+// the run. Its Index is what afterParagraph of the inserts takes.
+type SpecParagraph struct {
+	// Index is the 0-based position among the value's paragraphs.
+	Index int
+	// StartLine is the 0-based first line within the value.
+	StartLine int
+	// EndLine is the 0-based last line within the value (inclusive).
+	EndLine int
+	// Text is the paragraph's lines, verbatim, joined with `\n`.
+	Text string
+	// Annotation is `comment` or `question` when the paragraph opens with an
+	// annotation block of that kind, else nil.
+	Annotation *string
+}
+
+// ToJSON is the canonical JSON form.
+func (p SpecParagraph) ToJSON() map[string]any {
+	return map[string]any{
+		"index":      p.Index,
+		"startLine":  p.StartLine,
+		"endLine":    p.EndLine,
+		"text":       p.Text,
+		"annotation": nullableString(p.Annotation),
+	}
+}
+
 // SpecQuestionOption is one option of a question (SOM §11.9.2): `- (a) text`,
 // or `- **(b)** text` for the recommended one.
 type SpecQuestionOption struct {
@@ -1362,6 +1390,48 @@ func (r *SpecReviewAnnotations) InsertComment(path, field string, afterParagraph
 	}
 	r.set(path, field, annInsertAfterLine(value, end, FormatCommentBlock(cid, text, author)))
 	return cid, nil
+}
+
+// Paragraphs returns the paragraphs of the value at path / field, in order —
+// the units afterParagraph of InsertComment and InsertQuestion counts. It
+// fails with a SpecReviewAnnotationError when the document holds no such
+// value.
+func (r *SpecReviewAnnotations) Paragraphs(path, field string) ([]SpecParagraph, error) {
+	var value string
+	var ok bool
+	if field == "" {
+		value, ok = r.Doc.Content(path)
+	} else {
+		value, ok = r.Doc.FormField(path, field)
+	}
+	if !ok {
+		where := path
+		if field != "" {
+			where += " / " + field
+		}
+		return nil, &SpecReviewAnnotationError{Message: "no value at " + where}
+	}
+	p := annParse(value)
+	paras := annParagraphs(p.lines, p.code)
+	out := make([]SpecParagraph, 0, len(paras))
+	for i, para := range paras {
+		var kind *string
+		for _, b := range p.blocks {
+			if b.start == para[0] {
+				k := string(b.kind)
+				kind = &k
+				break
+			}
+		}
+		out = append(out, SpecParagraph{
+			Index:      i,
+			StartLine:  para[0],
+			EndLine:    para[1],
+			Text:       strings.Join(p.lines[para[0]:para[1]+1], "\n"),
+			Annotation: kind,
+		})
+	}
+	return out, nil
 }
 
 // InsertQuestion inserts a question block after paragraph afterParagraph

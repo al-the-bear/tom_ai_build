@@ -46,6 +46,45 @@ enum SpecMarkKind {
   substitution,
 }
 
+/// One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
+/// lines, where a blank line inside fenced code does not end the run. Its
+/// [index] is what `afterParagraph` of the inserts takes.
+class SpecParagraph {
+  /// The 0-based position among the value's paragraphs.
+  final int index;
+
+  /// The 0-based first line within the value.
+  final int startLine;
+
+  /// The 0-based last line within the value (inclusive).
+  final int endLine;
+
+  /// The paragraph's lines, verbatim, joined with `\n`.
+  final String text;
+
+  /// `comment` or `question` when the paragraph opens with an annotation
+  /// block of that kind, else null.
+  final String? annotation;
+
+  /// Creates a paragraph.
+  const SpecParagraph({
+    required this.index,
+    required this.startLine,
+    required this.endLine,
+    required this.text,
+    this.annotation,
+  });
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {
+    'index': index,
+    'startLine': startLine,
+    'endLine': endLine,
+    'text': text,
+    'annotation': annotation,
+  };
+}
+
 /// One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
 /// for the recommended one.
 class SpecQuestionOption {
@@ -1871,6 +1910,35 @@ class SpecReviewAnnotations {
     final result = markChangeText(earlier, _get(path, field));
     _set(path, field, result.text);
     return result;
+  }
+
+  /// The paragraphs of the value at [path] / [field], in order — the units
+  /// `afterParagraph` of [insertComment] and [insertQuestion] counts. Throws
+  /// [SpecReviewAnnotationError] when the document holds no such value.
+  List<SpecParagraph> paragraphs({required String path, String? field}) {
+    final value = field == null
+        ? doc.content(path)
+        : doc.formField(path, field);
+    if (value == null) {
+      throw SpecReviewAnnotationError(
+        'no value at $path${field == null ? '' : ' / $field'}',
+      );
+    }
+    final p = _parse(value);
+    final paras = _paragraphs(p.lines, p.code);
+    return [
+      for (var i = 0; i < paras.length; i++)
+        SpecParagraph(
+          index: i,
+          startLine: paras[i].$1,
+          endLine: paras[i].$2,
+          text: p.lines.sublist(paras[i].$1, paras[i].$2 + 1).join('\n'),
+          annotation: [
+            for (final b in p.blocks)
+              if (b.start == paras[i].$1) b.kind.name,
+          ].firstOrNull,
+        ),
+    ];
   }
 
   /// A copy of the document without any annotation, for reading. The

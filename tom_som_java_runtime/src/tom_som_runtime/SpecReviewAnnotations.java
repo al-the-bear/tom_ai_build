@@ -1692,6 +1692,41 @@ public final class SpecReviewAnnotations {
     return result;
   }
 
+  /**
+   * The paragraphs of the value at {@code path} / {@code field} (null for the content), in order —
+   * the units {@code afterParagraph} of {@link #insertComment} and {@code insertQuestion} counts.
+   *
+   * @throws SpecReviewAnnotationError when the document holds no such value
+   */
+  public List<SpecParagraph> paragraphs(String path, String field) {
+    String value = field == null ? doc.content(path) : doc.formField(path, field);
+    if (value == null) {
+      throw new SpecReviewAnnotationError(
+          "no value at " + path + (field == null ? "" : " / " + field));
+    }
+    Parsed p = parse(value);
+    List<int[]> paras = paragraphs(p.lines, p.code);
+    List<SpecParagraph> out = new ArrayList<>();
+    for (int i = 0; i < paras.size(); i++) {
+      int s = paras.get(i)[0];
+      int e = paras.get(i)[1];
+      String annotation = null;
+      for (Block b : p.blocks) {
+        if (b.start == s) {
+          annotation = b.kind.value;
+          break;
+        }
+      }
+      out.add(new SpecParagraph(i, s, e, String.join("\n", p.lines.subList(s, e + 1)), annotation));
+    }
+    return out;
+  }
+
+  /** The paragraphs of the content value at {@code path}. */
+  public List<SpecParagraph> paragraphs(String path) {
+    return paragraphs(path, null);
+  }
+
   /** A copy of the document without any annotation, for reading. The document is unchanged. */
   public SpecDocument stripped() {
     SpecDocument copy = new SpecDocument();

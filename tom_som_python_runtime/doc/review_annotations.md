@@ -78,6 +78,7 @@ All are exported from `tom_som_runtime`.
 | `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK` (values `comment`, `question`, `mark`) |
 | `SpecMarkKind` | `COMMENT`, `HIGHLIGHT`, `INSERTION`, `DELETION`, `SUBSTITUTION` (values in lower case) |
 | `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `from_json` reads the corpus form |
+| `SpecParagraph` | One paragraph of a value: `index`, `start_line`, `end_line` (0-based, inclusive), `text`, `annotation`; `to_json()` |
 | `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`; `to_json()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
@@ -92,6 +93,7 @@ All are exported from `tom_som_runtime`.
 | `counts()` | The counts a report needs |
 | `next_comment_id(floor=0)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor=0)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |
+| `paragraphs(path, field=None)` | The value's paragraphs (`SpecParagraph`), each with its `index` (what `after_paragraph` takes), `start_line` / `end_line` within the value, its `text` and `annotation` (`comment` / `question` for an annotation block, else None). The rule is SOM §11.9.1 "Paragraphs": blank-line separated, a blank line inside fenced code does not end one. A value the document does not hold raises |
 | `insert_comment(path, after_paragraph, text, field=None, author=None, id=None)` | A comment block after paragraph `after_paragraph` (0-based; -1 is the start), one blank line on each side; returns its id (the next free one unless given) |
 | `insert_question(path, after_paragraph, question, field=None)` | A question block after a paragraph |
 | `insert_question_after_comment(comment_id, question)` | A question block directly after a comment block |

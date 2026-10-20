@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- `SpecReviewAnnotations.paragraphs(path, field)` lists a value's
+  paragraphs (`SpecParagraph`: index, start and end line, text, and the
+  annotation kind when the paragraph is an annotation block). The index is
+  exactly what `afterParagraph` of the inserts takes, by the one rule of SOM
+  §11.9.1 "Paragraphs". New public type: `SpecParagraph`. Conformance: the
+  `paragraphs` op of `annotation_cases.json`.
+
 - Question options (SOM §11.9.2): `SpecReviewAnnotations.list()` reads a
   question's options (`- (a) …`, the recommended one bold, `- **(b)** …`,
   continuation lines joined) into `options`, its `recommended` letter (the

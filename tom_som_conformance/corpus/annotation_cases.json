@@ -1991,6 +1991,187 @@
       }
     },
     {
+      "name": "the paragraphs afterParagraph counts",
+      "state": {
+        "content": {
+          "DEMO/SUM": "First paragraph,\nover two lines.\n\n- a list item\n- another item\n\n```\ncode line\n\nstill code after a blank line\n```\n\n> ⬆️ **C-1** (Alexis): a comment.\n\n> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**\n\n> A plain quote.\n\n\nLast paragraph after two blank lines."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com\n\nsecond paragraph"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "paragraphs",
+          "path": "DEMO/SUM"
+        },
+        {
+          "op": "paragraphs",
+          "path": "DEMO/DET",
+          "field": "contact"
+        },
+        {
+          "op": "paragraphs",
+          "path": "DEMO/MIX/tail"
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": 2,
+          "text": "After the code block."
+        },
+        {
+          "op": "paragraphs",
+          "path": "DEMO/SUM"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "index": 0,
+              "startLine": 0,
+              "endLine": 1,
+              "text": "First paragraph,\nover two lines.",
+              "annotation": null
+            },
+            {
+              "index": 1,
+              "startLine": 3,
+              "endLine": 4,
+              "text": "- a list item\n- another item",
+              "annotation": null
+            },
+            {
+              "index": 2,
+              "startLine": 6,
+              "endLine": 10,
+              "text": "```\ncode line\n\nstill code after a blank line\n```",
+              "annotation": null
+            },
+            {
+              "index": 3,
+              "startLine": 12,
+              "endLine": 12,
+              "text": "> ⬆️ **C-1** (Alexis): a comment.",
+              "annotation": "comment"
+            },
+            {
+              "index": 4,
+              "startLine": 14,
+              "endLine": 16,
+              "text": "> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**",
+              "annotation": "question"
+            },
+            {
+              "index": 5,
+              "startLine": 18,
+              "endLine": 18,
+              "text": "> A plain quote.",
+              "annotation": null
+            },
+            {
+              "index": 6,
+              "startLine": 21,
+              "endLine": 21,
+              "text": "Last paragraph after two blank lines.",
+              "annotation": null
+            }
+          ],
+          [
+            {
+              "index": 0,
+              "startLine": 0,
+              "endLine": 0,
+              "text": "bob@example.com",
+              "annotation": null
+            },
+            {
+              "index": 1,
+              "startLine": 2,
+              "endLine": 2,
+              "text": "second paragraph",
+              "annotation": null
+            }
+          ],
+          {
+            "error": true
+          },
+          "C-2",
+          [
+            {
+              "index": 0,
+              "startLine": 0,
+              "endLine": 1,
+              "text": "First paragraph,\nover two lines.",
+              "annotation": null
+            },
+            {
+              "index": 1,
+              "startLine": 3,
+              "endLine": 4,
+              "text": "- a list item\n- another item",
+              "annotation": null
+            },
+            {
+              "index": 2,
+              "startLine": 6,
+              "endLine": 10,
+              "text": "```\ncode line\n\nstill code after a blank line\n```",
+              "annotation": null
+            },
+            {
+              "index": 3,
+              "startLine": 12,
+              "endLine": 12,
+              "text": "> ⬆️ **C-2** After the code block.",
+              "annotation": "comment"
+            },
+            {
+              "index": 4,
+              "startLine": 14,
+              "endLine": 14,
+              "text": "> ⬆️ **C-1** (Alexis): a comment.",
+              "annotation": "comment"
+            },
+            {
+              "index": 5,
+              "startLine": 16,
+              "endLine": 18,
+              "text": "> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**",
+              "annotation": "question"
+            },
+            {
+              "index": 6,
+              "startLine": 20,
+              "endLine": 20,
+              "text": "> A plain quote.",
+              "annotation": null
+            },
+            {
+              "index": 7,
+              "startLine": 23,
+              "endLine": 23,
+              "text": "Last paragraph after two blank lines.",
+              "annotation": null
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "First paragraph,\nover two lines.\n\n- a list item\n- another item\n\n```\ncode line\n\nstill code after a blank line\n```\n\n> ⬆️ **C-2** After the code block.\n\n> ⬆️ **C-1** (Alexis): a comment.\n\n> **❓ BQ-1 — Topic:** a question?\n>\n> **Answer:**\n\n> A plain quote.\n\n\nLast paragraph after two blank lines."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com\n\nsecond paragraph"
+            }
+          }
+        }
+      }
+    },
+    {
       "name": "round trip through YAML and Markdown",
       "state": {
         "content": {

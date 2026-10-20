@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- `SpecReviewAnnotations.Paragraphs(path, field)` lists a value's paragraphs
+  (`SpecParagraph`: `Index`, `StartLine`, `EndLine`, `Text`, and the
+  `Annotation` kind when the paragraph is an annotation block). The index is
+  exactly what `afterParagraph` of the inserts takes, by the one rule of SOM
+  §11.9.1 "Paragraphs". Conformance: a new `annotation_cases.json` case.
+
 - Question options (SOM §11.9.2): a listed question carries its `Options`
   (`SpecQuestionOption`: `Letter`, `Text` with continuation lines joined,
   `Bold`), its `Recommended` letter (the bold option, else the option that

@@ -1537,6 +1537,22 @@ front, either the document root's section id or the file's name without its
 format suffix: `SBP C-12`, `tom_uam.sbp C-12`. The qualified form is unique
 because the ids are unique within one document.
 
+**Paragraphs.** The API places a new annotation after a paragraph, counted
+from 0, and lists a value's paragraphs so a tool can find the one it means by
+its text. Both use one rule:
+- a paragraph is a run of non-blank lines, ended by a blank line;
+- a blank line inside fenced code does not end one;
+- an annotation block is a paragraph of its own, like a list or a quote
+  separated by blank lines.
+
+Each listed paragraph carries:
+- its index, which is what `afterParagraph` takes;
+- its first and last line within the value;
+- its text, verbatim;
+- `comment` or `question` when it is an annotation block.
+
+`afterParagraph` -1 places a block at the start of the value.
+
 #### 11.9.2 Question blocks
 
 A question block is a blockquote whose first line begins with `**❓`. The

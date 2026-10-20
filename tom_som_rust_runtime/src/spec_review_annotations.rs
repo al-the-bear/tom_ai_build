@@ -233,6 +233,43 @@ impl SpecReviewAnnotation {
     }
 }
 
+/// One paragraph of a value (SOM §11.9.1, "Paragraphs"): a run of non-blank
+/// lines, where a blank line inside fenced code does not end the run. Its
+/// `index` is what `after_paragraph` of the inserts takes.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecParagraph {
+    /// The 0-based position among the value's paragraphs.
+    pub index: usize,
+    /// The 0-based first line within the value.
+    pub start_line: usize,
+    /// The 0-based last line within the value (inclusive).
+    pub end_line: usize,
+    /// The paragraph's lines, verbatim, joined with `\n`.
+    pub text: String,
+    /// `comment` or `question` when the paragraph opens with an annotation
+    /// block of that kind, else `None`.
+    pub annotation: Option<SpecReviewAnnotationKind>,
+}
+
+impl SpecParagraph {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        Json::Object(vec![
+            ("index".to_string(), Json::Int(self.index as i64)),
+            ("startLine".to_string(), Json::Int(self.start_line as i64)),
+            ("endLine".to_string(), Json::Int(self.end_line as i64)),
+            ("text".to_string(), Json::Str(self.text.clone())),
+            (
+                "annotation".to_string(),
+                match self.annotation {
+                    Some(k) => Json::Str(k.name().to_string()),
+                    None => Json::Null,
+                },
+            ),
+        ])
+    }
+}
+
 /// One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
 /// for the recommended one.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -1785,6 +1822,40 @@ impl<'a> SpecReviewAnnotations<'a> {
         let block = format_comment_block(&cid, text, author);
         self.set(path, field, &insert_after_line(&value, end, &block));
         Ok(cid)
+    }
+
+    /// The paragraphs of the value at `path` / `field`, in order — the units
+    /// `after_paragraph` of [`Self::insert_comment`] and
+    /// [`Self::insert_question`] counts. Fails when the document holds no such
+    /// value.
+    pub fn paragraphs(
+        &self,
+        path: &str,
+        field: Option<&str>,
+    ) -> Result<Vec<SpecParagraph>, SpecReviewAnnotationError> {
+        let value = match field {
+            None => self.doc.content(path),
+            Some(f) => self.doc.form_field(path, f),
+        }
+        .cloned()
+        .ok_or_else(|| {
+            SpecReviewAnnotationError::new(match field {
+                None => format!("no value at {path}"),
+                Some(f) => format!("no value at {path} / {f}"),
+            })
+        })?;
+        let p = parse(&value);
+        Ok(paragraphs(&p.lines, &p.code)
+            .into_iter()
+            .enumerate()
+            .map(|(i, (s, e))| SpecParagraph {
+                index: i,
+                start_line: s,
+                end_line: e,
+                text: p.lines[s..=e].join("\n"),
+                annotation: p.blocks.iter().find(|b| b.start == s).map(|b| b.kind),
+            })
+            .collect())
     }
 
     /// Inserts a question block after paragraph `after_paragraph` (0-based;

@@ -1086,6 +1086,8 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
         return api.stripped().to_json()
     if kind == "revision":
         return api.revision()
+    if kind == "paragraphs":
+        return [p.to_json() for p in api.paragraphs(op["path"], field=op.get("field"))]
     if kind == "listMarks":
         return [m.to_json() for m in api.list_marks(path=op.get("path"))]
     if kind == "decideMarks":
