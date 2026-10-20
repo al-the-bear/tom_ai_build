@@ -88,7 +88,8 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `SpecReviewAnnotation` | One listed annotation: `Kind`, `Path`, `Field`, `Line`, `ID`, `QualifiedID`, `Author`, `Text`, `Context`, `Topic`, `Starred`, `Combined`, `Answer`, `MarkKind`, `NewText`, `Comment`; a nil pointer is absent. `Open()` reports an unanswered question; `ToJSON()` is the form the conformance corpus pins |
 | `SpecReviewAnnotationKind` | `SpecReviewAnnotationKindComment`, `…Question`, `…Mark` (all in `SpecReviewAnnotationKinds`) |
 | `SpecMarkKind` | `SpecMarkKindComment`, `…Highlight`, `…Insertion`, `…Deletion`, `…Substitution` (all in `SpecMarkKinds`) |
-| `SpecQuestionDraft` | A question to insert: `ID`, `Topic`, `Text`, `Options`, `Recommendation`, `Assumption`, `Starred` |
+| `SpecQuestionDraft` | A question to insert: `ID`, `Topic`, `Text`, `Options`, `Recommendation`, `Assumption`, `Starred`, and `Recommended`, the letter whose option is written bold |
+| `SpecQuestionOption` | One option of a question: `Letter`, `Text` (continuation lines joined), `Bold` |
 | `SpecReviewAnnotationCounts` | `Questions`, `OpenQuestions`, `AnsweredQuestions`, `Comments`, `Marks` |
 | `*SpecReviewAnnotationError` | An operation named something that is not there |
 | `StripAnnotationsText` | One value without its annotations |
@@ -99,7 +100,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 
 | Operation | Does |
 |-----------|------|
-| `List()` | Every annotation, in document order. A question of a combined block carries `Combined: true` and the field it asks about as its topic; a comment carries the paragraph before it as `Context` |
+| `List()` | Every annotation, in document order. A question carries its `Options`, its `Recommended` letter (the bold option, else the option that says "recommended", else the letter of a `*Recommendation:*` line) and its `AnswerLetter()` (`(b)` or `**(b)**` at the start of the answer). A question of a combined block carries `Combined: true` and the field it asks about as its topic; a comment carries the paragraph before it as `Context` |
 | `Counts()` | The counts a report needs |
 | `NextCommentID(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `AssignCommentIDs(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |

@@ -7,6 +7,7 @@
  * decision. */
 #include "spec_review_annotations.h"
 
+#include <ctype.h>
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -306,6 +307,9 @@ typedef struct {
   int starred;
   char *text;
   char *answer;
+  SpecQuestionOption *options;
+  size_t options_len;
+  char *recommended; /* NULL for none */
 } Question;
 
 typedef struct {
@@ -372,6 +376,12 @@ static void parsed_free(Parsed *p) {
     free(q->topic);
     free(q->text);
     free(q->answer);
+    for (size_t o = 0; o < q->options_len; o++) {
+      free(q->options[o].letter);
+      free(q->options[o].text);
+    }
+    free(q->options);
+    free(q->recommended);
   }
   free(p->questions);
   for (size_t i = 0; i < p->marks_len; i++) {
@@ -557,6 +567,124 @@ static int parse_header(const char *inner, Header *out) {
   return 1;
 }
 
+static int is_letter(char c) { return c >= 'a' && c <= 'z'; }
+
+/* The letter of a leading `(x)` or `**(x)**` in `s` (spaces skipped), as an
+ * owned one-character string; NULL for none. */
+static char *leading_letter(const char *s) {
+  const unsigned char *q = (const unsigned char *)s;
+  const unsigned char *end = q + strlen(s);
+  while (q < end) {
+    const unsigned char *st = q;
+    if (!dart_is_space(next_cp(&q, end))) {
+      q = st;
+      break;
+    }
+  }
+  const char *t = (const char *)q;
+  if (starts_with(t, "**")) t += 2;
+  if (t[0] == '(' && is_letter(t[1]) && t[2] == ')') {
+    return som_strdup_n(t + 1, 1);
+  }
+  return NULL;
+}
+
+static int is_blank_trimmed(const char *s) {
+  size_t b, e;
+  trim_bounds(s, strlen(s), &b, &e);
+  return e == b;
+}
+
+/* Contains `recommended` after ASCII lower-casing. */
+static int says_recommended(const char *s) {
+  const char *w = "recommended";
+  size_t n = strlen(w), len = strlen(s);
+  for (size_t i = 0; i + n <= len; i++) {
+    size_t k = 0;
+    while (k < n && tolower((unsigned char)s[i + k]) == w[k]) k++;
+    if (k == n) return 1;
+  }
+  return 0;
+}
+
+/* The options of a question and its recommended letter (SOM §11.9.2), read
+ * from `in[from..to]` (inclusive): one option per line, `- (a) …`, the
+ * recommended one bold, `- **(b)** …`. The recommended letter is the first
+ * bold option's; else the first option's whose text says "recommended"; else
+ * the letter a `*Recommendation:*` line names; else none. */
+static void parse_options(const char **in, long long from, long long to,
+                          Question *qq) {
+  SpecQuestionOption *opts = NULL;
+  size_t len = 0, cap = 0;
+  char letter = 0;
+  char *text = NULL;
+  int bold = 0;
+#define CLOSE_OPTION()                                     \
+  do {                                                     \
+    if (letter) {                                          \
+      SpecQuestionOption o;                                \
+      o.letter = som_strdup_n(&letter, 1);                 \
+      o.text = trim_dup(text);                             \
+      o.bold = bold;                                       \
+      PUSH(opts, len, cap, o);                             \
+    }                                                      \
+    free(text);                                            \
+    text = NULL;                                           \
+    letter = 0;                                            \
+  } while (0)
+  for (long long k = from; k <= to; k++) {
+    const char *l = in[k];
+    if (starts_with(l, "- ")) {
+      const char *r = l + 2;
+      size_t rl = strlen(r);
+      if (rl >= 7 && starts_with(r, "**(") && is_letter(r[3]) &&
+          strncmp(r + 4, ")**", 3) == 0) {
+        CLOSE_OPTION();
+        letter = r[3];
+        text = som_strdup(r + 7);
+        bold = 1;
+        continue;
+      }
+      if (rl >= 3 && r[0] == '(' && is_letter(r[1]) && r[2] == ')') {
+        CLOSE_OPTION();
+        letter = r[1];
+        text = som_strdup(r + 3);
+        bold = 0;
+        continue;
+      }
+    }
+    if (letter && l[0] == ' ' && !is_blank_trimmed(l)) {
+      char *a = trim_dup(text);
+      char *b = trim_dup(l);
+      free(text);
+      text = fmt("%s %s", a, b);
+      free(a);
+      free(b);
+      continue;
+    }
+    CLOSE_OPTION();
+  }
+  CLOSE_OPTION();
+#undef CLOSE_OPTION
+  qq->options = opts;
+  qq->options_len = len;
+  qq->recommended = NULL;
+  for (size_t i = 0; i < len && !qq->recommended; i++) {
+    if (opts[i].bold) qq->recommended = som_strdup(opts[i].letter);
+  }
+  for (size_t i = 0; i < len && !qq->recommended; i++) {
+    if (says_recommended(opts[i].text)) {
+      qq->recommended = som_strdup(opts[i].letter);
+    }
+  }
+  const char *label = "*Recommendation:*";
+  for (long long k = from; k <= to && !qq->recommended; k++) {
+    const char *i = strstr(in[k], label);
+    if (i == NULL) continue;
+    qq->recommended = leading_letter(i + strlen(label));
+  }
+}
+
 static void parse_questions(Parsed *p, size_t bi) {
   Block *b = &p->blocks[bi];
   size_t cnt = b->end - b->start + 1;
@@ -596,6 +724,7 @@ static void parse_questions(Parsed *p, size_t bi) {
     long long text_end = answer < 0 ? (long long)region_end : answer - 1;
     char *joined = join_from(hs[q].rest, in, (long long)k + 1, text_end);
     Question qq;
+    parse_options(in, (long long)k + 1, text_end, &qq);
     qq.text = trim_dup(joined);
     free(joined);
     if (answer >= 0) {
@@ -850,6 +979,12 @@ void spec_review_annotation_free(SpecReviewAnnotation *a) {
   free(a->context);
   free(a->topic);
   free(a->answer);
+  for (size_t i = 0; i < a->options_len; i++) {
+    free(a->options[i].letter);
+    free(a->options[i].text);
+  }
+  free(a->options);
+  free(a->recommended);
   free(a->new_text);
   free(a->comment);
   memset(a, 0, sizeof(*a));
@@ -904,6 +1039,23 @@ static void put_int(SomBuf *b, int *first, const char *key, long long v) {
   som_buf_puti(b, v);
 }
 
+char *spec_review_annotation_answer_letter(const SpecReviewAnnotation *a) {
+  if (a->kind != SPEC_REVIEW_ANNOTATION_QUESTION) return NULL;
+  return leading_letter(a->answer ? a->answer : "");
+}
+
+char *spec_question_option_to_json(const SpecQuestionOption *o) {
+  SomBuf b;
+  som_buf_init(&b);
+  int first = 1;
+  som_buf_putc(&b, '{');
+  put_str(&b, &first, "letter", o->letter);
+  put_str(&b, &first, "text", o->text);
+  put_bool(&b, &first, "bold", o->bold);
+  som_buf_putc(&b, '}');
+  return som_buf_take(&b);
+}
+
 char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
   SomBuf b;
   som_buf_init(&b);
@@ -929,6 +1081,21 @@ char *spec_review_annotation_to_json(const SpecReviewAnnotation *a) {
       put_str(&b, &first, "text", a->text);
       put_str(&b, &first, "answer", a->answer);
       put_bool(&b, &first, "open", spec_review_annotation_is_open(a));
+      put_key(&b, &first, "options");
+      som_buf_putc(&b, '[');
+      for (size_t i = 0; i < a->options_len; i++) {
+        if (i) som_buf_putc(&b, ',');
+        char *o = spec_question_option_to_json(&a->options[i]);
+        som_buf_puts(&b, o);
+        free(o);
+      }
+      som_buf_putc(&b, ']');
+      put_str(&b, &first, "recommended", a->recommended);
+      {
+        char *al = spec_review_annotation_answer_letter(a);
+        put_str(&b, &first, "answerLetter", al);
+        free(al);
+      }
       break;
     case SPEC_REVIEW_ANNOTATION_MARK:
       put_str(&b, &first, "markKind", spec_mark_kind_name(a->mark_kind));
@@ -1024,6 +1191,16 @@ static void annotations_of(const Parsed *p, const char *path, const char *field,
         e.a.text = som_strdup(q->text);
         e.a.context = som_strdup("");
         e.a.answer = som_strdup(q->answer);
+        e.a.options_len = q->options_len;
+        e.a.options = q->options_len
+                          ? malloc(q->options_len * sizeof(SpecQuestionOption))
+                          : NULL;
+        for (size_t oi = 0; oi < q->options_len; oi++) {
+          e.a.options[oi].letter = som_strdup(q->options[oi].letter);
+          e.a.options[oi].text = som_strdup(q->options[oi].text);
+          e.a.options[oi].bold = q->options[oi].bold;
+        }
+        e.a.recommended = dup_or_null(q->recommended);
         PUSH(o, len, cap, e);
       }
     }
@@ -1188,7 +1365,14 @@ void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out) {
                             q->starred ? STAR " " : "", q->topic, t.items[0]));
   push_quoted(out, &t, 1);
   for (size_t i = 0; i < q->options_len; i++) {
-    som_strlist_push(out, fmt("> - %s", q->options[i]));
+    const char *o = q->options[i];
+    if (q->recommended != NULL && strlen(o) >= 3 && o[0] == '(' &&
+        strncmp(o + 1, q->recommended, strlen(q->recommended)) == 0 &&
+        o[1 + strlen(q->recommended)] == ')') {
+      som_strlist_push(out, fmt("> - **(%s)**%s", q->recommended, o + 3));
+    } else {
+      som_strlist_push(out, fmt("> - %s", o));
+    }
   }
   int has_rec = q->recommendation != NULL && q->recommendation[0] != '\0';
   int has_asm = q->assumption != NULL && q->assumption[0] != '\0';

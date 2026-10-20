@@ -77,7 +77,8 @@ All are exported from `tom_som_runtime`.
 | `SpecReviewAnnotation` | One listed annotation: `kind`, `path`, `field`, `line`, `id`, `qualified_id`, `author`, `text`, `context`, `topic`, `starred`, `combined`, `answer`, `open`, `mark_kind`, `new_text`, `comment`. `to_json()` is the form the conformance corpus pins |
 | `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK` (values `comment`, `question`, `mark`) |
 | `SpecMarkKind` | `COMMENT`, `HIGHLIGHT`, `INSERTION`, `DELETION`, `SUBSTITUTION` (values in lower case) |
-| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`; `from_json` reads the corpus form |
+| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `from_json` reads the corpus form |
+| `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks`; `to_json()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `strip_annotations_text` | One value without its annotations |
@@ -87,7 +88,7 @@ All are exported from `tom_som_runtime`.
 
 | Operation | Does |
 |-----------|------|
-| `list()` | Every annotation, in document order. A question of a combined block carries `combined=True` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
+| `list()` | Every annotation, in document order. A question carries its `options`, its `recommended` letter (the bold option, else the option that says "recommended", else the letter of a `*Recommendation:*` line) and its `answer_letter` (`(b)` or `**(b)**` at the start of the answer). A question of a combined block carries `combined=True` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
 | `counts()` | The counts a report needs |
 | `next_comment_id(floor=0)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor=0)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |

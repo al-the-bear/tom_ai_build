@@ -39,13 +39,39 @@ const SpecMarkKind = Object.freeze({
   SUBSTITUTION: 'substitution',
 });
 
+/**
+ * One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
+ * for the recommended one.
+ */
+class SpecQuestionOption {
+  /**
+   * @param {string} letter
+   * @param {string} text
+   * @param {{bold?: boolean}} [options]
+   */
+  constructor(letter, text, { bold = false } = {}) {
+    /** The lowercase letter. */
+    this.letter = letter;
+    /** The option's text, its continuation lines joined with one space. */
+    this.text = text;
+    /** Whether the option is written bold — the recommended one. */
+    this.bold = bold;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { letter: this.letter, text: this.text, bold: this.bold };
+  }
+}
+
 /** One annotation, located by the value that holds it. */
 class SpecReviewAnnotation {
   /**
    * @param {{kind: string, path: string, field?: string|null, line: number,
    *   id?: string|null, qualifiedId?: string|null, author?: string|null,
    *   text?: string, context?: string, topic?: string|null, starred?: boolean,
-   *   combined?: boolean, answer?: string, markKind?: string|null,
+   *   combined?: boolean, answer?: string, options?: SpecQuestionOption[],
+   *   recommended?: string|null, markKind?: string|null,
    *   newText?: string|null, comment?: string|null}} options
    */
   constructor({
@@ -62,6 +88,8 @@ class SpecReviewAnnotation {
     starred = false,
     combined = false,
     answer = '',
+    options = [],
+    recommended = null,
     markKind = null,
     newText = null,
     comment = null,
@@ -92,6 +120,13 @@ class SpecReviewAnnotation {
     this.combined = combined;
     /** A question's answer, trimmed; empty when open. */
     this.answer = answer;
+    /** A question's options, in order (empty when it states none). */
+    this.options = options;
+    /**
+     * A question's recommended letter: the bold option, else the option that
+     * says "recommended", else the letter of a `*Recommendation:*` line.
+     */
+    this.recommended = recommended;
     /** A mark's kind (a {@link SpecMarkKind} value). */
     this.markKind = markKind;
     /** A substitution's new text. */
@@ -103,6 +138,11 @@ class SpecReviewAnnotation {
   /** Whether a question is still open (no answer written). */
   get open() {
     return this.kind === SpecReviewAnnotationKind.QUESTION && this.answer.length === 0;
+  }
+
+  /** The letter an answer starts with (`(b)` or `**(b)**`), or null. */
+  get answerLetter() {
+    return this.kind === SpecReviewAnnotationKind.QUESTION ? _leadingLetter(this.answer) : null;
   }
 
   /** The canonical JSON form the conformance corpus pins. */
@@ -133,6 +173,9 @@ class SpecReviewAnnotation {
           text: this.text,
           answer: this.answer,
           open: this.open,
+          options: this.options.map((o) => o.toJson()),
+          recommended: this.recommended,
+          answerLetter: this.answerLetter,
         };
       default:
         return {
@@ -181,7 +224,8 @@ class SpecReviewAnnotationCounts {
 class SpecQuestionDraft {
   /**
    * @param {{id: string, topic: string, text: string, options?: string[],
-   *   recommendation?: string, assumption?: string, starred?: boolean}} options
+   *   recommendation?: string, assumption?: string, starred?: boolean,
+   *   recommended?: string|null}} options
    */
   constructor({
     id,
@@ -191,6 +235,7 @@ class SpecQuestionDraft {
     recommendation = '',
     assumption = '',
     starred = false,
+    recommended = null,
   }) {
     /** The question id (`BQ-90`). */
     this.id = id;
@@ -206,6 +251,8 @@ class SpecQuestionDraft {
     this.assumption = assumption;
     /** Whether the question carries `★`. */
     this.starred = starred;
+    /** The recommended option's letter; that option is written bold. */
+    this.recommended = recommended;
   }
 
   /** Reads a draft from its corpus JSON form. */
@@ -218,6 +265,7 @@ class SpecQuestionDraft {
       recommendation: j.recommendation ?? '',
       assumption: j.assumption ?? '',
       starred: j.starred ?? false,
+      recommended: j.recommended ?? null,
     });
   }
 }
@@ -576,6 +624,82 @@ function _parseHeader(inner) {
   return { id, topic, starred, rest };
 }
 
+function _isLetter(c) {
+  return c.length === 1 && c >= 'a' && c <= 'z';
+}
+
+/**
+ * The options of a question and its recommended letter (SOM §11.9.2): one
+ * option per line, `- (a) …`, the recommended one bold, `- **(b)** …`. The
+ * recommended letter is the first bold option's; else the first option's
+ * whose text says "recommended"; else the letter a `*Recommendation:*` line
+ * names; else none.
+ * @param {string[]} lines
+ * @returns {{options: SpecQuestionOption[], recommended: string|null}}
+ */
+function _parseOptions(lines) {
+  const options = [];
+  let letter = null;
+  let text = null;
+  let bold = false;
+  const close = () => {
+    if (letter !== null) options.push(new SpecQuestionOption(letter, text.trim(), { bold }));
+    letter = null;
+  };
+  for (const l of lines) {
+    if (l.startsWith('- ')) {
+      const r = l.substring(2);
+      if (
+        r.length >= 7 &&
+        r.startsWith('**(') &&
+        _isLetter(r[3]) &&
+        r.substring(4, 7) === ')**'
+      ) {
+        close();
+        letter = r[3];
+        text = r.substring(7);
+        bold = true;
+        continue;
+      }
+      if (r.length >= 3 && r[0] === '(' && _isLetter(r[1]) && r[2] === ')') {
+        close();
+        letter = r[1];
+        text = r.substring(3);
+        bold = false;
+        continue;
+      }
+    }
+    if (letter !== null && l.startsWith(' ') && l.trim().length > 0) {
+      text = `${text.trim()} ${l.trim()}`;
+      continue;
+    }
+    close();
+  }
+  close();
+  for (const o of options) {
+    if (o.bold) return { options, recommended: o.letter };
+  }
+  for (const o of options) {
+    if (o.text.toLowerCase().includes('recommended')) return { options, recommended: o.letter };
+  }
+  const label = '*Recommendation:*';
+  for (const l of lines) {
+    const i = l.indexOf(label);
+    if (i < 0) continue;
+    const x = _leadingLetter(l.substring(i + label.length));
+    if (x !== null) return { options, recommended: x };
+  }
+  return { options, recommended: null };
+}
+
+/** The letter of a leading `(x)` or `**(x)**` in `s` (spaces skipped), or null. */
+function _leadingLetter(s) {
+  let t = s.trimStart();
+  if (t.startsWith('**')) t = t.substring(2);
+  if (t.length >= 3 && t[0] === '(' && _isLetter(t[1]) && t[2] === ')') return t[1];
+  return null;
+}
+
 function _parseQuestions(p, b) {
   const inner = [];
   for (let k = b.start; k <= b.end; k++) inner.push(_inner(p.lines[k]));
@@ -606,6 +730,7 @@ function _parseQuestions(p, b) {
       }
     }
     const textEnd = answer === null ? regionEnd : answer - 1;
+    const { options, recommended } = _parseOptions(inner.slice(k + 1, textEnd + 1));
     const text = [h.rest, ...inner.slice(k + 1, textEnd + 1)].join('\n').trim();
     let answerText = '';
     if (answer !== null) {
@@ -625,6 +750,8 @@ function _parseQuestions(p, b) {
       starred: h.starred,
       text,
       answer: answerText,
+      options,
+      recommended,
     });
   }
   b.questions = list;
@@ -846,6 +973,8 @@ function _annotationsOf(p, path, field, qualifier) {
             combined: b.combined,
             text: q.text,
             answer: q.answer,
+            options: q.options,
+            recommended: q.recommended,
           }),
         ]);
       }
@@ -955,7 +1084,11 @@ function formatQuestionBlock(q) {
     `> ${_QUESTION_OPEN} ${q.id}${_EM_DASH_SEP}${q.starred ? `${_STAR} ` : ''}` +
       `${q.topic}:** ${t[0]}`,
     ..._quoted(t.slice(1)),
-    ...q.options.map((o) => `> - ${o}`),
+    ...q.options.map((o) =>
+      q.recommended != null && o.startsWith(`(${q.recommended})`)
+        ? `> - **(${q.recommended})**${o.substring(3)}`
+        : `> - ${o}`,
+    ),
   ];
   if (q.recommendation.length > 0 || q.assumption.length > 0) {
     lines.push('>');
@@ -2102,6 +2235,7 @@ module.exports = {
   SpecReviewAnnotation,
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
+  SpecQuestionOption,
   SpecReviewAnnotationError,
   SpecReviewAnnotations,
   formatCommentBlock,

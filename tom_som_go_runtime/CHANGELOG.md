@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Question options (SOM §11.9.2): a listed question carries its `Options`
+  (`SpecQuestionOption`: `Letter`, `Text` with continuation lines joined,
+  `Bold`), its `Recommended` letter (the bold option, else the option that
+  says "recommended", else the letter of a `*Recommendation:*` line) and
+  `AnswerLetter()` (`(b)` or `**(b)**` at the start of the answer), all in
+  `ToJSON()`. `SpecQuestionDraft.Recommended` makes `FormatQuestionBlock`
+  write that option bold.
+
 - Extracting answers for a step folder (SOM §11.9.7):
   `ExtractAnswers(model, doc, label, path)` collects a document's questions
   (answered and open), comments and inline marks, each with its section-id

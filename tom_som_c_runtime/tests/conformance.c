@@ -4181,6 +4181,7 @@ static SpecQuestionDraft draft_from_json(const SomJson *j,
   d.recommendation = json_opt_str(j, "recommendation");
   d.assumption = json_opt_str(j, "assumption");
   d.starred = som_json_bool_or(j, "starred");
+  d.recommended = json_opt_str(j, "recommended");
   return d;
 }
 

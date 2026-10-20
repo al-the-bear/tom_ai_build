@@ -103,7 +103,8 @@ DEMO C-1
 | `SpecReviewAnnotationList` | The owned list `spec_review_annotations_list` fills |
 | `SpecReviewAnnotationKind` | `SPEC_REVIEW_ANNOTATION_COMMENT`, `_QUESTION`, `_MARK` (`spec_review_annotation_kind_name`) |
 | `SpecMarkKind` | `SPEC_MARK_COMMENT`, `_HIGHLIGHT`, `_INSERTION`, `_DELETION`, `_SUBSTITUTION` (`spec_mark_kind_name`) |
-| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options` / `options_len`, `recommendation`, `assumption`, `starred` (all borrowed) |
+| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options` / `options_len`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold (NULL for none) (all borrowed) |
+| `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` (`spec_question_option_to_json`) |
 | `SpecReviewAnnotationCounts` | `questions`, `open_questions`, `answered_questions`, `comments`, `marks` |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `spec_strip_annotations_text` | One value without its annotations |
@@ -115,7 +116,7 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 
 | Operation | Does |
 |-----------|------|
-| `list(out)` | Every annotation, in document order. A question of a combined block carries `combined` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
+| `list(out)` | Every annotation, in document order. A question carries its `options` / `options_len`, its `recommended` letter (the bold option, else the option that says "recommended", else the letter of a `*Recommendation:*` line) and its answer letter (`spec_review_annotation_answer_letter`: `(b)` or `**(b)**` at the start of the answer). A question of a combined block carries `combined` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
 | `counts()` | The counts a report needs |
 | `next_comment_id(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assign_comment_ids(floor, out)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Question options (SOM §11.9.2): a listed question carries its `options`
+  (`SpecQuestionOption`: `letter`, `text` with continuation lines joined,
+  `bold`), its `recommended` letter (the bold option, else the option that
+  says "recommended", else the letter of a `*Recommendation:*` line) and
+  `answer_letter()` (`(b)` or `**(b)**` at the start of the answer), all in
+  `to_json()`. `SpecQuestionDraft::recommended` makes `format_question_block`
+  write that option bold. `SpecQuestionOption` is re-exported at the crate
+  root.
+
 - Extracting answers for a step folder (SOM §11.9.7): the free function
   `extract_answers(model, doc, label, path)` collects a document's questions
   (answered and open), comments and inline marks, each with its section-id

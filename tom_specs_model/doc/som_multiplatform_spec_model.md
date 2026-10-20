@@ -1510,7 +1510,7 @@ comment id:
 
 > **❓ BQ-90 — C-12 retention per tenant:** should a tenant be able to *raise*
 > the retention above the platform default, or only lower it?
-> - (a) lower only — the platform default is the legal maximum
+> - **(a)** lower only — the platform default is the legal maximum
 > - (b) both, within a platform-wide ceiling
 >
 > *Recommendation:* (a).
@@ -1546,7 +1546,7 @@ single form asks one question:
 > **❓ BQ-81 — Explain for the principal:** must `explain` also be open to the
 > principal asking about their own rights?
 > - (a) administrators only — the current text
-> - (b) also the principal itself, for its own rights
+> - **(b)** also the principal itself, for its own rights
 >
 > *Recommendation:* (b) — self-service transparency costs nothing extra.
 > *Working assumption until answered:* (a).
@@ -1564,13 +1564,34 @@ single form asks one question:
   for Blueprint questions and `PR-` for first-draft proposals. Unlike comment
   ids, question ids are unique **per project**, so they are cited bare
   everywhere.
-- **Body.** The question text. Option lines `- (a) …` are optional, and so are
-  `*Recommendation:*` and `*Working assumption until answered:*`. A question
+- **Body.** The question text, then its options. `*Recommendation:*` and
+  `*Working assumption until answered:*` lines are optional. A question
   without options states the working assumption all the same.
+- **Options.** One per line, each led by a single lowercase letter in round
+  brackets: `- (a) …`, `- (b) …`. A line indented under an option continues
+  it. The **recommended option is written bold**: `- **(b)** …`. A
+  `*Recommendation:*` line may say why; it does not replace the bold option.
+- **Recommended letter.** A reader finds it as follows; the first rule that
+  applies wins:
+  1. the bold option;
+  2. otherwise, the option whose text says "recommended";
+  3. otherwise, the letter a `*Recommendation:*` line starts with
+     (`*Recommendation:* (c) — …`).
+
+  The third rule covers documents written before the bold option, so they
+  need no migration. A question with no recommended option is not a finding.
 - **Answer.** The line `**Answer:**`, followed by the answer on the same line
   and on any further `>` lines up to the next `**❓` header or the end of the
-  block. An empty answer means the question is **open**. `**Answer:**` stays
-  bold, so §11.4 rule 3 never reads `Answer:` as a field label.
+  block. An empty answer means the question is **open**. A choice is answered
+  with its letter, `(b)` or `**(b)**`, optionally followed by text
+  (`**Answer:** (b) — and only on kiosks`). `**Answer:**` stays bold, so §11.4
+  rule 3 never reads `Answer:` as a field label.
+- **What the API reports.** The runtime API lists a question with:
+  - its options (letter, text, bold);
+  - its recommended letter;
+  - the letter its answer starts with.
+
+  A question written through the API carries its recommended option bold.
 - **Merged.** A question that asks the same decision as another shrinks to a
   pointer in the same shape. Its id stays findable:
 

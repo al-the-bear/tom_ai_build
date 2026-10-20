@@ -8087,6 +8087,46 @@ Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
       ],
     },
     {
+      'name': 'question options, the recommended letter and the answer letter',
+      'state': {
+        'content': {
+          'DEMO/SUM':
+              '> **❓ BQ-1 — Bold:** which one?\n'
+              '> - (a) the first\n> - **(b)** the second\n>\n'
+              '> *Recommendation:* (b) — cheaper.\n>\n'
+              '> **Answer:** (b) because it is cheaper\n\n'
+              '> **❓ BQ-2 — Says recommended:** which one?\n'
+              '> - (a) one\n> - (b) two (recommended)\n>\n'
+              '> **Answer:** **(a)**\n\n'
+              '> **❓ BQ-3 — Recommendation line:** which one?\n'
+              '> - (a) a long option that goes on\n>   over a second line\n'
+              '> - (b) short\n> - (c) third\n>\n'
+              '> *Recommendation:* (c) — the reason.\n>\n> **Answer:**\n\n'
+              '> **❓ BQ-4 — No options:** is it fine?\n>\n'
+              '> **Answer:** yes\n\n'
+              '> **❓ BQ-5 — No recommendation:** which one?\n'
+              '> - (a) one\n> - (b) two\n>\n'
+              '> *Recommendation:* keep it simple.\n>\n> **Answer:**',
+        },
+      },
+      'ops': [
+        {'op': 'list'},
+        {
+          'op': 'insertQuestion',
+          'path': 'DEMO/SUM',
+          'afterParagraph': -1,
+          'question': {
+            'id': 'BQ-6',
+            'topic': 'Written bold',
+            'text': 'which one?',
+            'options': ['(a) first', '(b) second'],
+            'recommended': 'b',
+          },
+        },
+        {'op': 'list'},
+      ],
+    },
+    {
       'name': 'round trip through YAML and Markdown',
       'state': base,
       'ops': [

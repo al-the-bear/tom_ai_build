@@ -1111,7 +1111,9 @@ a human review of the per-deliverable loop (PF-ITR-DEL) — runs in four steps:
    comment and each inline mark on its own:
    - it changes the text so that the item is satisfied;
    - when it cannot apply a comment as written, it adds a question block
-     directly after the comment block instead, and the comment stays;
+     directly after the comment block instead, and the comment stays. Its
+     options are written `(a)`, `(b)` … with the recommended one bold, so the
+     reviewer can answer with the letter (SOM §11.9.2);
    - an answered question changes the text that carried its working
      assumption, and every `(<ID>)` reference to it in the text.
 3. **Record.** For every applied item, the agent writes an entry into the
@@ -1151,7 +1153,7 @@ it adds a question after the comment:
 
 > **❓ BQ-90 — C-12 kiosk timeout:** a shorter timeout for kiosk devices only,
 > or for every device?
-> - (a) kiosk devices only, 5 minutes
+> - **(a)** kiosk devices only, 5 minutes
 > - (b) every device, 15 minutes
 >
 > *Recommendation:* (a). *Working assumption until answered:* (a).

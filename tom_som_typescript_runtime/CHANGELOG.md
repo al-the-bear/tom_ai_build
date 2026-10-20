@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Question options (SOM §11.9.2): `list()` gives each question its
+  `options` (`SpecQuestionOption`: `letter`, `text`, `bold`), its
+  `recommended` letter (the bold option, else the option that says
+  "recommended", else the letter of a `*Recommendation:*` line) and its
+  `answerLetter` (`(b)` or `**(b)**` at the start of the answer).
+  `SpecQuestionDraft.recommended` makes `formatQuestionBlock` write that
+  option bold. Conformance: `annotation_cases.json`.
+
 - Extracting the answers of a review round for a step folder (SOM §11.9.7),
   `spec_answers.ts`: `extractAnswers(model, doc, { label, path })` lists
   every question (answered or open), comment and inline mark of a document or

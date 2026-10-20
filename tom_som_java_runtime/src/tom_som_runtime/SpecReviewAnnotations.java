@@ -97,6 +97,8 @@ public final class SpecReviewAnnotations {
     final boolean starred;
     final String text;
     final String answer;
+    final List<SpecQuestionOption> options;
+    final String recommended;
 
     Question(
         int header,
@@ -106,7 +108,9 @@ public final class SpecReviewAnnotations {
         String topic,
         boolean starred,
         String text,
-        String answer) {
+        String answer,
+        List<SpecQuestionOption> options,
+        String recommended) {
       this.header = header;
       this.regionEnd = regionEnd;
       this.answerLine = answerLine;
@@ -115,7 +119,112 @@ public final class SpecReviewAnnotations {
       this.starred = starred;
       this.text = text;
       this.answer = answer;
+      this.options = options;
+      this.recommended = recommended;
     }
+  }
+
+  private static boolean isLetter(char c) {
+    return c >= 'a' && c <= 'z';
+  }
+
+  /** A question's options and its recommended letter (null for none). */
+  private static final class ParsedOptions {
+    final List<SpecQuestionOption> options;
+    final String recommended;
+
+    ParsedOptions(List<SpecQuestionOption> options, String recommended) {
+      this.options = options;
+      this.recommended = recommended;
+    }
+  }
+
+  /**
+   * The options of a question and its recommended letter (SOM §11.9.2): one option per line, {@code
+   * - (a) …}, the recommended one bold, {@code - **(b)** …}. The recommended letter is the first
+   * bold option's; else the first option's whose text says "recommended"; else the letter a {@code
+   * *Recommendation:*} line names; else none.
+   */
+  private static ParsedOptions parseOptions(List<String> lines) {
+    List<SpecQuestionOption> options = new ArrayList<>();
+    String letter = null;
+    String text = null;
+    boolean bold = false;
+    for (String l : lines) {
+      if (l.startsWith("- ")) {
+        String r = l.substring(2);
+        if (r.length() >= 7
+            && r.startsWith("**(")
+            && isLetter(r.charAt(3))
+            && r.substring(4, 7).equals(")**")) {
+          if (letter != null) {
+            options.add(new SpecQuestionOption(letter, trim(text), bold));
+          }
+          letter = r.substring(3, 4);
+          text = r.substring(7);
+          bold = true;
+          continue;
+        }
+        if (r.length() >= 3 && r.charAt(0) == '(' && isLetter(r.charAt(1)) && r.charAt(2) == ')') {
+          if (letter != null) {
+            options.add(new SpecQuestionOption(letter, trim(text), bold));
+          }
+          letter = r.substring(1, 2);
+          text = r.substring(3);
+          bold = false;
+          continue;
+        }
+      }
+      if (letter != null && l.startsWith(" ") && !trim(l).isEmpty()) {
+        text = trim(text) + " " + trim(l);
+        continue;
+      }
+      if (letter != null) {
+        options.add(new SpecQuestionOption(letter, trim(text), bold));
+      }
+      letter = null;
+    }
+    if (letter != null) {
+      options.add(new SpecQuestionOption(letter, trim(text), bold));
+    }
+    for (SpecQuestionOption o : options) {
+      if (o.bold) {
+        return new ParsedOptions(options, o.letter);
+      }
+    }
+    for (SpecQuestionOption o : options) {
+      if (o.text.toLowerCase(Locale.ROOT).contains("recommended")) {
+        return new ParsedOptions(options, o.letter);
+      }
+    }
+    final String label = "*Recommendation:*";
+    for (String l : lines) {
+      int i = l.indexOf(label);
+      if (i < 0) {
+        continue;
+      }
+      String x = leadingLetter(l.substring(i + label.length()));
+      if (x != null) {
+        return new ParsedOptions(options, x);
+      }
+    }
+    return new ParsedOptions(options, null);
+  }
+
+  /** The letter of a leading {@code (x)} or {@code **(x)**} in {@code s} (spaces skipped). */
+  static String leadingLetter(String s) {
+    int a = 0;
+    while (a < s.length() && isWs(s.charAt(a))) {
+      a++;
+    }
+    String t = s.substring(a);
+    if (t.startsWith("**")) {
+      t = t.substring(2);
+    }
+    if (t.length() >= 3 && t.charAt(0) == '(' && isLetter(t.charAt(1)) && t.charAt(2) == ')') {
+      return t.substring(1, 2);
+    }
+    return null;
   }
 
   /** One parsed comment block. */
@@ -484,6 +593,9 @@ public final class SpecReviewAnnotations {
         }
       }
       int textEnd = answer == null ? regionEnd : answer - 1;
+      ParsedOptions po =
+          parseOptions(
+              textEnd >= k + 1 ? in.subList(k + 1, textEnd + 1) : Collections.emptyList());
       List<String> textParts = new ArrayList<>();
       textParts.add(h.rest);
       if (textEnd >= k + 1) {
@@ -508,7 +620,9 @@ public final class SpecReviewAnnotations {
               h.topic,
               h.starred,
               text,
-              answerText));
+              answerText,
+              po.options,
+              po.recommended));
     }
     b.questions = list;
   }
@@ -760,6 +874,8 @@ public final class SpecReviewAnnotations {
                       q.starred,
                       b.combined,
                       q.answer,
+                      q.options,
+                      q.recommended,
                       null,
                       null,
                       null)));
@@ -897,7 +1013,11 @@ public final class SpecReviewAnnotations {
             + t.get(0));
     lines.addAll(quoted(t.subList(1, t.size())));
     for (String o : q.options) {
-      lines.add("> - " + o);
+      if (q.recommended != null && o.startsWith("(" + q.recommended + ")")) {
+        lines.add("> - **(" + q.recommended + ")**" + o.substring(3));
+      } else {
+        lines.add("> - " + o);
+      }
     }
     if (!q.recommendation.isEmpty() || !q.assumption.isEmpty()) {
       lines.add(">");

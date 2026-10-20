@@ -1,3 +1,8 @@
+## 1.6.19
+
+- No model change. The chain moves with the runtimes, which read a question's
+  options, its recommended letter and its answer letter (SOM §11.9.2).
+
 ## 1.6.18
 
 - No model change. The chain moves with the runtimes, which gain the

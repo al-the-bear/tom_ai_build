@@ -28,6 +28,9 @@ public final class SpecQuestionDraft {
   /** Whether the question carries {@code ★}. */
   public final boolean starred;
 
+  /** The recommended option's letter; that option is written bold. Null for none. */
+  public final String recommended;
+
   /** A draft with only an id, a topic and a text. */
   public SpecQuestionDraft(String id, String topic, String text) {
     this(id, topic, text, Collections.emptyList(), "", "", false);
@@ -41,6 +44,18 @@ public final class SpecQuestionDraft {
       String recommendation,
       String assumption,
       boolean starred) {
+    this(id, topic, text, options, recommendation, assumption, starred, null);
+  }
+
+  public SpecQuestionDraft(
+      String id,
+      String topic,
+      String text,
+      List<String> options,
+      String recommendation,
+      String assumption,
+      boolean starred,
+      String recommended) {
     this.id = id;
     this.topic = topic;
     this.text = text;
@@ -49,6 +64,7 @@ public final class SpecQuestionDraft {
     this.recommendation = recommendation == null ? "" : recommendation;
     this.assumption = assumption == null ? "" : assumption;
     this.starred = starred;
+    this.recommended = recommended;
   }
 
   /** Reads a draft from its corpus JSON form. */
@@ -68,6 +84,7 @@ public final class SpecQuestionDraft {
         options,
         (String) j.get("recommendation"),
         (String) j.get("assumption"),
-        Boolean.TRUE.equals(starred));
+        Boolean.TRUE.equals(starred),
+        (String) j.get("recommended"));
   }
 }

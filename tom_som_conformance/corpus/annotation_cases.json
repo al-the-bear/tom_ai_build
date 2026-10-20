@@ -45,7 +45,10 @@
               "combined": true,
               "text": "who owns it?",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -58,7 +61,10 @@
               "combined": true,
               "text": "how long?",
               "answer": "two days",
-              "open": false
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -165,7 +171,21 @@
               "combined": false,
               "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -178,7 +198,10 @@
               "combined": false,
               "text": "no answer line yet",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "mark",
@@ -250,7 +273,10 @@
               "combined": true,
               "text": "who owns it?",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -263,7 +289,10 @@
               "combined": true,
               "text": "how long?",
               "answer": "two days",
-              "open": false
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -370,7 +399,21 @@
               "combined": false,
               "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -383,7 +426,10 @@
               "combined": false,
               "text": "no answer line yet",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "mark",
@@ -579,7 +625,10 @@
               "combined": true,
               "text": "who owns it?",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -592,7 +641,10 @@
               "combined": true,
               "text": "how long?",
               "answer": "two days",
-              "open": false
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -732,7 +784,21 @@
               "combined": false,
               "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -745,7 +811,10 @@
               "combined": false,
               "text": "no answer line yet",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -948,7 +1017,10 @@
               "combined": true,
               "text": "who owns it?",
               "answer": "Bob",
-              "open": false
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -961,7 +1033,10 @@
               "combined": true,
               "text": "how long?",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -1068,7 +1143,21 @@
               "combined": false,
               "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
               "answer": "(a)\nand 5 minutes.",
-              "open": false
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": "a"
             },
             {
               "kind": "question",
@@ -1081,7 +1170,10 @@
               "combined": false,
               "text": "no answer line yet",
               "answer": "10 years",
-              "open": false
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "mark",
@@ -1240,7 +1332,10 @@
               "combined": true,
               "text": "who owns it?",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "comment",
@@ -1347,7 +1442,21 @@
               "combined": false,
               "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "kiosk only",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "every device",
+                  "bold": false
+                }
+              ],
+              "recommended": "a",
+              "answerLetter": null
             },
             {
               "kind": "question",
@@ -1360,7 +1469,10 @@
               "combined": false,
               "text": "no answer line yet",
               "answer": "",
-              "open": true
+              "open": true,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
             },
             {
               "kind": "mark",
@@ -1544,6 +1656,336 @@
               "contact": "bob@example.com",
               "owner": "Bob {== here ==}{>> really? <<}"
             }
+          }
+        }
+      }
+    },
+    {
+      "name": "question options, the recommended letter and the answer letter",
+      "state": {
+        "content": {
+          "DEMO/SUM": "> **❓ BQ-1 — Bold:** which one?\n> - (a) the first\n> - **(b)** the second\n>\n> *Recommendation:* (b) — cheaper.\n>\n> **Answer:** (b) because it is cheaper\n\n> **❓ BQ-2 — Says recommended:** which one?\n> - (a) one\n> - (b) two (recommended)\n>\n> **Answer:** **(a)**\n\n> **❓ BQ-3 — Recommendation line:** which one?\n> - (a) a long option that goes on\n>   over a second line\n> - (b) short\n> - (c) third\n>\n> *Recommendation:* (c) — the reason.\n>\n> **Answer:**\n\n> **❓ BQ-4 — No options:** is it fine?\n>\n> **Answer:** yes\n\n> **❓ BQ-5 — No recommendation:** which one?\n> - (a) one\n> - (b) two\n>\n> *Recommendation:* keep it simple.\n>\n> **Answer:**"
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "insertQuestion",
+          "path": "DEMO/SUM",
+          "afterParagraph": -1,
+          "question": {
+            "id": "BQ-6",
+            "topic": "Written bold",
+            "text": "which one?",
+            "options": [
+              "(a) first",
+              "(b) second"
+            ],
+            "recommended": "b"
+          }
+        },
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-1",
+              "topic": "Bold",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) the first\n- **(b)** the second\n\n*Recommendation:* (b) — cheaper.",
+              "answer": "(b) because it is cheaper",
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "the first",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "the second",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "b"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": "BQ-2",
+              "topic": "Says recommended",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) one\n- (b) two (recommended)",
+              "answer": "**(a)**",
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "one",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "two (recommended)",
+                  "bold": false
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "a"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "id": "BQ-3",
+              "topic": "Recommendation line",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) a long option that goes on\n  over a second line\n- (b) short\n- (c) third\n\n*Recommendation:* (c) — the reason.",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "a long option that goes on over a second line",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "short",
+                  "bold": false
+                },
+                {
+                  "letter": "c",
+                  "text": "third",
+                  "bold": false
+                }
+              ],
+              "recommended": "c",
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 24,
+              "id": "BQ-4",
+              "topic": "No options",
+              "starred": false,
+              "combined": false,
+              "text": "is it fine?",
+              "answer": "yes",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 28,
+              "id": "BQ-5",
+              "topic": "No recommendation",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) one\n- (b) two\n\n*Recommendation:* keep it simple.",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "one",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "two",
+                  "bold": false
+                }
+              ],
+              "recommended": null,
+              "answerLetter": null
+            }
+          ],
+          null,
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "BQ-6",
+              "topic": "Written bold",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) first\n- **(b)** second",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "first",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "second",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 6,
+              "id": "BQ-1",
+              "topic": "Bold",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) the first\n- **(b)** the second\n\n*Recommendation:* (b) — cheaper.",
+              "answer": "(b) because it is cheaper",
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "the first",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "the second",
+                  "bold": true
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "b"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "id": "BQ-2",
+              "topic": "Says recommended",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) one\n- (b) two (recommended)",
+              "answer": "**(a)**",
+              "open": false,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "one",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "two (recommended)",
+                  "bold": false
+                }
+              ],
+              "recommended": "b",
+              "answerLetter": "a"
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 20,
+              "id": "BQ-3",
+              "topic": "Recommendation line",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) a long option that goes on\n  over a second line\n- (b) short\n- (c) third\n\n*Recommendation:* (c) — the reason.",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "a long option that goes on over a second line",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "short",
+                  "bold": false
+                },
+                {
+                  "letter": "c",
+                  "text": "third",
+                  "bold": false
+                }
+              ],
+              "recommended": "c",
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 30,
+              "id": "BQ-4",
+              "topic": "No options",
+              "starred": false,
+              "combined": false,
+              "text": "is it fine?",
+              "answer": "yes",
+              "open": false,
+              "options": [],
+              "recommended": null,
+              "answerLetter": null
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 34,
+              "id": "BQ-5",
+              "topic": "No recommendation",
+              "starred": false,
+              "combined": false,
+              "text": "which one?\n- (a) one\n- (b) two\n\n*Recommendation:* keep it simple.",
+              "answer": "",
+              "open": true,
+              "options": [
+                {
+                  "letter": "a",
+                  "text": "one",
+                  "bold": false
+                },
+                {
+                  "letter": "b",
+                  "text": "two",
+                  "bold": false
+                }
+              ],
+              "recommended": null,
+              "answerLetter": null
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/SUM": "> **❓ BQ-6 — Written bold:** which one?\n> - (a) first\n> - **(b)** second\n>\n> **Answer:**\n\n> **❓ BQ-1 — Bold:** which one?\n> - (a) the first\n> - **(b)** the second\n>\n> *Recommendation:* (b) — cheaper.\n>\n> **Answer:** (b) because it is cheaper\n\n> **❓ BQ-2 — Says recommended:** which one?\n> - (a) one\n> - (b) two (recommended)\n>\n> **Answer:** **(a)**\n\n> **❓ BQ-3 — Recommendation line:** which one?\n> - (a) a long option that goes on\n>   over a second line\n> - (b) short\n> - (c) third\n>\n> *Recommendation:* (c) — the reason.\n>\n> **Answer:**\n\n> **❓ BQ-4 — No options:** is it fine?\n>\n> **Answer:** yes\n\n> **❓ BQ-5 — No recommendation:** which one?\n> - (a) one\n> - (b) two\n>\n> *Recommendation:* keep it simple.\n>\n> **Answer:**"
           }
         }
       }

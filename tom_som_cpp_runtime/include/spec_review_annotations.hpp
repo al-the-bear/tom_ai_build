@@ -56,6 +56,17 @@ enum class SpecMarkKind {
  * `"deletion"`, `"substitution"`. */
 const char* specMarkKindName(SpecMarkKind kind);
 
+/* One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
+ * for the recommended one. */
+struct SpecQuestionOption {
+  std::string letter;  // the lowercase letter
+  std::string text;    // the option's text, continuation lines joined with one space
+  bool bold = false;   // whether the option is written bold — the recommended one
+
+  /* `{letter, text, bold}`. */
+  std::string toJson() const;
+};
+
 /* One annotation, located by the value that holds it. `std::nullopt` stands
  * for the Dart `null`. */
 struct SpecReviewAnnotation {
@@ -90,6 +101,11 @@ struct SpecReviewAnnotation {
   bool combined = false;
   /* A question's answer, trimmed; empty when open. */
   std::string answer;
+  /* A question's options, in order (empty when it states none). */
+  std::vector<SpecQuestionOption> options;
+  /* A question's recommended letter: the bold option, else the option that
+   * says "recommended", else the letter of a `*Recommendation:*` line. */
+  std::optional<std::string> recommended;
   /* A mark's kind. */
   std::optional<SpecMarkKind> markKind;
   /* A substitution's new text. */
@@ -101,6 +117,10 @@ struct SpecReviewAnnotation {
   bool open() const {
     return kind == SpecReviewAnnotationKind::Question && answer.empty();
   }
+
+  /* The letter an answer starts with (`(b)` or `**(b)**`); nullopt for none
+   * and for the other kinds. */
+  std::optional<std::string> answerLetter() const;
 
   /* The canonical JSON form the conformance corpus pins (every key written,
    * `null` explicitly). */
@@ -129,6 +149,8 @@ struct SpecQuestionDraft {
   std::string recommendation;  // empty for none
   std::string assumption;      // empty for none
   bool starred = false;        // whether the question carries `★`
+  /* The recommended option's letter; that option is written bold. */
+  std::optional<std::string> recommended;
 };
 
 /* Thrown when an operation names an annotation, value or paragraph that does

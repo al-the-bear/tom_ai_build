@@ -110,6 +110,12 @@ type SpecReviewAnnotation struct {
 	Combined bool
 	// Answer is a question's answer, trimmed; empty when open.
 	Answer string
+	// Options are a question's options, in order (empty when it states none).
+	Options []SpecQuestionOption
+	// Recommended is a question's recommended letter: the bold option, else
+	// the option that says "recommended", else the letter of a
+	// `*Recommendation:*` line; nil when none.
+	Recommended *string
 	// MarkKind is a mark's kind; empty for a comment or question.
 	MarkKind SpecMarkKind
 	// NewText is a substitution's new text.
@@ -122,6 +128,31 @@ type SpecReviewAnnotation struct {
 // Open reports whether a question is still open (no answer written).
 func (a SpecReviewAnnotation) Open() bool {
 	return a.Kind == SpecReviewAnnotationKindQuestion && a.Answer == ""
+}
+
+// AnswerLetter is the letter an answer starts with (`(b)` or `**(b)**`), or
+// nil (always nil for a comment or mark).
+func (a SpecReviewAnnotation) AnswerLetter() *string {
+	if a.Kind != SpecReviewAnnotationKindQuestion {
+		return nil
+	}
+	return annLeadingLetter(a.Answer)
+}
+
+// SpecQuestionOption is one option of a question (SOM §11.9.2): `- (a) text`,
+// or `- **(b)** text` for the recommended one.
+type SpecQuestionOption struct {
+	// Letter is the lowercase letter.
+	Letter string
+	// Text is the option's text, its continuation lines joined with one space.
+	Text string
+	// Bold reports whether the option is written bold — the recommended one.
+	Bold bool
+}
+
+// ToJSON is the canonical JSON form.
+func (o SpecQuestionOption) ToJSON() map[string]any {
+	return map[string]any{"letter": o.Letter, "text": o.Text, "bold": o.Bold}
 }
 
 func nullableString(s *string) any {
@@ -147,18 +178,25 @@ func (a SpecReviewAnnotation) ToJSON() map[string]any {
 			"context":     a.Context,
 		}
 	case SpecReviewAnnotationKindQuestion:
+		options := make([]any, 0, len(a.Options))
+		for _, o := range a.Options {
+			options = append(options, o.ToJSON())
+		}
 		return map[string]any{
-			"kind":     "question",
-			"path":     a.Path,
-			"field":    nullableString(a.Field),
-			"line":     a.Line,
-			"id":       nullableString(a.ID),
-			"topic":    nullableString(a.Topic),
-			"starred":  a.Starred,
-			"combined": a.Combined,
-			"text":     a.Text,
-			"answer":   a.Answer,
-			"open":     a.Open(),
+			"kind":         "question",
+			"path":         a.Path,
+			"field":        nullableString(a.Field),
+			"line":         a.Line,
+			"id":           nullableString(a.ID),
+			"topic":        nullableString(a.Topic),
+			"starred":      a.Starred,
+			"combined":     a.Combined,
+			"text":         a.Text,
+			"answer":       a.Answer,
+			"open":         a.Open(),
+			"options":      options,
+			"recommended":  nullableString(a.Recommended),
+			"answerLetter": nullableString(a.AnswerLetter()),
 		}
 	default:
 		return map[string]any{
@@ -210,6 +248,9 @@ type SpecQuestionDraft struct {
 	Assumption string
 	// Starred reports whether the question carries `★`.
 	Starred bool
+	// Recommended is the recommended option's letter, or empty; that option
+	// is written bold.
+	Recommended string
 }
 
 // SpecReviewAnnotationError is returned when an operation names an
@@ -252,14 +293,92 @@ type annBlock struct {
 
 // annQuestion is one question region inside a question block.
 type annQuestion struct {
-	header     int // value line of the header
-	regionEnd  int // last value line of the region (inclusive)
-	answerLine int // value line of `**Answer:**`, or -1
-	id         string
-	topic      string
-	starred    bool
-	text       string
-	answer     string
+	header      int // value line of the header
+	regionEnd   int // last value line of the region (inclusive)
+	answerLine  int // value line of `**Answer:**`, or -1
+	id          string
+	topic       string
+	starred     bool
+	text        string
+	answer      string
+	options     []SpecQuestionOption
+	recommended *string
+}
+
+func annIsLetter(c byte) bool { return c >= 'a' && c <= 'z' }
+
+// annParseOptions returns the options of a question and its recommended
+// letter (SOM §11.9.2): one option per line, `- (a) …`, the recommended one
+// bold, `- **(b)** …`. The recommended letter is the first bold option's; else
+// the first option's whose text says "recommended"; else the letter a
+// `*Recommendation:*` line names; else none.
+func annParseOptions(lines []string) ([]SpecQuestionOption, *string) {
+	options := []SpecQuestionOption{}
+	open := false
+	var letter, text string
+	bold := false
+	closeOpt := func() {
+		if open {
+			options = append(options, SpecQuestionOption{Letter: letter, Text: strings.TrimSpace(text), Bold: bold})
+		}
+		open = false
+	}
+	for _, l := range lines {
+		if strings.HasPrefix(l, "- ") {
+			r := l[2:]
+			if len(r) >= 7 && strings.HasPrefix(r, "**(") && annIsLetter(r[3]) && r[4:7] == ")**" {
+				closeOpt()
+				open, letter, text, bold = true, r[3:4], r[7:], true
+				continue
+			}
+			if len(r) >= 3 && r[0] == '(' && annIsLetter(r[1]) && r[2] == ')' {
+				closeOpt()
+				open, letter, text, bold = true, r[1:2], r[3:], false
+				continue
+			}
+		}
+		if open && strings.HasPrefix(l, " ") && strings.TrimSpace(l) != "" {
+			text = strings.TrimSpace(text) + " " + strings.TrimSpace(l)
+			continue
+		}
+		closeOpt()
+	}
+	closeOpt()
+	for _, o := range options {
+		if o.Bold {
+			x := o.Letter
+			return options, &x
+		}
+	}
+	for _, o := range options {
+		if strings.Contains(strings.ToLower(o.Text), "recommended") {
+			x := o.Letter
+			return options, &x
+		}
+	}
+	const label = "*Recommendation:*"
+	for _, l := range lines {
+		i := strings.Index(l, label)
+		if i < 0 {
+			continue
+		}
+		if x := annLeadingLetter(l[i+len(label):]); x != nil {
+			return options, x
+		}
+	}
+	return options, nil
+}
+
+// annLeadingLetter is the letter of a leading `(x)` or `**(x)**` in s (spaces
+// skipped), or nil.
+func annLeadingLetter(s string) *string {
+	t := strings.TrimLeft(s, " \t\n\r\f\v")
+	t = strings.TrimPrefix(t, "**")
+	if len(t) >= 3 && t[0] == '(' && annIsLetter(t[1]) && t[2] == ')' {
+		x := t[1:2]
+		return &x
+	}
+	return nil
 }
 
 // annComment is one parsed comment block.
@@ -536,6 +655,7 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 		if answer >= 0 {
 			textEnd = answer - 1
 		}
+		options, recommended := annParseOptions(inner[k+1 : textEnd+1])
 		textParts := append([]string{h.rest}, inner[k+1:textEnd+1]...)
 		text := strings.TrimSpace(strings.Join(textParts, "\n"))
 		answerText := ""
@@ -546,14 +666,16 @@ func annParseQuestions(p *annParsed, b *annBlock) {
 			answerLine = b.start + answer
 		}
 		b.questions = append(b.questions, &annQuestion{
-			header:     b.start + k,
-			regionEnd:  b.start + regionEnd,
-			answerLine: answerLine,
-			id:         h.id,
-			topic:      h.topic,
-			starred:    h.starred,
-			text:       text,
-			answer:     answerText,
+			header:      b.start + k,
+			regionEnd:   b.start + regionEnd,
+			answerLine:  answerLine,
+			id:          h.id,
+			topic:       h.topic,
+			starred:     h.starred,
+			text:        text,
+			answer:      answerText,
+			options:     options,
+			recommended: recommended,
 		})
 	}
 }
@@ -783,16 +905,18 @@ func annAnnotationsOf(p *annParsed, path, field, qualifier string) []SpecReviewA
 		for _, q := range b.questions {
 			id, topic := q.id, q.topic
 			out = append(out, entry{q.header, 0, seq, SpecReviewAnnotation{
-				Kind:     SpecReviewAnnotationKindQuestion,
-				Path:     path,
-				Field:    fp,
-				Line:     q.header,
-				ID:       &id,
-				Topic:    &topic,
-				Starred:  q.starred,
-				Combined: b.combined,
-				Text:     q.text,
-				Answer:   q.answer,
+				Kind:        SpecReviewAnnotationKindQuestion,
+				Path:        path,
+				Field:       fp,
+				Line:        q.header,
+				ID:          &id,
+				Topic:       &topic,
+				Starred:     q.starred,
+				Combined:    b.combined,
+				Text:        q.text,
+				Answer:      q.answer,
+				Options:     q.options,
+				Recommended: q.recommended,
 			}})
 			seq++
 		}
@@ -923,7 +1047,11 @@ func FormatQuestionBlock(q SpecQuestionDraft) []string {
 	lines := []string{"> " + annQuestionOpen + " " + q.ID + annEmDashSep + star + q.Topic + ":** " + t[0]}
 	lines = append(lines, annQuoted(t[1:])...)
 	for _, o := range q.Options {
-		lines = append(lines, "> - "+o)
+		if q.Recommended != "" && strings.HasPrefix(o, "("+q.Recommended+")") {
+			lines = append(lines, "> - **("+q.Recommended+")**"+o[3:])
+		} else {
+			lines = append(lines, "> - "+o)
+		}
 	}
 	if q.Recommendation != "" || q.Assumption != "" {
 		lines = append(lines, ">")

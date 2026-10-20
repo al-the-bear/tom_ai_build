@@ -46,6 +46,29 @@ enum SpecMarkKind {
   substitution,
 }
 
+/// One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
+/// for the recommended one.
+class SpecQuestionOption {
+  /// The lowercase letter.
+  final String letter;
+
+  /// The option's text, its continuation lines joined with one space.
+  final String text;
+
+  /// Whether the option is written bold — the recommended one.
+  final bool bold;
+
+  /// Creates an option.
+  const SpecQuestionOption(this.letter, this.text, {this.bold = false});
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {
+    'letter': letter,
+    'text': text,
+    'bold': bold,
+  };
+}
+
 /// One annotation, located by the value that holds it.
 class SpecReviewAnnotation {
   /// The kind.
@@ -95,6 +118,17 @@ class SpecReviewAnnotation {
   /// A question's answer, trimmed; empty when open.
   final String answer;
 
+  /// A question's options, in order (empty when it states none).
+  final List<SpecQuestionOption> options;
+
+  /// A question's recommended letter: the bold option, else the option that
+  /// says "recommended", else the letter of a `*Recommendation:*` line.
+  final String? recommended;
+
+  /// The letter an answer starts with (`(b)` or `**(b)**`), or null.
+  String? get answerLetter =>
+      kind == SpecReviewAnnotationKind.question ? _leadingLetter(answer) : null;
+
   /// A mark's kind.
   final SpecMarkKind? markKind;
 
@@ -119,6 +153,8 @@ class SpecReviewAnnotation {
     this.starred = false,
     this.combined = false,
     this.answer = '',
+    this.options = const [],
+    this.recommended,
     this.markKind,
     this.newText,
     this.comment,
@@ -152,6 +188,9 @@ class SpecReviewAnnotation {
       'text': text,
       'answer': answer,
       'open': open,
+      'options': [for (final o in options) o.toJson()],
+      'recommended': recommended,
+      'answerLetter': answerLetter,
     },
     SpecReviewAnnotationKind.mark => {
       'kind': 'mark',
@@ -225,6 +264,9 @@ class SpecQuestionDraft {
   /// Whether the question carries `★`.
   final bool starred;
 
+  /// The recommended option's letter; that option is written bold.
+  final String? recommended;
+
   /// Creates a draft.
   const SpecQuestionDraft({
     required this.id,
@@ -234,6 +276,7 @@ class SpecQuestionDraft {
     this.recommendation = '',
     this.assumption = '',
     this.starred = false,
+    this.recommended,
   });
 
   /// Reads a draft from its corpus JSON form.
@@ -246,6 +289,7 @@ class SpecQuestionDraft {
         recommendation: j['recommendation'] as String? ?? '',
         assumption: j['assumption'] as String? ?? '',
         starred: j['starred'] as bool? ?? false,
+        recommended: j['recommended'] as String?,
       );
 }
 
@@ -468,6 +512,8 @@ class _Question {
   final bool starred;
   final String text;
   final String answer;
+  final List<SpecQuestionOption> options;
+  final String? recommended;
   _Question(
     this.header,
     this.regionEnd,
@@ -477,7 +523,83 @@ class _Question {
     this.starred,
     this.text,
     this.answer,
+    this.options,
+    this.recommended,
   );
+}
+
+bool _isLetter(String c) =>
+    c.length == 1 && c.codeUnitAt(0) >= 0x61 && c.codeUnitAt(0) <= 0x7a;
+
+/// The options of a question and its recommended letter (SOM §11.9.2): one
+/// option per line, `- (a) …`, the recommended one bold, `- **(b)** …`. The
+/// recommended letter is the first bold option's; else the first option's
+/// whose text says "recommended"; else the letter a `*Recommendation:*` line
+/// names; else none.
+(List<SpecQuestionOption>, String?) _parseOptions(List<String> lines) {
+  final options = <SpecQuestionOption>[];
+  String? letter, text;
+  var bold = false;
+  void close() {
+    if (letter != null) {
+      options.add(SpecQuestionOption(letter!, text!.trim(), bold: bold));
+    }
+    letter = null;
+  }
+
+  for (final l in lines) {
+    if (l.startsWith('- ')) {
+      final r = l.substring(2);
+      if (r.length >= 7 &&
+          r.startsWith('**(') &&
+          _isLetter(r[3]) &&
+          r.substring(4, 7) == ')**') {
+        close();
+        letter = r[3];
+        text = r.substring(7);
+        bold = true;
+        continue;
+      }
+      if (r.length >= 3 && r[0] == '(' && _isLetter(r[1]) && r[2] == ')') {
+        close();
+        letter = r[1];
+        text = r.substring(3);
+        bold = false;
+        continue;
+      }
+    }
+    if (letter != null && l.startsWith(' ') && l.trim().isNotEmpty) {
+      text = '${text!.trim()} ${l.trim()}';
+      continue;
+    }
+    close();
+  }
+  close();
+  for (final o in options) {
+    if (o.bold) return (options, o.letter);
+  }
+  for (final o in options) {
+    if (o.text.toLowerCase().contains('recommended'))
+      return (options, o.letter);
+  }
+  const label = '*Recommendation:*';
+  for (final l in lines) {
+    final i = l.indexOf(label);
+    if (i < 0) continue;
+    final x = _leadingLetter(l.substring(i + label.length));
+    if (x != null) return (options, x);
+  }
+  return (options, null);
+}
+
+/// The letter of a leading `(x)` or `**(x)**` in [s] (spaces skipped).
+String? _leadingLetter(String s) {
+  var t = s.trimLeft();
+  if (t.startsWith('**')) t = t.substring(2);
+  if (t.length >= 3 && t[0] == '(' && _isLetter(t[1]) && t[2] == ')') {
+    return t[1];
+  }
+  return null;
 }
 
 /// One parsed comment block.
@@ -759,6 +881,9 @@ void _parseQuestions(_Parsed p, _Block b) {
       }
     }
     final textEnd = answer == null ? regionEnd : answer - 1;
+    final (options, recommended) = _parseOptions(
+      inner.sublist(k + 1, textEnd + 1),
+    );
     final text = [
       h.rest,
       ...inner.sublist(k + 1, textEnd + 1),
@@ -780,6 +905,8 @@ void _parseQuestions(_Parsed p, _Block b) {
         h.starred,
         text,
         answerText,
+        options,
+        recommended,
       ),
     );
   }
@@ -1037,6 +1164,8 @@ List<SpecReviewAnnotation> _annotationsOf(
             combined: p.combined[b]!,
             text: q.text,
             answer: q.answer,
+            options: q.options,
+            recommended: q.recommended,
           ),
         ));
       }
@@ -1145,7 +1274,10 @@ List<String> formatQuestionBlock(SpecQuestionDraft q) {
     '> $_questionOpen ${q.id}$_emDashSep${q.starred ? '$_star ' : ''}'
         '${q.topic}:** ${t.first}',
     ..._quoted(t.sublist(1)),
-    for (final o in q.options) '> - $o',
+    for (final o in q.options)
+      q.recommended != null && o.startsWith('(${q.recommended})')
+          ? '> - **(${q.recommended})**${o.substring(3)}'
+          : '> - $o',
   ];
   if (q.recommendation.isNotEmpty || q.assumption.isNotEmpty) {
     lines.add('>');

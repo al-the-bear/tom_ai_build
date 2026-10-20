@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Question options (SOM §11.9.2, annot7), in `spec_review_annotations`, a
+  port of the Dart reference: a listed question carries its `options`
+  (`SpecQuestionOption`: `letter`, `text` with continuation lines joined,
+  `bold`) and its `recommended` letter (the bold option, else the option that
+  says "recommended", else the letter of a `*Recommendation:*` line);
+  `SpecReviewAnnotation::answerLetter()` reads the `(b)` / `**(b)**` an answer
+  starts with. The question JSON gains `options`, `recommended` and
+  `answerLetter`. `SpecQuestionDraft::recommended` makes
+  `formatQuestionBlock` write that option bold, `- **(b)** …`.
+
 - Extracting answers for a step folder (SOM §11.9.7, annot6), a new module
   `spec_answers` ported from the Dart reference: `som::extractAnswers(model,
   doc, label, path)` returns a `SpecAnswerExtract` (`label`, `qualifier`,

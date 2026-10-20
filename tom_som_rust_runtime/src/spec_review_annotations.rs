@@ -124,6 +124,11 @@ pub struct SpecReviewAnnotation {
     pub combined: bool,
     /// A question's answer, trimmed; empty when open.
     pub answer: String,
+    /// A question's options, in order (empty when it states none).
+    pub options: Vec<SpecQuestionOption>,
+    /// A question's recommended letter: the bold option, else the option that
+    /// says "recommended", else the letter of a `*Recommendation:*` line.
+    pub recommended: Option<String>,
     /// A mark's kind.
     pub mark_kind: Option<SpecMarkKind>,
     /// A substitution's new text.
@@ -148,6 +153,8 @@ impl SpecReviewAnnotation {
             starred: false,
             combined: false,
             answer: String::new(),
+            options: Vec::new(),
+            recommended: None,
             mark_kind: None,
             new_text: None,
             comment: None,
@@ -157,6 +164,15 @@ impl SpecReviewAnnotation {
     /// Whether a question is still open (no answer written).
     pub fn is_open(&self) -> bool {
         self.kind == SpecReviewAnnotationKind::Question && self.answer.is_empty()
+    }
+
+    /// The letter an answer starts with (`(b)` or `**(b)**`), or `None`
+    /// (always `None` for a comment or mark).
+    pub fn answer_letter(&self) -> Option<String> {
+        if self.kind != SpecReviewAnnotationKind::Question {
+            return None;
+        }
+        leading_letter(&self.answer)
     }
 
     /// The canonical JSON form the conformance corpus pins.
@@ -192,6 +208,12 @@ impl SpecReviewAnnotation {
                 ("text", s(&self.text)),
                 ("answer", s(&self.answer)),
                 ("open", Json::Bool(self.is_open())),
+                (
+                    "options",
+                    Json::Array(self.options.iter().map(|o| o.to_json()).collect()),
+                ),
+                ("recommended", o(&self.recommended)),
+                ("answerLetter", o(&self.answer_letter())),
             ],
             SpecReviewAnnotationKind::Mark => vec![
                 ("kind", s("mark")),
@@ -208,6 +230,29 @@ impl SpecReviewAnnotation {
             ],
         };
         Json::Object(pairs.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
+    }
+}
+
+/// One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
+/// for the recommended one.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecQuestionOption {
+    /// The lowercase letter.
+    pub letter: String,
+    /// The option's text, its continuation lines joined with one space.
+    pub text: String,
+    /// Whether the option is written bold — the recommended one.
+    pub bold: bool,
+}
+
+impl SpecQuestionOption {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        Json::Object(vec![
+            ("letter".to_string(), Json::Str(self.letter.clone())),
+            ("text".to_string(), Json::Str(self.text.clone())),
+            ("bold".to_string(), Json::Bool(self.bold)),
+        ])
     }
 }
 
@@ -257,6 +302,8 @@ pub struct SpecQuestionDraft {
     pub assumption: String,
     /// Whether the question carries `★`.
     pub starred: bool,
+    /// The recommended option's letter; that option is written bold.
+    pub recommended: Option<String>,
 }
 
 impl SpecQuestionDraft {
@@ -293,6 +340,10 @@ impl SpecQuestionDraft {
             recommendation: j.str_or("recommendation"),
             assumption: j.str_or("assumption"),
             starred: j.bool_or("starred"),
+            recommended: j
+                .get("recommended")
+                .and_then(|r| r.as_str())
+                .map(str::to_string),
         }
     }
 }
@@ -523,6 +574,84 @@ struct Question {
     starred: bool,
     text: String,
     answer: String,
+    options: Vec<SpecQuestionOption>,
+    recommended: Option<String>,
+}
+
+fn is_letter(c: u8) -> bool {
+    c.is_ascii_lowercase()
+}
+
+/// The options of a question and its recommended letter (SOM §11.9.2): one
+/// option per line, `- (a) …`, the recommended one bold, `- **(b)** …`. The
+/// recommended letter is the first bold option's; else the first option's
+/// whose text says "recommended"; else the letter a `*Recommendation:*` line
+/// names; else none.
+fn parse_options(lines: &[String]) -> (Vec<SpecQuestionOption>, Option<String>) {
+    let mut options = Vec::new();
+    // The open option: (letter, text, bold).
+    let mut current: Option<(String, String, bool)> = None;
+    fn close(current: &mut Option<(String, String, bool)>, options: &mut Vec<SpecQuestionOption>) {
+        if let Some((letter, text, bold)) = current.take() {
+            options.push(SpecQuestionOption {
+                letter,
+                text: text.trim().to_string(),
+                bold,
+            });
+        }
+    }
+    for l in lines {
+        if let Some(r) = l.strip_prefix("- ") {
+            let b = r.as_bytes();
+            if b.len() >= 7 && r.starts_with("**(") && is_letter(b[3]) && &b[4..7] == b")**" {
+                close(&mut current, &mut options);
+                current = Some((r[3..4].to_string(), r[7..].to_string(), true));
+                continue;
+            }
+            if b.len() >= 3 && b[0] == b'(' && is_letter(b[1]) && b[2] == b')' {
+                close(&mut current, &mut options);
+                current = Some((r[1..2].to_string(), r[3..].to_string(), false));
+                continue;
+            }
+        }
+        if let Some((_, text, _)) = current.as_mut() {
+            if l.starts_with(' ') && !l.trim().is_empty() {
+                *text = format!("{} {}", text.trim(), l.trim());
+                continue;
+            }
+        }
+        close(&mut current, &mut options);
+    }
+    close(&mut current, &mut options);
+    let recommended = options
+        .iter()
+        .find(|o| o.bold)
+        .or_else(|| {
+            options
+                .iter()
+                .find(|o| o.text.to_lowercase().contains("recommended"))
+        })
+        .map(|o| o.letter.clone())
+        .or_else(|| {
+            const LABEL: &str = "*Recommendation:*";
+            lines.iter().find_map(|l| {
+                l.find(LABEL)
+                    .and_then(|i| leading_letter(&l[i + LABEL.len()..]))
+            })
+        });
+    (options, recommended)
+}
+
+/// The letter of a leading `(x)` or `**(x)**` in `s` (spaces skipped).
+fn leading_letter(s: &str) -> Option<String> {
+    let t = s.trim_start();
+    let t = t.strip_prefix("**").unwrap_or(t);
+    let b = t.as_bytes();
+    if b.len() >= 3 && b[0] == b'(' && is_letter(b[1]) && b[2] == b')' {
+        Some(t[1..2].to_string())
+    } else {
+        None
+    }
 }
 
 /// One parsed block of a value (lines [start, end] inclusive).
@@ -856,6 +985,7 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
             Some(a) => a - 1,
             None => region_end,
         };
+        let (options, recommended) = parse_options(&inn[k + 1..=text_end]);
         let mut parts: Vec<&str> = vec![h.rest.as_str()];
         parts.extend(inn[k + 1..=text_end].iter().map(String::as_str));
         let text = parts.join("\n").trim().to_string();
@@ -874,6 +1004,8 @@ fn parse_questions(p: &mut Parsed, start: usize, end: usize) -> (Vec<Question>, 
             starred: h.starred,
             text,
             answer: answer_text,
+            options,
+            recommended,
         });
     }
     (list, combined)
@@ -1134,6 +1266,8 @@ fn annotations_of(
                 a.combined = b.combined;
                 a.text = q.text.clone();
                 a.answer = q.answer.clone();
+                a.options = q.options.clone();
+                a.recommended = q.recommended.clone();
                 out.push((q.header, 0, seq, a));
                 seq += 1;
             }
@@ -1260,7 +1394,12 @@ pub fn format_question_block(q: &SpecQuestionDraft) -> Vec<String> {
     )];
     lines.extend(quoted(&t[1..]));
     for o in &q.options {
-        lines.push(format!("> - {}", o));
+        match &q.recommended {
+            Some(r) if o.starts_with(&format!("({})", r)) => {
+                lines.push(format!("> - **({})**{}", r, o.get(3..).unwrap_or("")));
+            }
+            _ => lines.push(format!("> - {}", o)),
+        }
     }
     if !q.recommendation.is_empty() || !q.assumption.is_empty() {
         lines.push(">".to_string());

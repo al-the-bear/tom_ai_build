@@ -2836,6 +2836,9 @@ static som::SpecQuestionDraft draft_from_json(const som::JsonRef& j) {
   d.recommendation = som::jsonStrOr(j, "recommendation");
   d.assumption = som::jsonStrOr(j, "assumption");
   d.starred = som::jsonBoolOr(j, "starred");
+  if (const std::string* r = som::jsonAsStr(som::jsonGet(j, "recommended"))) {
+    d.recommended = *r;
+  }
   return d;
 }
 

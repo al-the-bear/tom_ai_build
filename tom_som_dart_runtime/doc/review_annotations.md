@@ -77,7 +77,8 @@ DEMO C-1
 | `SpecReviewAnnotation` | One listed annotation: kind, path, field, line, id, author, text, context, topic, answer, mark kind, new text, comment. `toJson()` is the form the conformance corpus pins |
 | `SpecReviewAnnotationKind` | `comment`, `question`, `mark` |
 | `SpecMarkKind` | `comment`, `highlight`, `insertion`, `deletion`, `substitution` |
-| `SpecQuestionDraft` | A question to insert: id, topic, text, options, recommendation, assumption, starred |
+| `SpecQuestionDraft` | A question to insert: id, topic, text, options, recommendation, assumption, starred, and `recommended`, the letter whose option is written bold |
+| `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
 | `SpecReviewAnnotationCounts` | questions, open, answered, comments, marks |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `stripAnnotationsText` | One value without its annotations |
@@ -87,7 +88,7 @@ DEMO C-1
 
 | Operation | Does |
 |-----------|------|
-| `list()` | Every annotation, in document order. A question of a combined block carries `combined: true` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
+| `list()` | Every annotation, in document order. A question carries its `options`, its `recommended` letter (the bold option, else the option that says "recommended", else the letter of a `*Recommendation:*` line) and its `answerLetter` (`(b)` or `**(b)**` at the start of the answer). A question of a combined block carries `combined: true` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
 | `counts()` | The counts a report needs |
 | `nextCommentId({floor})` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds({floor})` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |

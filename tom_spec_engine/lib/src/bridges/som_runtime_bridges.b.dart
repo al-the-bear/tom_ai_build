@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-10-20T12:02:01.056211 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T12:50:58.619896 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -86,6 +86,7 @@ class SomRuntimeBridge {
       _createSpecAnswerCountsBridge(),
       _createSpecAnswerExtractBridge(),
       _createSpecAnswerRenderOptionsBridge(),
+      _createSpecQuestionOptionBridge(),
       _createSpecReviewAnnotationBridge(),
       _createSpecReviewAnnotationCountsBridge(),
       _createSpecQuestionDraftBridge(),
@@ -199,6 +200,7 @@ class SomRuntimeBridge {
       'SpecAnswerCounts': _createSpecAnswerCountsBridge,
       'SpecAnswerExtract': _createSpecAnswerExtractBridge,
       'SpecAnswerRenderOptions': _createSpecAnswerRenderOptionsBridge,
+      'SpecQuestionOption': _createSpecQuestionOptionBridge,
       'SpecReviewAnnotation': _createSpecReviewAnnotationBridge,
       'SpecReviewAnnotationCounts': _createSpecReviewAnnotationCountsBridge,
       'SpecQuestionDraft': _createSpecQuestionDraftBridge,
@@ -313,6 +315,7 @@ class SomRuntimeBridge {
       'SpecAnswerExtract': $tom_som_dart_runtime_4.SpecAnswerExtract,
       'SpecAnswerRenderOptions':
           $tom_som_dart_runtime_4.SpecAnswerRenderOptions,
+      'SpecQuestionOption': $tom_som_dart_runtime_21.SpecQuestionOption,
       'SpecReviewAnnotation': $tom_som_dart_runtime_21.SpecReviewAnnotation,
       'SpecReviewAnnotationCounts':
           $tom_som_dart_runtime_21.SpecReviewAnnotationCounts,
@@ -443,6 +446,8 @@ class SomRuntimeBridge {
       'SpecAnswerExtract': 'package:tom_som_dart_runtime/src/spec_answers.dart',
       'SpecAnswerRenderOptions':
           'package:tom_som_dart_runtime/src/spec_answers.dart',
+      'SpecQuestionOption':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecReviewAnnotation':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecReviewAnnotationCounts':
@@ -3748,6 +3753,80 @@ BridgedClass _createSpecAnswerRenderOptionsBridge() {
 }
 
 // =============================================================================
+// SpecQuestionOption Bridge
+// =============================================================================
+
+BridgedClass _createSpecQuestionOptionBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_21.SpecQuestionOption,
+    name: 'SpecQuestionOption',
+    isAssignable: (v) => v is $tom_som_dart_runtime_21.SpecQuestionOption,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(positional, 2, 'SpecQuestionOption');
+        final letter = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'letter',
+          'SpecQuestionOption',
+        );
+        final text = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'text',
+          'SpecQuestionOption',
+        );
+        final bold = D4.getNamedArgWithDefault<bool>(named, 'bold', false);
+        return $tom_som_dart_runtime_21.SpecQuestionOption(
+          letter,
+          text,
+          bold: bold,
+        );
+      },
+    },
+    getters: {
+      'letter': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecQuestionOption>(
+            target,
+            'SpecQuestionOption',
+          )
+          .letter,
+      'text': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecQuestionOption>(
+            target,
+            'SpecQuestionOption',
+          )
+          .text,
+      'bold': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecQuestionOption>(
+            target,
+            'SpecQuestionOption',
+          )
+          .bold,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_21.SpecQuestionOption>(
+              target,
+              'SpecQuestionOption',
+            );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecQuestionOption(String letter, String text, {bool bold = false})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'letter': 'String get letter',
+      'text': 'String get text',
+      'bold': 'bool get bold',
+    },
+  );
+}
+
+// =============================================================================
 // SpecReviewAnnotation Bridge
 // =============================================================================
 
@@ -3793,6 +3872,16 @@ BridgedClass _createSpecReviewAnnotationBridge() {
           false,
         );
         final answer = D4.getNamedArgWithDefault<String>(named, 'answer', '');
+        final options = named.containsKey('options') && named['options'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_21.SpecQuestionOption>(
+                named['options'],
+                'options',
+              )
+            : const <$tom_som_dart_runtime_21.SpecQuestionOption>[];
+        final recommended = D4.getOptionalNamedArg<String?>(
+          named,
+          'recommended',
+        );
         final markKind = D4
             .getOptionalNamedArg<$tom_som_dart_runtime_21.SpecMarkKind?>(
               named,
@@ -3814,6 +3903,8 @@ BridgedClass _createSpecReviewAnnotationBridge() {
           starred: starred,
           combined: combined,
           answer: answer,
+          options: options,
+          recommended: recommended,
           markKind: markKind,
           newText: newText,
           comment: comment,
@@ -3899,6 +3990,18 @@ BridgedClass _createSpecReviewAnnotationBridge() {
             'SpecReviewAnnotation',
           )
           .answer,
+      'options': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
+            target,
+            'SpecReviewAnnotation',
+          )
+          .options,
+      'recommended': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
+            target,
+            'SpecReviewAnnotation',
+          )
+          .recommended,
       'markKind': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
             target,
@@ -3917,6 +4020,12 @@ BridgedClass _createSpecReviewAnnotationBridge() {
             'SpecReviewAnnotation',
           )
           .comment,
+      'answerLetter': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
+            target,
+            'SpecReviewAnnotation',
+          )
+          .answerLetter,
       'open': (visitor, target) => D4
           .validateTarget<$tom_som_dart_runtime_21.SpecReviewAnnotation>(
             target,
@@ -3935,7 +4044,7 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       },
     },
     constructorSignatures: {
-      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', SpecMarkKind? markKind, String? newText, String? comment})',
+      '': 'const SpecReviewAnnotation({required SpecReviewAnnotationKind kind, required String path, String? field, required int line, String? id, String? qualifiedId, String? author, String text = \'\', String context = \'\', String? topic, bool starred = false, bool combined = false, String answer = \'\', List<SpecQuestionOption> options = const [], String? recommended, SpecMarkKind? markKind, String? newText, String? comment})',
     },
     methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
     getterSignatures: {
@@ -3952,9 +4061,12 @@ BridgedClass _createSpecReviewAnnotationBridge() {
       'starred': 'bool get starred',
       'combined': 'bool get combined',
       'answer': 'String get answer',
+      'options': 'List<SpecQuestionOption> get options',
+      'recommended': 'String? get recommended',
       'markKind': 'SpecMarkKind? get markKind',
       'newText': 'String? get newText',
       'comment': 'String? get comment',
+      'answerLetter': 'String? get answerLetter',
       'open': 'bool get open',
     },
   );
@@ -4093,6 +4205,10 @@ BridgedClass _createSpecQuestionDraftBridge() {
           'starred',
           false,
         );
+        final recommended = D4.getOptionalNamedArg<String?>(
+          named,
+          'recommended',
+        );
         return $tom_som_dart_runtime_21.SpecQuestionDraft(
           id: id,
           topic: topic,
@@ -4101,6 +4217,7 @@ BridgedClass _createSpecQuestionDraftBridge() {
           recommendation: recommendation,
           assumption: assumption,
           starred: starred,
+          recommended: recommended,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -4157,9 +4274,15 @@ BridgedClass _createSpecQuestionDraftBridge() {
             'SpecQuestionDraft',
           )
           .starred,
+      'recommended': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_21.SpecQuestionDraft>(
+            target,
+            'SpecQuestionDraft',
+          )
+          .recommended,
     },
     constructorSignatures: {
-      '': 'const SpecQuestionDraft({required String id, required String topic, required String text, List<String> options = const [], String recommendation = \'\', String assumption = \'\', bool starred = false})',
+      '': 'const SpecQuestionDraft({required String id, required String topic, required String text, List<String> options = const [], String recommendation = \'\', String assumption = \'\', bool starred = false, String? recommended})',
       'fromJson': 'factory SpecQuestionDraft.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -4170,6 +4293,7 @@ BridgedClass _createSpecQuestionDraftBridge() {
       'recommendation': 'String get recommendation',
       'assumption': 'String get assumption',
       'starred': 'bool get starred',
+      'recommended': 'String? get recommended',
     },
   );
 }

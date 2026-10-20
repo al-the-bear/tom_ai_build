@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.19
+
+- Question options (SOM §11.9.2): a question annotation lists its `options`
+  (`SpecQuestionOption`: letter, text with continuation lines joined, bold),
+  its `recommended` letter (the bold option, else the option that says
+  "recommended", else the letter of a `*Recommendation:*` line) and its
+  `answerLetter` (`(b)` or `**(b)**` at the start of the answer).
+  `SpecQuestionDraft.recommended` writes that option bold. Conformance: a new
+  `annotation_cases.json` case.
+
 ## 1.6.18
 
 - Answers for a step folder (SOM §11.9.7): `extractAnswers` collects a

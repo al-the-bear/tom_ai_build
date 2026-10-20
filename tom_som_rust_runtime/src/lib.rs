@@ -132,8 +132,8 @@ pub use spec_review_annotations::{
     apply_inline_marks_text, format_comment_block, format_question_block, mark_change_text,
     strip_annotations_text, validate_review_annotations, SpecMarkDecision, SpecMarkEntry,
     SpecMarkIssue, SpecMarkKind, SpecMarkOutcome, SpecMarkReport, SpecMarkedChange,
-    SpecQuestionDraft, SpecReviewAnnotation, SpecReviewAnnotationCounts, SpecReviewAnnotationError,
-    SpecReviewAnnotationKind, SpecReviewAnnotations,
+    SpecQuestionDraft, SpecQuestionOption, SpecReviewAnnotation, SpecReviewAnnotationCounts,
+    SpecReviewAnnotationError, SpecReviewAnnotationKind, SpecReviewAnnotations,
 };
 pub use spec_schema_validation::validate_spec_document;
 pub use spec_section_id::{

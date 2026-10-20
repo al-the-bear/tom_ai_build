@@ -1,6 +1,9 @@
 package tom_som_runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /** One review annotation (SOM §11.9), located by the value that holds it. */
@@ -47,6 +50,15 @@ public final class SpecReviewAnnotation {
   /** A question's answer, trimmed; empty when open. */
   public final String answer;
 
+  /** A question's options, in order (empty when it states none). */
+  public final List<SpecQuestionOption> options;
+
+  /**
+   * A question's recommended letter: the bold option, else the option that says "recommended", else
+   * the letter of a {@code *Recommendation:*} line; null for none.
+   */
+  public final String recommended;
+
   /** A mark's kind; null for a comment or question. */
   public final SpecMarkKind markKind;
 
@@ -73,6 +85,29 @@ public final class SpecReviewAnnotation {
       SpecMarkKind markKind,
       String newText,
       String comment) {
+    this(kind, path, field, line, id, qualifiedId, author, text, context, topic, starred,
+        combined, answer, null, null, markKind, newText, comment);
+  }
+
+  SpecReviewAnnotation(
+      SpecReviewAnnotationKind kind,
+      String path,
+      String field,
+      int line,
+      String id,
+      String qualifiedId,
+      String author,
+      String text,
+      String context,
+      String topic,
+      boolean starred,
+      boolean combined,
+      String answer,
+      List<SpecQuestionOption> options,
+      String recommended,
+      SpecMarkKind markKind,
+      String newText,
+      String comment) {
     this.kind = kind;
     this.path = path;
     this.field = field;
@@ -86,6 +121,11 @@ public final class SpecReviewAnnotation {
     this.starred = starred;
     this.combined = combined;
     this.answer = answer == null ? "" : answer;
+    this.options =
+        options == null
+            ? Collections.emptyList()
+            : Collections.unmodifiableList(new ArrayList<>(options));
+    this.recommended = recommended;
     this.markKind = markKind;
     this.newText = newText;
     this.comment = comment;
@@ -94,6 +134,13 @@ public final class SpecReviewAnnotation {
   /** Whether a question is still open (no answer written). */
   public boolean open() {
     return kind == SpecReviewAnnotationKind.QUESTION && answer.isEmpty();
+  }
+
+  /** The letter an answer starts with ({@code (b)} or {@code **(b)**}), or null. */
+  public String answerLetter() {
+    return kind == SpecReviewAnnotationKind.QUESTION
+        ? SpecReviewAnnotations.leadingLetter(answer)
+        : null;
   }
 
   /** The canonical JSON form the conformance corpus pins ({@code null} written explicitly). */
@@ -119,6 +166,13 @@ public final class SpecReviewAnnotation {
         out.put("text", text);
         out.put("answer", answer);
         out.put("open", open());
+        List<Object> opts = new ArrayList<>();
+        for (SpecQuestionOption o : options) {
+          opts.add(o.toJson());
+        }
+        out.put("options", opts);
+        out.put("recommended", recommended);
+        out.put("answerLetter", answerLetter());
         break;
       case MARK:
         out.put("markKind", markKind.value);

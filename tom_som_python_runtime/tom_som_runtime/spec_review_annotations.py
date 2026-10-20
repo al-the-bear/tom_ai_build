@@ -50,6 +50,23 @@ class SpecMarkKind(Enum):
 
 
 @dataclass(frozen=True)
+class SpecQuestionOption:
+    """One option of a question (SOM §11.9.2): ``- (a) text``, or
+    ``- **(b)** text`` for the recommended one."""
+
+    #: The lowercase letter.
+    letter: str
+    #: The option's text, its continuation lines joined with one space.
+    text: str
+    #: Whether the option is written bold — the recommended one.
+    bold: bool = False
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {"letter": self.letter, "text": self.text, "bold": self.bold}
+
+
+@dataclass(frozen=True)
 class SpecReviewAnnotation:
     """One annotation, located by the value that holds it."""
 
@@ -83,6 +100,11 @@ class SpecReviewAnnotation:
     combined: bool = False
     #: A question's answer, trimmed; empty when open.
     answer: str = ""
+    #: A question's options, in order (empty when it states none).
+    options: tuple[SpecQuestionOption, ...] = ()
+    #: A question's recommended letter: the bold option, else the option that
+    #: says "recommended", else the letter of a ``*Recommendation:*`` line.
+    recommended: Optional[str] = None
     #: A mark's kind.
     mark_kind: Optional[SpecMarkKind] = None
     #: A substitution's new text.
@@ -94,6 +116,14 @@ class SpecReviewAnnotation:
     def open(self) -> bool:
         """Whether a question is still open (no answer written)."""
         return self.kind is SpecReviewAnnotationKind.QUESTION and self.answer == ""
+
+    @property
+    def answer_letter(self) -> Optional[str]:
+        """The letter an answer starts with (``(b)`` or ``**(b)**``), or
+        ``None``."""
+        if self.kind is not SpecReviewAnnotationKind.QUESTION:
+            return None
+        return _leading_letter(self.answer)
 
     def to_json(self) -> dict[str, Any]:
         """The canonical JSON form the conformance corpus pins."""
@@ -122,6 +152,9 @@ class SpecReviewAnnotation:
                 "text": self.text,
                 "answer": self.answer,
                 "open": self.open,
+                "options": [o.to_json() for o in self.options],
+                "recommended": self.recommended,
+                "answerLetter": self.answer_letter,
             }
         assert self.mark_kind is not None
         return {
@@ -175,6 +208,8 @@ class SpecQuestionDraft:
     assumption: str = ""
     #: Whether the question carries ``★``.
     starred: bool = False
+    #: The recommended option's letter; that option is written bold.
+    recommended: Optional[str] = None
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "SpecQuestionDraft":
@@ -187,6 +222,7 @@ class SpecQuestionDraft:
             recommendation=j.get("recommendation") or "",
             assumption=j.get("assumption") or "",
             starred=bool(j.get("starred") or False),
+            recommended=j.get("recommended"),
         )
 
 
@@ -393,6 +429,84 @@ class _Question:
     starred: bool
     text: str
     answer: str
+    options: tuple[SpecQuestionOption, ...] = ()
+    recommended: Optional[str] = None
+
+
+def _is_letter(c: str) -> bool:
+    return len(c) == 1 and "a" <= c <= "z"
+
+
+def _parse_options(
+    lines: list[str],
+) -> tuple[tuple[SpecQuestionOption, ...], Optional[str]]:
+    """The options of a question and its recommended letter (SOM §11.9.2): one
+    option per line, ``- (a) …``, the recommended one bold, ``- **(b)** …``.
+    The recommended letter is the first bold option's; else the first
+    option's whose text says "recommended"; else the letter a
+    ``*Recommendation:*`` line names; else none."""
+    options: list[SpecQuestionOption] = []
+    letter: Optional[str] = None
+    text = ""
+    bold = False
+
+    def close() -> None:
+        nonlocal letter
+        if letter is not None:
+            options.append(SpecQuestionOption(letter, _trim(text), bold))
+        letter = None
+
+    for l in lines:
+        if l.startswith("- "):
+            r = l[2:]
+            if (
+                len(r) >= 7
+                and r.startswith("**(")
+                and _is_letter(r[3])
+                and r[4:7] == ")**"
+            ):
+                close()
+                letter, text, bold = r[3], r[7:], True
+                continue
+            if len(r) >= 3 and r[0] == "(" and _is_letter(r[1]) and r[2] == ")":
+                close()
+                letter, text, bold = r[1], r[3:], False
+                continue
+        if letter is not None and l.startswith(" ") and _trim(l) != "":
+            text = f"{_trim(text)} {_trim(l)}"
+            continue
+        close()
+    close()
+    result = tuple(options)
+    for o in options:
+        if o.bold:
+            return (result, o.letter)
+    for o in options:
+        if "recommended" in o.text.lower():
+            return (result, o.letter)
+    label = "*Recommendation:*"
+    for l in lines:
+        i = l.find(label)
+        if i < 0:
+            continue
+        x = _leading_letter(l[i + len(label):])
+        if x is not None:
+            return (result, x)
+    return (result, None)
+
+
+def _leading_letter(s: str) -> Optional[str]:
+    """The letter of a leading ``(x)`` or ``**(x)**`` in ``s`` (spaces
+    skipped)."""
+    a = 0
+    while a < len(s) and s[a] in _WS:
+        a += 1
+    t = s[a:]
+    if t.startswith("**"):
+        t = t[2:]
+    if len(t) >= 3 and t[0] == "(" and _is_letter(t[1]) and t[2] == ")":
+        return t[1]
+    return None
 
 
 @dataclass
@@ -632,6 +746,7 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 answer = m
                 break
         text_end = region_end if answer is None else answer - 1
+        options, recommended = _parse_options(inner[k + 1:text_end + 1])
         text = _trim("\n".join([rest, *inner[k + 1:text_end + 1]]))
         answer_text = ""
         if answer is not None:
@@ -650,6 +765,8 @@ def _parse_questions(p: _Parsed, b: _Block) -> None:
                 starred,
                 text,
                 answer_text,
+                options,
+                recommended,
             )
         )
     b.questions = out
@@ -854,6 +971,8 @@ def _annotations_of(
                         combined=b.combined,
                         text=q.text,
                         answer=q.answer,
+                        options=q.options,
+                        recommended=q.recommended,
                     ),
                 ))
                 seq += 1
@@ -949,7 +1068,12 @@ def format_question_block(q: SpecQuestionDraft) -> list[str]:
     lines = [
         f"> {_QUESTION_OPEN} {q.id}{_EM_DASH_SEP}{star}{q.topic}:** {t[0]}",
         *_quoted(t[1:]),
-        *[f"> - {o}" for o in q.options],
+        *[
+            f"> - **({q.recommended})**{o[3:]}"
+            if q.recommended is not None and o.startswith(f"({q.recommended})")
+            else f"> - {o}"
+            for o in q.options
+        ],
     ]
     if q.recommendation or q.assumption:
         lines.append(">")

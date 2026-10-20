@@ -78,7 +78,8 @@ All are public classes of the `tom_som_runtime` package.
 | `SpecReviewAnnotation` | One listed annotation, as public final fields: `kind`, `path`, `field`, `line`, `id`, `qualifiedId`, `author`, `text`, `context`, `topic`, `starred`, `combined`, `answer`, `markKind`, `newText`, `comment`; `open()`. `toJson()` is the form the conformance corpus pins |
 | `SpecReviewAnnotationKind` | `COMMENT`, `QUESTION`, `MARK` (`value`: `comment`, `question`, `mark`) |
 | `SpecMarkKind` | `COMMENT`, `HIGHLIGHT`, `INSERTION`, `DELETION`, `SUBSTITUTION` (`value` in lower case) |
-| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`; `fromJson` reads the corpus form |
+| `SpecQuestionDraft` | A question to insert: `id`, `topic`, `text`, `options`, `recommendation`, `assumption`, `starred`, and `recommended`, the letter whose option is written bold; `fromJson` reads the corpus form |
+| `SpecQuestionOption` | One option of a question: `letter`, `text` (continuation lines joined), `bold` |
 | `SpecReviewAnnotationCounts` | `questions`, `openQuestions`, `answeredQuestions`, `comments`, `marks`; `toJson()` |
 | `SpecReviewAnnotationError` | An operation named something that is not there (unchecked) |
 | `SpecReviewAnnotations.stripAnnotationsText` | One value without its annotations (static) |
@@ -90,7 +91,7 @@ A `field` argument is null for a content value.
 
 | Operation | Does |
 |-----------|------|
-| `list()` | Every annotation, in document order. A question of a combined block carries `combined == true` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
+| `list()` | Every annotation, in document order. A question carries its `options`, its `recommended` letter (the bold option, else the option that says "recommended", else the letter of a `*Recommendation:*` line) and its `answerLetter()` (`(b)` or `**(b)**` at the start of the answer). A question of a combined block carries `combined == true` and the field it asks about as its topic; a comment carries the paragraph before it as `context` |
 | `counts()` | The counts a report needs |
 | `nextCommentId()` / `nextCommentId(floor)` | The id the next comment gets: the highest `C-<n>` in the document (or `floor`, when higher) plus one. Writes nothing |
 | `assignCommentIds()` / `assignCommentIds(floor)` | Writes `**C-<n>**` after the marker of every comment without an id, in document order; returns the ids |

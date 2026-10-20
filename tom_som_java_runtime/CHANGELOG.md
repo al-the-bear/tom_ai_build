@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Question options (SOM §11.9.2): `SpecReviewAnnotations.list()` reads a
+  question's options (`- (a) …`, the recommended one bold, `- **(b)** …`,
+  continuation lines joined) into `options`, its `recommended` letter (the
+  bold option, else the option that says "recommended", else the letter of a
+  `*Recommendation:*` line) and `answerLetter()` (a leading `(b)` or `**(b)**`
+  of the answer); the JSON form carries `options`, `recommended` and
+  `answerLetter`. `SpecQuestionDraft.recommended` makes `formatQuestionBlock`
+  write that option bold. New public type: `SpecQuestionOption` (`letter`,
+  `text`, `bold`).
+
 - Extracting answers for a step folder (SOM §11.9.7): ports the Dart
   `spec_answers` module. `SpecAnswers.extractAnswers(model, doc, label, path)`
   lists every question (answered or open), comment and inline mark of a

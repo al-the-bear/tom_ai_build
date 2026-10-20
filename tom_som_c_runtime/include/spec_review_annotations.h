@@ -59,6 +59,20 @@ typedef enum {
  * `"deletion"`, `"substitution"`); static. */
 const char *spec_mark_kind_name(SpecMarkKind kind);
 
+/* One option of a question (SOM §11.9.2): `- (a) text`, or `- **(b)** text`
+ * for the recommended one. Strings owned. */
+typedef struct {
+  /* The lowercase letter, a one-character string. */
+  char *letter;
+  /* The option's text, its continuation lines joined with one space. */
+  char *text;
+  /* Whether the option is written bold — the recommended one. */
+  int bold;
+} SpecQuestionOption;
+
+/* `{letter, text, bold}`. Owned. */
+char *spec_question_option_to_json(const SpecQuestionOption *o);
+
 /* One annotation, located by the value that holds it. Every string is owned;
  * NULL stands for the Dart `null`. Release with `spec_review_annotation_free`
  * (a list releases its items). */
@@ -95,6 +109,13 @@ typedef struct {
   int combined;
   /* A question's answer, trimmed; empty when open. Never NULL. */
   char *answer;
+  /* A question's options, in order (none when it states none). Owned. */
+  SpecQuestionOption *options;
+  size_t options_len;
+  /* A question's recommended letter: the bold option, else the option that
+   * says "recommended", else the letter of a `*Recommendation:*` line; NULL
+   * for none. */
+  char *recommended;
   /* A mark's kind (meaningful for SPEC_REVIEW_ANNOTATION_MARK only). */
   SpecMarkKind mark_kind;
   /* A substitution's new text; else NULL. */
@@ -108,6 +129,10 @@ void spec_review_annotation_free(SpecReviewAnnotation *a);
 
 /* Whether a question is still open (no answer written). */
 int spec_review_annotation_is_open(const SpecReviewAnnotation *a);
+
+/* The letter a question's answer starts with (`(b)` or `**(b)**`), as an
+ * owned one-character string; NULL for none and for the other kinds. */
+char *spec_review_annotation_answer_letter(const SpecReviewAnnotation *a);
 
 /* The canonical JSON form the conformance corpus pins (every key written,
  * `null` explicitly). Owned result. */
@@ -145,6 +170,9 @@ typedef struct {
   const char *recommendation; /* NULL or "" for none */
   const char *assumption;     /* NULL or "" for none */
   int starred;                /* whether the question carries `★` */
+  /* The recommended option's letter (`"b"`); that option is written bold.
+   * NULL for none. */
+  const char *recommended;
 } SpecQuestionDraft;
 
 /* Raised by an operation that names an annotation, value or paragraph that

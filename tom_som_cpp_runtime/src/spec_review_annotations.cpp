@@ -232,6 +232,8 @@ struct Question {
   bool starred = false;
   std::string text;
   std::string answer;
+  std::vector<SpecQuestionOption> options;
+  std::optional<std::string> recommended;
 };
 
 struct Comment {
@@ -430,6 +432,94 @@ std::optional<Header> parseHeader(const std::string& inner) {
   return out;
 }
 
+bool isLetter(char c) { return c >= 'a' && c <= 'z'; }
+
+/* The letter of a leading `(x)` or `**(x)**` in `s` (spaces skipped). */
+std::optional<std::string> leadingLetter(const std::string& s) {
+  std::size_t i = 0;
+  while (i < s.size()) {
+    std::size_t st = i;
+    if (!dartIsSpace(nextCp(s, i, s.size()))) {
+      i = st;
+      break;
+    }
+  }
+  std::string t = s.substr(i);
+  if (startsWith(t, "**")) t = t.substr(2);
+  if (t.size() >= 3 && t[0] == '(' && isLetter(t[1]) && t[2] == ')') {
+    return t.substr(1, 1);
+  }
+  return std::nullopt;
+}
+
+/* Whether `s`, lower-cased, contains `recommended`. */
+bool saysRecommended(const std::string& s) {
+  std::string l = s;
+  for (char& c : l) {
+    if (c >= 'A' && c <= 'Z') c = static_cast<char>(c - 'A' + 'a');
+  }
+  return l.find("recommended") != std::string::npos;
+}
+
+/* The options of a question and its recommended letter (SOM §11.9.2), read
+ * from `in[from..to]` (inclusive): one option per line, `- (a) …`, the
+ * recommended one bold, `- **(b)** …`. The recommended letter is the first
+ * bold option's; else the first option's whose text says "recommended"; else
+ * the letter a `*Recommendation:*` line names; else none. */
+std::pair<std::vector<SpecQuestionOption>, std::optional<std::string>>
+parseOptions(const std::vector<std::string>& in, long long from, long long to) {
+  std::vector<SpecQuestionOption> options;
+  std::optional<std::string> letter;
+  std::string text;
+  bool bold = false;
+  auto close = [&]() {
+    if (letter) options.push_back({*letter, trim(text), bold});
+    letter.reset();
+  };
+  for (long long k = from; k <= to; k++) {
+    const std::string& l = in[static_cast<std::size_t>(k)];
+    if (startsWith(l, "- ")) {
+      const std::string r = l.substr(2);
+      if (r.size() >= 7 && startsWith(r, "**(") && isLetter(r[3]) &&
+          r.compare(4, 3, ")**") == 0) {
+        close();
+        letter = r.substr(3, 1);
+        text = r.substr(7);
+        bold = true;
+        continue;
+      }
+      if (r.size() >= 3 && r[0] == '(' && isLetter(r[1]) && r[2] == ')') {
+        close();
+        letter = r.substr(1, 1);
+        text = r.substr(3);
+        bold = false;
+        continue;
+      }
+    }
+    if (letter && startsWith(l, " ") && !isBlank(l)) {
+      text = trim(text) + " " + trim(l);
+      continue;
+    }
+    close();
+  }
+  close();
+  for (const SpecQuestionOption& o : options) {
+    if (o.bold) return {options, o.letter};
+  }
+  for (const SpecQuestionOption& o : options) {
+    if (saysRecommended(o.text)) return {options, o.letter};
+  }
+  const std::string label = "*Recommendation:*";
+  for (long long k = from; k <= to; k++) {
+    const std::string& l = in[static_cast<std::size_t>(k)];
+    const std::size_t i = l.find(label);
+    if (i == std::string::npos) continue;
+    std::optional<std::string> x = leadingLetter(l.substr(i + label.size()));
+    if (x) return {options, x};
+  }
+  return {options, std::nullopt};
+}
+
 void parseQuestions(Parsed& p, std::size_t bi) {
   Block& b = p.blocks[bi];
   std::vector<std::string> in;
@@ -467,6 +557,10 @@ void parseQuestions(Parsed& p, std::size_t bi) {
     long long textEnd = answer ? static_cast<long long>(*answer) - 1
                                : static_cast<long long>(regionEnd);
     Question qq;
+    auto [options, recommended] =
+        parseOptions(in, static_cast<long long>(k) + 1, textEnd);
+    qq.options = std::move(options);
+    qq.recommended = std::move(recommended);
     qq.text = trim(joinFrom(h.rest, in, static_cast<long long>(k) + 1, textEnd));
     if (answer) {
       qq.answer = trim(joinFrom(in[*answer].substr(kAnswerLabel.size()), in,
@@ -730,6 +824,8 @@ void annotationsOf(const Parsed& p, const std::string& path,
         a.combined = b.combined;
         a.text = q.text;
         a.answer = q.answer;
+        a.options = q.options;
+        a.recommended = q.recommended;
         o.push_back({q.header, 0, seq++, std::move(a)});
       }
     }
@@ -1026,6 +1122,17 @@ const char* specMarkKindName(SpecMarkKind kind) {
   return "";
 }
 
+std::string SpecQuestionOption::toJson() const {
+  return "{\"letter\":" + jsonEncodeStr(letter) +
+         ",\"text\":" + jsonEncodeStr(text) +
+         ",\"bold\":" + (bold ? "true" : "false") + "}";
+}
+
+std::optional<std::string> SpecReviewAnnotation::answerLetter() const {
+  if (kind != SpecReviewAnnotationKind::Question) return std::nullopt;
+  return leadingLetter(answer);
+}
+
 std::string SpecReviewAnnotation::toJson() const {
   std::string b = "{\"kind\":" + jsonEncodeStr(specReviewAnnotationKindName(kind)) +
                   ",\"path\":" + jsonEncodeStr(path) +
@@ -1047,6 +1154,13 @@ std::string SpecReviewAnnotation::toJson() const {
            ",\"text\":" + jsonEncodeStr(text) +
            ",\"answer\":" + jsonEncodeStr(answer) +
            ",\"open\":" + (open() ? "true" : "false");
+      b += ",\"options\":[";
+      for (std::size_t i = 0; i < options.size(); i++) {
+        if (i) b += ",";
+        b += options[i].toJson();
+      }
+      b += "],\"recommended\":" + jsonStrOrNull(recommended) +
+           ",\"answerLetter\":" + jsonStrOrNull(answerLetter());
       break;
     case SpecReviewAnnotationKind::Mark:
       b += std::string(",\"markKind\":") +
@@ -1087,7 +1201,14 @@ std::vector<std::string> formatQuestionBlock(const SpecQuestionDraft& q) {
                                  (q.starred ? kStar + " " : "") + q.topic +
                                  ":** " + t[0]};
   for (std::string& l : quoted(t, 1)) lines.push_back(std::move(l));
-  for (const std::string& o : q.options) lines.push_back("> - " + o);
+  for (const std::string& o : q.options) {
+    if (q.recommended && o.size() >= 3 &&
+        startsWith(o, "(" + *q.recommended + ")")) {
+      lines.push_back("> - **(" + *q.recommended + ")**" + o.substr(3));
+    } else {
+      lines.push_back("> - " + o);
+    }
+  }
   if (!q.recommendation.empty() || !q.assumption.empty()) {
     lines.push_back(">");
     if (!q.recommendation.empty()) {

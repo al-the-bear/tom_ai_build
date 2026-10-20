@@ -99,15 +99,12 @@ workspace_prefixes:
 # no longer drifts the package that holds it.
 unpublished_drift:
   tom_specs_model: >-
-    1.6.18 (superseding the never-uploaded 1.6.14 to 1.6.17) is not yet on
-    pub.dev, nor is tom_som_dart_v0 1.6.18: both hit the per-package daily
-    limit (uamtcb6). tom_som_dart_runtime 1.6.18 (annot2, annot4-annot6) is
+    1.6.19 (superseding the never-uploaded 1.6.14 to 1.6.18) is not yet on
+    pub.dev, nor is tom_som_dart_v0 1.6.19: both hit the per-package daily
+    limit (uamtcb6). tom_som_dart_runtime 1.6.19 (annot2, annot4-annot7) is
     published. uamtcb6 publishes the model and then the facade from HEAD,
     records the commit under published_from:, and removes this note.
 
-  tom_som_dart_runtime: >-
-    README only since 1.6.18: the quest refresh of 2026-10-20 corrected the
-    stale Status line (version and test count). Ships with the next release.
   tom_specs_clitool: >-
     README only since 0.11.0: the quest refresh of 2026-10-20 corrected the
     stale Status line (version and test count). Ships with the next release.

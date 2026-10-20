@@ -2896,6 +2896,7 @@ func opDraft(op map[string]any) som.SpecQuestionDraft {
 		Text:           opString(q, "text"),
 		Recommendation: opString(q, "recommendation"),
 		Assumption:     opString(q, "assumption"),
+		Recommended:    opString(q, "recommended"),
 	}
 	if b, ok := q["starred"].(bool); ok {
 		d.Starred = b
