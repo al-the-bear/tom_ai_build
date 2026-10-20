@@ -1,6 +1,6 @@
 name: tom_specs_clitool
 description: CLI tools for TomSpecs model analysis, validation, and SOM code generation.
-version: 0.8.2
+version: 0.9.0
 
 repository: https://github.com/al-the-bear/tom_ai_build
 homepage: https://github.com/al-the-bear/tom_ai_build/tree/main/tom_specs_clitool
@@ -44,7 +44,7 @@ dependencies:
   # The annotation library the model is written against. The validator reads
   # `deferredCodeSpecParts` from it (invariant PART-ROUTED's exemption) rather than
   # restating which CodeSpecs parts have no generated surface.
-  tom_specs_core: ^0.3.0
+  tom_specs_core: ^0.4.0
 
 dev_dependencies:
   json_schema: ^5.2.2

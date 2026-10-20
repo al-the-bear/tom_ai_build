@@ -4461,6 +4461,7 @@ class InteractionEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'relatedUseCase',
@@ -4477,6 +4478,7 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Data entities read or written, comma-separated — each an entity name declared in the entity registry (DAENT)',
       refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'relatedBusinessObjects',
@@ -4485,6 +4487,7 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Business objects involved, comma-separated — business object section ids (BJOEN-OBJE-…)',
       refersTo: ['BJOEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedBusinessRules',
@@ -4493,6 +4496,7 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Business rules referenced, comma-separated — business rule section ids (BIRU-BUSI-…)',
       refersTo: ['BIRU.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedIntegrations',
@@ -4501,6 +4505,7 @@ class InteractionEntry extends DocSpecsSection {
       hint:
           'Integrations touched, comma-separated — external interface section ids (EIE-INTE-…)',
       refersTo: ['EIE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedTestCases',
@@ -4571,6 +4576,7 @@ class StakeholdersAndInterests extends DocSpecsSection {
       hint:
           'The stakeholders (STKRE-STAK-… / STKNT-…) with an interest in this interaction, comma-separated; described in the stakeholder register',
       refersTo: ['STKRE.@sectionId', 'STKNT.@sectionId'],
+      multiple: true,
     ),
   ])
   @override
@@ -5668,6 +5674,7 @@ class ScenarioEntry extends DocSpecsSection {
           'Interactions referenced by this scenario, comma-separated — '
           'interaction section ids (INEN-INTE-…)',
       refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(2)

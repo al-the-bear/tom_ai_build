@@ -5185,6 +5185,7 @@ Provide an overview of software design approach and key decisions.
           'Section ids of the architecture decision records (`ARDE`), '
           'comma-separated',
       refersTo: ['ARDE.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(4)
@@ -5764,6 +5765,7 @@ class BoundedContextEntry extends DocSpecsSection {
       'Owned Operations',
       hint: 'The server operations this context owns, comma-separated',
       refersTo: ['SVOPE.operationName'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(2)
@@ -6152,6 +6154,7 @@ class ModuleEntry extends DocSpecsSection {
       hint:
           'Bounded contexts this module belongs to, comma-separated — each a context name the bounded-context registry (BCE) declares; empty for a platform module serving every context',
       refersTo: ['BCE.contextName'],
+      multiple: true,
     ),
     Field(
       'owningTeam',
@@ -16423,6 +16426,7 @@ declared makes the reference dangle.
       hint:
           'The platforms this client runs on, by id from the browser, '
           'desktop-OS and mobile-platform requirement lists below',
+      multiple: true,
     ),
     Field(
       'entryRoute',
@@ -16441,6 +16445,7 @@ declared makes the reference dangle.
       hint:
           'The screens this client comprises — screen section ids '
           '(SCREN-ITEM-…), comma-separated. Empty for a client with no screens',
+      multiple: true,
     ),
   ])
   @override
@@ -28916,6 +28921,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'Read Entities',
       refersTo: ['DAENT.entityName'],
       hint: 'The Data Model entities the job reads',
+      multiple: true,
     ),
     Field(
       'writtenEntities',
@@ -28923,6 +28929,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'Written Entities',
       refersTo: ['DAENT.entityName'],
       hint: 'The Data Model entities the job writes, including the primary one',
+      multiple: true,
     ),
     Field(
       'targetReports',
@@ -28932,6 +28939,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       hint:
           'The reports this job produces, where the work is a report run — '
           'report section ids (REPENT-REPO-…), comma-separated',
+      multiple: true,
     ),
   ])
   @SerializationOrder(5)
@@ -35762,6 +35770,7 @@ class DataProtectionClassification extends DocSpecsSection {
       hint:
           'The data classification levels (DCLSE-ITEM-…) that apply, comma-separated — defined in the data classification',
       refersTo: ['DCLSE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'personalDataCategories',
@@ -37244,6 +37253,7 @@ drivers / trade-offs.
           'Section ids of the architecture decision records (`ARDE`), '
           'comma-separated',
       refersTo: ['ARDE.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(1)

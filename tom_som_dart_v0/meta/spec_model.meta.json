@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T04:21:39.358477Z",
+  "generatedAt": "2026-10-20T05:11:45.368707Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.13+20.a710d7b5",
+  "modelVersionLabel": "1.6.14+21.251fc122",
   "classCount": 1266,
   "rootCount": 14,
-  "modelHash": "511d8536e66df5e4e2f69a61bd501ac4df4fd61b9985fb18cb35d9984ed3a463",
+  "modelHash": "cc8e15de13063030a0867871a36a75d991774531d254b25972bcf62fc38b12ef",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -18524,7 +18524,8 @@
               "required": true,
               "refersTo": [
                 "AZRO.roleName"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -23994,7 +23995,8 @@
               "required": false,
               "refersTo": [
                 "SVOPE.operationName"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -37351,7 +37353,8 @@
                 "BROREQ.browserName",
                 "DEOSRE.osName",
                 "MODERE.platform"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "entryRoute",
@@ -37371,7 +37374,8 @@
               "required": false,
               "refersTo": [
                 "SCREN.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -49948,7 +49952,8 @@
               "required": false,
               "refersTo": [
                 "CMPNT.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -50336,7 +50341,8 @@
               "required": false,
               "refersTo": [
                 "CMRS.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "acceptanceCriteria",
@@ -67389,7 +67395,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "owningDomain",
@@ -72667,7 +72674,8 @@
               "required": true,
               "refersTo": [
                 "DCLSE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "personalDataCategories",
@@ -79329,7 +79337,8 @@
               "required": false,
               "refersTo": [
                 "DLVEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "prerequisiteForDelivery",
@@ -79949,7 +79958,8 @@
               "required": false,
               "refersTo": [
                 "DLVEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "releaseNotes",
@@ -80231,27 +80241,30 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "deliverableRef",
               "label": "Deliverable Reference",
-              "hint": "The linked deliverable — a deliverable section id (DLVEN-ITEM-…)",
+              "hint": "The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
                 "DLVEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "testScenarioRef",
               "label": "Test Scenario Reference",
-              "hint": "The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)",
+              "hint": "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
                 "TSSC.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -112141,7 +112154,8 @@
               "required": false,
               "refersTo": [
                 "FPE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "blocksFeatures",
@@ -112151,7 +112165,8 @@
               "required": false,
               "refersTo": [
                 "FPE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "externalDependencies",
@@ -112278,7 +112293,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "linkedUseCases",
@@ -112288,7 +112304,8 @@
               "required": false,
               "refersTo": [
                 "INEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "linkedBusinessProcesses",
@@ -112298,7 +112315,8 @@
               "required": false,
               "refersTo": [
                 "BPREN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "linkedUserStories",
@@ -112315,7 +112333,8 @@
               "required": false,
               "refersTo": [
                 "ARDE.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -112796,7 +112815,8 @@
               "required": false,
               "refersTo": [
                 "FPE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "blockedByExternalDependency",
@@ -120703,7 +120723,8 @@
               "required": true,
               "refersTo": [
                 "AZRO.roleName"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -122149,7 +122170,8 @@
               "required": false,
               "refersTo": [
                 "SVOPE.operationName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "readsEntities",
@@ -122159,7 +122181,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "writesEntities",
@@ -122169,7 +122192,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -130717,7 +130741,8 @@
               "required": false,
               "refersTo": [
                 "UCE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "description",
@@ -132027,7 +132052,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedUseCase",
@@ -132044,7 +132070,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedBusinessObjects",
@@ -132054,7 +132081,8 @@
               "required": false,
               "refersTo": [
                 "BJOEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedBusinessRules",
@@ -132064,7 +132092,8 @@
               "required": false,
               "refersTo": [
                 "BIRU.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedIntegrations",
@@ -132074,7 +132103,8 @@
               "required": false,
               "refersTo": [
                 "EIE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedTestCases",
@@ -133303,7 +133333,8 @@
               "required": false,
               "refersTo": [
                 "ERCEN.code"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "protocolErrorCodes",
@@ -153965,7 +153996,8 @@
               "required": false,
               "refersTo": [
                 "MGRSK.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedIssues",
@@ -156379,7 +156411,8 @@
               "required": false,
               "refersTo": [
                 "BCE.contextName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "owningTeam",
@@ -158440,7 +158473,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "linkedUseCases",
@@ -158450,7 +158484,8 @@
               "required": false,
               "refersTo": [
                 "INEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "dependsOnFeatures",
@@ -158460,7 +158495,8 @@
               "required": false,
               "refersTo": [
                 "FPE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "notes",
@@ -160380,7 +160416,8 @@
               "refersTo": [
                 "SCRTEN.routeId",
                 "SCREN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "dialogTitleResource",
@@ -173760,7 +173797,8 @@
               "required": false,
               "refersTo": [
                 "PAPE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedGaps",
@@ -204672,7 +204710,8 @@
               "required": false,
               "refersTo": [
                 "REPENT.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "parameterForm",
@@ -205897,7 +205936,8 @@
               "required": false,
               "refersTo": [
                 "RFE.filterId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -208799,7 +208839,8 @@
               "required": false,
               "refersTo": [
                 "BGE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedUseCases",
@@ -208809,7 +208850,8 @@
               "required": false,
               "refersTo": [
                 "INEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedProcesses",
@@ -208819,7 +208861,8 @@
               "required": false,
               "refersTo": [
                 "BPREN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedUserStories",
@@ -208895,7 +208938,8 @@
               "refersTo": [
                 "RQTSC.@sectionId",
                 "TEGOTS.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedDocuments",
@@ -212415,12 +212459,13 @@
             {
               "name": "screenId",
               "label": "Screen ID",
-              "hint": "The screen this rule applies to — a screen section id (SCREN-ITEM-…)",
+              "hint": "The screens this rule applies to — screen section ids (SCREN-ITEM-…), comma-separated when one rule serves several",
               "type": "String",
               "required": true,
               "refersTo": [
                 "SCREN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "mobileLayout",
@@ -222421,7 +222466,8 @@
               "required": false,
               "refersTo": [
                 "INEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -223523,7 +223569,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "writtenEntities",
@@ -223533,7 +223580,8 @@
               "required": false,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "targetReports",
@@ -223543,7 +223591,8 @@
               "required": false,
               "refersTo": [
                 "REPENT.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -224321,7 +224370,8 @@
               "required": true,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "schemaStatements",
@@ -224397,7 +224447,8 @@
               "required": true,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "valueSet",
@@ -224480,7 +224531,8 @@
               "required": true,
               "refersTo": [
                 "DAENT.entityName"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "dataBackfill",
@@ -225060,7 +225112,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -225617,7 +225670,8 @@
               "required": false,
               "refersTo": [
                 "SFE.fieldId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "action",
@@ -227866,7 +227920,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "relatedBusinessProcesses",
@@ -227897,7 +227952,8 @@
               "required": false,
               "refersTo": [
                 "SVOPE.operationName"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -228989,7 +229045,8 @@
               "required": false,
               "refersTo": [
                 "SFE.fieldId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "width",
@@ -237028,7 +237085,8 @@
               "required": false,
               "refersTo": [
                 "ERCEN.code"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -244754,7 +244812,8 @@
               "required": false,
               "refersTo": [
                 "ARDE.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -253369,7 +253428,8 @@
               "refersTo": [
                 "STKRE.@sectionId",
                 "STKNT.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -256625,7 +256685,8 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "dependencies",
@@ -257597,7 +257658,8 @@
               "required": false,
               "refersTo": [
                 "ARDE.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }
@@ -274400,17 +274462,19 @@
                 "TERQ.@sectionId",
                 "SECRQ.@sectionId",
                 "ORRQ.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "useCaseRef",
               "label": "Use Case Reference",
-              "hint": "The related interaction — an interaction section id (INEN-INTE-…)",
+              "hint": "The related interactions — interaction section ids (INEN-INTE-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
                 "INEN.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "acceptanceCriterionRef",
@@ -274504,7 +274568,8 @@
               "required": false,
               "refersTo": [
                 "TSSC.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         },
@@ -282852,7 +282917,8 @@
               "required": false,
               "refersTo": [
                 "TRPHE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "dependsOnMilestones",
@@ -282862,7 +282928,8 @@
               "required": false,
               "refersTo": [
                 "TRMIL.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "criticality",
@@ -301376,7 +301443,8 @@
               "required": false,
               "refersTo": [
                 "WSE.@sectionId"
-              ]
+              ],
+              "multiple": true
             }
           ]
         }

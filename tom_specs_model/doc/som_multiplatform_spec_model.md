@@ -711,6 +711,7 @@ references, stated counts, derived values, each group sorted by path:
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
+| `multipleReferences` | 5 | a reference field without `multiple` holding a comma-separated list of ids (each id is resolved as well) |
 | `countMismatch` | 6 | a `countOf` value (`tom_specs_model_rules.md` §6.2.2) that is not a whole number, or not the number of entries the document holds |
 | `derivedValueMismatch` | 7 | a `productOf` value that is not a number or not the product of its operands, or a `rankOf` value that is not a rank 1 to n used once, or ranks below an entry scoring lower (`tom_specs_model_rules.md` §6.2.4) |
 

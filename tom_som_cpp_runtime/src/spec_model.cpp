@@ -302,6 +302,7 @@ static SpecField fieldFromJson(const JsonRef& f) {
       ffs_out.rankOf = *rankOf;
     }
     ffs_out.code = jsonBoolOr(ff, "code");
+    ffs_out.multiple = jsonBoolOr(ff, "multiple");
     out.formFields.push_back(std::move(ffs_out));
   }
 

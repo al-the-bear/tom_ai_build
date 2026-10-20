@@ -1274,6 +1274,7 @@ class ScopeItemEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
   ])
   @override
@@ -3547,6 +3548,7 @@ class InteractionChannelEntry extends DocSpecsSection {
           'The user categories this channel serves — user category section ids '
           '(UCE-USER-…), comma-separated',
       refersTo: ['UCE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'description',
@@ -8116,6 +8118,7 @@ class SuccessCriterionRelationships extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'dependencies',
@@ -9517,6 +9520,7 @@ class ScreenFieldEntry extends DocSpecsSection {
       'Depends On (field IDs that affect this)',
       hint: 'Field IDs that affect this field',
       refersTo: ['SFE.fieldId'],
+      multiple: true,
     ),
     Field(
       'width',
@@ -9878,6 +9882,7 @@ class ScreenBehaviorEntry extends DocSpecsSection {
       'Affected Fields (field IDs)',
       hint: 'Field IDs affected by the behavior',
       refersTo: ['SFE.fieldId'],
+      multiple: true,
     ),
     Field(
       'action',
@@ -10058,6 +10063,7 @@ class RequirementTraceability extends DocSpecsSection {
       'Related Business Goals (IDs)',
       hint: 'IDs of related business goals',
       refersTo: ['BGE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedUseCases',
@@ -10067,6 +10073,7 @@ class RequirementTraceability extends DocSpecsSection {
           'Related interactions — interaction section ids (INEN-INTE-…), '
           'comma-separated',
       refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedProcesses',
@@ -10076,6 +10083,7 @@ class RequirementTraceability extends DocSpecsSection {
           'Related business processes — process section ids (BPREN-PROC-…), '
           'comma-separated',
       refersTo: ['BPREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedUserStories',
@@ -10115,6 +10123,7 @@ class RequirementTraceability extends DocSpecsSection {
           'Test cases covering this requirement — test case section ids '
           '(RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated',
       refersTo: ['RQTSC.@sectionId', 'TEGOTS.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedDocuments',
@@ -14642,6 +14651,7 @@ class MigrationRiskEntry extends DocSpecsSection {
           'Correlated migration risks — risk section ids (MGRSK-ITEM-… / '
           'SYMIRI-RISK-…), comma-separated',
       refersTo: ['MGRSK.@sectionId'],
+      multiple: true,
     ),
     // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). An issue is
     // a risk that has materialised, tracked in the project's issue log — live
@@ -16042,6 +16052,7 @@ class InterfaceErrorHandling extends DocSpecsSection {
           'Error codes of this application the interface returns — '
           'ErrorCodeEntry.code values, comma-separated',
       refersTo: ['ERCEN.code'],
+      multiple: true,
     ),
     Field(
       'protocolErrorCodes',

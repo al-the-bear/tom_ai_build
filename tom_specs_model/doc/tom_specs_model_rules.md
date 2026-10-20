@@ -709,8 +709,13 @@ Rules:
    so the target is `MSGKE.key`, not `MSGKR.key`.
 3. **The list is a disjunction.** A value is valid when it resolves in *any*
    listed registry — that is how `SCTREN.outcomeReference` can hold either a
-   system error code or a validation message id. A single field value that names
-   several ids writes them comma-separated; each part resolves independently.
+   system error code or a validation message id.
+
+   **One id, unless the field says several.** A reference field holds one id.
+   A field meant for several declares `multiple: true` and writes them
+   comma-separated; each part resolves independently, so a dangling id inside a
+   list is reported on its own. A list in a field without `multiple` is a
+   `multipleReferences` finding (`som_multiplatform_spec_model.md` §9).
 4. **The named form field must exist and must be `required`.** An optional id
    cannot be a registry key, because entries could omit it.
 5. **The target class must be *enumerated*.** It is either a list element type,

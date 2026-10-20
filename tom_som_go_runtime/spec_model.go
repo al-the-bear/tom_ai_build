@@ -204,6 +204,10 @@ type FormFieldSpec struct {
 	// empty for a field that states no count. The instance tier holds the
 	// stated number to the document (`countMismatch`).
 	CountOf []string `json:"countOf"`
+	// Multiple is whether this reference field holds several comma-separated
+	// ids (`Field.multiple`, uamtc17); a reference field without it holds one,
+	// and the instance tier reports a list in it (`multipleReferences`).
+	Multiple bool `json:"multiple"`
 	// ProductOf holds the operands this field's value is the product of
 	// (`Field.productOf`, uamtc10), each `<field>` (a field of the same form)
 	// or `<FORMSID>.<field>` (a field of the form beside it); empty for a field

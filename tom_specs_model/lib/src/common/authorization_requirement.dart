@@ -214,6 +214,7 @@ framework. It is not something to restate per site.
       hint:
           'Comma-separated role names from the role catalogue; the caller '
           'must hold at least one',
+      multiple: true,
     ),
   ])
   @SerializationOrder(1)
@@ -460,6 +461,7 @@ itself be graded.
       hint:
           'Comma-separated role names from the role catalogue; the caller '
           'must hold at least one',
+      multiple: true,
     ),
   ])
   @SerializationOrder(1)

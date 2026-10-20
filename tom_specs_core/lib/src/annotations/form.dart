@@ -114,6 +114,16 @@ class Field {
   /// the stored document differ from what a reader sees.
   final List<String> countOf;
 
+  /// Declares that this reference field holds **several ids**, written
+  /// comma-separated — `dependsOnFeatures`, a reference section's `refs`.
+  ///
+  /// Only meaningful with [refersTo]. A reference field without it holds
+  /// exactly one id, and the instance tier reports a comma-separated list in
+  /// it (`multipleReferences`): a field meant for one reference must not
+  /// silently hold several. Every id of a list is resolved on its own, so a
+  /// dangling id inside a list is reported as `danglingReference` either way.
+  final bool multiple;
+
   /// Declares that this field's value is the **product** of other fields — a
   /// risk score from probability and impact. The instance tier checks the
   /// stated number against it (`derivedValueMismatch`).
@@ -159,6 +169,7 @@ class Field {
     this.hint,
     this.refersTo = const [],
     this.countOf = const [],
+    this.multiple = false,
     this.productOf = const [],
     this.rankOf,
     this.code = false,

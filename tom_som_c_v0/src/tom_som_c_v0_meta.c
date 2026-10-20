@@ -52868,7 +52868,7 @@ static void meta_build_delivery_acceptance_criterion_entry_traceability(SomMetaN
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Deliverable Reference");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("The linked deliverable — a deliverable section id (DLVEN-ITEM-…)");
+  n->form->fields[1].hint = som_strdup("The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 1;
   n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
@@ -52877,7 +52877,7 @@ static void meta_build_delivery_acceptance_criterion_entry_traceability(SomMetaN
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Test Scenario Reference");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)");
+  n->form->fields[2].hint = som_strdup("The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated");
   n->form->fields[2].order = 2;
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
@@ -118222,7 +118222,7 @@ static void meta_build_responsive_screen_rule_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Screen ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The screen this rule applies to — a screen section id (SCREN-ITEM-…)");
+  n->form->fields[0].hint = som_strdup("The screens this rule applies to — screen section ids (SCREN-ITEM-…), comma-separated when one rule serves several");
   n->form->fields[0].order = 0;
   n->form->fields[0].refers_to_len = 1;
   n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
@@ -149403,7 +149403,7 @@ static void meta_build_test_scenario_entry_traceability(SomMetaNode *n) {
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Use Case Reference");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("The related interaction — an interaction section id (INEN-INTE-…)");
+  n->form->fields[1].hint = som_strdup("The related interactions — interaction section ids (INEN-INTE-…), comma-separated");
   n->form->fields[1].order = 1;
   n->form->fields[1].refers_to_len = 1;
   n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));

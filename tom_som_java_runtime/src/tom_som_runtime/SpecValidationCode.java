@@ -48,7 +48,14 @@ public enum SpecValidationCode {
    * checks class-level forms of the rendition only; this is the check that
    * reaches every form.
    */
-  MISSING_REQUIRED_FIELD("missingRequiredField");
+  MISSING_REQUIRED_FIELD("missingRequiredField"),
+  /**
+   * A reference field that does not declare {@code multiple} holds a
+   * comma-separated list of ids (uamtc17). A field meant for one reference must
+   * not silently hold several; each id of the list is still resolved, so a
+   * dangling one is a {@code danglingReference} as well.
+   */
+  MULTIPLE_REFERENCES("multipleReferences");
 
   public final String value;
 

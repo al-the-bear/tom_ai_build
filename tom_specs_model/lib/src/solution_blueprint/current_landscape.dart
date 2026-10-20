@@ -2917,6 +2917,7 @@ class WorkflowActorEntry extends DocSpecsSection {
       'Participating Steps',
       hint: 'Section id of the workflow step entries (`WSE`), comma-separated',
       refersTo: ['WSE.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(1)
@@ -4201,6 +4202,7 @@ class PainPointRelationships extends DocSpecsSection {
           'Related pain points — pain point section ids (PAPE-ITEM-…), '
           'comma-separated',
       refersTo: ['PAPE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'relatedGaps',

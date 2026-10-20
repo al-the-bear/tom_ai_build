@@ -58,6 +58,11 @@
  * forms, in list items or not — so an absent form is absence, not an
  * incomplete one. */
 #define SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD "missingRequiredField"
+/* A reference form field (`refersTo`) not marked `multiple` whose value names
+ * more than one id as a comma-separated list (uamtc17). One finding at the form
+ * path; each id of the list is still resolved, so a dangling one is a
+ * `danglingReference` as well. */
+#define SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES "multipleReferences"
 
 typedef struct {
   char *path;    /* owned */

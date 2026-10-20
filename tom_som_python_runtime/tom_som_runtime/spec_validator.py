@@ -74,6 +74,11 @@ class SpecValidationCode(Enum):
     #: tier checks class-level forms of the rendition only; this is the check
     #: that reaches every form.
     MISSING_REQUIRED_FIELD = "missingRequiredField"
+    #: A reference field that does not declare ``multiple`` holds a
+    #: comma-separated list of ids (uamtc17). A field meant for one reference
+    #: must not silently hold several; each id of the list is still resolved,
+    #: so a dangling one is a ``danglingReference`` as well.
+    MULTIPLE_REFERENCES = "multipleReferences"
 
 
 @dataclass(frozen=True)
@@ -487,7 +492,10 @@ def _validate_reference_instances(
        requirement) referenceable at all.
     2. **Resolve.** Every form instance holding a ``refersTo`` field checks its
        value against those sets. A value naming several ids writes them
-       comma-separated, so each segment resolves independently.
+       comma-separated, so each segment resolves independently. A field that
+       does not declare ``multiple`` and holds more than one id is reported as
+       ``multipleReferences`` (uamtc17), before the scope test; its ids are
+       still resolved.
 
     A value is valid when it resolves in **any** listed registry: some fields
     legitimately accept an id from more than one. An empty value is not a
@@ -556,6 +564,22 @@ def _validate_reference_instances(
             value = doc.form_field(form_path, ff.name)
             if value is None or not value.strip():
                 continue
+
+            # One id, unless the field says it holds several. Decidable without
+            # the registries, so it is checked before the scope test below.
+            if not ff.multiple:
+                ids = [s.strip() for s in value.split(",") if s.strip()]
+                if len(ids) > 1:
+                    errors.append(
+                        SpecValidationError(
+                            path=form_path,
+                            code=SpecValidationCode.MULTIPLE_REFERENCES,
+                            message=(
+                                f'form field "{ff.name}" holds {len(ids)} '
+                                f"references ({', '.join(ids)}) but takes one"
+                            ),
+                        )
+                    )
 
             # Every target must be in scope, not merely one of them: a
             # disjunction says the id may come from any of the listed

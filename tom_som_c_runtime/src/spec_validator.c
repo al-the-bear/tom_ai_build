@@ -553,6 +553,50 @@ static void validate_reference_instances(const SpecReflection *refl,
         continue;
       }
 
+      /* One id, unless the field says it holds several. Decidable without the
+         registries, so it is checked before the scope test below. */
+      if (!ff->multiple) {
+        SomStrList ids;
+        som_strlist_init(&ids);
+        const char *mseg = value;
+        while (1) {
+          const char *comma = strchr(mseg, ',');
+          char *piece = comma == NULL
+                            ? som_strdup(mseg)
+                            : som_strdup_n(mseg, (size_t)(comma - mseg));
+          char *id = trim_dup(piece);
+          free(piece);
+          if (id[0] != '\0') {
+            som_strlist_push(&ids, id);
+          } else {
+            free(id);
+          }
+          if (comma == NULL) {
+            break;
+          }
+          mseg = comma + 1;
+        }
+        if (ids.len > 1) {
+          char *joined = som_strlist_join(&ids, ", ");
+          char num[32];
+          snprintf(num, sizeof num, "%zu", ids.len);
+          SomBuf mb;
+          som_buf_init(&mb);
+          som_buf_puts(&mb, "form field \"");
+          som_buf_puts(&mb, ff->name);
+          som_buf_puts(&mb, "\" holds ");
+          som_buf_puts(&mb, num);
+          som_buf_puts(&mb, " references (");
+          som_buf_puts(&mb, joined);
+          som_buf_puts(&mb, ") but takes one");
+          free(joined);
+          errors_push(out, forms[i].path,
+                      SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES,
+                      som_buf_take(&mb));
+        }
+        som_strlist_free(&ids);
+      }
+
       /* Every target must be in scope, not merely one of them: a disjunction
          says the id may come from any of the listed registries, so one absent
          registry is enough to make "no registry declares it" unsound — the id

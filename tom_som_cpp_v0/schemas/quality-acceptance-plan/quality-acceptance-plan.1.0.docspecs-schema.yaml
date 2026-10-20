@@ -2105,9 +2105,9 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: deliverableRef
-        description: The linked deliverable — a deliverable section id (DLVEN-ITEM-…)
+        description: "The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated"
       - fieldname: testScenarioRef
-        description: The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)
+        description: "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated"
   daceow-form:
     fields:
       - fieldname: verifier
@@ -2345,7 +2345,7 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: useCaseRef
-        description: The related interaction — an interaction section id (INEN-INTE-…)
+        description: "The related interactions — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: acceptanceCriterionRef
         description: The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)
       - fieldname: designRef

@@ -172,6 +172,11 @@ struct FormFieldSpec {
   // codec writes it as an inline code span and unwraps it on import (SOM
   // §11.4 rule 8). Omitted from the export when false.
   bool code = false;
+  // Whether a reference field holds a comma-separated list of ids
+  // (`Field.multiple`, uamtc17). Absent means false. A reference field without
+  // it holds one id, and the instance tier reports a list in it
+  // (`multipleReferences`).
+  bool multiple = false;
 };
 
 struct SpecField {

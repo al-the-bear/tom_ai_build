@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0
+
+- Requires `tom_specs_core` 0.4.0. The model reader and meta export carry
+  `Field.multiple`; the static tier rejects `multiple` without `refersTo`.
+
 ## 0.8.2
 
 - `validate_codespecs` check 8 knows `@CsJob`'s `interval` arm: `interval`

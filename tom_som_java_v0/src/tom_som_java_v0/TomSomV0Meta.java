@@ -30421,8 +30421,8 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability links.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
-            new SomFormFieldMeta("deliverableRef", "String", "Deliverable Reference", false, "The linked deliverable — a deliverable section id (DLVEN-ITEM-…)", 1, java.util.List.of(), java.util.List.of("DLVEN.@sectionId")),
-            new SomFormFieldMeta("testScenarioRef", "String", "Test Scenario Reference", false, "The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)", 2, java.util.List.of(), java.util.List.of("TSSC.@sectionId"))));
+            new SomFormFieldMeta("deliverableRef", "String", "Deliverable Reference", false, "The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated", 1, java.util.List.of(), java.util.List.of("DLVEN.@sectionId")),
+            new SomFormFieldMeta("testScenarioRef", "String", "Test Scenario Reference", false, "The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated", 2, java.util.List.of(), java.util.List.of("TSSC.@sectionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria", "IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents"), "connotation", "Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.")));
         out.add(n);
       }
@@ -77843,7 +77843,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("screenId", "String", "Screen ID", true, "The screen this rule applies to — a screen section id (SCREN-ITEM-…)", 0, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
+            new SomFormFieldMeta("screenId", "String", "Screen ID", true, "The screens this rule applies to — screen section ids (SCREN-ITEM-…), comma-separated when one rule serves several", 0, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
             new SomFormFieldMeta("mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 1),
             new SomFormFieldMeta("tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 2),
             new SomFormFieldMeta("desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 3),
@@ -99849,7 +99849,7 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
-            new SomFormFieldMeta("useCaseRef", "String", "Use Case Reference", false, "The related interaction — an interaction section id (INEN-INTE-…)", 1, java.util.List.of(), java.util.List.of("INEN.@sectionId")),
+            new SomFormFieldMeta("useCaseRef", "String", "Use Case Reference", false, "The related interactions — interaction section ids (INEN-INTE-…), comma-separated", 1, java.util.List.of(), java.util.List.of("INEN.@sectionId")),
             new SomFormFieldMeta("acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "The linked acceptance criterion — a delivery acceptance criterion section id (DACEN-ITEM-…)", 2, java.util.List.of(), java.util.List.of("DACEN.@sectionId")),
             new SomFormFieldMeta("designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements"), "connotation", "Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.")));

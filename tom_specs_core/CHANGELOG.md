@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- `Field.multiple`: a reference field that holds several ids, written
+  comma-separated. Without it a reference field holds one id, and the
+  instance tier reports a list there as `multipleReferences`.
+
 ## 0.3.1
 
 - Documentation only: `CodeSpecPart.backgroundJob` names the interval trigger

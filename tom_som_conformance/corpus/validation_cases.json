@@ -1050,6 +1050,98 @@
     ]
   },
   {
+    "name": "multipleReferencesInSingleField",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA, RGE-2",
+          "anyRefs": "ALPHA"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "multipleReferences"
+      }
+    ]
+  },
+  {
+    "name": "everyDanglingIdOfAList",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA",
+          "anyRefs": "ALPHA, NOPE-1, NOPE-2"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "danglingReference"
+      },
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "danglingReference"
+      }
+    ]
+  },
+  {
     "name": "oneOfCaseSelected",
     "state": {
       "content": {

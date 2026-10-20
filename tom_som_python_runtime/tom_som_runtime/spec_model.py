@@ -97,6 +97,10 @@ class FormFieldSpec:
     #: markdown codec writes it as an inline code span and unwraps it on import
     #: (SOM §11.4 rule 8). Omitted from the export when ``False``.
     code: bool = False
+    #: Whether a reference field holds a comma-separated list of ids
+    #: (``Field.multiple``, uamtc17); a reference field without it holds one,
+    #: and the instance tier reports a list in it (``multipleReferences``).
+    multiple: bool = False
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -112,6 +116,7 @@ class FormFieldSpec:
             product_of=[str(e) for e in (j.get("productOf") or [])],
             rank_of=(str(j["rankOf"]) if j.get("rankOf") is not None else None),
             code=bool(j.get("code") or False),
+            multiple=bool(j.get("multiple") or False),
         )
 
 

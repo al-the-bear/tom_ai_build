@@ -73909,13 +73909,13 @@ class DeliveryAcceptanceCriterionEntryTraceabilityForm extends SomNode {
 
   /// Deliverable Reference.
   ///
-  /// The linked deliverable — a deliverable section id (DLVEN-ITEM-…)
+  /// The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated
   String get deliverableRef => doc.formField(path, 'deliverableRef') ?? '';
   set deliverableRef(String value) => doc.setFormField(path, 'deliverableRef', value);
 
   /// Test Scenario Reference.
   ///
-  /// The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)
+  /// The UAT scenarios that validate this criterion — test scenario section ids (TSSC-TEST-…), comma-separated
   String get testScenarioRef => doc.formField(path, 'testScenarioRef') ?? '';
   set testScenarioRef(String value) => doc.setFormField(path, 'testScenarioRef', value);
 }
@@ -122821,7 +122821,7 @@ class ResponsiveScreenRuleEntryContentForm extends SomNode {
 
   /// Screen ID.
   ///
-  /// The screen this rule applies to — a screen section id (SCREN-ITEM-…)
+  /// The screens this rule applies to — screen section ids (SCREN-ITEM-…), comma-separated when one rule serves several
   ///
   /// **Required** — a document that leaves this empty fails validation.
   String get screenId => doc.formField(path, 'screenId') ?? '';
@@ -146089,7 +146089,7 @@ class TestScenarioEntryTraceabilityForm extends SomNode {
 
   /// Use Case Reference.
   ///
-  /// The related interaction — an interaction section id (INEN-INTE-…)
+  /// The related interactions — interaction section ids (INEN-INTE-…), comma-separated
   String get useCaseRef => doc.formField(path, 'useCaseRef') ?? '';
   set useCaseRef(String value) => doc.setFormField(path, 'useCaseRef', value);
 

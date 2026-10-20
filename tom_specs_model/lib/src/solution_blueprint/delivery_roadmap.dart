@@ -3174,6 +3174,7 @@ class MoscowEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'linkedUseCases',
@@ -3183,6 +3184,7 @@ class MoscowEntry extends DocSpecsSection {
           'Interactions this feature implements — interaction section ids '
           '(INEN-INTE-…), comma-separated',
       refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'dependsOnFeatures',
@@ -3192,6 +3194,7 @@ class MoscowEntry extends DocSpecsSection {
           'Features that must be delivered before this one — feature section '
           'ids (FPE-ITEM-…), comma-separated',
       refersTo: ['FPE.@sectionId'],
+      multiple: true,
     ),
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
@@ -3388,6 +3391,7 @@ class FeatureStageMapping extends DocSpecsSection {
           'Features that must complete first — feature section ids '
           '(FPE-ITEM-…), comma-separated',
       refersTo: ['FPE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'blockedByExternalDependency',
@@ -3830,6 +3834,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           'Features this requires — feature section ids (FPE-ITEM-…), '
           'comma-separated',
       refersTo: ['FPE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'blocksFeatures',
@@ -3839,6 +3844,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           'Features blocked until this completes — feature section ids '
           '(FPE-ITEM-…), comma-separated',
       refersTo: ['FPE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'externalDependencies',
@@ -3890,6 +3896,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'linkedUseCases',
@@ -3899,6 +3906,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           'Interactions this feature covers — interaction section ids '
           '(INEN-INTE-…), comma-separated',
       refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'linkedBusinessProcesses',
@@ -3908,6 +3916,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           'Business processes this feature serves — process section ids '
           '(BPREN-PROC-…), comma-separated',
       refersTo: ['BPREN.@sectionId'],
+      multiple: true,
     ),
     // Why: deliberately no `refersTo` (`tom_specs_model_rules.md` §6.2 "when not to annotate"). Every
     // other field in this form names a register the blueprint declares; user
@@ -3931,6 +3940,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
           'Architecture decisions affected by or affecting this feature — '
           'decision record section ids (ARDE-DECI-…), comma-separated',
       refersTo: ['ARDE.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(8)

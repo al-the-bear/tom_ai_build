@@ -390,7 +390,10 @@ public final class SpecValidator {
    *       referenceable at all.
    *   <li><b>Resolve.</b> Every form instance holding a {@code refersTo} field
    *       checks its value against those sets. A value naming several ids writes
-   *       them comma-separated, so each segment resolves independently.
+   *       them comma-separated, so each segment resolves independently. A
+   *       field that does not declare {@code multiple} and holds more than one
+   *       id is reported as {@code multipleReferences} (uamtc17), before the
+   *       scope test; its ids are still resolved.
    * </ol>
    *
    * <p>A value is valid when it resolves in <b>any</b> listed registry: some
@@ -472,6 +475,31 @@ public final class SpecValidator {
         String value = doc.formField(form.path, ff.name);
         if (value == null || value.trim().isEmpty()) {
           continue;
+        }
+
+        // One id, unless the field says it holds several. Decidable without the
+        // registries, so it is checked before the scope test below.
+        if (!ff.multiple) {
+          List<String> refIds = new ArrayList<>();
+          for (String part : value.split(",", -1)) {
+            String t = part.trim();
+            if (!t.isEmpty()) {
+              refIds.add(t);
+            }
+          }
+          if (refIds.size() > 1) {
+            errors.add(
+                new SpecValidationError(
+                    form.path,
+                    SpecValidationCode.MULTIPLE_REFERENCES,
+                    "form field \""
+                        + ff.name
+                        + "\" holds "
+                        + refIds.size()
+                        + " references ("
+                        + String.join(", ", refIds)
+                        + ") but takes one"));
+          }
         }
 
         // Every target must be in scope, not merely one of them: a disjunction

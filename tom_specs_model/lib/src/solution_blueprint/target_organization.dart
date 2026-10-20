@@ -1317,6 +1317,7 @@ class TransitionMilestoneEntry extends DocSpecsSection {
       hint:
           'Phases that must complete first, comma-separated — transition phase section ids (TRPHE-PHAS-…)',
       refersTo: ['TRPHE.@sectionId'],
+      multiple: true,
     ),
     Field(
       'dependsOnMilestones',
@@ -1325,6 +1326,7 @@ class TransitionMilestoneEntry extends DocSpecsSection {
       hint:
           'Milestones required first, comma-separated — transition milestone section ids',
       refersTo: ['TRMIL.@sectionId'],
+      multiple: true,
     ),
     Field(
       'criticality',

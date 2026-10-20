@@ -55,6 +55,11 @@ pub const SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH: &str = "derivedValueMisma
 /// form is absence, not an incomplete one. The schema tier checks class-level
 /// forms of the rendition only; this is the check that reaches every form.
 pub const SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD: &str = "missingRequiredField";
+/// A reference field that holds one id (no `Field.multiple`) holds a
+/// comma-separated list (uamtc17). A field meant for one reference must not
+/// silently hold several; each id of the list is still resolved, so a dangling
+/// one is a `danglingReference` as well.
+pub const SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES: &str = "multipleReferences";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -534,6 +539,28 @@ fn validate_reference_instances(
             let value = doc.form_field_or(&form.path, &ff.name).trim().to_string();
             if value.is_empty() {
                 continue;
+            }
+
+            // One id, unless the field says it holds several. Decidable
+            // without the registries, so it is checked before the scope test.
+            if !ff.multiple {
+                let ids: Vec<&str> = value
+                    .split(',')
+                    .map(|s| s.trim())
+                    .filter(|s| !s.is_empty())
+                    .collect();
+                if ids.len() > 1 {
+                    errors.push(SpecValidationError {
+                        path: form.path.clone(),
+                        code: SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES.to_string(),
+                        message: format!(
+                            "form field \"{}\" holds {} references ({}) but takes one",
+                            ff.name,
+                            ids.len(),
+                            ids.join(", ")
+                        ),
+                    });
+                }
             }
 
             // Every target must be in scope, not merely one of them: a

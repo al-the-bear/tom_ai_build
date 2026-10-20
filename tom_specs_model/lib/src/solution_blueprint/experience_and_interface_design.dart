@@ -1924,6 +1924,7 @@ class ScreenEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'relatedBusinessProcesses',
@@ -1950,6 +1951,7 @@ class ScreenEntry extends DocSpecsSection {
       hint:
           'The server operations this screen calls, comma-separated — operationNames in the operation registry (SVOPE)',
       refersTo: ['SVOPE.operationName'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(3)
@@ -5685,6 +5687,7 @@ class NavigationGuardEntry extends DocSpecsSection {
           'The routes or screens this guard covers — route ids from the Screen '
           'Route Map, or screen section ids (SCREN-ITEM-…)',
       refersTo: ['SCRTEN.routeId', 'SCREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'dialogTitleResource',
@@ -6374,6 +6377,7 @@ class ReportEntry extends DocSpecsSection {
           'Reports reachable from this report — report section ids '
           '(REPENT-REPO-…), comma-separated',
       refersTo: ['REPENT.@sectionId'],
+      multiple: true,
     ),
     Field(
       'parameterForm',
@@ -7737,6 +7741,7 @@ class ReportFilterEntry extends DocSpecsSection {
       'Depends On',
       hint: 'Other filter IDs this filter depends on',
       refersTo: ['RFE.filterId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(8)
@@ -12633,9 +12638,10 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
       'Screen ID',
       required: true,
       hint:
-          'The screen this rule applies to — a screen section id '
-          '(SCREN-ITEM-…)',
+          'The screens this rule applies to — screen section ids '
+          '(SCREN-ITEM-…), comma-separated when one rule serves several',
       refersTo: ['SCREN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'mobileLayout',

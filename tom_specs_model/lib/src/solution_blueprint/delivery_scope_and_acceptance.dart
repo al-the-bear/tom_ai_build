@@ -499,6 +499,7 @@ class DeliverableEntry extends DocSpecsSection {
           'Related documentation deliverables — deliverable section ids '
           '(DLVEN-ITEM-…), comma-separated',
       refersTo: ['DLVEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'releaseNotes',
@@ -536,6 +537,7 @@ class DeliverableDependencies extends DocSpecsSection {
           'Other deliverables this depends on — deliverable section ids '
           '(DLVEN-ITEM-…), comma-separated',
       refersTo: ['DLVEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'prerequisiteForDelivery',
@@ -778,22 +780,26 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'deliverableRef',
       String,
       'Deliverable Reference',
-      hint: 'The linked deliverable — a deliverable section id (DLVEN-ITEM-…)',
+      hint:
+          'The linked deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated',
       refersTo: ['DLVEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'testScenarioRef',
       String,
       'Test Scenario Reference',
       hint:
-          'The UAT scenario that validates this criterion — a test scenario '
-          'section id (TSSC-TEST-…)',
+          'The UAT scenarios that validate this criterion — test scenario '
+          'section ids (TSSC-TEST-…), comma-separated',
       refersTo: ['TSSC.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(3)
@@ -1972,13 +1978,16 @@ class TestScenarioEntry extends DocSpecsSection {
         'SECRQ.@sectionId',
         'ORRQ.@sectionId',
       ],
+      multiple: true,
     ),
     Field(
       'useCaseRef',
       String,
       'Use Case Reference',
-      hint: 'The related interaction — an interaction section id (INEN-INTE-…)',
+      hint:
+          'The related interactions — interaction section ids (INEN-INTE-…), comma-separated',
       refersTo: ['INEN.@sectionId'],
+      multiple: true,
     ),
     Field(
       'acceptanceCriterionRef',
@@ -2034,6 +2043,7 @@ class TestScenarioEntry extends DocSpecsSection {
           'Scenarios that must pass before this one — test scenario section '
           'ids (TSSC-TEST-…), comma-separated',
       refersTo: ['TSSC.@sectionId'],
+      multiple: true,
     ),
   ])
   @SerializationOrder(4)

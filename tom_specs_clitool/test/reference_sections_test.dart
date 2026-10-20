@@ -279,6 +279,45 @@ void main() {
     );
   }
 
+  // RS-4 (uamtc17): a reference field holds one id unless it is `multiple`.
+  // The reproduction from the tom_uam Blueprint — two resolving ids in a
+  // route's `screenId` — is a multipleReferences; two ids in a feature's
+  // `dependsOnFeatures` are fine.
+  for (final (form, field, target, multiple) in const [
+    ('SCRTEN', 'screenId', 'SCREN', false),
+    ('FEDEIN', 'dependsOnFeatures', 'FPE', true),
+  ]) {
+    test('RS-4: $form.$field takes ${multiple ? 'several ids' : 'one id'}', () {
+      final doc = sample();
+      final paths = [
+        for (final path in {...doc.contentPaths, ...doc.formPaths})
+          if (formKey(path) == form &&
+              (refl.resolve(path)?.field?.formFields ?? const []).any(
+                (f) => f.name == field,
+              ))
+            path,
+      ];
+      expect(paths, isNotEmpty, reason: 'no $form form in the sample');
+      final spec = refl
+          .resolve(paths.first)!
+          .field!
+          .formFields
+          .firstWhere((f) => f.name == field);
+      expect(spec.multiple, multiple);
+      final id = declaredValue(doc, target);
+      for (final path in paths) {
+        doc.setFormField(path, field, '$id, $id');
+      }
+      final found = [
+        for (final e in validateDocument(model, doc))
+          if (e.code == SpecValidationCode.multipleReferences &&
+              paths.contains(e.path))
+            e.path,
+      ];
+      expect(found.toSet(), multiple ? isEmpty : paths.toSet());
+    });
+  }
+
   test('RS-2: every @Reference section of the Blueprint holds a reference', () {
     final found = <String>{};
     void walk(String className, Set<String> seen) {

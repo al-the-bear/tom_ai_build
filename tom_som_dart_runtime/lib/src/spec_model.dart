@@ -205,6 +205,11 @@ class FormFieldSpec {
   /// document (`countMismatch`).
   final List<String> countOf;
 
+  /// Whether this reference field holds several comma-separated ids
+  /// (`Field.multiple`, uamtc17); a reference field without it holds one, and
+  /// the instance tier reports a list in it (`multipleReferences`).
+  final bool multiple;
+
   /// The operands this field's value is the product of (`Field.productOf`,
   /// uamtc10), each a form field of the same form or `<FORMSECTIONID>.<field>`
   /// of a sibling form; empty for a field that states no product. The instance
@@ -234,6 +239,7 @@ class FormFieldSpec {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.multiple = false,
     this.productOf = const [],
     this.rankOf,
     this.code = false,
@@ -260,6 +266,7 @@ class FormFieldSpec {
         (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ?? const [],
     countOf:
         (j['countOf'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    multiple: j['multiple'] as bool? ?? false,
     productOf:
         (j['productOf'] as List?)?.map((e) => e.toString()).toList() ??
         const [],

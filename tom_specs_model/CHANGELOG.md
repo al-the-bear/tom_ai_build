@@ -1,3 +1,12 @@
+## 1.6.14
+
+- Every reference field states whether it holds one id or several
+  (`Field.multiple`, `tom_specs_model_rules.md` §6.2 rule 3): 68 list-valued
+  reference fields are marked `multiple` — those whose hint or name says
+  several ids, and four that documents showed to hold lists (a UAT scenario's
+  interactions, an acceptance criterion's scenarios and deliverables, a
+  responsive rule's screens). Requires `tom_specs_core` 0.4.0.
+
 ## 1.6.13
 
 - Documentation: SOM §9 names the instance-tier `missingRequiredField` check;

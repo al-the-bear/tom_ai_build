@@ -225,6 +225,9 @@ class ModelJsonExporter {
                 // `<SECTIONID>` or `<SECTIONID>.<formField>=<value>`, so every
                 // runtime's instance tier can hold the count to the document.
                 if (ff.countOf.isNotEmpty) 'countOf': ff.countOf,
+                // uamtc17: a reference field holding several ids; without it
+                // a field holds one, and a list in it is reported.
+                if (ff.multiple) 'multiple': true,
                 // uamtc10: a value derived from other fields — a product of
                 // operands, or a rank by a sibling field — held to them by
                 // every runtime's instance tier (derivedValueMismatch).

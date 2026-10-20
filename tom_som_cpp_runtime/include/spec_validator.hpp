@@ -69,6 +69,12 @@ inline constexpr const char* kSpecValidationCodeDerivedValueMismatch =
  * incomplete one. */
 inline constexpr const char* kSpecValidationCodeMissingRequiredField =
     "missingRequiredField";
+/* A reference form field (`refersTo`) not marked `multiple` whose value names
+ * more than one id as a comma-separated list (uamtc17). One finding at the form
+ * path; each id of the list is still resolved, so a dangling one is a
+ * `danglingReference` as well. */
+inline constexpr const char* kSpecValidationCodeMultipleReferences =
+    "multipleReferences";
 
 struct SpecValidationError {
   std::string path;

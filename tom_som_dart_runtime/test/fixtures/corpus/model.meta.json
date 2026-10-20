@@ -521,7 +521,8 @@
               "refersTo": [
                 "RGE.code",
                 "RGE.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "crossRefs",
@@ -530,7 +531,8 @@
               "refersTo": [
                 "RGE.@sectionId",
                 "RGL.@sectionId"
-              ]
+              ],
+              "multiple": true
             },
             {
               "name": "entryCount",

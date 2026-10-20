@@ -81,6 +81,12 @@ enum SpecValidationCode {
   /// tier checks class-level forms of the rendition only; this is the check
   /// that reaches every form.
   missingRequiredField,
+
+  /// A reference field that holds one id (no `Field.multiple`) holds a
+  /// comma-separated list (uamtc17). A field meant for one reference must not
+  /// silently hold several; each id of the list is still resolved, so a
+  /// dangling one is a `danglingReference` as well.
+  multipleReferences,
 }
 
 /// One problem found while validating a document.
@@ -526,6 +532,26 @@ List<SpecValidationError> _validateReferenceInstances(
       if (ff.refersTo.isEmpty) continue;
       final value = doc.formField(form.path, ff.name);
       if (value == null || value.trim().isEmpty) continue;
+
+      // One id, unless the field says it holds several. Decidable without the
+      // registries, so it is checked before the scope test below.
+      if (!ff.multiple) {
+        final ids = [
+          for (final s in value.split(','))
+            if (s.trim().isNotEmpty) s.trim(),
+        ];
+        if (ids.length > 1) {
+          errors.add(
+            SpecValidationError(
+              path: form.path,
+              code: SpecValidationCode.multipleReferences,
+              message:
+                  'form field "${ff.name}" holds ${ids.length} references '
+                  '(${ids.join(', ')}) but takes one',
+            ),
+          );
+        }
+      }
 
       // Every target must be in scope, not merely one of them: a disjunction
       // says the id may come from any of the listed registries, so one absent

@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Single-reference check (uamtc17). `FormFieldSpec` gains `multiple` (bool, read from the meta's `formFields[].multiple`, absent = false). New validation code
+  `kSpecValidationCodeMultipleReferences` (`"multipleReferences"`), after `missingRequiredField`. In the
+  reference phase of `validate_document`, a `refersTo` field not marked
+  `multiple` whose value splits (on `,`, trimmed, empty parts dropped) into
+  more than one id reports one `multipleReferences` at the form path, before
+  the registry-scope test; every id is still resolved, so dangling ones still
+  report `danglingReference`. Pinned by the `multipleReferencesInSingleField`
+  and `everyDanglingIdOfAList` validation cases.
+
 - Required form fields (uamtc16). New validation code `kSpecValidationCodeMissingRequiredField`
   (`"missingRequiredField"`), after `derivedValueMismatch`. In the form phase
   of `validate_document`, every form path that resolves to a form reports, in

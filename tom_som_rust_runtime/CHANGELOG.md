@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Single-reference fields (uamtc17): `FormFieldSpec::multiple` (meta
+  `formFields[].multiple`, absent → false). `validate_document` reports the new
+  `SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES` (`multipleReferences`) in the reference phase: a reference field
+  without `multiple` whose value splits on `,` into more than one non-empty
+  id gets one error at the form path, checked before the registry-scope test;
+  every id is still resolved, so dangling ones also report
+  `danglingReference`. The corpus cases `multipleReferencesInSingleField` and
+  `everyDanglingIdOfAList` pin it.
+
 - Required form fields (uamtc16): `validate_document` reports the new
   `SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD` (`missingRequiredField`) in
   the form-section step — for every form path the document holds that

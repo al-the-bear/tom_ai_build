@@ -320,6 +320,33 @@ std::vector<SpecValidationError> validateReferenceInstances(
         continue;
       }
 
+      // One id, unless the field says it holds several. Decidable without the
+      // registries, so it is checked before the scope test below.
+      if (!ff.multiple) {
+        std::vector<std::string> ids;
+        std::size_t mfrom = 0;
+        while (true) {
+          std::size_t comma = value.find(',', mfrom);
+          std::string id = trimmed(comma == std::string::npos
+                                       ? value.substr(mfrom)
+                                       : value.substr(mfrom, comma - mfrom));
+          if (!id.empty()) ids.push_back(id);
+          if (comma == std::string::npos) break;
+          mfrom = comma + 1;
+        }
+        if (ids.size() > 1) {
+          std::string joined;
+          for (const std::string& id : ids) {
+            if (!joined.empty()) joined += ", ";
+            joined += id;
+          }
+          errors.push_back({form.path, kSpecValidationCodeMultipleReferences,
+                            "form field \"" + ff.name + "\" holds " +
+                                std::to_string(ids.size()) + " references (" +
+                                joined + ") but takes one"});
+        }
+      }
+
       // Every target must be in scope, not merely one of them: a disjunction
       // says the id may come from any of the listed registries, so one absent
       // registry is enough to make "no registry declares it" unsound — the id

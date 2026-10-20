@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.14
+
+- `multipleReferences`: a reference field without `multiple` that holds a
+  comma-separated list is reported; every id of a list is still resolved on
+  its own. `FormFieldSpec.multiple` reads the meta flag. Conformance:
+  `multipleReferencesInSingleField`, `everyDanglingIdOfAList`.
+
 ## 1.6.13
 
 - `missingRequiredField`: every form the document holds must fill its

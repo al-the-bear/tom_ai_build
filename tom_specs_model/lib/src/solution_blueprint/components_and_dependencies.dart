@@ -2350,6 +2350,7 @@ class ComponentRiskEntry extends DocSpecsSection {
       hint:
           'The components this risk applies to, comma-separated — component section ids (CMPNT-COMP-…)',
       refersTo: ['CMPNT.@sectionId'],
+      multiple: true,
     ),
   ])
   @override
@@ -2527,6 +2528,7 @@ class ComponentRiskEntry extends DocSpecsSection {
           'Other component risks that correlate or cascade — risk section ids '
           '(CMRS-RISK-…), comma-separated',
       refersTo: ['CMRS.@sectionId'],
+      multiple: true,
     ),
     Field(
       'acceptanceCriteria',

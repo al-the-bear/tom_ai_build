@@ -803,6 +803,7 @@ class DataEntityEntry extends DocSpecsSection {
           'serves this entity. Several aggregates naming one root is a merge; '
           'one aggregate whose entities name different roots is a split. '
           'Empty means the aggregate named above',
+      multiple: true,
     ),
     Field(
       'owningDomain',
@@ -5404,6 +5405,7 @@ Author the further change as a new entry with the next version.
       required: true,
       refersTo: ['DAENT.entityName'],
       hint: 'The Data Model entities this baseline creates',
+      multiple: true,
     ),
     Field(
       'schemaStatements',
@@ -5444,6 +5446,7 @@ Author the further change as a new entry with the next version.
       required: true,
       refersTo: ['DAENT.entityName'],
       hint: 'The Data Model entities this artifact populates',
+      multiple: true,
     ),
     Field(
       'valueSet',
@@ -5497,6 +5500,7 @@ Author the further change as a new entry with the next version.
       required: true,
       refersTo: ['DAENT.entityName'],
       hint: 'The Data Model entities this change touches',
+      multiple: true,
     ),
     Field(
       'dataBackfill',
@@ -6333,6 +6337,7 @@ class ServerOperationEntry extends DocSpecsSection {
           'registry (ERCRG) that this operation may return in the error arm '
           'of the Result envelope',
       refersTo: ['ERCEN.code'],
+      multiple: true,
     ),
   ])
   @override
@@ -6716,6 +6721,7 @@ class HookMethodEntry extends DocSpecsSection {
           'Comma-separated ServerOperationEntry.operationName values, in the '
           'order the member calls them',
       refersTo: ['SVOPE.operationName'],
+      multiple: true,
     ),
     Field(
       'readsEntities',
@@ -6724,6 +6730,7 @@ class HookMethodEntry extends DocSpecsSection {
       hint:
           'Comma-separated DataEntityEntry.entityName values the member reads',
       refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
     Field(
       'writesEntities',
@@ -6732,6 +6739,7 @@ class HookMethodEntry extends DocSpecsSection {
       hint:
           'Comma-separated DataEntityEntry.entityName values the member writes',
       refersTo: ['DAENT.entityName'],
+      multiple: true,
     ),
   ])
   @ContentHelp(

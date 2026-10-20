@@ -2196,6 +2196,7 @@ Map<String, dynamic> _buildMeta() => {
               'label': 'Any Refs',
               'type': 'String',
               'refersTo': ['RGE.code', 'RGE.@sectionId'],
+              'multiple': true,
             },
             {
               // Two registries of different classes: a segment resolves
@@ -2204,6 +2205,7 @@ Map<String, dynamic> _buildMeta() => {
               'label': 'Cross Refs',
               'type': 'String',
               'refersTo': ['RGE.@sectionId', 'RGL.@sectionId'],
+              'multiple': true,
             },
             // vsctsa43: two stated counts over the same registry — every
             // entry, and only the entries whose own form says `code: ALPHA`.
@@ -2924,6 +2926,26 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         'DEMO/DET': {'contact': 'someone'},
       },
     }),
+    // uamtc17: a reference field without `multiple` takes one id — two
+    // resolving ids in `entryId` are one multipleReferences — and every id of
+    // a list is resolved on its own: two dangling ids in `anyRefs` are two
+    // danglingReference findings.
+    caseFor(
+      'multipleReferencesInSingleField',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA, RGE-2',
+        anyRefs: 'ALPHA',
+      ),
+    ),
+    caseFor(
+      'everyDanglingIdOfAList',
+      _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA, NOPE-1, NOPE-2',
+      ),
+    ),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.

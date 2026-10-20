@@ -99,6 +99,10 @@ class FormFieldInfo {
   /// states no count. See `Field.countOf` in `tom_specs_core`.
   final List<String> countOf;
 
+  /// Whether this reference field holds several comma-separated ids
+  /// (`Field.multiple`); a reference field without it holds one.
+  final bool multiple;
+
   /// The operands this field's value is the product of, each a form field of
   /// the same form or `<FORMSECTIONID>.<field>` of a sibling form. Empty for a
   /// field that states no product. See `Field.productOf` in `tom_specs_core`.
@@ -129,6 +133,7 @@ class FormFieldInfo {
     this.enumValueDocs = const {},
     this.refersTo = const [],
     this.countOf = const [],
+    this.multiple = false,
     this.productOf = const [],
     this.rankOf = '',
     this.code = false,
@@ -993,6 +998,7 @@ class ModelReader {
                 .toList() ??
             const <String>[];
         final rankOf = item.getField('rankOf')?.toStringValue() ?? '';
+        final multiple = item.getField('multiple')?.toBoolValue() ?? false;
         final code = item.getField('code')?.toBoolValue() ?? false;
 
         // Extract type name from the Type literal; resolve enum constant
@@ -1020,6 +1026,7 @@ class ModelReader {
             enumValueDocs: enumValueDocs,
             refersTo: refersTo,
             countOf: countOf,
+            multiple: multiple,
             productOf: productOf,
             rankOf: rankOf,
             code: code,

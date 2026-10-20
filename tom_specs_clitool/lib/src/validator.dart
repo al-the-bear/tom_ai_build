@@ -1596,6 +1596,12 @@ void _validateDerivedFields(
           }
         }
 
+        if (ff.multiple && ff.refersTo.isEmpty) {
+          errors.add(
+            '$_invariants multiple: $where declares multiple without refersTo '
+            '— only a reference field holds one or several ids',
+          );
+        }
         for (final operand in ff.productOf) {
           check(operand, 'productOf');
         }

@@ -108,6 +108,12 @@ export class FormFieldSpec {
    * §11.4 rule 8). Omitted from the export when `false`.
    */
   code: boolean;
+  /**
+   * Whether a reference field holds several ids, comma-separated
+   * (`Field.multiple`, uamtc17); a reference field without it holds one, and
+   * the instance tier reports a list in it (`multipleReferences`).
+   */
+  multiple: boolean;
 
   constructor(props: {
     name: string;
@@ -121,6 +127,7 @@ export class FormFieldSpec {
     productOf?: string[];
     rankOf?: string | null;
     code?: boolean;
+    multiple?: boolean;
   }) {
     this.name = props.name;
     this.label = props.label;
@@ -133,6 +140,7 @@ export class FormFieldSpec {
     this.productOf = props.productOf || [];
     this.rankOf = props.rankOf != null ? props.rankOf : null;
     this.code = Boolean(props.code || false);
+    this.multiple = Boolean(props.multiple || false);
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -148,6 +156,7 @@ export class FormFieldSpec {
       productOf: (j.productOf || []).map((e: unknown) => String(e)),
       rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
+      multiple: j.multiple === true,
     });
   }
 }

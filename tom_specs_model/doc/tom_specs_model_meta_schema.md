@@ -237,8 +237,9 @@ section id and no form field restates it (`tom_specs_model_rules.md` §6.2 rule
 value is valid when it
 resolves in **any** one of the listed registries, which is how a field such as
 `SCTREN.outcomeReference` names both `SYERCO.errorCode` and `VMT.@sectionId`. A
-single field value may itself name several ids, written comma-separated; each
-part is resolved independently. Consumers use it for the instance-tier
+field marked `"multiple": true` (`Field.multiple`) holds several ids, written
+comma-separated, each resolved independently; a field without it holds one id,
+and a list there is reported as `multipleReferences`. Consumers use it for the instance-tier
 dangling-reference check — a reference whose target id is not declared anywhere
 in the document is reported rather than silently generating broken code.
 

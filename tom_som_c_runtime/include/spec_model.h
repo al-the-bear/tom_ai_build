@@ -173,6 +173,11 @@ typedef struct {
      §11.4 rule 8). Read from the `code` key; omitted from the export when
      false. */
   int code;
+  /* Whether a reference field holds a comma-separated list of ids
+     (`Field.multiple`, uamtc17). Read from the `multiple` key; absent means
+     false. A reference field without it holds one id, and the instance tier
+     reports a list in it (`multipleReferences`). */
+  int multiple;
 } FormFieldSpec;
 
 typedef struct {

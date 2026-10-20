@@ -294,6 +294,7 @@ static void field_from_json(const SomJson *f, SpecField *out) {
             rank_of != NULL ? som_strdup(rank_of) : NULL;
       }
       out->form_fields[i].code = som_json_bool_or(ff, "code");
+      out->form_fields[i].multiple = som_json_bool_or(ff, "multiple");
     }
     out->form_fields_len = fn;
   }

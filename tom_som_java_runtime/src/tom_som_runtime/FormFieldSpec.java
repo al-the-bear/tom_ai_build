@@ -53,6 +53,12 @@ public final class FormFieldSpec {
    * (SOM §11.4 rule 8). Omitted from the export when {@code false}.
    */
   public final boolean code;
+  /**
+   * Whether a reference field holds a comma-separated list of ids
+   * ({@code Field.multiple}, uamtc17); a reference field without it holds one,
+   * and the instance tier reports a list in it ({@code multipleReferences}).
+   */
+  public final boolean multiple;
 
   public FormFieldSpec(
       String name, String label, String type, String hint, boolean required) {
@@ -107,6 +113,22 @@ public final class FormFieldSpec {
       boolean code,
       List<String> productOf,
       String rankOf) {
+    this(name, label, type, hint, required, enumValues, refersTo, countOf, code, productOf, rankOf, false);
+  }
+
+  public FormFieldSpec(
+      String name,
+      String label,
+      String type,
+      String hint,
+      boolean required,
+      List<String> enumValues,
+      List<String> refersTo,
+      List<String> countOf,
+      boolean code,
+      List<String> productOf,
+      String rankOf,
+      boolean multiple) {
     this.name = name;
     this.label = label;
     this.type = type;
@@ -118,6 +140,7 @@ public final class FormFieldSpec {
     this.code = code;
     this.productOf = productOf;
     this.rankOf = rankOf;
+    this.multiple = multiple;
   }
 
   public static FormFieldSpec fromJson(Map<String, Object> j) {
@@ -135,7 +158,8 @@ public final class FormFieldSpec {
         stringList(j.get("countOf")),
         Boolean.TRUE.equals(j.get("code")),
         stringList(j.get("productOf")),
-        j.get("rankOf") != null ? j.get("rankOf").toString() : null);
+        j.get("rankOf") != null ? j.get("rankOf").toString() : null,
+        Boolean.TRUE.equals(j.get("multiple")));
   }
 
   private static List<String> stringList(Object raw) {

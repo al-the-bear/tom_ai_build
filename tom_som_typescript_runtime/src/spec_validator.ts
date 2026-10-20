@@ -84,6 +84,13 @@ export const SpecValidationCode = {
    * that reaches every form.
    */
   MISSING_REQUIRED_FIELD: 'missingRequiredField',
+  /**
+   * A reference field that holds one id (no `Field.multiple`) holds a
+   * comma-separated list (uamtc17). A field meant for one reference must not
+   * silently hold several; each id of the list is still resolved, so a
+   * dangling one is a `danglingReference` as well.
+   */
+  MULTIPLE_REFERENCES: 'multipleReferences',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -601,6 +608,25 @@ function _validateReferenceInstances(
       const value = doc.formField(form.path, ff.name);
       if (value === null || value === undefined || value.trim() === '') {
         continue;
+      }
+
+      // One id, unless the field says it holds several. Decidable without the
+      // registries, so it is checked before the scope test below.
+      if (!ff.multiple) {
+        const ids = value
+          .split(',')
+          .map((part) => part.trim())
+          .filter((part) => part !== '');
+        if (ids.length > 1) {
+          errors.push(
+            new SpecValidationError(
+              form.path,
+              SpecValidationCode.MULTIPLE_REFERENCES,
+              `form field "${ff.name}" holds ${ids.length} references ` +
+                `(${ids.join(', ')}) but takes one`,
+            ),
+          );
+        }
       }
 
       // Every target must be in scope, not merely one of them: a disjunction

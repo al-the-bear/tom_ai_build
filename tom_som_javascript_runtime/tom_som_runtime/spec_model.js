@@ -246,6 +246,7 @@ class FormFieldSpec {
     productOf = [],
     rankOf = null,
     code = false,
+    multiple = false,
   }) {
     this.name = name;
     this.label = label;
@@ -298,6 +299,13 @@ class FormFieldSpec {
      * @type {boolean}
      */
     this.code = code;
+    /**
+     * Whether a reference field holds several ids, comma-separated
+     * (`Field.multiple`, uamtc17); a reference field without it holds one, and
+     * the instance tier reports a list in it (`multipleReferences`).
+     * @type {boolean}
+     */
+    this.multiple = multiple;
   }
 
   static fromJson(j) {
@@ -313,6 +321,7 @@ class FormFieldSpec {
       productOf: (j.productOf || []).map(String),
       rankOf: typeof j.rankOf === 'string' ? j.rankOf : null,
       code: j.code === true,
+      multiple: j.multiple === true,
     });
   }
 }

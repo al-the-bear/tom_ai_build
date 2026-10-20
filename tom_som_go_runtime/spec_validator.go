@@ -56,6 +56,11 @@ const (
 	// class-level forms of the rendition only; this is the check that reaches
 	// every form.
 	SpecValidationCodeMissingRequiredField = "missingRequiredField"
+	// A reference field that holds one id (no `Field.multiple`) holds a
+	// comma-separated list (uamtc17). A field meant for one reference must not
+	// silently hold several; each id of the list is still resolved, so a
+	// dangling one is a `danglingReference` as well.
+	SpecValidationCodeMultipleReferences = "multipleReferences"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -508,6 +513,26 @@ func validateReferenceInstances(refl *SpecReflection, doc *SpecDocument) []SpecV
 			value := strings.TrimSpace(doc.FormFieldOr(form.path, ff.Name))
 			if value == "" {
 				continue
+			}
+
+			// One id, unless the field says it holds several. Decidable without
+			// the registries, so it is checked before the scope test below.
+			if !ff.Multiple {
+				ids := []string{}
+				for _, part := range strings.Split(value, ",") {
+					if p := strings.TrimSpace(part); p != "" {
+						ids = append(ids, p)
+					}
+				}
+				if len(ids) > 1 {
+					errors = append(errors, SpecValidationError{
+						Path: form.path,
+						Code: SpecValidationCodeMultipleReferences,
+						Message: "form field \"" + ff.Name + "\" holds " +
+							strconv.Itoa(len(ids)) + " references (" +
+							strings.Join(ids, ", ") + ") but takes one",
+					})
+				}
 			}
 
 			// Every target must be in scope, not merely one of them: a disjunction
