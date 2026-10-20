@@ -1014,6 +1014,13 @@ class ScheduledJobTrigger(Enum):
     # The arm with no schedule, so nothing about it can be answered by looking
     # at a clock — including when it will next run, or whether it ever will.
     event = "event"
+    # The job fires at a fixed period counted from an anchor instant, not on
+    # the wall clock: a 24-hour period drifts across a daylight-saving change,
+    # where a cron expression would not.
+    #
+    # A separate arm because a period that does not divide the hour or the day
+    # — 90 minutes, 7 hours — has no cron expression at all.
+    interval = "interval"
 
 
 def _parse_ScheduledJobTrigger(token):
@@ -33996,6 +34003,14 @@ class ScheduledJobEntry(SomNode):
     @property
     def eventTrigger(self):
         return ScheduledJobEntryEventTriggerForm(self.doc, f"{self.path}/SCJOB-EVNT")
+
+    # Interval trigger — a promoted `@OneOf` case.
+    #
+    # Present only for the `interval` kind: a fixed period counted from an
+    # anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+    @property
+    def intervalTrigger(self):
+        return ScheduledJobEntryIntervalTriggerForm(self.doc, f"{self.path}/SCJOB-INTV")
 
     # What the job does and which data it acts on.
     #
@@ -152336,6 +152351,39 @@ class ScheduledJobEntryFailurePolicyForm(SomNode):
     @failureAlert.setter
     def failureAlert(self, value):
         self.doc.set_form_field(self.path, "failureAlert", value)
+
+class ScheduledJobEntryIntervalTriggerForm(SomNode):
+    """Generated section facade for the `intervalTrigger` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def period(self) -> str:
+        return self.doc.form_field(self.path, "period") or ""
+
+    @period.setter
+    def period(self, value):
+        self.doc.set_form_field(self.path, "period", value)
+
+    @property
+    def anchor(self) -> str:
+        return self.doc.form_field(self.path, "anchor") or ""
+
+    @anchor.setter
+    def anchor(self, value):
+        self.doc.set_form_field(self.path, "anchor", value)
 
 class ScheduledJobEntryWorkDefinitionForm(SomNode):
     """Generated section facade for the `workDefinition` @Form section: its own content text followed by one typed member per form field."""

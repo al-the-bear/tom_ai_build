@@ -571,6 +571,9 @@ std::optional<std::string> ScheduledJobTrigger::parse(const std::string& token) 
   if (token == event) {
     return token;
   }
+  if (token == interval) {
+    return token;
+  }
   return std::nullopt;
 }
 
@@ -15832,6 +15835,9 @@ ScheduledJobEntryCalendarTriggerForm ScheduledJobEntry::calendarTrigger() const 
 }
 ScheduledJobEntryEventTriggerForm ScheduledJobEntry::eventTrigger() const {
   return ScheduledJobEntryEventTriggerForm(doc(), som::joinPath(path(), "SCJOB-EVNT"));
+}
+ScheduledJobEntryIntervalTriggerForm ScheduledJobEntry::intervalTrigger() const {
+  return ScheduledJobEntryIntervalTriggerForm(doc(), som::joinPath(path(), "SCJOB-INTV"));
 }
 ScheduledJobEntryWorkDefinitionForm ScheduledJobEntry::workDefinition() const {
   return ScheduledJobEntryWorkDefinitionForm(doc(), som::joinPath(path(), "SCJOB-WORK"));
@@ -93605,6 +93611,27 @@ std::string ScheduledJobEntryFailurePolicyForm::failureAlert() const {
 }
 void ScheduledJobEntryFailurePolicyForm::setFailureAlert(const std::string& value) {
   doc().setFormField(path(), "failureAlert", value);
+}
+
+ScheduledJobEntryIntervalTriggerForm::ScheduledJobEntryIntervalTriggerForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ScheduledJobEntryIntervalTriggerForm::content() const {
+  return doc().content(path());
+}
+void ScheduledJobEntryIntervalTriggerForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ScheduledJobEntryIntervalTriggerForm::period() const {
+  return doc().formField(path(), "period");
+}
+void ScheduledJobEntryIntervalTriggerForm::setPeriod(const std::string& value) {
+  doc().setFormField(path(), "period", value);
+}
+std::string ScheduledJobEntryIntervalTriggerForm::anchor() const {
+  return doc().formField(path(), "anchor");
+}
+void ScheduledJobEntryIntervalTriggerForm::setAnchor(const std::string& value) {
+  doc().setFormField(path(), "anchor", value);
 }
 
 ScheduledJobEntryWorkDefinitionForm::ScheduledJobEntryWorkDefinitionForm(som::SpecDocument& doc, std::string path)

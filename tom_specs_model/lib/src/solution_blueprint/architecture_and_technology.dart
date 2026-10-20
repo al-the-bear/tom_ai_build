@@ -21,10 +21,13 @@ import '../common/enums.dart';
 ///   month-end, the third Monday of a quarter.
 /// - [event] does not fire on time at all: it runs when something in the system
 ///   happens, and the payload of that occurrence is what the work reads.
+/// - [interval] fires at a fixed period from an anchor — every 90 minutes —
+///   which a clock expression can state only when the period divides the hour
+///   or the day.
 ///
-/// The set is closed at three because it is exactly the trigger vocabulary the
-/// CodeSpecs surface realises (`codespecs_mapping.md` §5.29); a fourth arm
-/// would be a specification that cannot be generated.
+/// The set is closed because it is exactly the trigger vocabulary the
+/// CodeSpecs surface realises (`codespecs_mapping.md` §5.29, `CsJobTrigger`);
+/// an arm outside it would be a specification that cannot be generated.
 enum ScheduledJobTrigger {
   /// The job fires on a recurring clock expression.
   ///
@@ -46,6 +49,14 @@ enum ScheduledJobTrigger {
   /// The arm with no schedule, so nothing about it can be answered by looking
   /// at a clock — including when it will next run, or whether it ever will.
   event,
+
+  /// The job fires at a fixed period counted from an anchor instant, not on
+  /// the wall clock: a 24-hour period drifts across a daylight-saving change,
+  /// where a cron expression would not.
+  ///
+  /// A separate arm because a period that does not divide the hour or the day
+  /// — 90 minutes, 7 hours — has no cron expression at all.
+  interval,
 }
 
 /// 8. Technical Framework Concept. Seeds → ATS.
@@ -28675,9 +28686,10 @@ subsections below carry the defaults those declarations inherit.
   discriminator: 'triggerKind',
   note:
       'Job trigger closed choice: the kind selects its promoted trigger '
-      'subsection — a recurring clock expression, a calendar date rule, or a '
-      'named system event. Each kind is started by a different thing and '
-      'states a different rule, so every kind binds a case.',
+      'subsection — a recurring clock expression, a calendar date rule, a '
+      'named system event, or a fixed period. Each kind is started by a '
+      'different thing and states a different rule, so every kind binds a '
+      'case.',
 )
 class ScheduledJobEntry extends DocSpecsSection {
   @ContentHelp('''
@@ -28824,6 +28836,41 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
   @SerializationOrder(3)
   DocSpecsSection? eventTrigger;
 
+  /// Interval trigger — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `interval` kind: a fixed period counted from an
+  /// anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+  @SectionId('SCJOB-INTV')
+  @StandardReferences([
+    'ISO 8601 — durations and date and time representation',
+    'Google SRE — eliminating toil and operational procedures',
+  ], 'The period, and the instant it is counted from, that start this job.')
+  @Case(ScheduledJobTrigger.interval)
+  @Form([
+    Field(
+      'period',
+      String,
+      'Period',
+      required: true,
+      code: true,
+      hint:
+          'The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it '
+          'must be positive',
+    ),
+    Field(
+      'anchor',
+      String,
+      'Anchor',
+      code: true,
+      hint:
+          'The instant the period is counted from, as an ISO 8601 date-time '
+          '(e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a '
+          'period that divides the day fires on the hour',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? intervalTrigger;
+
   /// What the job does and which data it acts on.
   ///
   /// The intent half of the work definition. The body that realises it is
@@ -28879,7 +28926,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
           'report section ids (REPENT-REPO-…), comma-separated',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? workDefinition;
 
   /// The ordered steps the work runs in — one entry per step.
@@ -28907,7 +28954,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
     'Leave the list empty for a job whose work is a single action — the Work '
     'Summary then stands alone.',
   )
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   List<ScheduledJobStepEntry> workSteps = [];
 
   /// This job's departures from the system-wide execution policy.
@@ -28972,7 +29019,7 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
           'definition (ALEDEF-ALER-…)',
     ),
   ])
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   DocSpecsSection? failurePolicy;
 }
 

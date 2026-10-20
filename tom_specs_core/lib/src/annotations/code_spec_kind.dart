@@ -232,8 +232,8 @@ enum CodeSpecPart {
   notification,
 
   /// CE-JB — background jobs: scheduled / background / queued work over the
-  /// operational model — `@CsJob` names a trigger (cron | calendar | event), a
-  /// work definition (the `TomCommand` body on the `tom_core_kernel`
+  /// operational model — `@CsJob` names a trigger (cron | calendar | event |
+  /// interval), a work definition (the `TomCommand` body on the `tom_core_kernel`
   /// isolate-pooling substrate: `TomExecutor` / `TomWorker`), target refs
   /// (CE-DB entities / CE-RP reports) and retry/backoff/timeout/alerting,
   /// distinct from request-driven [serverApi]. Server-only; the typed

@@ -34696,6 +34696,12 @@ void registerSpecOps() {
             sectionId: 'SCJOB-EVNT',
           ),
           SpecSlot.node(
+            () => n.intervalTrigger,
+            (v) => n.intervalTrigger = v as DocSpecsSection?,
+            label: 'intervalTrigger',
+            sectionId: 'SCJOB-INTV',
+          ),
+          SpecSlot.node(
             () => n.workDefinition,
             (v) => n.workDefinition = v as DocSpecsSection?,
             label: 'workDefinition',
@@ -34722,6 +34728,7 @@ void registerSpecOps() {
           ..cronTrigger = n.cronTrigger
           ..calendarTrigger = n.calendarTrigger
           ..eventTrigger = n.eventTrigger
+          ..intervalTrigger = n.intervalTrigger
           ..workDefinition = n.workDefinition
           ..workSteps = n.workSteps
           ..failurePolicy = n.failurePolicy;

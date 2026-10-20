@@ -1566,7 +1566,16 @@ public final class TomSomV0 {
      * The arm with no schedule, so nothing about it can be answered by looking
      * at a clock — including when it will next run, or whether it ever will.
      */
-    event("event");
+    event("event"),
+    /**
+     * The job fires at a fixed period counted from an anchor instant, not on
+     * the wall clock: a 24-hour period drifts across a daylight-saving change,
+     * where a cron expression would not.
+     *
+     * A separate arm because a period that does not divide the hour or the day
+     * — 90 minutes, 7 hours — has no cron expression at all.
+     */
+    interval("interval");
 
     public final String token;
 
@@ -36491,6 +36500,14 @@ public final class TomSomV0 {
     // other arm has — is an occurrence carrying data the work reads.
     public ScheduledJobEntryEventTriggerForm eventTrigger() {
       return new ScheduledJobEntryEventTriggerForm(doc, path + "/SCJOB-EVNT");
+    }
+
+    // Interval trigger — a promoted `@OneOf` case.
+    //
+    // Present only for the `interval` kind: a fixed period counted from an
+    // anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+    public ScheduledJobEntryIntervalTriggerForm intervalTrigger() {
+      return new ScheduledJobEntryIntervalTriggerForm(doc, path + "/SCJOB-INTV");
     }
 
     // What the job does and which data it acts on.
@@ -173500,6 +173517,46 @@ public final class TomSomV0 {
 
     public void failureAlert(String value) {
       doc.setFormField(path, "failureAlert", value);
+    }
+  }
+
+  // Generated section facade for the `intervalTrigger` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryIntervalTriggerForm extends SomNode {
+    public ScheduledJobEntryIntervalTriggerForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String period() {
+      String v = doc.formField(path, "period");
+      return v == null ? "" : v;
+    }
+
+    public void period(String value) {
+      doc.setFormField(path, "period", value);
+    }
+
+    public String anchor() {
+      String v = doc.formField(path, "anchor");
+      return v == null ? "" : v;
+    }
+
+    public void anchor(String value) {
+      doc.setFormField(path, "anchor", value);
     }
   }
 

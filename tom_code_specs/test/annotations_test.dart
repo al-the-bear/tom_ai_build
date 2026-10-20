@@ -1076,6 +1076,19 @@ void main() {
       expect(job.failureAlert, Messages.cleanupFailed);
     });
 
+    test('the interval arm carries a Duration period and an anchor', () {
+      const job = CsJob(
+        trigger: CsJobTrigger.interval,
+        interval: Duration(minutes: 90),
+        intervalAnchor: '2026-01-01T00:30:00Z',
+      );
+      expect(job.interval, const Duration(minutes: 90));
+      expect(job.intervalAnchor, '2026-01-01T00:30:00Z');
+      expect(job.cron, isNull);
+      expect(job.calendar, isNull);
+      expect(job.event, isNull);
+    });
+
     test('the calendar arm fills only its own slot', () {
       const job = CsJob(
         trigger: CsJobTrigger.calendar,

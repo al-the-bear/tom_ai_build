@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.16.0
+
+- `CsJobTrigger.interval`: a job fired at a fixed period from an anchor,
+  lowered onto `tom_core_kernel`'s `TomIntervalSchedule`. `@CsJob` gains the
+  `interval` slot (the period, a `Duration`) and `intervalAnchor` (the ISO
+  8601 instant it is counted from; `null` is the epoch).
+
 ## 0.15.0
 
 - **`@CsOperationBinding(operation, {note})`** — a second CE-API marker, beside

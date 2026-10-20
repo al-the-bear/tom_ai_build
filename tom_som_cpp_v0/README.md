@@ -37,9 +37,9 @@ make install
 c++ myapp.cpp $(pkg-config --cflags --libs tom_som_cpp_v0) -o myapp
 ```
 
-The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version 1.6.10`.
+The facade `.pc` declares `Requires: tom_som_cpp_runtime`, so a single `pkg-config tom_som_cpp_v0` pulls in the runtime flags too. Both `.pc` files report `Version 1.6.11`.
 
-`tom_som_cpp_v0` and `tom_som_cpp_runtime` both carry version `1.6.10`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_cpp_v0` and `tom_som_cpp_runtime` both carry version `1.6.11`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
@@ -243,7 +243,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.6.10**, tracking the TomSpecs model version and matching `tom_som_cpp_runtime`. Generated surface: 14 document roots, 1266 model classes. Verify the package with:
+Version **1.6.11**, tracking the TomSpecs model version and matching `tom_som_cpp_runtime`. Generated surface: 14 document roots, 1266 model classes. Verify the package with:
 
 ```bash
 make -C ../tom_som_cpp_runtime

@@ -165,6 +165,7 @@ const csPerKindSlots =
           'cron': {'cron'},
           'calendar': {'calendar'},
           'event': {'event'},
+          'interval': {'interval', 'intervalAnchor'},
         },
       ),
     };

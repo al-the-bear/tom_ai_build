@@ -965,7 +965,6 @@ than reopening it.
 
 | Requested | Decision | Why |
 | --- | --- | --- |
-| An `interval` arm for `ScheduledJobTrigger` | not yet | The trigger set is closed to mirror `CsJobTrigger`: every arm must be one the CodeSpecs surface can generate (`codespecs_mapping.md` §5.29). An interval arm is a CodeSpecs vocabulary change first; until it lands, an interval that divides the hour or the day is written as a `cron` expression. |
 | A locale variant stated inline on its message key | no | The variant is a list entry with its own section id and review status; an inline copy would be a second home for the same fact (§6.2.5). The repeated locale headings of a long rendition are the renderer's concern, not the model's. |
 
 ### 6.3 Form decomposition

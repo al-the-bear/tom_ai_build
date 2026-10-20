@@ -81349,7 +81349,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("purpose", "String", "Purpose", true, "Why this job exists — the operational or business reason it runs on its own rather than as part of a request", 0),
-            new SomFormFieldMeta("triggerKind", "ScheduledJobTrigger", "Trigger Kind", true, "What starts the job — selects the trigger subsection below", 1, java.util.List.of("cron", "calendar", "event")),
+            new SomFormFieldMeta("triggerKind", "ScheduledJobTrigger", "Trigger Kind", true, "What starts the job — selects the trigger subsection below", 1, java.util.List.of("cron", "calendar", "event", "interval")),
             new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", true, "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
             new SomFormFieldMeta("enabled", "bool", "Enabled", false, "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", 3),
             new SomFormFieldMeta("environments", "String", "Environments", false, "Comma-separated deployment environments this job runs in, or empty to run in every environment", 4)));
@@ -81391,9 +81391,21 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("ScheduledJobEntry", SomMetaKind.FORM, "String");
+        n.memberName = "intervalTrigger";
+        n.sectionId = "SCJOB-INTV";
+        n.serializationOrder = 4;
+        n.docComment = "Interval trigger — a promoted `@OneOf` case.\n\nPresent only for the `interval` kind: a fixed period counted from an\nanchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("period", "String", "Period", true, "The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive", 0, java.util.List.of(), java.util.List.of(), true),
+            new SomFormFieldMeta("anchor", "String", "Anchor", false, "The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour", 1, java.util.List.of(), java.util.List.of(), true)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601 — durations and date and time representation", "Google SRE — eliminating toil and operational procedures"), "connotation", "The period, and the instant it is counted from, that start this job.")), new SomMetaExtra("Case", metaArgs("value", "ScheduledJobTrigger.interval")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ScheduledJobEntry", SomMetaKind.FORM, "String");
         n.memberName = "workDefinition";
         n.sectionId = "SCJOB-WORK";
-        n.serializationOrder = 4;
+        n.serializationOrder = 5;
         n.contentHelp = "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.";
         n.docComment = "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.";
         n.form = new SomFormMeta(Arrays.asList(
@@ -81409,7 +81421,7 @@ public final class TomSomV0Meta {
         n.memberName = "workSteps";
         n.sectionId = "SCJOST-WORK-LST";
         n.sectionIdPattern = "SCJOST-WORK-xxx";
-        n.serializationOrder = 5;
+        n.serializationOrder = 6;
         n.contentHelp = "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.";
         n.docComment = "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: numbered step sequences", "Google SRE — eliminating toil and operational procedures"), "connotation", "The ordered steps a background job performs its work in.")));
@@ -81428,7 +81440,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScheduledJobEntry", SomMetaKind.FORM, "String");
         n.memberName = "failurePolicy";
         n.sectionId = "SCJOB-FAIL";
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.contentHelp = "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.";
         n.docComment = "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.";
         n.form = new SomFormMeta(Arrays.asList(
@@ -81457,6 +81469,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef eventTrigger() {
       return new SomMetaRef(tree, path + "/SCJOB-EVNT");
+    }
+
+    public SomMetaRef intervalTrigger() {
+      return new SomMetaRef(tree, path + "/SCJOB-INTV");
     }
 
     public SomMetaRef workDefinition() {
@@ -130937,6 +130953,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef SCJOB_EVNT() {
       return new SomMetaRef(tree, path + "/SCJOB-EVNT");
+    }
+
+    public SomMetaRef SCJOB_INTV() {
+      return new SomMetaRef(tree, path + "/SCJOB-INTV");
     }
 
     public SomMetaRef SCJOB_WORK() {

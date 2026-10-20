@@ -5547,6 +5547,7 @@ static void meta_build_scheduled_job_entry_content(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_calendar_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_event_trigger(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_interval_trigger(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_work_steps(SomMetaNode *n);
 static void meta_build_scheduled_job_entry_work_steps_elem(SomMetaNode *n);
@@ -123491,11 +123492,12 @@ static void meta_build_scheduled_job_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("What starts the job — selects the trigger subsection below");
   n->form->fields[1].order = 1;
-  n->form->fields[1].enum_values_len = 3;
-  n->form->fields[1].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[1].enum_values_len = 4;
+  n->form->fields[1].enum_values = (char **)calloc(4, sizeof(char *));
   n->form->fields[1].enum_values[0] = som_strdup("cron");
   n->form->fields[1].enum_values[1] = som_strdup("calendar");
   n->form->fields[1].enum_values[2] = som_strdup("event");
+  n->form->fields[1].enum_values[3] = som_strdup("interval");
   n->form->fields[2].name = som_strdup("primaryDataEntity");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Primary Data Entity");
@@ -123599,6 +123601,39 @@ static void meta_build_scheduled_job_entry_event_trigger(SomMetaNode *n) {
   n->extra[1].annotation = som_strdup("Case");
   n->extra[1].args = som_json_parse("{\"value\":\"ScheduledJobTrigger.event\"}", NULL);
 }
+static void meta_build_scheduled_job_entry_interval_trigger(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "intervalTrigger");
+  meta_set(&n->section_id, "SCJOB-INTV");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Interval trigger — a promoted `@OneOf` case.\n\nPresent only for the `interval` kind: a fixed period counted from an\nanchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("period");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Period");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].code = 1;
+  n->form->fields[1].name = som_strdup("anchor");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Anchor");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].code = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601 — durations and date and time representation\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The period, and the instant it is counted from, that start this job.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScheduledJobTrigger.interval\"}", NULL);
+}
 static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledJobEntry");
   meta_set(&n->member_name, "workDefinition");
@@ -123606,7 +123641,7 @@ static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.");
   meta_set(&n->doc_comment, "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
@@ -123658,7 +123693,7 @@ static void meta_build_scheduled_job_entry_work_steps(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ScheduledJobStepEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.");
   meta_set(&n->doc_comment, "The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.");
   n->extra_len = 1;
@@ -123681,7 +123716,7 @@ static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.");
   meta_set(&n->doc_comment, "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
@@ -188098,6 +188133,11 @@ static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t
   }
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_interval_trigger(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_scheduled_job_entry_work_definition(n);
     meta_push(&arr, len, &cap, n);
   }
@@ -223939,6 +223979,13 @@ SomMetaRef scheduled_job_entry_nav_calendar_trigger(som_nav_scheduled_job_entry 
 SomMetaRef scheduled_job_entry_nav_event_trigger(som_nav_scheduled_job_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCJOB-EVNT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_interval_trigger(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-INTV");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -262902,6 +262949,13 @@ SomMetaRef scheduled_job_entry_id_scjob_cal(som_id_scheduled_job_entry x) {
 SomMetaRef scheduled_job_entry_id_scjob_evnt(som_id_scheduled_job_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCJOB-EVNT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_id_scjob_intv(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-INTV");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

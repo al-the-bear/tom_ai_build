@@ -331,7 +331,8 @@ char *parse_role_membership_source(const char *token) {
 char *parse_scheduled_job_trigger(const char *token) {
   if (strcmp(token, SCHEDULED_JOB_TRIGGER_CRON) == 0 ||
       strcmp(token, SCHEDULED_JOB_TRIGGER_CALENDAR) == 0 ||
-      strcmp(token, SCHEDULED_JOB_TRIGGER_EVENT) == 0) {
+      strcmp(token, SCHEDULED_JOB_TRIGGER_EVENT) == 0 ||
+      strcmp(token, SCHEDULED_JOB_TRIGGER_INTERVAL) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -38135,6 +38136,13 @@ ScheduledJobEntryEventTriggerForm scheduled_job_entry_event_trigger(const Schedu
   char *path = spec_path_join(self->node.path, "SCJOB-EVNT");
   ScheduledJobEntryEventTriggerForm out;
   scheduled_job_entry_event_trigger_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ScheduledJobEntryIntervalTriggerForm scheduled_job_entry_interval_trigger(const ScheduledJobEntry *self) {
+  char *path = spec_path_join(self->node.path, "SCJOB-INTV");
+  ScheduledJobEntryIntervalTriggerForm out;
+  scheduled_job_entry_interval_trigger_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -141962,6 +141970,34 @@ char *scheduled_job_entry_failure_policy_form_failure_alert(const ScheduledJobEn
 }
 void scheduled_job_entry_failure_policy_form_set_failure_alert(ScheduledJobEntryFailurePolicyForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "failureAlert", value);
+}
+
+void scheduled_job_entry_interval_trigger_form_init(ScheduledJobEntryIntervalTriggerForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void scheduled_job_entry_interval_trigger_form_free(ScheduledJobEntryIntervalTriggerForm *self) {
+  som_node_free(&self->node);
+}
+char *scheduled_job_entry_interval_trigger_form_content(const ScheduledJobEntryIntervalTriggerForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_entry_interval_trigger_form_set_content(ScheduledJobEntryIntervalTriggerForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *scheduled_job_entry_interval_trigger_form_period(const ScheduledJobEntryIntervalTriggerForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "period");
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_entry_interval_trigger_form_set_period(ScheduledJobEntryIntervalTriggerForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "period", value);
+}
+char *scheduled_job_entry_interval_trigger_form_anchor(const ScheduledJobEntryIntervalTriggerForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "anchor");
+  return som_strdup(v != NULL ? v : "");
+}
+void scheduled_job_entry_interval_trigger_form_set_anchor(ScheduledJobEntryIntervalTriggerForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "anchor", value);
 }
 
 void scheduled_job_entry_work_definition_form_init(ScheduledJobEntryWorkDefinitionForm *self, SpecDocument *doc, const char *path) {

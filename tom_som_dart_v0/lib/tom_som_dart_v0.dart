@@ -1112,7 +1112,15 @@ enum ScheduledJobTrigger {
   /// 
   /// The arm with no schedule, so nothing about it can be answered by looking
   /// at a clock — including when it will next run, or whether it ever will.
-  event;
+  event,
+
+  /// The job fires at a fixed period counted from an anchor instant, not on
+  /// the wall clock: a 24-hour period drifts across a daylight-saving change,
+  /// where a cron expression would not.
+  /// 
+  /// A separate arm because a period that does not divide the hour or the day
+  /// — 90 minutes, 7 hours — has no cron expression at all.
+  interval;
 }
 
 /// Parses a stored token into a [ScheduledJobTrigger], or `null`.
@@ -33728,6 +33736,12 @@ class ScheduledJobEntry extends SomNode {
   /// time at all, so it has no schedule; what it has instead — and what neither
   /// other arm has — is an occurrence carrying data the work reads.
   ScheduledJobEntryEventTriggerForm get eventTrigger => ScheduledJobEntryEventTriggerForm(doc, '$path/SCJOB-EVNT');
+
+  /// Interval trigger — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `interval` kind: a fixed period counted from an
+  /// anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+  ScheduledJobEntryIntervalTriggerForm get intervalTrigger => ScheduledJobEntryIntervalTriggerForm(doc, '$path/SCJOB-INTV');
 
   /// What the job does and which data it acts on.
   /// 
@@ -127223,7 +127237,7 @@ class ScheduledJobEntryContentForm extends SomNode {
   ///
   /// **Required** — a document that leaves this empty fails validation.
   ///
-  /// Stored as one of: `cron`, `calendar`, `event`.
+  /// Stored as one of: `cron`, `calendar`, `event`, `interval`.
   ScheduledJobTrigger? get triggerKind => _parseScheduledJobTrigger(doc.formField(path, 'triggerKind'));
   set triggerKind(ScheduledJobTrigger? value) => doc.setFormField(path, 'triggerKind', value?.name ?? '');
 
@@ -127340,6 +127354,34 @@ class ScheduledJobEntryFailurePolicyForm extends SomNode {
   /// The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)
   String get failureAlert => doc.formField(path, 'failureAlert') ?? '';
   set failureAlert(String value) => doc.setFormField(path, 'failureAlert', value);
+}
+
+/// Generated section facade for the `intervalTrigger` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryIntervalTriggerForm extends SomNode {
+  /// Names the `intervalTrigger` form section at [path] inside [doc].
+  ScheduledJobEntryIntervalTriggerForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Period.
+  ///
+  /// The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive
+  ///
+  /// **Required** — a document that leaves this empty fails validation.
+  String get period => doc.formField(path, 'period') ?? '';
+  set period(String value) => doc.setFormField(path, 'period', value);
+
+  /// Anchor.
+  ///
+  /// The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour
+  String get anchor => doc.formField(path, 'anchor') ?? '';
+  set anchor(String value) => doc.setFormField(path, 'anchor', value);
 }
 
 /// Generated section facade for the `workDefinition` `@Form` section:

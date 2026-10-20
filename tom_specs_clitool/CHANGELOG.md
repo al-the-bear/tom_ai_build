@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.2
+
+- `validate_codespecs` check 8 knows `@CsJob`'s `interval` arm: `interval`
+  and `intervalAnchor` are its slots and no other arm's.
+
 ## 0.8.1
 
 - The static tier rejects a form that declares one field name twice; the

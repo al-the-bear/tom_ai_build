@@ -1193,6 +1193,13 @@ export const ScheduledJobTrigger = Object.freeze({
   // The arm with no schedule, so nothing about it can be answered by looking
   // at a clock — including when it will next run, or whether it ever will.
   "event": "event",
+  // The job fires at a fixed period counted from an anchor instant, not on
+  // the wall clock: a 24-hour period drifts across a daylight-saving change,
+  // where a cron expression would not.
+  //
+  // A separate arm because a period that does not divide the hour or the day
+  // — 90 minutes, 7 hours — has no cron expression at all.
+  "interval": "interval",
 });
 
 export type ScheduledJobTriggerValue =
@@ -35188,6 +35195,14 @@ export class ScheduledJobEntry extends SomNode {
   // other arm has — is an occurrence carrying data the work reads.
   get eventTrigger(): ScheduledJobEntryEventTriggerForm {
     return new ScheduledJobEntryEventTriggerForm(this.doc, this.path + "/SCJOB-EVNT");
+  }
+
+  // Interval trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `interval` kind: a fixed period counted from an
+  // anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+  get intervalTrigger(): ScheduledJobEntryIntervalTriggerForm {
+    return new ScheduledJobEntryIntervalTriggerForm(this.doc, this.path + "/SCJOB-INTV");
   }
 
   // What the job does and which data it acts on.
@@ -157060,6 +157075,41 @@ export class ScheduledJobEntryFailurePolicyForm extends SomNode {
 
   set failureAlert(value: string) {
     this.doc.setFormField(this.path, "failureAlert", value);
+  }
+}
+
+// Generated section facade for the `intervalTrigger` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryIntervalTriggerForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get period(): string {
+    return this.doc.formField(this.path, "period") || '';
+  }
+
+  set period(value: string) {
+    this.doc.setFormField(this.path, "period", value);
+  }
+
+  get anchor(): string {
+    return this.doc.formField(this.path, "anchor") || '';
+  }
+
+  set anchor(value: string) {
+    this.doc.setFormField(this.path, "anchor", value);
   }
 }
 

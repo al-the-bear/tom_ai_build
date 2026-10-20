@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Documentation only: `CodeSpecPart.backgroundJob` names the interval trigger
+  beside cron, calendar and event.
+
 ## 0.3.0
 
 - `Field.productOf`: a value stated as the product of other fields (numbers,

@@ -5993,6 +5993,25 @@ document:
                           systemAction: "Exercise value."
                     SCJOB-FAIL failurePolicy:
                       content: Exercise form preamble.
+                  SCJOB-JOB-4:
+                    content:
+                      content: Exercise form preamble.
+                      purpose: "Exercise value."
+                      triggerKind: "interval"
+                      primaryDataEntity: "exercise-daent-entityname"
+                    SCJOB-INTV intervalTrigger:
+                      content: Exercise form preamble.
+                      period: "Exercise value."
+                    SCJOB-WORK workDefinition:
+                      content: Exercise form preamble.
+                      workSummary: "Exercise value."
+                    SCJOST-WORK-LST workSteps:
+                      SCJOST-WORK-1:
+                        content:
+                          content: Exercise form preamble.
+                          systemAction: "Exercise value."
+                    SCJOB-FAIL failurePolicy:
+                      content: Exercise form preamble.
               ADENMA environmentManagement:
                 content: Exercise form preamble.
               SYDITO diagnosticTools:

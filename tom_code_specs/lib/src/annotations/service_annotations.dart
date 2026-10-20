@@ -880,6 +880,14 @@ class CsJob {
   /// `event`: the system event name, verbatim.
   final String? event;
 
+  /// `interval`: the period, lowered onto `TomIntervalSchedule.period`.
+  final Duration? interval;
+
+  /// `interval`: the anchor instant the period is counted from, as the ISO
+  /// 8601 date-time the specification states, verbatim; `null` is the Unix
+  /// epoch, `TomIntervalSchedule`'s own default.
+  final String? intervalAnchor;
+
   /// How many times a failed run is retried.
   ///
   /// Defaults to `0` — a job retries only when the specification says so.
@@ -934,14 +942,16 @@ class CsJob {
   /// [trigger] draws from [CsJobTrigger] (`vocabulary.dart`) and is required —
   /// a job with no declared trigger is a job that never runs. Each arm lowers
   /// onto the matching `tom_core_kernel` schedule (`TomCronSchedule` /
-  /// `TomCalendarSchedule` / `TomEventSchedule`) on
+  /// `TomCalendarSchedule` / `TomEventSchedule` / `TomIntervalSchedule`) on
   /// `TomJobDefinition.schedule`, so a declared trigger is a **wired** schedule
   /// and not a name.
   ///
-  /// **Fill only the schedule slot [trigger] admits** — [CsJobTrigger.cron] →
+  /// **Fill only the schedule slots [trigger] admits** — [CsJobTrigger.cron] →
   /// [cron], [CsJobTrigger.calendar] → [calendar], [CsJobTrigger.event] →
-  /// [event], each verbatim from the specification.
-  /// `codespecs_derivation_contract.md` §6 check 8 asserts the other two are
+  /// [event], each verbatim from the specification, and
+  /// [CsJobTrigger.interval] → [interval] (the period as a `Duration`) with an
+  /// optional [intervalAnchor].
+  /// `codespecs_derivation_contract.md` §6 check 8 asserts the other slots are
   /// null, at generation time rather than as a const `assert`, because Dart
   /// does not const-evaluate an annotation.
   ///
@@ -969,6 +979,8 @@ class CsJob {
     this.cron,
     this.calendar,
     this.event,
+    this.interval,
+    this.intervalAnchor,
     this.maxRetries = 0,
     this.backoff,
     this.timeout,

@@ -2560,6 +2560,13 @@ pub const SCHEDULED_JOB_TRIGGER_CALENDAR: &str = "calendar";
 /// The arm with no schedule, so nothing about it can be answered by looking
 /// at a clock — including when it will next run, or whether it ever will.
 pub const SCHEDULED_JOB_TRIGGER_EVENT: &str = "event";
+/// The job fires at a fixed period counted from an anchor instant, not on
+/// the wall clock: a 24-hour period drifts across a daylight-saving change,
+/// where a cron expression would not.
+///
+/// A separate arm because a period that does not divide the hour or the day
+/// — 90 minutes, 7 hours — has no cron expression at all.
+pub const SCHEDULED_JOB_TRIGGER_INTERVAL: &str = "interval";
 
 /// ScheduledJobTrigger is the generated enum for `ScheduledJobTrigger` values.
 ///
@@ -2586,6 +2593,13 @@ pub enum ScheduledJobTrigger {
     /// The arm with no schedule, so nothing about it can be answered by looking
     /// at a clock — including when it will next run, or whether it ever will.
     Event,
+    /// The job fires at a fixed period counted from an anchor instant, not on
+    /// the wall clock: a 24-hour period drifts across a daylight-saving change,
+    /// where a cron expression would not.
+    ///
+    /// A separate arm because a period that does not divide the hour or the day
+    /// — 90 minutes, 7 hours — has no cron expression at all.
+    Interval,
 }
 
 impl ScheduledJobTrigger {
@@ -2595,6 +2609,7 @@ impl ScheduledJobTrigger {
             ScheduledJobTrigger::Cron => "cron",
             ScheduledJobTrigger::Calendar => "calendar",
             ScheduledJobTrigger::Event => "event",
+            ScheduledJobTrigger::Interval => "interval",
         }
     }
 
@@ -2606,6 +2621,7 @@ impl ScheduledJobTrigger {
             "cron" => Some(ScheduledJobTrigger::Cron),
             "calendar" => Some(ScheduledJobTrigger::Calendar),
             "event" => Some(ScheduledJobTrigger::Event),
+            "interval" => Some(ScheduledJobTrigger::Interval),
             _ => None,
         }
     }
@@ -2614,7 +2630,7 @@ impl ScheduledJobTrigger {
 /// parse_scheduled_job_trigger returns token when it is a known ScheduledJobTrigger value, else "".
 pub fn parse_scheduled_job_trigger(token: &str) -> String {
     match token {
-        SCHEDULED_JOB_TRIGGER_CRON | SCHEDULED_JOB_TRIGGER_CALENDAR | SCHEDULED_JOB_TRIGGER_EVENT => token.to_string(),
+        SCHEDULED_JOB_TRIGGER_CRON | SCHEDULED_JOB_TRIGGER_CALENDAR | SCHEDULED_JOB_TRIGGER_EVENT | SCHEDULED_JOB_TRIGGER_INTERVAL => token.to_string(),
         _ => String::new(),
     }
 }
@@ -49987,6 +50003,14 @@ impl ScheduledJobEntry {
     /// other arm has — is an occurrence carrying data the work reads.
     pub fn event_trigger(&self) -> ScheduledJobEntryEventTriggerForm {
         ScheduledJobEntryEventTriggerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-EVNT"))
+    }
+
+    /// Interval trigger — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `interval` kind: a fixed period counted from an
+    /// anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+    pub fn interval_trigger(&self) -> ScheduledJobEntryIntervalTriggerForm {
+        ScheduledJobEntryIntervalTriggerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-INTV"))
     }
 
     /// What the job does and which data it acts on.
@@ -208932,6 +208956,54 @@ impl ScheduledJobEntryFailurePolicyForm {
     pub fn set_failure_alert(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "failureAlert", value);
+    }
+}
+
+/// ScheduledJobEntryIntervalTriggerForm is the generated section facade for the `intervalTrigger` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryIntervalTriggerForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryIntervalTriggerForm {
+    /// Binds a ScheduledJobEntryIntervalTriggerForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryIntervalTriggerForm {
+        ScheduledJobEntryIntervalTriggerForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn period(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "period")
+    }
+
+    pub fn set_period(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "period", value);
+    }
+
+    pub fn anchor(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "anchor")
+    }
+
+    pub fn set_anchor(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "anchor", value);
     }
 }
 

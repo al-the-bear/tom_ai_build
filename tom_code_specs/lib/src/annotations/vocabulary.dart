@@ -314,8 +314,9 @@ enum CsMigrationKind {
 /// What starts a CE-JB background job (`codespecs_mapping.md` §5.29).
 ///
 /// Each arm lowers onto the matching `tom_core_kernel` schedule —
-/// `TomCronSchedule` / `TomCalendarSchedule` / `TomEventSchedule` — on
-/// `TomJobDefinition.schedule`. The trigger is a **wired** schedule, not a name.
+/// `TomCronSchedule` / `TomCalendarSchedule` / `TomEventSchedule` /
+/// `TomIntervalSchedule` — on `TomJobDefinition.schedule`. The trigger is a
+/// **wired** schedule, not a name.
 enum CsJobTrigger {
   /// A cron expression.
   cron,
@@ -325,6 +326,9 @@ enum CsJobTrigger {
 
   /// A named system event.
   event,
+
+  /// A fixed period counted from an anchor instant.
+  interval,
 }
 
 /// How a CE-AC action is invoked (`codespecs_mapping.md` §5.20).

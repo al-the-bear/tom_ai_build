@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T02:21:03.255827Z",
+  "generatedAt": "2026-10-20T03:05:37.113331Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.10+17.c41f1d47",
+  "modelVersionLabel": "1.6.11+18.6df78292",
   "classCount": 1266,
   "rootCount": 14,
-  "modelHash": "58160ddd7e7a080d8b75941b1d9ad1561f974cb9eec8c7229c4cc3009128bf62",
+  "modelHash": "2b1b22516df4973a99cf94ad7386699135b81ddb90c80a6a7a2d3c10971da14b",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -223121,7 +223121,7 @@
           "arguments": {
             "discriminator": "triggerKind",
             "noCase": [],
-            "note": "Job trigger closed choice: the kind selects its promoted trigger subsection — a recurring clock expression, a calendar date rule, or a named system event. Each kind is started by a different thing and states a different rule, so every kind binds a case."
+            "note": "Job trigger closed choice: the kind selects its promoted trigger subsection — a recurring clock expression, a calendar date rule, a named system event, or a fixed period. Each kind is started by a different thing and states a different rule, so every kind binds a case."
           }
         }
       ],
@@ -223169,12 +223169,14 @@
               "enumValues": [
                 "cron",
                 "calendar",
-                "event"
+                "event",
+                "interval"
               ],
               "enumValueDocs": {
                 "cron": "The job fires on a recurring clock expression.\n\nBinds the cron case, whose payload is the recurrence expression itself,\nverbatim — a job whose schedule can be written as one expression needs\nnothing else said about when it runs.",
                 "calendar": "The job fires on a date rule no clock expression can state — month-end,\nthe third Monday of a quarter, the last working day before a holiday.\n\nA separate arm rather than a harder cron string, because the rule depends\non a calendar that a recurrence expression cannot see.",
-                "event": "The job does not run on a clock at all: it runs when something in the\nsystem happens, and what that occurrence carries is what the work reads.\n\nThe arm with no schedule, so nothing about it can be answered by looking\nat a clock — including when it will next run, or whether it ever will."
+                "event": "The job does not run on a clock at all: it runs when something in the\nsystem happens, and what that occurrence carries is what the work reads.\n\nThe arm with no schedule, so nothing about it can be answered by looking\nat a clock — including when it will next run, or whether it ever will.",
+                "interval": "The job fires at a fixed period counted from an anchor instant, not on\nthe wall clock: a 24-hour period drifts across a daylight-saving change,\nwhere a cron expression would not.\n\nA separate arm because a period that does not divide the hour or the day\n— 90 minutes, 7 hours — has no cron expression at all."
               }
             },
             {
@@ -223388,6 +223390,74 @@
           ]
         },
         {
+          "name": "intervalTrigger",
+          "kind": "form",
+          "doc": "Interval trigger — a promoted `@OneOf` case.\n\nPresent only for the `interval` kind: a fixed period counted from an\nanchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.",
+          "sectionId": "SCJOB-INTV",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601 — durations and date and time representation",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "The period, and the instant it is counted from, that start this job."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-INTV"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601 — durations and date and time representation",
+                  "Google SRE — eliminating toil and operational procedures"
+                ],
+                "connotation": "The period, and the instant it is counted from, that start this job."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScheduledJobTrigger.interval"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "period",
+              "label": "Period",
+              "hint": "The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive",
+              "type": "String",
+              "required": true,
+              "code": true
+            },
+            {
+              "name": "anchor",
+              "label": "Anchor",
+              "hint": "The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour",
+              "type": "String",
+              "required": false,
+              "code": true
+            }
+          ]
+        },
+        {
           "name": "workDefinition",
           "kind": "form",
           "doc": "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.",
@@ -223400,7 +223470,7 @@
             ],
             "connotation": "What the job does and which entities and reports it acts on."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SectionId",
@@ -223433,7 +223503,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 5
               }
             }
           ],
@@ -223491,7 +223561,7 @@
             ],
             "connotation": "The ordered steps a background job performs its work in."
           },
-          "serializationOrder": 5,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -223524,7 +223594,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 6
               }
             }
           ],
@@ -223544,7 +223614,7 @@
             ],
             "connotation": "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy."
           },
-          "serializationOrder": 6,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "SectionId",
@@ -223577,7 +223647,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 7
               }
             }
           ],

@@ -745,6 +745,13 @@ char *parse_role_membership_source(const char *token);
 // The arm with no schedule, so nothing about it can be answered by looking
 // at a clock — including when it will next run, or whether it ever will.
 #define SCHEDULED_JOB_TRIGGER_EVENT "event"
+// The job fires at a fixed period counted from an anchor instant, not on
+// the wall clock: a 24-hour period drifts across a daylight-saving change,
+// where a cron expression would not.
+//
+// A separate arm because a period that does not divide the hour or the day
+// — 90 minutes, 7 hours — has no cron expression at all.
+#define SCHEDULED_JOB_TRIGGER_INTERVAL "interval"
 // parse_scheduled_job_trigger returns the token (owned) when it is a known ScheduledJobTrigger value, else "".
 char *parse_scheduled_job_trigger(const char *token);
 
@@ -4613,6 +4620,7 @@ typedef struct { SomNode node; } ScheduledJobEntryContentForm;
 typedef struct { SomNode node; } ScheduledJobEntryCronTriggerForm;
 typedef struct { SomNode node; } ScheduledJobEntryEventTriggerForm;
 typedef struct { SomNode node; } ScheduledJobEntryFailurePolicyForm;
+typedef struct { SomNode node; } ScheduledJobEntryIntervalTriggerForm;
 typedef struct { SomNode node; } ScheduledJobEntryWorkDefinitionForm;
 typedef struct { SomNode node; } ScheduledJobStepEntryContentForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyApprovalForm;
@@ -25719,6 +25727,11 @@ ScheduledJobEntryCalendarTriggerForm scheduled_job_entry_calendar_trigger(const 
 // time at all, so it has no schedule; what it has instead — and what neither
 // other arm has — is an occurrence carrying data the work reads.
 ScheduledJobEntryEventTriggerForm scheduled_job_entry_event_trigger(const ScheduledJobEntry *self);
+// Interval trigger — a promoted `@OneOf` case.
+//
+// Present only for the `interval` kind: a fixed period counted from an
+// anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+ScheduledJobEntryIntervalTriggerForm scheduled_job_entry_interval_trigger(const ScheduledJobEntry *self);
 // What the job does and which data it acts on.
 //
 // The intent half of the work definition. The body that realises it is
@@ -64812,6 +64825,17 @@ char *scheduled_job_entry_failure_policy_form_failure_alert_message(const Schedu
 void scheduled_job_entry_failure_policy_form_set_failure_alert_message(ScheduledJobEntryFailurePolicyForm *self, const char *value);
 char *scheduled_job_entry_failure_policy_form_failure_alert(const ScheduledJobEntryFailurePolicyForm *self);
 void scheduled_job_entry_failure_policy_form_set_failure_alert(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+
+// ScheduledJobEntryIntervalTriggerForm is the generated section facade for the `intervalTrigger` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_interval_trigger_form_init(ScheduledJobEntryIntervalTriggerForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_interval_trigger_form_free(ScheduledJobEntryIntervalTriggerForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_interval_trigger_form_content(const ScheduledJobEntryIntervalTriggerForm *self);
+void scheduled_job_entry_interval_trigger_form_set_content(ScheduledJobEntryIntervalTriggerForm *self, const char *value);
+char *scheduled_job_entry_interval_trigger_form_period(const ScheduledJobEntryIntervalTriggerForm *self);
+void scheduled_job_entry_interval_trigger_form_set_period(ScheduledJobEntryIntervalTriggerForm *self, const char *value);
+char *scheduled_job_entry_interval_trigger_form_anchor(const ScheduledJobEntryIntervalTriggerForm *self);
+void scheduled_job_entry_interval_trigger_form_set_anchor(ScheduledJobEntryIntervalTriggerForm *self, const char *value);
 
 // ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.
 void scheduled_job_entry_work_definition_form_init(ScheduledJobEntryWorkDefinitionForm *self, SpecDocument *doc, const char *path);

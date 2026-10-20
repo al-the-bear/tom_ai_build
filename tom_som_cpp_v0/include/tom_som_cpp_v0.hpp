@@ -836,6 +836,13 @@ struct ScheduledJobTrigger {
   // The arm with no schedule, so nothing about it can be answered by looking
   // at a clock — including when it will next run, or whether it ever will.
   static constexpr const char* event = "event";
+  // The job fires at a fixed period counted from an anchor instant, not on
+  // the wall clock: a 24-hour period drifts across a daylight-saving change,
+  // where a cron expression would not.
+  //
+  // A separate arm because a period that does not divide the hour or the day
+  // — 90 minutes, 7 hours — has no cron expression at all.
+  static constexpr const char* interval = "interval";
   // Returns the token when it is a known ScheduledJobTrigger value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   ScheduledJobTrigger() = delete;
@@ -4704,6 +4711,7 @@ class ScheduledJobEntryContentForm;
 class ScheduledJobEntryCronTriggerForm;
 class ScheduledJobEntryEventTriggerForm;
 class ScheduledJobEntryFailurePolicyForm;
+class ScheduledJobEntryIntervalTriggerForm;
 class ScheduledJobEntryWorkDefinitionForm;
 class ScheduledJobStepEntryContentForm;
 class ScheduledMaintenancePolicyApprovalForm;
@@ -26118,6 +26126,11 @@ class ScheduledJobEntry : public som::SomNode {
   // time at all, so it has no schedule; what it has instead — and what neither
   // other arm has — is an occurrence carrying data the work reads.
   ScheduledJobEntryEventTriggerForm eventTrigger() const;
+  // Interval trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `interval` kind: a fixed period counted from an
+  // anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+  ScheduledJobEntryIntervalTriggerForm intervalTrigger() const;
   // What the job does and which data it acts on.
   //
   // The intent half of the work definition. The body that realises it is
@@ -71643,6 +71656,20 @@ class ScheduledJobEntryFailurePolicyForm : public som::SomNode {
   void setFailureAlertMessage(const std::string& value);
   std::string failureAlert() const;
   void setFailureAlert(const std::string& value);
+};
+
+// Generated section facade for the `intervalTrigger` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryIntervalTriggerForm : public som::SomNode {
+ public:
+  ScheduledJobEntryIntervalTriggerForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string period() const;
+  void setPeriod(const std::string& value);
+  std::string anchor() const;
+  void setAnchor(const std::string& value);
 };
 
 // Generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.

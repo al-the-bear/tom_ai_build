@@ -1199,6 +1199,13 @@ const (
 	// The arm with no schedule, so nothing about it can be answered by looking
 	// at a clock — including when it will next run, or whether it ever will.
 	ScheduledJobTriggerEvent ScheduledJobTrigger = "event"
+	// The job fires at a fixed period counted from an anchor instant, not on
+	// the wall clock: a 24-hour period drifts across a daylight-saving change,
+	// where a cron expression would not.
+	//
+	// A separate arm because a period that does not divide the hour or the day
+	// — 90 minutes, 7 hours — has no cron expression at all.
+	ScheduledJobTriggerInterval ScheduledJobTrigger = "interval"
 )
 
 // parseScheduledJobTrigger returns the ScheduledJobTrigger whose token is [token], or "" when the token is not
@@ -1206,7 +1213,7 @@ const (
 // null, and never a guess.
 func parseScheduledJobTrigger(token string) ScheduledJobTrigger {
 	switch ScheduledJobTrigger(token) {
-	case ScheduledJobTriggerCron, ScheduledJobTriggerCalendar, ScheduledJobTriggerEvent:
+	case ScheduledJobTriggerCron, ScheduledJobTriggerCalendar, ScheduledJobTriggerEvent, ScheduledJobTriggerInterval:
 		return ScheduledJobTrigger(token)
 	}
 	return ""
@@ -39721,6 +39728,14 @@ func (x *ScheduledJobEntry) CalendarTrigger() *ScheduledJobEntryCalendarTriggerF
 // other arm has — is an occurrence carrying data the work reads.
 func (x *ScheduledJobEntry) EventTrigger() *ScheduledJobEntryEventTriggerForm {
 	return NewScheduledJobEntryEventTriggerForm(x.Doc(), x.Path()+"/SCJOB-EVNT")
+}
+
+// Interval trigger — a promoted `@OneOf` case.
+//
+// Present only for the `interval` kind: a fixed period counted from an
+// anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+func (x *ScheduledJobEntry) IntervalTrigger() *ScheduledJobEntryIntervalTriggerForm {
+	return NewScheduledJobEntryIntervalTriggerForm(x.Doc(), x.Path()+"/SCJOB-INTV")
 }
 
 // What the job does and which data it acts on.
@@ -186131,6 +186146,48 @@ func (x *ScheduledJobEntryFailurePolicyForm) FailureAlert() string {
 
 func (x *ScheduledJobEntryFailurePolicyForm) SetFailureAlert(value string) {
 	x.Doc().SetFormField(x.Path(), "failureAlert", value)
+}
+
+// ScheduledJobEntryIntervalTriggerForm is the generated section facade for the `intervalTrigger` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryIntervalTriggerForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryIntervalTriggerForm binds a ScheduledJobEntryIntervalTriggerForm facade to a document and a path.
+func NewScheduledJobEntryIntervalTriggerForm(doc *som.SpecDocument, path string) *ScheduledJobEntryIntervalTriggerForm {
+	return &ScheduledJobEntryIntervalTriggerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryIntervalTriggerForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryIntervalTriggerForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryIntervalTriggerForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryIntervalTriggerForm) Period() string {
+	return x.Doc().FormFieldOr(x.Path(), "period")
+}
+
+func (x *ScheduledJobEntryIntervalTriggerForm) SetPeriod(value string) {
+	x.Doc().SetFormField(x.Path(), "period", value)
+}
+
+func (x *ScheduledJobEntryIntervalTriggerForm) Anchor() string {
+	return x.Doc().FormFieldOr(x.Path(), "anchor")
+}
+
+func (x *ScheduledJobEntryIntervalTriggerForm) SetAnchor(value string) {
+	x.Doc().SetFormField(x.Path(), "anchor", value)
 }
 
 // ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own

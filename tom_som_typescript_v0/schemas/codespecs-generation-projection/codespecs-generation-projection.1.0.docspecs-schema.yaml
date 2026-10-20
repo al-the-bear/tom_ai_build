@@ -3789,6 +3789,10 @@ section-types:
     prefix: SCJOB_FAIL
     format: scjob-fail-form
     description: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case."
+  scjob-intv:
+    prefix: SCJOB_INTV
+    format: scjob-intv-form
+    description: "Interval trigger — a promoted `@OneOf` case."
   scjob-job:
     prefix: SCJOB_JOB_
     subsection-types:
@@ -3797,6 +3801,8 @@ section-types:
       scjob-cal:
         max-count: 1
       scjob-evnt:
+        max-count: 1
+      scjob-intv:
         max-count: 1
       scjob-work:
         max-count: 1
@@ -18859,6 +18865,13 @@ form-types:
         description: The system occurrence that starts the job (e.g. order.payment.settled)
       - fieldname: eventPayload
         description: What each occurrence carries that the work reads — typically the identity of the record the event is about
+  scjob-intv-form:
+    fields:
+      - fieldname: period
+        required: true
+        description: "The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive"
+      - fieldname: anchor
+        description: "The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour"
   scjob-work-form:
     fields:
       - fieldname: workSummary

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-20T04:21:24.648385 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T05:06:14.992584 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -3393,6 +3393,7 @@ class SomV0Bridge {
       _createScheduledJobEntryCronTriggerFormBridge(),
       _createScheduledJobEntryEventTriggerFormBridge(),
       _createScheduledJobEntryFailurePolicyFormBridge(),
+      _createScheduledJobEntryIntervalTriggerFormBridge(),
       _createScheduledJobEntryWorkDefinitionFormBridge(),
       _createScheduledJobStepEntryContentFormBridge(),
       _createScheduledMaintenancePolicyApprovalFormBridge(),
@@ -11173,6 +11174,8 @@ class SomV0Bridge {
           _createScheduledJobEntryEventTriggerFormBridge,
       'ScheduledJobEntryFailurePolicyForm':
           _createScheduledJobEntryFailurePolicyFormBridge,
+      'ScheduledJobEntryIntervalTriggerForm':
+          _createScheduledJobEntryIntervalTriggerFormBridge,
       'ScheduledJobEntryWorkDefinitionForm':
           _createScheduledJobEntryWorkDefinitionFormBridge,
       'ScheduledJobStepEntryContentForm':
@@ -20382,6 +20385,8 @@ class SomV0Bridge {
           $tom_som_dart_v0_1.ScheduledJobEntryEventTriggerForm,
       'ScheduledJobEntryFailurePolicyForm':
           $tom_som_dart_v0_1.ScheduledJobEntryFailurePolicyForm,
+      'ScheduledJobEntryIntervalTriggerForm':
+          $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm,
       'ScheduledJobEntryWorkDefinitionForm':
           $tom_som_dart_v0_1.ScheduledJobEntryWorkDefinitionForm,
       'ScheduledJobStepEntryContentForm':
@@ -30265,6 +30270,8 @@ class SomV0Bridge {
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ScheduledJobEntryFailurePolicyForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ScheduledJobEntryIntervalTriggerForm':
+          'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ScheduledJobEntryWorkDefinitionForm':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ScheduledJobStepEntryContentForm':
@@ -38547,6 +38554,7 @@ class SomV0Bridge {
       'ScheduledJobEntryCronTriggerForm': ['SomNode'],
       'ScheduledJobEntryEventTriggerForm': ['SomNode'],
       'ScheduledJobEntryFailurePolicyForm': ['SomNode'],
+      'ScheduledJobEntryIntervalTriggerForm': ['SomNode'],
       'ScheduledJobEntryWorkDefinitionForm': ['SomNode'],
       'ScheduledJobStepEntryContentForm': ['SomNode'],
       'ScheduledMaintenancePolicyApprovalForm': ['SomNode'],
@@ -187597,6 +187605,12 @@ BridgedClass _createScheduledJobEntryBridge() {
             'ScheduledJobEntry',
           )
           .eventTrigger,
+      'intervalTrigger': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.ScheduledJobEntry>(
+            target,
+            'ScheduledJobEntry',
+          )
+          .intervalTrigger,
       'workDefinition': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.ScheduledJobEntry>(
             target,
@@ -187699,6 +187713,8 @@ BridgedClass _createScheduledJobEntryBridge() {
       'calendarTrigger':
           'ScheduledJobEntryCalendarTriggerForm get calendarTrigger',
       'eventTrigger': 'ScheduledJobEntryEventTriggerForm get eventTrigger',
+      'intervalTrigger':
+          'ScheduledJobEntryIntervalTriggerForm get intervalTrigger',
       'workDefinition':
           'ScheduledJobEntryWorkDefinitionForm get workDefinition',
       'workSteps': 'SomList<ScheduledJobStepEntry> get workSteps',
@@ -675310,6 +675326,176 @@ BridgedClass _createScheduledJobEntryFailurePolicyFormBridge() {
 }
 
 // =============================================================================
+// ScheduledJobEntryIntervalTriggerForm Bridge
+// =============================================================================
+
+BridgedClass _createScheduledJobEntryIntervalTriggerFormBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm,
+    name: 'ScheduledJobEntryIntervalTriggerForm',
+    isAssignable: (v) =>
+        v is $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm,
+    hierarchyDepth: 1,
+    constructors: {
+      '': (visitor, positional, named) {
+        D4.requireMinArgs(
+          positional,
+          2,
+          'ScheduledJobEntryIntervalTriggerForm',
+        );
+        final doc = D4.getRequiredArg<$tom_som_dart_runtime_2.SpecDocument>(
+          positional,
+          0,
+          'doc',
+          'ScheduledJobEntryIntervalTriggerForm',
+        );
+        final path = D4.getRequiredArg<String>(
+          positional,
+          1,
+          'path',
+          'ScheduledJobEntryIntervalTriggerForm',
+        );
+        return $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm(
+          doc,
+          path,
+        );
+      },
+    },
+    getters: {
+      'canHaveContent': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .canHaveContent,
+      'content': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .content,
+      'period': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .period,
+      'anchor': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .anchor,
+      'doc': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .doc,
+      'path': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .path,
+      'isEmpty': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .isEmpty,
+      '\$sectionId': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .$sectionId,
+      '\$headline': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .$headline,
+      '\$codeSpec': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+          >(target, 'ScheduledJobEntryIntervalTriggerForm')
+          .$codeSpec,
+    },
+    setters: {
+      'content': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .content = D4.extractBridgedArg<String>(
+            value,
+            'content',
+          ),
+      'period': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .period = D4.extractBridgedArg<String>(
+            value,
+            'period',
+          ),
+      'anchor': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .anchor = D4.extractBridgedArg<String>(
+            value,
+            'anchor',
+          ),
+      '\$sectionId': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .$sectionId = D4.extractBridgedArg<String>(
+            value,
+            '\$sectionId',
+          ),
+      '\$headline': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .$headline = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$headline',
+          ),
+      '\$codeSpec': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ScheduledJobEntryIntervalTriggerForm
+              >(target, 'ScheduledJobEntryIntervalTriggerForm')
+              .$codeSpec = D4.extractBridgedArgOrNull<String>(
+            value,
+            '\$codeSpec',
+          ),
+    },
+    constructorSignatures: {
+      '': 'ScheduledJobEntryIntervalTriggerForm(SpecDocument doc, String path)',
+    },
+    getterSignatures: {
+      'canHaveContent': 'bool get canHaveContent',
+      'content': 'String get content',
+      'period': 'String get period',
+      'anchor': 'String get anchor',
+      'doc': 'SpecDocument get doc',
+      'path': 'String get path',
+      'isEmpty': 'bool get isEmpty',
+      '\$sectionId': 'String? get \$sectionId',
+      '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
+    },
+    setterSignatures: {
+      'content': 'set content(String value)',
+      'period': 'set period(String value)',
+      'anchor': 'set anchor(String value)',
+      '\$sectionId': 'set \$sectionId(String value)',
+      '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
+    },
+  );
+}
+
+// =============================================================================
 // ScheduledJobEntryWorkDefinitionForm Bridge
 // =============================================================================
 
@@ -915863,6 +916049,12 @@ BridgedClass _createScheduledJobEntry$NavBridge() {
             'ScheduledJobEntry\$Nav',
           )
           .eventTrigger,
+      'intervalTrigger': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ScheduledJobEntry$Nav>(
+            target,
+            'ScheduledJobEntry\$Nav',
+          )
+          .intervalTrigger,
       'workDefinition': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.ScheduledJobEntry$Nav>(
             target,
@@ -915908,6 +916100,7 @@ BridgedClass _createScheduledJobEntry$NavBridge() {
       'cronTrigger': 'SomMetaRef get cronTrigger',
       'calendarTrigger': 'SomMetaRef get calendarTrigger',
       'eventTrigger': 'SomMetaRef get eventTrigger',
+      'intervalTrigger': 'SomMetaRef get intervalTrigger',
       'workDefinition': 'SomMetaRef get workDefinition',
       'workSteps': 'SomListMetaRef<ScheduledJobStepEntry\$Nav> get workSteps',
       'failurePolicy': 'SomMetaRef get failurePolicy',
@@ -997596,6 +997789,12 @@ BridgedClass _createScheduledJobEntry$IdBridge() {
             'ScheduledJobEntry\$Id',
           )
           .SCJOB_EVNT,
+      'SCJOB_INTV': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_2.ScheduledJobEntry$Id>(
+            target,
+            'ScheduledJobEntry\$Id',
+          )
+          .SCJOB_INTV,
       'SCJOB_WORK': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_2.ScheduledJobEntry$Id>(
             target,
@@ -997640,6 +997839,7 @@ BridgedClass _createScheduledJobEntry$IdBridge() {
       'SCJOB_CRON': 'SomMetaRef get SCJOB_CRON',
       'SCJOB_CAL': 'SomMetaRef get SCJOB_CAL',
       'SCJOB_EVNT': 'SomMetaRef get SCJOB_EVNT',
+      'SCJOB_INTV': 'SomMetaRef get SCJOB_INTV',
       'SCJOB_WORK': 'SomMetaRef get SCJOB_WORK',
       'SCJOST_WORK_LST':
           'SomListMetaRef<ScheduledJobStepEntry\$Id> get SCJOST_WORK_LST',

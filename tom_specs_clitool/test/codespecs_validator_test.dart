@@ -906,6 +906,28 @@ class Reports {}
       );
       expect(_forCheck(8, input).single.message, contains("'event' slot"));
     });
+
+    test('@CsJob interval admits its period and anchor, and only those', () {
+      final ok = _input(
+        server: {
+          'lib/a.dart':
+              '@CsJob(trigger: CsJobTrigger.interval, '
+              'interval: Duration(minutes: 90), '
+              "intervalAnchor: '2026-01-01T00:30:00Z') "
+              'class Sweep {}',
+        },
+      );
+      expect(_forCheck(8, ok), isEmpty);
+      final bad = _input(
+        server: {
+          'lib/a.dart':
+              "@CsJob(trigger: CsJobTrigger.cron, cron: '0 * * * *', "
+              'interval: Duration(minutes: 90)) '
+              'class Sweep {}',
+        },
+      );
+      expect(_forCheck(8, bad).single.message, contains("'interval' slot"));
+    });
   });
 
   group('9 — mirrored catalogues (§5.3)', () {

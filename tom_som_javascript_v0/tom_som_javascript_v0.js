@@ -1107,6 +1107,13 @@ const ScheduledJobTrigger = Object.freeze({
   // The arm with no schedule, so nothing about it can be answered by looking
   // at a clock — including when it will next run, or whether it ever will.
   "event": "event",
+  // The job fires at a fixed period counted from an anchor instant, not on
+  // the wall clock: a 24-hour period drifts across a daylight-saving change,
+  // where a cron expression would not.
+  //
+  // A separate arm because a period that does not divide the hour or the day
+  // — 90 minutes, 7 hours — has no cron expression at all.
+  "interval": "interval",
 });
 
 // Parses a stored token into a ScheduledJobTrigger value, or null.
@@ -35554,6 +35561,14 @@ class ScheduledJobEntry extends SomNode {
   // other arm has — is an occurrence carrying data the work reads.
   get eventTrigger() {
     return new ScheduledJobEntryEventTriggerForm(this.doc, this.path + "/SCJOB-EVNT");
+  }
+
+  // Interval trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `interval` kind: a fixed period counted from an
+  // anchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.
+  get intervalTrigger() {
+    return new ScheduledJobEntryIntervalTriggerForm(this.doc, this.path + "/SCJOB-INTV");
   }
 
   // What the job does and which data it acts on.
@@ -157621,6 +157636,41 @@ class ScheduledJobEntryFailurePolicyForm extends SomNode {
   }
 }
 
+// Generated section facade for the `intervalTrigger` @Form section: its own content text followed by one typed member per form field.
+class ScheduledJobEntryIntervalTriggerForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get period() {
+    return this.doc.formField(this.path, "period") || '';
+  }
+
+  set period(value) {
+    this.doc.setFormField(this.path, "period", value);
+  }
+
+  get anchor() {
+    return this.doc.formField(this.path, "anchor") || '';
+  }
+
+  set anchor(value) {
+    this.doc.setFormField(this.path, "anchor", value);
+  }
+}
+
 // Generated section facade for the `workDefinition` @Form section: its own content text followed by one typed member per form field.
 class ScheduledJobEntryWorkDefinitionForm extends SomNode {
   constructor(doc, path) {
@@ -201163,6 +201213,7 @@ module.exports = {
   ScheduledJobEntryCronTriggerForm,
   ScheduledJobEntryEventTriggerForm,
   ScheduledJobEntryFailurePolicyForm,
+  ScheduledJobEntryIntervalTriggerForm,
   ScheduledJobEntryWorkDefinitionForm,
   ScheduledJobStepEntryContentForm,
   ScheduledMaintenancePolicyApprovalForm,

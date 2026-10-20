@@ -43387,7 +43387,7 @@ def _mc_ScheduledJobEntry(s):
             serialization_order=0,
             content_help="One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n",
             doc_comment="The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Why this job exists — the operational or business reason it runs on its own rather than as part of a request", order=0), SomFormFieldMeta(name="triggerKind", type_name="ScheduledJobTrigger", description="Trigger Kind", required=True, hint="What starts the job — selects the trigger subsection below", order=1, enum_values=["cron", "calendar", "event"]), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", required=True, hint="The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="enabled", type_name="bool", description="Enabled", hint="Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", order=3), SomFormFieldMeta(name="environments", type_name="String", description="Environments", hint="Comma-separated deployment environments this job runs in, or empty to run in every environment", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Why this job exists — the operational or business reason it runs on its own rather than as part of a request", order=0), SomFormFieldMeta(name="triggerKind", type_name="ScheduledJobTrigger", description="Trigger Kind", required=True, hint="What starts the job — selects the trigger subsection below", order=1, enum_values=["cron", "calendar", "event", "interval"]), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", required=True, hint="The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="enabled", type_name="bool", description="Enabled", hint="Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", order=3), SomFormFieldMeta(name="environments", type_name="String", description="Environments", hint="Comma-separated deployment environments this job runs in, or empty to run in every environment", order=4)])),
          SomMetaNode(
             class_name="ScheduledJobEntry",
             member_name="cronTrigger",
@@ -43420,11 +43420,21 @@ def _mc_ScheduledJobEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Enterprise Integration Patterns — event-driven consumer", "Google SRE — eliminating toil and operational procedures"], "connotation": "The system event that starts this job and the data that event carries."}), SomMetaExtra(annotation="Case", args={"value": "ScheduledJobTrigger.event"})]),
          SomMetaNode(
             class_name="ScheduledJobEntry",
+            member_name="intervalTrigger",
+            section_id="SCJOB-INTV",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Interval trigger — a promoted `@OneOf` case.\n\nPresent only for the `interval` kind: a fixed period counted from an\nanchor, the shape of `tom_core_kernel`'s `TomIntervalSchedule`.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="period", type_name="String", description="Period", required=True, hint="The period as an ISO 8601 duration (e.g. PT15M, PT90M, P1D); it must be positive", order=0, code=True), SomFormFieldMeta(name="anchor", type_name="String", description="Anchor", hint="The instant the period is counted from, as an ISO 8601 date-time (e.g. 2026-01-01T00:30:00Z); empty means the Unix epoch, so a period that divides the day fires on the hour", order=1, code=True)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601 — durations and date and time representation", "Google SRE — eliminating toil and operational procedures"], "connotation": "The period, and the instant it is counted from, that start this job."}), SomMetaExtra(annotation="Case", args={"value": "ScheduledJobTrigger.interval"})]),
+         SomMetaNode(
+            class_name="ScheduledJobEntry",
             member_name="workDefinition",
             section_id="SCJOB-WORK",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             content_help="State what the job achieves and over which data. Do not write the sequence here — the ordered steps go in Work Steps below, one entry each — and do not write code: the work body is written in the CodeSpec.",
             doc_comment="What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.\n\n**The sequence is not stated here.** `workSummary` is the one-paragraph\nintent — what the job achieves and why it is worth running. The order the\nwork happens in belongs to [workSteps], which holds it as addressable\nentries rather than as sentences inside a paragraph.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="workSummary", type_name="String", description="Work Summary", required=True, hint="What the job achieves, in one paragraph — the intent the work body must realise. The sequence goes in Work Steps.", order=0), SomFormFieldMeta(name="readEntities", type_name="String", description="Read Entities", hint="The Data Model entities the job reads", order=1, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="writtenEntities", type_name="String", description="Written Entities", hint="The Data Model entities the job writes, including the primary one", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="targetReports", type_name="String", description="Target Reports", hint="The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated", order=3, refers_to=["REPENT.@sectionId"])]),
@@ -43436,7 +43446,7 @@ def _mc_ScheduledJobEntry(s):
             section_id_pattern="SCJOST-WORK-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScheduledJobStepEntry",
-            serialization_order=5,
+            serialization_order=6,
             content_help="Add one entry per step of the work, in the order it runs. Leave the list empty for a job whose work is a single action — the Work Summary then stands alone.",
             doc_comment="The ordered steps the work runs in — one entry per step.\n\nThis is the structure `SCJOB-WORK` cannot carry. `workSummary` says what\nthe job achieves; these entries say in what order it gets there, as\nsections that can be addressed, conditioned and traced one at a time. It\nis the surface `codespecs_derivation_contract.md` §2.4 derives a\n**form-3b** work body from — one statement per step, in list order, each a\ncall on the job's abstract collaborator.\n\n**Optional, and empty is a real answer.** A job whose work is genuinely\none action lists no steps, and `codespecs_derivation_contract.md` §2.4's\nfallback then emits the form-3a body from `workSummary` exactly as before.\nThe list is how a job that *is* multi-step stops having to say so in a\nsentence.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: numbered step sequences", "Google SRE — eliminating toil and operational procedures"], "connotation": "The ordered steps a background job performs its work in."})],
@@ -43447,7 +43457,7 @@ def _mc_ScheduledJobEntry(s):
             section_id="SCJOB-FAIL",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.",
             doc_comment="This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="maxRetries", type_name="int", description="Maximum Retries", hint="How many times a failed run is retried, if not the default", order=0), SomFormFieldMeta(name="retryBackoff", type_name="String", description="Retry Backoff", hint="The delay before the first retry and how it grows, if not the default", order=1), SomFormFieldMeta(name="timeout", type_name="String", description="Timeout", hint="How long a single run may take before it is abandoned, if not the default", order=2), SomFormFieldMeta(name="failureAlertMessage", type_name="String", description="Failure Alert Message", hint="The message a person is shown when this job fails permanently. The job names the message; the deployment names where it is delivered.", order=3, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="failureAlert", type_name="String", description="Failure Alert", hint="The operational alert raised when this job fails permanently — the section id of an alert rule (ALERUL-ALER-…) or alert definition (ALEDEF-ALER-…)", order=4, refers_to=["ALERUL.@sectionId", "ALEDEF.@sectionId"])]),
@@ -80533,6 +80543,10 @@ class ScheduledJobEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SCJOB-EVNT")
 
     @property
+    def intervalTrigger(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCJOB-INTV")
+
+    @property
     def workDefinition(self):
         return SomMetaRef(self.tree, f"{self.path}/SCJOB-WORK")
 
@@ -107851,6 +107865,10 @@ class ScheduledJobEntryId(SomMetaRef):
     @property
     def SCJOB_EVNT(self):
         return SomMetaRef(self.tree, f"{self.path}/SCJOB-EVNT")
+
+    @property
+    def SCJOB_INTV(self):
+        return SomMetaRef(self.tree, f"{self.path}/SCJOB-INTV")
 
     @property
     def SCJOB_WORK(self):
