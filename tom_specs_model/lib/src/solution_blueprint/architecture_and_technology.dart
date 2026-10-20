@@ -7662,12 +7662,7 @@ class PipelineStageEntry extends DocSpecsSection {
       'Runner Requirements',
       hint: 'Required runner type/labels',
     ),
-    Field(
-      'timeoutMinutes',
-      String,
-      'Timeout',
-      hint: 'Stage timeout in minutes',
-    ),
+    Field('timeoutMinutes', int, 'Timeout', hint: 'Stage timeout in minutes'),
     Field(
       'parallelJobs',
       bool,
@@ -16332,9 +16327,9 @@ class ClientConfigurationSettingEntry extends DocSpecsSection {
     ),
     Field(
       'valueType',
-      String,
+      ConfigValueType,
       'Value Type',
-      hint: 'string / int / double / bool / enum',
+      hint: 'text / integer / decimal / boolean / enumeration / duration',
     ),
     Field(
       'defaultValue',
@@ -16346,7 +16341,7 @@ class ClientConfigurationSettingEntry extends DocSpecsSection {
     ),
     Field(
       'overridableBy',
-      String,
+      OverridableBy,
       'Overridable By',
       required: true,
       hint:
@@ -16441,9 +16436,9 @@ class DeviceSettingEntry extends DocSpecsSection {
     ),
     Field(
       'valueType',
-      String,
+      ConfigValueType,
       'Value Type',
-      hint: 'string / int / double / bool / enum',
+      hint: 'text / integer / decimal / boolean / enumeration / duration',
     ),
     Field(
       'defaultValue',
@@ -16542,9 +16537,9 @@ class UserSettingEntry extends DocSpecsSection {
     ),
     Field(
       'valueType',
-      String,
+      ConfigValueType,
       'Value Type',
-      hint: 'string / int / double / bool / enum',
+      hint: 'text / integer / decimal / boolean / enumeration / duration',
     ),
     Field(
       'defaultValue',
@@ -16554,7 +16549,7 @@ class UserSettingEntry extends DocSpecsSection {
     ),
     Field(
       'overridableBy',
-      String,
+      OverridableBy,
       'Overridable By',
       required: true,
       hint:
@@ -23452,8 +23447,18 @@ class AlertDefinitionEntry extends DocSpecsSection {
       'Alert Description',
       hint: 'What this alert means',
     ),
-    Field('severity', String, 'Severity', hint: 'Critical, Warning, Info'),
-    Field('priority', String, 'Priority', hint: 'P1, P2, P3, P4, P5'),
+    Field(
+      'severity',
+      AlertSeverity,
+      'Severity',
+      hint: 'How fast someone has to act.',
+    ),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'How much the alert matters relative to others.',
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -24408,7 +24413,12 @@ class MaintenanceWindowEntry extends DocSpecsSection {
       'Window Type',
       hint: 'Routine, Patch, Upgrade, Migration',
     ),
-    Field('priority', String, 'Priority', hint: 'Critical, Standard, Low'),
+    Field(
+      'priority',
+      ImportanceBand,
+      'Priority',
+      hint: 'How much the maintenance matters relative to others.',
+    ),
     Field(
       'description',
       String,
@@ -25347,7 +25357,7 @@ class TlsRequirements extends DocSpecsSection {
     ),
     Field(
       'mutualTls',
-      bool,
+      DecisionState,
       'Mutual TLS (mTLS)',
       hint: 'Client certificate authentication',
     ),
@@ -25405,7 +25415,7 @@ class TlsRequirements extends DocSpecsSection {
     ),
     Field(
       'hstsIncludeSubdomains',
-      bool,
+      DecisionState,
       'HSTS Include Subdomains',
       hint: 'Apply HSTS to all subdomains',
     ),
@@ -26966,7 +26976,7 @@ class NetworkSecurityPolicy extends DocSpecsSection {
     ),
     Field(
       'dnssecEnabled',
-      bool,
+      DecisionState,
       'DNSSEC Enabled',
       hint: 'DNS Security Extensions',
     ),
@@ -27003,7 +27013,7 @@ class ServiceMeshAndGateway extends DocSpecsSection {
     ),
     Field(
       'gatewayHighAvailability',
-      bool,
+      DecisionState,
       'Gateway High Availability',
       hint: 'Multi-region or multi-zone gateway',
     ),
@@ -27944,9 +27954,15 @@ class ServerConfigurationSettingEntry extends DocSpecsSection {
     ),
     Field(
       'valueType',
-      String,
+      ConfigValueType,
       'Value Type',
-      hint: 'string / int / double / bool / enum',
+      hint: 'text / integer / decimal / boolean / enumeration / duration',
+    ),
+    Field(
+      'allowedValues',
+      String,
+      'Allowed Values',
+      hint: 'For an enumeration: the values it may take, comma-separated.',
     ),
     Field(
       'defaultValue',
@@ -27982,7 +27998,7 @@ class ServerConfigurationSettingEntry extends DocSpecsSection {
     ),
     Field(
       'overridableBy',
-      String,
+      OverridableBy,
       'Overridable By',
       required: true,
       hint:
@@ -29346,7 +29362,12 @@ class AlertRuleEntry extends DocSpecsSection {
       'Alert Description',
       hint: 'What this alert detects and why it matters',
     ),
-    Field('severity', String, 'Severity', hint: 'Critical, Warning, Info'),
+    Field(
+      'severity',
+      AlertSeverity,
+      'Severity',
+      hint: 'How fast someone has to act.',
+    ),
     Field(
       'category',
       String,

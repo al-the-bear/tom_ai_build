@@ -56,6 +56,27 @@ def _parse_ActionTriggerKind(token):
             return v
     return None
 
+class AlertSeverity(Enum):
+    """Generated enum for `AlertSeverity` values."""
+
+    # Someone acts now: the service, or a promise it makes, is broken.
+    critical = "critical"
+    # Someone acts soon: a threshold is crossed and the trend leads to a
+    # critical alert if nothing changes.
+    warning = "warning"
+    # No one has to act: recorded for the picture, not for a page.
+    info = "info"
+
+
+def _parse_AlertSeverity(token):
+    """Parses a stored token into a AlertSeverity, or None."""
+    if not token:
+        return None
+    for v in AlertSeverity:
+        if v.value == token:
+            return v
+    return None
+
 class AuthorizationRequirementKind(Enum):
     """Generated enum for `AuthorizationRequirementKind` values."""
 
@@ -210,6 +231,52 @@ def _parse_ClientApplicationKind(token):
             return v
     return None
 
+class ConfigValueType(Enum):
+    """Generated enum for `ConfigValueType` values."""
+
+    # Text.
+    text = "text"
+    # A whole number.
+    integer = "integer"
+    # A decimal number.
+    decimal = "decimal"
+    # True or false.
+    boolean = "boolean"
+    # One of a closed set of values, which the setting names.
+    enumeration = "enumeration"
+    # A length of time.
+    duration = "duration"
+
+
+def _parse_ConfigValueType(token):
+    """Parses a stored token into a ConfigValueType, or None."""
+    if not token:
+        return None
+    for v in ConfigValueType:
+        if v.value == token:
+            return v
+    return None
+
+class ConstraintEnforcement(Enum):
+    """Generated enum for `ConstraintEnforcement` values."""
+
+    # The system refuses the combination; no override exists — including a
+    # combination that cannot arise by construction.
+    hard = "hard"
+    # The system warns and the combination may stand, with the override the
+    # rule names (an approval, a recorded reason).
+    soft = "soft"
+
+
+def _parse_ConstraintEnforcement(token):
+    """Parses a stored token into a ConstraintEnforcement, or None."""
+    if not token:
+        return None
+    for v in ConstraintEnforcement:
+        if v.value == token:
+            return v
+    return None
+
 class DataAttributeKind(Enum):
     """Generated enum for `DataAttributeKind` values."""
 
@@ -306,6 +373,28 @@ def _parse_DataAttributeKind(token):
     if not token:
         return None
     for v in DataAttributeKind:
+        if v.value == token:
+            return v
+    return None
+
+class DecisionState(Enum):
+    """Generated enum for `DecisionState` values."""
+
+    # Yes, everywhere.
+    yes = "yes"
+    # No, everywhere.
+    no = "no"
+    # Depends on the installation or context; the notes say on what.
+    depends = "depends"
+    # Not decided yet.
+    undecided = "undecided"
+
+
+def _parse_DecisionState(token):
+    """Parses a stored token into a DecisionState, or None."""
+    if not token:
+        return None
+    for v in DecisionState:
         if v.value == token:
             return v
     return None
@@ -608,6 +697,28 @@ def _parse_ObjectLifecycleKind(token):
     if not token:
         return None
     for v in ObjectLifecycleKind:
+        if v.value == token:
+            return v
+    return None
+
+class OverridableBy(Enum):
+    """Generated enum for `OverridableBy` values."""
+
+    # Scope-pinned: no narrower scope may shadow the key.
+    none = "none"
+    # A per-install client configuration value may shadow the key.
+    client = "client"
+    # A per-user setting may shadow the key.
+    user = "user"
+    # A per-user-per-device setting may shadow the key.
+    device = "device"
+
+
+def _parse_OverridableBy(token):
+    """Parses a stored token into a OverridableBy, or None."""
+    if not token:
+        return None
+    for v in OverridableBy:
         if v.value == token:
             return v
     return None
@@ -48674,20 +48785,20 @@ class AlertDefinitionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "alertDescription", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "AlertSeverity | None":
+        return _parse_AlertSeverity(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
 class AlertDefinitionEntryNotificationForm(SomNode):
     """Generated section facade for the `notification` @Form section: its own content text followed by one typed member per form field."""
@@ -49168,12 +49279,12 @@ class AlertRuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "alertDescription", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "AlertSeverity | None":
+        return _parse_AlertSeverity(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
 
     @property
     def category(self) -> str:
@@ -63094,12 +63205,12 @@ class ClientConfigurationSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "client", value)
 
     @property
-    def valueType(self) -> str:
-        return self.doc.form_field(self.path, "valueType") or ""
+    def valueType(self) -> "ConfigValueType | None":
+        return _parse_ConfigValueType(self.doc.form_field(self.path, "valueType"))
 
     @valueType.setter
     def valueType(self, value):
-        self.doc.set_form_field(self.path, "valueType", value)
+        self.doc.set_form_field(self.path, "valueType", "" if value is None else value.value)
 
     @property
     def defaultValue(self) -> str:
@@ -63110,12 +63221,12 @@ class ClientConfigurationSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "defaultValue", value)
 
     @property
-    def overridableBy(self) -> str:
-        return self.doc.form_field(self.path, "overridableBy") or ""
+    def overridableBy(self) -> "OverridableBy | None":
+        return _parse_OverridableBy(self.doc.form_field(self.path, "overridableBy"))
 
     @overridableBy.setter
     def overridableBy(self, value):
-        self.doc.set_form_field(self.path, "overridableBy", value)
+        self.doc.set_form_field(self.path, "overridableBy", "" if value is None else value.value)
 
 class ClientHardwareRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -86046,12 +86157,12 @@ class DeviceSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "settingKey", value)
 
     @property
-    def valueType(self) -> str:
-        return self.doc.form_field(self.path, "valueType") or ""
+    def valueType(self) -> "ConfigValueType | None":
+        return _parse_ConfigValueType(self.doc.form_field(self.path, "valueType"))
 
     @valueType.setter
     def valueType(self, value):
-        self.doc.set_form_field(self.path, "valueType", value)
+        self.doc.set_form_field(self.path, "valueType", "" if value is None else value.value)
 
     @property
     def defaultValue(self) -> str:
@@ -100903,12 +101014,12 @@ class GlobalRoleExclusionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "reason", value)
 
     @property
-    def enforcementLevel(self) -> str:
-        return self.doc.form_field(self.path, "enforcementLevel") or ""
+    def enforcementLevel(self) -> "ConstraintEnforcement | None":
+        return _parse_ConstraintEnforcement(self.doc.form_field(self.path, "enforcementLevel"))
 
     @enforcementLevel.setter
     def enforcementLevel(self, value):
-        self.doc.set_form_field(self.path, "enforcementLevel", value)
+        self.doc.set_form_field(self.path, "enforcementLevel", "" if value is None else value.value)
 
     @property
     def complianceReference(self) -> str:
@@ -114642,12 +114753,12 @@ class MaintenanceWindowEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "windowType", value)
 
     @property
-    def priority(self) -> str:
-        return self.doc.form_field(self.path, "priority") or ""
+    def priority(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "priority"))
 
     @priority.setter
     def priority(self, value):
-        self.doc.set_form_field(self.path, "priority", value)
+        self.doc.set_form_field(self.path, "priority", "" if value is None else value.value)
 
     @property
     def description(self) -> str:
@@ -120477,12 +120588,12 @@ class MustPassCriterionEntryDefinitionForm(SomNode):
         self.doc.set_form_field(self.path, "criterionDescription", value)
 
     @property
-    def qualityCategory(self) -> str:
-        return self.doc.form_field(self.path, "qualityCategory") or ""
+    def qualityCategory(self) -> "Iso25010Characteristic | None":
+        return _parse_Iso25010Characteristic(self.doc.form_field(self.path, "qualityCategory"))
 
     @qualityCategory.setter
     def qualityCategory(self, value):
-        self.doc.set_form_field(self.path, "qualityCategory", value)
+        self.doc.set_form_field(self.path, "qualityCategory", "" if value is None else value.value)
 
     @property
     def qualityAttribute(self) -> str:
@@ -122358,13 +122469,12 @@ class NetworkSecurityPolicyDnsForm(SomNode):
         self.doc.set_form_field(self.path, "dnsProvider", value)
 
     @property
-    def dnssecEnabled(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "dnssecEnabled")
-        return None if v is None else (v == "true")
+    def dnssecEnabled(self) -> "DecisionState | None":
+        return _parse_DecisionState(self.doc.form_field(self.path, "dnssecEnabled"))
 
     @dnssecEnabled.setter
     def dnssecEnabled(self, value):
-        self.doc.set_form_field(self.path, "dnssecEnabled", "" if value is None else ("true" if value else "false"))
+        self.doc.set_form_field(self.path, "dnssecEnabled", "" if value is None else value.value)
 
     @property
     def privateDns(self) -> str:
@@ -130202,12 +130312,18 @@ class PipelineStageEntryExecutionForm(SomNode):
         self.doc.set_form_field(self.path, "runnerRequirements", value)
 
     @property
-    def timeoutMinutes(self) -> str:
-        return self.doc.form_field(self.path, "timeoutMinutes") or ""
+    def timeoutMinutes(self) -> "int | None":
+        v = self.doc.form_field(self.path, "timeoutMinutes")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
 
     @timeoutMinutes.setter
     def timeoutMinutes(self, value):
-        self.doc.set_form_field(self.path, "timeoutMinutes", value)
+        self.doc.set_form_field(self.path, "timeoutMinutes", "" if value is None else str(value))
 
     @property
     def parallelJobs(self) -> "bool | None":
@@ -133100,12 +133216,12 @@ class ProcessExceptionEntryAssessmentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def probability(self) -> str:
-        return self.doc.form_field(self.path, "probability") or ""
+    def probability(self) -> "Probability | None":
+        return _parse_Probability(self.doc.form_field(self.path, "probability"))
 
     @probability.setter
     def probability(self, value):
-        self.doc.set_form_field(self.path, "probability", value)
+        self.doc.set_form_field(self.path, "probability", "" if value is None else value.value)
 
     @property
     def impact(self) -> str:
@@ -133114,6 +133230,14 @@ class ProcessExceptionEntryAssessmentForm(SomNode):
     @impact.setter
     def impact(self, value):
         self.doc.set_form_field(self.path, "impact", value)
+
+    @property
+    def impactLevel(self) -> "Impact | None":
+        return _parse_Impact(self.doc.form_field(self.path, "impactLevel"))
+
+    @impactLevel.setter
+    def impactLevel(self, value):
+        self.doc.set_form_field(self.path, "impactLevel", "" if value is None else value.value)
 
     @property
     def detectionMethod(self) -> str:
@@ -137793,12 +137917,12 @@ class QualityGateCheckEntryDefinitionForm(SomNode):
         self.doc.set_form_field(self.path, "checkCategory", value)
 
     @property
-    def qualityCategory(self) -> str:
-        return self.doc.form_field(self.path, "qualityCategory") or ""
+    def qualityCategory(self) -> "Iso25010Characteristic | None":
+        return _parse_Iso25010Characteristic(self.doc.form_field(self.path, "qualityCategory"))
 
     @qualityCategory.setter
     def qualityCategory(self, value):
-        self.doc.set_form_field(self.path, "qualityCategory", value)
+        self.doc.set_form_field(self.path, "qualityCategory", "" if value is None else value.value)
 
 class QualityGateCheckEntryExecutionForm(SomNode):
     """Generated section facade for the `execution` @Form section: its own content text followed by one typed member per form field."""
@@ -148586,12 +148710,20 @@ class RoleCombinationConstraintEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "enforcement", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
+
+    @property
+    def enforcementMode(self) -> "ConstraintEnforcement | None":
+        return _parse_ConstraintEnforcement(self.doc.form_field(self.path, "enforcementMode"))
+
+    @enforcementMode.setter
+    def enforcementMode(self, value):
+        self.doc.set_form_field(self.path, "enforcementMode", "" if value is None else value.value)
 
     @property
     def businessReason(self) -> str:
@@ -148757,12 +148889,20 @@ class RoleExclusionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "exclusionType", value)
 
     @property
-    def severity(self) -> str:
-        return self.doc.form_field(self.path, "severity") or ""
+    def severity(self) -> "ImportanceBand | None":
+        return _parse_ImportanceBand(self.doc.form_field(self.path, "severity"))
 
     @severity.setter
     def severity(self, value):
-        self.doc.set_form_field(self.path, "severity", value)
+        self.doc.set_form_field(self.path, "severity", "" if value is None else value.value)
+
+    @property
+    def enforcementMode(self) -> "ConstraintEnforcement | None":
+        return _parse_ConstraintEnforcement(self.doc.form_field(self.path, "enforcementMode"))
+
+    @enforcementMode.setter
+    def enforcementMode(self, value):
+        self.doc.set_form_field(self.path, "enforcementMode", "" if value is None else value.value)
 
 class RoleHierarchyPolicyContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -157151,12 +157291,20 @@ class ServerConfigurationSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "settingKey", value)
 
     @property
-    def valueType(self) -> str:
-        return self.doc.form_field(self.path, "valueType") or ""
+    def valueType(self) -> "ConfigValueType | None":
+        return _parse_ConfigValueType(self.doc.form_field(self.path, "valueType"))
 
     @valueType.setter
     def valueType(self, value):
-        self.doc.set_form_field(self.path, "valueType", value)
+        self.doc.set_form_field(self.path, "valueType", "" if value is None else value.value)
+
+    @property
+    def allowedValues(self) -> str:
+        return self.doc.form_field(self.path, "allowedValues") or ""
+
+    @allowedValues.setter
+    def allowedValues(self, value):
+        self.doc.set_form_field(self.path, "allowedValues", value)
 
     @property
     def defaultValue(self) -> str:
@@ -157192,12 +157340,12 @@ class ServerConfigurationSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "secret", "" if value is None else ("true" if value else "false"))
 
     @property
-    def overridableBy(self) -> str:
-        return self.doc.form_field(self.path, "overridableBy") or ""
+    def overridableBy(self) -> "OverridableBy | None":
+        return _parse_OverridableBy(self.doc.form_field(self.path, "overridableBy"))
 
     @overridableBy.setter
     def overridableBy(self, value):
-        self.doc.set_form_field(self.path, "overridableBy", value)
+        self.doc.set_form_field(self.path, "overridableBy", "" if value is None else value.value)
 
 class ServerEnvironmentEntryAccessForm(SomNode):
     """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
@@ -158958,13 +159106,12 @@ class ServiceMeshAndGatewayContentForm(SomNode):
         self.doc.set_form_field(self.path, "gatewayFeatures", value)
 
     @property
-    def gatewayHighAvailability(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "gatewayHighAvailability")
-        return None if v is None else (v == "true")
+    def gatewayHighAvailability(self) -> "DecisionState | None":
+        return _parse_DecisionState(self.doc.form_field(self.path, "gatewayHighAvailability"))
 
     @gatewayHighAvailability.setter
     def gatewayHighAvailability(self, value):
-        self.doc.set_form_field(self.path, "gatewayHighAvailability", "" if value is None else ("true" if value else "false"))
+        self.doc.set_form_field(self.path, "gatewayHighAvailability", "" if value is None else value.value)
 
     @property
     def apiKeyManagement(self) -> str:
@@ -177078,13 +177225,12 @@ class TlsRequirementsCertificateValidationForm(SomNode):
         self.doc.set_form_field(self.path, "ocspStapling", "" if value is None else ("true" if value else "false"))
 
     @property
-    def mutualTls(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "mutualTls")
-        return None if v is None else (v == "true")
+    def mutualTls(self) -> "DecisionState | None":
+        return _parse_DecisionState(self.doc.form_field(self.path, "mutualTls"))
 
     @mutualTls.setter
     def mutualTls(self, value):
-        self.doc.set_form_field(self.path, "mutualTls", "" if value is None else ("true" if value else "false"))
+        self.doc.set_form_field(self.path, "mutualTls", "" if value is None else value.value)
 
 class TlsRequirementsCipherSuitesForm(SomNode):
     """Generated section facade for the `cipherSuites` @Form section: its own content text followed by one typed member per form field."""
@@ -177170,13 +177316,12 @@ class TlsRequirementsComplianceForm(SomNode):
         self.doc.set_form_field(self.path, "hstsMaxAge", value)
 
     @property
-    def hstsIncludeSubdomains(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "hstsIncludeSubdomains")
-        return None if v is None else (v == "true")
+    def hstsIncludeSubdomains(self) -> "DecisionState | None":
+        return _parse_DecisionState(self.doc.form_field(self.path, "hstsIncludeSubdomains"))
 
     @hstsIncludeSubdomains.setter
     def hstsIncludeSubdomains(self, value):
-        self.doc.set_form_field(self.path, "hstsIncludeSubdomains", "" if value is None else ("true" if value else "false"))
+        self.doc.set_form_field(self.path, "hstsIncludeSubdomains", "" if value is None else value.value)
 
     @property
     def notes(self) -> str:
@@ -186857,12 +187002,12 @@ class UserSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "settingKey", value)
 
     @property
-    def valueType(self) -> str:
-        return self.doc.form_field(self.path, "valueType") or ""
+    def valueType(self) -> "ConfigValueType | None":
+        return _parse_ConfigValueType(self.doc.form_field(self.path, "valueType"))
 
     @valueType.setter
     def valueType(self, value):
-        self.doc.set_form_field(self.path, "valueType", value)
+        self.doc.set_form_field(self.path, "valueType", "" if value is None else value.value)
 
     @property
     def defaultValue(self) -> str:
@@ -186873,12 +187018,12 @@ class UserSettingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "defaultValue", value)
 
     @property
-    def overridableBy(self) -> str:
-        return self.doc.form_field(self.path, "overridableBy") or ""
+    def overridableBy(self) -> "OverridableBy | None":
+        return _parse_OverridableBy(self.doc.form_field(self.path, "overridableBy"))
 
     @overridableBy.setter
     def overridableBy(self, value):
-        self.doc.set_form_field(self.path, "overridableBy", value)
+        self.doc.set_form_field(self.path, "overridableBy", "" if value is None else value.value)
 
 class UserTrainingRequirementsTrainingFormForm(SomNode):
     """Generated section facade for the `trainingForm` @Form section: its own content text followed by one typed member per form field."""

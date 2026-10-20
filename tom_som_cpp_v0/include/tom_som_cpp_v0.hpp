@@ -46,6 +46,21 @@ struct ActionTriggerKind {
   ActionTriggerKind() = delete;
 };
 
+// Generated enum tokens for `AlertSeverity` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct AlertSeverity {
+  // Someone acts now: the service, or a promise it makes, is broken.
+  static constexpr const char* critical = "critical";
+  // Someone acts soon: a threshold is crossed and the trend leads to a
+  // critical alert if nothing changes.
+  static constexpr const char* warning = "warning";
+  // No one has to act: recorded for the picture, not for a page.
+  static constexpr const char* info = "info";
+  // Returns the token when it is a known AlertSeverity value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  AlertSeverity() = delete;
+};
+
 // Generated enum tokens for `AuthorizationRequirementKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct AuthorizationRequirementKind {
@@ -164,6 +179,40 @@ struct ClientApplicationKind {
   ClientApplicationKind() = delete;
 };
 
+// Generated enum tokens for `ConfigValueType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ConfigValueType {
+  // Text.
+  static constexpr const char* text = "text";
+  // A whole number.
+  static constexpr const char* integer = "integer";
+  // A decimal number.
+  static constexpr const char* decimal = "decimal";
+  // True or false.
+  static constexpr const char* boolean = "boolean";
+  // One of a closed set of values, which the setting names.
+  static constexpr const char* enumeration = "enumeration";
+  // A length of time.
+  static constexpr const char* duration = "duration";
+  // Returns the token when it is a known ConfigValueType value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ConfigValueType() = delete;
+};
+
+// Generated enum tokens for `ConstraintEnforcement` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ConstraintEnforcement {
+  // The system refuses the combination; no override exists — including a
+  // combination that cannot arise by construction.
+  static constexpr const char* hard = "hard";
+  // The system warns and the combination may stand, with the override the
+  // rule names (an approval, a recorded reason).
+  static constexpr const char* soft = "soft";
+  // Returns the token when it is a known ConstraintEnforcement value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ConstraintEnforcement() = delete;
+};
+
 // Generated enum tokens for `DataAttributeKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct DataAttributeKind {
@@ -256,6 +305,22 @@ struct DataAttributeKind {
   // Returns the token when it is a known DataAttributeKind value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   DataAttributeKind() = delete;
+};
+
+// Generated enum tokens for `DecisionState` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct DecisionState {
+  // Yes, everywhere.
+  static constexpr const char* yes = "yes";
+  // No, everywhere.
+  static constexpr const char* no = "no";
+  // Depends on the installation or context; the notes say on what.
+  static constexpr const char* depends = "depends";
+  // Not decided yet.
+  static constexpr const char* undecided = "undecided";
+  // Returns the token when it is a known DecisionState value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  DecisionState() = delete;
 };
 
 // Generated enum tokens for `ExportFieldKind` values. The stored token is byte-
@@ -510,6 +575,22 @@ struct ObjectLifecycleKind {
   // Returns the token when it is a known ObjectLifecycleKind value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   ObjectLifecycleKind() = delete;
+};
+
+// Generated enum tokens for `OverridableBy` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct OverridableBy {
+  // Scope-pinned: no narrower scope may shadow the key.
+  static constexpr const char* none = "none";
+  // A per-install client configuration value may shadow the key.
+  static constexpr const char* client = "client";
+  // A per-user setting may shadow the key.
+  static constexpr const char* user = "user";
+  // A per-user-per-device setting may shadow the key.
+  static constexpr const char* device = "device";
+  // Returns the token when it is a known OverridableBy value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  OverridableBy() = delete;
 };
 
 // Generated enum tokens for `Priority` values. The stored token is byte-
@@ -60899,8 +60980,8 @@ class NetworkSecurityPolicyDnsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dnsProvider() const;
   void setDnsProvider(const std::string& value);
-  std::optional<bool> dnssecEnabled() const;
-  void setDnssecEnabled(std::optional<bool> value);
+  std::string dnssecEnabled() const;
+  void setDnssecEnabled(const std::string& value);
   std::string privateDns() const;
   void setPrivateDns(const std::string& value);
   std::string notes() const;
@@ -63639,8 +63720,8 @@ class PipelineStageEntryExecutionForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string runnerRequirements() const;
   void setRunnerRequirements(const std::string& value);
-  std::string timeoutMinutes() const;
-  void setTimeoutMinutes(const std::string& value);
+  std::optional<long> timeoutMinutes() const;
+  void setTimeoutMinutes(std::optional<long> value);
   std::optional<bool> parallelJobs() const;
   void setParallelJobs(std::optional<bool> value);
 };
@@ -64645,6 +64726,8 @@ class ProcessExceptionEntryAssessmentForm : public som::SomNode {
   void setProbability(const std::string& value);
   std::string impact() const;
   void setImpact(const std::string& value);
+  std::string impactLevel() const;
+  void setImpactLevel(const std::string& value);
   std::string detectionMethod() const;
   void setDetectionMethod(const std::string& value);
 };
@@ -70169,6 +70252,8 @@ class RoleCombinationConstraintEntryContentForm : public som::SomNode {
   void setEnforcement(const std::string& value);
   std::string severity() const;
   void setSeverity(const std::string& value);
+  std::string enforcementMode() const;
+  void setEnforcementMode(const std::string& value);
   std::string businessReason() const;
   void setBusinessReason(const std::string& value);
   std::string exemptionProcess() const;
@@ -70229,6 +70314,8 @@ class RoleExclusionEntryContentForm : public som::SomNode {
   void setExclusionType(const std::string& value);
   std::string severity() const;
   void setSeverity(const std::string& value);
+  std::string enforcementMode() const;
+  void setEnforcementMode(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73319,6 +73406,8 @@ class ServerConfigurationSettingEntryContentForm : public som::SomNode {
   void setSettingKey(const std::string& value);
   std::string valueType() const;
   void setValueType(const std::string& value);
+  std::string allowedValues() const;
+  void setAllowedValues(const std::string& value);
   std::string defaultValue() const;
   void setDefaultValue(const std::string& value);
   std::string environmentVariable() const;
@@ -73967,8 +74056,8 @@ class ServiceMeshAndGatewayContentForm : public som::SomNode {
   void setApiGateway(const std::string& value);
   std::string gatewayFeatures() const;
   void setGatewayFeatures(const std::string& value);
-  std::optional<bool> gatewayHighAvailability() const;
-  void setGatewayHighAvailability(std::optional<bool> value);
+  std::string gatewayHighAvailability() const;
+  void setGatewayHighAvailability(const std::string& value);
   std::string apiKeyManagement() const;
   void setApiKeyManagement(const std::string& value);
 };
@@ -80347,8 +80436,8 @@ class TlsRequirementsCertificateValidationForm : public som::SomNode {
   void setCertificatePinning(std::optional<bool> value);
   std::optional<bool> ocspStapling() const;
   void setOcspStapling(std::optional<bool> value);
-  std::optional<bool> mutualTls() const;
-  void setMutualTls(std::optional<bool> value);
+  std::string mutualTls() const;
+  void setMutualTls(const std::string& value);
 };
 
 // Generated section facade for the `cipherSuites` @Form section: its own `content` text followed by one typed member per form field.
@@ -80381,8 +80470,8 @@ class TlsRequirementsComplianceForm : public som::SomNode {
   void setHstsEnabled(std::optional<bool> value);
   std::string hstsMaxAge() const;
   void setHstsMaxAge(const std::string& value);
-  std::optional<bool> hstsIncludeSubdomains() const;
-  void setHstsIncludeSubdomains(std::optional<bool> value);
+  std::string hstsIncludeSubdomains() const;
+  void setHstsIncludeSubdomains(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
 };

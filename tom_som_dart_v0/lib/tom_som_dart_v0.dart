@@ -70,6 +70,28 @@ ActionTriggerKind? _parseActionTriggerKind(String? token) {
   return null;
 }
 
+/// Generated enum for `AlertSeverity` values.
+enum AlertSeverity {
+  /// Someone acts now: the service, or a promise it makes, is broken.
+  critical,
+
+  /// Someone acts soon: a threshold is crossed and the trend leads to a
+  /// critical alert if nothing changes.
+  warning,
+
+  /// No one has to act: recorded for the picture, not for a page.
+  info;
+}
+
+/// Parses a stored token into a [AlertSeverity], or `null`.
+AlertSeverity? _parseAlertSeverity(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in AlertSeverity.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `AuthorizationRequirementKind` values.
 enum AuthorizationRequirementKind {
   /// The caller must hold one of a named set of roles.
@@ -247,6 +269,56 @@ ClientApplicationKind? _parseClientApplicationKind(String? token) {
   return null;
 }
 
+/// Generated enum for `ConfigValueType` values.
+enum ConfigValueType {
+  /// Text.
+  text,
+
+  /// A whole number.
+  integer,
+
+  /// A decimal number.
+  decimal,
+
+  /// True or false.
+  boolean,
+
+  /// One of a closed set of values, which the setting names.
+  enumeration,
+
+  /// A length of time.
+  duration;
+}
+
+/// Parses a stored token into a [ConfigValueType], or `null`.
+ConfigValueType? _parseConfigValueType(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ConfigValueType.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ConstraintEnforcement` values.
+enum ConstraintEnforcement {
+  /// The system refuses the combination; no override exists — including a
+  /// combination that cannot arise by construction.
+  hard,
+
+  /// The system warns and the combination may stand, with the override the
+  /// rule names (an approval, a recorded reason).
+  soft;
+}
+
+/// Parses a stored token into a [ConstraintEnforcement], or `null`.
+ConstraintEnforcement? _parseConstraintEnforcement(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ConstraintEnforcement.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `DataAttributeKind` values.
 enum DataAttributeKind {
   /// Character data of bounded length. Binds
@@ -351,6 +423,30 @@ enum DataAttributeKind {
 DataAttributeKind? _parseDataAttributeKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in DataAttributeKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `DecisionState` values.
+enum DecisionState {
+  /// Yes, everywhere.
+  yes,
+
+  /// No, everywhere.
+  no,
+
+  /// Depends on the installation or context; the notes say on what.
+  depends,
+
+  /// Not decided yet.
+  undecided;
+}
+
+/// Parses a stored token into a [DecisionState], or `null`.
+DecisionState? _parseDecisionState(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in DecisionState.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -673,6 +769,30 @@ enum ObjectLifecycleKind {
 ObjectLifecycleKind? _parseObjectLifecycleKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ObjectLifecycleKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `OverridableBy` values.
+enum OverridableBy {
+  /// Scope-pinned: no narrower scope may shadow the key.
+  none,
+
+  /// A per-install client configuration value may shadow the key.
+  client,
+
+  /// A per-user setting may shadow the key.
+  user,
+
+  /// A per-user-per-device setting may shadow the key.
+  device;
+}
+
+/// Parses a stored token into a [OverridableBy], or `null`.
+OverridableBy? _parseOverridableBy(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in OverridableBy.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -47465,15 +47585,19 @@ class AlertDefinitionEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical, Warning, Info
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// How fast someone has to act.
+  ///
+  /// Stored as one of: `critical`, `warning`, `info`.
+  AlertSeverity? get severity => _parseAlertSeverity(doc.formField(path, 'severity'));
+  set severity(AlertSeverity? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 
   /// Priority.
   ///
-  /// P1, P2, P3, P4, P5
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// How much the alert matters relative to others.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 }
 
 /// Generated section facade for the `notification` `@Form` section:
@@ -47847,9 +47971,11 @@ class AlertRuleEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Critical, Warning, Info
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// How fast someone has to act.
+  ///
+  /// Stored as one of: `critical`, `warning`, `info`.
+  AlertSeverity? get severity => _parseAlertSeverity(doc.formField(path, 'severity'));
+  set severity(AlertSeverity? value) => doc.setFormField(path, 'severity', value?.name ?? '');
 
   /// Category.
   ///
@@ -58565,9 +58691,11 @@ class ClientConfigurationSettingEntryContentForm extends SomNode {
 
   /// Value Type.
   ///
-  /// string / int / double / bool / enum
-  String get valueType => doc.formField(path, 'valueType') ?? '';
-  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+  /// text / integer / decimal / boolean / enumeration / duration
+  ///
+  /// Stored as one of: `text`, `integer`, `decimal`, `boolean`, `enumeration`, `duration`.
+  ConfigValueType? get valueType => _parseConfigValueType(doc.formField(path, 'valueType'));
+  set valueType(ConfigValueType? value) => doc.setFormField(path, 'valueType', value?.name ?? '');
 
   /// Default Value.
   ///
@@ -58580,8 +58708,10 @@ class ClientConfigurationSettingEntryContentForm extends SomNode {
   /// The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
-  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
+  ///
+  /// Stored as one of: `none`, `client`, `user`, `device`.
+  OverridableBy? get overridableBy => _parseOverridableBy(doc.formField(path, 'overridableBy'));
+  set overridableBy(OverridableBy? value) => doc.setFormField(path, 'overridableBy', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -76271,9 +76401,11 @@ class DeviceSettingEntryContentForm extends SomNode {
 
   /// Value Type.
   ///
-  /// string / int / double / bool / enum
-  String get valueType => doc.formField(path, 'valueType') ?? '';
-  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+  /// text / integer / decimal / boolean / enumeration / duration
+  ///
+  /// Stored as one of: `text`, `integer`, `decimal`, `boolean`, `enumeration`, `duration`.
+  ConfigValueType? get valueType => _parseConfigValueType(doc.formField(path, 'valueType'));
+  set valueType(ConfigValueType? value) => doc.setFormField(path, 'valueType', value?.name ?? '');
 
   /// Default Value.
   ///
@@ -87750,8 +87882,10 @@ class GlobalRoleExclusionEntryContentForm extends SomNode {
   /// Enforcement Level.
   ///
   /// Hard | Soft — whether override is possible with approval
-  String get enforcementLevel => doc.formField(path, 'enforcementLevel') ?? '';
-  set enforcementLevel(String value) => doc.setFormField(path, 'enforcementLevel', value);
+  ///
+  /// Stored as one of: `hard`, `soft`.
+  ConstraintEnforcement? get enforcementLevel => _parseConstraintEnforcement(doc.formField(path, 'enforcementLevel'));
+  set enforcementLevel(ConstraintEnforcement? value) => doc.setFormField(path, 'enforcementLevel', value?.name ?? '');
 
   /// Compliance Reference.
   ///
@@ -98265,9 +98399,11 @@ class MaintenanceWindowEntryContentForm extends SomNode {
 
   /// Priority.
   ///
-  /// Critical, Standard, Low
-  String get priority => doc.formField(path, 'priority') ?? '';
-  set priority(String value) => doc.setFormField(path, 'priority', value);
+  /// How much the maintenance matters relative to others.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get priority => _parseImportanceBand(doc.formField(path, 'priority'));
+  set priority(ImportanceBand? value) => doc.setFormField(path, 'priority', value?.name ?? '');
 
   /// Description.
   ///
@@ -102769,9 +102905,11 @@ class MustPassCriterionEntryDefinitionForm extends SomNode {
 
   /// Quality Category.
   ///
-  /// User, Technical, Operations, Documentation
-  String get qualityCategory => doc.formField(path, 'qualityCategory') ?? '';
-  set qualityCategory(String value) => doc.setFormField(path, 'qualityCategory', value);
+  /// The ISO/IEC 25010:2023 characteristic the criterion assures
+  ///
+  /// Stored as one of: `functionalSuitability`, `performanceEfficiency`, `compatibility`, `interactionCapability`, `reliability`, `security`, `maintainability`, `flexibility`.
+  Iso25010Characteristic? get qualityCategory => _parseIso25010Characteristic(doc.formField(path, 'qualityCategory'));
+  set qualityCategory(Iso25010Characteristic? value) => doc.setFormField(path, 'qualityCategory', value?.name ?? '');
 
   /// Quality Attribute.
   ///
@@ -104208,8 +104346,10 @@ class NetworkSecurityPolicyDnsForm extends SomNode {
   /// DNSSEC Enabled.
   ///
   /// DNS Security Extensions
-  bool? get dnssecEnabled => somParseBool(doc.formField(path, 'dnssecEnabled'));
-  set dnssecEnabled(bool? value) => doc.setFormField(path, 'dnssecEnabled', somFormatBool(value));
+  ///
+  /// Stored as one of: `yes`, `no`, `depends`, `undecided`.
+  DecisionState? get dnssecEnabled => _parseDecisionState(doc.formField(path, 'dnssecEnabled'));
+  set dnssecEnabled(DecisionState? value) => doc.setFormField(path, 'dnssecEnabled', value?.name ?? '');
 
   /// Private DNS.
   ///
@@ -110192,8 +110332,8 @@ class PipelineStageEntryExecutionForm extends SomNode {
   /// Timeout.
   ///
   /// Stage timeout in minutes
-  String get timeoutMinutes => doc.formField(path, 'timeoutMinutes') ?? '';
-  set timeoutMinutes(String value) => doc.setFormField(path, 'timeoutMinutes', value);
+  int? get timeoutMinutes => somParseInt(doc.formField(path, 'timeoutMinutes'));
+  set timeoutMinutes(int? value) => doc.setFormField(path, 'timeoutMinutes', somFormatInt(value));
 
   /// Parallel Jobs.
   ///
@@ -112405,15 +112545,25 @@ class ProcessExceptionEntryAssessmentForm extends SomNode {
 
   /// Probability — how often this occurs.
   ///
-  /// State how likely the exception is
-  String get probability => doc.formField(path, 'probability') ?? '';
-  set probability(String value) => doc.setFormField(path, 'probability', value);
+  /// Qualitative likelihood band that the exception occurs.
+  ///
+  /// Stored as one of: `veryLow`, `low`, `medium`, `high`, `veryHigh`.
+  Probability? get probability => _parseProbability(doc.formField(path, 'probability'));
+  set probability(Probability? value) => doc.setFormField(path, 'probability', value?.name ?? '');
 
   /// Impact — effect on process/business.
   ///
   /// Describe the impact if it occurs
   String get impact => doc.formField(path, 'impact') ?? '';
   set impact(String value) => doc.setFormField(path, 'impact', value);
+
+  /// Impact Level.
+  ///
+  /// Qualitative consequence band if the exception occurs.
+  ///
+  /// Stored as one of: `negligible`, `minor`, `moderate`, `major`, `critical`.
+  Impact? get impactLevel => _parseImpact(doc.formField(path, 'impactLevel'));
+  set impactLevel(Impact? value) => doc.setFormField(path, 'impactLevel', value?.name ?? '');
 
   /// Detection Method — how exception is detected.
   ///
@@ -115955,9 +116105,11 @@ class QualityGateCheckEntryDefinitionForm extends SomNode {
 
   /// Quality Category.
   ///
-  /// User, Technical, Operations, Documentation
-  String get qualityCategory => doc.formField(path, 'qualityCategory') ?? '';
-  set qualityCategory(String value) => doc.setFormField(path, 'qualityCategory', value);
+  /// The ISO/IEC 25010:2023 characteristic the criterion assures
+  ///
+  /// Stored as one of: `functionalSuitability`, `performanceEfficiency`, `compatibility`, `interactionCapability`, `reliability`, `security`, `maintainability`, `flexibility`.
+  Iso25010Characteristic? get qualityCategory => _parseIso25010Characteristic(doc.formField(path, 'qualityCategory'));
+  set qualityCategory(Iso25010Characteristic? value) => doc.setFormField(path, 'qualityCategory', value?.name ?? '');
 }
 
 /// Generated section facade for the `execution` `@Form` section:
@@ -124321,9 +124473,19 @@ class RoleCombinationConstraintEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Hard | Soft — hard = system-enforced block, soft = warning with override requiring approval
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// How serious a violation of the rule is.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
+
+  /// Enforcement Mode.
+  ///
+  /// hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).
+  ///
+  /// Stored as one of: `hard`, `soft`.
+  ConstraintEnforcement? get enforcementMode => _parseConstraintEnforcement(doc.formField(path, 'enforcementMode'));
+  set enforcementMode(ConstraintEnforcement? value) => doc.setFormField(path, 'enforcementMode', value?.name ?? '');
 
   /// Business Reason.
   ///
@@ -124457,9 +124619,19 @@ class RoleExclusionEntryContentForm extends SomNode {
 
   /// Severity.
   ///
-  /// Hard | Soft — hard = system-enforced block, soft = warning with override option
-  String get severity => doc.formField(path, 'severity') ?? '';
-  set severity(String value) => doc.setFormField(path, 'severity', value);
+  /// How serious a violation of the rule is.
+  ///
+  /// Stored as one of: `critical`, `high`, `medium`, `low`.
+  ImportanceBand? get severity => _parseImportanceBand(doc.formField(path, 'severity'));
+  set severity(ImportanceBand? value) => doc.setFormField(path, 'severity', value?.name ?? '');
+
+  /// Enforcement Mode.
+  ///
+  /// hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).
+  ///
+  /// Stored as one of: `hard`, `soft`.
+  ConstraintEnforcement? get enforcementMode => _parseConstraintEnforcement(doc.formField(path, 'enforcementMode'));
+  set enforcementMode(ConstraintEnforcement? value) => doc.setFormField(path, 'enforcementMode', value?.name ?? '');
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -131025,9 +131197,17 @@ class ServerConfigurationSettingEntryContentForm extends SomNode {
 
   /// Value Type.
   ///
-  /// string / int / double / bool / enum
-  String get valueType => doc.formField(path, 'valueType') ?? '';
-  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+  /// text / integer / decimal / boolean / enumeration / duration
+  ///
+  /// Stored as one of: `text`, `integer`, `decimal`, `boolean`, `enumeration`, `duration`.
+  ConfigValueType? get valueType => _parseConfigValueType(doc.formField(path, 'valueType'));
+  set valueType(ConfigValueType? value) => doc.setFormField(path, 'valueType', value?.name ?? '');
+
+  /// Allowed Values.
+  ///
+  /// For an enumeration: the values it may take, comma-separated.
+  String get allowedValues => doc.formField(path, 'allowedValues') ?? '';
+  set allowedValues(String value) => doc.setFormField(path, 'allowedValues', value);
 
   /// Default Value.
   ///
@@ -131058,8 +131238,10 @@ class ServerConfigurationSettingEntryContentForm extends SomNode {
   /// The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
-  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
+  ///
+  /// Stored as one of: `none`, `client`, `user`, `device`.
+  OverridableBy? get overridableBy => _parseOverridableBy(doc.formField(path, 'overridableBy'));
+  set overridableBy(OverridableBy? value) => doc.setFormField(path, 'overridableBy', value?.name ?? '');
 }
 
 /// Generated section facade for the `access` `@Form` section:
@@ -132410,8 +132592,10 @@ class ServiceMeshAndGatewayContentForm extends SomNode {
   /// Gateway High Availability.
   ///
   /// Multi-region or multi-zone gateway
-  bool? get gatewayHighAvailability => somParseBool(doc.formField(path, 'gatewayHighAvailability'));
-  set gatewayHighAvailability(bool? value) => doc.setFormField(path, 'gatewayHighAvailability', somFormatBool(value));
+  ///
+  /// Stored as one of: `yes`, `no`, `depends`, `undecided`.
+  DecisionState? get gatewayHighAvailability => _parseDecisionState(doc.formField(path, 'gatewayHighAvailability'));
+  set gatewayHighAvailability(DecisionState? value) => doc.setFormField(path, 'gatewayHighAvailability', value?.name ?? '');
 
   /// API Key Management.
   ///
@@ -146224,8 +146408,10 @@ class TlsRequirementsCertificateValidationForm extends SomNode {
   /// Mutual TLS (mTLS).
   ///
   /// Client certificate authentication
-  bool? get mutualTls => somParseBool(doc.formField(path, 'mutualTls'));
-  set mutualTls(bool? value) => doc.setFormField(path, 'mutualTls', somFormatBool(value));
+  ///
+  /// Stored as one of: `yes`, `no`, `depends`, `undecided`.
+  DecisionState? get mutualTls => _parseDecisionState(doc.formField(path, 'mutualTls'));
+  set mutualTls(DecisionState? value) => doc.setFormField(path, 'mutualTls', value?.name ?? '');
 }
 
 /// Generated section facade for the `cipherSuites` `@Form` section:
@@ -146294,8 +146480,10 @@ class TlsRequirementsComplianceForm extends SomNode {
   /// HSTS Include Subdomains.
   ///
   /// Apply HSTS to all subdomains
-  bool? get hstsIncludeSubdomains => somParseBool(doc.formField(path, 'hstsIncludeSubdomains'));
-  set hstsIncludeSubdomains(bool? value) => doc.setFormField(path, 'hstsIncludeSubdomains', somFormatBool(value));
+  ///
+  /// Stored as one of: `yes`, `no`, `depends`, `undecided`.
+  DecisionState? get hstsIncludeSubdomains => _parseDecisionState(doc.formField(path, 'hstsIncludeSubdomains'));
+  set hstsIncludeSubdomains(DecisionState? value) => doc.setFormField(path, 'hstsIncludeSubdomains', value?.name ?? '');
 
   /// Notes.
   ///
@@ -153649,9 +153837,11 @@ class UserSettingEntryContentForm extends SomNode {
 
   /// Value Type.
   ///
-  /// string / int / double / bool / enum
-  String get valueType => doc.formField(path, 'valueType') ?? '';
-  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+  /// text / integer / decimal / boolean / enumeration / duration
+  ///
+  /// Stored as one of: `text`, `integer`, `decimal`, `boolean`, `enumeration`, `duration`.
+  ConfigValueType? get valueType => _parseConfigValueType(doc.formField(path, 'valueType'));
+  set valueType(ConfigValueType? value) => doc.setFormField(path, 'valueType', value?.name ?? '');
 
   /// Default Value.
   ///
@@ -153664,8 +153854,10 @@ class UserSettingEntryContentForm extends SomNode {
   /// Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into
   ///
   /// **Required** — a document that leaves this empty fails validation.
-  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
-  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
+  ///
+  /// Stored as one of: `none`, `client`, `user`, `device`.
+  OverridableBy? get overridableBy => _parseOverridableBy(doc.formField(path, 'overridableBy'));
+  set overridableBy(OverridableBy? value) => doc.setFormField(path, 'overridableBy', value?.name ?? '');
 }
 
 /// Generated section facade for the `trainingForm` `@Form` section:

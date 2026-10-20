@@ -2306,15 +2306,21 @@ class ProcessExceptionEntry extends DocSpecsSection {
   @Form([
     Field(
       'probability',
-      String,
+      Probability,
       'Probability — how often this occurs',
-      hint: 'State how likely the exception is',
+      hint: 'Qualitative likelihood band that the exception occurs.',
     ),
     Field(
       'impact',
       String,
       'Impact — effect on process/business',
       hint: 'Describe the impact if it occurs',
+    ),
+    Field(
+      'impactLevel',
+      Impact,
+      'Impact Level',
+      hint: 'Qualitative consequence band if the exception occurs.',
     ),
     Field(
       'detectionMethod',

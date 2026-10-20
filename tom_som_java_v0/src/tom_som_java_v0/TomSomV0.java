@@ -72,6 +72,42 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `AlertSeverity` values.
+  public enum AlertSeverity {
+    /**
+     * Someone acts now: the service, or a promise it makes, is broken.
+     */
+    critical("critical"),
+    /**
+     * Someone acts soon: a threshold is crossed and the trend leads to a
+     * critical alert if nothing changes.
+     */
+    warning("warning"),
+    /**
+     * No one has to act: recorded for the picture, not for a page.
+     */
+    info("info");
+
+    public final String token;
+
+    AlertSeverity(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a AlertSeverity, or null.
+    public static AlertSeverity parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (AlertSeverity v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `AuthorizationRequirementKind` values.
   public enum AuthorizationRequirementKind {
     /**
@@ -350,6 +386,86 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `ConfigValueType` values.
+  public enum ConfigValueType {
+    /**
+     * Text.
+     */
+    text("text"),
+    /**
+     * A whole number.
+     */
+    integer("integer"),
+    /**
+     * A decimal number.
+     */
+    decimal("decimal"),
+    /**
+     * True or false.
+     */
+    boolean_("boolean"),
+    /**
+     * One of a closed set of values, which the setting names.
+     */
+    enumeration("enumeration"),
+    /**
+     * A length of time.
+     */
+    duration("duration");
+
+    public final String token;
+
+    ConfigValueType(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ConfigValueType, or null.
+    public static ConfigValueType parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ConfigValueType v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `ConstraintEnforcement` values.
+  public enum ConstraintEnforcement {
+    /**
+     * The system refuses the combination; no override exists — including a
+     * combination that cannot arise by construction.
+     */
+    hard("hard"),
+    /**
+     * The system warns and the combination may stand, with the override the
+     * rule names (an approval, a recorded reason).
+     */
+    soft("soft");
+
+    public final String token;
+
+    ConstraintEnforcement(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ConstraintEnforcement, or null.
+    public static ConstraintEnforcement parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ConstraintEnforcement v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `DataAttributeKind` values.
   public enum DataAttributeKind {
     /**
@@ -473,6 +589,45 @@ public final class TomSomV0 {
         return null;
       }
       for (DataAttributeKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `DecisionState` values.
+  public enum DecisionState {
+    /**
+     * Yes, everywhere.
+     */
+    yes("yes"),
+    /**
+     * No, everywhere.
+     */
+    no("no"),
+    /**
+     * Depends on the installation or context; the notes say on what.
+     */
+    depends("depends"),
+    /**
+     * Not decided yet.
+     */
+    undecided("undecided");
+
+    public final String token;
+
+    DecisionState(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a DecisionState, or null.
+    public static DecisionState parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (DecisionState v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -919,6 +1074,45 @@ public final class TomSomV0 {
         return null;
       }
       for (ObjectLifecycleKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `OverridableBy` values.
+  public enum OverridableBy {
+    /**
+     * Scope-pinned: no narrower scope may shadow the key.
+     */
+    none("none"),
+    /**
+     * A per-install client configuration value may shadow the key.
+     */
+    client("client"),
+    /**
+     * A per-user setting may shadow the key.
+     */
+    user("user"),
+    /**
+     * A per-user-per-device setting may shadow the key.
+     */
+    device("device");
+
+    public final String token;
+
+    OverridableBy(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a OverridableBy, or null.
+    public static OverridableBy parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (OverridableBy v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -52139,22 +52333,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "alertDescription", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public AlertSeverity severity() {
+      return AlertSeverity.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(AlertSeverity value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
   }
 
@@ -52726,13 +52918,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "alertDescription", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public AlertSeverity severity() {
+      return AlertSeverity.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(AlertSeverity value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
     }
 
     public String category() {
@@ -69056,13 +69247,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "client", value);
     }
 
-    public String valueType() {
-      String v = doc.formField(path, "valueType");
-      return v == null ? "" : v;
+    public ConfigValueType valueType() {
+      return ConfigValueType.parse(doc.formField(path, "valueType"));
     }
 
-    public void valueType(String value) {
-      doc.setFormField(path, "valueType", value);
+    public void setValueType(ConfigValueType value) {
+      doc.setFormField(path, "valueType", value == null ? "" : value.token);
     }
 
     public String defaultValue() {
@@ -69074,13 +69264,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "defaultValue", value);
     }
 
-    public String overridableBy() {
-      String v = doc.formField(path, "overridableBy");
-      return v == null ? "" : v;
+    public OverridableBy overridableBy() {
+      return OverridableBy.parse(doc.formField(path, "overridableBy"));
     }
 
-    public void overridableBy(String value) {
-      doc.setFormField(path, "overridableBy", value);
+    public void setOverridableBy(OverridableBy value) {
+      doc.setFormField(path, "overridableBy", value == null ? "" : value.token);
     }
   }
 
@@ -96057,13 +96246,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "settingKey", value);
     }
 
-    public String valueType() {
-      String v = doc.formField(path, "valueType");
-      return v == null ? "" : v;
+    public ConfigValueType valueType() {
+      return ConfigValueType.parse(doc.formField(path, "valueType"));
     }
 
-    public void valueType(String value) {
-      doc.setFormField(path, "valueType", value);
+    public void setValueType(ConfigValueType value) {
+      doc.setFormField(path, "valueType", value == null ? "" : value.token);
     }
 
     public String defaultValue() {
@@ -113453,13 +113641,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "reason", value);
     }
 
-    public String enforcementLevel() {
-      String v = doc.formField(path, "enforcementLevel");
-      return v == null ? "" : v;
+    public ConstraintEnforcement enforcementLevel() {
+      return ConstraintEnforcement.parse(doc.formField(path, "enforcementLevel"));
     }
 
-    public void enforcementLevel(String value) {
-      doc.setFormField(path, "enforcementLevel", value);
+    public void setEnforcementLevel(ConstraintEnforcement value) {
+      doc.setFormField(path, "enforcementLevel", value == null ? "" : value.token);
     }
 
     public String complianceReference() {
@@ -129572,13 +129759,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "windowType", value);
     }
 
-    public String priority() {
-      String v = doc.formField(path, "priority");
-      return v == null ? "" : v;
+    public ImportanceBand priority() {
+      return ImportanceBand.parse(doc.formField(path, "priority"));
     }
 
-    public void priority(String value) {
-      doc.setFormField(path, "priority", value);
+    public void setPriority(ImportanceBand value) {
+      doc.setFormField(path, "priority", value == null ? "" : value.token);
     }
 
     public String description() {
@@ -136377,13 +136563,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "criterionDescription", value);
     }
 
-    public String qualityCategory() {
-      String v = doc.formField(path, "qualityCategory");
-      return v == null ? "" : v;
+    public Iso25010Characteristic qualityCategory() {
+      return Iso25010Characteristic.parse(doc.formField(path, "qualityCategory"));
     }
 
-    public void qualityCategory(String value) {
-      doc.setFormField(path, "qualityCategory", value);
+    public void setQualityCategory(Iso25010Characteristic value) {
+      doc.setFormField(path, "qualityCategory", value == null ? "" : value.token);
     }
 
     public String qualityAttribute() {
@@ -138572,14 +138757,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "dnsProvider", value);
     }
 
-    public Boolean dnssecEnabled() {
-      String v = doc.formField(path, "dnssecEnabled");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
+    public DecisionState dnssecEnabled() {
+      return DecisionState.parse(doc.formField(path, "dnssecEnabled"));
     }
 
-    public void dnssecEnabled(Boolean value) {
-      doc.setFormField(path, "dnssecEnabled", value == null ? "" : (value ? "true" : "false"));
+    public void setDnssecEnabled(DecisionState value) {
+      doc.setFormField(path, "dnssecEnabled", value == null ? "" : value.token);
     }
 
     public String privateDns() {
@@ -147693,13 +147876,14 @@ public final class TomSomV0 {
       doc.setFormField(path, "runnerRequirements", value);
     }
 
-    public String timeoutMinutes() {
+    public Integer timeoutMinutes() {
       String v = doc.formField(path, "timeoutMinutes");
-      return v == null ? "" : v;
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
     }
 
-    public void timeoutMinutes(String value) {
-      doc.setFormField(path, "timeoutMinutes", value);
+    public void timeoutMinutes(Integer value) {
+      doc.setFormField(path, "timeoutMinutes", value == null ? "" : String.valueOf(value));
     }
 
     public Boolean parallelJobs() {
@@ -151043,13 +151227,12 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String probability() {
-      String v = doc.formField(path, "probability");
-      return v == null ? "" : v;
+    public Probability probability() {
+      return Probability.parse(doc.formField(path, "probability"));
     }
 
-    public void probability(String value) {
-      doc.setFormField(path, "probability", value);
+    public void setProbability(Probability value) {
+      doc.setFormField(path, "probability", value == null ? "" : value.token);
     }
 
     public String impact() {
@@ -151059,6 +151242,14 @@ public final class TomSomV0 {
 
     public void impact(String value) {
       doc.setFormField(path, "impact", value);
+    }
+
+    public Impact impactLevel() {
+      return Impact.parse(doc.formField(path, "impactLevel"));
+    }
+
+    public void setImpactLevel(Impact value) {
+      doc.setFormField(path, "impactLevel", value == null ? "" : value.token);
     }
 
     public String detectionMethod() {
@@ -156481,13 +156672,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "checkCategory", value);
     }
 
-    public String qualityCategory() {
-      String v = doc.formField(path, "qualityCategory");
-      return v == null ? "" : v;
+    public Iso25010Characteristic qualityCategory() {
+      return Iso25010Characteristic.parse(doc.formField(path, "qualityCategory"));
     }
 
-    public void qualityCategory(String value) {
-      doc.setFormField(path, "qualityCategory", value);
+    public void setQualityCategory(Iso25010Characteristic value) {
+      doc.setFormField(path, "qualityCategory", value == null ? "" : value.token);
     }
   }
 
@@ -169058,13 +169248,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "enforcement", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
+    }
+
+    public ConstraintEnforcement enforcementMode() {
+      return ConstraintEnforcement.parse(doc.formField(path, "enforcementMode"));
+    }
+
+    public void setEnforcementMode(ConstraintEnforcement value) {
+      doc.setFormField(path, "enforcementMode", value == null ? "" : value.token);
     }
 
     public String businessReason() {
@@ -169259,13 +169456,20 @@ public final class TomSomV0 {
       doc.setFormField(path, "exclusionType", value);
     }
 
-    public String severity() {
-      String v = doc.formField(path, "severity");
-      return v == null ? "" : v;
+    public ImportanceBand severity() {
+      return ImportanceBand.parse(doc.formField(path, "severity"));
     }
 
-    public void severity(String value) {
-      doc.setFormField(path, "severity", value);
+    public void setSeverity(ImportanceBand value) {
+      doc.setFormField(path, "severity", value == null ? "" : value.token);
+    }
+
+    public ConstraintEnforcement enforcementMode() {
+      return ConstraintEnforcement.parse(doc.formField(path, "enforcementMode"));
+    }
+
+    public void setEnforcementMode(ConstraintEnforcement value) {
+      doc.setFormField(path, "enforcementMode", value == null ? "" : value.token);
     }
   }
 
@@ -179095,13 +179299,21 @@ public final class TomSomV0 {
       doc.setFormField(path, "settingKey", value);
     }
 
-    public String valueType() {
-      String v = doc.formField(path, "valueType");
+    public ConfigValueType valueType() {
+      return ConfigValueType.parse(doc.formField(path, "valueType"));
+    }
+
+    public void setValueType(ConfigValueType value) {
+      doc.setFormField(path, "valueType", value == null ? "" : value.token);
+    }
+
+    public String allowedValues() {
+      String v = doc.formField(path, "allowedValues");
       return v == null ? "" : v;
     }
 
-    public void valueType(String value) {
-      doc.setFormField(path, "valueType", value);
+    public void allowedValues(String value) {
+      doc.setFormField(path, "allowedValues", value);
     }
 
     public String defaultValue() {
@@ -179141,13 +179353,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "secret", value == null ? "" : (value ? "true" : "false"));
     }
 
-    public String overridableBy() {
-      String v = doc.formField(path, "overridableBy");
-      return v == null ? "" : v;
+    public OverridableBy overridableBy() {
+      return OverridableBy.parse(doc.formField(path, "overridableBy"));
     }
 
-    public void overridableBy(String value) {
-      doc.setFormField(path, "overridableBy", value);
+    public void setOverridableBy(OverridableBy value) {
+      doc.setFormField(path, "overridableBy", value == null ? "" : value.token);
     }
   }
 
@@ -181202,14 +181413,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "gatewayFeatures", value);
     }
 
-    public Boolean gatewayHighAvailability() {
-      String v = doc.formField(path, "gatewayHighAvailability");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
+    public DecisionState gatewayHighAvailability() {
+      return DecisionState.parse(doc.formField(path, "gatewayHighAvailability"));
     }
 
-    public void gatewayHighAvailability(Boolean value) {
-      doc.setFormField(path, "gatewayHighAvailability", value == null ? "" : (value ? "true" : "false"));
+    public void setGatewayHighAvailability(DecisionState value) {
+      doc.setFormField(path, "gatewayHighAvailability", value == null ? "" : value.token);
     }
 
     public String apiKeyManagement() {
@@ -202218,14 +202427,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "ocspStapling", value == null ? "" : (value ? "true" : "false"));
     }
 
-    public Boolean mutualTls() {
-      String v = doc.formField(path, "mutualTls");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
+    public DecisionState mutualTls() {
+      return DecisionState.parse(doc.formField(path, "mutualTls"));
     }
 
-    public void mutualTls(Boolean value) {
-      doc.setFormField(path, "mutualTls", value == null ? "" : (value ? "true" : "false"));
+    public void setMutualTls(DecisionState value) {
+      doc.setFormField(path, "mutualTls", value == null ? "" : value.token);
     }
   }
 
@@ -202327,14 +202534,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "hstsMaxAge", value);
     }
 
-    public Boolean hstsIncludeSubdomains() {
-      String v = doc.formField(path, "hstsIncludeSubdomains");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
+    public DecisionState hstsIncludeSubdomains() {
+      return DecisionState.parse(doc.formField(path, "hstsIncludeSubdomains"));
     }
 
-    public void hstsIncludeSubdomains(Boolean value) {
-      doc.setFormField(path, "hstsIncludeSubdomains", value == null ? "" : (value ? "true" : "false"));
+    public void setHstsIncludeSubdomains(DecisionState value) {
+      doc.setFormField(path, "hstsIncludeSubdomains", value == null ? "" : value.token);
     }
 
     public String notes() {
@@ -213611,13 +213816,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "settingKey", value);
     }
 
-    public String valueType() {
-      String v = doc.formField(path, "valueType");
-      return v == null ? "" : v;
+    public ConfigValueType valueType() {
+      return ConfigValueType.parse(doc.formField(path, "valueType"));
     }
 
-    public void valueType(String value) {
-      doc.setFormField(path, "valueType", value);
+    public void setValueType(ConfigValueType value) {
+      doc.setFormField(path, "valueType", value == null ? "" : value.token);
     }
 
     public String defaultValue() {
@@ -213629,13 +213833,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "defaultValue", value);
     }
 
-    public String overridableBy() {
-      String v = doc.formField(path, "overridableBy");
-      return v == null ? "" : v;
+    public OverridableBy overridableBy() {
+      return OverridableBy.parse(doc.formField(path, "overridableBy"));
     }
 
-    public void overridableBy(String value) {
-      doc.setFormField(path, "overridableBy", value);
+    public void setOverridableBy(OverridableBy value) {
+      doc.setFormField(path, "overridableBy", value == null ? "" : value.token);
     }
   }
 

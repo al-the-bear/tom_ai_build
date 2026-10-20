@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-19T23:15:27.608525Z",
+  "generatedAt": "2026-10-20T00:20:48.150093Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.7+14.2fe53823",
+  "modelVersionLabel": "1.6.8+15.1d50ceae",
   "classCount": 1260,
   "rootCount": 14,
-  "modelHash": "88fed43c78c336ac62094f640eb5db94b1d0da220ddf4b0816e474477452364e",
+  "modelHash": "ff51509d48c1ef110daf7c4aee37e3f936834b16cebd168b921042c294009375",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -7839,16 +7839,38 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical, Warning, Info",
-              "type": "String",
-              "required": false
+              "hint": "How fast someone has to act.",
+              "type": "AlertSeverity",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "warning",
+                "info"
+              ],
+              "enumValueDocs": {
+                "critical": "Someone acts now: the service, or a promise it makes, is broken.",
+                "warning": "Someone acts soon: a threshold is crossed and the trend leads to a\ncritical alert if nothing changes.",
+                "info": "No one has to act: recorded for the picture, not for a page."
+              }
             },
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "P1, P2, P3, P4, P5",
-              "type": "String",
-              "required": false
+              "hint": "How much the alert matters relative to others.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             }
           ]
         },
@@ -8716,9 +8738,19 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Critical, Warning, Info",
-              "type": "String",
-              "required": false
+              "hint": "How fast someone has to act.",
+              "type": "AlertSeverity",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "warning",
+                "info"
+              ],
+              "enumValueDocs": {
+                "critical": "Someone acts now: the service, or a promise it makes, is broken.",
+                "warning": "Someone acts soon: a threshold is crossed and the trend leads to a\ncritical alert if nothing changes.",
+                "info": "No one has to act: recorded for the picture, not for a page."
+              }
             },
             {
               "name": "category",
@@ -37440,9 +37472,25 @@
             {
               "name": "valueType",
               "label": "Value Type",
-              "hint": "string / int / double / bool / enum",
-              "type": "String",
-              "required": false
+              "hint": "text / integer / decimal / boolean / enumeration / duration",
+              "type": "ConfigValueType",
+              "required": false,
+              "enumValues": [
+                "text",
+                "integer",
+                "decimal",
+                "boolean",
+                "enumeration",
+                "duration"
+              ],
+              "enumValueDocs": {
+                "text": "Text.",
+                "integer": "A whole number.",
+                "decimal": "A decimal number.",
+                "boolean": "True or false.",
+                "enumeration": "One of a closed set of values, which the setting names.",
+                "duration": "A length of time."
+              }
             },
             {
               "name": "defaultValue",
@@ -37455,8 +37503,20 @@
               "name": "overridableBy",
               "label": "Overridable By",
               "hint": "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into",
-              "type": "String",
-              "required": true
+              "type": "OverridableBy",
+              "required": true,
+              "enumValues": [
+                "none",
+                "client",
+                "user",
+                "device"
+              ],
+              "enumValueDocs": {
+                "none": "Scope-pinned: no narrower scope may shadow the key.",
+                "client": "A per-install client configuration value may shadow the key.",
+                "user": "A per-user setting may shadow the key.",
+                "device": "A per-user-per-device setting may shadow the key."
+              }
             }
           ]
         }
@@ -87742,9 +87802,25 @@
             {
               "name": "valueType",
               "label": "Value Type",
-              "hint": "string / int / double / bool / enum",
-              "type": "String",
-              "required": false
+              "hint": "text / integer / decimal / boolean / enumeration / duration",
+              "type": "ConfigValueType",
+              "required": false,
+              "enumValues": [
+                "text",
+                "integer",
+                "decimal",
+                "boolean",
+                "enumeration",
+                "duration"
+              ],
+              "enumValueDocs": {
+                "text": "Text.",
+                "integer": "A whole number.",
+                "decimal": "A decimal number.",
+                "boolean": "True or false.",
+                "enumeration": "One of a closed set of values, which the setting names.",
+                "duration": "A length of time."
+              }
             },
             {
               "name": "defaultValue",
@@ -118601,8 +118677,16 @@
               "name": "enforcementLevel",
               "label": "Enforcement Level",
               "hint": "Hard | Soft — whether override is possible with approval",
-              "type": "String",
-              "required": false
+              "type": "ConstraintEnforcement",
+              "required": false,
+              "enumValues": [
+                "hard",
+                "soft"
+              ],
+              "enumValueDocs": {
+                "hard": "The system refuses the combination; no override exists — including a\ncombination that cannot arise by construction.",
+                "soft": "The system warns and the combination may stand, with the override the\nrule names (an approval, a recorded reason)."
+              }
             },
             {
               "name": "complianceReference",
@@ -147030,9 +147114,21 @@
             {
               "name": "priority",
               "label": "Priority",
-              "hint": "Critical, Standard, Low",
-              "type": "String",
-              "required": false
+              "hint": "How much the maintenance matters relative to others.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
             },
             {
               "name": "description",
@@ -158665,9 +158761,29 @@
             {
               "name": "qualityCategory",
               "label": "Quality Category",
-              "hint": "User, Technical, Operations, Documentation",
-              "type": "String",
-              "required": false
+              "hint": "The ISO/IEC 25010:2023 characteristic the criterion assures",
+              "type": "Iso25010Characteristic",
+              "required": false,
+              "enumValues": [
+                "functionalSuitability",
+                "performanceEfficiency",
+                "compatibility",
+                "interactionCapability",
+                "reliability",
+                "security",
+                "maintainability",
+                "flexibility"
+              ],
+              "enumValueDocs": {
+                "functionalSuitability": "ISO/IEC 25010:2023 *functional suitability* — the degree to which the\nproduct provides functions that meet stated **and implied** needs under\nspecified conditions. The implied half is the reason this is a quality\ncharacteristic and not just \"the requirements are done\": correctness and\ncompleteness of what was asked for are judged here, not merely presence.\nModelled by `FunctionalSuitabilityCharacteristic`.",
+                "performanceEfficiency": "ISO/IEC 25010:2023 *performance efficiency* — performing the functions\nwithin specified time and throughput parameters while being efficient in\nits use of resources. Both halves are required: hitting a latency target\nby consuming unbounded resources does not satisfy it. Targets under this\ncharacteristic are meaningless without the load profile they are stated\nagainst. Modelled by `PerformanceEfficiencyCharacteristic`.",
+                "compatibility": "ISO/IEC 25010:2023 *compatibility* — exchanging information with other\nproducts or systems, and performing its required functions while sharing\na common environment and resources. Its two concerns are interoperability\n(the exchange) and co-existence (the sharing); the second is the one\nroutinely forgotten, because nothing in a system's own requirements\nmentions the neighbours it must not disturb. Modelled by\n`CompatibilityCharacteristic`.",
+                "interactionCapability": "ISO/IEC 25010:2023 *interaction capability* — the degree to which\nspecified users can interact with the product to exchange information\nthrough the user interface and complete specified tasks.\n\n**This is the 2023 renaming of *usability*.** A reader working from the\n2011 edition looking for a `usability` constant lands here. The rename\ncarries a widening, not just a new label: the characteristic covers the\nwhole user–system exchange — including user assistance and\nself-descriptiveness — rather than ease of use alone, so a 2011 usability\nassessment mapped onto it is an under-assessment until those are added.\nModelled by `InteractionCapabilityCharacteristic`.",
+                "reliability": "ISO/IEC 25010:2023 *reliability* — performing specified functions under\nspecified conditions for a specified period of time. All three\nqualifiers are part of the claim: a reliability target without the\nconditions and the period states nothing measurable. Modelled by\n`ReliabilityCharacteristic`.",
+                "security": "ISO/IEC 25010:2023 *security* — protecting information and data so that\npersons and other products have the degree of data access appropriate to\ntheir types and levels of authorization.\n\nThis is the *quality target* — what \"secure enough\" means and how it is\nevidenced. The control design that meets it is a separate document,\n`D08SecurityAccessSpecification`, anchored to ISO 27001\n(`tom_specs_model_rules.md` §2.2); recording controls here instead of\ntargets produces a coverage entry that cannot be tested. Modelled by\n`SecurityCharacteristic`.",
+                "maintainability": "ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency\nwith which the product can be modified by its maintainers, whether to\ncorrect, improve or adapt it. The assessment is meaningless without\nnaming *who* maintains it and over what horizon. Modelled by\n`MaintainabilityCharacteristic`.",
+                "flexibility": "ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be\nadapted to changes in its requirements, contexts of use or system\nenvironment.\n\n**New in the 2023 edition, and where *portability* went.** A reader\nworking from the 2011 edition looking for a `portability` constant lands\nhere: the older characteristic's adaptability, installability and\nreplaceability concerns are carried under flexibility, alongside\nscalability. The localization & translation concern cross-maps to exactly\nthis portability/adaptability content\n(`tom_specs_model_rules.md` §2.3). Modelled by\n`FlexibilityCharacteristic`."
+              }
             },
             {
               "name": "qualityAttribute",
@@ -162738,8 +162854,20 @@
               "name": "dnssecEnabled",
               "label": "DNSSEC Enabled",
               "hint": "DNS Security Extensions",
-              "type": "bool",
-              "required": false
+              "type": "DecisionState",
+              "required": false,
+              "enumValues": [
+                "yes",
+                "no",
+                "depends",
+                "undecided"
+              ],
+              "enumValueDocs": {
+                "yes": "Yes, everywhere.",
+                "no": "No, everywhere.",
+                "depends": "Depends on the installation or context; the notes say on what.",
+                "undecided": "Not decided yet."
+              }
             },
             {
               "name": "privateDns",
@@ -178563,7 +178691,7 @@
               "name": "timeoutMinutes",
               "label": "Timeout",
               "hint": "Stage timeout in minutes",
-              "type": "String",
+              "type": "int",
               "required": false
             },
             {
@@ -184072,9 +184200,23 @@
             {
               "name": "probability",
               "label": "Probability — how often this occurs",
-              "hint": "State how likely the exception is",
-              "type": "String",
-              "required": false
+              "hint": "Qualitative likelihood band that the exception occurs.",
+              "type": "Probability",
+              "required": false,
+              "enumValues": [
+                "veryLow",
+                "low",
+                "medium",
+                "high",
+                "veryHigh"
+              ],
+              "enumValueDocs": {
+                "veryLow": "Would be surprising: no trigger for it is visible in the current plan.\nCarried on the register to be watched, not to be mitigated.",
+                "low": "Plausible but not expected — a known trigger exists and is not currently\nactive. Cheap mitigations are worth taking; expensive ones are not.",
+                "medium": "As likely as not. The band where the decision to mitigate turns on cost\nrather than on likelihood, and the one most often used as a default when\nnobody has actually estimated — a medium with no reasoning behind it is\nworth challenging.",
+                "high": "Expected unless something about the plan changes. Mitigation is assumed;\nits absence needs an explicit reason.",
+                "veryHigh": "Effectively certain on the current plan. At this point it is a planned\nevent, not a risk: it belongs in the plan with an owner and a date, and\nleaving it on the risk register hides work rather than tracking it."
+              }
             },
             {
               "name": "impact",
@@ -184082,6 +184224,27 @@
               "hint": "Describe the impact if it occurs",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "impactLevel",
+              "label": "Impact Level",
+              "hint": "Qualitative consequence band if the exception occurs.",
+              "type": "Impact",
+              "required": false,
+              "enumValues": [
+                "negligible",
+                "minor",
+                "moderate",
+                "major",
+                "critical"
+              ],
+              "enumValueDocs": {
+                "negligible": "Absorbed inside normal working. No measurable change to schedule, budget\nor quality, and nobody outside the team doing the work has to know.",
+                "minor": "Felt within one workstream and covered by that workstream's own\ncontingency. Nothing outside it is replanned.",
+                "moderate": "Exceeds a single workstream's contingency and forces replanning across\nworkstreams. Project management decides; the sponsor is informed.",
+                "major": "Threatens a committed date, budget or quality commitment. Recovery\nrequires a sponsor decision — more money, less scope, or a later date.",
+                "critical": "The objective itself fails and no contingency inside the project recovers\nit. The decision at this level is whether the project continues at all."
+              }
             },
             {
               "name": "detectionMethod",
@@ -195179,9 +195342,29 @@
             {
               "name": "qualityCategory",
               "label": "Quality Category",
-              "hint": "User, Technical, Operations, Documentation",
-              "type": "String",
-              "required": false
+              "hint": "The ISO/IEC 25010:2023 characteristic the criterion assures",
+              "type": "Iso25010Characteristic",
+              "required": false,
+              "enumValues": [
+                "functionalSuitability",
+                "performanceEfficiency",
+                "compatibility",
+                "interactionCapability",
+                "reliability",
+                "security",
+                "maintainability",
+                "flexibility"
+              ],
+              "enumValueDocs": {
+                "functionalSuitability": "ISO/IEC 25010:2023 *functional suitability* — the degree to which the\nproduct provides functions that meet stated **and implied** needs under\nspecified conditions. The implied half is the reason this is a quality\ncharacteristic and not just \"the requirements are done\": correctness and\ncompleteness of what was asked for are judged here, not merely presence.\nModelled by `FunctionalSuitabilityCharacteristic`.",
+                "performanceEfficiency": "ISO/IEC 25010:2023 *performance efficiency* — performing the functions\nwithin specified time and throughput parameters while being efficient in\nits use of resources. Both halves are required: hitting a latency target\nby consuming unbounded resources does not satisfy it. Targets under this\ncharacteristic are meaningless without the load profile they are stated\nagainst. Modelled by `PerformanceEfficiencyCharacteristic`.",
+                "compatibility": "ISO/IEC 25010:2023 *compatibility* — exchanging information with other\nproducts or systems, and performing its required functions while sharing\na common environment and resources. Its two concerns are interoperability\n(the exchange) and co-existence (the sharing); the second is the one\nroutinely forgotten, because nothing in a system's own requirements\nmentions the neighbours it must not disturb. Modelled by\n`CompatibilityCharacteristic`.",
+                "interactionCapability": "ISO/IEC 25010:2023 *interaction capability* — the degree to which\nspecified users can interact with the product to exchange information\nthrough the user interface and complete specified tasks.\n\n**This is the 2023 renaming of *usability*.** A reader working from the\n2011 edition looking for a `usability` constant lands here. The rename\ncarries a widening, not just a new label: the characteristic covers the\nwhole user–system exchange — including user assistance and\nself-descriptiveness — rather than ease of use alone, so a 2011 usability\nassessment mapped onto it is an under-assessment until those are added.\nModelled by `InteractionCapabilityCharacteristic`.",
+                "reliability": "ISO/IEC 25010:2023 *reliability* — performing specified functions under\nspecified conditions for a specified period of time. All three\nqualifiers are part of the claim: a reliability target without the\nconditions and the period states nothing measurable. Modelled by\n`ReliabilityCharacteristic`.",
+                "security": "ISO/IEC 25010:2023 *security* — protecting information and data so that\npersons and other products have the degree of data access appropriate to\ntheir types and levels of authorization.\n\nThis is the *quality target* — what \"secure enough\" means and how it is\nevidenced. The control design that meets it is a separate document,\n`D08SecurityAccessSpecification`, anchored to ISO 27001\n(`tom_specs_model_rules.md` §2.2); recording controls here instead of\ntargets produces a coverage entry that cannot be tested. Modelled by\n`SecurityCharacteristic`.",
+                "maintainability": "ISO/IEC 25010:2023 *maintainability* — the effectiveness and efficiency\nwith which the product can be modified by its maintainers, whether to\ncorrect, improve or adapt it. The assessment is meaningless without\nnaming *who* maintains it and over what horizon. Modelled by\n`MaintainabilityCharacteristic`.",
+                "flexibility": "ISO/IEC 25010:2023 *flexibility* — the degree to which the product can be\nadapted to changes in its requirements, contexts of use or system\nenvironment.\n\n**New in the 2023 edition, and where *portability* went.** A reader\nworking from the 2011 edition looking for a `portability` constant lands\nhere: the older characteristic's adaptability, installability and\nreplaceability concerns are carried under flexibility, alongside\nscalability. The localization & translation concern cross-maps to exactly\nthis portability/adaptability content\n(`tom_specs_model_rules.md` §2.3). Modelled by\n`FlexibilityCharacteristic`."
+              }
             }
           ]
         },
@@ -216803,9 +216986,36 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Hard | Soft — hard = system-enforced block, soft = warning with override requiring approval",
-              "type": "String",
-              "required": false
+              "hint": "How serious a violation of the rule is.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
+            },
+            {
+              "name": "enforcementMode",
+              "label": "Enforcement Mode",
+              "hint": "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).",
+              "type": "ConstraintEnforcement",
+              "required": false,
+              "enumValues": [
+                "hard",
+                "soft"
+              ],
+              "enumValueDocs": {
+                "hard": "The system refuses the combination; no override exists — including a\ncombination that cannot arise by construction.",
+                "soft": "The system warns and the combination may stand, with the override the\nrule names (an approval, a recorded reason)."
+              }
             },
             {
               "name": "businessReason",
@@ -217086,9 +217296,36 @@
             {
               "name": "severity",
               "label": "Severity",
-              "hint": "Hard | Soft — hard = system-enforced block, soft = warning with override option",
-              "type": "String",
-              "required": false
+              "hint": "How serious a violation of the rule is.",
+              "type": "ImportanceBand",
+              "required": false,
+              "enumValues": [
+                "critical",
+                "high",
+                "medium",
+                "low"
+              ],
+              "enumValueDocs": {
+                "critical": "The top band: whatever this rates cannot be traded away, deferred or\nabsorbed. On a priority it blocks the release; on a severity it stops\nwork; on a criticality its loss stops the business function. If\neverything on a list is critical, the list has not been rated.",
+                "high": "Below [critical] but ahead of the ordinary queue: it is expected to be\ndealt with in the current cycle, and letting it slip is a decision\nsomebody has to make rather than a routine outcome.",
+                "medium": "The ordinary band, and the default when nobody has actually assessed the\nitem. A medium with no reasoning behind it is worth challenging — it is\nas often \"not looked at\" as it is \"genuinely middling\".",
+                "low": "The bottom band: worth recording, not worth planning around. Items here\nare done when they are cheap, and their omission needs no explanation."
+              }
+            },
+            {
+              "name": "enforcementMode",
+              "label": "Enforcement Mode",
+              "hint": "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).",
+              "type": "ConstraintEnforcement",
+              "required": false,
+              "enumValues": [
+                "hard",
+                "soft"
+              ],
+              "enumValueDocs": {
+                "hard": "The system refuses the combination; no override exists — including a\ncombination that cannot arise by construction.",
+                "soft": "The system warns and the combination may stand, with the override the\nrule names (an approval, a recorded reason)."
+              }
             }
           ]
         }
@@ -235486,7 +235723,30 @@
             {
               "name": "valueType",
               "label": "Value Type",
-              "hint": "string / int / double / bool / enum",
+              "hint": "text / integer / decimal / boolean / enumeration / duration",
+              "type": "ConfigValueType",
+              "required": false,
+              "enumValues": [
+                "text",
+                "integer",
+                "decimal",
+                "boolean",
+                "enumeration",
+                "duration"
+              ],
+              "enumValueDocs": {
+                "text": "Text.",
+                "integer": "A whole number.",
+                "decimal": "A decimal number.",
+                "boolean": "True or false.",
+                "enumeration": "One of a closed set of values, which the setting names.",
+                "duration": "A length of time."
+              }
+            },
+            {
+              "name": "allowedValues",
+              "label": "Allowed Values",
+              "hint": "For an enumeration: the values it may take, comma-separated.",
               "type": "String",
               "required": false
             },
@@ -235522,8 +235782,20 @@
               "name": "overridableBy",
               "label": "Overridable By",
               "hint": "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into",
-              "type": "String",
-              "required": true
+              "type": "OverridableBy",
+              "required": true,
+              "enumValues": [
+                "none",
+                "client",
+                "user",
+                "device"
+              ],
+              "enumValueDocs": {
+                "none": "Scope-pinned: no narrower scope may shadow the key.",
+                "client": "A per-install client configuration value may shadow the key.",
+                "user": "A per-user setting may shadow the key.",
+                "device": "A per-user-per-device setting may shadow the key."
+              }
             }
           ]
         }
@@ -239050,8 +239322,20 @@
               "name": "gatewayHighAvailability",
               "label": "Gateway High Availability",
               "hint": "Multi-region or multi-zone gateway",
-              "type": "bool",
-              "required": false
+              "type": "DecisionState",
+              "required": false,
+              "enumValues": [
+                "yes",
+                "no",
+                "depends",
+                "undecided"
+              ],
+              "enumValueDocs": {
+                "yes": "Yes, everywhere.",
+                "no": "No, everywhere.",
+                "depends": "Depends on the installation or context; the notes say on what.",
+                "undecided": "Not decided yet."
+              }
             },
             {
               "name": "apiKeyManagement",
@@ -275709,8 +275993,20 @@
               "name": "mutualTls",
               "label": "Mutual TLS (mTLS)",
               "hint": "Client certificate authentication",
-              "type": "bool",
-              "required": false
+              "type": "DecisionState",
+              "required": false,
+              "enumValues": [
+                "yes",
+                "no",
+                "depends",
+                "undecided"
+              ],
+              "enumValueDocs": {
+                "yes": "Yes, everywhere.",
+                "no": "No, everywhere.",
+                "depends": "Depends on the installation or context; the notes say on what.",
+                "undecided": "Not decided yet."
+              }
             }
           ]
         },
@@ -275841,8 +276137,20 @@
               "name": "hstsIncludeSubdomains",
               "label": "HSTS Include Subdomains",
               "hint": "Apply HSTS to all subdomains",
-              "type": "bool",
-              "required": false
+              "type": "DecisionState",
+              "required": false,
+              "enumValues": [
+                "yes",
+                "no",
+                "depends",
+                "undecided"
+              ],
+              "enumValueDocs": {
+                "yes": "Yes, everywhere.",
+                "no": "No, everywhere.",
+                "depends": "Depends on the installation or context; the notes say on what.",
+                "undecided": "Not decided yet."
+              }
             },
             {
               "name": "notes",
@@ -294689,9 +294997,25 @@
             {
               "name": "valueType",
               "label": "Value Type",
-              "hint": "string / int / double / bool / enum",
-              "type": "String",
-              "required": false
+              "hint": "text / integer / decimal / boolean / enumeration / duration",
+              "type": "ConfigValueType",
+              "required": false,
+              "enumValues": [
+                "text",
+                "integer",
+                "decimal",
+                "boolean",
+                "enumeration",
+                "duration"
+              ],
+              "enumValueDocs": {
+                "text": "Text.",
+                "integer": "A whole number.",
+                "decimal": "A decimal number.",
+                "boolean": "True or false.",
+                "enumeration": "One of a closed set of values, which the setting names.",
+                "duration": "A length of time."
+              }
             },
             {
               "name": "defaultValue",
@@ -294704,8 +295028,20 @@
               "name": "overridableBy",
               "label": "Overridable By",
               "hint": "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into",
-              "type": "String",
-              "required": true
+              "type": "OverridableBy",
+              "required": true,
+              "enumValues": [
+                "none",
+                "client",
+                "user",
+                "device"
+              ],
+              "enumValueDocs": {
+                "none": "Scope-pinned: no narrower scope may shadow the key.",
+                "client": "A per-install client configuration value may shadow the key.",
+                "user": "A per-user setting may shadow the key.",
+                "device": "A per-user-per-device setting may shadow the key."
+              }
             }
           ]
         }

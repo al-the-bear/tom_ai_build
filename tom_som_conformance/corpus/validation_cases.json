@@ -891,6 +891,79 @@
     ]
   },
   {
+    "name": "decisionStateOpenValues",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "decided": "depends"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "decisionStateRejectsBool",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "high",
+          "decided": "false"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "enumValueUnknown"
+      }
+    ]
+  },
+  {
+    "name": "enumValueIsCaseSensitive",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "level": "High",
+          "decided": "undecided"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGE-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGE-LST-1/RGE-DET",
+        "code": "enumValueUnknown"
+      }
+    ]
+  },
+  {
     "name": "oneOfCaseSelected",
     "state": {
       "content": {

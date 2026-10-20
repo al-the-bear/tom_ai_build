@@ -10711,11 +10711,16 @@ class RoleCombinationConstraintEntry extends DocSpecsSection {
     ),
     Field(
       'severity',
-      String,
+      ImportanceBand,
       'Severity',
+      hint: 'How serious a violation of the rule is.',
+    ),
+    Field(
+      'enforcementMode',
+      ConstraintEnforcement,
+      'Enforcement Mode',
       hint:
-          'Hard | Soft — hard = system-enforced block, '
-          'soft = warning with override requiring approval',
+          'hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).',
     ),
     Field(
       'businessReason',
@@ -10778,7 +10783,7 @@ class GlobalRoleExclusionEntry extends DocSpecsSection {
     ),
     Field(
       'enforcementLevel',
-      String,
+      ConstraintEnforcement,
       'Enforcement Level',
       hint: 'Hard | Soft — whether override is possible with approval',
     ),
@@ -12021,11 +12026,16 @@ class RoleExclusionEntry extends DocSpecsSection {
     ),
     Field(
       'severity',
-      String,
+      ImportanceBand,
       'Severity',
+      hint: 'How serious a violation of the rule is.',
+    ),
+    Field(
+      'enforcementMode',
+      ConstraintEnforcement,
+      'Enforcement Mode',
       hint:
-          'Hard | Soft — hard = system-enforced block, '
-          'soft = warning with override option',
+          'hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).',
     ),
   ])
   @override

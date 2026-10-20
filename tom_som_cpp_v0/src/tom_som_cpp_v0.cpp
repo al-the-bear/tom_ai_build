@@ -29,6 +29,19 @@ std::optional<std::string> ActionTriggerKind::parse(const std::string& token) {
   return std::nullopt;
 }
 
+std::optional<std::string> AlertSeverity::parse(const std::string& token) {
+  if (token == critical) {
+    return token;
+  }
+  if (token == warning) {
+    return token;
+  }
+  if (token == info) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> AuthorizationRequirementKind::parse(const std::string& token) {
   if (token == role) {
     return token;
@@ -158,6 +171,38 @@ std::optional<std::string> ClientApplicationKind::parse(const std::string& token
   return std::nullopt;
 }
 
+std::optional<std::string> ConfigValueType::parse(const std::string& token) {
+  if (token == text) {
+    return token;
+  }
+  if (token == integer) {
+    return token;
+  }
+  if (token == decimal) {
+    return token;
+  }
+  if (token == boolean) {
+    return token;
+  }
+  if (token == enumeration) {
+    return token;
+  }
+  if (token == duration) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> ConstraintEnforcement::parse(const std::string& token) {
+  if (token == hard) {
+    return token;
+  }
+  if (token == soft) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> DataAttributeKind::parse(const std::string& token) {
   if (token == string) {
     return token;
@@ -190,6 +235,22 @@ std::optional<std::string> DataAttributeKind::parse(const std::string& token) {
     return token;
   }
   if (token == enumeration) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> DecisionState::parse(const std::string& token) {
+  if (token == yes) {
+    return token;
+  }
+  if (token == no) {
+    return token;
+  }
+  if (token == depends) {
+    return token;
+  }
+  if (token == undecided) {
     return token;
   }
   return std::nullopt;
@@ -330,6 +391,22 @@ std::optional<std::string> ObjectLifecycleKind::parse(const std::string& token) 
     return token;
   }
   if (token == error) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> OverridableBy::parse(const std::string& token) {
+  if (token == none) {
+    return token;
+  }
+  if (token == client) {
+    return token;
+  }
+  if (token == user) {
+    return token;
+  }
+  if (token == device) {
     return token;
   }
   return std::nullopt;
@@ -73354,13 +73431,11 @@ std::string NetworkSecurityPolicyDnsForm::dnsProvider() const {
 void NetworkSecurityPolicyDnsForm::setDnsProvider(const std::string& value) {
   doc().setFormField(path(), "dnsProvider", value);
 }
-std::optional<bool> NetworkSecurityPolicyDnsForm::dnssecEnabled() const {
-  const std::string v = doc().formField(path(), "dnssecEnabled");
-  if (v.empty()) return std::nullopt;
-  return v == "true";
+std::string NetworkSecurityPolicyDnsForm::dnssecEnabled() const {
+  return doc().formField(path(), "dnssecEnabled");
 }
-void NetworkSecurityPolicyDnsForm::setDnssecEnabled(std::optional<bool> value) {
-  doc().setFormField(path(), "dnssecEnabled", value.has_value() ? (*value ? "true" : "false") : "");
+void NetworkSecurityPolicyDnsForm::setDnssecEnabled(const std::string& value) {
+  doc().setFormField(path(), "dnssecEnabled", value);
 }
 std::string NetworkSecurityPolicyDnsForm::privateDns() const {
   return doc().formField(path(), "privateDns");
@@ -78707,11 +78782,13 @@ std::string PipelineStageEntryExecutionForm::runnerRequirements() const {
 void PipelineStageEntryExecutionForm::setRunnerRequirements(const std::string& value) {
   doc().setFormField(path(), "runnerRequirements", value);
 }
-std::string PipelineStageEntryExecutionForm::timeoutMinutes() const {
-  return doc().formField(path(), "timeoutMinutes");
+std::optional<long> PipelineStageEntryExecutionForm::timeoutMinutes() const {
+  const std::string v = doc().formField(path(), "timeoutMinutes");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
 }
-void PipelineStageEntryExecutionForm::setTimeoutMinutes(const std::string& value) {
-  doc().setFormField(path(), "timeoutMinutes", value);
+void PipelineStageEntryExecutionForm::setTimeoutMinutes(std::optional<long> value) {
+  doc().setFormField(path(), "timeoutMinutes", value.has_value() ? std::to_string(*value) : "");
 }
 std::optional<bool> PipelineStageEntryExecutionForm::parallelJobs() const {
   const std::string v = doc().formField(path(), "parallelJobs");
@@ -80689,6 +80766,12 @@ std::string ProcessExceptionEntryAssessmentForm::impact() const {
 }
 void ProcessExceptionEntryAssessmentForm::setImpact(const std::string& value) {
   doc().setFormField(path(), "impact", value);
+}
+std::string ProcessExceptionEntryAssessmentForm::impactLevel() const {
+  return doc().formField(path(), "impactLevel");
+}
+void ProcessExceptionEntryAssessmentForm::setImpactLevel(const std::string& value) {
+  doc().setFormField(path(), "impactLevel", value);
 }
 std::string ProcessExceptionEntryAssessmentForm::detectionMethod() const {
   return doc().formField(path(), "detectionMethod");
@@ -91106,6 +91189,12 @@ std::string RoleCombinationConstraintEntryContentForm::severity() const {
 void RoleCombinationConstraintEntryContentForm::setSeverity(const std::string& value) {
   doc().setFormField(path(), "severity", value);
 }
+std::string RoleCombinationConstraintEntryContentForm::enforcementMode() const {
+  return doc().formField(path(), "enforcementMode");
+}
+void RoleCombinationConstraintEntryContentForm::setEnforcementMode(const std::string& value) {
+  doc().setFormField(path(), "enforcementMode", value);
+}
 std::string RoleCombinationConstraintEntryContentForm::businessReason() const {
   return doc().formField(path(), "businessReason");
 }
@@ -91222,6 +91311,12 @@ std::string RoleExclusionEntryContentForm::severity() const {
 }
 void RoleExclusionEntryContentForm::setSeverity(const std::string& value) {
   doc().setFormField(path(), "severity", value);
+}
+std::string RoleExclusionEntryContentForm::enforcementMode() const {
+  return doc().formField(path(), "enforcementMode");
+}
+void RoleExclusionEntryContentForm::setEnforcementMode(const std::string& value) {
+  doc().setFormField(path(), "enforcementMode", value);
 }
 
 RoleHierarchyPolicyContentForm::RoleHierarchyPolicyContentForm(som::SpecDocument& doc, std::string path)
@@ -96831,6 +96926,12 @@ std::string ServerConfigurationSettingEntryContentForm::valueType() const {
 void ServerConfigurationSettingEntryContentForm::setValueType(const std::string& value) {
   doc().setFormField(path(), "valueType", value);
 }
+std::string ServerConfigurationSettingEntryContentForm::allowedValues() const {
+  return doc().formField(path(), "allowedValues");
+}
+void ServerConfigurationSettingEntryContentForm::setAllowedValues(const std::string& value) {
+  doc().setFormField(path(), "allowedValues", value);
+}
 std::string ServerConfigurationSettingEntryContentForm::defaultValue() const {
   return doc().formField(path(), "defaultValue");
 }
@@ -98039,13 +98140,11 @@ std::string ServiceMeshAndGatewayContentForm::gatewayFeatures() const {
 void ServiceMeshAndGatewayContentForm::setGatewayFeatures(const std::string& value) {
   doc().setFormField(path(), "gatewayFeatures", value);
 }
-std::optional<bool> ServiceMeshAndGatewayContentForm::gatewayHighAvailability() const {
-  const std::string v = doc().formField(path(), "gatewayHighAvailability");
-  if (v.empty()) return std::nullopt;
-  return v == "true";
+std::string ServiceMeshAndGatewayContentForm::gatewayHighAvailability() const {
+  return doc().formField(path(), "gatewayHighAvailability");
 }
-void ServiceMeshAndGatewayContentForm::setGatewayHighAvailability(std::optional<bool> value) {
-  doc().setFormField(path(), "gatewayHighAvailability", value.has_value() ? (*value ? "true" : "false") : "");
+void ServiceMeshAndGatewayContentForm::setGatewayHighAvailability(const std::string& value) {
+  doc().setFormField(path(), "gatewayHighAvailability", value);
 }
 std::string ServiceMeshAndGatewayContentForm::apiKeyManagement() const {
   return doc().formField(path(), "apiKeyManagement");
@@ -110324,13 +110423,11 @@ std::optional<bool> TlsRequirementsCertificateValidationForm::ocspStapling() con
 void TlsRequirementsCertificateValidationForm::setOcspStapling(std::optional<bool> value) {
   doc().setFormField(path(), "ocspStapling", value.has_value() ? (*value ? "true" : "false") : "");
 }
-std::optional<bool> TlsRequirementsCertificateValidationForm::mutualTls() const {
-  const std::string v = doc().formField(path(), "mutualTls");
-  if (v.empty()) return std::nullopt;
-  return v == "true";
+std::string TlsRequirementsCertificateValidationForm::mutualTls() const {
+  return doc().formField(path(), "mutualTls");
 }
-void TlsRequirementsCertificateValidationForm::setMutualTls(std::optional<bool> value) {
-  doc().setFormField(path(), "mutualTls", value.has_value() ? (*value ? "true" : "false") : "");
+void TlsRequirementsCertificateValidationForm::setMutualTls(const std::string& value) {
+  doc().setFormField(path(), "mutualTls", value);
 }
 
 TlsRequirementsCipherSuitesForm::TlsRequirementsCipherSuitesForm(som::SpecDocument& doc, std::string path)
@@ -110388,13 +110485,11 @@ std::string TlsRequirementsComplianceForm::hstsMaxAge() const {
 void TlsRequirementsComplianceForm::setHstsMaxAge(const std::string& value) {
   doc().setFormField(path(), "hstsMaxAge", value);
 }
-std::optional<bool> TlsRequirementsComplianceForm::hstsIncludeSubdomains() const {
-  const std::string v = doc().formField(path(), "hstsIncludeSubdomains");
-  if (v.empty()) return std::nullopt;
-  return v == "true";
+std::string TlsRequirementsComplianceForm::hstsIncludeSubdomains() const {
+  return doc().formField(path(), "hstsIncludeSubdomains");
 }
-void TlsRequirementsComplianceForm::setHstsIncludeSubdomains(std::optional<bool> value) {
-  doc().setFormField(path(), "hstsIncludeSubdomains", value.has_value() ? (*value ? "true" : "false") : "");
+void TlsRequirementsComplianceForm::setHstsIncludeSubdomains(const std::string& value) {
+  doc().setFormField(path(), "hstsIncludeSubdomains", value);
 }
 std::string TlsRequirementsComplianceForm::notes() const {
   return doc().formField(path(), "notes");

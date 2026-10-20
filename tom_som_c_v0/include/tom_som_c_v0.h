@@ -40,6 +40,18 @@
 // parse_action_trigger_kind returns the token (owned) when it is a known ActionTriggerKind value, else "".
 char *parse_action_trigger_kind(const char *token);
 
+// Generated enum tokens for `AlertSeverity` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Someone acts now: the service, or a promise it makes, is broken.
+#define ALERT_SEVERITY_CRITICAL "critical"
+// Someone acts soon: a threshold is crossed and the trend leads to a
+// critical alert if nothing changes.
+#define ALERT_SEVERITY_WARNING "warning"
+// No one has to act: recorded for the picture, not for a page.
+#define ALERT_SEVERITY_INFO "info"
+// parse_alert_severity returns the token (owned) when it is a known AlertSeverity value, else "".
+char *parse_alert_severity(const char *token);
+
 // Generated enum tokens for `AuthorizationRequirementKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // The caller must hold one of a named set of roles.
@@ -140,6 +152,34 @@ char *parse_binding_parameter_source(const char *token);
 // parse_client_application_kind returns the token (owned) when it is a known ClientApplicationKind value, else "".
 char *parse_client_application_kind(const char *token);
 
+// Generated enum tokens for `ConfigValueType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Text.
+#define CONFIG_VALUE_TYPE_TEXT "text"
+// A whole number.
+#define CONFIG_VALUE_TYPE_INTEGER "integer"
+// A decimal number.
+#define CONFIG_VALUE_TYPE_DECIMAL "decimal"
+// True or false.
+#define CONFIG_VALUE_TYPE_BOOLEAN "boolean"
+// One of a closed set of values, which the setting names.
+#define CONFIG_VALUE_TYPE_ENUMERATION "enumeration"
+// A length of time.
+#define CONFIG_VALUE_TYPE_DURATION "duration"
+// parse_config_value_type returns the token (owned) when it is a known ConfigValueType value, else "".
+char *parse_config_value_type(const char *token);
+
+// Generated enum tokens for `ConstraintEnforcement` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The system refuses the combination; no override exists — including a
+// combination that cannot arise by construction.
+#define CONSTRAINT_ENFORCEMENT_HARD "hard"
+// The system warns and the combination may stand, with the override the
+// rule names (an approval, a recorded reason).
+#define CONSTRAINT_ENFORCEMENT_SOFT "soft"
+// parse_constraint_enforcement returns the token (owned) when it is a known ConstraintEnforcement value, else "".
+char *parse_constraint_enforcement(const char *token);
+
 // Generated enum tokens for `DataAttributeKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Character data of bounded length. Binds
@@ -230,6 +270,19 @@ char *parse_client_application_kind(const char *token);
 #define DATA_ATTRIBUTE_KIND_ENUMERATION "enumeration"
 // parse_data_attribute_kind returns the token (owned) when it is a known DataAttributeKind value, else "".
 char *parse_data_attribute_kind(const char *token);
+
+// Generated enum tokens for `DecisionState` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Yes, everywhere.
+#define DECISION_STATE_YES "yes"
+// No, everywhere.
+#define DECISION_STATE_NO "no"
+// Depends on the installation or context; the notes say on what.
+#define DECISION_STATE_DEPENDS "depends"
+// Not decided yet.
+#define DECISION_STATE_UNDECIDED "undecided"
+// parse_decision_state returns the token (owned) when it is a known DecisionState value, else "".
+char *parse_decision_state(const char *token);
 
 // Generated enum tokens for `ExportFieldKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
@@ -460,6 +513,19 @@ char *parse_migration_artifact_kind(const char *token);
 #define OBJECT_LIFECYCLE_KIND_ERROR "error"
 // parse_object_lifecycle_kind returns the token (owned) when it is a known ObjectLifecycleKind value, else "".
 char *parse_object_lifecycle_kind(const char *token);
+
+// Generated enum tokens for `OverridableBy` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Scope-pinned: no narrower scope may shadow the key.
+#define OVERRIDABLE_BY_NONE "none"
+// A per-install client configuration value may shadow the key.
+#define OVERRIDABLE_BY_CLIENT "client"
+// A per-user setting may shadow the key.
+#define OVERRIDABLE_BY_USER "user"
+// A per-user-per-device setting may shadow the key.
+#define OVERRIDABLE_BY_DEVICE "device"
+// parse_overridable_by returns the token (owned) when it is a known OverridableBy value, else "".
+char *parse_overridable_by(const char *token);
 
 // Generated enum tokens for `Priority` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
@@ -55769,8 +55835,8 @@ char *network_security_policy_dns_form_content(const NetworkSecurityPolicyDnsFor
 void network_security_policy_dns_form_set_content(NetworkSecurityPolicyDnsForm *self, const char *value);
 char *network_security_policy_dns_form_dns_provider(const NetworkSecurityPolicyDnsForm *self);
 void network_security_policy_dns_form_set_dns_provider(NetworkSecurityPolicyDnsForm *self, const char *value);
-bool network_security_policy_dns_form_dnssec_enabled(const NetworkSecurityPolicyDnsForm *self);
-void network_security_policy_dns_form_set_dnssec_enabled(NetworkSecurityPolicyDnsForm *self, bool value);
+char *network_security_policy_dns_form_dnssec_enabled(const NetworkSecurityPolicyDnsForm *self);
+void network_security_policy_dns_form_set_dnssec_enabled(NetworkSecurityPolicyDnsForm *self, const char *value);
 char *network_security_policy_dns_form_private_dns(const NetworkSecurityPolicyDnsForm *self);
 void network_security_policy_dns_form_set_private_dns(NetworkSecurityPolicyDnsForm *self, const char *value);
 char *network_security_policy_dns_form_notes(const NetworkSecurityPolicyDnsForm *self);
@@ -58086,8 +58152,8 @@ char *pipeline_stage_entry_execution_form_content(const PipelineStageEntryExecut
 void pipeline_stage_entry_execution_form_set_content(PipelineStageEntryExecutionForm *self, const char *value);
 char *pipeline_stage_entry_execution_form_runner_requirements(const PipelineStageEntryExecutionForm *self);
 void pipeline_stage_entry_execution_form_set_runner_requirements(PipelineStageEntryExecutionForm *self, const char *value);
-char *pipeline_stage_entry_execution_form_timeout_minutes(const PipelineStageEntryExecutionForm *self);
-void pipeline_stage_entry_execution_form_set_timeout_minutes(PipelineStageEntryExecutionForm *self, const char *value);
+long pipeline_stage_entry_execution_form_timeout_minutes(const PipelineStageEntryExecutionForm *self);
+void pipeline_stage_entry_execution_form_set_timeout_minutes(PipelineStageEntryExecutionForm *self, long value);
 bool pipeline_stage_entry_execution_form_parallel_jobs(const PipelineStageEntryExecutionForm *self);
 void pipeline_stage_entry_execution_form_set_parallel_jobs(PipelineStageEntryExecutionForm *self, bool value);
 
@@ -58939,6 +59005,8 @@ char *process_exception_entry_assessment_form_probability(const ProcessException
 void process_exception_entry_assessment_form_set_probability(ProcessExceptionEntryAssessmentForm *self, const char *value);
 char *process_exception_entry_assessment_form_impact(const ProcessExceptionEntryAssessmentForm *self);
 void process_exception_entry_assessment_form_set_impact(ProcessExceptionEntryAssessmentForm *self, const char *value);
+char *process_exception_entry_assessment_form_impact_level(const ProcessExceptionEntryAssessmentForm *self);
+void process_exception_entry_assessment_form_set_impact_level(ProcessExceptionEntryAssessmentForm *self, const char *value);
 char *process_exception_entry_assessment_form_detection_method(const ProcessExceptionEntryAssessmentForm *self);
 void process_exception_entry_assessment_form_set_detection_method(ProcessExceptionEntryAssessmentForm *self, const char *value);
 
@@ -63563,6 +63631,8 @@ char *role_combination_constraint_entry_content_form_enforcement(const RoleCombi
 void role_combination_constraint_entry_content_form_set_enforcement(RoleCombinationConstraintEntryContentForm *self, const char *value);
 char *role_combination_constraint_entry_content_form_severity(const RoleCombinationConstraintEntryContentForm *self);
 void role_combination_constraint_entry_content_form_set_severity(RoleCombinationConstraintEntryContentForm *self, const char *value);
+char *role_combination_constraint_entry_content_form_enforcement_mode(const RoleCombinationConstraintEntryContentForm *self);
+void role_combination_constraint_entry_content_form_set_enforcement_mode(RoleCombinationConstraintEntryContentForm *self, const char *value);
 char *role_combination_constraint_entry_content_form_business_reason(const RoleCombinationConstraintEntryContentForm *self);
 void role_combination_constraint_entry_content_form_set_business_reason(RoleCombinationConstraintEntryContentForm *self, const char *value);
 char *role_combination_constraint_entry_content_form_exemption_process(const RoleCombinationConstraintEntryContentForm *self);
@@ -63614,6 +63684,8 @@ char *role_exclusion_entry_content_form_exclusion_type(const RoleExclusionEntryC
 void role_exclusion_entry_content_form_set_exclusion_type(RoleExclusionEntryContentForm *self, const char *value);
 char *role_exclusion_entry_content_form_severity(const RoleExclusionEntryContentForm *self);
 void role_exclusion_entry_content_form_set_severity(RoleExclusionEntryContentForm *self, const char *value);
+char *role_exclusion_entry_content_form_enforcement_mode(const RoleExclusionEntryContentForm *self);
+void role_exclusion_entry_content_form_set_enforcement_mode(RoleExclusionEntryContentForm *self, const char *value);
 
 // RoleHierarchyPolicyContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void role_hierarchy_policy_content_form_init(RoleHierarchyPolicyContentForm *self, SpecDocument *doc, const char *path);
@@ -66170,6 +66242,8 @@ char *server_configuration_setting_entry_content_form_setting_key(const ServerCo
 void server_configuration_setting_entry_content_form_set_setting_key(ServerConfigurationSettingEntryContentForm *self, const char *value);
 char *server_configuration_setting_entry_content_form_value_type(const ServerConfigurationSettingEntryContentForm *self);
 void server_configuration_setting_entry_content_form_set_value_type(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_allowed_values(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_allowed_values(ServerConfigurationSettingEntryContentForm *self, const char *value);
 char *server_configuration_setting_entry_content_form_default_value(const ServerConfigurationSettingEntryContentForm *self);
 void server_configuration_setting_entry_content_form_set_default_value(ServerConfigurationSettingEntryContentForm *self, const char *value);
 char *server_configuration_setting_entry_content_form_environment_variable(const ServerConfigurationSettingEntryContentForm *self);
@@ -66710,8 +66784,8 @@ char *service_mesh_and_gateway_content_form_api_gateway(const ServiceMeshAndGate
 void service_mesh_and_gateway_content_form_set_api_gateway(ServiceMeshAndGatewayContentForm *self, const char *value);
 char *service_mesh_and_gateway_content_form_gateway_features(const ServiceMeshAndGatewayContentForm *self);
 void service_mesh_and_gateway_content_form_set_gateway_features(ServiceMeshAndGatewayContentForm *self, const char *value);
-bool service_mesh_and_gateway_content_form_gateway_high_availability(const ServiceMeshAndGatewayContentForm *self);
-void service_mesh_and_gateway_content_form_set_gateway_high_availability(ServiceMeshAndGatewayContentForm *self, bool value);
+char *service_mesh_and_gateway_content_form_gateway_high_availability(const ServiceMeshAndGatewayContentForm *self);
+void service_mesh_and_gateway_content_form_set_gateway_high_availability(ServiceMeshAndGatewayContentForm *self, const char *value);
 char *service_mesh_and_gateway_content_form_api_key_management(const ServiceMeshAndGatewayContentForm *self);
 void service_mesh_and_gateway_content_form_set_api_key_management(ServiceMeshAndGatewayContentForm *self, const char *value);
 
@@ -72073,8 +72147,8 @@ bool tls_requirements_certificate_validation_form_certificate_pinning(const TlsR
 void tls_requirements_certificate_validation_form_set_certificate_pinning(TlsRequirementsCertificateValidationForm *self, bool value);
 bool tls_requirements_certificate_validation_form_ocsp_stapling(const TlsRequirementsCertificateValidationForm *self);
 void tls_requirements_certificate_validation_form_set_ocsp_stapling(TlsRequirementsCertificateValidationForm *self, bool value);
-bool tls_requirements_certificate_validation_form_mutual_tls(const TlsRequirementsCertificateValidationForm *self);
-void tls_requirements_certificate_validation_form_set_mutual_tls(TlsRequirementsCertificateValidationForm *self, bool value);
+char *tls_requirements_certificate_validation_form_mutual_tls(const TlsRequirementsCertificateValidationForm *self);
+void tls_requirements_certificate_validation_form_set_mutual_tls(TlsRequirementsCertificateValidationForm *self, const char *value);
 
 // TlsRequirementsCipherSuitesForm is the generated section facade for the `cipherSuites` @Form section: its own `content` text followed by one typed member per form field.
 void tls_requirements_cipher_suites_form_init(TlsRequirementsCipherSuitesForm *self, SpecDocument *doc, const char *path);
@@ -72101,8 +72175,8 @@ bool tls_requirements_compliance_form_hsts_enabled(const TlsRequirementsComplian
 void tls_requirements_compliance_form_set_hsts_enabled(TlsRequirementsComplianceForm *self, bool value);
 char *tls_requirements_compliance_form_hsts_max_age(const TlsRequirementsComplianceForm *self);
 void tls_requirements_compliance_form_set_hsts_max_age(TlsRequirementsComplianceForm *self, const char *value);
-bool tls_requirements_compliance_form_hsts_include_subdomains(const TlsRequirementsComplianceForm *self);
-void tls_requirements_compliance_form_set_hsts_include_subdomains(TlsRequirementsComplianceForm *self, bool value);
+char *tls_requirements_compliance_form_hsts_include_subdomains(const TlsRequirementsComplianceForm *self);
+void tls_requirements_compliance_form_set_hsts_include_subdomains(TlsRequirementsComplianceForm *self, const char *value);
 char *tls_requirements_compliance_form_notes(const TlsRequirementsComplianceForm *self);
 void tls_requirements_compliance_form_set_notes(TlsRequirementsComplianceForm *self, const char *value);
 

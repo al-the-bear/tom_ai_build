@@ -32490,9 +32490,11 @@ form-types:
   peea-form:
     fields:
       - fieldname: probability
-        description: State how likely the exception is
+        description: Qualitative likelihood band that the exception occurs.
       - fieldname: impact
         description: Describe the impact if it occurs
+      - fieldname: impactLevel
+        description: Qualitative consequence band if the exception occurs.
       - fieldname: detectionMethod
         description: Describe how it is detected
   peer-form:
@@ -46448,7 +46450,7 @@ form-types:
       - fieldname: criterionDescription
         description: What must be achieved
       - fieldname: qualityCategory
-        description: "User, Technical, Operations, Documentation"
+        description: The ISO/IEC 25010:2023 characteristic the criterion assures
       - fieldname: qualityAttribute
         description: Specific attribute this relates to
   mpcev-form:
@@ -46505,7 +46507,7 @@ form-types:
       - fieldname: checkCategory
         description: Category of check
       - fieldname: qualityCategory
-        description: "User, Technical, Operations, Documentation"
+        description: The ISO/IEC 25010:2023 characteristic the criterion assures
   qgcev-form:
     fields:
       - fieldname: verificationCriteria

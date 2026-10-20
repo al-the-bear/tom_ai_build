@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-10-20T01:16:11.752032 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T02:21:14.774195 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -40936,6 +40936,10 @@ class SomV0Bridge {
         name: 'ActionTriggerKind',
         values: $tom_som_dart_v0_1.ActionTriggerKind.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.AlertSeverity>(
+        name: 'AlertSeverity',
+        values: $tom_som_dart_v0_1.AlertSeverity.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.AuthorizationRequirementKind>(
         name: 'AuthorizationRequirementKind',
         values: $tom_som_dart_v0_1.AuthorizationRequirementKind.values,
@@ -40962,9 +40966,21 @@ class SomV0Bridge {
         name: 'ClientApplicationKind',
         values: $tom_som_dart_v0_1.ClientApplicationKind.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.ConfigValueType>(
+        name: 'ConfigValueType',
+        values: $tom_som_dart_v0_1.ConfigValueType.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.ConstraintEnforcement>(
+        name: 'ConstraintEnforcement',
+        values: $tom_som_dart_v0_1.ConstraintEnforcement.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.DataAttributeKind>(
         name: 'DataAttributeKind',
         values: $tom_som_dart_v0_1.DataAttributeKind.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.DecisionState>(
+        name: 'DecisionState',
+        values: $tom_som_dart_v0_1.DecisionState.values,
       ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.ExportFieldKind>(
         name: 'ExportFieldKind',
@@ -40997,6 +41013,10 @@ class SomV0Bridge {
       BridgedEnumDefinition<$tom_som_dart_v0_1.ObjectLifecycleKind>(
         name: 'ObjectLifecycleKind',
         values: $tom_som_dart_v0_1.ObjectLifecycleKind.values,
+      ),
+      BridgedEnumDefinition<$tom_som_dart_v0_1.OverridableBy>(
+        name: 'OverridableBy',
+        values: $tom_som_dart_v0_1.OverridableBy.values,
       ),
       BridgedEnumDefinition<$tom_som_dart_v0_1.Priority>(
         name: 'Priority',
@@ -41064,6 +41084,7 @@ class SomV0Bridge {
   static Map<String, String> enumSourceUris() {
     return {
       'ActionTriggerKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'AlertSeverity': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'AuthorizationRequirementKind':
           'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BasicAuthorizationRequirementKind':
@@ -41072,7 +41093,10 @@ class SomV0Bridge {
       'BindingHttpMethod': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'BindingParameterSource': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ClientApplicationKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ConfigValueType': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'ConstraintEnforcement': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'DataAttributeKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'DecisionState': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ExportFieldKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'FlowReturnPoint': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'GradedAccessLevel': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -41081,6 +41105,7 @@ class SomV0Bridge {
       'Iso25010Characteristic': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'MigrationArtifactKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ObjectLifecycleKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
+      'OverridableBy': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Priority': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'Probability': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
       'ProtocolFeatureKind': 'package:tom_som_dart_v0/tom_som_dart_v0.dart',
@@ -41717,13 +41742,17 @@ class SomV0Bridge {
   /// Returns a list of bridged enum names.
   static List<String> get enumNames => [
     'ActionTriggerKind',
+    'AlertSeverity',
     'AuthorizationRequirementKind',
     'BasicAuthorizationRequirementKind',
     'BindingErrorFormat',
     'BindingHttpMethod',
     'BindingParameterSource',
     'ClientApplicationKind',
+    'ConfigValueType',
+    'ConstraintEnforcement',
     'DataAttributeKind',
+    'DecisionState',
     'ExportFieldKind',
     'FlowReturnPoint',
     'GradedAccessLevel',
@@ -41732,6 +41761,7 @@ class SomV0Bridge {
     'Iso25010Characteristic',
     'MigrationArtifactKind',
     'ObjectLifecycleKind',
+    'OverridableBy',
     'Priority',
     'Probability',
     'ProtocolFeatureKind',
@@ -250967,19 +250997,21 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.AlertDefinitionEntryContentForm
               >(target, 'AlertDefinitionEntryContentForm')
-              .severity = D4.extractBridgedArg<String>(
-            value,
-            'severity',
-          ),
+              .severity = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.AlertSeverity>(
+                value,
+                'severity',
+              ),
       'priority': (visitor, target, value) =>
           D4
               .validateTarget<
                 $tom_som_dart_v0_1.AlertDefinitionEntryContentForm
               >(target, 'AlertDefinitionEntryContentForm')
-              .priority = D4.extractBridgedArg<String>(
-            value,
-            'priority',
-          ),
+              .priority = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ImportanceBand>(
+                value,
+                'priority',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -251015,8 +251047,8 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'alertDescription': 'String get alertDescription',
-      'severity': 'String get severity',
-      'priority': 'String get priority',
+      'severity': 'AlertSeverity? get severity',
+      'priority': 'ImportanceBand? get priority',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -251027,8 +251059,8 @@ BridgedClass _createAlertDefinitionEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'alertDescription': 'set alertDescription(String value)',
-      'severity': 'set severity(String value)',
-      'priority': 'set priority(String value)',
+      'severity': 'set severity(AlertSeverity? value)',
+      'priority': 'set priority(ImportanceBand? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -253098,10 +253130,11 @@ BridgedClass _createAlertRuleEntryContentFormBridge() {
                 target,
                 'AlertRuleEntryContentForm',
               )
-              .severity = D4.extractBridgedArg<String>(
-            value,
-            'severity',
-          ),
+              .severity = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.AlertSeverity>(
+                value,
+                'severity',
+              ),
       'category': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.AlertRuleEntryContentForm>(
@@ -253150,7 +253183,7 @@ BridgedClass _createAlertRuleEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'alertDescription': 'String get alertDescription',
-      'severity': 'String get severity',
+      'severity': 'AlertSeverity? get severity',
       'category': 'String get category',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -253162,7 +253195,7 @@ BridgedClass _createAlertRuleEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'alertDescription': 'set alertDescription(String value)',
-      'severity': 'set severity(String value)',
+      'severity': 'set severity(AlertSeverity? value)',
       'category': 'set category(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -309856,10 +309889,11 @@ BridgedClass _createClientConfigurationSettingEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ClientConfigurationSettingEntryContentForm
               >(target, 'ClientConfigurationSettingEntryContentForm')
-              .valueType = D4.extractBridgedArg<String>(
-            value,
-            'valueType',
-          ),
+              .valueType = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ConfigValueType>(
+                value,
+                'valueType',
+              ),
       'defaultValue': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -309874,10 +309908,11 @@ BridgedClass _createClientConfigurationSettingEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ClientConfigurationSettingEntryContentForm
               >(target, 'ClientConfigurationSettingEntryContentForm')
-              .overridableBy = D4.extractBridgedArg<String>(
-            value,
-            'overridableBy',
-          ),
+              .overridableBy = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.OverridableBy>(
+                value,
+                'overridableBy',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -309914,9 +309949,9 @@ BridgedClass _createClientConfigurationSettingEntryContentFormBridge() {
       'content': 'String get content',
       'settingKey': 'String get settingKey',
       'client': 'String get client',
-      'valueType': 'String get valueType',
+      'valueType': 'ConfigValueType? get valueType',
       'defaultValue': 'String get defaultValue',
-      'overridableBy': 'String get overridableBy',
+      'overridableBy': 'OverridableBy? get overridableBy',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -309928,9 +309963,9 @@ BridgedClass _createClientConfigurationSettingEntryContentFormBridge() {
       'content': 'set content(String value)',
       'settingKey': 'set settingKey(String value)',
       'client': 'set client(String value)',
-      'valueType': 'set valueType(String value)',
+      'valueType': 'set valueType(ConfigValueType? value)',
       'defaultValue': 'set defaultValue(String value)',
-      'overridableBy': 'set overridableBy(String value)',
+      'overridableBy': 'set overridableBy(OverridableBy? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -405784,10 +405819,11 @@ BridgedClass _createDeviceSettingEntryContentFormBridge() {
                 target,
                 'DeviceSettingEntryContentForm',
               )
-              .valueType = D4.extractBridgedArg<String>(
-            value,
-            'valueType',
-          ),
+              .valueType = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ConfigValueType>(
+                value,
+                'valueType',
+              ),
       'defaultValue': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.DeviceSettingEntryContentForm>(
@@ -405836,7 +405872,7 @@ BridgedClass _createDeviceSettingEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'settingKey': 'String get settingKey',
-      'valueType': 'String get valueType',
+      'valueType': 'ConfigValueType? get valueType',
       'defaultValue': 'String get defaultValue',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -405848,7 +405884,7 @@ BridgedClass _createDeviceSettingEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'settingKey': 'set settingKey(String value)',
-      'valueType': 'set valueType(String value)',
+      'valueType': 'set valueType(ConfigValueType? value)',
       'defaultValue': 'set defaultValue(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -466844,10 +466880,10 @@ BridgedClass _createGlobalRoleExclusionEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.GlobalRoleExclusionEntryContentForm
               >(target, 'GlobalRoleExclusionEntryContentForm')
-              .enforcementLevel = D4.extractBridgedArg<String>(
-            value,
-            'enforcementLevel',
-          ),
+              .enforcementLevel = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.ConstraintEnforcement
+              >(value, 'enforcementLevel'),
       'complianceReference': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -466894,7 +466930,7 @@ BridgedClass _createGlobalRoleExclusionEntryContentFormBridge() {
       'excludedRoleA': 'String get excludedRoleA',
       'excludedRoleB': 'String get excludedRoleB',
       'reason': 'String get reason',
-      'enforcementLevel': 'String get enforcementLevel',
+      'enforcementLevel': 'ConstraintEnforcement? get enforcementLevel',
       'complianceReference': 'String get complianceReference',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -466908,7 +466944,7 @@ BridgedClass _createGlobalRoleExclusionEntryContentFormBridge() {
       'excludedRoleA': 'set excludedRoleA(String value)',
       'excludedRoleB': 'set excludedRoleB(String value)',
       'reason': 'set reason(String value)',
-      'enforcementLevel': 'set enforcementLevel(String value)',
+      'enforcementLevel': 'set enforcementLevel(ConstraintEnforcement? value)',
       'complianceReference': 'set complianceReference(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -523934,10 +523970,11 @@ BridgedClass _createMaintenanceWindowEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.MaintenanceWindowEntryContentForm
               >(target, 'MaintenanceWindowEntryContentForm')
-              .priority = D4.extractBridgedArg<String>(
-            value,
-            'priority',
-          ),
+              .priority = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ImportanceBand>(
+                value,
+                'priority',
+              ),
       'description': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -523982,7 +524019,7 @@ BridgedClass _createMaintenanceWindowEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'windowType': 'String get windowType',
-      'priority': 'String get priority',
+      'priority': 'ImportanceBand? get priority',
       'description': 'String get description',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -523994,7 +524031,7 @@ BridgedClass _createMaintenanceWindowEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'windowType': 'set windowType(String value)',
-      'priority': 'set priority(String value)',
+      'priority': 'set priority(ImportanceBand? value)',
       'description': 'set description(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -547030,10 +547067,10 @@ BridgedClass _createMustPassCriterionEntryDefinitionFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.MustPassCriterionEntryDefinitionForm
               >(target, 'MustPassCriterionEntryDefinitionForm')
-              .qualityCategory = D4.extractBridgedArg<String>(
-            value,
-            'qualityCategory',
-          ),
+              .qualityCategory = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.Iso25010Characteristic
+              >(value, 'qualityCategory'),
       'qualityAttribute': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -547078,7 +547115,7 @@ BridgedClass _createMustPassCriterionEntryDefinitionFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'criterionDescription': 'String get criterionDescription',
-      'qualityCategory': 'String get qualityCategory',
+      'qualityCategory': 'Iso25010Characteristic? get qualityCategory',
       'qualityAttribute': 'String get qualityAttribute',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -547090,7 +547127,7 @@ BridgedClass _createMustPassCriterionEntryDefinitionFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'criterionDescription': 'set criterionDescription(String value)',
-      'qualityCategory': 'set qualityCategory(String value)',
+      'qualityCategory': 'set qualityCategory(Iso25010Characteristic? value)',
       'qualityAttribute': 'set qualityAttribute(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -554986,10 +555023,11 @@ BridgedClass _createNetworkSecurityPolicyDnsFormBridge() {
                 target,
                 'NetworkSecurityPolicyDnsForm',
               )
-              .dnssecEnabled = D4.extractBridgedArgOrNull<bool>(
-            value,
-            'dnssecEnabled',
-          ),
+              .dnssecEnabled = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.DecisionState>(
+                value,
+                'dnssecEnabled',
+              ),
       'privateDns': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.NetworkSecurityPolicyDnsForm>(
@@ -555048,7 +555086,7 @@ BridgedClass _createNetworkSecurityPolicyDnsFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'dnsProvider': 'String get dnsProvider',
-      'dnssecEnabled': 'bool? get dnssecEnabled',
+      'dnssecEnabled': 'DecisionState? get dnssecEnabled',
       'privateDns': 'String get privateDns',
       'notes': 'String get notes',
       'doc': 'SpecDocument get doc',
@@ -555061,7 +555099,7 @@ BridgedClass _createNetworkSecurityPolicyDnsFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'dnsProvider': 'set dnsProvider(String value)',
-      'dnssecEnabled': 'set dnssecEnabled(bool? value)',
+      'dnssecEnabled': 'set dnssecEnabled(DecisionState? value)',
       'privateDns': 'set privateDns(String value)',
       'notes': 'set notes(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
@@ -585866,7 +585904,7 @@ BridgedClass _createPipelineStageEntryExecutionFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.PipelineStageEntryExecutionForm
               >(target, 'PipelineStageEntryExecutionForm')
-              .timeoutMinutes = D4.extractBridgedArg<String>(
+              .timeoutMinutes = D4.extractBridgedArgOrNull<int>(
             value,
             'timeoutMinutes',
           ),
@@ -585914,7 +585952,7 @@ BridgedClass _createPipelineStageEntryExecutionFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'runnerRequirements': 'String get runnerRequirements',
-      'timeoutMinutes': 'String get timeoutMinutes',
+      'timeoutMinutes': 'int? get timeoutMinutes',
       'parallelJobs': 'bool? get parallelJobs',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -585926,7 +585964,7 @@ BridgedClass _createPipelineStageEntryExecutionFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'runnerRequirements': 'set runnerRequirements(String value)',
-      'timeoutMinutes': 'set timeoutMinutes(String value)',
+      'timeoutMinutes': 'set timeoutMinutes(int? value)',
       'parallelJobs': 'set parallelJobs(bool? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -596939,6 +596977,11 @@ BridgedClass _createProcessExceptionEntryAssessmentFormBridge() {
             $tom_som_dart_v0_1.ProcessExceptionEntryAssessmentForm
           >(target, 'ProcessExceptionEntryAssessmentForm')
           .impact,
+      'impactLevel': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ProcessExceptionEntryAssessmentForm
+          >(target, 'ProcessExceptionEntryAssessmentForm')
+          .impactLevel,
       'detectionMethod': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.ProcessExceptionEntryAssessmentForm
@@ -596990,10 +597033,11 @@ BridgedClass _createProcessExceptionEntryAssessmentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ProcessExceptionEntryAssessmentForm
               >(target, 'ProcessExceptionEntryAssessmentForm')
-              .probability = D4.extractBridgedArg<String>(
-            value,
-            'probability',
-          ),
+              .probability = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.Probability>(
+                value,
+                'probability',
+              ),
       'impact': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -597003,6 +597047,16 @@ BridgedClass _createProcessExceptionEntryAssessmentFormBridge() {
             value,
             'impact',
           ),
+      'impactLevel': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ProcessExceptionEntryAssessmentForm
+              >(target, 'ProcessExceptionEntryAssessmentForm')
+              .impactLevel = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.Impact>(
+                value,
+                'impactLevel',
+              ),
       'detectionMethod': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -597046,8 +597100,9 @@ BridgedClass _createProcessExceptionEntryAssessmentFormBridge() {
     getterSignatures: {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
-      'probability': 'String get probability',
+      'probability': 'Probability? get probability',
       'impact': 'String get impact',
+      'impactLevel': 'Impact? get impactLevel',
       'detectionMethod': 'String get detectionMethod',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -597058,8 +597113,9 @@ BridgedClass _createProcessExceptionEntryAssessmentFormBridge() {
     },
     setterSignatures: {
       'content': 'set content(String value)',
-      'probability': 'set probability(String value)',
+      'probability': 'set probability(Probability? value)',
       'impact': 'set impact(String value)',
+      'impactLevel': 'set impactLevel(Impact? value)',
       'detectionMethod': 'set detectionMethod(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -615927,10 +615983,10 @@ BridgedClass _createQualityGateCheckEntryDefinitionFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.QualityGateCheckEntryDefinitionForm
               >(target, 'QualityGateCheckEntryDefinitionForm')
-              .qualityCategory = D4.extractBridgedArg<String>(
-            value,
-            'qualityCategory',
-          ),
+              .qualityCategory = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.Iso25010Characteristic
+              >(value, 'qualityCategory'),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -615967,7 +616023,7 @@ BridgedClass _createQualityGateCheckEntryDefinitionFormBridge() {
       'content': 'String get content',
       'checkDescription': 'String get checkDescription',
       'checkCategory': 'String get checkCategory',
-      'qualityCategory': 'String get qualityCategory',
+      'qualityCategory': 'Iso25010Characteristic? get qualityCategory',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -615979,7 +616035,7 @@ BridgedClass _createQualityGateCheckEntryDefinitionFormBridge() {
       'content': 'set content(String value)',
       'checkDescription': 'set checkDescription(String value)',
       'checkCategory': 'set checkCategory(String value)',
-      'qualityCategory': 'set qualityCategory(String value)',
+      'qualityCategory': 'set qualityCategory(Iso25010Characteristic? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -660014,6 +660070,11 @@ BridgedClass _createRoleCombinationConstraintEntryContentFormBridge() {
             $tom_som_dart_v0_1.RoleCombinationConstraintEntryContentForm
           >(target, 'RoleCombinationConstraintEntryContentForm')
           .severity,
+      'enforcementMode': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.RoleCombinationConstraintEntryContentForm
+          >(target, 'RoleCombinationConstraintEntryContentForm')
+          .enforcementMode,
       'businessReason': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.RoleCombinationConstraintEntryContentForm
@@ -660106,10 +660167,20 @@ BridgedClass _createRoleCombinationConstraintEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.RoleCombinationConstraintEntryContentForm
               >(target, 'RoleCombinationConstraintEntryContentForm')
-              .severity = D4.extractBridgedArg<String>(
-            value,
-            'severity',
-          ),
+              .severity = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ImportanceBand>(
+                value,
+                'severity',
+              ),
+      'enforcementMode': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.RoleCombinationConstraintEntryContentForm
+              >(target, 'RoleCombinationConstraintEntryContentForm')
+              .enforcementMode = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.ConstraintEnforcement
+              >(value, 'enforcementMode'),
       'businessReason': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -660166,7 +660237,8 @@ BridgedClass _createRoleCombinationConstraintEntryContentFormBridge() {
       'roleA': 'String get roleA',
       'roleB': 'String get roleB',
       'enforcement': 'String get enforcement',
-      'severity': 'String get severity',
+      'severity': 'ImportanceBand? get severity',
+      'enforcementMode': 'ConstraintEnforcement? get enforcementMode',
       'businessReason': 'String get businessReason',
       'exemptionProcess': 'String get exemptionProcess',
       'doc': 'SpecDocument get doc',
@@ -660182,7 +660254,8 @@ BridgedClass _createRoleCombinationConstraintEntryContentFormBridge() {
       'roleA': 'set roleA(String value)',
       'roleB': 'set roleB(String value)',
       'enforcement': 'set enforcement(String value)',
-      'severity': 'set severity(String value)',
+      'severity': 'set severity(ImportanceBand? value)',
+      'enforcementMode': 'set enforcementMode(ConstraintEnforcement? value)',
       'businessReason': 'set businessReason(String value)',
       'exemptionProcess': 'set exemptionProcess(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
@@ -660694,6 +660767,12 @@ BridgedClass _createRoleExclusionEntryContentFormBridge() {
             'RoleExclusionEntryContentForm',
           )
           .severity,
+      'enforcementMode': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_v0_1.RoleExclusionEntryContentForm>(
+            target,
+            'RoleExclusionEntryContentForm',
+          )
+          .enforcementMode,
       'doc': (visitor, target) => D4
           .validateTarget<$tom_som_dart_v0_1.RoleExclusionEntryContentForm>(
             target,
@@ -660778,10 +660857,21 @@ BridgedClass _createRoleExclusionEntryContentFormBridge() {
                 target,
                 'RoleExclusionEntryContentForm',
               )
-              .severity = D4.extractBridgedArg<String>(
-            value,
-            'severity',
-          ),
+              .severity = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ImportanceBand>(
+                value,
+                'severity',
+              ),
+      'enforcementMode': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_som_dart_v0_1.RoleExclusionEntryContentForm>(
+                target,
+                'RoleExclusionEntryContentForm',
+              )
+              .enforcementMode = D4
+              .extractBridgedArgOrNull<
+                $tom_som_dart_v0_1.ConstraintEnforcement
+              >(value, 'enforcementMode'),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.RoleExclusionEntryContentForm>(
@@ -660822,7 +660912,8 @@ BridgedClass _createRoleExclusionEntryContentFormBridge() {
       'excludedRole': 'String get excludedRole',
       'reason': 'String get reason',
       'exclusionType': 'String get exclusionType',
-      'severity': 'String get severity',
+      'severity': 'ImportanceBand? get severity',
+      'enforcementMode': 'ConstraintEnforcement? get enforcementMode',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -660835,7 +660926,8 @@ BridgedClass _createRoleExclusionEntryContentFormBridge() {
       'excludedRole': 'set excludedRole(String value)',
       'reason': 'set reason(String value)',
       'exclusionType': 'set exclusionType(String value)',
-      'severity': 'set severity(String value)',
+      'severity': 'set severity(ImportanceBand? value)',
+      'enforcementMode': 'set enforcementMode(ConstraintEnforcement? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -696411,6 +696503,11 @@ BridgedClass _createServerConfigurationSettingEntryContentFormBridge() {
             $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
           >(target, 'ServerConfigurationSettingEntryContentForm')
           .valueType,
+      'allowedValues': (visitor, target) => D4
+          .validateTarget<
+            $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
+          >(target, 'ServerConfigurationSettingEntryContentForm')
+          .allowedValues,
       'defaultValue': (visitor, target) => D4
           .validateTarget<
             $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
@@ -696491,9 +696588,19 @@ BridgedClass _createServerConfigurationSettingEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
               >(target, 'ServerConfigurationSettingEntryContentForm')
-              .valueType = D4.extractBridgedArg<String>(
+              .valueType = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ConfigValueType>(
+                value,
+                'valueType',
+              ),
+      'allowedValues': (visitor, target, value) =>
+          D4
+              .validateTarget<
+                $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
+              >(target, 'ServerConfigurationSettingEntryContentForm')
+              .allowedValues = D4.extractBridgedArg<String>(
             value,
-            'valueType',
+            'allowedValues',
           ),
       'defaultValue': (visitor, target, value) =>
           D4
@@ -696536,10 +696643,11 @@ BridgedClass _createServerConfigurationSettingEntryContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ServerConfigurationSettingEntryContentForm
               >(target, 'ServerConfigurationSettingEntryContentForm')
-              .overridableBy = D4.extractBridgedArg<String>(
-            value,
-            'overridableBy',
-          ),
+              .overridableBy = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.OverridableBy>(
+                value,
+                'overridableBy',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -696575,12 +696683,13 @@ BridgedClass _createServerConfigurationSettingEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'settingKey': 'String get settingKey',
-      'valueType': 'String get valueType',
+      'valueType': 'ConfigValueType? get valueType',
+      'allowedValues': 'String get allowedValues',
       'defaultValue': 'String get defaultValue',
       'environmentVariable': 'String get environmentVariable',
       'commandLineOption': 'String get commandLineOption',
       'secret': 'bool? get secret',
-      'overridableBy': 'String get overridableBy',
+      'overridableBy': 'OverridableBy? get overridableBy',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -696591,12 +696700,13 @@ BridgedClass _createServerConfigurationSettingEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'settingKey': 'set settingKey(String value)',
-      'valueType': 'set valueType(String value)',
+      'valueType': 'set valueType(ConfigValueType? value)',
+      'allowedValues': 'set allowedValues(String value)',
       'defaultValue': 'set defaultValue(String value)',
       'environmentVariable': 'set environmentVariable(String value)',
       'commandLineOption': 'set commandLineOption(String value)',
       'secret': 'set secret(bool? value)',
-      'overridableBy': 'set overridableBy(String value)',
+      'overridableBy': 'set overridableBy(OverridableBy? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -703894,10 +704004,11 @@ BridgedClass _createServiceMeshAndGatewayContentFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.ServiceMeshAndGatewayContentForm
               >(target, 'ServiceMeshAndGatewayContentForm')
-              .gatewayHighAvailability = D4.extractBridgedArgOrNull<bool>(
-            value,
-            'gatewayHighAvailability',
-          ),
+              .gatewayHighAvailability = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.DecisionState>(
+                value,
+                'gatewayHighAvailability',
+              ),
       'apiKeyManagement': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -703943,7 +704054,7 @@ BridgedClass _createServiceMeshAndGatewayContentFormBridge() {
       'content': 'String get content',
       'apiGateway': 'String get apiGateway',
       'gatewayFeatures': 'String get gatewayFeatures',
-      'gatewayHighAvailability': 'bool? get gatewayHighAvailability',
+      'gatewayHighAvailability': 'DecisionState? get gatewayHighAvailability',
       'apiKeyManagement': 'String get apiKeyManagement',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -703956,7 +704067,8 @@ BridgedClass _createServiceMeshAndGatewayContentFormBridge() {
       'content': 'set content(String value)',
       'apiGateway': 'set apiGateway(String value)',
       'gatewayFeatures': 'set gatewayFeatures(String value)',
-      'gatewayHighAvailability': 'set gatewayHighAvailability(bool? value)',
+      'gatewayHighAvailability':
+          'set gatewayHighAvailability(DecisionState? value)',
       'apiKeyManagement': 'set apiKeyManagement(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -776403,10 +776515,11 @@ BridgedClass _createTlsRequirementsCertificateValidationFormBridge() {
               .validateTarget<
                 $tom_som_dart_v0_1.TlsRequirementsCertificateValidationForm
               >(target, 'TlsRequirementsCertificateValidationForm')
-              .mutualTls = D4.extractBridgedArgOrNull<bool>(
-            value,
-            'mutualTls',
-          ),
+              .mutualTls = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.DecisionState>(
+                value,
+                'mutualTls',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<
@@ -776443,7 +776556,7 @@ BridgedClass _createTlsRequirementsCertificateValidationFormBridge() {
       'content': 'String get content',
       'certificatePinning': 'bool? get certificatePinning',
       'ocspStapling': 'bool? get ocspStapling',
-      'mutualTls': 'bool? get mutualTls',
+      'mutualTls': 'DecisionState? get mutualTls',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -776455,7 +776568,7 @@ BridgedClass _createTlsRequirementsCertificateValidationFormBridge() {
       'content': 'set content(String value)',
       'certificatePinning': 'set certificatePinning(bool? value)',
       'ocspStapling': 'set ocspStapling(bool? value)',
-      'mutualTls': 'set mutualTls(bool? value)',
+      'mutualTls': 'set mutualTls(DecisionState? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',
@@ -776808,10 +776921,11 @@ BridgedClass _createTlsRequirementsComplianceFormBridge() {
                 target,
                 'TlsRequirementsComplianceForm',
               )
-              .hstsIncludeSubdomains = D4.extractBridgedArgOrNull<bool>(
-            value,
-            'hstsIncludeSubdomains',
-          ),
+              .hstsIncludeSubdomains = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.DecisionState>(
+                value,
+                'hstsIncludeSubdomains',
+              ),
       'notes': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.TlsRequirementsComplianceForm>(
@@ -776862,7 +776976,7 @@ BridgedClass _createTlsRequirementsComplianceFormBridge() {
       'sslLabsTargetGrade': 'String get sslLabsTargetGrade',
       'hstsEnabled': 'bool? get hstsEnabled',
       'hstsMaxAge': 'String get hstsMaxAge',
-      'hstsIncludeSubdomains': 'bool? get hstsIncludeSubdomains',
+      'hstsIncludeSubdomains': 'DecisionState? get hstsIncludeSubdomains',
       'notes': 'String get notes',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
@@ -776876,7 +776990,8 @@ BridgedClass _createTlsRequirementsComplianceFormBridge() {
       'sslLabsTargetGrade': 'set sslLabsTargetGrade(String value)',
       'hstsEnabled': 'set hstsEnabled(bool? value)',
       'hstsMaxAge': 'set hstsMaxAge(String value)',
-      'hstsIncludeSubdomains': 'set hstsIncludeSubdomains(bool? value)',
+      'hstsIncludeSubdomains':
+          'set hstsIncludeSubdomains(DecisionState? value)',
       'notes': 'set notes(String value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
@@ -814789,10 +814904,11 @@ BridgedClass _createUserSettingEntryContentFormBridge() {
                 target,
                 'UserSettingEntryContentForm',
               )
-              .valueType = D4.extractBridgedArg<String>(
-            value,
-            'valueType',
-          ),
+              .valueType = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.ConfigValueType>(
+                value,
+                'valueType',
+              ),
       'defaultValue': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.UserSettingEntryContentForm>(
@@ -814809,10 +814925,11 @@ BridgedClass _createUserSettingEntryContentFormBridge() {
                 target,
                 'UserSettingEntryContentForm',
               )
-              .overridableBy = D4.extractBridgedArg<String>(
-            value,
-            'overridableBy',
-          ),
+              .overridableBy = D4
+              .extractBridgedArgOrNull<$tom_som_dart_v0_1.OverridableBy>(
+                value,
+                'overridableBy',
+              ),
       '\$sectionId': (visitor, target, value) =>
           D4
               .validateTarget<$tom_som_dart_v0_1.UserSettingEntryContentForm>(
@@ -814851,9 +814968,9 @@ BridgedClass _createUserSettingEntryContentFormBridge() {
       'canHaveContent': 'bool get canHaveContent',
       'content': 'String get content',
       'settingKey': 'String get settingKey',
-      'valueType': 'String get valueType',
+      'valueType': 'ConfigValueType? get valueType',
       'defaultValue': 'String get defaultValue',
-      'overridableBy': 'String get overridableBy',
+      'overridableBy': 'OverridableBy? get overridableBy',
       'doc': 'SpecDocument get doc',
       'path': 'String get path',
       'isEmpty': 'bool get isEmpty',
@@ -814864,9 +814981,9 @@ BridgedClass _createUserSettingEntryContentFormBridge() {
     setterSignatures: {
       'content': 'set content(String value)',
       'settingKey': 'set settingKey(String value)',
-      'valueType': 'set valueType(String value)',
+      'valueType': 'set valueType(ConfigValueType? value)',
       'defaultValue': 'set defaultValue(String value)',
-      'overridableBy': 'set overridableBy(String value)',
+      'overridableBy': 'set overridableBy(OverridableBy? value)',
       '\$sectionId': 'set \$sectionId(String value)',
       '\$headline': 'set \$headline(String? value)',
       '\$codeSpec': 'set \$codeSpec(String? value)',

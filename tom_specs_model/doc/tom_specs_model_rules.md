@@ -487,6 +487,21 @@ stays `String` until that instrument has an enum. So does a field that names a
 *rating scheme* rather than a rating (`Finding Severity Scale`, `Defect Priority
 Scheme`): its value is the name of a scale, not a band on one.
 
+**A yes/no fact that may be open takes `DecisionState`, not `bool`.** A `bool`
+form field has two values, so an installation-dependent or undecided answer is
+forced to one of them and the nuance hides in a notes field. Where the domain
+has an honest third answer — HSTS for subdomains, DNSSEC, mutual TLS, a
+gateway's high availability — the field is
+[`DecisionState`](../lib/src/common/enums.dart) (`yes` / `no` / `depends` /
+`undecided`), and the notes say on what it depends. A fact that is decided by
+construction stays `bool`.
+
+Closed vocabularies with a scale of their own get an enum of their own rather
+than a borrowed one: an alert's `AlertSeverity` (`critical` / `warning` /
+`info`, how fast someone acts) is not an `ImportanceBand` (how much something
+matters), and a role rule's `ConstraintEnforcement` (`hard` / `soft`) is how it
+is enforced, beside the `ImportanceBand` severity of a violation.
+
 There is exactly **one** risk matrix in the model, `Probability` × `Impact`,
 rated on five bands. Three entry types once rated on a 3×3 matrix of their own;
 they were moved onto the five-band pair rather than given a second pair of

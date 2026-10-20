@@ -4701,9 +4701,9 @@ class MustPassCriterionEntry extends DocSpecsSection {
     ),
     Field(
       'qualityCategory',
-      String,
+      Iso25010Characteristic,
       'Quality Category',
-      hint: 'User, Technical, Operations, Documentation',
+      hint: 'The ISO/IEC 25010:2023 characteristic the criterion assures',
     ),
     Field(
       'qualityAttribute',
@@ -4968,9 +4968,9 @@ class QualityGateCheckEntry extends DocSpecsSection {
     Field('checkCategory', String, 'Check Category', hint: 'Category of check'),
     Field(
       'qualityCategory',
-      String,
+      Iso25010Characteristic,
       'Quality Category',
-      hint: 'User, Technical, Operations, Documentation',
+      hint: 'The ISO/IEC 25010:2023 characteristic the criterion assures',
     ),
   ])
   @SerializationOrder(1)

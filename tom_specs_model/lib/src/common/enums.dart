@@ -291,3 +291,93 @@ enum Iso25010Characteristic {
   /// `FlexibilityCharacteristic`.
   flexibility,
 }
+
+/// How severe an alert is — what its arrival asks of the person on call.
+///
+/// Distinct from [ImportanceBand], which rates how much something *matters*:
+/// an alert's severity says how fast someone has to act, and the three values
+/// are the ones monitoring tools route on.
+enum AlertSeverity {
+  /// Someone acts now: the service, or a promise it makes, is broken.
+  critical,
+
+  /// Someone acts soon: a threshold is crossed and the trend leads to a
+  /// critical alert if nothing changes.
+  warning,
+
+  /// No one has to act: recorded for the picture, not for a page.
+  info,
+}
+
+/// How a rule about roles is enforced.
+enum ConstraintEnforcement {
+  /// The system refuses the combination; no override exists — including a
+  /// combination that cannot arise by construction.
+  hard,
+
+  /// The system warns and the combination may stand, with the override the
+  /// rule names (an approval, a recorded reason).
+  soft,
+}
+
+/// The narrowest configuration scope permitted to shadow a key; every scope
+/// in between is opened too. Mirrors `CsOverridableBy` (`tom_code_specs`).
+///
+/// **Not a default.** Pinning a key must be authored, not fallen into, so a
+/// field of this type is never defaulted.
+enum OverridableBy {
+  /// Scope-pinned: no narrower scope may shadow the key.
+  none,
+
+  /// A per-install client configuration value may shadow the key.
+  client,
+
+  /// A per-user setting may shadow the key.
+  user,
+
+  /// A per-user-per-device setting may shadow the key.
+  device,
+}
+
+/// The type of a configuration value.
+///
+/// Named by what the value is rather than by a language's type keyword, so
+/// every generated runtime can carry the constants unchanged.
+enum ConfigValueType {
+  /// Text.
+  text,
+
+  /// A whole number.
+  integer,
+
+  /// A decimal number.
+  decimal,
+
+  /// True or false.
+  boolean,
+
+  /// One of a closed set of values, which the setting names.
+  enumeration,
+
+  /// A length of time.
+  duration,
+}
+
+/// A yes/no fact that may also legitimately be open.
+///
+/// A plain `bool` forces an author to pick true or false where the honest
+/// answer is "it depends on the installation" or "not decided yet", and the
+/// nuance then hides in a notes field the typed reader never sees.
+enum DecisionState {
+  /// Yes, everywhere.
+  yes,
+
+  /// No, everywhere.
+  no,
+
+  /// Depends on the installation or context; the notes say on what.
+  depends,
+
+  /// Not decided yet.
+  undecided,
+}

@@ -20,6 +20,15 @@ char *parse_action_trigger_kind(const char *token) {
   return som_strdup("");
 }
 
+char *parse_alert_severity(const char *token) {
+  if (strcmp(token, ALERT_SEVERITY_CRITICAL) == 0 ||
+      strcmp(token, ALERT_SEVERITY_WARNING) == 0 ||
+      strcmp(token, ALERT_SEVERITY_INFO) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_authorization_requirement_kind(const char *token) {
   if (strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_ROLE) == 0 ||
       strcmp(token, AUTHORIZATION_REQUIREMENT_KIND_GROUP) == 0 ||
@@ -91,6 +100,26 @@ char *parse_client_application_kind(const char *token) {
   return som_strdup("");
 }
 
+char *parse_config_value_type(const char *token) {
+  if (strcmp(token, CONFIG_VALUE_TYPE_TEXT) == 0 ||
+      strcmp(token, CONFIG_VALUE_TYPE_INTEGER) == 0 ||
+      strcmp(token, CONFIG_VALUE_TYPE_DECIMAL) == 0 ||
+      strcmp(token, CONFIG_VALUE_TYPE_BOOLEAN) == 0 ||
+      strcmp(token, CONFIG_VALUE_TYPE_ENUMERATION) == 0 ||
+      strcmp(token, CONFIG_VALUE_TYPE_DURATION) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_constraint_enforcement(const char *token) {
+  if (strcmp(token, CONSTRAINT_ENFORCEMENT_HARD) == 0 ||
+      strcmp(token, CONSTRAINT_ENFORCEMENT_SOFT) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
 char *parse_data_attribute_kind(const char *token) {
   if (strcmp(token, DATA_ATTRIBUTE_KIND_STRING) == 0 ||
       strcmp(token, DATA_ATTRIBUTE_KIND_INTEGER) == 0 ||
@@ -103,6 +132,16 @@ char *parse_data_attribute_kind(const char *token) {
       strcmp(token, DATA_ATTRIBUTE_KIND_UUID) == 0 ||
       strcmp(token, DATA_ATTRIBUTE_KIND_JSON) == 0 ||
       strcmp(token, DATA_ATTRIBUTE_KIND_ENUMERATION) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_decision_state(const char *token) {
+  if (strcmp(token, DECISION_STATE_YES) == 0 ||
+      strcmp(token, DECISION_STATE_NO) == 0 ||
+      strcmp(token, DECISION_STATE_DEPENDS) == 0 ||
+      strcmp(token, DECISION_STATE_UNDECIDED) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -187,6 +226,16 @@ char *parse_object_lifecycle_kind(const char *token) {
       strcmp(token, OBJECT_LIFECYCLE_KIND_INTERMEDIATE) == 0 ||
       strcmp(token, OBJECT_LIFECYCLE_KIND_TERMINAL) == 0 ||
       strcmp(token, OBJECT_LIFECYCLE_KIND_ERROR) == 0) {
+    return som_strdup(token);
+  }
+  return som_strdup("");
+}
+
+char *parse_overridable_by(const char *token) {
+  if (strcmp(token, OVERRIDABLE_BY_NONE) == 0 ||
+      strcmp(token, OVERRIDABLE_BY_CLIENT) == 0 ||
+      strcmp(token, OVERRIDABLE_BY_USER) == 0 ||
+      strcmp(token, OVERRIDABLE_BY_DEVICE) == 0) {
     return som_strdup(token);
   }
   return som_strdup("");
@@ -116572,12 +116621,12 @@ char *network_security_policy_dns_form_dns_provider(const NetworkSecurityPolicyD
 void network_security_policy_dns_form_set_dns_provider(NetworkSecurityPolicyDnsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dnsProvider", value);
 }
-bool network_security_policy_dns_form_dnssec_enabled(const NetworkSecurityPolicyDnsForm *self) {
+char *network_security_policy_dns_form_dnssec_enabled(const NetworkSecurityPolicyDnsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dnssecEnabled");
-  return v != NULL && strcmp(v, "true") == 0;
+  return som_strdup(v != NULL ? v : "");
 }
-void network_security_policy_dns_form_set_dnssec_enabled(NetworkSecurityPolicyDnsForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dnssecEnabled", value ? "true" : "false");
+void network_security_policy_dns_form_set_dnssec_enabled(NetworkSecurityPolicyDnsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "dnssecEnabled", value);
 }
 char *network_security_policy_dns_form_private_dns(const NetworkSecurityPolicyDnsForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "privateDns");
@@ -123233,12 +123282,14 @@ char *pipeline_stage_entry_execution_form_runner_requirements(const PipelineStag
 void pipeline_stage_entry_execution_form_set_runner_requirements(PipelineStageEntryExecutionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "runnerRequirements", value);
 }
-char *pipeline_stage_entry_execution_form_timeout_minutes(const PipelineStageEntryExecutionForm *self) {
+long pipeline_stage_entry_execution_form_timeout_minutes(const PipelineStageEntryExecutionForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "timeoutMinutes");
-  return som_strdup(v != NULL ? v : "");
+  return (v != NULL && *v) ? atol(v) : 0;
 }
-void pipeline_stage_entry_execution_form_set_timeout_minutes(PipelineStageEntryExecutionForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "timeoutMinutes", value);
+void pipeline_stage_entry_execution_form_set_timeout_minutes(PipelineStageEntryExecutionForm *self, long value) {
+  char buf[32];
+  snprintf(buf, sizeof(buf), "%ld", value);
+  spec_document_set_form_field(self->node.doc, self->node.path, "timeoutMinutes", buf);
 }
 bool pipeline_stage_entry_execution_form_parallel_jobs(const PipelineStageEntryExecutionForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "parallelJobs");
@@ -125700,6 +125751,13 @@ char *process_exception_entry_assessment_form_impact(const ProcessExceptionEntry
 }
 void process_exception_entry_assessment_form_set_impact(ProcessExceptionEntryAssessmentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "impact", value);
+}
+char *process_exception_entry_assessment_form_impact_level(const ProcessExceptionEntryAssessmentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "impactLevel");
+  return som_strdup(v != NULL ? v : "");
+}
+void process_exception_entry_assessment_form_set_impact_level(ProcessExceptionEntryAssessmentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "impactLevel", value);
 }
 char *process_exception_entry_assessment_form_detection_method(const ProcessExceptionEntryAssessmentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "detectionMethod");
@@ -138819,6 +138877,13 @@ char *role_combination_constraint_entry_content_form_severity(const RoleCombinat
 void role_combination_constraint_entry_content_form_set_severity(RoleCombinationConstraintEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "severity", value);
 }
+char *role_combination_constraint_entry_content_form_enforcement_mode(const RoleCombinationConstraintEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "enforcementMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void role_combination_constraint_entry_content_form_set_enforcement_mode(RoleCombinationConstraintEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "enforcementMode", value);
+}
 char *role_combination_constraint_entry_content_form_business_reason(const RoleCombinationConstraintEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "businessReason");
   return som_strdup(v != NULL ? v : "");
@@ -138965,6 +139030,13 @@ char *role_exclusion_entry_content_form_severity(const RoleExclusionEntryContent
 }
 void role_exclusion_entry_content_form_set_severity(RoleExclusionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "severity", value);
+}
+char *role_exclusion_entry_content_form_enforcement_mode(const RoleExclusionEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "enforcementMode");
+  return som_strdup(v != NULL ? v : "");
+}
+void role_exclusion_entry_content_form_set_enforcement_mode(RoleExclusionEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "enforcementMode", value);
 }
 
 void role_hierarchy_policy_content_form_init(RoleHierarchyPolicyContentForm *self, SpecDocument *doc, const char *path) {
@@ -146079,6 +146151,13 @@ char *server_configuration_setting_entry_content_form_value_type(const ServerCon
 void server_configuration_setting_entry_content_form_set_value_type(ServerConfigurationSettingEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "valueType", value);
 }
+char *server_configuration_setting_entry_content_form_allowed_values(const ServerConfigurationSettingEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "allowedValues");
+  return som_strdup(v != NULL ? v : "");
+}
+void server_configuration_setting_entry_content_form_set_allowed_values(ServerConfigurationSettingEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "allowedValues", value);
+}
 char *server_configuration_setting_entry_content_form_default_value(const ServerConfigurationSettingEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "defaultValue");
   return som_strdup(v != NULL ? v : "");
@@ -147601,12 +147680,12 @@ char *service_mesh_and_gateway_content_form_gateway_features(const ServiceMeshAn
 void service_mesh_and_gateway_content_form_set_gateway_features(ServiceMeshAndGatewayContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "gatewayFeatures", value);
 }
-bool service_mesh_and_gateway_content_form_gateway_high_availability(const ServiceMeshAndGatewayContentForm *self) {
+char *service_mesh_and_gateway_content_form_gateway_high_availability(const ServiceMeshAndGatewayContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "gatewayHighAvailability");
-  return v != NULL && strcmp(v, "true") == 0;
+  return som_strdup(v != NULL ? v : "");
 }
-void service_mesh_and_gateway_content_form_set_gateway_high_availability(ServiceMeshAndGatewayContentForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "gatewayHighAvailability", value ? "true" : "false");
+void service_mesh_and_gateway_content_form_set_gateway_high_availability(ServiceMeshAndGatewayContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "gatewayHighAvailability", value);
 }
 char *service_mesh_and_gateway_content_form_api_key_management(const ServiceMeshAndGatewayContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "apiKeyManagement");
@@ -162918,12 +162997,12 @@ bool tls_requirements_certificate_validation_form_ocsp_stapling(const TlsRequire
 void tls_requirements_certificate_validation_form_set_ocsp_stapling(TlsRequirementsCertificateValidationForm *self, bool value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ocspStapling", value ? "true" : "false");
 }
-bool tls_requirements_certificate_validation_form_mutual_tls(const TlsRequirementsCertificateValidationForm *self) {
+char *tls_requirements_certificate_validation_form_mutual_tls(const TlsRequirementsCertificateValidationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mutualTls");
-  return v != NULL && strcmp(v, "true") == 0;
+  return som_strdup(v != NULL ? v : "");
 }
-void tls_requirements_certificate_validation_form_set_mutual_tls(TlsRequirementsCertificateValidationForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "mutualTls", value ? "true" : "false");
+void tls_requirements_certificate_validation_form_set_mutual_tls(TlsRequirementsCertificateValidationForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "mutualTls", value);
 }
 
 void tls_requirements_cipher_suites_form_init(TlsRequirementsCipherSuitesForm *self, SpecDocument *doc, const char *path) {
@@ -162995,12 +163074,12 @@ char *tls_requirements_compliance_form_hsts_max_age(const TlsRequirementsComplia
 void tls_requirements_compliance_form_set_hsts_max_age(TlsRequirementsComplianceForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "hstsMaxAge", value);
 }
-bool tls_requirements_compliance_form_hsts_include_subdomains(const TlsRequirementsComplianceForm *self) {
+char *tls_requirements_compliance_form_hsts_include_subdomains(const TlsRequirementsComplianceForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "hstsIncludeSubdomains");
-  return v != NULL && strcmp(v, "true") == 0;
+  return som_strdup(v != NULL ? v : "");
 }
-void tls_requirements_compliance_form_set_hsts_include_subdomains(TlsRequirementsComplianceForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "hstsIncludeSubdomains", value ? "true" : "false");
+void tls_requirements_compliance_form_set_hsts_include_subdomains(TlsRequirementsComplianceForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "hstsIncludeSubdomains", value);
 }
 char *tls_requirements_compliance_form_notes(const TlsRequirementsComplianceForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "notes");

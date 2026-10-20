@@ -2033,6 +2033,14 @@ Map<String, dynamic> _buildMeta() => {
               'enumValues': ['low', 'mid', 'high'],
             },
             {'name': 'factor', 'label': 'Factor', 'type': 'double'},
+            // uamtc11: a yes/no fact that may legitimately be open — the
+            // model's `DecisionState` — rather than a bool forced either way.
+            {
+              'name': 'decided',
+              'label': 'Decided',
+              'type': 'DecisionState',
+              'enumValues': ['yes', 'no', 'depends', 'undecided'],
+            },
             {
               'name': 'score',
               'label': 'Score',
@@ -2834,6 +2842,20 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
     // Entry 1 has two notes of its own and entry 2 one; stating the
     // document's total (3) on entry 1 is wrong.
     caseFor('scopedCountMismatch', _derivedState(noteCount1: '3')),
+    // uamtc11: typed enum fields. The open states are values like any other;
+    // a bool spelled into the field, or a token in the wrong case, is not.
+    caseFor(
+      'decisionStateOpenValues',
+      _enumState(level: 'high', decided: 'depends'),
+    ),
+    caseFor(
+      'decisionStateRejectsBool',
+      _enumState(level: 'high', decided: 'false'),
+    ),
+    caseFor(
+      'enumValueIsCaseSensitive',
+      _enumState(level: 'High', decided: 'undecided'),
+    ),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
@@ -2881,6 +2903,27 @@ Map<String, Object?> _registryState({
     'DEMO/REG/RGL-LST': {
       'seq': 1,
       'items': ['DEMO/REG/RGL-LST-1'],
+    },
+  },
+};
+
+/// A document state with one registry entry holding the enum fields [level]
+/// and [decided] (uamtc11).
+Map<String, Object?> _enumState({
+  required String level,
+  required String decided,
+}) => {
+  'forms': {
+    'DEMO/REG/RGE-LST-1/RGE-DET': {
+      'code': 'ALPHA',
+      'level': level,
+      'decided': decided,
+    },
+  },
+  'lists': {
+    'DEMO/REG/RGE-LST': {
+      'seq': 1,
+      'items': ['DEMO/REG/RGE-LST-1'],
     },
   },
 };

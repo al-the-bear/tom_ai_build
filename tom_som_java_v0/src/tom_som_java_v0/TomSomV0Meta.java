@@ -2870,8 +2870,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert means", 0),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "P1, P2, P3, P4, P5", 2)));
+            new SomFormFieldMeta("severity", "AlertSeverity", "Severity", false, "How fast someone has to act.", 1, java.util.List.of("critical", "warning", "info")),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "How much the alert matters relative to others.", 2, java.util.List.of("critical", "high", "medium", "low"))));
         out.add(n);
       }
       {
@@ -3126,7 +3126,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 0),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 1),
+            new SomFormFieldMeta("severity", "AlertSeverity", "Severity", false, "How fast someone has to act.", 1, java.util.List.of("critical", "warning", "info")),
             new SomFormFieldMeta("category", "String", "Category", false, "Infrastructure, Application, Business, Security", 2)));
         out.add(n);
       }
@@ -13702,9 +13702,9 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the client setting, e.g. api.baseUrl", 0),
             new SomFormFieldMeta("client", "String", "Client", false, "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client", 1, java.util.List.of(), java.util.List.of("CLIAPP.clientId")),
-            new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 2),
+            new SomFormFieldMeta("valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 2, java.util.List.of("text", "integer", "decimal", "boolean", "enumeration", "duration")),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value used until the app configuration resources or an install-local override supply one", 3),
-            new SomFormFieldMeta("overridableBy", "String", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into", 4)));
+            new SomFormFieldMeta("overridableBy", "OverridableBy", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into", 4, java.util.List.of("none", "client", "user", "device"))));
         out.add(n);
       }
       return out;
@@ -33283,7 +33283,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the device setting, e.g. window.layout", 0),
-            new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
+            new SomFormFieldMeta("valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, java.util.List.of("text", "integer", "decimal", "boolean", "enumeration", "duration")),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value used until the user changes the setting on this device", 2)));
         out.add(n);
       }
@@ -44487,7 +44487,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("excludedRoleA", "String", "Excluded Role A", true, "First mutually exclusive role", 0),
             new SomFormFieldMeta("excludedRoleB", "String", "Excluded Role B", true, "Second mutually exclusive role", 1),
             new SomFormFieldMeta("reason", "String", "Reason", false, "Separation of duties rationale (e.g. the same person cannot both submit and approve financial transactions)", 2),
-            new SomFormFieldMeta("enforcementLevel", "String", "Enforcement Level", false, "Hard | Soft — whether override is possible with approval", 3),
+            new SomFormFieldMeta("enforcementLevel", "ConstraintEnforcement", "Enforcement Level", false, "Hard | Soft — whether override is possible with approval", 3, java.util.List.of("hard", "soft")),
             new SomFormFieldMeta("complianceReference", "String", "Compliance Reference", false, "Regulatory or policy reference requiring this exclusion (e.g. SOX Section 404, ISO 27001 A.6.1.2)", 4)));
         out.add(n);
       }
@@ -54671,7 +54671,7 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("windowType", "String", "Window Type", false, "Routine, Patch, Upgrade, Migration", 0),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, Standard, Low", 1),
+            new SomFormFieldMeta("priority", "ImportanceBand", "Priority", false, "How much the maintenance matters relative to others.", 1, java.util.List.of("critical", "high", "medium", "low")),
             new SomFormFieldMeta("description", "String", "Description", false, "What maintenance is performed", 2)));
         out.add(n);
       }
@@ -58777,7 +58777,7 @@ public final class TomSomV0Meta {
         n.docComment = "Classification and intent of the criterion.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionDescription", "String", "Description", false, "What must be achieved", 0),
-            new SomFormFieldMeta("qualityCategory", "String", "Quality Category", false, "User, Technical, Operations, Documentation", 1),
+            new SomFormFieldMeta("qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 1, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility")),
             new SomFormFieldMeta("qualityAttribute", "String", "Quality Attribute", false, "Specific attribute this relates to", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category"), "connotation", "Captures the classification and intent of the criterion including its quality category and attribute.")));
         out.add(n);
@@ -60257,7 +60257,7 @@ public final class TomSomV0Meta {
         n.docComment = "DNS controls and notes.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dnsProvider", "String", "DNS Provider", false, "Route 53, Cloudflare DNS, Azure DNS", 0),
-            new SomFormFieldMeta("dnssecEnabled", "bool", "DNSSEC Enabled", false, "DNS Security Extensions", 1),
+            new SomFormFieldMeta("dnssecEnabled", "DecisionState", "DNSSEC Enabled", false, "DNS Security Extensions", 1, java.util.List.of("yes", "no", "depends", "undecided")),
             new SomFormFieldMeta("privateDns", "String", "Private DNS", false, "Internal DNS zones", 2),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional network security notes", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 27001 — information security controls"), "connotation", "Specifies DNS provider, DNSSEC, and private DNS controls for connectivity.")));
@@ -65969,7 +65969,7 @@ public final class TomSomV0Meta {
         n.docComment = "Execution environment and job strategy.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("runnerRequirements", "String", "Runner Requirements", false, "Required runner type/labels", 0),
-            new SomFormFieldMeta("timeoutMinutes", "String", "Timeout", false, "Stage timeout in minutes", 1),
+            new SomFormFieldMeta("timeoutMinutes", "int", "Timeout", false, "Stage timeout in minutes", 1),
             new SomFormFieldMeta("parallelJobs", "bool", "Parallel Jobs", false, "Jobs in stage run in parallel", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("CI/CD — continuous integration / delivery pipelines", "Twelve-Factor App — cloud-native methodology"), "connotation", "Captures pipeline stage execution including runner requirements, timeouts, and parallel job strategy.")));
         out.add(n);
@@ -67776,9 +67776,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Likelihood, impact, and detection.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("probability", "String", "Probability — how often this occurs", false, "State how likely the exception is", 0),
+            new SomFormFieldMeta("probability", "Probability", "Probability — how often this occurs", false, "Qualitative likelihood band that the exception occurs.", 0, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
             new SomFormFieldMeta("impact", "String", "Impact — effect on process/business", false, "Describe the impact if it occurs", 1),
-            new SomFormFieldMeta("detectionMethod", "String", "Detection Method — how exception is detected", false, "Describe how it is detected", 2)));
+            new SomFormFieldMeta("impactLevel", "Impact", "Impact Level", false, "Qualitative consequence band if the exception occurs.", 2, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
+            new SomFormFieldMeta("detectionMethod", "String", "Detection Method — how exception is detected", false, "Describe how it is detected", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BPMN 2.0 — exceptions / error events"), "connotation", "Assesses how likely an exception is, its impact, and how it is detected.")));
         out.add(n);
       }
@@ -72042,7 +72043,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("checkDescription", "String", "Check Description", false, "Detailed description of check", 0),
             new SomFormFieldMeta("checkCategory", "String", "Check Category", false, "Category of check", 1),
-            new SomFormFieldMeta("qualityCategory", "String", "Quality Category", false, "User, Technical, Operations, Documentation", 2)));
+            new SomFormFieldMeta("qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 2, java.util.List.of("functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation"), "connotation", "Categorises a check and relates it to a quality category.")));
         out.add(n);
       }
@@ -79342,9 +79343,10 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("roleA", "String", "Role A", true, "First role in the constraint", 1),
             new SomFormFieldMeta("roleB", "String", "Role B", true, "Second role in the constraint", 2),
             new SomFormFieldMeta("enforcement", "String", "Enforcement", false, "Static | Dynamic | Both — static = enforced at assignment, dynamic = enforced at activation/runtime", 3),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Hard | Soft — hard = system-enforced block, soft = warning with override requiring approval", 4),
-            new SomFormFieldMeta("businessReason", "String", "Business Reason", false, "Business justification for the constraint (e.g. separation of duties, four-eyes principle)", 5),
-            new SomFormFieldMeta("exemptionProcess", "String", "Exemption Process", false, "None | ManagerApproval | SecurityOfficerApproval | CommitteeApproval — process for granting exemptions", 6)));
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "How serious a violation of the rule is.", 4, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("enforcementMode", "ConstraintEnforcement", "Enforcement Mode", false, "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).", 5, java.util.List.of("hard", "soft")),
+            new SomFormFieldMeta("businessReason", "String", "Business Reason", false, "Business justification for the constraint (e.g. separation of duties, four-eyes principle)", 6),
+            new SomFormFieldMeta("exemptionProcess", "String", "Exemption Process", false, "None | ManagerApproval | SecurityOfficerApproval | CommitteeApproval — process for granting exemptions", 7)));
         out.add(n);
       }
       return out;
@@ -79444,7 +79446,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("excludedRole", "String", "Excluded Role", true, "Role that must not be held together with this one.", 0),
             new SomFormFieldMeta("reason", "String", "Reason", false, "Business reason for the mutual exclusion (separation of duties)", 1),
             new SomFormFieldMeta("exclusionType", "String", "Exclusion Type", false, "Static | Dynamic — static = enforced at assignment time, dynamic = enforced at activation/runtime", 2),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Hard | Soft — hard = system-enforced block, soft = warning with override option", 3)));
+            new SomFormFieldMeta("severity", "ImportanceBand", "Severity", false, "How serious a violation of the rule is.", 3, java.util.List.of("critical", "high", "medium", "low")),
+            new SomFormFieldMeta("enforcementMode", "ConstraintEnforcement", "Enforcement Mode", false, "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).", 4, java.util.List.of("hard", "soft"))));
         out.add(n);
       }
       return out;
@@ -85632,12 +85635,13 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the server setting, e.g. server.isolateCount", 0),
-            new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
-            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment", 2),
-            new SomFormFieldMeta("environmentVariable", "String", "Environment Variable", false, "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way", 3),
-            new SomFormFieldMeta("commandLineOption", "String", "Command-Line Option", false, "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source", 4),
-            new SomFormFieldMeta("secret", "bool", "Carries a Secret", false, "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down", 5),
-            new SomFormFieldMeta("overridableBy", "String", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into", 6)));
+            new SomFormFieldMeta("valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, java.util.List.of("text", "integer", "decimal", "boolean", "enumeration", "duration")),
+            new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "For an enumeration: the values it may take, comma-separated.", 2),
+            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment", 3),
+            new SomFormFieldMeta("environmentVariable", "String", "Environment Variable", false, "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way", 4),
+            new SomFormFieldMeta("commandLineOption", "String", "Command-Line Option", false, "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source", 5),
+            new SomFormFieldMeta("secret", "bool", "Carries a Secret", false, "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down", 6),
+            new SomFormFieldMeta("overridableBy", "OverridableBy", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into", 7, java.util.List.of("none", "client", "user", "device"))));
         out.add(n);
       }
       return out;
@@ -86898,7 +86902,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("apiGateway", "String", "API Gateway", false, "Kong, AWS API Gateway, Apigee, Azure APIM", 0),
             new SomFormFieldMeta("gatewayFeatures", "String", "Gateway Features", false, "Auth, throttling, transformation, caching", 1),
-            new SomFormFieldMeta("gatewayHighAvailability", "bool", "Gateway High Availability", false, "Multi-region or multi-zone gateway", 2),
+            new SomFormFieldMeta("gatewayHighAvailability", "DecisionState", "Gateway High Availability", false, "Multi-region or multi-zone gateway", 2, java.util.List.of("yes", "no", "depends", "undecided")),
             new SomFormFieldMeta("apiKeyManagement", "String", "API Key Management", false, "Developer portal, key provisioning", 3)));
         out.add(n);
       }
@@ -100309,7 +100313,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("certificatePinning", "bool", "Certificate Pinning", false, "Enable HPKP or app-level pinning", 0),
             new SomFormFieldMeta("ocspStapling", "bool", "OCSP Stapling", false, "Online certificate status protocol", 1),
-            new SomFormFieldMeta("mutualTls", "bool", "Mutual TLS (mTLS)", false, "Client certificate authentication", 2)));
+            new SomFormFieldMeta("mutualTls", "DecisionState", "Mutual TLS (mTLS)", false, "Client certificate authentication", 2, java.util.List.of("yes", "no", "depends", "undecided"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 5280 — X.509 PKI certificates", "IETF RFC 8446 — TLS 1.3"), "connotation", "Defines certificate pinning, OCSP stapling, and mutual-TLS validation rules.")));
         out.add(n);
       }
@@ -100335,7 +100339,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("sslLabsTargetGrade", "String", "SSL Labs Target Grade", false, "A+, A, B minimum rating", 0),
             new SomFormFieldMeta("hstsEnabled", "bool", "HSTS Enabled", false, "HTTP Strict Transport Security", 1),
             new SomFormFieldMeta("hstsMaxAge", "String", "HSTS Max-Age", false, "HSTS header max-age value", 2),
-            new SomFormFieldMeta("hstsIncludeSubdomains", "bool", "HSTS Include Subdomains", false, "Apply HSTS to all subdomains", 3),
+            new SomFormFieldMeta("hstsIncludeSubdomains", "DecisionState", "HSTS Include Subdomains", false, "Apply HSTS to all subdomains", 3, java.util.List.of("yes", "no", "depends", "undecided")),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional TLS requirements", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 8446 — TLS 1.3", "IETF RFC 9110 — HTTP semantics"), "connotation", "Defines TLS compliance targets and HSTS enforcement settings.")));
         out.add(n);
@@ -106959,9 +106963,9 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("settingKey", "String", "Setting Key", true, "The dotted key of the user setting, e.g. ui.theme", 0),
-            new SomFormFieldMeta("valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1),
+            new SomFormFieldMeta("valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, java.util.List.of("text", "integer", "decimal", "boolean", "enumeration", "duration")),
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "The value used until the user changes the setting", 2),
-            new SomFormFieldMeta("overridableBy", "String", "Overridable By", true, "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into", 3)));
+            new SomFormFieldMeta("overridableBy", "OverridableBy", "Overridable By", true, "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into", 3, java.util.List.of("none", "client", "user", "device"))));
         out.add(n);
       }
       return out;

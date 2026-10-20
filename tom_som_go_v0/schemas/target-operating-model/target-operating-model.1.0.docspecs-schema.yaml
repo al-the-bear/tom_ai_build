@@ -832,9 +832,11 @@ form-types:
   peea-form:
     fields:
       - fieldname: probability
-        description: State how likely the exception is
+        description: Qualitative likelihood band that the exception occurs.
       - fieldname: impact
         description: Describe the impact if it occurs
+      - fieldname: impactLevel
+        description: Qualitative consequence band if the exception occurs.
       - fieldname: detectionMethod
         description: Describe how it is detected
   peer-form:

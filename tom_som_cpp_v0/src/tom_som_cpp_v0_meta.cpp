@@ -3638,8 +3638,8 @@ void buildAlertDefinitionEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"alertDescription", "String", "Alert Description", false, "What this alert means", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical, Warning, Info", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "P1, P2, P3, P4, P5", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "AlertSeverity", "Severity", false, "How fast someone has to act.", 1, std::vector<std::string>{"critical", "warning", "info"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "ImportanceBand", "Priority", false, "How much the alert matters relative to others.", 2, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -3855,7 +3855,7 @@ void buildAlertRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical, Warning, Info", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "AlertSeverity", "Severity", false, "How fast someone has to act.", 1, std::vector<std::string>{"critical", "warning", "info"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Infrastructure, Application, Business, Security", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -13027,9 +13027,9 @@ void buildClientConfigurationSettingEntryChildren(som::SomMetaNode& parent, std:
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"settingKey", "String", "Setting Key", true, "The dotted key of the client setting, e.g. api.baseUrl", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"client", "String", "Client", false, "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client", 1, std::vector<std::string>{}, std::vector<std::string>{"CLIAPP.clientId"}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "String", "Value Type", false, "string / int / double / bool / enum", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 2, std::vector<std::string>{"text", "integer", "decimal", "boolean", "enumeration", "duration"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value used until the app configuration resources or an install-local override supply one", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "String", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "OverridableBy", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into", 4, std::vector<std::string>{"none", "client", "user", "device"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -30372,7 +30372,7 @@ void buildDeviceSettingEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"settingKey", "String", "Setting Key", true, "The dotted key of the device setting, e.g. window.layout", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, std::vector<std::string>{"text", "integer", "decimal", "boolean", "enumeration", "duration"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value used until the user changes the setting on this device", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -39763,7 +39763,7 @@ void buildGlobalRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedRoleA", "String", "Excluded Role A", true, "First mutually exclusive role", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedRoleB", "String", "Excluded Role B", true, "Second mutually exclusive role", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reason", "String", "Reason", false, "Separation of duties rationale (e.g. the same person cannot both submit and approve financial transactions)", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementLevel", "String", "Enforcement Level", false, "Hard | Soft — whether override is possible with approval", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementLevel", "ConstraintEnforcement", "Enforcement Level", false, "Hard | Soft — whether override is possible with approval", 3, std::vector<std::string>{"hard", "soft"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"complianceReference", "String", "Compliance Reference", false, "Regulatory or policy reference requiring this exclusion (e.g. SOX Section 404, ISO 27001 A.6.1.2)", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -48331,7 +48331,7 @@ void buildMaintenanceWindowEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"windowType", "String", "Window Type", false, "Routine, Patch, Upgrade, Migration", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Critical, Standard, Low", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "ImportanceBand", "Priority", false, "How much the maintenance matters relative to others.", 1, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What maintenance is performed", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -51872,7 +51872,7 @@ void buildMustPassCriterionEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).docComment = "Classification and intent of the criterion.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionDescription", "String", "Description", false, "What must be achieved", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityCategory", "String", "Quality Category", false, "User, Technical, Operations, Documentation", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 1, std::vector<std::string>{"functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityAttribute", "String", "Quality Attribute", false, "Specific attribute this relates to", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25030:2019 — an acceptance criterion is related to a specific quality characteristic and category\"],\"connotation\":\"Captures the classification and intent of the criterion including its quality category and attribute.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -53204,7 +53204,7 @@ void buildNetworkSecurityPolicyChildren(som::SomMetaNode& parent, std::vector<st
     (*n).docComment = "DNS controls and notes.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dnsProvider", "String", "DNS Provider", false, "Route 53, Cloudflare DNS, Azure DNS", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dnssecEnabled", "bool", "DNSSEC Enabled", false, "DNS Security Extensions", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dnssecEnabled", "DecisionState", "DNSSEC Enabled", false, "DNS Security Extensions", 1, std::vector<std::string>{"yes", "no", "depends", "undecided"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"privateDns", "String", "Private DNS", false, "Internal DNS zones", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional network security notes", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 27001 — information security controls\"],\"connotation\":\"Specifies DNS provider, DNSSEC, and private DNS controls for connectivity.\"}", nullptr)});
@@ -58020,7 +58020,7 @@ void buildPipelineStageEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).docComment = "Execution environment and job strategy.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"runnerRequirements", "String", "Runner Requirements", false, "Required runner type/labels", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutMinutes", "String", "Timeout", false, "Stage timeout in minutes", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeoutMinutes", "int", "Timeout", false, "Stage timeout in minutes", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parallelJobs", "bool", "Parallel Jobs", false, "Jobs in stage run in parallel", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"CI/CD — continuous integration / delivery pipelines\",\"Twelve-Factor App — cloud-native methodology\"],\"connotation\":\"Captures pipeline stage execution including runner requirements, timeouts, and parallel job strategy.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -59532,9 +59532,10 @@ void buildProcessExceptionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).serializationOrder = 1;
     (*n).docComment = "Likelihood, impact, and detection.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability — how often this occurs", false, "State how likely the exception is", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "Probability", "Probability — how often this occurs", false, "Qualitative likelihood band that the exception occurs.", 0, std::vector<std::string>{"veryLow", "low", "medium", "high", "veryHigh"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact — effect on process/business", false, "Describe the impact if it occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"detectionMethod", "String", "Detection Method — how exception is detected", false, "Describe how it is detected", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impactLevel", "Impact", "Impact Level", false, "Qualitative consequence band if the exception occurs.", 2, std::vector<std::string>{"negligible", "minor", "moderate", "major", "critical"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"detectionMethod", "String", "Detection Method — how exception is detected", false, "Describe how it is detected", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BPMN 2.0 — exceptions / error events\"],\"connotation\":\"Assesses how likely an exception is, its impact, and how it is detected.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -63145,7 +63146,7 @@ void buildQualityGateCheckEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checkDescription", "String", "Check Description", false, "Detailed description of check", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"checkCategory", "String", "Check Category", false, "Category of check", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityCategory", "String", "Quality Category", false, "User, Technical, Operations, Documentation", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityCategory", "Iso25010Characteristic", "Quality Category", false, "The ISO/IEC 25010:2023 characteristic the criterion assures", 2, std::vector<std::string>{"functionalSuitability", "performanceEfficiency", "compatibility", "interactionCapability", "reliability", "security", "maintainability", "flexibility"}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25040:2011 — each check is categorised and related to a quality category to structure the evaluation\"],\"connotation\":\"Categorises a check and relates it to a quality category.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -69284,9 +69285,10 @@ void buildRoleCombinationConstraintEntryChildren(som::SomMetaNode& parent, std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"roleA", "String", "Role A", true, "First role in the constraint", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"roleB", "String", "Role B", true, "Second role in the constraint", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement", false, "Static | Dynamic | Both — static = enforced at assignment, dynamic = enforced at activation/runtime", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Hard | Soft — hard = system-enforced block, soft = warning with override requiring approval", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessReason", "String", "Business Reason", false, "Business justification for the constraint (e.g. separation of duties, four-eyes principle)", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exemptionProcess", "String", "Exemption Process", false, "None | ManagerApproval | SecurityOfficerApproval | CommitteeApproval — process for granting exemptions", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "ImportanceBand", "Severity", false, "How serious a violation of the rule is.", 4, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementMode", "ConstraintEnforcement", "Enforcement Mode", false, "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).", 5, std::vector<std::string>{"hard", "soft"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessReason", "String", "Business Reason", false, "Business justification for the constraint (e.g. separation of duties, four-eyes principle)", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exemptionProcess", "String", "Exemption Process", false, "None | ManagerApproval | SecurityOfficerApproval | CommitteeApproval — process for granting exemptions", 7, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -69347,7 +69349,8 @@ void buildRoleExclusionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form->fields.push_back(som::SomFormFieldMeta{"excludedRole", "String", "Excluded Role", true, "Role that must not be held together with this one.", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reason", "String", "Reason", false, "Business reason for the mutual exclusion (separation of duties)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"exclusionType", "String", "Exclusion Type", false, "Static | Dynamic — static = enforced at assignment time, dynamic = enforced at activation/runtime", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Hard | Soft — hard = system-enforced block, soft = warning with override option", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "ImportanceBand", "Severity", false, "How serious a violation of the rule is.", 3, std::vector<std::string>{"critical", "high", "medium", "low"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementMode", "ConstraintEnforcement", "Enforcement Mode", false, "hard = the system blocks the combination; soft = a warning with an override (an approval, a recorded reason).", 4, std::vector<std::string>{"hard", "soft"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -74655,12 +74658,13 @@ void buildServerConfigurationSettingEntryChildren(som::SomMetaNode& parent, std:
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"settingKey", "String", "Setting Key", true, "The dotted key of the server setting, e.g. server.isolateCount", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentVariable", "String", "Environment Variable", false, "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"commandLineOption", "String", "Command-Line Option", false, "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"secret", "bool", "Carries a Secret", false, "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "String", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, std::vector<std::string>{"text", "integer", "decimal", "boolean", "enumeration", "duration"}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedValues", "String", "Allowed Values", false, "For an enumeration: the values it may take, comma-separated.", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentVariable", "String", "Environment Variable", false, "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"commandLineOption", "String", "Command-Line Option", false, "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"secret", "bool", "Carries a Secret", false, "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down", 6, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "OverridableBy", "Overridable By", true, "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into", 7, std::vector<std::string>{"none", "client", "user", "device"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }
@@ -75752,7 +75756,7 @@ void buildServiceMeshAndGatewayChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"apiGateway", "String", "API Gateway", false, "Kong, AWS API Gateway, Apigee, Azure APIM", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"gatewayFeatures", "String", "Gateway Features", false, "Auth, throttling, transformation, caching", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"gatewayHighAvailability", "bool", "Gateway High Availability", false, "Multi-region or multi-zone gateway", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gatewayHighAvailability", "DecisionState", "Gateway High Availability", false, "Multi-region or multi-zone gateway", 2, std::vector<std::string>{"yes", "no", "depends", "undecided"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"apiKeyManagement", "String", "API Key Management", false, "Developer portal, key provisioning", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -87474,7 +87478,7 @@ void buildTlsRequirementsChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"certificatePinning", "bool", "Certificate Pinning", false, "Enable HPKP or app-level pinning", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ocspStapling", "bool", "OCSP Stapling", false, "Online certificate status protocol", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"mutualTls", "bool", "Mutual TLS (mTLS)", false, "Client certificate authentication", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mutualTls", "DecisionState", "Mutual TLS (mTLS)", false, "Client certificate authentication", 2, std::vector<std::string>{"yes", "no", "depends", "undecided"}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 5280 — X.509 PKI certificates\",\"IETF RFC 8446 — TLS 1.3\"],\"connotation\":\"Defines certificate pinning, OCSP stapling, and mutual-TLS validation rules.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -87508,7 +87512,7 @@ void buildTlsRequirementsChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sslLabsTargetGrade", "String", "SSL Labs Target Grade", false, "A+, A, B minimum rating", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsEnabled", "bool", "HSTS Enabled", false, "HTTP Strict Transport Security", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsMaxAge", "String", "HSTS Max-Age", false, "HSTS header max-age value", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsIncludeSubdomains", "bool", "HSTS Include Subdomains", false, "Apply HSTS to all subdomains", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hstsIncludeSubdomains", "DecisionState", "HSTS Include Subdomains", false, "Apply HSTS to all subdomains", 3, std::vector<std::string>{"yes", "no", "depends", "undecided"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional TLS requirements", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 8446 — TLS 1.3\",\"IETF RFC 9110 — HTTP semantics\"],\"connotation\":\"Defines TLS compliance targets and HSTS enforcement settings.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -93205,9 +93209,9 @@ void buildUserSettingEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"settingKey", "String", "Setting Key", true, "The dotted key of the user setting, e.g. ui.theme", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "String", "Value Type", false, "string / int / double / bool / enum", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"valueType", "ConfigValueType", "Value Type", false, "text / integer / decimal / boolean / enumeration / duration", 1, std::vector<std::string>{"text", "integer", "decimal", "boolean", "enumeration", "duration"}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "The value used until the user changes the setting", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "String", "Overridable By", true, "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridableBy", "OverridableBy", "Overridable By", true, "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into", 3, std::vector<std::string>{"none", "client", "user", "device"}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
 }

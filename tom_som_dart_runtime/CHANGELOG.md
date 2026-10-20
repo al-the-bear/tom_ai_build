@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.8
+
+- Version aligned with the TomSpecs model (1.6.8); no library change.
+- Conformance: `decisionStateOpenValues`, `decisionStateRejectsBool`,
+  `enumValueIsCaseSensitive` — an enum field accepts its open states like any
+  other value and rejects a bool or a token in the wrong case
+  (`enumValueUnknown`). The corpus model's `RegistryEntry` form gains the
+  `decided` field for them.
+
 ## 1.6.7
 
 - Derived values are checked (`derivedValueMismatch`): a `productOf` field

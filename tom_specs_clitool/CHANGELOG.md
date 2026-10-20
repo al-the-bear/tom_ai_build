@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.1
+
+- The static tier rejects a form that declares one field name twice; the
+  generated accessors of every runtime would otherwise collide.
+
 ## 0.8.0
 
 - Requires `tom_specs_core` 0.3.0 and the 1.6.7 model chain.

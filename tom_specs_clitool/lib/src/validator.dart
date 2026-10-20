@@ -1560,6 +1560,17 @@ void _validateDerivedFields(
               field.formFields,
     };
     for (final form in formsById.values) {
+      // One form declaring a field name twice: the second shadows the first
+      // in every generated accessor, which then fails to compile.
+      final names = <String>{};
+      for (final ff in form) {
+        if (!names.add(ff.name)) {
+          errors.add(
+            '$_invariants form: $className declares form field "${ff.name}" '
+            'twice in one form',
+          );
+        }
+      }
       for (final ff in form) {
         final where = '$className.${ff.name}';
         void check(String operand, String what) {

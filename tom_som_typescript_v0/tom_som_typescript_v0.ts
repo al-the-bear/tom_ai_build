@@ -68,6 +68,33 @@ function _parseActionTriggerKind(token: string | null | undefined): ActionTrigge
   return null;
 }
 
+// Generated enum for `AlertSeverity` values.
+export const AlertSeverity = Object.freeze({
+  // Someone acts now: the service, or a promise it makes, is broken.
+  "critical": "critical",
+  // Someone acts soon: a threshold is crossed and the trend leads to a
+  // critical alert if nothing changes.
+  "warning": "warning",
+  // No one has to act: recorded for the picture, not for a page.
+  "info": "info",
+});
+
+export type AlertSeverityValue =
+  typeof AlertSeverity[keyof typeof AlertSeverity];
+
+// Parses a stored token into a AlertSeverity value, or null.
+function _parseAlertSeverity(token: string | null | undefined): AlertSeverityValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(AlertSeverity)) {
+    if (value === token) {
+      return value as AlertSeverityValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `AuthorizationRequirementKind` values.
 export const AuthorizationRequirementKind = Object.freeze({
   // The caller must hold one of a named set of roles.
@@ -258,6 +285,64 @@ function _parseClientApplicationKind(token: string | null | undefined): ClientAp
   return null;
 }
 
+// Generated enum for `ConfigValueType` values.
+export const ConfigValueType = Object.freeze({
+  // Text.
+  "text": "text",
+  // A whole number.
+  "integer": "integer",
+  // A decimal number.
+  "decimal": "decimal",
+  // True or false.
+  "boolean": "boolean",
+  // One of a closed set of values, which the setting names.
+  "enumeration": "enumeration",
+  // A length of time.
+  "duration": "duration",
+});
+
+export type ConfigValueTypeValue =
+  typeof ConfigValueType[keyof typeof ConfigValueType];
+
+// Parses a stored token into a ConfigValueType value, or null.
+function _parseConfigValueType(token: string | null | undefined): ConfigValueTypeValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ConfigValueType)) {
+    if (value === token) {
+      return value as ConfigValueTypeValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ConstraintEnforcement` values.
+export const ConstraintEnforcement = Object.freeze({
+  // The system refuses the combination; no override exists — including a
+  // combination that cannot arise by construction.
+  "hard": "hard",
+  // The system warns and the combination may stand, with the override the
+  // rule names (an approval, a recorded reason).
+  "soft": "soft",
+});
+
+export type ConstraintEnforcementValue =
+  typeof ConstraintEnforcement[keyof typeof ConstraintEnforcement];
+
+// Parses a stored token into a ConstraintEnforcement value, or null.
+function _parseConstraintEnforcement(token: string | null | undefined): ConstraintEnforcementValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ConstraintEnforcement)) {
+    if (value === token) {
+      return value as ConstraintEnforcementValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `DataAttributeKind` values.
 export const DataAttributeKind = Object.freeze({
   // Character data of bounded length. Binds
@@ -359,6 +444,34 @@ function _parseDataAttributeKind(token: string | null | undefined): DataAttribut
   for (const value of Object.values(DataAttributeKind)) {
     if (value === token) {
       return value as DataAttributeKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `DecisionState` values.
+export const DecisionState = Object.freeze({
+  // Yes, everywhere.
+  "yes": "yes",
+  // No, everywhere.
+  "no": "no",
+  // Depends on the installation or context; the notes say on what.
+  "depends": "depends",
+  // Not decided yet.
+  "undecided": "undecided",
+});
+
+export type DecisionStateValue =
+  typeof DecisionState[keyof typeof DecisionState];
+
+// Parses a stored token into a DecisionState value, or null.
+function _parseDecisionState(token: string | null | undefined): DecisionStateValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(DecisionState)) {
+    if (value === token) {
+      return value as DecisionStateValue;
     }
   }
   return null;
@@ -709,6 +822,34 @@ function _parseObjectLifecycleKind(token: string | null | undefined): ObjectLife
   for (const value of Object.values(ObjectLifecycleKind)) {
     if (value === token) {
       return value as ObjectLifecycleKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `OverridableBy` values.
+export const OverridableBy = Object.freeze({
+  // Scope-pinned: no narrower scope may shadow the key.
+  "none": "none",
+  // A per-install client configuration value may shadow the key.
+  "client": "client",
+  // A per-user setting may shadow the key.
+  "user": "user",
+  // A per-user-per-device setting may shadow the key.
+  "device": "device",
+});
+
+export type OverridableByValue =
+  typeof OverridableBy[keyof typeof OverridableBy];
+
+// Parses a stored token into a OverridableBy value, or null.
+function _parseOverridableBy(token: string | null | undefined): OverridableByValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(OverridableBy)) {
+    if (value === token) {
+      return value as OverridableByValue;
     }
   }
   return null;
@@ -50177,20 +50318,20 @@ export class AlertDefinitionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "alertDescription", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): AlertSeverityValue | null {
+    return _parseAlertSeverity(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: AlertSeverityValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 }
 
@@ -50693,12 +50834,12 @@ export class AlertRuleEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "alertDescription", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): AlertSeverityValue | null {
+    return _parseAlertSeverity(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: AlertSeverityValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
   }
 
   get category(): string {
@@ -65082,12 +65223,12 @@ export class ClientConfigurationSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "client", value);
   }
 
-  get valueType(): string {
-    return this.doc.formField(this.path, "valueType") || '';
+  get valueType(): ConfigValueTypeValue | null {
+    return _parseConfigValueType(this.doc.formField(this.path, "valueType"));
   }
 
-  set valueType(value: string) {
-    this.doc.setFormField(this.path, "valueType", value);
+  set valueType(value: ConfigValueTypeValue | null) {
+    this.doc.setFormField(this.path, "valueType", value ?? '');
   }
 
   get defaultValue(): string {
@@ -65098,12 +65239,12 @@ export class ClientConfigurationSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "defaultValue", value);
   }
 
-  get overridableBy(): string {
-    return this.doc.formField(this.path, "overridableBy") || '';
+  get overridableBy(): OverridableByValue | null {
+    return _parseOverridableBy(this.doc.formField(this.path, "overridableBy"));
   }
 
-  set overridableBy(value: string) {
-    this.doc.setFormField(this.path, "overridableBy", value);
+  set overridableBy(value: OverridableByValue | null) {
+    this.doc.setFormField(this.path, "overridableBy", value ?? '');
   }
 }
 
@@ -88848,12 +88989,12 @@ export class DeviceSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "settingKey", value);
   }
 
-  get valueType(): string {
-    return this.doc.formField(this.path, "valueType") || '';
+  get valueType(): ConfigValueTypeValue | null {
+    return _parseConfigValueType(this.doc.formField(this.path, "valueType"));
   }
 
-  set valueType(value: string) {
-    this.doc.setFormField(this.path, "valueType", value);
+  set valueType(value: ConfigValueTypeValue | null) {
+    this.doc.setFormField(this.path, "valueType", value ?? '');
   }
 
   get defaultValue(): string {
@@ -104176,12 +104317,12 @@ export class GlobalRoleExclusionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "reason", value);
   }
 
-  get enforcementLevel(): string {
-    return this.doc.formField(this.path, "enforcementLevel") || '';
+  get enforcementLevel(): ConstraintEnforcementValue | null {
+    return _parseConstraintEnforcement(this.doc.formField(this.path, "enforcementLevel"));
   }
 
-  set enforcementLevel(value: string) {
-    this.doc.setFormField(this.path, "enforcementLevel", value);
+  set enforcementLevel(value: ConstraintEnforcementValue | null) {
+    this.doc.setFormField(this.path, "enforcementLevel", value ?? '');
   }
 
   get complianceReference(): string {
@@ -118367,12 +118508,12 @@ export class MaintenanceWindowEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "windowType", value);
   }
 
-  get priority(): string {
-    return this.doc.formField(this.path, "priority") || '';
+  get priority(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "priority"));
   }
 
-  set priority(value: string) {
-    this.doc.setFormField(this.path, "priority", value);
+  set priority(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "priority", value ?? '');
   }
 
   get description(): string {
@@ -124366,12 +124507,12 @@ export class MustPassCriterionEntryDefinitionForm extends SomNode {
     this.doc.setFormField(this.path, "criterionDescription", value);
   }
 
-  get qualityCategory(): string {
-    return this.doc.formField(this.path, "qualityCategory") || '';
+  get qualityCategory(): Iso25010CharacteristicValue | null {
+    return _parseIso25010Characteristic(this.doc.formField(this.path, "qualityCategory"));
   }
 
-  set qualityCategory(value: string) {
-    this.doc.setFormField(this.path, "qualityCategory", value);
+  set qualityCategory(value: Iso25010CharacteristicValue | null) {
+    this.doc.setFormField(this.path, "qualityCategory", value ?? '');
   }
 
   get qualityAttribute(): string {
@@ -126297,13 +126438,12 @@ export class NetworkSecurityPolicyDnsForm extends SomNode {
     this.doc.setFormField(this.path, "dnsProvider", value);
   }
 
-  get dnssecEnabled(): boolean | null {
-    const v = this.doc.formField(this.path, "dnssecEnabled");
-    return v == null ? null : v === 'true';
+  get dnssecEnabled(): DecisionStateValue | null {
+    return _parseDecisionState(this.doc.formField(this.path, "dnssecEnabled"));
   }
 
-  set dnssecEnabled(value: boolean | null) {
-    this.doc.setFormField(this.path, "dnssecEnabled", value == null ? '' : (value ? 'true' : 'false'));
+  set dnssecEnabled(value: DecisionStateValue | null) {
+    this.doc.setFormField(this.path, "dnssecEnabled", value ?? '');
   }
 
   get privateDns(): string {
@@ -134343,12 +134483,13 @@ export class PipelineStageEntryExecutionForm extends SomNode {
     this.doc.setFormField(this.path, "runnerRequirements", value);
   }
 
-  get timeoutMinutes(): string {
-    return this.doc.formField(this.path, "timeoutMinutes") || '';
+  get timeoutMinutes(): number | null {
+    const v = this.doc.formField(this.path, "timeoutMinutes");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
   }
 
-  set timeoutMinutes(value: string) {
-    this.doc.setFormField(this.path, "timeoutMinutes", value);
+  set timeoutMinutes(value: number | null) {
+    this.doc.setFormField(this.path, "timeoutMinutes", value == null ? '' : String(value));
   }
 
   get parallelJobs(): boolean | null {
@@ -137298,12 +137439,12 @@ export class ProcessExceptionEntryAssessmentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get probability(): string {
-    return this.doc.formField(this.path, "probability") || '';
+  get probability(): ProbabilityValue | null {
+    return _parseProbability(this.doc.formField(this.path, "probability"));
   }
 
-  set probability(value: string) {
-    this.doc.setFormField(this.path, "probability", value);
+  set probability(value: ProbabilityValue | null) {
+    this.doc.setFormField(this.path, "probability", value ?? '');
   }
 
   get impact(): string {
@@ -137312,6 +137453,14 @@ export class ProcessExceptionEntryAssessmentForm extends SomNode {
 
   set impact(value: string) {
     this.doc.setFormField(this.path, "impact", value);
+  }
+
+  get impactLevel(): ImpactValue | null {
+    return _parseImpact(this.doc.formField(this.path, "impactLevel"));
+  }
+
+  set impactLevel(value: ImpactValue | null) {
+    this.doc.setFormField(this.path, "impactLevel", value ?? '');
   }
 
   get detectionMethod(): string {
@@ -142091,12 +142240,12 @@ export class QualityGateCheckEntryDefinitionForm extends SomNode {
     this.doc.setFormField(this.path, "checkCategory", value);
   }
 
-  get qualityCategory(): string {
-    return this.doc.formField(this.path, "qualityCategory") || '';
+  get qualityCategory(): Iso25010CharacteristicValue | null {
+    return _parseIso25010Characteristic(this.doc.formField(this.path, "qualityCategory"));
   }
 
-  set qualityCategory(value: string) {
-    this.doc.setFormField(this.path, "qualityCategory", value);
+  set qualityCategory(value: Iso25010CharacteristicValue | null) {
+    this.doc.setFormField(this.path, "qualityCategory", value ?? '');
   }
 }
 
@@ -153174,12 +153323,20 @@ export class RoleCombinationConstraintEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "enforcement", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
+  }
+
+  get enforcementMode(): ConstraintEnforcementValue | null {
+    return _parseConstraintEnforcement(this.doc.formField(this.path, "enforcementMode"));
+  }
+
+  set enforcementMode(value: ConstraintEnforcementValue | null) {
+    this.doc.setFormField(this.path, "enforcementMode", value ?? '');
   }
 
   get businessReason(): string {
@@ -153351,12 +153508,20 @@ export class RoleExclusionEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "exclusionType", value);
   }
 
-  get severity(): string {
-    return this.doc.formField(this.path, "severity") || '';
+  get severity(): ImportanceBandValue | null {
+    return _parseImportanceBand(this.doc.formField(this.path, "severity"));
   }
 
-  set severity(value: string) {
-    this.doc.setFormField(this.path, "severity", value);
+  set severity(value: ImportanceBandValue | null) {
+    this.doc.setFormField(this.path, "severity", value ?? '');
+  }
+
+  get enforcementMode(): ConstraintEnforcementValue | null {
+    return _parseConstraintEnforcement(this.doc.formField(this.path, "enforcementMode"));
+  }
+
+  set enforcementMode(value: ConstraintEnforcementValue | null) {
+    this.doc.setFormField(this.path, "enforcementMode", value ?? '');
   }
 }
 
@@ -162011,12 +162176,20 @@ export class ServerConfigurationSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "settingKey", value);
   }
 
-  get valueType(): string {
-    return this.doc.formField(this.path, "valueType") || '';
+  get valueType(): ConfigValueTypeValue | null {
+    return _parseConfigValueType(this.doc.formField(this.path, "valueType"));
   }
 
-  set valueType(value: string) {
-    this.doc.setFormField(this.path, "valueType", value);
+  set valueType(value: ConfigValueTypeValue | null) {
+    this.doc.setFormField(this.path, "valueType", value ?? '');
+  }
+
+  get allowedValues(): string {
+    return this.doc.formField(this.path, "allowedValues") || '';
+  }
+
+  set allowedValues(value: string) {
+    this.doc.setFormField(this.path, "allowedValues", value);
   }
 
   get defaultValue(): string {
@@ -162052,12 +162225,12 @@ export class ServerConfigurationSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "secret", value == null ? '' : (value ? 'true' : 'false'));
   }
 
-  get overridableBy(): string {
-    return this.doc.formField(this.path, "overridableBy") || '';
+  get overridableBy(): OverridableByValue | null {
+    return _parseOverridableBy(this.doc.formField(this.path, "overridableBy"));
   }
 
-  set overridableBy(value: string) {
-    this.doc.setFormField(this.path, "overridableBy", value);
+  set overridableBy(value: OverridableByValue | null) {
+    this.doc.setFormField(this.path, "overridableBy", value ?? '');
   }
 }
 
@@ -163865,13 +164038,12 @@ export class ServiceMeshAndGatewayContentForm extends SomNode {
     this.doc.setFormField(this.path, "gatewayFeatures", value);
   }
 
-  get gatewayHighAvailability(): boolean | null {
-    const v = this.doc.formField(this.path, "gatewayHighAvailability");
-    return v == null ? null : v === 'true';
+  get gatewayHighAvailability(): DecisionStateValue | null {
+    return _parseDecisionState(this.doc.formField(this.path, "gatewayHighAvailability"));
   }
 
-  set gatewayHighAvailability(value: boolean | null) {
-    this.doc.setFormField(this.path, "gatewayHighAvailability", value == null ? '' : (value ? 'true' : 'false'));
+  set gatewayHighAvailability(value: DecisionStateValue | null) {
+    this.doc.setFormField(this.path, "gatewayHighAvailability", value ?? '');
   }
 
   get apiKeyManagement(): string {
@@ -182398,13 +182570,12 @@ export class TlsRequirementsCertificateValidationForm extends SomNode {
     this.doc.setFormField(this.path, "ocspStapling", value == null ? '' : (value ? 'true' : 'false'));
   }
 
-  get mutualTls(): boolean | null {
-    const v = this.doc.formField(this.path, "mutualTls");
-    return v == null ? null : v === 'true';
+  get mutualTls(): DecisionStateValue | null {
+    return _parseDecisionState(this.doc.formField(this.path, "mutualTls"));
   }
 
-  set mutualTls(value: boolean | null) {
-    this.doc.setFormField(this.path, "mutualTls", value == null ? '' : (value ? 'true' : 'false'));
+  set mutualTls(value: DecisionStateValue | null) {
+    this.doc.setFormField(this.path, "mutualTls", value ?? '');
   }
 }
 
@@ -182494,13 +182665,12 @@ export class TlsRequirementsComplianceForm extends SomNode {
     this.doc.setFormField(this.path, "hstsMaxAge", value);
   }
 
-  get hstsIncludeSubdomains(): boolean | null {
-    const v = this.doc.formField(this.path, "hstsIncludeSubdomains");
-    return v == null ? null : v === 'true';
+  get hstsIncludeSubdomains(): DecisionStateValue | null {
+    return _parseDecisionState(this.doc.formField(this.path, "hstsIncludeSubdomains"));
   }
 
-  set hstsIncludeSubdomains(value: boolean | null) {
-    this.doc.setFormField(this.path, "hstsIncludeSubdomains", value == null ? '' : (value ? 'true' : 'false'));
+  set hstsIncludeSubdomains(value: DecisionStateValue | null) {
+    this.doc.setFormField(this.path, "hstsIncludeSubdomains", value ?? '');
   }
 
   get notes(): string {
@@ -192440,12 +192610,12 @@ export class UserSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "settingKey", value);
   }
 
-  get valueType(): string {
-    return this.doc.formField(this.path, "valueType") || '';
+  get valueType(): ConfigValueTypeValue | null {
+    return _parseConfigValueType(this.doc.formField(this.path, "valueType"));
   }
 
-  set valueType(value: string) {
-    this.doc.setFormField(this.path, "valueType", value);
+  set valueType(value: ConfigValueTypeValue | null) {
+    this.doc.setFormField(this.path, "valueType", value ?? '');
   }
 
   get defaultValue(): string {
@@ -192456,12 +192626,12 @@ export class UserSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "defaultValue", value);
   }
 
-  get overridableBy(): string {
-    return this.doc.formField(this.path, "overridableBy") || '';
+  get overridableBy(): OverridableByValue | null {
+    return _parseOverridableBy(this.doc.formField(this.path, "overridableBy"));
   }
 
-  set overridableBy(value: string) {
-    this.doc.setFormField(this.path, "overridableBy", value);
+  set overridableBy(value: OverridableByValue | null) {
+    this.doc.setFormField(this.path, "overridableBy", value ?? '');
   }
 }
 

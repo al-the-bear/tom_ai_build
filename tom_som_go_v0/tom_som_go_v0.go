@@ -69,6 +69,33 @@ func parseActionTriggerKind(token string) ActionTriggerKind {
 	return ""
 }
 
+// AlertSeverity is the generated named type for `AlertSeverity` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type AlertSeverity string
+
+const (
+	// Someone acts now: the service, or a promise it makes, is broken.
+	AlertSeverityCritical AlertSeverity = "critical"
+	// Someone acts soon: a threshold is crossed and the trend leads to a
+	// critical alert if nothing changes.
+	AlertSeverityWarning AlertSeverity = "warning"
+	// No one has to act: recorded for the picture, not for a page.
+	AlertSeverityInfo AlertSeverity = "info"
+)
+
+// parseAlertSeverity returns the AlertSeverity whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseAlertSeverity(token string) AlertSeverity {
+	switch AlertSeverity(token) {
+	case AlertSeverityCritical, AlertSeverityWarning, AlertSeverityInfo:
+		return AlertSeverity(token)
+	}
+	return ""
+}
+
 // AuthorizationRequirementKind is the generated named type for `AuthorizationRequirementKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -259,6 +286,64 @@ func parseClientApplicationKind(token string) ClientApplicationKind {
 	return ""
 }
 
+// ConfigValueType is the generated named type for `ConfigValueType` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ConfigValueType string
+
+const (
+	// Text.
+	ConfigValueTypeText ConfigValueType = "text"
+	// A whole number.
+	ConfigValueTypeInteger ConfigValueType = "integer"
+	// A decimal number.
+	ConfigValueTypeDecimal ConfigValueType = "decimal"
+	// True or false.
+	ConfigValueTypeBoolean ConfigValueType = "boolean"
+	// One of a closed set of values, which the setting names.
+	ConfigValueTypeEnumeration ConfigValueType = "enumeration"
+	// A length of time.
+	ConfigValueTypeDuration ConfigValueType = "duration"
+)
+
+// parseConfigValueType returns the ConfigValueType whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseConfigValueType(token string) ConfigValueType {
+	switch ConfigValueType(token) {
+	case ConfigValueTypeText, ConfigValueTypeInteger, ConfigValueTypeDecimal, ConfigValueTypeBoolean, ConfigValueTypeEnumeration, ConfigValueTypeDuration:
+		return ConfigValueType(token)
+	}
+	return ""
+}
+
+// ConstraintEnforcement is the generated named type for `ConstraintEnforcement` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ConstraintEnforcement string
+
+const (
+	// The system refuses the combination; no override exists — including a
+	// combination that cannot arise by construction.
+	ConstraintEnforcementHard ConstraintEnforcement = "hard"
+	// The system warns and the combination may stand, with the override the
+	// rule names (an approval, a recorded reason).
+	ConstraintEnforcementSoft ConstraintEnforcement = "soft"
+)
+
+// parseConstraintEnforcement returns the ConstraintEnforcement whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseConstraintEnforcement(token string) ConstraintEnforcement {
+	switch ConstraintEnforcement(token) {
+	case ConstraintEnforcementHard, ConstraintEnforcementSoft:
+		return ConstraintEnforcement(token)
+	}
+	return ""
+}
+
 // DataAttributeKind is the generated named type for `DataAttributeKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -361,6 +446,34 @@ func parseDataAttributeKind(token string) DataAttributeKind {
 	switch DataAttributeKind(token) {
 	case DataAttributeKindString, DataAttributeKindInteger, DataAttributeKindDecimal, DataAttributeKindDate, DataAttributeKindDateTime, DataAttributeKindBinary, DataAttributeKindFileReference, DataAttributeKindBoolean, DataAttributeKindUuid, DataAttributeKindJson, DataAttributeKindEnumeration:
 		return DataAttributeKind(token)
+	}
+	return ""
+}
+
+// DecisionState is the generated named type for `DecisionState` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type DecisionState string
+
+const (
+	// Yes, everywhere.
+	DecisionStateYes DecisionState = "yes"
+	// No, everywhere.
+	DecisionStateNo DecisionState = "no"
+	// Depends on the installation or context; the notes say on what.
+	DecisionStateDepends DecisionState = "depends"
+	// Not decided yet.
+	DecisionStateUndecided DecisionState = "undecided"
+)
+
+// parseDecisionState returns the DecisionState whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseDecisionState(token string) DecisionState {
+	switch DecisionState(token) {
+	case DecisionStateYes, DecisionStateNo, DecisionStateDepends, DecisionStateUndecided:
+		return DecisionState(token)
 	}
 	return ""
 }
@@ -711,6 +824,34 @@ func parseObjectLifecycleKind(token string) ObjectLifecycleKind {
 	switch ObjectLifecycleKind(token) {
 	case ObjectLifecycleKindInitial, ObjectLifecycleKindIntermediate, ObjectLifecycleKindTerminal, ObjectLifecycleKindError:
 		return ObjectLifecycleKind(token)
+	}
+	return ""
+}
+
+// OverridableBy is the generated named type for `OverridableBy` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type OverridableBy string
+
+const (
+	// Scope-pinned: no narrower scope may shadow the key.
+	OverridableByNone OverridableBy = "none"
+	// A per-install client configuration value may shadow the key.
+	OverridableByClient OverridableBy = "client"
+	// A per-user setting may shadow the key.
+	OverridableByUser OverridableBy = "user"
+	// A per-user-per-device setting may shadow the key.
+	OverridableByDevice OverridableBy = "device"
+)
+
+// parseOverridableBy returns the OverridableBy whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseOverridableBy(token string) OverridableBy {
+	switch OverridableBy(token) {
+	case OverridableByNone, OverridableByClient, OverridableByUser, OverridableByDevice:
+		return OverridableBy(token)
 	}
 	return ""
 }
@@ -57004,20 +57145,20 @@ func (x *AlertDefinitionEntryContentForm) SetAlertDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "alertDescription", value)
 }
 
-func (x *AlertDefinitionEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *AlertDefinitionEntryContentForm) Severity() AlertSeverity {
+	return parseAlertSeverity(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *AlertDefinitionEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *AlertDefinitionEntryContentForm) SetSeverity(value AlertSeverity) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
-func (x *AlertDefinitionEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *AlertDefinitionEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *AlertDefinitionEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *AlertDefinitionEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 // AlertDefinitionEntryNotificationForm is the generated section facade for the `notification` @Form section: its own
@@ -57633,12 +57774,12 @@ func (x *AlertRuleEntryContentForm) SetAlertDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "alertDescription", value)
 }
 
-func (x *AlertRuleEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *AlertRuleEntryContentForm) Severity() AlertSeverity {
+	return parseAlertSeverity(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *AlertRuleEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *AlertRuleEntryContentForm) SetSeverity(value AlertSeverity) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
 }
 
 func (x *AlertRuleEntryContentForm) Category() string {
@@ -75639,12 +75780,12 @@ func (x *ClientConfigurationSettingEntryContentForm) SetClient(value string) {
 	x.Doc().SetFormField(x.Path(), "client", value)
 }
 
-func (x *ClientConfigurationSettingEntryContentForm) ValueType() string {
-	return x.Doc().FormFieldOr(x.Path(), "valueType")
+func (x *ClientConfigurationSettingEntryContentForm) ValueType() ConfigValueType {
+	return parseConfigValueType(x.Doc().FormFieldOr(x.Path(), "valueType"))
 }
 
-func (x *ClientConfigurationSettingEntryContentForm) SetValueType(value string) {
-	x.Doc().SetFormField(x.Path(), "valueType", value)
+func (x *ClientConfigurationSettingEntryContentForm) SetValueType(value ConfigValueType) {
+	x.Doc().SetFormField(x.Path(), "valueType", string(value))
 }
 
 func (x *ClientConfigurationSettingEntryContentForm) DefaultValue() string {
@@ -75655,12 +75796,12 @@ func (x *ClientConfigurationSettingEntryContentForm) SetDefaultValue(value strin
 	x.Doc().SetFormField(x.Path(), "defaultValue", value)
 }
 
-func (x *ClientConfigurationSettingEntryContentForm) OverridableBy() string {
-	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+func (x *ClientConfigurationSettingEntryContentForm) OverridableBy() OverridableBy {
+	return parseOverridableBy(x.Doc().FormFieldOr(x.Path(), "overridableBy"))
 }
 
-func (x *ClientConfigurationSettingEntryContentForm) SetOverridableBy(value string) {
-	x.Doc().SetFormField(x.Path(), "overridableBy", value)
+func (x *ClientConfigurationSettingEntryContentForm) SetOverridableBy(value OverridableBy) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", string(value))
 }
 
 // ClientHardwareRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -104003,12 +104144,12 @@ func (x *DeviceSettingEntryContentForm) SetSettingKey(value string) {
 	x.Doc().SetFormField(x.Path(), "settingKey", value)
 }
 
-func (x *DeviceSettingEntryContentForm) ValueType() string {
-	return x.Doc().FormFieldOr(x.Path(), "valueType")
+func (x *DeviceSettingEntryContentForm) ValueType() ConfigValueType {
+	return parseConfigValueType(x.Doc().FormFieldOr(x.Path(), "valueType"))
 }
 
-func (x *DeviceSettingEntryContentForm) SetValueType(value string) {
-	x.Doc().SetFormField(x.Path(), "valueType", value)
+func (x *DeviceSettingEntryContentForm) SetValueType(value ConfigValueType) {
+	x.Doc().SetFormField(x.Path(), "valueType", string(value))
 }
 
 func (x *DeviceSettingEntryContentForm) DefaultValue() string {
@@ -122619,12 +122760,12 @@ func (x *GlobalRoleExclusionEntryContentForm) SetReason(value string) {
 	x.Doc().SetFormField(x.Path(), "reason", value)
 }
 
-func (x *GlobalRoleExclusionEntryContentForm) EnforcementLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "enforcementLevel")
+func (x *GlobalRoleExclusionEntryContentForm) EnforcementLevel() ConstraintEnforcement {
+	return parseConstraintEnforcement(x.Doc().FormFieldOr(x.Path(), "enforcementLevel"))
 }
 
-func (x *GlobalRoleExclusionEntryContentForm) SetEnforcementLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "enforcementLevel", value)
+func (x *GlobalRoleExclusionEntryContentForm) SetEnforcementLevel(value ConstraintEnforcement) {
+	x.Doc().SetFormField(x.Path(), "enforcementLevel", string(value))
 }
 
 func (x *GlobalRoleExclusionEntryContentForm) ComplianceReference() string {
@@ -139955,12 +140096,12 @@ func (x *MaintenanceWindowEntryContentForm) SetWindowType(value string) {
 	x.Doc().SetFormField(x.Path(), "windowType", value)
 }
 
-func (x *MaintenanceWindowEntryContentForm) Priority() string {
-	return x.Doc().FormFieldOr(x.Path(), "priority")
+func (x *MaintenanceWindowEntryContentForm) Priority() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "priority"))
 }
 
-func (x *MaintenanceWindowEntryContentForm) SetPriority(value string) {
-	x.Doc().SetFormField(x.Path(), "priority", value)
+func (x *MaintenanceWindowEntryContentForm) SetPriority(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "priority", string(value))
 }
 
 func (x *MaintenanceWindowEntryContentForm) Description() string {
@@ -147149,12 +147290,12 @@ func (x *MustPassCriterionEntryDefinitionForm) SetCriterionDescription(value str
 	x.Doc().SetFormField(x.Path(), "criterionDescription", value)
 }
 
-func (x *MustPassCriterionEntryDefinitionForm) QualityCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityCategory")
+func (x *MustPassCriterionEntryDefinitionForm) QualityCategory() Iso25010Characteristic {
+	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "qualityCategory"))
 }
 
-func (x *MustPassCriterionEntryDefinitionForm) SetQualityCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityCategory", value)
+func (x *MustPassCriterionEntryDefinitionForm) SetQualityCategory(value Iso25010Characteristic) {
+	x.Doc().SetFormField(x.Path(), "qualityCategory", string(value))
 }
 
 func (x *MustPassCriterionEntryDefinitionForm) QualityAttribute() string {
@@ -149582,25 +149723,12 @@ func (x *NetworkSecurityPolicyDnsForm) SetDnsProvider(value string) {
 	x.Doc().SetFormField(x.Path(), "dnsProvider", value)
 }
 
-func (x *NetworkSecurityPolicyDnsForm) DnssecEnabled() *bool {
-	v := x.Doc().FormFieldOr(x.Path(), "dnssecEnabled")
-	if v == "" {
-		return nil
-	}
-	result := v == "true"
-	return &result
+func (x *NetworkSecurityPolicyDnsForm) DnssecEnabled() DecisionState {
+	return parseDecisionState(x.Doc().FormFieldOr(x.Path(), "dnssecEnabled"))
 }
 
-func (x *NetworkSecurityPolicyDnsForm) SetDnssecEnabled(value *bool) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "dnssecEnabled", "")
-		return
-	}
-	if *value {
-		x.Doc().SetFormField(x.Path(), "dnssecEnabled", "true")
-	} else {
-		x.Doc().SetFormField(x.Path(), "dnssecEnabled", "false")
-	}
+func (x *NetworkSecurityPolicyDnsForm) SetDnssecEnabled(value DecisionState) {
+	x.Doc().SetFormField(x.Path(), "dnssecEnabled", string(value))
 }
 
 func (x *NetworkSecurityPolicyDnsForm) PrivateDns() string {
@@ -159163,12 +159291,24 @@ func (x *PipelineStageEntryExecutionForm) SetRunnerRequirements(value string) {
 	x.Doc().SetFormField(x.Path(), "runnerRequirements", value)
 }
 
-func (x *PipelineStageEntryExecutionForm) TimeoutMinutes() string {
-	return x.Doc().FormFieldOr(x.Path(), "timeoutMinutes")
+func (x *PipelineStageEntryExecutionForm) TimeoutMinutes() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "timeoutMinutes")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
 }
 
-func (x *PipelineStageEntryExecutionForm) SetTimeoutMinutes(value string) {
-	x.Doc().SetFormField(x.Path(), "timeoutMinutes", value)
+func (x *PipelineStageEntryExecutionForm) SetTimeoutMinutes(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "timeoutMinutes", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "timeoutMinutes", strconv.Itoa(*value))
 }
 
 func (x *PipelineStageEntryExecutionForm) ParallelJobs() *bool {
@@ -162682,12 +162822,12 @@ func (x *ProcessExceptionEntryAssessmentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProcessExceptionEntryAssessmentForm) Probability() string {
-	return x.Doc().FormFieldOr(x.Path(), "probability")
+func (x *ProcessExceptionEntryAssessmentForm) Probability() Probability {
+	return parseProbability(x.Doc().FormFieldOr(x.Path(), "probability"))
 }
 
-func (x *ProcessExceptionEntryAssessmentForm) SetProbability(value string) {
-	x.Doc().SetFormField(x.Path(), "probability", value)
+func (x *ProcessExceptionEntryAssessmentForm) SetProbability(value Probability) {
+	x.Doc().SetFormField(x.Path(), "probability", string(value))
 }
 
 func (x *ProcessExceptionEntryAssessmentForm) Impact() string {
@@ -162696,6 +162836,14 @@ func (x *ProcessExceptionEntryAssessmentForm) Impact() string {
 
 func (x *ProcessExceptionEntryAssessmentForm) SetImpact(value string) {
 	x.Doc().SetFormField(x.Path(), "impact", value)
+}
+
+func (x *ProcessExceptionEntryAssessmentForm) ImpactLevel() Impact {
+	return parseImpact(x.Doc().FormFieldOr(x.Path(), "impactLevel"))
+}
+
+func (x *ProcessExceptionEntryAssessmentForm) SetImpactLevel(value Impact) {
+	x.Doc().SetFormField(x.Path(), "impactLevel", string(value))
 }
 
 func (x *ProcessExceptionEntryAssessmentForm) DetectionMethod() string {
@@ -168413,12 +168561,12 @@ func (x *QualityGateCheckEntryDefinitionForm) SetCheckCategory(value string) {
 	x.Doc().SetFormField(x.Path(), "checkCategory", value)
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) QualityCategory() string {
-	return x.Doc().FormFieldOr(x.Path(), "qualityCategory")
+func (x *QualityGateCheckEntryDefinitionForm) QualityCategory() Iso25010Characteristic {
+	return parseIso25010Characteristic(x.Doc().FormFieldOr(x.Path(), "qualityCategory"))
 }
 
-func (x *QualityGateCheckEntryDefinitionForm) SetQualityCategory(value string) {
-	x.Doc().SetFormField(x.Path(), "qualityCategory", value)
+func (x *QualityGateCheckEntryDefinitionForm) SetQualityCategory(value Iso25010Characteristic) {
+	x.Doc().SetFormField(x.Path(), "qualityCategory", string(value))
 }
 
 // QualityGateCheckEntryExecutionForm is the generated section facade for the `execution` @Form section: its own
@@ -181480,12 +181628,20 @@ func (x *RoleCombinationConstraintEntryContentForm) SetEnforcement(value string)
 	x.Doc().SetFormField(x.Path(), "enforcement", value)
 }
 
-func (x *RoleCombinationConstraintEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *RoleCombinationConstraintEntryContentForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *RoleCombinationConstraintEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *RoleCombinationConstraintEntryContentForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
+}
+
+func (x *RoleCombinationConstraintEntryContentForm) EnforcementMode() ConstraintEnforcement {
+	return parseConstraintEnforcement(x.Doc().FormFieldOr(x.Path(), "enforcementMode"))
+}
+
+func (x *RoleCombinationConstraintEntryContentForm) SetEnforcementMode(value ConstraintEnforcement) {
+	x.Doc().SetFormField(x.Path(), "enforcementMode", string(value))
 }
 
 func (x *RoleCombinationConstraintEntryContentForm) BusinessReason() string {
@@ -181678,12 +181834,20 @@ func (x *RoleExclusionEntryContentForm) SetExclusionType(value string) {
 	x.Doc().SetFormField(x.Path(), "exclusionType", value)
 }
 
-func (x *RoleExclusionEntryContentForm) Severity() string {
-	return x.Doc().FormFieldOr(x.Path(), "severity")
+func (x *RoleExclusionEntryContentForm) Severity() ImportanceBand {
+	return parseImportanceBand(x.Doc().FormFieldOr(x.Path(), "severity"))
 }
 
-func (x *RoleExclusionEntryContentForm) SetSeverity(value string) {
-	x.Doc().SetFormField(x.Path(), "severity", value)
+func (x *RoleExclusionEntryContentForm) SetSeverity(value ImportanceBand) {
+	x.Doc().SetFormField(x.Path(), "severity", string(value))
+}
+
+func (x *RoleExclusionEntryContentForm) EnforcementMode() ConstraintEnforcement {
+	return parseConstraintEnforcement(x.Doc().FormFieldOr(x.Path(), "enforcementMode"))
+}
+
+func (x *RoleExclusionEntryContentForm) SetEnforcementMode(value ConstraintEnforcement) {
+	x.Doc().SetFormField(x.Path(), "enforcementMode", string(value))
 }
 
 // RoleHierarchyPolicyContentForm is the generated section facade for the `content` @Form section: its own
@@ -192022,12 +192186,20 @@ func (x *ServerConfigurationSettingEntryContentForm) SetSettingKey(value string)
 	x.Doc().SetFormField(x.Path(), "settingKey", value)
 }
 
-func (x *ServerConfigurationSettingEntryContentForm) ValueType() string {
-	return x.Doc().FormFieldOr(x.Path(), "valueType")
+func (x *ServerConfigurationSettingEntryContentForm) ValueType() ConfigValueType {
+	return parseConfigValueType(x.Doc().FormFieldOr(x.Path(), "valueType"))
 }
 
-func (x *ServerConfigurationSettingEntryContentForm) SetValueType(value string) {
-	x.Doc().SetFormField(x.Path(), "valueType", value)
+func (x *ServerConfigurationSettingEntryContentForm) SetValueType(value ConfigValueType) {
+	x.Doc().SetFormField(x.Path(), "valueType", string(value))
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) AllowedValues() string {
+	return x.Doc().FormFieldOr(x.Path(), "allowedValues")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetAllowedValues(value string) {
+	x.Doc().SetFormField(x.Path(), "allowedValues", value)
 }
 
 func (x *ServerConfigurationSettingEntryContentForm) DefaultValue() string {
@@ -192075,12 +192247,12 @@ func (x *ServerConfigurationSettingEntryContentForm) SetSecret(value *bool) {
 	}
 }
 
-func (x *ServerConfigurationSettingEntryContentForm) OverridableBy() string {
-	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+func (x *ServerConfigurationSettingEntryContentForm) OverridableBy() OverridableBy {
+	return parseOverridableBy(x.Doc().FormFieldOr(x.Path(), "overridableBy"))
 }
 
-func (x *ServerConfigurationSettingEntryContentForm) SetOverridableBy(value string) {
-	x.Doc().SetFormField(x.Path(), "overridableBy", value)
+func (x *ServerConfigurationSettingEntryContentForm) SetOverridableBy(value OverridableBy) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", string(value))
 }
 
 // ServerEnvironmentEntryAccessForm is the generated section facade for the `access` @Form section: its own
@@ -194243,25 +194415,12 @@ func (x *ServiceMeshAndGatewayContentForm) SetGatewayFeatures(value string) {
 	x.Doc().SetFormField(x.Path(), "gatewayFeatures", value)
 }
 
-func (x *ServiceMeshAndGatewayContentForm) GatewayHighAvailability() *bool {
-	v := x.Doc().FormFieldOr(x.Path(), "gatewayHighAvailability")
-	if v == "" {
-		return nil
-	}
-	result := v == "true"
-	return &result
+func (x *ServiceMeshAndGatewayContentForm) GatewayHighAvailability() DecisionState {
+	return parseDecisionState(x.Doc().FormFieldOr(x.Path(), "gatewayHighAvailability"))
 }
 
-func (x *ServiceMeshAndGatewayContentForm) SetGatewayHighAvailability(value *bool) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "gatewayHighAvailability", "")
-		return
-	}
-	if *value {
-		x.Doc().SetFormField(x.Path(), "gatewayHighAvailability", "true")
-	} else {
-		x.Doc().SetFormField(x.Path(), "gatewayHighAvailability", "false")
-	}
+func (x *ServiceMeshAndGatewayContentForm) SetGatewayHighAvailability(value DecisionState) {
+	x.Doc().SetFormField(x.Path(), "gatewayHighAvailability", string(value))
 }
 
 func (x *ServiceMeshAndGatewayContentForm) ApiKeyManagement() string {
@@ -216680,25 +216839,12 @@ func (x *TlsRequirementsCertificateValidationForm) SetOcspStapling(value *bool) 
 	}
 }
 
-func (x *TlsRequirementsCertificateValidationForm) MutualTls() *bool {
-	v := x.Doc().FormFieldOr(x.Path(), "mutualTls")
-	if v == "" {
-		return nil
-	}
-	result := v == "true"
-	return &result
+func (x *TlsRequirementsCertificateValidationForm) MutualTls() DecisionState {
+	return parseDecisionState(x.Doc().FormFieldOr(x.Path(), "mutualTls"))
 }
 
-func (x *TlsRequirementsCertificateValidationForm) SetMutualTls(value *bool) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "mutualTls", "")
-		return
-	}
-	if *value {
-		x.Doc().SetFormField(x.Path(), "mutualTls", "true")
-	} else {
-		x.Doc().SetFormField(x.Path(), "mutualTls", "false")
-	}
+func (x *TlsRequirementsCertificateValidationForm) SetMutualTls(value DecisionState) {
+	x.Doc().SetFormField(x.Path(), "mutualTls", string(value))
 }
 
 // TlsRequirementsCipherSuitesForm is the generated section facade for the `cipherSuites` @Form section: its own
@@ -216814,25 +216960,12 @@ func (x *TlsRequirementsComplianceForm) SetHstsMaxAge(value string) {
 	x.Doc().SetFormField(x.Path(), "hstsMaxAge", value)
 }
 
-func (x *TlsRequirementsComplianceForm) HstsIncludeSubdomains() *bool {
-	v := x.Doc().FormFieldOr(x.Path(), "hstsIncludeSubdomains")
-	if v == "" {
-		return nil
-	}
-	result := v == "true"
-	return &result
+func (x *TlsRequirementsComplianceForm) HstsIncludeSubdomains() DecisionState {
+	return parseDecisionState(x.Doc().FormFieldOr(x.Path(), "hstsIncludeSubdomains"))
 }
 
-func (x *TlsRequirementsComplianceForm) SetHstsIncludeSubdomains(value *bool) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "")
-		return
-	}
-	if *value {
-		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "true")
-	} else {
-		x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", "false")
-	}
+func (x *TlsRequirementsComplianceForm) SetHstsIncludeSubdomains(value DecisionState) {
+	x.Doc().SetFormField(x.Path(), "hstsIncludeSubdomains", string(value))
 }
 
 func (x *TlsRequirementsComplianceForm) Notes() string {
@@ -228499,12 +228632,12 @@ func (x *UserSettingEntryContentForm) SetSettingKey(value string) {
 	x.Doc().SetFormField(x.Path(), "settingKey", value)
 }
 
-func (x *UserSettingEntryContentForm) ValueType() string {
-	return x.Doc().FormFieldOr(x.Path(), "valueType")
+func (x *UserSettingEntryContentForm) ValueType() ConfigValueType {
+	return parseConfigValueType(x.Doc().FormFieldOr(x.Path(), "valueType"))
 }
 
-func (x *UserSettingEntryContentForm) SetValueType(value string) {
-	x.Doc().SetFormField(x.Path(), "valueType", value)
+func (x *UserSettingEntryContentForm) SetValueType(value ConfigValueType) {
+	x.Doc().SetFormField(x.Path(), "valueType", string(value))
 }
 
 func (x *UserSettingEntryContentForm) DefaultValue() string {
@@ -228515,12 +228648,12 @@ func (x *UserSettingEntryContentForm) SetDefaultValue(value string) {
 	x.Doc().SetFormField(x.Path(), "defaultValue", value)
 }
 
-func (x *UserSettingEntryContentForm) OverridableBy() string {
-	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+func (x *UserSettingEntryContentForm) OverridableBy() OverridableBy {
+	return parseOverridableBy(x.Doc().FormFieldOr(x.Path(), "overridableBy"))
 }
 
-func (x *UserSettingEntryContentForm) SetOverridableBy(value string) {
-	x.Doc().SetFormField(x.Path(), "overridableBy", value)
+func (x *UserSettingEntryContentForm) SetOverridableBy(value OverridableBy) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", string(value))
 }
 
 // UserTrainingRequirementsTrainingFormForm is the generated section facade for the `trainingForm` @Form section: its own

@@ -66,6 +66,30 @@ function _parseActionTriggerKind(token) {
   return null;
 }
 
+// Generated enum for `AlertSeverity` values.
+const AlertSeverity = Object.freeze({
+  // Someone acts now: the service, or a promise it makes, is broken.
+  "critical": "critical",
+  // Someone acts soon: a threshold is crossed and the trend leads to a
+  // critical alert if nothing changes.
+  "warning": "warning",
+  // No one has to act: recorded for the picture, not for a page.
+  "info": "info",
+});
+
+// Parses a stored token into a AlertSeverity value, or null.
+function _parseAlertSeverity(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(AlertSeverity)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `AuthorizationRequirementKind` values.
 const AuthorizationRequirementKind = Object.freeze({
   // The caller must hold one of a named set of roles.
@@ -238,6 +262,58 @@ function _parseClientApplicationKind(token) {
   return null;
 }
 
+// Generated enum for `ConfigValueType` values.
+const ConfigValueType = Object.freeze({
+  // Text.
+  "text": "text",
+  // A whole number.
+  "integer": "integer",
+  // A decimal number.
+  "decimal": "decimal",
+  // True or false.
+  "boolean": "boolean",
+  // One of a closed set of values, which the setting names.
+  "enumeration": "enumeration",
+  // A length of time.
+  "duration": "duration",
+});
+
+// Parses a stored token into a ConfigValueType value, or null.
+function _parseConfigValueType(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ConfigValueType)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `ConstraintEnforcement` values.
+const ConstraintEnforcement = Object.freeze({
+  // The system refuses the combination; no override exists — including a
+  // combination that cannot arise by construction.
+  "hard": "hard",
+  // The system warns and the combination may stand, with the override the
+  // rule names (an approval, a recorded reason).
+  "soft": "soft",
+});
+
+// Parses a stored token into a ConstraintEnforcement value, or null.
+function _parseConstraintEnforcement(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ConstraintEnforcement)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `DataAttributeKind` values.
 const DataAttributeKind = Object.freeze({
   // Character data of bounded length. Binds
@@ -334,6 +410,31 @@ function _parseDataAttributeKind(token) {
     return null;
   }
   for (const value of Object.values(DataAttributeKind)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `DecisionState` values.
+const DecisionState = Object.freeze({
+  // Yes, everywhere.
+  "yes": "yes",
+  // No, everywhere.
+  "no": "no",
+  // Depends on the installation or context; the notes say on what.
+  "depends": "depends",
+  // Not decided yet.
+  "undecided": "undecided",
+});
+
+// Parses a stored token into a DecisionState value, or null.
+function _parseDecisionState(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(DecisionState)) {
     if (value === token) {
       return value;
     }
@@ -660,6 +761,31 @@ function _parseObjectLifecycleKind(token) {
     return null;
   }
   for (const value of Object.values(ObjectLifecycleKind)) {
+    if (value === token) {
+      return value;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `OverridableBy` values.
+const OverridableBy = Object.freeze({
+  // Scope-pinned: no narrower scope may shadow the key.
+  "none": "none",
+  // A per-install client configuration value may shadow the key.
+  "client": "client",
+  // A per-user setting may shadow the key.
+  "user": "user",
+  // A per-user-per-device setting may shadow the key.
+  "device": "device",
+});
+
+// Parses a stored token into a OverridableBy value, or null.
+function _parseOverridableBy(token) {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(OverridableBy)) {
     if (value === token) {
       return value;
     }
@@ -126883,12 +127009,11 @@ class NetworkSecurityPolicyDnsForm extends SomNode {
   }
 
   get dnssecEnabled() {
-    const v = this.doc.formField(this.path, "dnssecEnabled");
-    return v == null ? null : v === 'true';
+    return this.doc.formField(this.path, "dnssecEnabled") || '';
   }
 
   set dnssecEnabled(value) {
-    this.doc.setFormField(this.path, "dnssecEnabled", value == null ? '' : (value ? 'true' : 'false'));
+    this.doc.setFormField(this.path, "dnssecEnabled", value);
   }
 
   get privateDns() {
@@ -134929,11 +135054,12 @@ class PipelineStageEntryExecutionForm extends SomNode {
   }
 
   get timeoutMinutes() {
-    return this.doc.formField(this.path, "timeoutMinutes") || '';
+    const v = this.doc.formField(this.path, "timeoutMinutes");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
   }
 
   set timeoutMinutes(value) {
-    this.doc.setFormField(this.path, "timeoutMinutes", value);
+    this.doc.setFormField(this.path, "timeoutMinutes", value == null ? '' : String(value));
   }
 
   get parallelJobs() {
@@ -137897,6 +138023,14 @@ class ProcessExceptionEntryAssessmentForm extends SomNode {
 
   set impact(value) {
     this.doc.setFormField(this.path, "impact", value);
+  }
+
+  get impactLevel() {
+    return this.doc.formField(this.path, "impactLevel") || '';
+  }
+
+  set impactLevel(value) {
+    this.doc.setFormField(this.path, "impactLevel", value);
   }
 
   get detectionMethod() {
@@ -153767,6 +153901,14 @@ class RoleCombinationConstraintEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "severity", value);
   }
 
+  get enforcementMode() {
+    return this.doc.formField(this.path, "enforcementMode") || '';
+  }
+
+  set enforcementMode(value) {
+    this.doc.setFormField(this.path, "enforcementMode", value);
+  }
+
   get businessReason() {
     return this.doc.formField(this.path, "businessReason") || '';
   }
@@ -153942,6 +154084,14 @@ class RoleExclusionEntryContentForm extends SomNode {
 
   set severity(value) {
     this.doc.setFormField(this.path, "severity", value);
+  }
+
+  get enforcementMode() {
+    return this.doc.formField(this.path, "enforcementMode") || '';
+  }
+
+  set enforcementMode(value) {
+    this.doc.setFormField(this.path, "enforcementMode", value);
   }
 }
 
@@ -162604,6 +162754,14 @@ class ServerConfigurationSettingEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "valueType", value);
   }
 
+  get allowedValues() {
+    return this.doc.formField(this.path, "allowedValues") || '';
+  }
+
+  set allowedValues(value) {
+    this.doc.setFormField(this.path, "allowedValues", value);
+  }
+
   get defaultValue() {
     return this.doc.formField(this.path, "defaultValue") || '';
   }
@@ -164451,12 +164609,11 @@ class ServiceMeshAndGatewayContentForm extends SomNode {
   }
 
   get gatewayHighAvailability() {
-    const v = this.doc.formField(this.path, "gatewayHighAvailability");
-    return v == null ? null : v === 'true';
+    return this.doc.formField(this.path, "gatewayHighAvailability") || '';
   }
 
   set gatewayHighAvailability(value) {
-    this.doc.setFormField(this.path, "gatewayHighAvailability", value == null ? '' : (value ? 'true' : 'false'));
+    this.doc.setFormField(this.path, "gatewayHighAvailability", value);
   }
 
   get apiKeyManagement() {
@@ -182984,12 +183141,11 @@ class TlsRequirementsCertificateValidationForm extends SomNode {
   }
 
   get mutualTls() {
-    const v = this.doc.formField(this.path, "mutualTls");
-    return v == null ? null : v === 'true';
+    return this.doc.formField(this.path, "mutualTls") || '';
   }
 
   set mutualTls(value) {
-    this.doc.setFormField(this.path, "mutualTls", value == null ? '' : (value ? 'true' : 'false'));
+    this.doc.setFormField(this.path, "mutualTls", value);
   }
 }
 
@@ -183080,12 +183236,11 @@ class TlsRequirementsComplianceForm extends SomNode {
   }
 
   get hstsIncludeSubdomains() {
-    const v = this.doc.formField(this.path, "hstsIncludeSubdomains");
-    return v == null ? null : v === 'true';
+    return this.doc.formField(this.path, "hstsIncludeSubdomains") || '';
   }
 
   set hstsIncludeSubdomains(value) {
-    this.doc.setFormField(this.path, "hstsIncludeSubdomains", value == null ? '' : (value ? 'true' : 'false'));
+    this.doc.setFormField(this.path, "hstsIncludeSubdomains", value);
   }
 
   get notes() {
@@ -196668,13 +196823,17 @@ module.exports = {
   // Metadata trees + dot-notation / ID-tree access surfaces (SOM §8).
   ..._meta,
   ActionTriggerKind,
+  AlertSeverity,
   AuthorizationRequirementKind,
   BasicAuthorizationRequirementKind,
   BindingErrorFormat,
   BindingHttpMethod,
   BindingParameterSource,
   ClientApplicationKind,
+  ConfigValueType,
+  ConstraintEnforcement,
   DataAttributeKind,
+  DecisionState,
   ExportFieldKind,
   FlowReturnPoint,
   GradedAccessLevel,
@@ -196683,6 +196842,7 @@ module.exports = {
   Iso25010Characteristic,
   MigrationArtifactKind,
   ObjectLifecycleKind,
+  OverridableBy,
   Priority,
   Probability,
   ProtocolFeatureKind,

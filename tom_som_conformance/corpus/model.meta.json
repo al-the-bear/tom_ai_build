@@ -316,6 +316,17 @@
               "type": "double"
             },
             {
+              "name": "decided",
+              "label": "Decided",
+              "type": "DecisionState",
+              "enumValues": [
+                "yes",
+                "no",
+                "depends",
+                "undecided"
+              ]
+            },
+            {
               "name": "score",
               "label": "Score",
               "type": "double",

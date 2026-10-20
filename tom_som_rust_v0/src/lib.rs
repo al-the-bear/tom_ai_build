@@ -134,6 +134,63 @@ pub fn parse_action_trigger_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `AlertSeverity` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Someone acts now: the service, or a promise it makes, is broken.
+pub const ALERT_SEVERITY_CRITICAL: &str = "critical";
+/// Someone acts soon: a threshold is crossed and the trend leads to a
+/// critical alert if nothing changes.
+pub const ALERT_SEVERITY_WARNING: &str = "warning";
+/// No one has to act: recorded for the picture, not for a page.
+pub const ALERT_SEVERITY_INFO: &str = "info";
+
+/// AlertSeverity is the generated enum for `AlertSeverity` values.
+///
+/// The stored token is what [AlertSeverity::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum AlertSeverity {
+    /// Someone acts now: the service, or a promise it makes, is broken.
+    Critical,
+    /// Someone acts soon: a threshold is crossed and the trend leads to a
+    /// critical alert if nothing changes.
+    Warning,
+    /// No one has to act: recorded for the picture, not for a page.
+    Info,
+}
+
+impl AlertSeverity {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            AlertSeverity::Critical => "critical",
+            AlertSeverity::Warning => "warning",
+            AlertSeverity::Info => "info",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "critical" => Some(AlertSeverity::Critical),
+            "warning" => Some(AlertSeverity::Warning),
+            "info" => Some(AlertSeverity::Info),
+            _ => None,
+        }
+    }
+}
+
+/// parse_alert_severity returns token when it is a known AlertSeverity value, else "".
+pub fn parse_alert_severity(token: &str) -> String {
+    match token {
+        ALERT_SEVERITY_CRITICAL | ALERT_SEVERITY_WARNING | ALERT_SEVERITY_INFO => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `AuthorizationRequirementKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// The caller must hold one of a named set of roles.
@@ -566,6 +623,132 @@ pub fn parse_client_application_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `ConfigValueType` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Text.
+pub const CONFIG_VALUE_TYPE_TEXT: &str = "text";
+/// A whole number.
+pub const CONFIG_VALUE_TYPE_INTEGER: &str = "integer";
+/// A decimal number.
+pub const CONFIG_VALUE_TYPE_DECIMAL: &str = "decimal";
+/// True or false.
+pub const CONFIG_VALUE_TYPE_BOOLEAN: &str = "boolean";
+/// One of a closed set of values, which the setting names.
+pub const CONFIG_VALUE_TYPE_ENUMERATION: &str = "enumeration";
+/// A length of time.
+pub const CONFIG_VALUE_TYPE_DURATION: &str = "duration";
+
+/// ConfigValueType is the generated enum for `ConfigValueType` values.
+///
+/// The stored token is what [ConfigValueType::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ConfigValueType {
+    /// Text.
+    Text,
+    /// A whole number.
+    Integer,
+    /// A decimal number.
+    Decimal,
+    /// True or false.
+    Boolean,
+    /// One of a closed set of values, which the setting names.
+    Enumeration,
+    /// A length of time.
+    Duration,
+}
+
+impl ConfigValueType {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ConfigValueType::Text => "text",
+            ConfigValueType::Integer => "integer",
+            ConfigValueType::Decimal => "decimal",
+            ConfigValueType::Boolean => "boolean",
+            ConfigValueType::Enumeration => "enumeration",
+            ConfigValueType::Duration => "duration",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "text" => Some(ConfigValueType::Text),
+            "integer" => Some(ConfigValueType::Integer),
+            "decimal" => Some(ConfigValueType::Decimal),
+            "boolean" => Some(ConfigValueType::Boolean),
+            "enumeration" => Some(ConfigValueType::Enumeration),
+            "duration" => Some(ConfigValueType::Duration),
+            _ => None,
+        }
+    }
+}
+
+/// parse_config_value_type returns token when it is a known ConfigValueType value, else "".
+pub fn parse_config_value_type(token: &str) -> String {
+    match token {
+        CONFIG_VALUE_TYPE_TEXT | CONFIG_VALUE_TYPE_INTEGER | CONFIG_VALUE_TYPE_DECIMAL | CONFIG_VALUE_TYPE_BOOLEAN | CONFIG_VALUE_TYPE_ENUMERATION | CONFIG_VALUE_TYPE_DURATION => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `ConstraintEnforcement` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// The system refuses the combination; no override exists — including a
+/// combination that cannot arise by construction.
+pub const CONSTRAINT_ENFORCEMENT_HARD: &str = "hard";
+/// The system warns and the combination may stand, with the override the
+/// rule names (an approval, a recorded reason).
+pub const CONSTRAINT_ENFORCEMENT_SOFT: &str = "soft";
+
+/// ConstraintEnforcement is the generated enum for `ConstraintEnforcement` values.
+///
+/// The stored token is what [ConstraintEnforcement::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ConstraintEnforcement {
+    /// The system refuses the combination; no override exists — including a
+    /// combination that cannot arise by construction.
+    Hard,
+    /// The system warns and the combination may stand, with the override the
+    /// rule names (an approval, a recorded reason).
+    Soft,
+}
+
+impl ConstraintEnforcement {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ConstraintEnforcement::Hard => "hard",
+            ConstraintEnforcement::Soft => "soft",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "hard" => Some(ConstraintEnforcement::Hard),
+            "soft" => Some(ConstraintEnforcement::Soft),
+            _ => None,
+        }
+    }
+}
+
+/// parse_constraint_enforcement returns token when it is a known ConstraintEnforcement value, else "".
+pub fn parse_constraint_enforcement(token: &str) -> String {
+    match token {
+        CONSTRAINT_ENFORCEMENT_HARD | CONSTRAINT_ENFORCEMENT_SOFT => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `DataAttributeKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Character data of bounded length. Binds
@@ -793,6 +976,67 @@ impl DataAttributeKind {
 pub fn parse_data_attribute_kind(token: &str) -> String {
     match token {
         DATA_ATTRIBUTE_KIND_STRING | DATA_ATTRIBUTE_KIND_INTEGER | DATA_ATTRIBUTE_KIND_DECIMAL | DATA_ATTRIBUTE_KIND_DATE | DATA_ATTRIBUTE_KIND_DATE_TIME | DATA_ATTRIBUTE_KIND_BINARY | DATA_ATTRIBUTE_KIND_FILE_REFERENCE | DATA_ATTRIBUTE_KIND_BOOLEAN | DATA_ATTRIBUTE_KIND_UUID | DATA_ATTRIBUTE_KIND_JSON | DATA_ATTRIBUTE_KIND_ENUMERATION => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `DecisionState` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Yes, everywhere.
+pub const DECISION_STATE_YES: &str = "yes";
+/// No, everywhere.
+pub const DECISION_STATE_NO: &str = "no";
+/// Depends on the installation or context; the notes say on what.
+pub const DECISION_STATE_DEPENDS: &str = "depends";
+/// Not decided yet.
+pub const DECISION_STATE_UNDECIDED: &str = "undecided";
+
+/// DecisionState is the generated enum for `DecisionState` values.
+///
+/// The stored token is what [DecisionState::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum DecisionState {
+    /// Yes, everywhere.
+    Yes,
+    /// No, everywhere.
+    No,
+    /// Depends on the installation or context; the notes say on what.
+    Depends,
+    /// Not decided yet.
+    Undecided,
+}
+
+impl DecisionState {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            DecisionState::Yes => "yes",
+            DecisionState::No => "no",
+            DecisionState::Depends => "depends",
+            DecisionState::Undecided => "undecided",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "yes" => Some(DecisionState::Yes),
+            "no" => Some(DecisionState::No),
+            "depends" => Some(DecisionState::Depends),
+            "undecided" => Some(DecisionState::Undecided),
+            _ => None,
+        }
+    }
+}
+
+/// parse_decision_state returns token when it is a known DecisionState value, else "".
+pub fn parse_decision_state(token: &str) -> String {
+    match token {
+        DECISION_STATE_YES | DECISION_STATE_NO | DECISION_STATE_DEPENDS | DECISION_STATE_UNDECIDED => token.to_string(),
         _ => String::new(),
     }
 }
@@ -1541,6 +1785,67 @@ impl ObjectLifecycleKind {
 pub fn parse_object_lifecycle_kind(token: &str) -> String {
     match token {
         OBJECT_LIFECYCLE_KIND_INITIAL | OBJECT_LIFECYCLE_KIND_INTERMEDIATE | OBJECT_LIFECYCLE_KIND_TERMINAL | OBJECT_LIFECYCLE_KIND_ERROR => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `OverridableBy` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Scope-pinned: no narrower scope may shadow the key.
+pub const OVERRIDABLE_BY_NONE: &str = "none";
+/// A per-install client configuration value may shadow the key.
+pub const OVERRIDABLE_BY_CLIENT: &str = "client";
+/// A per-user setting may shadow the key.
+pub const OVERRIDABLE_BY_USER: &str = "user";
+/// A per-user-per-device setting may shadow the key.
+pub const OVERRIDABLE_BY_DEVICE: &str = "device";
+
+/// OverridableBy is the generated enum for `OverridableBy` values.
+///
+/// The stored token is what [OverridableBy::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum OverridableBy {
+    /// Scope-pinned: no narrower scope may shadow the key.
+    None,
+    /// A per-install client configuration value may shadow the key.
+    Client,
+    /// A per-user setting may shadow the key.
+    User,
+    /// A per-user-per-device setting may shadow the key.
+    Device,
+}
+
+impl OverridableBy {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            OverridableBy::None => "none",
+            OverridableBy::Client => "client",
+            OverridableBy::User => "user",
+            OverridableBy::Device => "device",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "none" => Some(OverridableBy::None),
+            "client" => Some(OverridableBy::Client),
+            "user" => Some(OverridableBy::User),
+            "device" => Some(OverridableBy::Device),
+            _ => None,
+        }
+    }
+}
+
+/// parse_overridable_by returns token when it is a known OverridableBy value, else "".
+pub fn parse_overridable_by(token: &str) -> String {
+    match token {
+        OVERRIDABLE_BY_NONE | OVERRIDABLE_BY_CLIENT | OVERRIDABLE_BY_USER | OVERRIDABLE_BY_DEVICE => token.to_string(),
         _ => String::new(),
     }
 }
@@ -70044,22 +70349,24 @@ impl AlertDefinitionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "alertDescription", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<AlertSeverity> {
+        AlertSeverity::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<AlertSeverity>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 }
 
@@ -70722,13 +71029,14 @@ impl AlertRuleEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "alertDescription", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<AlertSeverity> {
+        AlertSeverity::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<AlertSeverity>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
     }
 
     pub fn category(&self) -> String {
@@ -89409,13 +89717,14 @@ impl ClientConfigurationSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "client", value);
     }
 
-    pub fn value_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    pub fn value_type(&self) -> Option<ConfigValueType> {
+        ConfigValueType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "valueType"))
     }
 
-    pub fn set_value_type(&self, value: &str) {
+    pub fn set_value_type(&self, value: Option<ConfigValueType>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", text);
     }
 
     pub fn default_value(&self) -> String {
@@ -89427,13 +89736,14 @@ impl ClientConfigurationSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
     }
 
-    pub fn overridable_by(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    pub fn overridable_by(&self) -> Option<OverridableBy> {
+        OverridableBy::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy"))
     }
 
-    pub fn set_overridable_by(&self, value: &str) {
+    pub fn set_overridable_by(&self, value: Option<OverridableBy>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", text);
     }
 }
 
@@ -120330,13 +120640,14 @@ impl DeviceSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
     }
 
-    pub fn value_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    pub fn value_type(&self) -> Option<ConfigValueType> {
+        ConfigValueType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "valueType"))
     }
 
-    pub fn set_value_type(&self, value: &str) {
+    pub fn set_value_type(&self, value: Option<ConfigValueType>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", text);
     }
 
     pub fn default_value(&self) -> String {
@@ -140211,13 +140522,14 @@ impl GlobalRoleExclusionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "reason", value);
     }
 
-    pub fn enforcement_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "enforcementLevel")
+    pub fn enforcement_level(&self) -> Option<ConstraintEnforcement> {
+        ConstraintEnforcement::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "enforcementLevel"))
     }
 
-    pub fn set_enforcement_level(&self, value: &str) {
+    pub fn set_enforcement_level(&self, value: Option<ConstraintEnforcement>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "enforcementLevel", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "enforcementLevel", text);
     }
 
     pub fn compliance_reference(&self) -> String {
@@ -158696,13 +159008,14 @@ impl MaintenanceWindowEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "windowType", value);
     }
 
-    pub fn priority(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "priority")
+    pub fn priority(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "priority"))
     }
 
-    pub fn set_priority(&self, value: &str) {
+    pub fn set_priority(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "priority", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "priority", text);
     }
 
     pub fn description(&self) -> String {
@@ -166407,13 +166720,14 @@ impl MustPassCriterionEntryDefinitionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "criterionDescription", value);
     }
 
-    pub fn quality_category(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityCategory")
+    pub fn quality_category(&self) -> Option<Iso25010Characteristic> {
+        Iso25010Characteristic::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "qualityCategory"))
     }
 
-    pub fn set_quality_category(&self, value: &str) {
+    pub fn set_quality_category(&self, value: Option<Iso25010Characteristic>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityCategory", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityCategory", text);
     }
 
     pub fn quality_attribute(&self) -> String {
@@ -168941,15 +169255,14 @@ impl NetworkSecurityPolicyDnsForm {
         self.node.doc().borrow_mut().set_form_field(&path, "dnsProvider", value);
     }
 
-    pub fn dnssec_enabled(&self) -> Option<bool> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "dnssecEnabled");
-        if v.is_empty() { None } else { Some(v == "true") }
+    pub fn dnssec_enabled(&self) -> Option<DecisionState> {
+        DecisionState::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "dnssecEnabled"))
     }
 
-    pub fn set_dnssec_enabled(&self, value: Option<bool>) {
+    pub fn set_dnssec_enabled(&self, value: Option<DecisionState>) {
         let path = self.node.path().to_string();
-        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "dnssecEnabled", &text);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "dnssecEnabled", text);
     }
 
     pub fn private_dns(&self) -> String {
@@ -179263,13 +179576,15 @@ impl PipelineStageEntryExecutionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "runnerRequirements", value);
     }
 
-    pub fn timeout_minutes(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "timeoutMinutes")
+    pub fn timeout_minutes(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "timeoutMinutes");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
     }
 
-    pub fn set_timeout_minutes(&self, value: &str) {
+    pub fn set_timeout_minutes(&self, value: Option<i64>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "timeoutMinutes", value);
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "timeoutMinutes", &text);
     }
 
     pub fn parallel_jobs(&self) -> Option<bool> {
@@ -183047,13 +183362,14 @@ impl ProcessExceptionEntryAssessmentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn probability(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "probability")
+    pub fn probability(&self) -> Option<Probability> {
+        Probability::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "probability"))
     }
 
-    pub fn set_probability(&self, value: &str) {
+    pub fn set_probability(&self, value: Option<Probability>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "probability", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "probability", text);
     }
 
     pub fn impact(&self) -> String {
@@ -183063,6 +183379,16 @@ impl ProcessExceptionEntryAssessmentForm {
     pub fn set_impact(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "impact", value);
+    }
+
+    pub fn impact_level(&self) -> Option<Impact> {
+        Impact::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "impactLevel"))
+    }
+
+    pub fn set_impact_level(&self, value: Option<Impact>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "impactLevel", text);
     }
 
     pub fn detection_method(&self) -> String {
@@ -189246,13 +189572,14 @@ impl QualityGateCheckEntryDefinitionForm {
         self.node.doc().borrow_mut().set_form_field(&path, "checkCategory", value);
     }
 
-    pub fn quality_category(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "qualityCategory")
+    pub fn quality_category(&self) -> Option<Iso25010Characteristic> {
+        Iso25010Characteristic::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "qualityCategory"))
     }
 
-    pub fn set_quality_category(&self, value: &str) {
+    pub fn set_quality_category(&self, value: Option<Iso25010Characteristic>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "qualityCategory", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "qualityCategory", text);
     }
 }
 
@@ -203582,13 +203909,24 @@ impl RoleCombinationConstraintEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "enforcement", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
+    }
+
+    pub fn enforcement_mode(&self) -> Option<ConstraintEnforcement> {
+        ConstraintEnforcement::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "enforcementMode"))
+    }
+
+    pub fn set_enforcement_mode(&self, value: Option<ConstraintEnforcement>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "enforcementMode", text);
     }
 
     pub fn business_reason(&self) -> String {
@@ -203807,13 +204145,24 @@ impl RoleExclusionEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "exclusionType", value);
     }
 
-    pub fn severity(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "severity")
+    pub fn severity(&self) -> Option<ImportanceBand> {
+        ImportanceBand::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "severity"))
     }
 
-    pub fn set_severity(&self, value: &str) {
+    pub fn set_severity(&self, value: Option<ImportanceBand>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "severity", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "severity", text);
+    }
+
+    pub fn enforcement_mode(&self) -> Option<ConstraintEnforcement> {
+        ConstraintEnforcement::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "enforcementMode"))
+    }
+
+    pub fn set_enforcement_mode(&self, value: Option<ConstraintEnforcement>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "enforcementMode", text);
     }
 }
 
@@ -215131,13 +215480,23 @@ impl ServerConfigurationSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
     }
 
-    pub fn value_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    pub fn value_type(&self) -> Option<ConfigValueType> {
+        ConfigValueType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "valueType"))
     }
 
-    pub fn set_value_type(&self, value: &str) {
+    pub fn set_value_type(&self, value: Option<ConfigValueType>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", text);
+    }
+
+    pub fn allowed_values(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "allowedValues")
+    }
+
+    pub fn set_allowed_values(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "allowedValues", value);
     }
 
     pub fn default_value(&self) -> String {
@@ -215178,13 +215537,14 @@ impl ServerConfigurationSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "secret", &text);
     }
 
-    pub fn overridable_by(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    pub fn overridable_by(&self) -> Option<OverridableBy> {
+        OverridableBy::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy"))
     }
 
-    pub fn set_overridable_by(&self, value: &str) {
+    pub fn set_overridable_by(&self, value: Option<OverridableBy>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", text);
     }
 }
 
@@ -217536,15 +217896,14 @@ impl ServiceMeshAndGatewayContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "gatewayFeatures", value);
     }
 
-    pub fn gateway_high_availability(&self) -> Option<bool> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "gatewayHighAvailability");
-        if v.is_empty() { None } else { Some(v == "true") }
+    pub fn gateway_high_availability(&self) -> Option<DecisionState> {
+        DecisionState::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "gatewayHighAvailability"))
     }
 
-    pub fn set_gateway_high_availability(&self, value: Option<bool>) {
+    pub fn set_gateway_high_availability(&self, value: Option<DecisionState>) {
         let path = self.node.path().to_string();
-        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "gatewayHighAvailability", &text);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "gatewayHighAvailability", text);
     }
 
     pub fn api_key_management(&self) -> String {
@@ -241454,15 +241813,14 @@ impl TlsRequirementsCertificateValidationForm {
         self.node.doc().borrow_mut().set_form_field(&path, "ocspStapling", &text);
     }
 
-    pub fn mutual_tls(&self) -> Option<bool> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "mutualTls");
-        if v.is_empty() { None } else { Some(v == "true") }
+    pub fn mutual_tls(&self) -> Option<DecisionState> {
+        DecisionState::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "mutualTls"))
     }
 
-    pub fn set_mutual_tls(&self, value: Option<bool>) {
+    pub fn set_mutual_tls(&self, value: Option<DecisionState>) {
         let path = self.node.path().to_string();
-        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "mutualTls", &text);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "mutualTls", text);
     }
 }
 
@@ -241581,15 +241939,14 @@ impl TlsRequirementsComplianceForm {
         self.node.doc().borrow_mut().set_form_field(&path, "hstsMaxAge", value);
     }
 
-    pub fn hsts_include_subdomains(&self) -> Option<bool> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "hstsIncludeSubdomains");
-        if v.is_empty() { None } else { Some(v == "true") }
+    pub fn hsts_include_subdomains(&self) -> Option<DecisionState> {
+        DecisionState::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "hstsIncludeSubdomains"))
     }
 
-    pub fn set_hsts_include_subdomains(&self, value: Option<bool>) {
+    pub fn set_hsts_include_subdomains(&self, value: Option<DecisionState>) {
         let path = self.node.path().to_string();
-        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "hstsIncludeSubdomains", &text);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "hstsIncludeSubdomains", text);
     }
 
     pub fn notes(&self) -> String {
@@ -254301,13 +254658,14 @@ impl UserSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
     }
 
-    pub fn value_type(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    pub fn value_type(&self) -> Option<ConfigValueType> {
+        ConfigValueType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "valueType"))
     }
 
-    pub fn set_value_type(&self, value: &str) {
+    pub fn set_value_type(&self, value: Option<ConfigValueType>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", text);
     }
 
     pub fn default_value(&self) -> String {
@@ -254319,13 +254677,14 @@ impl UserSettingEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
     }
 
-    pub fn overridable_by(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    pub fn overridable_by(&self) -> Option<OverridableBy> {
+        OverridableBy::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy"))
     }
 
-    pub fn set_overridable_by(&self, value: &str) {
+    pub fn set_overridable_by(&self, value: Option<OverridableBy>) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", text);
     }
 }
 

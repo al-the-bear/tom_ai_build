@@ -5220,7 +5220,7 @@ document:
                   content:
                     content: Exercise form preamble.
                     settingKey: "Exercise value."
-                    overridableBy: "Exercise value."
+                    overridableBy: "none"
             DEVSET deviceSettings:
               content: Exercise text.
               DSSET-SETT-LST settings:
@@ -5235,7 +5235,7 @@ document:
                   content:
                     content: Exercise form preamble.
                     settingKey: "Exercise value."
-                    overridableBy: "Exercise value."
+                    overridableBy: "none"
           NRS networkRequirements:
             content: Exercise text.
             overview:
@@ -5897,7 +5897,7 @@ document:
                     content:
                       content: Exercise form preamble.
                       settingKey: "Exercise value."
-                      overridableBy: "Exercise value."
+                      overridableBy: "none"
               USPRTO userProvisioning:
                 content:
                   content: Exercise form preamble.
