@@ -107,11 +107,14 @@ void _variantB(_Inputs inputs) {
   }
   print('');
   final a2 = gate[CodeSpecsGateCheck.a2].findings.length;
-  print('   A2 did not move: $a2 violations, the same as');
-  print('   variant A. Clearing a required field REMOVES a value, and a');
-  print('   validator that checks values has nothing left to object to. That');
-  print('   is why the gate runs both tiers and not either one');
-  print('   (codespecs_prompt.md §4.1/§4.2 and its §10.2 fixture).');
+  print('   A2 moved too: $a2 violations, against 0 for variant A. The');
+  print('   classification form still holds other values, so its empty');
+  print('   required field is reported by both tiers. They part where a value');
+  print(
+    '   is absent rather than empty: a missing required section is seen by',
+  );
+  print('   A1 alone. That is why the gate runs both tiers and not either one');
+  print('   (codespecs_prompt.md §4.1/§4.2 and its §10.1/§10.2 fixtures).');
   print('');
 }
 

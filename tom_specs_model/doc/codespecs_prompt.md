@@ -106,17 +106,23 @@ form field that carries no value.
 
 Run the runtime `validateDocument` (SOM §9) over the document. This is the
 **instance tier**: every set path resolves to a node of a compatible kind, every
-form sub-key names a real form field, every populated list meets its `@Min`, and
-every typed reference resolves against its registry.
+form sub-key names a real form field, every populated list meets its `@Min`,
+every typed reference resolves against its registry, and every form the
+document holds fills its required fields (`missingRequiredField`).
 
-**A1 and A2 are both required, and neither implies the other.** They ask
-disjoint questions, and the gap between them is precisely where an underspecified
-project hides. `validateDocument` is explicitly not a completeness check — a
-mandatory-but-absent node is not a value, so it holds no value that could be
-invalid. Conversely the schema validator sees a filled field and asks nothing
-about what it points at, so a reference into an empty registry passes it. §10.2
-measures both halves of this on a real document: gutting four required form
-fields moves A1 from 0 violations to 4 and moves A2 not at all.
+**A1 and A2 are both required, and neither implies the other.** They overlap,
+and the gaps between them are where an underspecified project hides.
+
+- **What A2 misses.** `validateDocument` checks the required fields of every
+  form the document holds, meaning a form with at least one value. A required
+  section that is absent altogether is not a value, so A2 has nothing to object
+  to. The schema validator reports it (`missingRequiredSection`).
+- **What A1 misses.** The schema validator sees a filled field and asks
+  nothing about what it points at, so a reference into an empty registry
+  passes it.
+
+§10.2 measures a cleared required field, which both tiers report. §10.1
+measures a deletion only A2 sees.
 
 ### 4.3 A3 — the routing is total
 
@@ -705,17 +711,19 @@ required structured field, populated as shipped.
 | | as shipped | gutted |
 |---|---|---|
 | **A1** — DocSpecs schema (completeness) | **0** violations | **4** violations, each `missingRequiredField [DAENT-CLAS] — required form field "aggregateRoot" of "daent-clas-form" is missing` |
-| **A2** — `validateDocument` (values) | **0** violations | **0** violations — unchanged |
+| **A2** — `validateDocument` (values) | **0** violations | **4** violations, each `missingRequiredField` at the classification form |
 
 The gutted document is rejected at A1 before any area is read, which is the DONE
-condition. The row that matters more is the second one: **A2 does not move.**
-Clearing a required field removes a value, and a validator that checks values
-has nothing left to object to. A gate built on `validateDocument` alone would
-have passed this document and handed the authoring agent four aggregate roots to
-invent. That is why §4.1 and §4.2 are two checks and not one.
+condition. A2 reports the same four places, because each classification form
+still holds other values and its required field is empty.
 
-§10.1 is the same argument with the tiers exchanged, which is why the two
-fixtures are stated together: there, a deletion A1 cannot see costs twelve
+The tiers part only where a value is absent rather than empty:
+- **A required section that is missing:** only A1 reports it.
+- **A whole form cleared in an optional section:** neither tier reports it.
+  The source A4 checks is then empty, so A4 reports it (§4.4).
+
+§10.1 is the case the other way round, which is why the two fixtures are
+stated together: there, a deletion A1 cannot see costs twelve
 resolvable references, and a gate built on the schema alone would have passed
 *that* document. Neither tier subsumes the other in either direction.
 

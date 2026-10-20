@@ -53,10 +53,11 @@ extraction walk itself). It runs them for two documents:
 
 * **Variant A** passes all three, so the run may begin.
 * **Variant B** is the same document with `DAENT-CLAS.aggregateRoot` cleared on
-  both entities. A1 reports two `missingRequiredField` violations and **A2 does
-  not move** — clearing a required field removes a value, and a validator that
-  checks values has nothing left to object to. That is why the gate is two
-  checks and not one (`codespecs_prompt.md` §4.1/§4.2, and the fixture in
+  both entities. A1 and A2 each report two `missingRequiredField` findings: the
+  classification form still holds other values, so its empty required field is
+  seen by both tiers. The tiers part where a value is absent rather than empty —
+  a missing required section is seen by A1 alone, a deletion of a referenced
+  entry by A2 alone. That is why the gate is two checks and not one (`codespecs_prompt.md` §4.1/§4.2, and the fixture in
   `codespecs_prompt.md` §10.2 that measures the same effect on a full-size
   document).
 

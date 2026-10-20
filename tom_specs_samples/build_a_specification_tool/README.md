@@ -32,16 +32,21 @@ time a document exists, that tier has already run — it validated the model the
 document is written against. A tool asking "is this model well-formed?" at
 runtime is asking a question that was settled before it started.
 
-The two runtime tiers are both available, and **neither implies the other**:
+The two runtime tiers are both available. They overlap, and **neither implies
+the other**:
 
-- `validateDocument` is **not** a completeness check. A required field that was
-  never written holds no value, so there is nothing invalid to report.
-- The schema validator does not follow a reference it sees filled — a
-  populated field pointing into an empty registry passes it.
+- **`validateDocument`** reports a required field left empty in a form the
+  document holds (`missingRequiredField`). It does not report a required
+  section that is absent altogether, because there is no value to check.
+- **The schema validator** reports the absent section. It does not follow a
+  reference it sees filled, so a populated field pointing into an empty
+  registry passes it.
 
-The sample shows this concretely rather than asserting it: its fixture is clean
-on the instance tier and carries one violation on the document tier, and a
-deliberately broken copy of the same document does the reverse.
+The sample shows this rather than asserting it:
+
+- **The fixture** leaves one required field empty, and both tiers report it.
+- **A deliberately broken copy** adds a path the model does not have and a form
+  slot the form does not declare. The instance tier reports both.
 
 ## What the run covers
 

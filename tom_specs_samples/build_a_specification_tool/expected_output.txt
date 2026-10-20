@@ -20,8 +20,8 @@ THE TWO VERSION STAMPS. They answer different questions and a tool
 that checks one for the other will accept a file it cannot read:
   modelVersion      = 1  — WHICH MODEL this snapshot describes
   metaSchemaVersion = 1  — the FILE FORMAT the snapshot itself is written in
-  modelVersionLabel = 1.6.1+6.80c6bb4e
-  generatedAt       = 2026-10-18T13:10:09.134730Z
+  modelVersionLabel = 1.6.19+26.779b9741
+  generatedAt       = 2026-10-20T10:48:37.925194Z
 
 A tool reads `metaSchemaVersion` to decide whether it can parse the
 file at all, and `modelVersion` to decide whether the documents it
@@ -30,7 +30,7 @@ build label for humans — never branch on it.
 
 SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
   age                 : 3 days (aged: false)
-  classes  declared/actual : 1259/1259  disagrees: false
+  classes  declared/actual : 1266/1266  disagrees: false
   roots    declared/actual : 14/14  disagrees: false
   Declared-vs-actual is not redundant: the declared value is what
   the exporter recorded, the actual value is what survived to the
@@ -38,7 +38,7 @@ SNAPSHOT CHECK (`checkStamp`), against a fixed clock:
 
 SHAPE:
   document roots : 14
-  classes        : 1259
+  classes        : 1266
   container root : DocSpecsProject — the one true tree root, which is not itself a document
 
 FIELDS of D00SolutionBlueprint (15 total, first 4):
@@ -135,7 +135,7 @@ a JSON-Schema validator will not find one, because the artifact the
 schema governs is not JSON.
 
   root section id : SBP
-  section types   : 3927
+  section types   : 3942
 
   That count is large because a Solution Blueprint SEEDS the twelve
   Phase-3 documents: its own section classes ARE those documents'
@@ -170,25 +170,27 @@ empty list that reads like a pass.
   DOCUMENT tier — checks a MARKDOWN RENDITION against the generated
                   schema: `DocSpecsValidator` (SOM §14).
 
-The two runtime tiers ask disjoint questions and neither implies the
-other: `validateDocument` is not a completeness check (an absent
-required field holds no value, so there is nothing invalid to
-report), and the schema validator does not follow a reference it
-sees filled. A tool that wants "is this document good?" runs BOTH.
+The two runtime tiers overlap and neither implies the other:
+`validateDocument` reports a required field left empty in a form the
+document holds, but not a required section that is absent; the
+schema validator reports the absent section, but does not follow a
+reference it sees filled. A tool that wants "is this document good?"
+runs BOTH.
 
 THE FIXTURE, both tiers:
-  instance tier : 0 error(s)
+  instance tier : 1 error(s)
   document tier : 1 violation(s)
     line 40: missingRequiredField [DAENT-CLAS] required form field "aggregateRoot" of "daent-clas-fo…
 
 A DELIBERATELY BROKEN COPY — one path the model does not have, one
 form slot the form does not declare:
   danglingPath         SBP/informationAndDataModel/nosuchsection/content
+  missingRequiredField SBP/informationAndDataModel/dataModel/DAENT-ENTI-…
   unknownFormField     SBP/informationAndDataModel/dataModel/DAENT-ENTI-…
 
 THE CLOSED VERDICT SETS. Both are enums, so a tool switches over
 them exhaustively rather than matching on message text:
-  SpecValidationCode  (9): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch
+  SpecValidationCode  (15): danglingPath, kindMismatch, unknownFormField, minItems, oneOfCaseMismatch, danglingReference, enumValueUnknown, countMismatch, valueTypeMismatch, derivedValueMismatch, missingRequiredField, multipleReferences, annotationMisplaced, annotationMalformed, duplicateAnnotationId
   DocSpecsViolationRule (11):
     unknownSection, missingRequiredSection, idPatternMismatch, tooFewItems
     tooManyItems, missingRequiredField, fieldPatternMismatch, textRequired
@@ -211,16 +213,16 @@ and answering it means walking the model and asking the document.
   SBP.4 Stakeholders & Governance            0 /   201    0%
   SBP.5 Current Landscape                    2 /   222    1%
   SBP.6 Assumptions, Constraints & Depe…     0 /     5    0%
-  SBP.7 Target Operating Model concept       0 /   245    0%
+  SBP.7 Target Operating Model concept       0 /   247    0%
   SBP.8 Information & Data Model             1 /    51    2%
   SBP.9 Requirements (functional + NFR …     0 /    55    0%
-  SBP.11 Solution Architecture & Techno…     0 /  2529    0%
-  SBP.12 Security & Access Model             0 /  1080    0%
+  SBP.11 Solution Architecture & Techno…     0 /  2541    0%
+  SBP.12 Security & Access Model             0 /  1081    0%
   SBP.13 Experience & Interface Design       0 /   488    0%
-  SBP.14 Quality & Acceptance Model          0 /   517    0%
+  SBP.14 Quality & Acceptance Model          0 /   518    0%
   SBP.15 Delivery, Transition & Rollout      0 /   372    0%
   -------------------------------------- -------------------
-  TOTAL                                      4 /  6195    0%
+  TOTAL                                      4 /  6211    0%
 
   SBP.11 offers 2529 positions because a Solution Blueprint SEEDS
   the twelve Phase-3 documents: its section classes ARE those
@@ -231,6 +233,6 @@ and answering it means walking the model and asking the document.
 
   Required-and-missing, from the schema tier, for contrast:
     1 missing required field(s) — the only gaps a validator
-    will name, out of 6191 unwritten positions.
+    will name, out of 6207 unwritten positions.
 
 That gap between the two numbers is the tool's reason to exist.

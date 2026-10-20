@@ -170,7 +170,7 @@ both have `aggregateRoot` cleared. Nothing else changed.
 
 1. The starting prompt's quality gate        [MECHANICAL]
    A1 schema completeness  : FAIL — 2 findings
-   A2 instance-tier values : pass — 0 findings
+   A2 instance-tier values : FAIL — 2 findings
    A3 routing totality     : pass — 0 findings
    A4 required arguments   : FAIL — 2 findings
    A5 structured carriers  : pass — 0 findings
@@ -180,14 +180,17 @@ both have `aggregateRoot` cleared. Nothing else changed.
    What the gate names, per finding:
      A1 missingRequiredField [DAENT-CLAS] line 26: required form field "aggregateRoot" of "daent-clas-form" is missing
      A1 missingRequiredField [DAENT-CLAS] line 72: required form field "aggregateRoot" of "daent-clas-form" is missing
+     A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
+     A2 missingRequiredField [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2/DAENT-CLAS] form field "aggregateRoot" is required on DataEntityEntry.classification but empty
      A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
      A4 missingSource [SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-2] @CsServiceUnit.rootAggregate (CE-SU) is required, and its source DataEntityEntry.classification.aggregateRoot is empty here
 
-   A2 did not move: 0 violations, the same as
-   variant A. Clearing a required field REMOVES a value, and a
-   validator that checks values has nothing left to object to. That
-   is why the gate runs both tiers and not either one
-   (codespecs_prompt.md §4.1/§4.2 and its §10.2 fixture).
+   A2 moved too: 2 violations, against 0 for variant A. The
+   classification form still holds other values, so its empty
+   required field is reported by both tiers. They part where a value
+   is absent rather than empty: a missing required section is seen by
+   A1 alone. That is why the gate runs both tiers and not either one
+   (codespecs_prompt.md §4.1/§4.2 and its §10.1/§10.2 fixtures).
 
 
 Extracts written to build/codespecs_extracts/ (54 files).

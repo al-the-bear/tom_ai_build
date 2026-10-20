@@ -322,11 +322,12 @@ void _validation(SpecModel model, DocSpecsSchema schema, SpecDocument doc) {
   print('  DOCUMENT tier — checks a MARKDOWN RENDITION against the generated');
   print('                  schema: `DocSpecsValidator` (SOM §14).');
   print('');
-  print('The two runtime tiers ask disjoint questions and neither implies the');
-  print('other: `validateDocument` is not a completeness check (an absent');
-  print('required field holds no value, so there is nothing invalid to');
-  print('report), and the schema validator does not follow a reference it');
-  print('sees filled. A tool that wants "is this document good?" runs BOTH.');
+  print('The two runtime tiers overlap and neither implies the other:');
+  print('`validateDocument` reports a required field left empty in a form the');
+  print('document holds, but not a required section that is absent; the');
+  print('schema validator reports the absent section, but does not follow a');
+  print('reference it sees filled. A tool that wants "is this document good?"');
+  print('runs BOTH.');
   print('');
 
   final instance = validateDocument(model, doc);
