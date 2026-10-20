@@ -405,6 +405,22 @@ it must do, at what boundaries, with what errors).
 5. **Derive data tests** from `IFM`
 6. **Derive integration tests** from `IIS` external-system interactions
 7. **Map every test to its CodeSpec element and source requirement**
+8. **Generate the registry suites** with `generate_registry_tests`
+   (`tom_specs_clitool`). The part of the suite that is pure registry data is
+   mechanical and the same for every Tom application, so it is generated, not
+   written: from the specification's operation registry (`SVOPE`, with its
+   authorization requirement `AZREQ` and controls `SVOCT`), role catalogue
+   (`AZRO`, with the entitlements each role holds), error codes (`ERCEN`) and
+   screens (`SCREN` with the operations they call), it writes a permitted and
+   a refused case per role, a case per custom handler, per error code and per
+   stated idempotency, audit event and rate-limit class, and each screen
+   rendered as each role with the actions a role would be refused hidden. The
+   files are committed with a generated header and call an application-owned
+   `RegistryTestHarness`; `--check` reports a suite the registries no longer
+   give (a removed case, a stale file). Generation also cross-checks the
+   registries: an undeclared error code, a role no catalogue declares, a screen
+   calling an unknown operation, and an operation a person calls that no screen
+   calls.
 
 **Output.** Test files covering every CodeSpec element. All tests initially
 **FAIL or SKIP** — there is no implementation yet. A test baseline is recorded

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.10.0
+
+- `generate_registry_tests`: generates the registry part of an application's
+  test suite from its specification — operations by role, custom handler,
+  error code and control, screens by role with refused actions hidden — as
+  committed, formatted Dart test files over an application-owned
+  `RegistryTestHarness`; cross-checks the registries in both directions;
+  `--check` reports a removed case or a stale suite.
+
 ## 0.9.0
 
 - Requires `tom_specs_core` 0.4.0. The model reader and meta export carry

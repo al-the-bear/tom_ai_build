@@ -369,6 +369,9 @@ export 'src/codespecs/areas_catalog.dart'
 // the committed manifest, in the shape of the release-closure gate beside it.
 export 'src/doc_coverage.dart';
 export 'src/format_check.dart';
+export 'src/registry_tests/generator.dart';
+export 'src/registry_tests/registries.dart';
+export 'src/registry_tests/registry_tests_cli.dart';
 
 export 'src/packaging.dart'
     show
