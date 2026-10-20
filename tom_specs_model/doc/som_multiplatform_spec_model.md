@@ -1722,7 +1722,7 @@ Two choices of the API are part of the contract:
    header `**C-x**`, and an `**Answer:**` line inside a comment block each
    produce their §11.9.5 code at the value's path.
 
-**Form fields (annot3):**
+**Form fields (annot3).** Cases 1–3 are in `corpus/markdown_import_cases.json`. Case 4 is in `corpus/docspecs_cases.json` (`annotationsInFormPreambleAndText`, `annotationCountsAsSectionText`). `tom_doc_specs` and `tom_doc_scanner` carry their own tests. In `tom_doc_specs`, a block after the fields is listed by `SpecSection.misplacedAnnotations` and reported as a `format` error.
 
 1. A form whose preamble holds a combined question block and a comment block
    parses to the same field values as the same form without them, in the SOM
