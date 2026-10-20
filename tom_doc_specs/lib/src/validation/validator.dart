@@ -814,6 +814,22 @@ class DocSpecsValidator {
       return errors;
     }
 
+    // A review annotation between or below the fields belongs in the
+    // preamble (SOM §11.9.4).
+    for (final block in section.misplacedAnnotations) {
+      errors.add(
+        ValidationError(
+          message:
+              'Review annotation after the first form field; it belongs in '
+              'the preamble above the fields: '
+              '${block.split('\n').first}',
+          lineNumber: section.lineNumber,
+          sectionId: section.id,
+          category: ValidationErrorCategory.format,
+        ),
+      );
+    }
+
     // Check required fields (from form text only)
     for (final field in formType.fields) {
       if (field.required == true) {

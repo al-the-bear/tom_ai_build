@@ -408,4 +408,4 @@ lets the package be used on any structured markdown at all.
 
 ## Status
 
-Version **0.2.0** — **0.1.0** is the release on pub.dev; 0.2.0 is unpublished. **253 tests**, all passing.
+Version **0.3.1**, the release on pub.dev. **276 tests**, all passing.

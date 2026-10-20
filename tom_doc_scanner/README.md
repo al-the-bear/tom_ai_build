@@ -339,4 +339,4 @@ three consumers sit side by side.
 
 ## Status
 
-Version **0.1.0**, published on pub.dev. **74 tests**, all passing.
+Version **0.2.1**, published on pub.dev. **84 tests**, all passing.

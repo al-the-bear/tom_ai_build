@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- Tests: review annotations (SOM §11.9) start no section and are handed to
+  the caller verbatim as section text (`review_annotations_test.dart`).
+
 ## 0.2.0
 
 14 files, +574/-201 since 0.1.0. Two defects fixed at their source, both found

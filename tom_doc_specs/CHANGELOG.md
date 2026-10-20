@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.1
+
+- **Review annotations stay out of form fields** (SOM §11.9.4). A comment
+  block (`> ⬆️ …`) or a question block (`> **❓ …`) between or below a form's
+  fields ends the field it follows and is neither read into a value nor moved
+  into the preamble. `SpecSection.misplacedAnnotations` lists such blocks, and
+  the validator reports each one as a `format` error. Blocks in the preamble
+  and inline marks inside a value are unaffected.
+- `schema-test-document.json`, a generated test artifact naming one machine's
+  paths, is no longer shipped.
+
 ## 0.3.0
 
 36 files, +4235/-2093 since 0.2.0. The schema model and the validator both

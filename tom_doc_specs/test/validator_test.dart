@@ -1251,6 +1251,46 @@ void main() {
       expect(formatErrors, isEmpty);
     });
 
+    test('reports a review annotation after the form fields', () {
+      final schema = makeSchema(
+        sectionTypes: {
+          'endpoint': const SectionTypeDef(
+            name: 'endpoint',
+            prefix: 'ep',
+            format: 'endpoint-form',
+          ),
+        },
+        formTypes: {
+          'endpoint': FormTypeDef(
+            name: 'endpoint',
+            fields: [
+              const FormFieldDef(fieldname: 'method', required: true),
+              const FormFieldDef(fieldname: 'path', required: true),
+            ],
+          ),
+        },
+      );
+      SpecDoc docWith(String text) => makeDocument(
+        sections: [makeSection(id: 'ep-001', type: 'endpoint', text: text)],
+      );
+      final before = DocSpecsValidator(schema: schema).validate(
+        docWith(
+          '> \u2b06\ufe0f (Alexis): in the preamble\n\n'
+          'Method: GET\nPath: /api/users',
+        ),
+      );
+      expect(errorsOf(before, ValidationErrorCategory.format), isEmpty);
+      final after = DocSpecsValidator(schema: schema).validate(
+        docWith(
+          'Method: GET\nPath: /api/users\n\n'
+          '> \u2b06\ufe0f (Alexis): after the fields',
+        ),
+      );
+      final formatErrors = errorsOf(after, ValidationErrorCategory.format);
+      expect(formatErrors, hasLength(1));
+      expect(formatErrors.single.message, contains('Review annotation'));
+    });
+
     test('reports form field pattern mismatch', () {
       final schema = makeSchema(
         sectionTypes: {

@@ -35,6 +35,9 @@ class SpecSection extends Section {
   /// Whether form fields have been parsed.
   bool _formFieldsParsed = false;
 
+  /// Cached annotation blocks found after the first field.
+  List<String> _misplacedAnnotations = const [];
+
   /// Creates a new SpecSection.
   SpecSection({
     required super.index,
@@ -123,6 +126,16 @@ class SpecSection extends Section {
     return _preamble;
   }
 
+  /// Review-annotation blocks (comment blocks `> ⬆️ …` and question blocks
+  /// `> **❓ …`, SOM §11.9) that sit between or below the form fields. Such a
+  /// block belongs in the preamble, above the first field; it is never read
+  /// as part of a field value nor moved into the preamble, and is listed here
+  /// so a caller can report it.
+  List<String> get misplacedAnnotations {
+    _parseFormFields();
+    return List.unmodifiable(_misplacedAnnotations);
+  }
+
   /// Get all direct subsections of a specific type.
   ///
   /// Returns an empty list if no subsections match.
@@ -167,7 +180,30 @@ class SpecSection extends Section {
     final preambleBuffer = StringBuffer();
     var foundFirstField = false;
 
+    final misplaced = <String>[];
+    StringBuffer? block; // the annotation block being skipped, if any
+
     for (final line in lines) {
+      final quoted = line.trimLeft().startsWith('>');
+      if (block != null) {
+        if (quoted) {
+          block.write('\n$line');
+          continue;
+        }
+        misplaced.add(block.toString());
+        block = null;
+      }
+      // A review annotation after the first field is not field text: it ends
+      // the current field and is set aside (SOM §11.9.4).
+      if (foundFirstField && quoted && _isAnnotationStart(line)) {
+        if (currentField != null) {
+          fields[currentField] = currentValue.toString().trim();
+          currentValue.clear();
+          currentField = null;
+        }
+        block = StringBuffer(line);
+        continue;
+      }
       final match = fieldPattern.firstMatch(line);
 
       if (match != null) {
@@ -203,6 +239,9 @@ class SpecSection extends Section {
       }
     }
 
+    if (block != null) misplaced.add(block.toString());
+    _misplacedAnnotations = misplaced;
+
     // Save last field
     if (currentField != null) {
       fields[currentField] = currentValue.toString().trim();
@@ -211,6 +250,13 @@ class SpecSection extends Section {
     _formFields = fields;
     final preambleText = preambleBuffer.toString().trim();
     _preamble = preambleText.isEmpty ? null : preambleText;
+  }
+
+  /// Whether [line] opens a comment block or a question block.
+  static bool _isAnnotationStart(String line) {
+    var inner = line.trimLeft().substring(1);
+    if (inner.startsWith(' ')) inner = inner.substring(1);
+    return inner.startsWith('\u2B06') || inner.startsWith('**\u2753');
   }
 
   @override

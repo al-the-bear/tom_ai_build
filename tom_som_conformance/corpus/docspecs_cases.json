@@ -5,6 +5,22 @@
     "violations": []
   },
   {
+    "name": "annotationsInFormPreambleAndText",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome {~~ overview ~> summary ~~} text.\n\n> ⬆️ (Alexis): Too short.\n\n> **❓ BQ-2 — Scope:** one page?\n>\n> **Answer:**\n\n## <!--[D00-HDR]--> Header\n\n> **❓ Open questions on these fields**\n>\n> **❓ BQ-1 — Reviewer:** who reviews?\n>\n> **Answer:** Bob\n\n> ⬆️ **C-1** (Alexis): Name the author too.\n\nAuthor: Alice {++ Smith ++}\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "annotationCountsAsSectionText",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nShort.\n\n> ⬆️ (Alexis): this comment makes it too long\n",
+    "violations": [
+      {
+        "rule": "textLengthOut",
+        "sectionId": "GSUM",
+        "line": 25
+      }
+    ]
+  },
+  {
     "name": "unknownSection-unresolvableId",
     "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[XYZ-2]--> Goal 2\n\nSecond goal.\n",
     "violations": [

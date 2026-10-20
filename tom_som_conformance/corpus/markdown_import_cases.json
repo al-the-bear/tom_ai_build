@@ -1,6 +1,48 @@
 {
   "cases": [
     {
+      "name": "annotations in a form preamble leave the field values alone",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details\n\n> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n\n> ⬆️ **C-7** (Alexis): Check the contact.\n\nOwner: Bob\n\nContact: bob@example.com\n",
+      "rejections": [],
+      "document": {
+        "content": {
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n\n> ⬆️ **C-7** (Alexis): Check the contact."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com",
+            "owner": "Bob"
+          }
+        }
+      }
+    },
+    {
+      "name": "an inline mark in a field value is part of the value",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details\n\nOwner: Bob {== here ==}{>> really? <<}\n\nContact: bob@example.com {++ and alice ++}\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com {++ and alice ++}",
+            "owner": "Bob {== here ==}{>> really? <<}"
+          }
+        }
+      }
+    },
+    {
+      "name": "a comment block after the last field lands in that field",
+      "markdown": "# <!--[DEMO]--> Demo Document\n\n## <!--[DET]--> Details\n\nOwner: Bob\n\nContact: bob@example.com\n\n> ⬆️ (Alexis): after the last field\n",
+      "rejections": [],
+      "document": {
+        "forms": {
+          "DEMO/DET": {
+            "contact": "bob@example.com\n\n> ⬆️ (Alexis): after the last field",
+            "owner": "Bob"
+          }
+        }
+      }
+    },
+    {
       "name": "text before the document root is reported, and the rest of the document still imports",
       "markdown": "Stray preamble.\n\n# <!--[DEMO]--> Demo Document\n\n## <!--[TTL]--> Document Title\n\nHello\n",
       "rejections": [

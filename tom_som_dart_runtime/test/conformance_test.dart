@@ -4039,6 +4039,89 @@ Map<String, dynamic> _markdownImportCases() {
 
   return {
     'cases': [
+      // Review annotations in a form (SOM §11.9.4): a combined question block
+      // and a comment block in the preamble are the preamble's text and leave
+      // the field values as they are; an inline mark in a field value is part
+      // of the value; a block after the last field lands in that field's
+      // value, where validateDocument reports it as annotationMisplaced.
+      c(
+        name: 'annotations in a form preamble leave the field values alone',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document',
+          '',
+          '## <!--[DET]--> Details',
+          '',
+          '> **\u2753 Open questions on these fields**',
+          '>',
+          '> **\u2753 BQ-83 \u2014 Owner:** who owns it?',
+          '>',
+          '> **Answer:** Bob',
+          '',
+          '> \u2b06\ufe0f **C-7** (Alexis): Check the contact.',
+          '',
+          'Owner: Bob',
+          '',
+          'Contact: bob@example.com',
+        ],
+        rejections: [],
+        document: {
+          'content': {
+            'DEMO/DET':
+                '> **\u2753 Open questions on these fields**\n>\n'
+                '> **\u2753 BQ-83 \u2014 Owner:** who owns it?\n>\n'
+                '> **Answer:** Bob\n\n'
+                '> \u2b06\ufe0f **C-7** (Alexis): Check the contact.',
+          },
+          'forms': {
+            'DEMO/DET': {'contact': 'bob@example.com', 'owner': 'Bob'},
+          },
+        },
+      ),
+      c(
+        name: 'an inline mark in a field value is part of the value',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document',
+          '',
+          '## <!--[DET]--> Details',
+          '',
+          'Owner: Bob {== here ==}{>> really? <<}',
+          '',
+          'Contact: bob@example.com {++ and alice ++}',
+        ],
+        rejections: [],
+        document: {
+          'forms': {
+            'DEMO/DET': {
+              'contact': 'bob@example.com {++ and alice ++}',
+              'owner': 'Bob {== here ==}{>> really? <<}',
+            },
+          },
+        },
+      ),
+      c(
+        name: 'a comment block after the last field lands in that field',
+        markdown: [
+          '# <!--[DEMO]--> Demo Document',
+          '',
+          '## <!--[DET]--> Details',
+          '',
+          'Owner: Bob',
+          '',
+          'Contact: bob@example.com',
+          '',
+          '> \u2b06\ufe0f (Alexis): after the last field',
+        ],
+        rejections: [],
+        document: {
+          'forms': {
+            'DEMO/DET': {
+              'contact':
+                  'bob@example.com\n\n> \u2b06\ufe0f (Alexis): after the last field',
+              'owner': 'Bob',
+            },
+          },
+        },
+      ),
       c(
         name:
             'text before the document root is reported, and the rest of the '
@@ -4865,6 +4948,37 @@ List<Map<String, String>> _docSpecsMarkdownCases() {
   };
   return [
     c('valid', _docSpecsValidDoc),
+    // Review annotations are text of the section they sit in, never structure
+    // (SOM §11.9.5): a form preamble holding a combined question block and a
+    // comment block, and a narrative section holding blocks and inline marks,
+    // validate exactly like the plain document.
+    c(
+      'annotationsInFormPreambleAndText',
+      _docSpecsValidDoc
+          .replaceFirst(
+            'Author: Alice\nReviewer: Bob\n',
+            '> **\u2753 Open questions on these fields**\n>\n'
+                '> **\u2753 BQ-1 \u2014 Reviewer:** who reviews?\n>\n'
+                '> **Answer:** Bob\n\n'
+                '> \u2b06\ufe0f **C-1** (Alexis): Name the author too.\n\n'
+                'Author: Alice {++ Smith ++}\nReviewer: Bob\n',
+          )
+          .replaceFirst(
+            'Some overview text.\n',
+            'Some {~~ overview ~> summary ~~} text.\n\n'
+                '> \u2b06\ufe0f (Alexis): Too short.\n\n'
+                '> **\u2753 BQ-2 \u2014 Scope:** one page?\n>\n> **Answer:**\n',
+          ),
+    ),
+    // ...and so they count toward a section's text length like any text.
+    c(
+      'annotationCountsAsSectionText',
+      _docSpecsValidDoc.replaceFirst(
+        'Second goal.\n',
+        'Second goal.\n\n### <!--[GSUM]--> Summary\n\nShort.\n\n'
+            '> \u2b06\ufe0f (Alexis): this comment makes it too long\n',
+      ),
+    ),
     c(
       'unknownSection-unresolvableId',
       _docSpecsValidDoc.replaceFirst(
