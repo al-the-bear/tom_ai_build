@@ -3,7 +3,7 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 14,
+  "classCount": 15,
   "rootCount": 2,
   "roots": [
     {
@@ -242,6 +242,14 @@
           "elementIsComplex": true
         },
         {
+          "name": "requirements",
+          "kind": "list",
+          "sectionId": "RQE-LST",
+          "sectionIdPattern": "RQE-xxx",
+          "elementType": "RequiredEntry",
+          "elementIsComplex": true
+        },
+        {
           "name": "links",
           "kind": "list",
           "sectionId": "RGL-LST",
@@ -371,6 +379,63 @@
           "sectionIdPattern": "RGN-xxx",
           "elementType": "EntryNote",
           "elementIsComplex": true
+        }
+      ]
+    },
+    "RequiredEntry": {
+      "name": "RequiredEntry",
+      "sectionId": "RQE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RQE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.dataAccess"
+            ]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "formFields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "remark",
+              "label": "Remark",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RQE-DET",
+          "formFields": [
+            {
+              "name": "title",
+              "label": "Title",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "note",
+              "label": "Note",
+              "type": "String"
+            }
+          ]
         }
       ]
     },

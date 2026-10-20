@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.13
+
+- `missingRequiredField`: every form the document holds must fill its
+  `required` fields — class-level forms and forms declared on a section
+  member, in list items or not. The schema tier checked class-level forms of
+  the rendition only. Conformance: `requiredFieldsFilled`,
+  `missingRequiredFieldInListItemForms`, `missingRequiredFieldInMemberForm`
+  (the corpus model gains `RequiredEntry`).
+
 ## 1.6.8
 
 - Version aligned with the TomSpecs model (1.6.8); no library change.

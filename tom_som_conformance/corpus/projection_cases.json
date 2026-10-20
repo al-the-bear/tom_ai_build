@@ -544,6 +544,17 @@
     "hasValue": false
   },
   {
+    "path": "DEMO/REG/RQE-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "RQE-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
     "path": "DEMO/REG/RGL-LST",
     "kind": "list",
     "classId": null,

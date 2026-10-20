@@ -1662,7 +1662,7 @@ Map<String, dynamic> _buildMeta() => {
   // class, so declaring one would be a lie. The present-`containerRoot`
   // path is covered by `stamp_cases.json` instead.
   'generatedAt': '2026-07-20T08:00:00.000000Z',
-  'classCount': 14,
+  'classCount': 15,
   'rootCount': 2,
   'roots': [
     {
@@ -1974,6 +1974,16 @@ Map<String, dynamic> _buildMeta() => {
           'elementIsComplex': true,
         },
         {
+          // uamtc16: list items whose forms carry required fields — one on
+          // the class-level `content` form, one on a member form.
+          'name': 'requirements',
+          'kind': 'list',
+          'sectionId': 'RQE-LST',
+          'sectionIdPattern': 'RQE-xxx',
+          'elementType': 'RequiredEntry',
+          'elementIsComplex': true,
+        },
+        {
           'name': 'links',
           'kind': 'list',
           'sectionId': 'RGL-LST',
@@ -2071,6 +2081,51 @@ Map<String, dynamic> _buildMeta() => {
           'sectionIdPattern': 'RGN-xxx',
           'elementType': 'EntryNote',
           'elementIsComplex': true,
+        },
+      ],
+    },
+    'RequiredEntry': {
+      'name': 'RequiredEntry',
+      'sectionId': 'RQE',
+      'annotations': [
+        {
+          'name': 'SectionId',
+          'arguments': {'id': 'RQE'},
+        },
+        {
+          'name': 'CodeSpecKind',
+          'arguments': {
+            'kinds': ['CodeSpecPart.dataAccess'],
+          },
+        },
+      ],
+      'fields': [
+        {
+          'name': 'content',
+          'kind': 'form',
+          'formFields': [
+            {
+              'name': 'label',
+              'label': 'Label',
+              'type': 'String',
+              'required': true,
+            },
+            {'name': 'remark', 'label': 'Remark', 'type': 'String'},
+          ],
+        },
+        {
+          'name': 'details',
+          'kind': 'form',
+          'sectionId': 'RQE-DET',
+          'formFields': [
+            {
+              'name': 'title',
+              'label': 'Title',
+              'type': 'String',
+              'required': true,
+            },
+            {'name': 'note', 'label': 'Note', 'type': 'String'},
+          ],
         },
       ],
     },
@@ -2856,6 +2911,19 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
       'enumValueIsCaseSensitive',
       _enumState(level: 'High', decided: 'undecided'),
     ),
+    // uamtc16: a form the document holds must fill its required fields —
+    // in a list item's class-level form, its member form, and a member form
+    // outside any list (`DEMO/DET`). An absent form is not checked.
+    caseFor('requiredFieldsFilled', _requiredState(label: 'A', title: 'T')),
+    caseFor(
+      'missingRequiredFieldInListItemForms',
+      _requiredState(remark: 'r', note: 'n'),
+    ),
+    caseFor('missingRequiredFieldInMemberForm', {
+      'forms': {
+        'DEMO/DET': {'contact': 'someone'},
+      },
+    }),
     caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
     // `beta` is populated while `alpha` is chosen — the common subsection is
     // always allowed and must not be reported alongside it.
@@ -2903,6 +2971,26 @@ Map<String, Object?> _registryState({
     'DEMO/REG/RGL-LST': {
       'seq': 1,
       'items': ['DEMO/REG/RGL-LST-1'],
+    },
+  },
+};
+
+/// A document state with one `RequiredEntry` whose class-level form holds
+/// [label] / [remark] and whose member form holds [title] / [note] (uamtc16).
+Map<String, Object?> _requiredState({
+  String? label,
+  String? remark,
+  String? title,
+  String? note,
+}) => {
+  'forms': {
+    'DEMO/REG/RQE-LST-1/content': {'label': ?label, 'remark': ?remark},
+    'DEMO/REG/RQE-LST-1/RQE-DET': {'title': ?title, 'note': ?note},
+  },
+  'lists': {
+    'DEMO/REG/RQE-LST': {
+      'seq': 1,
+      'items': ['DEMO/REG/RQE-LST-1'],
     },
   },
 };

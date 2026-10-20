@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Required form fields (uamtc16): `validateDocument` reports the new
+  `SpecValidationCode.MISSING_REQUIRED_FIELD` (`missingRequiredField`) in its
+  form-section step: for every form path the document holds that resolves to
+  a form, each field the model declares `required` (in declared order) whose
+  value is absent or empty after trimming gives one error at that form path.
+  Verified by the `requiredFieldsFilled`,
+  `missingRequiredFieldInListItemForms`, `missingRequiredFieldInMemberForm`
+  and `unknownFormField` validation cases; the conformance model now has 15
+  classes.
+
 - Derived values (uamtc10): `FormFieldSpec.product_of` and `rank_of` read the
   meta's `formFields[].productOf` / `rankOf` (absent → empty / `None`), and
   `validate_document` gains a seventh, instance-tier step after the count

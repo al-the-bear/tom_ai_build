@@ -49,6 +49,13 @@ const (
 	// not give, or no number at all (uamtc10). A risk score kept by hand drifts
 	// the first time probability or impact changes and the score does not.
 	SpecValidationCodeDerivedValueMismatch = "derivedValueMismatch"
+	// A form the document holds leaves a `required` field empty (uamtc16).
+	// Checked for every form instance the document holds — a class-level form,
+	// a form declared on a section member, in a list item or not — so an absent
+	// form is absence, not an incomplete one. The schema tier checks
+	// class-level forms of the rendition only; this is the check that reaches
+	// every form.
+	SpecValidationCodeMissingRequiredField = "missingRequiredField"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -185,6 +192,26 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 					Message: "form field \"" + name + "\" holds \"" + value +
 						"\", which " + spec.Type + " does not declare (" +
 						strings.Join(spec.EnumValues, ", ") + ")",
+				})
+			}
+		}
+		// A form the document holds must fill its required fields; the
+		// declared order makes the findings for one form stable (uamtc16).
+		formName := res.Field.Name
+		if slash := strings.LastIndex(path, "/"); slash > 0 {
+			if owner := refl.Resolve(path[:slash]); owner != nil && owner.TargetClass != nil {
+				formName = owner.TargetClass.Name + "." + res.Field.Name
+			}
+		}
+		for _, ff := range res.Field.FormFields {
+			if !ff.Required {
+				continue
+			}
+			if strings.TrimSpace(doc.FormFieldOr(path, ff.Name)) == "" {
+				errors = append(errors, SpecValidationError{
+					Path:    path,
+					Code:    SpecValidationCodeMissingRequiredField,
+					Message: "form field \"" + ff.Name + "\" is required on " + formName + " but empty",
 				})
 			}
 		}

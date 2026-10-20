@@ -39,7 +39,16 @@ public enum SpecValidationCode {
    * all (uamtc10). A risk score kept by hand drifts the first time probability
    * or impact changes and the score does not.
    */
-  DERIVED_VALUE_MISMATCH("derivedValueMismatch");
+  DERIVED_VALUE_MISMATCH("derivedValueMismatch"),
+  /**
+   * A form the document holds leaves a {@code required} field empty (uamtc16).
+   * Checked for every form instance that holds at least one field value — a
+   * class-level form, a form declared on a section member, in a list item or
+   * not — so an absent form is absence, not an incomplete one. The schema tier
+   * checks class-level forms of the rendition only; this is the check that
+   * reaches every form.
+   */
+  MISSING_REQUIRED_FIELD("missingRequiredField");
 
   public final String value;
 

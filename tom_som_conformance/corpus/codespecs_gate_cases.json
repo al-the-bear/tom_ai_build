@@ -772,7 +772,13 @@
             "check": "A2",
             "ran": true,
             "notRunReason": null,
-            "findings": []
+            "findings": [
+              {
+                "code": "missingRequiredField",
+                "location": "DEMO/DET",
+                "message": "form field \"owner\" is required on Demo.details but empty"
+              }
+            ]
           },
           {
             "check": "A3",

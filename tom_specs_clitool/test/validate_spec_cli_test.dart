@@ -103,8 +103,8 @@ void main() {
     );
   });
 
-  test('schema: a required form field removed fails completeness, which '
-      'the instance tier cannot see', () async {
+  test('schema and instance: a required form field removed fails both '
+      'tiers', () async {
     // Every entity's `aggregateRoot` (DAENT-CLAS) removed, key and value.
     final text = File(_meridian).readAsStringSync().replaceAll(
       RegExp(r'\n( *)aggregateRoot: \|2-\n\1  [^\n]*'),
@@ -124,7 +124,17 @@ void main() {
       schema.first['location'],
       'SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS',
     );
-    expect(_violations(json, 'instance'), isEmpty);
+    // The instance tier checks every form the document holds (uamtc16), so
+    // the same gap is reported there too, at the same form.
+    final instance = _violations(json, 'instance');
+    expect(instance, isNotEmpty);
+    expect(instance.map((v) => v['code']).toSet(), {'missingRequiredField'});
+    expect(
+      instance.map((v) => v['location']),
+      contains(
+        'SBP/informationAndDataModel/dataModel/DAENT-ENTI-LST-1/DAENT-CLAS',
+      ),
+    );
   });
 
   test('instance: a reference to no registry entry fails, which the schema '

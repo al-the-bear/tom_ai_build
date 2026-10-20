@@ -74,6 +74,16 @@ export const SpecValidationCode = {
    * impact changes and the score does not.
    */
   DERIVED_VALUE_MISMATCH: 'derivedValueMismatch',
+  /**
+   * A form the document holds leaves a `required` field empty (uamtc16).
+   *
+   * Checked for every form instance that holds at least one field value — a
+   * class-level form, a form declared on a section member, in a list item or
+   * not — so an absent form is absence, not an incomplete one. The schema
+   * tier checks class-level forms of the rendition only; this is the check
+   * that reaches every form.
+   */
+  MISSING_REQUIRED_FIELD: 'missingRequiredField',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -222,6 +232,30 @@ export function validateDocument(
             SpecValidationCode.ENUM_VALUE_UNKNOWN,
             `form field "${name}" holds "${value}", which ${spec.type} does ` +
               `not declare (${spec.enumValues.join(', ')})`,
+          ),
+        );
+      }
+    }
+    // A form the document holds must fill its required fields; the declared
+    // order makes the findings for one form stable.
+    const slash = path.lastIndexOf('/');
+    const ownerRes = slash > 0 ? refl.resolve(path.substring(0, slash)) : null;
+    const owner =
+      ownerRes !== null && ownerRes !== undefined && ownerRes.targetClass
+        ? ownerRes.targetClass.name
+        : null;
+    const formName =
+      owner === null ? res.field.name : `${owner}.${res.field.name}`;
+    for (const ff of res.field.formFields) {
+      if (!ff.required) continue;
+      const raw = doc.formField(path, ff.name);
+      const value = raw === null || raw === undefined ? '' : String(raw).trim();
+      if (value === '') {
+        errors.push(
+          new SpecValidationError(
+            path,
+            SpecValidationCode.MISSING_REQUIRED_FIELD,
+            `form field "${ff.name}" is required on ${formName} but empty`,
           ),
         );
       }

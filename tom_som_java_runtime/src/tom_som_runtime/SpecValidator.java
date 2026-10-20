@@ -141,6 +141,30 @@ public final class SpecValidator {
                       + ")"));
         }
       }
+      // A form the document holds must fill its required fields; the declared
+      // order makes the findings for one form stable.
+      int slash = path.lastIndexOf('/');
+      String owner = null;
+      if (slash > 0) {
+        SpecResolution ownerRes = refl.resolve(path.substring(0, slash));
+        if (ownerRes != null && ownerRes.targetClass != null) {
+          owner = ownerRes.targetClass.name;
+        }
+      }
+      String formName = owner == null ? res.field.name : owner + "." + res.field.name;
+      for (FormFieldSpec ff : res.field.formFields) {
+        if (!ff.required) {
+          continue;
+        }
+        String value = doc.formField(path, ff.name);
+        if (value == null || value.trim().isEmpty()) {
+          errors.add(
+              new SpecValidationError(
+                  path,
+                  SpecValidationCode.MISSING_REQUIRED_FIELD,
+                  "form field \"" + ff.name + "\" is required on " + formName + " but empty"));
+        }
+      }
     }
 
     // 3. Lists (container kind + @Min count on populated lists).

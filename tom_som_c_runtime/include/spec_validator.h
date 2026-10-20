@@ -51,6 +51,13 @@
  * impact changes and the score does not. A `productOf` / `rankOf` form field
  * is not reported as valueTypeMismatch. */
 #define SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH "derivedValueMismatch"
+/* A form the document holds whose model-declared required field
+ * (`formFields[].required`) is absent or empty after trimming (uamtc16). One
+ * finding per required field, at the form path, in declared order. Checked on
+ * every form the document holds — class-level `content` forms and member
+ * forms, in list items or not — so an absent form is absence, not an
+ * incomplete one. */
+#define SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD "missingRequiredField"
 
 typedef struct {
   char *path;    /* owned */

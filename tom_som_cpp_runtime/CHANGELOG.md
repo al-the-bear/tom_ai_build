@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Required form fields (uamtc16). New validation code `kSpecValidationCodeMissingRequiredField`
+  (`"missingRequiredField"`), after `derivedValueMismatch`. In the form phase
+  of `validate_document`, every form path that resolves to a form reports, in
+  declared order, each model field marked `required` whose stored value is
+  absent or empty after trimming, at the form path. It runs on every form the
+  document holds (class-level `content` forms and member forms, in list items
+  or not). Pinned by the `requiredFieldsFilled`,
+  `missingRequiredFieldInListItemForms` and `missingRequiredFieldInMemberForm`
+  validation cases and the extended `unknownFormField` case; the conformance
+  model's class count is now 15 (`RequiredEntry`).
+
 - Derived values (uamtc10). `FormFieldSpec` gains `productOf` (read from the
   meta's `formFields[].productOf`; empty when absent) and `rankOf`
   (`std::optional<std::string>`, from `rankOf`). `validateDocument` gains

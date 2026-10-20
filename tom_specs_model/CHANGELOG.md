@@ -1,3 +1,77 @@
+## 1.6.13
+
+- Documentation: SOM §9 names the instance-tier `missingRequiredField` check;
+  the model is unchanged.
+- This file now carries the entries for 1.6.5 to 1.6.12, which those
+  releases shipped without.
+
+## 1.6.12
+
+- Fields a pre-release, gate-driven plan cannot state are optional
+  (`tom_specs_model_rules.md` §6.2.7): target dates of business goals and goal
+  milestones; planned dates of stages, stage summaries and migration phases,
+  and a stage's go-live date; every `minVersion` / `minimumVersion`; current
+  active users and current data volume. Their hints accept a gate or a version
+  policy and say empty means not yet known.
+- The existing-system compatibility list (`LCE-LEGA-LST`) is described for
+  predecessors and systems running beside the solution; audit-date hints
+  allow "none yet" and a gate.
+
+## 1.6.11
+
+- `ScheduledJobTrigger.interval` with the `SCJOB-INTV` case (ISO 8601 period,
+  optional anchor), mirroring `CsJobTrigger.interval` (`tom_code_specs`
+  0.16.0).
+
+## 1.6.10
+
+- Members the domain needed: a RACI matrix (`RACIEN`) and policy ownership
+  (`POLOWN`); operation controls (`SVOCT`); bounded-context owned operations
+  and relationships (`CTXREL`); a database connection budget (`SRSDB`); key
+  management (`KEYMGT`); application-node and database-server counts; an
+  attribute's OpenID release (`USOIDC`); a role's membership source; a locale
+  variant's review status; test levels (`TSLVL`); maintenance procedures as
+  headlined entries (`MAPRO`, ids `MAPRO-PROC-…` replacing `SO-MAIN-…`).
+- Not modelled, with reasons in `tom_specs_model_rules.md` §6.2.6.
+
+## 1.6.9
+
+- One home per fact (`tom_specs_model_rules.md` §6.2.5): places that held a
+  copy of a fact refer to its home (`keyRiskRef`, `migrationRiskRef`,
+  `userCategoryRef`, `stakeholderRefs`, `libraryRef`, `componentRef`,
+  `protocolComplianceRef`, `environmentRef`, `browserRef` / `osRef` /
+  `platformRef`, `standardRef`, `alertRuleRef`, `SDR-DECI-REF`,
+  `SYARSP-DECI-REF`); data-protection classification levels and a migration
+  phase's stage resolve. The MoSCoW analysis's tier and stage and the
+  feature-stage matrix's stages are removed.
+
+## 1.6.8
+
+- Enum-like free text is typed: new enums `AlertSeverity`,
+  `ConstraintEnforcement`, `OverridableBy`, `ConfigValueType`,
+  `DecisionState`; alert, maintenance, role-rule, configuration, quality,
+  process-exception, pipeline-timeout and network-flag fields use them (or
+  `ImportanceBand`, `Probability`, `Impact`, `Iso25010Characteristic`, `int`).
+
+## 1.6.7
+
+- Counts and derived values are checked: `countOf` on the success-criteria
+  summary, use-case step and extension counts (`./` scope), the must-pass
+  count and the feature-dependency totals (`crossStageDependency` became a
+  `bool` with `crossStageNote`); `productOf` on six risk scores and `rankOf`
+  on the key-risk ranking. Requires `tom_specs_core` 0.3.0.
+
+## 1.6.6
+
+- References accept the registries the domain needs (`protocolErrorCodes`,
+  wider risk targets, `proposedEnum`, `failureAlert`, wider prototype-feature
+  and field-help targets).
+
+## 1.6.5
+
+- The access-handler catalogue (`AZHAN`); a custom authorization requirement
+  names its handler from it.
+
 ## 1.6.4
 
 - Links to the right registry (tom_uam findings): IOE gains `serverOperation`

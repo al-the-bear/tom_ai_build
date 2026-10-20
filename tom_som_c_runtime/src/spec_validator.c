@@ -1462,6 +1462,54 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
       }
     }
     som_strlist_free(&names);
+    /* A form the document holds must fill its required fields; the declared
+       order makes the findings for one form stable. */
+    const char *owner = NULL;
+    SpecResolution owner_res;
+    int have_owner = 0;
+    const char *slash = strrchr(path, '/');
+    if (slash != NULL && slash > path) {
+      char *parent = som_strdup_n(path, (size_t)(slash - path));
+      if (spec_reflection_resolve(&refl, parent, &owner_res)) {
+        have_owner = 1;
+        if (owner_res.target_class != NULL) {
+          owner = owner_res.target_class->name;
+        }
+      }
+      free(parent);
+    }
+    for (size_t k = 0; k < field->form_fields_len; k++) {
+      const FormFieldSpec *ff = &field->form_fields[k];
+      if (!ff->required) {
+        continue;
+      }
+      const char *raw = spec_document_form_field(doc, path, ff->name);
+      int empty = 1;
+      if (raw != NULL) {
+        char *t = trim_dup(raw);
+        empty = t[0] == '\0';
+        free(t);
+      }
+      if (!empty) {
+        continue;
+      }
+      SomBuf b;
+      som_buf_init(&b);
+      som_buf_puts(&b, "form field \"");
+      som_buf_puts(&b, ff->name);
+      som_buf_puts(&b, "\" is required on ");
+      if (owner != NULL) {
+        som_buf_puts(&b, owner);
+        som_buf_puts(&b, ".");
+      }
+      som_buf_puts(&b, field->name);
+      som_buf_puts(&b, " but empty");
+      errors_push(out, path, SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD,
+                  som_buf_take(&b));
+    }
+    if (have_owner) {
+      spec_resolution_free(&owner_res);
+    }
     spec_resolution_free(&res);
   }
   som_strlist_free(&form_paths);

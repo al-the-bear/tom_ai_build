@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Required form fields (uamtc16): `validate_document` reports the new
+  `SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD` (`missingRequiredField`) in
+  the form-section step — for every form path the document holds that
+  resolves to a form, each declared form field with `required` set (meta
+  `formFields[].required`) whose value is absent or blank after trimming, in
+  declared order. The corpus cases `requiredFieldsFilled`,
+  `missingRequiredFieldInListItemForms` and `missingRequiredFieldInMemberForm`
+  pin it; the corpus model holds 15 classes.
 - Derived values (uamtc10): `FormFieldSpec::product_of` (meta
   `formFields[].productOf`, empty when absent) and `FormFieldSpec::rank_of`
   (meta `formFields[].rankOf`, `None` when absent). `validate_document`

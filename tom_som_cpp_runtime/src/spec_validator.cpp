@@ -895,6 +895,26 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
                  spec->type + " does not declare (" + allowed + ")");
       }
     }
+    // A form the document holds must fill its required fields; the declared
+    // order makes the findings for one form stable.
+    std::string formName = field->name;
+    const std::size_t slash = path.rfind('/');
+    if (slash != std::string::npos && slash > 0) {
+      auto owner = refl.resolve(path.substr(0, slash));
+      if (owner.has_value() && owner->targetClass != nullptr) {
+        formName = owner->targetClass->name + "." + field->name;
+      }
+    }
+    for (const FormFieldSpec& ff : field->formFields) {
+      if (!ff.required) {
+        continue;
+      }
+      if (trimmed(doc.formField(path, ff.name)).empty()) {
+        push(path, kSpecValidationCodeMissingRequiredField,
+             "form field \"" + ff.name + "\" is required on " + formName +
+                 " but empty");
+      }
+    }
   }
 
   // 3. Lists (container kind + @Min count on populated lists).

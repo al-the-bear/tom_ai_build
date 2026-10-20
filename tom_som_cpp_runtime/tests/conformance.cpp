@@ -161,7 +161,7 @@ static void test_model_meta(Checker& c, const som::SpecModel& model) {
   const som::SpecRoot& root = model.roots[0];
   c.check("model.root.sectionId", root.sectionId == "DEMO", root.sectionId);
   c.check("model.root.type", root.type == "Demo", root.type);
-  c.check("model.classCount", model.classesSize() == 14,
+  c.check("model.classCount", model.classesSize() == 15,
           std::to_string(model.classesSize()));
   const som::SpecClass* demo = model.classNamed("Demo");
   c.check("model.Demo.found", demo != nullptr, "");

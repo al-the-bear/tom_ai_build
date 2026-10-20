@@ -48,6 +48,13 @@ pub const SPEC_VALIDATION_CODE_VALUE_TYPE_MISMATCH: &str = "valueTypeMismatch";
 /// (uamtc10). A risk score kept by hand drifts the first time probability or
 /// impact changes and the score does not.
 pub const SPEC_VALIDATION_CODE_DERIVED_VALUE_MISMATCH: &str = "derivedValueMismatch";
+/// A form the document holds leaves a `required` field empty (uamtc16).
+///
+/// Checked for every form instance the document holds — a class-level form, a
+/// form declared on a section member, in a list item or not — so an absent
+/// form is absence, not an incomplete one. The schema tier checks class-level
+/// forms of the rendition only; this is the check that reaches every form.
+pub const SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD: &str = "missingRequiredField";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -203,6 +210,33 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
                         value,
                         spec.type_,
                         spec.enum_values.join(", ")
+                    ),
+                });
+            }
+        }
+        // A form the document holds must fill its required fields; the
+        // declared order makes the findings for one form stable (uamtc16).
+        let owner = match path.rfind('/') {
+            Some(slash) if slash > 0 => refl
+                .resolve(&path[..slash])
+                .and_then(|r| r.target_class.map(|c| c.name)),
+            _ => None,
+        };
+        let form_name = match owner {
+            Some(owner) => format!("{}.{}", owner, field.name),
+            None => field.name.clone(),
+        };
+        for ff in &field.form_fields {
+            if !ff.required {
+                continue;
+            }
+            if doc.form_field_or(&path, &ff.name).trim().is_empty() {
+                errors.push(SpecValidationError {
+                    path: path.clone(),
+                    code: SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD.to_string(),
+                    message: format!(
+                        "form field \"{}\" is required on {} but empty",
+                        ff.name, form_name
                     ),
                 });
             }

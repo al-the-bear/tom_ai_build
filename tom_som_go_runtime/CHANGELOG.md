@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- Required form fields (uamtc16): `ValidateDocument` reports the new
+  `SpecValidationCodeMissingRequiredField` (`missingRequiredField`) in the
+  form-section step — for every form path the document holds that resolves to
+  a form, each declared form field with `Required` set (meta
+  `formFields[].required`) whose value is absent or blank after trimming, in
+  declared order. The corpus cases `requiredFieldsFilled`,
+  `missingRequiredFieldInListItemForms` and `missingRequiredFieldInMemberForm`
+  pin it; the corpus model holds 15 classes.
 - Derived values (uamtc10): `FormFieldSpec.ProductOf` (meta
   `formFields[].productOf`, absent → empty slice) and `FormFieldSpec.RankOf`
   (meta `formFields[].rankOf`, absent → empty string). `ValidateDocument`

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Required form fields (uamtc16): `validateDocument` reports
+  `SpecValidationCode.MISSING_REQUIRED_FIELD` (`missingRequiredField`, listed
+  after `derivedValueMismatch`) in the form-section phase: for every form path
+  the document holds that resolves to a form, each declared field whose
+  `required` flag (meta `formFields[].required`, default false) is set and
+  whose value is absent or blank after trimming is one error at that form
+  path, in declared order — class-level `content` forms and member forms, in
+  list items or not. Conformance: the `requiredFieldsFilled` /
+  `missingRequiredFieldInListItemForms` / `missingRequiredFieldInMemberForm`
+  validation cases; the corpus model now has 15 classes (`RequiredEntry`).
 - Derived values (uamtc10): `FormFieldSpec.productOf` (meta
   `formFields[].productOf`, absent → empty) and `FormFieldSpec.rankOf` (meta
   `formFields[].rankOf`, absent → `null`), and `validateDocument` reports

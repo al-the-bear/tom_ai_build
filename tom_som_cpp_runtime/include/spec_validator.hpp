@@ -61,6 +61,14 @@ inline constexpr const char* kSpecValidationCodeValueTypeMismatch =
  * is not reported as valueTypeMismatch. */
 inline constexpr const char* kSpecValidationCodeDerivedValueMismatch =
     "derivedValueMismatch";
+/* A form the document holds whose model-declared required field
+ * (`formFields[].required`) is absent or empty after trimming (uamtc16). One
+ * finding per required field, at the form path, in declared order. Checked on
+ * every form the document holds — class-level `content` forms and member
+ * forms, in list items or not — so an absent form is absence, not an
+ * incomplete one. */
+inline constexpr const char* kSpecValidationCodeMissingRequiredField =
+    "missingRequiredField";
 
 struct SpecValidationError {
   std::string path;

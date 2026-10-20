@@ -466,6 +466,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RQE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/RGL-LST",
         "kind": "list",
         "classId": null,
@@ -1082,6 +1090,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RQE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/RGL-LST",
         "kind": "list",
         "classId": null,
@@ -1569,6 +1585,14 @@
         "spans": []
       },
       {
+        "path": "DEMO/REG/RQE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
         "path": "DEMO/REG/RGL-LST",
         "kind": "list",
         "classId": null,
@@ -1691,6 +1715,14 @@
     "matches": [
       {
         "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RQE-LST",
         "kind": "list",
         "classId": null,
         "headline": null,
@@ -2269,6 +2301,14 @@
       },
       {
         "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RQE-LST",
         "kind": "list",
         "classId": null,
         "headline": null,

@@ -707,6 +707,7 @@ references, stated counts, derived values, each group sorted by path:
 | `unknownFormField` | 2 | a form sub-key naming no field of that form |
 | `valueTypeMismatch` | 1, 2 | a typed field (`int`, `double`, `num`, `bool`) — a scalar leaf or a form field — holding text its type cannot read; a `countOf`, `productOf` or `rankOf` field is left to its own check |
 | `enumValueUnknown` | 2 | a form field whose model type is an enum holding a token the enum does not declare |
+| `missingRequiredField` | 2 | a form the document holds — a class-level form or a form declared on a section member, in a list item or not — that leaves a `required` field empty; an absent form is absence and is not reported |
 | `minItems` | 3 | a populated list below its `@Min` item count |
 | `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
 | `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |

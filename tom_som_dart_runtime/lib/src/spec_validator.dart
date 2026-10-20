@@ -72,6 +72,15 @@ enum SpecValidationCode {
   /// (uamtc10). A risk score kept by hand drifts the first time probability or
   /// impact changes and the score does not.
   derivedValueMismatch,
+
+  /// A form the document holds leaves a `required` field empty (uamtc16).
+  ///
+  /// Checked for every form instance that holds at least one field value —
+  /// a class-level form, a form declared on a section member, in a list item
+  /// or not — so an absent form is absence, not an incomplete one. The schema
+  /// tier checks class-level forms of the rendition only; this is the check
+  /// that reaches every form.
+  missingRequiredField,
 }
 
 /// One problem found while validating a document.
@@ -218,6 +227,29 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
             message:
                 'form field "$name" holds "$value", which ${spec.type} does '
                 'not declare (${spec.enumValues.join(', ')})',
+          ),
+        );
+      }
+    }
+    // A form the document holds must fill its required fields; the declared
+    // order makes the findings for one form stable.
+    final slash = path.lastIndexOf('/');
+    final owner = slash > 0
+        ? refl.resolve(path.substring(0, slash))?.targetClass?.name
+        : null;
+    final formName = owner == null
+        ? res.field!.name
+        : '$owner.${res.field!.name}';
+    for (final ff in res.field!.formFields) {
+      if (!ff.required) continue;
+      final value = doc.formField(path, ff.name)?.trim();
+      if (value == null || value.isEmpty) {
+        errors.add(
+          SpecValidationError(
+            path: path,
+            code: SpecValidationCode.missingRequiredField,
+            message:
+                'form field "${ff.name}" is required on $formName but empty',
           ),
         );
       }

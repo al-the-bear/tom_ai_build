@@ -152,6 +152,10 @@
       {
         "path": "DEMO/DET",
         "code": "unknownFormField"
+      },
+      {
+        "path": "DEMO/DET",
+        "code": "missingRequiredField"
       }
     ]
   },
@@ -168,6 +172,10 @@
       {
         "path": "DEMO/DET",
         "code": "enumValueUnknown"
+      },
+      {
+        "path": "DEMO/DET",
+        "code": "missingRequiredField"
       }
     ]
   },
@@ -180,7 +188,12 @@
         }
       }
     },
-    "errors": []
+    "errors": [
+      {
+        "path": "DEMO/DET",
+        "code": "missingRequiredField"
+      }
+    ]
   },
   {
     "name": "valueTypeMismatch",
@@ -210,6 +223,10 @@
       {
         "path": "DEMO/DET",
         "code": "valueTypeMismatch"
+      },
+      {
+        "path": "DEMO/DET",
+        "code": "missingRequiredField"
       }
     ]
   },
@@ -960,6 +977,75 @@
       {
         "path": "DEMO/REG/RGE-LST-1/RGE-DET",
         "code": "enumValueUnknown"
+      }
+    ]
+  },
+  {
+    "name": "requiredFieldsFilled",
+    "state": {
+      "forms": {
+        "DEMO/REG/RQE-LST-1/content": {
+          "label": "A"
+        },
+        "DEMO/REG/RQE-LST-1/RQE-DET": {
+          "title": "T"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RQE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RQE-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "missingRequiredFieldInListItemForms",
+    "state": {
+      "forms": {
+        "DEMO/REG/RQE-LST-1/content": {
+          "remark": "r"
+        },
+        "DEMO/REG/RQE-LST-1/RQE-DET": {
+          "note": "n"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RQE-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RQE-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RQE-LST-1/RQE-DET",
+        "code": "missingRequiredField"
+      },
+      {
+        "path": "DEMO/REG/RQE-LST-1/content",
+        "code": "missingRequiredField"
+      }
+    ]
+  },
+  {
+    "name": "missingRequiredFieldInMemberForm",
+    "state": {
+      "forms": {
+        "DEMO/DET": {
+          "contact": "someone"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/DET",
+        "code": "missingRequiredField"
       }
     ]
   },
