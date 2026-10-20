@@ -273,5 +273,5 @@ packages, as opposed to this package's own `example/`:
 
 ## Status
 
-Version **1.1.0**, tracking the TomSpecs model version. Covered by 22 test files
-carrying **562 tests**, conformance suite included; `./run_tests.sh` is green.
+Version **1.6.18**, tracking the TomSpecs model version. Covered by 23 test files
+carrying **792 tests**, conformance suite included; `./run_tests.sh` is green.

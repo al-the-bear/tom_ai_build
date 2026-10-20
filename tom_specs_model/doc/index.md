@@ -223,23 +223,23 @@ click away from it.
 | [`tom_specs_editor`](../../../../tom_forge/tom_specs_editor/README.md) | *(none — by design)* | Out of scope for the package tier; [tom_specs_editor_specification.md](tom_specs_editor_specification.md) is the documentation a reader needs ([tom_specs_documentation_standard.md](tom_specs_documentation_standard.md) §6) |
 | [`tom_doc_scanner`](../../tom_doc_scanner/README.md) | *(README only)* | The markdown parser TomSpecs builds on |
 | [`tom_doc_specs`](../../tom_doc_specs/README.md) | *(README only)* | Schema validation over the document trees |
-| [`tom_som_dart_runtime`](../../tom_som_dart_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_dart_runtime/doc/index.md) | The generic, reflective access path in dart |
+| [`tom_som_dart_runtime`](../../tom_som_dart_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_dart_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_dart_runtime/doc/review_annotations.md) | The generic, reflective access path in dart, and the review annotations (SOM §11.9) |
 | [`tom_som_dart_v0`](../../tom_som_dart_v0/README.md) | [`doc/tutorial.md`](../../tom_som_dart_v0/doc/index.md) | The typed access path in dart, end to end |
-| [`tom_som_python_runtime`](../../tom_som_python_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_python_runtime/doc/index.md) | The generic, reflective access path in python |
+| [`tom_som_python_runtime`](../../tom_som_python_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_python_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_python_runtime/doc/review_annotations.md) | The generic, reflective access path in python, and the review annotations (SOM §11.9) |
 | [`tom_som_python_v0`](../../tom_som_python_v0/README.md) | [`doc/tutorial.md`](../../tom_som_python_v0/doc/index.md) | The typed access path in python, end to end |
-| [`tom_som_javascript_runtime`](../../tom_som_javascript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_javascript_runtime/doc/index.md) | The generic, reflective access path in javascript |
+| [`tom_som_javascript_runtime`](../../tom_som_javascript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_javascript_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_javascript_runtime/doc/review_annotations.md) | The generic, reflective access path in javascript, and the review annotations (SOM §11.9) |
 | [`tom_som_javascript_v0`](../../tom_som_javascript_v0/README.md) | [`doc/tutorial.md`](../../tom_som_javascript_v0/doc/index.md) | The typed access path in javascript, end to end |
-| [`tom_som_typescript_runtime`](../../tom_som_typescript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_typescript_runtime/doc/index.md) | The generic, reflective access path in typescript |
+| [`tom_som_typescript_runtime`](../../tom_som_typescript_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_typescript_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_typescript_runtime/doc/review_annotations.md) | The generic, reflective access path in typescript, and the review annotations (SOM §11.9) |
 | [`tom_som_typescript_v0`](../../tom_som_typescript_v0/README.md) | [`doc/tutorial.md`](../../tom_som_typescript_v0/doc/index.md) | The typed access path in typescript, end to end |
-| [`tom_som_go_runtime`](../../tom_som_go_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_go_runtime/doc/index.md) | The generic, reflective access path in go |
+| [`tom_som_go_runtime`](../../tom_som_go_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_go_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_go_runtime/doc/review_annotations.md) | The generic, reflective access path in go, and the review annotations (SOM §11.9) |
 | [`tom_som_go_v0`](../../tom_som_go_v0/README.md) | [`doc/tutorial.md`](../../tom_som_go_v0/doc/index.md) | The typed access path in go, end to end |
-| [`tom_som_rust_runtime`](../../tom_som_rust_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_rust_runtime/doc/index.md) | The generic, reflective access path in rust |
+| [`tom_som_rust_runtime`](../../tom_som_rust_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_rust_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_rust_runtime/doc/review_annotations.md) | The generic, reflective access path in rust, and the review annotations (SOM §11.9) |
 | [`tom_som_rust_v0`](../../tom_som_rust_v0/README.md) | [`doc/tutorial.md`](../../tom_som_rust_v0/doc/index.md) | The typed access path in rust, end to end |
-| [`tom_som_java_runtime`](../../tom_som_java_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_java_runtime/doc/index.md) | The generic, reflective access path in java |
+| [`tom_som_java_runtime`](../../tom_som_java_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_java_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_java_runtime/doc/review_annotations.md) | The generic, reflective access path in java, and the review annotations (SOM §11.9) |
 | [`tom_som_java_v0`](../../tom_som_java_v0/README.md) | [`doc/tutorial.md`](../../tom_som_java_v0/doc/index.md) | The typed access path in java, end to end |
-| [`tom_som_c_runtime`](../../tom_som_c_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_c_runtime/doc/index.md) | The generic, reflective access path in c |
+| [`tom_som_c_runtime`](../../tom_som_c_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_c_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_c_runtime/doc/review_annotations.md) | The generic, reflective access path in c, and the review annotations (SOM §11.9) |
 | [`tom_som_c_v0`](../../tom_som_c_v0/README.md) | [`doc/tutorial.md`](../../tom_som_c_v0/doc/index.md) | The typed access path in c, end to end |
-| [`tom_som_cpp_runtime`](../../tom_som_cpp_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_cpp_runtime/doc/index.md) | The generic, reflective access path in cpp |
+| [`tom_som_cpp_runtime`](../../tom_som_cpp_runtime/README.md) | [`doc/generic_access.md`](../../tom_som_cpp_runtime/doc/index.md) · [`doc/review_annotations.md`](../../tom_som_cpp_runtime/doc/review_annotations.md) | The generic, reflective access path in cpp, and the review annotations (SOM §11.9) |
 | [`tom_som_cpp_v0`](../../tom_som_cpp_v0/README.md) | [`doc/tutorial.md`](../../tom_som_cpp_v0/doc/index.md) | The typed access path in cpp, end to end |
 
 ## Samples

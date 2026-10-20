@@ -105,6 +105,13 @@ unpublished_drift:
     published. uamtcb6 publishes the model and then the facade from HEAD,
     records the commit under published_from:, and removes this note.
 
+  tom_som_dart_runtime: >-
+    README only since 1.6.18: the quest refresh of 2026-10-20 corrected the
+    stale Status line (version and test count). Ships with the next release.
+  tom_specs_clitool: >-
+    README only since 0.11.0: the quest refresh of 2026-10-20 corrected the
+    stale Status line (version and test count). Ships with the next release.
+
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the
 # publish ships with that version; without a record here the drift gate, which
