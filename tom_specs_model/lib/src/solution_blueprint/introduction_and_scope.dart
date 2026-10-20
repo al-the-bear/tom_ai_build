@@ -6149,8 +6149,8 @@ class BusinessGoalEntry extends DocSpecsSection {
       'targetDate',
       String,
       'Target Date (when goal should be achieved)',
-      required: true,
-      hint: 'Date by which the goal should be achieved',
+      hint:
+          'Date by which the goal should be achieved — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'owner',
@@ -6398,8 +6398,8 @@ class GoalMilestoneEntry extends DocSpecsSection {
       'targetDate',
       String,
       'Target Date',
-      required: true,
-      hint: 'Planned date for reaching the milestone',
+      hint:
+          'Planned date for reaching the milestone — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'completionCriteria',

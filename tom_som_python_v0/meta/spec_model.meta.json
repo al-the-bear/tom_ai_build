@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T02:38:06.569261Z",
+  "generatedAt": "2026-10-20T03:28:23.725556Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.11+18.6df78292",
+  "modelVersionLabel": "1.6.12+19.581b3b69",
   "classCount": 1266,
   "rootCount": 14,
-  "modelHash": "2b1b22516df4973a99cf94ad7386699135b81ddb90c80a6a7a2d3c10971da14b",
+  "modelHash": "511d8536e66df5e4e2f69a61bd501ac4df4fd61b9985fb18cb35d9984ed3a463",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -24684,9 +24684,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum supported version",
+              "hint": "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "maxVersion",
@@ -25060,9 +25060,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum supported version",
+              "hint": "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "recommendedVersion",
@@ -25455,9 +25455,9 @@
             {
               "name": "minimumVersion",
               "label": "Minimum Version",
-              "hint": "Earliest supported version",
+              "hint": "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "recommendedVersion",
@@ -26980,9 +26980,9 @@
             {
               "name": "targetDate",
               "label": "Target Date (when goal should be achieved)",
-              "hint": "Date by which the goal should be achieved",
+              "hint": "Date by which the goal should be achieved — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "owner",
@@ -43697,7 +43697,7 @@
           "name": "legacyCompatibility",
           "kind": "list",
           "doc": "Legacy system compatibility requirements.",
-          "help": "Add one entry per legacy system.",
+          "help": "Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.",
           "sectionId": "LCE-LEGA-LST",
           "sectionIdPattern": "LCE-LEGA-xxx",
           "standardReferences": {
@@ -43705,7 +43705,7 @@
               "ISO/IEC 25010 — compatibility (co-existence / interoperability)",
               "ISO/IEC/IEEE 42010 — architecture description"
             ],
-            "connotation": "The legacy systems the system must remain compatible with."
+            "connotation": "The existing systems — predecessors or systems that run beside it — the system must remain compatible with."
           },
           "serializationOrder": 7,
           "annotations": [
@@ -43716,7 +43716,7 @@
                   "ISO/IEC 25010 — compatibility (co-existence / interoperability)",
                   "ISO/IEC/IEEE 42010 — architecture description"
                 ],
-                "connotation": "The legacy systems the system must remain compatible with."
+                "connotation": "The existing systems — predecessors or systems that run beside it — the system must remain compatible with."
               }
             },
             {
@@ -43734,7 +43734,7 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add one entry per legacy system."
+                "guidance": "Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list."
               }
             },
             {
@@ -68881,9 +68881,9 @@
             {
               "name": "currentDataVolume",
               "label": "Current Data Volume",
-              "hint": "Total data size (e.g. 500 GB)",
+              "hint": "Total data size (e.g. 500 GB) — leave empty for a system that has not been released",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "currentDatabaseSize",
@@ -76390,9 +76390,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum supported version",
+              "hint": "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "maxVersion",
@@ -86112,9 +86112,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum supported version",
+              "hint": "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "recommendedVersion",
@@ -115524,9 +115524,9 @@
             {
               "name": "minimumVersion",
               "label": "Minimum Version",
-              "hint": "Earliest supported version",
+              "hint": "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "recommendedVersion",
@@ -119533,9 +119533,9 @@
             {
               "name": "targetDate",
               "label": "Target Date",
-              "hint": "Planned date for reaching the milestone",
+              "hint": "Planned date for reaching the milestone — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "completionCriteria",
@@ -152089,16 +152089,16 @@
             {
               "name": "plannedStartDate",
               "label": "Planned Start Date",
-              "hint": "Scheduled start of the migration phase, e.g. 2026-03-01",
+              "hint": "Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "plannedEndDate",
               "label": "Planned End Date",
-              "hint": "Scheduled completion of the migration phase, e.g. 2026-03-21",
+              "hint": "Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "estimatedDuration",
@@ -155292,9 +155292,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum OS version",
+              "hint": "Minimum OS version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "maxVersion",
@@ -171735,9 +171735,9 @@
             {
               "name": "minVersion",
               "label": "Minimum Version",
-              "hint": "Minimum supported version",
+              "hint": "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "maxVersion",
@@ -190686,9 +190686,9 @@
             {
               "name": "minimumVersion",
               "label": "Minimum Version",
-              "hint": "Earliest supported language version",
+              "hint": "Earliest supported language version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             }
           ]
         },
@@ -231373,14 +231373,14 @@
             {
               "name": "lastAuditDate",
               "label": "Last Audit Date",
-              "hint": "Date of most recent audit",
+              "hint": "Date of most recent audit — empty when none has happened yet",
               "type": "String",
               "required": false
             },
             {
               "name": "nextAuditDate",
               "label": "Next Audit Date",
-              "hint": "Planned date for next audit",
+              "hint": "Planned date for next audit — or the gate it is tied to (e.g. Gate G8)",
               "type": "String",
               "required": false
             }
@@ -246732,21 +246732,23 @@
             {
               "name": "plannedStartDate",
               "label": "Planned Start Date",
+              "hint": " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "plannedEndDate",
               "label": "Planned End Date",
+              "hint": " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "targetGoLiveDate",
               "label": "Target Go-Live Date",
-              "hint": "Date when stage deliverables go live",
+              "hint": "Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "actualStartDate",
@@ -250883,16 +250885,16 @@
             {
               "name": "plannedStartDate",
               "label": "Planned Start Date",
-              "hint": "Planned start date, e.g. 2026-04-01",
+              "hint": "Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "plannedEndDate",
               "label": "Planned End Date",
-              "hint": "Planned end date, e.g. 2026-07-31",
+              "hint": "Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "durationWeeks",
@@ -267932,9 +267934,9 @@
             {
               "name": "minimumVersion",
               "label": "Minimum Version",
-              "hint": "Earliest supported version",
+              "hint": "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known",
               "type": "String",
-              "required": true
+              "required": false
             },
             {
               "name": "recommendedVersion",
@@ -293265,9 +293267,9 @@
             {
               "name": "currentActiveUsers",
               "label": "Current Active Users",
-              "hint": "Current monthly active user count",
+              "hint": "Current monthly active user count — leave empty for a system that has not been released",
               "type": "int",
-              "required": true
+              "required": false
             },
             {
               "name": "currentRegisteredUsers",

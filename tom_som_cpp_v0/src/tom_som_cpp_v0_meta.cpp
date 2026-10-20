@@ -8825,7 +8825,7 @@ void buildBrowserCompatibilityEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum supported version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"browserRef", "String", "Browser", false, "The browser of the client requirements (BROREQ browserName) this entry is about", 3, std::vector<std::string>{}, std::vector<std::string>{"BROREQ.browserName"}, false});
     parent.addChild(std::move(n));
@@ -8915,7 +8915,7 @@ void buildBrowserRequirementEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"browserName", "String", "Browser Name", true, "E.g., Chrome, Firefox, Safari, Edge", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum supported version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recommendedVersion", "String", "Recommended Version", false, "Recommended version", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -9017,7 +9017,7 @@ void buildBuildToolchainEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 1;
     (*n).docComment = "Version requirements.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", true, "Earliest supported version", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", false, "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recommendedVersion", "String", "Recommended Version", false, "Preferred target version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Semantic Versioning (SemVer) — version numbering\"],\"connotation\":\"The minimum and recommended versions of a build-toolchain tool.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -9487,7 +9487,7 @@ void buildBusinessGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 3;
     (*n).docComment = "Ownership and timeline.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date (when goal should be achieved)", true, "Date by which the goal should be achieved", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date (when goal should be achieved)", false, "Date by which the goal should be achieved — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Goal Owner (accountable person or role)", true, "Accountable person or role for this goal", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Contributing Stakeholders (roles involved in achieving this goal)", false, "Roles involved in achieving this goal", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Not Started, In Progress, On Track, At Risk, Achieved)", false, "Not Started, In Progress, On Track, At Risk, or Achieved", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -14870,9 +14870,9 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     (*ln).typeName = "LegacyCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
     (*ln).serializationOrder = 7;
-    (*ln).contentHelp = "Add one entry per legacy system.";
+    (*ln).contentHelp = "Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.";
     (*ln).docComment = "Legacy system compatibility requirements.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — compatibility (co-existence / interoperability)\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"The legacy systems the system must remain compatible with.\"}", nullptr)});
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010 — compatibility (co-existence / interoperability)\",\"ISO/IEC/IEEE 42010 — architecture description\"],\"connotation\":\"The existing systems — predecessors or systems that run beside it — the system must remain compatible with.\"}", nullptr)});
     ln->elementNode = metaCx("LegacyCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "LegacyCompatibilityEntry";
@@ -24541,7 +24541,7 @@ void buildDataGrowthProjectionsChildren(som::SomMetaNode& parent, std::vector<st
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentDataVolume", "String", "Current Data Volume", true, "Total data size (e.g. 500 GB)", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentDataVolume", "String", "Current Data Volume", false, "Total data size (e.g. 500 GB) — leave empty for a system that has not been released", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"currentDatabaseSize", "String", "Current Database Size", false, "Primary database storage usage", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"currentFileStorageSize", "String", "Current File Storage Size", false, "File/blob storage usage", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
@@ -26865,7 +26865,7 @@ void buildDatabaseCompatibilityEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"databaseType", "String", "Type", false, "RDBMS, Document, Key-Value, Graph", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum supported version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"libraryRef", "String", "Database Product", false, "The framework (FRREEN-FRAM-…) or third-party library (THPALI-THIR-…) this entry is about — the product, its version and licence are described there", 3, std::vector<std::string>{}, std::vector<std::string>{"FRREEN.@sectionId", "THPALI.@sectionId"}, false});
     parent.addChild(std::move(n));
@@ -29816,7 +29816,7 @@ void buildDesktopOsRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"osName", "String", "Operating System", true, "E.g., Windows, macOS, Linux", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"osFamily", "String", "OS Family", false, "Windows, macOS, Unix", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum supported version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recommendedVersion", "String", "Recommended Version", false, "Recommended version", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
@@ -38779,7 +38779,7 @@ void buildFrameworkRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).serializationOrder = 2;
     (*n).docComment = "Version requirements.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", true, "Earliest supported version", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", false, "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recommendedVersion", "String", "Recommended Version", false, "Preferred target version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maximumVersion", "String", "Maximum Version", false, "Latest tested/supported version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"versionConstraint", "String", "Version Constraint", false, "E.g., ^3.0.0, >=2.0.0 <4.0.0", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -40015,7 +40015,7 @@ void buildGoalMilestoneEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this milestone represents", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", false, "Planned date for reaching the milestone — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"completionCriteria", "String", "Completion Criteria", false, "How completion of the milestone is determined", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables (outputs of this milestone)", false, "Outputs produced at this milestone", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies (what must be done first)", false, "What must be completed before this milestone", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -49809,8 +49809,8 @@ void buildMigrationPhaseEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 5;
     (*n).docComment = "Schedule and dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", true, "Scheduled start of the migration phase, e.g. 2026-03-01", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", true, "Scheduled completion of the migration phase, e.g. 2026-03-21", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", false, "Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", false, "Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedDuration", "String", "Estimated Duration", false, "e.g. 3 weeks, 10 business days", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actualStartDate", "String", "Actual Start Date", false, "Populated when phase begins", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actualEndDate", "String", "Actual End Date", false, "Populated when phase completes", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -50686,7 +50686,7 @@ void buildMobileCompatibilityEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"platform", "String", "Platform", true, "iOS, Android, Cross-platform", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum OS version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum OS version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"platformRef", "String", "Mobile Platform", false, "The mobile platform of the client requirements (MODERE platform) this entry is about", 3, std::vector<std::string>{}, std::vector<std::string>{"MODERE.platform"}, false});
     parent.addChild(std::move(n));
@@ -55968,7 +55968,7 @@ void buildOsCompatibilityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"osFamily", "String", "OS Family", false, "Windows, Unix, Mobile", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", true, "Minimum supported version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minVersion", "String", "Minimum Version", false, "Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"osRef", "String", "Operating System", false, "The desktop operating system of the client requirements (DEOSRE osName) this entry is about", 3, std::vector<std::string>{}, std::vector<std::string>{"DEOSRE.osName"}, false});
     parent.addChild(std::move(n));
@@ -61552,7 +61552,7 @@ void buildProgrammingLanguageEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"languageVariant", "String", "Variant", false, "E.g., Sound null safety, Strict mode", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", true, "Earliest supported language version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", false, "Earliest supported language version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));
   }
   {
@@ -73266,8 +73266,8 @@ void buildSecurityAuditEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 1;
     (*n).docComment = "Audit schedule and cadence.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"lastAuditDate", "String", "Last Audit Date", false, "Date of most recent audit", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextAuditDate", "String", "Next Audit Date", false, "Planned date for next audit", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"lastAuditDate", "String", "Last Audit Date", false, "Date of most recent audit — empty when none has happened yet", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextAuditDate", "String", "Next Audit Date", false, "Planned date for next audit — or the gate it is tied to (e.g. Gate G8)", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 19011 — auditing management systems (audit programme)\",\"PCI DSS — logging, monitoring, and regular security testing\"],\"connotation\":\"Schedule and cadence for a security audit requirement.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -77881,9 +77881,9 @@ void buildStageEntryChildren(som::SomMetaNode& parent, std::vector<std::string>&
     (*n).serializationOrder = 2;
     (*n).docComment = "Timeline and schedule.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetGoLiveDate", "String", "Target Go-Live Date", true, "Date when stage deliverables go live", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", false, " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", false, " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetGoLiveDate", "String", "Target Go-Live Date", false, "Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actualStartDate", "String", "Actual Start Date", false, "Populated when stage begins", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actualEndDate", "String", "Actual End Date", false, "Populated when stage completes", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"durationPlanned", "String", "Planned Duration", false, "e.g. 12 weeks, 3 months", 5, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -79082,8 +79082,8 @@ void buildStageSummaryEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 2;
     (*n).docComment = "Timeline.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", true, "Planned start date, e.g. 2026-04-01", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", true, "Planned end date, e.g. 2026-07-31", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedStartDate", "String", "Planned Start Date", false, "Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"plannedEndDate", "String", "Planned End Date", false, "Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"durationWeeks", "String", "Duration (Weeks)", false, "Planned duration in weeks", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"bufferWeeks", "String", "Buffer (Weeks)", false, "Buffer time included at end", 3, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"overlapWithPrevious", "String", "Overlap with Previous Stage", false, "Duration of overlap with preceding stage", 4, std::vector<std::string>{}, std::vector<std::string>{}, false});
@@ -84967,7 +84967,7 @@ void buildTargetPlatformEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 1;
     (*n).docComment = "Version requirements.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", true, "Earliest supported version", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"minimumVersion", "String", "Minimum Version", false, "Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recommendedVersion", "String", "Recommended Version", false, "Preferred target version", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maximumVersion", "String", "Maximum Version", false, "Latest tested/supported version", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Semantic Versioning (SemVer) — version numbering\"],\"connotation\":\"The minimum, recommended and maximum supported versions of a target platform.\"}", nullptr)});
@@ -92517,7 +92517,7 @@ void buildUserGrowthProjectionsChildren(som::SomMetaNode& parent, std::vector<st
     (*n).serializationOrder = 0;
     (*n).docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentActiveUsers", "int", "Current Active Users", true, "Current monthly active user count", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentActiveUsers", "int", "Current Active Users", false, "Current monthly active user count — leave empty for a system that has not been released", 0, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"currentRegisteredUsers", "int", "Current Registered Users", false, "Total registered user accounts", 1, std::vector<std::string>{}, std::vector<std::string>{}, false});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"currentConcurrentUsers", "int", "Current Concurrent Users", false, "Peak concurrent user count", 2, std::vector<std::string>{}, std::vector<std::string>{}, false});
     parent.addChild(std::move(n));

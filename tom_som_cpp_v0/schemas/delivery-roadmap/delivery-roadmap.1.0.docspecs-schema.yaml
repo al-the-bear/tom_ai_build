@@ -1508,11 +1508,9 @@ form-types:
   stsuti-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
-        description: "Planned start date, e.g. 2026-04-01"
+        description: "Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
-        description: "Planned end date, e.g. 2026-07-31"
+        description: "Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: durationWeeks
         description: Planned duration in weeks
       - fieldname: bufferWeeks
@@ -1562,12 +1560,11 @@ form-types:
   stti-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
+        description: " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
+        description: " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: targetGoLiveDate
-        required: true
-        description: Date when stage deliverables go live
+        description: "Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: actualStartDate
         description: Populated when stage begins
       - fieldname: actualEndDate
@@ -2142,11 +2139,9 @@ form-types:
   miphsc-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
-        description: "Scheduled start of the migration phase, e.g. 2026-03-01"
+        description: "Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
-        description: "Scheduled completion of the migration phase, e.g. 2026-03-21"
+        description: "Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: estimatedDuration
         description: "e.g. 3 weeks, 10 business days"
       - fieldname: actualStartDate

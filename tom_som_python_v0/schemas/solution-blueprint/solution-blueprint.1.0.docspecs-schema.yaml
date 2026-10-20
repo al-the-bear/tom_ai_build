@@ -5043,7 +5043,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per legacy system.
+    description: Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.
   mebaen-entr:
     prefix: MEBAEN_ENTR_
     pattern-check-id:
@@ -10807,7 +10807,7 @@ section-types:
     pattern-check-id:
       pattern: ^LCE-LEGA-.+$
       error-message: IDs of this section must match LCE-LEGA-xxx
-    description: Add one entry per legacy system.
+    description: Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.
   lopr-loca:
     prefix: LOPR_LOCA
     format: lopr-loca-form
@@ -27828,8 +27828,7 @@ form-types:
   bgeg-form:
     fields:
       - fieldname: targetDate
-        required: true
-        description: Date by which the goal should be achieved
+        description: "Date by which the goal should be achieved — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: owner
         required: true
         description: Accountable person or role for this goal
@@ -33765,8 +33764,7 @@ form-types:
   tpevr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
       - fieldname: maximumVersion
@@ -33853,8 +33851,7 @@ form-types:
   fwrvr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
       - fieldname: maximumVersion
@@ -33903,8 +33900,7 @@ form-types:
   btcvr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
   btccf-form:
@@ -40750,9 +40746,9 @@ form-types:
   saes-form:
     fields:
       - fieldname: lastAuditDate
-        description: Date of most recent audit
+        description: Date of most recent audit — empty when none has happened yet
       - fieldname: nextAuditDate
-        description: Planned date for next audit
+        description: Planned date for next audit — or the gate it is tied to (e.g. Gate G8)
   saee-form:
     fields:
       - fieldname: auditScope
@@ -47517,11 +47513,9 @@ form-types:
   stsuti-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
-        description: "Planned start date, e.g. 2026-04-01"
+        description: "Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
-        description: "Planned end date, e.g. 2026-07-31"
+        description: "Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: durationWeeks
         description: Planned duration in weeks
       - fieldname: bufferWeeks
@@ -47571,12 +47565,11 @@ form-types:
   stti-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
+        description: " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
+        description: " — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: targetGoLiveDate
-        required: true
-        description: Date when stage deliverables go live
+        description: "Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: actualStartDate
         description: Populated when stage begins
       - fieldname: actualEndDate
@@ -48151,11 +48144,9 @@ form-types:
   miphsc-form:
     fields:
       - fieldname: plannedStartDate
-        required: true
-        description: "Scheduled start of the migration phase, e.g. 2026-03-01"
+        description: "Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: plannedEndDate
-        required: true
-        description: "Scheduled completion of the migration phase, e.g. 2026-03-21"
+        description: "Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known"
       - fieldname: estimatedDuration
         description: "e.g. 3 weeks, 10 business days"
       - fieldname: actualStartDate

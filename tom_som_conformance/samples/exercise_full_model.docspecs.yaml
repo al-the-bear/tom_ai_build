@@ -492,7 +492,6 @@ document:
                 targetValue: "Exercise value."
               BGEG governance:
                 content: Exercise form preamble.
-                targetDate: "Exercise value."
                 owner: "Exercise value."
               BGES strategy:
                 content: Exercise form preamble.
@@ -510,7 +509,6 @@ document:
                   GOLMS-ITEM-1:
                     content:
                       content: Exercise form preamble.
-                      targetDate: "Exercise value."
               GODE dependencies:
                 content: Exercise text.
                 GOLDE-ITEM-LST items:
@@ -3955,7 +3953,6 @@ document:
                   content: Exercise form preamble.
                 TPEVR version:
                   content: Exercise form preamble.
-                  minimumVersion: "Exercise value."
                 TPEAR architecture:
                   content: Exercise form preamble.
                 TPERQ requirements:
@@ -3966,7 +3963,6 @@ document:
               PLGEN-PROG-1:
                 content:
                   content: Exercise form preamble.
-                  minimumVersion: "Exercise value."
                 PLGVR version:
                   content: Exercise form preamble.
                 PLGSK sdk:
@@ -3987,7 +3983,6 @@ document:
                   content: Exercise form preamble.
                 FWRVR version:
                   content: Exercise form preamble.
-                  minimumVersion: "Exercise value."
                 FWRSC scope:
                   content: Exercise form preamble.
                 FWRCP compatibility:
@@ -4003,7 +3998,6 @@ document:
                   content: Exercise form preamble.
                 BTCVR versions:
                   content: Exercise form preamble.
-                  minimumVersion: "Exercise value."
                 BTCCF configuration:
                   content: Exercise form preamble.
                 BTEP profiles:
@@ -4708,7 +4702,6 @@ document:
               OCE-OSCO-1:
                 content:
                   content: Exercise form preamble.
-                  minVersion: "Exercise value."
                 OCES support:
                   content: Exercise form preamble.
                 OCER requirements:
@@ -4721,7 +4714,6 @@ document:
               BROCOM-BROW-1:
                 content:
                   content: Exercise form preamble.
-                  minVersion: "Exercise value."
                 BRCOENSU support:
                   content: Exercise form preamble.
                 BCEF features:
@@ -4734,7 +4726,6 @@ document:
               DATCOM-DATA-1:
                 content:
                   content: Exercise form preamble.
-                  minVersion: "Exercise value."
                 DCES support:
                   content: Exercise form preamble.
                 DCEF features:
@@ -4786,7 +4777,6 @@ document:
                 content:
                   content: Exercise form preamble.
                   platform: "Exercise value."
-                  minVersion: "Exercise value."
                 MCED devices:
                   content: Exercise form preamble.
                 MCEH hardware:
@@ -5117,7 +5107,6 @@ document:
                 content:
                   content: Exercise form preamble.
                   browserName: "exercise-broreq-browsername"
-                  minVersion: "Exercise value."
                 BRES support:
                   content: Exercise form preamble.
                 BREF features:
@@ -5131,7 +5120,6 @@ document:
                 content:
                   content: Exercise form preamble.
                   osName: "exercise-deosre-osname"
-                  minVersion: "Exercise value."
                 DORES support:
                   content: Exercise form preamble.
                 DORER requirements:
@@ -6235,7 +6223,6 @@ document:
             USGRPR userGrowth:
               content:
                 content: Exercise form preamble.
-                currentActiveUsers: "1"
               UGPF forecast:
                 content: Exercise form preamble.
                 projectedGrowthRate: "Exercise value."
@@ -6246,7 +6233,6 @@ document:
             DAGRPR dataGrowth:
               content:
                 content: Exercise form preamble.
-                currentDataVolume: "Exercise value."
               DGPG growth:
                 content: Exercise form preamble.
                 dataGrowthRate: "Exercise value."
@@ -9554,8 +9540,6 @@ document:
                 content: Exercise form preamble.
               STSUTI timeline:
                 content: Exercise form preamble.
-                plannedStartDate: "Exercise value."
-                plannedEndDate: "Exercise value."
               STSUSC scope:
                 content: Exercise form preamble.
               STSURE-RESO-LST resources:
@@ -9605,9 +9589,6 @@ document:
               content: Exercise form preamble.
             STTI timeline:
               content: Exercise form preamble.
-              plannedStartDate: "Exercise value."
-              plannedEndDate: "Exercise value."
-              targetGoLiveDate: "Exercise value."
             STSC scope:
               content: Exercise form preamble.
             STDE-DEPE-LST dependencies:
@@ -9850,8 +9831,6 @@ document:
                   mappingComplexity: "Exercise value."
                 MIPHSC schedule:
                   content: Exercise form preamble.
-                  plannedStartDate: "Exercise value."
-                  plannedEndDate: "Exercise value."
                 MPDR-DRYR-LST dryRuns:
                   MPDR-DRYR-1:
                     content:

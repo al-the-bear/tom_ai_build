@@ -421,8 +421,8 @@ class TargetPlatformEntry extends DocSpecsSection {
       'minimumVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Earliest supported version',
+      hint:
+          'Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'recommendedVersion',
@@ -547,8 +547,8 @@ class ProgrammingLanguageEntry extends DocSpecsSection {
       'minimumVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Earliest supported language version',
+      hint:
+          'Earliest supported language version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
   ])
   @override
@@ -779,8 +779,8 @@ class FrameworkRequirementEntry extends DocSpecsSection {
       'minimumVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Earliest supported version',
+      hint:
+          'Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'recommendedVersion',
@@ -980,8 +980,8 @@ class BuildToolchainEntry extends DocSpecsSection {
       'minimumVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Earliest supported version',
+      hint:
+          'Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'recommendedVersion',
@@ -10866,13 +10866,21 @@ Provide an overview of compatibility requirements and testing strategy.
   List<ApiCompatibilityEntry> apiCompatibility = [];
 
   /// Legacy system compatibility requirements.
-  @StandardReferences([
-    'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
-    'ISO/IEC/IEEE 42010 — architecture description',
-  ], 'The legacy systems the system must remain compatible with.')
+  @StandardReferences(
+    [
+      'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
+      'ISO/IEC/IEEE 42010 — architecture description',
+    ],
+    'The existing systems — predecessors or systems that run beside it — the system must remain compatible with.',
+  )
   @SectionId('LCE-LEGA-LST')
   @SectionIdPattern('LCE-LEGA-xxx')
-  @ContentHelp('Add one entry per legacy system.')
+  @ContentHelp(
+    'Add one entry per existing system the solution must stay compatible '
+    'with — a predecessor it replaces or a system it runs beside. Leave the '
+    'list empty when there is none; coexisting enterprise systems that are '
+    'integration partners belong in the enterprise system compatibility list.',
+  )
   @SerializationOrder(7)
   List<LegacyCompatibilityEntry> legacyCompatibility = [];
 
@@ -10929,8 +10937,8 @@ class OsCompatibilityEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum supported version',
+      hint:
+          'Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'maxVersion',
@@ -11087,8 +11095,8 @@ class BrowserCompatibilityEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum supported version',
+      hint:
+          'Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'maxVersion',
@@ -11255,8 +11263,8 @@ class DatabaseCompatibilityEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum supported version',
+      hint:
+          'Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'maxVersion',
@@ -11860,8 +11868,8 @@ class MobileCompatibilityEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum OS version',
+      hint:
+          'Minimum OS version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'maxVersion',
@@ -16802,8 +16810,8 @@ class BrowserRequirementEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum supported version',
+      hint:
+          'Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'recommendedVersion',
@@ -16958,8 +16966,8 @@ class DesktopOsRequirementEntry extends DocSpecsSection {
       'minVersion',
       String,
       'Minimum Version',
-      required: true,
-      hint: 'Minimum supported version',
+      hint:
+          'Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known',
     ),
     Field(
       'recommendedVersion',
@@ -32462,8 +32470,8 @@ class UserGrowthProjections extends DocSpecsSection {
       'currentActiveUsers',
       int,
       'Current Active Users',
-      required: true,
-      hint: 'Current monthly active user count',
+      hint:
+          'Current monthly active user count — leave empty for a system that has not been released',
     ),
     Field(
       'currentRegisteredUsers',
@@ -32602,8 +32610,8 @@ class DataGrowthProjections extends DocSpecsSection {
       'currentDataVolume',
       String,
       'Current Data Volume',
-      required: true,
-      hint: 'Total data size (e.g. 500 GB)',
+      hint:
+          'Total data size (e.g. 500 GB) — leave empty for a system that has not been released',
     ),
     Field(
       'currentDatabaseSize',
@@ -37095,13 +37103,15 @@ class SecurityAuditEntry extends DocSpecsSection {
       'lastAuditDate',
       String,
       'Last Audit Date',
-      hint: 'Date of most recent audit',
+      hint: 'Date of most recent audit — empty when none has happened yet',
     ),
     Field(
       'nextAuditDate',
       String,
       'Next Audit Date',
-      hint: 'Planned date for next audit',
+      hint:
+          'Planned date for next audit — or the gate it is tied to (e.g. '
+          'Gate G8)',
     ),
   ])
   @SerializationOrder(1)

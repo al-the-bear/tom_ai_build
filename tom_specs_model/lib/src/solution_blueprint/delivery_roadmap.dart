@@ -1622,15 +1622,15 @@ class StageSummaryEntry extends DocSpecsSection {
       'plannedStartDate',
       String,
       'Planned Start Date',
-      hint: 'Planned start date, e.g. 2026-04-01',
-      required: true,
+      hint:
+          'Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'plannedEndDate',
       String,
       'Planned End Date',
-      hint: 'Planned end date, e.g. 2026-07-31',
-      required: true,
+      hint:
+          'Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'durationWeeks',
@@ -1913,14 +1913,26 @@ class StageEntry extends DocSpecsSection {
   /// Timeline and schedule.
   @SectionId('STTI')
   @Form([
-    Field('plannedStartDate', String, 'Planned Start Date', required: true),
-    Field('plannedEndDate', String, 'Planned End Date', required: true),
+    Field(
+      'plannedStartDate',
+      String,
+      'Planned Start Date',
+      hint:
+          ' — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
+    ),
+    Field(
+      'plannedEndDate',
+      String,
+      'Planned End Date',
+      hint:
+          ' — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
+    ),
     Field(
       'targetGoLiveDate',
       String,
       'Target Go-Live Date',
-      hint: 'Date when stage deliverables go live',
-      required: true,
+      hint:
+          'Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'actualStartDate',
@@ -5299,15 +5311,15 @@ class MigrationPhaseEntry extends DocSpecsSection {
       'plannedStartDate',
       String,
       'Planned Start Date',
-      hint: 'Scheduled start of the migration phase, e.g. 2026-03-01',
-      required: true,
+      hint:
+          'Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'plannedEndDate',
       String,
       'Planned End Date',
-      hint: 'Scheduled completion of the migration phase, e.g. 2026-03-21',
-      required: true,
+      hint:
+          'Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known',
     ),
     Field(
       'estimatedDuration',

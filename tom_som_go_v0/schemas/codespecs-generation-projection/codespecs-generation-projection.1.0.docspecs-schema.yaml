@@ -1913,7 +1913,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per legacy system.
+    description: Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.
   mfacrq-mfac:
     prefix: MFACRQ_MFAC_
     subsection-types:
@@ -4109,7 +4109,7 @@ section-types:
     pattern-check-id:
       pattern: ^LCE-LEGA-.+$
       error-message: IDs of this section must match LCE-LEGA-xxx
-    description: Add one entry per legacy system.
+    description: Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.
   moda-dash:
     prefix: MODA_DASH
     format: moda-dash-form
@@ -13323,8 +13323,7 @@ form-types:
   tpevr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
       - fieldname: maximumVersion
@@ -13411,8 +13410,7 @@ form-types:
   fwrvr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
       - fieldname: maximumVersion
@@ -13461,8 +13459,7 @@ form-types:
   btcvr-form:
     fields:
       - fieldname: minimumVersion
-        required: true
-        description: Earliest supported version
+        description: Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
       - fieldname: recommendedVersion
         description: Preferred target version
   btccf-form:
@@ -20308,9 +20305,9 @@ form-types:
   saes-form:
     fields:
       - fieldname: lastAuditDate
-        description: Date of most recent audit
+        description: Date of most recent audit — empty when none has happened yet
       - fieldname: nextAuditDate
-        description: Planned date for next audit
+        description: Planned date for next audit — or the gate it is tied to (e.g. Gate G8)
   saee-form:
     fields:
       - fieldname: auditScope

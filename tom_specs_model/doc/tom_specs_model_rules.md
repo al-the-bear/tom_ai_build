@@ -967,6 +967,19 @@ than reopening it.
 | --- | --- | --- |
 | A locale variant stated inline on its message key | no | The variant is a list entry with its own section id and review status; an inline copy would be a second home for the same fact (§6.2.5). The repeated locale headings of a long rendition are the renderer's concern, not the model's. |
 
+#### 6.2.7 Required means knowable when the section is written
+
+`required: true` says a filled section is incomplete without the field. The
+Solution Blueprint is written in Phase 2, before the system exists and often
+for a plan driven by gates rather than dates, so a field is required only when
+an author can always answer it then. Dates of stages, milestones, goals and
+migration phases, minimum versions, and current user counts and data volume are
+therefore optional: an author writes the date or the gate (`Gate G7`), the
+version or the version policy, and leaves the field empty while the answer is
+not yet known. An empty field is the explicit "not yet known"; a placeholder
+such as `TBD` or `gate-driven` is a value no reader can tell from a real one,
+and is not written.
+
 ### 6.3 Form decomposition
 
 `@Form` sections target **3–10 fields**. Larger forms are decomposed so the

@@ -7997,7 +7997,7 @@ class CompatibilityRequirementsSection extends SomNode {
 
   /// Legacy system compatibility requirements.
   ///
-  /// **Authoring guidance.** Add one entry per legacy system.
+  /// **Authoring guidance.** Add one entry per existing system the solution must stay compatible with — a predecessor it replaces or a system it runs beside. Leave the list empty when there is none; coexisting enterprise systems that are integration partners belong in the enterprise system compatibility list.
   SomList<LegacyCompatibilityEntry> get legacyCompatibility => SomList<LegacyCompatibilityEntry>(doc, '$path/LCE-LEGA-LST', (d, p) => LegacyCompatibilityEntry(d, p), pattern: 'LCE-LEGA-xxx');
 
   /// Mobile device compatibility requirements.
@@ -54307,9 +54307,7 @@ class BrowserCompatibilityEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -54489,9 +54487,7 @@ class BrowserRequirementEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -54825,9 +54821,7 @@ class BuildToolchainEntryVersionsForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Earliest supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minimumVersion => doc.formField(path, 'minimumVersion') ?? '';
   set minimumVersion(String value) => doc.setFormField(path, 'minimumVersion', value);
 
@@ -55269,9 +55263,7 @@ class BusinessGoalEntryGovernanceForm extends SomNode {
 
   /// Target Date (when goal should be achieved).
   ///
-  /// Date by which the goal should be achieved
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Date by which the goal should be achieved — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get targetDate => doc.formField(path, 'targetDate') ?? '';
   set targetDate(String value) => doc.setFormField(path, 'targetDate', value);
 
@@ -69349,9 +69341,7 @@ class DataGrowthProjectionsContentForm extends SomNode {
 
   /// Current Data Volume.
   ///
-  /// Total data size (e.g. 500 GB)
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Total data size (e.g. 500 GB) — leave empty for a system that has not been released
   String get currentDataVolume => doc.formField(path, 'currentDataVolume') ?? '';
   set currentDataVolume(String value) => doc.setFormField(path, 'currentDataVolume', value);
 
@@ -72287,9 +72277,7 @@ class DatabaseCompatibilityEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -75997,9 +75985,7 @@ class DesktopOsRequirementEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -87107,9 +87093,7 @@ class FrameworkRequirementEntryVersionForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Earliest supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minimumVersion => doc.formField(path, 'minimumVersion') ?? '';
   set minimumVersion(String value) => doc.setFormField(path, 'minimumVersion', value);
 
@@ -88353,9 +88337,7 @@ class GoalMilestoneEntryContentForm extends SomNode {
 
   /// Target Date.
   ///
-  /// Planned date for reaching the milestone
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Planned date for reaching the milestone — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get targetDate => doc.formField(path, 'targetDate') ?? '';
   set targetDate(String value) => doc.setFormField(path, 'targetDate', value);
 
@@ -100547,17 +100529,13 @@ class MigrationPhaseEntryScheduleForm extends SomNode {
 
   /// Planned Start Date.
   ///
-  /// Scheduled start of the migration phase, e.g. 2026-03-01
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Scheduled start of the migration phase, e.g. 2026-03-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedStartDate => doc.formField(path, 'plannedStartDate') ?? '';
   set plannedStartDate(String value) => doc.setFormField(path, 'plannedStartDate', value);
 
   /// Planned End Date.
   ///
-  /// Scheduled completion of the migration phase, e.g. 2026-03-21
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Scheduled completion of the migration phase, e.g. 2026-03-21 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedEndDate => doc.formField(path, 'plannedEndDate') ?? '';
   set plannedEndDate(String value) => doc.setFormField(path, 'plannedEndDate', value);
 
@@ -101881,9 +101859,7 @@ class MobileCompatibilityEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum OS version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum OS version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -107775,9 +107751,7 @@ class OsCompatibilityEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Minimum supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Minimum supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minVersion => doc.formField(path, 'minVersion') ?? '';
   set minVersion(String value) => doc.setFormField(path, 'minVersion', value);
 
@@ -114737,9 +114711,7 @@ class ProgrammingLanguageEntryContentForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Earliest supported language version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Earliest supported language version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minimumVersion => doc.formField(path, 'minimumVersion') ?? '';
   set minimumVersion(String value) => doc.setFormField(path, 'minimumVersion', value);
 }
@@ -129735,13 +129707,13 @@ class SecurityAuditEntrySchedulingForm extends SomNode {
 
   /// Last Audit Date.
   ///
-  /// Date of most recent audit
+  /// Date of most recent audit — empty when none has happened yet
   String get lastAuditDate => doc.formField(path, 'lastAuditDate') ?? '';
   set lastAuditDate(String value) => doc.setFormField(path, 'lastAuditDate', value);
 
   /// Next Audit Date.
   ///
-  /// Planned date for next audit
+  /// Planned date for next audit — or the gate it is tied to (e.g. Gate G8)
   String get nextAuditDate => doc.formField(path, 'nextAuditDate') ?? '';
   set nextAuditDate(String value) => doc.setFormField(path, 'nextAuditDate', value);
 }
@@ -136251,21 +136223,19 @@ class StageEntryTimelineForm extends SomNode {
 
   /// Planned Start Date.
   ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedStartDate => doc.formField(path, 'plannedStartDate') ?? '';
   set plannedStartDate(String value) => doc.setFormField(path, 'plannedStartDate', value);
 
   /// Planned End Date.
   ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedEndDate => doc.formField(path, 'plannedEndDate') ?? '';
   set plannedEndDate(String value) => doc.setFormField(path, 'plannedEndDate', value);
 
   /// Target Go-Live Date.
   ///
-  /// Date when stage deliverables go live
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Date when stage deliverables go live — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get targetGoLiveDate => doc.formField(path, 'targetGoLiveDate') ?? '';
   set targetGoLiveDate(String value) => doc.setFormField(path, 'targetGoLiveDate', value);
 
@@ -138127,17 +138097,13 @@ class StageSummaryEntryTimelineForm extends SomNode {
 
   /// Planned Start Date.
   ///
-  /// Planned start date, e.g. 2026-04-01
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Planned start date, e.g. 2026-04-01 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedStartDate => doc.formField(path, 'plannedStartDate') ?? '';
   set plannedStartDate(String value) => doc.setFormField(path, 'plannedStartDate', value);
 
   /// Planned End Date.
   ///
-  /// Planned end date, e.g. 2026-07-31
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Planned end date, e.g. 2026-07-31 — or, in a plan driven by gates rather than dates, the gate (e.g. Gate G7); leave empty while not yet known
   String get plannedEndDate => doc.formField(path, 'plannedEndDate') ?? '';
   set plannedEndDate(String value) => doc.setFormField(path, 'plannedEndDate', value);
 
@@ -143889,9 +143855,7 @@ class TargetPlatformEntryVersionForm extends SomNode {
 
   /// Minimum Version.
   ///
-  /// Earliest supported version
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Earliest supported version — or the version policy (e.g. the two latest major versions at release); leave empty while not yet known
   String get minimumVersion => doc.formField(path, 'minimumVersion') ?? '';
   set minimumVersion(String value) => doc.setFormField(path, 'minimumVersion', value);
 
@@ -153753,9 +153717,7 @@ class UserGrowthProjectionsContentForm extends SomNode {
 
   /// Current Active Users.
   ///
-  /// Current monthly active user count
-  ///
-  /// **Required** — a document that leaves this empty fails validation.
+  /// Current monthly active user count — leave empty for a system that has not been released
   int? get currentActiveUsers => somParseInt(doc.formField(path, 'currentActiveUsers'));
   set currentActiveUsers(int? value) => doc.setFormField(path, 'currentActiveUsers', somFormatInt(value));
 
