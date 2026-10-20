@@ -99,10 +99,11 @@ workspace_prefixes:
 # no longer drifts the package that holds it.
 unpublished_drift:
   tom_specs_model: >-
-    1.6.14 is not yet on pub.dev (per-package daily limit; uamtcb6) and its
-    Phase 5 documentation gained the registry test generator after the bump
-    (uamtc18). uamtcb6 publishes 1.6.14 from HEAD, records that commit under
-    published_from:, and removes this note.
+    1.6.15 (which supersedes the never-uploaded 1.6.14) is not yet on pub.dev,
+    nor is tom_som_dart_v0 1.6.15: both hit the per-package daily limit
+    (uamtcb6). tom_som_dart_runtime 1.6.15, the annotation API (annot2), is
+    published. uamtcb6 publishes the model and then the facade from HEAD,
+    records the commit under published_from:, and removes this note.
   tom_doc_specs: >-
     One DELETION since 0.3.0, and not this quest's: `tom_ai/ai_build`
     `cc339d42` ("sce54: untrack artifacts that name the machine which produced
