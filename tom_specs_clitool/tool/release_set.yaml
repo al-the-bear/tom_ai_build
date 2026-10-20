@@ -98,11 +98,6 @@ workspace_prefixes:
 # tool has no use for. So writing an acknowledgement or a publish record here
 # no longer drifts the package that holds it.
 unpublished_drift:
-  tom_specs_model: >-
-    Documentation only since 1.6.19: codespecs_prompt.md §4.2 and §10.2 said
-    validateDocument does not report a cleared required field. Since 1.6.13
-    (missingRequiredField) it does, and both passages now state the measured
-    behaviour. Ships with the next model release.
   tom_specs_clitool: >-
     README only since 0.11.0: the quest refresh of 2026-10-20 corrected the
     stale Status line (version and test count). Ships with the next release.
