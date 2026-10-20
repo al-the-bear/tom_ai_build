@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Extracting answers for a step folder (SOM §11.9.7, annot6), a new module
+  `spec_answers` ported from the Dart reference: `spec_extract_answers(model,
+  doc, label, path, ...)` fills a `SpecAnswerExtract` (`label`, `qualifier`,
+  `SpecAnswerEntry` entries with kind, id, section-id chain and rendition line,
+  in rendition order; `spec_answer_extract_counts`,
+  `spec_answer_extract_to_json`, `spec_answer_extract_free`), and
+  `spec_render_answers(extracts, len, options)` writes the `answers.md` text
+  (`SpecAnswerRenderOptions`: `include_open`, `include_marks`, `title`). The
+  conformance harness runs `answer_cases.json`. Guide:
+  `doc/review_annotations.md`, "Extracting answers for a step folder".
+
 - Writing changes as inline marks (SOM §11.9.3, annot5), in
   `spec_review_annotations`, a port of the Dart reference:
   `spec_mark_change_text(old, new)` diffs by line, then by word, merging

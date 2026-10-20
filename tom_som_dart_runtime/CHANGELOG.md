@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.18
+
+- Answers for a step folder (SOM §11.9.7): `extractAnswers` collects a
+  document's (or a subtree's) answered and open questions, comments and inline
+  marks, in rendition order, each with its section-id chain and its line in
+  the Markdown rendition. `renderAnswers` writes them as a deterministic
+  `answers.md`, grouped per document, with optional open questions and inline
+  marks. `SpecAnswerExtract.counts` gives the counts. Conformance:
+  `answer_cases.json`.
+
 ## 1.6.17
 
 - Writing changes as inline marks (SOM §11.9.3): `markChangeText(old, new)`

@@ -416,6 +416,23 @@ String specSchemaIdFor(SpecRoot root) => root.title
 /// The root [explicit] names, else the one the document declares: the key
 /// under `document:` in a YAML file (`SBP D00SolutionBlueprint`), the id of the
 /// title heading in a markdown rendition (`# <!--[SBP]--> …`).
+/// The root of a specification document: [explicit] (a root type or section
+/// id) when given, else the one the text declares — the first heading of a
+/// Markdown rendition, the `document:` key of a `*.docspecs.yaml`. Throws an
+/// [ArgumentError] naming the problem when it cannot be found.
+SpecRoot resolveSpecDocumentRoot(
+  SpecModel model,
+  String? explicit,
+  String text, {
+  required bool isMarkdown,
+}) {
+  try {
+    return _resolveRoot(model, explicit, text, isMarkdown);
+  } on _UsageError catch (e) {
+    throw ArgumentError(e.message);
+  }
+}
+
 SpecRoot _resolveRoot(
   SpecModel model,
   String? explicit,

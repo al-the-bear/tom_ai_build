@@ -81,6 +81,15 @@ from .spec_document_assembly import (
     SpecDocumentAssembly,
     assemble_spec_documents,
 )
+from .spec_answers import (
+    SpecAnswerCounts,
+    SpecAnswerEntry,
+    SpecAnswerExtract,
+    SpecAnswerKind,
+    SpecAnswerRenderOptions,
+    extract_answers,
+    render_answers,
+)
 from .spec_review_annotations import (
     SpecMarkDecision,
     SpecMarkEntry,
@@ -307,6 +316,11 @@ __all__ = [
     "SpecMarkEntry",
     "SpecMarkIssue",
     "SpecMarkKind",
+    "SpecAnswerCounts",
+    "SpecAnswerEntry",
+    "SpecAnswerExtract",
+    "SpecAnswerKind",
+    "SpecAnswerRenderOptions",
     "SpecMarkOutcome",
     "SpecMarkedChange",
     "SpecMarkReport",
@@ -349,6 +363,8 @@ __all__ = [
     "format_comment_block",
     "apply_inline_marks_text",
     "mark_change_text",
+    "extract_answers",
+    "render_answers",
     "format_question_block",
     "generate_list_item_section_id",
     "list_item_path",

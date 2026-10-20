@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Memory and Ownership](#memory-and-ownership)
@@ -199,6 +200,41 @@ printf("%s\n", r.text); /* Sessions expire after {~~ 30 ~> 15 ~~} minutes. */
 spec_marked_change_free(&r);
 ```
 
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes. The module is `spec_answers.h`.
+
+| Operation | Does |
+|-----------|------|
+| `spec_extract_answers(model, doc, label, path, &out, &err)` | Fills a `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of the subtree at `path` (`NULL`: all), with its section-id chain and its line in the document's Markdown rendition, in rendition order. Returns 0 (writing `err`) when the rendition fails |
+| `spec_render_answers(extracts, len, &options)` | The `answers.md` text (owned). Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`include_open`) and the inline marks (`include_marks`), and sets the `title`; `spec_answer_render_options_default()` gives the defaults |
+| `spec_answer_extract_counts(&x)` | A `SpecAnswerCounts`: answered, open, comments, marks — what a step's closing item reports |
+| `spec_answer_extract_to_json(&x)` | `{label, qualifier, entries, counts}` (owned) |
+
+An entry (`SpecAnswerEntry`) has a `kind` (`SPEC_ANSWER_ANSWERED`,
+`SPEC_ANSWER_OPEN`, `SPEC_ANSWER_COMMENT`, `SPEC_ANSWER_MARK`). A comment is
+cited with the document root's id in front (`SBP C-12`). A comment without an
+id is listed by its line; `spec_review_annotations_assign_comment_ids` gives it
+one, when asked. The command line is `tom_specs_clitool`'s `extract_answers`.
+
+```c
+SpecAnswerExtract x;
+char *err = NULL;
+if (spec_extract_answers(model, doc, "tom_uam.sbp", NULL, &x, &err)) {
+  SpecAnswerRenderOptions o = spec_answer_render_options_default();
+  o.include_open = 1;
+  char *md = spec_render_answers(&x, 1, &o); /* write to answers.md */
+  SpecAnswerCounts n = spec_answer_extract_counts(&x);
+  printf("%zu answered, %zu open\n", n.answered, n.open);
+  free(md);
+  spec_answer_extract_free(&x);
+} else {
+  free(err);
+}
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by
@@ -229,6 +265,8 @@ Everything an operation returns is the caller's:
 | `SpecReviewAnnotationList` | `spec_review_annotation_list_free` |
 | `SpecMarkEntryList` | `spec_mark_entry_list_free` |
 | `SpecMarkReport` | `spec_mark_report_free` |
+| `SpecAnswerExtract` | `spec_answer_extract_free` |
+| `spec_render_answers`, `spec_answer_*_to_json` | `free` |
 | revision, `spec_apply_inline_marks_text` | `free` |
 | ids, JSON text, `spec_strip_annotations_text` | `free` |
 | `SomStrList` (assigned ids, block lines) | `som_strlist_free` |

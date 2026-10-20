@@ -1,3 +1,9 @@
+## 1.6.18
+
+- No model change. The chain moves with the runtimes, which gain the
+  extraction of a review round's answers for a step folder (SOM §11.9.7:
+  `extractAnswers`, `renderAnswers`).
+
 ## 1.6.17
 
 - No model change. The chain moves with the runtimes, which gain writing

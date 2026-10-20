@@ -13,6 +13,7 @@ rest of the value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -159,6 +160,34 @@ inside fenced code. The new text is then written unmarked.
 const som::SpecMarkedChange r = som::markChangeText(
     "Sessions expire after 30 minutes.", "Sessions expire after 15 minutes.");
 std::cout << r.text << "\n";  // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes. The API is declared in
+`include/spec_answers.hpp`.
+
+| Operation | Does |
+|-----------|------|
+| `som::extractAnswers(model, doc, label, path)` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree (`path`, default `std::nullopt`), with its section-id chain and its line in the document's Markdown rendition, in rendition order. Throws as `markdownExportRootWithMap` does |
+| `som::renderAnswers(extracts, options)` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`includeOpen`) and the inline marks (`includeMarks`), and sets the `title` |
+| `SpecAnswerExtract::counts()` | answered, open, comments, marks: what a step's closing item reports |
+
+An entry (`SpecAnswerEntry`) has a `kind` (`SpecAnswerKind::Answered`, `Open`,
+`Comment`, `Mark`). A comment is cited with the document root's id in front
+(`SBP C-12`). A comment without an id is listed by its line;
+`assignCommentIds` gives it one, when asked. The command line is
+`tom_specs_clitool`'s `extract_answers`.
+
+```cpp
+som::SpecAnswerExtract x = som::extractAnswers(model, doc, "tom_uam.sbp");
+som::SpecAnswerRenderOptions options;
+options.includeOpen = true;
+std::ofstream("answers.md") << som::renderAnswers({x}, options);
+std::cout << x.counts().toJson() << "\n";
+// {"answered":75,"open":269,"comments":0,"marks":0}
 ```
 
 ## Validation

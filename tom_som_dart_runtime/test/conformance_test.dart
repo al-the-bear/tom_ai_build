@@ -76,6 +76,7 @@ void main() {
   final annotationCases = _annotationCases(model, tree);
   final inlineMarkCases = _inlineMarkCases(model, tree);
   final changeMarkCases = _changeMarkCases(model, tree);
+  final answerCases = _answerCases(model);
 
   setUpAll(() {
     if (!update) return;
@@ -131,6 +132,7 @@ void main() {
     write('annotation_cases.json', '${enc.convert(annotationCases)}\n');
     write('inline_mark_cases.json', '${enc.convert(inlineMarkCases)}\n');
     write('change_mark_cases.json', '${enc.convert(changeMarkCases)}\n');
+    write('answer_cases.json', '${enc.convert(answerCases)}\n');
   });
 
   String read(String name) =>
@@ -1100,6 +1102,17 @@ void main() {
           ),
           c['expect'],
         );
+      });
+    }
+  });
+
+  group('answer_cases.json (extracting answers for a step folder)', () {
+    final table = update
+        ? answerCases
+        : jsonDecode(read('answer_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('answers: ${c['name']}', () {
+        expect(jsonDecode(jsonEncode(_runAnswerCase(model, c))), c['expect']);
       });
     }
   });
@@ -8489,4 +8502,102 @@ Map<String, dynamic> _changeMarkCases(SpecModel model, SomMetaTree tree) {
     c['expect'] = _runAnnotationCase(model, tree, c);
   }
   return {'textCases': textCases, 'cases': cases};
+}
+
+// ---------------------------------------------------------------------------
+// answer_cases.json — a review round's answers as answers.md (SOM §11.9.7).
+// ---------------------------------------------------------------------------
+
+Map<String, dynamic> _answerCases(SpecModel model) {
+  final a = _annotationState();
+  // Answer two questions and give the bare comments their own variety.
+  final answered = jsonDecode(jsonEncode(a)) as Map<String, dynamic>;
+  final content = answered['content'] as Map<String, dynamic>;
+  content['DEMO/SUM'] = (content['DEMO/SUM'] as String).replaceFirst(
+    '> *Working assumption until answered:* (a).\n>\n> **Answer:**',
+    '> *Working assumption until answered:* (a).\n>\n'
+        '> **Answer:** (a), and 5 minutes\n> on shared kiosks.',
+  );
+  final second = {
+    'content': {
+      'DEMO/SUM':
+          'A second document.\n\n'
+          '> ⬆️ **C-1** (Bea): Cite me as DEMO C-1.\n\n'
+          '> **❓ BQ-200 — Scope:** one page?\n>\n> **Answer:** yes',
+    },
+  };
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'answered questions and comments',
+      'documents': [
+        {'label': 'demo', 'state': answered},
+      ],
+    },
+    {
+      'name': 'with open questions and inline marks',
+      'documents': [
+        {'label': 'demo', 'state': answered},
+      ],
+      'includeOpen': true,
+      'includeMarks': true,
+      'title': 'Answers processed in 03_01_01 — Questions Round',
+    },
+    {
+      'name': 'a subtree',
+      'documents': [
+        {'label': 'demo', 'state': answered},
+      ],
+      'path': 'DEMO/DET',
+      'includeOpen': true,
+    },
+    {
+      'name': 'two documents in the order given',
+      'documents': [
+        {'label': 'demo-b', 'state': second},
+        {'label': 'demo', 'state': answered},
+      ],
+    },
+    {
+      'name': 'a document without annotations',
+      'documents': [
+        {
+          'label': 'plain',
+          'state': {
+            'content': {'DEMO/SUM': 'Nothing to answer.'},
+          },
+        },
+      ],
+      'includeOpen': true,
+      'includeMarks': true,
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runAnswerCase(model, c);
+  }
+  return {'cases': cases};
+}
+
+Map<String, Object?> _runAnswerCase(SpecModel model, Map<String, dynamic> c) {
+  final extracts = [
+    for (final d in (c['documents'] as List).cast<Map<String, dynamic>>())
+      extractAnswers(
+        model,
+        SpecDocument()..loadJson(
+          jsonDecode(jsonEncode(d['state'])) as Map<String, dynamic>,
+        ),
+        label: d['label'] as String,
+        path: c['path'] as String?,
+      ),
+  ];
+  return {
+    'extracts': [for (final x in extracts) x.toJson()],
+    'markdown': renderAnswers(
+      extracts,
+      options: SpecAnswerRenderOptions(
+        includeOpen: c['includeOpen'] as bool? ?? false,
+        includeMarks: c['includeMarks'] as bool? ?? false,
+        title: c['title'] as String? ?? 'Answers',
+      ),
+    ),
+  };
 }

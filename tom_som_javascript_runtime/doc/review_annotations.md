@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -161,6 +162,41 @@ const r = markChangeText(
   'Sessions expire after 15 minutes.',
 );
 console.log(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes.
+
+| Operation | Does |
+|-----------|------|
+| `extractAnswers(model, doc, { label, path })` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree, with its section-id chain and its line in the document's Markdown rendition, in rendition order |
+| `renderAnswers(extracts, options)` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`includeOpen`) and the inline marks (`includeMarks`), and sets the title |
+| `SpecAnswerExtract.counts` | answered, open, comments, marks: what a step's closing item reports |
+
+Each entry is a `SpecAnswerEntry` whose `kind` is a `SpecAnswerKind`
+(`ANSWERED`, `OPEN`, `COMMENT`, `MARK`); `toJson()` gives the canonical form
+the conformance corpus pins. A comment is cited with the document root's id in
+front (`SBP C-12`). A comment without an id is listed by its line;
+`assignCommentIds` gives it one, when asked. The command line is
+`tom_specs_clitool`'s `extract_answers`.
+
+```javascript
+const fs = require('fs');
+const {
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
+} = require('tom_som_javascript_runtime');
+
+const x = extractAnswers(model, doc, { label: 'tom_uam.sbp' });
+fs.writeFileSync(
+  'answers.md',
+  renderAnswers([x], new SpecAnswerRenderOptions({ includeOpen: true })),
+);
+console.log(x.counts.toJson()); // { answered: 75, open: 269, comments: 0, marks: 0 }
 ```
 
 ## Validation

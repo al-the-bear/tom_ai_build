@@ -76,6 +76,9 @@ import tom_som_runtime.SpecResolution;
 import tom_som_runtime.SpecMarkDecision;
 import tom_som_runtime.SpecMarkEntry;
 import tom_som_runtime.SpecMarkedChange;
+import tom_som_runtime.SpecAnswerExtract;
+import tom_som_runtime.SpecAnswerRenderOptions;
+import tom_som_runtime.SpecAnswers;
 import tom_som_runtime.SpecReviewAnnotation;
 import tom_som_runtime.SpecReviewAnnotationError;
 import tom_som_runtime.SpecReviewAnnotations;
@@ -937,6 +940,55 @@ public final class ConformanceRunner {
       Object expect = c.get("expect");
       check("change[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
     }
+  }
+
+  /**
+   * {@code answer_cases.json}: extracting answers for a step folder (SOM §11.9.7). The extracts
+   * are compared structurally, the markdown byte for byte.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testAnswerCases(SpecModel model) throws IOException {
+    Map<String, Object> table = readJsonObject("answer_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runAnswerCase(model, c);
+      Map<String, Object> expect = (Map<String, Object>) c.get("expect");
+      String name = "answers[" + c.get("name") + "]";
+      check(
+          name + ".extracts",
+          Json.parseObject(Json.write(got)).get("extracts").equals(expect.get("extracts")),
+          jsonMismatch(got.get("extracts"), expect.get("extracts")));
+      check(
+          name + ".markdown",
+          got.get("markdown").equals(expect.get("markdown")),
+          "got " + Json.write(got.get("markdown")) + ", want " + Json.write(expect.get("markdown")));
+    }
+  }
+
+  /** Runs one {@code answer_cases.json} case: {@code {extracts, markdown}}. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runAnswerCase(SpecModel model, Map<String, Object> c) {
+    List<SpecAnswerExtract> extracts = new ArrayList<>();
+    for (Object dObj : (List<Object>) c.get("documents")) {
+      Map<String, Object> d = (Map<String, Object>) dObj;
+      SpecDocument doc = documentFromState(Json.parseObject(Json.write(d.get("state"))));
+      extracts.add(
+          SpecAnswers.extractAnswers(model, doc, (String) d.get("label"), (String) c.get("path")));
+    }
+    List<Object> xs = new ArrayList<>();
+    for (SpecAnswerExtract x : extracts) {
+      xs.add(x.toJson());
+    }
+    Object title = c.get("title");
+    SpecAnswerRenderOptions options =
+        new SpecAnswerRenderOptions(
+            Boolean.TRUE.equals(c.get("includeOpen")),
+            Boolean.TRUE.equals(c.get("includeMarks")),
+            title == null ? "Answers" : (String) title);
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("extracts", xs);
+    out.put("markdown", SpecAnswers.renderAnswers(extracts, options));
+    return out;
   }
 
   /** Runs one {@code annotation_cases.json} case: {@code {results, state}}. */
@@ -2605,6 +2657,7 @@ public final class ConformanceRunner {
     testAnnotationCases(model, tree);
     testInlineMarkCases(model, tree);
     testChangeMarkCases(model, tree);
+    testAnswerCases(model);
     testListMoveCases(model);
     testReflection(model);
     testValidation(model);

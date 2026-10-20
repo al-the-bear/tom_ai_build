@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -155,6 +156,30 @@ final r = markChangeText(
   'Sessions expire after 15 minutes.',
 );
 print(r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes.
+
+| Operation | Does |
+|-----------|------|
+| `extractAnswers(model, doc, label:, path:)` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree, with its section-id chain and its line in the document's Markdown rendition, in rendition order |
+| `renderAnswers(extracts, options:)` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`includeOpen`) and the inline marks (`includeMarks`), and sets the title |
+| `SpecAnswerExtract.counts` | answered, open, comments, marks: what a step's closing item reports |
+
+A comment is cited with the document root's id in front (`SBP C-12`). A
+comment without an id is listed by its line; `assignCommentIds` gives it one,
+when asked. The command line is `tom_specs_clitool`'s `extract_answers`.
+
+```dart
+final x = extractAnswers(model, doc, label: 'tom_uam.sbp');
+File('answers.md').writeAsStringSync(
+  renderAnswers([x], options: const SpecAnswerRenderOptions(includeOpen: true)),
+);
+print(x.counts.toJson()); // {answered: 75, open: 269, comments: 0, marks: 0}
 ```
 
 ## Validation

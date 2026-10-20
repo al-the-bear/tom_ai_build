@@ -28,7 +28,8 @@
  *   - the meta-model-validated node-creation gate and its creator;
  *   - assembling one document from ordered fragments (refusing overlaps);
  *   - the review annotations (SOM §11.9): listing, counting and editing
- *     comment blocks, question blocks and inline marks.
+ *     comment blocks, question blocks and inline marks;
+ *   - extracting a review round's answers for a step folder (SOM §11.9.7).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -4552,6 +4553,88 @@ static void test_change_marks(Checker *c, const SpecModel *model,
                        "changeMarks");
 }
 
+/* answer_cases.json, run like the Dart reference's `_runAnswerCase`: every
+ * document is loaded from its `state` and extracted with the case's `path`;
+ * the extracts must equal `expect.extracts` (JSON equality) and the rendered
+ * `answers.md` must equal `expect.markdown` byte for byte. */
+static void test_answers(Checker *c, const SpecModel *model) {
+  SomJson *table = read_json("answer_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "answers.cases", n > 0, "no cases in answer_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    char label[512];
+    snprintf(label, sizeof(label), "answers[%s]",
+             som_json_str_or(kase, "name"));
+    const SomJson *docs = som_json_get(kase, "documents");
+    size_t dn = som_json_array_len(docs);
+    SpecAnswerExtract *xs =
+        (SpecAnswerExtract *)calloc(dn ? dn : 1, sizeof(SpecAnswerExtract));
+    const char *path = json_opt_str(kase, "path");
+    int ok = 1;
+    SomBuf got_json;
+    som_buf_init(&got_json);
+    som_buf_putc(&got_json, '[');
+    for (size_t k = 0; k < dn; k++) {
+      const SomJson *d = som_json_array_at(docs, k);
+      DocumentJson state;
+      document_json_from_json(som_json_get(d, "state"), &state);
+      SpecDocument doc;
+      doc_from_state(&doc, &state);
+      document_json_free(&state);
+      char *err = NULL;
+      if (!spec_extract_answers(model, &doc, som_json_str_or(d, "label"), path,
+                                &xs[k], &err)) {
+        char tag[640];
+        snprintf(tag, sizeof(tag), "%s.extract[%zu]", label, k);
+        check(c, tag, 0, err ? err : "extraction failed");
+        free(err);
+        ok = 0;
+      }
+      spec_document_free(&doc);
+      if (k > 0) som_buf_putc(&got_json, ',');
+      char *xj = spec_answer_extract_to_json(&xs[k]);
+      som_buf_puts(&got_json, xj);
+      free(xj);
+    }
+    som_buf_putc(&got_json, ']');
+    const SomJson *expect = som_json_get(kase, "expect");
+    char *got_text = som_buf_take(&got_json);
+    char *got = json_text_canon(got_text);
+    char *w = json_canon(som_json_get(expect, "extracts"));
+    char tag[640];
+    snprintf(tag, sizeof(tag), "%s.extracts", label);
+    char *d = byte_diff(tag, got, w);
+    check(c, tag, ok && strcmp(got, w) == 0, d);
+    free(d);
+    free(got);
+    free(w);
+    free(got_text);
+
+    SpecAnswerRenderOptions o = spec_answer_render_options_default();
+    int flag;
+    if (som_json_as_bool(som_json_get(kase, "includeOpen"), &flag)) {
+      o.include_open = flag;
+    }
+    if (som_json_as_bool(som_json_get(kase, "includeMarks"), &flag)) {
+      o.include_marks = flag;
+    }
+    const char *title = json_opt_str(kase, "title");
+    if (title != NULL) o.title = title;
+    char *md = spec_render_answers(xs, dn, &o);
+    const char *want_md = som_json_str_or(expect, "markdown");
+    snprintf(tag, sizeof(tag), "%s.markdown", label);
+    d = byte_diff(tag, md, want_md);
+    check(c, tag, strcmp(md, want_md) == 0, d);
+    free(d);
+    free(md);
+    for (size_t k = 0; k < dn; k++) spec_answer_extract_free(&xs[k]);
+    free(xs);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -4604,6 +4687,7 @@ int main(int argc, char **argv) {
   test_annotations(&c, model, tree);
   test_inline_marks(&c, model, tree);
   test_change_marks(&c, model, tree);
+  test_answers(&c, model);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Extracting answers for a step folder (SOM §11.9.7): the new module
+  `spec_answers` ports the Dart reference. `extract_answers(model, doc, label,
+  path=None)` lists every question (answered or open), comment and inline
+  mark of a document or subtree with its section-id chain and its line in the
+  Markdown rendition, in rendition order; `render_answers(extracts, options)`
+  writes the step folder's `answers.md`. New exports: `SpecAnswerKind`,
+  `SpecAnswerEntry`, `SpecAnswerCounts`, `SpecAnswerExtract`,
+  `SpecAnswerRenderOptions`, `extract_answers`, `render_answers`. The
+  conformance runner runs `answer_cases.json`.
+
 - Writing changes as inline marks (SOM §11.9.3): `mark_change_text(old, new)`
   diffs by line, then by word, merging changes at most two words apart, so
   accepting all marks gives `new` and rejecting all gives `old`. Words are

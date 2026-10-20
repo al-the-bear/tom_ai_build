@@ -85,6 +85,9 @@ from tom_som_runtime import (  # noqa: E402
     SpecQuestionDraft,
     SpecReviewAnnotationError,
     SpecReviewAnnotations,
+    SpecAnswerRenderOptions,
+    extract_answers,
+    render_answers,
     SpecReflection,
     SpecSectionIdCollision,
     SpecSerializationOrder,
@@ -1188,6 +1191,48 @@ def test_change_marks(model: SpecModel, tree) -> None:
         )
 
 
+def _run_answer_case(model: SpecModel, case: dict) -> dict:
+    """Runs one answer case: ``{extracts: [...], markdown}``."""
+    extracts = [
+        extract_answers(
+            model,
+            _document_from_state(json.loads(json.dumps(d["state"]))),
+            label=d["label"],
+            path=case.get("path"),
+        )
+        for d in case["documents"]
+    ]
+    return {
+        "extracts": [x.to_json() for x in extracts],
+        "markdown": render_answers(
+            extracts,
+            SpecAnswerRenderOptions(
+                include_open=case.get("includeOpen", False),
+                include_marks=case.get("includeMarks", False),
+                title=case.get("title", "Answers"),
+            ),
+        ),
+    }
+
+
+def test_answers(model: SpecModel) -> None:
+    """``answer_cases.json``: extracting answers for a step folder
+    (SOM §11.9.7)."""
+    for case in _read_json("answer_cases.json")["cases"]:
+        got = _run_answer_case(model, case)
+        want = case["expect"]
+        _check(
+            f"answers[{case['name']}].extracts",
+            got["extracts"] == want["extracts"],
+            _json_mismatch(got["extracts"], want["extracts"]),
+        )
+        _check(
+            f"answers[{case['name']}].markdown",
+            got["markdown"] == want["markdown"],
+            f"got {got['markdown']!r}, want {want['markdown']!r}",
+        )
+
+
 # ---------------------------------------------------------------------------
 # spec_text_pattern / spec_query / spec_node_creation (SOM §9)
 # ---------------------------------------------------------------------------
@@ -1913,6 +1958,7 @@ def main() -> int:
     test_annotations(model, tree)
     test_inline_marks(model, tree)
     test_change_marks(model, tree)
+    test_answers(model)
     test_list_move(model)
     test_build_document_matches_state()
     test_pattern()

@@ -237,6 +237,7 @@ func TestConformance(t *testing.T) {
 	testAnnotations(c, t, model, tree)
 	testInlineMarks(c, t, model, tree)
 	testChangeMarks(c, t, model, tree)
+	testAnswers(c, t, model)
 
 	c.finish()
 }
@@ -3067,6 +3068,71 @@ func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		want := toGenericJSON(t, cc.Expect)
 		c.check("inlineMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// answerCase is one case of answer_cases.json.
+type answerCase struct {
+	Name      string `json:"name"`
+	Documents []struct {
+		Label string           `json:"label"`
+		State som.DocumentJson `json:"state"`
+	} `json:"documents"`
+	Path         *string `json:"path"`
+	IncludeOpen  bool    `json:"includeOpen"`
+	IncludeMarks bool    `json:"includeMarks"`
+	Title        *string `json:"title"`
+	Expect       struct {
+		Extracts any    `json:"extracts"`
+		Markdown string `json:"markdown"`
+	} `json:"expect"`
+}
+
+// testAnswers replays answer_cases.json: extracting a review round's
+// answers, comments, open questions and inline marks per document, and
+// rendering them as a step folder's answers.md (SOM §11.9.7). Mirrors the
+// Dart harness's `_runAnswerCase`; the markdown compares byte for byte.
+func testAnswers(c *checker, t *testing.T, model *som.SpecModel) {
+	var table struct {
+		Cases []answerCase `json:"cases"`
+	}
+	readJSON(t, "answer_cases.json", &table)
+	c.check("answers.cases", len(table.Cases) > 0, "no cases in answer_cases.json")
+	for _, cc := range table.Cases {
+		path := ""
+		if cc.Path != nil {
+			path = *cc.Path
+		}
+		var extracts []som.SpecAnswerExtract
+		var extractsJSON []any
+		failed := false
+		for _, d := range cc.Documents {
+			state := d.State
+			x, err := som.ExtractAnswers(model, docFromState(&state), d.Label, path)
+			if err != nil {
+				c.check("answers["+cc.Name+"].extract", false, err.Error())
+				failed = true
+				break
+			}
+			extracts = append(extracts, x)
+			extractsJSON = append(extractsJSON, x.ToJSON())
+		}
+		if failed {
+			continue
+		}
+		got := toGenericJSON(t, extractsJSON)
+		want := toGenericJSON(t, cc.Expect.Extracts)
+		c.check("answers["+cc.Name+"].extracts", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+		options := som.DefaultSpecAnswerRenderOptions()
+		options.IncludeOpen = cc.IncludeOpen
+		options.IncludeMarks = cc.IncludeMarks
+		if cc.Title != nil {
+			options.Title = *cc.Title
+		}
+		md := som.RenderAnswers(extracts, options)
+		c.check("answers["+cc.Name+"].markdown", md == cc.Expect.Markdown,
+			byteDiff("answers["+cc.Name+"].markdown", md, cc.Expect.Markdown))
 	}
 }
 

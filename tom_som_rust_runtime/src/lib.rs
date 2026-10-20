@@ -16,6 +16,7 @@
 pub mod docspecs_validator;
 pub mod json;
 pub mod som_facade;
+pub mod spec_answers;
 pub mod spec_codespecs_extract;
 pub mod spec_codespecs_gate;
 pub mod spec_codespecs_records;
@@ -60,6 +61,10 @@ pub use json::Json;
 pub use som_facade::{
     check_som_model_version, doc_ref, som_editability_for, DocRef, SomEditability, SomList,
     SomNode, SomScalar, SomVersionError,
+};
+pub use spec_answers::{
+    extract_answers, render_answers, SpecAnswerCounts, SpecAnswerEntry, SpecAnswerExtract,
+    SpecAnswerKind, SpecAnswerRenderOptions,
 };
 pub use spec_codespecs_extract::{
     CodeSpecsArea, CodeSpecsAreaCatalog, CodeSpecsCarrier, CodeSpecsExtract,

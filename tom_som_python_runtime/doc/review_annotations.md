@@ -13,6 +13,7 @@ was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -153,6 +154,30 @@ r = mark_change_text(
     "Sessions expire after 15 minutes.",
 )
 print(r.text)  # Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes.
+
+| Operation | Does |
+|-----------|------|
+| `extract_answers(model, doc, label, path=None)` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree, with its section-id chain and its line in the document's Markdown rendition, in rendition order |
+| `render_answers(extracts, options=SpecAnswerRenderOptions())` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`include_open`) and the inline marks (`include_marks`), and sets the `title` |
+| `SpecAnswerExtract.counts` | A `SpecAnswerCounts`: answered, open, comments, marks — what a step's closing item reports |
+
+Each entry is a `SpecAnswerEntry` whose `kind` is a `SpecAnswerKind`
+(`ANSWERED`, `OPEN`, `COMMENT`, `MARK`). A comment is cited with the document
+root's id in front (`SBP C-12`). A comment without an id is listed by its
+line; `assign_comment_ids` gives it one, when asked.
+
+```python
+x = extract_answers(model, doc, label="tom_uam.sbp")
+with open("answers.md", "w", encoding="utf-8") as fh:
+    fh.write(render_answers([x], SpecAnswerRenderOptions(include_open=True)))
+print(x.counts.to_json())  # {'answered': 75, 'open': 269, 'comments': 0, 'marks': 0}
 ```
 
 ## Validation

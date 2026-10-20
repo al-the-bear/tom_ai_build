@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Extracting the answers of a review round for a step folder (SOM §11.9.7),
+  `spec_answers.ts`: `extractAnswers(model, doc, { label, path })` lists
+  every question (answered or open), comment and inline mark of a document or
+  subtree with its section-id chain and its line in the Markdown rendition, in
+  rendition order, as a `SpecAnswerExtract` (`label`, `qualifier`, `entries`,
+  `counts`) of `SpecAnswerEntry` items with a `SpecAnswerKind`;
+  `renderAnswers(extracts, options)` writes the deterministic `answers.md`,
+  with `SpecAnswerRenderOptions` (`includeOpen`, `includeMarks`, `title`) and
+  `SpecAnswerCounts`. Read-only. Guide: `doc/review_annotations.md`.
+  Conformance: `answer_cases.json`.
+
 - Writing changes as inline marks (SOM §11.9.3): `markChangeText(old, new)`
   diffs by line, then by word, merging changes at most two words apart, so
   accepting all marks gives `new` and rejecting all gives `old`. Words are

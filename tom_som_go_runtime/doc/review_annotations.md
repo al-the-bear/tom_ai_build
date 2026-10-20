@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -167,6 +168,35 @@ r := som.MarkChangeText(
 	"Sessions expire after 15 minutes.",
 )
 fmt.Println(r.Text) // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes.
+
+| Operation | Does |
+|-----------|------|
+| `ExtractAnswers(model, doc, label, path)` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree (`path` `""` for the whole document), with its section-id chain and its line in the document's Markdown rendition, in rendition order. The error is the rendition's |
+| `RenderAnswers(extracts, options)` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`IncludeOpen`) and the inline marks (`IncludeMarks`), and sets the `Title`; `DefaultSpecAnswerRenderOptions()` titles it `Answers` |
+| `SpecAnswerExtract.Counts()` | answered, open, comments, marks (`SpecAnswerCounts`): what a step's closing item reports |
+
+Each entry is a `SpecAnswerEntry` whose `Kind` is a `SpecAnswerKind`
+(`SpecAnswerKindAnswered`, `…Open`, `…Comment`, `…Mark`, all in
+`SpecAnswerKinds`). A comment is cited with the document root's id in front
+(`SBP C-12`). A comment without an id is listed by its line;
+`AssignCommentIDs` gives it one, when asked.
+
+```go
+x, err := som.ExtractAnswers(model, doc, "tom_uam.sbp", "")
+if err != nil {
+	return err
+}
+opts := som.DefaultSpecAnswerRenderOptions()
+opts.IncludeOpen = true
+os.WriteFile("answers.md", []byte(som.RenderAnswers([]som.SpecAnswerExtract{x}, opts)), 0o644)
+fmt.Println(x.Counts().ToJSON()) // map[answered:75 comments:0 marks:0 open:269]
 ```
 
 ## Validation

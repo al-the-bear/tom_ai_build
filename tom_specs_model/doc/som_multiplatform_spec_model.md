@@ -1822,6 +1822,57 @@ annot4 (accepting and rejecting inline marks), annot5 (writing changes as
 marks) and annot6 (extracting answers into a step folder) carry their own cases
 on top of these.
 
+#### 11.9.7 Answers for a step folder
+
+From step 02 on, every (sub-)step of the TomSpecs process opens by collecting
+what the reviewer wrote into its step folder's `answers.md`
+(`_ai/processes/tom_specs/tom_specs.md`). The annotations stay in the document
+while they are processed; the extraction reads them through the listing of
+§11.9.6 and never writes to the document.
+
+`extractAnswers(model, doc, label, path)` returns every question (answered or
+open), every comment and every inline mark of a document or of a subtree,
+**in rendition order**. Each entry carries:
+
+- **Line:** its 1-based line in the document's Markdown rendition. This is the
+  first rendition line after the value's heading whose trimmed text is the
+  annotation's first line. A form field's first line is matched behind its
+  label.
+- **Section:** the section-id chain of the rendition heading it sits under,
+  as the rendition shows it (`SBP > INSC > SYSUM`).
+- **Its fields:** a question's id, topic (the field, in a combined block),
+  text and answer; a comment's id, author and text; a mark's id, markup, old
+  and new text.
+
+`renderAnswers(extracts, options)` writes the file deterministically, so two
+runs over an unchanged document produce the same bytes:
+
+- the title, then the counts;
+- per document, in the order given, a `## <label>` group with its counts;
+- in each group, the sections *Answered questions* and *Comments*, and, by
+  option, *Open questions* and *Inline marks*;
+- one `#### <id> — <topic>` (comments: `<root id> C-<n>`) entry per item,
+  carrying `- **Section:**`, `- **Line:**` and the entry's own items.
+
+A comment without an id is listed by its line, because the extraction never
+assigns one.
+
+The command line is `tom_specs_clitool`'s `extract_answers`:
+
+```
+extract_answers <doc.md|doc.docspecs.yaml>... -o <step folder>/answers.md [--path <subtree>] [--open] [--marks] [--counts]
+```
+
+- **Several files:** files of one root are fragments of one document and are
+  assembled. Documents of different roots are grouped in the order given
+  (Phase 3: D01–D12 in dependency order).
+- **Exit status:** the command exits `1` on an unreadable document or a
+  malformed, misplaced or duplicated annotation (§11.9.5), because the
+  extraction would otherwise miss it silently.
+
+Cases: `corpus/answer_cases.json`; every driver renders the same file byte for
+byte.
+
 ## 12. The hierarchical `*.docspecs.yaml` format
 
 One nested YAML tree whose indentation mirrors the document structure.

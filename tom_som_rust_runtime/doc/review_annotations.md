@@ -13,6 +13,7 @@ value byte for byte as it was.
 - [Core Components](#core-components)
 - [Operations](#operations)
 - [Reviewing inline marks](#reviewing-inline-marks)
+- [Extracting answers for a step folder](#extracting-answers-for-a-step-folder)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -168,6 +169,36 @@ let r = mark_change_text(
     "Sessions expire after 15 minutes.",
 );
 println!("{}", r.text); // Sessions expire after {~~ 30 ~> 15 ~~} minutes.
+```
+
+## Extracting answers for a step folder
+
+A step of the TomSpecs process opens by collecting the reviewer's answers and
+comments into its step folder's `answers.md`. The annotations stay in the
+document, and the extraction never writes.
+
+| Operation | Does |
+|-----------|------|
+| `extract_answers(model, doc, label, path)` | A `SpecAnswerExtract`: every question (answered or open), comment and inline mark of the document or of a subtree (`path` `None` for the whole document), with its section-id chain and its line in the document's Markdown rendition, in rendition order. `Err` is the rendition's |
+| `render_answers(extracts, options)` | The `answers.md` text. Deterministic: the documents in the order given, then their entries. `SpecAnswerRenderOptions` adds the open questions (`include_open`) and the inline marks (`include_marks`), and sets the `title`; its `Default` titles it `Answers` |
+| `SpecAnswerExtract::counts()` | answered, open, comments, marks (`SpecAnswerCounts`): what a step's closing item reports |
+
+Each entry is a `SpecAnswerEntry` whose `kind` is a `SpecAnswerKind`
+(`Answered`, `Open`, `Comment`, `Mark`, all in `SpecAnswerKind::ALL`). A
+comment is cited with the document root's id in front (`SBP C-12`). A comment
+without an id is listed by its line; `assign_comment_ids` gives it one, when
+asked.
+
+```rust
+use tom_som_rust_runtime::{extract_answers, render_answers, SpecAnswerRenderOptions};
+
+let x = extract_answers(&model, &doc, "tom_uam.sbp", None)?;
+let options = SpecAnswerRenderOptions {
+    include_open: true,
+    ..SpecAnswerRenderOptions::default()
+};
+std::fs::write("answers.md", render_answers(&[x.clone()], &options))?;
+println!("{:?}", x.counts()); // SpecAnswerCounts { answered: 75, open: 269, comments: 0, marks: 0 }
 ```
 
 ## Validation

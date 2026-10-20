@@ -155,6 +155,15 @@ const {
   markChangeText,
 } = require('./spec_review_annotations');
 const {
+  SpecAnswerKind,
+  SpecAnswerEntry,
+  SpecAnswerCounts,
+  SpecAnswerExtract,
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
+} = require('./spec_answers');
+const {
   SomNode,
   SomScalar,
   SomList,
@@ -358,6 +367,14 @@ module.exports = {
   stripAnnotationsText,
   SpecMarkedChange,
   markChangeText,
+  // answers of a review round for a step folder (SOM §11.9.7)
+  SpecAnswerKind,
+  SpecAnswerEntry,
+  SpecAnswerCounts,
+  SpecAnswerExtract,
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
   // facade
   SomNode,
   SomScalar,

@@ -204,6 +204,18 @@ export type {
   SpecReviewAnnotationInit,
 } from './spec_review_annotations';
 
+// answers of a review round for a step folder (SOM §11.9.7)
+export {
+  SpecAnswerKind,
+  SpecAnswerEntry,
+  SpecAnswerCounts,
+  SpecAnswerExtract,
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
+} from './spec_answers';
+export type { SpecAnswerKindValue, SpecAnswerEntryInit } from './spec_answers';
+
 // facade
 export {
   SomNode,

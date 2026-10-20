@@ -20,7 +20,8 @@
  *   * review annotations — listing and editing comment blocks, question
  *     blocks and inline marks (`annotation_cases.json`, SOM §11.9),
  *     accepting / rejecting inline marks (`inline_mark_cases.json`), and
- *     writing changes as marks (`change_mark_cases.json`);
+ *     writing changes as marks (`change_mark_cases.json`), and extracting
+ *     the answers for a step folder (`answer_cases.json`, SOM §11.9.7);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * DocSpecs findings bound to their document path (`docspecs_path_cases.json`);
  *   * the imperative operations script;
@@ -80,6 +81,9 @@ import {
   SpecQuestionDraft,
   SpecReviewAnnotationError,
   SpecReviewAnnotations,
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
   SpecStateFilter,
   applyInlineMarksText,
   markChangeText,
@@ -739,6 +743,50 @@ function testChangeMarks(model: SpecModel, tree: SomMetaTree): void {
     try {
       const got = _runAnnotationCase(model, tree, c);
       _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
+  }
+}
+
+// Extracting the answers for a step folder (SOM §11.9.7), run like Dart's
+// `_runAnswerCase`: the extracts compared structurally, the markdown byte for
+// byte.
+function _runAnswerCase(model: SpecModel, c: any): any {
+  const extracts = (c.documents as any[]).map((d) =>
+    extractAnswers(model, _documentFromState(JSON.parse(JSON.stringify(d.state))), {
+      label: d.label,
+      path: c.path ?? null,
+    }),
+  );
+  return {
+    extracts: extracts.map((x) => x.toJson()),
+    markdown: renderAnswers(
+      extracts,
+      new SpecAnswerRenderOptions({
+        includeOpen: c.includeOpen ?? false,
+        includeMarks: c.includeMarks ?? false,
+        title: c.title ?? 'Answers',
+      }),
+    ),
+  };
+}
+
+function testAnswers(model: SpecModel): void {
+  for (const c of _readJson('answer_cases.json').cases as any[]) {
+    const name = `answers[${c.name}]`;
+    try {
+      const got = _runAnswerCase(model, c);
+      _check(
+        `${name}.extracts`,
+        _deepEqual(got.extracts, c.expect.extracts),
+        _jsonMismatch(got.extracts, c.expect.extracts),
+      );
+      _check(
+        `${name}.markdown`,
+        got.markdown === c.expect.markdown,
+        _byteDiff(name, got.markdown, c.expect.markdown),
+      );
     } catch (e) {
       _check(name, false, `threw ${String(e)}`);
     }
@@ -2356,6 +2404,7 @@ export function main(): number {
   testAnnotations(model, tree);
   testInlineMarks(model, tree);
   testChangeMarks(model, tree);
+  testAnswers(model);
   testListMove(model);
   testOneLineExport(model);
   testReflection(model);

@@ -32,6 +32,7 @@
 #include "spec_codespecs_records.h"
 #include "spec_validator.h"
 #include "spec_review_annotations.h"
+#include "spec_answers.h"
 #include "yaml.h"
 #include "spec_document_yaml.h"
 #include "spec_document_markdown.h"

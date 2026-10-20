@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.11.0
+
+- `extract_answers`: a review round's answers, comments and, optionally, open
+  questions and inline marks, written as a step folder's `answers.md`
+  (SOM §11.9.7). It takes one or more documents (fragments of one root are
+  assembled; roots are grouped in the order given) and options `--path`,
+  `--open`, `--marks`, `--counts` and `-o`. It fails on a malformed
+  annotation. `resolveSpecDocumentRoot` is public.
+
 ## 0.10.1
 
 - The section-citation gate also reads `tom_doc_specs/lib` and

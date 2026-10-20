@@ -28,7 +28,8 @@
  *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script);
  *   - assembling one document from ordered fragments (refusing overlaps);
  *   - the review annotations (SOM §11.9): listing, counting and editing
- *     comment blocks, question blocks and inline marks.
+ *     comment blocks, question blocks and inline marks;
+ *   - extracting a review round's answers for a step folder (SOM §11.9.7).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -3085,6 +3086,61 @@ static void test_change_marks(Checker& c, const som::SpecModel& model,
   run_annotation_cases(c, model, tree, "change_mark_cases.json", "changeMarks");
 }
 
+/* answer_cases.json, run like the Dart reference's `_runAnswerCase`: every
+ * document is loaded from its `state` and extracted with the case's `path`;
+ * the extracts must equal `expect.extracts` (JSON equality) and the rendered
+ * `answers.md` must equal `expect.markdown` byte for byte. */
+static void test_answers(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr table = read_json("answer_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  const std::size_t n = som::jsonArrayLen(cases);
+  c.check("answers.cases", n > 0, "no cases in answer_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label = "answers[" + som::jsonStrOr(kase, "name") + "]";
+    som::JsonRef docs = som::jsonGet(kase, "documents");
+    const std::optional<std::string> path = json_opt_str(kase, "path");
+    std::vector<som::SpecAnswerExtract> extracts;
+    bool ok = true;
+    for (std::size_t k = 0; k < som::jsonArrayLen(docs); k++) {
+      som::JsonRef d = som::jsonArrayAt(docs, k);
+      som::SpecDocument doc =
+          doc_from_state(som::documentJsonFromJson(som::jsonGet(d, "state")));
+      try {
+        extracts.push_back(
+            som::extractAnswers(model, doc, som::jsonStrOr(d, "label"), path));
+      } catch (const std::exception& e) {
+        c.check(label + ".extract[" + std::to_string(k) + "]", false, e.what());
+        ok = false;
+      }
+    }
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    std::string gotJson = "[";
+    for (std::size_t k = 0; k < extracts.size(); k++) {
+      if (k > 0) gotJson += ',';
+      gotJson += extracts[k].toJson();
+    }
+    gotJson += ']';
+    const std::string got = json_text_canon(gotJson);
+    const std::string w = json_canon(som::jsonGet(expect, "extracts"));
+    c.check(label + ".extracts", ok && got == w,
+            byte_diff(label + ".extracts", got, w));
+
+    som::SpecAnswerRenderOptions o;
+    if (auto b = som::jsonAsBool(som::jsonGet(kase, "includeOpen"))) {
+      o.includeOpen = *b;
+    }
+    if (auto b = som::jsonAsBool(som::jsonGet(kase, "includeMarks"))) {
+      o.includeMarks = *b;
+    }
+    if (auto t = json_opt_str(kase, "title")) o.title = *t;
+    const std::string md = som::renderAnswers(extracts, o);
+    const std::string wantMd = som::jsonStrOr(expect, "markdown");
+    c.check(label + ".markdown", md == wantMd,
+            byte_diff(label + ".markdown", md, wantMd));
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -3134,6 +3190,7 @@ int main(int argc, char** argv) {
   test_annotations(c, *model, *tree);
   test_inline_marks(c, *model, *tree);
   test_change_marks(c, *model, *tree);
+  test_answers(c, *model);
 
   return c.finish();
 }

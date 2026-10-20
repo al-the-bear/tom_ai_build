@@ -224,7 +224,7 @@ public final class SpecReviewAnnotations {
     }
   }
 
-  private static String trim(String s) {
+  static String trim(String s) {
     int a = 0;
     int b = s.length();
     while (a < b && isWs(s.charAt(a))) {

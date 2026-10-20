@@ -249,6 +249,20 @@ final List<CorpusGuardedEnum> _guarded = [
     why: 'SOM §11.9.3: a mixed decision set holds accept, reject and leave',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecAnswerKind',
+    declared: _wire(SpecAnswerKind.values),
+    corpusFile: 'answer_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final x in ((k['expect'] as Map)['extracts'] as List))
+          for (final e in ((x as Map)['entries'] as List))
+            (e as Map)['kind'] as String,
+    },
+    why: 'SOM §11.9.7: answered, open, comment and mark entries are extracted',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SpecValidationCode',
     declared: _wire(SpecValidationCode.values),
     corpusFile: 'validation_cases.json',

@@ -1,0 +1,1028 @@
+{
+  "cases": [
+    {
+      "name": "answered questions and comments",
+      "documents": [
+        {
+          "label": "demo",
+          "state": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a), and 5 minutes\n> on shared kiosks.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+              "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+              "DEMO/MIX/tail": "Tail text."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob {== here ==}{>> really? <<}",
+                "contact": "bob@example.com"
+              }
+            }
+          }
+        }
+      ],
+      "expect": {
+        "extracts": [
+          {
+            "label": "demo",
+            "qualifier": "DEMO",
+            "entries": [
+              {
+                "kind": "mark",
+                "id": "M-1",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{~~ 30 ~> 15 ~~}",
+                "answer": "",
+                "author": null,
+                "markKind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-2",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{++ on kiosks ++}",
+                "answer": "",
+                "author": null,
+                "markKind": "insertion",
+                "oldText": "",
+                "newText": "on kiosks",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-3",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{-- very --}",
+                "answer": "",
+                "author": null,
+                "markKind": "deletion",
+                "oldText": "very",
+                "newText": "",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-4",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{== this ==}{>> unclear <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "this",
+                "newText": "this",
+                "comment": "unclear"
+              },
+              {
+                "kind": "mark",
+                "id": "M-5",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{>> a note <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "comment",
+                "oldText": "",
+                "newText": "",
+                "comment": "a note"
+              },
+              {
+                "kind": "comment",
+                "id": "C-3",
+                "section": "DEMO > SUM",
+                "line": 9,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Too long for kiosks.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 11,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "No variation selector,\nand a second line.",
+                "answer": "",
+                "author": "Bea",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 14,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "bare comment",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-90",
+                "section": "DEMO > SUM",
+                "line": 16,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "C-3 kiosk timeout",
+                "combined": false,
+                "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+                "answer": "(a), and 5 minutes\non shared kiosks.",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-95",
+                "section": "DEMO > SUM",
+                "line": 26,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "Audit retention",
+                "combined": false,
+                "text": "no answer line yet",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-83",
+                "section": "DEMO > DET",
+                "line": 41,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Owner",
+                "combined": true,
+                "text": "who owns it?",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-84",
+                "section": "DEMO > DET",
+                "line": 45,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Estimate",
+                "combined": true,
+                "text": "how long?",
+                "answer": "two days",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": "C-7",
+                "section": "DEMO > DET",
+                "line": 49,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Check the contact too.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-6",
+                "section": "DEMO > DET",
+                "line": 51,
+                "path": "DEMO/DET",
+                "field": "owner",
+                "topic": null,
+                "combined": false,
+                "text": "{== here ==}{>> really? <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "here",
+                "newText": "here",
+                "comment": "really?"
+              }
+            ],
+            "counts": {
+              "answered": 2,
+              "open": 2,
+              "comments": 4,
+              "marks": 6
+            }
+          }
+        ],
+        "markdown": "# Answers\n\n2 answered questions, 2 open questions, 4 comments.\n\n## demo\n\n2 answered questions, 2 open questions, 4 comments.\n\n### Answered questions\n\n#### BQ-90 — C-3 kiosk timeout\n\n- **Section:** `DEMO > SUM`\n- **Line:** 16\n- **Question:** kiosk devices only?\n  - (a) kiosk only\n  - (b) every device\n\n  *Recommendation:* (a).\n  *Working assumption until answered:* (a).\n- **Answer:** (a), and 5 minutes\n  on shared kiosks.\n\n#### BQ-84 — Estimate\n\n- **Section:** `DEMO > DET`\n- **Line:** 45\n- **Question:** how long?\n- **Answer:** two days\n\n### Comments\n\n#### DEMO C-3\n\n- **Section:** `DEMO > SUM`\n- **Line:** 9\n- **Author:** Alexis\n- **Comment:** Too long for kiosks.\n\n#### Comment without id (line 11)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 11\n- **Author:** Bea\n- **Comment:** No variation selector,\n  and a second line.\n\n#### Comment without id (line 14)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 14\n- **Comment:** bare comment\n\n#### DEMO C-7\n\n- **Section:** `DEMO > DET`\n- **Line:** 49\n- **Author:** Alexis\n- **Comment:** Check the contact too.\n"
+      }
+    },
+    {
+      "name": "with open questions and inline marks",
+      "documents": [
+        {
+          "label": "demo",
+          "state": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a), and 5 minutes\n> on shared kiosks.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+              "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+              "DEMO/MIX/tail": "Tail text."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob {== here ==}{>> really? <<}",
+                "contact": "bob@example.com"
+              }
+            }
+          }
+        }
+      ],
+      "includeOpen": true,
+      "includeMarks": true,
+      "title": "Answers processed in 03_01_01 — Questions Round",
+      "expect": {
+        "extracts": [
+          {
+            "label": "demo",
+            "qualifier": "DEMO",
+            "entries": [
+              {
+                "kind": "mark",
+                "id": "M-1",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{~~ 30 ~> 15 ~~}",
+                "answer": "",
+                "author": null,
+                "markKind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-2",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{++ on kiosks ++}",
+                "answer": "",
+                "author": null,
+                "markKind": "insertion",
+                "oldText": "",
+                "newText": "on kiosks",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-3",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{-- very --}",
+                "answer": "",
+                "author": null,
+                "markKind": "deletion",
+                "oldText": "very",
+                "newText": "",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-4",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{== this ==}{>> unclear <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "this",
+                "newText": "this",
+                "comment": "unclear"
+              },
+              {
+                "kind": "mark",
+                "id": "M-5",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{>> a note <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "comment",
+                "oldText": "",
+                "newText": "",
+                "comment": "a note"
+              },
+              {
+                "kind": "comment",
+                "id": "C-3",
+                "section": "DEMO > SUM",
+                "line": 9,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Too long for kiosks.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 11,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "No variation selector,\nand a second line.",
+                "answer": "",
+                "author": "Bea",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 14,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "bare comment",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-90",
+                "section": "DEMO > SUM",
+                "line": 16,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "C-3 kiosk timeout",
+                "combined": false,
+                "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+                "answer": "(a), and 5 minutes\non shared kiosks.",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-95",
+                "section": "DEMO > SUM",
+                "line": 26,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "Audit retention",
+                "combined": false,
+                "text": "no answer line yet",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-83",
+                "section": "DEMO > DET",
+                "line": 41,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Owner",
+                "combined": true,
+                "text": "who owns it?",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-84",
+                "section": "DEMO > DET",
+                "line": 45,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Estimate",
+                "combined": true,
+                "text": "how long?",
+                "answer": "two days",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": "C-7",
+                "section": "DEMO > DET",
+                "line": 49,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Check the contact too.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-6",
+                "section": "DEMO > DET",
+                "line": 51,
+                "path": "DEMO/DET",
+                "field": "owner",
+                "topic": null,
+                "combined": false,
+                "text": "{== here ==}{>> really? <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "here",
+                "newText": "here",
+                "comment": "really?"
+              }
+            ],
+            "counts": {
+              "answered": 2,
+              "open": 2,
+              "comments": 4,
+              "marks": 6
+            }
+          }
+        ],
+        "markdown": "# Answers processed in 03_01_01 — Questions Round\n\n2 answered questions, 2 open questions, 4 comments, 6 inline marks.\n\n## demo\n\n2 answered questions, 2 open questions, 4 comments, 6 inline marks.\n\n### Answered questions\n\n#### BQ-90 — C-3 kiosk timeout\n\n- **Section:** `DEMO > SUM`\n- **Line:** 16\n- **Question:** kiosk devices only?\n  - (a) kiosk only\n  - (b) every device\n\n  *Recommendation:* (a).\n  *Working assumption until answered:* (a).\n- **Answer:** (a), and 5 minutes\n  on shared kiosks.\n\n#### BQ-84 — Estimate\n\n- **Section:** `DEMO > DET`\n- **Line:** 45\n- **Question:** how long?\n- **Answer:** two days\n\n### Comments\n\n#### DEMO C-3\n\n- **Section:** `DEMO > SUM`\n- **Line:** 9\n- **Author:** Alexis\n- **Comment:** Too long for kiosks.\n\n#### Comment without id (line 11)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 11\n- **Author:** Bea\n- **Comment:** No variation selector,\n  and a second line.\n\n#### Comment without id (line 14)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 14\n- **Comment:** bare comment\n\n#### DEMO C-7\n\n- **Section:** `DEMO > DET`\n- **Line:** 49\n- **Author:** Alexis\n- **Comment:** Check the contact too.\n\n### Open questions\n\n#### BQ-95 — Audit retention\n\n- **Section:** `DEMO > SUM`\n- **Line:** 26\n- **Question:** no answer line yet\n\n#### BQ-83 — Owner\n\n- **Section:** `DEMO > DET`\n- **Line:** 41\n- **Question:** who owns it?\n\n### Inline marks\n\n#### M-1 — substitution\n\n- **Section:** `DEMO > SUM`\n- **Line:** 6\n- **Markup:** `{~~ 30 ~> 15 ~~}`\n- **Old:** 30\n- **New:** 15\n\n#### M-2 — insertion\n\n- **Section:** `DEMO > SUM`\n- **Line:** 6\n- **Markup:** `{++ on kiosks ++}`\n- **Old:**\n- **New:** on kiosks\n\n#### M-3 — deletion\n\n- **Section:** `DEMO > SUM`\n- **Line:** 7\n- **Markup:** `{-- very --}`\n- **Old:** very\n- **New:**\n\n#### M-4 — highlight\n\n- **Section:** `DEMO > SUM`\n- **Line:** 7\n- **Markup:** `{== this ==}{>> unclear <<}`\n- **Old:** this\n- **New:** this\n- **Note:** unclear\n\n#### M-5 — comment\n\n- **Section:** `DEMO > SUM`\n- **Line:** 7\n- **Markup:** `{>> a note <<}`\n- **Old:**\n- **New:**\n- **Note:** a note\n\n#### M-6 — highlight\n\n- **Section:** `DEMO > DET`\n- **Line:** 51\n- **Field:** `owner`\n- **Markup:** `{== here ==}{>> really? <<}`\n- **Old:** here\n- **New:** here\n- **Note:** really?\n"
+      }
+    },
+    {
+      "name": "a subtree",
+      "documents": [
+        {
+          "label": "demo",
+          "state": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a), and 5 minutes\n> on shared kiosks.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+              "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+              "DEMO/MIX/tail": "Tail text."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob {== here ==}{>> really? <<}",
+                "contact": "bob@example.com"
+              }
+            }
+          }
+        }
+      ],
+      "path": "DEMO/DET",
+      "includeOpen": true,
+      "expect": {
+        "extracts": [
+          {
+            "label": "demo",
+            "qualifier": "DEMO",
+            "entries": [
+              {
+                "kind": "open",
+                "id": "BQ-83",
+                "section": "DEMO > DET",
+                "line": 41,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Owner",
+                "combined": true,
+                "text": "who owns it?",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-84",
+                "section": "DEMO > DET",
+                "line": 45,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Estimate",
+                "combined": true,
+                "text": "how long?",
+                "answer": "two days",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": "C-7",
+                "section": "DEMO > DET",
+                "line": 49,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Check the contact too.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-6",
+                "section": "DEMO > DET",
+                "line": 51,
+                "path": "DEMO/DET",
+                "field": "owner",
+                "topic": null,
+                "combined": false,
+                "text": "{== here ==}{>> really? <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "here",
+                "newText": "here",
+                "comment": "really?"
+              }
+            ],
+            "counts": {
+              "answered": 1,
+              "open": 1,
+              "comments": 1,
+              "marks": 1
+            }
+          }
+        ],
+        "markdown": "# Answers\n\n1 answered question, 1 open question, 1 comment.\n\n## demo\n\n1 answered question, 1 open question, 1 comment.\n\n### Answered questions\n\n#### BQ-84 — Estimate\n\n- **Section:** `DEMO > DET`\n- **Line:** 45\n- **Question:** how long?\n- **Answer:** two days\n\n### Comments\n\n#### DEMO C-7\n\n- **Section:** `DEMO > DET`\n- **Line:** 49\n- **Author:** Alexis\n- **Comment:** Check the contact too.\n\n### Open questions\n\n#### BQ-83 — Owner\n\n- **Section:** `DEMO > DET`\n- **Line:** 41\n- **Question:** who owns it?\n"
+      }
+    },
+    {
+      "name": "two documents in the order given",
+      "documents": [
+        {
+          "label": "demo-b",
+          "state": {
+            "content": {
+              "DEMO/SUM": "A second document.\n\n> ⬆️ **C-1** (Bea): Cite me as DEMO C-1.\n\n> **❓ BQ-200 — Scope:** one page?\n>\n> **Answer:** yes"
+            }
+          }
+        },
+        {
+          "label": "demo",
+          "state": {
+            "content": {
+              "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a), and 5 minutes\n> on shared kiosks.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+              "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+              "DEMO/MIX/tail": "Tail text."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "owner": "Bob {== here ==}{>> really? <<}",
+                "contact": "bob@example.com"
+              }
+            }
+          }
+        }
+      ],
+      "expect": {
+        "extracts": [
+          {
+            "label": "demo-b",
+            "qualifier": "DEMO",
+            "entries": [
+              {
+                "kind": "comment",
+                "id": "C-1",
+                "section": "DEMO > SUM",
+                "line": 8,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Cite me as DEMO C-1.",
+                "answer": "",
+                "author": "Bea",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-200",
+                "section": "DEMO > SUM",
+                "line": 10,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "Scope",
+                "combined": false,
+                "text": "one page?",
+                "answer": "yes",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              }
+            ],
+            "counts": {
+              "answered": 1,
+              "open": 0,
+              "comments": 1,
+              "marks": 0
+            }
+          },
+          {
+            "label": "demo",
+            "qualifier": "DEMO",
+            "entries": [
+              {
+                "kind": "mark",
+                "id": "M-1",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{~~ 30 ~> 15 ~~}",
+                "answer": "",
+                "author": null,
+                "markKind": "substitution",
+                "oldText": "30",
+                "newText": "15",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-2",
+                "section": "DEMO > SUM",
+                "line": 6,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{++ on kiosks ++}",
+                "answer": "",
+                "author": null,
+                "markKind": "insertion",
+                "oldText": "",
+                "newText": "on kiosks",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-3",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{-- very --}",
+                "answer": "",
+                "author": null,
+                "markKind": "deletion",
+                "oldText": "very",
+                "newText": "",
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-4",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{== this ==}{>> unclear <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "this",
+                "newText": "this",
+                "comment": "unclear"
+              },
+              {
+                "kind": "mark",
+                "id": "M-5",
+                "section": "DEMO > SUM",
+                "line": 7,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "{>> a note <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "comment",
+                "oldText": "",
+                "newText": "",
+                "comment": "a note"
+              },
+              {
+                "kind": "comment",
+                "id": "C-3",
+                "section": "DEMO > SUM",
+                "line": 9,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Too long for kiosks.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 11,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "No variation selector,\nand a second line.",
+                "answer": "",
+                "author": "Bea",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": null,
+                "section": "DEMO > SUM",
+                "line": 14,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "bare comment",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-90",
+                "section": "DEMO > SUM",
+                "line": 16,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "C-3 kiosk timeout",
+                "combined": false,
+                "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+                "answer": "(a), and 5 minutes\non shared kiosks.",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-95",
+                "section": "DEMO > SUM",
+                "line": 26,
+                "path": "DEMO/SUM",
+                "field": null,
+                "topic": "Audit retention",
+                "combined": false,
+                "text": "no answer line yet",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "open",
+                "id": "BQ-83",
+                "section": "DEMO > DET",
+                "line": 41,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Owner",
+                "combined": true,
+                "text": "who owns it?",
+                "answer": "",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "answered",
+                "id": "BQ-84",
+                "section": "DEMO > DET",
+                "line": 45,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": "Estimate",
+                "combined": true,
+                "text": "how long?",
+                "answer": "two days",
+                "author": null,
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "comment",
+                "id": "C-7",
+                "section": "DEMO > DET",
+                "line": 49,
+                "path": "DEMO/DET",
+                "field": null,
+                "topic": null,
+                "combined": false,
+                "text": "Check the contact too.",
+                "answer": "",
+                "author": "Alexis",
+                "markKind": null,
+                "oldText": null,
+                "newText": null,
+                "comment": null
+              },
+              {
+                "kind": "mark",
+                "id": "M-6",
+                "section": "DEMO > DET",
+                "line": 51,
+                "path": "DEMO/DET",
+                "field": "owner",
+                "topic": null,
+                "combined": false,
+                "text": "{== here ==}{>> really? <<}",
+                "answer": "",
+                "author": null,
+                "markKind": "highlight",
+                "oldText": "here",
+                "newText": "here",
+                "comment": "really?"
+              }
+            ],
+            "counts": {
+              "answered": 2,
+              "open": 2,
+              "comments": 4,
+              "marks": 6
+            }
+          }
+        ],
+        "markdown": "# Answers\n\n3 answered questions, 2 open questions, 5 comments.\n\n## demo-b\n\n1 answered question, 0 open questions, 1 comment.\n\n### Answered questions\n\n#### BQ-200 — Scope\n\n- **Section:** `DEMO > SUM`\n- **Line:** 10\n- **Question:** one page?\n- **Answer:** yes\n\n### Comments\n\n#### DEMO C-1\n\n- **Section:** `DEMO > SUM`\n- **Line:** 8\n- **Author:** Bea\n- **Comment:** Cite me as DEMO C-1.\n\n## demo\n\n2 answered questions, 2 open questions, 4 comments.\n\n### Answered questions\n\n#### BQ-90 — C-3 kiosk timeout\n\n- **Section:** `DEMO > SUM`\n- **Line:** 16\n- **Question:** kiosk devices only?\n  - (a) kiosk only\n  - (b) every device\n\n  *Recommendation:* (a).\n  *Working assumption until answered:* (a).\n- **Answer:** (a), and 5 minutes\n  on shared kiosks.\n\n#### BQ-84 — Estimate\n\n- **Section:** `DEMO > DET`\n- **Line:** 45\n- **Question:** how long?\n- **Answer:** two days\n\n### Comments\n\n#### DEMO C-3\n\n- **Section:** `DEMO > SUM`\n- **Line:** 9\n- **Author:** Alexis\n- **Comment:** Too long for kiosks.\n\n#### Comment without id (line 11)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 11\n- **Author:** Bea\n- **Comment:** No variation selector,\n  and a second line.\n\n#### Comment without id (line 14)\n\n- **Section:** `DEMO > SUM`\n- **Line:** 14\n- **Comment:** bare comment\n\n#### DEMO C-7\n\n- **Section:** `DEMO > DET`\n- **Line:** 49\n- **Author:** Alexis\n- **Comment:** Check the contact too.\n"
+      }
+    },
+    {
+      "name": "a document without annotations",
+      "documents": [
+        {
+          "label": "plain",
+          "state": {
+            "content": {
+              "DEMO/SUM": "Nothing to answer."
+            }
+          }
+        }
+      ],
+      "includeOpen": true,
+      "includeMarks": true,
+      "expect": {
+        "extracts": [
+          {
+            "label": "plain",
+            "qualifier": "DEMO",
+            "entries": [],
+            "counts": {
+              "answered": 0,
+              "open": 0,
+              "comments": 0,
+              "marks": 0
+            }
+          }
+        ],
+        "markdown": "# Answers\n\n0 answered questions, 0 open questions, 0 comments, 0 inline marks.\n\n## plain\n\n0 answered questions, 0 open questions, 0 comments, 0 inline marks.\n\n### Answered questions\n\nNone.\n\n### Comments\n\nNone.\n\n### Open questions\n\nNone.\n\n### Inline marks\n\nNone.\n"
+      }
+    }
+  ]
+}

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Extracting answers for a step folder (SOM §11.9.7): the free function
+  `extract_answers(model, doc, label, path)` collects a document's questions
+  (answered and open), comments and inline marks, each with its section-id
+  chain and its line in the Markdown rendition, as a `SpecAnswerExtract` of
+  `SpecAnswerEntry`s (`SpecAnswerKind`, `SpecAnswerCounts`).
+  `render_answers(extracts, options)` writes them as the step folder's
+  `answers.md`; `SpecAnswerRenderOptions` adds the open questions and the
+  inline marks and sets the title. The new module is `spec_answers`, its
+  names re-exported from the crate root. The conformance runner replays
+  `answer_cases.json`.
+
 - Writing changes as inline marks (SOM §11.9.3): the free function
   `mark_change_text(old, new)` diffs by line, then by word, merging changes
   at most two words apart, so accepting all marks gives `new` and rejecting

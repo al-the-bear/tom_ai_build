@@ -41,6 +41,9 @@
 ///     §11.9): list, insert, answer, assign comment ids, resolve, apply
 ///     inline marks, strip and count comment blocks, question blocks and
 ///     CriticMarkup marks;
+///   * [extractAnswers] / [renderAnswers] — a review round's answers,
+///     comments, open questions and inline marks as a step folder's
+///     `answers.md` (SOM §11.9.7);
 ///   * [validateDocument] — checks a document's values against the model;
 ///   * [DocSpecsDocument] / [DocSpecsSchema] / [DocSpecsValidator] — the
 ///     consolidated SOM §14 DocSpecs module: schema-free markdown parse,
@@ -64,6 +67,7 @@
 library;
 
 export 'src/docspecs_validator.dart';
+export 'src/spec_answers.dart';
 export 'src/spec_review_annotations.dart';
 export 'src/spec_annotation_display.dart';
 export 'src/spec_codespecs_extract.dart';

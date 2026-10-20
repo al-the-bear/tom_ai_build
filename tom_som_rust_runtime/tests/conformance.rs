@@ -36,6 +36,8 @@
 //!     `SpecReviewAnnotations` over the scripts of annotation_cases.json, and
 //!     accepting / rejecting inline marks (inline_mark_cases.json), and
 //!     writing changes as marks (change_mark_cases.json);
+//!   - extracting a review round's answers for a step folder and rendering
+//!     them as `answers.md` (answer_cases.json);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
@@ -46,6 +48,9 @@ use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
+use tom_som_rust_runtime::spec_answers::{
+    extract_answers, render_answers, SpecAnswerExtract, SpecAnswerRenderOptions,
+};
 use tom_som_rust_runtime::spec_codespecs_extract::{
     CodeSpecsAreaCatalog, CodeSpecsExtract, CodeSpecsExtractor,
 };
@@ -203,6 +208,7 @@ fn conformance() {
     test_annotations(&mut c, &model, &tree);
     test_inline_marks(&mut c, &model, &tree);
     test_change_marks(&mut c, &model, &tree);
+    test_answers(&mut c, &model);
     test_operations(&mut c);
     test_editor(&mut c, &model);
     test_section_id(&mut c);
@@ -3095,6 +3101,62 @@ fn test_change_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
     c.check("changeMarks.cases", !scripted.is_empty(), "no cases");
     for cc in scripted {
         check_annotation_case(c, model, tree, cc, "changeMarks");
+    }
+}
+
+/// `answer_cases.json`: every document of a case through [`extract_answers`]
+/// (with the case's `path`), then all extracts through [`render_answers`]
+/// with the case's options. The extracts compare structurally, the markdown
+/// byte for byte. Mirrors the Dart `_runAnswerCase`.
+fn test_answers(c: &mut Checker, model: &SpecModel) {
+    let table = read_json("answer_cases.json");
+    let all = cases(&table, "cases");
+    c.check("answers.cases", !all.is_empty(), "no cases");
+    for cc in all {
+        let name = cc.str_or("name");
+        let path = cc.get("path").and_then(|p| p.as_str());
+        let mut extracts = Vec::new();
+        let mut error = None;
+        for d in cc.get("documents").and_then(|d| d.as_array()).unwrap_or(&[]) {
+            let doc = doc_from_state(&DocumentJson::from_json(
+                d.get("state").expect("answer case state"),
+            ));
+            match extract_answers(model, &doc, &d.str_or("label"), path) {
+                Ok(x) => extracts.push(x),
+                Err(e) => {
+                    error = Some(e);
+                    break;
+                }
+            }
+        }
+        if let Some(e) = error {
+            c.check(&format!("answers[{}].extract", name), false, &e);
+            continue;
+        }
+        let expect = cc.get("expect").expect("answer case expect");
+        let got = Json::Array(extracts.iter().map(SpecAnswerExtract::to_json).collect());
+        let want = expect.get("extracts").unwrap_or(&Json::Null);
+        c.check(
+            &format!("answers[{}].extracts", name),
+            json_eq(&got, want),
+            &format!("got {:?} want {:?}", got, want),
+        );
+        let options = SpecAnswerRenderOptions {
+            include_open: cc.bool_or("includeOpen"),
+            include_marks: cc.bool_or("includeMarks"),
+            title: cc
+                .get("title")
+                .and_then(|t| t.as_str())
+                .unwrap_or("Answers")
+                .to_string(),
+        };
+        let md = render_answers(&extracts, &options);
+        let want_md = expect.str_or("markdown");
+        c.check(
+            &format!("answers[{}].markdown", name),
+            md == want_md,
+            &byte_diff(&format!("answers[{}].markdown", name), &md, &want_md),
+        );
     }
 }
 

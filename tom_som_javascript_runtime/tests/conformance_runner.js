@@ -22,7 +22,8 @@
  *   * review annotations — listing and editing comment blocks, question
  *     blocks and inline marks (`annotation_cases.json`, SOM §11.9),
  *     accepting / rejecting inline marks (`inline_mark_cases.json`), and
- *     writing changes as marks (`change_mark_cases.json`);
+ *     writing changes as marks (`change_mark_cases.json`), and extracting
+ *     the answers for a step folder (`answer_cases.json`, SOM §11.9.7);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * the imperative operations script;
  *   * the generic editor (YRD7) script;
@@ -98,6 +99,9 @@ const {
   validateSpecDocument,
   yamlDecode,
   yamlEncode,
+  SpecAnswerRenderOptions,
+  extractAnswers,
+  renderAnswers,
 } = require(path.join(_PKG_ROOT, 'tom_som_runtime', 'index.js'));
 
 const _MODEL_VERSION = '1.0';
@@ -479,6 +483,50 @@ function testAssembly() {
   for (const c of _readJson('assembly_cases.json').cases) {
     const got = _runAssemblyCase(c);
     _check(`assembly[${c.name}]`, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+  }
+}
+
+// Extracting the answers for a step folder (SOM §11.9.7), run like Dart's
+// `_runAnswerCase`: the extracts compared structurally, the markdown byte for
+// byte.
+function _runAnswerCase(model, c) {
+  const extracts = c.documents.map((d) =>
+    extractAnswers(model, _documentFromState(JSON.parse(JSON.stringify(d.state))), {
+      label: d.label,
+      path: c.path ?? null,
+    }),
+  );
+  return {
+    extracts: extracts.map((x) => x.toJson()),
+    markdown: renderAnswers(
+      extracts,
+      new SpecAnswerRenderOptions({
+        includeOpen: c.includeOpen ?? false,
+        includeMarks: c.includeMarks ?? false,
+        title: c.title ?? 'Answers',
+      }),
+    ),
+  };
+}
+
+function testAnswers(model) {
+  for (const c of _readJson('answer_cases.json').cases) {
+    const name = `answers[${c.name}]`;
+    try {
+      const got = _runAnswerCase(model, c);
+      _check(
+        `${name}.extracts`,
+        _deepEqual(got.extracts, c.expect.extracts),
+        _jsonMismatch(got.extracts, c.expect.extracts),
+      );
+      _check(
+        `${name}.markdown`,
+        got.markdown === c.expect.markdown,
+        _byteDiff(name, got.markdown, c.expect.markdown),
+      );
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
   }
 }
 
@@ -2179,6 +2227,7 @@ function main() {
   testAnnotations(model, tree);
   testInlineMarks(model, tree);
   testChangeMarks(model, tree);
+  testAnswers(model);
   testListMove(model);
   testReflection(model);
   testValidation(model);

@@ -315,10 +315,13 @@ export 'src/codespecs/codespecs_validator.dart'
         readCsEnumMirrors,
         readCsFeatureCatalogue,
         CsFeatureCatalogueException;
+export 'src/extract_answers_cli.dart'
+    show runExtractAnswers, extractAnswersParser;
 export 'src/validate_spec_cli.dart'
     show
         runValidateSpec,
         validateSpecParser,
+        resolveSpecDocumentRoot,
         specSchemaIdFor,
         SpecValidationFinding,
         kSpecValidationFormat,
