@@ -341,6 +341,14 @@ section-types:
     prefix: SECC_SECU
     format: secc-secu-form
     description: "The security posture the system is built to, and the compliance regime"
+  tslvl-lst:
+    prefix: TSLVL_LST
+    subsection-types:
+      tslvl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per test level.
   accrsu:
     prefix: ACCRSU
     subsection-types:
@@ -636,6 +644,12 @@ section-types:
       tode-item-lst:
         max-count: 1
     description: 11.6.2. Trade-off Decisions.
+  tslvl:
+    prefix: TSLVL_
+    pattern-check-id:
+      pattern: ^TSLVL-.+$
+      error-message: IDs of this section must match TSLVL-xxx
+    description: Add one entry per test level.
   uadema:
     prefix: UADEMA
     format: uadema-form
@@ -1183,6 +1197,9 @@ section-types:
     description: Review timeline.
   test:
     prefix: TEST
+    subsection-types:
+      tslvl-lst:
+        max-count: 1
     description: Test strategy (new in Phase A).
   tspe:
     prefix: TSPE

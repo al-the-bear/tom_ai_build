@@ -203,6 +203,34 @@ std::optional<std::string> ConstraintEnforcement::parse(const std::string& token
   return std::nullopt;
 }
 
+std::optional<std::string> ContextRelationshipType::parse(const std::string& token) {
+  if (token == partnership) {
+    return token;
+  }
+  if (token == sharedKernel) {
+    return token;
+  }
+  if (token == customerSupplier) {
+    return token;
+  }
+  if (token == conformist) {
+    return token;
+  }
+  if (token == anticorruptionLayer) {
+    return token;
+  }
+  if (token == openHostService) {
+    return token;
+  }
+  if (token == publishedLanguage) {
+    return token;
+  }
+  if (token == separateWays) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> DataAttributeKind::parse(const std::string& token) {
   if (token == string) {
     return token;
@@ -396,6 +424,19 @@ std::optional<std::string> ObjectLifecycleKind::parse(const std::string& token) 
   return std::nullopt;
 }
 
+std::optional<std::string> OperationIdempotency::parse(const std::string& token) {
+  if (token == idempotent) {
+    return token;
+  }
+  if (token == idempotentWithKey) {
+    return token;
+  }
+  if (token == notIdempotent) {
+    return token;
+  }
+  return std::nullopt;
+}
+
 std::optional<std::string> OverridableBy::parse(const std::string& token) {
   if (token == none) {
     return token;
@@ -502,6 +543,19 @@ std::optional<std::string> ReportFilterValueKind::parse(const std::string& token
     return token;
   }
   if (token == entityRef) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> RoleMembershipSource::parse(const std::string& token) {
+  if (token == assigned) {
+    return token;
+  }
+  if (token == derivedFromGrants) {
+    return token;
+  }
+  if (token == both) {
     return token;
   }
   return std::nullopt;
@@ -744,6 +798,22 @@ std::optional<std::string> Status::parse(const std::string& token) {
     return token;
   }
   if (token == rejected) {
+    return token;
+  }
+  return std::nullopt;
+}
+
+std::optional<std::string> TranslationReviewStatus::parse(const std::string& token) {
+  if (token == draft) {
+    return token;
+  }
+  if (token == machineTranslated) {
+    return token;
+  }
+  if (token == reviewed) {
+    return token;
+  }
+  if (token == approved) {
     return token;
   }
   return std::nullopt;
@@ -2272,6 +2342,9 @@ BoundedContextEntryImplementationForm BoundedContextEntry::implementation() cons
 }
 BoundedContextEntryIntegrationForm BoundedContextEntry::integration() const {
   return BoundedContextEntryIntegrationForm(doc(), som::joinPath(path(), "BOCOENIN"));
+}
+som::SomList BoundedContextEntry::relationships() const {
+  return som::SomList(doc(), som::joinPath(path(), "CTXREL-LST"), "CTXREL-xxx");
 }
 
 BreakpointConfiguration::BreakpointConfiguration(som::SpecDocument& doc, std::string path)
@@ -4135,6 +4208,12 @@ std::string ContextDiagram::legend() const {
 }
 void ContextDiagram::setLegend(const std::string& value) {
   doc().setContent(som::joinPath(path(), "CD-LEGE"), value);
+}
+
+ContextRelationshipEntry::ContextRelationshipEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+ContextRelationshipEntryContentForm ContextRelationshipEntry::content() const {
+  return ContextRelationshipEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 ContextualHelp::ContextualHelp(som::SpecDocument& doc, std::string path)
@@ -10511,6 +10590,12 @@ KeyCompromiseRecoveryPolicy KeyManagement::keyCompromiseRecoveryPolicy() const {
   return KeyCompromiseRecoveryPolicy(doc(), som::joinPath(path(), "keyCompromiseRecoveryPolicy"));
 }
 
+KeyManagementRequirements::KeyManagementRequirements(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+KeyManagementRequirementsContentForm KeyManagementRequirements::content() const {
+  return KeyManagementRequirementsContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 KeyResultEntry::KeyResultEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 KeyResultEntryContentForm KeyResultEntry::content() const {
@@ -10962,6 +11047,12 @@ MaintenanceDependencyEntryUpdateForm MaintenanceDependencyEntry::update() const 
 }
 MaintenanceDependencyEntryRiskForm MaintenanceDependencyEntry::risk() const {
   return MaintenanceDependencyEntryRiskForm(doc(), som::joinPath(path(), "MDER"));
+}
+
+MaintenanceProcedureEntry::MaintenanceProcedureEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+MaintenanceProcedureEntryContentForm MaintenanceProcedureEntry::content() const {
+  return MaintenanceProcedureEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 MaintenanceUserImpact::MaintenanceUserImpact(som::SpecDocument& doc, std::string path)
@@ -12424,6 +12515,12 @@ JobDescriptionsAndStaffing OrganizationalFramework::jobDescriptions() const {
 som::SomList OrganizationalFramework::workplaceDescriptions() const {
   return som::SomList(doc(), som::joinPath(path(), "WPDE-WORK-LST"), "WPDE-WORK-xxx");
 }
+som::SomList OrganizationalFramework::raciMatrix() const {
+  return som::SomList(doc(), som::joinPath(path(), "RACIEN-LST"), "RACIEN-xxx");
+}
+som::SomList OrganizationalFramework::policyOwnership() const {
+  return som::SomList(doc(), som::joinPath(path(), "POLOWN-LST"), "POLOWN-xxx");
+}
 
 OrganizationalRequirementEntry::OrganizationalRequirementEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -13008,6 +13105,12 @@ DependencyManagement PlatformAndLanguage::dependencyManagement() const {
 }
 RuntimeEnvironment PlatformAndLanguage::runtimeEnvironment() const {
   return RuntimeEnvironment(doc(), som::joinPath(path(), "runtimeEnvironment"));
+}
+
+PolicyOwnershipEntry::PolicyOwnershipEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+PolicyOwnershipEntryContentForm PolicyOwnershipEntry::content() const {
+  return PolicyOwnershipEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 Portability::Portability(som::SpecDocument& doc, std::string path)
@@ -14166,6 +14269,12 @@ QualityWeightEntry::QualityWeightEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 QualityWeightEntryContentForm QualityWeightEntry::content() const {
   return QualityWeightEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
+RaciEntry::RaciEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+RaciEntryContentForm RaciEntry::content() const {
+  return RaciEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 
 RateLimitingPolicy::RateLimitingPolicy(som::SpecDocument& doc, std::string path)
@@ -16573,6 +16682,9 @@ som::SomList ServerOperationEntry::responseMembers() const {
 som::SomList ServerOperationEntry::bindings() const {
   return som::SomList(doc(), som::joinPath(path(), "SVOBI-BIND-LST"), "SVOBI-BIND-xxx");
 }
+ServerOperationEntryControlsForm ServerOperationEntry::controls() const {
+  return ServerOperationEntryControlsForm(doc(), som::joinPath(path(), "SVOCT"));
+}
 
 ServerOperationMemberEntry::ServerOperationMemberEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -16650,6 +16762,9 @@ CloudProviderRequirements ServerRequirementsSection::cloudProvider() const {
 }
 ServerOsRequirements ServerRequirementsSection::osRequirements() const {
   return ServerOsRequirements(doc(), som::joinPath(path(), "osRequirements"));
+}
+ServerRequirementsSectionConnectionBudgetForm ServerRequirementsSection::connectionBudget() const {
+  return ServerRequirementsSectionConnectionBudgetForm(doc(), som::joinPath(path(), "SRSDB"));
 }
 
 ServerRoleEntry::ServerRoleEntry(som::SpecDocument& doc, std::string path)
@@ -18140,7 +18255,7 @@ AdministrationRequirementsSection SystemOperation::administrationRequirements() 
   return AdministrationRequirementsSection(doc(), som::joinPath(path(), "administrationRequirements"));
 }
 som::SomList SystemOperation::maintenanceProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "SO-MAIN-LST"), "SO-MAIN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MAPRO-PROC-LST"), "MAPRO-PROC-xxx");
 }
 
 SystemOperationAndMonitoring::SystemOperationAndMonitoring(som::SpecDocument& doc, std::string path)
@@ -18892,6 +19007,9 @@ DataProtectionAndPrivacySection TechnicalSecurityRequirements::dataProtectionAnd
 SecurityAuditRequirementsSection TechnicalSecurityRequirements::securityAuditRequirements() const {
   return SecurityAuditRequirementsSection(doc(), som::joinPath(path(), "securityAuditRequirements"));
 }
+KeyManagementRequirements TechnicalSecurityRequirements::keyManagement() const {
+  return KeyManagementRequirements(doc(), som::joinPath(path(), "keyManagement"));
+}
 
 TechnologyDataVariations::TechnologyDataVariations(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -18971,6 +19089,12 @@ TenantOnboardingPolicyContentForm TenantOnboardingPolicy::content() const {
   return TenantOnboardingPolicyContentForm(doc(), som::joinPath(path(), "content"));
 }
 
+TestLevelEntry::TestLevelEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+TestLevelEntryContentForm TestLevelEntry::content() const {
+  return TestLevelEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+
 TestScenarioEntry::TestScenarioEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 TestScenarioEntryContentForm TestScenarioEntry::content() const {
@@ -19014,6 +19138,9 @@ std::string TestStrategy::content() const {
 }
 void TestStrategy::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList TestStrategy::testLevels() const {
+  return som::SomList(doc(), som::joinPath(path(), "TSLVL-LST"), "TSLVL-xxx");
 }
 
 TestingStandards::TestingStandards(som::SpecDocument& doc, std::string path)
@@ -19953,6 +20080,9 @@ UserAttributeEntry::UserAttributeEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 UserAttributeEntryContentForm UserAttributeEntry::content() const {
   return UserAttributeEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+UserAttributeEntryOidcReleaseForm UserAttributeEntry::oidcRelease() const {
+  return UserAttributeEntryOidcReleaseForm(doc(), som::joinPath(path(), "USOIDC"));
 }
 
 UserAttributes::UserAttributes(som::SpecDocument& doc, std::string path)
@@ -27333,6 +27463,18 @@ std::string AuthorizationRoleEntryStructureForm::permissionSet() const {
 void AuthorizationRoleEntryStructureForm::setPermissionSet(const std::string& value) {
   doc().setFormField(path(), "permissionSet", value);
 }
+std::string AuthorizationRoleEntryStructureForm::membershipSource() const {
+  return doc().formField(path(), "membershipSource");
+}
+void AuthorizationRoleEntryStructureForm::setMembershipSource(const std::string& value) {
+  doc().setFormField(path(), "membershipSource", value);
+}
+std::string AuthorizationRoleEntryStructureForm::derivationRule() const {
+  return doc().formField(path(), "derivationRule");
+}
+void AuthorizationRoleEntryStructureForm::setDerivationRule(const std::string& value) {
+  doc().setFormField(path(), "derivationRule", value);
+}
 
 AvailabilityContentForm::AvailabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -28909,6 +29051,12 @@ std::string BoundedContextEntryBoundariesForm::sharedKernel() const {
 }
 void BoundedContextEntryBoundariesForm::setSharedKernel(const std::string& value) {
   doc().setFormField(path(), "sharedKernel", value);
+}
+std::string BoundedContextEntryBoundariesForm::ownedOperations() const {
+  return doc().formField(path(), "ownedOperations");
+}
+void BoundedContextEntryBoundariesForm::setOwnedOperations(const std::string& value) {
+  doc().setFormField(path(), "ownedOperations", value);
 }
 
 BoundedContextEntryContentForm::BoundedContextEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -39123,6 +39271,33 @@ std::string ContentScanningPolicyContentForm::notes() const {
 }
 void ContentScanningPolicyContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
+}
+
+ContextRelationshipEntryContentForm::ContextRelationshipEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ContextRelationshipEntryContentForm::content() const {
+  return doc().content(path());
+}
+void ContextRelationshipEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ContextRelationshipEntryContentForm::neighbourContext() const {
+  return doc().formField(path(), "neighbourContext");
+}
+void ContextRelationshipEntryContentForm::setNeighbourContext(const std::string& value) {
+  doc().setFormField(path(), "neighbourContext", value);
+}
+std::string ContextRelationshipEntryContentForm::relationshipType() const {
+  return doc().formField(path(), "relationshipType");
+}
+void ContextRelationshipEntryContentForm::setRelationshipType(const std::string& value) {
+  doc().setFormField(path(), "relationshipType", value);
+}
+std::string ContextRelationshipEntryContentForm::direction() const {
+  return doc().formField(path(), "direction");
+}
+void ContextRelationshipEntryContentForm::setDirection(const std::string& value) {
+  doc().setFormField(path(), "direction", value);
 }
 
 ContextualHelpContextualHelpContentForm::ContextualHelpContextualHelpContentForm(som::SpecDocument& doc, std::string path)
@@ -65660,6 +65835,51 @@ void KeyGenerationPolicyContentForm::setQuantumReadinessStrategy(const std::stri
   doc().setFormField(path(), "quantumReadinessStrategy", value);
 }
 
+KeyManagementRequirementsContentForm::KeyManagementRequirementsContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string KeyManagementRequirementsContentForm::content() const {
+  return doc().content(path());
+}
+void KeyManagementRequirementsContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string KeyManagementRequirementsContentForm::keyTypes() const {
+  return doc().formField(path(), "keyTypes");
+}
+void KeyManagementRequirementsContentForm::setKeyTypes(const std::string& value) {
+  doc().setFormField(path(), "keyTypes", value);
+}
+std::string KeyManagementRequirementsContentForm::keyStorage() const {
+  return doc().formField(path(), "keyStorage");
+}
+void KeyManagementRequirementsContentForm::setKeyStorage(const std::string& value) {
+  doc().setFormField(path(), "keyStorage", value);
+}
+std::string KeyManagementRequirementsContentForm::rotationPolicy() const {
+  return doc().formField(path(), "rotationPolicy");
+}
+void KeyManagementRequirementsContentForm::setRotationPolicy(const std::string& value) {
+  doc().setFormField(path(), "rotationPolicy", value);
+}
+std::string KeyManagementRequirementsContentForm::keyCustody() const {
+  return doc().formField(path(), "keyCustody");
+}
+void KeyManagementRequirementsContentForm::setKeyCustody(const std::string& value) {
+  doc().setFormField(path(), "keyCustody", value);
+}
+std::string KeyManagementRequirementsContentForm::backupAndRecovery() const {
+  return doc().formField(path(), "backupAndRecovery");
+}
+void KeyManagementRequirementsContentForm::setBackupAndRecovery(const std::string& value) {
+  doc().setFormField(path(), "backupAndRecovery", value);
+}
+std::string KeyManagementRequirementsContentForm::destruction() const {
+  return doc().formField(path(), "destruction");
+}
+void KeyManagementRequirementsContentForm::setDestruction(const std::string& value) {
+  doc().setFormField(path(), "destruction", value);
+}
+
 KeyResultEntryContentForm::KeyResultEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string KeyResultEntryContentForm::content() const {
@@ -68049,6 +68269,27 @@ void MaintenanceDependencyEntryUpdateForm::setBreakingChangePolicy(const std::st
   doc().setFormField(path(), "breakingChangePolicy", value);
 }
 
+MaintenanceProcedureEntryContentForm::MaintenanceProcedureEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string MaintenanceProcedureEntryContentForm::content() const {
+  return doc().content(path());
+}
+void MaintenanceProcedureEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string MaintenanceProcedureEntryContentForm::frequency() const {
+  return doc().formField(path(), "frequency");
+}
+void MaintenanceProcedureEntryContentForm::setFrequency(const std::string& value) {
+  doc().setFormField(path(), "frequency", value);
+}
+std::string MaintenanceProcedureEntryContentForm::performedBy() const {
+  return doc().formField(path(), "performedBy");
+}
+void MaintenanceProcedureEntryContentForm::setPerformedBy(const std::string& value) {
+  doc().setFormField(path(), "performedBy", value);
+}
+
 MaintenanceUserImpactContentForm::MaintenanceUserImpactContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string MaintenanceUserImpactContentForm::content() const {
@@ -68736,6 +68977,12 @@ std::string MessageLocaleVariantEntryContentForm::copy() const {
 }
 void MessageLocaleVariantEntryContentForm::setCopy(const std::string& value) {
   doc().setFormField(path(), "copy", value);
+}
+std::string MessageLocaleVariantEntryContentForm::reviewStatus() const {
+  return doc().formField(path(), "reviewStatus");
+}
+void MessageLocaleVariantEntryContentForm::setReviewStatus(const std::string& value) {
+  doc().setFormField(path(), "reviewStatus", value);
 }
 
 MetricsAndObservabilityMetricsOverviewForm::MetricsAndObservabilityMetricsOverviewForm(som::SpecDocument& doc, std::string path)
@@ -78879,6 +79126,45 @@ void PipelineStageEntryTriggerForm::setManualApproval(std::optional<bool> value)
   doc().setFormField(path(), "manualApproval", value.has_value() ? (*value ? "true" : "false") : "");
 }
 
+PolicyOwnershipEntryContentForm::PolicyOwnershipEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string PolicyOwnershipEntryContentForm::content() const {
+  return doc().content(path());
+}
+void PolicyOwnershipEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string PolicyOwnershipEntryContentForm::policy() const {
+  return doc().formField(path(), "policy");
+}
+void PolicyOwnershipEntryContentForm::setPolicy(const std::string& value) {
+  doc().setFormField(path(), "policy", value);
+}
+std::string PolicyOwnershipEntryContentForm::owner() const {
+  return doc().formField(path(), "owner");
+}
+void PolicyOwnershipEntryContentForm::setOwner(const std::string& value) {
+  doc().setFormField(path(), "owner", value);
+}
+std::string PolicyOwnershipEntryContentForm::approver() const {
+  return doc().formField(path(), "approver");
+}
+void PolicyOwnershipEntryContentForm::setApprover(const std::string& value) {
+  doc().setFormField(path(), "approver", value);
+}
+std::string PolicyOwnershipEntryContentForm::reviewCycle() const {
+  return doc().formField(path(), "reviewCycle");
+}
+void PolicyOwnershipEntryContentForm::setReviewCycle(const std::string& value) {
+  doc().setFormField(path(), "reviewCycle", value);
+}
+std::string PolicyOwnershipEntryContentForm::appliesTo() const {
+  return doc().formField(path(), "appliesTo");
+}
+void PolicyOwnershipEntryContentForm::setAppliesTo(const std::string& value) {
+  doc().setFormField(path(), "appliesTo", value);
+}
+
 PortabilityContentForm::PortabilityContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string PortabilityContentForm::content() const {
@@ -84388,6 +84674,51 @@ std::string QualityWeightEntryContentForm::tradeOffImplications() const {
 }
 void QualityWeightEntryContentForm::setTradeOffImplications(const std::string& value) {
   doc().setFormField(path(), "tradeOffImplications", value);
+}
+
+RaciEntryContentForm::RaciEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string RaciEntryContentForm::content() const {
+  return doc().content(path());
+}
+void RaciEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string RaciEntryContentForm::activity() const {
+  return doc().formField(path(), "activity");
+}
+void RaciEntryContentForm::setActivity(const std::string& value) {
+  doc().setFormField(path(), "activity", value);
+}
+std::string RaciEntryContentForm::responsible() const {
+  return doc().formField(path(), "responsible");
+}
+void RaciEntryContentForm::setResponsible(const std::string& value) {
+  doc().setFormField(path(), "responsible", value);
+}
+std::string RaciEntryContentForm::accountable() const {
+  return doc().formField(path(), "accountable");
+}
+void RaciEntryContentForm::setAccountable(const std::string& value) {
+  doc().setFormField(path(), "accountable", value);
+}
+std::string RaciEntryContentForm::consulted() const {
+  return doc().formField(path(), "consulted");
+}
+void RaciEntryContentForm::setConsulted(const std::string& value) {
+  doc().setFormField(path(), "consulted", value);
+}
+std::string RaciEntryContentForm::informed() const {
+  return doc().formField(path(), "informed");
+}
+void RaciEntryContentForm::setInformed(const std::string& value) {
+  doc().setFormField(path(), "informed", value);
+}
+std::string RaciEntryContentForm::relatedProcess() const {
+  return doc().formField(path(), "relatedProcess");
+}
+void RaciEntryContentForm::setRelatedProcess(const std::string& value) {
+  doc().setFormField(path(), "relatedProcess", value);
 }
 
 RateLimitingPolicyBehaviorForm::RateLimitingPolicyBehaviorForm(som::SpecDocument& doc, std::string path)
@@ -97151,6 +97482,22 @@ std::string ServerEnvironmentEntryScaleForm::expectedLoad() const {
 void ServerEnvironmentEntryScaleForm::setExpectedLoad(const std::string& value) {
   doc().setFormField(path(), "expectedLoad", value);
 }
+std::optional<long> ServerEnvironmentEntryScaleForm::nodeCount() const {
+  const std::string v = doc().formField(path(), "nodeCount");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ServerEnvironmentEntryScaleForm::setNodeCount(std::optional<long> value) {
+  doc().setFormField(path(), "nodeCount", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ServerEnvironmentEntryScaleForm::databaseServerCount() const {
+  const std::string v = doc().formField(path(), "databaseServerCount");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ServerEnvironmentEntryScaleForm::setDatabaseServerCount(std::optional<long> value) {
+  doc().setFormField(path(), "databaseServerCount", value.has_value() ? std::to_string(*value) : "");
+}
 
 ServerOperationEntryContentForm::ServerOperationEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -97189,6 +97536,39 @@ std::string ServerOperationEntryContentForm::errorCodes() const {
 }
 void ServerOperationEntryContentForm::setErrorCodes(const std::string& value) {
   doc().setFormField(path(), "errorCodes", value);
+}
+
+ServerOperationEntryControlsForm::ServerOperationEntryControlsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServerOperationEntryControlsForm::content() const {
+  return doc().content(path());
+}
+void ServerOperationEntryControlsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ServerOperationEntryControlsForm::idempotency() const {
+  return doc().formField(path(), "idempotency");
+}
+void ServerOperationEntryControlsForm::setIdempotency(const std::string& value) {
+  doc().setFormField(path(), "idempotency", value);
+}
+std::string ServerOperationEntryControlsForm::auditEvent() const {
+  return doc().formField(path(), "auditEvent");
+}
+void ServerOperationEntryControlsForm::setAuditEvent(const std::string& value) {
+  doc().setFormField(path(), "auditEvent", value);
+}
+std::string ServerOperationEntryControlsForm::rateLimitClass() const {
+  return doc().formField(path(), "rateLimitClass");
+}
+void ServerOperationEntryControlsForm::setRateLimitClass(const std::string& value) {
+  doc().setFormField(path(), "rateLimitClass", value);
+}
+std::string ServerOperationEntryControlsForm::callers() const {
+  return doc().formField(path(), "callers");
+}
+void ServerOperationEntryControlsForm::setCallers(const std::string& value) {
+  doc().setFormField(path(), "callers", value);
 }
 
 ServerOperationMemberEntryContentForm::ServerOperationMemberEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -97387,6 +97767,45 @@ std::optional<bool> ServerOsRequirementsSecurityForm::antivirusRequired() const 
 }
 void ServerOsRequirementsSecurityForm::setAntivirusRequired(std::optional<bool> value) {
   doc().setFormField(path(), "antivirusRequired", value.has_value() ? (*value ? "true" : "false") : "");
+}
+
+ServerRequirementsSectionConnectionBudgetForm::ServerRequirementsSectionConnectionBudgetForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ServerRequirementsSectionConnectionBudgetForm::content() const {
+  return doc().content(path());
+}
+void ServerRequirementsSectionConnectionBudgetForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::optional<long> ServerRequirementsSectionConnectionBudgetForm::databaseMaxConnections() const {
+  const std::string v = doc().formField(path(), "databaseMaxConnections");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ServerRequirementsSectionConnectionBudgetForm::setDatabaseMaxConnections(std::optional<long> value) {
+  doc().setFormField(path(), "databaseMaxConnections", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ServerRequirementsSectionConnectionBudgetForm::connectionsPerNode() const {
+  const std::string v = doc().formField(path(), "connectionsPerNode");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ServerRequirementsSectionConnectionBudgetForm::setConnectionsPerNode(std::optional<long> value) {
+  doc().setFormField(path(), "connectionsPerNode", value.has_value() ? std::to_string(*value) : "");
+}
+std::optional<long> ServerRequirementsSectionConnectionBudgetForm::reservedConnections() const {
+  const std::string v = doc().formField(path(), "reservedConnections");
+  if (v.empty()) return std::nullopt;
+  try { return std::stol(v); } catch (...) { return std::nullopt; }
+}
+void ServerRequirementsSectionConnectionBudgetForm::setReservedConnections(std::optional<long> value) {
+  doc().setFormField(path(), "reservedConnections", value.has_value() ? std::to_string(*value) : "");
+}
+std::string ServerRequirementsSectionConnectionBudgetForm::budgetRationale() const {
+  return doc().formField(path(), "budgetRationale");
+}
+void ServerRequirementsSectionConnectionBudgetForm::setBudgetRationale(const std::string& value) {
+  doc().setFormField(path(), "budgetRationale", value);
 }
 
 ServerRoleEntryCapacityForm::ServerRoleEntryCapacityForm(som::SpecDocument& doc, std::string path)
@@ -109429,6 +109848,57 @@ void TenantOnboardingPolicyContentForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
+TestLevelEntryContentForm::TestLevelEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string TestLevelEntryContentForm::content() const {
+  return doc().content(path());
+}
+void TestLevelEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string TestLevelEntryContentForm::level() const {
+  return doc().formField(path(), "level");
+}
+void TestLevelEntryContentForm::setLevel(const std::string& value) {
+  doc().setFormField(path(), "level", value);
+}
+std::string TestLevelEntryContentForm::testTypes() const {
+  return doc().formField(path(), "testTypes");
+}
+void TestLevelEntryContentForm::setTestTypes(const std::string& value) {
+  doc().setFormField(path(), "testTypes", value);
+}
+std::string TestLevelEntryContentForm::environment() const {
+  return doc().formField(path(), "environment");
+}
+void TestLevelEntryContentForm::setEnvironment(const std::string& value) {
+  doc().setFormField(path(), "environment", value);
+}
+std::string TestLevelEntryContentForm::tools() const {
+  return doc().formField(path(), "tools");
+}
+void TestLevelEntryContentForm::setTools(const std::string& value) {
+  doc().setFormField(path(), "tools", value);
+}
+std::string TestLevelEntryContentForm::runBy() const {
+  return doc().formField(path(), "runBy");
+}
+void TestLevelEntryContentForm::setRunBy(const std::string& value) {
+  doc().setFormField(path(), "runBy", value);
+}
+std::string TestLevelEntryContentForm::trigger() const {
+  return doc().formField(path(), "trigger");
+}
+void TestLevelEntryContentForm::setTrigger(const std::string& value) {
+  doc().setFormField(path(), "trigger", value);
+}
+std::string TestLevelEntryContentForm::exitCriteria() const {
+  return doc().formField(path(), "exitCriteria");
+}
+void TestLevelEntryContentForm::setExitCriteria(const std::string& value) {
+  doc().setFormField(path(), "exitCriteria", value);
+}
+
 TestScenarioEntryBusinessForm::TestScenarioEntryBusinessForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string TestScenarioEntryBusinessForm::content() const {
@@ -116068,6 +116538,33 @@ std::string UserAttributeEntryContentForm::required() const {
 }
 void UserAttributeEntryContentForm::setRequired(const std::string& value) {
   doc().setFormField(path(), "required", value);
+}
+
+UserAttributeEntryOidcReleaseForm::UserAttributeEntryOidcReleaseForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string UserAttributeEntryOidcReleaseForm::content() const {
+  return doc().content(path());
+}
+void UserAttributeEntryOidcReleaseForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string UserAttributeEntryOidcReleaseForm::claimName() const {
+  return doc().formField(path(), "claimName");
+}
+void UserAttributeEntryOidcReleaseForm::setClaimName(const std::string& value) {
+  doc().setFormField(path(), "claimName", value);
+}
+std::string UserAttributeEntryOidcReleaseForm::scope() const {
+  return doc().formField(path(), "scope");
+}
+void UserAttributeEntryOidcReleaseForm::setScope(const std::string& value) {
+  doc().setFormField(path(), "scope", value);
+}
+std::string UserAttributeEntryOidcReleaseForm::releasedIn() const {
+  return doc().formField(path(), "releasedIn");
+}
+void UserAttributeEntryOidcReleaseForm::setReleasedIn(const std::string& value) {
+  doc().setFormField(path(), "releasedIn", value);
 }
 
 UserCategoryDefinitionContentForm::UserCategoryDefinitionContentForm(som::SpecDocument& doc, std::string path)

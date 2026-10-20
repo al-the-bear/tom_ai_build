@@ -5747,6 +5747,13 @@ class BoundedContextEntry extends DocSpecsSection {
       'Shared Kernel',
       hint: 'Shared code with other contexts',
     ),
+    Field(
+      'ownedOperations',
+      String,
+      'Owned Operations',
+      hint: 'The server operations this context owns, comma-separated',
+      refersTo: ['SVOPE.operationName'],
+    ),
   ])
   @SerializationOrder(2)
   DocSpecsSection? boundaries;
@@ -5815,6 +5822,48 @@ class BoundedContextEntry extends DocSpecsSection {
   ])
   @SerializationOrder(4)
   DocSpecsSection? integration;
+
+  /// Relationships to neighbouring contexts — contains 0+× relationship.
+  @SectionId('CTXREL-LST')
+  @SectionIdPattern('CTXREL-xxx')
+  @ContentHelp('Add one entry per neighbouring context.')
+  @SerializationOrder(5)
+  List<ContextRelationshipEntry> relationships = [];
+}
+
+/// The relationship of a bounded context to one neighbour.
+@StandardReferences([
+  'Evans — Domain-Driven Design: context mapping',
+], 'The relationship of a bounded context to one neighbour.')
+@SectionId('CTXREL')
+class ContextRelationshipEntry extends DocSpecsSection {
+  @ContentHelp(
+    'Why the two contexts relate this way and what crosses the boundary.',
+  )
+  @Form([
+    Field(
+      'neighbourContext',
+      String,
+      'Neighbour Context',
+      hint: 'The other bounded context',
+      refersTo: ['BCE.contextName'],
+    ),
+    Field(
+      'relationshipType',
+      ContextRelationshipType,
+      'Relationship Type',
+      hint: 'The context-mapping pattern between the two',
+    ),
+    Field(
+      'direction',
+      String,
+      'Direction',
+      hint: 'upstream / downstream / mutual, seen from this context',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Package organization and naming structure.
@@ -14600,6 +14649,37 @@ Provide an overview of server infrastructure strategy.
   /// Operating system requirements.
   @SerializationOrder(11)
   ServerOsRequirements osRequirements = ServerOsRequirements();
+
+  /// The database connection budget and the server settings that bound it.
+  @SectionId('SRSDB')
+  @Form([
+    Field(
+      'databaseMaxConnections',
+      int,
+      'Database Max Connections',
+      hint: 'The connection limit of the database server',
+    ),
+    Field(
+      'connectionsPerNode',
+      int,
+      'Connections per Node',
+      hint: 'The pool size each application node opens',
+    ),
+    Field(
+      'reservedConnections',
+      int,
+      'Reserved Connections',
+      hint: 'Connections kept free for administration and migrations',
+    ),
+    Field(
+      'budgetRationale',
+      String,
+      'Budget Rationale',
+      hint: 'How the numbers add up, and what happens when a node is added',
+    ),
+  ])
+  @SerializationOrder(12)
+  DocSpecsSection? connectionBudget;
 }
 
 /// Server environment entry (development, staging, production, DR).
@@ -14687,6 +14767,18 @@ class ServerEnvironmentEntry extends DocSpecsSection {
       hint: 'Concurrent users expected',
     ),
     Field('expectedLoad', String, 'Expected Load', hint: 'Requests per second'),
+    Field(
+      'nodeCount',
+      int,
+      'Application Nodes',
+      hint: 'How many application nodes run in the environment',
+    ),
+    Field(
+      'databaseServerCount',
+      int,
+      'Database Servers',
+      hint: 'How many database servers run in the environment',
+    ),
   ])
   @SerializationOrder(2)
   DocSpecsSection? scale;
@@ -27510,11 +27602,35 @@ Provide an overview of system operation approach.
   @StandardReferences([
     'ITIL 4 — change enablement and maintenance windows',
   ], 'The catalog of scheduled maintenance procedures the system requires.')
-  @SectionId('SO-MAIN-LST')
-  @SectionIdPattern('SO-MAIN-xxx')
+  @SectionId('MAPRO-PROC-LST')
+  @SectionIdPattern('MAPRO-PROC-xxx')
   @ContentHelp('Add one entry per maintenance procedure.')
   @SerializationOrder(2)
-  List<DocSpecsSection> maintenanceProcedures = [];
+  List<MaintenanceProcedureEntry> maintenanceProcedures = [];
+}
+
+/// One maintenance procedure: its name is the headline, the steps the text.
+@StandardReferences([
+  'ITIL 4 — change enablement and maintenance windows',
+], 'One maintenance procedure of the system, named by its headline.')
+@SectionId('MAPRO')
+@FollowUpKind([
+  FollowUpProcess.ops,
+], note: 'maintenance procedures are run by operations')
+class MaintenanceProcedureEntry extends DocSpecsSection {
+  @ContentHelp('The steps of the procedure and what it depends on.')
+  @Form([
+    Field(
+      'frequency',
+      String,
+      'Frequency',
+      hint: 'When the procedure is run — per release, monthly, on demand',
+    ),
+    Field('performedBy', String, 'Performed By', hint: 'Who runs it'),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// 8.7.1.1. Administration Requirements.
@@ -33271,6 +33387,71 @@ Provide an overview of security approach and governance.
   @SerializationOrder(3)
   SecurityAuditRequirementsSection securityAuditRequirements =
       SecurityAuditRequirementsSection();
+
+  /// Key management on the platform side.
+  @SerializationOrder(4)
+  KeyManagementRequirements keyManagement = KeyManagementRequirements();
+}
+
+/// Key management on the platform side: which keys exist, where they are
+/// kept, how they rotate and who holds them.
+@StandardReferences(
+  [
+    'NIST SP 800-57 Part 1 — recommendation for key management',
+    'ISO/IEC 27001:2022 — control A.8.24 use of cryptography',
+  ],
+  'Defines how cryptographic keys are generated, stored, rotated, recovered and destroyed.',
+)
+@SectionId('KEYMGT')
+@FollowUpKind([
+  FollowUpProcess.ops,
+], note: 'key custody, rotation and recovery are run by operations')
+class KeyManagementRequirements extends DocSpecsSection {
+  @ContentHelp(
+    'The key hierarchy and how its keys are managed over their life.',
+  )
+  @Form([
+    Field(
+      'keyTypes',
+      String,
+      'Key Types',
+      hint:
+          'Which keys exist — signing, encryption, secrets keys — and what each protects',
+    ),
+    Field(
+      'keyStorage',
+      String,
+      'Key Storage',
+      hint: 'Where each key is kept — KMS, HSM, an encrypted file',
+    ),
+    Field(
+      'rotationPolicy',
+      String,
+      'Rotation Policy',
+      hint: 'How often each key rotates and how old keys stay usable',
+    ),
+    Field(
+      'keyCustody',
+      String,
+      'Key Custody',
+      hint: 'Who can use, export or replace a key',
+    ),
+    Field(
+      'backupAndRecovery',
+      String,
+      'Backup and Recovery',
+      hint: 'How a key is backed up and restored',
+    ),
+    Field(
+      'destruction',
+      String,
+      'Destruction',
+      hint: 'How a retired key is destroyed',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// 8.8.1. IT Security Standards.

@@ -466,6 +466,61 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `ContextRelationshipType` values.
+  public enum ContextRelationshipType {
+    /**
+     * The two teams succeed or fail together and plan jointly.
+     */
+    partnership("partnership"),
+    /**
+     * The two share a small common model both depend on.
+     */
+    sharedKernel("sharedKernel"),
+    /**
+     * The downstream context's needs shape what the upstream provides.
+     */
+    customerSupplier("customerSupplier"),
+    /**
+     * The downstream context adopts the upstream model as it is.
+     */
+    conformist("conformist"),
+    /**
+     * The downstream context translates the upstream model at its boundary.
+     */
+    anticorruptionLayer("anticorruptionLayer"),
+    /**
+     * The upstream context offers a protocol any context may use.
+     */
+    openHostService("openHostService"),
+    /**
+     * The two exchange a documented, shared language.
+     */
+    publishedLanguage("publishedLanguage"),
+    /**
+     * The two have no integration.
+     */
+    separateWays("separateWays");
+
+    public final String token;
+
+    ContextRelationshipType(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a ContextRelationshipType, or null.
+    public static ContextRelationshipType parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (ContextRelationshipType v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `DataAttributeKind` values.
   public enum DataAttributeKind {
     /**
@@ -1082,6 +1137,42 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated enum for `OperationIdempotency` values.
+  public enum OperationIdempotency {
+    /**
+     * Repeating it has no further effect.
+     */
+    idempotent("idempotent"),
+    /**
+     * Repeating it has no further effect when the caller sends the same
+     * idempotency key.
+     */
+    idempotentWithKey("idempotentWithKey"),
+    /**
+     * Each call has its own effect; a retry must be decided by the caller.
+     */
+    notIdempotent("notIdempotent");
+
+    public final String token;
+
+    OperationIdempotency(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a OperationIdempotency, or null.
+    public static OperationIdempotency parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (OperationIdempotency v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
   // Generated enum for `OverridableBy` values.
   public enum OverridableBy {
     /**
@@ -1406,6 +1497,42 @@ public final class TomSomV0 {
         return null;
       }
       for (ReportFilterValueKind v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `RoleMembershipSource` values.
+  public enum RoleMembershipSource {
+    /**
+     * Holders are assigned to the role directly.
+     */
+    assigned("assigned"),
+    /**
+     * Membership follows from grants the holder has: the role is a name for a
+     * set of grants, not something anyone is assigned.
+     */
+    derivedFromGrants("derivedFromGrants"),
+    /**
+     * Both: holders are assigned, and a grant can also confer membership.
+     */
+    both("both");
+
+    public final String token;
+
+    RoleMembershipSource(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a RoleMembershipSource, or null.
+    public static RoleMembershipSource parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (RoleMembershipSource v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -2157,6 +2284,45 @@ public final class TomSomV0 {
         return null;
       }
       for (Status v : values()) {
+        if (v.token.equals(token)) {
+          return v;
+        }
+      }
+      return null;
+    }
+  }
+
+  // Generated enum for `TranslationReviewStatus` values.
+  public enum TranslationReviewStatus {
+    /**
+     * Written, not yet reviewed.
+     */
+    draft("draft"),
+    /**
+     * Produced by a machine, not yet reviewed by a person.
+     */
+    machineTranslated("machineTranslated"),
+    /**
+     * Reviewed by a person fluent in the language.
+     */
+    reviewed("reviewed"),
+    /**
+     * Approved for release.
+     */
+    approved("approved");
+
+    public final String token;
+
+    TranslationReviewStatus(String token) {
+      this.token = token;
+    }
+
+    // Parses a stored token into a TranslationReviewStatus, or null.
+    public static TranslationReviewStatus parse(String token) {
+      if (token == null || token.isEmpty()) {
+        return null;
+      }
+      for (TranslationReviewStatus v : values()) {
         if (v.token.equals(token)) {
           return v;
         }
@@ -5752,6 +5918,11 @@ public final class TomSomV0 {
     // Integration and notes.
     public BoundedContextEntryIntegrationForm integration() {
       return new BoundedContextEntryIntegrationForm(doc, path + "/BOCOENIN");
+    }
+
+    // Relationships to neighbouring contexts — contains 0+× relationship.
+    public SomList<ContextRelationshipEntry> relationships() {
+      return new SomList<>(doc, path + "/CTXREL-LST", (d, p) -> new ContextRelationshipEntry(d, p), "CTXREL-xxx");
     }
   }
 
@@ -9867,6 +10038,20 @@ public final class TomSomV0 {
 
     public void legend(String value) {
       doc.setContent(path + "/CD-LEGE", value);
+    }
+  }
+
+  // The relationship of a bounded context to one neighbour.
+  public static final class ContextRelationshipEntry extends SomNode {
+    public ContextRelationshipEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public ContextRelationshipEntryContentForm content() {
+      return new ContextRelationshipEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -24202,6 +24387,21 @@ public final class TomSomV0 {
     // (skipped: notes has no target type)
   }
 
+  // Key management on the platform side: which keys exist, where they are
+  // kept, how they rotate and who holds them.
+  public static final class KeyManagementRequirements extends SomNode {
+    public KeyManagementRequirements(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public KeyManagementRequirementsContentForm content() {
+      return new KeyManagementRequirementsContentForm(doc, path + "/content");
+    }
+  }
+
   // A key result entry (form).
   public static final class KeyResultEntry extends SomNode {
     public KeyResultEntry(SpecDocument doc, String path) {
@@ -25294,6 +25494,20 @@ public final class TomSomV0 {
     // Risk and fallback planning.
     public MaintenanceDependencyEntryRiskForm risk() {
       return new MaintenanceDependencyEntryRiskForm(doc, path + "/MDER");
+    }
+  }
+
+  // One maintenance procedure: its name is the headline, the steps the text.
+  public static final class MaintenanceProcedureEntry extends SomNode {
+    public MaintenanceProcedureEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public MaintenanceProcedureEntryContentForm content() {
+      return new MaintenanceProcedureEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -28690,6 +28904,16 @@ public final class TomSomV0 {
     public SomList<WorkplaceDescriptionEntry> workplaceDescriptions() {
       return new SomList<>(doc, path + "/WPDE-WORK-LST", (d, p) -> new WorkplaceDescriptionEntry(d, p), "WPDE-WORK-xxx");
     }
+
+    // Cross-process RACI matrix — contains 0+× RACI entry.
+    public SomList<RaciEntry> raciMatrix() {
+      return new SomList<>(doc, path + "/RACIEN-LST", (d, p) -> new RaciEntry(d, p), "RACIEN-xxx");
+    }
+
+    // Policy ownership — contains 0+× policy.
+    public SomList<PolicyOwnershipEntry> policyOwnership() {
+      return new SomList<>(doc, path + "/POLOWN-LST", (d, p) -> new PolicyOwnershipEntry(d, p), "POLOWN-xxx");
+    }
   }
 
   // An organizational requirement entry.
@@ -30013,6 +30237,20 @@ public final class TomSomV0 {
     // Runtime environment constraints.
     public RuntimeEnvironment runtimeEnvironment() {
       return new RuntimeEnvironment(doc, path + "/runtimeEnvironment");
+    }
+  }
+
+  // One policy and who owns it.
+  public static final class PolicyOwnershipEntry extends SomNode {
+    public PolicyOwnershipEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public PolicyOwnershipEntryContentForm content() {
+      return new PolicyOwnershipEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -32630,6 +32868,20 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in [form].
     public QualityWeightEntryContentForm content() {
       return new QualityWeightEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // One activity of the cross-process RACI matrix.
+  public static final class RaciEntry extends SomNode {
+    public RaciEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public RaciEntryContentForm content() {
+      return new RaciEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -38310,6 +38562,11 @@ public final class TomSomV0 {
     public SomList<OperationBindingEntry> bindings() {
       return new SomList<>(doc, path + "/SVOBI-BIND-LST", (d, p) -> new OperationBindingEntry(d, p), "SVOBI-BIND-xxx");
     }
+
+    // Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+    public ServerOperationEntryControlsForm controls() {
+      return new ServerOperationEntryControlsForm(doc, path + "/SVOCT");
+    }
   }
 
   // A single member of an operation's request or response shape (form).
@@ -38510,6 +38767,11 @@ public final class TomSomV0 {
     // Operating system requirements.
     public ServerOsRequirements osRequirements() {
       return new ServerOsRequirements(doc, path + "/osRequirements");
+    }
+
+    // The database connection budget and the server settings that bound it.
+    public ServerRequirementsSectionConnectionBudgetForm connectionBudget() {
+      return new ServerRequirementsSectionConnectionBudgetForm(doc, path + "/SRSDB");
     }
   }
 
@@ -41838,8 +42100,8 @@ public final class TomSomV0 {
     }
 
     // Maintenance Procedures.
-    public SomList<SomScalar> maintenanceProcedures() {
-      return new SomList<>(doc, path + "/SO-MAIN-LST", (d, p) -> new SomScalar(d, p), "SO-MAIN-xxx");
+    public SomList<MaintenanceProcedureEntry> maintenanceProcedures() {
+      return new SomList<>(doc, path + "/MAPRO-PROC-LST", (d, p) -> new MaintenanceProcedureEntry(d, p), "MAPRO-PROC-xxx");
     }
   }
 
@@ -43496,6 +43758,11 @@ public final class TomSomV0 {
     public SecurityAuditRequirementsSection securityAuditRequirements() {
       return new SecurityAuditRequirementsSection(doc, path + "/securityAuditRequirements");
     }
+
+    // Key management on the platform side.
+    public KeyManagementRequirements keyManagement() {
+      return new KeyManagementRequirements(doc, path + "/keyManagement");
+    }
   }
 
   // Technology and data variations.
@@ -43714,6 +43981,20 @@ public final class TomSomV0 {
     // (skipped: tenantOnboardingPolicyDetails has no target type)
   }
 
+  // One test level of the test strategy.
+  public static final class TestLevelEntry extends SomNode {
+    public TestLevelEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    // The section's body content. For a `@Form`-annotated member this is the
+    // form's **preamble** — the free text before the first field line (SOM
+    // §11.4 rule 7); the field values themselves live in [form].
+    public TestLevelEntryContentForm content() {
+      return new TestLevelEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // A test scenario entry (form).
   //
   // Represents a business-level test case covering a user journey, business
@@ -43810,6 +44091,11 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path + "/content", value);
+    }
+
+    // Test levels — contains 0+× test level.
+    public SomList<TestLevelEntry> testLevels() {
+      return new SomList<>(doc, path + "/TSLVL-LST", (d, p) -> new TestLevelEntry(d, p), "TSLVL-xxx");
     }
   }
 
@@ -45921,6 +46207,11 @@ public final class TomSomV0 {
     // §11.4 rule 7); the field values themselves live in [form].
     public UserAttributeEntryContentForm content() {
       return new UserAttributeEntryContentForm(doc, path + "/content");
+    }
+
+    // How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+    public UserAttributeEntryOidcReleaseForm oidcRelease() {
+      return new UserAttributeEntryOidcReleaseForm(doc, path + "/USOIDC");
     }
   }
 
@@ -58873,6 +59164,23 @@ public final class TomSomV0 {
     public void permissionSet(String value) {
       doc.setFormField(path, "permissionSet", value);
     }
+
+    public RoleMembershipSource membershipSource() {
+      return RoleMembershipSource.parse(doc.formField(path, "membershipSource"));
+    }
+
+    public void setMembershipSource(RoleMembershipSource value) {
+      doc.setFormField(path, "membershipSource", value == null ? "" : value.token);
+    }
+
+    public String derivationRule() {
+      String v = doc.formField(path, "derivationRule");
+      return v == null ? "" : v;
+    }
+
+    public void derivationRule(String value) {
+      doc.setFormField(path, "derivationRule", value);
+    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -61583,6 +61891,15 @@ public final class TomSomV0 {
 
     public void sharedKernel(String value) {
       doc.setFormField(path, "sharedKernel", value);
+    }
+
+    public String ownedOperations() {
+      String v = doc.formField(path, "ownedOperations");
+      return v == null ? "" : v;
+    }
+
+    public void ownedOperations(String value) {
+      doc.setFormField(path, "ownedOperations", value);
     }
   }
 
@@ -79380,6 +79697,54 @@ public final class TomSomV0 {
 
     public void notes(String value) {
       doc.setFormField(path, "notes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ContextRelationshipEntryContentForm extends SomNode {
+    public ContextRelationshipEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String neighbourContext() {
+      String v = doc.formField(path, "neighbourContext");
+      return v == null ? "" : v;
+    }
+
+    public void neighbourContext(String value) {
+      doc.setFormField(path, "neighbourContext", value);
+    }
+
+    public ContextRelationshipType relationshipType() {
+      return ContextRelationshipType.parse(doc.formField(path, "relationshipType"));
+    }
+
+    public void setRelationshipType(ContextRelationshipType value) {
+      doc.setFormField(path, "relationshipType", value == null ? "" : value.token);
+    }
+
+    public String direction() {
+      String v = doc.formField(path, "direction");
+      return v == null ? "" : v;
+    }
+
+    public void direction(String value) {
+      doc.setFormField(path, "direction", value);
     }
   }
 
@@ -125387,6 +125752,82 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class KeyManagementRequirementsContentForm extends SomNode {
+    public KeyManagementRequirementsContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String keyTypes() {
+      String v = doc.formField(path, "keyTypes");
+      return v == null ? "" : v;
+    }
+
+    public void keyTypes(String value) {
+      doc.setFormField(path, "keyTypes", value);
+    }
+
+    public String keyStorage() {
+      String v = doc.formField(path, "keyStorage");
+      return v == null ? "" : v;
+    }
+
+    public void keyStorage(String value) {
+      doc.setFormField(path, "keyStorage", value);
+    }
+
+    public String rotationPolicy() {
+      String v = doc.formField(path, "rotationPolicy");
+      return v == null ? "" : v;
+    }
+
+    public void rotationPolicy(String value) {
+      doc.setFormField(path, "rotationPolicy", value);
+    }
+
+    public String keyCustody() {
+      String v = doc.formField(path, "keyCustody");
+      return v == null ? "" : v;
+    }
+
+    public void keyCustody(String value) {
+      doc.setFormField(path, "keyCustody", value);
+    }
+
+    public String backupAndRecovery() {
+      String v = doc.formField(path, "backupAndRecovery");
+      return v == null ? "" : v;
+    }
+
+    public void backupAndRecovery(String value) {
+      doc.setFormField(path, "backupAndRecovery", value);
+    }
+
+    public String destruction() {
+      String v = doc.formField(path, "destruction");
+      return v == null ? "" : v;
+    }
+
+    public void destruction(String value) {
+      doc.setFormField(path, "destruction", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class KeyResultEntryContentForm extends SomNode {
     public KeyResultEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -129538,6 +129979,46 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class MaintenanceProcedureEntryContentForm extends SomNode {
+    public MaintenanceProcedureEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String frequency() {
+      String v = doc.formField(path, "frequency");
+      return v == null ? "" : v;
+    }
+
+    public void frequency(String value) {
+      doc.setFormField(path, "frequency", value);
+    }
+
+    public String performedBy() {
+      String v = doc.formField(path, "performedBy");
+      return v == null ? "" : v;
+    }
+
+    public void performedBy(String value) {
+      doc.setFormField(path, "performedBy", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class MaintenanceUserImpactContentForm extends SomNode {
     public MaintenanceUserImpactContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -130718,6 +131199,14 @@ public final class TomSomV0 {
 
     public void copy(String value) {
       doc.setFormField(path, "copy", value);
+    }
+
+    public TranslationReviewStatus reviewStatus() {
+      return TranslationReviewStatus.parse(doc.formField(path, "reviewStatus"));
+    }
+
+    public void setReviewStatus(TranslationReviewStatus value) {
+      doc.setFormField(path, "reviewStatus", value == null ? "" : value.token);
     }
   }
 
@@ -148027,6 +148516,73 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
+  public static final class PolicyOwnershipEntryContentForm extends SomNode {
+    public PolicyOwnershipEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String policy() {
+      String v = doc.formField(path, "policy");
+      return v == null ? "" : v;
+    }
+
+    public void policy(String value) {
+      doc.setFormField(path, "policy", value);
+    }
+
+    public String owner() {
+      String v = doc.formField(path, "owner");
+      return v == null ? "" : v;
+    }
+
+    public void owner(String value) {
+      doc.setFormField(path, "owner", value);
+    }
+
+    public String approver() {
+      String v = doc.formField(path, "approver");
+      return v == null ? "" : v;
+    }
+
+    public void approver(String value) {
+      doc.setFormField(path, "approver", value);
+    }
+
+    public String reviewCycle() {
+      String v = doc.formField(path, "reviewCycle");
+      return v == null ? "" : v;
+    }
+
+    public void reviewCycle(String value) {
+      doc.setFormField(path, "reviewCycle", value);
+    }
+
+    public String appliesTo() {
+      String v = doc.formField(path, "appliesTo");
+      return v == null ? "" : v;
+    }
+
+    public void appliesTo(String value) {
+      doc.setFormField(path, "appliesTo", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
   public static final class PortabilityContentForm extends SomNode {
     public PortabilityContentForm(SpecDocument doc, String path) {
       super(doc, path);
@@ -157467,6 +158023,82 @@ public final class TomSomV0 {
 
     public void tradeOffImplications(String value) {
       doc.setFormField(path, "tradeOffImplications", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class RaciEntryContentForm extends SomNode {
+    public RaciEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String activity() {
+      String v = doc.formField(path, "activity");
+      return v == null ? "" : v;
+    }
+
+    public void activity(String value) {
+      doc.setFormField(path, "activity", value);
+    }
+
+    public String responsible() {
+      String v = doc.formField(path, "responsible");
+      return v == null ? "" : v;
+    }
+
+    public void responsible(String value) {
+      doc.setFormField(path, "responsible", value);
+    }
+
+    public String accountable() {
+      String v = doc.formField(path, "accountable");
+      return v == null ? "" : v;
+    }
+
+    public void accountable(String value) {
+      doc.setFormField(path, "accountable", value);
+    }
+
+    public String consulted() {
+      String v = doc.formField(path, "consulted");
+      return v == null ? "" : v;
+    }
+
+    public void consulted(String value) {
+      doc.setFormField(path, "consulted", value);
+    }
+
+    public String informed() {
+      String v = doc.formField(path, "informed");
+      return v == null ? "" : v;
+    }
+
+    public void informed(String value) {
+      doc.setFormField(path, "informed", value);
+    }
+
+    public String relatedProcess() {
+      String v = doc.formField(path, "relatedProcess");
+      return v == null ? "" : v;
+    }
+
+    public void relatedProcess(String value) {
+      doc.setFormField(path, "relatedProcess", value);
     }
   }
 
@@ -179672,6 +180304,26 @@ public final class TomSomV0 {
     public void expectedLoad(String value) {
       doc.setFormField(path, "expectedLoad", value);
     }
+
+    public Integer nodeCount() {
+      String v = doc.formField(path, "nodeCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void nodeCount(Integer value) {
+      doc.setFormField(path, "nodeCount", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer databaseServerCount() {
+      String v = doc.formField(path, "databaseServerCount");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void databaseServerCount(Integer value) {
+      doc.setFormField(path, "databaseServerCount", value == null ? "" : String.valueOf(value));
+    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -179738,6 +180390,63 @@ public final class TomSomV0 {
 
     public void errorCodes(String value) {
       doc.setFormField(path, "errorCodes", value);
+    }
+  }
+
+  // Generated section facade for the `controls` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerOperationEntryControlsForm extends SomNode {
+    public ServerOperationEntryControlsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public OperationIdempotency idempotency() {
+      return OperationIdempotency.parse(doc.formField(path, "idempotency"));
+    }
+
+    public void setIdempotency(OperationIdempotency value) {
+      doc.setFormField(path, "idempotency", value == null ? "" : value.token);
+    }
+
+    public String auditEvent() {
+      String v = doc.formField(path, "auditEvent");
+      return v == null ? "" : v;
+    }
+
+    public void auditEvent(String value) {
+      doc.setFormField(path, "auditEvent", value);
+    }
+
+    public String rateLimitClass() {
+      String v = doc.formField(path, "rateLimitClass");
+      return v == null ? "" : v;
+    }
+
+    public void rateLimitClass(String value) {
+      doc.setFormField(path, "rateLimitClass", value);
+    }
+
+    public String callers() {
+      String v = doc.formField(path, "callers");
+      return v == null ? "" : v;
+    }
+
+    public void callers(String value) {
+      doc.setFormField(path, "callers", value);
     }
   }
 
@@ -180080,6 +180789,67 @@ public final class TomSomV0 {
 
     public void antivirusRequired(Boolean value) {
       doc.setFormField(path, "antivirusRequired", value == null ? "" : (value ? "true" : "false"));
+    }
+  }
+
+  // Generated section facade for the `connectionBudget` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerRequirementsSectionConnectionBudgetForm extends SomNode {
+    public ServerRequirementsSectionConnectionBudgetForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Integer databaseMaxConnections() {
+      String v = doc.formField(path, "databaseMaxConnections");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void databaseMaxConnections(Integer value) {
+      doc.setFormField(path, "databaseMaxConnections", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer connectionsPerNode() {
+      String v = doc.formField(path, "connectionsPerNode");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void connectionsPerNode(Integer value) {
+      doc.setFormField(path, "connectionsPerNode", value == null ? "" : String.valueOf(value));
+    }
+
+    public Integer reservedConnections() {
+      String v = doc.formField(path, "reservedConnections");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void reservedConnections(Integer value) {
+      doc.setFormField(path, "reservedConnections", value == null ? "" : String.valueOf(value));
+    }
+
+    public String budgetRationale() {
+      String v = doc.formField(path, "budgetRationale");
+      return v == null ? "" : v;
+    }
+
+    public void budgetRationale(String value) {
+      doc.setFormField(path, "budgetRationale", value);
     }
   }
 
@@ -200658,6 +201428,91 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class TestLevelEntryContentForm extends SomNode {
+    public TestLevelEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String level() {
+      String v = doc.formField(path, "level");
+      return v == null ? "" : v;
+    }
+
+    public void level(String value) {
+      doc.setFormField(path, "level", value);
+    }
+
+    public String testTypes() {
+      String v = doc.formField(path, "testTypes");
+      return v == null ? "" : v;
+    }
+
+    public void testTypes(String value) {
+      doc.setFormField(path, "testTypes", value);
+    }
+
+    public String environment() {
+      String v = doc.formField(path, "environment");
+      return v == null ? "" : v;
+    }
+
+    public void environment(String value) {
+      doc.setFormField(path, "environment", value);
+    }
+
+    public String tools() {
+      String v = doc.formField(path, "tools");
+      return v == null ? "" : v;
+    }
+
+    public void tools(String value) {
+      doc.setFormField(path, "tools", value);
+    }
+
+    public String runBy() {
+      String v = doc.formField(path, "runBy");
+      return v == null ? "" : v;
+    }
+
+    public void runBy(String value) {
+      doc.setFormField(path, "runBy", value);
+    }
+
+    public String trigger() {
+      String v = doc.formField(path, "trigger");
+      return v == null ? "" : v;
+    }
+
+    public void trigger(String value) {
+      doc.setFormField(path, "trigger", value);
+    }
+
+    public String exitCriteria() {
+      String v = doc.formField(path, "exitCriteria");
+      return v == null ? "" : v;
+    }
+
+    public void exitCriteria(String value) {
+      doc.setFormField(path, "exitCriteria", value);
+    }
+  }
+
   // Generated section facade for the `business` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class TestScenarioEntryBusinessForm extends SomNode {
@@ -212079,6 +212934,55 @@ public final class TomSomV0 {
 
     public void required(String value) {
       doc.setFormField(path, "required", value);
+    }
+  }
+
+  // Generated section facade for the `oidcRelease` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserAttributeEntryOidcReleaseForm extends SomNode {
+    public UserAttributeEntryOidcReleaseForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String claimName() {
+      String v = doc.formField(path, "claimName");
+      return v == null ? "" : v;
+    }
+
+    public void claimName(String value) {
+      doc.setFormField(path, "claimName", value);
+    }
+
+    public String scope() {
+      String v = doc.formField(path, "scope");
+      return v == null ? "" : v;
+    }
+
+    public void scope(String value) {
+      doc.setFormField(path, "scope", value);
+    }
+
+    public String releasedIn() {
+      String v = doc.formField(path, "releasedIn");
+      return v == null ? "" : v;
+    }
+
+    public void releasedIn(String value) {
+      doc.setFormField(path, "releasedIn", value);
     }
   }
 

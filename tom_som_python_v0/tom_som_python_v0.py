@@ -277,6 +277,36 @@ def _parse_ConstraintEnforcement(token):
             return v
     return None
 
+class ContextRelationshipType(Enum):
+    """Generated enum for `ContextRelationshipType` values."""
+
+    # The two teams succeed or fail together and plan jointly.
+    partnership = "partnership"
+    # The two share a small common model both depend on.
+    sharedKernel = "sharedKernel"
+    # The downstream context's needs shape what the upstream provides.
+    customerSupplier = "customerSupplier"
+    # The downstream context adopts the upstream model as it is.
+    conformist = "conformist"
+    # The downstream context translates the upstream model at its boundary.
+    anticorruptionLayer = "anticorruptionLayer"
+    # The upstream context offers a protocol any context may use.
+    openHostService = "openHostService"
+    # The two exchange a documented, shared language.
+    publishedLanguage = "publishedLanguage"
+    # The two have no integration.
+    separateWays = "separateWays"
+
+
+def _parse_ContextRelationshipType(token):
+    """Parses a stored token into a ContextRelationshipType, or None."""
+    if not token:
+        return None
+    for v in ContextRelationshipType:
+        if v.value == token:
+            return v
+    return None
+
 class DataAttributeKind(Enum):
     """Generated enum for `DataAttributeKind` values."""
 
@@ -701,6 +731,27 @@ def _parse_ObjectLifecycleKind(token):
             return v
     return None
 
+class OperationIdempotency(Enum):
+    """Generated enum for `OperationIdempotency` values."""
+
+    # Repeating it has no further effect.
+    idempotent = "idempotent"
+    # Repeating it has no further effect when the caller sends the same
+    # idempotency key.
+    idempotentWithKey = "idempotentWithKey"
+    # Each call has its own effect; a retry must be decided by the caller.
+    notIdempotent = "notIdempotent"
+
+
+def _parse_OperationIdempotency(token):
+    """Parses a stored token into a OperationIdempotency, or None."""
+    if not token:
+        return None
+    for v in OperationIdempotency:
+        if v.value == token:
+            return v
+    return None
+
 class OverridableBy(Enum):
     """Generated enum for `OverridableBy` values."""
 
@@ -917,6 +968,27 @@ def _parse_ReportFilterValueKind(token):
     if not token:
         return None
     for v in ReportFilterValueKind:
+        if v.value == token:
+            return v
+    return None
+
+class RoleMembershipSource(Enum):
+    """Generated enum for `RoleMembershipSource` values."""
+
+    # Holders are assigned to the role directly.
+    assigned = "assigned"
+    # Membership follows from grants the holder has: the role is a name for a
+    # set of grants, not something anyone is assigned.
+    derivedFromGrants = "derivedFromGrants"
+    # Both: holders are assigned, and a grant can also confer membership.
+    both = "both"
+
+
+def _parse_RoleMembershipSource(token):
+    """Parses a stored token into a RoleMembershipSource, or None."""
+    if not token:
+        return None
+    for v in RoleMembershipSource:
         if v.value == token:
             return v
     return None
@@ -1456,6 +1528,28 @@ def _parse_Status(token):
     if not token:
         return None
     for v in Status:
+        if v.value == token:
+            return v
+    return None
+
+class TranslationReviewStatus(Enum):
+    """Generated enum for `TranslationReviewStatus` values."""
+
+    # Written, not yet reviewed.
+    draft = "draft"
+    # Produced by a machine, not yet reviewed by a person.
+    machineTranslated = "machineTranslated"
+    # Reviewed by a person fluent in the language.
+    reviewed = "reviewed"
+    # Approved for release.
+    approved = "approved"
+
+
+def _parse_TranslationReviewStatus(token):
+    """Parses a stored token into a TranslationReviewStatus, or None."""
+    if not token:
+        return None
+    for v in TranslationReviewStatus:
         if v.value == token:
             return v
     return None
@@ -4898,6 +4992,11 @@ class BoundedContextEntry(SomNode):
     @property
     def integration(self):
         return BoundedContextEntryIntegrationForm(self.doc, f"{self.path}/BOCOENIN")
+
+    # Relationships to neighbouring contexts — contains 0+× relationship.
+    @property
+    def relationships(self):
+        return SomList(self.doc, f"{self.path}/CTXREL-LST", lambda d, p: ContextRelationshipEntry(d, p), pattern="CTXREL-xxx")
 
 class BreakpointConfiguration(SomNode):
     """10.10.1. Breakpoints.
@@ -8825,6 +8924,18 @@ class ContextDiagram(SomNode):
     @legend.setter
     def legend(self, value):
         self.doc.set_content(f"{self.path}/CD-LEGE", value)
+
+class ContextRelationshipEntry(SomNode):
+    """The relationship of a bounded context to one neighbour."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return ContextRelationshipEntryContentForm(self.doc, f"{self.path}/content")
 
 class ContextualHelp(SomNode):
     """10.8.1. Contextual Help."""
@@ -22392,6 +22503,20 @@ class KeyManagement(SomNode):
     def notes(self):
         return None  # (skipped: no target type)
 
+class KeyManagementRequirements(SomNode):
+    """Key management on the platform side: which keys exist, where they are
+    kept, how they rotate and who holds them.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return KeyManagementRequirementsContentForm(self.doc, f"{self.path}/content")
+
 class KeyResultEntry(SomNode):
     """A key result entry (form)."""
     def __init__(self, doc, path):
@@ -23445,6 +23570,18 @@ class MaintenanceDependencyEntry(SomNode):
     @property
     def risk(self):
         return MaintenanceDependencyEntryRiskForm(self.doc, f"{self.path}/MDER")
+
+class MaintenanceProcedureEntry(SomNode):
+    """One maintenance procedure: its name is the headline, the steps the text."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return MaintenanceProcedureEntryContentForm(self.doc, f"{self.path}/content")
 
 class MaintenanceUserImpact(SomNode):
     """User impact and communication."""
@@ -26714,6 +26851,16 @@ class OrganizationalFramework(SomNode):
     def workplaceDescriptions(self):
         return SomList(self.doc, f"{self.path}/WPDE-WORK-LST", lambda d, p: WorkplaceDescriptionEntry(d, p), pattern="WPDE-WORK-xxx")
 
+    # Cross-process RACI matrix — contains 0+× RACI entry.
+    @property
+    def raciMatrix(self):
+        return SomList(self.doc, f"{self.path}/RACIEN-LST", lambda d, p: RaciEntry(d, p), pattern="RACIEN-xxx")
+
+    # Policy ownership — contains 0+× policy.
+    @property
+    def policyOwnership(self):
+        return SomList(self.doc, f"{self.path}/POLOWN-LST", lambda d, p: PolicyOwnershipEntry(d, p), pattern="POLOWN-xxx")
+
 class OrganizationalRequirementEntry(SomNode):
     """An organizational requirement entry.
     
@@ -27973,6 +28120,18 @@ class PlatformAndLanguage(SomNode):
     @property
     def runtimeEnvironment(self):
         return RuntimeEnvironment(self.doc, f"{self.path}/runtimeEnvironment")
+
+class PolicyOwnershipEntry(SomNode):
+    """One policy and who owns it."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return PolicyOwnershipEntryContentForm(self.doc, f"{self.path}/content")
 
 class Portability(SomNode):
     """11.3.2. Portability quality."""
@@ -30417,6 +30576,18 @@ class QualityWeightEntry(SomNode):
     @property
     def content(self):
         return QualityWeightEntryContentForm(self.doc, f"{self.path}/content")
+
+class RaciEntry(SomNode):
+    """One activity of the cross-process RACI matrix."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return RaciEntryContentForm(self.doc, f"{self.path}/content")
 
 class RateLimitingPolicy(SomNode):
     """Rate limiting and throttling."""
@@ -35810,6 +35981,11 @@ class ServerOperationEntry(SomNode):
     def bindings(self):
         return SomList(self.doc, f"{self.path}/SVOBI-BIND-LST", lambda d, p: OperationBindingEntry(d, p), pattern="SVOBI-BIND-xxx")
 
+    # Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+    @property
+    def controls(self):
+        return ServerOperationEntryControlsForm(self.doc, f"{self.path}/SVOCT")
+
 class ServerOperationMemberEntry(SomNode):
     """A single member of an operation's request or response shape (form).
     
@@ -36003,6 +36179,11 @@ class ServerRequirementsSection(SomNode):
     @property
     def osRequirements(self):
         return ServerOsRequirements(self.doc, f"{self.path}/osRequirements")
+
+    # The database connection budget and the server settings that bound it.
+    @property
+    def connectionBudget(self):
+        return ServerRequirementsSectionConnectionBudgetForm(self.doc, f"{self.path}/SRSDB")
 
 class ServerRoleEntry(SomNode):
     """Server role entry (application server, database server, web server)."""
@@ -39205,7 +39386,7 @@ class SystemOperation(SomNode):
     # Maintenance Procedures.
     @property
     def maintenanceProcedures(self):
-        return SomList(self.doc, f"{self.path}/SO-MAIN-LST", lambda d, p: SomScalar(d, p), pattern="SO-MAIN-xxx")
+        return SomList(self.doc, f"{self.path}/MAPRO-PROC-LST", lambda d, p: MaintenanceProcedureEntry(d, p), pattern="MAPRO-PROC-xxx")
 
 class SystemOperationAndMonitoring(SomNode):
     """8.7. System Operation and Monitoring."""
@@ -40791,6 +40972,11 @@ class TechnicalSecurityRequirements(SomNode):
     def securityAuditRequirements(self):
         return SecurityAuditRequirementsSection(self.doc, f"{self.path}/securityAuditRequirements")
 
+    # Key management on the platform side.
+    @property
+    def keyManagement(self):
+        return KeyManagementRequirements(self.doc, f"{self.path}/keyManagement")
+
 class TechnologyDataVariations(SomNode):
     """Technology and data variations."""
     def __init__(self, doc, path):
@@ -41006,6 +41192,18 @@ class TenantOnboardingPolicy(SomNode):
     def tenantOnboardingPolicyDetails(self):
         return None  # (skipped: no target type)
 
+class TestLevelEntry(SomNode):
+    """One test level of the test strategy."""
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    # The section's body content. For a `@Form`-annotated member this is the
+    # form's **preamble** — the free text before the first field line (SOM
+    # §11.4 rule 7); the field values themselves live in [form].
+    @property
+    def content(self):
+        return TestLevelEntryContentForm(self.doc, f"{self.path}/content")
+
 class TestScenarioEntry(SomNode):
     """A test scenario entry (form).
     
@@ -41098,6 +41296,11 @@ class TestStrategy(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
+
+    # Test levels — contains 0+× test level.
+    @property
+    def testLevels(self):
+        return SomList(self.doc, f"{self.path}/TSLVL-LST", lambda d, p: TestLevelEntry(d, p), pattern="TSLVL-xxx")
 
 class TestingStandards(SomNode):
     """Testing standards and requirements."""
@@ -43113,6 +43316,11 @@ class UserAttributeEntry(SomNode):
     @property
     def content(self):
         return UserAttributeEntryContentForm(self.doc, f"{self.path}/content")
+
+    # How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+    @property
+    def oidcRelease(self):
+        return UserAttributeEntryOidcReleaseForm(self.doc, f"{self.path}/USOIDC")
 
 class UserAttributes(SomNode):
     """9.1.3. User Attributes."""
@@ -54375,6 +54583,22 @@ class AuthorizationRoleEntryStructureForm(SomNode):
     def permissionSet(self, value):
         self.doc.set_form_field(self.path, "permissionSet", value)
 
+    @property
+    def membershipSource(self) -> "RoleMembershipSource | None":
+        return _parse_RoleMembershipSource(self.doc.form_field(self.path, "membershipSource"))
+
+    @membershipSource.setter
+    def membershipSource(self, value):
+        self.doc.set_form_field(self.path, "membershipSource", "" if value is None else value.value)
+
+    @property
+    def derivationRule(self) -> str:
+        return self.doc.form_field(self.path, "derivationRule") or ""
+
+    @derivationRule.setter
+    def derivationRule(self, value):
+        self.doc.set_form_field(self.path, "derivationRule", value)
+
 class AvailabilityContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -56670,6 +56894,14 @@ class BoundedContextEntryBoundariesForm(SomNode):
     @sharedKernel.setter
     def sharedKernel(self, value):
         self.doc.set_form_field(self.path, "sharedKernel", value)
+
+    @property
+    def ownedOperations(self) -> str:
+        return self.doc.form_field(self.path, "ownedOperations") or ""
+
+    @ownedOperations.setter
+    def ownedOperations(self, value):
+        self.doc.set_form_field(self.path, "ownedOperations", value)
 
 class BoundedContextEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -71812,6 +72044,47 @@ class ContentScanningPolicyContentForm(SomNode):
     @notes.setter
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
+
+class ContextRelationshipEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def neighbourContext(self) -> str:
+        return self.doc.form_field(self.path, "neighbourContext") or ""
+
+    @neighbourContext.setter
+    def neighbourContext(self, value):
+        self.doc.set_form_field(self.path, "neighbourContext", value)
+
+    @property
+    def relationshipType(self) -> "ContextRelationshipType | None":
+        return _parse_ContextRelationshipType(self.doc.form_field(self.path, "relationshipType"))
+
+    @relationshipType.setter
+    def relationshipType(self, value):
+        self.doc.set_form_field(self.path, "relationshipType", "" if value is None else value.value)
+
+    @property
+    def direction(self) -> str:
+        return self.doc.form_field(self.path, "direction") or ""
+
+    @direction.setter
+    def direction(self, value):
+        self.doc.set_form_field(self.path, "direction", value)
 
 class ContextualHelpContextualHelpContentForm(SomNode):
     """Generated section facade for the `contextualHelpContent` @Form section: its own content text followed by one typed member per form field."""
@@ -111043,6 +111316,71 @@ class KeyGenerationPolicyContentForm(SomNode):
     def quantumReadinessStrategy(self, value):
         self.doc.set_form_field(self.path, "quantumReadinessStrategy", value)
 
+class KeyManagementRequirementsContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def keyTypes(self) -> str:
+        return self.doc.form_field(self.path, "keyTypes") or ""
+
+    @keyTypes.setter
+    def keyTypes(self, value):
+        self.doc.set_form_field(self.path, "keyTypes", value)
+
+    @property
+    def keyStorage(self) -> str:
+        return self.doc.form_field(self.path, "keyStorage") or ""
+
+    @keyStorage.setter
+    def keyStorage(self, value):
+        self.doc.set_form_field(self.path, "keyStorage", value)
+
+    @property
+    def rotationPolicy(self) -> str:
+        return self.doc.form_field(self.path, "rotationPolicy") or ""
+
+    @rotationPolicy.setter
+    def rotationPolicy(self, value):
+        self.doc.set_form_field(self.path, "rotationPolicy", value)
+
+    @property
+    def keyCustody(self) -> str:
+        return self.doc.form_field(self.path, "keyCustody") or ""
+
+    @keyCustody.setter
+    def keyCustody(self, value):
+        self.doc.set_form_field(self.path, "keyCustody", value)
+
+    @property
+    def backupAndRecovery(self) -> str:
+        return self.doc.form_field(self.path, "backupAndRecovery") or ""
+
+    @backupAndRecovery.setter
+    def backupAndRecovery(self, value):
+        self.doc.set_form_field(self.path, "backupAndRecovery", value)
+
+    @property
+    def destruction(self) -> str:
+        return self.doc.form_field(self.path, "destruction") or ""
+
+    @destruction.setter
+    def destruction(self, value):
+        self.doc.set_form_field(self.path, "destruction", value)
+
 class KeyResultEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -114565,6 +114903,39 @@ class MaintenanceDependencyEntryUpdateForm(SomNode):
     def breakingChangePolicy(self, value):
         self.doc.set_form_field(self.path, "breakingChangePolicy", value)
 
+class MaintenanceProcedureEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def frequency(self) -> str:
+        return self.doc.form_field(self.path, "frequency") or ""
+
+    @frequency.setter
+    def frequency(self, value):
+        self.doc.set_form_field(self.path, "frequency", value)
+
+    @property
+    def performedBy(self) -> str:
+        return self.doc.form_field(self.path, "performedBy") or ""
+
+    @performedBy.setter
+    def performedBy(self, value):
+        self.doc.set_form_field(self.path, "performedBy", value)
+
 class MaintenanceUserImpactContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -115571,6 +115942,14 @@ class MessageLocaleVariantEntryContentForm(SomNode):
     @copy.setter
     def copy(self, value):
         self.doc.set_form_field(self.path, "copy", value)
+
+    @property
+    def reviewStatus(self) -> "TranslationReviewStatus | None":
+        return _parse_TranslationReviewStatus(self.doc.form_field(self.path, "reviewStatus"))
+
+    @reviewStatus.setter
+    def reviewStatus(self, value):
+        self.doc.set_form_field(self.path, "reviewStatus", "" if value is None else value.value)
 
 class MetricsAndObservabilityMetricsOverviewForm(SomNode):
     """Generated section facade for the `metricsOverview` @Form section: its own content text followed by one typed member per form field."""
@@ -130445,6 +130824,63 @@ class PipelineStageEntryTriggerForm(SomNode):
     def manualApproval(self, value):
         self.doc.set_form_field(self.path, "manualApproval", "" if value is None else ("true" if value else "false"))
 
+class PolicyOwnershipEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def policy(self) -> str:
+        return self.doc.form_field(self.path, "policy") or ""
+
+    @policy.setter
+    def policy(self, value):
+        self.doc.set_form_field(self.path, "policy", value)
+
+    @property
+    def owner(self) -> str:
+        return self.doc.form_field(self.path, "owner") or ""
+
+    @owner.setter
+    def owner(self, value):
+        self.doc.set_form_field(self.path, "owner", value)
+
+    @property
+    def approver(self) -> str:
+        return self.doc.form_field(self.path, "approver") or ""
+
+    @approver.setter
+    def approver(self, value):
+        self.doc.set_form_field(self.path, "approver", value)
+
+    @property
+    def reviewCycle(self) -> str:
+        return self.doc.form_field(self.path, "reviewCycle") or ""
+
+    @reviewCycle.setter
+    def reviewCycle(self, value):
+        self.doc.set_form_field(self.path, "reviewCycle", value)
+
+    @property
+    def appliesTo(self) -> str:
+        return self.doc.form_field(self.path, "appliesTo") or ""
+
+    @appliesTo.setter
+    def appliesTo(self, value):
+        self.doc.set_form_field(self.path, "appliesTo", value)
+
 class PortabilityContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -138602,6 +139038,71 @@ class QualityWeightEntryContentForm(SomNode):
     @tradeOffImplications.setter
     def tradeOffImplications(self, value):
         self.doc.set_form_field(self.path, "tradeOffImplications", value)
+
+class RaciEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def activity(self) -> str:
+        return self.doc.form_field(self.path, "activity") or ""
+
+    @activity.setter
+    def activity(self, value):
+        self.doc.set_form_field(self.path, "activity", value)
+
+    @property
+    def responsible(self) -> str:
+        return self.doc.form_field(self.path, "responsible") or ""
+
+    @responsible.setter
+    def responsible(self, value):
+        self.doc.set_form_field(self.path, "responsible", value)
+
+    @property
+    def accountable(self) -> str:
+        return self.doc.form_field(self.path, "accountable") or ""
+
+    @accountable.setter
+    def accountable(self, value):
+        self.doc.set_form_field(self.path, "accountable", value)
+
+    @property
+    def consulted(self) -> str:
+        return self.doc.form_field(self.path, "consulted") or ""
+
+    @consulted.setter
+    def consulted(self, value):
+        self.doc.set_form_field(self.path, "consulted", value)
+
+    @property
+    def informed(self) -> str:
+        return self.doc.form_field(self.path, "informed") or ""
+
+    @informed.setter
+    def informed(self, value):
+        self.doc.set_form_field(self.path, "informed", value)
+
+    @property
+    def relatedProcess(self) -> str:
+        return self.doc.form_field(self.path, "relatedProcess") or ""
+
+    @relatedProcess.setter
+    def relatedProcess(self, value):
+        self.doc.set_form_field(self.path, "relatedProcess", value)
 
 class RateLimitingPolicyBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""
@@ -157619,6 +158120,34 @@ class ServerEnvironmentEntryScaleForm(SomNode):
     def expectedLoad(self, value):
         self.doc.set_form_field(self.path, "expectedLoad", value)
 
+    @property
+    def nodeCount(self) -> "int | None":
+        v = self.doc.form_field(self.path, "nodeCount")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @nodeCount.setter
+    def nodeCount(self, value):
+        self.doc.set_form_field(self.path, "nodeCount", "" if value is None else str(value))
+
+    @property
+    def databaseServerCount(self) -> "int | None":
+        v = self.doc.form_field(self.path, "databaseServerCount")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @databaseServerCount.setter
+    def databaseServerCount(self, value):
+        self.doc.set_form_field(self.path, "databaseServerCount", "" if value is None else str(value))
+
 class ServerOperationEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -157675,6 +158204,55 @@ class ServerOperationEntryContentForm(SomNode):
     @errorCodes.setter
     def errorCodes(self, value):
         self.doc.set_form_field(self.path, "errorCodes", value)
+
+class ServerOperationEntryControlsForm(SomNode):
+    """Generated section facade for the `controls` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def idempotency(self) -> "OperationIdempotency | None":
+        return _parse_OperationIdempotency(self.doc.form_field(self.path, "idempotency"))
+
+    @idempotency.setter
+    def idempotency(self, value):
+        self.doc.set_form_field(self.path, "idempotency", "" if value is None else value.value)
+
+    @property
+    def auditEvent(self) -> str:
+        return self.doc.form_field(self.path, "auditEvent") or ""
+
+    @auditEvent.setter
+    def auditEvent(self, value):
+        self.doc.set_form_field(self.path, "auditEvent", value)
+
+    @property
+    def rateLimitClass(self) -> str:
+        return self.doc.form_field(self.path, "rateLimitClass") or ""
+
+    @rateLimitClass.setter
+    def rateLimitClass(self, value):
+        self.doc.set_form_field(self.path, "rateLimitClass", value)
+
+    @property
+    def callers(self) -> str:
+        return self.doc.form_field(self.path, "callers") or ""
+
+    @callers.setter
+    def callers(self, value):
+        self.doc.set_form_field(self.path, "callers", value)
 
 class ServerOperationMemberEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -157964,6 +158542,73 @@ class ServerOsRequirementsSecurityForm(SomNode):
     @antivirusRequired.setter
     def antivirusRequired(self, value):
         self.doc.set_form_field(self.path, "antivirusRequired", "" if value is None else ("true" if value else "false"))
+
+class ServerRequirementsSectionConnectionBudgetForm(SomNode):
+    """Generated section facade for the `connectionBudget` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def databaseMaxConnections(self) -> "int | None":
+        v = self.doc.form_field(self.path, "databaseMaxConnections")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @databaseMaxConnections.setter
+    def databaseMaxConnections(self, value):
+        self.doc.set_form_field(self.path, "databaseMaxConnections", "" if value is None else str(value))
+
+    @property
+    def connectionsPerNode(self) -> "int | None":
+        v = self.doc.form_field(self.path, "connectionsPerNode")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @connectionsPerNode.setter
+    def connectionsPerNode(self, value):
+        self.doc.set_form_field(self.path, "connectionsPerNode", "" if value is None else str(value))
+
+    @property
+    def reservedConnections(self) -> "int | None":
+        v = self.doc.form_field(self.path, "reservedConnections")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @reservedConnections.setter
+    def reservedConnections(self, value):
+        self.doc.set_form_field(self.path, "reservedConnections", "" if value is None else str(value))
+
+    @property
+    def budgetRationale(self) -> str:
+        return self.doc.form_field(self.path, "budgetRationale") or ""
+
+    @budgetRationale.setter
+    def budgetRationale(self, value):
+        self.doc.set_form_field(self.path, "budgetRationale", value)
 
 class ServerRoleEntryCapacityForm(SomNode):
     """Generated section facade for the `capacity` @Form section: its own content text followed by one typed member per form field."""
@@ -175740,6 +176385,79 @@ class TenantOnboardingPolicyContentForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class TestLevelEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def level(self) -> str:
+        return self.doc.form_field(self.path, "level") or ""
+
+    @level.setter
+    def level(self, value):
+        self.doc.set_form_field(self.path, "level", value)
+
+    @property
+    def testTypes(self) -> str:
+        return self.doc.form_field(self.path, "testTypes") or ""
+
+    @testTypes.setter
+    def testTypes(self, value):
+        self.doc.set_form_field(self.path, "testTypes", value)
+
+    @property
+    def environment(self) -> str:
+        return self.doc.form_field(self.path, "environment") or ""
+
+    @environment.setter
+    def environment(self, value):
+        self.doc.set_form_field(self.path, "environment", value)
+
+    @property
+    def tools(self) -> str:
+        return self.doc.form_field(self.path, "tools") or ""
+
+    @tools.setter
+    def tools(self, value):
+        self.doc.set_form_field(self.path, "tools", value)
+
+    @property
+    def runBy(self) -> str:
+        return self.doc.form_field(self.path, "runBy") or ""
+
+    @runBy.setter
+    def runBy(self, value):
+        self.doc.set_form_field(self.path, "runBy", value)
+
+    @property
+    def trigger(self) -> str:
+        return self.doc.form_field(self.path, "trigger") or ""
+
+    @trigger.setter
+    def trigger(self, value):
+        self.doc.set_form_field(self.path, "trigger", value)
+
+    @property
+    def exitCriteria(self) -> str:
+        return self.doc.form_field(self.path, "exitCriteria") or ""
+
+    @exitCriteria.setter
+    def exitCriteria(self, value):
+        self.doc.set_form_field(self.path, "exitCriteria", value)
+
 class TestScenarioEntryBusinessForm(SomNode):
     """Generated section facade for the `business` @Form section: its own content text followed by one typed member per form field."""
 
@@ -185462,6 +186180,47 @@ class UserAttributeEntryContentForm(SomNode):
     @required.setter
     def required(self, value):
         self.doc.set_form_field(self.path, "required", value)
+
+class UserAttributeEntryOidcReleaseForm(SomNode):
+    """Generated section facade for the `oidcRelease` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def claimName(self) -> str:
+        return self.doc.form_field(self.path, "claimName") or ""
+
+    @claimName.setter
+    def claimName(self, value):
+        self.doc.set_form_field(self.path, "claimName", value)
+
+    @property
+    def scope(self) -> str:
+        return self.doc.form_field(self.path, "scope") or ""
+
+    @scope.setter
+    def scope(self, value):
+        self.doc.set_form_field(self.path, "scope", value)
+
+    @property
+    def releasedIn(self) -> str:
+        return self.doc.form_field(self.path, "releasedIn") or ""
+
+    @releasedIn.setter
+    def releasedIn(self, value):
+        self.doc.set_form_field(self.path, "releasedIn", value)
 
 class UserCategoryDefinitionContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""

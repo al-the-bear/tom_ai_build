@@ -1171,7 +1171,7 @@ fn meta_children_authorization_requirement_spec(s: &mut HashSet<String>) -> Vec<
 fn meta_children_authorization_role_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "roleName".to_string(), type_name: "String".to_string(), description: "Role Name".to_string(), required: true, hint: "Unique name of the authorization role (e.g. FinanceApprover)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Short description".to_string(), required: false, hint: "Purpose of the role and the access it grants".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "roleCategory".to_string(), type_name: "String".to_string(), description: "Role Category".to_string(), required: false, hint: "Business | Technical | Administrative | System | Compliance | Custom — classification of the role by function".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "structure".to_string(), section_id: "ARES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Scope and inheritance metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "roleScope".to_string(), type_name: "String".to_string(), description: "Role Scope".to_string(), required: false, hint: "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "inheritsFrom".to_string(), type_name: "String".to_string(), description: "Inherits From".to_string(), required: false, hint: "Parent role name or \"none\" for top-level roles; child roles inherit all permissions of the parent".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "permissionSet".to_string(), type_name: "String".to_string(), description: "Permission Set".to_string(), required: false, hint: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance".to_string()), som::Json::Str("ISO/IEC 27001:2022 — control A.5.15 access control".to_string())])), ("connotation".to_string(), som::Json::Str("Scope and inheritance metadata for an authorization role.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "structure".to_string(), section_id: "ARES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Scope and inheritance metadata.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "roleScope".to_string(), type_name: "String".to_string(), description: "Role Scope".to_string(), required: false, hint: "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "inheritsFrom".to_string(), type_name: "String".to_string(), description: "Inherits From".to_string(), required: false, hint: "Parent role name or \"none\" for top-level roles; child roles inherit all permissions of the parent".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "permissionSet".to_string(), type_name: "String".to_string(), description: "Permission Set".to_string(), required: false, hint: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "membershipSource".to_string(), type_name: "RoleMembershipSource".to_string(), description: "Membership Source".to_string(), required: false, hint: "Whether holders are assigned or membership follows from grants".to_string(), order: 3, enum_values: vec!["assigned".to_string(), "derivedFromGrants".to_string(), "both".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "derivationRule".to_string(), type_name: "String".to_string(), description: "Derivation Rule".to_string(), required: false, hint: "For a derived role: the grants that confer membership".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance".to_string()), som::Json::Str("ISO/IEC 27001:2022 — control A.5.15 access control".to_string())])), ("connotation".to_string(), som::Json::Str("Scope and inheritance metadata for an authorization role.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "governance".to_string(), section_id: "AREG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Risk and activation controls.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "riskLevel".to_string(), type_name: "ImportanceBand".to_string(), description: "Risk Level".to_string(), required: false, hint: "Privilege risk classification for access review prioritization.".to_string(), order: 0, enum_values: vec!["critical".to_string(), "high".to_string(), "medium".to_string(), "low".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "maxHolders".to_string(), type_name: "int".to_string(), description: "Maximum Holders".to_string(), required: false, hint: "Maximum number of users who can hold this role concurrently; 0 = unlimited".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "activationType".to_string(), type_name: "String".to_string(), description: "Activation Type".to_string(), required: false, hint: "AlwaysActive | OnDemand | TimeLimited | Scheduled — whether the role is permanently active or requires activation".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "activationDuration".to_string(), type_name: "String".to_string(), description: "Activation Duration".to_string(), required: false, hint: "Maximum duration for on-demand or time-limited activation (e.g. 8h, 24h, 7d)".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "approvalRequired".to_string(), type_name: "bool".to_string(), description: "Approval Required".to_string(), required: false, hint: "Yes | No — whether role assignment requires explicit approval".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "approver".to_string(), type_name: "String".to_string(), description: "Approver".to_string(), required: false, hint: "Role or person responsible for approving role assignments (e.g. Line Manager, Security Officer, System Owner)".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-53 — control AC-6 least privilege".to_string()), som::Json::Str("ISO/IEC 27001:2022 — control A.5.15 access control".to_string())])), ("connotation".to_string(), som::Json::Str("Risk and activation controls governing an authorization role.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "lifecycle".to_string(), section_id: "AREL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Provisioning and review settings.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "provisioningMethod".to_string(), type_name: "String".to_string(), description: "Provisioning Method".to_string(), required: false, hint: "Manual | Automatic | ApprovalBased | SelfService | RuleBased — how the role is assigned to users".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "reviewFrequency".to_string(), type_name: "String".to_string(), description: "Review Frequency".to_string(), required: false, hint: "Monthly | Quarterly | SemiAnnual | Annual | OnChange | Never — how often role assignments are reviewed for appropriateness".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001:2022 — control A.5.18 access rights provisioning and review".to_string()), som::Json::Str("NIST SP 800-53 — control AC-2 account management".to_string())])), ("connotation".to_string(), som::Json::Str("Provisioning and review settings for an authorization role.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "AuthorizationRoleEntry".to_string(), member_name: "status".to_string(), section_id: "AUROENST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Data access and role status flags.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataAccessScope".to_string(), type_name: "String".to_string(), description: "Data Access Scope".to_string(), required: false, hint: "AllData | TenantData | DepartmentData | TeamData | OwnData | None — breadth of data accessible through this role".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "isDefault".to_string(), type_name: "bool".to_string(), description: "Default Role".to_string(), required: false, hint: "Yes | No — automatically assigned to new users upon creation".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "isSystem".to_string(), type_name: "bool".to_string(), description: "System Role".to_string(), required: false, hint: "Yes | No — system-defined role that cannot be modified or deleted by administrators".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional role definition notes".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST RBAC INCITS 359-2012 — role-based access control".to_string()), som::Json::Str("ISO/IEC 27001:2022 — control A.5.15 access control".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the data access scope and status flags of an authorization role.".to_string()))] }], ..som::SomMetaNode::default() }),
@@ -1436,13 +1436,21 @@ fn meta_children_boundary_interaction_patterns(_s: &mut HashSet<String>) -> Vec<
     ]
 }
 
-fn meta_children_bounded_context_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_bounded_context_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "contextName".to_string(), type_name: "String".to_string(), description: "Context Name".to_string(), required: true, hint: "PascalCase noun or noun phrase naming this context (e.g., Sales, OrderFulfilment). This is the name every Bounded Context field elsewhere in the specification refers to, so it is written once here and quoted exactly thereafter".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "domainArea".to_string(), type_name: "String".to_string(), description: "Domain Area".to_string(), required: true, hint: "Business domain this context covers".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "owningTeam".to_string(), type_name: "String".to_string(), description: "Owning Team".to_string(), required: false, hint: "Team responsible for this context".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "scope".to_string(), section_id: "BCES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Scope and language definitions.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "Why this context exists".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "includedConcepts".to_string(), type_name: "String".to_string(), description: "Included Concepts".to_string(), required: false, hint: "Domain concepts within this context".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "excludedConcepts".to_string(), type_name: "String".to_string(), description: "Excluded Concepts".to_string(), required: false, hint: "Domain concepts explicitly outside this context".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "ubiquitousLanguage".to_string(), type_name: "String".to_string(), description: "Ubiquitous Language".to_string(), required: false, hint: "Key terms and their definitions".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("Defines the scope, included/excluded concepts, and ubiquitous language of a bounded context.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "boundaries".to_string(), section_id: "BCEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Boundary relationships.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "boundaryType".to_string(), type_name: "String".to_string(), description: "Boundary Type".to_string(), required: false, hint: "Conformist, Anti-corruption layer, Open-host, etc.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "upstreamContexts".to_string(), type_name: "String".to_string(), description: "Upstream Contexts".to_string(), required: false, hint: "Contexts this one depends on".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "downstreamContexts".to_string(), type_name: "String".to_string(), description: "Downstream Contexts".to_string(), required: false, hint: "Contexts that depend on this one".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "sharedKernel".to_string(), type_name: "String".to_string(), description: "Shared Kernel".to_string(), required: false, hint: "Shared code with other contexts".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("Describes the boundary type and upstream/downstream relationships of a bounded context.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "boundaries".to_string(), section_id: "BCEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Boundary relationships.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "boundaryType".to_string(), type_name: "String".to_string(), description: "Boundary Type".to_string(), required: false, hint: "Conformist, Anti-corruption layer, Open-host, etc.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "upstreamContexts".to_string(), type_name: "String".to_string(), description: "Upstream Contexts".to_string(), required: false, hint: "Contexts this one depends on".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "downstreamContexts".to_string(), type_name: "String".to_string(), description: "Downstream Contexts".to_string(), required: false, hint: "Contexts that depend on this one".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "sharedKernel".to_string(), type_name: "String".to_string(), description: "Shared Kernel".to_string(), required: false, hint: "Shared code with other contexts".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "ownedOperations".to_string(), type_name: "String".to_string(), description: "Owned Operations".to_string(), required: false, hint: "The server operations this context owns, comma-separated".to_string(), order: 4, enum_values: vec![], refers_to: vec!["SVOPE.operationName".to_string()], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("Describes the boundary type and upstream/downstream relationships of a bounded context.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "implementation".to_string(), section_id: "BCEI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Implementation footprint.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "repositoryNamespace".to_string(), type_name: "String".to_string(), description: "Repository/Namespace".to_string(), required: false, hint: "Code location for this context".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "databaseSchema".to_string(), type_name: "String".to_string(), description: "Database Schema".to_string(), required: false, hint: "Database schema or partition".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "publishedEvents".to_string(), type_name: "String".to_string(), description: "Published Events".to_string(), required: false, hint: "Domain events this context publishes".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "consumedEvents".to_string(), type_name: "String".to_string(), description: "Consumed Events".to_string(), required: false, hint: "Domain events this context subscribes to".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("Records the code location, schema, and published/consumed events that implement a bounded context.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "integration".to_string(), section_id: "BOCOENIN".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Integration and notes.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "apiEndpoints".to_string(), type_name: "String".to_string(), description: "API Endpoints".to_string(), required: false, hint: "Public API endpoints exposed".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "integrationPatterns".to_string(), type_name: "String".to_string(), description: "Integration Patterns".to_string(), required: false, hint: "How this context integrates with others".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional context notes".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("Describes the API endpoints and integration patterns through which a bounded context connects to others.".to_string()))] }], ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "BoundedContextEntry".to_string(), member_name: "relationships".to_string(), section_id: "CTXREL-LST".to_string(), section_id_pattern: "CTXREL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ContextRelationshipEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per neighbouring context.".to_string(), doc_comment: "Relationships to neighbouring contexts — contains 0+× relationship.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ContextRelationshipEntry", s, meta_children_context_relationship_entry, |r, c| som::SomMetaNode {
+                class_name: "ContextRelationshipEntry".to_string(), class_section_id: "CTXREL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ContextRelationshipEntry".to_string(), doc_comment: "The relationship of a bounded context to one neighbour.".to_string(), class_doc_comment: "The relationship of a bounded context to one neighbour.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -3159,6 +3167,12 @@ fn meta_children_context_diagram(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
         Rc::new(som::SomMetaNode { class_name: "ContextDiagram".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide a narrative overview of the context diagram and what the depicted black-box view represents.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ContextDiagram".to_string(), member_name: "diagram".to_string(), section_id: "CD-DIAG".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flowchart".to_string(), description: "Context diagram showing the system as a central node with external actors and systems connected by labeled data flows".to_string() }), content_help: "Create a Mermaid flowchart with the system in the center and all external entities around it. Label edges with data flow descriptions (e.g., \"orders\", \"payments\", \"notifications\").".to_string(), doc_comment: "Context diagram in Mermaid format.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ContextDiagram".to_string(), member_name: "legend".to_string(), section_id: "CD-LEGE".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Legend explaining shapes, colors, and line styles used in the diagram.".to_string() }), doc_comment: "Diagram legend and conventions.".to_string(), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_context_relationship_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ContextRelationshipEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Why the two contexts relate this way and what crosses the boundary.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "neighbourContext".to_string(), type_name: "String".to_string(), description: "Neighbour Context".to_string(), required: false, hint: "The other bounded context".to_string(), order: 0, enum_values: vec![], refers_to: vec!["BCE.contextName".to_string()], code: false }, som::SomFormFieldMeta { name: "relationshipType".to_string(), type_name: "ContextRelationshipType".to_string(), description: "Relationship Type".to_string(), required: false, hint: "The context-mapping pattern between the two".to_string(), order: 1, enum_values: vec!["partnership".to_string(), "sharedKernel".to_string(), "customerSupplier".to_string(), "conformist".to_string(), "anticorruptionLayer".to_string(), "openHostService".to_string(), "publishedLanguage".to_string(), "separateWays".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "direction".to_string(), type_name: "String".to_string(), description: "Direction".to_string(), required: false, hint: "upstream / downstream / mutual, seen from this context".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -8799,6 +8813,12 @@ fn meta_children_key_management(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaN
     ]
 }
 
+fn meta_children_key_management_requirements(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "KeyManagementRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "The key hierarchy and how its keys are managed over their life.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "keyTypes".to_string(), type_name: "String".to_string(), description: "Key Types".to_string(), required: false, hint: "Which keys exist — signing, encryption, secrets keys — and what each protects".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "keyStorage".to_string(), type_name: "String".to_string(), description: "Key Storage".to_string(), required: false, hint: "Where each key is kept — KMS, HSM, an encrypted file".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "rotationPolicy".to_string(), type_name: "String".to_string(), description: "Rotation Policy".to_string(), required: false, hint: "How often each key rotates and how old keys stay usable".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "keyCustody".to_string(), type_name: "String".to_string(), description: "Key Custody".to_string(), required: false, hint: "Who can use, export or replace a key".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "backupAndRecovery".to_string(), type_name: "String".to_string(), description: "Backup and Recovery".to_string(), required: false, hint: "How a key is backed up and restored".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "destruction".to_string(), type_name: "String".to_string(), description: "Destruction".to_string(), required: false, hint: "How a retired key is destroyed".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_key_result_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "KeyResultEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "keyResult".to_string(), type_name: "String".to_string(), description: "Key Result (measurable outcome)".to_string(), required: true, hint: "The measurable outcome that signals progress".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "metric".to_string(), type_name: "String".to_string(), description: "Metric (what is measured)".to_string(), required: false, hint: "What quantity is measured".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "baselineValue".to_string(), type_name: "String".to_string(), description: "Baseline Value (starting point)".to_string(), required: false, hint: "Starting value before work begins".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "targetValue".to_string(), type_name: "String".to_string(), description: "Target Value (desired endpoint)".to_string(), required: true, hint: "Desired endpoint value".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "currentValue".to_string(), type_name: "String".to_string(), description: "Current Value (latest measurement)".to_string(), required: false, hint: "Latest measured value".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "progress".to_string(), type_name: "String".to_string(), description: "Progress (percentage toward target)".to_string(), required: false, hint: "Percentage of progress toward the target".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "owner".to_string(), type_name: "String".to_string(), description: "Owner (responsible person)".to_string(), required: false, hint: "Person responsible for this key result".to_string(), order: 6, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "dueDate".to_string(), type_name: "String".to_string(), description: "Due Date".to_string(), required: false, hint: "Date the key result is due".to_string(), order: 7, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "status".to_string(), type_name: "String".to_string(), description: "Status (Not Started, In Progress, Achieved, Missed)".to_string(), required: false, hint: "Not Started, In Progress, Achieved, or Missed".to_string(), order: 8, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
@@ -9200,6 +9220,12 @@ fn meta_children_maintenance_dependency_entry(_s: &mut HashSet<String>) -> Vec<R
     ]
 }
 
+fn meta_children_maintenance_procedure_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "MaintenanceProcedureEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "The steps of the procedure and what it depends on.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "frequency".to_string(), type_name: "String".to_string(), description: "Frequency".to_string(), required: false, hint: "When the procedure is run — per release, monthly, on demand".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "performedBy".to_string(), type_name: "String".to_string(), description: "Performed By".to_string(), required: false, hint: "Who runs it".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_maintenance_user_impact(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "MaintenanceUserImpact".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "advanceNotification".to_string(), type_name: "String".to_string(), description: "Advance Notification".to_string(), required: false, hint: "How users are notified in advance".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "inAppNotification".to_string(), type_name: "bool".to_string(), description: "In-App Notification".to_string(), required: false, hint: "Banner or popup in app".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "emailNotification".to_string(), type_name: "bool".to_string(), description: "Email Notification".to_string(), required: false, hint: "Email users before maintenance".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "statusPageUpdate".to_string(), type_name: "bool".to_string(), description: "Status Page Update".to_string(), required: false, hint: "Update status page".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "socialMediaNotice".to_string(), type_name: "bool".to_string(), description: "Social Media Notice".to_string(), required: false, hint: "Post on social media".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
@@ -9318,7 +9344,7 @@ fn meta_children_message_key_registry(s: &mut HashSet<String>) -> Vec<Rc<som::So
 
 fn meta_children_message_locale_variant_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "MessageLocaleVariantEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "locale".to_string(), type_name: "String".to_string(), description: "Locale".to_string(), required: true, hint: "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "copy".to_string(), type_name: "String".to_string(), description: "Copy".to_string(), required: true, hint: "The user-facing text for this locale".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MessageLocaleVariantEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "locale".to_string(), type_name: "String".to_string(), description: "Locale".to_string(), required: true, hint: "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "copy".to_string(), type_name: "String".to_string(), description: "Copy".to_string(), required: true, hint: "The user-facing text for this locale".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "reviewStatus".to_string(), type_name: "TranslationReviewStatus".to_string(), description: "Review Status".to_string(), required: false, hint: "How far the translation has been checked".to_string(), order: 2, enum_values: vec!["draft".to_string(), "machineTranslated".to_string(), "reviewed".to_string(), "approved".to_string()], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -10500,6 +10526,22 @@ fn meta_children_organizational_framework(s: &mut HashSet<String>) -> Vec<Rc<som
             }));
             Rc::new(n)
         },
+        {
+            let mut n = som::SomMetaNode { class_name: "OrganizationalFramework".to_string(), member_name: "raciMatrix".to_string(), section_id: "RACIEN-LST".to_string(), section_id_pattern: "RACIEN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RaciEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per activity.".to_string(), doc_comment: "Cross-process RACI matrix — contains 0+× RACI entry.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("RaciEntry", s, meta_children_raci_entry, |r, c| som::SomMetaNode {
+                class_name: "RaciEntry".to_string(), class_section_id: "RACIEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RaciEntry".to_string(), doc_comment: "One activity of the cross-process RACI matrix.".to_string(), class_doc_comment: "One activity of the cross-process RACI matrix.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "OrganizationalFramework".to_string(), member_name: "policyOwnership".to_string(), section_id: "POLOWN-LST".to_string(), section_id_pattern: "POLOWN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PolicyOwnershipEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per policy.".to_string(), doc_comment: "Policy ownership — contains 0+× policy.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("PolicyOwnershipEntry", s, meta_children_policy_ownership_entry, |r, c| som::SomMetaNode {
+                class_name: "PolicyOwnershipEntry".to_string(), class_section_id: "POLOWN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PolicyOwnershipEntry".to_string(), doc_comment: "One policy and who owns it.".to_string(), class_doc_comment: "One policy and who owns it.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -11069,6 +11111,12 @@ fn meta_children_platform_and_language(s: &mut HashSet<String>) -> Vec<Rc<som::S
             class_name: "RuntimeEnvironment".to_string(), member_name: "runtimeEnvironment".to_string(), class_section_id: "RUEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RuntimeEnvironment".to_string(), serialization_order: Some(8), doc_comment: "Runtime environment constraints.".to_string(), class_doc_comment: "Runtime environment constraints.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+    ]
+}
+
+fn meta_children_policy_ownership_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "PolicyOwnershipEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "What the policy covers and how ownership is exercised.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "policy".to_string(), type_name: "String".to_string(), description: "Policy".to_string(), required: false, hint: "The policy".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "owner".to_string(), type_name: "String".to_string(), description: "Owner".to_string(), required: false, hint: "The role that owns and maintains it".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "approver".to_string(), type_name: "String".to_string(), description: "Approver".to_string(), required: false, hint: "The role that approves changes".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "reviewCycle".to_string(), type_name: "String".to_string(), description: "Review Cycle".to_string(), required: false, hint: "How often it is reviewed".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "appliesTo".to_string(), type_name: "String".to_string(), description: "Applies To".to_string(), required: false, hint: "Who or what it binds".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -12147,6 +12195,12 @@ fn meta_children_quality_standard_entry(_s: &mut HashSet<String>) -> Vec<Rc<som:
 fn meta_children_quality_weight_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "QualityWeightEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "qualityAttribute".to_string(), type_name: "String".to_string(), description: "Quality Attribute".to_string(), required: true, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "qualityCategory".to_string(), type_name: "String".to_string(), description: "Category".to_string(), required: false, hint: "The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)".to_string(), order: 1, enum_values: vec![], refers_to: vec!["QCATE.@sectionId".to_string()], code: false }, som::SomFormFieldMeta { name: "weight".to_string(), type_name: "int".to_string(), description: "Weight (1-100)".to_string(), required: false, hint: "Numeric weight from 1 to 100".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "priority".to_string(), type_name: "ImportanceBand".to_string(), description: "Priority".to_string(), required: false, hint: "Qualitative priority band.".to_string(), order: 3, enum_values: vec!["critical".to_string(), "high".to_string(), "medium".to_string(), "low".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "rationale".to_string(), type_name: "String".to_string(), description: "Rationale".to_string(), required: false, hint: "Why this weight".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "stakeholderAgreement".to_string(), type_name: "String".to_string(), description: "Stakeholder Agreement".to_string(), required: false, hint: "Who agreed to this weight".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "tradeOffImplications".to_string(), type_name: "String".to_string(), description: "Trade-off Implications".to_string(), required: false, hint: "What this priority means for other attributes".to_string(), order: 6, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_raci_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "RaciEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "What the activity is and why its responsibility is split this way.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "activity".to_string(), type_name: "String".to_string(), description: "Activity".to_string(), required: false, hint: "The activity or decision whose responsibility is assigned".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "responsible".to_string(), type_name: "String".to_string(), description: "Responsible".to_string(), required: false, hint: "Who does the work — roles, comma-separated".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "accountable".to_string(), type_name: "String".to_string(), description: "Accountable".to_string(), required: false, hint: "The one role that answers for the outcome".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "consulted".to_string(), type_name: "String".to_string(), description: "Consulted".to_string(), required: false, hint: "Roles asked before the work is done, comma-separated".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "informed".to_string(), type_name: "String".to_string(), description: "Informed".to_string(), required: false, hint: "Roles told after it is done, comma-separated".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "relatedProcess".to_string(), type_name: "String".to_string(), description: "Related Process".to_string(), required: false, hint: "The business process the activity belongs to (BPREN-…)".to_string(), order: 5, enum_values: vec![], refers_to: vec!["BPREN.@sectionId".to_string()], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -14261,7 +14315,7 @@ fn meta_children_server_environment_entry(_s: &mut HashSet<String>) -> Vec<Rc<so
     vec![
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "environmentType".to_string(), type_name: "String".to_string(), description: "Environment Type".to_string(), required: false, hint: "Development, QA, UAT, Staging, Production, DR".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "environmentCode".to_string(), type_name: "String".to_string(), description: "Environment Code".to_string(), required: false, hint: "dev, stg, prod, dr".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "Primary purpose of this environment".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "environmentRef".to_string(), type_name: "String".to_string(), description: "Environment".to_string(), required: false, hint: "The environment (ENVEN-ITEM-…) this entry describes; the environment itself is described in the environment register".to_string(), order: 3, enum_values: vec![], refers_to: vec!["ENVEN.@sectionId".to_string()], code: false }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "location".to_string(), section_id: "SEEL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Location details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "region".to_string(), type_name: "String".to_string(), description: "Region".to_string(), required: false, hint: "Geographic region".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "dataCenter".to_string(), type_name: "String".to_string(), description: "Data Center".to_string(), required: false, hint: "Data center location".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "availabilityZone".to_string(), type_name: "String".to_string(), description: "Availability Zone".to_string(), required: false, hint: "Availability zone".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "cloudRegion".to_string(), type_name: "String".to_string(), description: "Cloud Region".to_string(), required: false, hint: "Cloud provider region".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TIA-942 — data center infrastructure".to_string()), som::Json::Str("IaaS / cloud infrastructure — server provisioning".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the region, data center, and availability zone for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "scale".to_string(), section_id: "SEES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Scale expectations.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "serverCount".to_string(), type_name: "int".to_string(), description: "Server Count".to_string(), required: false, hint: "Number of servers in environment".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "expectedUsers".to_string(), type_name: "String".to_string(), description: "Expected Users".to_string(), required: false, hint: "Concurrent users expected".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "expectedLoad".to_string(), type_name: "String".to_string(), description: "Expected Load".to_string(), required: false, hint: "Requests per second".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the server count, expected users, and load for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "scale".to_string(), section_id: "SEES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Scale expectations.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "serverCount".to_string(), type_name: "int".to_string(), description: "Server Count".to_string(), required: false, hint: "Number of servers in environment".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "expectedUsers".to_string(), type_name: "String".to_string(), description: "Expected Users".to_string(), required: false, hint: "Concurrent users expected".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "expectedLoad".to_string(), type_name: "String".to_string(), description: "Expected Load".to_string(), required: false, hint: "Requests per second".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "nodeCount".to_string(), type_name: "int".to_string(), description: "Application Nodes".to_string(), required: false, hint: "How many application nodes run in the environment".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "databaseServerCount".to_string(), type_name: "int".to_string(), description: "Database Servers".to_string(), required: false, hint: "How many database servers run in the environment".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the server count, expected users, and load for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "access".to_string(), section_id: "SEEA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Access rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "accessRestrictions".to_string(), type_name: "String".to_string(), description: "Access Restrictions".to_string(), required: false, hint: "Who can access this environment".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "networkSegment".to_string(), type_name: "String".to_string(), description: "Network Segment".to_string(), required: false, hint: "VPC/network segment".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "vpnRequired".to_string(), type_name: "bool".to_string(), description: "VPN Required".to_string(), required: false, hint: "VPN access required".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27033 — network / infrastructure security".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the access restrictions, network segment, and VPN requirements for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "lifecycle".to_string(), section_id: "SEENENLI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Lifecycle rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "refreshSchedule".to_string(), type_name: "String".to_string(), description: "Refresh Schedule".to_string(), required: false, hint: "Data refresh schedule".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "retentionPolicy".to_string(), type_name: "String".to_string(), description: "Retention Policy".to_string(), required: false, hint: "Data retention policy".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional environment notes".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IaaS / cloud infrastructure — server provisioning".to_string()), som::Json::Str("Twelve-Factor App — cloud-native deployment".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the refresh schedule and retention policy for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
@@ -14298,6 +14352,7 @@ fn meta_children_server_operation_entry(s: &mut HashSet<String>) -> Vec<Rc<som::
             }));
             Rc::new(n)
         },
+        Rc::new(som::SomMetaNode { class_name: "ServerOperationEntry".to_string(), member_name: "controls".to_string(), section_id: "SVOCT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "idempotency".to_string(), type_name: "OperationIdempotency".to_string(), description: "Idempotency".to_string(), required: false, hint: "Whether repeating the call repeats its effect".to_string(), order: 0, enum_values: vec!["idempotent".to_string(), "idempotentWithKey".to_string(), "notIdempotent".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "auditEvent".to_string(), type_name: "String".to_string(), description: "Audit Event".to_string(), required: false, hint: "The audit event the operation records, if any".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "rateLimitClass".to_string(), type_name: "String".to_string(), description: "Rate-Limit Class".to_string(), required: false, hint: "The rate-limit class that throttles it".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "callers".to_string(), type_name: "String".to_string(), description: "Callers".to_string(), required: false, hint: "Who calls it — client applications, services, roles".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -14391,6 +14446,7 @@ fn meta_children_server_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             class_name: "ServerOsRequirements".to_string(), member_name: "osRequirements".to_string(), class_section_id: "SEOSRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOsRequirements".to_string(), serialization_order: Some(11), doc_comment: "Operating system requirements.".to_string(), class_doc_comment: "Server operating system requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        Rc::new(som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "connectionBudget".to_string(), section_id: "SRSDB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(12), doc_comment: "The database connection budget and the server settings that bound it.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "databaseMaxConnections".to_string(), type_name: "int".to_string(), description: "Database Max Connections".to_string(), required: false, hint: "The connection limit of the database server".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "connectionsPerNode".to_string(), type_name: "int".to_string(), description: "Connections per Node".to_string(), required: false, hint: "The pool size each application node opens".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "reservedConnections".to_string(), type_name: "int".to_string(), description: "Reserved Connections".to_string(), required: false, hint: "Connections kept free for administration and migrations".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "budgetRationale".to_string(), type_name: "String".to_string(), description: "Budget Rationale".to_string(), required: false, hint: "How the numbers add up, and what happens when a node is added".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15697,7 +15753,14 @@ fn meta_children_system_operation(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             class_name: "AdministrationRequirementsSection".to_string(), member_name: "administrationRequirements".to_string(), class_section_id: "ARS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AdministrationRequirementsSection".to_string(), serialization_order: Some(1), doc_comment: "8.7.1.1. Administration Requirements.".to_string(), class_doc_comment: "8.7.1.1. Administration Requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "SystemOperation".to_string(), member_name: "maintenanceProcedures".to_string(), section_id: "SO-MAIN-LST".to_string(), section_id_pattern: "SO-MAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "Add one entry per maintenance procedure.".to_string(), doc_comment: "Maintenance Procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of scheduled maintenance procedures the system requires.".to_string()))] }], ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "SystemOperation".to_string(), member_name: "maintenanceProcedures".to_string(), section_id: "MAPRO-PROC-LST".to_string(), section_id_pattern: "MAPRO-PROC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MaintenanceProcedureEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per maintenance procedure.".to_string(), doc_comment: "Maintenance Procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of scheduled maintenance procedures the system requires.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("MaintenanceProcedureEntry", s, meta_children_maintenance_procedure_entry, |r, c| som::SomMetaNode {
+                class_name: "MaintenanceProcedureEntry".to_string(), class_section_id: "MAPRO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MaintenanceProcedureEntry".to_string(), doc_comment: "One maintenance procedure: its name is the headline, the steps the text.".to_string(), class_doc_comment: "One maintenance procedure: its name is the headline, the steps the text.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -16426,6 +16489,10 @@ fn meta_children_technical_security_requirements(s: &mut HashSet<String>) -> Vec
             class_name: "SecurityAuditRequirementsSection".to_string(), member_name: "securityAuditRequirements".to_string(), class_section_id: "SARS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityAuditRequirementsSection".to_string(), serialization_order: Some(3), doc_comment: "8.8.3. Security Audit Requirements.".to_string(), class_doc_comment: "8.8.3. Security Audit Requirements.\n\nComprehensive security audit requirements covering penetration testing,\nsecurity-focused code review, dependency scanning, security certifications,\ncompliance audit scheduling, and automated security testing integration.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("KeyManagementRequirements", s, meta_children_key_management_requirements, |r, c| som::SomMetaNode {
+            class_name: "KeyManagementRequirements".to_string(), member_name: "keyManagement".to_string(), class_section_id: "KEYMGT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "KeyManagementRequirements".to_string(), serialization_order: Some(4), doc_comment: "Key management on the platform side.".to_string(), class_doc_comment: "Key management on the platform side: which keys exist, where they are\nkept, how they rotate and who holds them.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
     ]
 }
 
@@ -16510,6 +16577,12 @@ fn meta_children_tenant_onboarding_policy(_s: &mut HashSet<String>) -> Vec<Rc<so
     ]
 }
 
+fn meta_children_test_level_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "TestLevelEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "What the level verifies and how it fits the levels around it.".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "level".to_string(), type_name: "String".to_string(), description: "Level".to_string(), required: false, hint: "unit / integration / system / acceptance / regression, or a project-specific level".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "testTypes".to_string(), type_name: "String".to_string(), description: "Test Types".to_string(), required: false, hint: "The test types run at this level — functional, performance, security, accessibility".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "environment".to_string(), type_name: "String".to_string(), description: "Environment".to_string(), required: false, hint: "The environment the level runs in".to_string(), order: 2, enum_values: vec![], refers_to: vec!["ENVEN.@sectionId".to_string()], code: false }, som::SomFormFieldMeta { name: "tools".to_string(), type_name: "String".to_string(), description: "Tools".to_string(), required: false, hint: "The tools and frameworks used".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "runBy".to_string(), type_name: "String".to_string(), description: "Run By".to_string(), required: false, hint: "Who runs it — a person, a pipeline, a role".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "trigger".to_string(), type_name: "String".to_string(), description: "Trigger".to_string(), required: false, hint: "When it runs — on commit, nightly, before a release".to_string(), order: 5, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "exitCriteria".to_string(), type_name: "String".to_string(), description: "Exit Criteria".to_string(), required: false, hint: "What must hold before the next level starts".to_string(), order: 6, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_test_scenario_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "TestScenarioEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "priority".to_string(), type_name: "ImportanceBand".to_string(), description: "Priority".to_string(), required: false, hint: "Qualitative priority band.".to_string(), order: 0, enum_values: vec!["critical".to_string(), "high".to_string(), "medium".to_string(), "low".to_string()], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
@@ -16544,9 +16617,17 @@ fn meta_children_test_scenario_notes(_s: &mut HashSet<String>) -> Vec<Rc<som::So
     ]
 }
 
-fn meta_children_test_strategy(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_test_strategy(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "TestStrategy".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "High-level strategy for verifying quality across the system. Distinct\nfrom the acceptance plan and from the per-quality-attribute\ncriteria in the usability, technical, operational, and documentation\nquality-goal sections; this section integrates them.\n\n**What to capture:**\n- Test levels (unit, integration, system, acceptance, regression)\n- Test approach per level (TDD, BDD, model-based, exploratory)\n- Automation strategy and coverage targets\n- Test environment topology and data strategy\n- Entry / exit criteria per level\n- Defect management lifecycle\n- Traceability from requirements to tests\n- Risk-based test prioritization\n".to_string(), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "TestStrategy".to_string(), member_name: "testLevels".to_string(), section_id: "TSLVL-LST".to_string(), section_id_pattern: "TSLVL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TestLevelEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per test level.".to_string(), doc_comment: "Test levels — contains 0+× test level.".to_string(), ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("TestLevelEntry", s, meta_children_test_level_entry, |r, c| som::SomMetaNode {
+                class_name: "TestLevelEntry".to_string(), class_section_id: "TSLVL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TestLevelEntry".to_string(), doc_comment: "One test level of the test strategy.".to_string(), class_doc_comment: "One test level of the test strategy.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -17325,6 +17406,7 @@ fn meta_children_user_assistance(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
 fn meta_children_user_attribute_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "UserAttributeEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataType".to_string(), type_name: "String".to_string(), description: "Data Type".to_string(), required: false, hint: "Data type of the attribute value.".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "placement".to_string(), type_name: "UserAttributePlacement".to_string(), description: "Placement".to_string(), required: false, hint: "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).".to_string(), order: 1, enum_values: vec!["public".to_string(), "encrypted".to_string()], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "accessGuard".to_string(), type_name: "String".to_string(), description: "Access Guard".to_string(), required: false, hint: "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "source".to_string(), type_name: "String".to_string(), description: "Source".to_string(), required: false, hint: "System of record that supplies this attribute.".to_string(), order: 3, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "required".to_string(), type_name: "String".to_string(), description: "Required".to_string(), required: false, hint: "Whether this attribute is mandatory.".to_string(), order: 4, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "UserAttributeEntry".to_string(), member_name: "oidcRelease".to_string(), section_id: "USOIDC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "claimName".to_string(), type_name: "String".to_string(), description: "Claim Name".to_string(), required: false, hint: "The claim the attribute is released as".to_string(), order: 0, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "scope".to_string(), type_name: "String".to_string(), description: "Scope".to_string(), required: false, hint: "The scope that releases it".to_string(), order: 1, enum_values: vec![], refers_to: vec![], code: false }, som::SomFormFieldMeta { name: "releasedIn".to_string(), type_name: "String".to_string(), description: "Released In".to_string(), required: false, hint: "id token / access token / userinfo, comma-separated; audience-only tokens named".to_string(), order: 2, enum_values: vec![], refers_to: vec![], code: false }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -22674,6 +22756,10 @@ impl<'a> BoundedContextEntryNav<'a> {
     pub fn integration(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BOCOENIN"))
     }
+
+    pub fn relationships(&self) -> som::SomListMetaRef<'a, ContextRelationshipEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CTXREL-LST"), ContextRelationshipEntryNav::new)
+    }
 }
 
 /// BreakpointConfigurationNav holds the dot-notation accessors of `BreakpointConfiguration` (SOM §8).
@@ -27720,6 +27806,37 @@ impl<'a> ContextDiagramNav<'a> {
 
     pub fn legend(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CD-LEGE"))
+    }
+}
+
+/// ContextRelationshipEntryNav holds the dot-notation accessors of `ContextRelationshipEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ContextRelationshipEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ContextRelationshipEntryNav<'a> {
+    /// Binds a ContextRelationshipEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ContextRelationshipEntryNav<'a> {
+        ContextRelationshipEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -43681,6 +43798,37 @@ impl<'a> KeyManagementNav<'a> {
     }
 }
 
+/// KeyManagementRequirementsNav holds the dot-notation accessors of `KeyManagementRequirements` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct KeyManagementRequirementsNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> KeyManagementRequirementsNav<'a> {
+    /// Binds a KeyManagementRequirementsNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> KeyManagementRequirementsNav<'a> {
+        KeyManagementRequirementsNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// KeyResultEntryNav holds the dot-notation accessors of `KeyResultEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -45053,6 +45201,37 @@ impl<'a> MaintenanceDependencyEntryNav<'a> {
 
     pub fn risk(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MDER"))
+    }
+}
+
+/// MaintenanceProcedureEntryNav holds the dot-notation accessors of `MaintenanceProcedureEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct MaintenanceProcedureEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> MaintenanceProcedureEntryNav<'a> {
+    /// Binds a MaintenanceProcedureEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> MaintenanceProcedureEntryNav<'a> {
+        MaintenanceProcedureEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -49130,6 +49309,14 @@ impl<'a> OrganizationalFrameworkNav<'a> {
     pub fn workplace_descriptions(&self) -> som::SomListMetaRef<'a, WorkplaceDescriptionEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WPDE-WORK-LST"), WorkplaceDescriptionEntryNav::new)
     }
+
+    pub fn raci_matrix(&self) -> som::SomListMetaRef<'a, RaciEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RACIEN-LST"), RaciEntryNav::new)
+    }
+
+    pub fn policy_ownership(&self) -> som::SomListMetaRef<'a, PolicyOwnershipEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "POLOWN-LST"), PolicyOwnershipEntryNav::new)
+    }
 }
 
 /// OrganizationalRequirementEntryNav holds the dot-notation accessors of `OrganizationalRequirementEntry` (SOM §8).
@@ -50867,6 +51054,37 @@ impl<'a> PlatformAndLanguageNav<'a> {
 
     pub fn runtime_environment(&self) -> RuntimeEnvironmentNav<'a> {
         RuntimeEnvironmentNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "runtimeEnvironment"))
+    }
+}
+
+/// PolicyOwnershipEntryNav holds the dot-notation accessors of `PolicyOwnershipEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct PolicyOwnershipEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> PolicyOwnershipEntryNav<'a> {
+    /// Binds a PolicyOwnershipEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> PolicyOwnershipEntryNav<'a> {
+        PolicyOwnershipEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -54172,6 +54390,37 @@ impl<'a> QualityWeightEntryNav<'a> {
     /// Binds a QualityWeightEntryNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> QualityWeightEntryNav<'a> {
         QualityWeightEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// RaciEntryNav holds the dot-notation accessors of `RaciEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct RaciEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> RaciEntryNav<'a> {
+    /// Binds a RaciEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RaciEntryNav<'a> {
+        RaciEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -61132,6 +61381,10 @@ impl<'a> ServerOperationEntryNav<'a> {
     pub fn bindings(&self) -> som::SomListMetaRef<'a, OperationBindingEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOBI-BIND-LST"), OperationBindingEntryNav::new)
     }
+
+    pub fn controls(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOCT"))
+    }
 }
 
 /// ServerOperationMemberEntryNav holds the dot-notation accessors of `ServerOperationMemberEntry` (SOM §8).
@@ -61323,6 +61576,10 @@ impl<'a> ServerRequirementsSectionNav<'a> {
 
     pub fn os_requirements(&self) -> ServerOsRequirementsNav<'a> {
         ServerOsRequirementsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "osRequirements"))
+    }
+
+    pub fn connection_budget(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SRSDB"))
     }
 }
 
@@ -65433,8 +65690,8 @@ impl<'a> SystemOperationNav<'a> {
         AdministrationRequirementsSectionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "administrationRequirements"))
     }
 
-    pub fn maintenance_procedures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SO-MAIN-LST"), som::SomMetaRef::new)
+    pub fn maintenance_procedures(&self) -> som::SomListMetaRef<'a, MaintenanceProcedureEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MAPRO-PROC-LST"), MaintenanceProcedureEntryNav::new)
     }
 }
 
@@ -67309,6 +67566,10 @@ impl<'a> TechnicalSecurityRequirementsNav<'a> {
     pub fn security_audit_requirements(&self) -> SecurityAuditRequirementsSectionNav<'a> {
         SecurityAuditRequirementsSectionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAuditRequirements"))
     }
+
+    pub fn key_management(&self) -> KeyManagementRequirementsNav<'a> {
+        KeyManagementRequirementsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "keyManagement"))
+    }
 }
 
 /// TechnologyDataVariationsNav holds the dot-notation accessors of `TechnologyDataVariations` (SOM §8).
@@ -67615,6 +67876,37 @@ impl<'a> TenantOnboardingPolicyNav<'a> {
     }
 }
 
+/// TestLevelEntryNav holds the dot-notation accessors of `TestLevelEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct TestLevelEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> TestLevelEntryNav<'a> {
+    /// Binds a TestLevelEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> TestLevelEntryNav<'a> {
+        TestLevelEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// TestScenarioEntryNav holds the dot-notation accessors of `TestScenarioEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -67737,6 +68029,10 @@ impl<'a> TestStrategyNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn test_levels(&self) -> som::SomListMetaRef<'a, TestLevelEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TSLVL-LST"), TestLevelEntryNav::new)
     }
 }
 
@@ -70365,6 +70661,10 @@ impl<'a> UserAttributeEntryNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn oidc_release(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USOIDC"))
     }
 }
 
@@ -74066,6 +74366,10 @@ impl<'a> BoundedContextEntryId<'a> {
     pub fn BOCOENIN(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BOCOENIN"))
     }
+
+    pub fn CTXREL_LST(&self) -> som::SomListMetaRef<'a, ContextRelationshipEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CTXREL-LST"), ContextRelationshipEntryId::new)
+    }
 }
 
 /// BreakpointEntryId holds the ID-tree accessors of `BreakpointEntry` (SOM §8):
@@ -75940,6 +76244,32 @@ impl<'a> ConstraintRegisterEntryId<'a> {
     }
 }
 
+/// ContextRelationshipEntryId holds the ID-tree accessors of `ContextRelationshipEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ContextRelationshipEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ContextRelationshipEntryId<'a> {
+    /// Binds a ContextRelationshipEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ContextRelationshipEntryId<'a> {
+        ContextRelationshipEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// ContingencyPlanEntryId holds the ID-tree accessors of `ContingencyPlanEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -77349,6 +77679,14 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST"), WorkplaceDescriptionEntryId::new)
     }
 
+    pub fn RACIEN_LST(&self) -> som::SomListMetaRef<'a, RaciEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/RACIEN-LST"), RaciEntryId::new)
+    }
+
+    pub fn POLOWN_LST(&self) -> som::SomListMetaRef<'a, PolicyOwnershipEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/POLOWN-LST"), PolicyOwnershipEntryId::new)
+    }
+
     pub fn PVOVW(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW"))
     }
@@ -78509,6 +78847,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn SRSDB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRSDB"))
+    }
+
     pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
@@ -79493,8 +79835,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
+    pub fn MAPRO_PROC_LST(&self) -> som::SomListMetaRef<'a, MaintenanceProcedureEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST"), MaintenanceProcedureEntryId::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -81159,6 +81501,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
 
     pub fn DACEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliveryAcceptanceCriterionEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST"), DeliveryAcceptanceCriterionEntryId::new)
+    }
+
+    pub fn TSLVL_LST(&self) -> som::SomListMetaRef<'a, TestLevelEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/testStrategy/TSLVL-LST"), TestLevelEntryId::new)
     }
 
     pub fn DLVEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
@@ -83249,6 +83595,10 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn SRSDB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/SRSDB"))
+    }
+
     pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
@@ -84233,8 +84583,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
+    pub fn MAPRO_PROC_LST(&self) -> som::SomListMetaRef<'a, MaintenanceProcedureEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/MAPRO-PROC-LST"), MaintenanceProcedureEntryId::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -86053,6 +86403,10 @@ impl<'a> D10QualityAcceptancePlanId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteriaSummary/detailedCriteria/DACEN-ITEM-LST"), DeliveryAcceptanceCriterionEntryId::new)
     }
 
+    pub fn TSLVL_LST(&self) -> som::SomListMetaRef<'a, TestLevelEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "testStrategy/TSLVL-LST"), TestLevelEntryId::new)
+    }
+
     pub fn DACEN_ITEM_LST_2(&self) -> som::SomListMetaRef<'a, DeliveryAcceptanceCriterionEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/DACEN-ITEM-LST"), DeliveryAcceptanceCriterionEntryId::new)
     }
@@ -87547,6 +87901,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn SRSDB(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SRSDB"))
+    }
+
     pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
@@ -88531,8 +88889,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
+    pub fn MAPRO_PROC_LST(&self) -> som::SomListMetaRef<'a, MaintenanceProcedureEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST"), MaintenanceProcedureEntryId::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -94826,6 +95184,32 @@ impl<'a> MaintenanceDependencyEntryId<'a> {
     }
 }
 
+/// MaintenanceProcedureEntryId holds the ID-tree accessors of `MaintenanceProcedureEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct MaintenanceProcedureEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> MaintenanceProcedureEntryId<'a> {
+    /// Binds a MaintenanceProcedureEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> MaintenanceProcedureEntryId<'a> {
+        MaintenanceProcedureEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// MaintenanceWindowEntryId holds the ID-tree accessors of `MaintenanceWindowEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -96850,6 +97234,32 @@ impl<'a> PipelineStageEntryId<'a> {
     }
 }
 
+/// PolicyOwnershipEntryId holds the ID-tree accessors of `PolicyOwnershipEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct PolicyOwnershipEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> PolicyOwnershipEntryId<'a> {
+    /// Binds a PolicyOwnershipEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> PolicyOwnershipEntryId<'a> {
+        PolicyOwnershipEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// PostconditionsAndGuaranteesId holds the ID-tree accessors of `PostconditionsAndGuarantees` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -97867,6 +98277,32 @@ impl<'a> QualityWeightEntryId<'a> {
     /// Binds a QualityWeightEntryId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> QualityWeightEntryId<'a> {
         QualityWeightEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// RaciEntryId holds the ID-tree accessors of `RaciEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct RaciEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> RaciEntryId<'a> {
+    /// Binds a RaciEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RaciEntryId<'a> {
+        RaciEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -100936,6 +101372,10 @@ impl<'a> ServerOperationEntryId<'a> {
     pub fn SVOBI_BIND_LST(&self) -> som::SomListMetaRef<'a, OperationBindingEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOBI-BIND-LST"), OperationBindingEntryId::new)
     }
+
+    pub fn SVOCT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOCT"))
+    }
 }
 
 /// ServerOperationMemberEntryId holds the ID-tree accessors of `ServerOperationMemberEntry` (SOM §8):
@@ -103036,6 +103476,32 @@ impl<'a> TenantCustomizationEntryId<'a> {
     }
 }
 
+/// TestLevelEntryId holds the ID-tree accessors of `TestLevelEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct TestLevelEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> TestLevelEntryId<'a> {
+    /// Binds a TestLevelEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> TestLevelEntryId<'a> {
+        TestLevelEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// TestScenarioEntryId holds the ID-tree accessors of `TestScenarioEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -103967,6 +104433,10 @@ impl<'a> UserAttributeEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn USOIDC(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USOIDC"))
     }
 }
 

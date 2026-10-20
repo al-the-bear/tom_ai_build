@@ -194,6 +194,11 @@ void main() {
     ('DAPRCL', 'classificationLevels'): ['DCLSE'],
     ('SESTCO', 'standardRef'): ['SSE'],
     ('ALEDEF', 'alertRuleRef'): ['ALERUL'],
+    // uamtc13: members the domain needed.
+    ('BCEB', 'ownedOperations'): ['SVOPE.operationName'],
+    ('CTXREL', 'neighbourContext'): ['BCE.contextName'],
+    ('RACIEN', 'relatedProcess'): ['BPREN'],
+    ('TSLVL', 'environment'): ['ENVEN'],
   };
 
   String? formKey(String path) {

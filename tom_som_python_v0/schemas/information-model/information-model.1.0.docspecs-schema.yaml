@@ -803,6 +803,8 @@ section-types:
         max-count: 1
       svobi-bind-lst:
         max-count: 1
+      svoct:
+        max-count: 1
     pattern-check-id:
       pattern: ^SVOPE-OPER-.+$
       error-message: IDs of this section must match SVOPE-OPER-xxx
@@ -1187,6 +1189,10 @@ section-types:
       scmst-step-lst:
         max-count: 1
     description: "Schema versioning and migration — the CE-MG home: the versioning policy,"
+  svoct:
+    prefix: SVOCT
+    format: svoct-form
+    description: "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it."
   svopr:
     prefix: SVOPR
     subsection-types:
@@ -1812,6 +1818,16 @@ form-types:
       - fieldname: decisionRule
         required: true
         description: "What the handler must decide, in business terms"
+  svoct-form:
+    fields:
+      - fieldname: idempotency
+        description: Whether repeating the call repeats its effect
+      - fieldname: auditEvent
+        description: "The audit event the operation records, if any"
+      - fieldname: rateLimitClass
+        description: The rate-limit class that throttles it
+      - fieldname: callers
+        description: "Who calls it — client applications, services, roles"
   scmst-base-form:
     fields:
       - fieldname: createdEntities

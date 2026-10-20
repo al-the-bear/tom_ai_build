@@ -344,6 +344,42 @@ func parseConstraintEnforcement(token string) ConstraintEnforcement {
 	return ""
 }
 
+// ContextRelationshipType is the generated named type for `ContextRelationshipType` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type ContextRelationshipType string
+
+const (
+	// The two teams succeed or fail together and plan jointly.
+	ContextRelationshipTypePartnership ContextRelationshipType = "partnership"
+	// The two share a small common model both depend on.
+	ContextRelationshipTypeSharedKernel ContextRelationshipType = "sharedKernel"
+	// The downstream context's needs shape what the upstream provides.
+	ContextRelationshipTypeCustomerSupplier ContextRelationshipType = "customerSupplier"
+	// The downstream context adopts the upstream model as it is.
+	ContextRelationshipTypeConformist ContextRelationshipType = "conformist"
+	// The downstream context translates the upstream model at its boundary.
+	ContextRelationshipTypeAnticorruptionLayer ContextRelationshipType = "anticorruptionLayer"
+	// The upstream context offers a protocol any context may use.
+	ContextRelationshipTypeOpenHostService ContextRelationshipType = "openHostService"
+	// The two exchange a documented, shared language.
+	ContextRelationshipTypePublishedLanguage ContextRelationshipType = "publishedLanguage"
+	// The two have no integration.
+	ContextRelationshipTypeSeparateWays ContextRelationshipType = "separateWays"
+)
+
+// parseContextRelationshipType returns the ContextRelationshipType whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseContextRelationshipType(token string) ContextRelationshipType {
+	switch ContextRelationshipType(token) {
+	case ContextRelationshipTypePartnership, ContextRelationshipTypeSharedKernel, ContextRelationshipTypeCustomerSupplier, ContextRelationshipTypeConformist, ContextRelationshipTypeAnticorruptionLayer, ContextRelationshipTypeOpenHostService, ContextRelationshipTypePublishedLanguage, ContextRelationshipTypeSeparateWays:
+		return ContextRelationshipType(token)
+	}
+	return ""
+}
+
 // DataAttributeKind is the generated named type for `DataAttributeKind` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -828,6 +864,33 @@ func parseObjectLifecycleKind(token string) ObjectLifecycleKind {
 	return ""
 }
 
+// OperationIdempotency is the generated named type for `OperationIdempotency` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type OperationIdempotency string
+
+const (
+	// Repeating it has no further effect.
+	OperationIdempotencyIdempotent OperationIdempotency = "idempotent"
+	// Repeating it has no further effect when the caller sends the same
+	// idempotency key.
+	OperationIdempotencyIdempotentWithKey OperationIdempotency = "idempotentWithKey"
+	// Each call has its own effect; a retry must be decided by the caller.
+	OperationIdempotencyNotIdempotent OperationIdempotency = "notIdempotent"
+)
+
+// parseOperationIdempotency returns the OperationIdempotency whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseOperationIdempotency(token string) OperationIdempotency {
+	switch OperationIdempotency(token) {
+	case OperationIdempotencyIdempotent, OperationIdempotencyIdempotentWithKey, OperationIdempotencyNotIdempotent:
+		return OperationIdempotency(token)
+	}
+	return ""
+}
+
 // OverridableBy is the generated named type for `OverridableBy` values. Its underlying type is
 // `string` and its value IS the stored token, byte-identical across every
 // language port, so documents stay cross-compatible while an accessor can still
@@ -1080,6 +1143,33 @@ func parseReportFilterValueKind(token string) ReportFilterValueKind {
 	switch ReportFilterValueKind(token) {
 	case ReportFilterValueKindString, ReportFilterValueKindInteger, ReportFilterValueKindDecimal, ReportFilterValueKindDate, ReportFilterValueKindDateTime, ReportFilterValueKindBoolean, ReportFilterValueKindEnumeration, ReportFilterValueKindEntityRef:
 		return ReportFilterValueKind(token)
+	}
+	return ""
+}
+
+// RoleMembershipSource is the generated named type for `RoleMembershipSource` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type RoleMembershipSource string
+
+const (
+	// Holders are assigned to the role directly.
+	RoleMembershipSourceAssigned RoleMembershipSource = "assigned"
+	// Membership follows from grants the holder has: the role is a name for a
+	// set of grants, not something anyone is assigned.
+	RoleMembershipSourceDerivedFromGrants RoleMembershipSource = "derivedFromGrants"
+	// Both: holders are assigned, and a grant can also confer membership.
+	RoleMembershipSourceBoth RoleMembershipSource = "both"
+)
+
+// parseRoleMembershipSource returns the RoleMembershipSource whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseRoleMembershipSource(token string) RoleMembershipSource {
+	switch RoleMembershipSource(token) {
+	case RoleMembershipSourceAssigned, RoleMembershipSourceDerivedFromGrants, RoleMembershipSourceBoth:
+		return RoleMembershipSource(token)
 	}
 	return ""
 }
@@ -1667,6 +1757,34 @@ func parseStatus(token string) Status {
 	switch Status(token) {
 	case StatusDraft, StatusProposed, StatusApproved, StatusImplemented, StatusVerified, StatusDeferred, StatusRejected:
 		return Status(token)
+	}
+	return ""
+}
+
+// TranslationReviewStatus is the generated named type for `TranslationReviewStatus` values. Its underlying type is
+// `string` and its value IS the stored token, byte-identical across every
+// language port, so documents stay cross-compatible while an accessor can still
+// name what it returns.
+type TranslationReviewStatus string
+
+const (
+	// Written, not yet reviewed.
+	TranslationReviewStatusDraft TranslationReviewStatus = "draft"
+	// Produced by a machine, not yet reviewed by a person.
+	TranslationReviewStatusMachineTranslated TranslationReviewStatus = "machineTranslated"
+	// Reviewed by a person fluent in the language.
+	TranslationReviewStatusReviewed TranslationReviewStatus = "reviewed"
+	// Approved for release.
+	TranslationReviewStatusApproved TranslationReviewStatus = "approved"
+)
+
+// parseTranslationReviewStatus returns the TranslationReviewStatus whose token is [token], or "" when the token is not
+// one this model declares — the same answer the ports with a real enum give as
+// null, and never a guess.
+func parseTranslationReviewStatus(token string) TranslationReviewStatus {
+	switch TranslationReviewStatus(token) {
+	case TranslationReviewStatusDraft, TranslationReviewStatusMachineTranslated, TranslationReviewStatusReviewed, TranslationReviewStatusApproved:
+		return TranslationReviewStatus(token)
 	}
 	return ""
 }
@@ -5640,6 +5758,13 @@ func (x *BoundedContextEntry) Implementation() *BoundedContextEntryImplementatio
 // Integration and notes.
 func (x *BoundedContextEntry) Integration() *BoundedContextEntryIntegrationForm {
 	return NewBoundedContextEntryIntegrationForm(x.Doc(), x.Path()+"/BOCOENIN")
+}
+
+// Relationships to neighbouring contexts — contains 0+× relationship.
+func (x *BoundedContextEntry) Relationships() *som.SomList[*ContextRelationshipEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CTXREL-LST", func(d *som.SpecDocument, p string) *ContextRelationshipEntry {
+		return NewContextRelationshipEntry(d, p)
+	}, "CTXREL-xxx")
 }
 
 // 10.10.1. Breakpoints.
@@ -10219,6 +10344,23 @@ func (x *ContextDiagram) Legend() string {
 
 func (x *ContextDiagram) SetLegend(value string) {
 	x.Doc().SetContent(x.Path()+"/CD-LEGE", value)
+}
+
+// The relationship of a bounded context to one neighbour.
+type ContextRelationshipEntry struct {
+	som.SomNode
+}
+
+// NewContextRelationshipEntry binds a ContextRelationshipEntry facade to a document and a path.
+func NewContextRelationshipEntry(doc *som.SpecDocument, path string) *ContextRelationshipEntry {
+	return &ContextRelationshipEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *ContextRelationshipEntry) Content() *ContextRelationshipEntryContentForm {
+	return NewContextRelationshipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 10.8.1. Contextual Help.
@@ -26065,6 +26207,24 @@ func (x *KeyManagement) KeyCompromiseRecoveryPolicy() *KeyCompromiseRecoveryPoli
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
+// Key management on the platform side: which keys exist, where they are
+// kept, how they rotate and who holds them.
+type KeyManagementRequirements struct {
+	som.SomNode
+}
+
+// NewKeyManagementRequirements binds a KeyManagementRequirements facade to a document and a path.
+func NewKeyManagementRequirements(doc *som.SpecDocument, path string) *KeyManagementRequirements {
+	return &KeyManagementRequirements{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *KeyManagementRequirements) Content() *KeyManagementRequirementsContentForm {
+	return NewKeyManagementRequirementsContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // A key result entry (form).
 type KeyResultEntry struct {
 	som.SomNode
@@ -27277,6 +27437,23 @@ func (x *MaintenanceDependencyEntry) Update() *MaintenanceDependencyEntryUpdateF
 // Risk and fallback planning.
 func (x *MaintenanceDependencyEntry) Risk() *MaintenanceDependencyEntryRiskForm {
 	return NewMaintenanceDependencyEntryRiskForm(x.Doc(), x.Path()+"/MDER")
+}
+
+// One maintenance procedure: its name is the headline, the steps the text.
+type MaintenanceProcedureEntry struct {
+	som.SomNode
+}
+
+// NewMaintenanceProcedureEntry binds a MaintenanceProcedureEntry facade to a document and a path.
+func NewMaintenanceProcedureEntry(doc *som.SpecDocument, path string) *MaintenanceProcedureEntry {
+	return &MaintenanceProcedureEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *MaintenanceProcedureEntry) Content() *MaintenanceProcedureEntryContentForm {
+	return NewMaintenanceProcedureEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // User impact and communication.
@@ -31040,6 +31217,20 @@ func (x *OrganizationalFramework) WorkplaceDescriptions() *som.SomList[*Workplac
 	}, "WPDE-WORK-xxx")
 }
 
+// Cross-process RACI matrix — contains 0+× RACI entry.
+func (x *OrganizationalFramework) RaciMatrix() *som.SomList[*RaciEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/RACIEN-LST", func(d *som.SpecDocument, p string) *RaciEntry {
+		return NewRaciEntry(d, p)
+	}, "RACIEN-xxx")
+}
+
+// Policy ownership — contains 0+× policy.
+func (x *OrganizationalFramework) PolicyOwnership() *som.SomList[*PolicyOwnershipEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/POLOWN-LST", func(d *som.SpecDocument, p string) *PolicyOwnershipEntry {
+		return NewPolicyOwnershipEntry(d, p)
+	}, "POLOWN-xxx")
+}
+
 // An organizational requirement entry.
 //
 // Comprehensive organizational requirement definition following change
@@ -32523,6 +32714,23 @@ func (x *PlatformAndLanguage) DependencyManagement() *DependencyManagement {
 // Runtime environment constraints.
 func (x *PlatformAndLanguage) RuntimeEnvironment() *RuntimeEnvironment {
 	return NewRuntimeEnvironment(x.Doc(), x.Path()+"/runtimeEnvironment")
+}
+
+// One policy and who owns it.
+type PolicyOwnershipEntry struct {
+	som.SomNode
+}
+
+// NewPolicyOwnershipEntry binds a PolicyOwnershipEntry facade to a document and a path.
+func NewPolicyOwnershipEntry(doc *som.SpecDocument, path string) *PolicyOwnershipEntry {
+	return &PolicyOwnershipEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *PolicyOwnershipEntry) Content() *PolicyOwnershipEntryContentForm {
+	return NewPolicyOwnershipEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // 11.3.2. Portability quality.
@@ -35467,6 +35675,23 @@ func NewQualityWeightEntry(doc *som.SpecDocument, path string) *QualityWeightEnt
 // §11.4 rule 7); the field values themselves live in [form].
 func (x *QualityWeightEntry) Content() *QualityWeightEntryContentForm {
 	return NewQualityWeightEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// One activity of the cross-process RACI matrix.
+type RaciEntry struct {
+	som.SomNode
+}
+
+// NewRaciEntry binds a RaciEntry facade to a document and a path.
+func NewRaciEntry(doc *som.SpecDocument, path string) *RaciEntry {
+	return &RaciEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *RaciEntry) Content() *RaciEntryContentForm {
+	return NewRaciEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Rate limiting and throttling.
@@ -41789,6 +42014,11 @@ func (x *ServerOperationEntry) Bindings() *som.SomList[*OperationBindingEntry] {
 	}, "SVOBI-BIND-xxx")
 }
 
+// Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+func (x *ServerOperationEntry) Controls() *ServerOperationEntryControlsForm {
+	return NewServerOperationEntryControlsForm(x.Doc(), x.Path()+"/SVOCT")
+}
+
 // A single member of an operation's request or response shape (form).
 //
 // One named, typed member: its name, its type, whether it must be present, and
@@ -42008,6 +42238,11 @@ func (x *ServerRequirementsSection) CloudProvider() *CloudProviderRequirements {
 // Operating system requirements.
 func (x *ServerRequirementsSection) OsRequirements() *ServerOsRequirements {
 	return NewServerOsRequirements(x.Doc(), x.Path()+"/osRequirements")
+}
+
+// The database connection budget and the server settings that bound it.
+func (x *ServerRequirementsSection) ConnectionBudget() *ServerRequirementsSectionConnectionBudgetForm {
+	return NewServerRequirementsSectionConnectionBudgetForm(x.Doc(), x.Path()+"/SRSDB")
 }
 
 // Server role entry (application server, database server, web server).
@@ -45701,10 +45936,10 @@ func (x *SystemOperation) AdministrationRequirements() *AdministrationRequiremen
 }
 
 // Maintenance Procedures.
-func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*som.SomScalar] {
-	return som.NewSomList(x.Doc(), x.Path()+"/SO-MAIN-LST", func(d *som.SpecDocument, p string) *som.SomScalar {
-		return som.NewSomScalar(d, p)
-	}, "SO-MAIN-xxx")
+func (x *SystemOperation) MaintenanceProcedures() *som.SomList[*MaintenanceProcedureEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MAPRO-PROC-LST", func(d *som.SpecDocument, p string) *MaintenanceProcedureEntry {
+		return NewMaintenanceProcedureEntry(d, p)
+	}, "MAPRO-PROC-xxx")
 }
 
 // 8.7. System Operation and Monitoring.
@@ -47528,6 +47763,11 @@ func (x *TechnicalSecurityRequirements) SecurityAuditRequirements() *SecurityAud
 	return NewSecurityAuditRequirementsSection(x.Doc(), x.Path()+"/securityAuditRequirements")
 }
 
+// Key management on the platform side.
+func (x *TechnicalSecurityRequirements) KeyManagement() *KeyManagementRequirements {
+	return NewKeyManagementRequirements(x.Doc(), x.Path()+"/keyManagement")
+}
+
 // Technology and data variations.
 type TechnologyDataVariations struct {
 	som.SomNode
@@ -47770,6 +48010,23 @@ func (x *TenantOnboardingPolicy) Content() *TenantOnboardingPolicyContentForm {
 // Tenant Onboarding Policy Details (text).
 // (skipped: tenantOnboardingPolicyDetails has no target type)
 
+// One test level of the test strategy.
+type TestLevelEntry struct {
+	som.SomNode
+}
+
+// NewTestLevelEntry binds a TestLevelEntry facade to a document and a path.
+func NewTestLevelEntry(doc *som.SpecDocument, path string) *TestLevelEntry {
+	return &TestLevelEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+func (x *TestLevelEntry) Content() *TestLevelEntryContentForm {
+	return NewTestLevelEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
@@ -47880,6 +48137,13 @@ func (x *TestStrategy) Content() string {
 
 func (x *TestStrategy) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// Test levels — contains 0+× test level.
+func (x *TestStrategy) TestLevels() *som.SomList[*TestLevelEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/TSLVL-LST", func(d *som.SpecDocument, p string) *TestLevelEntry {
+		return NewTestLevelEntry(d, p)
+	}, "TSLVL-xxx")
 }
 
 // Testing standards and requirements.
@@ -50227,6 +50491,11 @@ func NewUserAttributeEntry(doc *som.SpecDocument, path string) *UserAttributeEnt
 // §11.4 rule 7); the field values themselves live in [form].
 func (x *UserAttributeEntry) Content() *UserAttributeEntryContentForm {
 	return NewUserAttributeEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+func (x *UserAttributeEntry) OidcRelease() *UserAttributeEntryOidcReleaseForm {
+	return NewUserAttributeEntryOidcReleaseForm(x.Doc(), x.Path()+"/USOIDC")
 }
 
 // 9.1.3. User Attributes.
@@ -64521,6 +64790,22 @@ func (x *AuthorizationRoleEntryStructureForm) SetPermissionSet(value string) {
 	x.Doc().SetFormField(x.Path(), "permissionSet", value)
 }
 
+func (x *AuthorizationRoleEntryStructureForm) MembershipSource() RoleMembershipSource {
+	return parseRoleMembershipSource(x.Doc().FormFieldOr(x.Path(), "membershipSource"))
+}
+
+func (x *AuthorizationRoleEntryStructureForm) SetMembershipSource(value RoleMembershipSource) {
+	x.Doc().SetFormField(x.Path(), "membershipSource", string(value))
+}
+
+func (x *AuthorizationRoleEntryStructureForm) DerivationRule() string {
+	return x.Doc().FormFieldOr(x.Path(), "derivationRule")
+}
+
+func (x *AuthorizationRoleEntryStructureForm) SetDerivationRule(value string) {
+	x.Doc().SetFormField(x.Path(), "derivationRule", value)
+}
+
 // AvailabilityContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type AvailabilityContentForm struct {
@@ -67538,6 +67823,14 @@ func (x *BoundedContextEntryBoundariesForm) SharedKernel() string {
 
 func (x *BoundedContextEntryBoundariesForm) SetSharedKernel(value string) {
 	x.Doc().SetFormField(x.Path(), "sharedKernel", value)
+}
+
+func (x *BoundedContextEntryBoundariesForm) OwnedOperations() string {
+	return x.Doc().FormFieldOr(x.Path(), "ownedOperations")
+}
+
+func (x *BoundedContextEntryBoundariesForm) SetOwnedOperations(value string) {
+	x.Doc().SetFormField(x.Path(), "ownedOperations", value)
 }
 
 // BoundedContextEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -86592,6 +86885,56 @@ func (x *ContentScanningPolicyContentForm) Notes() string {
 
 func (x *ContentScanningPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
+}
+
+// ContextRelationshipEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ContextRelationshipEntryContentForm struct {
+	som.SomNode
+}
+
+// NewContextRelationshipEntryContentForm binds a ContextRelationshipEntryContentForm facade to a document and a path.
+func NewContextRelationshipEntryContentForm(doc *som.SpecDocument, path string) *ContextRelationshipEntryContentForm {
+	return &ContextRelationshipEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ContextRelationshipEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ContextRelationshipEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ContextRelationshipEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ContextRelationshipEntryContentForm) NeighbourContext() string {
+	return x.Doc().FormFieldOr(x.Path(), "neighbourContext")
+}
+
+func (x *ContextRelationshipEntryContentForm) SetNeighbourContext(value string) {
+	x.Doc().SetFormField(x.Path(), "neighbourContext", value)
+}
+
+func (x *ContextRelationshipEntryContentForm) RelationshipType() ContextRelationshipType {
+	return parseContextRelationshipType(x.Doc().FormFieldOr(x.Path(), "relationshipType"))
+}
+
+func (x *ContextRelationshipEntryContentForm) SetRelationshipType(value ContextRelationshipType) {
+	x.Doc().SetFormField(x.Path(), "relationshipType", string(value))
+}
+
+func (x *ContextRelationshipEntryContentForm) Direction() string {
+	return x.Doc().FormFieldOr(x.Path(), "direction")
+}
+
+func (x *ContextRelationshipEntryContentForm) SetDirection(value string) {
+	x.Doc().SetFormField(x.Path(), "direction", value)
 }
 
 // ContextualHelpContextualHelpContentForm is the generated section facade for the `contextualHelpContent` @Form section: its own
@@ -135259,6 +135602,80 @@ func (x *KeyGenerationPolicyContentForm) SetQuantumReadinessStrategy(value strin
 	x.Doc().SetFormField(x.Path(), "quantumReadinessStrategy", value)
 }
 
+// KeyManagementRequirementsContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type KeyManagementRequirementsContentForm struct {
+	som.SomNode
+}
+
+// NewKeyManagementRequirementsContentForm binds a KeyManagementRequirementsContentForm facade to a document and a path.
+func NewKeyManagementRequirementsContentForm(doc *som.SpecDocument, path string) *KeyManagementRequirementsContentForm {
+	return &KeyManagementRequirementsContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *KeyManagementRequirementsContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *KeyManagementRequirementsContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *KeyManagementRequirementsContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *KeyManagementRequirementsContentForm) KeyTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyTypes")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetKeyTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "keyTypes", value)
+}
+
+func (x *KeyManagementRequirementsContentForm) KeyStorage() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyStorage")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetKeyStorage(value string) {
+	x.Doc().SetFormField(x.Path(), "keyStorage", value)
+}
+
+func (x *KeyManagementRequirementsContentForm) RotationPolicy() string {
+	return x.Doc().FormFieldOr(x.Path(), "rotationPolicy")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetRotationPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "rotationPolicy", value)
+}
+
+func (x *KeyManagementRequirementsContentForm) KeyCustody() string {
+	return x.Doc().FormFieldOr(x.Path(), "keyCustody")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetKeyCustody(value string) {
+	x.Doc().SetFormField(x.Path(), "keyCustody", value)
+}
+
+func (x *KeyManagementRequirementsContentForm) BackupAndRecovery() string {
+	return x.Doc().FormFieldOr(x.Path(), "backupAndRecovery")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetBackupAndRecovery(value string) {
+	x.Doc().SetFormField(x.Path(), "backupAndRecovery", value)
+}
+
+func (x *KeyManagementRequirementsContentForm) Destruction() string {
+	return x.Doc().FormFieldOr(x.Path(), "destruction")
+}
+
+func (x *KeyManagementRequirementsContentForm) SetDestruction(value string) {
+	x.Doc().SetFormField(x.Path(), "destruction", value)
+}
+
 // KeyResultEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type KeyResultEntryContentForm struct {
@@ -139732,6 +140149,48 @@ func (x *MaintenanceDependencyEntryUpdateForm) SetBreakingChangePolicy(value str
 	x.Doc().SetFormField(x.Path(), "breakingChangePolicy", value)
 }
 
+// MaintenanceProcedureEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MaintenanceProcedureEntryContentForm struct {
+	som.SomNode
+}
+
+// NewMaintenanceProcedureEntryContentForm binds a MaintenanceProcedureEntryContentForm facade to a document and a path.
+func NewMaintenanceProcedureEntryContentForm(doc *som.SpecDocument, path string) *MaintenanceProcedureEntryContentForm {
+	return &MaintenanceProcedureEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MaintenanceProcedureEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MaintenanceProcedureEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MaintenanceProcedureEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MaintenanceProcedureEntryContentForm) Frequency() string {
+	return x.Doc().FormFieldOr(x.Path(), "frequency")
+}
+
+func (x *MaintenanceProcedureEntryContentForm) SetFrequency(value string) {
+	x.Doc().SetFormField(x.Path(), "frequency", value)
+}
+
+func (x *MaintenanceProcedureEntryContentForm) PerformedBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "performedBy")
+}
+
+func (x *MaintenanceProcedureEntryContentForm) SetPerformedBy(value string) {
+	x.Doc().SetFormField(x.Path(), "performedBy", value)
+}
+
 // MaintenanceUserImpactContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type MaintenanceUserImpactContentForm struct {
@@ -141076,6 +141535,14 @@ func (x *MessageLocaleVariantEntryContentForm) Copy() string {
 
 func (x *MessageLocaleVariantEntryContentForm) SetCopy(value string) {
 	x.Doc().SetFormField(x.Path(), "copy", value)
+}
+
+func (x *MessageLocaleVariantEntryContentForm) ReviewStatus() TranslationReviewStatus {
+	return parseTranslationReviewStatus(x.Doc().FormFieldOr(x.Path(), "reviewStatus"))
+}
+
+func (x *MessageLocaleVariantEntryContentForm) SetReviewStatus(value TranslationReviewStatus) {
+	x.Doc().SetFormField(x.Path(), "reviewStatus", string(value))
 }
 
 // MetricsAndObservabilityMetricsOverviewForm is the generated section facade for the `metricsOverview` @Form section: its own
@@ -159464,6 +159931,72 @@ func (x *PipelineStageEntryTriggerForm) SetManualApproval(value *bool) {
 	}
 }
 
+// PolicyOwnershipEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type PolicyOwnershipEntryContentForm struct {
+	som.SomNode
+}
+
+// NewPolicyOwnershipEntryContentForm binds a PolicyOwnershipEntryContentForm facade to a document and a path.
+func NewPolicyOwnershipEntryContentForm(doc *som.SpecDocument, path string) *PolicyOwnershipEntryContentForm {
+	return &PolicyOwnershipEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *PolicyOwnershipEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *PolicyOwnershipEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *PolicyOwnershipEntryContentForm) Policy() string {
+	return x.Doc().FormFieldOr(x.Path(), "policy")
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetPolicy(value string) {
+	x.Doc().SetFormField(x.Path(), "policy", value)
+}
+
+func (x *PolicyOwnershipEntryContentForm) Owner() string {
+	return x.Doc().FormFieldOr(x.Path(), "owner")
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetOwner(value string) {
+	x.Doc().SetFormField(x.Path(), "owner", value)
+}
+
+func (x *PolicyOwnershipEntryContentForm) Approver() string {
+	return x.Doc().FormFieldOr(x.Path(), "approver")
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetApprover(value string) {
+	x.Doc().SetFormField(x.Path(), "approver", value)
+}
+
+func (x *PolicyOwnershipEntryContentForm) ReviewCycle() string {
+	return x.Doc().FormFieldOr(x.Path(), "reviewCycle")
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetReviewCycle(value string) {
+	x.Doc().SetFormField(x.Path(), "reviewCycle", value)
+}
+
+func (x *PolicyOwnershipEntryContentForm) AppliesTo() string {
+	return x.Doc().FormFieldOr(x.Path(), "appliesTo")
+}
+
+func (x *PolicyOwnershipEntryContentForm) SetAppliesTo(value string) {
+	x.Doc().SetFormField(x.Path(), "appliesTo", value)
+}
+
 // PortabilityContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type PortabilityContentForm struct {
@@ -169363,6 +169896,80 @@ func (x *QualityWeightEntryContentForm) TradeOffImplications() string {
 
 func (x *QualityWeightEntryContentForm) SetTradeOffImplications(value string) {
 	x.Doc().SetFormField(x.Path(), "tradeOffImplications", value)
+}
+
+// RaciEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type RaciEntryContentForm struct {
+	som.SomNode
+}
+
+// NewRaciEntryContentForm binds a RaciEntryContentForm facade to a document and a path.
+func NewRaciEntryContentForm(doc *som.SpecDocument, path string) *RaciEntryContentForm {
+	return &RaciEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *RaciEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *RaciEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *RaciEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *RaciEntryContentForm) Activity() string {
+	return x.Doc().FormFieldOr(x.Path(), "activity")
+}
+
+func (x *RaciEntryContentForm) SetActivity(value string) {
+	x.Doc().SetFormField(x.Path(), "activity", value)
+}
+
+func (x *RaciEntryContentForm) Responsible() string {
+	return x.Doc().FormFieldOr(x.Path(), "responsible")
+}
+
+func (x *RaciEntryContentForm) SetResponsible(value string) {
+	x.Doc().SetFormField(x.Path(), "responsible", value)
+}
+
+func (x *RaciEntryContentForm) Accountable() string {
+	return x.Doc().FormFieldOr(x.Path(), "accountable")
+}
+
+func (x *RaciEntryContentForm) SetAccountable(value string) {
+	x.Doc().SetFormField(x.Path(), "accountable", value)
+}
+
+func (x *RaciEntryContentForm) Consulted() string {
+	return x.Doc().FormFieldOr(x.Path(), "consulted")
+}
+
+func (x *RaciEntryContentForm) SetConsulted(value string) {
+	x.Doc().SetFormField(x.Path(), "consulted", value)
+}
+
+func (x *RaciEntryContentForm) Informed() string {
+	return x.Doc().FormFieldOr(x.Path(), "informed")
+}
+
+func (x *RaciEntryContentForm) SetInformed(value string) {
+	x.Doc().SetFormField(x.Path(), "informed", value)
+}
+
+func (x *RaciEntryContentForm) RelatedProcess() string {
+	return x.Doc().FormFieldOr(x.Path(), "relatedProcess")
+}
+
+func (x *RaciEntryContentForm) SetRelatedProcess(value string) {
+	x.Doc().SetFormField(x.Path(), "relatedProcess", value)
 }
 
 // RateLimitingPolicyBehaviorForm is the generated section facade for the `behavior` @Form section: its own
@@ -192581,6 +193188,46 @@ func (x *ServerEnvironmentEntryScaleForm) SetExpectedLoad(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedLoad", value)
 }
 
+func (x *ServerEnvironmentEntryScaleForm) NodeCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "nodeCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ServerEnvironmentEntryScaleForm) SetNodeCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "nodeCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "nodeCount", strconv.Itoa(*value))
+}
+
+func (x *ServerEnvironmentEntryScaleForm) DatabaseServerCount() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "databaseServerCount")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ServerEnvironmentEntryScaleForm) SetDatabaseServerCount(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "databaseServerCount", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "databaseServerCount", strconv.Itoa(*value))
+}
+
 // ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ServerOperationEntryContentForm struct {
@@ -192645,6 +193292,64 @@ func (x *ServerOperationEntryContentForm) ErrorCodes() string {
 
 func (x *ServerOperationEntryContentForm) SetErrorCodes(value string) {
 	x.Doc().SetFormField(x.Path(), "errorCodes", value)
+}
+
+// ServerOperationEntryControlsForm is the generated section facade for the `controls` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerOperationEntryControlsForm struct {
+	som.SomNode
+}
+
+// NewServerOperationEntryControlsForm binds a ServerOperationEntryControlsForm facade to a document and a path.
+func NewServerOperationEntryControlsForm(doc *som.SpecDocument, path string) *ServerOperationEntryControlsForm {
+	return &ServerOperationEntryControlsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerOperationEntryControlsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerOperationEntryControlsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerOperationEntryControlsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerOperationEntryControlsForm) Idempotency() OperationIdempotency {
+	return parseOperationIdempotency(x.Doc().FormFieldOr(x.Path(), "idempotency"))
+}
+
+func (x *ServerOperationEntryControlsForm) SetIdempotency(value OperationIdempotency) {
+	x.Doc().SetFormField(x.Path(), "idempotency", string(value))
+}
+
+func (x *ServerOperationEntryControlsForm) AuditEvent() string {
+	return x.Doc().FormFieldOr(x.Path(), "auditEvent")
+}
+
+func (x *ServerOperationEntryControlsForm) SetAuditEvent(value string) {
+	x.Doc().SetFormField(x.Path(), "auditEvent", value)
+}
+
+func (x *ServerOperationEntryControlsForm) RateLimitClass() string {
+	return x.Doc().FormFieldOr(x.Path(), "rateLimitClass")
+}
+
+func (x *ServerOperationEntryControlsForm) SetRateLimitClass(value string) {
+	x.Doc().SetFormField(x.Path(), "rateLimitClass", value)
+}
+
+func (x *ServerOperationEntryControlsForm) Callers() string {
+	return x.Doc().FormFieldOr(x.Path(), "callers")
+}
+
+func (x *ServerOperationEntryControlsForm) SetCallers(value string) {
+	x.Doc().SetFormField(x.Path(), "callers", value)
 }
 
 // ServerOperationMemberEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -193024,6 +193729,100 @@ func (x *ServerOsRequirementsSecurityForm) SetAntivirusRequired(value *bool) {
 	} else {
 		x.Doc().SetFormField(x.Path(), "antivirusRequired", "false")
 	}
+}
+
+// ServerRequirementsSectionConnectionBudgetForm is the generated section facade for the `connectionBudget` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerRequirementsSectionConnectionBudgetForm struct {
+	som.SomNode
+}
+
+// NewServerRequirementsSectionConnectionBudgetForm binds a ServerRequirementsSectionConnectionBudgetForm facade to a document and a path.
+func NewServerRequirementsSectionConnectionBudgetForm(doc *som.SpecDocument, path string) *ServerRequirementsSectionConnectionBudgetForm {
+	return &ServerRequirementsSectionConnectionBudgetForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerRequirementsSectionConnectionBudgetForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerRequirementsSectionConnectionBudgetForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) DatabaseMaxConnections() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "databaseMaxConnections")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) SetDatabaseMaxConnections(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "databaseMaxConnections", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "databaseMaxConnections", strconv.Itoa(*value))
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) ConnectionsPerNode() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "connectionsPerNode")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) SetConnectionsPerNode(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "connectionsPerNode", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "connectionsPerNode", strconv.Itoa(*value))
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) ReservedConnections() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "reservedConnections")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) SetReservedConnections(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "reservedConnections", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "reservedConnections", strconv.Itoa(*value))
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) BudgetRationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "budgetRationale")
+}
+
+func (x *ServerRequirementsSectionConnectionBudgetForm) SetBudgetRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "budgetRationale", value)
 }
 
 // ServerRoleEntryCapacityForm is the generated section facade for the `capacity` @Form section: its own
@@ -214875,6 +215674,88 @@ func (x *TenantOnboardingPolicyContentForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// TestLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type TestLevelEntryContentForm struct {
+	som.SomNode
+}
+
+// NewTestLevelEntryContentForm binds a TestLevelEntryContentForm facade to a document and a path.
+func NewTestLevelEntryContentForm(doc *som.SpecDocument, path string) *TestLevelEntryContentForm {
+	return &TestLevelEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *TestLevelEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *TestLevelEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *TestLevelEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *TestLevelEntryContentForm) Level() string {
+	return x.Doc().FormFieldOr(x.Path(), "level")
+}
+
+func (x *TestLevelEntryContentForm) SetLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "level", value)
+}
+
+func (x *TestLevelEntryContentForm) TestTypes() string {
+	return x.Doc().FormFieldOr(x.Path(), "testTypes")
+}
+
+func (x *TestLevelEntryContentForm) SetTestTypes(value string) {
+	x.Doc().SetFormField(x.Path(), "testTypes", value)
+}
+
+func (x *TestLevelEntryContentForm) Environment() string {
+	return x.Doc().FormFieldOr(x.Path(), "environment")
+}
+
+func (x *TestLevelEntryContentForm) SetEnvironment(value string) {
+	x.Doc().SetFormField(x.Path(), "environment", value)
+}
+
+func (x *TestLevelEntryContentForm) Tools() string {
+	return x.Doc().FormFieldOr(x.Path(), "tools")
+}
+
+func (x *TestLevelEntryContentForm) SetTools(value string) {
+	x.Doc().SetFormField(x.Path(), "tools", value)
+}
+
+func (x *TestLevelEntryContentForm) RunBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "runBy")
+}
+
+func (x *TestLevelEntryContentForm) SetRunBy(value string) {
+	x.Doc().SetFormField(x.Path(), "runBy", value)
+}
+
+func (x *TestLevelEntryContentForm) Trigger() string {
+	return x.Doc().FormFieldOr(x.Path(), "trigger")
+}
+
+func (x *TestLevelEntryContentForm) SetTrigger(value string) {
+	x.Doc().SetFormField(x.Path(), "trigger", value)
+}
+
+func (x *TestLevelEntryContentForm) ExitCriteria() string {
+	return x.Doc().FormFieldOr(x.Path(), "exitCriteria")
+}
+
+func (x *TestLevelEntryContentForm) SetExitCriteria(value string) {
+	x.Doc().SetFormField(x.Path(), "exitCriteria", value)
+}
+
 // TestScenarioEntryBusinessForm is the generated section facade for the `business` @Form section: its own
 // content text followed by one typed member per form field.
 type TestScenarioEntryBusinessForm struct {
@@ -226609,6 +227490,56 @@ func (x *UserAttributeEntryContentForm) Required() string {
 
 func (x *UserAttributeEntryContentForm) SetRequired(value string) {
 	x.Doc().SetFormField(x.Path(), "required", value)
+}
+
+// UserAttributeEntryOidcReleaseForm is the generated section facade for the `oidcRelease` @Form section: its own
+// content text followed by one typed member per form field.
+type UserAttributeEntryOidcReleaseForm struct {
+	som.SomNode
+}
+
+// NewUserAttributeEntryOidcReleaseForm binds a UserAttributeEntryOidcReleaseForm facade to a document and a path.
+func NewUserAttributeEntryOidcReleaseForm(doc *som.SpecDocument, path string) *UserAttributeEntryOidcReleaseForm {
+	return &UserAttributeEntryOidcReleaseForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserAttributeEntryOidcReleaseForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserAttributeEntryOidcReleaseForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) ClaimName() string {
+	return x.Doc().FormFieldOr(x.Path(), "claimName")
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) SetClaimName(value string) {
+	x.Doc().SetFormField(x.Path(), "claimName", value)
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) Scope() string {
+	return x.Doc().FormFieldOr(x.Path(), "scope")
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) SetScope(value string) {
+	x.Doc().SetFormField(x.Path(), "scope", value)
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) ReleasedIn() string {
+	return x.Doc().FormFieldOr(x.Path(), "releasedIn")
+}
+
+func (x *UserAttributeEntryOidcReleaseForm) SetReleasedIn(value string) {
+	x.Doc().SetFormField(x.Path(), "releasedIn", value)
 }
 
 // UserCategoryDefinitionContentForm is the generated section facade for the `content` @Form section: its own

@@ -319,6 +319,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per evaluation criterion.
+  mapro-proc-lst:
+    prefix: MAPRO_PROC_LST
+    subsection-types:
+      mapro-proc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance procedure.
   mndep-item-lst:
     prefix: MNDEP_ITEM_LST
     subsection-types:
@@ -1197,6 +1205,12 @@ section-types:
       pattern: ^EVCEN-ITEM-.+$
       error-message: IDs of this section must match EVCEN-ITEM-xxx
     description: Add one entry per evaluation criterion.
+  mapro-proc:
+    prefix: MAPRO_PROC_
+    pattern-check-id:
+      pattern: ^MAPRO-PROC-.+$
+      error-message: IDs of this section must match MAPRO-PROC-xxx
+    description: Add one entry per maintenance procedure.
   meanob-metr:
     prefix: MEANOB_METR
     format: meanob-metr-form
@@ -1317,14 +1331,6 @@ section-types:
       pattern: ^SHLCP-SHAR-.+$
       error-message: IDs of this section must match SHLCP-SHAR-xxx
     description: Add one entry per shared library.
-  so-main-lst:
-    prefix: SO_MAIN_LST
-    subsection-types:
-      so-main:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per maintenance procedure.
   tgplt-targ:
     prefix: TGPLT_TARG_
     subsection-types:
@@ -1465,6 +1471,14 @@ section-types:
       pattern: ^COPL-ITEM-.+$
       error-message: IDs of this section must match COPL-ITEM-xxx
     description: Add one entry per contingency plan.
+  ctxrel-lst:
+    prefix: CTXREL_LST
+    subsection-types:
+      ctxrel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per neighbouring context.
   dasurimaau:
     prefix: DASURIMAAU
     format: dasurimaau-form
@@ -1592,6 +1606,8 @@ section-types:
       bcei:
         max-count: 1
       bocoenin:
+        max-count: 1
+      ctxrel-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^BCE-BOUN-.+$
@@ -2173,16 +2189,16 @@ section-types:
     prefix: SLMORERE
     format: slmorere-form
     description: Reporting and review.
-  so-main:
-    prefix: SO_MAIN_
-    pattern-check-id:
-      pattern: ^SO-MAIN-.+$
-      error-message: IDs of this section must match SO-MAIN-xxx
-    description: Add one entry per maintenance procedure.
   vpreenpe:
     prefix: VPREENPE
     format: vpreenpe-form
     description: Performance expectations.
+  ctxrel:
+    prefix: CTXREL_
+    pattern-check-id:
+      pattern: ^CTXREL-.+$
+      error-message: IDs of this section must match CTXREL-xxx
+    description: Add one entry per neighbouring context.
   adenma:
     prefix: ADENMA
     format: adenma-form
@@ -3406,6 +3422,9 @@ section-types:
       isha:
         max-count: 1
     description: Infrastructure security hardening.
+  keymgt:
+    prefix: KEYMGT
+    description: Key management on the platform side.
   lacoru:
     prefix: LACORU
     subsection-types:
@@ -4848,6 +4867,10 @@ section-types:
     prefix: SMREB
     format: smreb-form
     description: Error-budget policy.
+  srsdb:
+    prefix: SRSDB
+    format: srsdb-form
+    description: The database connection budget and the server settings that bound it.
   sscea:
     prefix: SSCEA
     format: sscea-form
@@ -8346,6 +8369,8 @@ section-types:
         max-count: 1
       seosre:
         max-count: 1
+      srsdb:
+        max-count: 1
     description: |
       Specify server infrastructure requirements including compute, storage,
       scaling, and high availability. Server sizing directly impacts
@@ -8415,6 +8440,8 @@ section-types:
       dpaps:
         max-count: 1
       sars:
+        max-count: 1
+      keymgt:
         max-count: 1
     description: |
       Define comprehensive security requirements including IT security standards,
@@ -8555,7 +8582,7 @@ section-types:
     subsection-types:
       ars:
         max-count: 1
-      so-main-lst:
+      mapro-proc-lst:
         max-count: 1
     description: |
       Specify day-to-day system operation requirements including administration,
@@ -9676,6 +9703,8 @@ form-types:
         description: Contexts that depend on this one
       - fieldname: sharedKernel
         description: Shared code with other contexts
+      - fieldname: ownedOperations
+        description: "The server operations this context owns, comma-separated"
   bcei-form:
     fields:
       - fieldname: repositoryNamespace
@@ -11486,6 +11515,10 @@ form-types:
         description: Concurrent users expected
       - fieldname: expectedLoad
         description: Requests per second
+      - fieldname: nodeCount
+        description: How many application nodes run in the environment
+      - fieldname: databaseServerCount
+        description: How many database servers run in the environment
   seea-form:
     fields:
       - fieldname: accessRestrictions
@@ -11800,6 +11833,16 @@ form-types:
         description: Number of licenses
       - fieldname: notes
         description: Additional OS notes
+  srsdb-form:
+    fields:
+      - fieldname: databaseMaxConnections
+        description: The connection limit of the database server
+      - fieldname: connectionsPerNode
+        description: The pool size each application node opens
+      - fieldname: reservedConnections
+        description: Connections kept free for administration and migrations
+      - fieldname: budgetRationale
+        description: "How the numbers add up, and what happens when a node is added"
   bres-form:
     fields:
       - fieldname: supportLevel

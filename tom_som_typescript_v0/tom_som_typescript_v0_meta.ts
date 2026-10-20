@@ -3694,7 +3694,7 @@ function _mc_AuthorizationRoleEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 1,
       docComment: "Scope and inheritance metadata.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "roleScope", typeName: "String", description: "Role Scope", hint: "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable", order: 0}), new SomFormFieldMeta({name: "inheritsFrom", typeName: "String", description: "Inherits From", hint: "Parent role name or \"none\" for top-level roles; child roles inherit all permissions of the parent", order: 1}), new SomFormFieldMeta({name: "permissionSet", typeName: "String", description: "Permission Set", hint: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)", order: 2})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "roleScope", typeName: "String", description: "Role Scope", hint: "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable", order: 0}), new SomFormFieldMeta({name: "inheritsFrom", typeName: "String", description: "Inherits From", hint: "Parent role name or \"none\" for top-level roles; child roles inherit all permissions of the parent", order: 1}), new SomFormFieldMeta({name: "permissionSet", typeName: "String", description: "Permission Set", hint: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)", order: 2}), new SomFormFieldMeta({name: "membershipSource", typeName: "RoleMembershipSource", description: "Membership Source", hint: "Whether holders are assigned or membership follows from grants", order: 3, enumValues: ["assigned", "derivedFromGrants", "both"]}), new SomFormFieldMeta({name: "derivationRule", typeName: "String", description: "Derivation Rule", hint: "For a derived role: the grants that confer membership", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance", "ISO/IEC 27001:2022 — control A.5.15 access control"], "connotation": "Scope and inheritance metadata for an authorization role."})]}),
      new SomMetaNode({
       className: "AuthorizationRoleEntry",
@@ -4599,7 +4599,7 @@ function _mc_BoundedContextEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 2,
       docComment: "Boundary relationships.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "boundaryType", typeName: "String", description: "Boundary Type", hint: "Conformist, Anti-corruption layer, Open-host, etc.", order: 0}), new SomFormFieldMeta({name: "upstreamContexts", typeName: "String", description: "Upstream Contexts", hint: "Contexts this one depends on", order: 1}), new SomFormFieldMeta({name: "downstreamContexts", typeName: "String", description: "Downstream Contexts", hint: "Contexts that depend on this one", order: 2}), new SomFormFieldMeta({name: "sharedKernel", typeName: "String", description: "Shared Kernel", hint: "Shared code with other contexts", order: 3})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "boundaryType", typeName: "String", description: "Boundary Type", hint: "Conformist, Anti-corruption layer, Open-host, etc.", order: 0}), new SomFormFieldMeta({name: "upstreamContexts", typeName: "String", description: "Upstream Contexts", hint: "Contexts this one depends on", order: 1}), new SomFormFieldMeta({name: "downstreamContexts", typeName: "String", description: "Downstream Contexts", hint: "Contexts that depend on this one", order: 2}), new SomFormFieldMeta({name: "sharedKernel", typeName: "String", description: "Shared Kernel", hint: "Shared code with other contexts", order: 3}), new SomFormFieldMeta({name: "ownedOperations", typeName: "String", description: "Owned Operations", hint: "The server operations this context owns, comma-separated", order: 4, refersTo: ["SVOPE.operationName"]})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"], "connotation": "Describes the boundary type and upstream/downstream relationships of a bounded context."})]}),
      new SomMetaNode({
       className: "BoundedContextEntry",
@@ -4621,6 +4621,17 @@ function _mc_BoundedContextEntry(s: Set<string>): SomMetaNode[] {
       docComment: "Integration and notes.",
       form: new SomFormMeta([new SomFormFieldMeta({name: "apiEndpoints", typeName: "String", description: "API Endpoints", hint: "Public API endpoints exposed", order: 0}), new SomFormFieldMeta({name: "integrationPatterns", typeName: "String", description: "Integration Patterns", hint: "How this context integrates with others", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional context notes", order: 2})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"], "connotation": "Describes the API endpoints and integration patterns through which a bounded context connects to others."})]}),
+     new SomMetaNode({
+      className: "BoundedContextEntry",
+      memberName: "relationships",
+      sectionId: "CTXREL-LST",
+      sectionIdPattern: "CTXREL-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "ContextRelationshipEntry",
+      serializationOrder: 5,
+      contentHelp: "Add one entry per neighbouring context.",
+      docComment: "Relationships to neighbouring contexts — contains 0+× relationship.",
+      elementNode: _cx("ContextRelationshipEntry", s, _mc_ContextRelationshipEntry, (r, c) => new SomMetaNode({className: "ContextRelationshipEntry", classSectionId: "CTXREL", kind: SomMetaKind.COMPLEX, typeName: "ContextRelationshipEntry", docComment: "The relationship of a bounded context to one neighbour.", classDocComment: "The relationship of a bounded context to one neighbour.", recursive: r, children: c}))}),
   ];
 }
 
@@ -10197,6 +10208,20 @@ function _mc_ContextDiagram(s: Set<string>): SomMetaNode[] {
       serializationOrder: 2,
       contentType: new SomContentTypeMeta("description", "Legend explaining shapes, colors, and line styles used in the diagram."),
       docComment: "Diagram legend and conventions."}),
+  ];
+}
+
+function _mc_ContextRelationshipEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "ContextRelationshipEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "Why the two contexts relate this way and what crosses the boundary.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "neighbourContext", typeName: "String", description: "Neighbour Context", hint: "The other bounded context", order: 0, refersTo: ["BCE.contextName"]}), new SomFormFieldMeta({name: "relationshipType", typeName: "ContextRelationshipType", description: "Relationship Type", hint: "The context-mapping pattern between the two", order: 1, enumValues: ["partnership", "sharedKernel", "customerSupplier", "conformist", "anticorruptionLayer", "openHostService", "publishedLanguage", "separateWays"]}), new SomFormFieldMeta({name: "direction", typeName: "String", description: "Direction", hint: "upstream / downstream / mutual, seen from this context", order: 2})])}),
   ];
 }
 
@@ -28241,6 +28266,20 @@ function _mc_KeyManagement(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_KeyManagementRequirements(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "KeyManagementRequirements",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "The key hierarchy and how its keys are managed over their life.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "keyTypes", typeName: "String", description: "Key Types", hint: "Which keys exist — signing, encryption, secrets keys — and what each protects", order: 0}), new SomFormFieldMeta({name: "keyStorage", typeName: "String", description: "Key Storage", hint: "Where each key is kept — KMS, HSM, an encrypted file", order: 1}), new SomFormFieldMeta({name: "rotationPolicy", typeName: "String", description: "Rotation Policy", hint: "How often each key rotates and how old keys stay usable", order: 2}), new SomFormFieldMeta({name: "keyCustody", typeName: "String", description: "Key Custody", hint: "Who can use, export or replace a key", order: 3}), new SomFormFieldMeta({name: "backupAndRecovery", typeName: "String", description: "Backup and Recovery", hint: "How a key is backed up and restored", order: 4}), new SomFormFieldMeta({name: "destruction", typeName: "String", description: "Destruction", hint: "How a retired key is destroyed", order: 5})])}),
+  ];
+}
+
 function _mc_KeyResultEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -29589,6 +29628,20 @@ function _mc_MaintenanceDependencyEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_MaintenanceProcedureEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "MaintenanceProcedureEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "The steps of the procedure and what it depends on.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "frequency", typeName: "String", description: "Frequency", hint: "When the procedure is run — per release, monthly, on demand", order: 0}), new SomFormFieldMeta({name: "performedBy", typeName: "String", description: "Performed By", hint: "Who runs it", order: 1})])}),
+  ];
+}
+
 function _mc_MaintenanceUserImpact(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -29972,7 +30025,7 @@ function _mc_MessageLocaleVariantEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "locale", typeName: "String", description: "Locale", required: true, hint: "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", order: 0}), new SomFormFieldMeta({name: "copy", typeName: "String", description: "Copy", required: true, hint: "The user-facing text for this locale", order: 1})])}),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "locale", typeName: "String", description: "Locale", required: true, hint: "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", order: 0}), new SomFormFieldMeta({name: "copy", typeName: "String", description: "Copy", required: true, hint: "The user-facing text for this locale", order: 1}), new SomFormFieldMeta({name: "reviewStatus", typeName: "TranslationReviewStatus", description: "Review Status", hint: "How far the translation has been checked", order: 2, enumValues: ["draft", "machineTranslated", "reviewed", "approved"]})])}),
   ];
 }
 
@@ -34018,6 +34071,28 @@ function _mc_OrganizationalFramework(s: Set<string>): SomMetaNode[] {
       comment: "per user category",
       docComment: "5.3. Workplace Descriptions — contains 1+× per user category.",
       elementNode: _cx("WorkplaceDescriptionEntry", s, _mc_WorkplaceDescriptionEntry, (r, c) => new SomMetaNode({className: "WorkplaceDescriptionEntry", classSectionId: "WPDE", kind: SomMetaKind.COMPLEX, typeName: "WorkplaceDescriptionEntry", docComment: "A workplace description entry (form, per user category).\n\nComprehensive workplace requirements following workplace design best\npractices (OSHA, ISO 9001, ergonomic standards). Covers physical,\ntechnical, and training aspects per user category.", classDocComment: "A workplace description entry (form, per user category).\n\nComprehensive workplace requirements following workplace design best\npractices (OSHA, ISO 9001, ergonomic standards). Covers physical,\ntechnical, and training aspects per user category.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "OrganizationalFramework",
+      memberName: "raciMatrix",
+      sectionId: "RACIEN-LST",
+      sectionIdPattern: "RACIEN-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "RaciEntry",
+      serializationOrder: 5,
+      contentHelp: "Add one entry per activity.",
+      docComment: "Cross-process RACI matrix — contains 0+× RACI entry.",
+      elementNode: _cx("RaciEntry", s, _mc_RaciEntry, (r, c) => new SomMetaNode({className: "RaciEntry", classSectionId: "RACIEN", kind: SomMetaKind.COMPLEX, typeName: "RaciEntry", docComment: "One activity of the cross-process RACI matrix.", classDocComment: "One activity of the cross-process RACI matrix.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "OrganizationalFramework",
+      memberName: "policyOwnership",
+      sectionId: "POLOWN-LST",
+      sectionIdPattern: "POLOWN-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "PolicyOwnershipEntry",
+      serializationOrder: 6,
+      contentHelp: "Add one entry per policy.",
+      docComment: "Policy ownership — contains 0+× policy.",
+      elementNode: _cx("PolicyOwnershipEntry", s, _mc_PolicyOwnershipEntry, (r, c) => new SomMetaNode({className: "PolicyOwnershipEntry", classSectionId: "POLOWN", kind: SomMetaKind.COMPLEX, typeName: "PolicyOwnershipEntry", docComment: "One policy and who owns it.", classDocComment: "One policy and who owns it.", recursive: r, children: c}))}),
   ];
 }
 
@@ -35733,6 +35808,20 @@ function _mc_PlatformAndLanguage(s: Set<string>): SomMetaNode[] {
         classDocComment: "Runtime environment constraints.",
         recursive: r,
         children: c})),
+  ];
+}
+
+function _mc_PolicyOwnershipEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "PolicyOwnershipEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "What the policy covers and how ownership is exercised.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "policy", typeName: "String", description: "Policy", hint: "The policy", order: 0}), new SomFormFieldMeta({name: "owner", typeName: "String", description: "Owner", hint: "The role that owns and maintains it", order: 1}), new SomFormFieldMeta({name: "approver", typeName: "String", description: "Approver", hint: "The role that approves changes", order: 2}), new SomFormFieldMeta({name: "reviewCycle", typeName: "String", description: "Review Cycle", hint: "How often it is reviewed", order: 3}), new SomFormFieldMeta({name: "appliesTo", typeName: "String", description: "Applies To", hint: "Who or what it binds", order: 4})])}),
   ];
 }
 
@@ -38966,6 +39055,20 @@ function _mc_QualityWeightEntry(s: Set<string>): SomMetaNode[] {
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
       form: new SomFormMeta([new SomFormFieldMeta({name: "qualityAttribute", typeName: "String", description: "Quality Attribute", required: true, order: 0}), new SomFormFieldMeta({name: "qualityCategory", typeName: "String", description: "Category", hint: "The quality category this weight applies to — a quality category section id (QCATE-QUAL-…)", order: 1, refersTo: ["QCATE.@sectionId"]}), new SomFormFieldMeta({name: "weight", typeName: "int", description: "Weight (1-100)", hint: "Numeric weight from 1 to 100", order: 2}), new SomFormFieldMeta({name: "priority", typeName: "ImportanceBand", description: "Priority", hint: "Qualitative priority band.", order: 3, enumValues: ["critical", "high", "medium", "low"]}), new SomFormFieldMeta({name: "rationale", typeName: "String", description: "Rationale", hint: "Why this weight", order: 4}), new SomFormFieldMeta({name: "stakeholderAgreement", typeName: "String", description: "Stakeholder Agreement", hint: "Who agreed to this weight", order: 5}), new SomFormFieldMeta({name: "tradeOffImplications", typeName: "String", description: "Trade-off Implications", hint: "What this priority means for other attributes", order: 6})])}),
+  ];
+}
+
+function _mc_RaciEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "RaciEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "What the activity is and why its responsibility is split this way.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "activity", typeName: "String", description: "Activity", hint: "The activity or decision whose responsibility is assigned", order: 0}), new SomFormFieldMeta({name: "responsible", typeName: "String", description: "Responsible", hint: "Who does the work — roles, comma-separated", order: 1}), new SomFormFieldMeta({name: "accountable", typeName: "String", description: "Accountable", hint: "The one role that answers for the outcome", order: 2}), new SomFormFieldMeta({name: "consulted", typeName: "String", description: "Consulted", hint: "Roles asked before the work is done, comma-separated", order: 3}), new SomFormFieldMeta({name: "informed", typeName: "String", description: "Informed", hint: "Roles told after it is done, comma-separated", order: 4}), new SomFormFieldMeta({name: "relatedProcess", typeName: "String", description: "Related Process", hint: "The business process the activity belongs to (BPREN-…)", order: 5, refersTo: ["BPREN.@sectionId"]})])}),
   ];
 }
 
@@ -45759,7 +45862,7 @@ function _mc_ServerEnvironmentEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 2,
       docComment: "Scale expectations.",
-      form: new SomFormMeta([new SomFormFieldMeta({name: "serverCount", typeName: "int", description: "Server Count", hint: "Number of servers in environment", order: 0}), new SomFormFieldMeta({name: "expectedUsers", typeName: "String", description: "Expected Users", hint: "Concurrent users expected", order: 1}), new SomFormFieldMeta({name: "expectedLoad", typeName: "String", description: "Expected Load", hint: "Requests per second", order: 2})]),
+      form: new SomFormMeta([new SomFormFieldMeta({name: "serverCount", typeName: "int", description: "Server Count", hint: "Number of servers in environment", order: 0}), new SomFormFieldMeta({name: "expectedUsers", typeName: "String", description: "Expected Users", hint: "Concurrent users expected", order: 1}), new SomFormFieldMeta({name: "expectedLoad", typeName: "String", description: "Expected Load", hint: "Requests per second", order: 2}), new SomFormFieldMeta({name: "nodeCount", typeName: "int", description: "Application Nodes", hint: "How many application nodes run in the environment", order: 3}), new SomFormFieldMeta({name: "databaseServerCount", typeName: "int", description: "Database Servers", hint: "How many database servers run in the environment", order: 4})]),
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO/IEC 25010 — performance efficiency / resource utilization"], "connotation": "Captures the server count, expected users, and load for a server environment."})]}),
      new SomMetaNode({
       className: "ServerEnvironmentEntry",
@@ -45842,6 +45945,15 @@ function _mc_ServerOperationEntry(s: Set<string>): SomMetaNode[] {
       docComment: "7.9.x. Protocol Bindings — the standard-protocol shapes this operation is\nalso served under, for third-party callers.\n\nThe operation itself keeps the `codespecs_mapping.md` §7 contract: the\napplication's own client calls it by name. A binding is a second shape of\nthe same operation — an HTTP method, a path, where each request member is\nfound, the success status and headers — and an operation may have several.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["RFC 9110 — HTTP semantics (methods, status codes, header fields)", "RFC 6570 — URI templates"], "connotation": "The HTTP shapes this operation is served under for third-party callers."})],
       elementNode: _cx("OperationBindingEntry", s, _mc_OperationBindingEntry, (r, c) => new SomMetaNode({className: "OperationBindingEntry", classSectionId: "SVOBI", kind: SomMetaKind.COMPLEX, typeName: "OperationBindingEntry", docComment: "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.", classDocComment: "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.", recursive: r, children: c}))}),
+     new SomMetaNode({
+      className: "ServerOperationEntry",
+      memberName: "controls",
+      sectionId: "SVOCT",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 5,
+      docComment: "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "idempotency", typeName: "OperationIdempotency", description: "Idempotency", hint: "Whether repeating the call repeats its effect", order: 0, enumValues: ["idempotent", "idempotentWithKey", "notIdempotent"]}), new SomFormFieldMeta({name: "auditEvent", typeName: "String", description: "Audit Event", hint: "The audit event the operation records, if any", order: 1}), new SomFormFieldMeta({name: "rateLimitClass", typeName: "String", description: "Rate-Limit Class", hint: "The rate-limit class that throttles it", order: 2}), new SomFormFieldMeta({name: "callers", typeName: "String", description: "Callers", hint: "Who calls it — client applications, services, roles", order: 3})])}),
   ];
 }
 
@@ -46088,6 +46200,15 @@ function _mc_ServerRequirementsSection(s: Set<string>): SomMetaNode[] {
         classDocComment: "Server operating system requirements.",
         recursive: r,
         children: c})),
+     new SomMetaNode({
+      className: "ServerRequirementsSection",
+      memberName: "connectionBudget",
+      sectionId: "SRSDB",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 12,
+      docComment: "The database connection budget and the server settings that bound it.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "databaseMaxConnections", typeName: "int", description: "Database Max Connections", hint: "The connection limit of the database server", order: 0}), new SomFormFieldMeta({name: "connectionsPerNode", typeName: "int", description: "Connections per Node", hint: "The pool size each application node opens", order: 1}), new SomFormFieldMeta({name: "reservedConnections", typeName: "int", description: "Reserved Connections", hint: "Connections kept free for administration and migrations", order: 2}), new SomFormFieldMeta({name: "budgetRationale", typeName: "String", description: "Budget Rationale", hint: "How the numbers add up, and what happens when a node is added", order: 3})])}),
   ];
 }
 
@@ -50577,14 +50698,15 @@ function _mc_SystemOperation(s: Set<string>): SomMetaNode[] {
      new SomMetaNode({
       className: "SystemOperation",
       memberName: "maintenanceProcedures",
-      sectionId: "SO-MAIN-LST",
-      sectionIdPattern: "SO-MAIN-xxx",
+      sectionId: "MAPRO-PROC-LST",
+      sectionIdPattern: "MAPRO-PROC-xxx",
       kind: SomMetaKind.LIST,
-      typeName: "String",
+      typeName: "MaintenanceProcedureEntry",
       serializationOrder: 2,
       contentHelp: "Add one entry per maintenance procedure.",
       docComment: "Maintenance Procedures.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL 4 — change enablement and maintenance windows"], "connotation": "The catalog of scheduled maintenance procedures the system requires."})]}),
+      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ITIL 4 — change enablement and maintenance windows"], "connotation": "The catalog of scheduled maintenance procedures the system requires."})],
+      elementNode: _cx("MaintenanceProcedureEntry", s, _mc_MaintenanceProcedureEntry, (r, c) => new SomMetaNode({className: "MaintenanceProcedureEntry", classSectionId: "MAPRO", kind: SomMetaKind.COMPLEX, typeName: "MaintenanceProcedureEntry", docComment: "One maintenance procedure: its name is the headline, the steps the text.", classDocComment: "One maintenance procedure: its name is the headline, the steps the text.", recursive: r, children: c}))}),
   ];
 }
 
@@ -52962,6 +53084,18 @@ function _mc_TechnicalSecurityRequirements(s: Set<string>): SomMetaNode[] {
         classDocComment: "8.8.3. Security Audit Requirements.\n\nComprehensive security audit requirements covering penetration testing,\nsecurity-focused code review, dependency scanning, security certifications,\ncompliance audit scheduling, and automated security testing integration.",
         recursive: r,
         children: c})),
+     _cx("KeyManagementRequirements", s, _mc_KeyManagementRequirements,
+      (r, c) => new SomMetaNode({
+        className: "KeyManagementRequirements",
+        memberName: "keyManagement",
+        classSectionId: "KEYMGT",
+        kind: SomMetaKind.COMPLEX,
+        typeName: "KeyManagementRequirements",
+        serializationOrder: 4,
+        docComment: "Key management on the platform side.",
+        classDocComment: "Key management on the platform side: which keys exist, where they are\nkept, how they rotate and who holds them.",
+        recursive: r,
+        children: c})),
   ];
 }
 
@@ -53214,6 +53348,20 @@ function _mc_TenantOnboardingPolicy(s: Set<string>): SomMetaNode[] {
   ];
 }
 
+function _mc_TestLevelEntry(s: Set<string>): SomMetaNode[] {
+  return [
+     new SomMetaNode({
+      className: "TestLevelEntry",
+      memberName: "content",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 0,
+      contentHelp: "What the level verifies and how it fits the levels around it.",
+      docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "level", typeName: "String", description: "Level", hint: "unit / integration / system / acceptance / regression, or a project-specific level", order: 0}), new SomFormFieldMeta({name: "testTypes", typeName: "String", description: "Test Types", hint: "The test types run at this level — functional, performance, security, accessibility", order: 1}), new SomFormFieldMeta({name: "environment", typeName: "String", description: "Environment", hint: "The environment the level runs in", order: 2, refersTo: ["ENVEN.@sectionId"]}), new SomFormFieldMeta({name: "tools", typeName: "String", description: "Tools", hint: "The tools and frameworks used", order: 3}), new SomFormFieldMeta({name: "runBy", typeName: "String", description: "Run By", hint: "Who runs it — a person, a pipeline, a role", order: 4}), new SomFormFieldMeta({name: "trigger", typeName: "String", description: "Trigger", hint: "When it runs — on commit, nightly, before a release", order: 5}), new SomFormFieldMeta({name: "exitCriteria", typeName: "String", description: "Exit Criteria", hint: "What must hold before the next level starts", order: 6})])}),
+  ];
+}
+
 function _mc_TestScenarioEntry(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -53335,6 +53483,17 @@ function _mc_TestStrategy(s: Set<string>): SomMetaNode[] {
       contentType: new SomContentTypeMeta("text", ""),
       contentHelp: "High-level strategy for verifying quality across the system. Distinct\nfrom the acceptance plan and from the per-quality-attribute\ncriteria in the usability, technical, operational, and documentation\nquality-goal sections; this section integrates them.\n\n**What to capture:**\n- Test levels (unit, integration, system, acceptance, regression)\n- Test approach per level (TDD, BDD, model-based, exploratory)\n- Automation strategy and coverage targets\n- Test environment topology and data strategy\n- Entry / exit criteria per level\n- Defect management lifecycle\n- Traceability from requirements to tests\n- Risk-based test prioritization\n",
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form]."}),
+     new SomMetaNode({
+      className: "TestStrategy",
+      memberName: "testLevels",
+      sectionId: "TSLVL-LST",
+      sectionIdPattern: "TSLVL-xxx",
+      kind: SomMetaKind.LIST,
+      typeName: "TestLevelEntry",
+      serializationOrder: 1,
+      contentHelp: "Add one entry per test level.",
+      docComment: "Test levels — contains 0+× test level.",
+      elementNode: _cx("TestLevelEntry", s, _mc_TestLevelEntry, (r, c) => new SomMetaNode({className: "TestLevelEntry", classSectionId: "TSLVL", kind: SomMetaKind.COMPLEX, typeName: "TestLevelEntry", docComment: "One test level of the test strategy.", classDocComment: "One test level of the test strategy.", recursive: r, children: c}))}),
   ];
 }
 
@@ -56071,6 +56230,15 @@ function _mc_UserAttributeEntry(s: Set<string>): SomMetaNode[] {
       serializationOrder: 0,
       docComment: "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
       form: new SomFormMeta([new SomFormFieldMeta({name: "dataType", typeName: "String", description: "Data Type", hint: "Data type of the attribute value.", order: 0}), new SomFormFieldMeta({name: "placement", typeName: "UserAttributePlacement", description: "Placement", hint: "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", order: 1, enumValues: ["public", "encrypted"]}), new SomFormFieldMeta({name: "accessGuard", typeName: "String", description: "Access Guard", hint: "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", order: 2}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", hint: "System of record that supplies this attribute.", order: 3}), new SomFormFieldMeta({name: "required", typeName: "String", description: "Required", hint: "Whether this attribute is mandatory.", order: 4})])}),
+     new SomMetaNode({
+      className: "UserAttributeEntry",
+      memberName: "oidcRelease",
+      sectionId: "USOIDC",
+      kind: SomMetaKind.FORM,
+      typeName: "String",
+      serializationOrder: 1,
+      docComment: "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.",
+      form: new SomFormMeta([new SomFormFieldMeta({name: "claimName", typeName: "String", description: "Claim Name", hint: "The claim the attribute is released as", order: 0}), new SomFormFieldMeta({name: "scope", typeName: "String", description: "Scope", hint: "The scope that releases it", order: 1}), new SomFormFieldMeta({name: "releasedIn", typeName: "String", description: "Released In", hint: "id token / access token / userinfo, comma-separated; audience-only tokens named", order: 2})])}),
   ];
 }
 
@@ -60729,6 +60897,10 @@ export class BoundedContextEntry$Nav extends SomMetaRef {
   get integration(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/BOCOENIN");
   }
+
+  get relationships(): SomListMetaRef<ContextRelationshipEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/CTXREL-LST", (t: SomMetaTree, p: string) => new ContextRelationshipEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `BreakpointConfiguration` (SOM §8). Every getter is one
@@ -63402,6 +63574,16 @@ export class ContextDiagram$Nav extends SomMetaRef {
 
   get legend(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/CD-LEGE");
+  }
+}
+
+// Dot-notation accessors of `ContextRelationshipEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class ContextRelationshipEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -71845,6 +72027,16 @@ export class KeyManagement$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `KeyManagementRequirements` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class KeyManagementRequirements$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `KeyResultEntry` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -72524,6 +72716,16 @@ export class MaintenanceDependencyEntry$Nav extends SomMetaRef {
 
   get risk(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/MDER");
+  }
+}
+
+// Dot-notation accessors of `MaintenanceProcedureEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class MaintenanceProcedureEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -74669,6 +74871,14 @@ export class OrganizationalFramework$Nav extends SomMetaRef {
   get workplaceDescriptions(): SomListMetaRef<WorkplaceDescriptionEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/WPDE-WORK-LST", (t: SomMetaTree, p: string) => new WorkplaceDescriptionEntry$Nav(t, p));
   }
+
+  get raciMatrix(): SomListMetaRef<RaciEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/RACIEN-LST", (t: SomMetaTree, p: string) => new RaciEntry$Nav(t, p));
+  }
+
+  get policyOwnership(): SomListMetaRef<PolicyOwnershipEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/POLOWN-LST", (t: SomMetaTree, p: string) => new PolicyOwnershipEntry$Nav(t, p));
+  }
 }
 
 // Dot-notation accessors of `OrganizationalRequirementEntry` (SOM §8). Every getter is one
@@ -75524,6 +75734,16 @@ export class PlatformAndLanguage$Nav extends SomMetaRef {
 
   get runtimeEnvironment(): RuntimeEnvironment$Nav {
     return new RuntimeEnvironment$Nav(this.tree, this.path + "/runtimeEnvironment");
+  }
+}
+
+// Dot-notation accessors of `PolicyOwnershipEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class PolicyOwnershipEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -77140,6 +77360,16 @@ export class QualityStandardEntry$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 export class QualityWeightEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
+// Dot-notation accessors of `RaciEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class RaciEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -80581,6 +80811,10 @@ export class ServerOperationEntry$Nav extends SomMetaRef {
   get bindings(): SomListMetaRef<OperationBindingEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/SVOBI-BIND-LST", (t: SomMetaTree, p: string) => new OperationBindingEntry$Nav(t, p));
   }
+
+  get controls(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SVOCT");
+  }
 }
 
 // Dot-notation accessors of `ServerOperationMemberEntry` (SOM §8). Every getter is one
@@ -80688,6 +80922,10 @@ export class ServerRequirementsSection$Nav extends SomMetaRef {
 
   get osRequirements(): ServerOsRequirements$Nav {
     return new ServerOsRequirements$Nav(this.tree, this.path + "/osRequirements");
+  }
+
+  get connectionBudget(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SRSDB");
   }
 }
 
@@ -82866,8 +83104,8 @@ export class SystemOperation$Nav extends SomMetaRef {
     return new AdministrationRequirementsSection$Nav(this.tree, this.path + "/administrationRequirements");
   }
 
-  get maintenanceProcedures(): SomListMetaRef<SomMetaRef> {
-    return new SomListMetaRef(this.tree, this.path + "/SO-MAIN-LST", (t: SomMetaTree, p: string) => new SomMetaRef(t, p));
+  get maintenanceProcedures(): SomListMetaRef<MaintenanceProcedureEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/MAPRO-PROC-LST", (t: SomMetaTree, p: string) => new MaintenanceProcedureEntry$Nav(t, p));
   }
 }
 
@@ -83923,6 +84161,10 @@ export class TechnicalSecurityRequirements$Nav extends SomMetaRef {
   get securityAuditRequirements(): SecurityAuditRequirementsSection$Nav {
     return new SecurityAuditRequirementsSection$Nav(this.tree, this.path + "/securityAuditRequirements");
   }
+
+  get keyManagement(): KeyManagementRequirements$Nav {
+    return new KeyManagementRequirements$Nav(this.tree, this.path + "/keyManagement");
+  }
 }
 
 // Dot-notation accessors of `TechnologyDataVariations` (SOM §8). Every getter is one
@@ -84061,6 +84303,16 @@ export class TenantOnboardingPolicy$Nav extends SomMetaRef {
   }
 }
 
+// Dot-notation accessors of `TestLevelEntry` (SOM §8). Every getter is one
+// navigable position: `.path` is the absolute document path, `.meta` the
+// metadata node. Past a recursive re-entry `.path` chains remain valid
+// document positions while `.meta` throws (the metadata tree ends there).
+export class TestLevelEntry$Nav extends SomMetaRef {
+  get content(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/content");
+  }
+}
+
 // Dot-notation accessors of `TestScenarioEntry` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -84120,6 +84372,10 @@ export class TestScenarioNotes$Nav extends SomMetaRef {
 export class TestStrategy$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get testLevels(): SomListMetaRef<TestLevelEntry$Nav> {
+    return new SomListMetaRef(this.tree, this.path + "/TSLVL-LST", (t: SomMetaTree, p: string) => new TestLevelEntry$Nav(t, p));
   }
 }
 
@@ -85488,6 +85744,10 @@ export class UserAssistance$Nav extends SomMetaRef {
 export class UserAttributeEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
+  }
+
+  get oidcRelease(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/USOIDC");
   }
 }
 
@@ -87167,6 +87427,10 @@ export class BoundedContextEntry$Id extends SomMetaRef {
   get BOCOENIN(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/BOCOENIN");
   }
+
+  get CTXREL_LST(): SomListMetaRef<ContextRelationshipEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/CTXREL-LST", (t: SomMetaTree, p: string) => new ContextRelationshipEntry$Id(t, p));
+  }
 }
 
 // ID-tree accessors of `BreakpointEntry` (SOM §8): getters named by section id
@@ -88051,6 +88315,12 @@ export class ConfidentialInfoCategoryEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class ConstraintRegisterEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `ContextRelationshipEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class ContextRelationshipEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ContingencyPlanEntry` (SOM §8): getters named by section id
@@ -89277,6 +89547,14 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST", (t: SomMetaTree, p: string) => new WorkplaceDescriptionEntry$Id(t, p));
   }
 
+  get RACIEN_LST(): SomListMetaRef<RaciEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/RACIEN-LST", (t: SomMetaTree, p: string) => new RaciEntry$Id(t, p));
+  }
+
+  get POLOWN_LST(): SomListMetaRef<PolicyOwnershipEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/POLOWN-LST", (t: SomMetaTree, p: string) => new PolicyOwnershipEntry$Id(t, p));
+  }
+
   get PVOVW(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW");
   }
@@ -90437,6 +90715,10 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL");
   }
 
+  get SRSDB(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRSDB");
+  }
+
   get CLIAPP_CLIE_LST(): SomListMetaRef<ClientApplicationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t: SomMetaTree, p: string) => new ClientApplicationEntry$Id(t, p));
   }
@@ -91421,8 +91703,8 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
   }
 
-  get SO_MAIN_LST(): SomListMetaRef<SomMetaRef> {
-    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t: SomMetaTree, p: string) => new SomMetaRef(t, p));
+  get MAPRO_PROC_LST(): SomListMetaRef<MaintenanceProcedureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST", (t: SomMetaTree, p: string) => new MaintenanceProcedureEntry$Id(t, p));
   }
 
   get MONITO_MONI(): SomMetaRef {
@@ -93087,6 +93369,10 @@ export class D00SolutionBlueprint$Id extends SomMetaRef {
 
   get DACEN_ITEM_LST(): SomListMetaRef<DeliveryAcceptanceCriterionEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST", (t: SomMetaTree, p: string) => new DeliveryAcceptanceCriterionEntry$Id(t, p));
+  }
+
+  get TSLVL_LST(): SomListMetaRef<TestLevelEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/qualityAndAcceptanceModel/systemQualityGoals/testStrategy/TSLVL-LST", (t: SomMetaTree, p: string) => new TestLevelEntry$Id(t, p));
   }
 
   get DLVEN_ITEM_LST(): SomListMetaRef<DeliverableEntry$Id> {
@@ -95051,6 +95337,10 @@ export class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/hardwareRequirements/serverRequirements/osRequirements/SORL");
   }
 
+  get SRSDB(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/hardwareRequirements/serverRequirements/SRSDB");
+  }
+
   get CLIAPP_CLIE_LST(): SomListMetaRef<ClientApplicationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", (t: SomMetaTree, p: string) => new ClientApplicationEntry$Id(t, p));
   }
@@ -96035,8 +96325,8 @@ export class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
   }
 
-  get SO_MAIN_LST(): SomListMetaRef<SomMetaRef> {
-    return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST", (t: SomMetaTree, p: string) => new SomMetaRef(t, p));
+  get MAPRO_PROC_LST(): SomListMetaRef<MaintenanceProcedureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/systemOperationAndMonitoring/systemOperation/MAPRO-PROC-LST", (t: SomMetaTree, p: string) => new MaintenanceProcedureEntry$Id(t, p));
   }
 
   get MONITO_MONI(): SomMetaRef {
@@ -97771,6 +98061,10 @@ export class D10QualityAcceptancePlan$Id extends SomMetaRef {
     return new SomListMetaRef(this.tree, this.path + "/acceptanceCriteriaSummary/detailedCriteria/DACEN-ITEM-LST", (t: SomMetaTree, p: string) => new DeliveryAcceptanceCriterionEntry$Id(t, p));
   }
 
+  get TSLVL_LST(): SomListMetaRef<TestLevelEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/testStrategy/TSLVL-LST", (t: SomMetaTree, p: string) => new TestLevelEntry$Id(t, p));
+  }
+
   get DACEN_ITEM_LST_2(): SomListMetaRef<DeliveryAcceptanceCriterionEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/acceptanceCriteria/DACEN-ITEM-LST", (t: SomMetaTree, p: string) => new DeliveryAcceptanceCriterionEntry$Id(t, p));
   }
@@ -99202,6 +99496,10 @@ export class D13CodeSpecsProjection$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORL");
   }
 
+  get SRSDB(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/technicalFramework/hardware/serverRequirements/SRSDB");
+  }
+
   get CLIAPP_CLIE_LST(): SomListMetaRef<ClientApplicationEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t: SomMetaTree, p: string) => new ClientApplicationEntry$Id(t, p));
   }
@@ -100186,8 +100484,8 @@ export class D13CodeSpecsProjection$Id extends SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
   }
 
-  get SO_MAIN_LST(): SomListMetaRef<SomMetaRef> {
-    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t: SomMetaTree, p: string) => new SomMetaRef(t, p));
+  get MAPRO_PROC_LST(): SomListMetaRef<MaintenanceProcedureEntry$Id> {
+    return new SomListMetaRef(this.tree, this.path + "/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST", (t: SomMetaTree, p: string) => new MaintenanceProcedureEntry$Id(t, p));
   }
 
   get MONITO_MONI(): SomMetaRef {
@@ -103585,6 +103883,12 @@ export class MaintenanceDependencyEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `MaintenanceProcedureEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class MaintenanceProcedureEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `MaintenanceWindowEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -104461,6 +104765,12 @@ export class PipelineStageEntry$Id extends SomMetaRef {
   }
 }
 
+// ID-tree accessors of `PolicyOwnershipEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class PolicyOwnershipEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `PostconditionsAndGuarantees` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -104815,6 +105125,12 @@ export class QualityStandardEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class QualityWeightEntry$Id extends SomMetaRef {
+}
+
+// ID-tree accessors of `RaciEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class RaciEntry$Id extends SomMetaRef {
 }
 
 // ID-tree accessors of `ReadinessCriteriaEntry` (SOM §8): getters named by section id
@@ -106175,6 +106491,10 @@ export class ServerOperationEntry$Id extends SomMetaRef {
   get SVOBI_BIND_LST(): SomListMetaRef<OperationBindingEntry$Id> {
     return new SomListMetaRef(this.tree, this.path + "/SVOBI-BIND-LST", (t: SomMetaTree, p: string) => new OperationBindingEntry$Id(t, p));
   }
+
+  get SVOCT(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/SVOCT");
+  }
 }
 
 // ID-tree accessors of `ServerOperationMemberEntry` (SOM §8): getters named by section id
@@ -107147,6 +107467,12 @@ export class TechnologyStandardEntry$Id extends SomMetaRef {
 export class TenantCustomizationEntry$Id extends SomMetaRef {
 }
 
+// ID-tree accessors of `TestLevelEntry` (SOM §8): getters named by section id
+// (`-` → `_`), hoisted through id-less members so every reachable id is one
+// step. `.path` and `.meta` agree with the dot-notation surface.
+export class TestLevelEntry$Id extends SomMetaRef {
+}
+
 // ID-tree accessors of `TestScenarioEntry` (SOM §8): getters named by section id
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
@@ -107568,6 +107894,9 @@ export class UiComponentEntry$Id extends SomMetaRef {
 // (`-` → `_`), hoisted through id-less members so every reachable id is one
 // step. `.path` and `.meta` agree with the dot-notation surface.
 export class UserAttributeEntry$Id extends SomMetaRef {
+  get USOIDC(): SomMetaRef {
+    return new SomMetaRef(this.tree, this.path + "/USOIDC");
+  }
 }
 
 // ID-tree accessors of `UserCategoryDefinition` (SOM §8): getters named by section id

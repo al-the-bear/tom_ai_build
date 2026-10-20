@@ -854,6 +854,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per login flow step.
+  mapro-proc-lst:
+    prefix: MAPRO_PROC_LST
+    subsection-types:
+      mapro-proc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance procedure.
   migtg-targ-lst:
     prefix: MIGTG_TARG_LST
     subsection-types:
@@ -2851,6 +2859,12 @@ section-types:
       pattern: ^LGFLS-LOGI-.+$
       error-message: IDs of this section must match LGFLS-LOGI-xxx
     description: Add one entry per login flow step.
+  mapro-proc:
+    prefix: MAPRO_PROC_
+    pattern-check-id:
+      pattern: ^MAPRO-PROC-.+$
+      error-message: IDs of this section must match MAPRO-PROC-xxx
+    description: Add one entry per maintenance procedure.
   mc-mfad-lst:
     prefix: MC_MFAD_LST
     subsection-types:
@@ -3156,14 +3170,6 @@ section-types:
       pattern: ^SHLCP-SHAR-.+$
       error-message: IDs of this section must match SHLCP-SHAR-xxx
     description: Add one entry per shared library.
-  so-main-lst:
-    prefix: SO_MAIN_LST
-    subsection-types:
-      so-main:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per maintenance procedure.
   svcst-step:
     prefix: SVCST_STEP_
     pattern-check-id:
@@ -3195,6 +3201,8 @@ section-types:
       svopm-resm-lst:
         max-count: 1
       svobi-bind-lst:
+        max-count: 1
+      svoct:
         max-count: 1
     pattern-check-id:
       pattern: ^SVOPE-OPER-.+$
@@ -3295,6 +3303,9 @@ section-types:
     description: Add one entry per user-lifecycle transition entry.
   usate-item:
     prefix: USATE_ITEM_
+    subsection-types:
+      usoidc:
+        max-count: 1
     pattern-check-id:
       pattern: ^USATE-ITEM-.+$
       error-message: IDs of this section must match USATE-ITEM-xxx
@@ -3549,6 +3560,14 @@ section-types:
       pattern: ^COPA-COLO-.+$
       error-message: IDs of this section must match COPA-COLO-xxx
     description: Add one entry per colour palette.
+  ctxrel-lst:
+    prefix: CTXREL_LST
+    subsection-types:
+      ctxrel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per neighbouring context.
   daatt-data:
     prefix: DAATT_DATA
     format: daatt-data-form
@@ -3903,6 +3922,8 @@ section-types:
       bcei:
         max-count: 1
       bocoenin:
+        max-count: 1
+      ctxrel-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^BCE-BOUN-.+$
@@ -4664,12 +4685,6 @@ section-types:
     prefix: SLMORERE
     format: slmorere-form
     description: Reporting and review.
-  so-main:
-    prefix: SO_MAIN_
-    pattern-check-id:
-      pattern: ^SO-MAIN-.+$
-      error-message: IDs of this section must match SO-MAIN-xxx
-    description: Add one entry per maintenance procedure.
   uicoensc:
     prefix: UICOENSC
     format: uicoensc-form
@@ -4686,6 +4701,12 @@ section-types:
     prefix: BC_BREA
     format: bc-brea-form
     description: The breakpoint set the layout switches at.
+  ctxrel:
+    prefix: CTXREL_
+    pattern-check-id:
+      pattern: ^CTXREL-.+$
+      error-message: IDs of this section must match CTXREL-xxx
+    description: Add one entry per neighbouring context.
   accasu:
     prefix: ACCASU
     format: accasu-form
@@ -6160,6 +6181,9 @@ section-types:
   kestpo:
     prefix: KESTPO
     description: Key Storage Policy.
+  keymgt:
+    prefix: KEYMGT
+    description: Key management on the platform side.
   lacoru:
     prefix: LACORU
     subsection-types:
@@ -7179,6 +7203,10 @@ section-types:
       ugpt:
         max-count: 1
     description: User growth projections.
+  usoidc:
+    prefix: USOIDC
+    format: usoidc-form
+    description: "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it."
   usprto:
     prefix: USPRTO
     subsection-types:
@@ -8090,6 +8118,10 @@ section-types:
     prefix: SRPBP
     format: srpbp-form
     description: Bot protection settings.
+  srsdb:
+    prefix: SRSDB
+    format: srsdb-form
+    description: The database connection budget and the server settings that bound it.
   ssacm:
     prefix: SSACM
     format: ssacm-form
@@ -8138,6 +8170,10 @@ section-types:
     prefix: STATT
     format: statt-form
     description: Scaling types and providers.
+  svoct:
+    prefix: SVOCT
+    format: svoct-form
+    description: "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it."
   svopr:
     prefix: SVOPR
     subsection-types:
@@ -12647,6 +12683,8 @@ section-types:
         max-count: 1
       seosre:
         max-count: 1
+      srsdb:
+        max-count: 1
     description: |
       Specify server infrastructure requirements including compute, storage,
       scaling, and high availability. Server sizing directly impacts
@@ -12724,6 +12762,8 @@ section-types:
       dpaps:
         max-count: 1
       sars:
+        max-count: 1
+      keymgt:
         max-count: 1
     description: |
       Define comprehensive security requirements including IT security standards,
@@ -12910,7 +12950,7 @@ section-types:
     subsection-types:
       ars:
         max-count: 1
-      so-main-lst:
+      mapro-proc-lst:
         max-count: 1
     description: |
       Specify day-to-day system operation requirements including administration,
@@ -14352,6 +14392,8 @@ form-types:
         description: Contexts that depend on this one
       - fieldname: sharedKernel
         description: Shared code with other contexts
+      - fieldname: ownedOperations
+        description: "The server operations this context owns, comma-separated"
   bcei-form:
     fields:
       - fieldname: repositoryNamespace
@@ -16162,6 +16204,10 @@ form-types:
         description: Concurrent users expected
       - fieldname: expectedLoad
         description: Requests per second
+      - fieldname: nodeCount
+        description: How many application nodes run in the environment
+      - fieldname: databaseServerCount
+        description: How many database servers run in the environment
   seea-form:
     fields:
       - fieldname: accessRestrictions
@@ -16476,6 +16522,16 @@ form-types:
         description: Number of licenses
       - fieldname: notes
         description: Additional OS notes
+  srsdb-form:
+    fields:
+      - fieldname: databaseMaxConnections
+        description: The connection limit of the database server
+      - fieldname: connectionsPerNode
+        description: The pool size each application node opens
+      - fieldname: reservedConnections
+        description: Connections kept free for administration and migrations
+      - fieldname: budgetRationale
+        description: "How the numbers add up, and what happens when a node is added"
   bres-form:
     fields:
       - fieldname: supportLevel
@@ -20550,6 +20606,14 @@ form-types:
         description: "Naming pattern for service accounts (e.g., svc-{app}-{environment})"
       - fieldname: documentationRequirements
         description: "What must be documented for each service account (purpose, owner, scope)"
+  usoidc-form:
+    fields:
+      - fieldname: claimName
+        description: The claim the attribute is released as
+      - fieldname: scope
+        description: The scope that releases it
+      - fieldname: releasedIn
+        description: "id token / access token / userinfo, comma-separated; audience-only tokens named"
   idsoenco-form:
     fields:
       - fieldname: sourceEndpoint
@@ -22204,6 +22268,10 @@ form-types:
         description: Parent role name or "none" for top-level roles; child roles inherit all permissions of the parent
       - fieldname: permissionSet
         description: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)"
+      - fieldname: membershipSource
+        description: Whether holders are assigned or membership follows from grants
+      - fieldname: derivationRule
+        description: "For a derived role: the grants that confer membership"
   areg-form:
     fields:
       - fieldname: riskLevel
@@ -23315,6 +23383,16 @@ form-types:
         description: "Any data population or transformation performed as part of the change, or None"
       - fieldname: reversible
         description: Whether a rollback step is provided for this change
+  svoct-form:
+    fields:
+      - fieldname: idempotency
+        description: Whether repeating the call repeats its effect
+      - fieldname: auditEvent
+        description: "The audit event the operation records, if any"
+      - fieldname: rateLimitClass
+        description: The rate-limit class that throttles it
+      - fieldname: callers
+        description: "Who calls it — client applications, services, roles"
   acovna-form:
     fields:
       - fieldname: totalActorCount

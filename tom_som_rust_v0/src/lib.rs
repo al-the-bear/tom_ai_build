@@ -749,6 +749,91 @@ pub fn parse_constraint_enforcement(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `ContextRelationshipType` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// The two teams succeed or fail together and plan jointly.
+pub const CONTEXT_RELATIONSHIP_TYPE_PARTNERSHIP: &str = "partnership";
+/// The two share a small common model both depend on.
+pub const CONTEXT_RELATIONSHIP_TYPE_SHARED_KERNEL: &str = "sharedKernel";
+/// The downstream context's needs shape what the upstream provides.
+pub const CONTEXT_RELATIONSHIP_TYPE_CUSTOMER_SUPPLIER: &str = "customerSupplier";
+/// The downstream context adopts the upstream model as it is.
+pub const CONTEXT_RELATIONSHIP_TYPE_CONFORMIST: &str = "conformist";
+/// The downstream context translates the upstream model at its boundary.
+pub const CONTEXT_RELATIONSHIP_TYPE_ANTICORRUPTION_LAYER: &str = "anticorruptionLayer";
+/// The upstream context offers a protocol any context may use.
+pub const CONTEXT_RELATIONSHIP_TYPE_OPEN_HOST_SERVICE: &str = "openHostService";
+/// The two exchange a documented, shared language.
+pub const CONTEXT_RELATIONSHIP_TYPE_PUBLISHED_LANGUAGE: &str = "publishedLanguage";
+/// The two have no integration.
+pub const CONTEXT_RELATIONSHIP_TYPE_SEPARATE_WAYS: &str = "separateWays";
+
+/// ContextRelationshipType is the generated enum for `ContextRelationshipType` values.
+///
+/// The stored token is what [ContextRelationshipType::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum ContextRelationshipType {
+    /// The two teams succeed or fail together and plan jointly.
+    Partnership,
+    /// The two share a small common model both depend on.
+    SharedKernel,
+    /// The downstream context's needs shape what the upstream provides.
+    CustomerSupplier,
+    /// The downstream context adopts the upstream model as it is.
+    Conformist,
+    /// The downstream context translates the upstream model at its boundary.
+    AnticorruptionLayer,
+    /// The upstream context offers a protocol any context may use.
+    OpenHostService,
+    /// The two exchange a documented, shared language.
+    PublishedLanguage,
+    /// The two have no integration.
+    SeparateWays,
+}
+
+impl ContextRelationshipType {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            ContextRelationshipType::Partnership => "partnership",
+            ContextRelationshipType::SharedKernel => "sharedKernel",
+            ContextRelationshipType::CustomerSupplier => "customerSupplier",
+            ContextRelationshipType::Conformist => "conformist",
+            ContextRelationshipType::AnticorruptionLayer => "anticorruptionLayer",
+            ContextRelationshipType::OpenHostService => "openHostService",
+            ContextRelationshipType::PublishedLanguage => "publishedLanguage",
+            ContextRelationshipType::SeparateWays => "separateWays",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "partnership" => Some(ContextRelationshipType::Partnership),
+            "sharedKernel" => Some(ContextRelationshipType::SharedKernel),
+            "customerSupplier" => Some(ContextRelationshipType::CustomerSupplier),
+            "conformist" => Some(ContextRelationshipType::Conformist),
+            "anticorruptionLayer" => Some(ContextRelationshipType::AnticorruptionLayer),
+            "openHostService" => Some(ContextRelationshipType::OpenHostService),
+            "publishedLanguage" => Some(ContextRelationshipType::PublishedLanguage),
+            "separateWays" => Some(ContextRelationshipType::SeparateWays),
+            _ => None,
+        }
+    }
+}
+
+/// parse_context_relationship_type returns token when it is a known ContextRelationshipType value, else "".
+pub fn parse_context_relationship_type(token: &str) -> String {
+    match token {
+        CONTEXT_RELATIONSHIP_TYPE_PARTNERSHIP | CONTEXT_RELATIONSHIP_TYPE_SHARED_KERNEL | CONTEXT_RELATIONSHIP_TYPE_CUSTOMER_SUPPLIER | CONTEXT_RELATIONSHIP_TYPE_CONFORMIST | CONTEXT_RELATIONSHIP_TYPE_ANTICORRUPTION_LAYER | CONTEXT_RELATIONSHIP_TYPE_OPEN_HOST_SERVICE | CONTEXT_RELATIONSHIP_TYPE_PUBLISHED_LANGUAGE | CONTEXT_RELATIONSHIP_TYPE_SEPARATE_WAYS => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `DataAttributeKind` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Character data of bounded length. Binds
@@ -1789,6 +1874,63 @@ pub fn parse_object_lifecycle_kind(token: &str) -> String {
     }
 }
 
+/// Generated enum constants for `OperationIdempotency` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Repeating it has no further effect.
+pub const OPERATION_IDEMPOTENCY_IDEMPOTENT: &str = "idempotent";
+/// Repeating it has no further effect when the caller sends the same
+/// idempotency key.
+pub const OPERATION_IDEMPOTENCY_IDEMPOTENT_WITH_KEY: &str = "idempotentWithKey";
+/// Each call has its own effect; a retry must be decided by the caller.
+pub const OPERATION_IDEMPOTENCY_NOT_IDEMPOTENT: &str = "notIdempotent";
+
+/// OperationIdempotency is the generated enum for `OperationIdempotency` values.
+///
+/// The stored token is what [OperationIdempotency::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum OperationIdempotency {
+    /// Repeating it has no further effect.
+    Idempotent,
+    /// Repeating it has no further effect when the caller sends the same
+    /// idempotency key.
+    IdempotentWithKey,
+    /// Each call has its own effect; a retry must be decided by the caller.
+    NotIdempotent,
+}
+
+impl OperationIdempotency {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            OperationIdempotency::Idempotent => "idempotent",
+            OperationIdempotency::IdempotentWithKey => "idempotentWithKey",
+            OperationIdempotency::NotIdempotent => "notIdempotent",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "idempotent" => Some(OperationIdempotency::Idempotent),
+            "idempotentWithKey" => Some(OperationIdempotency::IdempotentWithKey),
+            "notIdempotent" => Some(OperationIdempotency::NotIdempotent),
+            _ => None,
+        }
+    }
+}
+
+/// parse_operation_idempotency returns token when it is a known OperationIdempotency value, else "".
+pub fn parse_operation_idempotency(token: &str) -> String {
+    match token {
+        OPERATION_IDEMPOTENCY_IDEMPOTENT | OPERATION_IDEMPOTENCY_IDEMPOTENT_WITH_KEY | OPERATION_IDEMPOTENCY_NOT_IDEMPOTENT => token.to_string(),
+        _ => String::new(),
+    }
+}
+
 /// Generated enum constants for `OverridableBy` values. The stored token is byte-
 /// identical across every language port, so documents stay cross-compatible.
 /// Scope-pinned: no narrower scope may shadow the key.
@@ -2337,6 +2479,63 @@ impl ReportFilterValueKind {
 pub fn parse_report_filter_value_kind(token: &str) -> String {
     match token {
         REPORT_FILTER_VALUE_KIND_STRING | REPORT_FILTER_VALUE_KIND_INTEGER | REPORT_FILTER_VALUE_KIND_DECIMAL | REPORT_FILTER_VALUE_KIND_DATE | REPORT_FILTER_VALUE_KIND_DATE_TIME | REPORT_FILTER_VALUE_KIND_BOOLEAN | REPORT_FILTER_VALUE_KIND_ENUMERATION | REPORT_FILTER_VALUE_KIND_ENTITY_REF => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `RoleMembershipSource` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Holders are assigned to the role directly.
+pub const ROLE_MEMBERSHIP_SOURCE_ASSIGNED: &str = "assigned";
+/// Membership follows from grants the holder has: the role is a name for a
+/// set of grants, not something anyone is assigned.
+pub const ROLE_MEMBERSHIP_SOURCE_DERIVED_FROM_GRANTS: &str = "derivedFromGrants";
+/// Both: holders are assigned, and a grant can also confer membership.
+pub const ROLE_MEMBERSHIP_SOURCE_BOTH: &str = "both";
+
+/// RoleMembershipSource is the generated enum for `RoleMembershipSource` values.
+///
+/// The stored token is what [RoleMembershipSource::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum RoleMembershipSource {
+    /// Holders are assigned to the role directly.
+    Assigned,
+    /// Membership follows from grants the holder has: the role is a name for a
+    /// set of grants, not something anyone is assigned.
+    DerivedFromGrants,
+    /// Both: holders are assigned, and a grant can also confer membership.
+    Both,
+}
+
+impl RoleMembershipSource {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            RoleMembershipSource::Assigned => "assigned",
+            RoleMembershipSource::DerivedFromGrants => "derivedFromGrants",
+            RoleMembershipSource::Both => "both",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "assigned" => Some(RoleMembershipSource::Assigned),
+            "derivedFromGrants" => Some(RoleMembershipSource::DerivedFromGrants),
+            "both" => Some(RoleMembershipSource::Both),
+            _ => None,
+        }
+    }
+}
+
+/// parse_role_membership_source returns token when it is a known RoleMembershipSource value, else "".
+pub fn parse_role_membership_source(token: &str) -> String {
+    match token {
+        ROLE_MEMBERSHIP_SOURCE_ASSIGNED | ROLE_MEMBERSHIP_SOURCE_DERIVED_FROM_GRANTS | ROLE_MEMBERSHIP_SOURCE_BOTH => token.to_string(),
         _ => String::new(),
     }
 }
@@ -3627,6 +3826,67 @@ impl Status {
 pub fn parse_status(token: &str) -> String {
     match token {
         STATUS_DRAFT | STATUS_PROPOSED | STATUS_APPROVED | STATUS_IMPLEMENTED | STATUS_VERIFIED | STATUS_DEFERRED | STATUS_REJECTED => token.to_string(),
+        _ => String::new(),
+    }
+}
+
+/// Generated enum constants for `TranslationReviewStatus` values. The stored token is byte-
+/// identical across every language port, so documents stay cross-compatible.
+/// Written, not yet reviewed.
+pub const TRANSLATION_REVIEW_STATUS_DRAFT: &str = "draft";
+/// Produced by a machine, not yet reviewed by a person.
+pub const TRANSLATION_REVIEW_STATUS_MACHINE_TRANSLATED: &str = "machineTranslated";
+/// Reviewed by a person fluent in the language.
+pub const TRANSLATION_REVIEW_STATUS_REVIEWED: &str = "reviewed";
+/// Approved for release.
+pub const TRANSLATION_REVIEW_STATUS_APPROVED: &str = "approved";
+
+/// TranslationReviewStatus is the generated enum for `TranslationReviewStatus` values.
+///
+/// The stored token is what [TranslationReviewStatus::as_str] returns, byte-identical across every
+/// language port, so typing an accessor cannot make a document written here
+/// unreadable elsewhere.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum TranslationReviewStatus {
+    /// Written, not yet reviewed.
+    Draft,
+    /// Produced by a machine, not yet reviewed by a person.
+    MachineTranslated,
+    /// Reviewed by a person fluent in the language.
+    Reviewed,
+    /// Approved for release.
+    Approved,
+}
+
+impl TranslationReviewStatus {
+    /// The stored token for this value.
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            TranslationReviewStatus::Draft => "draft",
+            TranslationReviewStatus::MachineTranslated => "machineTranslated",
+            TranslationReviewStatus::Reviewed => "reviewed",
+            TranslationReviewStatus::Approved => "approved",
+        }
+    }
+
+    /// The value whose stored token is `token`, or `None` when the token is not
+    /// one this model declares — never a guess, and the same answer the ports
+    /// with a nullable accessor give as null.
+    pub fn from_token(token: &str) -> Option<Self> {
+        match token {
+            "draft" => Some(TranslationReviewStatus::Draft),
+            "machineTranslated" => Some(TranslationReviewStatus::MachineTranslated),
+            "reviewed" => Some(TranslationReviewStatus::Reviewed),
+            "approved" => Some(TranslationReviewStatus::Approved),
+            _ => None,
+        }
+    }
+}
+
+/// parse_translation_review_status returns token when it is a known TranslationReviewStatus value, else "".
+pub fn parse_translation_review_status(token: &str) -> String {
+    match token {
+        TRANSLATION_REVIEW_STATUS_DRAFT | TRANSLATION_REVIEW_STATUS_MACHINE_TRANSLATED | TRANSLATION_REVIEW_STATUS_REVIEWED | TRANSLATION_REVIEW_STATUS_APPROVED => token.to_string(),
         _ => String::new(),
     }
 }
@@ -8554,6 +8814,16 @@ impl BoundedContextEntry {
     /// Integration and notes.
     pub fn integration(&self) -> BoundedContextEntryIntegrationForm {
         BoundedContextEntryIntegrationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BOCOENIN"))
+    }
+
+    /// Relationships to neighbouring contexts — contains 0+× relationship.
+    pub fn relationships(&self) -> som::SomList<ContextRelationshipEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CTXREL-LST"),
+            Box::new(ContextRelationshipEntry::new),
+            "CTXREL-xxx".to_string(),
+        )
     }
 }
 
@@ -14200,6 +14470,32 @@ impl ContextDiagram {
     pub fn set_legend(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "CD-LEGE");
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+}
+
+/// The relationship of a bounded context to one neighbour.
+pub struct ContextRelationshipEntry {
+    pub node: som::SomNode,
+}
+
+impl ContextRelationshipEntry {
+    /// Binds a ContextRelationshipEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ContextRelationshipEntry {
+        ContextRelationshipEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> ContextRelationshipEntryContentForm {
+        ContextRelationshipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -33009,6 +33305,33 @@ impl KeyManagement {
     // (skipped: notes has no target type)
 }
 
+/// Key management on the platform side: which keys exist, where they are
+/// kept, how they rotate and who holds them.
+pub struct KeyManagementRequirements {
+    pub node: som::SomNode,
+}
+
+impl KeyManagementRequirements {
+    /// Binds a KeyManagementRequirements facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> KeyManagementRequirements {
+        KeyManagementRequirements { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> KeyManagementRequirementsContentForm {
+        KeyManagementRequirementsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A key result entry (form).
 pub struct KeyResultEntry {
     pub node: som::SomNode,
@@ -34497,6 +34820,32 @@ impl MaintenanceDependencyEntry {
     /// Risk and fallback planning.
     pub fn risk(&self) -> MaintenanceDependencyEntryRiskForm {
         MaintenanceDependencyEntryRiskForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "MDER"))
+    }
+}
+
+/// One maintenance procedure: its name is the headline, the steps the text.
+pub struct MaintenanceProcedureEntry {
+    pub node: som::SomNode,
+}
+
+impl MaintenanceProcedureEntry {
+    /// Binds a MaintenanceProcedureEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintenanceProcedureEntry {
+        MaintenanceProcedureEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> MaintenanceProcedureEntryContentForm {
+        MaintenanceProcedureEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -39057,6 +39406,26 @@ impl OrganizationalFramework {
             "WPDE-WORK-xxx".to_string(),
         )
     }
+
+    /// Cross-process RACI matrix — contains 0+× RACI entry.
+    pub fn raci_matrix(&self) -> som::SomList<RaciEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "RACIEN-LST"),
+            Box::new(RaciEntry::new),
+            "RACIEN-xxx".to_string(),
+        )
+    }
+
+    /// Policy ownership — contains 0+× policy.
+    pub fn policy_ownership(&self) -> som::SomList<PolicyOwnershipEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "POLOWN-LST"),
+            Box::new(PolicyOwnershipEntry::new),
+            "POLOWN-xxx".to_string(),
+        )
+    }
 }
 
 /// An organizational requirement entry.
@@ -40919,6 +41288,32 @@ impl PlatformAndLanguage {
     /// Runtime environment constraints.
     pub fn runtime_environment(&self) -> RuntimeEnvironment {
         RuntimeEnvironment::new(self.node.doc(), format!("{}/{}", self.node.path(), "runtimeEnvironment"))
+    }
+}
+
+/// One policy and who owns it.
+pub struct PolicyOwnershipEntry {
+    pub node: som::SomNode,
+}
+
+impl PolicyOwnershipEntry {
+    /// Binds a PolicyOwnershipEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PolicyOwnershipEntry {
+        PolicyOwnershipEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> PolicyOwnershipEntryContentForm {
+        PolicyOwnershipEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -44553,6 +44948,32 @@ impl QualityWeightEntry {
     /// §11.4 rule 7); the field values themselves live in [form].
     pub fn content(&self) -> QualityWeightEntryContentForm {
         QualityWeightEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// One activity of the cross-process RACI matrix.
+pub struct RaciEntry {
+    pub node: som::SomNode,
+}
+
+impl RaciEntry {
+    /// Binds a RaciEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RaciEntry {
+        RaciEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> RaciEntryContentForm {
+        RaciEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -52347,6 +52768,11 @@ impl ServerOperationEntry {
             "SVOBI-BIND-xxx".to_string(),
         )
     }
+
+    /// Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+    pub fn controls(&self) -> ServerOperationEntryControlsForm {
+        ServerOperationEntryControlsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SVOCT"))
+    }
 }
 
 /// A single member of an operation's request or response shape (form).
@@ -52605,6 +53031,11 @@ impl ServerRequirementsSection {
     /// Operating system requirements.
     pub fn os_requirements(&self) -> ServerOsRequirements {
         ServerOsRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "osRequirements"))
+    }
+
+    /// The database connection budget and the server settings that bound it.
+    pub fn connection_budget(&self) -> ServerRequirementsSectionConnectionBudgetForm {
+        ServerRequirementsSectionConnectionBudgetForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SRSDB"))
     }
 }
 
@@ -57142,12 +57573,12 @@ impl SystemOperation {
     }
 
     /// Maintenance Procedures.
-    pub fn maintenance_procedures(&self) -> som::SomList<som::SomScalar> {
+    pub fn maintenance_procedures(&self) -> som::SomList<MaintenanceProcedureEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SO-MAIN-LST"),
-            Box::new(som::SomScalar::new),
-            "SO-MAIN-xxx".to_string(),
+            format!("{}/{}", self.node.path(), "MAPRO-PROC-LST"),
+            Box::new(MaintenanceProcedureEntry::new),
+            "MAPRO-PROC-xxx".to_string(),
         )
     }
 }
@@ -59313,6 +59744,11 @@ impl TechnicalSecurityRequirements {
     pub fn security_audit_requirements(&self) -> SecurityAuditRequirementsSection {
         SecurityAuditRequirementsSection::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityAuditRequirements"))
     }
+
+    /// Key management on the platform side.
+    pub fn key_management(&self) -> KeyManagementRequirements {
+        KeyManagementRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "keyManagement"))
+    }
 }
 
 /// Technology and data variations.
@@ -59627,6 +60063,32 @@ impl TenantOnboardingPolicy {
     // (skipped: tenantOnboardingPolicyDetails has no target type)
 }
 
+/// One test level of the test strategy.
+pub struct TestLevelEntry {
+    pub node: som::SomNode,
+}
+
+impl TestLevelEntry {
+    /// Binds a TestLevelEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TestLevelEntry {
+        TestLevelEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    /// The section's body content. For a `@Form`-annotated member this is the
+    /// form's **preamble** — the free text before the first field line (SOM
+    /// §11.4 rule 7); the field values themselves live in [form].
+    pub fn content(&self) -> TestLevelEntryContentForm {
+        TestLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// A test scenario entry (form).
 ///
 /// Represents a business-level test case covering a user journey, business
@@ -59764,6 +60226,16 @@ impl TestStrategy {
     pub fn set_content(&self, value: &str) {
         let path = format!("{}/{}", self.node.path(), "content");
         self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// Test levels — contains 0+× test level.
+    pub fn test_levels(&self) -> som::SomList<TestLevelEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "TSLVL-LST"),
+            Box::new(TestLevelEntry::new),
+            "TSLVL-xxx".to_string(),
+        )
     }
 }
 
@@ -62630,6 +63102,11 @@ impl UserAttributeEntry {
     /// §11.4 rule 7); the field values themselves live in [form].
     pub fn content(&self) -> UserAttributeEntryContentForm {
         UserAttributeEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+    pub fn oidc_release(&self) -> UserAttributeEntryOidcReleaseForm {
+        UserAttributeEntryOidcReleaseForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "USOIDC"))
     }
 }
 
@@ -77801,6 +78278,25 @@ impl AuthorizationRoleEntryStructureForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "permissionSet", value);
     }
+
+    pub fn membership_source(&self) -> Option<RoleMembershipSource> {
+        RoleMembershipSource::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "membershipSource"))
+    }
+
+    pub fn set_membership_source(&self, value: Option<RoleMembershipSource>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "membershipSource", text);
+    }
+
+    pub fn derivation_rule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "derivationRule")
+    }
+
+    pub fn set_derivation_rule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "derivationRule", value);
+    }
 }
 
 /// AvailabilityContentForm is the generated section facade for the `content` @Form section: its own
@@ -80920,6 +81416,15 @@ impl BoundedContextEntryBoundariesForm {
     pub fn set_shared_kernel(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "sharedKernel", value);
+    }
+
+    pub fn owned_operations(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "ownedOperations")
+    }
+
+    pub fn set_owned_operations(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "ownedOperations", value);
     }
 }
 
@@ -101365,6 +101870,64 @@ impl ContentScanningPolicyContentForm {
     pub fn set_notes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
+    }
+}
+
+/// ContextRelationshipEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ContextRelationshipEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ContextRelationshipEntryContentForm {
+    /// Binds a ContextRelationshipEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ContextRelationshipEntryContentForm {
+        ContextRelationshipEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn neighbour_context(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "neighbourContext")
+    }
+
+    pub fn set_neighbour_context(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "neighbourContext", value);
+    }
+
+    pub fn relationship_type(&self) -> Option<ContextRelationshipType> {
+        ContextRelationshipType::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "relationshipType"))
+    }
+
+    pub fn set_relationship_type(&self, value: Option<ContextRelationshipType>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "relationshipType", text);
+    }
+
+    pub fn direction(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "direction")
+    }
+
+    pub fn set_direction(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "direction", value);
     }
 }
 
@@ -153971,6 +154534,90 @@ impl KeyGenerationPolicyContentForm {
     }
 }
 
+/// KeyManagementRequirementsContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct KeyManagementRequirementsContentForm {
+    pub node: som::SomNode,
+}
+
+impl KeyManagementRequirementsContentForm {
+    /// Binds a KeyManagementRequirementsContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> KeyManagementRequirementsContentForm {
+        KeyManagementRequirementsContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn key_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyTypes")
+    }
+
+    pub fn set_key_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyTypes", value);
+    }
+
+    pub fn key_storage(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyStorage")
+    }
+
+    pub fn set_key_storage(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyStorage", value);
+    }
+
+    pub fn rotation_policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rotationPolicy")
+    }
+
+    pub fn set_rotation_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rotationPolicy", value);
+    }
+
+    pub fn key_custody(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "keyCustody")
+    }
+
+    pub fn set_key_custody(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "keyCustody", value);
+    }
+
+    pub fn backup_and_recovery(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "backupAndRecovery")
+    }
+
+    pub fn set_backup_and_recovery(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "backupAndRecovery", value);
+    }
+
+    pub fn destruction(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "destruction")
+    }
+
+    pub fn set_destruction(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "destruction", value);
+    }
+}
+
 /// KeyResultEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct KeyResultEntryContentForm {
@@ -158734,6 +159381,54 @@ impl MaintenanceDependencyEntryUpdateForm {
     }
 }
 
+/// MaintenanceProcedureEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MaintenanceProcedureEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl MaintenanceProcedureEntryContentForm {
+    /// Binds a MaintenanceProcedureEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MaintenanceProcedureEntryContentForm {
+        MaintenanceProcedureEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn frequency(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "frequency")
+    }
+
+    pub fn set_frequency(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "frequency", value);
+    }
+
+    pub fn performed_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "performedBy")
+    }
+
+    pub fn set_performed_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "performedBy", value);
+    }
+}
+
 /// MaintenanceUserImpactContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct MaintenanceUserImpactContentForm {
@@ -160099,6 +160794,16 @@ impl MessageLocaleVariantEntryContentForm {
     pub fn set_copy(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "copy", value);
+    }
+
+    pub fn review_status(&self) -> Option<TranslationReviewStatus> {
+        TranslationReviewStatus::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "reviewStatus"))
+    }
+
+    pub fn set_review_status(&self, value: Option<TranslationReviewStatus>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "reviewStatus", text);
     }
 }
 
@@ -179734,6 +180439,81 @@ impl PipelineStageEntryTriggerForm {
     }
 }
 
+/// PolicyOwnershipEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct PolicyOwnershipEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl PolicyOwnershipEntryContentForm {
+    /// Binds a PolicyOwnershipEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> PolicyOwnershipEntryContentForm {
+        PolicyOwnershipEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn policy(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "policy")
+    }
+
+    pub fn set_policy(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "policy", value);
+    }
+
+    pub fn owner(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "owner")
+    }
+
+    pub fn set_owner(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "owner", value);
+    }
+
+    pub fn approver(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "approver")
+    }
+
+    pub fn set_approver(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "approver", value);
+    }
+
+    pub fn review_cycle(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reviewCycle")
+    }
+
+    pub fn set_review_cycle(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reviewCycle", value);
+    }
+
+    pub fn applies_to(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "appliesTo")
+    }
+
+    pub fn set_applies_to(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "appliesTo", value);
+    }
+}
+
 /// PortabilityContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct PortabilityContentForm {
@@ -190459,6 +191239,90 @@ impl QualityWeightEntryContentForm {
     pub fn set_trade_off_implications(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "tradeOffImplications", value);
+    }
+}
+
+/// RaciEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct RaciEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl RaciEntryContentForm {
+    /// Binds a RaciEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> RaciEntryContentForm {
+        RaciEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn activity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "activity")
+    }
+
+    pub fn set_activity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "activity", value);
+    }
+
+    pub fn responsible(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "responsible")
+    }
+
+    pub fn set_responsible(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "responsible", value);
+    }
+
+    pub fn accountable(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accountable")
+    }
+
+    pub fn set_accountable(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accountable", value);
+    }
+
+    pub fn consulted(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "consulted")
+    }
+
+    pub fn set_consulted(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "consulted", value);
+    }
+
+    pub fn informed(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "informed")
+    }
+
+    pub fn set_informed(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "informed", value);
+    }
+
+    pub fn related_process(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "relatedProcess")
+    }
+
+    pub fn set_related_process(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "relatedProcess", value);
     }
 }
 
@@ -215890,6 +216754,28 @@ impl ServerEnvironmentEntryScaleForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expectedLoad", value);
     }
+
+    pub fn node_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "nodeCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_node_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "nodeCount", &text);
+    }
+
+    pub fn database_server_count(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "databaseServerCount");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_database_server_count(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseServerCount", &text);
+    }
 }
 
 /// ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -215964,6 +216850,73 @@ impl ServerOperationEntryContentForm {
     pub fn set_error_codes(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "errorCodes", value);
+    }
+}
+
+/// ServerOperationEntryControlsForm is the generated section facade for the `controls` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerOperationEntryControlsForm {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationEntryControlsForm {
+    /// Binds a ServerOperationEntryControlsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationEntryControlsForm {
+        ServerOperationEntryControlsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn idempotency(&self) -> Option<OperationIdempotency> {
+        OperationIdempotency::from_token(&self.node.doc().borrow().form_field_or(self.node.path(), "idempotency"))
+    }
+
+    pub fn set_idempotency(&self, value: Option<OperationIdempotency>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.as_str(), None => "" };
+        self.node.doc().borrow_mut().set_form_field(&path, "idempotency", text);
+    }
+
+    pub fn audit_event(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "auditEvent")
+    }
+
+    pub fn set_audit_event(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "auditEvent", value);
+    }
+
+    pub fn rate_limit_class(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rateLimitClass")
+    }
+
+    pub fn set_rate_limit_class(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rateLimitClass", value);
+    }
+
+    pub fn callers(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "callers")
+    }
+
+    pub fn set_callers(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "callers", value);
     }
 }
 
@@ -216357,6 +217310,78 @@ impl ServerOsRequirementsSecurityForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "antivirusRequired", &text);
+    }
+}
+
+/// ServerRequirementsSectionConnectionBudgetForm is the generated section facade for the `connectionBudget` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerRequirementsSectionConnectionBudgetForm {
+    pub node: som::SomNode,
+}
+
+impl ServerRequirementsSectionConnectionBudgetForm {
+    /// Binds a ServerRequirementsSectionConnectionBudgetForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerRequirementsSectionConnectionBudgetForm {
+        ServerRequirementsSectionConnectionBudgetForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn database_max_connections(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "databaseMaxConnections");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_database_max_connections(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "databaseMaxConnections", &text);
+    }
+
+    pub fn connections_per_node(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "connectionsPerNode");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_connections_per_node(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "connectionsPerNode", &text);
+    }
+
+    pub fn reserved_connections(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "reservedConnections");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_reserved_connections(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "reservedConnections", &text);
+    }
+
+    pub fn budget_rationale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "budgetRationale")
+    }
+
+    pub fn set_budget_rationale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "budgetRationale", value);
     }
 }
 
@@ -239739,6 +240764,99 @@ impl TenantOnboardingPolicyContentForm {
     }
 }
 
+/// TestLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct TestLevelEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl TestLevelEntryContentForm {
+    /// Binds a TestLevelEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> TestLevelEntryContentForm {
+        TestLevelEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "level")
+    }
+
+    pub fn set_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "level", value);
+    }
+
+    pub fn test_types(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "testTypes")
+    }
+
+    pub fn set_test_types(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "testTypes", value);
+    }
+
+    pub fn environment(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environment")
+    }
+
+    pub fn set_environment(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environment", value);
+    }
+
+    pub fn tools(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "tools")
+    }
+
+    pub fn set_tools(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "tools", value);
+    }
+
+    pub fn run_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "runBy")
+    }
+
+    pub fn set_run_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "runBy", value);
+    }
+
+    pub fn trigger(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "trigger")
+    }
+
+    pub fn set_trigger(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "trigger", value);
+    }
+
+    pub fn exit_criteria(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "exitCriteria")
+    }
+
+    pub fn set_exit_criteria(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "exitCriteria", value);
+    }
+}
+
 /// TestScenarioEntryBusinessForm is the generated section facade for the `business` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct TestScenarioEntryBusinessForm {
@@ -252658,6 +253776,63 @@ impl UserAttributeEntryContentForm {
     pub fn set_required(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "required", value);
+    }
+}
+
+/// UserAttributeEntryOidcReleaseForm is the generated section facade for the `oidcRelease` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserAttributeEntryOidcReleaseForm {
+    pub node: som::SomNode,
+}
+
+impl UserAttributeEntryOidcReleaseForm {
+    /// Binds a UserAttributeEntryOidcReleaseForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserAttributeEntryOidcReleaseForm {
+        UserAttributeEntryOidcReleaseForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn claim_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "claimName")
+    }
+
+    pub fn set_claim_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "claimName", value);
+    }
+
+    pub fn scope(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "scope")
+    }
+
+    pub fn set_scope(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "scope", value);
+    }
+
+    pub fn released_in(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "releasedIn")
+    }
+
+    pub fn set_released_in(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "releasedIn", value);
     }
 }
 

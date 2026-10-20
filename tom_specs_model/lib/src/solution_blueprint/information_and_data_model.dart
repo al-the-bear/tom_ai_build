@@ -6144,6 +6144,12 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
       required: true,
       hint: 'The user-facing text for this locale',
     ),
+    Field(
+      'reviewStatus',
+      TranslationReviewStatus,
+      'Review Status',
+      hint: 'How far the translation has been checked',
+    ),
   ])
   @override
   @SerializationOrder(0)
@@ -6389,6 +6395,37 @@ class ServerOperationEntry extends DocSpecsSection {
   )
   @SerializationOrder(4)
   List<OperationBindingEntry> bindings = [];
+
+  /// Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+  @SectionId('SVOCT')
+  @Form([
+    Field(
+      'idempotency',
+      OperationIdempotency,
+      'Idempotency',
+      hint: 'Whether repeating the call repeats its effect',
+    ),
+    Field(
+      'auditEvent',
+      String,
+      'Audit Event',
+      hint: 'The audit event the operation records, if any',
+    ),
+    Field(
+      'rateLimitClass',
+      String,
+      'Rate-Limit Class',
+      hint: 'The rate-limit class that throttles it',
+    ),
+    Field(
+      'callers',
+      String,
+      'Callers',
+      hint: 'Who calls it — client applications, services, roles',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? controls;
 }
 
 /// One standard-protocol shape of a server operation (form + parameter list).

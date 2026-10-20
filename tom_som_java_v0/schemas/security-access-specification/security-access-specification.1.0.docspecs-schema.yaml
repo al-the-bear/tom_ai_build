@@ -472,6 +472,9 @@ section-types:
     description: Add one entry per user-lifecycle transition entry.
   usate-item:
     prefix: USATE_ITEM_
+    subsection-types:
+      usoidc:
+        max-count: 1
     pattern-check-id:
       pattern: ^USATE-ITEM-.+$
       error-message: IDs of this section must match USATE-ITEM-xxx
@@ -864,6 +867,10 @@ section-types:
     prefix: TRSEPO
     format: trsepo-form
     description: HSTS and Transport Security Policy.
+  usoidc:
+    prefix: USOIDC
+    format: usoidc-form
+    description: "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it."
   acact:
     prefix: ACACT
     format: acact-form
@@ -1775,6 +1782,14 @@ form-types:
         description: "Naming pattern for service accounts (e.g., svc-{app}-{environment})"
       - fieldname: documentationRequirements
         description: "What must be documented for each service account (purpose, owner, scope)"
+  usoidc-form:
+    fields:
+      - fieldname: claimName
+        description: The claim the attribute is released as
+      - fieldname: scope
+        description: The scope that releases it
+      - fieldname: releasedIn
+        description: "id token / access token / userinfo, comma-separated; audience-only tokens named"
   idsoenco-form:
     fields:
       - fieldname: sourceEndpoint
@@ -3429,6 +3444,10 @@ form-types:
         description: Parent role name or "none" for top-level roles; child roles inherit all permissions of the parent
       - fieldname: permissionSet
         description: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)"
+      - fieldname: membershipSource
+        description: Whether holders are assigned or membership follows from grants
+      - fieldname: derivationRule
+        description: "For a derived role: the grants that confer membership"
   areg-form:
     fields:
       - fieldname: riskLevel

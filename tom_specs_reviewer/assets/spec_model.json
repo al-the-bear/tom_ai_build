@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-20T01:04:15.339256Z",
+  "generatedAt": "2026-10-20T02:21:03.255827Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
-  "modelVersionLabel": "1.6.9+16.6812f209",
-  "classCount": 1260,
+  "modelVersionLabel": "1.6.10+17.c41f1d47",
+  "classCount": 1266,
   "rootCount": 14,
-  "modelHash": "9cc34f9bc7f561f6654de8bd88e6d06537e13824eda4e9145aceee5260c20f49",
+  "modelHash": "58160ddd7e7a080d8b75941b1d9ad1561f974cb9eec8c7229c4cc3009128bf62",
   "containerRoot": "DocSpecsProject",
   "roots": [
     {
@@ -18884,6 +18884,30 @@
               "hint": "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "membershipSource",
+              "label": "Membership Source",
+              "hint": "Whether holders are assigned or membership follows from grants",
+              "type": "RoleMembershipSource",
+              "required": false,
+              "enumValues": [
+                "assigned",
+                "derivedFromGrants",
+                "both"
+              ],
+              "enumValueDocs": {
+                "assigned": "Holders are assigned to the role directly.",
+                "derivedFromGrants": "Membership follows from grants the holder has: the role is a name for a\nset of grants, not something anyone is assigned.",
+                "both": "Both: holders are assigned, and a grant can also confer membership."
+              }
+            },
+            {
+              "name": "derivationRule",
+              "label": "Derivation Rule",
+              "hint": "For a derived role: the grants that confer membership",
+              "type": "String",
+              "required": false
             }
           ]
         },
@@ -23961,6 +23985,16 @@
               "hint": "Shared code with other contexts",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "ownedOperations",
+              "label": "Owned Operations",
+              "hint": "The server operations this context owns, comma-separated",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SVOPE.operationName"
+              ]
             }
           ]
         },
@@ -24104,6 +24138,43 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "relationships",
+          "kind": "list",
+          "doc": "Relationships to neighbouring contexts — contains 0+× relationship.",
+          "help": "Add one entry per neighbouring context.",
+          "sectionId": "CTXREL-LST",
+          "sectionIdPattern": "CTXREL-xxx",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CTXREL-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "CTXREL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per neighbouring context."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "elementType": "ContextRelationshipEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -54041,6 +54112,109 @@
             }
           ],
           "contentType": "description"
+        }
+      ]
+    },
+    "ContextRelationshipEntry": {
+      "name": "ContextRelationshipEntry",
+      "sectionId": "CTXREL",
+      "doc": "The relationship of a bounded context to one neighbour.",
+      "standardReferences": {
+        "standards": [
+          "Evans — Domain-Driven Design: context mapping"
+        ],
+        "connotation": "The relationship of a bounded context to one neighbour."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Evans — Domain-Driven Design: context mapping"
+            ],
+            "connotation": "The relationship of a bounded context to one neighbour."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CTXREL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "Why the two contexts relate this way and what crosses the boundary.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Why the two contexts relate this way and what crosses the boundary."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "neighbourContext",
+              "label": "Neighbour Context",
+              "hint": "The other bounded context",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BCE.contextName"
+              ]
+            },
+            {
+              "name": "relationshipType",
+              "label": "Relationship Type",
+              "hint": "The context-mapping pattern between the two",
+              "type": "ContextRelationshipType",
+              "required": false,
+              "enumValues": [
+                "partnership",
+                "sharedKernel",
+                "customerSupplier",
+                "conformist",
+                "anticorruptionLayer",
+                "openHostService",
+                "publishedLanguage",
+                "separateWays"
+              ],
+              "enumValueDocs": {
+                "partnership": "The two teams succeed or fail together and plan jointly.",
+                "sharedKernel": "The two share a small common model both depend on.",
+                "customerSupplier": "The downstream context's needs shape what the upstream provides.",
+                "conformist": "The downstream context adopts the upstream model as it is.",
+                "anticorruptionLayer": "The downstream context translates the upstream model at its boundary.",
+                "openHostService": "The upstream context offers a protocol any context may use.",
+                "publishedLanguage": "The two exchange a documented, shared language.",
+                "separateWays": "The two have no integration."
+              }
+            },
+            {
+              "name": "direction",
+              "label": "Direction",
+              "hint": "upstream / downstream / mutual, seen from this context",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -139617,6 +139791,118 @@
         }
       ]
     },
+    "KeyManagementRequirements": {
+      "name": "KeyManagementRequirements",
+      "sectionId": "KEYMGT",
+      "doc": "Key management on the platform side: which keys exist, where they are\nkept, how they rotate and who holds them.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-57 Part 1 — recommendation for key management",
+          "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+        ],
+        "connotation": "Defines how cryptographic keys are generated, stored, rotated, recovered and destroyed."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-57 Part 1 — recommendation for key management",
+              "ISO/IEC 27001:2022 — control A.8.24 use of cryptography"
+            ],
+            "connotation": "Defines how cryptographic keys are generated, stored, rotated, recovered and destroyed."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "KEYMGT"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "key custody, rotation and recovery are run by operations"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "The key hierarchy and how its keys are managed over their life.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "The key hierarchy and how its keys are managed over their life."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "keyTypes",
+              "label": "Key Types",
+              "hint": "Which keys exist — signing, encryption, secrets keys — and what each protects",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "keyStorage",
+              "label": "Key Storage",
+              "hint": "Where each key is kept — KMS, HSM, an encrypted file",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rotationPolicy",
+              "label": "Rotation Policy",
+              "hint": "How often each key rotates and how old keys stay usable",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "keyCustody",
+              "label": "Key Custody",
+              "hint": "Who can use, export or replace a key",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "backupAndRecovery",
+              "label": "Backup and Recovery",
+              "hint": "How a key is backed up and restored",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "destruction",
+              "label": "Destruction",
+              "hint": "How a retired key is destroyed",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "KeyResultEntry": {
       "name": "KeyResultEntry",
       "sectionId": "KRE",
@@ -146805,6 +147091,88 @@
         }
       ]
     },
+    "MaintenanceProcedureEntry": {
+      "name": "MaintenanceProcedureEntry",
+      "sectionId": "MAPRO",
+      "doc": "One maintenance procedure: its name is the headline, the steps the text.",
+      "standardReferences": {
+        "standards": [
+          "ITIL 4 — change enablement and maintenance windows"
+        ],
+        "connotation": "One maintenance procedure of the system, named by its headline."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ITIL 4 — change enablement and maintenance windows"
+            ],
+            "connotation": "One maintenance procedure of the system, named by its headline."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MAPRO"
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops"
+            ],
+            "note": "maintenance procedures are run by operations"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "The steps of the procedure and what it depends on.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "The steps of the procedure and what it depends on."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "frequency",
+              "label": "Frequency",
+              "hint": "When the procedure is run — per release, monthly, on demand",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "performedBy",
+              "label": "Performed By",
+              "hint": "Who runs it",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "MaintenanceUserImpact": {
       "name": "MaintenanceUserImpact",
       "sectionId": "MAUSIM",
@@ -148890,6 +149258,25 @@
               "hint": "The user-facing text for this locale",
               "type": "String",
               "required": true
+            },
+            {
+              "name": "reviewStatus",
+              "label": "Review Status",
+              "hint": "How far the translation has been checked",
+              "type": "TranslationReviewStatus",
+              "required": false,
+              "enumValues": [
+                "draft",
+                "machineTranslated",
+                "reviewed",
+                "approved"
+              ],
+              "enumValueDocs": {
+                "draft": "Written, not yet reviewed.",
+                "machineTranslated": "Produced by a machine, not yet reviewed by a person.",
+                "reviewed": "Reviewed by a person fluent in the language.",
+                "approved": "Approved for release."
+              }
             }
           ]
         }
@@ -170189,6 +170576,80 @@
           "elementType": "WorkplaceDescriptionEntry",
           "elementIsComplex": true,
           "min": 1
+        },
+        {
+          "name": "raciMatrix",
+          "kind": "list",
+          "doc": "Cross-process RACI matrix — contains 0+× RACI entry.",
+          "help": "Add one entry per activity.",
+          "sectionId": "RACIEN-LST",
+          "sectionIdPattern": "RACIEN-xxx",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "RACIEN-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "RACIEN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per activity."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "elementType": "RaciEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "policyOwnership",
+          "kind": "list",
+          "doc": "Policy ownership — contains 0+× policy.",
+          "help": "Add one entry per policy.",
+          "sectionId": "POLOWN-LST",
+          "sectionIdPattern": "POLOWN-xxx",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "POLOWN-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "POLOWN-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per policy."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "elementType": "PolicyOwnershipEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -179224,6 +179685,100 @@
             }
           ],
           "type": "RuntimeEnvironment"
+        }
+      ]
+    },
+    "PolicyOwnershipEntry": {
+      "name": "PolicyOwnershipEntry",
+      "sectionId": "POLOWN",
+      "doc": "One policy and who owns it.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 27001:2022 — clause 5.2 policy and A.5.1 policies for information security"
+        ],
+        "connotation": "One policy and who owns it."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 27001:2022 — clause 5.2 policy and A.5.1 policies for information security"
+            ],
+            "connotation": "One policy and who owns it."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "POLOWN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "What the policy covers and how ownership is exercised.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "What the policy covers and how ownership is exercised."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "policy",
+              "label": "Policy",
+              "hint": "The policy",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "owner",
+              "label": "Owner",
+              "hint": "The role that owns and maintains it",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "approver",
+              "label": "Approver",
+              "hint": "The role that approves changes",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "reviewCycle",
+              "label": "Review Cycle",
+              "hint": "How often it is reviewed",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "appliesTo",
+              "label": "Applies To",
+              "hint": "Who or what it binds",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -196733,6 +197288,110 @@
               "hint": "What this priority means for other attributes",
               "type": "String",
               "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "RaciEntry": {
+      "name": "RaciEntry",
+      "sectionId": "RACIEN",
+      "doc": "One activity of the cross-process RACI matrix.",
+      "standardReferences": {
+        "standards": [
+          "ISO 21500 — responsibility assignment (RACI)"
+        ],
+        "connotation": "One activity of the cross-process RACI matrix."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 21500 — responsibility assignment (RACI)"
+            ],
+            "connotation": "One activity of the cross-process RACI matrix."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RACIEN"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "What the activity is and why its responsibility is split this way.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "What the activity is and why its responsibility is split this way."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "activity",
+              "label": "Activity",
+              "hint": "The activity or decision whose responsibility is assigned",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "responsible",
+              "label": "Responsible",
+              "hint": "Who does the work — roles, comma-separated",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "accountable",
+              "label": "Accountable",
+              "hint": "The one role that answers for the outcome",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "consulted",
+              "label": "Consulted",
+              "hint": "Roles asked before the work is done, comma-separated",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "informed",
+              "label": "Informed",
+              "hint": "Roles told after it is done, comma-separated",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "relatedProcess",
+              "label": "Related Process",
+              "hint": "The business process the activity belongs to (BPREN-…)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BPREN.@sectionId"
+              ]
             }
           ]
         }
@@ -236047,6 +236706,20 @@
               "hint": "Requests per second",
               "type": "String",
               "required": false
+            },
+            {
+              "name": "nodeCount",
+              "label": "Application Nodes",
+              "hint": "How many application nodes run in the environment",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "databaseServerCount",
+              "label": "Database Servers",
+              "hint": "How many database servers run in the environment",
+              "type": "int",
+              "required": false
             }
           ]
         },
@@ -236461,6 +237134,73 @@
           ],
           "elementType": "OperationBindingEntry",
           "elementIsComplex": true
+        },
+        {
+          "name": "controls",
+          "kind": "form",
+          "doc": "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.",
+          "sectionId": "SVOCT",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOCT"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "idempotency",
+              "label": "Idempotency",
+              "hint": "Whether repeating the call repeats its effect",
+              "type": "OperationIdempotency",
+              "required": false,
+              "enumValues": [
+                "idempotent",
+                "idempotentWithKey",
+                "notIdempotent"
+              ],
+              "enumValueDocs": {
+                "idempotent": "Repeating it has no further effect.",
+                "idempotentWithKey": "Repeating it has no further effect when the caller sends the same\nidempotency key.",
+                "notIdempotent": "Each call has its own effect; a retry must be decided by the caller."
+              }
+            },
+            {
+              "name": "auditEvent",
+              "label": "Audit Event",
+              "hint": "The audit event the operation records, if any",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "rateLimitClass",
+              "label": "Rate-Limit Class",
+              "hint": "The rate-limit class that throttles it",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "callers",
+              "label": "Callers",
+              "hint": "Who calls it — client applications, services, roles",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -237409,6 +238149,63 @@
             }
           ],
           "type": "ServerOsRequirements"
+        },
+        {
+          "name": "connectionBudget",
+          "kind": "form",
+          "doc": "The database connection budget and the server settings that bound it.",
+          "sectionId": "SRSDB",
+          "serializationOrder": 12,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SRSDB"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 12
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "databaseMaxConnections",
+              "label": "Database Max Connections",
+              "hint": "The connection limit of the database server",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "connectionsPerNode",
+              "label": "Connections per Node",
+              "hint": "The pool size each application node opens",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "reservedConnections",
+              "label": "Reserved Connections",
+              "hint": "Connections kept free for administration and migrations",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "budgetRationale",
+              "label": "Budget Rationale",
+              "hint": "How the numbers add up, and what happens when a node is added",
+              "type": "String",
+              "required": false
+            }
+          ]
         }
       ]
     },
@@ -262176,8 +262973,8 @@
           "kind": "list",
           "doc": "Maintenance Procedures.",
           "help": "Add one entry per maintenance procedure.",
-          "sectionId": "SO-MAIN-LST",
-          "sectionIdPattern": "SO-MAIN-xxx",
+          "sectionId": "MAPRO-PROC-LST",
+          "sectionIdPattern": "MAPRO-PROC-xxx",
           "standardReferences": {
             "standards": [
               "ITIL 4 — change enablement and maintenance windows"
@@ -262198,13 +262995,13 @@
             {
               "name": "SectionId",
               "arguments": {
-                "id": "SO-MAIN-LST"
+                "id": "MAPRO-PROC-LST"
               }
             },
             {
               "name": "SectionIdPattern",
               "arguments": {
-                "pattern": "SO-MAIN-xxx"
+                "pattern": "MAPRO-PROC-xxx"
               }
             },
             {
@@ -262220,8 +263017,8 @@
               }
             }
           ],
-          "elementType": "String",
-          "elementIsComplex": false
+          "elementType": "MaintenanceProcedureEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -271767,6 +272564,21 @@
             }
           ],
           "type": "SecurityAuditRequirementsSection"
+        },
+        {
+          "name": "keyManagement",
+          "kind": "complex",
+          "doc": "Key management on the platform side.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "KeyManagementRequirements"
         }
       ]
     },
@@ -273135,6 +273947,117 @@
         }
       ]
     },
+    "TestLevelEntry": {
+      "name": "TestLevelEntry",
+      "sectionId": "TSLVL",
+      "doc": "One test level of the test strategy.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 29119-2 — test levels and test types in a test strategy"
+        ],
+        "connotation": "One test level of the test strategy."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 29119-2 — test levels and test types in a test strategy"
+            ],
+            "connotation": "One test level of the test strategy."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "TSLVL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "doc": "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].",
+          "help": "What the level verifies and how it fits the levels around it.",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "What the level verifies and how it fits the levels around it."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "level",
+              "label": "Level",
+              "hint": "unit / integration / system / acceptance / regression, or a project-specific level",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "testTypes",
+              "label": "Test Types",
+              "hint": "The test types run at this level — functional, performance, security, accessibility",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "environment",
+              "label": "Environment",
+              "hint": "The environment the level runs in",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ENVEN.@sectionId"
+              ]
+            },
+            {
+              "name": "tools",
+              "label": "Tools",
+              "hint": "The tools and frameworks used",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "runBy",
+              "label": "Run By",
+              "hint": "Who runs it — a person, a pipeline, a role",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "trigger",
+              "label": "Trigger",
+              "hint": "When it runs — on commit, nightly, before a release",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "exitCriteria",
+              "label": "Exit Criteria",
+              "hint": "What must hold before the next level starts",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
     "TestScenarioEntry": {
       "name": "TestScenarioEntry",
       "sectionId": "TSSC",
@@ -273907,6 +274830,43 @@
             }
           ],
           "contentType": "text"
+        },
+        {
+          "name": "testLevels",
+          "kind": "list",
+          "doc": "Test levels — contains 0+× test level.",
+          "help": "Add one entry per test level.",
+          "sectionId": "TSLVL-LST",
+          "sectionIdPattern": "TSLVL-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "TSLVL-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "TSLVL-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per test level."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "TestLevelEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -290673,6 +291633,56 @@
               "name": "required",
               "label": "Required",
               "hint": "Whether this attribute is mandatory.",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "oidcRelease",
+          "kind": "form",
+          "doc": "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.",
+          "sectionId": "USOIDC",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "USOIDC"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "claimName",
+              "label": "Claim Name",
+              "hint": "The claim the attribute is released as",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "scope",
+              "label": "Scope",
+              "hint": "The scope that releases it",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "releasedIn",
+              "label": "Released In",
+              "hint": "id token / access token / userinfo, comma-separated; audience-only tokens named",
               "type": "String",
               "required": false
             }

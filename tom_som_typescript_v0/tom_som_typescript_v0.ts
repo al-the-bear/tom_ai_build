@@ -343,6 +343,42 @@ function _parseConstraintEnforcement(token: string | null | undefined): Constrai
   return null;
 }
 
+// Generated enum for `ContextRelationshipType` values.
+export const ContextRelationshipType = Object.freeze({
+  // The two teams succeed or fail together and plan jointly.
+  "partnership": "partnership",
+  // The two share a small common model both depend on.
+  "sharedKernel": "sharedKernel",
+  // The downstream context's needs shape what the upstream provides.
+  "customerSupplier": "customerSupplier",
+  // The downstream context adopts the upstream model as it is.
+  "conformist": "conformist",
+  // The downstream context translates the upstream model at its boundary.
+  "anticorruptionLayer": "anticorruptionLayer",
+  // The upstream context offers a protocol any context may use.
+  "openHostService": "openHostService",
+  // The two exchange a documented, shared language.
+  "publishedLanguage": "publishedLanguage",
+  // The two have no integration.
+  "separateWays": "separateWays",
+});
+
+export type ContextRelationshipTypeValue =
+  typeof ContextRelationshipType[keyof typeof ContextRelationshipType];
+
+// Parses a stored token into a ContextRelationshipType value, or null.
+function _parseContextRelationshipType(token: string | null | undefined): ContextRelationshipTypeValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(ContextRelationshipType)) {
+    if (value === token) {
+      return value as ContextRelationshipTypeValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `DataAttributeKind` values.
 export const DataAttributeKind = Object.freeze({
   // Character data of bounded length. Binds
@@ -827,6 +863,33 @@ function _parseObjectLifecycleKind(token: string | null | undefined): ObjectLife
   return null;
 }
 
+// Generated enum for `OperationIdempotency` values.
+export const OperationIdempotency = Object.freeze({
+  // Repeating it has no further effect.
+  "idempotent": "idempotent",
+  // Repeating it has no further effect when the caller sends the same
+  // idempotency key.
+  "idempotentWithKey": "idempotentWithKey",
+  // Each call has its own effect; a retry must be decided by the caller.
+  "notIdempotent": "notIdempotent",
+});
+
+export type OperationIdempotencyValue =
+  typeof OperationIdempotency[keyof typeof OperationIdempotency];
+
+// Parses a stored token into a OperationIdempotency value, or null.
+function _parseOperationIdempotency(token: string | null | undefined): OperationIdempotencyValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(OperationIdempotency)) {
+    if (value === token) {
+      return value as OperationIdempotencyValue;
+    }
+  }
+  return null;
+}
+
 // Generated enum for `OverridableBy` values.
 export const OverridableBy = Object.freeze({
   // Scope-pinned: no narrower scope may shadow the key.
@@ -1078,6 +1141,33 @@ function _parseReportFilterValueKind(token: string | null | undefined): ReportFi
   for (const value of Object.values(ReportFilterValueKind)) {
     if (value === token) {
       return value as ReportFilterValueKindValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `RoleMembershipSource` values.
+export const RoleMembershipSource = Object.freeze({
+  // Holders are assigned to the role directly.
+  "assigned": "assigned",
+  // Membership follows from grants the holder has: the role is a name for a
+  // set of grants, not something anyone is assigned.
+  "derivedFromGrants": "derivedFromGrants",
+  // Both: holders are assigned, and a grant can also confer membership.
+  "both": "both",
+});
+
+export type RoleMembershipSourceValue =
+  typeof RoleMembershipSource[keyof typeof RoleMembershipSource];
+
+// Parses a stored token into a RoleMembershipSource value, or null.
+function _parseRoleMembershipSource(token: string | null | undefined): RoleMembershipSourceValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(RoleMembershipSource)) {
+    if (value === token) {
+      return value as RoleMembershipSourceValue;
     }
   }
   return null;
@@ -1665,6 +1755,34 @@ function _parseStatus(token: string | null | undefined): StatusValue | null {
   for (const value of Object.values(Status)) {
     if (value === token) {
       return value as StatusValue;
+    }
+  }
+  return null;
+}
+
+// Generated enum for `TranslationReviewStatus` values.
+export const TranslationReviewStatus = Object.freeze({
+  // Written, not yet reviewed.
+  "draft": "draft",
+  // Produced by a machine, not yet reviewed by a person.
+  "machineTranslated": "machineTranslated",
+  // Reviewed by a person fluent in the language.
+  "reviewed": "reviewed",
+  // Approved for release.
+  "approved": "approved",
+});
+
+export type TranslationReviewStatusValue =
+  typeof TranslationReviewStatus[keyof typeof TranslationReviewStatus];
+
+// Parses a stored token into a TranslationReviewStatus value, or null.
+function _parseTranslationReviewStatus(token: string | null | undefined): TranslationReviewStatusValue | null {
+  if (!token) {
+    return null;
+  }
+  for (const value of Object.values(TranslationReviewStatus)) {
+    if (value === token) {
+      return value as TranslationReviewStatusValue;
     }
   }
   return null;
@@ -5186,6 +5304,11 @@ export class BoundedContextEntry extends SomNode {
   // Integration and notes.
   get integration(): BoundedContextEntryIntegrationForm {
     return new BoundedContextEntryIntegrationForm(this.doc, this.path + "/BOCOENIN");
+  }
+
+  // Relationships to neighbouring contexts — contains 0+× relationship.
+  get relationships(): SomList<ContextRelationshipEntry> {
+    return new SomList(this.doc, this.path + "/CTXREL-LST", (d: SpecDocument, p: string) => new ContextRelationshipEntry(d, p), "CTXREL-xxx");
   }
 }
 
@@ -9240,6 +9363,20 @@ export class ContextDiagram extends SomNode {
 
   set legend(value: string) {
     this.doc.setContent(this.path + "/CD-LEGE", value);
+  }
+}
+
+// The relationship of a bounded context to one neighbour.
+export class ContextRelationshipEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): ContextRelationshipEntryContentForm {
+    return new ContextRelationshipEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -23206,6 +23343,21 @@ export class KeyManagement extends SomNode {
   // (skipped: notes has no target type)
 }
 
+// Key management on the platform side: which keys exist, where they are
+// kept, how they rotate and who holds them.
+export class KeyManagementRequirements extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): KeyManagementRequirementsContentForm {
+    return new KeyManagementRequirementsContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A key result entry (form).
 export class KeyResultEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -24278,6 +24430,20 @@ export class MaintenanceDependencyEntry extends SomNode {
   // Risk and fallback planning.
   get risk(): MaintenanceDependencyEntryRiskForm {
     return new MaintenanceDependencyEntryRiskForm(this.doc, this.path + "/MDER");
+  }
+}
+
+// One maintenance procedure: its name is the headline, the steps the text.
+export class MaintenanceProcedureEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): MaintenanceProcedureEntryContentForm {
+    return new MaintenanceProcedureEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -27604,6 +27770,16 @@ export class OrganizationalFramework extends SomNode {
   get workplaceDescriptions(): SomList<WorkplaceDescriptionEntry> {
     return new SomList(this.doc, this.path + "/WPDE-WORK-LST", (d: SpecDocument, p: string) => new WorkplaceDescriptionEntry(d, p), "WPDE-WORK-xxx");
   }
+
+  // Cross-process RACI matrix — contains 0+× RACI entry.
+  get raciMatrix(): SomList<RaciEntry> {
+    return new SomList(this.doc, this.path + "/RACIEN-LST", (d: SpecDocument, p: string) => new RaciEntry(d, p), "RACIEN-xxx");
+  }
+
+  // Policy ownership — contains 0+× policy.
+  get policyOwnership(): SomList<PolicyOwnershipEntry> {
+    return new SomList(this.doc, this.path + "/POLOWN-LST", (d: SpecDocument, p: string) => new PolicyOwnershipEntry(d, p), "POLOWN-xxx");
+  }
 }
 
 // An organizational requirement entry.
@@ -28900,6 +29076,20 @@ export class PlatformAndLanguage extends SomNode {
   // Runtime environment constraints.
   get runtimeEnvironment(): RuntimeEnvironment {
     return new RuntimeEnvironment(this.doc, this.path + "/runtimeEnvironment");
+  }
+}
+
+// One policy and who owns it.
+export class PolicyOwnershipEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): PolicyOwnershipEntryContentForm {
+    return new PolicyOwnershipEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -31443,6 +31633,20 @@ export class QualityWeightEntry extends SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   get content(): QualityWeightEntryContentForm {
     return new QualityWeightEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// One activity of the cross-process RACI matrix.
+export class RaciEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): RaciEntryContentForm {
+    return new RaciEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -37019,6 +37223,11 @@ export class ServerOperationEntry extends SomNode {
   get bindings(): SomList<OperationBindingEntry> {
     return new SomList(this.doc, this.path + "/SVOBI-BIND-LST", (d: SpecDocument, p: string) => new OperationBindingEntry(d, p), "SVOBI-BIND-xxx");
   }
+
+  // Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+  get controls(): ServerOperationEntryControlsForm {
+    return new ServerOperationEntryControlsForm(this.doc, this.path + "/SVOCT");
+  }
 }
 
 // A single member of an operation's request or response shape (form).
@@ -37215,6 +37424,11 @@ export class ServerRequirementsSection extends SomNode {
   // Operating system requirements.
   get osRequirements(): ServerOsRequirements {
     return new ServerOsRequirements(this.doc, this.path + "/osRequirements");
+  }
+
+  // The database connection budget and the server settings that bound it.
+  get connectionBudget(): ServerRequirementsSectionConnectionBudgetForm {
+    return new ServerRequirementsSectionConnectionBudgetForm(this.doc, this.path + "/SRSDB");
   }
 }
 
@@ -40483,8 +40697,8 @@ export class SystemOperation extends SomNode {
   }
 
   // Maintenance Procedures.
-  get maintenanceProcedures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/SO-MAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SO-MAIN-xxx");
+  get maintenanceProcedures(): SomList<MaintenanceProcedureEntry> {
+    return new SomList(this.doc, this.path + "/MAPRO-PROC-LST", (d: SpecDocument, p: string) => new MaintenanceProcedureEntry(d, p), "MAPRO-PROC-xxx");
   }
 }
 
@@ -42106,6 +42320,11 @@ export class TechnicalSecurityRequirements extends SomNode {
   get securityAuditRequirements(): SecurityAuditRequirementsSection {
     return new SecurityAuditRequirementsSection(this.doc, this.path + "/securityAuditRequirements");
   }
+
+  // Key management on the platform side.
+  get keyManagement(): KeyManagementRequirements {
+    return new KeyManagementRequirements(this.doc, this.path + "/keyManagement");
+  }
 }
 
 // Technology and data variations.
@@ -42322,6 +42541,20 @@ export class TenantOnboardingPolicy extends SomNode {
   // (skipped: tenantOnboardingPolicyDetails has no target type)
 }
 
+// One test level of the test strategy.
+export class TestLevelEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  get content(): TestLevelEntryContentForm {
+    return new TestLevelEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
@@ -42416,6 +42649,11 @@ export class TestStrategy extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path + "/content", value);
+  }
+
+  // Test levels — contains 0+× test level.
+  get testLevels(): SomList<TestLevelEntry> {
+    return new SomList(this.doc, this.path + "/TSLVL-LST", (d: SpecDocument, p: string) => new TestLevelEntry(d, p), "TSLVL-xxx");
   }
 }
 
@@ -44485,6 +44723,11 @@ export class UserAttributeEntry extends SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   get content(): UserAttributeEntryContentForm {
     return new UserAttributeEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+  get oidcRelease(): UserAttributeEntryOidcReleaseForm {
+    return new UserAttributeEntryOidcReleaseForm(this.doc, this.path + "/USOIDC");
   }
 }
 
@@ -56089,6 +56332,22 @@ export class AuthorizationRoleEntryStructureForm extends SomNode {
   set permissionSet(value: string) {
     this.doc.setFormField(this.path, "permissionSet", value);
   }
+
+  get membershipSource(): RoleMembershipSourceValue | null {
+    return _parseRoleMembershipSource(this.doc.formField(this.path, "membershipSource"));
+  }
+
+  set membershipSource(value: RoleMembershipSourceValue | null) {
+    this.doc.setFormField(this.path, "membershipSource", value ?? '');
+  }
+
+  get derivationRule(): string {
+    return this.doc.formField(this.path, "derivationRule") || '';
+  }
+
+  set derivationRule(value: string) {
+    this.doc.setFormField(this.path, "derivationRule", value);
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -58478,6 +58737,14 @@ export class BoundedContextEntryBoundariesForm extends SomNode {
 
   set sharedKernel(value: string) {
     this.doc.setFormField(this.path, "sharedKernel", value);
+  }
+
+  get ownedOperations(): string {
+    return this.doc.formField(this.path, "ownedOperations") || '';
+  }
+
+  set ownedOperations(value: string) {
+    this.doc.setFormField(this.path, "ownedOperations", value);
   }
 }
 
@@ -74142,6 +74409,49 @@ export class ContentScanningPolicyContentForm extends SomNode {
 
   set notes(value: string) {
     this.doc.setFormField(this.path, "notes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ContextRelationshipEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get neighbourContext(): string {
+    return this.doc.formField(this.path, "neighbourContext") || '';
+  }
+
+  set neighbourContext(value: string) {
+    this.doc.setFormField(this.path, "neighbourContext", value);
+  }
+
+  get relationshipType(): ContextRelationshipTypeValue | null {
+    return _parseContextRelationshipType(this.doc.formField(this.path, "relationshipType"));
+  }
+
+  set relationshipType(value: ContextRelationshipTypeValue | null) {
+    this.doc.setFormField(this.path, "relationshipType", value ?? '');
+  }
+
+  get direction(): string {
+    return this.doc.formField(this.path, "direction") || '';
+  }
+
+  set direction(value: string) {
+    this.doc.setFormField(this.path, "direction", value);
   }
 }
 
@@ -114660,6 +114970,73 @@ export class KeyGenerationPolicyContentForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class KeyManagementRequirementsContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get keyTypes(): string {
+    return this.doc.formField(this.path, "keyTypes") || '';
+  }
+
+  set keyTypes(value: string) {
+    this.doc.setFormField(this.path, "keyTypes", value);
+  }
+
+  get keyStorage(): string {
+    return this.doc.formField(this.path, "keyStorage") || '';
+  }
+
+  set keyStorage(value: string) {
+    this.doc.setFormField(this.path, "keyStorage", value);
+  }
+
+  get rotationPolicy(): string {
+    return this.doc.formField(this.path, "rotationPolicy") || '';
+  }
+
+  set rotationPolicy(value: string) {
+    this.doc.setFormField(this.path, "rotationPolicy", value);
+  }
+
+  get keyCustody(): string {
+    return this.doc.formField(this.path, "keyCustody") || '';
+  }
+
+  set keyCustody(value: string) {
+    this.doc.setFormField(this.path, "keyCustody", value);
+  }
+
+  get backupAndRecovery(): string {
+    return this.doc.formField(this.path, "backupAndRecovery") || '';
+  }
+
+  set backupAndRecovery(value: string) {
+    this.doc.setFormField(this.path, "backupAndRecovery", value);
+  }
+
+  get destruction(): string {
+    return this.doc.formField(this.path, "destruction") || '';
+  }
+
+  set destruction(value: string) {
+    this.doc.setFormField(this.path, "destruction", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class KeyResultEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -118313,6 +118690,41 @@ export class MaintenanceDependencyEntryUpdateForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MaintenanceProcedureEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get frequency(): string {
+    return this.doc.formField(this.path, "frequency") || '';
+  }
+
+  set frequency(value: string) {
+    this.doc.setFormField(this.path, "frequency", value);
+  }
+
+  get performedBy(): string {
+    return this.doc.formField(this.path, "performedBy") || '';
+  }
+
+  set performedBy(value: string) {
+    this.doc.setFormField(this.path, "performedBy", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class MaintenanceUserImpactContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -119353,6 +119765,14 @@ export class MessageLocaleVariantEntryContentForm extends SomNode {
 
   set copy(value: string) {
     this.doc.setFormField(this.path, "copy", value);
+  }
+
+  get reviewStatus(): TranslationReviewStatusValue | null {
+    return _parseTranslationReviewStatus(this.doc.formField(this.path, "reviewStatus"));
+  }
+
+  set reviewStatus(value: TranslationReviewStatusValue | null) {
+    this.doc.setFormField(this.path, "reviewStatus", value ?? '');
   }
 }
 
@@ -134616,6 +135036,65 @@ export class PipelineStageEntryTriggerForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class PolicyOwnershipEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get policy(): string {
+    return this.doc.formField(this.path, "policy") || '';
+  }
+
+  set policy(value: string) {
+    this.doc.setFormField(this.path, "policy", value);
+  }
+
+  get owner(): string {
+    return this.doc.formField(this.path, "owner") || '';
+  }
+
+  set owner(value: string) {
+    this.doc.setFormField(this.path, "owner", value);
+  }
+
+  get approver(): string {
+    return this.doc.formField(this.path, "approver") || '';
+  }
+
+  set approver(value: string) {
+    this.doc.setFormField(this.path, "approver", value);
+  }
+
+  get reviewCycle(): string {
+    return this.doc.formField(this.path, "reviewCycle") || '';
+  }
+
+  set reviewCycle(value: string) {
+    this.doc.setFormField(this.path, "reviewCycle", value);
+  }
+
+  get appliesTo(): string {
+    return this.doc.formField(this.path, "appliesTo") || '';
+  }
+
+  set appliesTo(value: string) {
+    this.doc.setFormField(this.path, "appliesTo", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class PortabilityContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -142942,6 +143421,73 @@ export class QualityWeightEntryContentForm extends SomNode {
 
   set tradeOffImplications(value: string) {
     this.doc.setFormField(this.path, "tradeOffImplications", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class RaciEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get activity(): string {
+    return this.doc.formField(this.path, "activity") || '';
+  }
+
+  set activity(value: string) {
+    this.doc.setFormField(this.path, "activity", value);
+  }
+
+  get responsible(): string {
+    return this.doc.formField(this.path, "responsible") || '';
+  }
+
+  set responsible(value: string) {
+    this.doc.setFormField(this.path, "responsible", value);
+  }
+
+  get accountable(): string {
+    return this.doc.formField(this.path, "accountable") || '';
+  }
+
+  set accountable(value: string) {
+    this.doc.setFormField(this.path, "accountable", value);
+  }
+
+  get consulted(): string {
+    return this.doc.formField(this.path, "consulted") || '';
+  }
+
+  set consulted(value: string) {
+    this.doc.setFormField(this.path, "consulted", value);
+  }
+
+  get informed(): string {
+    return this.doc.formField(this.path, "informed") || '';
+  }
+
+  set informed(value: string) {
+    this.doc.setFormField(this.path, "informed", value);
+  }
+
+  get relatedProcess(): string {
+    return this.doc.formField(this.path, "relatedProcess") || '';
+  }
+
+  set relatedProcess(value: string) {
+    this.doc.setFormField(this.path, "relatedProcess", value);
   }
 }
 
@@ -162507,6 +163053,24 @@ export class ServerEnvironmentEntryScaleForm extends SomNode {
   set expectedLoad(value: string) {
     this.doc.setFormField(this.path, "expectedLoad", value);
   }
+
+  get nodeCount(): number | null {
+    const v = this.doc.formField(this.path, "nodeCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set nodeCount(value: number | null) {
+    this.doc.setFormField(this.path, "nodeCount", value == null ? '' : String(value));
+  }
+
+  get databaseServerCount(): number | null {
+    const v = this.doc.formField(this.path, "databaseServerCount");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set databaseServerCount(value: number | null) {
+    this.doc.setFormField(this.path, "databaseServerCount", value == null ? '' : String(value));
+  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -162565,6 +163129,57 @@ export class ServerOperationEntryContentForm extends SomNode {
 
   set errorCodes(value: string) {
     this.doc.setFormField(this.path, "errorCodes", value);
+  }
+}
+
+// Generated section facade for the `controls` @Form section: its own content text followed by one typed member per form field.
+export class ServerOperationEntryControlsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get idempotency(): OperationIdempotencyValue | null {
+    return _parseOperationIdempotency(this.doc.formField(this.path, "idempotency"));
+  }
+
+  set idempotency(value: OperationIdempotencyValue | null) {
+    this.doc.setFormField(this.path, "idempotency", value ?? '');
+  }
+
+  get auditEvent(): string {
+    return this.doc.formField(this.path, "auditEvent") || '';
+  }
+
+  set auditEvent(value: string) {
+    this.doc.setFormField(this.path, "auditEvent", value);
+  }
+
+  get rateLimitClass(): string {
+    return this.doc.formField(this.path, "rateLimitClass") || '';
+  }
+
+  set rateLimitClass(value: string) {
+    this.doc.setFormField(this.path, "rateLimitClass", value);
+  }
+
+  get callers(): string {
+    return this.doc.formField(this.path, "callers") || '';
+  }
+
+  set callers(value: string) {
+    this.doc.setFormField(this.path, "callers", value);
   }
 }
 
@@ -162866,6 +163481,60 @@ export class ServerOsRequirementsSecurityForm extends SomNode {
 
   set antivirusRequired(value: boolean | null) {
     this.doc.setFormField(this.path, "antivirusRequired", value == null ? '' : (value ? 'true' : 'false'));
+  }
+}
+
+// Generated section facade for the `connectionBudget` @Form section: its own content text followed by one typed member per form field.
+export class ServerRequirementsSectionConnectionBudgetForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get databaseMaxConnections(): number | null {
+    const v = this.doc.formField(this.path, "databaseMaxConnections");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set databaseMaxConnections(value: number | null) {
+    this.doc.setFormField(this.path, "databaseMaxConnections", value == null ? '' : String(value));
+  }
+
+  get connectionsPerNode(): number | null {
+    const v = this.doc.formField(this.path, "connectionsPerNode");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set connectionsPerNode(value: number | null) {
+    this.doc.setFormField(this.path, "connectionsPerNode", value == null ? '' : String(value));
+  }
+
+  get reservedConnections(): number | null {
+    const v = this.doc.formField(this.path, "reservedConnections");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set reservedConnections(value: number | null) {
+    this.doc.setFormField(this.path, "reservedConnections", value == null ? '' : String(value));
+  }
+
+  get budgetRationale(): string {
+    return this.doc.formField(this.path, "budgetRationale") || '';
+  }
+
+  set budgetRationale(value: string) {
+    this.doc.setFormField(this.path, "budgetRationale", value);
   }
 }
 
@@ -181015,6 +181684,81 @@ export class TenantOnboardingPolicyContentForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class TestLevelEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get level(): string {
+    return this.doc.formField(this.path, "level") || '';
+  }
+
+  set level(value: string) {
+    this.doc.setFormField(this.path, "level", value);
+  }
+
+  get testTypes(): string {
+    return this.doc.formField(this.path, "testTypes") || '';
+  }
+
+  set testTypes(value: string) {
+    this.doc.setFormField(this.path, "testTypes", value);
+  }
+
+  get environment(): string {
+    return this.doc.formField(this.path, "environment") || '';
+  }
+
+  set environment(value: string) {
+    this.doc.setFormField(this.path, "environment", value);
+  }
+
+  get tools(): string {
+    return this.doc.formField(this.path, "tools") || '';
+  }
+
+  set tools(value: string) {
+    this.doc.setFormField(this.path, "tools", value);
+  }
+
+  get runBy(): string {
+    return this.doc.formField(this.path, "runBy") || '';
+  }
+
+  set runBy(value: string) {
+    this.doc.setFormField(this.path, "runBy", value);
+  }
+
+  get trigger(): string {
+    return this.doc.formField(this.path, "trigger") || '';
+  }
+
+  set trigger(value: string) {
+    this.doc.setFormField(this.path, "trigger", value);
+  }
+
+  get exitCriteria(): string {
+    return this.doc.formField(this.path, "exitCriteria") || '';
+  }
+
+  set exitCriteria(value: string) {
+    this.doc.setFormField(this.path, "exitCriteria", value);
+  }
+}
+
 // Generated section facade for the `business` @Form section: its own content text followed by one typed member per form field.
 export class TestScenarioEntryBusinessForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -191077,6 +191821,49 @@ export class UserAttributeEntryContentForm extends SomNode {
 
   set required(value: string) {
     this.doc.setFormField(this.path, "required", value);
+  }
+}
+
+// Generated section facade for the `oidcRelease` @Form section: its own content text followed by one typed member per form field.
+export class UserAttributeEntryOidcReleaseForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get claimName(): string {
+    return this.doc.formField(this.path, "claimName") || '';
+  }
+
+  set claimName(value: string) {
+    this.doc.setFormField(this.path, "claimName", value);
+  }
+
+  get scope(): string {
+    return this.doc.formField(this.path, "scope") || '';
+  }
+
+  set scope(value: string) {
+    this.doc.setFormField(this.path, "scope", value);
+  }
+
+  get releasedIn(): string {
+    return this.doc.formField(this.path, "releasedIn") || '';
+  }
+
+  set releasedIn(value: string) {
+    this.doc.setFormField(this.path, "releasedIn", value);
   }
 }
 

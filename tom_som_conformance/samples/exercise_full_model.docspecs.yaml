@@ -3078,6 +3078,14 @@ document:
                   content: Exercise form preamble.
                 WSRI incidents:
                   content: Exercise form preamble.
+          RACIEN-LST raciMatrix:
+            RACIEN-1:
+              content:
+                content: Exercise form preamble.
+          POLOWN-LST policyOwnership:
+            POLOWN-1:
+              content:
+                content: Exercise form preamble.
         BPDSC businessProcessDescriptions:
           content: Exercise text.
           PRVIZ processVision:
@@ -3837,6 +3845,8 @@ document:
                       content: Exercise form preamble.
                       source: "path"
                       requestMember: "Exercise value."
+            SVOCT controls:
+              content: Exercise form preamble.
         PROTF-FEAT-LST protocolFeatures:
           PROTF-FEAT-1:
             content:
@@ -4339,6 +4349,10 @@ document:
                   content: Exercise form preamble.
                 BOCOENIN integration:
                   content: Exercise form preamble.
+                CTXREL-LST relationships:
+                  CTXREL-1:
+                    content:
+                      content: Exercise form preamble.
             PAOR packageOrganization:
               content:
                 content: Exercise form preamble.
@@ -5085,6 +5099,8 @@ document:
                 content: Exercise form preamble.
               SORL licensing:
                 content: Exercise form preamble.
+            SRSDB connectionBudget:
+              content: Exercise form preamble.
           CLRESE clientRequirements:
             content: Exercise text.
             overview:
@@ -5988,8 +6004,10 @@ document:
                   content: Exercise form preamble.
                 SDTSS selfService:
                   content: Exercise form preamble.
-            SO-MAIN-LST maintenanceProcedures:
-              SO-MAIN-1: Exercise item.
+            MAPRO-PROC-LST maintenanceProcedures:
+              MAPRO-PROC-1:
+                content:
+                  content: Exercise form preamble.
           MONITO monitoring:
             content: Exercise text.
             MONITO-MONI monitoringOverview:
@@ -6530,6 +6548,9 @@ document:
                   content: Exercise form preamble.
                 SAEFU followUp:
                   content: Exercise form preamble.
+          KEYMGT keyManagement:
+            content:
+              content: Exercise form preamble.
         SYARSP systemArchitecture:
           content: Exercise text.
           SYARSP-DECI-REF decisions:
@@ -6797,6 +6818,8 @@ document:
             USATE-ITEM-LST items:
               USATE-ITEM-1:
                 content:
+                  content: Exercise form preamble.
+                USOIDC oidcRelease:
                   content: Exercise form preamble.
         IDAUT authentication:
           content: Exercise text.
@@ -9173,6 +9196,10 @@ document:
             content: Exercise text.
         TEST testStrategy:
           content: Exercise text.
+          TSLVL-LST testLevels:
+            TSLVL-1:
+              content:
+                content: Exercise form preamble.
       DLVA deliveryAcceptance:
         content: Exercise text.
         DLVSC deliveryScope:

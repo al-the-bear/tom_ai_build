@@ -2041,6 +2041,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Document each known limitation with its impact on current operations and any workarounds in place.
+  mapro-proc-lst:
+    prefix: MAPRO_PROC_LST
+    subsection-types:
+      mapro-proc:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance procedure.
   mgmls-mile-lst:
     prefix: MGMLS_MILE_LST
     subsection-types:
@@ -7207,6 +7215,12 @@ section-types:
       pattern: ^LIMET-KNOW-.+$
       error-message: IDs of this section must match LIMET-KNOW-xxx
     description: Document each known limitation with its impact on current operations and any workarounds in place.
+  mapro-proc:
+    prefix: MAPRO_PROC_
+    pattern-check-id:
+      pattern: ^MAPRO-PROC-.+$
+      error-message: IDs of this section must match MAPRO-PROC-xxx
+    description: Add one entry per maintenance procedure.
   mc-mfad-lst:
     prefix: MC_MFAD_LST
     subsection-types:
@@ -8223,14 +8237,6 @@ section-types:
       pattern: ^SHLCP-SHAR-.+$
       error-message: IDs of this section must match SHLCP-SHAR-xxx
     description: Add one entry per shared library.
-  so-main-lst:
-    prefix: SO_MAIN_LST
-    subsection-types:
-      so-main:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per maintenance procedure.
   stage-stag:
     prefix: STAGE_STAG_
     subsection-types:
@@ -8328,6 +8334,8 @@ section-types:
       svopm-resm-lst:
         max-count: 1
       svobi-bind-lst:
+        max-count: 1
+      svoct:
         max-count: 1
     pattern-check-id:
       pattern: ^SVOPE-OPER-.+$
@@ -8585,6 +8593,9 @@ section-types:
     description: Add one entry per user-lifecycle transition entry.
   usate-item:
     prefix: USATE_ITEM_
+    subsection-types:
+      usoidc:
+        max-count: 1
     pattern-check-id:
       pattern: ^USATE-ITEM-.+$
       error-message: IDs of this section must match USATE-ITEM-xxx
@@ -9116,6 +9127,14 @@ section-types:
       pattern: ^CPML-MILE-.+$
       error-message: IDs of this section must match CPML-MILE-xxx
     description: "Add one entry per compliance milestone, capturing its related regulation, due date, deliverables, verification method, and status."
+  ctxrel-lst:
+    prefix: CTXREL_LST
+    subsection-types:
+      ctxrel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per neighbouring context.
   cuwf-work:
     prefix: CUWF_WORK_
     subsection-types:
@@ -9686,6 +9705,14 @@ section-types:
       pattern: ^PMAK-PROC-.+$
       error-message: IDs of this section must match PMAK-PROC-xxx
     description: Add one entry per process metric or KPI.
+  polown-lst:
+    prefix: POLOWN_LST
+    subsection-types:
+      polown:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per policy.
   ppag-painp:
     prefix: PPAG_PAINP
     format: mermaid
@@ -9698,6 +9725,14 @@ section-types:
     prefix: QLFWK_FRAM
     format: qlfwk-fram-form
     description: "Which published quality model this chapter's structure comes from, at"
+  racien-lst:
+    prefix: RACIEN_LST
+    subsection-types:
+      racien:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per activity.
   reco-cont:
     prefix: RECO_CONT_
     pattern-check-id:
@@ -10223,6 +10258,8 @@ section-types:
       bcei:
         max-count: 1
       bocoenin:
+        max-count: 1
+      ctxrel-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^BCE-BOUN-.+$
@@ -11275,6 +11312,14 @@ section-types:
       pattern: ^TSE-TECH-.+$
       error-message: IDs of this section must match TSE-TECH-xxx
     description: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations."
+  tslvl-lst:
+    prefix: TSLVL_LST
+    subsection-types:
+      tslvl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per test level.
   tve-vend:
     prefix: TVE_VEND_
     pattern-check-id:
@@ -11851,12 +11896,6 @@ section-types:
     prefix: SLMORERE
     format: slmorere-form
     description: Reporting and review.
-  so-main:
-    prefix: SO_MAIN_
-    pattern-check-id:
-      pattern: ^SO-MAIN-.+$
-      error-message: IDs of this section must match SO-MAIN-xxx
-    description: Add one entry per maintenance procedure.
   sr1-summ:
     prefix: SR1_SUMM
     format: sr1-summ-form
@@ -11938,6 +11977,12 @@ section-types:
   cd-lege:
     prefix: CD_LEGE
     description: Diagram legend and conventions.
+  ctxrel:
+    prefix: CTXREL_
+    pattern-check-id:
+      pattern: ^CTXREL-.+$
+      error-message: IDs of this section must match CTXREL-xxx
+    description: Add one entry per neighbouring context.
   db-cont:
     prefix: DB_CONT
     format: mermaid-flowchart
@@ -11971,6 +12016,18 @@ section-types:
     prefix: PG_GOAL
     format: pg-goal-form
     description: The questions the prototype is built to answer.
+  polown:
+    prefix: POLOWN_
+    pattern-check-id:
+      pattern: ^POLOWN-.+$
+      error-message: IDs of this section must match POLOWN-xxx
+    description: Add one entry per policy.
+  racien:
+    prefix: RACIEN_
+    pattern-check-id:
+      pattern: ^RACIEN-.+$
+      error-message: IDs of this section must match RACIEN-xxx
+    description: Add one entry per activity.
   ro-requ:
     prefix: RO_REQU
     format: ro-requ-form
@@ -14301,6 +14358,9 @@ section-types:
   kestpo:
     prefix: KESTPO
     description: Key Storage Policy.
+  keymgt:
+    prefix: KEYMGT
+    description: Key management on the platform side.
   lacoru:
     prefix: LACORU
     subsection-types:
@@ -16591,6 +16651,12 @@ section-types:
       trespa-esca-lst:
         max-count: 1
     description: Support structure during transition.
+  tslvl:
+    prefix: TSLVL_
+    pattern-check-id:
+      pattern: ^TSLVL-.+$
+      error-message: IDs of this section must match TSLVL-xxx
+    description: Add one entry per test level.
   uadema:
     prefix: UADEMA
     format: uadema-form
@@ -16671,6 +16737,10 @@ section-types:
       ugpt:
         max-count: 1
     description: User growth projections.
+  usoidc:
+    prefix: USOIDC
+    format: usoidc-form
+    description: "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it."
   usprto:
     prefix: USPRTO
     subsection-types:
@@ -18689,6 +18759,10 @@ section-types:
     prefix: SRPBP
     format: srpbp-form
     description: Bot protection settings.
+  srsdb:
+    prefix: SRSDB
+    format: srsdb-form
+    description: The database connection budget and the server settings that bound it.
   ssacm:
     prefix: SSACM
     format: ssacm-form
@@ -18785,6 +18859,10 @@ section-types:
     prefix: SUICP
     format: suicp-form
     description: User-facing change profile.
+  svoct:
+    prefix: SVOCT
+    format: svoct-form
+    description: "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it."
   svopr:
     prefix: SVOPR
     subsection-types:
@@ -23114,6 +23192,10 @@ section-types:
       wpde-work-lst:
         max-count: 1
         min-count: 1
+      racien-lst:
+        max-count: 1
+      polown-lst:
+        max-count: 1
     description: Target organizational structure and roles.
   orip:
     prefix: ORIP
@@ -25111,6 +25193,9 @@ section-types:
     description: 9.4.7. Tenant Isolation.
   test:
     prefix: TEST
+    subsection-types:
+      tslvl-lst:
+        max-count: 1
     description: 11.8. Test Strategy..
   tgeg:
     prefix: TGEG
@@ -26346,6 +26431,8 @@ section-types:
         max-count: 1
       seosre:
         max-count: 1
+      srsdb:
+        max-count: 1
     description: |
       Specify server infrastructure requirements including compute, storage,
       scaling, and high availability. Server sizing directly impacts
@@ -26447,6 +26534,8 @@ section-types:
       dpaps:
         max-count: 1
       sars:
+        max-count: 1
+      keymgt:
         max-count: 1
     description: |
       Define comprehensive security requirements including IT security standards,
@@ -27020,7 +27109,7 @@ section-types:
     subsection-types:
       ars:
         max-count: 1
-      so-main-lst:
+      mapro-proc-lst:
         max-count: 1
     description: |
       Specify day-to-day system operation requirements including administration,
@@ -33555,6 +33644,16 @@ form-types:
       - fieldname: decisionRule
         required: true
         description: "What the handler must decide, in business terms"
+  svoct-form:
+    fields:
+      - fieldname: idempotency
+        description: Whether repeating the call repeats its effect
+      - fieldname: auditEvent
+        description: "The audit event the operation records, if any"
+      - fieldname: rateLimitClass
+        description: The rate-limit class that throttles it
+      - fieldname: callers
+        description: "Who calls it — client applications, services, roles"
   dmfue-enti-form:
     fields:
       - fieldname: entityName
@@ -34735,6 +34834,8 @@ form-types:
         description: Contexts that depend on this one
       - fieldname: sharedKernel
         description: Shared code with other contexts
+      - fieldname: ownedOperations
+        description: "The server operations this context owns, comma-separated"
   bcei-form:
     fields:
       - fieldname: repositoryNamespace
@@ -36545,6 +36646,10 @@ form-types:
         description: Concurrent users expected
       - fieldname: expectedLoad
         description: Requests per second
+      - fieldname: nodeCount
+        description: How many application nodes run in the environment
+      - fieldname: databaseServerCount
+        description: How many database servers run in the environment
   seea-form:
     fields:
       - fieldname: accessRestrictions
@@ -36859,6 +36964,16 @@ form-types:
         description: Number of licenses
       - fieldname: notes
         description: Additional OS notes
+  srsdb-form:
+    fields:
+      - fieldname: databaseMaxConnections
+        description: The connection limit of the database server
+      - fieldname: connectionsPerNode
+        description: The pool size each application node opens
+      - fieldname: reservedConnections
+        description: Connections kept free for administration and migrations
+      - fieldname: budgetRationale
+        description: "How the numbers add up, and what happens when a node is added"
   bres-form:
     fields:
       - fieldname: supportLevel
@@ -41381,6 +41496,14 @@ form-types:
         description: "Naming pattern for service accounts (e.g., svc-{app}-{environment})"
       - fieldname: documentationRequirements
         description: "What must be documented for each service account (purpose, owner, scope)"
+  usoidc-form:
+    fields:
+      - fieldname: claimName
+        description: The claim the attribute is released as
+      - fieldname: scope
+        description: The scope that releases it
+      - fieldname: releasedIn
+        description: "id token / access token / userinfo, comma-separated; audience-only tokens named"
   idsoenco-form:
     fields:
       - fieldname: sourceEndpoint
@@ -43035,6 +43158,10 @@ form-types:
         description: Parent role name or "none" for top-level roles; child roles inherit all permissions of the parent
       - fieldname: permissionSet
         description: "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)"
+      - fieldname: membershipSource
+        description: Whether holders are assigned or membership follows from grants
+      - fieldname: derivationRule
+        description: "For a derived role: the grants that confer membership"
   areg-form:
     fields:
       - fieldname: riskLevel

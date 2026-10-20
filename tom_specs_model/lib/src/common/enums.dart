@@ -381,3 +381,72 @@ enum DecisionState {
   /// Not decided yet.
   undecided,
 }
+
+/// How a role's membership arises.
+enum RoleMembershipSource {
+  /// Holders are assigned to the role directly.
+  assigned,
+
+  /// Membership follows from grants the holder has: the role is a name for a
+  /// set of grants, not something anyone is assigned.
+  derivedFromGrants,
+
+  /// Both: holders are assigned, and a grant can also confer membership.
+  both,
+}
+
+/// Whether repeating an operation with the same input repeats its effect.
+enum OperationIdempotency {
+  /// Repeating it has no further effect.
+  idempotent,
+
+  /// Repeating it has no further effect when the caller sends the same
+  /// idempotency key.
+  idempotentWithKey,
+
+  /// Each call has its own effect; a retry must be decided by the caller.
+  notIdempotent,
+}
+
+/// The relationship between two bounded contexts (context mapping, after
+/// Evans and Vernon).
+enum ContextRelationshipType {
+  /// The two teams succeed or fail together and plan jointly.
+  partnership,
+
+  /// The two share a small common model both depend on.
+  sharedKernel,
+
+  /// The downstream context's needs shape what the upstream provides.
+  customerSupplier,
+
+  /// The downstream context adopts the upstream model as it is.
+  conformist,
+
+  /// The downstream context translates the upstream model at its boundary.
+  anticorruptionLayer,
+
+  /// The upstream context offers a protocol any context may use.
+  openHostService,
+
+  /// The two exchange a documented, shared language.
+  publishedLanguage,
+
+  /// The two have no integration.
+  separateWays,
+}
+
+/// How far a translated text has been checked.
+enum TranslationReviewStatus {
+  /// Written, not yet reviewed.
+  draft,
+
+  /// Produced by a machine, not yet reviewed by a person.
+  machineTranslated,
+
+  /// Reviewed by a person fluent in the language.
+  reviewed,
+
+  /// Approved for release.
+  approved,
+}

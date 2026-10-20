@@ -213,6 +213,30 @@ struct ConstraintEnforcement {
   ConstraintEnforcement() = delete;
 };
 
+// Generated enum tokens for `ContextRelationshipType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct ContextRelationshipType {
+  // The two teams succeed or fail together and plan jointly.
+  static constexpr const char* partnership = "partnership";
+  // The two share a small common model both depend on.
+  static constexpr const char* sharedKernel = "sharedKernel";
+  // The downstream context's needs shape what the upstream provides.
+  static constexpr const char* customerSupplier = "customerSupplier";
+  // The downstream context adopts the upstream model as it is.
+  static constexpr const char* conformist = "conformist";
+  // The downstream context translates the upstream model at its boundary.
+  static constexpr const char* anticorruptionLayer = "anticorruptionLayer";
+  // The upstream context offers a protocol any context may use.
+  static constexpr const char* openHostService = "openHostService";
+  // The two exchange a documented, shared language.
+  static constexpr const char* publishedLanguage = "publishedLanguage";
+  // The two have no integration.
+  static constexpr const char* separateWays = "separateWays";
+  // Returns the token when it is a known ContextRelationshipType value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  ContextRelationshipType() = delete;
+};
+
 // Generated enum tokens for `DataAttributeKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct DataAttributeKind {
@@ -577,6 +601,21 @@ struct ObjectLifecycleKind {
   ObjectLifecycleKind() = delete;
 };
 
+// Generated enum tokens for `OperationIdempotency` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct OperationIdempotency {
+  // Repeating it has no further effect.
+  static constexpr const char* idempotent = "idempotent";
+  // Repeating it has no further effect when the caller sends the same
+  // idempotency key.
+  static constexpr const char* idempotentWithKey = "idempotentWithKey";
+  // Each call has its own effect; a retry must be decided by the caller.
+  static constexpr const char* notIdempotent = "notIdempotent";
+  // Returns the token when it is a known OperationIdempotency value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  OperationIdempotency() = delete;
+};
+
 // Generated enum tokens for `OverridableBy` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct OverridableBy {
@@ -759,6 +798,21 @@ struct ReportFilterValueKind {
   // Returns the token when it is a known ReportFilterValueKind value, else std::nullopt.
   static std::optional<std::string> parse(const std::string& token);
   ReportFilterValueKind() = delete;
+};
+
+// Generated enum tokens for `RoleMembershipSource` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct RoleMembershipSource {
+  // Holders are assigned to the role directly.
+  static constexpr const char* assigned = "assigned";
+  // Membership follows from grants the holder has: the role is a name for a
+  // set of grants, not something anyone is assigned.
+  static constexpr const char* derivedFromGrants = "derivedFromGrants";
+  // Both: holders are assigned, and a grant can also confer membership.
+  static constexpr const char* both = "both";
+  // Returns the token when it is a known RoleMembershipSource value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  RoleMembershipSource() = delete;
 };
 
 // Generated enum tokens for `ScheduledJobTrigger` values. The stored token is byte-
@@ -1252,6 +1306,22 @@ struct Status {
   Status() = delete;
 };
 
+// Generated enum tokens for `TranslationReviewStatus` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+struct TranslationReviewStatus {
+  // Written, not yet reviewed.
+  static constexpr const char* draft = "draft";
+  // Produced by a machine, not yet reviewed by a person.
+  static constexpr const char* machineTranslated = "machineTranslated";
+  // Reviewed by a person fluent in the language.
+  static constexpr const char* reviewed = "reviewed";
+  // Approved for release.
+  static constexpr const char* approved = "approved";
+  // Returns the token when it is a known TranslationReviewStatus value, else std::nullopt.
+  static std::optional<std::string> parse(const std::string& token);
+  TranslationReviewStatus() = delete;
+};
+
 // Generated enum tokens for `UserAttributePlacement` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 struct UserAttributePlacement {
@@ -1488,6 +1558,7 @@ class ConsentManagementRequirements;
 class ConstraintRegisterEntry;
 class ContentScanningPolicy;
 class ContextDiagram;
+class ContextRelationshipEntry;
 class ContextualHelp;
 class ContextualNavigation;
 class ContingencyPlanEntry;
@@ -1845,6 +1916,7 @@ class KeyConcepts;
 class KeyEscrowAndBackupPolicy;
 class KeyGenerationPolicy;
 class KeyManagement;
+class KeyManagementRequirements;
 class KeyResultEntry;
 class KeyRotationPolicy;
 class KeyScenarios;
@@ -1878,6 +1950,7 @@ class MaintainabilityCharacteristic;
 class MaintenanceChangeManagement;
 class MaintenanceDependencies;
 class MaintenanceDependencyEntry;
+class MaintenanceProcedureEntry;
 class MaintenanceUserImpact;
 class MaintenanceWindowEntry;
 class MaintenanceWindowsSection;
@@ -2012,6 +2085,7 @@ class PilotPlan;
 class PipelineJobEntry;
 class PipelineStageEntry;
 class PlatformAndLanguage;
+class PolicyOwnershipEntry;
 class Portability;
 class PostMaintenanceValidation;
 class PostconditionsAndGuarantees;
@@ -2093,6 +2167,7 @@ class QualityScenarioEntry;
 class QualityScenarios;
 class QualityStandardEntry;
 class QualityWeightEntry;
+class RaciEntry;
 class RateLimitingPolicy;
 class Readability;
 class ReadinessCriteriaEntry;
@@ -2403,6 +2478,7 @@ class TenantCustomizationEntry;
 class TenantDataIsolationPolicy;
 class TenantIsolation;
 class TenantOnboardingPolicy;
+class TestLevelEntry;
 class TestScenarioEntry;
 class TestScenarioNotes;
 class TestStrategy;
@@ -3056,6 +3132,7 @@ class ConsentManagementRequirementsStorageForm;
 class ConsentManagementRequirementsTrackingForm;
 class ConstraintRegisterEntryContentForm;
 class ContentScanningPolicyContentForm;
+class ContextRelationshipEntryContentForm;
 class ContextualHelpContextualHelpContentForm;
 class ContextualHelpInlineForm;
 class ContextualHelpPanelsForm;
@@ -3843,6 +3920,7 @@ class KeyCompromiseRecoveryPolicyContentForm;
 class KeyConceptEntryContentForm;
 class KeyEscrowAndBackupPolicyContentForm;
 class KeyGenerationPolicyContentForm;
+class KeyManagementRequirementsContentForm;
 class KeyResultEntryContentForm;
 class KeyRotationPolicyContentForm;
 class KeyScenariosOverviewForm;
@@ -3916,6 +3994,7 @@ class MaintenanceDependencyEntryClassificationForm;
 class MaintenanceDependencyEntryContentForm;
 class MaintenanceDependencyEntryRiskForm;
 class MaintenanceDependencyEntryUpdateForm;
+class MaintenanceProcedureEntryContentForm;
 class MaintenanceUserImpactContentForm;
 class MaintenanceUserImpactDuringForm;
 class MaintenanceUserImpactGracefulDegradationForm;
@@ -4210,6 +4289,7 @@ class PipelineStageEntryContentForm;
 class PipelineStageEntryExecutionForm;
 class PipelineStageEntryFailureForm;
 class PipelineStageEntryTriggerForm;
+class PolicyOwnershipEntryContentForm;
 class PortabilityContentForm;
 class PostMaintenanceValidationClosureForm;
 class PostMaintenanceValidationContentForm;
@@ -4361,6 +4441,7 @@ class QualityStandardEntryImplementationForm;
 class QualityStandardEntryMaintenanceForm;
 class QualityStandardEntryProcessesForm;
 class QualityWeightEntryContentForm;
+class RaciEntryContentForm;
 class RateLimitingPolicyBehaviorForm;
 class RateLimitingPolicyContentForm;
 class RateLimitingPolicyLimitsForm;
@@ -4746,12 +4827,14 @@ class ServerEnvironmentEntryLifecycleForm;
 class ServerEnvironmentEntryLocationForm;
 class ServerEnvironmentEntryScaleForm;
 class ServerOperationEntryContentForm;
+class ServerOperationEntryControlsForm;
 class ServerOperationMemberEntryContentForm;
 class ServerOsRequirementsContentForm;
 class ServerOsRequirementsHardeningForm;
 class ServerOsRequirementsLicensingForm;
 class ServerOsRequirementsMonitoringForm;
 class ServerOsRequirementsSecurityForm;
+class ServerRequirementsSectionConnectionBudgetForm;
 class ServerRoleEntryCapacityForm;
 class ServerRoleEntryContentForm;
 class ServerRoleEntryNetworkingForm;
@@ -5080,6 +5163,7 @@ class TenantContextPolicyContentForm;
 class TenantCustomizationEntryContentForm;
 class TenantDataIsolationPolicyContentForm;
 class TenantOnboardingPolicyContentForm;
+class TestLevelEntryContentForm;
 class TestScenarioEntryBusinessForm;
 class TestScenarioEntryContentForm;
 class TestScenarioEntryExecutionForm;
@@ -5261,6 +5345,7 @@ class UserAssistanceDeliveryForm;
 class UserAssistanceHelpOverviewContentForm;
 class UserAssistanceInsightsForm;
 class UserAttributeEntryContentForm;
+class UserAttributeEntryOidcReleaseForm;
 class UserCategoryDefinitionContentForm;
 class UserCategoryEntryContentForm;
 class UserCategoryEntryImportanceForm;
@@ -7544,6 +7629,9 @@ class BoundedContextEntry : public som::SomNode {
   BoundedContextEntryImplementationForm implementation() const;
   // Integration and notes.
   BoundedContextEntryIntegrationForm integration() const;
+  // Relationships to neighbouring contexts — contains 0+× relationship.
+  // Returns the list view; element type: ContextRelationshipEntry (construct from item paths).
+  som::SomList relationships() const;
 };
 
 // 10.10.1. Breakpoints.
@@ -10002,6 +10090,16 @@ class ContextDiagram : public som::SomNode {
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
+};
+
+// The relationship of a bounded context to one neighbour.
+class ContextRelationshipEntry : public som::SomNode {
+ public:
+  ContextRelationshipEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  ContextRelationshipEntryContentForm content() const;
 };
 
 // 10.8.1. Contextual Help.
@@ -18624,6 +18722,17 @@ class KeyManagement : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// Key management on the platform side: which keys exist, where they are
+// kept, how they rotate and who holds them.
+class KeyManagementRequirements : public som::SomNode {
+ public:
+  KeyManagementRequirements(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  KeyManagementRequirementsContentForm content() const;
+};
+
 // A key result entry (form).
 class KeyResultEntry : public som::SomNode {
  public:
@@ -19307,6 +19416,16 @@ class MaintenanceDependencyEntry : public som::SomNode {
   MaintenanceDependencyEntryUpdateForm update() const;
   // Risk and fallback planning.
   MaintenanceDependencyEntryRiskForm risk() const;
+};
+
+// One maintenance procedure: its name is the headline, the steps the text.
+class MaintenanceProcedureEntry : public som::SomNode {
+ public:
+  MaintenanceProcedureEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  MaintenanceProcedureEntryContentForm content() const;
 };
 
 // User impact and communication.
@@ -21358,6 +21477,12 @@ class OrganizationalFramework : public som::SomNode {
   // 5.3. Workplace Descriptions — contains 1+× per user category.
   // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
   som::SomList workplaceDescriptions() const;
+  // Cross-process RACI matrix — contains 0+× RACI entry.
+  // Returns the list view; element type: RaciEntry (construct from item paths).
+  som::SomList raciMatrix() const;
+  // Policy ownership — contains 0+× policy.
+  // Returns the list view; element type: PolicyOwnershipEntry (construct from item paths).
+  som::SomList policyOwnership() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -22164,6 +22289,16 @@ class PlatformAndLanguage : public som::SomNode {
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
+};
+
+// One policy and who owns it.
+class PolicyOwnershipEntry : public som::SomNode {
+ public:
+  PolicyOwnershipEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  PolicyOwnershipEntryContentForm content() const;
 };
 
 // 11.3.2. Portability quality.
@@ -23738,6 +23873,16 @@ class QualityWeightEntry : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
   QualityWeightEntryContentForm content() const;
+};
+
+// One activity of the cross-process RACI matrix.
+class RaciEntry : public som::SomNode {
+ public:
+  RaciEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  RaciEntryContentForm content() const;
 };
 
 // Rate limiting and throttling.
@@ -27285,6 +27430,8 @@ class ServerOperationEntry : public som::SomNode {
   // found, the success status and headers — and an operation may have several.
   // Returns the list view; element type: OperationBindingEntry (construct from item paths).
   som::SomList bindings() const;
+  // Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+  ServerOperationEntryControlsForm controls() const;
 };
 
 // A single member of an operation's request or response shape (form).
@@ -27411,6 +27558,8 @@ class ServerRequirementsSection : public som::SomNode {
   CloudProviderRequirements cloudProvider() const;
   // Operating system requirements.
   ServerOsRequirements osRequirements() const;
+  // The database connection budget and the server settings that bound it.
+  ServerRequirementsSectionConnectionBudgetForm connectionBudget() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -29386,7 +29535,7 @@ class SystemOperation : public som::SomNode {
   // 8.7.1.1. Administration Requirements.
   AdministrationRequirementsSection administrationRequirements() const;
   // Maintenance Procedures.
-  // Returns the list view; element type: scalar (construct from item paths).
+  // Returns the list view; element type: MaintenanceProcedureEntry (construct from item paths).
   som::SomList maintenanceProcedures() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
@@ -30349,6 +30498,8 @@ class TechnicalSecurityRequirements : public som::SomNode {
   DataProtectionAndPrivacySection dataProtectionAndPrivacy() const;
   // 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection securityAuditRequirements() const;
+  // Key management on the platform side.
+  KeyManagementRequirements keyManagement() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -30503,6 +30654,16 @@ class TenantOnboardingPolicy : public som::SomNode {
   // (skipped: tenantOnboardingPolicyDetails has no target type)
 };
 
+// One test level of the test strategy.
+class TestLevelEntry : public som::SomNode {
+ public:
+  TestLevelEntry(som::SpecDocument& doc, std::string path);
+  // The section's body content. For a `@Form`-annotated member this is the
+  // form's **preamble** — the free text before the first field line (SOM
+  // §11.4 rule 7); the field values themselves live in [form].
+  TestLevelEntryContentForm content() const;
+};
+
 // A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
@@ -30557,6 +30718,9 @@ class TestStrategy : public som::SomNode {
   // §11.4 rule 7); the field values themselves live in [form].
   std::string content() const;
   void setContent(const std::string& value);
+  // Test levels — contains 0+× test level.
+  // Returns the list view; element type: TestLevelEntry (construct from item paths).
+  som::SomList testLevels() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -31819,6 +31983,8 @@ class UserAttributeEntry : public som::SomNode {
   // form's **preamble** — the free text before the first field line (SOM
   // §11.4 rule 7); the field values themselves live in [form].
   UserAttributeEntryContentForm content() const;
+  // How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+  UserAttributeEntryOidcReleaseForm oidcRelease() const;
 };
 
 // 9.1.3. User Attributes.
@@ -36287,6 +36453,10 @@ class AuthorizationRoleEntryStructureForm : public som::SomNode {
   void setInheritsFrom(const std::string& value);
   std::string permissionSet() const;
   void setPermissionSet(const std::string& value);
+  std::string membershipSource() const;
+  void setMembershipSource(const std::string& value);
+  std::string derivationRule() const;
+  void setDerivationRule(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -37125,6 +37295,8 @@ class BoundedContextEntryBoundariesForm : public som::SomNode {
   void setDownstreamContexts(const std::string& value);
   std::string sharedKernel() const;
   void setSharedKernel(const std::string& value);
+  std::string ownedOperations() const;
+  void setOwnedOperations(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -42675,6 +42847,22 @@ class ContentScanningPolicyContentForm : public som::SomNode {
   void setHashBasedDetection(std::optional<bool> value);
   std::string notes() const;
   void setNotes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ContextRelationshipEntryContentForm : public som::SomNode {
+ public:
+  ContextRelationshipEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string neighbourContext() const;
+  void setNeighbourContext(const std::string& value);
+  std::string relationshipType() const;
+  void setRelationshipType(const std::string& value);
+  std::string direction() const;
+  void setDirection(const std::string& value);
 };
 
 // Generated section facade for the `contextualHelpContent` @Form section: its own `content` text followed by one typed member per form field.
@@ -56882,6 +57070,28 @@ class KeyGenerationPolicyContentForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class KeyManagementRequirementsContentForm : public som::SomNode {
+ public:
+  KeyManagementRequirementsContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string keyTypes() const;
+  void setKeyTypes(const std::string& value);
+  std::string keyStorage() const;
+  void setKeyStorage(const std::string& value);
+  std::string rotationPolicy() const;
+  void setRotationPolicy(const std::string& value);
+  std::string keyCustody() const;
+  void setKeyCustody(const std::string& value);
+  std::string backupAndRecovery() const;
+  void setBackupAndRecovery(const std::string& value);
+  std::string destruction() const;
+  void setDestruction(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class KeyResultEntryContentForm : public som::SomNode {
  public:
   KeyResultEntryContentForm(som::SpecDocument& doc, std::string path);
@@ -58172,6 +58382,20 @@ class MaintenanceDependencyEntryUpdateForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MaintenanceProcedureEntryContentForm : public som::SomNode {
+ public:
+  MaintenanceProcedureEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string frequency() const;
+  void setFrequency(const std::string& value);
+  std::string performedBy() const;
+  void setPerformedBy(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class MaintenanceUserImpactContentForm : public som::SomNode {
  public:
   MaintenanceUserImpactContentForm(som::SpecDocument& doc, std::string path);
@@ -58537,6 +58761,8 @@ class MessageLocaleVariantEntryContentForm : public som::SomNode {
   void setLocale(const std::string& value);
   std::string copy() const;
   void setCopy(const std::string& value);
+  std::string reviewStatus() const;
+  void setReviewStatus(const std::string& value);
 };
 
 // Generated section facade for the `metricsOverview` @Form section: its own `content` text followed by one typed member per form field.
@@ -63762,6 +63988,26 @@ class PipelineStageEntryTriggerForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class PolicyOwnershipEntryContentForm : public som::SomNode {
+ public:
+  PolicyOwnershipEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string policy() const;
+  void setPolicy(const std::string& value);
+  std::string owner() const;
+  void setOwner(const std::string& value);
+  std::string approver() const;
+  void setApprover(const std::string& value);
+  std::string reviewCycle() const;
+  void setReviewCycle(const std::string& value);
+  std::string appliesTo() const;
+  void setAppliesTo(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class PortabilityContentForm : public som::SomNode {
  public:
   PortabilityContentForm(som::SpecDocument& doc, std::string path);
@@ -66623,6 +66869,28 @@ class QualityWeightEntryContentForm : public som::SomNode {
   void setStakeholderAgreement(const std::string& value);
   std::string tradeOffImplications() const;
   void setTradeOffImplications(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class RaciEntryContentForm : public som::SomNode {
+ public:
+  RaciEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string activity() const;
+  void setActivity(const std::string& value);
+  std::string responsible() const;
+  void setResponsible(const std::string& value);
+  std::string accountable() const;
+  void setAccountable(const std::string& value);
+  std::string consulted() const;
+  void setConsulted(const std::string& value);
+  std::string informed() const;
+  void setInformed(const std::string& value);
+  std::string relatedProcess() const;
+  void setRelatedProcess(const std::string& value);
 };
 
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
@@ -73509,6 +73777,10 @@ class ServerEnvironmentEntryScaleForm : public som::SomNode {
   void setExpectedUsers(const std::string& value);
   std::string expectedLoad() const;
   void setExpectedLoad(const std::string& value);
+  std::optional<long> nodeCount() const;
+  void setNodeCount(std::optional<long> value);
+  std::optional<long> databaseServerCount() const;
+  void setDatabaseServerCount(std::optional<long> value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73529,6 +73801,24 @@ class ServerOperationEntryContentForm : public som::SomNode {
   void setDescriptionKey(const std::string& value);
   std::string errorCodes() const;
   void setErrorCodes(const std::string& value);
+};
+
+// Generated section facade for the `controls` @Form section: its own `content` text followed by one typed member per form field.
+class ServerOperationEntryControlsForm : public som::SomNode {
+ public:
+  ServerOperationEntryControlsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string idempotency() const;
+  void setIdempotency(const std::string& value);
+  std::string auditEvent() const;
+  void setAuditEvent(const std::string& value);
+  std::string rateLimitClass() const;
+  void setRateLimitClass(const std::string& value);
+  std::string callers() const;
+  void setCallers(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73635,6 +73925,24 @@ class ServerOsRequirementsSecurityForm : public som::SomNode {
   void setAuditdConfiguration(const std::string& value);
   std::optional<bool> antivirusRequired() const;
   void setAntivirusRequired(std::optional<bool> value);
+};
+
+// Generated section facade for the `connectionBudget` @Form section: its own `content` text followed by one typed member per form field.
+class ServerRequirementsSectionConnectionBudgetForm : public som::SomNode {
+ public:
+  ServerRequirementsSectionConnectionBudgetForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<long> databaseMaxConnections() const;
+  void setDatabaseMaxConnections(std::optional<long> value);
+  std::optional<long> connectionsPerNode() const;
+  void setConnectionsPerNode(std::optional<long> value);
+  std::optional<long> reservedConnections() const;
+  void setReservedConnections(std::optional<long> value);
+  std::string budgetRationale() const;
+  void setBudgetRationale(const std::string& value);
 };
 
 // Generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
@@ -79865,6 +80173,30 @@ class TenantOnboardingPolicyContentForm : public som::SomNode {
   void setNotes(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class TestLevelEntryContentForm : public som::SomNode {
+ public:
+  TestLevelEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string level() const;
+  void setLevel(const std::string& value);
+  std::string testTypes() const;
+  void setTestTypes(const std::string& value);
+  std::string environment() const;
+  void setEnvironment(const std::string& value);
+  std::string tools() const;
+  void setTools(const std::string& value);
+  std::string runBy() const;
+  void setRunBy(const std::string& value);
+  std::string trigger() const;
+  void setTrigger(const std::string& value);
+  std::string exitCriteria() const;
+  void setExitCriteria(const std::string& value);
+};
+
 // Generated section facade for the `business` @Form section: its own `content` text followed by one typed member per form field.
 class TestScenarioEntryBusinessForm : public som::SomNode {
  public:
@@ -83321,6 +83653,22 @@ class UserAttributeEntryContentForm : public som::SomNode {
   void setSource(const std::string& value);
   std::string required() const;
   void setRequired(const std::string& value);
+};
+
+// Generated section facade for the `oidcRelease` @Form section: its own `content` text followed by one typed member per form field.
+class UserAttributeEntryOidcReleaseForm : public som::SomNode {
+ public:
+  UserAttributeEntryOidcReleaseForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string claimName() const;
+  void setClaimName(const std::string& value);
+  std::string scope() const;
+  void setScope(const std::string& value);
+  std::string releasedIn() const;
+  void setReleasedIn(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.

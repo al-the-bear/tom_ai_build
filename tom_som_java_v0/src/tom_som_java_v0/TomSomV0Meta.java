@@ -6978,7 +6978,9 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleScope", "String", "Role Scope", false, "Global | Tenant | Department | Project | Team | Custom — organizational scope where this role is applicable", 0),
             new SomFormFieldMeta("inheritsFrom", "String", "Inherits From", false, "Parent role name or \"none\" for top-level roles; child roles inherit all permissions of the parent", 1),
-            new SomFormFieldMeta("permissionSet", "String", "Permission Set", false, "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)", 2)));
+            new SomFormFieldMeta("permissionSet", "String", "Permission Set", false, "Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)", 2),
+            new SomFormFieldMeta("membershipSource", "RoleMembershipSource", "Membership Source", false, "Whether holders are assigned or membership follows from grants", 3, java.util.List.of("assigned", "derivedFromGrants", "both")),
+            new SomFormFieldMeta("derivationRule", "String", "Derivation Rule", false, "For a derived role: the grants that confer membership", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("NIST RBAC INCITS 359-2012 — hierarchical RBAC and role inheritance", "ISO/IEC 27001:2022 — control A.5.15 access control"), "connotation", "Scope and inheritance metadata for an authorization role.")));
         out.add(n);
       }
@@ -8696,7 +8698,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("boundaryType", "String", "Boundary Type", false, "Conformist, Anti-corruption layer, Open-host, etc.", 0),
             new SomFormFieldMeta("upstreamContexts", "String", "Upstream Contexts", false, "Contexts this one depends on", 1),
             new SomFormFieldMeta("downstreamContexts", "String", "Downstream Contexts", false, "Contexts that depend on this one", 2),
-            new SomFormFieldMeta("sharedKernel", "String", "Shared Kernel", false, "Shared code with other contexts", 3)));
+            new SomFormFieldMeta("sharedKernel", "String", "Shared Kernel", false, "Shared code with other contexts", 3),
+            new SomFormFieldMeta("ownedOperations", "String", "Owned Operations", false, "The server operations this context owns, comma-separated", 4, java.util.List.of(), java.util.List.of("SVOPE.operationName"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Describes the boundary type and upstream/downstream relationships of a bounded context.")));
         out.add(n);
       }
@@ -8727,6 +8730,25 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"), "connotation", "Describes the API endpoints and integration patterns through which a bounded context connects to others.")));
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("BoundedContextEntry", SomMetaKind.LIST, "ContextRelationshipEntry");
+        n.memberName = "relationships";
+        n.sectionId = "CTXREL-LST";
+        n.sectionIdPattern = "CTXREL-xxx";
+        n.serializationOrder = 5;
+        n.contentHelp = "Add one entry per neighbouring context.";
+        n.docComment = "Relationships to neighbouring contexts — contains 0+× relationship.";
+        n.elementNode = metaCx("ContextRelationshipEntry", s, ContextRelationshipEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ContextRelationshipEntry", SomMetaKind.COMPLEX, "ContextRelationshipEntry");
+          e.classSectionId = "CTXREL";
+          e.docComment = "The relationship of a bounded context to one neighbour.";
+          e.classDocComment = "The relationship of a bounded context to one neighbour.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -8748,6 +8770,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef integration() {
       return new SomMetaRef(tree, path + "/BOCOENIN");
+    }
+
+    public SomListMetaRef<ContextRelationshipEntryNav> relationships() {
+      return new SomListMetaRef<>(tree, path + "/CTXREL-LST", (t, p) -> new ContextRelationshipEntryNav(t, p));
     }
   }
 
@@ -19303,6 +19329,39 @@ public final class TomSomV0Meta {
 
     public SomMetaRef legend() {
       return new SomMetaRef(tree, path + "/CD-LEGE");
+    }
+  }
+
+  // ContextRelationshipEntryNav holds the dot-notation accessors of `ContextRelationshipEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ContextRelationshipEntryNav extends SomMetaRef {
+    public ContextRelationshipEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ContextRelationshipEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ContextRelationshipEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "Why the two contexts relate this way and what crosses the boundary.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("neighbourContext", "String", "Neighbour Context", false, "The other bounded context", 0, java.util.List.of(), java.util.List.of("BCE.contextName")),
+            new SomFormFieldMeta("relationshipType", "ContextRelationshipType", "Relationship Type", false, "The context-mapping pattern between the two", 1, java.util.List.of("partnership", "sharedKernel", "customerSupplier", "conformist", "anticorruptionLayer", "openHostService", "publishedLanguage", "separateWays")),
+            new SomFormFieldMeta("direction", "String", "Direction", false, "upstream / downstream / mutual, seen from this context", 2)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -51996,6 +52055,42 @@ public final class TomSomV0Meta {
     }
   }
 
+  // KeyManagementRequirementsNav holds the dot-notation accessors of `KeyManagementRequirements` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class KeyManagementRequirementsNav extends SomMetaRef {
+    public KeyManagementRequirementsNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `KeyManagementRequirements` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("KeyManagementRequirements", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "The key hierarchy and how its keys are managed over their life.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("keyTypes", "String", "Key Types", false, "Which keys exist — signing, encryption, secrets keys — and what each protects", 0),
+            new SomFormFieldMeta("keyStorage", "String", "Key Storage", false, "Where each key is kept — KMS, HSM, an encrypted file", 1),
+            new SomFormFieldMeta("rotationPolicy", "String", "Rotation Policy", false, "How often each key rotates and how old keys stay usable", 2),
+            new SomFormFieldMeta("keyCustody", "String", "Key Custody", false, "Who can use, export or replace a key", 3),
+            new SomFormFieldMeta("backupAndRecovery", "String", "Backup and Recovery", false, "How a key is backed up and restored", 4),
+            new SomFormFieldMeta("destruction", "String", "Destruction", false, "How a retired key is destroyed", 5)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // KeyResultEntryNav holds the dot-notation accessors of `KeyResultEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -54569,6 +54664,38 @@ public final class TomSomV0Meta {
     }
   }
 
+  // MaintenanceProcedureEntryNav holds the dot-notation accessors of `MaintenanceProcedureEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class MaintenanceProcedureEntryNav extends SomMetaRef {
+    public MaintenanceProcedureEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `MaintenanceProcedureEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("MaintenanceProcedureEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "The steps of the procedure and what it depends on.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, "When the procedure is run — per release, monthly, on demand", 0),
+            new SomFormFieldMeta("performedBy", "String", "Performed By", false, "Who runs it", 1)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // MaintenanceUserImpactNav holds the dot-notation accessors of `MaintenanceUserImpact` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -55295,7 +55422,8 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("locale", "String", "Locale", true, "BCP-47 locale tag (e.g. en, en-US, de, fr-CA)", 0),
-            new SomFormFieldMeta("copy", "String", "Copy", true, "The user-facing text for this locale", 1)));
+            new SomFormFieldMeta("copy", "String", "Copy", true, "The user-facing text for this locale", 1),
+            new SomFormFieldMeta("reviewStatus", "TranslationReviewStatus", "Review Status", false, "How far the translation has been checked", 2, java.util.List.of("draft", "machineTranslated", "reviewed", "approved"))));
         out.add(n);
       }
       return out;
@@ -62863,6 +62991,44 @@ public final class TomSomV0Meta {
         });
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("OrganizationalFramework", SomMetaKind.LIST, "RaciEntry");
+        n.memberName = "raciMatrix";
+        n.sectionId = "RACIEN-LST";
+        n.sectionIdPattern = "RACIEN-xxx";
+        n.serializationOrder = 5;
+        n.contentHelp = "Add one entry per activity.";
+        n.docComment = "Cross-process RACI matrix — contains 0+× RACI entry.";
+        n.elementNode = metaCx("RaciEntry", s, RaciEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("RaciEntry", SomMetaKind.COMPLEX, "RaciEntry");
+          e.classSectionId = "RACIEN";
+          e.docComment = "One activity of the cross-process RACI matrix.";
+          e.classDocComment = "One activity of the cross-process RACI matrix.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("OrganizationalFramework", SomMetaKind.LIST, "PolicyOwnershipEntry");
+        n.memberName = "policyOwnership";
+        n.sectionId = "POLOWN-LST";
+        n.sectionIdPattern = "POLOWN-xxx";
+        n.serializationOrder = 6;
+        n.contentHelp = "Add one entry per policy.";
+        n.docComment = "Policy ownership — contains 0+× policy.";
+        n.elementNode = metaCx("PolicyOwnershipEntry", s, PolicyOwnershipEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("PolicyOwnershipEntry", SomMetaKind.COMPLEX, "PolicyOwnershipEntry");
+          e.classSectionId = "POLOWN";
+          e.docComment = "One policy and who owns it.";
+          e.classDocComment = "One policy and who owns it.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
@@ -62884,6 +63050,14 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<WorkplaceDescriptionEntryNav> workplaceDescriptions() {
       return new SomListMetaRef<>(tree, path + "/WPDE-WORK-LST", (t, p) -> new WorkplaceDescriptionEntryNav(t, p));
+    }
+
+    public SomListMetaRef<RaciEntryNav> raciMatrix() {
+      return new SomListMetaRef<>(tree, path + "/RACIEN-LST", (t, p) -> new RaciEntryNav(t, p));
+    }
+
+    public SomListMetaRef<PolicyOwnershipEntryNav> policyOwnership() {
+      return new SomListMetaRef<>(tree, path + "/POLOWN-LST", (t, p) -> new PolicyOwnershipEntryNav(t, p));
     }
   }
 
@@ -66203,6 +66377,41 @@ public final class TomSomV0Meta {
 
     public RuntimeEnvironmentNav runtimeEnvironment() {
       return new RuntimeEnvironmentNav(tree, path + "/runtimeEnvironment");
+    }
+  }
+
+  // PolicyOwnershipEntryNav holds the dot-notation accessors of `PolicyOwnershipEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class PolicyOwnershipEntryNav extends SomMetaRef {
+    public PolicyOwnershipEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `PolicyOwnershipEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("PolicyOwnershipEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "What the policy covers and how ownership is exercised.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("policy", "String", "Policy", false, "The policy", 0),
+            new SomFormFieldMeta("owner", "String", "Owner", false, "The role that owns and maintains it", 1),
+            new SomFormFieldMeta("approver", "String", "Approver", false, "The role that approves changes", 2),
+            new SomFormFieldMeta("reviewCycle", "String", "Review Cycle", false, "How often it is reviewed", 3),
+            new SomFormFieldMeta("appliesTo", "String", "Applies To", false, "Who or what it binds", 4)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -72515,6 +72724,42 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this weight", 4),
             new SomFormFieldMeta("stakeholderAgreement", "String", "Stakeholder Agreement", false, "Who agreed to this weight", 5),
             new SomFormFieldMeta("tradeOffImplications", "String", "Trade-off Implications", false, "What this priority means for other attributes", 6)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
+  // RaciEntryNav holds the dot-notation accessors of `RaciEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class RaciEntryNav extends SomMetaRef {
+    public RaciEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `RaciEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("RaciEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "What the activity is and why its responsibility is split this way.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("activity", "String", "Activity", false, "The activity or decision whose responsibility is assigned", 0),
+            new SomFormFieldMeta("responsible", "String", "Responsible", false, "Who does the work — roles, comma-separated", 1),
+            new SomFormFieldMeta("accountable", "String", "Accountable", false, "The one role that answers for the outcome", 2),
+            new SomFormFieldMeta("consulted", "String", "Consulted", false, "Roles asked before the work is done, comma-separated", 3),
+            new SomFormFieldMeta("informed", "String", "Informed", false, "Roles told after it is done, comma-separated", 4),
+            new SomFormFieldMeta("relatedProcess", "String", "Related Process", false, "The business process the activity belongs to (BPREN-…)", 5, java.util.List.of(), java.util.List.of("BPREN.@sectionId"))));
         out.add(n);
       }
       return out;
@@ -85693,7 +85938,9 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("serverCount", "int", "Server Count", false, "Number of servers in environment", 0),
             new SomFormFieldMeta("expectedUsers", "String", "Expected Users", false, "Concurrent users expected", 1),
-            new SomFormFieldMeta("expectedLoad", "String", "Expected Load", false, "Requests per second", 2)));
+            new SomFormFieldMeta("expectedLoad", "String", "Expected Load", false, "Requests per second", 2),
+            new SomFormFieldMeta("nodeCount", "int", "Application Nodes", false, "How many application nodes run in the environment", 3),
+            new SomFormFieldMeta("databaseServerCount", "int", "Database Servers", false, "How many database servers run in the environment", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010 — performance efficiency / resource utilization"), "connotation", "Captures the server count, expected users, and load for a server environment.")));
         out.add(n);
       }
@@ -85844,6 +86091,19 @@ public final class TomSomV0Meta {
         });
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("ServerOperationEntry", SomMetaKind.FORM, "String");
+        n.memberName = "controls";
+        n.sectionId = "SVOCT";
+        n.serializationOrder = 5;
+        n.docComment = "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("idempotency", "OperationIdempotency", "Idempotency", false, "Whether repeating the call repeats its effect", 0, java.util.List.of("idempotent", "idempotentWithKey", "notIdempotent")),
+            new SomFormFieldMeta("auditEvent", "String", "Audit Event", false, "The audit event the operation records, if any", 1),
+            new SomFormFieldMeta("rateLimitClass", "String", "Rate-Limit Class", false, "The rate-limit class that throttles it", 2),
+            new SomFormFieldMeta("callers", "String", "Callers", false, "Who calls it — client applications, services, roles", 3)));
+        out.add(n);
+      }
       return out;
     }
 
@@ -85865,6 +86125,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<OperationBindingEntryNav> bindings() {
       return new SomListMetaRef<>(tree, path + "/SVOBI-BIND-LST", (t, p) -> new OperationBindingEntryNav(t, p));
+    }
+
+    public SomMetaRef controls() {
+      return new SomMetaRef(tree, path + "/SVOCT");
     }
   }
 
@@ -86241,6 +86505,19 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      {
+        SomMetaNode n = new SomMetaNode("ServerRequirementsSection", SomMetaKind.FORM, "String");
+        n.memberName = "connectionBudget";
+        n.sectionId = "SRSDB";
+        n.serializationOrder = 12;
+        n.docComment = "The database connection budget and the server settings that bound it.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("databaseMaxConnections", "int", "Database Max Connections", false, "The connection limit of the database server", 0),
+            new SomFormFieldMeta("connectionsPerNode", "int", "Connections per Node", false, "The pool size each application node opens", 1),
+            new SomFormFieldMeta("reservedConnections", "int", "Reserved Connections", false, "Connections kept free for administration and migrations", 2),
+            new SomFormFieldMeta("budgetRationale", "String", "Budget Rationale", false, "How the numbers add up, and what happens when a node is added", 3)));
+        out.add(n);
+      }
       return out;
     }
 
@@ -86290,6 +86567,10 @@ public final class TomSomV0Meta {
 
     public ServerOsRequirementsNav osRequirements() {
       return new ServerOsRequirementsNav(tree, path + "/osRequirements");
+    }
+
+    public SomMetaRef connectionBudget() {
+      return new SomMetaRef(tree, path + "/SRSDB");
     }
   }
 
@@ -94867,14 +95148,23 @@ public final class TomSomV0Meta {
         return n;
       }));
       {
-        SomMetaNode n = new SomMetaNode("SystemOperation", SomMetaKind.LIST, "String");
+        SomMetaNode n = new SomMetaNode("SystemOperation", SomMetaKind.LIST, "MaintenanceProcedureEntry");
         n.memberName = "maintenanceProcedures";
-        n.sectionId = "SO-MAIN-LST";
-        n.sectionIdPattern = "SO-MAIN-xxx";
+        n.sectionId = "MAPRO-PROC-LST";
+        n.sectionIdPattern = "MAPRO-PROC-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per maintenance procedure.";
         n.docComment = "Maintenance Procedures.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ITIL 4 — change enablement and maintenance windows"), "connotation", "The catalog of scheduled maintenance procedures the system requires.")));
+        n.elementNode = metaCx("MaintenanceProcedureEntry", s, MaintenanceProcedureEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("MaintenanceProcedureEntry", SomMetaKind.COMPLEX, "MaintenanceProcedureEntry");
+          e.classSectionId = "MAPRO";
+          e.docComment = "One maintenance procedure: its name is the headline, the steps the text.";
+          e.classDocComment = "One maintenance procedure: its name is the headline, the steps the text.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
         out.add(n);
       }
       return out;
@@ -94888,8 +95178,8 @@ public final class TomSomV0Meta {
       return new AdministrationRequirementsSectionNav(tree, path + "/administrationRequirements");
     }
 
-    public SomListMetaRef<SomMetaRef> maintenanceProcedures() {
-      return new SomListMetaRef<>(tree, path + "/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<MaintenanceProcedureEntryNav> maintenanceProcedures() {
+      return new SomListMetaRef<>(tree, path + "/MAPRO-PROC-LST", (t, p) -> new MaintenanceProcedureEntryNav(t, p));
     }
   }
 
@@ -98910,6 +99200,17 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("KeyManagementRequirements", s, KeyManagementRequirementsNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("KeyManagementRequirements", SomMetaKind.COMPLEX, "KeyManagementRequirements");
+        n.memberName = "keyManagement";
+        n.classSectionId = "KEYMGT";
+        n.serializationOrder = 4;
+        n.docComment = "Key management on the platform side.";
+        n.classDocComment = "Key management on the platform side: which keys exist, where they are\nkept, how they rotate and who holds them.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -98927,6 +99228,10 @@ public final class TomSomV0Meta {
 
     public SecurityAuditRequirementsSectionNav securityAuditRequirements() {
       return new SecurityAuditRequirementsSectionNav(tree, path + "/securityAuditRequirements");
+    }
+
+    public KeyManagementRequirementsNav keyManagement() {
+      return new KeyManagementRequirementsNav(tree, path + "/keyManagement");
     }
   }
 
@@ -99434,6 +99739,43 @@ public final class TomSomV0Meta {
     }
   }
 
+  // TestLevelEntryNav holds the dot-notation accessors of `TestLevelEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class TestLevelEntryNav extends SomMetaRef {
+    public TestLevelEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `TestLevelEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("TestLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "What the level verifies and how it fits the levels around it.";
+        n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("level", "String", "Level", false, "unit / integration / system / acceptance / regression, or a project-specific level", 0),
+            new SomFormFieldMeta("testTypes", "String", "Test Types", false, "The test types run at this level — functional, performance, security, accessibility", 1),
+            new SomFormFieldMeta("environment", "String", "Environment", false, "The environment the level runs in", 2, java.util.List.of(), java.util.List.of("ENVEN.@sectionId")),
+            new SomFormFieldMeta("tools", "String", "Tools", false, "The tools and frameworks used", 3),
+            new SomFormFieldMeta("runBy", "String", "Run By", false, "Who runs it — a person, a pipeline, a role", 4),
+            new SomFormFieldMeta("trigger", "String", "Trigger", false, "When it runs — on commit, nightly, before a release", 5),
+            new SomFormFieldMeta("exitCriteria", "String", "Exit Criteria", false, "What must hold before the next level starts", 6)));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+  }
+
   // TestScenarioEntryNav holds the dot-notation accessors of `TestScenarioEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -99673,11 +100015,34 @@ public final class TomSomV0Meta {
         n.docComment = "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].";
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("TestStrategy", SomMetaKind.LIST, "TestLevelEntry");
+        n.memberName = "testLevels";
+        n.sectionId = "TSLVL-LST";
+        n.sectionIdPattern = "TSLVL-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per test level.";
+        n.docComment = "Test levels — contains 0+× test level.";
+        n.elementNode = metaCx("TestLevelEntry", s, TestLevelEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("TestLevelEntry", SomMetaKind.COMPLEX, "TestLevelEntry");
+          e.classSectionId = "TSLVL";
+          e.docComment = "One test level of the test strategy.";
+          e.classDocComment = "One test level of the test strategy.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<TestLevelEntryNav> testLevels() {
+      return new SomListMetaRef<>(tree, path + "/TSLVL-LST", (t, p) -> new TestLevelEntryNav(t, p));
     }
   }
 
@@ -105148,11 +105513,27 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("required", "String", "Required", false, "Whether this attribute is mandatory.", 4)));
         out.add(n);
       }
+      {
+        SomMetaNode n = new SomMetaNode("UserAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "oidcRelease";
+        n.sectionId = "USOIDC";
+        n.serializationOrder = 1;
+        n.docComment = "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("claimName", "String", "Claim Name", false, "The claim the attribute is released as", 0),
+            new SomFormFieldMeta("scope", "String", "Scope", false, "The scope that releases it", 1),
+            new SomFormFieldMeta("releasedIn", "String", "Released In", false, "id token / access token / userinfo, comma-separated; audience-only tokens named", 2)));
+        out.add(n);
+      }
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef oidcRelease() {
+      return new SomMetaRef(tree, path + "/USOIDC");
     }
   }
 
@@ -110359,6 +110740,10 @@ public final class TomSomV0Meta {
     public SomMetaRef BOCOENIN() {
       return new SomMetaRef(tree, path + "/BOCOENIN");
     }
+
+    public SomListMetaRef<ContextRelationshipEntryId> CTXREL_LST() {
+      return new SomListMetaRef<>(tree, path + "/CTXREL-LST", (t, p) -> new ContextRelationshipEntryId(t, p));
+    }
   }
 
   // BreakpointEntryId holds the ID-tree accessors of `BreakpointEntry` (SOM §8): methods
@@ -111461,6 +111846,16 @@ public final class TomSomV0Meta {
   // surface.
   public static final class ConstraintRegisterEntryId extends SomMetaRef {
     public ConstraintRegisterEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // ContextRelationshipEntryId holds the ID-tree accessors of `ContextRelationshipEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class ContextRelationshipEntryId extends SomMetaRef {
+    public ContextRelationshipEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
   }
@@ -112730,6 +113125,14 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/WPDE-WORK-LST", (t, p) -> new WorkplaceDescriptionEntryId(t, p));
     }
 
+    public SomListMetaRef<RaciEntryId> RACIEN_LST() {
+      return new SomListMetaRef<>(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/RACIEN-LST", (t, p) -> new RaciEntryId(t, p));
+    }
+
+    public SomListMetaRef<PolicyOwnershipEntryId> POLOWN_LST() {
+      return new SomListMetaRef<>(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/POLOWN-LST", (t, p) -> new PolicyOwnershipEntryId(t, p));
+    }
+
     public SomMetaRef PVOVW() {
       return new SomMetaRef(tree, path + "/targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW");
     }
@@ -113890,6 +114293,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL");
     }
 
+    public SomMetaRef SRSDB() {
+      return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRSDB");
+    }
+
     public SomListMetaRef<ClientApplicationEntryId> CLIAPP_CLIE_LST() {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
@@ -114874,8 +115281,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<MaintenanceProcedureEntryId> MAPRO_PROC_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST", (t, p) -> new MaintenanceProcedureEntryId(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -116540,6 +116947,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<DeliveryAcceptanceCriterionEntryId> DACEN_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST", (t, p) -> new DeliveryAcceptanceCriterionEntryId(t, p));
+    }
+
+    public SomListMetaRef<TestLevelEntryId> TSLVL_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/testStrategy/TSLVL-LST", (t, p) -> new TestLevelEntryId(t, p));
     }
 
     public SomListMetaRef<DeliverableEntryId> DLVEN_ITEM_LST() {
@@ -118534,6 +118945,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/hardwareRequirements/serverRequirements/osRequirements/SORL");
     }
 
+    public SomMetaRef SRSDB() {
+      return new SomMetaRef(tree, path + "/hardwareRequirements/serverRequirements/SRSDB");
+    }
+
     public SomListMetaRef<ClientApplicationEntryId> CLIAPP_CLIE_LST() {
       return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
@@ -119518,8 +119933,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<MaintenanceProcedureEntryId> MAPRO_PROC_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/systemOperation/MAPRO-PROC-LST", (t, p) -> new MaintenanceProcedureEntryId(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -121274,6 +121689,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/acceptanceCriteriaSummary/detailedCriteria/DACEN-ITEM-LST", (t, p) -> new DeliveryAcceptanceCriterionEntryId(t, p));
     }
 
+    public SomListMetaRef<TestLevelEntryId> TSLVL_LST() {
+      return new SomListMetaRef<>(tree, path + "/testStrategy/TSLVL-LST", (t, p) -> new TestLevelEntryId(t, p));
+    }
+
     public SomListMetaRef<DeliveryAcceptanceCriterionEntryId> DACEN_ITEM_LST_2() {
       return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/DACEN-ITEM-LST", (t, p) -> new DeliveryAcceptanceCriterionEntryId(t, p));
     }
@@ -122720,6 +123139,10 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORL");
     }
 
+    public SomMetaRef SRSDB() {
+      return new SomMetaRef(tree, path + "/technicalFramework/hardware/serverRequirements/SRSDB");
+    }
+
     public SomListMetaRef<ClientApplicationEntryId> CLIAPP_CLIE_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
@@ -123704,8 +124127,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<MaintenanceProcedureEntryId> MAPRO_PROC_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST", (t, p) -> new MaintenanceProcedureEntryId(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -127743,6 +128166,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // MaintenanceProcedureEntryId holds the ID-tree accessors of `MaintenanceProcedureEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class MaintenanceProcedureEntryId extends SomMetaRef {
+    public MaintenanceProcedureEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // MaintenanceWindowEntryId holds the ID-tree accessors of `MaintenanceWindowEntry` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -128871,6 +129304,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // PolicyOwnershipEntryId holds the ID-tree accessors of `PolicyOwnershipEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class PolicyOwnershipEntryId extends SomMetaRef {
+    public PolicyOwnershipEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // PostconditionsAndGuaranteesId holds the ID-tree accessors of `PostconditionsAndGuarantees` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -129369,6 +129812,16 @@ public final class TomSomV0Meta {
   // surface.
   public static final class QualityWeightEntryId extends SomMetaRef {
     public QualityWeightEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
+  // RaciEntryId holds the ID-tree accessors of `RaciEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class RaciEntryId extends SomMetaRef {
+    public RaciEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
   }
@@ -131101,6 +131554,10 @@ public final class TomSomV0Meta {
     public SomListMetaRef<OperationBindingEntryId> SVOBI_BIND_LST() {
       return new SomListMetaRef<>(tree, path + "/SVOBI-BIND-LST", (t, p) -> new OperationBindingEntryId(t, p));
     }
+
+    public SomMetaRef SVOCT() {
+      return new SomMetaRef(tree, path + "/SVOCT");
+    }
   }
 
   // ServerOperationMemberEntryId holds the ID-tree accessors of `ServerOperationMemberEntry` (SOM §8): methods
@@ -132321,6 +132778,16 @@ public final class TomSomV0Meta {
     }
   }
 
+  // TestLevelEntryId holds the ID-tree accessors of `TestLevelEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class TestLevelEntryId extends SomMetaRef {
+    public TestLevelEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+  }
+
   // TestScenarioEntryId holds the ID-tree accessors of `TestScenarioEntry` (SOM §8): methods
   // named by section id (`-` → `_`), hoisted through id-less members so every
   // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
@@ -132852,6 +133319,10 @@ public final class TomSomV0Meta {
   public static final class UserAttributeEntryId extends SomMetaRef {
     public UserAttributeEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef USOIDC() {
+      return new SomMetaRef(tree, path + "/USOIDC");
     }
   }
 

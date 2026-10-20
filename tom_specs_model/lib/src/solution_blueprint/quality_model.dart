@@ -5136,4 +5136,65 @@ quality-goal sections; this section integrates them.
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// Test levels — contains 0+× test level.
+  @SectionId('TSLVL-LST')
+  @SectionIdPattern('TSLVL-xxx')
+  @ContentHelp('Add one entry per test level.')
+  @SerializationOrder(1)
+  List<TestLevelEntry> testLevels = [];
+}
+
+/// One test level of the test strategy.
+@StandardReferences([
+  'ISO/IEC/IEEE 29119-2 — test levels and test types in a test strategy',
+], 'One test level of the test strategy.')
+@SectionId('TSLVL')
+class TestLevelEntry extends DocSpecsSection {
+  @ContentHelp('What the level verifies and how it fits the levels around it.')
+  @Form([
+    Field(
+      'level',
+      String,
+      'Level',
+      hint:
+          'unit / integration / system / acceptance / regression, or a project-specific level',
+    ),
+    Field(
+      'testTypes',
+      String,
+      'Test Types',
+      hint:
+          'The test types run at this level — functional, performance, security, accessibility',
+    ),
+    Field(
+      'environment',
+      String,
+      'Environment',
+      hint: 'The environment the level runs in',
+      refersTo: ['ENVEN.@sectionId'],
+    ),
+    Field('tools', String, 'Tools', hint: 'The tools and frameworks used'),
+    Field(
+      'runBy',
+      String,
+      'Run By',
+      hint: 'Who runs it — a person, a pipeline, a role',
+    ),
+    Field(
+      'trigger',
+      String,
+      'Trigger',
+      hint: 'When it runs — on commit, nightly, before a release',
+    ),
+    Field(
+      'exitCriteria',
+      String,
+      'Exit Criteria',
+      hint: 'What must hold before the next level starts',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }

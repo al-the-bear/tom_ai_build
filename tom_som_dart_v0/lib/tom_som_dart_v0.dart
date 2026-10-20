@@ -319,6 +319,42 @@ ConstraintEnforcement? _parseConstraintEnforcement(String? token) {
   return null;
 }
 
+/// Generated enum for `ContextRelationshipType` values.
+enum ContextRelationshipType {
+  /// The two teams succeed or fail together and plan jointly.
+  partnership,
+
+  /// The two share a small common model both depend on.
+  sharedKernel,
+
+  /// The downstream context's needs shape what the upstream provides.
+  customerSupplier,
+
+  /// The downstream context adopts the upstream model as it is.
+  conformist,
+
+  /// The downstream context translates the upstream model at its boundary.
+  anticorruptionLayer,
+
+  /// The upstream context offers a protocol any context may use.
+  openHostService,
+
+  /// The two exchange a documented, shared language.
+  publishedLanguage,
+
+  /// The two have no integration.
+  separateWays;
+}
+
+/// Parses a stored token into a [ContextRelationshipType], or `null`.
+ContextRelationshipType? _parseContextRelationshipType(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ContextRelationshipType.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `DataAttributeKind` values.
 enum DataAttributeKind {
   /// Character data of bounded length. Binds
@@ -774,6 +810,28 @@ ObjectLifecycleKind? _parseObjectLifecycleKind(String? token) {
   return null;
 }
 
+/// Generated enum for `OperationIdempotency` values.
+enum OperationIdempotency {
+  /// Repeating it has no further effect.
+  idempotent,
+
+  /// Repeating it has no further effect when the caller sends the same
+  /// idempotency key.
+  idempotentWithKey,
+
+  /// Each call has its own effect; a retry must be decided by the caller.
+  notIdempotent;
+}
+
+/// Parses a stored token into a [OperationIdempotency], or `null`.
+OperationIdempotency? _parseOperationIdempotency(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in OperationIdempotency.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `OverridableBy` values.
 enum OverridableBy {
   /// Scope-pinned: no narrower scope may shadow the key.
@@ -1006,6 +1064,28 @@ enum ReportFilterValueKind {
 ReportFilterValueKind? _parseReportFilterValueKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ReportFilterValueKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `RoleMembershipSource` values.
+enum RoleMembershipSource {
+  /// Holders are assigned to the role directly.
+  assigned,
+
+  /// Membership follows from grants the holder has: the role is a name for a
+  /// set of grants, not something anyone is assigned.
+  derivedFromGrants,
+
+  /// Both: holders are assigned, and a grant can also confer membership.
+  both;
+}
+
+/// Parses a stored token into a [RoleMembershipSource], or `null`.
+RoleMembershipSource? _parseRoleMembershipSource(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in RoleMembershipSource.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -1599,6 +1679,30 @@ enum Status {
 Status? _parseStatus(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in Status.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `TranslationReviewStatus` values.
+enum TranslationReviewStatus {
+  /// Written, not yet reviewed.
+  draft,
+
+  /// Produced by a machine, not yet reviewed by a person.
+  machineTranslated,
+
+  /// Reviewed by a person fluent in the language.
+  reviewed,
+
+  /// Approved for release.
+  approved;
+}
+
+/// Parses a stored token into a [TranslationReviewStatus], or `null`.
+TranslationReviewStatus? _parseTranslationReviewStatus(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in TranslationReviewStatus.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -5233,6 +5337,11 @@ class BoundedContextEntry extends SomNode {
 
   /// Integration and notes.
   BoundedContextEntryIntegrationForm get integration => BoundedContextEntryIntegrationForm(doc, '$path/BOCOENIN');
+
+  /// Relationships to neighbouring contexts — contains 0+× relationship.
+  ///
+  /// **Authoring guidance.** Add one entry per neighbouring context.
+  SomList<ContextRelationshipEntry> get relationships => SomList<ContextRelationshipEntry>(doc, '$path/CTXREL-LST', (d, p) => ContextRelationshipEntry(d, p), pattern: 'CTXREL-xxx');
 }
 
 /// 10.10.1. Breakpoints.
@@ -9099,6 +9208,23 @@ class ContextDiagram extends SomNode {
   /// Diagram legend and conventions.
   String get legend => doc.content('$path/CD-LEGE') ?? '';
   set legend(String value) => doc.setContent('$path/CD-LEGE', value);
+}
+
+/// The relationship of a bounded context to one neighbour.
+class ContextRelationshipEntry extends SomNode {
+  /// Names the `ContextRelationshipEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  ContextRelationshipEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** Why the two contexts relate this way and what crosses the boundary.
+  ContextRelationshipEntryContentForm get content => ContextRelationshipEntryContentForm(doc, '$path/content');
 }
 
 /// 10.8.1. Contextual Help.
@@ -22195,6 +22321,24 @@ class KeyManagement extends SomNode {
   // (skipped: notes has no target type)
 }
 
+/// Key management on the platform side: which keys exist, where they are
+/// kept, how they rotate and who holds them.
+class KeyManagementRequirements extends SomNode {
+  /// Names the `KeyManagementRequirements` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  KeyManagementRequirements(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** The key hierarchy and how its keys are managed over their life.
+  KeyManagementRequirementsContentForm get content => KeyManagementRequirementsContentForm(doc, '$path/content');
+}
+
 /// A key result entry (form).
 class KeyResultEntry extends SomNode {
   /// Names the `KeyResultEntry` section at [path] inside [doc].
@@ -23239,6 +23383,23 @@ class MaintenanceDependencyEntry extends SomNode {
 
   /// Risk and fallback planning.
   MaintenanceDependencyEntryRiskForm get risk => MaintenanceDependencyEntryRiskForm(doc, '$path/MDER');
+}
+
+/// One maintenance procedure: its name is the headline, the steps the text.
+class MaintenanceProcedureEntry extends SomNode {
+  /// Names the `MaintenanceProcedureEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  MaintenanceProcedureEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** The steps of the procedure and what it depends on.
+  MaintenanceProcedureEntryContentForm get content => MaintenanceProcedureEntryContentForm(doc, '$path/content');
 }
 
 /// User impact and communication.
@@ -26482,6 +26643,16 @@ class OrganizationalFramework extends SomNode {
 
   /// 5.3. Workplace Descriptions — contains 1+× per user category.
   SomList<WorkplaceDescriptionEntry> get workplaceDescriptions => SomList<WorkplaceDescriptionEntry>(doc, '$path/WPDE-WORK-LST', (d, p) => WorkplaceDescriptionEntry(d, p), pattern: 'WPDE-WORK-xxx');
+
+  /// Cross-process RACI matrix — contains 0+× RACI entry.
+  ///
+  /// **Authoring guidance.** Add one entry per activity.
+  SomList<RaciEntry> get raciMatrix => SomList<RaciEntry>(doc, '$path/RACIEN-LST', (d, p) => RaciEntry(d, p), pattern: 'RACIEN-xxx');
+
+  /// Policy ownership — contains 0+× policy.
+  ///
+  /// **Authoring guidance.** Add one entry per policy.
+  SomList<PolicyOwnershipEntry> get policyOwnership => SomList<PolicyOwnershipEntry>(doc, '$path/POLOWN-LST', (d, p) => PolicyOwnershipEntry(d, p), pattern: 'POLOWN-xxx');
 }
 
 /// An organizational requirement entry.
@@ -27782,6 +27953,23 @@ class PlatformAndLanguage extends SomNode {
 
   /// Runtime environment constraints.
   RuntimeEnvironment get runtimeEnvironment => RuntimeEnvironment(doc, '$path/runtimeEnvironment');
+}
+
+/// One policy and who owns it.
+class PolicyOwnershipEntry extends SomNode {
+  /// Names the `PolicyOwnershipEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  PolicyOwnershipEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** What the policy covers and how ownership is exercised.
+  PolicyOwnershipEntryContentForm get content => PolicyOwnershipEntryContentForm(doc, '$path/content');
 }
 
 /// 11.3.2. Portability quality.
@@ -30173,6 +30361,23 @@ class QualityWeightEntry extends SomNode {
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   QualityWeightEntryContentForm get content => QualityWeightEntryContentForm(doc, '$path/content');
+}
+
+/// One activity of the cross-process RACI matrix.
+class RaciEntry extends SomNode {
+  /// Names the `RaciEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  RaciEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** What the activity is and why its responsibility is split this way.
+  RaciEntryContentForm get content => RaciEntryContentForm(doc, '$path/content');
 }
 
 /// Rate limiting and throttling.
@@ -35684,6 +35889,9 @@ class ServerOperationEntry extends SomNode {
   ///
   /// **Authoring guidance.** Add one entry per HTTP shape the operation is served under for third-party callers (a REST administration API, for example). Leave empty when only the application's own client calls it.
   SomList<OperationBindingEntry> get bindings => SomList<OperationBindingEntry>(doc, '$path/SVOBI-BIND-LST', (d, p) => OperationBindingEntry(d, p), pattern: 'SVOBI-BIND-xxx');
+
+  /// Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+  ServerOperationEntryControlsForm get controls => ServerOperationEntryControlsForm(doc, '$path/SVOCT');
 }
 
 /// A single member of an operation's request or response shape (form).
@@ -35921,6 +36129,9 @@ class ServerRequirementsSection extends SomNode {
 
   /// Operating system requirements.
   ServerOsRequirements get osRequirements => ServerOsRequirements(doc, '$path/osRequirements');
+
+  /// The database connection budget and the server settings that bound it.
+  ServerRequirementsSectionConnectionBudgetForm get connectionBudget => ServerRequirementsSectionConnectionBudgetForm(doc, '$path/SRSDB');
 }
 
 /// Server role entry (application server, database server, web server).
@@ -39038,7 +39249,7 @@ class SystemOperation extends SomNode {
   /// Maintenance Procedures.
   ///
   /// **Authoring guidance.** Add one entry per maintenance procedure.
-  SomList<SomScalar> get maintenanceProcedures => SomList<SomScalar>(doc, '$path/SO-MAIN-LST', (d, p) => SomScalar(d, p), pattern: 'SO-MAIN-xxx');
+  SomList<MaintenanceProcedureEntry> get maintenanceProcedures => SomList<MaintenanceProcedureEntry>(doc, '$path/MAPRO-PROC-LST', (d, p) => MaintenanceProcedureEntry(d, p), pattern: 'MAPRO-PROC-xxx');
 }
 
 /// 8.7. System Operation and Monitoring.
@@ -40566,6 +40777,9 @@ class TechnicalSecurityRequirements extends SomNode {
 
   /// 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection get securityAuditRequirements => SecurityAuditRequirementsSection(doc, '$path/securityAuditRequirements');
+
+  /// Key management on the platform side.
+  KeyManagementRequirements get keyManagement => KeyManagementRequirements(doc, '$path/keyManagement');
 }
 
 /// Technology and data variations.
@@ -40810,6 +41024,23 @@ class TenantOnboardingPolicy extends SomNode {
   // (skipped: tenantOnboardingPolicyDetails has no target type)
 }
 
+/// One test level of the test strategy.
+class TestLevelEntry extends SomNode {
+  /// Names the `TestLevelEntry` section at [path] inside [doc].
+  ///
+  /// Constructing a facade node neither allocates storage nor validates —
+  /// it only names a path, so a node may be built for a section the
+  /// document does not yet carry.
+  TestLevelEntry(super.doc, super.path);
+
+  /// The section's body content. For a `@Form`-annotated member this is the
+  /// form's **preamble** — the free text before the first field line (SOM
+  /// §11.4 rule 7); the field values themselves live in [form].
+  ///
+  /// **Authoring guidance.** What the level verifies and how it fits the levels around it.
+  TestLevelEntryContentForm get content => TestLevelEntryContentForm(doc, '$path/content');
+}
+
 /// A test scenario entry (form).
 /// 
 /// Represents a business-level test case covering a user journey, business
@@ -40907,6 +41138,11 @@ class TestStrategy extends SomNode {
   /// - Risk-based test prioritization
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
+
+  /// Test levels — contains 0+× test level.
+  ///
+  /// **Authoring guidance.** Add one entry per test level.
+  SomList<TestLevelEntry> get testLevels => SomList<TestLevelEntry>(doc, '$path/TSLVL-LST', (d, p) => TestLevelEntry(d, p), pattern: 'TSLVL-xxx');
 }
 
 /// Testing standards and requirements.
@@ -42746,6 +42982,9 @@ class UserAttributeEntry extends SomNode {
   /// form's **preamble** — the free text before the first field line (SOM
   /// §11.4 rule 7); the field values themselves live in [form].
   UserAttributeEntryContentForm get content => UserAttributeEntryContentForm(doc, '$path/content');
+
+  /// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+  UserAttributeEntryOidcReleaseForm get oidcRelease => UserAttributeEntryOidcReleaseForm(doc, '$path/USOIDC');
 }
 
 /// 9.1.3. User Attributes.
@@ -51903,6 +52142,20 @@ class AuthorizationRoleEntryStructureForm extends SomNode {
   /// Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)
   String get permissionSet => doc.formField(path, 'permissionSet') ?? '';
   set permissionSet(String value) => doc.setFormField(path, 'permissionSet', value);
+
+  /// Membership Source.
+  ///
+  /// Whether holders are assigned or membership follows from grants
+  ///
+  /// Stored as one of: `assigned`, `derivedFromGrants`, `both`.
+  RoleMembershipSource? get membershipSource => _parseRoleMembershipSource(doc.formField(path, 'membershipSource'));
+  set membershipSource(RoleMembershipSource? value) => doc.setFormField(path, 'membershipSource', value?.name ?? '');
+
+  /// Derivation Rule.
+  ///
+  /// For a derived role: the grants that confer membership
+  String get derivationRule => doc.formField(path, 'derivationRule') ?? '';
+  set derivationRule(String value) => doc.setFormField(path, 'derivationRule', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -53683,6 +53936,12 @@ class BoundedContextEntryBoundariesForm extends SomNode {
   /// Shared code with other contexts
   String get sharedKernel => doc.formField(path, 'sharedKernel') ?? '';
   set sharedKernel(String value) => doc.setFormField(path, 'sharedKernel', value);
+
+  /// Owned Operations.
+  ///
+  /// The server operations this context owns, comma-separated
+  String get ownedOperations => doc.formField(path, 'ownedOperations') ?? '';
+  set ownedOperations(String value) => doc.setFormField(path, 'ownedOperations', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -65289,6 +65548,40 @@ class ContentScanningPolicyContentForm extends SomNode {
   /// Additional content scanning notes
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ContextRelationshipEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  ContextRelationshipEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Neighbour Context.
+  ///
+  /// The other bounded context
+  String get neighbourContext => doc.formField(path, 'neighbourContext') ?? '';
+  set neighbourContext(String value) => doc.setFormField(path, 'neighbourContext', value);
+
+  /// Relationship Type.
+  ///
+  /// The context-mapping pattern between the two
+  ///
+  /// Stored as one of: `partnership`, `sharedKernel`, `customerSupplier`, `conformist`, `anticorruptionLayer`, `openHostService`, `publishedLanguage`, `separateWays`.
+  ContextRelationshipType? get relationshipType => _parseContextRelationshipType(doc.formField(path, 'relationshipType'));
+  set relationshipType(ContextRelationshipType? value) => doc.setFormField(path, 'relationshipType', value?.name ?? '');
+
+  /// Direction.
+  ///
+  /// upstream / downstream / mutual, seen from this context
+  String get direction => doc.formField(path, 'direction') ?? '';
+  set direction(String value) => doc.setFormField(path, 'direction', value);
 }
 
 /// Generated section facade for the `contextualHelpContent` `@Form` section:
@@ -95539,6 +95832,56 @@ class KeyGenerationPolicyContentForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class KeyManagementRequirementsContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  KeyManagementRequirementsContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Key Types.
+  ///
+  /// Which keys exist — signing, encryption, secrets keys — and what each protects
+  String get keyTypes => doc.formField(path, 'keyTypes') ?? '';
+  set keyTypes(String value) => doc.setFormField(path, 'keyTypes', value);
+
+  /// Key Storage.
+  ///
+  /// Where each key is kept — KMS, HSM, an encrypted file
+  String get keyStorage => doc.formField(path, 'keyStorage') ?? '';
+  set keyStorage(String value) => doc.setFormField(path, 'keyStorage', value);
+
+  /// Rotation Policy.
+  ///
+  /// How often each key rotates and how old keys stay usable
+  String get rotationPolicy => doc.formField(path, 'rotationPolicy') ?? '';
+  set rotationPolicy(String value) => doc.setFormField(path, 'rotationPolicy', value);
+
+  /// Key Custody.
+  ///
+  /// Who can use, export or replace a key
+  String get keyCustody => doc.formField(path, 'keyCustody') ?? '';
+  set keyCustody(String value) => doc.setFormField(path, 'keyCustody', value);
+
+  /// Backup and Recovery.
+  ///
+  /// How a key is backed up and restored
+  String get backupAndRecovery => doc.formField(path, 'backupAndRecovery') ?? '';
+  set backupAndRecovery(String value) => doc.setFormField(path, 'backupAndRecovery', value);
+
+  /// Destruction.
+  ///
+  /// How a retired key is destroyed
+  String get destruction => doc.formField(path, 'destruction') ?? '';
+  set destruction(String value) => doc.setFormField(path, 'destruction', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class KeyResultEntryContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   KeyResultEntryContentForm(super.doc, super.path);
@@ -98259,6 +98602,32 @@ class MaintenanceDependencyEntryUpdateForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class MaintenanceProcedureEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  MaintenanceProcedureEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Frequency.
+  ///
+  /// When the procedure is run — per release, monthly, on demand
+  String get frequency => doc.formField(path, 'frequency') ?? '';
+  set frequency(String value) => doc.setFormField(path, 'frequency', value);
+
+  /// Performed By.
+  ///
+  /// Who runs it
+  String get performedBy => doc.formField(path, 'performedBy') ?? '';
+  set performedBy(String value) => doc.setFormField(path, 'performedBy', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class MaintenanceUserImpactContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   MaintenanceUserImpactContentForm(super.doc, super.path);
@@ -99035,6 +99404,14 @@ class MessageLocaleVariantEntryContentForm extends SomNode {
   /// **Required** — a document that leaves this empty fails validation.
   String get copy => doc.formField(path, 'copy') ?? '';
   set copy(String value) => doc.setFormField(path, 'copy', value);
+
+  /// Review Status.
+  ///
+  /// How far the translation has been checked
+  ///
+  /// Stored as one of: `draft`, `machineTranslated`, `reviewed`, `approved`.
+  TranslationReviewStatus? get reviewStatus => _parseTranslationReviewStatus(doc.formField(path, 'reviewStatus'));
+  set reviewStatus(TranslationReviewStatus? value) => doc.setFormField(path, 'reviewStatus', value?.name ?? '');
 }
 
 /// Generated section facade for the `metricsOverview` `@Form` section:
@@ -110419,6 +110796,50 @@ class PipelineStageEntryTriggerForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
+class PolicyOwnershipEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  PolicyOwnershipEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Policy.
+  ///
+  /// The policy
+  String get policy => doc.formField(path, 'policy') ?? '';
+  set policy(String value) => doc.setFormField(path, 'policy', value);
+
+  /// Owner.
+  ///
+  /// The role that owns and maintains it
+  String get owner => doc.formField(path, 'owner') ?? '';
+  set owner(String value) => doc.setFormField(path, 'owner', value);
+
+  /// Approver.
+  ///
+  /// The role that approves changes
+  String get approver => doc.formField(path, 'approver') ?? '';
+  set approver(String value) => doc.setFormField(path, 'approver', value);
+
+  /// Review Cycle.
+  ///
+  /// How often it is reviewed
+  String get reviewCycle => doc.formField(path, 'reviewCycle') ?? '';
+  set reviewCycle(String value) => doc.setFormField(path, 'reviewCycle', value);
+
+  /// Applies To.
+  ///
+  /// Who or what it binds
+  String get appliesTo => doc.formField(path, 'appliesTo') ?? '';
+  set appliesTo(String value) => doc.setFormField(path, 'appliesTo', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
 class PortabilityContentForm extends SomNode {
   /// Names the `content` form section at [path] inside [doc].
   PortabilityContentForm(super.doc, super.path);
@@ -116631,6 +117052,56 @@ class QualityWeightEntryContentForm extends SomNode {
   /// What this priority means for other attributes
   String get tradeOffImplications => doc.formField(path, 'tradeOffImplications') ?? '';
   set tradeOffImplications(String value) => doc.setFormField(path, 'tradeOffImplications', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class RaciEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  RaciEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Activity.
+  ///
+  /// The activity or decision whose responsibility is assigned
+  String get activity => doc.formField(path, 'activity') ?? '';
+  set activity(String value) => doc.setFormField(path, 'activity', value);
+
+  /// Responsible.
+  ///
+  /// Who does the work — roles, comma-separated
+  String get responsible => doc.formField(path, 'responsible') ?? '';
+  set responsible(String value) => doc.setFormField(path, 'responsible', value);
+
+  /// Accountable.
+  ///
+  /// The one role that answers for the outcome
+  String get accountable => doc.formField(path, 'accountable') ?? '';
+  set accountable(String value) => doc.setFormField(path, 'accountable', value);
+
+  /// Consulted.
+  ///
+  /// Roles asked before the work is done, comma-separated
+  String get consulted => doc.formField(path, 'consulted') ?? '';
+  set consulted(String value) => doc.setFormField(path, 'consulted', value);
+
+  /// Informed.
+  ///
+  /// Roles told after it is done, comma-separated
+  String get informed => doc.formField(path, 'informed') ?? '';
+  set informed(String value) => doc.setFormField(path, 'informed', value);
+
+  /// Related Process.
+  ///
+  /// The business process the activity belongs to (BPREN-…)
+  String get relatedProcess => doc.formField(path, 'relatedProcess') ?? '';
+  set relatedProcess(String value) => doc.setFormField(path, 'relatedProcess', value);
 }
 
 /// Generated section facade for the `behavior` `@Form` section:
@@ -131437,6 +131908,18 @@ class ServerEnvironmentEntryScaleForm extends SomNode {
   /// Requests per second
   String get expectedLoad => doc.formField(path, 'expectedLoad') ?? '';
   set expectedLoad(String value) => doc.setFormField(path, 'expectedLoad', value);
+
+  /// Application Nodes.
+  ///
+  /// How many application nodes run in the environment
+  int? get nodeCount => somParseInt(doc.formField(path, 'nodeCount'));
+  set nodeCount(int? value) => doc.setFormField(path, 'nodeCount', somFormatInt(value));
+
+  /// Database Servers.
+  ///
+  /// How many database servers run in the environment
+  int? get databaseServerCount => somParseInt(doc.formField(path, 'databaseServerCount'));
+  set databaseServerCount(int? value) => doc.setFormField(path, 'databaseServerCount', somFormatInt(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -131483,6 +131966,46 @@ class ServerOperationEntryContentForm extends SomNode {
   /// Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope
   String get errorCodes => doc.formField(path, 'errorCodes') ?? '';
   set errorCodes(String value) => doc.setFormField(path, 'errorCodes', value);
+}
+
+/// Generated section facade for the `controls` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerOperationEntryControlsForm extends SomNode {
+  /// Names the `controls` form section at [path] inside [doc].
+  ServerOperationEntryControlsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Idempotency.
+  ///
+  /// Whether repeating the call repeats its effect
+  ///
+  /// Stored as one of: `idempotent`, `idempotentWithKey`, `notIdempotent`.
+  OperationIdempotency? get idempotency => _parseOperationIdempotency(doc.formField(path, 'idempotency'));
+  set idempotency(OperationIdempotency? value) => doc.setFormField(path, 'idempotency', value?.name ?? '');
+
+  /// Audit Event.
+  ///
+  /// The audit event the operation records, if any
+  String get auditEvent => doc.formField(path, 'auditEvent') ?? '';
+  set auditEvent(String value) => doc.setFormField(path, 'auditEvent', value);
+
+  /// Rate-Limit Class.
+  ///
+  /// The rate-limit class that throttles it
+  String get rateLimitClass => doc.formField(path, 'rateLimitClass') ?? '';
+  set rateLimitClass(String value) => doc.setFormField(path, 'rateLimitClass', value);
+
+  /// Callers.
+  ///
+  /// Who calls it — client applications, services, roles
+  String get callers => doc.formField(path, 'callers') ?? '';
+  set callers(String value) => doc.setFormField(path, 'callers', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -131709,6 +132232,44 @@ class ServerOsRequirementsSecurityForm extends SomNode {
   /// AV/EDR requirement
   bool? get antivirusRequired => somParseBool(doc.formField(path, 'antivirusRequired'));
   set antivirusRequired(bool? value) => doc.setFormField(path, 'antivirusRequired', somFormatBool(value));
+}
+
+/// Generated section facade for the `connectionBudget` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerRequirementsSectionConnectionBudgetForm extends SomNode {
+  /// Names the `connectionBudget` form section at [path] inside [doc].
+  ServerRequirementsSectionConnectionBudgetForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Database Max Connections.
+  ///
+  /// The connection limit of the database server
+  int? get databaseMaxConnections => somParseInt(doc.formField(path, 'databaseMaxConnections'));
+  set databaseMaxConnections(int? value) => doc.setFormField(path, 'databaseMaxConnections', somFormatInt(value));
+
+  /// Connections per Node.
+  ///
+  /// The pool size each application node opens
+  int? get connectionsPerNode => somParseInt(doc.formField(path, 'connectionsPerNode'));
+  set connectionsPerNode(int? value) => doc.setFormField(path, 'connectionsPerNode', somFormatInt(value));
+
+  /// Reserved Connections.
+  ///
+  /// Connections kept free for administration and migrations
+  int? get reservedConnections => somParseInt(doc.formField(path, 'reservedConnections'));
+  set reservedConnections(int? value) => doc.setFormField(path, 'reservedConnections', somFormatInt(value));
+
+  /// Budget Rationale.
+  ///
+  /// How the numbers add up, and what happens when a node is added
+  String get budgetRationale => doc.formField(path, 'budgetRationale') ?? '';
+  set budgetRationale(String value) => doc.setFormField(path, 'budgetRationale', value);
 }
 
 /// Generated section facade for the `capacity` `@Form` section:
@@ -145239,6 +145800,62 @@ class TenantOnboardingPolicyContentForm extends SomNode {
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class TestLevelEntryContentForm extends SomNode {
+  /// Names the `content` form section at [path] inside [doc].
+  TestLevelEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Level.
+  ///
+  /// unit / integration / system / acceptance / regression, or a project-specific level
+  String get level => doc.formField(path, 'level') ?? '';
+  set level(String value) => doc.setFormField(path, 'level', value);
+
+  /// Test Types.
+  ///
+  /// The test types run at this level — functional, performance, security, accessibility
+  String get testTypes => doc.formField(path, 'testTypes') ?? '';
+  set testTypes(String value) => doc.setFormField(path, 'testTypes', value);
+
+  /// Environment.
+  ///
+  /// The environment the level runs in
+  String get environment => doc.formField(path, 'environment') ?? '';
+  set environment(String value) => doc.setFormField(path, 'environment', value);
+
+  /// Tools.
+  ///
+  /// The tools and frameworks used
+  String get tools => doc.formField(path, 'tools') ?? '';
+  set tools(String value) => doc.setFormField(path, 'tools', value);
+
+  /// Run By.
+  ///
+  /// Who runs it — a person, a pipeline, a role
+  String get runBy => doc.formField(path, 'runBy') ?? '';
+  set runBy(String value) => doc.setFormField(path, 'runBy', value);
+
+  /// Trigger.
+  ///
+  /// When it runs — on commit, nightly, before a release
+  String get trigger => doc.formField(path, 'trigger') ?? '';
+  set trigger(String value) => doc.setFormField(path, 'trigger', value);
+
+  /// Exit Criteria.
+  ///
+  /// What must hold before the next level starts
+  String get exitCriteria => doc.formField(path, 'exitCriteria') ?? '';
+  set exitCriteria(String value) => doc.setFormField(path, 'exitCriteria', value);
+}
+
 /// Generated section facade for the `business` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class TestScenarioEntryBusinessForm extends SomNode {
@@ -152679,6 +153296,38 @@ class UserAttributeEntryContentForm extends SomNode {
   /// Whether this attribute is mandatory.
   String get required => doc.formField(path, 'required') ?? '';
   set required(String value) => doc.setFormField(path, 'required', value);
+}
+
+/// Generated section facade for the `oidcRelease` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserAttributeEntryOidcReleaseForm extends SomNode {
+  /// Names the `oidcRelease` form section at [path] inside [doc].
+  UserAttributeEntryOidcReleaseForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  /// Claim Name.
+  ///
+  /// The claim the attribute is released as
+  String get claimName => doc.formField(path, 'claimName') ?? '';
+  set claimName(String value) => doc.setFormField(path, 'claimName', value);
+
+  /// Scope.
+  ///
+  /// The scope that releases it
+  String get scope => doc.formField(path, 'scope') ?? '';
+  set scope(String value) => doc.setFormField(path, 'scope', value);
+
+  /// Released In.
+  ///
+  /// id token / access token / userinfo, comma-separated; audience-only tokens named
+  String get releasedIn => doc.formField(path, 'releasedIn') ?? '';
+  set releasedIn(String value) => doc.setFormField(path, 'releasedIn', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:

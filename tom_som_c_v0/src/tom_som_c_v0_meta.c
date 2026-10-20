@@ -279,6 +279,7 @@ static SomMetaNode **meta_children_consent_management_requirements(SomStrList *s
 static SomMetaNode **meta_children_constraint_register_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_content_scanning_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_context_diagram(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_context_relationship_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_contextual_help(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_contextual_navigation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_contingency_plan_entry(SomStrList *stack, size_t *len);
@@ -636,6 +637,7 @@ static SomMetaNode **meta_children_key_concepts(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_escrow_and_backup_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_generation_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_management(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_key_management_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_result_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_rotation_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_key_scenarios(SomStrList *stack, size_t *len);
@@ -669,6 +671,7 @@ static SomMetaNode **meta_children_maintainability_characteristic(SomStrList *st
 static SomMetaNode **meta_children_maintenance_change_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_dependencies(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_dependency_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_maintenance_procedure_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_user_impact(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_window_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_maintenance_windows_section(SomStrList *stack, size_t *len);
@@ -803,6 +806,7 @@ static SomMetaNode **meta_children_pilot_plan(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_pipeline_job_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_pipeline_stage_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_platform_and_language(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_policy_ownership_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_portability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_post_maintenance_validation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_postconditions_and_guarantees(SomStrList *stack, size_t *len);
@@ -884,6 +888,7 @@ static SomMetaNode **meta_children_quality_scenario_entry(SomStrList *stack, siz
 static SomMetaNode **meta_children_quality_scenarios(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_quality_standard_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_quality_weight_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_raci_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_rate_limiting_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_readability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_readiness_criteria_entry(SomStrList *stack, size_t *len);
@@ -1194,6 +1199,7 @@ static SomMetaNode **meta_children_tenant_customization_entry(SomStrList *stack,
 static SomMetaNode **meta_children_tenant_data_isolation_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_tenant_isolation(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_tenant_onboarding_policy(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_test_level_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_test_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_test_scenario_notes(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_test_strategy(SomStrList *stack, size_t *len);
@@ -1756,6 +1762,8 @@ static void meta_build_bounded_context_entry_scope(SomMetaNode *n);
 static void meta_build_bounded_context_entry_boundaries(SomMetaNode *n);
 static void meta_build_bounded_context_entry_implementation(SomMetaNode *n);
 static void meta_build_bounded_context_entry_integration(SomMetaNode *n);
+static void meta_build_bounded_context_entry_relationships(SomMetaNode *n);
+static void meta_build_bounded_context_entry_relationships_elem(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_content(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_breakpoint_overview(SomMetaNode *n);
 static void meta_build_breakpoint_configuration_breakpoints(SomMetaNode *n);
@@ -2319,6 +2327,7 @@ static void meta_build_content_scanning_policy_content_scanning_details(SomMetaN
 static void meta_build_context_diagram_content(SomMetaNode *n);
 static void meta_build_context_diagram_diagram(SomMetaNode *n);
 static void meta_build_context_diagram_legend(SomMetaNode *n);
+static void meta_build_context_relationship_entry_content(SomMetaNode *n);
 static void meta_build_contextual_help_content(SomMetaNode *n);
 static void meta_build_contextual_help_contextual_help_content(SomMetaNode *n);
 static void meta_build_contextual_help_inline(SomMetaNode *n);
@@ -4037,6 +4046,7 @@ static void meta_build_key_management_key_rotation_policy(SomMetaNode *n);
 static void meta_build_key_management_key_escrow_and_backup_policy(SomMetaNode *n);
 static void meta_build_key_management_key_compromise_recovery_policy(SomMetaNode *n);
 static void meta_build_key_management_notes(SomMetaNode *n);
+static void meta_build_key_management_requirements_content(SomMetaNode *n);
 static void meta_build_key_result_entry_content(SomMetaNode *n);
 static void meta_build_key_rotation_policy_content(SomMetaNode *n);
 static void meta_build_key_rotation_policy_notes(SomMetaNode *n);
@@ -4168,6 +4178,7 @@ static void meta_build_maintenance_dependency_entry_content(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_classification(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_update(SomMetaNode *n);
 static void meta_build_maintenance_dependency_entry_risk(SomMetaNode *n);
+static void meta_build_maintenance_procedure_entry_content(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_content(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_during(SomMetaNode *n);
 static void meta_build_maintenance_user_impact_graceful_degradation(SomMetaNode *n);
@@ -4603,6 +4614,10 @@ static void meta_build_organizational_framework_organization_structure(SomMetaNo
 static void meta_build_organizational_framework_job_descriptions(SomMetaNode *n);
 static void meta_build_organizational_framework_workplace_descriptions(SomMetaNode *n);
 static void meta_build_organizational_framework_workplace_descriptions_elem(SomMetaNode *n);
+static void meta_build_organizational_framework_raci_matrix(SomMetaNode *n);
+static void meta_build_organizational_framework_raci_matrix_elem(SomMetaNode *n);
+static void meta_build_organizational_framework_policy_ownership(SomMetaNode *n);
+static void meta_build_organizational_framework_policy_ownership_elem(SomMetaNode *n);
 static void meta_build_organizational_requirement_entry_content(SomMetaNode *n);
 static void meta_build_organizational_requirement_entry_classification(SomMetaNode *n);
 static void meta_build_organizational_requirement_entry_impact(SomMetaNode *n);
@@ -4773,6 +4788,7 @@ static void meta_build_platform_and_language_deployment_targets(SomMetaNode *n);
 static void meta_build_platform_and_language_deployment_targets_elem(SomMetaNode *n);
 static void meta_build_platform_and_language_dependency_management(SomMetaNode *n);
 static void meta_build_platform_and_language_runtime_environment(SomMetaNode *n);
+static void meta_build_policy_ownership_entry_content(SomMetaNode *n);
 static void meta_build_portability_content(SomMetaNode *n);
 static void meta_build_portability_narrative(SomMetaNode *n);
 static void meta_build_post_maintenance_validation_content(SomMetaNode *n);
@@ -5098,6 +5114,7 @@ static void meta_build_quality_standard_entry_implementation(SomMetaNode *n);
 static void meta_build_quality_standard_entry_certification(SomMetaNode *n);
 static void meta_build_quality_standard_entry_maintenance(SomMetaNode *n);
 static void meta_build_quality_weight_entry_content(SomMetaNode *n);
+static void meta_build_raci_entry_content(SomMetaNode *n);
 static void meta_build_rate_limiting_policy_content(SomMetaNode *n);
 static void meta_build_rate_limiting_policy_limits(SomMetaNode *n);
 static void meta_build_rate_limiting_policy_behavior(SomMetaNode *n);
@@ -5778,6 +5795,7 @@ static void meta_build_server_operation_entry_response_members(SomMetaNode *n);
 static void meta_build_server_operation_entry_response_members_elem(SomMetaNode *n);
 static void meta_build_server_operation_entry_bindings(SomMetaNode *n);
 static void meta_build_server_operation_entry_bindings_elem(SomMetaNode *n);
+static void meta_build_server_operation_entry_controls(SomMetaNode *n);
 static void meta_build_server_operation_member_entry_content(SomMetaNode *n);
 static void meta_build_server_operation_registry_content(SomMetaNode *n);
 static void meta_build_server_operation_registry_operations(SomMetaNode *n);
@@ -5803,6 +5821,7 @@ static void meta_build_server_requirements_section_high_availability(SomMetaNode
 static void meta_build_server_requirements_section_virtualization(SomMetaNode *n);
 static void meta_build_server_requirements_section_cloud_provider(SomMetaNode *n);
 static void meta_build_server_requirements_section_os_requirements(SomMetaNode *n);
+static void meta_build_server_requirements_section_connection_budget(SomMetaNode *n);
 static void meta_build_server_role_entry_content(SomMetaNode *n);
 static void meta_build_server_role_entry_software(SomMetaNode *n);
 static void meta_build_server_role_entry_capacity(SomMetaNode *n);
@@ -6251,6 +6270,7 @@ static void meta_build_system_migration_risk_entry_content(SomMetaNode *n);
 static void meta_build_system_operation_content(SomMetaNode *n);
 static void meta_build_system_operation_administration_requirements(SomMetaNode *n);
 static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n);
+static void meta_build_system_operation_maintenance_procedures_elem(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_content(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_system_operation(SomMetaNode *n);
 static void meta_build_system_operation_and_monitoring_monitoring(SomMetaNode *n);
@@ -6472,6 +6492,7 @@ static void meta_build_technical_security_requirements_content(SomMetaNode *n);
 static void meta_build_technical_security_requirements_it_security_standards(SomMetaNode *n);
 static void meta_build_technical_security_requirements_data_protection_and_privacy(SomMetaNode *n);
 static void meta_build_technical_security_requirements_security_audit_requirements(SomMetaNode *n);
+static void meta_build_technical_security_requirements_key_management(SomMetaNode *n);
 static void meta_build_technology_data_variations_content(SomMetaNode *n);
 static void meta_build_technology_standard_entry_content(SomMetaNode *n);
 static void meta_build_technology_standard_entry_details(SomMetaNode *n);
@@ -6495,6 +6516,7 @@ static void meta_build_tenant_isolation_boundary_enforcement(SomMetaNode *n);
 static void meta_build_tenant_isolation_tenant_isolation_notes(SomMetaNode *n);
 static void meta_build_tenant_onboarding_policy_content(SomMetaNode *n);
 static void meta_build_tenant_onboarding_policy_tenant_onboarding_policy_details(SomMetaNode *n);
+static void meta_build_test_level_entry_content(SomMetaNode *n);
 static void meta_build_test_scenario_entry_content(SomMetaNode *n);
 static void meta_build_test_scenario_entry_identification(SomMetaNode *n);
 static void meta_build_test_scenario_entry_business(SomMetaNode *n);
@@ -6508,6 +6530,8 @@ static void meta_build_test_scenario_entry_test_steps(SomMetaNode *n);
 static void meta_build_test_scenario_entry_test_steps_elem(SomMetaNode *n);
 static void meta_build_test_scenario_notes_content(SomMetaNode *n);
 static void meta_build_test_strategy_content(SomMetaNode *n);
+static void meta_build_test_strategy_test_levels(SomMetaNode *n);
+static void meta_build_test_strategy_test_levels_elem(SomMetaNode *n);
 static void meta_build_testing_standards_content(SomMetaNode *n);
 static void meta_build_testing_standards_organization(SomMetaNode *n);
 static void meta_build_testing_standards_patterns(SomMetaNode *n);
@@ -6788,6 +6812,7 @@ static void meta_build_user_assistance_onboarding(SomMetaNode *n);
 static void meta_build_user_assistance_support_access(SomMetaNode *n);
 static void meta_build_user_assistance_help_content_inventory(SomMetaNode *n);
 static void meta_build_user_attribute_entry_content(SomMetaNode *n);
+static void meta_build_user_attribute_entry_oidc_release(SomMetaNode *n);
 static void meta_build_user_attributes_content(SomMetaNode *n);
 static void meta_build_user_attributes_items(SomMetaNode *n);
 static void meta_build_user_attributes_items_elem(SomMetaNode *n);
@@ -7453,6 +7478,11 @@ static void *meta_nav_factory_confidential_info_category_entry(const SomMetaTree
 }
 static void *meta_nav_factory_constraint_register_entry(const SomMetaTree *tree, const char *path) {
   som_nav_constraint_register_entry *r = (som_nav_constraint_register_entry *)malloc(sizeof(som_nav_constraint_register_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_context_relationship_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_context_relationship_entry *r = (som_nav_context_relationship_entry *)malloc(sizeof(som_nav_context_relationship_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8201,6 +8231,11 @@ static void *meta_nav_factory_maintenance_dependency_entry(const SomMetaTree *tr
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_maintenance_procedure_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_maintenance_procedure_entry *r = (som_nav_maintenance_procedure_entry *)malloc(sizeof(som_nav_maintenance_procedure_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_maintenance_window_entry(const SomMetaTree *tree, const char *path) {
   som_nav_maintenance_window_entry *r = (som_nav_maintenance_window_entry *)malloc(sizeof(som_nav_maintenance_window_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8481,6 +8516,11 @@ static void *meta_nav_factory_pipeline_stage_entry(const SomMetaTree *tree, cons
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_policy_ownership_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_policy_ownership_entry *r = (som_nav_policy_ownership_entry *)malloc(sizeof(som_nav_policy_ownership_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_postconditions_and_guarantees(const SomMetaTree *tree, const char *path) {
   som_nav_postconditions_and_guarantees *r = (som_nav_postconditions_and_guarantees *)malloc(sizeof(som_nav_postconditions_and_guarantees));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8643,6 +8683,11 @@ static void *meta_nav_factory_quality_standard_entry(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_quality_weight_entry(const SomMetaTree *tree, const char *path) {
   som_nav_quality_weight_entry *r = (som_nav_quality_weight_entry *)malloc(sizeof(som_nav_quality_weight_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_raci_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_raci_entry *r = (som_nav_raci_entry *)malloc(sizeof(som_nav_raci_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9336,6 +9381,11 @@ static void *meta_nav_factory_tenant_customization_entry(const SomMetaTree *tree
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_test_level_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_test_level_entry *r = (som_nav_test_level_entry *)malloc(sizeof(som_nav_test_level_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_test_scenario_entry(const SomMetaTree *tree, const char *path) {
   som_nav_test_scenario_entry *r = (som_nav_test_scenario_entry *)malloc(sizeof(som_nav_test_scenario_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -10008,6 +10058,11 @@ static void *meta_id_factory_confidential_info_category_entry(const SomMetaTree 
 }
 static void *meta_id_factory_constraint_register_entry(const SomMetaTree *tree, const char *path) {
   som_id_constraint_register_entry *r = (som_id_constraint_register_entry *)malloc(sizeof(som_id_constraint_register_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_context_relationship_entry(const SomMetaTree *tree, const char *path) {
+  som_id_context_relationship_entry *r = (som_id_context_relationship_entry *)malloc(sizeof(som_id_context_relationship_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10756,6 +10811,11 @@ static void *meta_id_factory_maintenance_dependency_entry(const SomMetaTree *tre
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_maintenance_procedure_entry(const SomMetaTree *tree, const char *path) {
+  som_id_maintenance_procedure_entry *r = (som_id_maintenance_procedure_entry *)malloc(sizeof(som_id_maintenance_procedure_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_maintenance_window_entry(const SomMetaTree *tree, const char *path) {
   som_id_maintenance_window_entry *r = (som_id_maintenance_window_entry *)malloc(sizeof(som_id_maintenance_window_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11036,6 +11096,11 @@ static void *meta_id_factory_pipeline_stage_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_policy_ownership_entry(const SomMetaTree *tree, const char *path) {
+  som_id_policy_ownership_entry *r = (som_id_policy_ownership_entry *)malloc(sizeof(som_id_policy_ownership_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_postconditions_and_guarantees(const SomMetaTree *tree, const char *path) {
   som_id_postconditions_and_guarantees *r = (som_id_postconditions_and_guarantees *)malloc(sizeof(som_id_postconditions_and_guarantees));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11198,6 +11263,11 @@ static void *meta_id_factory_quality_standard_entry(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_quality_weight_entry(const SomMetaTree *tree, const char *path) {
   som_id_quality_weight_entry *r = (som_id_quality_weight_entry *)malloc(sizeof(som_id_quality_weight_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_raci_entry(const SomMetaTree *tree, const char *path) {
+  som_id_raci_entry *r = (som_id_raci_entry *)malloc(sizeof(som_id_raci_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11888,6 +11958,11 @@ static void *meta_id_factory_technology_standard_entry(const SomMetaTree *tree, 
 }
 static void *meta_id_factory_tenant_customization_entry(const SomMetaTree *tree, const char *path) {
   som_id_tenant_customization_entry *r = (som_id_tenant_customization_entry *)malloc(sizeof(som_id_tenant_customization_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_test_level_entry(const SomMetaTree *tree, const char *path) {
+  som_id_test_level_entry *r = (som_id_test_level_entry *)malloc(sizeof(som_id_test_level_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -21593,8 +21668,8 @@ static void meta_build_authorization_role_entry_structure(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Scope and inheritance metadata.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("roleScope");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Role Scope");
@@ -21613,6 +21688,23 @@ static void meta_build_authorization_role_entry_structure(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Comma-separated permission keys summarizing the role's access (e.g. user.manage, config.read, audit.read)");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("membershipSource");
+  n->form->fields[3].type_name = som_strdup("RoleMembershipSource");
+  n->form->fields[3].description = som_strdup("Membership Source");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Whether holders are assigned or membership follows from grants");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].enum_values_len = 3;
+  n->form->fields[3].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[3].enum_values[0] = som_strdup("assigned");
+  n->form->fields[3].enum_values[1] = som_strdup("derivedFromGrants");
+  n->form->fields[3].enum_values[2] = som_strdup("both");
+  n->form->fields[4].name = som_strdup("derivationRule");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Derivation Rule");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("For a derived role: the grants that confer membership");
+  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -24111,8 +24203,8 @@ static void meta_build_bounded_context_entry_boundaries(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Boundary relationships.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("boundaryType");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Boundary Type");
@@ -24137,6 +24229,15 @@ static void meta_build_bounded_context_entry_boundaries(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Shared code with other contexts");
   n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("ownedOperations");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Owned Operations");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The server operations this context owns, comma-separated");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("SVOPE.operationName");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -24217,6 +24318,26 @@ static void meta_build_bounded_context_entry_integration(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"Domain-Driven Design — bounded contexts / modules\",\"SOLID principles — object-oriented design\"],\"connotation\":\"Describes the API endpoints and integration patterns through which a bounded context connects to others.\"}", NULL);
+}
+static void meta_build_bounded_context_entry_relationships(SomMetaNode *n) {
+  meta_set(&n->class_name, "BoundedContextEntry");
+  meta_set(&n->member_name, "relationships");
+  meta_set(&n->section_id, "CTXREL-LST");
+  meta_set(&n->section_id_pattern, "CTXREL-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ContextRelationshipEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->content_help, "Add one entry per neighbouring context.");
+  meta_set(&n->doc_comment, "Relationships to neighbouring contexts — contains 0+× relationship.");
+}
+static void meta_build_bounded_context_entry_relationships_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ContextRelationshipEntry");
+  meta_set(&n->class_section_id, "CTXREL");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ContextRelationshipEntry");
+  meta_set(&n->doc_comment, "The relationship of a bounded context to one neighbour.");
+  meta_set(&n->class_doc_comment, "The relationship of a bounded context to one neighbour.");
 }
 static void meta_build_breakpoint_configuration_content(SomMetaNode *n) {
   meta_set(&n->class_name, "BreakpointConfiguration");
@@ -39212,6 +39333,50 @@ static void meta_build_context_diagram_legend(SomMetaNode *n) {
   n->content_type->type = som_strdup("description");
   n->content_type->description = som_strdup("Legend explaining shapes, colors, and line styles used in the diagram.");
   meta_set(&n->doc_comment, "Diagram legend and conventions.");
+}
+static void meta_build_context_relationship_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ContextRelationshipEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "Why the two contexts relate this way and what crosses the boundary.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("neighbourContext");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Neighbour Context");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The other bounded context");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BCE.contextName");
+  n->form->fields[1].name = som_strdup("relationshipType");
+  n->form->fields[1].type_name = som_strdup("ContextRelationshipType");
+  n->form->fields[1].description = som_strdup("Relationship Type");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The context-mapping pattern between the two");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 8;
+  n->form->fields[1].enum_values = (char **)calloc(8, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("partnership");
+  n->form->fields[1].enum_values[1] = som_strdup("sharedKernel");
+  n->form->fields[1].enum_values[2] = som_strdup("customerSupplier");
+  n->form->fields[1].enum_values[3] = som_strdup("conformist");
+  n->form->fields[1].enum_values[4] = som_strdup("anticorruptionLayer");
+  n->form->fields[1].enum_values[5] = som_strdup("openHostService");
+  n->form->fields[1].enum_values[6] = som_strdup("publishedLanguage");
+  n->form->fields[1].enum_values[7] = som_strdup("separateWays");
+  n->form->fields[2].name = som_strdup("direction");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Direction");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("upstream / downstream / mutual, seen from this context");
+  n->form->fields[2].order = 2;
 }
 static void meta_build_contextual_help_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ContextualHelp");
@@ -81990,6 +82155,55 @@ static void meta_build_key_management_notes(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Additional Notes (text).");
 }
+static void meta_build_key_management_requirements_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "KeyManagementRequirements");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "The key hierarchy and how its keys are managed over their life.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("keyTypes");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Key Types");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Which keys exist — signing, encryption, secrets keys — and what each protects");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("keyStorage");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Key Storage");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Where each key is kept — KMS, HSM, an encrypted file");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("rotationPolicy");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Rotation Policy");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("How often each key rotates and how old keys stay usable");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("keyCustody");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Key Custody");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Who can use, export or replace a key");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("backupAndRecovery");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Backup and Recovery");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("How a key is backed up and restored");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("destruction");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Destruction");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("How a retired key is destroyed");
+  n->form->fields[5].order = 5;
+}
 static void meta_build_key_result_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "KeyResultEntry");
   meta_set(&n->member_name, "content");
@@ -85491,6 +85705,31 @@ static void meta_build_maintenance_dependency_entry_risk(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 5962:2021 — the SPDX specification defines a standard software bill of materials format capturing components, versions, and provenance\"],\"connotation\":\"Captures compatibility notes, alternatives, transitive dependency risk, and security patch SLA for one maintenance dependency.\"}", NULL);
 }
+static void meta_build_maintenance_procedure_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MaintenanceProcedureEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "The steps of the procedure and what it depends on.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("frequency");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Frequency");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("When the procedure is run — per release, monthly, on demand");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("performedBy");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Performed By");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Who runs it");
+  n->form->fields[1].order = 1;
+}
 static void meta_build_maintenance_user_impact_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MaintenanceUserImpact");
   meta_set(&n->member_name, "content");
@@ -86487,8 +86726,8 @@ static void meta_build_message_locale_variant_entry_content(SomMetaNode *n) {
   n->serialization_order = 0;
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("locale");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Locale");
@@ -86501,6 +86740,18 @@ static void meta_build_message_locale_variant_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("The user-facing text for this locale");
   n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("reviewStatus");
+  n->form->fields[2].type_name = som_strdup("TranslationReviewStatus");
+  n->form->fields[2].description = som_strdup("Review Status");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("How far the translation has been checked");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 4;
+  n->form->fields[2].enum_values = (char **)calloc(4, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("draft");
+  n->form->fields[2].enum_values[1] = som_strdup("machineTranslated");
+  n->form->fields[2].enum_values[2] = som_strdup("reviewed");
+  n->form->fields[2].enum_values[3] = som_strdup("approved");
 }
 static void meta_build_metrics_and_observability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
@@ -97378,6 +97629,46 @@ static void meta_build_organizational_framework_workplace_descriptions_elem(SomM
   meta_set(&n->doc_comment, "A workplace description entry (form, per user category).\n\nComprehensive workplace requirements following workplace design best\npractices (OSHA, ISO 9001, ergonomic standards). Covers physical,\ntechnical, and training aspects per user category.");
   meta_set(&n->class_doc_comment, "A workplace description entry (form, per user category).\n\nComprehensive workplace requirements following workplace design best\npractices (OSHA, ISO 9001, ergonomic standards). Covers physical,\ntechnical, and training aspects per user category.");
 }
+static void meta_build_organizational_framework_raci_matrix(SomMetaNode *n) {
+  meta_set(&n->class_name, "OrganizationalFramework");
+  meta_set(&n->member_name, "raciMatrix");
+  meta_set(&n->section_id, "RACIEN-LST");
+  meta_set(&n->section_id_pattern, "RACIEN-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "RaciEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->content_help, "Add one entry per activity.");
+  meta_set(&n->doc_comment, "Cross-process RACI matrix — contains 0+× RACI entry.");
+}
+static void meta_build_organizational_framework_raci_matrix_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "RaciEntry");
+  meta_set(&n->class_section_id, "RACIEN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "RaciEntry");
+  meta_set(&n->doc_comment, "One activity of the cross-process RACI matrix.");
+  meta_set(&n->class_doc_comment, "One activity of the cross-process RACI matrix.");
+}
+static void meta_build_organizational_framework_policy_ownership(SomMetaNode *n) {
+  meta_set(&n->class_name, "OrganizationalFramework");
+  meta_set(&n->member_name, "policyOwnership");
+  meta_set(&n->section_id, "POLOWN-LST");
+  meta_set(&n->section_id_pattern, "POLOWN-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "PolicyOwnershipEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->content_help, "Add one entry per policy.");
+  meta_set(&n->doc_comment, "Policy ownership — contains 0+× policy.");
+}
+static void meta_build_organizational_framework_policy_ownership_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "PolicyOwnershipEntry");
+  meta_set(&n->class_section_id, "POLOWN");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "PolicyOwnershipEntry");
+  meta_set(&n->doc_comment, "One policy and who owns it.");
+  meta_set(&n->class_doc_comment, "One policy and who owns it.");
+}
 static void meta_build_organizational_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "OrganizationalRequirementEntry");
   meta_set(&n->member_name, "content");
@@ -101914,6 +102205,49 @@ static void meta_build_platform_and_language_runtime_environment(SomMetaNode *n)
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "Runtime environment constraints.");
   meta_set(&n->class_doc_comment, "Runtime environment constraints.");
+}
+static void meta_build_policy_ownership_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "PolicyOwnershipEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "What the policy covers and how ownership is exercised.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("policy");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Policy");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The policy");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("owner");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Owner");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The role that owns and maintains it");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("approver");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Approver");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The role that approves changes");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("reviewCycle");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Review Cycle");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("How often it is reviewed");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("appliesTo");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Applies To");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Who or what it binds");
+  n->form->fields[4].order = 4;
 }
 static void meta_build_portability_content(SomMetaNode *n) {
   meta_set(&n->class_name, "Portability");
@@ -110526,6 +110860,58 @@ static void meta_build_quality_weight_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("What this priority means for other attributes");
   n->form->fields[6].order = 6;
+}
+static void meta_build_raci_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "RaciEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "What the activity is and why its responsibility is split this way.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("activity");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Activity");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The activity or decision whose responsibility is assigned");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("responsible");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Responsible");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Who does the work — roles, comma-separated");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("accountable");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Accountable");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The one role that answers for the outcome");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("consulted");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Consulted");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Roles asked before the work is done, comma-separated");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("informed");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Informed");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Roles told after it is done, comma-separated");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("relatedProcess");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Related Process");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("The business process the activity belongs to (BPREN-…)");
+  n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("BPREN.@sectionId");
 }
 static void meta_build_rate_limiting_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RateLimitingPolicy");
@@ -129548,8 +129934,8 @@ static void meta_build_server_environment_entry_scale(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Scale expectations.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("serverCount");
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Server Count");
@@ -129568,6 +129954,18 @@ static void meta_build_server_environment_entry_scale(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Requests per second");
   n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("nodeCount");
+  n->form->fields[3].type_name = som_strdup("int");
+  n->form->fields[3].description = som_strdup("Application Nodes");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("How many application nodes run in the environment");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("databaseServerCount");
+  n->form->fields[4].type_name = som_strdup("int");
+  n->form->fields[4].description = som_strdup("Database Servers");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("How many database servers run in the environment");
+  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -129776,6 +130174,48 @@ static void meta_build_server_operation_entry_bindings_elem(SomMetaNode *n) {
   meta_set(&n->type_name, "OperationBindingEntry");
   meta_set(&n->doc_comment, "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.");
   meta_set(&n->class_doc_comment, "One standard-protocol shape of a server operation (form + parameter list).\n\nThe operation stays the unit of behaviour; the binding only says how a\nthird-party caller reaches it: the method, the path template, where each\nrequest member is found, the success status and headers, the content types,\nthe error format and the version prefix. A REST listing, a save and a state\ntransition are each one binding of their operation.");
+}
+static void meta_build_server_operation_entry_controls(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->member_name, "controls");
+  meta_set(&n->section_id, "SVOCT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("idempotency");
+  n->form->fields[0].type_name = som_strdup("OperationIdempotency");
+  n->form->fields[0].description = som_strdup("Idempotency");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Whether repeating the call repeats its effect");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 3;
+  n->form->fields[0].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("idempotent");
+  n->form->fields[0].enum_values[1] = som_strdup("idempotentWithKey");
+  n->form->fields[0].enum_values[2] = som_strdup("notIdempotent");
+  n->form->fields[1].name = som_strdup("auditEvent");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Audit Event");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The audit event the operation records, if any");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("rateLimitClass");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Rate-Limit Class");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The rate-limit class that throttles it");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("callers");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Callers");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Who calls it — client applications, services, roles");
+  n->form->fields[3].order = 3;
 }
 static void meta_build_server_operation_member_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationMemberEntry");
@@ -130234,6 +130674,43 @@ static void meta_build_server_requirements_section_os_requirements(SomMetaNode *
   n->serialization_order = 11;
   meta_set(&n->doc_comment, "Operating system requirements.");
   meta_set(&n->class_doc_comment, "Server operating system requirements.");
+}
+static void meta_build_server_requirements_section_connection_budget(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerRequirementsSection");
+  meta_set(&n->member_name, "connectionBudget");
+  meta_set(&n->section_id, "SRSDB");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 12;
+  meta_set(&n->doc_comment, "The database connection budget and the server settings that bound it.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("databaseMaxConnections");
+  n->form->fields[0].type_name = som_strdup("int");
+  n->form->fields[0].description = som_strdup("Database Max Connections");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The connection limit of the database server");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("connectionsPerNode");
+  n->form->fields[1].type_name = som_strdup("int");
+  n->form->fields[1].description = som_strdup("Connections per Node");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The pool size each application node opens");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("reservedConnections");
+  n->form->fields[2].type_name = som_strdup("int");
+  n->form->fields[2].description = som_strdup("Reserved Connections");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Connections kept free for administration and migrations");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("budgetRationale");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Budget Rationale");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("How the numbers add up, and what happens when a node is added");
+  n->form->fields[3].order = 3;
 }
 static void meta_build_server_role_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerRoleEntry");
@@ -143119,10 +143596,10 @@ static void meta_build_system_operation_administration_requirements(SomMetaNode 
 static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemOperation");
   meta_set(&n->member_name, "maintenanceProcedures");
-  meta_set(&n->section_id, "SO-MAIN-LST");
-  meta_set(&n->section_id_pattern, "SO-MAIN-xxx");
+  meta_set(&n->section_id, "MAPRO-PROC-LST");
+  meta_set(&n->section_id_pattern, "MAPRO-PROC-xxx");
   n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "String");
+  meta_set(&n->type_name, "MaintenanceProcedureEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per maintenance procedure.");
@@ -143131,6 +143608,14 @@ static void meta_build_system_operation_maintenance_procedures(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"The catalog of scheduled maintenance procedures the system requires.\"}", NULL);
+}
+static void meta_build_system_operation_maintenance_procedures_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "MaintenanceProcedureEntry");
+  meta_set(&n->class_section_id, "MAPRO");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MaintenanceProcedureEntry");
+  meta_set(&n->doc_comment, "One maintenance procedure: its name is the headline, the steps the text.");
+  meta_set(&n->class_doc_comment, "One maintenance procedure: its name is the headline, the steps the text.");
 }
 static void meta_build_system_operation_and_monitoring_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemOperationAndMonitoring");
@@ -147984,6 +148469,17 @@ static void meta_build_technical_security_requirements_security_audit_requiremen
   meta_set(&n->doc_comment, "8.8.3. Security Audit Requirements.");
   meta_set(&n->class_doc_comment, "8.8.3. Security Audit Requirements.\n\nComprehensive security audit requirements covering penetration testing,\nsecurity-focused code review, dependency scanning, security certifications,\ncompliance audit scheduling, and automated security testing integration.");
 }
+static void meta_build_technical_security_requirements_key_management(SomMetaNode *n) {
+  meta_set(&n->class_name, "KeyManagementRequirements");
+  meta_set(&n->member_name, "keyManagement");
+  meta_set(&n->class_section_id, "KEYMGT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "KeyManagementRequirements");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Key management on the platform side.");
+  meta_set(&n->class_doc_comment, "Key management on the platform side: which keys exist, where they are\nkept, how they rotate and who holds them.");
+}
 static void meta_build_technology_data_variations_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnologyDataVariations");
   meta_set(&n->member_name, "content");
@@ -148683,6 +149179,64 @@ static void meta_build_tenant_onboarding_policy_tenant_onboarding_policy_details
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Tenant Onboarding Policy Details (text).");
 }
+static void meta_build_test_level_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "TestLevelEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "What the level verifies and how it fits the levels around it.");
+  meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("level");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Level");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("unit / integration / system / acceptance / regression, or a project-specific level");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("testTypes");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Test Types");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The test types run at this level — functional, performance, security, accessibility");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("environment");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Environment");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The environment the level runs in");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ENVEN.@sectionId");
+  n->form->fields[3].name = som_strdup("tools");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Tools");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The tools and frameworks used");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("runBy");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Run By");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Who runs it — a person, a pipeline, a role");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("trigger");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Trigger");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("When it runs — on commit, nightly, before a release");
+  n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("exitCriteria");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Exit Criteria");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("What must hold before the next level starts");
+  n->form->fields[6].order = 6;
+}
 static void meta_build_test_scenario_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TestScenarioEntry");
   meta_set(&n->member_name, "content");
@@ -149055,6 +149609,26 @@ static void meta_build_test_strategy_content(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->content_help, "High-level strategy for verifying quality across the system. Distinct\nfrom the acceptance plan and from the per-quality-attribute\ncriteria in the usability, technical, operational, and documentation\nquality-goal sections; this section integrates them.\n\n**What to capture:**\n- Test levels (unit, integration, system, acceptance, regression)\n- Test approach per level (TDD, BDD, model-based, exploratory)\n- Automation strategy and coverage targets\n- Test environment topology and data strategy\n- Entry / exit criteria per level\n- Defect management lifecycle\n- Traceability from requirements to tests\n- Risk-based test prioritization\n");
   meta_set(&n->doc_comment, "The section's body content. For a `@Form`-annotated member this is the\nform's **preamble** — the free text before the first field line (SOM\n§11.4 rule 7); the field values themselves live in [form].");
+}
+static void meta_build_test_strategy_test_levels(SomMetaNode *n) {
+  meta_set(&n->class_name, "TestStrategy");
+  meta_set(&n->member_name, "testLevels");
+  meta_set(&n->section_id, "TSLVL-LST");
+  meta_set(&n->section_id_pattern, "TSLVL-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "TestLevelEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per test level.");
+  meta_set(&n->doc_comment, "Test levels — contains 0+× test level.");
+}
+static void meta_build_test_strategy_test_levels_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "TestLevelEntry");
+  meta_set(&n->class_section_id, "TSLVL");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "TestLevelEntry");
+  meta_set(&n->doc_comment, "One test level of the test strategy.");
+  meta_set(&n->class_doc_comment, "One test level of the test strategy.");
 }
 static void meta_build_testing_standards_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TestingStandards");
@@ -157847,6 +158421,37 @@ static void meta_build_user_attribute_entry_content(SomMetaNode *n) {
   n->form->fields[4].hint = som_strdup("Whether this attribute is mandatory.");
   n->form->fields[4].order = 4;
 }
+static void meta_build_user_attribute_entry_oidc_release(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserAttributeEntry");
+  meta_set(&n->member_name, "oidcRelease");
+  meta_set(&n->section_id, "USOIDC");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("claimName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Claim Name");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("The claim the attribute is released as");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("scope");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Scope");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The scope that releases it");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("releasedIn");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Released In");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("id token / access token / userinfo, comma-separated; audience-only tokens named");
+  n->form->fields[2].order = 2;
+}
 static void meta_build_user_attributes_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserAttributes");
   meta_set(&n->member_name, "content");
@@ -166115,7 +166720,6 @@ static SomMetaNode **meta_children_boundary_interaction_patterns(SomStrList *sta
 }
 
 static SomMetaNode **meta_children_bounded_context_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -166143,6 +166747,12 @@ static SomMetaNode **meta_children_bounded_context_entry(SomStrList *stack, size
     SomMetaNode *n = som_meta_node_new();
     meta_build_bounded_context_entry_integration(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_bounded_context_entry_relationships(ln);
+    ln->element_node = meta_cx("ContextRelationshipEntry", stack, meta_children_context_relationship_entry, meta_build_bounded_context_entry_relationships_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -169297,6 +169907,19 @@ static SomMetaNode **meta_children_context_diagram(SomStrList *stack, size_t *le
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_context_diagram_legend(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_context_relationship_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_context_relationship_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -178467,6 +179090,19 @@ static SomMetaNode **meta_children_key_management(SomStrList *stack, size_t *len
   return arr;
 }
 
+static SomMetaNode **meta_children_key_management_requirements(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_key_management_requirements_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_key_result_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -179272,6 +179908,19 @@ static SomMetaNode **meta_children_maintenance_dependency_entry(SomStrList *stac
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_maintenance_dependency_entry_risk(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_maintenance_procedure_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_maintenance_procedure_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -181749,6 +182398,18 @@ static SomMetaNode **meta_children_organizational_framework(SomStrList *stack, s
     ln->element_node = meta_cx("WorkplaceDescriptionEntry", stack, meta_children_workplace_description_entry, meta_build_organizational_framework_workplace_descriptions_elem);
     meta_push(&arr, len, &cap, ln);
   }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_organizational_framework_raci_matrix(ln);
+    ln->element_node = meta_cx("RaciEntry", stack, meta_children_raci_entry, meta_build_organizational_framework_raci_matrix_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_organizational_framework_policy_ownership(ln);
+    ln->element_node = meta_cx("PolicyOwnershipEntry", stack, meta_children_policy_ownership_entry, meta_build_organizational_framework_policy_ownership_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
   return arr;
 }
 
@@ -182743,6 +183404,19 @@ static SomMetaNode **meta_children_platform_and_language(SomStrList *stack, size
   }
   meta_push(&arr, len, &cap, meta_cx("DependencyManagement", stack, meta_children_dependency_management, meta_build_platform_and_language_dependency_management));
   meta_push(&arr, len, &cap, meta_cx("RuntimeEnvironment", stack, meta_children_runtime_environment, meta_build_platform_and_language_runtime_environment));
+  return arr;
+}
+
+static SomMetaNode **meta_children_policy_ownership_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_policy_ownership_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -184681,6 +185355,19 @@ static SomMetaNode **meta_children_quality_weight_entry(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_quality_weight_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_raci_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_raci_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -188796,6 +189483,11 @@ static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, siz
     ln->element_node = meta_cx("OperationBindingEntry", stack, meta_children_operation_binding_entry, meta_build_server_operation_entry_bindings_elem);
     meta_push(&arr, len, &cap, ln);
   }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_operation_entry_controls(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -188903,6 +189595,11 @@ static SomMetaNode **meta_children_server_requirements_section(SomStrList *stack
   meta_push(&arr, len, &cap, meta_cx("VirtualizationRequirements", stack, meta_children_virtualization_requirements, meta_build_server_requirements_section_virtualization));
   meta_push(&arr, len, &cap, meta_cx("CloudProviderRequirements", stack, meta_children_cloud_provider_requirements, meta_build_server_requirements_section_cloud_provider));
   meta_push(&arr, len, &cap, meta_cx("ServerOsRequirements", stack, meta_children_server_os_requirements, meta_build_server_requirements_section_os_requirements));
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_requirements_section_connection_budget(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -191474,9 +192171,10 @@ static SomMetaNode **meta_children_system_operation(SomStrList *stack, size_t *l
   }
   meta_push(&arr, len, &cap, meta_cx("AdministrationRequirementsSection", stack, meta_children_administration_requirements_section, meta_build_system_operation_administration_requirements));
   {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_system_operation_maintenance_procedures(n);
-    meta_push(&arr, len, &cap, n);
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_system_operation_maintenance_procedures(ln);
+    ln->element_node = meta_cx("MaintenanceProcedureEntry", stack, meta_children_maintenance_procedure_entry, meta_build_system_operation_maintenance_procedures_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -192517,6 +193215,7 @@ static SomMetaNode **meta_children_technical_security_requirements(SomStrList *s
   meta_push(&arr, len, &cap, meta_cx("ItSecurityStandardsSection", stack, meta_children_it_security_standards_section, meta_build_technical_security_requirements_it_security_standards));
   meta_push(&arr, len, &cap, meta_cx("DataProtectionAndPrivacySection", stack, meta_children_data_protection_and_privacy_section, meta_build_technical_security_requirements_data_protection_and_privacy));
   meta_push(&arr, len, &cap, meta_cx("SecurityAuditRequirementsSection", stack, meta_children_security_audit_requirements_section, meta_build_technical_security_requirements_security_audit_requirements));
+  meta_push(&arr, len, &cap, meta_cx("KeyManagementRequirements", stack, meta_children_key_management_requirements, meta_build_technical_security_requirements_key_management));
   return arr;
 }
 
@@ -192678,6 +193377,19 @@ static SomMetaNode **meta_children_tenant_onboarding_policy(SomStrList *stack, s
   return arr;
 }
 
+static SomMetaNode **meta_children_test_level_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_test_level_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_test_scenario_entry(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
@@ -192746,7 +193458,6 @@ static SomMetaNode **meta_children_test_scenario_notes(SomStrList *stack, size_t
 }
 
 static SomMetaNode **meta_children_test_strategy(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -192754,6 +193465,12 @@ static SomMetaNode **meta_children_test_strategy(SomStrList *stack, size_t *len)
     SomMetaNode *n = som_meta_node_new();
     meta_build_test_strategy_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_test_strategy_test_levels(ln);
+    ln->element_node = meta_cx("TestLevelEntry", stack, meta_children_test_level_entry, meta_build_test_strategy_test_levels_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -194462,6 +195179,11 @@ static SomMetaNode **meta_children_user_attribute_entry(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_user_attribute_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_attribute_entry_oidc_release(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -199372,6 +200094,13 @@ SomMetaRef bounded_context_entry_nav_integration(som_nav_bounded_context_entry x
   free(path);
   return out;
 }
+SomListMetaRef bounded_context_entry_nav_relationships(som_nav_bounded_context_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "CTXREL-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_context_relationship_entry);
+  free(path);
+  return out;
+}
 SomMetaRef breakpoint_configuration_nav_content(som_nav_breakpoint_configuration x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -202861,6 +203590,13 @@ SomMetaRef context_diagram_nav_diagram(som_nav_context_diagram x) {
 SomMetaRef context_diagram_nav_legend(som_nav_context_diagram x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "CD-LEGE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef context_relationship_entry_nav_content(som_nav_context_relationship_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -213778,6 +214514,13 @@ SomMetaRef key_management_nav_notes(som_nav_key_management x) {
   free(path);
   return out;
 }
+SomMetaRef key_management_requirements_nav_content(som_nav_key_management_requirements x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef key_result_entry_nav_content(som_nav_key_result_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -214621,6 +215364,13 @@ SomMetaRef maintenance_dependency_entry_nav_update(som_nav_maintenance_dependenc
 SomMetaRef maintenance_dependency_entry_nav_risk(som_nav_maintenance_dependency_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "MDER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef maintenance_procedure_entry_nav_content(som_nav_maintenance_procedure_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -217411,6 +218161,20 @@ SomListMetaRef organizational_framework_nav_workplace_descriptions(som_nav_organ
   free(path);
   return out;
 }
+SomListMetaRef organizational_framework_nav_raci_matrix(som_nav_organizational_framework x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "RACIEN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_raci_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef organizational_framework_nav_policy_ownership(som_nav_organizational_framework x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "POLOWN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_policy_ownership_entry);
+  free(path);
+  return out;
+}
 SomMetaRef organizational_requirement_entry_nav_content(som_nav_organizational_requirement_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -218465,6 +219229,13 @@ som_nav_runtime_environment platform_and_language_nav_runtime_environment(som_na
   som_nav_runtime_environment out;
   char *path = spec_path_join(x.ref.path, "runtimeEnvironment");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef policy_ownership_entry_nav_content(som_nav_policy_ownership_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -220443,6 +221214,13 @@ SomMetaRef quality_standard_entry_nav_maintenance(som_nav_quality_standard_entry
   return out;
 }
 SomMetaRef quality_weight_entry_nav_content(som_nav_quality_weight_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef raci_entry_nav_content(som_nav_raci_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -224712,6 +225490,13 @@ SomListMetaRef server_operation_entry_nav_bindings(som_nav_server_operation_entr
   free(path);
   return out;
 }
+SomMetaRef server_operation_entry_nav_controls(som_nav_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOCT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef server_operation_member_entry_nav_content(som_nav_server_operation_member_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -224856,6 +225641,13 @@ som_nav_server_os_requirements server_requirements_section_nav_os_requirements(s
   som_nav_server_os_requirements out;
   char *path = spec_path_join(x.ref.path, "osRequirements");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_requirements_section_nav_connection_budget(som_nav_server_requirements_section x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SRSDB");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -227703,8 +228495,8 @@ som_nav_administration_requirements_section system_operation_nav_administration_
 }
 SomListMetaRef system_operation_nav_maintenance_procedures(som_nav_system_operation x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SO-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  char *path = spec_path_join(x.ref.path, "MAPRO-PROC-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_maintenance_procedure_entry);
   free(path);
   return out;
 }
@@ -229143,6 +229935,13 @@ som_nav_security_audit_requirements_section technical_security_requirements_nav_
   free(path);
   return out;
 }
+som_nav_key_management_requirements technical_security_requirements_nav_key_management(som_nav_technical_security_requirements x) {
+  som_nav_key_management_requirements out;
+  char *path = spec_path_join(x.ref.path, "keyManagement");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef technology_data_variations_nav_content(som_nav_technology_data_variations x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -229297,6 +230096,13 @@ SomMetaRef tenant_onboarding_policy_nav_tenant_onboarding_policy_details(som_nav
   free(path);
   return out;
 }
+SomMetaRef test_level_entry_nav_content(som_nav_test_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef test_scenario_entry_nav_content(som_nav_test_scenario_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -229371,6 +230177,13 @@ SomMetaRef test_strategy_nav_content(som_nav_test_strategy x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef test_strategy_nav_test_levels(som_nav_test_strategy x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "TSLVL-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_test_level_entry);
   free(path);
   return out;
 }
@@ -231134,6 +231947,13 @@ SomMetaRef user_assistance_nav_help_content_inventory(som_nav_user_assistance x)
 SomMetaRef user_attribute_entry_nav_content(som_nav_user_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef user_attribute_entry_nav_oidc_release(som_nav_user_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "USOIDC");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -233089,6 +233909,13 @@ SomMetaRef bounded_context_entry_id_bocoenin(som_id_bounded_context_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "BOCOENIN");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef bounded_context_entry_id_ctxrel_lst(som_id_bounded_context_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "CTXREL-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_context_relationship_entry);
   free(path);
   return out;
 }
@@ -236242,6 +237069,20 @@ SomListMetaRef d00_solution_blueprint_id_wpde_work_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_racien_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/RACIEN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_raci_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_polown_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/POLOWN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_policy_ownership_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_pvovw(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "targetOperatingModelConcept/organizationAndProcess/businessProcessDescriptions/processVision/PVOVW");
@@ -238272,6 +239113,13 @@ SomMetaRef d00_solution_blueprint_id_sorl(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomMetaRef d00_solution_blueprint_id_srsdb(som_id_d00_solution_blueprint x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRSDB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_cliapp_clie_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST");
@@ -239994,10 +240842,10 @@ SomMetaRef d00_solution_blueprint_id_sdtss(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_so_main_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_mapro_proc_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_maintenance_procedure_entry);
   free(path);
   return out;
 }
@@ -242910,6 +243758,13 @@ SomListMetaRef d00_solution_blueprint_id_dacen_item_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_delivery_acceptance_criterion_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_tslvl_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/testStrategy/TSLVL-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_test_level_entry);
   free(path);
   return out;
 }
@@ -246294,6 +247149,13 @@ SomMetaRef d06_architecture_technology_specification_id_sorl(som_id_d06_architec
   free(path);
   return out;
 }
+SomMetaRef d06_architecture_technology_specification_id_srsdb(som_id_d06_architecture_technology_specification x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/serverRequirements/SRSDB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_cliapp_clie_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST");
@@ -248016,10 +248878,10 @@ SomMetaRef d06_architecture_technology_specification_id_sdtss(som_id_d06_archite
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_so_main_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_mapro_proc_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/SO-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/MAPRO-PROC-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_maintenance_procedure_entry);
   free(path);
   return out;
 }
@@ -251019,6 +251881,13 @@ SomListMetaRef d10_quality_acceptance_plan_id_dacen_item_lst(som_id_d10_quality_
   free(path);
   return out;
 }
+SomListMetaRef d10_quality_acceptance_plan_id_tslvl_lst(som_id_d10_quality_acceptance_plan x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "testStrategy/TSLVL-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_test_level_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d10_quality_acceptance_plan_id_dacen_item_lst_2(som_id_d10_quality_acceptance_plan x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "acceptanceCriteria/DACEN-ITEM-LST");
@@ -253497,6 +254366,13 @@ SomMetaRef d13_code_specs_projection_id_sorl(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
+SomMetaRef d13_code_specs_projection_id_srsdb(som_id_d13_code_specs_projection x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/serverRequirements/SRSDB");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomListMetaRef d13_code_specs_projection_id_cliapp_clie_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST");
@@ -255219,10 +256095,10 @@ SomMetaRef d13_code_specs_projection_id_sdtss(som_id_d13_code_specs_projection x
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_so_main_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_mapro_proc_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/SO-MAIN-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_leaf_factory);
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/MAPRO-PROC-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_maintenance_procedure_entry);
   free(path);
   return out;
 }
@@ -262688,6 +263564,13 @@ SomListMetaRef server_operation_entry_id_svobi_bind_lst(som_id_server_operation_
   free(path);
   return out;
 }
+SomMetaRef server_operation_entry_id_svoct(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOCT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef server_role_entry_id_sres(som_id_server_role_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SRES");
@@ -264351,6 +265234,13 @@ SomListMetaRef ui_component_entry_id_cmpr_prop_lst(som_id_ui_component_entry x) 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "CMPR-PROP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_component_property_entry);
+  free(path);
+  return out;
+}
+SomMetaRef user_attribute_entry_id_usoidc(som_id_user_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "USOIDC");
+  som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }

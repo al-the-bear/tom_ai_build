@@ -52,6 +52,107 @@ class OrganizationalFramework extends DocSpecsSection {
   @Comment('per user category')
   @SerializationOrder(4)
   List<WorkplaceDescriptionEntry> workplaceDescriptions = [];
+
+  /// Cross-process RACI matrix — contains 0+× RACI entry.
+  @SectionId('RACIEN-LST')
+  @SectionIdPattern('RACIEN-xxx')
+  @ContentHelp('Add one entry per activity.')
+  @SerializationOrder(5)
+  List<RaciEntry> raciMatrix = [];
+
+  /// Policy ownership — contains 0+× policy.
+  @SectionId('POLOWN-LST')
+  @SectionIdPattern('POLOWN-xxx')
+  @ContentHelp('Add one entry per policy.')
+  @SerializationOrder(6)
+  List<PolicyOwnershipEntry> policyOwnership = [];
+}
+
+/// One activity of the cross-process RACI matrix.
+@StandardReferences([
+  'ISO 21500 — responsibility assignment (RACI)',
+], 'One activity of the cross-process RACI matrix.')
+@SectionId('RACIEN')
+class RaciEntry extends DocSpecsSection {
+  @ContentHelp(
+    'What the activity is and why its responsibility is split this way.',
+  )
+  @Form([
+    Field(
+      'activity',
+      String,
+      'Activity',
+      hint: 'The activity or decision whose responsibility is assigned',
+    ),
+    Field(
+      'responsible',
+      String,
+      'Responsible',
+      hint: 'Who does the work — roles, comma-separated',
+    ),
+    Field(
+      'accountable',
+      String,
+      'Accountable',
+      hint: 'The one role that answers for the outcome',
+    ),
+    Field(
+      'consulted',
+      String,
+      'Consulted',
+      hint: 'Roles asked before the work is done, comma-separated',
+    ),
+    Field(
+      'informed',
+      String,
+      'Informed',
+      hint: 'Roles told after it is done, comma-separated',
+    ),
+    Field(
+      'relatedProcess',
+      String,
+      'Related Process',
+      hint: 'The business process the activity belongs to (BPREN-…)',
+      refersTo: ['BPREN.@sectionId'],
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+/// One policy and who owns it.
+@StandardReferences([
+  'ISO/IEC 27001:2022 — clause 5.2 policy and A.5.1 policies for information security',
+], 'One policy and who owns it.')
+@SectionId('POLOWN')
+class PolicyOwnershipEntry extends DocSpecsSection {
+  @ContentHelp('What the policy covers and how ownership is exercised.')
+  @Form([
+    Field('policy', String, 'Policy', hint: 'The policy'),
+    Field(
+      'owner',
+      String,
+      'Owner',
+      hint: 'The role that owns and maintains it',
+    ),
+    Field(
+      'approver',
+      String,
+      'Approver',
+      hint: 'The role that approves changes',
+    ),
+    Field(
+      'reviewCycle',
+      String,
+      'Review Cycle',
+      hint: 'How often it is reviewed',
+    ),
+    Field('appliesTo', String, 'Applies To', hint: 'Who or what it binds'),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 // ---------------------------------------------------------------------------

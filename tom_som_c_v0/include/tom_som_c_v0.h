@@ -180,6 +180,27 @@ char *parse_config_value_type(const char *token);
 // parse_constraint_enforcement returns the token (owned) when it is a known ConstraintEnforcement value, else "".
 char *parse_constraint_enforcement(const char *token);
 
+// Generated enum tokens for `ContextRelationshipType` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// The two teams succeed or fail together and plan jointly.
+#define CONTEXT_RELATIONSHIP_TYPE_PARTNERSHIP "partnership"
+// The two share a small common model both depend on.
+#define CONTEXT_RELATIONSHIP_TYPE_SHARED_KERNEL "sharedKernel"
+// The downstream context's needs shape what the upstream provides.
+#define CONTEXT_RELATIONSHIP_TYPE_CUSTOMER_SUPPLIER "customerSupplier"
+// The downstream context adopts the upstream model as it is.
+#define CONTEXT_RELATIONSHIP_TYPE_CONFORMIST "conformist"
+// The downstream context translates the upstream model at its boundary.
+#define CONTEXT_RELATIONSHIP_TYPE_ANTICORRUPTION_LAYER "anticorruptionLayer"
+// The upstream context offers a protocol any context may use.
+#define CONTEXT_RELATIONSHIP_TYPE_OPEN_HOST_SERVICE "openHostService"
+// The two exchange a documented, shared language.
+#define CONTEXT_RELATIONSHIP_TYPE_PUBLISHED_LANGUAGE "publishedLanguage"
+// The two have no integration.
+#define CONTEXT_RELATIONSHIP_TYPE_SEPARATE_WAYS "separateWays"
+// parse_context_relationship_type returns the token (owned) when it is a known ContextRelationshipType value, else "".
+char *parse_context_relationship_type(const char *token);
+
 // Generated enum tokens for `DataAttributeKind` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Character data of bounded length. Binds
@@ -514,6 +535,18 @@ char *parse_migration_artifact_kind(const char *token);
 // parse_object_lifecycle_kind returns the token (owned) when it is a known ObjectLifecycleKind value, else "".
 char *parse_object_lifecycle_kind(const char *token);
 
+// Generated enum tokens for `OperationIdempotency` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Repeating it has no further effect.
+#define OPERATION_IDEMPOTENCY_IDEMPOTENT "idempotent"
+// Repeating it has no further effect when the caller sends the same
+// idempotency key.
+#define OPERATION_IDEMPOTENCY_IDEMPOTENT_WITH_KEY "idempotentWithKey"
+// Each call has its own effect; a retry must be decided by the caller.
+#define OPERATION_IDEMPOTENCY_NOT_IDEMPOTENT "notIdempotent"
+// parse_operation_idempotency returns the token (owned) when it is a known OperationIdempotency value, else "".
+char *parse_operation_idempotency(const char *token);
+
 // Generated enum tokens for `OverridableBy` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Scope-pinned: no narrower scope may shadow the key.
@@ -679,6 +712,18 @@ char *parse_report_column_kind(const char *token);
 #define REPORT_FILTER_VALUE_KIND_ENTITY_REF "entityRef"
 // parse_report_filter_value_kind returns the token (owned) when it is a known ReportFilterValueKind value, else "".
 char *parse_report_filter_value_kind(const char *token);
+
+// Generated enum tokens for `RoleMembershipSource` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Holders are assigned to the role directly.
+#define ROLE_MEMBERSHIP_SOURCE_ASSIGNED "assigned"
+// Membership follows from grants the holder has: the role is a name for a
+// set of grants, not something anyone is assigned.
+#define ROLE_MEMBERSHIP_SOURCE_DERIVED_FROM_GRANTS "derivedFromGrants"
+// Both: holders are assigned, and a grant can also confer membership.
+#define ROLE_MEMBERSHIP_SOURCE_BOTH "both"
+// parse_role_membership_source returns the token (owned) when it is a known RoleMembershipSource value, else "".
+char *parse_role_membership_source(const char *token);
 
 // Generated enum tokens for `ScheduledJobTrigger` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
@@ -1147,6 +1192,19 @@ char *parse_server_call_role(const char *token);
 // parse_status returns the token (owned) when it is a known Status value, else "".
 char *parse_status(const char *token);
 
+// Generated enum tokens for `TranslationReviewStatus` values. The stored token is byte-
+// identical across every language port, so documents stay cross-compatible.
+// Written, not yet reviewed.
+#define TRANSLATION_REVIEW_STATUS_DRAFT "draft"
+// Produced by a machine, not yet reviewed by a person.
+#define TRANSLATION_REVIEW_STATUS_MACHINE_TRANSLATED "machineTranslated"
+// Reviewed by a person fluent in the language.
+#define TRANSLATION_REVIEW_STATUS_REVIEWED "reviewed"
+// Approved for release.
+#define TRANSLATION_REVIEW_STATUS_APPROVED "approved"
+// parse_translation_review_status returns the token (owned) when it is a known TranslationReviewStatus value, else "".
+char *parse_translation_review_status(const char *token);
+
 // Generated enum tokens for `UserAttributePlacement` values. The stored token is byte-
 // identical across every language port, so documents stay cross-compatible.
 // Rides the public token payload; read access may be guarded by a
@@ -1409,6 +1467,7 @@ typedef struct { SomNode node; } ConsentManagementRequirements;
 typedef struct { SomNode node; } ConstraintRegisterEntry;
 typedef struct { SomNode node; } ContentScanningPolicy;
 typedef struct { SomNode node; } ContextDiagram;
+typedef struct { SomNode node; } ContextRelationshipEntry;
 typedef struct { SomNode node; } ContextualHelp;
 typedef struct { SomNode node; } ContextualNavigation;
 typedef struct { SomNode node; } ContingencyPlanEntry;
@@ -1766,6 +1825,7 @@ typedef struct { SomNode node; } KeyConcepts;
 typedef struct { SomNode node; } KeyEscrowAndBackupPolicy;
 typedef struct { SomNode node; } KeyGenerationPolicy;
 typedef struct { SomNode node; } KeyManagement;
+typedef struct { SomNode node; } KeyManagementRequirements;
 typedef struct { SomNode node; } KeyResultEntry;
 typedef struct { SomNode node; } KeyRotationPolicy;
 typedef struct { SomNode node; } KeyScenarios;
@@ -1799,6 +1859,7 @@ typedef struct { SomNode node; } MaintainabilityCharacteristic;
 typedef struct { SomNode node; } MaintenanceChangeManagement;
 typedef struct { SomNode node; } MaintenanceDependencies;
 typedef struct { SomNode node; } MaintenanceDependencyEntry;
+typedef struct { SomNode node; } MaintenanceProcedureEntry;
 typedef struct { SomNode node; } MaintenanceUserImpact;
 typedef struct { SomNode node; } MaintenanceWindowEntry;
 typedef struct { SomNode node; } MaintenanceWindowsSection;
@@ -1933,6 +1994,7 @@ typedef struct { SomNode node; } PilotPlan;
 typedef struct { SomNode node; } PipelineJobEntry;
 typedef struct { SomNode node; } PipelineStageEntry;
 typedef struct { SomNode node; } PlatformAndLanguage;
+typedef struct { SomNode node; } PolicyOwnershipEntry;
 typedef struct { SomNode node; } Portability;
 typedef struct { SomNode node; } PostMaintenanceValidation;
 typedef struct { SomNode node; } PostconditionsAndGuarantees;
@@ -2014,6 +2076,7 @@ typedef struct { SomNode node; } QualityScenarioEntry;
 typedef struct { SomNode node; } QualityScenarios;
 typedef struct { SomNode node; } QualityStandardEntry;
 typedef struct { SomNode node; } QualityWeightEntry;
+typedef struct { SomNode node; } RaciEntry;
 typedef struct { SomNode node; } RateLimitingPolicy;
 typedef struct { SomNode node; } Readability;
 typedef struct { SomNode node; } ReadinessCriteriaEntry;
@@ -2324,6 +2387,7 @@ typedef struct { SomNode node; } TenantCustomizationEntry;
 typedef struct { SomNode node; } TenantDataIsolationPolicy;
 typedef struct { SomNode node; } TenantIsolation;
 typedef struct { SomNode node; } TenantOnboardingPolicy;
+typedef struct { SomNode node; } TestLevelEntry;
 typedef struct { SomNode node; } TestScenarioEntry;
 typedef struct { SomNode node; } TestScenarioNotes;
 typedef struct { SomNode node; } TestStrategy;
@@ -2977,6 +3041,7 @@ typedef struct { SomNode node; } ConsentManagementRequirementsStorageForm;
 typedef struct { SomNode node; } ConsentManagementRequirementsTrackingForm;
 typedef struct { SomNode node; } ConstraintRegisterEntryContentForm;
 typedef struct { SomNode node; } ContentScanningPolicyContentForm;
+typedef struct { SomNode node; } ContextRelationshipEntryContentForm;
 typedef struct { SomNode node; } ContextualHelpContextualHelpContentForm;
 typedef struct { SomNode node; } ContextualHelpInlineForm;
 typedef struct { SomNode node; } ContextualHelpPanelsForm;
@@ -3764,6 +3829,7 @@ typedef struct { SomNode node; } KeyCompromiseRecoveryPolicyContentForm;
 typedef struct { SomNode node; } KeyConceptEntryContentForm;
 typedef struct { SomNode node; } KeyEscrowAndBackupPolicyContentForm;
 typedef struct { SomNode node; } KeyGenerationPolicyContentForm;
+typedef struct { SomNode node; } KeyManagementRequirementsContentForm;
 typedef struct { SomNode node; } KeyResultEntryContentForm;
 typedef struct { SomNode node; } KeyRotationPolicyContentForm;
 typedef struct { SomNode node; } KeyScenariosOverviewForm;
@@ -3837,6 +3903,7 @@ typedef struct { SomNode node; } MaintenanceDependencyEntryClassificationForm;
 typedef struct { SomNode node; } MaintenanceDependencyEntryContentForm;
 typedef struct { SomNode node; } MaintenanceDependencyEntryRiskForm;
 typedef struct { SomNode node; } MaintenanceDependencyEntryUpdateForm;
+typedef struct { SomNode node; } MaintenanceProcedureEntryContentForm;
 typedef struct { SomNode node; } MaintenanceUserImpactContentForm;
 typedef struct { SomNode node; } MaintenanceUserImpactDuringForm;
 typedef struct { SomNode node; } MaintenanceUserImpactGracefulDegradationForm;
@@ -4131,6 +4198,7 @@ typedef struct { SomNode node; } PipelineStageEntryContentForm;
 typedef struct { SomNode node; } PipelineStageEntryExecutionForm;
 typedef struct { SomNode node; } PipelineStageEntryFailureForm;
 typedef struct { SomNode node; } PipelineStageEntryTriggerForm;
+typedef struct { SomNode node; } PolicyOwnershipEntryContentForm;
 typedef struct { SomNode node; } PortabilityContentForm;
 typedef struct { SomNode node; } PostMaintenanceValidationClosureForm;
 typedef struct { SomNode node; } PostMaintenanceValidationContentForm;
@@ -4282,6 +4350,7 @@ typedef struct { SomNode node; } QualityStandardEntryImplementationForm;
 typedef struct { SomNode node; } QualityStandardEntryMaintenanceForm;
 typedef struct { SomNode node; } QualityStandardEntryProcessesForm;
 typedef struct { SomNode node; } QualityWeightEntryContentForm;
+typedef struct { SomNode node; } RaciEntryContentForm;
 typedef struct { SomNode node; } RateLimitingPolicyBehaviorForm;
 typedef struct { SomNode node; } RateLimitingPolicyContentForm;
 typedef struct { SomNode node; } RateLimitingPolicyLimitsForm;
@@ -4667,12 +4736,14 @@ typedef struct { SomNode node; } ServerEnvironmentEntryLifecycleForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryLocationForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryScaleForm;
 typedef struct { SomNode node; } ServerOperationEntryContentForm;
+typedef struct { SomNode node; } ServerOperationEntryControlsForm;
 typedef struct { SomNode node; } ServerOperationMemberEntryContentForm;
 typedef struct { SomNode node; } ServerOsRequirementsContentForm;
 typedef struct { SomNode node; } ServerOsRequirementsHardeningForm;
 typedef struct { SomNode node; } ServerOsRequirementsLicensingForm;
 typedef struct { SomNode node; } ServerOsRequirementsMonitoringForm;
 typedef struct { SomNode node; } ServerOsRequirementsSecurityForm;
+typedef struct { SomNode node; } ServerRequirementsSectionConnectionBudgetForm;
 typedef struct { SomNode node; } ServerRoleEntryCapacityForm;
 typedef struct { SomNode node; } ServerRoleEntryContentForm;
 typedef struct { SomNode node; } ServerRoleEntryNetworkingForm;
@@ -5001,6 +5072,7 @@ typedef struct { SomNode node; } TenantContextPolicyContentForm;
 typedef struct { SomNode node; } TenantCustomizationEntryContentForm;
 typedef struct { SomNode node; } TenantDataIsolationPolicyContentForm;
 typedef struct { SomNode node; } TenantOnboardingPolicyContentForm;
+typedef struct { SomNode node; } TestLevelEntryContentForm;
 typedef struct { SomNode node; } TestScenarioEntryBusinessForm;
 typedef struct { SomNode node; } TestScenarioEntryContentForm;
 typedef struct { SomNode node; } TestScenarioEntryExecutionForm;
@@ -5182,6 +5254,7 @@ typedef struct { SomNode node; } UserAssistanceDeliveryForm;
 typedef struct { SomNode node; } UserAssistanceHelpOverviewContentForm;
 typedef struct { SomNode node; } UserAssistanceInsightsForm;
 typedef struct { SomNode node; } UserAttributeEntryContentForm;
+typedef struct { SomNode node; } UserAttributeEntryOidcReleaseForm;
 typedef struct { SomNode node; } UserCategoryDefinitionContentForm;
 typedef struct { SomNode node; } UserCategoryEntryContentForm;
 typedef struct { SomNode node; } UserCategoryEntryImportanceForm;
@@ -7454,6 +7527,9 @@ BoundedContextEntryBoundariesForm bounded_context_entry_boundaries(const Bounded
 BoundedContextEntryImplementationForm bounded_context_entry_implementation(const BoundedContextEntry *self);
 // Integration and notes.
 BoundedContextEntryIntegrationForm bounded_context_entry_integration(const BoundedContextEntry *self);
+// Relationships to neighbouring contexts — contains 0+× relationship.
+// Returns the list view; element type: ContextRelationshipEntry (construct from item paths).
+SomList bounded_context_entry_relationships(const BoundedContextEntry *self);
 
 // 10.10.1. Breakpoints.
 //
@@ -9909,6 +9985,17 @@ void context_diagram_set_diagram(ContextDiagram *self, const char *value);
 // Diagram legend and conventions.
 char *context_diagram_legend(const ContextDiagram *self);
 void context_diagram_set_legend(ContextDiagram *self, const char *value);
+
+// The relationship of a bounded context to one neighbour.
+// Binds a ContextRelationshipEntry facade to a document and a path (path copied).
+void context_relationship_entry_init(ContextRelationshipEntry *self, SpecDocument *doc, const char *path);
+void context_relationship_entry_free(ContextRelationshipEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int context_relationship_entry_can_have_content(const ContextRelationshipEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+ContextRelationshipEntryContentForm context_relationship_entry_content(const ContextRelationshipEntry *self);
 
 // 10.8.1. Contextual Help.
 // Binds a ContextualHelp facade to a document and a path (path copied).
@@ -18363,6 +18450,18 @@ KeyCompromiseRecoveryPolicy key_management_key_compromise_recovery_policy(const 
 // Additional Notes (text).
 // (skipped: notes has no target type)
 
+// Key management on the platform side: which keys exist, where they are
+// kept, how they rotate and who holds them.
+// Binds a KeyManagementRequirements facade to a document and a path (path copied).
+void key_management_requirements_init(KeyManagementRequirements *self, SpecDocument *doc, const char *path);
+void key_management_requirements_free(KeyManagementRequirements *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int key_management_requirements_can_have_content(const KeyManagementRequirements *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+KeyManagementRequirementsContentForm key_management_requirements_content(const KeyManagementRequirements *self);
+
 // A key result entry (form).
 // Binds a KeyResultEntry facade to a document and a path (path copied).
 void key_result_entry_init(KeyResultEntry *self, SpecDocument *doc, const char *path);
@@ -19040,6 +19139,17 @@ MaintenanceDependencyEntryClassificationForm maintenance_dependency_entry_classi
 MaintenanceDependencyEntryUpdateForm maintenance_dependency_entry_update(const MaintenanceDependencyEntry *self);
 // Risk and fallback planning.
 MaintenanceDependencyEntryRiskForm maintenance_dependency_entry_risk(const MaintenanceDependencyEntry *self);
+
+// One maintenance procedure: its name is the headline, the steps the text.
+// Binds a MaintenanceProcedureEntry facade to a document and a path (path copied).
+void maintenance_procedure_entry_init(MaintenanceProcedureEntry *self, SpecDocument *doc, const char *path);
+void maintenance_procedure_entry_free(MaintenanceProcedureEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int maintenance_procedure_entry_can_have_content(const MaintenanceProcedureEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+MaintenanceProcedureEntryContentForm maintenance_procedure_entry_content(const MaintenanceProcedureEntry *self);
 
 // User impact and communication.
 // Binds a MaintenanceUserImpact facade to a document and a path (path copied).
@@ -21051,6 +21161,12 @@ JobDescriptionsAndStaffing organizational_framework_job_descriptions(const Organ
 // 5.3. Workplace Descriptions — contains 1+× per user category.
 // Returns the list view; element type: WorkplaceDescriptionEntry (construct from item paths).
 SomList organizational_framework_workplace_descriptions(const OrganizationalFramework *self);
+// Cross-process RACI matrix — contains 0+× RACI entry.
+// Returns the list view; element type: RaciEntry (construct from item paths).
+SomList organizational_framework_raci_matrix(const OrganizationalFramework *self);
+// Policy ownership — contains 0+× policy.
+// Returns the list view; element type: PolicyOwnershipEntry (construct from item paths).
+SomList organizational_framework_policy_ownership(const OrganizationalFramework *self);
 
 // An organizational requirement entry.
 //
@@ -21847,6 +21963,17 @@ SomList platform_and_language_deployment_targets(const PlatformAndLanguage *self
 DependencyManagement platform_and_language_dependency_management(const PlatformAndLanguage *self);
 // Runtime environment constraints.
 RuntimeEnvironment platform_and_language_runtime_environment(const PlatformAndLanguage *self);
+
+// One policy and who owns it.
+// Binds a PolicyOwnershipEntry facade to a document and a path (path copied).
+void policy_ownership_entry_init(PolicyOwnershipEntry *self, SpecDocument *doc, const char *path);
+void policy_ownership_entry_free(PolicyOwnershipEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int policy_ownership_entry_can_have_content(const PolicyOwnershipEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+PolicyOwnershipEntryContentForm policy_ownership_entry_content(const PolicyOwnershipEntry *self);
 
 // 11.3.2. Portability quality.
 // Binds a Portability facade to a document and a path (path copied).
@@ -23362,6 +23489,17 @@ int quality_weight_entry_can_have_content(const QualityWeightEntry *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
 QualityWeightEntryContentForm quality_weight_entry_content(const QualityWeightEntry *self);
+
+// One activity of the cross-process RACI matrix.
+// Binds a RaciEntry facade to a document and a path (path copied).
+void raci_entry_init(RaciEntry *self, SpecDocument *doc, const char *path);
+void raci_entry_free(RaciEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int raci_entry_can_have_content(const RaciEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+RaciEntryContentForm raci_entry_content(const RaciEntry *self);
 
 // Rate limiting and throttling.
 // Binds a RateLimitingPolicy facade to a document and a path (path copied).
@@ -26876,6 +27014,8 @@ SomList server_operation_entry_response_members(const ServerOperationEntry *self
 // found, the success status and headers — and an operation may have several.
 // Returns the list view; element type: OperationBindingEntry (construct from item paths).
 SomList server_operation_entry_bindings(const ServerOperationEntry *self);
+// Operational controls: how the operation behaves under retries, what it audits, how it is throttled and who calls it.
+ServerOperationEntryControlsForm server_operation_entry_controls(const ServerOperationEntry *self);
 
 // A single member of an operation's request or response shape (form).
 //
@@ -27002,6 +27142,8 @@ VirtualizationRequirements server_requirements_section_virtualization(const Serv
 CloudProviderRequirements server_requirements_section_cloud_provider(const ServerRequirementsSection *self);
 // Operating system requirements.
 ServerOsRequirements server_requirements_section_os_requirements(const ServerRequirementsSection *self);
+// The database connection budget and the server settings that bound it.
+ServerRequirementsSectionConnectionBudgetForm server_requirements_section_connection_budget(const ServerRequirementsSection *self);
 
 // Server role entry (application server, database server, web server).
 // Binds a ServerRoleEntry facade to a document and a path (path copied).
@@ -28961,7 +29103,7 @@ void system_operation_set_content(SystemOperation *self, const char *value);
 // 8.7.1.1. Administration Requirements.
 AdministrationRequirementsSection system_operation_administration_requirements(const SystemOperation *self);
 // Maintenance Procedures.
-// Returns the list view; element type: scalar (construct from item paths).
+// Returns the list view; element type: MaintenanceProcedureEntry (construct from item paths).
 SomList system_operation_maintenance_procedures(const SystemOperation *self);
 
 // 8.7. System Operation and Monitoring.
@@ -29895,6 +30037,8 @@ ItSecurityStandardsSection technical_security_requirements_it_security_standards
 DataProtectionAndPrivacySection technical_security_requirements_data_protection_and_privacy(const TechnicalSecurityRequirements *self);
 // 8.8.3. Security Audit Requirements.
 SecurityAuditRequirementsSection technical_security_requirements_security_audit_requirements(const TechnicalSecurityRequirements *self);
+// Key management on the platform side.
+KeyManagementRequirements technical_security_requirements_key_management(const TechnicalSecurityRequirements *self);
 
 // Technology and data variations.
 // Binds a TechnologyDataVariations facade to a document and a path (path copied).
@@ -30048,6 +30192,17 @@ TenantOnboardingPolicyContentForm tenant_onboarding_policy_content(const TenantO
 // Tenant Onboarding Policy Details (text).
 // (skipped: tenantOnboardingPolicyDetails has no target type)
 
+// One test level of the test strategy.
+// Binds a TestLevelEntry facade to a document and a path (path copied).
+void test_level_entry_init(TestLevelEntry *self, SpecDocument *doc, const char *path);
+void test_level_entry_free(TestLevelEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int test_level_entry_can_have_content(const TestLevelEntry *self);
+// The section's body content. For a `@Form`-annotated member this is the
+// form's **preamble** — the free text before the first field line (SOM
+// §11.4 rule 7); the field values themselves live in [form].
+TestLevelEntryContentForm test_level_entry_content(const TestLevelEntry *self);
+
 // A test scenario entry (form).
 //
 // Represents a business-level test case covering a user journey, business
@@ -30106,6 +30261,9 @@ int test_strategy_can_have_content(const TestStrategy *self);
 // §11.4 rule 7); the field values themselves live in [form].
 char *test_strategy_content(const TestStrategy *self);
 void test_strategy_set_content(TestStrategy *self, const char *value);
+// Test levels — contains 0+× test level.
+// Returns the list view; element type: TestLevelEntry (construct from item paths).
+SomList test_strategy_test_levels(const TestStrategy *self);
 
 // Testing standards and requirements.
 // Binds a TestingStandards facade to a document and a path (path copied).
@@ -31340,6 +31498,8 @@ int user_attribute_entry_can_have_content(const UserAttributeEntry *self);
 // form's **preamble** — the free text before the first field line (SOM
 // §11.4 rule 7); the field values themselves live in [form].
 UserAttributeEntryContentForm user_attribute_entry_content(const UserAttributeEntry *self);
+// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+UserAttributeEntryOidcReleaseForm user_attribute_entry_oidc_release(const UserAttributeEntry *self);
 
 // 9.1.3. User Attributes.
 // Binds a UserAttributes facade to a document and a path (path copied).
@@ -35267,6 +35427,10 @@ char *authorization_role_entry_structure_form_inherits_from(const AuthorizationR
 void authorization_role_entry_structure_form_set_inherits_from(AuthorizationRoleEntryStructureForm *self, const char *value);
 char *authorization_role_entry_structure_form_permission_set(const AuthorizationRoleEntryStructureForm *self);
 void authorization_role_entry_structure_form_set_permission_set(AuthorizationRoleEntryStructureForm *self, const char *value);
+char *authorization_role_entry_structure_form_membership_source(const AuthorizationRoleEntryStructureForm *self);
+void authorization_role_entry_structure_form_set_membership_source(AuthorizationRoleEntryStructureForm *self, const char *value);
+char *authorization_role_entry_structure_form_derivation_rule(const AuthorizationRoleEntryStructureForm *self);
+void authorization_role_entry_structure_form_set_derivation_rule(AuthorizationRoleEntryStructureForm *self, const char *value);
 
 // AvailabilityContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void availability_content_form_init(AvailabilityContentForm *self, SpecDocument *doc, const char *path);
@@ -35964,6 +36128,8 @@ char *bounded_context_entry_boundaries_form_downstream_contexts(const BoundedCon
 void bounded_context_entry_boundaries_form_set_downstream_contexts(BoundedContextEntryBoundariesForm *self, const char *value);
 char *bounded_context_entry_boundaries_form_shared_kernel(const BoundedContextEntryBoundariesForm *self);
 void bounded_context_entry_boundaries_form_set_shared_kernel(BoundedContextEntryBoundariesForm *self, const char *value);
+char *bounded_context_entry_boundaries_form_owned_operations(const BoundedContextEntryBoundariesForm *self);
+void bounded_context_entry_boundaries_form_set_owned_operations(BoundedContextEntryBoundariesForm *self, const char *value);
 
 // BoundedContextEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void bounded_context_entry_content_form_init(BoundedContextEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -40566,6 +40732,19 @@ bool content_scanning_policy_content_form_hash_based_detection(const ContentScan
 void content_scanning_policy_content_form_set_hash_based_detection(ContentScanningPolicyContentForm *self, bool value);
 char *content_scanning_policy_content_form_notes(const ContentScanningPolicyContentForm *self);
 void content_scanning_policy_content_form_set_notes(ContentScanningPolicyContentForm *self, const char *value);
+
+// ContextRelationshipEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void context_relationship_entry_content_form_init(ContextRelationshipEntryContentForm *self, SpecDocument *doc, const char *path);
+void context_relationship_entry_content_form_free(ContextRelationshipEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *context_relationship_entry_content_form_content(const ContextRelationshipEntryContentForm *self);
+void context_relationship_entry_content_form_set_content(ContextRelationshipEntryContentForm *self, const char *value);
+char *context_relationship_entry_content_form_neighbour_context(const ContextRelationshipEntryContentForm *self);
+void context_relationship_entry_content_form_set_neighbour_context(ContextRelationshipEntryContentForm *self, const char *value);
+char *context_relationship_entry_content_form_relationship_type(const ContextRelationshipEntryContentForm *self);
+void context_relationship_entry_content_form_set_relationship_type(ContextRelationshipEntryContentForm *self, const char *value);
+char *context_relationship_entry_content_form_direction(const ContextRelationshipEntryContentForm *self);
+void context_relationship_entry_content_form_set_direction(ContextRelationshipEntryContentForm *self, const char *value);
 
 // ContextualHelpContextualHelpContentForm is the generated section facade for the `contextualHelpContent` @Form section: its own `content` text followed by one typed member per form field.
 void contextual_help_contextual_help_content_form_init(ContextualHelpContextualHelpContentForm *self, SpecDocument *doc, const char *path);
@@ -52410,6 +52589,25 @@ void key_generation_policy_content_form_set_key_purpose_separation(KeyGeneration
 char *key_generation_policy_content_form_quantum_readiness_strategy(const KeyGenerationPolicyContentForm *self);
 void key_generation_policy_content_form_set_quantum_readiness_strategy(KeyGenerationPolicyContentForm *self, const char *value);
 
+// KeyManagementRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void key_management_requirements_content_form_init(KeyManagementRequirementsContentForm *self, SpecDocument *doc, const char *path);
+void key_management_requirements_content_form_free(KeyManagementRequirementsContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *key_management_requirements_content_form_content(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_content(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_key_types(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_key_types(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_key_storage(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_key_storage(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_rotation_policy(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_rotation_policy(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_key_custody(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_key_custody(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_backup_and_recovery(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_backup_and_recovery(KeyManagementRequirementsContentForm *self, const char *value);
+char *key_management_requirements_content_form_destruction(const KeyManagementRequirementsContentForm *self);
+void key_management_requirements_content_form_set_destruction(KeyManagementRequirementsContentForm *self, const char *value);
+
 // KeyResultEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void key_result_entry_content_form_init(KeyResultEntryContentForm *self, SpecDocument *doc, const char *path);
 void key_result_entry_content_form_free(KeyResultEntryContentForm *self);
@@ -53481,6 +53679,17 @@ void maintenance_dependency_entry_update_form_set_coordinated_update_sequence(Ma
 char *maintenance_dependency_entry_update_form_breaking_change_policy(const MaintenanceDependencyEntryUpdateForm *self);
 void maintenance_dependency_entry_update_form_set_breaking_change_policy(MaintenanceDependencyEntryUpdateForm *self, const char *value);
 
+// MaintenanceProcedureEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void maintenance_procedure_entry_content_form_init(MaintenanceProcedureEntryContentForm *self, SpecDocument *doc, const char *path);
+void maintenance_procedure_entry_content_form_free(MaintenanceProcedureEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *maintenance_procedure_entry_content_form_content(const MaintenanceProcedureEntryContentForm *self);
+void maintenance_procedure_entry_content_form_set_content(MaintenanceProcedureEntryContentForm *self, const char *value);
+char *maintenance_procedure_entry_content_form_frequency(const MaintenanceProcedureEntryContentForm *self);
+void maintenance_procedure_entry_content_form_set_frequency(MaintenanceProcedureEntryContentForm *self, const char *value);
+char *maintenance_procedure_entry_content_form_performed_by(const MaintenanceProcedureEntryContentForm *self);
+void maintenance_procedure_entry_content_form_set_performed_by(MaintenanceProcedureEntryContentForm *self, const char *value);
+
 // MaintenanceUserImpactContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void maintenance_user_impact_content_form_init(MaintenanceUserImpactContentForm *self, SpecDocument *doc, const char *path);
 void maintenance_user_impact_content_form_free(MaintenanceUserImpactContentForm *self);
@@ -53785,6 +53994,8 @@ char *message_locale_variant_entry_content_form_locale(const MessageLocaleVarian
 void message_locale_variant_entry_content_form_set_locale(MessageLocaleVariantEntryContentForm *self, const char *value);
 char *message_locale_variant_entry_content_form_copy(const MessageLocaleVariantEntryContentForm *self);
 void message_locale_variant_entry_content_form_set_copy(MessageLocaleVariantEntryContentForm *self, const char *value);
+char *message_locale_variant_entry_content_form_review_status(const MessageLocaleVariantEntryContentForm *self);
+void message_locale_variant_entry_content_form_set_review_status(MessageLocaleVariantEntryContentForm *self, const char *value);
 
 // MetricsAndObservabilityMetricsOverviewForm is the generated section facade for the `metricsOverview` @Form section: its own `content` text followed by one typed member per form field.
 void metrics_and_observability_metrics_overview_form_init(MetricsAndObservabilityMetricsOverviewForm *self, SpecDocument *doc, const char *path);
@@ -58189,6 +58400,23 @@ void pipeline_stage_entry_trigger_form_set_conditions(PipelineStageEntryTriggerF
 bool pipeline_stage_entry_trigger_form_manual_approval(const PipelineStageEntryTriggerForm *self);
 void pipeline_stage_entry_trigger_form_set_manual_approval(PipelineStageEntryTriggerForm *self, bool value);
 
+// PolicyOwnershipEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void policy_ownership_entry_content_form_init(PolicyOwnershipEntryContentForm *self, SpecDocument *doc, const char *path);
+void policy_ownership_entry_content_form_free(PolicyOwnershipEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *policy_ownership_entry_content_form_content(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_content(PolicyOwnershipEntryContentForm *self, const char *value);
+char *policy_ownership_entry_content_form_policy(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_policy(PolicyOwnershipEntryContentForm *self, const char *value);
+char *policy_ownership_entry_content_form_owner(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_owner(PolicyOwnershipEntryContentForm *self, const char *value);
+char *policy_ownership_entry_content_form_approver(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_approver(PolicyOwnershipEntryContentForm *self, const char *value);
+char *policy_ownership_entry_content_form_review_cycle(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_review_cycle(PolicyOwnershipEntryContentForm *self, const char *value);
+char *policy_ownership_entry_content_form_applies_to(const PolicyOwnershipEntryContentForm *self);
+void policy_ownership_entry_content_form_set_applies_to(PolicyOwnershipEntryContentForm *self, const char *value);
+
 // PortabilityContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void portability_content_form_init(PortabilityContentForm *self, SpecDocument *doc, const char *path);
 void portability_content_form_free(PortabilityContentForm *self);
@@ -60599,6 +60827,25 @@ char *quality_weight_entry_content_form_stakeholder_agreement(const QualityWeigh
 void quality_weight_entry_content_form_set_stakeholder_agreement(QualityWeightEntryContentForm *self, const char *value);
 char *quality_weight_entry_content_form_trade_off_implications(const QualityWeightEntryContentForm *self);
 void quality_weight_entry_content_form_set_trade_off_implications(QualityWeightEntryContentForm *self, const char *value);
+
+// RaciEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void raci_entry_content_form_init(RaciEntryContentForm *self, SpecDocument *doc, const char *path);
+void raci_entry_content_form_free(RaciEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *raci_entry_content_form_content(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_content(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_activity(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_activity(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_responsible(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_responsible(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_accountable(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_accountable(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_consulted(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_consulted(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_informed(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_informed(RaciEntryContentForm *self, const char *value);
+char *raci_entry_content_form_related_process(const RaciEntryContentForm *self);
+void raci_entry_content_form_set_related_process(RaciEntryContentForm *self, const char *value);
 
 // RateLimitingPolicyBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void rate_limiting_policy_behavior_form_init(RateLimitingPolicyBehaviorForm *self, SpecDocument *doc, const char *path);
@@ -66333,6 +66580,10 @@ char *server_environment_entry_scale_form_expected_users(const ServerEnvironment
 void server_environment_entry_scale_form_set_expected_users(ServerEnvironmentEntryScaleForm *self, const char *value);
 char *server_environment_entry_scale_form_expected_load(const ServerEnvironmentEntryScaleForm *self);
 void server_environment_entry_scale_form_set_expected_load(ServerEnvironmentEntryScaleForm *self, const char *value);
+long server_environment_entry_scale_form_node_count(const ServerEnvironmentEntryScaleForm *self);
+void server_environment_entry_scale_form_set_node_count(ServerEnvironmentEntryScaleForm *self, long value);
+long server_environment_entry_scale_form_database_server_count(const ServerEnvironmentEntryScaleForm *self);
+void server_environment_entry_scale_form_set_database_server_count(ServerEnvironmentEntryScaleForm *self, long value);
 
 // ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void server_operation_entry_content_form_init(ServerOperationEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -66350,6 +66601,21 @@ char *server_operation_entry_content_form_description_key(const ServerOperationE
 void server_operation_entry_content_form_set_description_key(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_error_codes(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_error_codes(ServerOperationEntryContentForm *self, const char *value);
+
+// ServerOperationEntryControlsForm is the generated section facade for the `controls` @Form section: its own `content` text followed by one typed member per form field.
+void server_operation_entry_controls_form_init(ServerOperationEntryControlsForm *self, SpecDocument *doc, const char *path);
+void server_operation_entry_controls_form_free(ServerOperationEntryControlsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_operation_entry_controls_form_content(const ServerOperationEntryControlsForm *self);
+void server_operation_entry_controls_form_set_content(ServerOperationEntryControlsForm *self, const char *value);
+char *server_operation_entry_controls_form_idempotency(const ServerOperationEntryControlsForm *self);
+void server_operation_entry_controls_form_set_idempotency(ServerOperationEntryControlsForm *self, const char *value);
+char *server_operation_entry_controls_form_audit_event(const ServerOperationEntryControlsForm *self);
+void server_operation_entry_controls_form_set_audit_event(ServerOperationEntryControlsForm *self, const char *value);
+char *server_operation_entry_controls_form_rate_limit_class(const ServerOperationEntryControlsForm *self);
+void server_operation_entry_controls_form_set_rate_limit_class(ServerOperationEntryControlsForm *self, const char *value);
+char *server_operation_entry_controls_form_callers(const ServerOperationEntryControlsForm *self);
+void server_operation_entry_controls_form_set_callers(ServerOperationEntryControlsForm *self, const char *value);
 
 // ServerOperationMemberEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void server_operation_member_entry_content_form_init(ServerOperationMemberEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -66438,6 +66704,21 @@ char *server_os_requirements_security_form_auditd_configuration(const ServerOsRe
 void server_os_requirements_security_form_set_auditd_configuration(ServerOsRequirementsSecurityForm *self, const char *value);
 bool server_os_requirements_security_form_antivirus_required(const ServerOsRequirementsSecurityForm *self);
 void server_os_requirements_security_form_set_antivirus_required(ServerOsRequirementsSecurityForm *self, bool value);
+
+// ServerRequirementsSectionConnectionBudgetForm is the generated section facade for the `connectionBudget` @Form section: its own `content` text followed by one typed member per form field.
+void server_requirements_section_connection_budget_form_init(ServerRequirementsSectionConnectionBudgetForm *self, SpecDocument *doc, const char *path);
+void server_requirements_section_connection_budget_form_free(ServerRequirementsSectionConnectionBudgetForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_requirements_section_connection_budget_form_content(const ServerRequirementsSectionConnectionBudgetForm *self);
+void server_requirements_section_connection_budget_form_set_content(ServerRequirementsSectionConnectionBudgetForm *self, const char *value);
+long server_requirements_section_connection_budget_form_database_max_connections(const ServerRequirementsSectionConnectionBudgetForm *self);
+void server_requirements_section_connection_budget_form_set_database_max_connections(ServerRequirementsSectionConnectionBudgetForm *self, long value);
+long server_requirements_section_connection_budget_form_connections_per_node(const ServerRequirementsSectionConnectionBudgetForm *self);
+void server_requirements_section_connection_budget_form_set_connections_per_node(ServerRequirementsSectionConnectionBudgetForm *self, long value);
+long server_requirements_section_connection_budget_form_reserved_connections(const ServerRequirementsSectionConnectionBudgetForm *self);
+void server_requirements_section_connection_budget_form_set_reserved_connections(ServerRequirementsSectionConnectionBudgetForm *self, long value);
+char *server_requirements_section_connection_budget_form_budget_rationale(const ServerRequirementsSectionConnectionBudgetForm *self);
+void server_requirements_section_connection_budget_form_set_budget_rationale(ServerRequirementsSectionConnectionBudgetForm *self, const char *value);
 
 // ServerRoleEntryCapacityForm is the generated section facade for the `capacity` @Form section: its own `content` text followed by one typed member per form field.
 void server_role_entry_capacity_form_init(ServerRoleEntryCapacityForm *self, SpecDocument *doc, const char *path);
@@ -71683,6 +71964,27 @@ void tenant_onboarding_policy_content_form_set_offboarding_approval(TenantOnboar
 char *tenant_onboarding_policy_content_form_notes(const TenantOnboardingPolicyContentForm *self);
 void tenant_onboarding_policy_content_form_set_notes(TenantOnboardingPolicyContentForm *self, const char *value);
 
+// TestLevelEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void test_level_entry_content_form_init(TestLevelEntryContentForm *self, SpecDocument *doc, const char *path);
+void test_level_entry_content_form_free(TestLevelEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *test_level_entry_content_form_content(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_content(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_level(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_level(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_test_types(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_test_types(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_environment(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_environment(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_tools(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_tools(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_run_by(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_run_by(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_trigger(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_trigger(TestLevelEntryContentForm *self, const char *value);
+char *test_level_entry_content_form_exit_criteria(const TestLevelEntryContentForm *self);
+void test_level_entry_content_form_set_exit_criteria(TestLevelEntryContentForm *self, const char *value);
+
 // TestScenarioEntryBusinessForm is the generated section facade for the `business` @Form section: its own `content` text followed by one typed member per form field.
 void test_scenario_entry_business_form_init(TestScenarioEntryBusinessForm *self, SpecDocument *doc, const char *path);
 void test_scenario_entry_business_form_free(TestScenarioEntryBusinessForm *self);
@@ -74597,6 +74899,19 @@ char *user_attribute_entry_content_form_source(const UserAttributeEntryContentFo
 void user_attribute_entry_content_form_set_source(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_required(const UserAttributeEntryContentForm *self);
 void user_attribute_entry_content_form_set_required(UserAttributeEntryContentForm *self, const char *value);
+
+// UserAttributeEntryOidcReleaseForm is the generated section facade for the `oidcRelease` @Form section: its own `content` text followed by one typed member per form field.
+void user_attribute_entry_oidc_release_form_init(UserAttributeEntryOidcReleaseForm *self, SpecDocument *doc, const char *path);
+void user_attribute_entry_oidc_release_form_free(UserAttributeEntryOidcReleaseForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_attribute_entry_oidc_release_form_content(const UserAttributeEntryOidcReleaseForm *self);
+void user_attribute_entry_oidc_release_form_set_content(UserAttributeEntryOidcReleaseForm *self, const char *value);
+char *user_attribute_entry_oidc_release_form_claim_name(const UserAttributeEntryOidcReleaseForm *self);
+void user_attribute_entry_oidc_release_form_set_claim_name(UserAttributeEntryOidcReleaseForm *self, const char *value);
+char *user_attribute_entry_oidc_release_form_scope(const UserAttributeEntryOidcReleaseForm *self);
+void user_attribute_entry_oidc_release_form_set_scope(UserAttributeEntryOidcReleaseForm *self, const char *value);
+char *user_attribute_entry_oidc_release_form_released_in(const UserAttributeEntryOidcReleaseForm *self);
+void user_attribute_entry_oidc_release_form_set_released_in(UserAttributeEntryOidcReleaseForm *self, const char *value);
 
 // UserCategoryDefinitionContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void user_category_definition_content_form_init(UserCategoryDefinitionContentForm *self, SpecDocument *doc, const char *path);

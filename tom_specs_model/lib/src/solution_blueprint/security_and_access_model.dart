@@ -1758,6 +1758,27 @@ class UserAttributeEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// How the attribute is released when the system acts as an OpenID provider — claim, scope and the tokens or endpoint that carry it.
+  @SectionId('USOIDC')
+  @Form([
+    Field(
+      'claimName',
+      String,
+      'Claim Name',
+      hint: 'The claim the attribute is released as',
+    ),
+    Field('scope', String, 'Scope', hint: 'The scope that releases it'),
+    Field(
+      'releasedIn',
+      String,
+      'Released In',
+      hint:
+          'id token / access token / userinfo, comma-separated; audience-only tokens named',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? oidcRelease;
 }
 
 /// 9.2. Identification and Authentication.
@@ -11612,6 +11633,18 @@ class AuthorizationRoleEntry extends DocSpecsSection {
       hint:
           'Comma-separated permission keys summarizing the role\'s access '
           '(e.g. user.manage, config.read, audit.read)',
+    ),
+    Field(
+      'membershipSource',
+      RoleMembershipSource,
+      'Membership Source',
+      hint: 'Whether holders are assigned or membership follows from grants',
+    ),
+    Field(
+      'derivationRule',
+      String,
+      'Derivation Rule',
+      hint: 'For a derived role: the grants that confer membership',
     ),
   ])
   @SerializationOrder(1)
