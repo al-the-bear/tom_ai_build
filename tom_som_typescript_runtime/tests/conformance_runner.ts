@@ -17,6 +17,8 @@
  *   * reflection resolution cases;
  *   * validation cases;
  *   * assembling one document from fragments (`assembly_cases.json`);
+ *   * review annotations — listing and editing comment blocks, question
+ *     blocks and inline marks (`annotation_cases.json`, SOM §11.9);
  *   * moving a list item and re-keying the review pass (`list_move_cases.json`);
  *   * DocSpecs findings bound to their document path (`docspecs_path_cases.json`);
  *   * the imperative operations script;
@@ -73,6 +75,9 @@ import {
   SpecQueryCursor,
   SpecQueryEngine,
   SpecQueryMatch,
+  SpecQuestionDraft,
+  SpecReviewAnnotationError,
+  SpecReviewAnnotations,
   SpecStateFilter,
   buildSomMetaTree,
   checkAddNode,
@@ -544,6 +549,109 @@ function testAssembly(): void {
       _deepEqual(got, c.expect),
       _jsonMismatch(got, c.expect),
     );
+  }
+}
+
+// One `annotation_cases.json` case, run like Dart's `_runAnnotationCase`:
+// every op runs in order on one document loaded from `state`; an op that
+// raises the annotation error answers `{error: true}` and changes nothing.
+function _runAnnotationCase(model: SpecModel, tree: SomMetaTree, c: any): any {
+  const doc = _documentFromState(JSON.parse(JSON.stringify(c.state)));
+  const api = new SpecReviewAnnotations(doc, { qualifier: c.qualifier ?? null });
+  const results: unknown[] = [];
+  for (const op of c.ops as any[]) {
+    try {
+      results.push(_runAnnotationOp(model, tree, doc, api, op));
+    } catch (e) {
+      if (!(e instanceof SpecReviewAnnotationError)) throw e;
+      results.push({ error: true });
+    }
+  }
+  return { results, state: doc.toJson() };
+}
+
+function _runAnnotationOp(
+  model: SpecModel,
+  tree: SomMetaTree,
+  doc: SpecDocument,
+  api: SpecReviewAnnotations,
+  op: any,
+): unknown {
+  switch (op.op as string) {
+    case 'list':
+      return api.list().map((a) => a.toJson());
+    case 'counts':
+      return api.counts().toJson();
+    case 'nextId':
+      return api.nextCommentId({ floor: op.floor ?? 0 });
+    case 'assignIds':
+      return api.assignCommentIds({ floor: op.floor ?? 0 });
+    case 'insertComment':
+      return api.insertComment({
+        path: op.path,
+        field: op.field ?? null,
+        afterParagraph: op.afterParagraph,
+        text: op.text,
+        author: op.author ?? null,
+        id: op.id ?? null,
+      });
+    case 'insertQuestion':
+      api.insertQuestion({
+        path: op.path,
+        field: op.field ?? null,
+        afterParagraph: op.afterParagraph,
+        question: SpecQuestionDraft.fromJson(op.question),
+      });
+      return null;
+    case 'insertQuestionAfterComment':
+      api.insertQuestionAfterComment(op.commentId, SpecQuestionDraft.fromJson(op.question));
+      return null;
+    case 'setAnswer':
+      api.setAnswer(op.id, op.answer);
+      return null;
+    case 'editComment':
+      api.editComment(op.id, op.text);
+      return null;
+    case 'resolve':
+      api.resolve(op.id);
+      return null;
+    case 'applyMark':
+      api.applyMark({
+        path: op.path,
+        field: op.field ?? null,
+        index: op.index,
+        accept: op.accept ?? true,
+      });
+      return null;
+    case 'strip':
+      return api.stripped().toJson();
+    case 'roundTrip': {
+      const current = JSON.stringify(doc.toJson());
+      const fromYaml = yamlDecode(yamlEncode(doc, tree, _MODEL_VERSION), tree).document;
+      const md = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots[0]);
+      const fromMd = SpecDocument.fromMarkdown(md, model);
+      return {
+        yaml: JSON.stringify(fromYaml.toJson()) === current,
+        markdown:
+          fromMd.rejections.length === 0 &&
+          JSON.stringify(fromMd.document.toJson()) === current,
+      };
+    }
+    default:
+      throw new Error(`unknown annotation op ${op.op}`);
+  }
+}
+
+// Review annotations (SOM §11.9): the results of every op and the final state.
+function testAnnotations(model: SpecModel, tree: SomMetaTree): void {
+  for (const c of _readJson('annotation_cases.json').cases) {
+    const name = `annotation[${c.name}]`;
+    try {
+      const got = _runAnnotationCase(model, tree, c);
+      _check(name, _deepEqual(got, c.expect), _jsonMismatch(got, c.expect));
+    } catch (e) {
+      _check(name, false, `threw ${String(e)}`);
+    }
   }
 }
 
@@ -2155,6 +2263,7 @@ export function main(): number {
   testMarkdownImportRejections(model);
   testMarkdownApply(model);
   testAssembly();
+  testAnnotations(model, tree);
   testListMove(model);
   testOneLineExport(model);
   testReflection(model);

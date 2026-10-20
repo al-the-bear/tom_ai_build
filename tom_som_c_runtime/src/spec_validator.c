@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "spec_reflection.h"
+#include "spec_review_annotations.h"
 #include "spec_section_id.h"
 #include "spec_typed_values.h"
 
@@ -1610,6 +1611,23 @@ void validate_document(const SpecModel *model, const SpecDocument *doc,
   /* 7. Derived values: a `productOf` field holds the product of its operands,
      a `rankOf` field ranks the instances of its form by their score. */
   validate_derived_values(&refl, doc, out);
+
+  /* 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+     comment blocks, question blocks and inline marks. Findings, never parse
+     rejections — the rest of the document still validates. The annotation
+     reader writes nothing, so the const document is safe to wrap. */
+  {
+    SpecReviewAnnotations review =
+        spec_review_annotations_make((SpecDocument *)doc, NULL);
+    SpecValidationErrors found;
+    spec_review_annotations_validate(&review, &found);
+    for (size_t i = 0; i < found.len; i++) {
+      errors_push(out, found.items[i].path, found.items[i].code,
+                  found.items[i].message);
+      found.items[i].message = NULL;
+    }
+    spec_validation_errors_free(&found);
+  }
 }
 
 void spec_validation_errors_free(SpecValidationErrors *errs) {

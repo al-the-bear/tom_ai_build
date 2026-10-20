@@ -55,7 +55,26 @@ public enum SpecValidationCode {
    * not silently hold several; each id of the list is still resolved, so a
    * dangling one is a {@code danglingReference} as well.
    */
-  MULTIPLE_REFERENCES("multipleReferences");
+  MULTIPLE_REFERENCES("multipleReferences"),
+  /**
+   * A comment block or a question block sits inside a form field's value —
+   * between or below the form's fields — instead of in the form's preamble
+   * (SOM §11.9.4).
+   */
+  ANNOTATION_MISPLACED("annotationMisplaced"),
+  /**
+   * An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+   * nested inline mark, a substitution without {@code ~>}, a comment id that is
+   * not {@code C-<n>}, a question header that is not
+   * {@code **❓ <ID> — <topic>:**}, or a question or answer inside a comment
+   * block.
+   */
+  ANNOTATION_MALFORMED("annotationMalformed"),
+  /**
+   * A comment id or a question id is used twice in one document
+   * (SOM §11.9.5).
+   */
+  DUPLICATE_ANNOTATION_ID("duplicateAnnotationId");
 
   public final String value;
 

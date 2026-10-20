@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Review annotations (SOM §11.9): `SpecReviewAnnotations` (`spec_review_annotations.js`)
+  lists and edits comment blocks, question blocks and CriticMarkup inline
+  marks in content and form-field values — `list`, `counts`,
+  `nextCommentId`, `assignCommentIds`, `insertComment`, `insertQuestion`,
+  `insertQuestionAfterComment`, `setAnswer`, `editComment`, `resolve`,
+  `applyMark`, `stripped`, `validate` — with `SpecReviewAnnotation`,
+  `SpecReviewAnnotationKind`, `SpecMarkKind`, `SpecQuestionDraft`,
+  `SpecReviewAnnotationCounts`, `SpecReviewAnnotationError`,
+  `stripAnnotationsText`, `formatCommentBlock` and `formatQuestionBlock`.
+  Positions are 0-based line numbers within a value; every edit is
+  byte-stable outside the annotation it touches. `validateDocument` reports
+  three new codes, listed after `multipleReferences`, as its last group
+  (after the derived-value group, ordered by path):
+  `SpecValidationCode.ANNOTATION_MISPLACED` (`annotationMisplaced`),
+  `ANNOTATION_MALFORMED` (`annotationMalformed`) and
+  `DUPLICATE_ANNOTATION_ID` (`duplicateAnnotationId`). Guide:
+  `doc/review_annotations.md`. Conformance: `annotation_cases.json` and the
+  `annotationsWellFormed` / `annotationMisplaced` / `annotationMalformed` /
+  `duplicateAnnotationId` validation cases.
 - Single references (uamtc17): `FormFieldSpec.multiple` (meta
   `formFields[].multiple`, absent → `false`), and `validateDocument` reports
   `SpecValidationCode.MULTIPLE_REFERENCES` (`multipleReferences`, listed after

@@ -61,6 +61,18 @@ const (
 	// silently hold several; each id of the list is still resolved, so a
 	// dangling one is a `danglingReference` as well.
 	SpecValidationCodeMultipleReferences = "multipleReferences"
+	// A comment block or a question block sits inside a form field's value —
+	// between or below the form's fields — instead of in the form's preamble
+	// (SOM §11.9.4).
+	SpecValidationCodeAnnotationMisplaced = "annotationMisplaced"
+	// An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+	// nested inline mark, a substitution without `~>`, a comment id that is
+	// not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, or a
+	// question or answer inside a comment block.
+	SpecValidationCodeAnnotationMalformed = "annotationMalformed"
+	// A comment id or a question id is used twice in one document
+	// (SOM §11.9.5).
+	SpecValidationCodeDuplicateAnnotationID = "duplicateAnnotationId"
 )
 
 // SpecValidationError is one problem found while validating a document.
@@ -270,6 +282,11 @@ func ValidateDocument(model *SpecModel, doc *SpecDocument) []SpecValidationError
 	// holds; only the instance tier can count them.
 	errors = append(errors, validateCountInstances(refl, doc)...)
 	errors = append(errors, validateDerivedValues(refl, doc)...)
+
+	// 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+	// comment blocks, question blocks and inline marks. Findings, never parse
+	// rejections — the rest of the document still validates.
+	errors = append(errors, NewSpecReviewAnnotations(doc, "").Validate()...)
 
 	return errors
 }

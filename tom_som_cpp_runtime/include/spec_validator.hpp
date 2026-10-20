@@ -75,6 +75,21 @@ inline constexpr const char* kSpecValidationCodeMissingRequiredField =
  * `danglingReference` as well. */
 inline constexpr const char* kSpecValidationCodeMultipleReferences =
     "multipleReferences";
+/* A comment block or a question block sits inside a form field's value —
+ * between or below the form's fields — instead of in the form's preamble
+ * (SOM §11.9.4). */
+inline constexpr const char* kSpecValidationCodeAnnotationMisplaced =
+    "annotationMisplaced";
+/* An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+ * nested inline mark, a substitution without `~>`, a comment id that is not
+ * `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, or a
+ * question or answer inside a comment block. */
+inline constexpr const char* kSpecValidationCodeAnnotationMalformed =
+    "annotationMalformed";
+/* A comment id or a question id is used twice in one document
+ * (SOM §11.9.5). */
+inline constexpr const char* kSpecValidationCodeDuplicateAnnotationId =
+    "duplicateAnnotationId";
 
 struct SpecValidationError {
   std::string path;
@@ -85,7 +100,8 @@ struct SpecValidationError {
 /* Validates `doc` against `model`, returning problems in stable order: content
  * paths, then forms, then lists, then `@OneOf` case instances, then `refersTo`
  * references, then `countOf` stated counts, then `productOf` / `rankOf`
- * derived values (one group); each group sorted by path. An empty list means
+ * derived values (one group), then the review annotations (SOM §11.9.5,
+ * `validateReviewAnnotations`); each group sorted by path. An empty list means
  * the document is valid. */
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,
                                                   const SpecDocument& doc);

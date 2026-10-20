@@ -8,6 +8,7 @@
 /// reported here.
 library;
 
+import 'spec_review_annotations.dart';
 import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_reflection.dart';
@@ -87,6 +88,21 @@ enum SpecValidationCode {
   /// silently hold several; each id of the list is still resolved, so a
   /// dangling one is a `danglingReference` as well.
   multipleReferences,
+
+  /// A comment block or a question block sits inside a form field's value —
+  /// between or below the form's fields — instead of in the form's preamble
+  /// (SOM §11.9.4).
+  annotationMisplaced,
+
+  /// An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+  /// nested inline mark, a substitution without `~>`, a comment id that is
+  /// not `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, or a
+  /// question or answer inside a comment block.
+  annotationMalformed,
+
+  /// A comment id or a question id is used twice in one document
+  /// (SOM §11.9.5).
+  duplicateAnnotationId,
 }
 
 /// One problem found while validating a document.
@@ -316,6 +332,11 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // holds; only the instance tier can count them.
   errors.addAll(_validateCountInstances(refl, doc));
   errors.addAll(_validateDerivedValues(refl, doc));
+
+  // 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // comment blocks, question blocks and inline marks. Findings, never parse
+  // rejections — the rest of the document still validates.
+  errors.addAll(SpecReviewAnnotations(doc).validate());
 
   return errors;
 }

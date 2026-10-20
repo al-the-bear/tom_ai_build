@@ -28,7 +28,8 @@
 //   - the Markdown load/apply operations (SpecDocumentFromMarkdown,
 //     ApplyMarkdownResult);
 //   - the DocSpecs section-body replacement (DocSpecsReplaceSectionBody);
-//   - assembling one document from fragments (AssembleSpecDocuments).
+//   - assembling one document from fragments (AssembleSpecDocuments);
+//   - review annotations (SpecReviewAnnotations, SOM §11.9).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -233,6 +234,7 @@ func TestConformance(t *testing.T) {
 	testCursor(c, t, model)
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
+	testAnnotations(c, t, model, tree)
 
 	c.finish()
 }
@@ -2854,5 +2856,148 @@ func testListMove(c *checker, t *testing.T, model *som.SpecModel) {
 		g, want := generic(t, gotMap), jsonAny(t, cc.Expect)
 		c.check("listMoveReview["+cc.Name+"]", reflect.DeepEqual(g, want),
 			"got "+canonJSON(t, g)+" want "+canonJSON(t, want))
+	}
+}
+
+// --- review annotations (SOM §11.9) -----------------------------------------
+
+// annotationCase is one row of corpus/annotation_cases.json. State, ops and
+// expect stay generic JSON so the comparison is against the corpus verbatim.
+type annotationCase struct {
+	Name      string           `json:"name"`
+	State     som.DocumentJson `json:"state"`
+	Qualifier *string          `json:"qualifier"`
+	Ops       []map[string]any `json:"ops"`
+	Expect    any              `json:"expect"`
+}
+
+func opString(op map[string]any, key string) string {
+	if v, ok := op[key].(string); ok {
+		return v
+	}
+	return ""
+}
+
+func opInt(op map[string]any, key string) int {
+	if v, ok := op[key].(float64); ok {
+		return int(v)
+	}
+	return 0
+}
+
+func opDraft(op map[string]any) som.SpecQuestionDraft {
+	q, _ := op["question"].(map[string]any)
+	d := som.SpecQuestionDraft{
+		ID:             opString(q, "id"),
+		Topic:          opString(q, "topic"),
+		Text:           opString(q, "text"),
+		Recommendation: opString(q, "recommendation"),
+		Assumption:     opString(q, "assumption"),
+	}
+	if b, ok := q["starred"].(bool); ok {
+		d.Starred = b
+	}
+	if opts, ok := q["options"].([]any); ok {
+		for _, o := range opts {
+			d.Options = append(d.Options, o.(string))
+		}
+	}
+	return d
+}
+
+// runAnnotationCase is a port of the Dart harness's `_runAnnotationCase`:
+// every op runs in order on one document; an op that fails answers
+// `{error: true}` and changes nothing.
+func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree, cc annotationCase) any {
+	state := cc.State
+	doc := docFromState(&state)
+	qualifier := ""
+	if cc.Qualifier != nil {
+		qualifier = *cc.Qualifier
+	}
+	api := som.NewSpecReviewAnnotations(doc, qualifier)
+	results := []any{}
+	for _, op := range cc.Ops {
+		var result any
+		var err error
+		switch name := opString(op, "op"); name {
+		case "list":
+			list := []any{}
+			for _, a := range api.List() {
+				list = append(list, a.ToJSON())
+			}
+			result = list
+		case "counts":
+			result = api.Counts().ToJSON()
+		case "nextId":
+			result = api.NextCommentID(opInt(op, "floor"))
+		case "assignIds":
+			result = api.AssignCommentIDs(opInt(op, "floor"))
+		case "insertComment":
+			result, err = api.InsertComment(opString(op, "path"), opString(op, "field"),
+				opInt(op, "afterParagraph"), opString(op, "text"), opString(op, "author"), opString(op, "id"))
+		case "insertQuestion":
+			err = api.InsertQuestion(opString(op, "path"), opString(op, "field"),
+				opInt(op, "afterParagraph"), opDraft(op))
+		case "insertQuestionAfterComment":
+			err = api.InsertQuestionAfterComment(opString(op, "commentId"), opDraft(op))
+		case "setAnswer":
+			err = api.SetAnswer(opString(op, "id"), opString(op, "answer"))
+		case "editComment":
+			err = api.EditComment(opString(op, "id"), opString(op, "text"))
+		case "resolve":
+			err = api.Resolve(opString(op, "id"))
+		case "applyMark":
+			accept := true
+			if b, ok := op["accept"].(bool); ok {
+				accept = b
+			}
+			err = api.ApplyMark(opString(op, "path"), opString(op, "field"), opInt(op, "index"), accept)
+		case "strip":
+			result = api.Stripped().ToJSON()
+		case "roundTrip":
+			current := canonJSON(t, doc.ToJSON())
+			yamlOK := false
+			if y, e := som.EncodeYaml(doc, tree, modelVersion); e == nil {
+				if back, e := som.DecodeYaml(y, tree); e == nil {
+					yamlOK = canonJSON(t, back.Document.ToJSON()) == current
+				}
+			}
+			mdOK := false
+			if md, e := som.NewSpecDocumentMarkdown(model, doc).ExportRoot(model.Roots[0]); e == nil {
+				if back, e := som.SpecDocumentFromMarkdown(md, model); e == nil {
+					mdOK = len(back.Rejections()) == 0 && canonJSON(t, back.Document.ToJSON()) == current
+				}
+			}
+			result = map[string]any{"yaml": yamlOK, "markdown": mdOK}
+		default:
+			t.Fatalf("annotations[%s]: unknown op %s", cc.Name, name)
+		}
+		if err != nil {
+			var ae *som.SpecReviewAnnotationError
+			if !errors.As(err, &ae) {
+				t.Fatalf("annotations[%s]: unexpected error %v", cc.Name, err)
+			}
+			result = map[string]any{"error": true}
+		}
+		results = append(results, result)
+	}
+	return toGenericJSON(t, map[string]any{"results": results, "state": doc.ToJSON()})
+}
+
+// testAnnotations replays annotation_cases.json: listing, counting, id
+// assignment, inserting, answering, editing, resolving, applying marks,
+// stripping and the YAML / Markdown round trip.
+func testAnnotations(c *checker, t *testing.T, model *som.SpecModel, tree *som.SomMetaTree) {
+	var table struct {
+		Cases []annotationCase `json:"cases"`
+	}
+	readJSON(t, "annotation_cases.json", &table)
+	c.check("annotations.cases", len(table.Cases) > 0, "no cases in annotation_cases.json")
+	for _, cc := range table.Cases {
+		got := runAnnotationCase(t, model, tree, cc)
+		want := toGenericJSON(t, cc.Expect)
+		c.check("annotations["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 	}
 }

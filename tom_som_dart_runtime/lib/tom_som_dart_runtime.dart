@@ -37,6 +37,10 @@
 ///     matches with, transcribed into all nine runtimes rather than delegated
 ///     to each language's regex engine, so `matchSpans` is identical by
 ///     construction (two runtimes have no regex to delegate to at all);
+///   * [SpecReviewAnnotations] — the review annotations in content values (SOM
+///     §11.9): list, insert, answer, assign comment ids, resolve, apply
+///     inline marks, strip and count comment blocks, question blocks and
+///     CriticMarkup marks;
 ///   * [validateDocument] — checks a document's values against the model;
 ///   * [DocSpecsDocument] / [DocSpecsSchema] / [DocSpecsValidator] — the
 ///     consolidated SOM §14 DocSpecs module: schema-free markdown parse,
@@ -60,6 +64,7 @@
 library;
 
 export 'src/docspecs_validator.dart';
+export 'src/spec_review_annotations.dart';
 export 'src/spec_annotation_display.dart';
 export 'src/spec_codespecs_extract.dart';
 export 'src/spec_codespecs_gate.dart';

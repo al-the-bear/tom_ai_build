@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.6.15
+
+- Review annotations (SOM §11.9): `SpecReviewAnnotations` lists, counts,
+  inserts, answers, edits, resolves and strips comment blocks
+  (`> ⬆️ **C-12** (Alexis): …`), question blocks (`> **❓ BQ-81 — topic:**`
+  … `**Answer:**`, single and combined) and CriticMarkup inline marks in content
+  and form-field values. It also assigns missing `C-<n>` comment ids, gives the
+  next free id (with a floor), returns the qualified form `SBP C-12`, and
+  accepts or rejects one inline mark. Every edit is byte-stable outside the
+  annotation it touches.
+- `validateDocument` reports `annotationMisplaced`, `annotationMalformed` and
+  `duplicateAnnotationId` as its last group.
+- Conformance: `annotation_cases.json` (12 scripted cases) and four validation
+  cases. Guide: `doc/review_annotations.md`.
+
 ## 1.6.14
 
 - `multipleReferences`: a reference field without `multiple` that holds a

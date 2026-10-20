@@ -79,6 +79,18 @@ class SpecValidationCode(Enum):
     #: must not silently hold several; each id of the list is still resolved,
     #: so a dangling one is a ``danglingReference`` as well.
     MULTIPLE_REFERENCES = "multipleReferences"
+    #: A comment block or a question block sits inside a form field's value —
+    #: between or below the form's fields — instead of in the form's preamble
+    #: (SOM §11.9.4).
+    ANNOTATION_MISPLACED = "annotationMisplaced"
+    #: An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+    #: nested inline mark, a substitution without ``~>``, a comment id that is
+    #: not ``C-<n>``, a question header that is not ``**❓ <ID> — <topic>:**``,
+    #: or a question or answer inside a comment block.
+    ANNOTATION_MALFORMED = "annotationMalformed"
+    #: A comment id or a question id is used twice in one document
+    #: (SOM §11.9.5).
+    DUPLICATE_ANNOTATION_ID = "duplicateAnnotationId"
 
 
 @dataclass(frozen=True)
@@ -307,6 +319,14 @@ def validate_document(model: SpecModel, doc: SpecDocument) -> list[SpecValidatio
     # A `productOf` field must hold the product of its operands, a `rankOf`
     # field must rank the instances of its form by their score.
     errors.extend(_validate_derived_values(refl, doc))
+
+    # 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    # comment blocks, question blocks and inline marks. Findings, never parse
+    # rejections — the rest of the document still validates.
+    # Lazy import: spec_review_annotations imports this module.
+    from .spec_review_annotations import SpecReviewAnnotations
+
+    errors.extend(SpecReviewAnnotations(doc).validate())
 
     return errors
 

@@ -60,6 +60,17 @@ pub const SPEC_VALIDATION_CODE_MISSING_REQUIRED_FIELD: &str = "missingRequiredFi
 /// silently hold several; each id of the list is still resolved, so a dangling
 /// one is a `danglingReference` as well.
 pub const SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES: &str = "multipleReferences";
+/// A comment block or a question block sits inside a form field's value —
+/// between or below the form's fields — instead of in the form's preamble
+/// (SOM §11.9.4).
+pub const SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED: &str = "annotationMisplaced";
+/// An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+/// nested inline mark, a substitution without `~>`, a comment id that is not
+/// `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, or a
+/// question or answer inside a comment block.
+pub const SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED: &str = "annotationMalformed";
+/// A comment id or a question id is used twice in one document (SOM §11.9.5).
+pub const SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID: &str = "duplicateAnnotationId";
 
 /// One problem found while validating a document.
 #[derive(Debug, Clone, PartialEq)]
@@ -304,6 +315,11 @@ pub fn validate_document(model: &SpecModel, doc: &SpecDocument) -> Vec<SpecValid
     // holds; only the instance tier can count them.
     errors.extend(validate_count_instances(&refl, doc));
     errors.extend(validate_derived_values(&refl, doc));
+
+    // 7. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    // comment blocks, question blocks and inline marks. Findings, never parse
+    // rejections — the rest of the document still validates.
+    errors.extend(crate::spec_review_annotations::validate_review_annotations(doc));
 
     errors
 }

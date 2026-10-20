@@ -10,6 +10,7 @@
 
 #include "som_util.hpp"
 #include "spec_reflection.hpp"
+#include "spec_review_annotations.hpp"
 #include "spec_section_id.hpp"
 #include "spec_typed_values.hpp"
 
@@ -991,6 +992,13 @@ std::vector<SpecValidationError> validateDocument(const SpecModel& model,
   // 7. Derived values: a `productOf` field holds the product of its operands,
   // a `rankOf` field ranks the instances of its form by their score.
   for (SpecValidationError& e : validateDerivedValues(refl, doc)) {
+    out.push_back(std::move(e));
+  }
+
+  // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // comment blocks, question blocks and inline marks. Findings, never parse
+  // rejections — the rest of the document still validates.
+  for (SpecValidationError& e : validateReviewAnnotations(doc)) {
     out.push_back(std::move(e));
   }
 

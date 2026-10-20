@@ -7,7 +7,9 @@
 //     globally-unique section-ID path (content / form / list stores);
 //   - SpecModel / SpecReflection — the class graph and reflection helpers;
 //   - the version editability rules (CheckSomModelVersion / CanEditSomModel);
-//   - markdown & YAML (de)serialisation of a document.
+//   - markdown & YAML (de)serialisation of a document;
+//   - SpecReviewAnnotations — the review annotations in content values (SOM
+//     §11.9): comment blocks, question blocks and CriticMarkup inline marks.
 //
 // It is a faithful port of `tom_som_dart_runtime` (Dart) and the TypeScript
 // `tom_som_typescript_runtime`: the same sparse "empty = no value" model, the
@@ -31,4 +33,4 @@ package somruntime
 // Version is the semantic version of this runtime module (vMAJOR.MINOR.PATCH),
 // matching the TomSpecs object-model version it targets. It is the in-source
 // counterpart of the VCS tag used to pin the module.
-const Version = "v1.6.14"
+const Version = "v1.6.15"

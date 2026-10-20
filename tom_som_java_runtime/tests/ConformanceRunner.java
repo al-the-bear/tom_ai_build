@@ -70,8 +70,12 @@ import tom_som_runtime.SpecQuery;
 import tom_som_runtime.SpecQueryCursor;
 import tom_som_runtime.SpecQueryEngine;
 import tom_som_runtime.SpecQueryMatch;
+import tom_som_runtime.SpecQuestionDraft;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
+import tom_som_runtime.SpecReviewAnnotation;
+import tom_som_runtime.SpecReviewAnnotationError;
+import tom_som_runtime.SpecReviewAnnotations;
 import tom_som_runtime.SpecRoot;
 import tom_som_runtime.SpecSectionId;
 import tom_som_runtime.SpecSectionIdCollision;
@@ -840,6 +844,126 @@ public final class ConformanceRunner {
     Object first = ((Map<String, Object>) ((Map<String, Object>) cases.get(0)).get("expect")).get("document");
     Object whole = table.get("whole");
     check("assembly.whole", Objects.equals(first, whole), jsonMismatch(String.valueOf(first), String.valueOf(whole)));
+  }
+
+  /**
+   * {@code annotation_cases.json}: listing and editing review annotations (SOM
+   * §11.9). Every op runs in order on one document loaded from {@code state};
+   * an op that throws the annotation error answers {@code {error: true}}.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testAnnotationCases(SpecModel model, SomMetaTree tree) throws IOException {
+    Map<String, Object> table = readJsonObject("annotation_cases.json");
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runAnnotationCase(model, tree, c);
+      Object expect = c.get("expect");
+      check("annotations[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
+  /** Runs one {@code annotation_cases.json} case: {@code {results, state}}. */
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> runAnnotationCase(
+      SpecModel model, SomMetaTree tree, Map<String, Object> c) {
+    SpecDocument doc =
+        documentFromState(Json.parseObject(Json.write(c.get("state"))));
+    SpecReviewAnnotations api = new SpecReviewAnnotations(doc, (String) c.get("qualifier"));
+    List<Object> results = new ArrayList<>();
+    for (Object opObj : (List<Object>) c.get("ops")) {
+      Map<String, Object> op = (Map<String, Object>) opObj;
+      try {
+        results.add(runAnnotationOp(model, tree, doc, api, op));
+      } catch (SpecReviewAnnotationError e) {
+        Map<String, Object> err = new LinkedHashMap<>();
+        err.put("error", true);
+        results.add(err);
+      }
+    }
+    Map<String, Object> out = new LinkedHashMap<>();
+    out.put("results", results);
+    out.put("state", doc.toJson());
+    return out;
+  }
+
+  @SuppressWarnings("unchecked")
+  private static Object runAnnotationOp(
+      SpecModel model,
+      SomMetaTree tree,
+      SpecDocument doc,
+      SpecReviewAnnotations api,
+      Map<String, Object> op) {
+    String kind = (String) op.get("op");
+    int floor = op.get("floor") == null ? 0 : ((Number) op.get("floor")).intValue();
+    switch (kind) {
+      case "list":
+        {
+          List<Object> out = new ArrayList<>();
+          for (SpecReviewAnnotation a : api.list()) {
+            out.add(a.toJson());
+          }
+          return out;
+        }
+      case "counts":
+        return api.counts().toJson();
+      case "nextId":
+        return api.nextCommentId(floor);
+      case "assignIds":
+        return new ArrayList<Object>(api.assignCommentIds(floor));
+      case "insertComment":
+        return api.insertComment(
+            (String) op.get("path"),
+            (String) op.get("field"),
+            ((Number) op.get("afterParagraph")).intValue(),
+            (String) op.get("text"),
+            (String) op.get("author"),
+            (String) op.get("id"));
+      case "insertQuestion":
+        api.insertQuestion(
+            (String) op.get("path"),
+            (String) op.get("field"),
+            ((Number) op.get("afterParagraph")).intValue(),
+            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
+        return null;
+      case "insertQuestionAfterComment":
+        api.insertQuestionAfterComment(
+            (String) op.get("commentId"),
+            SpecQuestionDraft.fromJson((Map<String, Object>) op.get("question")));
+        return null;
+      case "setAnswer":
+        api.setAnswer((String) op.get("id"), (String) op.get("answer"));
+        return null;
+      case "editComment":
+        api.editComment((String) op.get("id"), (String) op.get("text"));
+        return null;
+      case "resolve":
+        api.resolve((String) op.get("id"));
+        return null;
+      case "applyMark":
+        api.applyMark(
+            (String) op.get("path"),
+            (String) op.get("field"),
+            ((Number) op.get("index")).intValue(),
+            !Boolean.FALSE.equals(op.get("accept")));
+        return null;
+      case "strip":
+        return api.stripped().toJson();
+      case "roundTrip":
+        {
+          String yaml = SpecDocumentYaml.encode(doc, tree, MODEL_VERSION);
+          SpecDocument fromYaml = SpecDocumentYaml.decode(yaml, tree).document;
+          String md = new SpecDocumentMarkdown(model, doc).exportRoot(model.roots.get(0));
+          SpecMarkdownImport fromMd = SpecDocument.fromMarkdown(md, model);
+          Map<String, Object> out = new LinkedHashMap<>();
+          out.put("yaml", fromYaml.toJson().equals(doc.toJson()));
+          out.put(
+              "markdown",
+              fromMd.rejections().isEmpty() && fromMd.document.toJson().equals(doc.toJson()));
+          return out;
+        }
+      default:
+        throw new IllegalStateException("unknown annotation op " + kind);
+    }
   }
 
   /** Runs one {@code assembly_cases.json} case, in the shape of its {@code expect}. */
@@ -2366,6 +2490,7 @@ public final class ConformanceRunner {
     testMarkdownImportRejections(model);
     testMarkdownApplyCases(model);
     testAssemblyCases();
+    testAnnotationCases(model, tree);
     testListMoveCases(model);
     testReflection(model);
     testValidation(model);

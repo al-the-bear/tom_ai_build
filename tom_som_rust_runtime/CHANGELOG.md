@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Review annotations (SOM §11.9), ported from the Dart reference: the new
+  module `spec_review_annotations` with `SpecReviewAnnotations` (`list`,
+  `counts`, `next_comment_id`, `assign_comment_ids`, `insert_comment`,
+  `insert_question`, `insert_question_after_comment`, `set_answer`,
+  `edit_comment`, `resolve`, `apply_mark`, `stripped`, `validate`),
+  `SpecReviewAnnotation`, `SpecReviewAnnotationKind`, `SpecMarkKind`,
+  `SpecQuestionDraft`, `SpecReviewAnnotationCounts`,
+  `SpecReviewAnnotationError`, `strip_annotations_text`,
+  `format_comment_block`, `format_question_block` and
+  `validate_review_annotations`, all re-exported at the crate root. Positions
+  are 0-based line numbers within a value. `validate_document` reports the new
+  `SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED` (`annotationMisplaced`),
+  `SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED` (`annotationMalformed`) and
+  `SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID` (`duplicateAnnotationId`) as
+  its last group, after the derived values, ordered by path. The conformance
+  suite runs every case of `annotation_cases.json`; the validation cases
+  `annotationsWellFormed`, `annotationMisplaced`, `annotationMalformed` and
+  `duplicateAnnotationId` pin the codes. Guide: `doc/review_annotations.md`.
+
 - Single-reference fields (uamtc17): `FormFieldSpec::multiple` (meta
   `formFields[].multiple`, absent → false). `validate_document` reports the new
   `SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES` (`multipleReferences`) in the reference phase: a reference field

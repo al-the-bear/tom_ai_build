@@ -176,6 +176,25 @@ export {
 } from './spec_validator';
 export type { SpecValidationCodeValue } from './spec_validator';
 
+// review annotations (SOM §11.9)
+export {
+  SpecReviewAnnotationKind,
+  SpecMarkKind,
+  SpecReviewAnnotation,
+  SpecReviewAnnotationCounts,
+  SpecQuestionDraft,
+  SpecReviewAnnotationError,
+  SpecReviewAnnotations,
+  formatCommentBlock,
+  formatQuestionBlock,
+  stripAnnotationsText,
+} from './spec_review_annotations';
+export type {
+  SpecReviewAnnotationKindValue,
+  SpecMarkKindValue,
+  SpecReviewAnnotationInit,
+} from './spec_review_annotations';
+
 // facade
 export {
   SomNode,

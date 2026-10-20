@@ -32,6 +32,7 @@ pub mod spec_node_creation;
 pub mod spec_paths;
 pub mod spec_query;
 pub mod spec_reflection;
+pub mod spec_review_annotations;
 pub mod spec_schema_validation;
 pub mod spec_section_id;
 pub mod spec_serialization_order;
@@ -122,6 +123,12 @@ pub use spec_query::{
     SpecStateFilter,
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
+pub use spec_review_annotations::{
+    format_comment_block, format_question_block, strip_annotations_text,
+    validate_review_annotations, SpecMarkKind, SpecQuestionDraft, SpecReviewAnnotation,
+    SpecReviewAnnotationCounts, SpecReviewAnnotationError, SpecReviewAnnotationKind,
+    SpecReviewAnnotations,
+};
 pub use spec_schema_validation::validate_spec_document;
 pub use spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision, section_id_pattern_prefix,
@@ -134,4 +141,7 @@ pub use spec_typed_values::{
     som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num,
     som_scalar_base, som_typed_text_readable, SomNum,
 };
-pub use spec_validator::{validate_document, SpecValidationError};
+pub use spec_validator::{
+    validate_document, SpecValidationError, SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED,
+    SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID,
+};

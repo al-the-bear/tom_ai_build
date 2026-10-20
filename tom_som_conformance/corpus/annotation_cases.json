@@ -1,0 +1,1594 @@
+{
+  "cases": [
+    {
+      "name": "list, counts and next id",
+      "qualifier": "DEMO",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        },
+        {
+          "op": "counts"
+        },
+        {
+          "op": "nextId"
+        },
+        {
+          "op": "nextId",
+          "floor": 9
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 2,
+              "id": "BQ-83",
+              "topic": "Owner",
+              "starred": false,
+              "combined": true,
+              "text": "who owns it?",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 6,
+              "id": "BQ-84",
+              "topic": "Estimate",
+              "starred": false,
+              "combined": true,
+              "text": "how long?",
+              "answer": "two days",
+              "open": false
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 10,
+              "id": "C-7",
+              "qualifiedId": "DEMO C-7",
+              "author": "Alexis",
+              "text": "Check the contact too.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "a note"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 3,
+              "id": "C-3",
+              "qualifiedId": "DEMO C-3",
+              "author": "Alexis",
+              "text": "Too long for kiosks.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "id": null,
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "No variation selector,\nand a second line.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": null,
+              "qualifiedId": null,
+              "author": null,
+              "text": "bare comment",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "id": "BQ-90",
+              "topic": "C-3 kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 19,
+              "id": "BQ-95",
+              "topic": "Audit retention",
+              "starred": true,
+              "combined": false,
+              "text": "no answer line yet",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "highlight",
+              "text": "here",
+              "newText": null,
+              "comment": "really?"
+            }
+          ],
+          {
+            "questions": 4,
+            "openQuestions": 3,
+            "answeredQuestions": 1,
+            "comments": 4,
+            "marks": 6
+          },
+          "C-8",
+          "C-10"
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "list without a qualifier",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 2,
+              "id": "BQ-83",
+              "topic": "Owner",
+              "starred": false,
+              "combined": true,
+              "text": "who owns it?",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 6,
+              "id": "BQ-84",
+              "topic": "Estimate",
+              "starred": false,
+              "combined": true,
+              "text": "how long?",
+              "answer": "two days",
+              "open": false
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 10,
+              "id": "C-7",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Check the contact too.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "a note"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 3,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Too long for kiosks.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "id": null,
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "No variation selector,\nand a second line.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": null,
+              "qualifiedId": null,
+              "author": null,
+              "text": "bare comment",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "id": "BQ-90",
+              "topic": "C-3 kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 19,
+              "id": "BQ-95",
+              "topic": "Audit retention",
+              "starred": true,
+              "combined": false,
+              "text": "no answer line yet",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "highlight",
+              "text": "here",
+              "newText": null,
+              "comment": "really?"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "assign missing comment ids",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "assignIds"
+        },
+        {
+          "op": "assignIds"
+        },
+        {
+          "op": "nextId"
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            "C-8",
+            "C-9"
+          ],
+          [],
+          "C-10"
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ **C-8** (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ **C-9** bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "assign ids above a floor",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "assignIds",
+          "floor": 9
+        }
+      ],
+      "expect": {
+        "results": [
+          [
+            "C-10",
+            "C-11"
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ **C-10** (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ **C-11** bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "insert comments",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "insertComment",
+          "path": "DEMO/MIX/tail",
+          "afterParagraph": 0,
+          "text": "Say more.\nAnd why.",
+          "author": "Alexis"
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": -1,
+          "text": "At the top.",
+          "id": "C-20"
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/SUM",
+          "afterParagraph": 0,
+          "text": "After the first paragraph."
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/DET",
+          "field": "contact",
+          "afterParagraph": 0,
+          "text": "In a field value."
+        },
+        {
+          "op": "insertComment",
+          "path": "DEMO/MIX/tail",
+          "afterParagraph": 9,
+          "text": "No such paragraph."
+        },
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          "C-8",
+          "C-20",
+          "C-21",
+          "C-22",
+          {
+            "error": true
+          },
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 2,
+              "id": "BQ-83",
+              "topic": "Owner",
+              "starred": false,
+              "combined": true,
+              "text": "who owns it?",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 6,
+              "id": "BQ-84",
+              "topic": "Estimate",
+              "starred": false,
+              "combined": true,
+              "text": "how long?",
+              "answer": "two days",
+              "open": false
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 10,
+              "id": "C-7",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Check the contact too.",
+              "context": ""
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/MIX/tail",
+              "field": null,
+              "line": 2,
+              "id": "C-8",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Say more.\nAnd why.",
+              "context": "Tail text."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "id": "C-20",
+              "qualifiedId": null,
+              "author": null,
+              "text": "At the top.",
+              "context": ""
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 2,
+              "id": "C-21",
+              "qualifiedId": null,
+              "author": null,
+              "text": "After the first paragraph.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 4,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 4,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "a note"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 7,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Too long for kiosks.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 9,
+              "id": null,
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "No variation selector,\nand a second line.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 12,
+              "id": null,
+              "qualifiedId": null,
+              "author": null,
+              "text": "bare comment",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 14,
+              "id": "BQ-90",
+              "topic": "C-3 kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 23,
+              "id": "BQ-95",
+              "topic": "Audit retention",
+              "starred": true,
+              "combined": false,
+              "text": "no answer line yet",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": "contact",
+              "line": 2,
+              "id": "C-22",
+              "qualifiedId": null,
+              "author": null,
+              "text": "In a field value.",
+              "context": "bob@example.com"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "highlight",
+              "text": "here",
+              "newText": null,
+              "comment": "really?"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.\n\n> ⬆️ **C-8** (Alexis): Say more.\n> And why.",
+            "DEMO/SUM": "> ⬆️ **C-20** At the top.\n\n> ⬆️ **C-21** After the first paragraph.\n\nSessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com\n\n> ⬆️ **C-22** In a field value.",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "insert questions",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "insertQuestion",
+          "path": "DEMO/MIX/tail",
+          "afterParagraph": 0,
+          "question": {
+            "id": "BQ-91",
+            "topic": "C-3 scope",
+            "text": "kiosks only, or\nall shared devices?",
+            "options": [
+              "(a) kiosks only",
+              "(b) all shared devices"
+            ],
+            "recommendation": "(a).",
+            "assumption": "(a).",
+            "starred": true
+          }
+        },
+        {
+          "op": "insertQuestionAfterComment",
+          "commentId": "C-3",
+          "question": {
+            "id": "BQ-92",
+            "topic": "C-3 wording",
+            "text": "keep the sentence?"
+          }
+        },
+        {
+          "op": "insertQuestionAfterComment",
+          "commentId": "C-99",
+          "question": {
+            "id": "BQ-93",
+            "topic": "x",
+            "text": "y"
+          }
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          {
+            "error": true
+          },
+          {
+            "questions": 6,
+            "openQuestions": 5,
+            "answeredQuestions": 1,
+            "comments": 4,
+            "marks": 6
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.\n\n> **❓ BQ-91 — ★ C-3 scope:** kiosks only, or\n> all shared devices?\n> - (a) kiosks only\n> - (b) all shared devices\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> **❓ BQ-92 — C-3 wording:** keep the sentence?\n>\n> **Answer:**\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "set answers and edit comments",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "setAnswer",
+          "id": "BQ-90",
+          "answer": "(a)\nand 5 minutes."
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-83",
+          "answer": "Bob"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-84",
+          "answer": ""
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-95",
+          "answer": "10 years"
+        },
+        {
+          "op": "setAnswer",
+          "id": "BQ-404",
+          "answer": "x"
+        },
+        {
+          "op": "editComment",
+          "id": "C-3",
+          "text": "Far too long.\nSplit it."
+        },
+        {
+          "op": "editComment",
+          "id": "C-7",
+          "text": "Only the owner."
+        },
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          null,
+          {
+            "error": true
+          },
+          null,
+          null,
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 2,
+              "id": "BQ-83",
+              "topic": "Owner",
+              "starred": false,
+              "combined": true,
+              "text": "who owns it?",
+              "answer": "Bob",
+              "open": false
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 6,
+              "id": "BQ-84",
+              "topic": "Estimate",
+              "starred": false,
+              "combined": true,
+              "text": "how long?",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 10,
+              "id": "C-7",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Only the owner.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "a note"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 3,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Far too long.\nSplit it.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 6,
+              "id": null,
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "No variation selector,\nand a second line.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 9,
+              "id": null,
+              "qualifiedId": null,
+              "author": null,
+              "text": "bare comment",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 11,
+              "id": "BQ-90",
+              "topic": "C-3 kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+              "answer": "(a)\nand 5 minutes.",
+              "open": false
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 21,
+              "id": "BQ-95",
+              "topic": "Audit retention",
+              "starred": true,
+              "combined": false,
+              "text": "no answer line yet",
+              "answer": "10 years",
+              "open": false
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "highlight",
+              "text": "here",
+              "newText": null,
+              "comment": "really?"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:** Bob\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis): Only the owner.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Far too long.\n> Split it.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:** (a)\n> and 5 minutes.\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n>\n> **Answer:** 10 years\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "resolve comments and questions",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "resolve",
+          "id": "C-3"
+        },
+        {
+          "op": "resolve",
+          "id": "DEMO C-7"
+        },
+        {
+          "op": "resolve",
+          "id": "BQ-83"
+        },
+        {
+          "op": "counts"
+        },
+        {
+          "op": "resolve",
+          "id": "BQ-84"
+        },
+        {
+          "op": "resolve",
+          "id": "BQ-90"
+        },
+        {
+          "op": "resolve",
+          "id": "BQ-95"
+        },
+        {
+          "op": "resolve",
+          "id": "C-3"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          {
+            "questions": 3,
+            "openQuestions": 2,
+            "answeredQuestions": 1,
+            "comments": 2,
+            "marks": 6
+          },
+          null,
+          null,
+          null,
+          {
+            "error": true
+          },
+          {
+            "questions": 0,
+            "openQuestions": 0,
+            "answeredQuestions": 0,
+            "comments": 2,
+            "marks": 6
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "resolve the last question of a combined block",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "resolve",
+          "id": "BQ-84"
+        },
+        {
+          "op": "list"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          [
+            {
+              "kind": "question",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 2,
+              "id": "BQ-83",
+              "topic": "Owner",
+              "starred": false,
+              "combined": true,
+              "text": "who owns it?",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/DET",
+              "field": null,
+              "line": 6,
+              "id": "C-7",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Check the contact too.",
+              "context": ""
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "substitution",
+              "text": "30",
+              "newText": "15",
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 0,
+              "markKind": "insertion",
+              "text": "on kiosks",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "deletion",
+              "text": "very",
+              "newText": null,
+              "comment": null
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "highlight",
+              "text": "this",
+              "newText": null,
+              "comment": "unclear"
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 1,
+              "markKind": "comment",
+              "text": "",
+              "newText": null,
+              "comment": "a note"
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 3,
+              "id": "C-3",
+              "qualifiedId": null,
+              "author": "Alexis",
+              "text": "Too long for kiosks.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 5,
+              "id": null,
+              "qualifiedId": null,
+              "author": "Bea",
+              "text": "No variation selector,\nand a second line.",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "comment",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 8,
+              "id": null,
+              "qualifiedId": null,
+              "author": null,
+              "text": "bare comment",
+              "context": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal."
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 10,
+              "id": "BQ-90",
+              "topic": "C-3 kiosk timeout",
+              "starred": false,
+              "combined": false,
+              "text": "kiosk devices only?\n- (a) kiosk only\n- (b) every device\n\n*Recommendation:* (a).\n*Working assumption until answered:* (a).",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "question",
+              "path": "DEMO/SUM",
+              "field": null,
+              "line": 19,
+              "id": "BQ-95",
+              "topic": "Audit retention",
+              "starred": true,
+              "combined": false,
+              "text": "no answer line yet",
+              "answer": "",
+              "open": true
+            },
+            {
+              "kind": "mark",
+              "path": "DEMO/DET",
+              "field": "owner",
+              "line": 0,
+              "markKind": "highlight",
+              "text": "here",
+              "newText": null,
+              "comment": "really?"
+            }
+          ]
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "apply inline marks",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 1,
+          "accept": true
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 0,
+          "accept": false
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 0,
+          "accept": true
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 0,
+          "accept": false
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 1,
+          "accept": true
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/DET",
+          "field": "owner",
+          "index": 0,
+          "accept": true
+        },
+        {
+          "op": "applyMark",
+          "path": "DEMO/SUM",
+          "index": 7,
+          "accept": true
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          null,
+          null,
+          null,
+          null,
+          {
+            "error": true
+          },
+          null,
+          {
+            "error": true
+          },
+          {
+            "questions": 4,
+            "openQuestions": 3,
+            "answeredQuestions": 1,
+            "comments": 4,
+            "marks": 1
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after 30 minutes of inactivity on kiosks.\nA long line, this and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob here"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "strip",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "strip"
+        },
+        {
+          "op": "counts"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "content": {
+              "DEMO/MIX/tail": "Tail text.",
+              "DEMO/SUM": "Sessions expire after 15 minutes of inactivity on kiosks.\nA long line, this and too, but `{++ code ++}` is literal.\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+            },
+            "forms": {
+              "DEMO/DET": {
+                "contact": "bob@example.com",
+                "owner": "Bob here"
+              }
+            }
+          },
+          {
+            "questions": 4,
+            "openQuestions": 3,
+            "answeredQuestions": 1,
+            "comments": 4,
+            "marks": 6
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "round trip through YAML and Markdown",
+      "state": {
+        "content": {
+          "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+          "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+          "DEMO/MIX/tail": "Tail text."
+        },
+        "forms": {
+          "DEMO/DET": {
+            "owner": "Bob {== here ==}{>> really? <<}",
+            "contact": "bob@example.com"
+          }
+        }
+      },
+      "ops": [
+        {
+          "op": "roundTrip"
+        }
+      ],
+      "expect": {
+        "results": [
+          {
+            "yaml": true,
+            "markdown": true
+          }
+        ],
+        "state": {
+          "content": {
+            "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+            "DEMO/MIX/tail": "Tail text.",
+            "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph."
+          },
+          "forms": {
+            "DEMO/DET": {
+              "contact": "bob@example.com",
+              "owner": "Bob {== here ==}{>> really? <<}"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

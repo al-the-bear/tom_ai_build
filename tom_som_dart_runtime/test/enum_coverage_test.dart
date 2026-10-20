@@ -217,6 +217,24 @@ final List<CorpusGuardedEnum> _guarded = [
         'wrong, and the scope is what decides which checks run.',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecReviewAnnotationKind',
+    declared: _wire(SpecReviewAnnotationKind.values),
+    corpusFile: 'annotation_cases.json',
+    exercised: (c) =>
+        _listedAnnotations(c).map((a) => a['kind'] as String).toSet(),
+    why: 'SOM §11.9: every annotation kind is listed by a list operation',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecMarkKind',
+    declared: _wire(SpecMarkKind.values),
+    corpusFile: 'annotation_cases.json',
+    exercised: (c) => {
+      for (final a in _listedAnnotations(c))
+        if (a['markKind'] != null) a['markKind'] as String,
+    },
+    why: 'SOM §11.9.3: each of the five CriticMarkup marks is listed',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SpecValidationCode',
     declared: _wire(SpecValidationCode.values),
     corpusFile: 'validation_cases.json',
@@ -602,4 +620,18 @@ void main() {
       );
     }
   });
+}
+
+/// Every annotation a list operation of `annotation_cases.json` returns.
+Iterable<Map<String, dynamic>> _listedAnnotations(dynamic corpus) sync* {
+  for (final c
+      in ((corpus as Map<String, dynamic>)['cases'] as List)
+          .cast<Map<String, dynamic>>()) {
+    final ops = (c['ops'] as List).cast<Map<String, dynamic>>();
+    final results = ((c['expect'] as Map)['results'] as List);
+    for (var i = 0; i < ops.length; i++) {
+      if (ops[i]['op'] != 'list') continue;
+      yield* (results[i] as List).cast<Map<String, dynamic>>();
+    }
+  }
 }

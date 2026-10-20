@@ -1,3 +1,12 @@
+## 1.6.15
+
+- No model change. The release aligns the model chain with the runtimes,
+  which gain the review-annotation API (SOM §11.9: comment blocks, question
+  blocks and CriticMarkup inline marks in content values) and the
+  `annotationMisplaced`, `annotationMalformed` and `duplicateAnnotationId`
+  findings. SOM §11.9 and `tom_specs_project_flow.md` PF-ITR-REV document
+  the notation and the review round.
+
 ## 1.6.14
 
 - Every reference field states whether it holds one id or several

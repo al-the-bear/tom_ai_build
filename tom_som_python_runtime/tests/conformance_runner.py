@@ -81,6 +81,9 @@ from tom_som_runtime import (  # noqa: E402
     SpecNodeKind,
     SpecQuery,
     SpecQueryEngine,
+    SpecQuestionDraft,
+    SpecReviewAnnotationError,
+    SpecReviewAnnotations,
     SpecReflection,
     SpecSectionIdCollision,
     SpecSerializationOrder,
@@ -1019,6 +1022,101 @@ def test_assembly() -> None:
 
 
 # ---------------------------------------------------------------------------
+# annotation_cases.json — review annotations (SOM §11.9)
+# ---------------------------------------------------------------------------
+
+
+def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
+                       api: SpecReviewAnnotations, op: dict):
+    kind = op["op"]
+    if kind == "list":
+        return [a.to_json() for a in api.list()]
+    if kind == "counts":
+        return api.counts().to_json()
+    if kind == "nextId":
+        return api.next_comment_id(floor=op.get("floor") or 0)
+    if kind == "assignIds":
+        return api.assign_comment_ids(floor=op.get("floor") or 0)
+    if kind == "insertComment":
+        return api.insert_comment(
+            path=op["path"],
+            field=op.get("field"),
+            after_paragraph=op["afterParagraph"],
+            text=op["text"],
+            author=op.get("author"),
+            id=op.get("id"),
+        )
+    if kind == "insertQuestion":
+        api.insert_question(
+            path=op["path"],
+            field=op.get("field"),
+            after_paragraph=op["afterParagraph"],
+            question=SpecQuestionDraft.from_json(op["question"]),
+        )
+        return None
+    if kind == "insertQuestionAfterComment":
+        api.insert_question_after_comment(
+            op["commentId"], SpecQuestionDraft.from_json(op["question"]))
+        return None
+    if kind == "setAnswer":
+        api.set_answer(op["id"], op["answer"])
+        return None
+    if kind == "editComment":
+        api.edit_comment(op["id"], op["text"])
+        return None
+    if kind == "resolve":
+        api.resolve(op["id"])
+        return None
+    if kind == "applyMark":
+        accept = op.get("accept")
+        api.apply_mark(
+            path=op["path"],
+            field=op.get("field"),
+            index=op["index"],
+            accept=True if accept is None else accept,
+        )
+        return None
+    if kind == "strip":
+        return api.stripped().to_json()
+    if kind == "roundTrip":
+        yaml = yaml_encode(doc, tree, model_version=_MODEL_VERSION)
+        from_yaml = yaml_decode(yaml, tree).document
+        md = SpecDocumentMarkdown(model, doc).export_root(model.roots[0])
+        from_md = SpecDocument.from_markdown(md, model)
+        return {
+            "yaml": from_yaml.to_json() == doc.to_json(),
+            "markdown": not from_md.rejections
+            and from_md.document.to_json() == doc.to_json(),
+        }
+    raise ValueError(f"unknown annotation op {kind}")
+
+
+def _run_annotation_case(model: SpecModel, tree, case: dict) -> dict:
+    """Runs one case: ``{results: [one per op], state: final state}``. An
+    operation that fails answers ``{error: true}`` and changes nothing."""
+    doc = _document_from_state(json.loads(json.dumps(case["state"])))
+    api = SpecReviewAnnotations(doc, qualifier=case.get("qualifier"))
+    results = []
+    for op in case["ops"]:
+        try:
+            results.append(_run_annotation_op(model, tree, doc, api, op))
+        except SpecReviewAnnotationError:
+            results.append({"error": True})
+    return {"results": results, "state": doc.to_json()}
+
+
+def test_annotations(model: SpecModel, tree) -> None:
+    """``annotation_cases.json``: listing and editing review annotations."""
+    for case in _read_json("annotation_cases.json")["cases"]:
+        got = _run_annotation_case(model, tree, case)
+        _check(
+            f"annotations[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+
+
+# ---------------------------------------------------------------------------
 # spec_text_pattern / spec_query / spec_node_creation (SOM §9)
 # ---------------------------------------------------------------------------
 
@@ -1740,6 +1838,7 @@ def main() -> int:
     test_docspecs_path(model)
     test_docspecs_replace()
     test_assembly()
+    test_annotations(model, tree)
     test_list_move(model)
     test_build_document_matches_state()
     test_pattern()

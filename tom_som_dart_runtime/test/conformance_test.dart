@@ -73,6 +73,7 @@ void main() {
   final cursorScript = _cursorScript(model);
   final nodeCreationCases = _nodeCreationCases(model);
   final nodeCreationScript = _nodeCreationScript(model);
+  final annotationCases = _annotationCases(model, tree);
 
   setUpAll(() {
     if (!update) return;
@@ -125,6 +126,7 @@ void main() {
     write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
+    write('annotation_cases.json', '${enc.convert(annotationCases)}\n');
   });
 
   String read(String name) =>
@@ -1092,6 +1094,20 @@ void main() {
             (c['review'] as Map).cast<String, dynamic>(),
             (c['renamed'] as Map).cast<String, String>(),
           ),
+          c['expect'],
+        );
+      });
+    }
+  });
+
+  group('annotation_cases.json (review annotations, SOM §11.9)', () {
+    final table = update
+        ? annotationCases
+        : jsonDecode(read('annotation_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('annotations: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
           c['expect'],
         );
       });
@@ -2955,6 +2971,35 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
       'oneOfCaseAmbiguous',
       _choiceState('alpha', ['CHO-ALP', 'CHO-AL2']),
     ),
+    // Review annotations (SOM §11.9.5).
+    caseFor('annotationsWellFormed', _annotationState()),
+    caseFor('annotationMisplaced', {
+      'forms': {
+        'DEMO/DET': {
+          'owner': 'Bob',
+          'contact': 'bob@example.com\n\n> \u2b06\ufe0f (Alexis): not here',
+        },
+      },
+    }),
+    caseFor('annotationMalformed', {
+      'content': {
+        'DEMO/SUM':
+            'Open {++ never closed.\n\n'
+            'Nested {++ a {-- b --} ++} mark and {~~ no arrow ~~}.\n\n'
+            '> \u2b06\ufe0f **C-x** bad id\n\n'
+            '> \u2b06\ufe0f **C-2** a comment\n> **Answer:** not here\n\n'
+            '> **\u2753 BQ90 no dash:** bad header\n>\n> **Answer:**',
+      },
+    }),
+    caseFor('duplicateAnnotationId', {
+      'content': {
+        'DEMO/SUM':
+            '> \u2b06\ufe0f **C-1** first\n\n> \u2b06\ufe0f **C-1** again',
+        'DEMO/MIX/tail':
+            '> **\u2753 BQ-1 \u2014 One:** a?\n>\n> **Answer:**\n\n'
+            '> **\u2753 BQ-1 \u2014 Two:** b?\n>\n> **Answer:**',
+      },
+    }),
   ];
 }
 
@@ -7638,4 +7683,337 @@ document:
       caseFor('a clean rendition still maps every heading', state('done')),
     ],
   };
+}
+
+// ---------------------------------------------------------------------------
+// annotation_cases.json — review annotations (SOM §11.9.6).
+// ---------------------------------------------------------------------------
+
+/// A document holding every annotation kind in every place it may stand.
+Map<String, Object?> _annotationState() => {
+  'content': {
+    'DEMO/SUM':
+        'Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity'
+        '{++ on kiosks ++}.\n'
+        'A {-- very --} long line, {== this ==}{>> unclear <<} and '
+        '{>> a note <<} too, but `{++ code ++}` is literal.\n\n'
+        '> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n'
+        '> ⬆ (Bea): No variation selector,\n> and a second line.\n\n'
+        '> ⬆️ bare comment\n\n'
+        '> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n'
+        '> - (a) kiosk only\n> - (b) every device\n>\n'
+        '> *Recommendation:* (a).\n'
+        '> *Working assumption until answered:* (a).\n>\n'
+        '> **Answer:**\n\n'
+        '> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n'
+        '> An ordinary quote.\n\n'
+        '```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\n'
+        'Last paragraph.',
+    'DEMO/DET':
+        '> **❓ Open questions on these fields**\n>\n'
+        '> **❓ BQ-83 — Owner:** who owns it?\n>\n'
+        '> **Answer:**\n>\n'
+        '> **❓ BQ-84 — Estimate:** how long?\n>\n'
+        '> **Answer:** two days\n\n'
+        '> ⬆️ **C-7** (Alexis): Check the contact too.',
+    'DEMO/MIX/tail': 'Tail text.',
+  },
+  'forms': {
+    'DEMO/DET': {
+      'owner': 'Bob {== here ==}{>> really? <<}',
+      'contact': 'bob@example.com',
+    },
+  },
+};
+
+/// The cases: each a starting state and a script of operations; the expected
+/// result of every operation and the final state are computed by this
+/// reference runtime.
+Map<String, dynamic> _annotationCases(SpecModel model, SomMetaTree tree) {
+  final base = _annotationState();
+  const draft = {
+    'id': 'BQ-91',
+    'topic': 'C-3 scope',
+    'text': 'kiosks only, or\nall shared devices?',
+    'options': ['(a) kiosks only', '(b) all shared devices'],
+    'recommendation': '(a).',
+    'assumption': '(a).',
+    'starred': true,
+  };
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'list, counts and next id',
+      'qualifier': 'DEMO',
+      'state': base,
+      'ops': [
+        {'op': 'list'},
+        {'op': 'counts'},
+        {'op': 'nextId'},
+        {'op': 'nextId', 'floor': 9},
+      ],
+    },
+    {
+      'name': 'list without a qualifier',
+      'state': base,
+      'ops': [
+        {'op': 'list'},
+      ],
+    },
+    {
+      'name': 'assign missing comment ids',
+      'state': base,
+      'ops': [
+        {'op': 'assignIds'},
+        {'op': 'assignIds'},
+        {'op': 'nextId'},
+      ],
+    },
+    {
+      'name': 'assign ids above a floor',
+      'state': base,
+      'ops': [
+        {'op': 'assignIds', 'floor': 9},
+      ],
+    },
+    {
+      'name': 'insert comments',
+      'state': base,
+      'ops': [
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/MIX/tail',
+          'afterParagraph': 0,
+          'text': 'Say more.\nAnd why.',
+          'author': 'Alexis',
+        },
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': -1,
+          'text': 'At the top.',
+          'id': 'C-20',
+        },
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/SUM',
+          'afterParagraph': 0,
+          'text': 'After the first paragraph.',
+        },
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/DET',
+          'field': 'contact',
+          'afterParagraph': 0,
+          'text': 'In a field value.',
+        },
+        {
+          'op': 'insertComment',
+          'path': 'DEMO/MIX/tail',
+          'afterParagraph': 9,
+          'text': 'No such paragraph.',
+        },
+        {'op': 'list'},
+      ],
+    },
+    {
+      'name': 'insert questions',
+      'state': base,
+      'ops': [
+        {
+          'op': 'insertQuestion',
+          'path': 'DEMO/MIX/tail',
+          'afterParagraph': 0,
+          'question': draft,
+        },
+        {
+          'op': 'insertQuestionAfterComment',
+          'commentId': 'C-3',
+          'question': {
+            'id': 'BQ-92',
+            'topic': 'C-3 wording',
+            'text': 'keep the sentence?',
+          },
+        },
+        {
+          'op': 'insertQuestionAfterComment',
+          'commentId': 'C-99',
+          'question': {'id': 'BQ-93', 'topic': 'x', 'text': 'y'},
+        },
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'set answers and edit comments',
+      'state': base,
+      'ops': [
+        {'op': 'setAnswer', 'id': 'BQ-90', 'answer': '(a)\nand 5 minutes.'},
+        {'op': 'setAnswer', 'id': 'BQ-83', 'answer': 'Bob'},
+        {'op': 'setAnswer', 'id': 'BQ-84', 'answer': ''},
+        {'op': 'setAnswer', 'id': 'BQ-95', 'answer': '10 years'},
+        {'op': 'setAnswer', 'id': 'BQ-404', 'answer': 'x'},
+        {'op': 'editComment', 'id': 'C-3', 'text': 'Far too long.\nSplit it.'},
+        {'op': 'editComment', 'id': 'C-7', 'text': 'Only the owner.'},
+        {'op': 'list'},
+      ],
+    },
+    {
+      'name': 'resolve comments and questions',
+      'state': base,
+      'ops': [
+        {'op': 'resolve', 'id': 'C-3'},
+        {'op': 'resolve', 'id': 'DEMO C-7'},
+        {'op': 'resolve', 'id': 'BQ-83'},
+        {'op': 'counts'},
+        {'op': 'resolve', 'id': 'BQ-84'},
+        {'op': 'resolve', 'id': 'BQ-90'},
+        {'op': 'resolve', 'id': 'BQ-95'},
+        {'op': 'resolve', 'id': 'C-3'},
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'resolve the last question of a combined block',
+      'state': base,
+      'ops': [
+        {'op': 'resolve', 'id': 'BQ-84'},
+        {'op': 'list'},
+      ],
+    },
+    {
+      'name': 'apply inline marks',
+      'state': base,
+      'ops': [
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 1, 'accept': true},
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 0, 'accept': false},
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 0, 'accept': true},
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 0, 'accept': false},
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 1, 'accept': true},
+        {
+          'op': 'applyMark',
+          'path': 'DEMO/DET',
+          'field': 'owner',
+          'index': 0,
+          'accept': true,
+        },
+        {'op': 'applyMark', 'path': 'DEMO/SUM', 'index': 7, 'accept': true},
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'strip',
+      'state': base,
+      'ops': [
+        {'op': 'strip'},
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'round trip through YAML and Markdown',
+      'state': base,
+      'ops': [
+        {'op': 'roundTrip'},
+      ],
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runAnnotationCase(model, tree, c);
+  }
+  return {'cases': cases};
+}
+
+/// Runs one annotation case: `{results: [one per op], state: final state}`.
+/// An operation that fails answers `{error: true}` and changes nothing.
+Map<String, Object?> _runAnnotationCase(
+  SpecModel model,
+  SomMetaTree tree,
+  Map<String, dynamic> c,
+) {
+  final doc = SpecDocument()
+    ..loadJson(jsonDecode(jsonEncode(c['state'])) as Map<String, dynamic>);
+  final api = SpecReviewAnnotations(doc, qualifier: c['qualifier'] as String?);
+  final results = <Object?>[];
+  for (final op in (c['ops'] as List).cast<Map<String, dynamic>>()) {
+    try {
+      results.add(switch (op['op'] as String) {
+        'list' => [for (final a in api.list()) a.toJson()],
+        'counts' => api.counts().toJson(),
+        'nextId' => api.nextCommentId(floor: op['floor'] as int? ?? 0),
+        'assignIds' => api.assignCommentIds(floor: op['floor'] as int? ?? 0),
+        'insertComment' => api.insertComment(
+          path: op['path'] as String,
+          field: op['field'] as String?,
+          afterParagraph: op['afterParagraph'] as int,
+          text: op['text'] as String,
+          author: op['author'] as String?,
+          id: op['id'] as String?,
+        ),
+        'insertQuestion' => () {
+          api.insertQuestion(
+            path: op['path'] as String,
+            field: op['field'] as String?,
+            afterParagraph: op['afterParagraph'] as int,
+            question: SpecQuestionDraft.fromJson(
+              (op['question'] as Map).cast<String, dynamic>(),
+            ),
+          );
+          return null;
+        }(),
+        'insertQuestionAfterComment' => () {
+          api.insertQuestionAfterComment(
+            op['commentId'] as String,
+            SpecQuestionDraft.fromJson(
+              (op['question'] as Map).cast<String, dynamic>(),
+            ),
+          );
+          return null;
+        }(),
+        'setAnswer' => () {
+          api.setAnswer(op['id'] as String, op['answer'] as String);
+          return null;
+        }(),
+        'editComment' => () {
+          api.editComment(op['id'] as String, op['text'] as String);
+          return null;
+        }(),
+        'resolve' => () {
+          api.resolve(op['id'] as String);
+          return null;
+        }(),
+        'applyMark' => () {
+          api.applyMark(
+            path: op['path'] as String,
+            field: op['field'] as String?,
+            index: op['index'] as int,
+            accept: op['accept'] as bool? ?? true,
+          );
+          return null;
+        }(),
+        'strip' => api.stripped().toJson(),
+        'roundTrip' => () {
+          final yaml = SpecDocumentYaml.encode(
+            document: doc,
+            tree: tree,
+            modelVersion: '1.0',
+          );
+          final fromYaml = SpecDocumentYaml.decode(yaml, tree).document;
+          final md = SpecDocumentMarkdown(
+            model,
+            doc,
+          ).exportRoot(model.roots.first);
+          final fromMd = SpecDocument.fromMarkdown(md, model);
+          return {
+            'yaml': jsonEncode(fromYaml.toJson()) == jsonEncode(doc.toJson()),
+            'markdown':
+                fromMd.rejections.isEmpty &&
+                jsonEncode(fromMd.document.toJson()) ==
+                    jsonEncode(doc.toJson()),
+          };
+        }(),
+        final other => throw StateError('unknown annotation op $other'),
+      });
+    } on SpecReviewAnnotationError {
+      results.add({'error': true});
+    }
+  }
+  return {'results': results, 'state': doc.toJson()};
 }

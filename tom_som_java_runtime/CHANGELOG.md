@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- Review annotations (SOM §11.9): `SpecReviewAnnotations` ports the Dart
+  reference. It lists the comment blocks, question blocks and CriticMarkup
+  inline marks of a document's content and form-field values in document order
+  (`list`, `counts`) and edits them in place, byte-stable outside the
+  annotation it touches (`nextCommentId`, `assignCommentIds`, `insertComment`,
+  `insertQuestion`, `insertQuestionAfterComment`, `setAnswer`, `editComment`,
+  `resolve`, `applyMark`, `stripped`, and the static `stripAnnotationsText`,
+  `formatCommentBlock`, `formatQuestionBlock`). Positions are 0-based lines
+  within the value. New public types: `SpecReviewAnnotation`,
+  `SpecReviewAnnotationKind`, `SpecMarkKind`, `SpecQuestionDraft`,
+  `SpecReviewAnnotationCounts`, `SpecReviewAnnotationError`.
+  `validateDocument` gains a last group, ordered by path, with three new codes:
+  `SpecValidationCode.ANNOTATION_MISPLACED` (`annotationMisplaced`),
+  `ANNOTATION_MALFORMED` (`annotationMalformed`) and `DUPLICATE_ANNOTATION_ID`
+  (`duplicateAnnotationId`). The conformance runner runs
+  `annotation_cases.json`; the guide is `doc/review_annotations.md`.
+
 - Single-reference fields (uamtc17): `FormFieldSpec.multiple` reads the meta's
   `formFields[].multiple` (absent → false). In the reference phase of
   `validateDocument`, a `refersTo` field that is not `multiple` and holds more than

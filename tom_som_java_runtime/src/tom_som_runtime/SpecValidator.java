@@ -220,6 +220,11 @@ public final class SpecValidator {
     // field must rank the instances of its form by their score.
     errors.addAll(validateDerivedValues(refl, doc));
 
+    // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+    // comment blocks, question blocks and inline marks. Findings, never parse
+    // rejections — the rest of the document still validates.
+    errors.addAll(new SpecReviewAnnotations(doc).validate());
+
     return errors;
   }
 

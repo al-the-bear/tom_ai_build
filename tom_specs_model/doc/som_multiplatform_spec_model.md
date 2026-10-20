@@ -1660,7 +1660,7 @@ The rest of the document still validates and imports.
 | Code | When |
 |------|------|
 | `annotationMisplaced` | A comment or question block inside a form field's value, i.e. between or below the form's fields |
-| `annotationMalformed` | An unclosed or nested inline mark; a comment header whose id is not `C-<n>`; a `**❓` header or an `**Answer:**` line inside a comment block |
+| `annotationMalformed` | An unclosed or nested inline mark, or a substitution without `~>`; a comment header whose id is not `C-<n>`; a question header that is not `**❓ <ID> — <topic>:**`; a `**❓` header or an `**Answer:**` line inside a comment block |
 | `duplicateAnnotationId` | One comment id, or one question id, used twice in the same document. A merged pointer is not a second use of the surviving id |
 
 Annotations are review state, not specification content. A document submitted
@@ -1671,8 +1671,21 @@ round's last step (`tom_specs_project_flow.md`, PF-ITR-REV).
 
 #### 11.9.6 Conformance cases
 
-The API todos add these cases to the shared corpus, as
-`corpus/annotation_cases.json`, run by every one of the nine drivers.
+These cases are in the shared corpus as `corpus/annotation_cases.json`, and
+every one of the nine drivers runs them. Each case is a starting document and
+a script of operations, with the expected result of every operation and the
+final document. The validation findings are in `corpus/validation_cases.json`.
+The runtime API is `SpecReviewAnnotations` (Dart naming; each runtime follows
+its own language's conventions), and each runtime documents it in
+`doc/review_annotations.md`.
+
+Two choices of the API are part of the contract:
+
+- **Positions are line numbers.** An annotation's position is the 0-based
+  line within its value, because the nine runtimes count characters in
+  different units.
+- **Document order is fixed.** Values are visited as content paths sorted,
+  then form paths sorted with their field names sorted.
 
 **Annotation API (annot2):**
 

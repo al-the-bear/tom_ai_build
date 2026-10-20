@@ -1195,5 +1195,92 @@
         "code": "oneOfCaseMismatch"
       }
     ]
+  },
+  {
+    "name": "annotationsWellFormed",
+    "state": {
+      "content": {
+        "DEMO/SUM": "Sessions expire after {~~ 30 ~> 15 ~~} minutes of inactivity{++ on kiosks ++}.\nA {-- very --} long line, {== this ==}{>> unclear <<} and {>> a note <<} too, but `{++ code ++}` is literal.\n\n> ⬆️ **C-3** (Alexis): Too long for kiosks.\n\n> ⬆ (Bea): No variation selector,\n> and a second line.\n\n> ⬆️ bare comment\n\n> **❓ BQ-90 — C-3 kiosk timeout:** kiosk devices only?\n> - (a) kiosk only\n> - (b) every device\n>\n> *Recommendation:* (a).\n> *Working assumption until answered:* (a).\n>\n> **Answer:**\n\n> **❓ BQ-95 — ★ Audit retention:** no answer line yet\n\n> An ordinary quote.\n\n```\n> ⬆️ not a comment\n{++ not a mark ++}\n```\n\nLast paragraph.",
+        "DEMO/DET": "> **❓ Open questions on these fields**\n>\n> **❓ BQ-83 — Owner:** who owns it?\n>\n> **Answer:**\n>\n> **❓ BQ-84 — Estimate:** how long?\n>\n> **Answer:** two days\n\n> ⬆️ **C-7** (Alexis): Check the contact too.",
+        "DEMO/MIX/tail": "Tail text."
+      },
+      "forms": {
+        "DEMO/DET": {
+          "owner": "Bob {== here ==}{>> really? <<}",
+          "contact": "bob@example.com"
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "annotationMisplaced",
+    "state": {
+      "forms": {
+        "DEMO/DET": {
+          "owner": "Bob",
+          "contact": "bob@example.com\n\n> ⬆️ (Alexis): not here"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/DET",
+        "code": "annotationMisplaced"
+      }
+    ]
+  },
+  {
+    "name": "annotationMalformed",
+    "state": {
+      "content": {
+        "DEMO/SUM": "Open {++ never closed.\n\nNested {++ a {-- b --} ++} mark and {~~ no arrow ~~}.\n\n> ⬆️ **C-x** bad id\n\n> ⬆️ **C-2** a comment\n> **Answer:** not here\n\n> **❓ BQ90 no dash:** bad header\n>\n> **Answer:**"
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "annotationMalformed"
+      }
+    ]
+  },
+  {
+    "name": "duplicateAnnotationId",
+    "state": {
+      "content": {
+        "DEMO/SUM": "> ⬆️ **C-1** first\n\n> ⬆️ **C-1** again",
+        "DEMO/MIX/tail": "> **❓ BQ-1 — One:** a?\n>\n> **Answer:**\n\n> **❓ BQ-1 — Two:** b?\n>\n> **Answer:**"
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/MIX/tail",
+        "code": "duplicateAnnotationId"
+      },
+      {
+        "path": "DEMO/SUM",
+        "code": "duplicateAnnotationId"
+      }
+    ]
   }
 ]

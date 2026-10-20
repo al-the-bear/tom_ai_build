@@ -11,6 +11,7 @@
  */
 
 import { SpecDocument } from './spec_document';
+import { SpecReviewAnnotations } from './spec_review_annotations';
 import {
   FormFieldSpec,
   SpecClass,
@@ -91,6 +92,20 @@ export const SpecValidationCode = {
    * dangling one is a `danglingReference` as well.
    */
   MULTIPLE_REFERENCES: 'multipleReferences',
+  /**
+   * A comment or question block sits inside a form field's value (SOM
+   * §11.9.4); it belongs in the form's preamble, above the first field.
+   */
+  ANNOTATION_MISPLACED: 'annotationMisplaced',
+  /**
+   * An annotation does not follow the notation (SOM §11.9.5): an unclosed or
+   * nested inline mark, a substitution without `~>`, a comment id that is not
+   * `C-<n>`, a question header that is not `**❓ <ID> — <topic>:**`, or a
+   * question or answer inside a comment block.
+   */
+  ANNOTATION_MALFORMED: 'annotationMalformed',
+  /** A comment or question id is used more than once in one document. */
+  DUPLICATE_ANNOTATION_ID: 'duplicateAnnotationId',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -328,6 +343,11 @@ export function validateDocument(
   // A `productOf` field must hold the product of its operands, a `rankOf`
   // field must rank its form's instances by their score.
   errors.push(..._validateDerivedValues(refl, doc));
+
+  // 8. Review annotations (SOM §11.9.5): malformed, misplaced or duplicated
+  // comment blocks, question blocks and inline marks. Findings, never parse
+  // rejections — the rest of the document still validates.
+  errors.push(...new SpecReviewAnnotations(doc).validate());
 
   return errors;
 }

@@ -26,7 +26,9 @@
  *   - reading extracts and the Stage-B gate record back, writing the gate
  *     record, and scoping a set of extracts by it;
  *   - the meta-model-validated node-creation gate and its creator;
- *   - assembling one document from ordered fragments (refusing overlaps).
+ *   - assembling one document from ordered fragments (refusing overlaps);
+ *   - the review annotations (SOM §11.9): listing, counting and editing
+ *     comment blocks, question blocks and inline marks.
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -4087,6 +4089,313 @@ static void test_list_move(Checker *c, const SpecModel *model) {
   som_json_free(table);
 }
 
+/* ---- review annotations (spec_review_annotations, SOM §11.9) ------------- */
+
+/* `v` as JSON text with every object's keys byte-sorted, so two values compare
+ * structurally (JSON equality) by comparing their texts. */
+static int cmp_member(const void *a, const void *b) {
+  return strcmp((*(const SomJsonMember *const *)a)->key,
+                (*(const SomJsonMember *const *)b)->key);
+}
+
+static void json_canon_into(SomBuf *b, const SomJson *v) {
+  if (v == NULL || v->type != SOM_JSON_OBJECT) {
+    if (v != NULL && v->type == SOM_JSON_ARRAY) {
+      som_buf_putc(b, '[');
+      for (size_t i = 0; i < v->as.array.len; i++) {
+        if (i > 0) som_buf_putc(b, ',');
+        json_canon_into(b, v->as.array.items[i]);
+      }
+      som_buf_putc(b, ']');
+      return;
+    }
+    json_text_into(b, v);
+    return;
+  }
+  size_t n = v->as.object.len;
+  const SomJsonMember **ms =
+      (const SomJsonMember **)malloc((n ? n : 1) * sizeof(SomJsonMember *));
+  for (size_t i = 0; i < n; i++) ms[i] = &v->as.object.members[i];
+  qsort(ms, n, sizeof(SomJsonMember *), cmp_member);
+  som_buf_putc(b, '{');
+  for (size_t i = 0; i < n; i++) {
+    if (i > 0) som_buf_putc(b, ',');
+    char *q = som_json_encode_str(ms[i]->key);
+    som_buf_puts(b, q);
+    free(q);
+    som_buf_putc(b, ':');
+    json_canon_into(b, ms[i]->value);
+  }
+  som_buf_putc(b, '}');
+  free(ms);
+}
+
+static char *json_canon(const SomJson *v) {
+  SomBuf b;
+  som_buf_init(&b);
+  json_canon_into(&b, v);
+  return som_buf_take(&b);
+}
+
+/* The canonical form of JSON `text` this runner wrote. Owned. */
+static char *json_text_canon(const char *text) {
+  char *err = NULL;
+  SomJson *v = som_json_parse(text, &err);
+  if (v == NULL) {
+    char *s = som_strdup(err ? err : "(unparsable)");
+    free(err);
+    return s;
+  }
+  char *s = json_canon(v);
+  som_json_free(v);
+  return s;
+}
+
+static const char *json_opt_str(const SomJson *o, const char *key) {
+  return som_json_as_str(som_json_get(o, key));
+}
+
+static long long json_i64_or(const SomJson *o, const char *key, long long d) {
+  long long v;
+  return som_json_as_i64(som_json_get(o, key), &v) ? v : d;
+}
+
+/* A `SpecQuestionDraft` borrowing from the corpus JSON; `*options` owned. */
+static SpecQuestionDraft draft_from_json(const SomJson *j,
+                                         const char ***options) {
+  SpecQuestionDraft d;
+  memset(&d, 0, sizeof(d));
+  d.id = som_json_str_or(j, "id");
+  d.topic = som_json_str_or(j, "topic");
+  d.text = som_json_str_or(j, "text");
+  const SomJson *opts = som_json_get(j, "options");
+  size_t n = som_json_array_len(opts);
+  *options = (const char **)calloc(n ? n : 1, sizeof(char *));
+  for (size_t i = 0; i < n; i++) {
+    const char *s = som_json_as_str(som_json_array_at(opts, i));
+    (*options)[i] = s ? s : "";
+  }
+  d.options = *options;
+  d.options_len = n;
+  d.recommendation = json_opt_str(j, "recommendation");
+  d.assumption = json_opt_str(j, "assumption");
+  d.starred = som_json_bool_or(j, "starred");
+  return d;
+}
+
+/* Runs one op; returns its result as JSON text (owned) — `{"error":true}`
+ * when it raised the annotation error. For `strip` writes the stripped
+ * document into `*stripped` (owned) instead and returns NULL. */
+static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
+                               SpecReviewAnnotations *api, const SomJson *op,
+                               SpecDocument **stripped) {
+  const char *name = som_json_str_or(op, "op");
+  SpecReviewAnnotationError err;
+  spec_review_annotation_error_init(&err);
+  SomBuf b;
+  som_buf_init(&b);
+  int ok = 1;
+  if (strcmp(name, "list") == 0) {
+    SpecReviewAnnotationList l;
+    spec_review_annotations_list(api, &l);
+    som_buf_putc(&b, '[');
+    for (size_t i = 0; i < l.len; i++) {
+      if (i > 0) som_buf_putc(&b, ',');
+      char *j = spec_review_annotation_to_json(&l.items[i]);
+      som_buf_puts(&b, j);
+      free(j);
+    }
+    som_buf_putc(&b, ']');
+    spec_review_annotation_list_free(&l);
+  } else if (strcmp(name, "counts") == 0) {
+    SpecReviewAnnotationCounts c = spec_review_annotations_counts(api);
+    char *j = spec_review_annotation_counts_to_json(&c);
+    som_buf_puts(&b, j);
+    free(j);
+  } else if (strcmp(name, "nextId") == 0) {
+    char *id = spec_review_annotations_next_comment_id(
+        api, json_i64_or(op, "floor", 0));
+    char *q = som_json_encode_str(id);
+    som_buf_puts(&b, q);
+    free(q);
+    free(id);
+  } else if (strcmp(name, "assignIds") == 0) {
+    SomStrList ids;
+    spec_review_annotations_assign_comment_ids(
+        api, json_i64_or(op, "floor", 0), &ids);
+    som_buf_putc(&b, '[');
+    for (size_t i = 0; i < ids.len; i++) {
+      if (i > 0) som_buf_putc(&b, ',');
+      char *q = som_json_encode_str(ids.items[i]);
+      som_buf_puts(&b, q);
+      free(q);
+    }
+    som_buf_putc(&b, ']');
+    som_strlist_free(&ids);
+  } else if (strcmp(name, "insertComment") == 0) {
+    char *id = spec_review_annotations_insert_comment(
+        api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+        json_i64_or(op, "afterParagraph", 0), som_json_str_or(op, "text"),
+        json_opt_str(op, "author"), json_opt_str(op, "id"), &err);
+    if (id == NULL) {
+      ok = 0;
+    } else {
+      char *q = som_json_encode_str(id);
+      som_buf_puts(&b, q);
+      free(q);
+      free(id);
+    }
+  } else if (strcmp(name, "insertQuestion") == 0) {
+    const char **opts = NULL;
+    SpecQuestionDraft d = draft_from_json(som_json_get(op, "question"), &opts);
+    ok = spec_review_annotations_insert_question(
+        api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+        json_i64_or(op, "afterParagraph", 0), &d, &err);
+    free(opts);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "insertQuestionAfterComment") == 0) {
+    const char **opts = NULL;
+    SpecQuestionDraft d = draft_from_json(som_json_get(op, "question"), &opts);
+    ok = spec_review_annotations_insert_question_after_comment(
+        api, som_json_str_or(op, "commentId"), &d, &err);
+    free(opts);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "setAnswer") == 0) {
+    ok = spec_review_annotations_set_answer(api, som_json_str_or(op, "id"),
+                                            som_json_str_or(op, "answer"),
+                                            &err);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "editComment") == 0) {
+    ok = spec_review_annotations_edit_comment(api, som_json_str_or(op, "id"),
+                                              som_json_str_or(op, "text"),
+                                              &err);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "resolve") == 0) {
+    ok = spec_review_annotations_resolve(api, som_json_str_or(op, "id"), &err);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "applyMark") == 0) {
+    int accept = 1;
+    som_json_as_bool(som_json_get(op, "accept"), &accept);
+    ok = spec_review_annotations_apply_mark(
+        api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
+        json_i64_or(op, "index", 0), accept, &err);
+    som_buf_puts(&b, "null");
+  } else if (strcmp(name, "strip") == 0) {
+    *stripped = spec_review_annotations_stripped(api);
+    som_buf_free(&b);
+    return NULL;
+  } else if (strcmp(name, "roundTrip") == 0) {
+    char *before = doc_canonical(api->doc);
+    int yaml_ok = 0, md_ok = 0;
+    char *yerr = NULL;
+    char *yaml = encode_yaml(api->doc, tree, MODEL_VERSION, &yerr);
+    if (yaml != NULL) {
+      SpecYamlContents contents;
+      char *derr = NULL;
+      if (decode_yaml(yaml, tree, &contents, &derr)) {
+        char *after = doc_canonical(&contents.document);
+        yaml_ok = strcmp(after, before) == 0;
+        free(after);
+        spec_yaml_contents_free(&contents);
+      }
+      free(derr);
+      free(yaml);
+    }
+    free(yerr);
+    char *md = spec_markdown_export_root(model, api->doc, &model->roots[0], NULL);
+    SpecMarkdownImport imported;
+    spec_document_from_markdown(md, model, &imported);
+    char *after = doc_canonical(imported.document);
+    md_ok = imported.result.rejections_len == 0 && strcmp(after, before) == 0;
+    free(after);
+    spec_markdown_import_free(&imported);
+    free(md);
+    free(before);
+    som_buf_puts(&b, "{\"yaml\":");
+    som_buf_puts(&b, yaml_ok ? "true" : "false");
+    som_buf_puts(&b, ",\"markdown\":");
+    som_buf_puts(&b, md_ok ? "true" : "false");
+    som_buf_putc(&b, '}');
+  } else {
+    fprintf(stderr, "unknown annotation op %s\n", name);
+    exit(2);
+  }
+  spec_review_annotation_error_free(&err);
+  if (!ok) {
+    som_buf_free(&b);
+    return som_strdup("{\"error\":true}");
+  }
+  return som_buf_take(&b);
+}
+
+/* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
+ * every op runs in order on one document loaded from `state`; each op's
+ * result and the final state must equal `expect` (JSON equality). */
+static void test_annotations(Checker *c, const SpecModel *model,
+                             const SomMetaTree *tree) {
+  SomJson *table = read_json("annotation_cases.json");
+  const SomJson *cases = som_json_get(table, "cases");
+  size_t n = som_json_array_len(cases);
+  check(c, "annotations.cases", n > 0, "no cases in annotation_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *kase = som_json_array_at(cases, i);
+    char label[512];
+    snprintf(label, sizeof(label), "annotations[%s]",
+             som_json_str_or(kase, "name"));
+    DocumentJson state;
+    document_json_from_json(som_json_get(kase, "state"), &state);
+    SpecDocument doc;
+    doc_from_state(&doc, &state);
+    document_json_free(&state);
+    SpecReviewAnnotations api =
+        spec_review_annotations_make(&doc, json_opt_str(kase, "qualifier"));
+    const SomJson *ops = som_json_get(kase, "ops");
+    const SomJson *expect = som_json_get(kase, "expect");
+    const SomJson *want_results = som_json_get(expect, "results");
+    size_t on = som_json_array_len(ops);
+    char tag[640];
+    snprintf(tag, sizeof(tag), "%s.results", label);
+    char detail[64];
+    snprintf(detail, sizeof(detail), "got %zu want %zu", on,
+             som_json_array_len(want_results));
+    check(c, tag, on == som_json_array_len(want_results), detail);
+    for (size_t k = 0; k < on; k++) {
+      const SomJson *op = som_json_array_at(ops, k);
+      const SomJson *want = som_json_array_at(want_results, k);
+      SpecDocument *stripped = NULL;
+      char *got_text = run_annotation_op(model, tree, &api, op, &stripped);
+      char *got, *w;
+      if (got_text == NULL) {
+        got = doc_canonical(stripped);
+        w = state_canonical(want);
+        spec_document_free(stripped);
+        free(stripped);
+      } else {
+        got = json_text_canon(got_text);
+        w = json_canon(want);
+        free(got_text);
+      }
+      snprintf(tag, sizeof(tag), "%s.op[%zu:%s]", label, k,
+               som_json_str_or(op, "op"));
+      char *d = byte_diff(tag, got, w);
+      check(c, tag, strcmp(got, w) == 0, d);
+      free(d);
+      free(got);
+      free(w);
+    }
+    char *got = doc_canonical(&doc);
+    char *w = state_canonical(som_json_get(expect, "state"));
+    snprintf(tag, sizeof(tag), "%s.state", label);
+    char *d = byte_diff(tag, got, w);
+    check(c, tag, strcmp(got, w) == 0, d);
+    free(d);
+    free(got);
+    free(w);
+    spec_document_free(&doc);
+  }
+  som_json_free(table);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -4136,6 +4445,7 @@ int main(int argc, char **argv) {
   test_node_creation_script(&c, model);
   test_assembly(&c);
   test_list_move(&c, model);
+  test_annotations(&c, model, tree);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

@@ -2,6 +2,30 @@
 
 ## Unreleased
 
+- Review annotations (SOM §11.9, annot2). New module `spec_review_annotations`
+  (`include/spec_review_annotations.h`, in the umbrella header), a port of the
+  Dart `spec_review_annotations.dart`: `SpecReviewAnnotations`
+  (`spec_review_annotations_make`) lists comment blocks, question blocks and
+  CriticMarkup inline marks in document order
+  (`spec_review_annotations_list` → `SpecReviewAnnotationList` of
+  `SpecReviewAnnotation`, `spec_review_annotation_to_json`), counts them
+  (`SpecReviewAnnotationCounts`), hands out comment ids
+  (`next_comment_id`, `assign_comment_ids`), inserts comments and questions
+  (`insert_comment`, `insert_question`, `insert_question_after_comment`, with
+  `SpecQuestionDraft`), answers and edits them (`set_answer`, `edit_comment`),
+  removes them (`resolve`), accepts or rejects marks (`apply_mark`) and strips
+  a copy (`stripped`, `spec_strip_annotations_text`). Enums
+  `SpecReviewAnnotationKind` and `SpecMarkKind`; a missing comment, question,
+  paragraph or mark fills a `SpecReviewAnnotationError` and changes nothing.
+  Positions are 0-based line numbers within a value. Three new validation
+  codes after `multipleReferences`: `SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED`
+  (`"annotationMisplaced"`), `SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED`
+  (`"annotationMalformed"`) and `SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID`
+  (`"duplicateAnnotationId"`), reported by `validate_document` as its last
+  group (`spec_review_annotations_validate`), stable-sorted by path. The
+  conformance harness runs `annotation_cases.json`; the four new validation
+  cases pin the codes. Guide: `doc/review_annotations.md`.
+
 - Single-reference check (uamtc17). `FormFieldSpec` gains `multiple` (int, read from the meta's `formFields[].multiple`, absent = 0). New validation code
   `SPEC_VALIDATION_CODE_MULTIPLE_REFERENCES` (`"multipleReferences"`), after `missingRequiredField`. In the
   reference phase of `validate_document`, a `refersTo` field not marked

@@ -26,12 +26,15 @@
  *   - reading extracts and the Stage-B gate record back, writing the gate
  *     record, and scoping a set of extracts by it;
  *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script);
- *   - assembling one document from ordered fragments (refusing overlaps).
+ *   - assembling one document from ordered fragments (refusing overlaps);
+ *   - the review annotations (SOM §11.9): listing, counting and editing
+ *     comment blocks, question blocks and inline marks.
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
  * green; non-zero on the first failed group of checks.
  */
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
@@ -2773,6 +2776,204 @@ static void test_list_move(Checker& c, const som::SpecModel& model) {
   }
 }
 
+/* ---- review annotations (spec_review_annotations, SOM §11.9) ------------- */
+
+/* `v` as JSON text with every object's keys byte-sorted, so two values compare
+ * structurally (JSON equality) by comparing their texts. */
+static std::string json_canon(const som::JsonRef& v) {
+  if (v != nullptr && v->type == som::JsonType::Array) {
+    std::string b = "[";
+    for (std::size_t i = 0; i < v->array.size(); i++) {
+      if (i > 0) b += ",";
+      b += json_canon(v->array[i]);
+    }
+    return b + "]";
+  }
+  if (v == nullptr || v->type != som::JsonType::Object) return json_text(v);
+  std::vector<std::pair<std::string, som::JsonPtr>> members = v->object;
+  std::stable_sort(members.begin(), members.end(),
+                   [](const auto& a, const auto& b) { return a.first < b.first; });
+  std::string b = "{";
+  for (std::size_t i = 0; i < members.size(); i++) {
+    if (i > 0) b += ",";
+    b += som::jsonEncodeStr(members[i].first) + ":" + json_canon(members[i].second);
+  }
+  return b + "}";
+}
+
+/* The canonical form of JSON `text` this runner wrote. */
+static std::string json_text_canon(const std::string& text) {
+  std::string err;
+  som::JsonPtr v = som::jsonParse(text, &err);
+  return v == nullptr ? "(unparsable: " + err + ")" : json_canon(v);
+}
+
+static std::string doc_canonical(const som::SpecDocument& doc) {
+  return som::documentJsonToCanonicalJson(doc.toJson());
+}
+
+static std::string state_canonical(const som::JsonRef& v) {
+  return som::documentJsonToCanonicalJson(som::documentJsonFromJson(v));
+}
+
+static std::optional<std::string> json_opt_str(const som::JsonRef& o,
+                                               const std::string& key) {
+  const std::string* s = som::jsonAsStr(som::jsonGet(o, key));
+  return s ? std::optional<std::string>(*s) : std::nullopt;
+}
+
+static som::SpecQuestionDraft draft_from_json(const som::JsonRef& j) {
+  som::SpecQuestionDraft d;
+  d.id = som::jsonStrOr(j, "id");
+  d.topic = som::jsonStrOr(j, "topic");
+  d.text = som::jsonStrOr(j, "text");
+  som::JsonRef opts = som::jsonGet(j, "options");
+  for (std::size_t i = 0; i < som::jsonArrayLen(opts); i++) {
+    const std::string* s = som::jsonAsStr(som::jsonArrayAt(opts, i));
+    d.options.push_back(s ? *s : "");
+  }
+  d.recommendation = som::jsonStrOr(j, "recommendation");
+  d.assumption = som::jsonStrOr(j, "assumption");
+  d.starred = som::jsonBoolOr(j, "starred");
+  return d;
+}
+
+/* Runs one op and returns its result as canonical JSON text — `{"error":true}`
+ * when it raised SpecReviewAnnotationError. A `strip` result is returned as
+ * the stripped document's canonical form (compared against the expected
+ * state's). */
+static std::string run_annotation_op(const som::SpecModel& model,
+                                     const som::SomMetaTree& tree,
+                                     som::SpecReviewAnnotations& api,
+                                     const som::JsonRef& op) {
+  const std::string name = som::jsonStrOr(op, "op");
+  const long long floor = som::jsonAsI64(som::jsonGet(op, "floor")).value_or(0);
+  try {
+    if (name == "list") {
+      std::string b = "[";
+      const auto all = api.list();
+      for (std::size_t i = 0; i < all.size(); i++) {
+        if (i > 0) b += ",";
+        b += all[i].toJson();
+      }
+      return json_text_canon(b + "]");
+    }
+    if (name == "counts") return json_text_canon(api.counts().toJson());
+    if (name == "nextId") return som::jsonEncodeStr(api.nextCommentId(floor));
+    if (name == "assignIds") {
+      std::string b = "[";
+      const auto ids = api.assignCommentIds(floor);
+      for (std::size_t i = 0; i < ids.size(); i++) {
+        if (i > 0) b += ",";
+        b += som::jsonEncodeStr(ids[i]);
+      }
+      return b + "]";
+    }
+    const long long afterParagraph =
+        som::jsonAsI64(som::jsonGet(op, "afterParagraph")).value_or(0);
+    if (name == "insertComment") {
+      return som::jsonEncodeStr(api.insertComment(
+          som::jsonStrOr(op, "path"), json_opt_str(op, "field"), afterParagraph,
+          som::jsonStrOr(op, "text"), json_opt_str(op, "author"),
+          json_opt_str(op, "id")));
+    }
+    if (name == "insertQuestion") {
+      api.insertQuestion(som::jsonStrOr(op, "path"), json_opt_str(op, "field"),
+                         afterParagraph,
+                         draft_from_json(som::jsonGet(op, "question")));
+      return "null";
+    }
+    if (name == "insertQuestionAfterComment") {
+      api.insertQuestionAfterComment(
+          som::jsonStrOr(op, "commentId"),
+          draft_from_json(som::jsonGet(op, "question")));
+      return "null";
+    }
+    if (name == "setAnswer") {
+      api.setAnswer(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "answer"));
+      return "null";
+    }
+    if (name == "editComment") {
+      api.editComment(som::jsonStrOr(op, "id"), som::jsonStrOr(op, "text"));
+      return "null";
+    }
+    if (name == "resolve") {
+      api.resolve(som::jsonStrOr(op, "id"));
+      return "null";
+    }
+    if (name == "applyMark") {
+      api.applyMark(som::jsonStrOr(op, "path"), json_opt_str(op, "field"),
+                    som::jsonAsI64(som::jsonGet(op, "index")).value_or(0),
+                    som::jsonAsBool(som::jsonGet(op, "accept")).value_or(true));
+      return "null";
+    }
+    if (name == "strip") return doc_canonical(api.stripped());
+    if (name == "roundTrip") {
+      const std::string before = doc_canonical(api.doc());
+      bool yamlOk = false;
+      std::string err;
+      auto yaml = som::encodeYaml(api.doc(), tree, MODEL_VERSION, &err);
+      if (yaml.has_value()) {
+        som::SpecYamlContents contents;
+        if (som::decodeYaml(*yaml, tree, &contents, &err)) {
+          yamlOk = doc_canonical(contents.document) == before;
+        }
+      }
+      const std::string md =
+          som::markdownExportRoot(model, api.doc(), model.roots[0]);
+      som::SpecMarkdownImport imported = som::SpecDocument::fromMarkdown(md, model);
+      const bool mdOk = imported.rejections().empty() &&
+                        doc_canonical(imported.document) == before;
+      return json_text_canon(std::string("{\"yaml\":") +
+                             (yamlOk ? "true" : "false") + ",\"markdown\":" +
+                             (mdOk ? "true" : "false") + "}");
+    }
+  } catch (const som::SpecReviewAnnotationError&) {
+    return json_text_canon("{\"error\":true}");
+  }
+  std::fprintf(stderr, "unknown annotation op %s\n", name.c_str());
+  std::exit(2);
+}
+
+/* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
+ * every op runs in order on one document loaded from `state`; each op's
+ * result and the final state must equal `expect` (JSON equality). */
+static void test_annotations(Checker& c, const som::SpecModel& model,
+                             const som::SomMetaTree& tree) {
+  som::JsonPtr table = read_json("annotation_cases.json");
+  som::JsonRef cases = som::jsonGet(table, "cases");
+  const std::size_t n = som::jsonArrayLen(cases);
+  c.check("annotations.cases", n > 0, "no cases in annotation_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef kase = som::jsonArrayAt(cases, i);
+    const std::string label = "annotations[" + som::jsonStrOr(kase, "name") + "]";
+    som::SpecDocument doc =
+        doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "state")));
+    som::SpecReviewAnnotations api(doc, json_opt_str(kase, "qualifier"));
+    som::JsonRef ops = som::jsonGet(kase, "ops");
+    som::JsonRef expect = som::jsonGet(kase, "expect");
+    som::JsonRef wantResults = som::jsonGet(expect, "results");
+    const std::size_t on = som::jsonArrayLen(ops);
+    c.check(label + ".results", on == som::jsonArrayLen(wantResults),
+            "got " + std::to_string(on) + " want " +
+                std::to_string(som::jsonArrayLen(wantResults)));
+    for (std::size_t k = 0; k < on; k++) {
+      som::JsonRef op = som::jsonArrayAt(ops, k);
+      som::JsonRef want = som::jsonArrayAt(wantResults, k);
+      const std::string opName = som::jsonStrOr(op, "op");
+      const std::string got = run_annotation_op(model, tree, api, op);
+      const std::string w =
+          opName == "strip" ? state_canonical(want) : json_canon(want);
+      const std::string tag =
+          label + ".op[" + std::to_string(k) + ":" + opName + "]";
+      c.check(tag, got == w, byte_diff(tag, got, w));
+    }
+    const std::string got = doc_canonical(doc);
+    const std::string w = state_canonical(som::jsonGet(expect, "state"));
+    c.check(label + ".state", got == w, byte_diff(label + ".state", got, w));
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -2819,6 +3020,7 @@ int main(int argc, char** argv) {
   test_node_creation_script(c, *model);
   test_assembly(c);
   test_list_move(c, *model);
+  test_annotations(c, *model, *tree);
 
   return c.finish();
 }

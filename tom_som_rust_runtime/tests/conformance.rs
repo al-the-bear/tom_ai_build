@@ -32,6 +32,8 @@
 //!     scoping of a file set by its record (codespecs_record_cases.json);
 //!   - the Stage-A CodeSpecs gate, A1–A5, over every case of
 //!     codespecs_gate_cases.json;
+//!   - the SOM §11.9 review annotations: every operation of
+//!     `SpecReviewAnnotations` over the scripts of annotation_cases.json;
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
@@ -69,6 +71,9 @@ use tom_som_rust_runtime::spec_query::{
     SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch, SpecStateFilter,
 };
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
+use tom_som_rust_runtime::spec_review_annotations::{
+    SpecQuestionDraft, SpecReviewAnnotationError, SpecReviewAnnotations,
+};
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
 };
@@ -192,6 +197,7 @@ fn conformance() {
     test_yaml_review(&mut c, &model, &tree);
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
+    test_annotations(&mut c, &model, &tree);
     test_operations(&mut c);
     test_editor(&mut c, &model);
     test_section_id(&mut c);
@@ -2996,4 +3002,132 @@ fn gate_report_json(report: &CodeSpecsGateReport) -> Json {
         ("passed".to_string(), Json::Bool(report.passed())),
         ("results".to_string(), Json::Array(results)),
     ])
+}
+
+// --- review annotations (SOM §11.9) -------------------------------------------
+
+/// `annotation_cases.json`: each case loads one document from `state`, runs its
+/// `ops` in order through [`SpecReviewAnnotations`] and compares every result
+/// and the final state with `expect`. An op that fails answers
+/// `{"error": true}` and changes nothing. Mirrors the Dart `_runAnnotationCase`.
+fn test_annotations(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
+    let table = read_json("annotation_cases.json");
+    for cc in cases(&table, "cases") {
+        let name = cc.str_or("name");
+        let (results, state) = run_annotation_case(model, tree, cc);
+        let expect = cc.get("expect").expect("annotation case expect");
+        let want_results = expect
+            .get("results")
+            .and_then(|r| r.as_array())
+            .unwrap_or(&[]);
+        let ops = cc.get("ops").and_then(|o| o.as_array()).unwrap_or(&[]);
+        c.check(
+            &format!("annotations[{}].results.len", name),
+            results.len() == want_results.len(),
+            &format!("{} != {}", results.len(), want_results.len()),
+        );
+        for (i, (got, want)) in results.iter().zip(want_results).enumerate() {
+            let op = ops.get(i).map(|o| o.str_or("op")).unwrap_or_default();
+            let equal = match (op.as_str(), got) {
+                // A document compares by its canonical state, which ignores
+                // how empty stores are written.
+                ("strip", Ok(g)) => {
+                    DocumentJson::from_json(g).to_canonical_json()
+                        == DocumentJson::from_json(want).to_canonical_json()
+                }
+                (_, Ok(g)) => json_eq(g, want),
+                (_, Err(_)) => json_eq(&obj(vec![("error", Json::Bool(true))]), want),
+            };
+            c.check(
+                &format!("annotations[{}].op{}.{}", name, i, op),
+                equal,
+                &format!("got {:?} want {:?}", got, want),
+            );
+        }
+        let want_state = DocumentJson::from_json(expect.get("state").unwrap_or(&Json::Null));
+        let got_state = state.to_canonical_json();
+        let want_state = want_state.to_canonical_json();
+        c.check(
+            &format!("annotations[{}].state", name),
+            got_state == want_state,
+            &format!("got {} want {}", got_state, want_state),
+        );
+    }
+}
+
+type AnnotationResult = Result<Json, SpecReviewAnnotationError>;
+
+fn run_annotation_case(
+    model: &SpecModel,
+    tree: &SomMetaTree,
+    cc: &Json,
+) -> (Vec<AnnotationResult>, DocumentJson) {
+    let mut doc = doc_from_state(&DocumentJson::from_json(
+        cc.get("state").expect("annotation case state"),
+    ));
+    let qualifier = cc.get("qualifier").and_then(|q| q.as_str()).map(str::to_string);
+    let mut results = Vec::new();
+    for op in cc.get("ops").and_then(|o| o.as_array()).unwrap_or(&[]) {
+        let mut api = SpecReviewAnnotations::with_qualifier(&mut doc, qualifier.as_deref());
+        let s = |k: &str| op.get(k).and_then(|v| v.as_str());
+        let floor = op.get("floor").and_then(|v| v.as_i64()).unwrap_or(0).max(0) as u64;
+        let draft = || SpecQuestionDraft::from_json(op.get("question").unwrap_or(&Json::Null));
+        let unit = |r: Result<(), SpecReviewAnnotationError>| r.map(|_| Json::Null);
+        let result: AnnotationResult = match op.str_or("op").as_str() {
+            "list" => Ok(Json::Array(api.list().iter().map(|a| a.to_json()).collect())),
+            "counts" => Ok(api.counts().to_json()),
+            "nextId" => Ok(jstr(&api.next_comment_id(floor))),
+            "assignIds" => Ok(jstrs(&api.assign_comment_ids(floor))),
+            "insertComment" => api
+                .insert_comment(
+                    s("path").unwrap_or(""),
+                    s("field"),
+                    op.get("afterParagraph").and_then(|v| v.as_i64()).unwrap_or(0),
+                    s("text").unwrap_or(""),
+                    s("author"),
+                    s("id"),
+                )
+                .map(|id| jstr(&id)),
+            "insertQuestion" => unit(api.insert_question(
+                s("path").unwrap_or(""),
+                s("field"),
+                op.get("afterParagraph").and_then(|v| v.as_i64()).unwrap_or(0),
+                &draft(),
+            )),
+            "insertQuestionAfterComment" => {
+                unit(api.insert_question_after_comment(s("commentId").unwrap_or(""), &draft()))
+            }
+            "setAnswer" => unit(api.set_answer(s("id").unwrap_or(""), s("answer").unwrap_or(""))),
+            "editComment" => unit(api.edit_comment(s("id").unwrap_or(""), s("text").unwrap_or(""))),
+            "resolve" => unit(api.resolve(s("id").unwrap_or(""))),
+            "applyMark" => unit(api.apply_mark(
+                s("path").unwrap_or(""),
+                s("field"),
+                op.get("index").and_then(|v| v.as_i64()).unwrap_or(0).max(0) as usize,
+                op.get("accept").and_then(|v| v.as_bool()).unwrap_or(true),
+            )),
+            "strip" => Json::parse(&api.stripped().to_json().to_canonical_json())
+                .map_err(|e| panic!("strip state does not parse: {}", e)),
+            "roundTrip" => {
+                let doc = api.doc();
+                let current = doc.to_json().to_canonical_json();
+                let yaml_ok = encode_yaml(doc, tree, MODEL_VERSION)
+                    .ok()
+                    .and_then(|y| decode_yaml(&y, tree).ok())
+                    .is_some_and(|d| d.document.to_json().to_canonical_json() == current);
+                let md_ok = SpecDocumentMarkdown::new(model, doc)
+                    .export_root(&model.roots[0])
+                    .ok()
+                    .map(|md| SpecDocument::from_markdown(&md, model))
+                    .is_some_and(|imp| {
+                        imp.rejections().is_empty()
+                            && imp.document.to_json().to_canonical_json() == current
+                    });
+                Ok(obj(vec![("yaml", Json::Bool(yaml_ok)), ("markdown", Json::Bool(md_ok))]))
+            }
+            other => panic!("unknown annotation op {}", other),
+        };
+        results.push(result);
+    }
+    (results, doc.to_json())
 }

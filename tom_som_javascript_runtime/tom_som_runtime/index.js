@@ -135,6 +135,18 @@ const {
   validateDocument,
 } = require('./spec_validator');
 const {
+  SpecReviewAnnotationKind,
+  SpecMarkKind,
+  SpecReviewAnnotation,
+  SpecReviewAnnotationCounts,
+  SpecQuestionDraft,
+  SpecReviewAnnotationError,
+  SpecReviewAnnotations,
+  formatCommentBlock,
+  formatQuestionBlock,
+  stripAnnotationsText,
+} = require('./spec_review_annotations');
+const {
   SomNode,
   SomScalar,
   SomList,
@@ -319,6 +331,17 @@ module.exports = {
   SpecValidationCode,
   SpecValidationError,
   validateDocument,
+  // review annotations (SOM §11.9)
+  SpecReviewAnnotationKind,
+  SpecMarkKind,
+  SpecReviewAnnotation,
+  SpecReviewAnnotationCounts,
+  SpecQuestionDraft,
+  SpecReviewAnnotationError,
+  SpecReviewAnnotations,
+  formatCommentBlock,
+  formatQuestionBlock,
+  stripAnnotationsText,
   // facade
   SomNode,
   SomScalar,
