@@ -21,6 +21,8 @@
 
 #include <cstddef>
 #include <exception>
+#include <functional>
+#include <map>
 #include <optional>
 #include <string>
 #include <utility>
@@ -142,7 +144,81 @@ class SpecReviewAnnotationError : public std::exception {
   std::string message_;
 };
 
+/* ---- inline-mark review (SOM §11.9.3) ------------------------------------ */
+
+/* What to do with one inline mark. */
+enum class SpecMarkDecision {
+  Accept,  // take the change: an insertion's text, nothing for a deletion,
+           // a substitution's new text
+  Reject,  // undo the change: nothing for an insertion, a deletion's text,
+           // a substitution's old text
+  Leave,   // keep the mark as written
+};
+
+/* The decision's wire name: `"accept"`, `"reject"`, `"leave"`. */
+const char* specMarkDecisionName(SpecMarkDecision d);
+
+/* The decision named `name`; nullopt when unknown. */
+std::optional<SpecMarkDecision> specMarkDecisionFromName(const std::string& name);
+
+/* One inline mark as `listMarks` reports it. */
+struct SpecMarkEntry {
+  /* `M-<n>`: the mark's 1-based position among all marks of the document, in
+   * document order. Stable for one `SpecReviewAnnotations::revision()`. */
+  std::string id;
+  std::string path;
+  std::optional<std::string> field;  // nullopt for content
+  std::size_t line = 0;  // 0-based line within the value where it opens
+  SpecMarkKind markKind = SpecMarkKind::Comment;
+  std::string oldText;  // the text after rejecting the mark
+  std::string newText;  // the text after accepting the mark
+  std::optional<std::string> comment;  // a comment mark's comment
+  std::string markup;   // the mark as written
+  std::string context;  // the paragraph holding the mark, verbatim
+
+  /* The canonical JSON form the conformance corpus pins. */
+  std::string toJson() const;
+};
+
+/* What was done to one mark. */
+struct SpecMarkOutcome {
+  std::string id;  // the mark's id at the revision the operation ran on
+  std::string path;
+  std::optional<std::string> field;
+  std::size_t line = 0;
+  SpecMarkKind markKind = SpecMarkKind::Comment;
+  SpecMarkDecision decision = SpecMarkDecision::Accept;  // accept or reject
+  std::string markup;  // the mark as written
+  std::string result;  // the text that replaced it
+
+  std::string toJson() const;
+};
+
+/* A mark the scanner could not read; it is left as written. */
+struct SpecMarkIssue {
+  std::string path;
+  std::optional<std::string> field;
+  std::size_t line = 0;
+  std::string issue;  // `unclosed`, `nested` or `noArrow`
+
+  std::string toJson() const;
+};
+
+/* The report of a mark operation, for the decision log. */
+struct SpecMarkReport {
+  std::vector<SpecMarkOutcome> applied;  // what was done, in document order
+  std::vector<SpecMarkIssue> malformed;  // malformed marks in scope
+
+  /* `{applied: [...], malformed: [...]}`. */
+  std::string toJson() const;
+};
+
 /* ---- text level: one value ---------------------------------------------- */
+
+/* `value` with every inline mark accepted (`accept`) or rejected, and every
+ * highlight and comment mark removed. Marks in code and malformed marks stay
+ * as written. */
+std::string applyInlineMarksText(const std::string& value, bool accept);
 
 /* The lines of a comment block (`author` nullopt or empty for none). */
 std::vector<std::string> formatCommentBlock(
@@ -228,6 +304,37 @@ class SpecReviewAnnotations {
                  const std::optional<std::string>& field, long long index,
                  bool accept = true);
 
+  /* The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8
+   * of every value in document order (path, NUL, field or empty, NUL, text,
+   * NUL), as 16 lower-case hex digits. */
+  std::string revision() const;
+
+  /* Every inline mark of the document, or of the subtree at `path`, in
+   * document order. */
+  std::vector<SpecMarkEntry> listMarks(
+      const std::optional<std::string>& path = std::nullopt) const;
+
+  /* Applies one decision per named mark in one write. Throws
+   * `SpecReviewAnnotationError` — nothing changes — when the document is no
+   * longer at `revision`, or when a decision names a mark that does not
+   * exist. Marks not named, and marks decided `Leave`, stay. */
+  SpecMarkReport decideMarks(
+      const std::map<std::string, SpecMarkDecision>& decisions,
+      const std::string& revision);
+
+  /* Accepts every inline mark under `path` (nullopt: the whole document). */
+  SpecMarkReport acceptAllMarks(
+      const std::optional<std::string>& path = std::nullopt);
+
+  /* Rejects every inline mark under `path` (nullopt: the whole document). */
+  SpecMarkReport rejectAllMarks(
+      const std::optional<std::string>& path = std::nullopt);
+
+  /* Removes every annotation and writes the result back: every inline mark
+   * accepted, every comment and question block removed. Malformed marks stay
+   * and are reported. Returns the accept report. */
+  SpecMarkReport removeAllAnnotations();
+
   /* A copy of the document without any annotation, for reading. The document
    * itself is unchanged. */
   SpecDocument stripped() const;
@@ -237,6 +344,11 @@ class SpecReviewAnnotations {
   std::vector<SpecValidationError> validate() const;
 
  private:
+  SpecMarkReport applyMarks(
+      const std::function<std::optional<SpecMarkDecision>(const std::string&)>&
+          decide,
+      const std::optional<std::string>& under);
+
   SpecDocument* doc_;
   std::optional<std::string> qualifier_;
 };

@@ -180,6 +180,11 @@ export type { SpecValidationCodeValue } from './spec_validator';
 export {
   SpecReviewAnnotationKind,
   SpecMarkKind,
+  SpecMarkDecision,
+  SpecMarkEntry,
+  SpecMarkOutcome,
+  SpecMarkIssue,
+  SpecMarkReport,
   SpecReviewAnnotation,
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
@@ -187,11 +192,13 @@ export {
   SpecReviewAnnotations,
   formatCommentBlock,
   formatQuestionBlock,
+  applyInlineMarksText,
   stripAnnotationsText,
 } from './spec_review_annotations';
 export type {
   SpecReviewAnnotationKindValue,
   SpecMarkKindValue,
+  SpecMarkDecisionValue,
   SpecReviewAnnotationInit,
 } from './spec_review_annotations';
 

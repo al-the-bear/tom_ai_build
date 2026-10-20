@@ -124,8 +124,9 @@ pub use spec_query::{
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_review_annotations::{
-    format_comment_block, format_question_block, strip_annotations_text,
-    validate_review_annotations, SpecMarkKind, SpecQuestionDraft, SpecReviewAnnotation,
+    apply_inline_marks_text, format_comment_block, format_question_block, strip_annotations_text,
+    validate_review_annotations, SpecMarkDecision, SpecMarkEntry, SpecMarkIssue, SpecMarkKind,
+    SpecMarkOutcome, SpecMarkReport, SpecQuestionDraft, SpecReviewAnnotation,
     SpecReviewAnnotationCounts, SpecReviewAnnotationError, SpecReviewAnnotationKind,
     SpecReviewAnnotations,
 };

@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Inline-mark review (SOM §11.9.3, annot4), in `spec_review_annotations`, a
+  port of the Dart reference. `SpecReviewAnnotations` gains `revision()`
+  (FNV-1a 64-bit, 16 hex digits), `listMarks(path)` (`SpecMarkEntry`, ids
+  `M-<n>`), `decideMarks(decisions, revision)` (throws
+  `SpecReviewAnnotationError` on a stale revision or an unknown id),
+  `acceptAllMarks(path)`, `rejectAllMarks(path)` and `removeAllAnnotations()`;
+  the free function `applyInlineMarksText(text, accept)` works on one value.
+  New `enum class SpecMarkDecision` (`specMarkDecisionName`,
+  `specMarkDecisionFromName`); every operation returns a `SpecMarkReport` of
+  `SpecMarkOutcome`s and `SpecMarkIssue`s (`unclosed`, `nested`, `noArrow`),
+  each with `toJson()`. Accepting or rejecting a mark (also `applyMark`) now
+  follows the full whitespace rules: tabs count as spaces, `]` and `}` join
+  the punctuation set, and a mark that was a whole line takes its line with
+  it. The conformance harness runs `inline_mark_cases.json`. Guide:
+  `doc/review_annotations.md`, "Reviewing inline marks".
+
 - Review annotations (SOM §11.9, annot2). New module `spec_review_annotations`
   (`include/spec_review_annotations.hpp`, in the umbrella header), a port of
   the Dart `spec_review_annotations.dart`: `som::SpecReviewAnnotations` lists

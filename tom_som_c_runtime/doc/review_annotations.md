@@ -12,6 +12,7 @@ value byte for byte as it was.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Operations](#operations)
+- [Reviewing inline marks](#reviewing-inline-marks)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Memory and Ownership](#memory-and-ownership)
@@ -130,6 +131,54 @@ Every operation is `spec_review_annotations_<name>(&review, …)`.
 the project's log **before** `resolve` removes it (`tom_specs_project_flow.md`
 PF-ITR-REV).
 
+## Reviewing inline marks
+
+Every operation is `spec_review_annotations_<name>(&review, …)` unless it says
+otherwise.
+
+| Operation | Does |
+|-----------|------|
+| `revision()` | The revision the mark ids are stable for (16 hex digits, owned); any change to a value changes it |
+| `list_marks(path, out)` | Every inline mark of the document (`path` `NULL`) or of a subtree, as `SpecMarkEntry`: `M-<n>` id, `mark_kind`, `path`, `field`, `old_text` and `new_text`, `markup`, the paragraph holding it as `context` |
+| `decide_marks(decisions, decisions_len, revision, out, err)` | One write: an array of `SpecMarkDecisionItem` `{id, SPEC_MARK_DECISION_ACCEPT / _REJECT / _LEAVE}`. Refused (returns 0, nothing changes) when the document is no longer at `revision`, or when an id is unknown |
+| `accept_all_marks(path, out)`, `reject_all_marks(path, out)` | Every mark under a path, or in the whole document (`NULL`) |
+| `remove_all_annotations(out)` | Every mark accepted and every comment and question block removed, written back |
+| `spec_apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected (owned) |
+
+Each fills a `SpecMarkReport` (`spec_mark_report_to_json`,
+`spec_mark_report_free`). `applied` holds one `SpecMarkOutcome` per mark: id,
+kind, path, decision, markup and result. `malformed` holds the
+`SpecMarkIssue`s in scope (`unclosed`, `nested`, `noArrow`); those marks are
+left as written.
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | nothing |
+| `{-- removed --}` | nothing | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
+| `{>> c <<}` | nothing | nothing |
+
+The whitespace rules (words never join, no double space and no space before
+punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+
+```c
+char *rev = spec_review_annotations_revision(&review);
+SpecMarkEntryList marks;
+spec_review_annotations_list_marks(&review, NULL, &marks);
+SpecMarkDecisionItem d = {marks.items[0].id, SPEC_MARK_DECISION_ACCEPT};
+SpecMarkReport report;
+SpecReviewAnnotationError err;
+spec_review_annotation_error_init(&err);
+if (!spec_review_annotations_decide_marks(&review, &d, 1, rev, &report, &err)) {
+  fprintf(stderr, "%s\n", err.message);
+}
+spec_mark_report_free(&report);
+spec_review_annotation_error_free(&err);
+spec_mark_entry_list_free(&marks);
+free(rev);
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by
@@ -158,6 +207,9 @@ Everything an operation returns is the caller's:
 | Returned | Release with |
 |----------|--------------|
 | `SpecReviewAnnotationList` | `spec_review_annotation_list_free` |
+| `SpecMarkEntryList` | `spec_mark_entry_list_free` |
+| `SpecMarkReport` | `spec_mark_report_free` |
+| revision, `spec_apply_inline_marks_text` | `free` |
 | ids, JSON text, `spec_strip_annotations_text` | `free` |
 | `SomStrList` (assigned ids, block lines) | `som_strlist_free` |
 | `stripped()` document | `spec_document_free` + `free` |

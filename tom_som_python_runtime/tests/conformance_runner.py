@@ -81,6 +81,7 @@ from tom_som_runtime import (  # noqa: E402
     SpecNodeKind,
     SpecQuery,
     SpecQueryEngine,
+    SpecMarkDecision,
     SpecQuestionDraft,
     SpecReviewAnnotationError,
     SpecReviewAnnotations,
@@ -94,6 +95,7 @@ from tom_som_runtime import (  # noqa: E402
     som_editability_for,
     encode_two_letter_date,
     generate_list_item_section_id,
+    apply_inline_marks_text,
     validate_document,
     validate_spec_document,
     rekey_review,
@@ -1078,6 +1080,22 @@ def _run_annotation_op(model: SpecModel, tree, doc: SpecDocument,
         return None
     if kind == "strip":
         return api.stripped().to_json()
+    if kind == "revision":
+        return api.revision()
+    if kind == "listMarks":
+        return [m.to_json() for m in api.list_marks(path=op.get("path"))]
+    if kind == "decideMarks":
+        rev = op["revision"]
+        return api.decide_marks(
+            {k: SpecMarkDecision(v) for k, v in op["decisions"].items()},
+            revision=api.revision() if rev == "@current" else rev,
+        ).to_json()
+    if kind == "acceptAll":
+        return api.accept_all_marks(path=op.get("path")).to_json()
+    if kind == "rejectAll":
+        return api.reject_all_marks(path=op.get("path")).to_json()
+    if kind == "removeAll":
+        return api.remove_all_annotations().to_json()
     if kind == "roundTrip":
         yaml = yaml_encode(doc, tree, model_version=_MODEL_VERSION)
         from_yaml = yaml_decode(yaml, tree).document
@@ -1111,6 +1129,27 @@ def test_annotations(model: SpecModel, tree) -> None:
         got = _run_annotation_case(model, tree, case)
         _check(
             f"annotations[{case['name']}]",
+            got == case["expect"],
+            _json_mismatch(got, case["expect"]),
+        )
+
+
+def test_inline_marks(model: SpecModel, tree) -> None:
+    """``inline_mark_cases.json``: accepting and rejecting inline marks
+    (SOM §11.9.3)."""
+    table = _read_json("inline_mark_cases.json")
+    for c in table["textCases"]:
+        for accept, key in ((True, "accept"), (False, "reject")):
+            got = apply_inline_marks_text(c["text"], accept=accept)
+            _check(
+                f"marks text[{c['name']}].{key}",
+                got == c[key],
+                f"got {got!r}, want {c[key]!r}",
+            )
+    for case in table["cases"]:
+        got = _run_annotation_case(model, tree, case)
+        _check(
+            f"marks[{case['name']}]",
             got == case["expect"],
             _json_mismatch(got, case["expect"]),
         )
@@ -1839,6 +1878,7 @@ def main() -> int:
     test_docspecs_replace()
     test_assembly()
     test_annotations(model, tree)
+    test_inline_marks(model, tree)
     test_list_move(model)
     test_build_document_matches_state()
     test_pattern()

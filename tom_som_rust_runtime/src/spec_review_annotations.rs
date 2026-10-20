@@ -18,7 +18,7 @@ use crate::spec_validator::{
     SpecValidationError, SPEC_VALIDATION_CODE_ANNOTATION_MALFORMED,
     SPEC_VALIDATION_CODE_ANNOTATION_MISPLACED, SPEC_VALIDATION_CODE_DUPLICATE_ANNOTATION_ID,
 };
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 /// The three kinds of annotation (SOM §11.9).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -321,6 +321,185 @@ impl std::fmt::Display for SpecReviewAnnotationError {
 
 impl std::error::Error for SpecReviewAnnotationError {}
 
+/// What to do with one inline mark (SOM §11.9.3).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub enum SpecMarkDecision {
+    /// Take the change: an insertion's text, nothing for a deletion, a
+    /// substitution's new text.
+    Accept,
+    /// Undo the change: nothing for an insertion, a deletion's text, a
+    /// substitution's old text.
+    Reject,
+    /// Keep the mark as written.
+    Leave,
+}
+
+impl SpecMarkDecision {
+    /// Every decision, in declaration order.
+    pub const ALL: [SpecMarkDecision; 3] = [
+        SpecMarkDecision::Accept,
+        SpecMarkDecision::Reject,
+        SpecMarkDecision::Leave,
+    ];
+
+    /// The wire name (`accept`, `reject`, `leave`).
+    pub fn name(self) -> &'static str {
+        match self {
+            SpecMarkDecision::Accept => "accept",
+            SpecMarkDecision::Reject => "reject",
+            SpecMarkDecision::Leave => "leave",
+        }
+    }
+
+    /// The decision with wire name `name`, or `None`.
+    pub fn from_name(name: &str) -> Option<SpecMarkDecision> {
+        SpecMarkDecision::ALL.into_iter().find(|d| d.name() == name)
+    }
+}
+
+fn json_obj(pairs: Vec<(&str, Json)>) -> Json {
+    Json::Object(pairs.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
+}
+
+fn json_str(v: &str) -> Json {
+    Json::Str(v.to_string())
+}
+
+fn json_opt(v: &Option<String>) -> Json {
+    v.as_deref().map(json_str).unwrap_or(Json::Null)
+}
+
+/// One inline mark as [`SpecReviewAnnotations::list_marks`] reports it.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SpecMarkEntry {
+    /// `M-<n>`: the mark's 1-based position among all marks of the document,
+    /// in document order. Stable for one [`SpecReviewAnnotations::revision`].
+    pub id: String,
+    /// The value's path.
+    pub path: String,
+    /// The form field, or `None` for content.
+    pub field: Option<String>,
+    /// The 0-based line within the value where the mark opens.
+    pub line: usize,
+    /// The mark's kind.
+    pub mark_kind: SpecMarkKind,
+    /// The text after rejecting the mark.
+    pub old_text: String,
+    /// The text after accepting the mark.
+    pub new_text: String,
+    /// A comment mark's or a commented highlight's comment.
+    pub comment: Option<String>,
+    /// The mark as written.
+    pub markup: String,
+    /// The paragraph holding the mark, verbatim — for display.
+    pub context: String,
+}
+
+impl SpecMarkEntry {
+    /// The canonical JSON form the conformance corpus pins.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("id", json_str(&self.id)),
+            ("path", json_str(&self.path)),
+            ("field", json_opt(&self.field)),
+            ("line", Json::Int(self.line as i64)),
+            ("markKind", json_str(self.mark_kind.name())),
+            ("oldText", json_str(&self.old_text)),
+            ("newText", json_str(&self.new_text)),
+            ("comment", json_opt(&self.comment)),
+            ("markup", json_str(&self.markup)),
+            ("context", json_str(&self.context)),
+        ])
+    }
+}
+
+/// What was done to one mark.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SpecMarkOutcome {
+    /// The mark's id at the revision the operation ran on.
+    pub id: String,
+    /// The value's path.
+    pub path: String,
+    /// The form field, or `None` for content.
+    pub field: Option<String>,
+    /// The 0-based line within the value where the mark opened.
+    pub line: usize,
+    /// The mark's kind.
+    pub mark_kind: SpecMarkKind,
+    /// Accepted or rejected.
+    pub decision: SpecMarkDecision,
+    /// The mark as written.
+    pub markup: String,
+    /// The text that replaced it.
+    pub result: String,
+}
+
+impl SpecMarkOutcome {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("id", json_str(&self.id)),
+            ("path", json_str(&self.path)),
+            ("field", json_opt(&self.field)),
+            ("line", Json::Int(self.line as i64)),
+            ("markKind", json_str(self.mark_kind.name())),
+            ("decision", json_str(self.decision.name())),
+            ("markup", json_str(&self.markup)),
+            ("result", json_str(&self.result)),
+        ])
+    }
+}
+
+/// A mark the scanner could not read; it is left as written.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SpecMarkIssue {
+    /// The value's path.
+    pub path: String,
+    /// The form field, or `None` for content.
+    pub field: Option<String>,
+    /// The 0-based line within the value.
+    pub line: usize,
+    /// `unclosed`, `nested` or `noArrow`.
+    pub issue: String,
+}
+
+impl SpecMarkIssue {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            ("path", json_str(&self.path)),
+            ("field", json_opt(&self.field)),
+            ("line", Json::Int(self.line as i64)),
+            ("issue", json_str(&self.issue)),
+        ])
+    }
+}
+
+/// The report of a mark operation, for the decision log.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct SpecMarkReport {
+    /// What was done, in document order.
+    pub applied: Vec<SpecMarkOutcome>,
+    /// Malformed marks in scope, left as written.
+    pub malformed: Vec<SpecMarkIssue>,
+}
+
+impl SpecMarkReport {
+    /// The canonical JSON form.
+    pub fn to_json(&self) -> Json {
+        json_obj(vec![
+            (
+                "applied",
+                Json::Array(self.applied.iter().map(|a| a.to_json()).collect()),
+            ),
+            (
+                "malformed",
+                Json::Array(self.malformed.iter().map(|m| m.to_json()).collect()),
+            ),
+        ])
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Text level: one value.
 // ---------------------------------------------------------------------------
@@ -393,6 +572,9 @@ struct Parsed {
     comments: Vec<Comment>,
     marks: Vec<Mark>,
     malformed: Vec<String>,
+    /// Malformed inline marks as (value line, issue code): `unclosed`,
+    /// `nested`, `noArrow`.
+    mark_issues: Vec<(usize, &'static str)>,
 }
 
 fn lstrip(s: &str) -> &str {
@@ -460,6 +642,7 @@ fn parse(value: &str) -> Parsed {
         comments: Vec::new(),
         marks: Vec::new(),
         malformed: Vec::new(),
+        mark_issues: Vec::new(),
     };
 
     // Blocks.
@@ -820,6 +1003,7 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
                     "line {}: inline mark \"{}\" is not closed in its paragraph (SOM §11.9.3)",
                     line, opener
                 ));
+                p.mark_issues.push((line, "unclosed"));
                 i += 3;
                 continue;
             }
@@ -828,6 +1012,7 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
         if has_opener(inn) {
             p.malformed
                 .push(format!("line {}: inline marks do not nest (SOM §11.9.3)", line));
+            p.mark_issues.push((line, "nested"));
             i = close + 3;
             continue;
         }
@@ -888,6 +1073,7 @@ fn scan_segment(p: &mut Parsed, seg: &str, base: usize, line_start: &[usize]) {
                         "line {}: a substitution has no \"~>\" (SOM §11.9.3)",
                         line
                     ));
+                    p.mark_issues.push((line, "noArrow"));
                     i = end;
                     continue;
                 };
@@ -1098,35 +1284,72 @@ fn is_word_char(c: char) -> bool {
     c.is_ascii_digit() || c.to_lowercase().ne(c.to_uppercase())
 }
 
-/// Applies a mark's replacement and tidies the one space a removal leaves.
+/// Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
+/// never join two words, never leave a double space or a space before
+/// punctuation, and a mark that was a whole line leaves no blank line.
 fn replace_mark(value: &str, m: &Mark, replacement: &str) -> String {
     let mut replacement = replacement.to_string();
     let mut before = &value[..m.start];
     let mut after = &value[m.end..];
+    let is_space = |c: char| c == ' ' || c == '\t';
+    fn trim_end_spaces(s: &str) -> &str {
+        s.trim_end_matches([' ', '\t'])
+    }
+    fn trim_start_spaces(s: &str) -> &str {
+        s.trim_start_matches([' ', '\t'])
+    }
     if replacement.is_empty() {
-        let after_first = after.chars().next();
-        if before.ends_with(' ')
-            && (after.is_empty()
-                || after.starts_with(' ')
+        let tb = trim_end_spaces(before);
+        let ta = trim_start_spaces(after);
+        let line_start = tb.is_empty() || tb.ends_with('\n');
+        let line_end = ta.is_empty() || ta.starts_with('\n');
+        if line_start && line_end {
+            // The mark was the whole line: the line goes, and with it one of
+            // the newlines around it; a blank line left doubled is merged.
+            before = tb;
+            after = ta;
+            if let Some(rest) = after.strip_prefix('\n') {
+                after = rest;
+            } else if let Some(rest) = before.strip_suffix('\n') {
+                before = rest;
+            }
+            if (before.is_empty() || before.ends_with("\n\n")) && after.starts_with('\n') {
+                after = &after[1..];
+            }
+            if after.is_empty() {
+                before = before.trim_end_matches('\n');
+            }
+            return format!("{}{}", before, after);
+        }
+        if before.chars().next_back().is_some_and(is_space) {
+            if after.chars().next().is_some_and(is_space) {
+                after = trim_start_spaces(after);
+            } else if after.is_empty()
                 || after.starts_with('\n')
-                || after_first.is_some_and(|c| ".,;:!?)".contains(c)))
+                || after
+                    .chars()
+                    .next()
+                    .is_some_and(|c| ".,;:!?)]}".contains(c))
+            {
+                before = trim_end_spaces(before);
+            }
+        } else if (before.is_empty() || before.ends_with('\n'))
+            && after.chars().next().is_some_and(is_space)
         {
-            before = &before[..before.len() - 1];
-        } else if (before.is_empty() || before.ends_with('\n')) && after.starts_with(' ') {
-            after = &after[1..];
+            after = trim_start_spaces(after);
         }
-    } else {
-        // Never join two words: a mark written flush against a word keeps a
-        // space on that side.
-        let before_word = before.chars().next_back().is_some_and(is_word_char);
-        if before_word && replacement.chars().next().is_some_and(is_word_char) {
-            replacement.insert(0, ' ');
-        }
-        if replacement.chars().next_back().is_some_and(is_word_char)
-            && after.chars().next().is_some_and(is_word_char)
-        {
-            replacement.push(' ');
-        }
+        return format!("{}{}", before, after);
+    }
+    // Never join two words: a mark written flush against a word keeps a space
+    // on that side.
+    let before_word = before.chars().next_back().is_some_and(is_word_char);
+    if before_word && replacement.chars().next().is_some_and(is_word_char) {
+        replacement.insert(0, ' ');
+    }
+    if replacement.chars().next_back().is_some_and(is_word_char)
+        && after.chars().next().is_some_and(is_word_char)
+    {
+        replacement.push(' ');
     }
     format!("{}{}{}", before, replacement, after)
 }
@@ -1157,6 +1380,18 @@ fn mark_replacement(m: &Mark, accept: bool) -> String {
         SpecMarkKind::Highlight => m.text.clone(),
         SpecMarkKind::Comment => String::new(),
     }
+}
+
+/// `value` with every inline mark accepted (`accept`) or rejected, and every
+/// highlight and comment mark removed, by the rules of SOM §11.9.3. Marks in
+/// code and malformed marks stay as written.
+pub fn apply_inline_marks_text(value: &str, accept: bool) -> String {
+    let mut v = value.to_string();
+    let marks = parse(&v).marks;
+    for m in marks.iter().rev() {
+        v = replace_mark(&v, m, &mark_replacement(m, accept));
+    }
+    v
 }
 
 /// `value` without any comment block, question block or inline mark (every
@@ -1626,4 +1861,191 @@ fn paragraph_last_line(
         )));
     }
     Ok(Some(paras[after_paragraph as usize].1))
+}
+
+// ---------------------------------------------------------------------------
+// Reviewing inline marks (SOM §11.9.3).
+// ---------------------------------------------------------------------------
+
+fn is_under(path: &str, under: Option<&str>) -> bool {
+    match under {
+        None => true,
+        Some(u) => path == u || (path.starts_with(u) && path[u.len()..].starts_with('/')),
+    }
+}
+
+impl<'a> SpecReviewAnnotations<'a> {
+    /// The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8
+    /// of every value in document order (path, NUL, field or empty, NUL, text,
+    /// NUL), as 16 lower-case hex digits. Any change to a value changes it.
+    pub fn revision(&self) -> String {
+        const PRIME: u64 = 0x100000001b3;
+        let mut h: u64 = 0xcbf29ce484222325;
+        let mut add = |s: &str| {
+            for &b in s.as_bytes() {
+                h = (h ^ b as u64).wrapping_mul(PRIME);
+            }
+            h = h.wrapping_mul(PRIME); // the NUL byte: h ^ 0 == h
+        };
+        for (path, field, text) in values_of(self.doc) {
+            add(&path);
+            add(field.as_deref().unwrap_or(""));
+            add(&text);
+        }
+        format!("{:016x}", h)
+    }
+
+    /// Every inline mark of the document, or of the subtree at `path`, in
+    /// document order.
+    pub fn list_marks(&self, path: Option<&str>) -> Vec<SpecMarkEntry> {
+        let mut out = Vec::new();
+        let mut n = 0;
+        for (vpath, field, text) in values_of(self.doc) {
+            let p = parse(&text);
+            let paras = paragraphs(&p.lines, &p.code);
+            for m in &p.marks {
+                n += 1;
+                let id = format!("M-{}", n);
+                if !is_under(&vpath, path) {
+                    continue;
+                }
+                let (s, e) = paras
+                    .iter()
+                    .copied()
+                    .find(|&(s, e)| s <= m.line && m.line <= e)
+                    .unwrap_or((m.line, m.line));
+                out.push(SpecMarkEntry {
+                    id,
+                    path: vpath.clone(),
+                    field: field.clone(),
+                    line: m.line,
+                    mark_kind: m.kind,
+                    old_text: mark_replacement(m, false),
+                    new_text: mark_replacement(m, true),
+                    comment: m.comment.clone(),
+                    markup: text[m.start..m.end].to_string(),
+                    context: p.lines[s..=e].join("\n"),
+                });
+            }
+        }
+        out
+    }
+
+    /// Applies `decide` to every mark in the subtree `under` (`None`: the
+    /// whole document), one write per value.
+    fn apply_marks(
+        &mut self,
+        decide: impl Fn(&str) -> Option<SpecMarkDecision>,
+        under: Option<&str>,
+    ) -> SpecMarkReport {
+        let mut report = SpecMarkReport::default();
+        let mut n = 0;
+        for (path, field, text) in values_of(self.doc) {
+            let p = parse(&text);
+            let ids: Vec<String> = p
+                .marks
+                .iter()
+                .map(|_| {
+                    n += 1;
+                    format!("M-{}", n)
+                })
+                .collect();
+            if !is_under(&path, under) {
+                continue;
+            }
+            for &(line, issue) in &p.mark_issues {
+                report.malformed.push(SpecMarkIssue {
+                    path: path.clone(),
+                    field: field.clone(),
+                    line,
+                    issue: issue.to_string(),
+                });
+            }
+            let mut v = text.clone();
+            let mut outcomes = Vec::new();
+            for (k, m) in p.marks.iter().enumerate().rev() {
+                let d = match decide(&ids[k]) {
+                    None | Some(SpecMarkDecision::Leave) => continue,
+                    Some(d) => d,
+                };
+                let repl = mark_replacement(m, d == SpecMarkDecision::Accept);
+                outcomes.insert(
+                    0,
+                    SpecMarkOutcome {
+                        id: ids[k].clone(),
+                        path: path.clone(),
+                        field: field.clone(),
+                        line: m.line,
+                        mark_kind: m.kind,
+                        decision: d,
+                        markup: text[m.start..m.end].to_string(),
+                        result: repl.clone(),
+                    },
+                );
+                v = replace_mark(&v, m, &repl);
+            }
+            if v != text {
+                self.set(&path, field.as_deref(), &v);
+            }
+            report.applied.extend(outcomes);
+        }
+        report
+    }
+
+    /// Applies one decision per named mark in one write. Refused — nothing
+    /// changes — when the document is no longer at `revision`, or when a
+    /// decision names a mark that does not exist. Marks not named, and marks
+    /// decided [`SpecMarkDecision::Leave`], stay.
+    pub fn decide_marks(
+        &mut self,
+        decisions: &HashMap<String, SpecMarkDecision>,
+        revision: &str,
+    ) -> Result<SpecMarkReport, SpecReviewAnnotationError> {
+        let current = self.revision();
+        if revision != current {
+            return Err(SpecReviewAnnotationError::new(format!(
+                "the document changed since revision {} (now {}); list the marks again",
+                revision, current
+            )));
+        }
+        let known: HashSet<String> = self.list_marks(None).into_iter().map(|m| m.id).collect();
+        for id in decisions.keys() {
+            if !known.contains(id) {
+                return Err(SpecReviewAnnotationError::new(format!(
+                    "no inline mark {} in the document",
+                    id
+                )));
+            }
+        }
+        Ok(self.apply_marks(|id| decisions.get(id).copied(), None))
+    }
+
+    /// Accepts every inline mark under `path` (`None`: the whole document).
+    pub fn accept_all_marks(&mut self, path: Option<&str>) -> SpecMarkReport {
+        self.apply_marks(|_| Some(SpecMarkDecision::Accept), path)
+    }
+
+    /// Rejects every inline mark under `path` (`None`: the whole document).
+    pub fn reject_all_marks(&mut self, path: Option<&str>) -> SpecMarkReport {
+        self.apply_marks(|_| Some(SpecMarkDecision::Reject), path)
+    }
+
+    /// Removes every annotation and writes the result back: every inline mark
+    /// accepted, every comment and question block removed. Malformed marks
+    /// stay and are reported.
+    pub fn remove_all_annotations(&mut self) -> SpecMarkReport {
+        let report = self.accept_all_marks(None);
+        for (path, field, text) in values_of(self.doc) {
+            let mut v = text.clone();
+            loop {
+                let p = parse(&v);
+                let Some(b) = p.blocks.last() else { break };
+                v = remove_lines(&v, b.start, b.end);
+            }
+            if v != text {
+                self.set(&path, field.as_deref(), &v);
+            }
+        }
+        report
+    }
 }

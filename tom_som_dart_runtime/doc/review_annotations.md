@@ -12,6 +12,7 @@ was.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Operations](#operations)
+- [Reviewing inline marks](#reviewing-inline-marks)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -79,6 +80,7 @@ DEMO C-1
 | `SpecReviewAnnotationCounts` | questions, open, answered, comments, marks |
 | `SpecReviewAnnotationError` | An operation named something that is not there |
 | `stripAnnotationsText` | One value without its annotations |
+| `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
 
 ## Operations
 
@@ -99,6 +101,42 @@ DEMO C-1
 
 Record each applied comment or answer in the project's log **before**
 `resolve` removes it (`tom_specs_project_flow.md` PF-ITR-REV).
+
+## Reviewing inline marks
+
+| Operation | Does |
+|-----------|------|
+| `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
+| `listMarks({path})` | Every inline mark of the document or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
+| `decideMarks(decisions, revision:)` | One write: `{id → SpecMarkDecision.accept / reject / leave}`. Refused when the document is no longer at `revision`, or when an id is unknown |
+| `acceptAllMarks({path})`, `rejectAllMarks({path})` | Every mark under a path, or in the whole document |
+| `removeAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
+| `applyInlineMarksText(text, accept:)` | One value with every mark accepted or rejected |
+
+Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
+mark: id, kind, path, decision, markup and result. `malformed` holds the
+`SpecMarkIssue`s in scope (`unclosed`, `nested`, `noArrow`); those marks are
+left as written.
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | nothing |
+| `{-- removed --}` | nothing | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
+| `{>> c <<}` | nothing | nothing |
+
+The whitespace rules (words never join, no double space and no space before
+punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+
+```dart
+final review = SpecReviewAnnotations(doc);
+final rev = review.revision();
+final marks = review.listMarks();
+final report = review.decideMarks({
+  marks.first.id: SpecMarkDecision.accept,
+}, revision: rev);
+```
 
 ## Validation
 

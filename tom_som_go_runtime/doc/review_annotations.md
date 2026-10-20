@@ -12,6 +12,7 @@ value byte for byte as it was.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Operations](#operations)
+- [Reviewing inline marks](#reviewing-inline-marks)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -91,6 +92,7 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 | `*SpecReviewAnnotationError` | An operation named something that is not there |
 | `StripAnnotationsText` | One value without its annotations |
 | `FormatCommentBlock` / `FormatQuestionBlock` | The lines of a block as the operations write it |
+| `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
 
 ## Operations
 
@@ -112,6 +114,42 @@ The same program runs as `ExampleSpecReviewAnnotations` in
 Record each applied comment or answer in the project's log **before**
 `Resolve` removes it (`tom_specs_project_flow.md` PF-ITR-REV).
 
+## Reviewing inline marks
+
+| Operation | Does |
+|-----------|------|
+| `Revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
+| `ListMarks(path)` | Every inline mark of the document (`path` `""`) or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
+| `DecideMarks(decisions, revision)` | One write: `map[id]SpecMarkDecision` with `SpecMarkDecisionAccept` / `…Reject` / `…Leave`. Refused with a `*SpecReviewAnnotationError` when the document is no longer at `revision`, or when an id is unknown |
+| `AcceptAllMarks(path)`, `RejectAllMarks(path)` | Every mark under a path, or in the whole document (`""`) |
+| `RemoveAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
+| `ApplyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
+
+Each returns a `SpecMarkReport`. `Applied` holds one `SpecMarkOutcome` per
+mark: id, kind, path, decision, markup and result. `Malformed` holds the
+`SpecMarkIssue`s in scope (`unclosed`, `nested`, `noArrow`); those marks are
+left as written.
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | nothing |
+| `{-- removed --}` | nothing | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
+| `{>> c <<}` | nothing | nothing |
+
+The whitespace rules (words never join, no double space and no space before
+punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+
+```go
+review := som.NewSpecReviewAnnotations(doc, "")
+rev := review.Revision()
+marks := review.ListMarks("")
+report, err := review.DecideMarks(map[string]som.SpecMarkDecision{
+	marks[0].ID: som.SpecMarkDecisionAccept,
+}, rev)
+```
+
 ## Validation
 
 `ValidateDocument` reports annotation findings as its last group, ordered by
@@ -129,8 +167,9 @@ They are findings, never parse rejections: the document still loads.
 
 Every operation that names a comment, a question, a paragraph or a mark that is
 not there returns a `*SpecReviewAnnotationError` and changes nothing; test for
-it with `errors.As`. `List`, `Counts`, `NextCommentID`, `AssignCommentIDs` and
-`Stripped` return no error.
+it with `errors.As`. `List`, `Counts`, `NextCommentID`, `AssignCommentIDs`, `Stripped`,
+`Revision`, `ListMarks`, `AcceptAllMarks`, `RejectAllMarks` and
+`RemoveAllAnnotations` return no error.
 
 ## Best Practices
 

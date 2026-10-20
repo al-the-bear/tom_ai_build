@@ -137,6 +137,11 @@ const {
 const {
   SpecReviewAnnotationKind,
   SpecMarkKind,
+  SpecMarkDecision,
+  SpecMarkEntry,
+  SpecMarkOutcome,
+  SpecMarkIssue,
+  SpecMarkReport,
   SpecReviewAnnotation,
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
@@ -144,6 +149,7 @@ const {
   SpecReviewAnnotations,
   formatCommentBlock,
   formatQuestionBlock,
+  applyInlineMarksText,
   stripAnnotationsText,
 } = require('./spec_review_annotations');
 const {
@@ -334,6 +340,11 @@ module.exports = {
   // review annotations (SOM §11.9)
   SpecReviewAnnotationKind,
   SpecMarkKind,
+  SpecMarkDecision,
+  SpecMarkEntry,
+  SpecMarkOutcome,
+  SpecMarkIssue,
+  SpecMarkReport,
   SpecReviewAnnotation,
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
@@ -341,6 +352,7 @@ module.exports = {
   SpecReviewAnnotations,
   formatCommentBlock,
   formatQuestionBlock,
+  applyInlineMarksText,
   stripAnnotationsText,
   // facade
   SomNode,

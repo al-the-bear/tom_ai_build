@@ -4280,6 +4280,67 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
         api, som_json_str_or(op, "path"), json_opt_str(op, "field"),
         json_i64_or(op, "index", 0), accept, &err);
     som_buf_puts(&b, "null");
+  } else if (strcmp(name, "revision") == 0) {
+    char *rev = spec_review_annotations_revision(api);
+    char *q = som_json_encode_str(rev);
+    som_buf_puts(&b, q);
+    free(q);
+    free(rev);
+  } else if (strcmp(name, "listMarks") == 0) {
+    SpecMarkEntryList l;
+    spec_review_annotations_list_marks(api, json_opt_str(op, "path"), &l);
+    som_buf_putc(&b, '[');
+    for (size_t i = 0; i < l.len; i++) {
+      if (i > 0) som_buf_putc(&b, ',');
+      char *j = spec_mark_entry_to_json(&l.items[i]);
+      som_buf_puts(&b, j);
+      free(j);
+    }
+    som_buf_putc(&b, ']');
+    spec_mark_entry_list_free(&l);
+  } else if (strcmp(name, "decideMarks") == 0 ||
+             strcmp(name, "acceptAll") == 0 ||
+             strcmp(name, "rejectAll") == 0 ||
+             strcmp(name, "removeAll") == 0) {
+    SpecMarkReport report;
+    if (strcmp(name, "decideMarks") == 0) {
+      const SomJson *ds = som_json_get(op, "decisions");
+      size_t dn = (ds != NULL && ds->type == SOM_JSON_OBJECT)
+                      ? ds->as.object.len
+                      : 0;
+      SpecMarkDecisionItem *items =
+          (SpecMarkDecisionItem *)calloc(dn ? dn : 1, sizeof(*items));
+      for (size_t i = 0; i < dn; i++) {
+        items[i].id = ds->as.object.members[i].key;
+        const char *dname = som_json_as_str(ds->as.object.members[i].value);
+        if (!spec_mark_decision_parse(dname, &items[i].decision)) {
+          fprintf(stderr, "unknown mark decision %s\n", dname ? dname : "");
+          exit(2);
+        }
+      }
+      const char *rev = json_opt_str(op, "revision");
+      char *current = NULL;
+      if (rev != NULL && strcmp(rev, "@current") == 0) {
+        current = spec_review_annotations_revision(api);
+        rev = current;
+      }
+      ok = spec_review_annotations_decide_marks(api, items, dn, rev, &report,
+                                                &err);
+      free(current);
+      free(items);
+    } else if (strcmp(name, "acceptAll") == 0) {
+      spec_review_annotations_accept_all_marks(api, json_opt_str(op, "path"),
+                                               &report);
+    } else if (strcmp(name, "rejectAll") == 0) {
+      spec_review_annotations_reject_all_marks(api, json_opt_str(op, "path"),
+                                               &report);
+    } else {
+      spec_review_annotations_remove_all_annotations(api, &report);
+    }
+    char *j = spec_mark_report_to_json(&report);
+    som_buf_puts(&b, j);
+    free(j);
+    spec_mark_report_free(&report);
   } else if (strcmp(name, "strip") == 0) {
     *stripped = spec_review_annotations_stripped(api);
     som_buf_free(&b);
@@ -4331,16 +4392,21 @@ static char *run_annotation_op(const SpecModel *model, const SomMetaTree *tree,
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
  * result and the final state must equal `expect` (JSON equality). */
-static void test_annotations(Checker *c, const SpecModel *model,
-                             const SomMetaTree *tree) {
-  SomJson *table = read_json("annotation_cases.json");
+static void run_annotation_cases(Checker *c, const SpecModel *model,
+                                 const SomMetaTree *tree, const char *file,
+                                 const char *prefix) {
+  SomJson *table = read_json(file);
   const SomJson *cases = som_json_get(table, "cases");
   size_t n = som_json_array_len(cases);
-  check(c, "annotations.cases", n > 0, "no cases in annotation_cases.json");
+  char ctag[256];
+  snprintf(ctag, sizeof(ctag), "%s.cases", prefix);
+  char cmsg[256];
+  snprintf(cmsg, sizeof(cmsg), "no cases in %s", file);
+  check(c, ctag, n > 0, cmsg);
   for (size_t i = 0; i < n; i++) {
     const SomJson *kase = som_json_array_at(cases, i);
     char label[512];
-    snprintf(label, sizeof(label), "annotations[%s]",
+    snprintf(label, sizeof(label), "%s[%s]", prefix,
              som_json_str_or(kase, "name"));
     DocumentJson state;
     document_json_from_json(som_json_get(kase, "state"), &state);
@@ -4396,6 +4462,40 @@ static void test_annotations(Checker *c, const SpecModel *model,
   som_json_free(table);
 }
 
+static void test_annotations(Checker *c, const SpecModel *model,
+                             const SomMetaTree *tree) {
+  run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
+}
+
+/* inline_mark_cases.json: `textCases` pin `spec_apply_inline_marks_text`
+ * (accept and reject); `cases` run like annotation_cases.json. */
+static void test_inline_marks(Checker *c, const SpecModel *model,
+                              const SomMetaTree *tree) {
+  SomJson *table = read_json("inline_mark_cases.json");
+  const SomJson *texts = som_json_get(table, "textCases");
+  size_t n = som_json_array_len(texts);
+  check(c, "inlineMarks.textCases", n > 0,
+        "no textCases in inline_mark_cases.json");
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *t = som_json_array_at(texts, i);
+    const char *text = som_json_str_or(t, "text");
+    for (int accept = 1; accept >= 0; accept--) {
+      const char *want = som_json_str_or(t, accept ? "accept" : "reject");
+      char *got = spec_apply_inline_marks_text(text, accept);
+      char tag[512];
+      snprintf(tag, sizeof(tag), "inlineMarks.text[%s].%s",
+               som_json_str_or(t, "name"), accept ? "accept" : "reject");
+      char *d = byte_diff(tag, got, want);
+      check(c, tag, strcmp(got, want) == 0, d);
+      free(d);
+      free(got);
+    }
+  }
+  som_json_free(table);
+  run_annotation_cases(c, model, tree, "inline_mark_cases.json",
+                       "inlineMarks");
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -4446,6 +4546,7 @@ int main(int argc, char **argv) {
   test_assembly(&c);
   test_list_move(&c, model);
   test_annotations(&c, model, tree);
+  test_inline_marks(&c, model, tree);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

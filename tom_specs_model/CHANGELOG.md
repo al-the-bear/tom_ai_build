@@ -1,3 +1,11 @@
+## 1.6.16
+
+- No model change. The chain moves with the runtimes, which gain the review of
+  inline marks (SOM §11.9.3): listing marks with revision-stable ids,
+  deciding them mark by mark (accept / reject / leave, with a stale revision
+  refused), accepting or rejecting all under a path, and removing all
+  annotations. Accept and reject follow the whitespace rules.
+
 ## 1.6.15
 
 - No model change. The release aligns the model chain with the runtimes,

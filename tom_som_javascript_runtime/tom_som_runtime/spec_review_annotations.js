@@ -222,6 +222,142 @@ class SpecQuestionDraft {
   }
 }
 
+/** What to do with one inline mark (SOM §11.9.3). */
+const SpecMarkDecision = Object.freeze({
+  /** Take the change: an insertion's text, nothing for a deletion, a substitution's new text. */
+  ACCEPT: 'accept',
+  /** Undo the change: nothing for an insertion, a deletion's text, a substitution's old text. */
+  REJECT: 'reject',
+  /** Keep the mark as written. */
+  LEAVE: 'leave',
+});
+
+/** One inline mark as `listMarks` reports it. */
+class SpecMarkEntry {
+  /**
+   * @param {{id: string, path: string, field?: string|null, line: number,
+   *   markKind: string, oldText: string, newText: string,
+   *   comment?: string|null, markup: string, context: string}} options
+   */
+  constructor({ id, path, field = null, line, markKind, oldText, newText, comment = null, markup, context }) {
+    /** `M-<n>`: the mark's 1-based position among all marks of the document. */
+    this.id = id;
+    /** The value's path. */
+    this.path = path;
+    /** The form field, or null for content. */
+    this.field = field;
+    /** The 0-based line within the value where the mark opens. */
+    this.line = line;
+    /** The mark's kind (a {@link SpecMarkKind} value). */
+    this.markKind = markKind;
+    /** The text after rejecting the mark. */
+    this.oldText = oldText;
+    /** The text after accepting the mark. */
+    this.newText = newText;
+    /** A comment mark's or a commented highlight's comment. */
+    this.comment = comment;
+    /** The mark as written. */
+    this.markup = markup;
+    /** The paragraph holding the mark, verbatim — for display. */
+    this.context = context;
+  }
+
+  /** The canonical JSON form the conformance corpus pins. */
+  toJson() {
+    return {
+      id: this.id,
+      path: this.path,
+      field: this.field,
+      line: this.line,
+      markKind: this.markKind,
+      oldText: this.oldText,
+      newText: this.newText,
+      comment: this.comment,
+      markup: this.markup,
+      context: this.context,
+    };
+  }
+}
+
+/** What was done to one mark. */
+class SpecMarkOutcome {
+  /**
+   * @param {{id: string, path: string, field?: string|null, line: number,
+   *   markKind: string, decision: string, markup: string, result: string}} options
+   */
+  constructor({ id, path, field = null, line, markKind, decision, markup, result }) {
+    /** The mark's id at the revision the operation ran on. */
+    this.id = id;
+    /** The value's path. */
+    this.path = path;
+    /** The form field, or null for content. */
+    this.field = field;
+    /** The 0-based line within the value where the mark opened. */
+    this.line = line;
+    /** The mark's kind. */
+    this.markKind = markKind;
+    /** Accepted or rejected (a {@link SpecMarkDecision} value). */
+    this.decision = decision;
+    /** The mark as written. */
+    this.markup = markup;
+    /** The text that replaced it. */
+    this.result = result;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return {
+      id: this.id,
+      path: this.path,
+      field: this.field,
+      line: this.line,
+      markKind: this.markKind,
+      decision: this.decision,
+      markup: this.markup,
+      result: this.result,
+    };
+  }
+}
+
+/** A mark the scanner could not read; it is left as written. */
+class SpecMarkIssue {
+  /** @param {{path: string, field?: string|null, line: number, issue: string}} options */
+  constructor({ path, field = null, line, issue }) {
+    /** The value's path. */
+    this.path = path;
+    /** The form field, or null for content. */
+    this.field = field;
+    /** The 0-based line within the value. */
+    this.line = line;
+    /** `unclosed`, `nested` or `noArrow`. */
+    this.issue = issue;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return { path: this.path, field: this.field, line: this.line, issue: this.issue };
+  }
+}
+
+/** The report of a mark operation, for the decision log. */
+class SpecMarkReport {
+  /** @param {{applied?: SpecMarkOutcome[], malformed?: SpecMarkIssue[]}} [options] */
+  constructor({ applied = [], malformed = [] } = {}) {
+    /** What was done, in document order. */
+    this.applied = applied;
+    /** Malformed marks in scope, left as written. */
+    this.malformed = malformed;
+  }
+
+  /** The canonical JSON form. */
+  toJson() {
+    return {
+      applied: this.applied.map((a) => a.toJson()),
+      malformed: this.malformed.map((m) => m.toJson()),
+    };
+  }
+}
+
 /**
  * Thrown when an operation names an annotation, value or paragraph that does
  * not exist. Nothing is changed before it is thrown.
@@ -315,7 +451,9 @@ function _inner(line) {
 function _parse(value) {
   const lines = value.split('\n');
   const code = _codeLines(lines);
-  const p = { lines, code, blocks: [], comments: [], marks: [], malformed: [] };
+  // markIssues: malformed inline marks as [value line, issue code] —
+  // `unclosed`, `nested`, `noArrow`.
+  const p = { lines, code, blocks: [], comments: [], marks: [], malformed: [], markIssues: [] };
 
   let i = 0;
   while (i < lines.length) {
@@ -597,12 +735,14 @@ function _scanSegment(p, seg, base, lineOf) {
       p.malformed.push(
         `line ${line}: inline mark "${opener}" is not closed in its paragraph (SOM §11.9.3)`,
       );
+      p.markIssues.push([line, 'unclosed']);
       i += 3;
       continue;
     }
     const inner = seg.substring(i + 3, close);
     if (_hasOpener(inner)) {
       p.malformed.push(`line ${line}: inline marks do not nest (SOM §11.9.3)`);
+      p.markIssues.push([line, 'nested']);
       i = close + 3;
       continue;
     }
@@ -645,6 +785,7 @@ function _scanSegment(p, seg, base, lineOf) {
         const arrow = inner.indexOf('~>');
         if (arrow < 0) {
           p.malformed.push(`line ${line}: a substitution has no "~>" (SOM §11.9.3)`);
+          p.markIssues.push([line, 'noArrow']);
           i = end;
           continue;
         }
@@ -842,37 +983,80 @@ function _wordChar(s) {
   return s.length > 0 && _wordCharAt(s, s.length - 1);
 }
 
-/** Applies a mark's replacement and tidies the one space a removal leaves. */
+function _isSpace(c) {
+  return c === ' ' || c === '\t';
+}
+
+function _trimEndSpaces(s) {
+  let k = s.length;
+  while (k > 0 && _isSpace(s[k - 1])) k--;
+  return s.substring(0, k);
+}
+
+function _trimStartSpaces(s) {
+  let k = 0;
+  while (k < s.length && _isSpace(s[k])) k++;
+  return s.substring(k);
+}
+
+/**
+ * Applies a mark's replacement with the whitespace rules of SOM §11.9.3: never
+ * join two words, never leave a double space or a space before punctuation, and
+ * a mark that was a whole line leaves no blank line.
+ */
 function _replaceMark(value, m, replacement0) {
   let replacement = replacement0;
   let before = value.substring(0, m.start);
   let after = value.substring(m.end);
   if (replacement.length === 0) {
-    if (
-      before.endsWith(' ') &&
-      (after.length === 0 ||
-        after.startsWith(' ') ||
-        after.startsWith('\n') ||
-        '.,;:!?)'.includes(after[0]))
-    ) {
-      before = before.substring(0, before.length - 1);
-    } else if ((before.length === 0 || before.endsWith('\n')) && after.startsWith(' ')) {
-      after = after.substring(1);
+    const b0 = _trimEndSpaces(before);
+    const a0 = _trimStartSpaces(after);
+    const lineStart = b0.length === 0 || b0.endsWith('\n');
+    const lineEnd = a0.length === 0 || a0.startsWith('\n');
+    if (lineStart && lineEnd) {
+      // The mark was the whole line: the line goes, and with it one of the
+      // newlines around it; a blank line left doubled is merged.
+      before = b0;
+      after = a0;
+      if (after.startsWith('\n')) {
+        after = after.substring(1);
+      } else if (before.endsWith('\n')) {
+        before = before.substring(0, before.length - 1);
+      }
+      if ((before.length === 0 || before.endsWith('\n\n')) && after.startsWith('\n')) {
+        after = after.substring(1);
+      }
+      if (after.length === 0) {
+        while (before.endsWith('\n')) before = before.substring(0, before.length - 1);
+      }
+      return `${before}${after}`;
     }
-  }
-  if (replacement.length > 0) {
-    // Never join two words: a mark written flush against a word keeps a
-    // space on that side.
-    if (_wordChar(before) && _wordCharAt(replacement, 0)) {
-      replacement = ` ${replacement}`;
-    }
-    if (
-      _wordCharAt(replacement, replacement.length - 1) &&
+    if (before.length > 0 && _isSpace(before[before.length - 1])) {
+      if (after.length > 0 && _isSpace(after[0])) {
+        after = _trimStartSpaces(after);
+      } else if (after.length === 0 || after.startsWith('\n') || '.,;:!?)]}'.includes(after[0])) {
+        before = _trimEndSpaces(before);
+      }
+    } else if (
+      (before.length === 0 || before.endsWith('\n')) &&
       after.length > 0 &&
-      _wordCharAt(after, 0)
+      _isSpace(after[0])
     ) {
-      replacement = `${replacement} `;
+      after = _trimStartSpaces(after);
     }
+    return `${before}${after}`;
+  }
+  // Never join two words: a mark written flush against a word keeps a space
+  // on that side.
+  if (_wordChar(before) && _wordCharAt(replacement, 0)) {
+    replacement = ` ${replacement}`;
+  }
+  if (
+    _wordCharAt(replacement, replacement.length - 1) &&
+    after.length > 0 &&
+    _wordCharAt(after, 0)
+  ) {
+    replacement = `${replacement} `;
   }
   return `${before}${replacement}${after}`;
 }
@@ -890,6 +1074,24 @@ function _markReplacement(m, accept) {
     default:
       return '';
   }
+}
+
+/**
+ * `value` with every inline mark accepted (`accept`) or rejected, and every
+ * highlight and comment mark removed, by the rules of SOM §11.9.3. Marks in
+ * code and malformed marks stay as written.
+ *
+ * @param {string} value
+ * @param {{accept: boolean}} options
+ * @returns {string}
+ */
+function applyInlineMarksText(value, { accept }) {
+  let v = value;
+  const marks = _parse(v).marks;
+  for (let k = marks.length - 1; k >= 0; k--) {
+    v = _replaceMark(v, marks[k], _markReplacement(marks[k], accept));
+  }
+  return v;
 }
 
 /**
@@ -1179,6 +1381,174 @@ class SpecReviewAnnotations {
   }
 
   /**
+   * The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8 of
+   * every value in document order (path, NUL, field or empty, NUL, text, NUL),
+   * as 16 lower-case hex digits. Any change to a value changes it.
+   *
+   * @returns {string}
+   */
+  revision() {
+    const prime = 0x100000001b3n;
+    const mask = 0xffffffffffffffffn;
+    let h = 0xcbf29ce484222325n;
+    const enc = new TextEncoder();
+    const add = (s) => {
+      for (const b of enc.encode(s)) {
+        h = ((h ^ BigInt(b)) * prime) & mask;
+      }
+      h = (h * prime) & mask;
+    };
+    for (const [path, field, text] of this._values()) {
+      add(path);
+      add(field ?? '');
+      add(text);
+    }
+    return h.toString(16).padStart(16, '0');
+  }
+
+  static _under(path, under) {
+    return under == null || path === under || path.startsWith(`${under}/`);
+  }
+
+  /**
+   * Every inline mark of the document, or of the subtree at `path`, in document
+   * order.
+   *
+   * @param {{path?: string|null}} [options]
+   * @returns {SpecMarkEntry[]}
+   */
+  listMarks({ path = null } = {}) {
+    const out = [];
+    let n = 0;
+    for (const [vpath, field, text] of this._values()) {
+      const p = _parse(text);
+      const paras = _paragraphs(p.lines, p.code);
+      for (const m of p.marks) {
+        const id = `M-${++n}`;
+        if (!SpecReviewAnnotations._under(vpath, path)) continue;
+        const para = paras.find((r) => r[0] <= m.line && m.line <= r[1]) ?? [m.line, m.line];
+        out.push(
+          new SpecMarkEntry({
+            id,
+            path: vpath,
+            field,
+            line: m.line,
+            markKind: m.kind,
+            oldText: _markReplacement(m, false),
+            newText: _markReplacement(m, true),
+            comment: m.comment,
+            markup: text.substring(m.start, m.end),
+            context: p.lines.slice(para[0], para[1] + 1).join('\n'),
+          }),
+        );
+      }
+    }
+    return out;
+  }
+
+  /** Applies `decide(id)` to every mark in the subtree `under` (null: all), one write per value. */
+  _applyMarks(decide, under = null) {
+    const applied = [];
+    const issues = [];
+    let n = 0;
+    for (const [path, field, text] of this._values()) {
+      const p = _parse(text);
+      const ids = p.marks.map(() => `M-${++n}`);
+      if (!SpecReviewAnnotations._under(path, under)) continue;
+      for (const [line, issue] of p.markIssues) {
+        issues.push(new SpecMarkIssue({ path, field, line, issue }));
+      }
+      let v = text;
+      const outcomes = [];
+      for (let k = p.marks.length - 1; k >= 0; k--) {
+        const d = decide(ids[k]);
+        if (d == null || d === SpecMarkDecision.LEAVE) continue;
+        const m = p.marks[k];
+        const repl = _markReplacement(m, d === SpecMarkDecision.ACCEPT);
+        outcomes.unshift(
+          new SpecMarkOutcome({
+            id: ids[k],
+            path,
+            field,
+            line: m.line,
+            markKind: m.kind,
+            decision: d,
+            markup: text.substring(m.start, m.end),
+            result: repl,
+          }),
+        );
+        v = _replaceMark(v, m, repl);
+      }
+      if (v !== text) this._set(path, field, v);
+      applied.push(...outcomes);
+    }
+    return new SpecMarkReport({ applied, malformed: issues });
+  }
+
+  /**
+   * Applies one decision per named mark in one write. Refused — nothing
+   * changes — when the document is no longer at `revision`, or when a decision
+   * names a mark that does not exist. Marks not named, and marks decided
+   * `leave`, stay.
+   *
+   * @param {Object<string, string>|Map<string, string>} decisions mark id →
+   *   {@link SpecMarkDecision} value
+   * @param {{revision: string}} options
+   * @returns {SpecMarkReport}
+   */
+  decideMarks(decisions, { revision }) {
+    const map = decisions instanceof Map ? decisions : new Map(Object.entries(decisions));
+    const current = this.revision();
+    if (revision !== current) {
+      throw new SpecReviewAnnotationError(
+        `the document changed since revision ${revision} (now ${current}); list the marks again`,
+      );
+    }
+    const known = new Set(this.listMarks().map((m) => m.id));
+    for (const [id, d] of map) {
+      if (!known.has(id)) {
+        throw new SpecReviewAnnotationError(`no inline mark ${id} in the document`);
+      }
+      if (!Object.values(SpecMarkDecision).includes(d)) {
+        throw new SpecReviewAnnotationError(`unknown mark decision ${d} for ${id}`);
+      }
+    }
+    return this._applyMarks((id) => map.get(id));
+  }
+
+  /** Accepts every inline mark under `path` (null: the whole document). @returns {SpecMarkReport} */
+  acceptAllMarks({ path = null } = {}) {
+    return this._applyMarks(() => SpecMarkDecision.ACCEPT, path);
+  }
+
+  /** Rejects every inline mark under `path` (null: the whole document). @returns {SpecMarkReport} */
+  rejectAllMarks({ path = null } = {}) {
+    return this._applyMarks(() => SpecMarkDecision.REJECT, path);
+  }
+
+  /**
+   * Removes every annotation and writes the result back: every inline mark
+   * accepted, every comment and question block removed. Malformed marks stay
+   * and are reported.
+   *
+   * @returns {SpecMarkReport}
+   */
+  removeAllAnnotations() {
+    const report = this.acceptAllMarks();
+    for (const [path, field, text] of this._values()) {
+      let v = text;
+      for (;;) {
+        const p = _parse(v);
+        if (p.blocks.length === 0) break;
+        const b = p.blocks[p.blocks.length - 1];
+        v = _removeLines(v, b.start, b.end);
+      }
+      if (v !== text) this._set(path, field, v);
+    }
+    return report;
+  }
+
+  /**
    * A copy of the document without any annotation, for reading. The document
    * itself is unchanged.
    *
@@ -1293,6 +1663,11 @@ class SpecReviewAnnotations {
 module.exports = {
   SpecReviewAnnotationKind,
   SpecMarkKind,
+  SpecMarkDecision,
+  SpecMarkEntry,
+  SpecMarkOutcome,
+  SpecMarkIssue,
+  SpecMarkReport,
   SpecReviewAnnotation,
   SpecReviewAnnotationCounts,
   SpecQuestionDraft,
@@ -1300,5 +1675,6 @@ module.exports = {
   SpecReviewAnnotations,
   formatCommentBlock,
   formatQuestionBlock,
+  applyInlineMarksText,
   stripAnnotationsText,
 };

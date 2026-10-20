@@ -12,6 +12,7 @@ rest of the value byte for byte as it was.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Operations](#operations)
+- [Reviewing inline marks](#reviewing-inline-marks)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -107,6 +108,41 @@ All in namespace `som`.
 `field` is `std::nullopt` for a content value. Record each applied comment or
 answer in the project's log **before** `resolve` removes it
 (`tom_specs_project_flow.md` PF-ITR-REV).
+
+## Reviewing inline marks
+
+| Operation | Does |
+|-----------|------|
+| `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
+| `listMarks(path)` | Every inline mark of the document (`path` omitted) or of a subtree, as `SpecMarkEntry`: `M-<n>` id, `markKind`, `path`, `field`, `oldText` and `newText`, `markup`, the paragraph holding it as `context` |
+| `decideMarks(decisions, revision)` | One write: a `std::map<std::string, SpecMarkDecision>` `{id → Accept / Reject / Leave}`. Throws `SpecReviewAnnotationError` (nothing changes) when the document is no longer at `revision`, or when an id is unknown |
+| `acceptAllMarks(path)`, `rejectAllMarks(path)` | Every mark under a path, or in the whole document |
+| `removeAllAnnotations()` | Every mark accepted and every comment and question block removed, written back |
+| `som::applyInlineMarksText(text, accept)` | One value with every mark accepted or rejected |
+
+Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
+mark: id, kind, path, decision, markup and result. `malformed` holds the
+`SpecMarkIssue`s in scope (`unclosed`, `nested`, `noArrow`); those marks are
+left as written. Every type has a `toJson()`.
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | nothing |
+| `{-- removed --}` | nothing | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
+| `{>> c <<}` | nothing | nothing |
+
+The whitespace rules (words never join, no double space and no space before
+punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+
+```cpp
+som::SpecReviewAnnotations review(doc);
+const std::string rev = review.revision();
+const auto marks = review.listMarks();
+const som::SpecMarkReport report = review.decideMarks(
+    {{marks.front().id, som::SpecMarkDecision::Accept}}, rev);
+```
 
 ## Validation
 

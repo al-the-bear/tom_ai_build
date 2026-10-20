@@ -190,6 +190,137 @@ class SpecQuestionDraft:
         )
 
 
+class SpecMarkDecision(Enum):
+    """What to do with one inline mark (SOM §11.9.3)."""
+
+    #: Take the change: an insertion's text, nothing for a deletion, a
+    #: substitution's new text.
+    ACCEPT = "accept"
+    #: Undo the change: nothing for an insertion, a deletion's text, a
+    #: substitution's old text.
+    REJECT = "reject"
+    #: Keep the mark as written.
+    LEAVE = "leave"
+
+
+@dataclass(frozen=True)
+class SpecMarkEntry:
+    """One inline mark as :meth:`SpecReviewAnnotations.list_marks` reports it."""
+
+    #: ``M-<n>``: the mark's 1-based position among all marks of the
+    #: document, in document order. Stable for one
+    #: :meth:`SpecReviewAnnotations.revision`.
+    id: str
+    #: The value's path.
+    path: str
+    #: The form field, or ``None`` for content.
+    field: Optional[str]
+    #: The 0-based line within the value where the mark opens.
+    line: int
+    #: The mark's kind.
+    mark_kind: SpecMarkKind
+    #: The text after rejecting the mark.
+    old_text: str
+    #: The text after accepting the mark.
+    new_text: str
+    #: A comment mark's or a commented highlight's comment.
+    comment: Optional[str]
+    #: The mark as written.
+    markup: str
+    #: The paragraph holding the mark, verbatim — for display.
+    context: str
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form the conformance corpus pins."""
+        return {
+            "id": self.id,
+            "path": self.path,
+            "field": self.field,
+            "line": self.line,
+            "markKind": self.mark_kind.value,
+            "oldText": self.old_text,
+            "newText": self.new_text,
+            "comment": self.comment,
+            "markup": self.markup,
+            "context": self.context,
+        }
+
+
+@dataclass(frozen=True)
+class SpecMarkOutcome:
+    """What was done to one mark."""
+
+    #: The mark's id at the revision the operation ran on.
+    id: str
+    #: The value's path.
+    path: str
+    #: The form field, or ``None`` for content.
+    field: Optional[str]
+    #: The 0-based line within the value where the mark opened.
+    line: int
+    #: The mark's kind.
+    mark_kind: SpecMarkKind
+    #: Accepted or rejected.
+    decision: SpecMarkDecision
+    #: The mark as written.
+    markup: str
+    #: The text that replaced it.
+    result: str
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "id": self.id,
+            "path": self.path,
+            "field": self.field,
+            "line": self.line,
+            "markKind": self.mark_kind.value,
+            "decision": self.decision.value,
+            "markup": self.markup,
+            "result": self.result,
+        }
+
+
+@dataclass(frozen=True)
+class SpecMarkIssue:
+    """A mark the scanner could not read; it is left as written."""
+
+    #: The value's path.
+    path: str
+    #: The form field, or ``None`` for content.
+    field: Optional[str]
+    #: The 0-based line within the value.
+    line: int
+    #: ``unclosed``, ``nested`` or ``noArrow``.
+    issue: str
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "path": self.path,
+            "field": self.field,
+            "line": self.line,
+            "issue": self.issue,
+        }
+
+
+@dataclass(frozen=True)
+class SpecMarkReport:
+    """The report of a mark operation, for the decision log."""
+
+    #: What was done, in document order.
+    applied: tuple[SpecMarkOutcome, ...] = ()
+    #: Malformed marks in scope, left as written.
+    malformed: tuple[SpecMarkIssue, ...] = ()
+
+    def to_json(self) -> dict[str, Any]:
+        """The canonical JSON form."""
+        return {
+            "applied": [a.to_json() for a in self.applied],
+            "malformed": [m.to_json() for m in self.malformed],
+        }
+
+
 class SpecReviewAnnotationError(Exception):
     """Raised when an operation names an annotation, value or paragraph that
     does not exist. Raised before anything is changed."""
@@ -299,6 +430,9 @@ class _Parsed:
         self.comments: list[_Comment] = []
         self.marks: list[_Mark] = []
         self.malformed: list[str] = []
+        #: Malformed inline marks as (value line, issue code): ``unclosed``,
+        #: ``nested``, ``noArrow``.
+        self.mark_issues: list[tuple[int, str]] = []
 
 
 def _lstrip(s: str) -> str:
@@ -617,11 +751,13 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
                 f'line {line}: inline mark "{opener}" is not closed in its paragraph '
                 "(SOM §11.9.3)"
             )
+            p.mark_issues.append((line, "unclosed"))
             i += 3
             continue
         inner = seg[i + 3:close]
         if _has_opener(inner):
             p.malformed.append(f"line {line}: inline marks do not nest (SOM §11.9.3)")
+            p.mark_issues.append((line, "nested"))
             i = close + 3
             continue
         end = close + 3
@@ -655,6 +791,7 @@ def _scan_segment(p: _Parsed, seg: str, base: int, line_of: Callable[[int], int]
                 p.malformed.append(
                     f'line {line}: a substitution has no "~>" (SOM §11.9.3)'
                 )
+                p.mark_issues.append((line, "noArrow"))
                 i = end
                 continue
             p.marks.append(
@@ -837,25 +974,63 @@ def _word_char(s: str) -> bool:
     return s != "" and _word_char_at(s, len(s) - 1)
 
 
+def _is_space(c: str) -> bool:
+    return c == " " or c == "\t"
+
+
+def _trim_end_spaces(s: str) -> str:
+    k = len(s)
+    while k > 0 and _is_space(s[k - 1]):
+        k -= 1
+    return s[:k]
+
+
+def _trim_start_spaces(s: str) -> str:
+    k = 0
+    while k < len(s) and _is_space(s[k]):
+        k += 1
+    return s[k:]
+
+
 def _replace_mark(value: str, m: _Mark, replacement: str) -> str:
-    """Applies a mark's replacement and tidies the one space a removal
-    leaves."""
+    """Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
+    never join two words, never leave a double space or a space before
+    punctuation, and a mark that was a whole line leaves no blank line."""
     before = value[: m.start]
     after = value[m.end:]
     if replacement == "":
-        if before.endswith(" ") and (
-            after == "" or after.startswith(" ") or after.startswith("\n") or after[0] in ".,;:!?)"
-        ):
-            before = before[:-1]
-        elif (before == "" or before.endswith("\n")) and after.startswith(" "):
-            after = after[1:]
-    else:
-        # Never join two words: a mark written flush against a word keeps a
-        # space on that side.
-        if _word_char(before) and _word_char_at(replacement, 0):
-            replacement = " " + replacement
-        if _word_char_at(replacement, len(replacement) - 1) and after != "" and _word_char_at(after, 0):
-            replacement = replacement + " "
+        tb = _trim_end_spaces(before)
+        ta = _trim_start_spaces(after)
+        line_start = tb == "" or tb.endswith("\n")
+        line_end = ta == "" or ta.startswith("\n")
+        if line_start and line_end:
+            # The mark was the whole line: the line goes, and with it one of
+            # the newlines around it; a blank line left doubled is merged.
+            before = tb
+            after = ta
+            if after.startswith("\n"):
+                after = after[1:]
+            elif before.endswith("\n"):
+                before = before[:-1]
+            if (before == "" or before.endswith("\n\n")) and after.startswith("\n"):
+                after = after[1:]
+            if after == "":
+                before = before.rstrip("\n")
+            return before + after
+        if before != "" and _is_space(before[-1]):
+            if after != "" and _is_space(after[0]):
+                after = _trim_start_spaces(after)
+            elif after == "" or after.startswith("\n") or after[0] in ".,;:!?)]}":
+                before = _trim_end_spaces(before)
+        elif (before == "" or before.endswith("\n")) and after != "" and _is_space(after[0]):
+            after = _trim_start_spaces(after)
+        return before + after
+    # Never join two words: a mark written flush against a word keeps a space
+    # on that side.
+    if _word_char(before) and _word_char_at(replacement, 0):
+        replacement = " " + replacement
+    if _word_char_at(replacement, len(replacement) - 1) and after != "" and _word_char_at(after, 0):
+        replacement = replacement + " "
     return before + replacement + after
 
 
@@ -870,6 +1045,16 @@ def _mark_replacement(m: _Mark, accept: bool) -> str:
     if m.kind is SpecMarkKind.HIGHLIGHT:
         return m.text
     return ""
+
+
+def apply_inline_marks_text(value: str, accept: bool) -> str:
+    """*value* with every inline mark accepted (*accept*) or rejected, and
+    every highlight and comment mark removed, by the rules of SOM §11.9.3.
+    Marks in code and malformed marks stay as written."""
+    v = value
+    for m in reversed(_parse(v).marks):
+        v = _replace_mark(v, m, _mark_replacement(m, accept))
+    return v
 
 
 def strip_annotations_text(value: str) -> str:
@@ -1111,6 +1296,156 @@ class SpecReviewAnnotations:
             raise SpecReviewAnnotationError(f"no inline mark {index} at {where}")
         m = marks[index]
         self._set(path, field, _replace_mark(value, m, _mark_replacement(m, accept)))
+
+    def revision(self) -> str:
+        """The revision the mark ids are stable for: FNV-1a 64-bit over the
+        UTF-8 of every value in document order (path, NUL, field or empty,
+        NUL, text, NUL), as 16 lower-case hex digits. Any change to a value
+        changes it."""
+        mask = 0xFFFFFFFFFFFFFFFF
+        prime = 0x100000001B3
+        h = 0xCBF29CE484222325
+
+        def add(s: str) -> None:
+            nonlocal h
+            for b in s.encode("utf-8", "surrogatepass"):
+                h = ((h ^ b) * prime) & mask
+            h = (h * prime) & mask
+
+        for path, field, text in self._values():
+            add(path)
+            add(field or "")
+            add(text)
+        return format(h, "016x")
+
+    @staticmethod
+    def _under(path: str, under: Optional[str]) -> bool:
+        return under is None or path == under or path.startswith(under + "/")
+
+    def list_marks(self, path: Optional[str] = None) -> "list[SpecMarkEntry]":
+        """Every inline mark of the document, or of the subtree at *path*, in
+        document order."""
+        out: list[SpecMarkEntry] = []
+        n = 0
+        for vpath, field, text in self._values():
+            p = _parse(text)
+            paras = _paragraphs(p.lines, p.code)
+            for m in p.marks:
+                n += 1
+                id = f"M-{n}"
+                if not self._under(vpath, path):
+                    continue
+                para = next(
+                    (r for r in paras if r[0] <= m.line <= r[1]), (m.line, m.line)
+                )
+                out.append(
+                    SpecMarkEntry(
+                        id=id,
+                        path=vpath,
+                        field=field,
+                        line=m.line,
+                        mark_kind=m.kind,
+                        old_text=_mark_replacement(m, False),
+                        new_text=_mark_replacement(m, True),
+                        comment=m.comment,
+                        markup=text[m.start:m.end],
+                        context="\n".join(p.lines[para[0]:para[1] + 1]),
+                    )
+                )
+        return out
+
+    def _apply_marks(
+        self,
+        decide: Callable[[str], Optional[SpecMarkDecision]],
+        under: Optional[str] = None,
+    ) -> SpecMarkReport:
+        """Applies *decide* to every mark in the subtree *under* (``None``:
+        the whole document), one write per value."""
+        applied: list[SpecMarkOutcome] = []
+        issues: list[SpecMarkIssue] = []
+        n = 0
+        for path, field, text in self._values():
+            p = _parse(text)
+            ids = []
+            for _ in p.marks:
+                n += 1
+                ids.append(f"M-{n}")
+            if not self._under(path, under):
+                continue
+            for line, code in p.mark_issues:
+                issues.append(SpecMarkIssue(path=path, field=field, line=line, issue=code))
+            v = text
+            outcomes: list[SpecMarkOutcome] = []
+            for k in range(len(p.marks) - 1, -1, -1):
+                d = decide(ids[k])
+                if d is None or d is SpecMarkDecision.LEAVE:
+                    continue
+                m = p.marks[k]
+                repl = _mark_replacement(m, d is SpecMarkDecision.ACCEPT)
+                outcomes.insert(
+                    0,
+                    SpecMarkOutcome(
+                        id=ids[k],
+                        path=path,
+                        field=field,
+                        line=m.line,
+                        mark_kind=m.kind,
+                        decision=d,
+                        markup=text[m.start:m.end],
+                        result=repl,
+                    ),
+                )
+                v = _replace_mark(v, m, repl)
+            if v != text:
+                self._set(path, field, v)
+            applied.extend(outcomes)
+        return SpecMarkReport(applied=tuple(applied), malformed=tuple(issues))
+
+    def decide_marks(
+        self, decisions: "dict[str, SpecMarkDecision]", revision: str
+    ) -> SpecMarkReport:
+        """Applies one decision per named mark in one write. Refused — nothing
+        changes — when the document is no longer at *revision*, or when a
+        decision names a mark that does not exist. Marks not named, and marks
+        decided ``LEAVE``, stay."""
+        current = self.revision()
+        if revision != current:
+            raise SpecReviewAnnotationError(
+                f"the document changed since revision {revision} (now {current}); "
+                "list the marks again"
+            )
+        known = {m.id for m in self.list_marks()}
+        for id in decisions:
+            if id not in known:
+                raise SpecReviewAnnotationError(f"no inline mark {id} in the document")
+        return self._apply_marks(lambda id: decisions.get(id))
+
+    def accept_all_marks(self, path: Optional[str] = None) -> SpecMarkReport:
+        """Accepts every inline mark under *path* (``None``: the whole
+        document)."""
+        return self._apply_marks(lambda _: SpecMarkDecision.ACCEPT, under=path)
+
+    def reject_all_marks(self, path: Optional[str] = None) -> SpecMarkReport:
+        """Rejects every inline mark under *path* (``None``: the whole
+        document)."""
+        return self._apply_marks(lambda _: SpecMarkDecision.REJECT, under=path)
+
+    def remove_all_annotations(self) -> SpecMarkReport:
+        """Removes every annotation and writes the result back: every inline
+        mark accepted, every comment and question block removed. Malformed
+        marks stay and are reported."""
+        report = self.accept_all_marks()
+        for path, field, text in self._values():
+            v = text
+            while True:
+                p = _parse(v)
+                if not p.blocks:
+                    break
+                b = p.blocks[-1]
+                v = _remove_lines(v, b.start, b.end)
+            if v != text:
+                self._set(path, field, v)
+        return report
 
     def stripped(self) -> SpecDocument:
         """A copy of the document without any annotation, for reading. The

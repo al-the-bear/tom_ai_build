@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations` gains
+  `revision`, `listMarks`, `decideMarks` (accept / reject / leave in one
+  write, refused on a stale revision or an unknown id), `acceptAllMarks` /
+  `rejectAllMarks` under a path, `removeAllAnnotations` and the static
+  `applyInlineMarksText`. Each operation returns a `SpecMarkReport` for the
+  decision log. New public types: `SpecMarkDecision`, `SpecMarkEntry`,
+  `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport`. Accepting and
+  rejecting (also `applyMark`) follow the whitespace rules: words never join,
+  no double space or space before punctuation, and a whole-line mark leaves no
+  blank line. Malformed marks are left as written and reported. The
+  conformance runner runs `inline_mark_cases.json`.
+
 - Review annotations (SOM §11.9): `SpecReviewAnnotations` ports the Dart
   reference. It lists the comment blocks, question blocks and CriticMarkup
   inline marks of a document's content and form-field values in document order

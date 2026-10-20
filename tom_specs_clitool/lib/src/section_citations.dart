@@ -451,6 +451,8 @@ const defaultCitedSourceRoots = [
   'tom_ai/ai_build/tom_som_dart_v0/test',
   'tom_forge/tom_specs_editor/test',
   'tom_ai/ai_build/tom_code_specs/test',
+  'tom_ai/ai_build/tom_doc_scanner/test',
+  'tom_ai/ai_build/tom_doc_specs/lib',
   'tom_ai/ai_build/tom_spec_engine/lib',
   'tom_ai/ai_build/tom_spec_engine/test',
   'tom_ai/ai_build/tom_spec_engine/tool',

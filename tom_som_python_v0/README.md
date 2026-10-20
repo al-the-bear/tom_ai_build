@@ -38,10 +38,10 @@ pip install tom_som_python_v0
 or pin it in your `pyproject.toml` / `requirements.txt`:
 
 ```
-tom_som_python_v0>=1.6.15
+tom_som_python_v0>=1.6.16
 ```
 
-`tom_som_python_v0` and `tom_som_python_runtime` both carry version `1.6.15`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
+`tom_som_python_v0` and `tom_som_python_runtime` both carry version `1.6.16`, taken from the TomSpecs model version — pin them together. Every other dependency route (git, path, vendored, build-from-source) is in [readme_howtointegrate.md](readme_howtointegrate.md).
 
 ## Features
 
@@ -229,7 +229,7 @@ The same shape repeats for all nine languages; the corpus at the bottom is share
 
 ## Status
 
-Version **1.6.15**, tracking the TomSpecs model version and matching `tom_som_python_runtime`. Generated surface: 14 document roots, 1266 model classes. Verify the package with:
+Version **1.6.16**, tracking the TomSpecs model version and matching `tom_som_python_runtime`. Generated surface: 14 document roots, 1266 model classes. Verify the package with:
 
 ```bash
 pip install -e ../tom_som_python_runtime -e .

@@ -8,6 +8,7 @@
 #include "spec_review_annotations.h"
 
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -328,6 +329,11 @@ typedef struct {
 } Mark;
 
 typedef struct {
+  size_t line;
+  const char *code;
+} MarkIssue;
+
+typedef struct {
   SomStrList lines;
   unsigned char *code; /* per line: inside a fenced block (fence lines too) */
   Block *blocks;
@@ -339,6 +345,10 @@ typedef struct {
   Mark *marks;
   size_t marks_len, marks_cap;
   SomStrList malformed;
+  /* Malformed inline marks: (value line, issue code) — `unclosed`, `nested`,
+   * `noArrow`. The codes are static strings. */
+  MarkIssue *mark_issues;
+  size_t mark_issues_len, mark_issues_cap;
 } Parsed;
 
 #define LINE(p, k) ((p)->lines.items[(k)])
@@ -371,6 +381,7 @@ static void parsed_free(Parsed *p) {
   }
   free(p->marks);
   som_strlist_free(&p->malformed);
+  free(p->mark_issues);
 }
 
 /* The fenced-code flag of every line. */
@@ -645,6 +656,11 @@ static void add_mark(Parsed *p, size_t start, size_t end, size_t line,
   PUSH(p->marks, p->marks_len, p->marks_cap, m);
 }
 
+static void add_issue(Parsed *p, size_t line, const char *code) {
+  MarkIssue m = {line, code};
+  PUSH(p->mark_issues, p->mark_issues_len, p->mark_issues_cap, m);
+}
+
 static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                          const size_t *line_start) {
   size_t i = 0;
@@ -696,6 +712,7 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                            "paragraph (SOM \xC2\xA7"
                            "11.9.3)",
                            line, K_OPENERS[oi]));
+      add_issue(p, line, "unclosed");
       i += 3;
       continue;
     }
@@ -706,6 +723,7 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                        fmt("line %zu: inline marks do not nest (SOM \xC2\xA7"
                            "11.9.3)",
                            line));
+      add_issue(p, line, "nested");
       i = (size_t)close + 3;
       continue;
     }
@@ -748,6 +766,7 @@ static void scan_segment(Parsed *p, const char *seg, size_t len, size_t base,
                                "(SOM \xC2\xA7"
                                "11.9.3)",
                                line));
+          add_issue(p, line, "noArrow");
           i = end;
           continue;
         }
@@ -1188,26 +1207,54 @@ void spec_format_question_block(const SpecQuestionDraft *q, SomStrList *out) {
   som_strlist_free(&t);
 }
 
-/* Applies a mark's replacement and tidies the one space a removal leaves.
- * Owned. */
+static int is_sp(char c) { return c == ' ' || c == '\t'; }
+
+/* Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
+ * never join two words, never leave a double space or a space before
+ * punctuation, and a mark that was a whole line leaves no blank line. Owned. */
 static char *replace_mark(const char *value, const Mark *m,
                           const char *replacement) {
   size_t blen = m->start;
   const char *after = value + m->end;
-  size_t alen = strlen(after);
   size_t rlen = strlen(replacement);
   int pre = 0, post = 0;
   if (rlen == 0) {
-    if (blen > 0 && value[blen - 1] == ' ' &&
-        (alen == 0 || after[0] == ' ' || after[0] == '\n' ||
-         strchr(".,;:!?)", after[0]) != NULL)) {
-      blen--;
-    } else if ((blen == 0 || value[blen - 1] == '\n') && alen > 0 &&
-               after[0] == ' ') {
-      after++;
-      alen--;
+    size_t tb = blen;
+    while (tb > 0 && is_sp(value[tb - 1])) tb--;
+    int line_start = tb == 0 || value[tb - 1] == '\n';
+    size_t as = 0;
+    while (is_sp(after[as])) as++;
+    int line_end = after[as] == '\0' || after[as] == '\n';
+    if (line_start && line_end) {
+      /* The mark was the whole line: the line goes, and with it one of the
+       * newlines around it; a blank line left doubled is merged. */
+      blen = tb;
+      after += as;
+      if (after[0] == '\n') {
+        after++;
+      } else if (blen > 0 && value[blen - 1] == '\n') {
+        blen--;
+      }
+      if ((blen == 0 ||
+           (blen >= 2 && value[blen - 1] == '\n' && value[blen - 2] == '\n')) &&
+          after[0] == '\n') {
+        after++;
+      }
+      if (after[0] == '\0') {
+        while (blen > 0 && value[blen - 1] == '\n') blen--;
+      }
+    } else if (blen > 0 && is_sp(value[blen - 1])) {
+      if (is_sp(after[0])) {
+        while (is_sp(after[0])) after++;
+      } else if (after[0] == '\0' || after[0] == '\n' ||
+                 strchr(".,;:!?)]}", after[0]) != NULL) {
+        while (blen > 0 && is_sp(value[blen - 1])) blen--;
+      }
+    } else if ((blen == 0 || value[blen - 1] == '\n') && is_sp(after[0])) {
+      while (is_sp(after[0])) after++;
     }
   } else {
+    size_t alen = strlen(after);
     /* Never join two words: a mark written flush against a word keeps a
      * space on that side. */
     pre = word_char_last(value, blen) && word_char_first(replacement, rlen);
@@ -1238,6 +1285,20 @@ static const char *mark_replacement(const Mark *m, int accept) {
       return "";
   }
   return "";
+}
+
+char *spec_apply_inline_marks_text(const char *value, int accept) {
+  char *v = som_strdup(value);
+  Parsed p;
+  parse(value, &p);
+  for (size_t k = p.marks_len; k-- > 0;) {
+    const Mark *m = &p.marks[k];
+    char *next = replace_mark(v, m, mark_replacement(m, accept));
+    free(v);
+    v = next;
+  }
+  parsed_free(&p);
+  return v;
 }
 
 char *spec_strip_annotations_text(const char *value) {
@@ -1871,4 +1932,386 @@ void spec_review_annotations_validate(const SpecReviewAnnotations *r,
     }
     out->items[j] = moving;
   }
+}
+
+/* ---- inline-mark review (SOM §11.9.3) ------------------------------------ */
+
+const char *spec_mark_decision_name(SpecMarkDecision d) {
+  switch (d) {
+    case SPEC_MARK_DECISION_ACCEPT:
+      return "accept";
+    case SPEC_MARK_DECISION_REJECT:
+      return "reject";
+    case SPEC_MARK_DECISION_LEAVE:
+      return "leave";
+  }
+  return "";
+}
+
+int spec_mark_decision_parse(const char *name, SpecMarkDecision *out) {
+  if (name == NULL) return 0;
+  if (strcmp(name, "accept") == 0) {
+    *out = SPEC_MARK_DECISION_ACCEPT;
+  } else if (strcmp(name, "reject") == 0) {
+    *out = SPEC_MARK_DECISION_REJECT;
+  } else if (strcmp(name, "leave") == 0) {
+    *out = SPEC_MARK_DECISION_LEAVE;
+  } else {
+    return 0;
+  }
+  return 1;
+}
+
+void spec_mark_entry_free(SpecMarkEntry *e) {
+  free(e->id);
+  free(e->path);
+  free(e->field);
+  free(e->old_text);
+  free(e->new_text);
+  free(e->comment);
+  free(e->markup);
+  free(e->context);
+  memset(e, 0, sizeof(*e));
+}
+
+char *spec_mark_entry_to_json(const SpecMarkEntry *e) {
+  SomBuf b;
+  som_buf_init(&b);
+  int first = 1;
+  som_buf_putc(&b, '{');
+  put_str(&b, &first, "id", e->id);
+  put_str(&b, &first, "path", e->path);
+  put_str(&b, &first, "field", e->field);
+  put_int(&b, &first, "line", (long long)e->line);
+  put_str(&b, &first, "markKind", spec_mark_kind_name(e->mark_kind));
+  put_str(&b, &first, "oldText", e->old_text);
+  put_str(&b, &first, "newText", e->new_text);
+  put_str(&b, &first, "comment", e->comment);
+  put_str(&b, &first, "markup", e->markup);
+  put_str(&b, &first, "context", e->context);
+  som_buf_putc(&b, '}');
+  return som_buf_take(&b);
+}
+
+void spec_mark_entry_list_init(SpecMarkEntryList *l) {
+  l->items = NULL;
+  l->len = 0;
+  l->cap = 0;
+}
+
+void spec_mark_entry_list_free(SpecMarkEntryList *l) {
+  for (size_t i = 0; i < l->len; i++) spec_mark_entry_free(&l->items[i]);
+  free(l->items);
+  spec_mark_entry_list_init(l);
+}
+
+void spec_mark_report_init(SpecMarkReport *r) { memset(r, 0, sizeof(*r)); }
+
+void spec_mark_report_free(SpecMarkReport *r) {
+  for (size_t i = 0; i < r->applied_len; i++) {
+    SpecMarkOutcome *o = &r->applied[i];
+    free(o->id);
+    free(o->path);
+    free(o->field);
+    free(o->markup);
+    free(o->result);
+  }
+  free(r->applied);
+  for (size_t i = 0; i < r->malformed_len; i++) {
+    free(r->malformed[i].path);
+    free(r->malformed[i].field);
+    free(r->malformed[i].issue);
+  }
+  free(r->malformed);
+  spec_mark_report_init(r);
+}
+
+char *spec_mark_report_to_json(const SpecMarkReport *r) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, "{\"applied\":[");
+  for (size_t i = 0; i < r->applied_len; i++) {
+    const SpecMarkOutcome *o = &r->applied[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    int first = 1;
+    som_buf_putc(&b, '{');
+    put_str(&b, &first, "id", o->id);
+    put_str(&b, &first, "path", o->path);
+    put_str(&b, &first, "field", o->field);
+    put_int(&b, &first, "line", (long long)o->line);
+    put_str(&b, &first, "markKind", spec_mark_kind_name(o->mark_kind));
+    put_str(&b, &first, "decision", spec_mark_decision_name(o->decision));
+    put_str(&b, &first, "markup", o->markup);
+    put_str(&b, &first, "result", o->result);
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, "],\"malformed\":[");
+  for (size_t i = 0; i < r->malformed_len; i++) {
+    const SpecMarkIssue *m = &r->malformed[i];
+    if (i > 0) som_buf_putc(&b, ',');
+    int first = 1;
+    som_buf_putc(&b, '{');
+    put_str(&b, &first, "path", m->path);
+    put_str(&b, &first, "field", m->field);
+    put_int(&b, &first, "line", (long long)m->line);
+    put_str(&b, &first, "issue", m->issue);
+    som_buf_putc(&b, '}');
+  }
+  som_buf_puts(&b, "]}");
+  return som_buf_take(&b);
+}
+
+char *spec_review_annotations_revision(const SpecReviewAnnotations *r) {
+  uint64_t h = 0xcbf29ce484222325ULL;
+  const uint64_t prime = 0x100000001b3ULL;
+  Values vals;
+  values_of(r->doc, &vals);
+  for (size_t i = 0; i < vals.len; i++) {
+    const char *parts[3] = {vals.items[i].path,
+                            vals.items[i].field ? vals.items[i].field : "",
+                            vals.items[i].text};
+    for (int k = 0; k < 3; k++) {
+      for (const unsigned char *s = (const unsigned char *)parts[k]; *s; s++) {
+        h = (h ^ (uint64_t)*s) * prime;
+      }
+      h = (h ^ 0) * prime;
+    }
+  }
+  values_free(&vals);
+  return fmt("%016llx", (unsigned long long)h);
+}
+
+static int path_under(const char *path, const char *under) {
+  if (under == NULL) return 1;
+  size_t n = strlen(under);
+  return strcmp(path, under) == 0 ||
+         (strncmp(path, under, n) == 0 && path[n] == '/');
+}
+
+/* The paragraph (first, last line) holding `line`, or (line, line). */
+static void paragraph_of(const Parsed *p, size_t line, size_t *from,
+                         size_t *to) {
+  *from = line;
+  *to = line;
+  size_t k = 0;
+  const SomStrList *lines = &p->lines;
+  while (k < lines->len) {
+    if (is_blank(lines->items[k]) && !p->code[k]) {
+      k++;
+      continue;
+    }
+    size_t s = k;
+    while (k + 1 < lines->len &&
+           !(is_blank(lines->items[k + 1]) && !p->code[k + 1]))
+      k++;
+    if (s <= line && line <= k) {
+      *from = s;
+      *to = k;
+      return;
+    }
+    k++;
+  }
+}
+
+void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
+                                        const char *path,
+                                        SpecMarkEntryList *out) {
+  spec_mark_entry_list_init(out);
+  size_t n = 0;
+  Values vals;
+  values_of(r->doc, &vals);
+  for (size_t i = 0; i < vals.len; i++) {
+    const Value *v = &vals.items[i];
+    Parsed p;
+    parse(v->text, &p);
+    for (size_t mi = 0; mi < p.marks_len; mi++) {
+      const Mark *m = &p.marks[mi];
+      ++n;
+      if (!path_under(v->path, path)) continue;
+      size_t from, to;
+      paragraph_of(&p, m->line, &from, &to);
+      SpecMarkEntry e;
+      e.id = fmt("M-%zu", n);
+      e.path = som_strdup(v->path);
+      e.field = dup_or_null(v->field);
+      e.line = m->line;
+      e.mark_kind = m->kind;
+      e.old_text = som_strdup(mark_replacement(m, 0));
+      e.new_text = som_strdup(mark_replacement(m, 1));
+      e.comment = dup_or_null(m->comment);
+      e.markup = som_strdup_n(v->text + m->start, m->end - m->start);
+      e.context = join_from(LINE(&p, from), (const char *const *)p.lines.items,
+                            (long long)from + 1, (long long)to);
+      PUSH(out->items, out->len, out->cap, e);
+    }
+    parsed_free(&p);
+  }
+  values_free(&vals);
+}
+
+/* How `apply_marks` decides: from a list of decisions, or one for all. */
+typedef struct {
+  const SpecMarkDecisionItem *items; /* NULL: `all` applies to every mark */
+  size_t len;
+  SpecMarkDecision all;
+} Decider;
+
+/* The decision for mark `id`; 0 when none. A later item overrides. */
+static int decide(const Decider *d, const char *id, SpecMarkDecision *out) {
+  if (d->items == NULL) {
+    *out = d->all;
+    return 1;
+  }
+  int found = 0;
+  for (size_t k = 0; k < d->len; k++) {
+    if (strcmp(d->items[k].id, id) == 0) {
+      *out = d->items[k].decision;
+      found = 1;
+    }
+  }
+  return found;
+}
+
+/* Applies `d` to every mark in the subtree `under` (NULL: the whole
+ * document), one write per value. */
+static void apply_marks(const SpecReviewAnnotations *r, const Decider *d,
+                        const char *under, SpecMarkReport *out) {
+  spec_mark_report_init(out);
+  size_t n = 0;
+  Values vals;
+  values_of(r->doc, &vals);
+  for (size_t i = 0; i < vals.len; i++) {
+    const Value *v = &vals.items[i];
+    Parsed p;
+    parse(v->text, &p);
+    size_t first_id = n + 1;
+    n += p.marks_len;
+    if (!path_under(v->path, under)) {
+      parsed_free(&p);
+      continue;
+    }
+    for (size_t k = 0; k < p.mark_issues_len; k++) {
+      SpecMarkIssue is;
+      is.path = som_strdup(v->path);
+      is.field = dup_or_null(v->field);
+      is.line = p.mark_issues[k].line;
+      is.issue = som_strdup(p.mark_issues[k].code);
+      PUSH(out->malformed, out->malformed_len, out->malformed_cap, is);
+    }
+    char *text = som_strdup(v->text);
+    size_t at = out->applied_len; /* this value's outcomes start here */
+    for (size_t k = p.marks_len; k-- > 0;) {
+      char *id = fmt("M-%zu", first_id + k);
+      SpecMarkDecision dec;
+      if (!decide(d, id, &dec) || dec == SPEC_MARK_DECISION_LEAVE) {
+        free(id);
+        continue;
+      }
+      const Mark *m = &p.marks[k];
+      const char *repl = mark_replacement(m, dec == SPEC_MARK_DECISION_ACCEPT);
+      SpecMarkOutcome o;
+      o.id = id;
+      o.path = som_strdup(v->path);
+      o.field = dup_or_null(v->field);
+      o.line = m->line;
+      o.mark_kind = m->kind;
+      o.decision = dec;
+      o.markup = som_strdup_n(v->text + m->start, m->end - m->start);
+      o.result = som_strdup(repl);
+      PUSH(out->applied, out->applied_len, out->applied_cap, o);
+      char *next = replace_mark(text, m, repl);
+      free(text);
+      text = next;
+    }
+    /* The outcomes were collected last to first: restore mark order. */
+    for (size_t a = at, b = out->applied_len; a + 1 < b; a++, b--) {
+      SpecMarkOutcome t = out->applied[a];
+      out->applied[a] = out->applied[b - 1];
+      out->applied[b - 1] = t;
+    }
+    if (strcmp(text, v->text) != 0) set_value(r->doc, v->path, v->field, text);
+    free(text);
+    parsed_free(&p);
+  }
+  values_free(&vals);
+}
+
+int spec_review_annotations_decide_marks(const SpecReviewAnnotations *r,
+                                         const SpecMarkDecisionItem *decisions,
+                                         size_t decisions_len,
+                                         const char *revision,
+                                         SpecMarkReport *out,
+                                         SpecReviewAnnotationError *err) {
+  spec_mark_report_init(out);
+  char *current = spec_review_annotations_revision(r);
+  if (revision == NULL || strcmp(revision, current) != 0) {
+    set_error(err,
+              "the document changed since revision %s (now %s); list the "
+              "marks again",
+              revision ? revision : "", current);
+    free(current);
+    return 0;
+  }
+  free(current);
+  SpecMarkEntryList marks;
+  spec_review_annotations_list_marks(r, NULL, &marks);
+  for (size_t k = 0; k < decisions_len; k++) {
+    int known = 0;
+    for (size_t i = 0; i < marks.len && !known; i++) {
+      known = strcmp(marks.items[i].id, decisions[k].id) == 0;
+    }
+    if (!known) {
+      set_error(err, "no inline mark %s in the document", decisions[k].id);
+      spec_mark_entry_list_free(&marks);
+      return 0;
+    }
+  }
+  spec_mark_entry_list_free(&marks);
+  static const SpecMarkDecisionItem none[1] = {{"", SPEC_MARK_DECISION_LEAVE}};
+  Decider d = {decisions_len ? decisions : none, decisions_len,
+               SPEC_MARK_DECISION_LEAVE};
+  apply_marks(r, &d, NULL, out);
+  return 1;
+}
+
+void spec_review_annotations_accept_all_marks(const SpecReviewAnnotations *r,
+                                              const char *path,
+                                              SpecMarkReport *out) {
+  Decider d = {NULL, 0, SPEC_MARK_DECISION_ACCEPT};
+  apply_marks(r, &d, path, out);
+}
+
+void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
+                                              const char *path,
+                                              SpecMarkReport *out) {
+  Decider d = {NULL, 0, SPEC_MARK_DECISION_REJECT};
+  apply_marks(r, &d, path, out);
+}
+
+void spec_review_annotations_remove_all_annotations(
+    const SpecReviewAnnotations *r, SpecMarkReport *out) {
+  spec_review_annotations_accept_all_marks(r, NULL, out);
+  Values vals;
+  values_of(r->doc, &vals);
+  for (size_t i = 0; i < vals.len; i++) {
+    char *v = som_strdup(vals.items[i].text);
+    for (;;) {
+      Parsed p;
+      parse(v, &p);
+      if (p.blocks_len == 0) {
+        parsed_free(&p);
+        break;
+      }
+      const Block *b = &p.blocks[p.blocks_len - 1];
+      char *next = remove_lines(v, b->start, b->end);
+      parsed_free(&p);
+      free(v);
+      v = next;
+    }
+    if (strcmp(v, vals.items[i].text) != 0) {
+      set_value(r->doc, vals.items[i].path, vals.items[i].field, v);
+    }
+    free(v);
+  }
+  values_free(&vals);
 }

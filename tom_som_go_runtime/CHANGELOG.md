@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+- Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations` gains
+  `Revision`, `ListMarks(path)`, `DecideMarks(decisions, revision)` (accept /
+  reject / leave in one write, refused with a `*SpecReviewAnnotationError` on
+  a stale revision or an unknown id), `AcceptAllMarks(path)` /
+  `RejectAllMarks(path)` and `RemoveAllAnnotations`, plus the function
+  `ApplyInlineMarksText(text, accept)`. Each operation returns a
+  `SpecMarkReport` (`SpecMarkOutcome`s and `SpecMarkIssue`s) for the decision
+  log; marks are listed as `SpecMarkEntry` and decided with
+  `SpecMarkDecision` (`SpecMarkDecisionAccept`, `…Reject`, `…Leave`, all in
+  `SpecMarkDecisions`). Accepting and rejecting follow the SOM §11.9.3
+  whitespace rules (words never join, no double space or space before
+  punctuation, a whole-line mark leaves no blank line), and `ApplyMark` and
+  `StripAnnotationsText` now follow them too. Malformed marks are left as
+  written and reported. The conformance runner replays
+  `inline_mark_cases.json`.
+
 - Review annotations (SOM §11.9): `SpecReviewAnnotations`
   (`NewSpecReviewAnnotations(doc, qualifier)`) lists and edits comment blocks,
   question blocks and CriticMarkup inline marks in content and form-field

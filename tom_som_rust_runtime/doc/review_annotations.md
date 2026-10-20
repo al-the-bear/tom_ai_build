@@ -12,6 +12,7 @@ value byte for byte as it was.
 - [Quick Start](#quick-start)
 - [Core Components](#core-components)
 - [Operations](#operations)
+- [Reviewing inline marks](#reviewing-inline-marks)
 - [Validation](#validation)
 - [Error Handling](#error-handling)
 - [Best Practices](#best-practices)
@@ -86,6 +87,7 @@ All are re-exported at the crate root.
 | `strip_annotations_text` | One value without its annotations |
 | `format_comment_block` / `format_question_block` | The lines an insert writes |
 | `validate_review_annotations` | The validation findings of a `&SpecDocument`, without a mutable borrow |
+| `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue`, `SpecMarkReport` | The inline-mark review: decisions, listed marks, what was done, malformed marks |
 
 ## Operations
 
@@ -109,6 +111,44 @@ All are re-exported at the crate root.
 Record each applied comment or answer in the project's log **before**
 `resolve` removes it (`tom_specs_project_flow.md` PF-ITR-REV).
 
+## Reviewing inline marks
+
+| Operation | Does |
+|-----------|------|
+| `revision()` | The revision the mark ids are stable for (16 hex digits); any change to a value changes it |
+| `list_marks(path)` | Every inline mark of the document (`None`) or of a subtree: `M-<n>` id, kind, path, old and new text, markup, the paragraph holding it |
+| `decide_marks(&decisions, revision)` | One write: a `HashMap<String, SpecMarkDecision>` of `Accept` / `Reject` / `Leave`. `Err(SpecReviewAnnotationError)` when the document is no longer at `revision`, or when an id is unknown |
+| `accept_all_marks(path)`, `reject_all_marks(path)` | Every mark under a path, or in the whole document (`None`) |
+| `remove_all_annotations()` | Every mark accepted and every comment and question block removed, written back |
+| `apply_inline_marks_text(text, accept)` | One value with every mark accepted or rejected (a free function) |
+
+Each returns a `SpecMarkReport`. `applied` holds one `SpecMarkOutcome` per
+mark: id, kind, path, decision, markup and result. `malformed` holds the
+`SpecMarkIssue`s in scope (`unclosed`, `nested`, `noArrow`); those marks are
+left as written.
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | nothing |
+| `{-- removed --}` | nothing | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}{>> c <<}`, `{== text ==}` | `text` | `text` |
+| `{>> c <<}` | nothing | nothing |
+
+The whitespace rules (words never join, no double space and no space before
+punctuation, a whole-line mark leaves no blank line) are SOM §11.9.3.
+
+```rust
+use std::collections::HashMap;
+use tom_som_rust_runtime::{SpecMarkDecision, SpecReviewAnnotations};
+
+let mut review = SpecReviewAnnotations::new(&mut doc);
+let rev = review.revision();
+let marks = review.list_marks(None);
+let decisions = HashMap::from([(marks[0].id.clone(), SpecMarkDecision::Accept)]);
+let report = review.decide_marks(&decisions, &rev)?;
+```
+
 ## Validation
 
 `validate_document` reports annotation findings as its last group, ordered by
@@ -126,8 +166,9 @@ They are findings, never parse rejections: the document still loads.
 
 Every operation that names a comment, a question, a paragraph or a mark that is
 not there returns `Err(SpecReviewAnnotationError)` and changes nothing. `list`,
-`counts`, `next_comment_id`, `assign_comment_ids` and `stripped` cannot fail
-and return their values directly.
+`counts`, `next_comment_id`, `assign_comment_ids`, `stripped`, `revision`,
+`list_marks`, `accept_all_marks`, `reject_all_marks` and
+`remove_all_annotations` cannot fail and return their values directly.
 
 ## Best Practices
 

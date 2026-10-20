@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations` gains
+  `revision`, `list_marks`, `decide_marks` (accept / reject / leave in one
+  write, `Err(SpecReviewAnnotationError)` on a stale revision or an unknown
+  id), `accept_all_marks` / `reject_all_marks` under a path and
+  `remove_all_annotations`, plus the free function `apply_inline_marks_text`.
+  Each operation returns a `SpecMarkReport` (`SpecMarkOutcome`s and
+  `SpecMarkIssue`s) for the decision log; marks are listed as `SpecMarkEntry`
+  and decided with `SpecMarkDecision` (`Accept`, `Reject`, `Leave`). All are
+  re-exported at the crate root. Accepting and rejecting follow the SOM
+  §11.9.3 whitespace rules (words never join, no double space or space before
+  punctuation, a whole-line mark leaves no blank line), and `apply_mark` and
+  `strip_annotations_text` now follow them too. Malformed marks are left as
+  written and reported. The conformance suite replays
+  `inline_mark_cases.json`.
+
 - Review annotations (SOM §11.9), ported from the Dart reference: the new
   module `spec_review_annotations` with `SpecReviewAnnotations` (`list`,
   `counts`, `next_comment_id`, `assign_comment_ids`, `insert_comment`,

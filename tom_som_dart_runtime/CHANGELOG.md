@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.6.16
+
+- Reviewing inline marks (SOM §11.9.3): `revision`, `listMarks`,
+  `decideMarks` (accept / reject / leave in one write, refused on a stale
+  revision), `acceptAllMarks` / `rejectAllMarks` under a path,
+  `removeAllAnnotations`, `applyInlineMarksText`. Each returns a
+  `SpecMarkReport` for the decision log. Accepting and rejecting follow
+  whitespace rules: words never join, no double space or space before
+  punctuation, and a whole-line mark leaves no blank line. Malformed marks are
+  left as written and reported.
+- Conformance: `inline_mark_cases.json` (27 text cases, 5 scripted cases).
+
 ## 1.6.15
 
 - Review annotations (SOM §11.9): `SpecReviewAnnotations` lists, counts,

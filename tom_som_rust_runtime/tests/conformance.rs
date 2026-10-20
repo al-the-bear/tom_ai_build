@@ -33,14 +33,15 @@
 //!   - the Stage-A CodeSpecs gate, A1–A5, over every case of
 //!     codespecs_gate_cases.json;
 //!   - the SOM §11.9 review annotations: every operation of
-//!     `SpecReviewAnnotations` over the scripts of annotation_cases.json;
+//!     `SpecReviewAnnotations` over the scripts of annotation_cases.json, and
+//!     accepting / rejecting inline marks (inline_mark_cases.json);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule), and its
 //!     findings bound to document paths through the renderer's heading map
 //!     (docspecs_path_cases.json).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
 
 use tom_som_rust_runtime::json::Json;
@@ -72,7 +73,8 @@ use tom_som_rust_runtime::spec_query::{
 };
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_review_annotations::{
-    SpecQuestionDraft, SpecReviewAnnotationError, SpecReviewAnnotations,
+    apply_inline_marks_text, SpecMarkDecision, SpecQuestionDraft, SpecReviewAnnotationError,
+    SpecReviewAnnotations,
 };
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
@@ -198,6 +200,7 @@ fn conformance() {
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_annotations(&mut c, &model, &tree);
+    test_inline_marks(&mut c, &model, &tree);
     test_operations(&mut c);
     test_editor(&mut c, &model);
     test_section_id(&mut c);
@@ -3013,46 +3016,88 @@ fn gate_report_json(report: &CodeSpecsGateReport) -> Json {
 fn test_annotations(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
     let table = read_json("annotation_cases.json");
     for cc in cases(&table, "cases") {
-        let name = cc.str_or("name");
-        let (results, state) = run_annotation_case(model, tree, cc);
-        let expect = cc.get("expect").expect("annotation case expect");
-        let want_results = expect
-            .get("results")
-            .and_then(|r| r.as_array())
-            .unwrap_or(&[]);
-        let ops = cc.get("ops").and_then(|o| o.as_array()).unwrap_or(&[]);
-        c.check(
-            &format!("annotations[{}].results.len", name),
-            results.len() == want_results.len(),
-            &format!("{} != {}", results.len(), want_results.len()),
-        );
-        for (i, (got, want)) in results.iter().zip(want_results).enumerate() {
-            let op = ops.get(i).map(|o| o.str_or("op")).unwrap_or_default();
-            let equal = match (op.as_str(), got) {
-                // A document compares by its canonical state, which ignores
-                // how empty stores are written.
-                ("strip", Ok(g)) => {
-                    DocumentJson::from_json(g).to_canonical_json()
-                        == DocumentJson::from_json(want).to_canonical_json()
-                }
-                (_, Ok(g)) => json_eq(g, want),
-                (_, Err(_)) => json_eq(&obj(vec![("error", Json::Bool(true))]), want),
-            };
+        check_annotation_case(c, model, tree, cc, "annotations");
+    }
+}
+
+/// `inline_mark_cases.json`: `textCases` pin [`apply_inline_marks_text`] for
+/// accept and reject; `cases` are annotation scripts using the mark-review
+/// ops (`revision`, `listMarks`, `decideMarks`, `acceptAll`, `rejectAll`,
+/// `removeAll`), run by the same runner as `annotation_cases.json`.
+fn test_inline_marks(c: &mut Checker, model: &SpecModel, tree: &SomMetaTree) {
+    let table = read_json("inline_mark_cases.json");
+    let text_cases = cases(&table, "textCases");
+    c.check(
+        "inlineMarks.textCases",
+        !text_cases.is_empty(),
+        "no textCases",
+    );
+    for tc in text_cases {
+        let name = tc.str_or("name");
+        let text = tc.str_or("text");
+        for (accept, key) in [(true, "accept"), (false, "reject")] {
+            let got = apply_inline_marks_text(&text, accept);
+            let want = tc.str_or(key);
             c.check(
-                &format!("annotations[{}].op{}.{}", name, i, op),
-                equal,
+                &format!("inlineMarks.text[{}].{}", name, key),
+                got == want,
                 &format!("got {:?} want {:?}", got, want),
             );
         }
-        let want_state = DocumentJson::from_json(expect.get("state").unwrap_or(&Json::Null));
-        let got_state = state.to_canonical_json();
-        let want_state = want_state.to_canonical_json();
+    }
+    let scripted = cases(&table, "cases");
+    c.check("inlineMarks.cases", !scripted.is_empty(), "no cases");
+    for cc in scripted {
+        check_annotation_case(c, model, tree, cc, "inlineMarks");
+    }
+}
+
+fn check_annotation_case(
+    c: &mut Checker,
+    model: &SpecModel,
+    tree: &SomMetaTree,
+    cc: &Json,
+    label: &str,
+) {
+    let name = cc.str_or("name");
+    let (results, state) = run_annotation_case(model, tree, cc);
+    let expect = cc.get("expect").expect("annotation case expect");
+    let want_results = expect
+        .get("results")
+        .and_then(|r| r.as_array())
+        .unwrap_or(&[]);
+    let ops = cc.get("ops").and_then(|o| o.as_array()).unwrap_or(&[]);
+    c.check(
+        &format!("{}[{}].results.len", label, name),
+        results.len() == want_results.len(),
+        &format!("{} != {}", results.len(), want_results.len()),
+    );
+    for (i, (got, want)) in results.iter().zip(want_results).enumerate() {
+        let op = ops.get(i).map(|o| o.str_or("op")).unwrap_or_default();
+        let equal = match (op.as_str(), got) {
+            // A document compares by its canonical state, which ignores how
+            // empty stores are written.
+            ("strip", Ok(g)) => {
+                DocumentJson::from_json(g).to_canonical_json()
+                    == DocumentJson::from_json(want).to_canonical_json()
+            }
+            (_, Ok(g)) => json_eq(g, want),
+            (_, Err(_)) => json_eq(&obj(vec![("error", Json::Bool(true))]), want),
+        };
         c.check(
-            &format!("annotations[{}].state", name),
-            got_state == want_state,
-            &format!("got {} want {}", got_state, want_state),
+            &format!("{}[{}].op{}.{}", label, name, i, op),
+            equal,
+            &format!("got {:?} want {:?}", got, want),
         );
     }
+    let want_state = DocumentJson::from_json(expect.get("state").unwrap_or(&Json::Null));
+    let got_state = state.to_canonical_json();
+    let want_state = want_state.to_canonical_json();
+    c.check(
+        &format!("{}[{}].state", label, name),
+        got_state == want_state,
+        &format!("got {} want {}", got_state, want_state),
+    );
 }
 
 type AnnotationResult = Result<Json, SpecReviewAnnotationError>;
@@ -3106,6 +3151,36 @@ fn run_annotation_case(
                 op.get("index").and_then(|v| v.as_i64()).unwrap_or(0).max(0) as usize,
                 op.get("accept").and_then(|v| v.as_bool()).unwrap_or(true),
             )),
+            "revision" => Ok(jstr(&api.revision())),
+            "listMarks" => Ok(Json::Array(
+                api.list_marks(s("path"))
+                    .iter()
+                    .map(|m| m.to_json())
+                    .collect(),
+            )),
+            "decideMarks" => {
+                let decisions: HashMap<String, SpecMarkDecision> = match op.get("decisions") {
+                    Some(Json::Object(pairs)) => pairs
+                        .iter()
+                        .map(|(k, v)| {
+                            let d = v.as_str().and_then(SpecMarkDecision::from_name);
+                            (
+                                k.clone(),
+                                d.unwrap_or_else(|| panic!("bad decision {:?}", v)),
+                            )
+                        })
+                        .collect(),
+                    _ => HashMap::new(),
+                };
+                let revision = match s("revision") {
+                    Some("@current") | None => api.revision(),
+                    Some(r) => r.to_string(),
+                };
+                api.decide_marks(&decisions, &revision).map(|r| r.to_json())
+            }
+            "acceptAll" => Ok(api.accept_all_marks(s("path")).to_json()),
+            "rejectAll" => Ok(api.reject_all_marks(s("path")).to_json()),
+            "removeAll" => Ok(api.remove_all_annotations().to_json()),
             "strip" => Json::parse(&api.stripped().to_json().to_canonical_json())
                 .map_err(|e| panic!("strip state does not parse: {}", e)),
             "roundTrip" => {

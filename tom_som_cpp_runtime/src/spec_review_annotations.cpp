@@ -9,6 +9,8 @@
 #include "spec_review_annotations.hpp"
 
 #include <algorithm>
+#include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <set>
 #include <utility>
@@ -260,6 +262,9 @@ struct Parsed {
   std::vector<Question> questions;
   std::vector<Mark> marks;
   std::vector<std::string> malformed;
+  /* Malformed inline marks as (value line, issue code): `unclosed`,
+   * `nested`, `noArrow`. */
+  std::vector<std::pair<std::size_t, std::string>> markIssues;
 };
 
 /* The fenced-code flag of every line. */
@@ -555,6 +560,7 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
                             ": inline mark \"" + kOpeners[oi] +
                             "\" is not closed in its paragraph (SOM \xC2\xA7"
                             "11.9.3)");
+      p.markIssues.emplace_back(line, "unclosed");
       i += 3;
       continue;
     }
@@ -563,6 +569,7 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
       p.malformed.push_back("line " + std::to_string(line) +
                             ": inline marks do not nest (SOM \xC2\xA7"
                             "11.9.3)");
+      p.markIssues.emplace_back(line, "nested");
       i = close + 3;
       continue;
     }
@@ -603,6 +610,7 @@ void scanSegment(Parsed& p, const std::string& seg, std::size_t base,
           p.malformed.push_back("line " + std::to_string(line) +
                                 ": a substitution has no \"~>\" (SOM \xC2\xA7"
                                 "11.9.3)");
+          p.markIssues.emplace_back(line, "noArrow");
           i = end;
           continue;
         }
@@ -801,29 +809,73 @@ std::vector<std::string> quoted(const std::vector<std::string>& t,
   return out;
 }
 
-/* Applies a mark's replacement and tidies the one space a removal leaves. */
+bool isSp(char c) { return c == ' ' || c == '\t'; }
+
+std::string trimEndSpaces(const std::string& s) {
+  std::size_t k = s.size();
+  while (k > 0 && isSp(s[k - 1])) k--;
+  return s.substr(0, k);
+}
+
+std::string trimStartSpaces(const std::string& s) {
+  std::size_t k = 0;
+  while (k < s.size() && isSp(s[k])) k++;
+  return s.substr(k);
+}
+
+/* Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
+ * never join two words, never leave a double space or a space before
+ * punctuation, and a mark that was a whole line leaves no blank line. */
 std::string replaceMark(const std::string& value, const Mark& m,
                         std::string replacement) {
   std::string before = value.substr(0, m.start);
   std::string after = value.substr(m.end);
   if (replacement.empty()) {
-    if (!before.empty() && before.back() == ' ' &&
-        (after.empty() || after[0] == ' ' || after[0] == '\n' ||
-         std::string(".,;:!?)").find(after[0]) != std::string::npos)) {
-      before.pop_back();
+    const std::string tb = trimEndSpaces(before);
+    const std::string ta = trimStartSpaces(after);
+    const bool lineStart = tb.empty() || tb.back() == '\n';
+    const bool lineEnd = ta.empty() || ta[0] == '\n';
+    if (lineStart && lineEnd) {
+      // The mark was the whole line: the line goes, and with it one of the
+      // newlines around it; a blank line left doubled is merged.
+      before = tb;
+      after = ta;
+      if (!after.empty() && after[0] == '\n') {
+        after = after.substr(1);
+      } else if (!before.empty() && before.back() == '\n') {
+        before.pop_back();
+      }
+      const bool endsBlank = before.size() >= 2 &&
+                             before[before.size() - 1] == '\n' &&
+                             before[before.size() - 2] == '\n';
+      if ((before.empty() || endsBlank) && !after.empty() && after[0] == '\n') {
+        after = after.substr(1);
+      }
+      if (after.empty()) {
+        while (!before.empty() && before.back() == '\n') before.pop_back();
+      }
+      return before + after;
+    }
+    if (!before.empty() && isSp(before.back())) {
+      if (!after.empty() && isSp(after[0])) {
+        after = trimStartSpaces(after);
+      } else if (after.empty() || after[0] == '\n' ||
+                 std::string(".,;:!?)]}").find(after[0]) != std::string::npos) {
+        before = trimEndSpaces(before);
+      }
     } else if ((before.empty() || before.back() == '\n') && !after.empty() &&
-               after[0] == ' ') {
-      after = after.substr(1);
+               isSp(after[0])) {
+      after = trimStartSpaces(after);
     }
-  } else {
-    // Never join two words: a mark written flush against a word keeps a
-    // space on that side.
-    if (wordCharLast(before) && wordCharFirst(replacement)) {
-      replacement = " " + replacement;
-    }
-    if (wordCharLast(replacement) && !after.empty() && wordCharFirst(after)) {
-      replacement += " ";
-    }
+    return before + after;
+  }
+  // Never join two words: a mark written flush against a word keeps a space
+  // on that side.
+  if (wordCharLast(before) && wordCharFirst(replacement)) {
+    replacement = " " + replacement;
+  }
+  if (wordCharLast(replacement) && !after.empty() && wordCharFirst(after)) {
+    replacement += " ";
   }
   return before + replacement + after;
 }
@@ -1064,6 +1116,15 @@ std::string stripAnnotationsText(const std::string& value) {
     if (p.marks.empty()) break;
     const Mark& m = p.marks.back();
     v = replaceMark(v, m, markReplacement(m, true));
+  }
+  return v;
+}
+
+std::string applyInlineMarksText(const std::string& value, bool accept) {
+  std::string v = value;
+  const Parsed p = parse(value);
+  for (auto it = p.marks.rbegin(); it != p.marks.rend(); ++it) {
+    v = replaceMark(v, *it, markReplacement(*it, accept));
   }
   return v;
 }
@@ -1320,6 +1381,244 @@ SpecDocument SpecReviewAnnotations::stripped() const {
 
 std::vector<SpecValidationError> SpecReviewAnnotations::validate() const {
   return validateReviewAnnotations(*doc_);
+}
+
+/* ---- inline-mark review (SOM §11.9.3) ------------------------------------ */
+
+const char* specMarkDecisionName(SpecMarkDecision d) {
+  switch (d) {
+    case SpecMarkDecision::Accept:
+      return "accept";
+    case SpecMarkDecision::Reject:
+      return "reject";
+    case SpecMarkDecision::Leave:
+      return "leave";
+  }
+  return "";
+}
+
+std::optional<SpecMarkDecision> specMarkDecisionFromName(const std::string& name) {
+  if (name == "accept") return SpecMarkDecision::Accept;
+  if (name == "reject") return SpecMarkDecision::Reject;
+  if (name == "leave") return SpecMarkDecision::Leave;
+  return std::nullopt;
+}
+
+std::string SpecMarkEntry::toJson() const {
+  return "{\"id\":" + jsonEncodeStr(id) + ",\"path\":" + jsonEncodeStr(path) +
+         ",\"field\":" + jsonStrOrNull(field) +
+         ",\"line\":" + std::to_string(line) +
+         ",\"markKind\":" + jsonEncodeStr(specMarkKindName(markKind)) +
+         ",\"oldText\":" + jsonEncodeStr(oldText) +
+         ",\"newText\":" + jsonEncodeStr(newText) +
+         ",\"comment\":" + jsonStrOrNull(comment) +
+         ",\"markup\":" + jsonEncodeStr(markup) +
+         ",\"context\":" + jsonEncodeStr(context) + "}";
+}
+
+std::string SpecMarkOutcome::toJson() const {
+  return "{\"id\":" + jsonEncodeStr(id) + ",\"path\":" + jsonEncodeStr(path) +
+         ",\"field\":" + jsonStrOrNull(field) +
+         ",\"line\":" + std::to_string(line) +
+         ",\"markKind\":" + jsonEncodeStr(specMarkKindName(markKind)) +
+         ",\"decision\":" + jsonEncodeStr(specMarkDecisionName(decision)) +
+         ",\"markup\":" + jsonEncodeStr(markup) +
+         ",\"result\":" + jsonEncodeStr(result) + "}";
+}
+
+std::string SpecMarkIssue::toJson() const {
+  return "{\"path\":" + jsonEncodeStr(path) +
+         ",\"field\":" + jsonStrOrNull(field) +
+         ",\"line\":" + std::to_string(line) +
+         ",\"issue\":" + jsonEncodeStr(issue) + "}";
+}
+
+std::string SpecMarkReport::toJson() const {
+  std::string out = "{\"applied\":[";
+  for (std::size_t i = 0; i < applied.size(); i++) {
+    if (i > 0) out += ",";
+    out += applied[i].toJson();
+  }
+  out += "],\"malformed\":[";
+  for (std::size_t i = 0; i < malformed.size(); i++) {
+    if (i > 0) out += ",";
+    out += malformed[i].toJson();
+  }
+  return out + "]}";
+}
+
+namespace {
+
+bool pathUnder(const std::string& path, const std::optional<std::string>& under) {
+  return !under || path == *under || startsWith(path, *under + "/");
+}
+
+}  // namespace
+
+std::string SpecReviewAnnotations::revision() const {
+  std::uint64_t h = 0xcbf29ce484222325ULL;
+  const std::uint64_t prime = 0x100000001b3ULL;
+  auto add = [&](const std::string& s) {
+    for (unsigned char b : s) h = (h ^ b) * prime;
+    h = (h ^ 0U) * prime;
+  };
+  for (const Value& v : valuesOf(*doc_)) {
+    add(v.path);
+    add(v.field ? *v.field : "");
+    add(v.text);
+  }
+  char buf[17];
+  std::snprintf(buf, sizeof(buf), "%016llx", static_cast<unsigned long long>(h));
+  return buf;
+}
+
+std::vector<SpecMarkEntry> SpecReviewAnnotations::listMarks(
+    const std::optional<std::string>& path) const {
+  std::vector<SpecMarkEntry> out;
+  std::size_t n = 0;
+  for (const Value& v : valuesOf(*doc_)) {
+    const Parsed p = parse(v.text);
+    for (const Mark& m : p.marks) {
+      const std::string id = "M-" + std::to_string(++n);
+      if (!pathUnder(v.path, path)) continue;
+      // The paragraph holding the mark's line, blank-separated and
+      // fence-aware.
+      std::size_t from = m.line, to = m.line;
+      std::size_t k = 0;
+      while (k < p.lines.size()) {
+        if (isBlank(p.lines[k]) && !p.code[k]) {
+          k++;
+          continue;
+        }
+        const std::size_t s0 = k;
+        while (k + 1 < p.lines.size() &&
+               !(isBlank(p.lines[k + 1]) && !p.code[k + 1]))
+          k++;
+        if (s0 <= m.line && m.line <= k) {
+          from = s0;
+          to = k;
+          break;
+        }
+        k++;
+      }
+      SpecMarkEntry e;
+      e.id = id;
+      e.path = v.path;
+      e.field = v.field;
+      e.line = m.line;
+      e.markKind = m.kind;
+      e.oldText = markReplacement(m, false);
+      e.newText = markReplacement(m, true);
+      e.comment = m.comment;
+      e.markup = v.text.substr(m.start, m.end - m.start);
+      std::vector<std::string> para(p.lines.begin() + from,
+                                    p.lines.begin() + to + 1);
+      e.context = joinLines(para);
+      out.push_back(std::move(e));
+    }
+  }
+  return out;
+}
+
+SpecMarkReport SpecReviewAnnotations::applyMarks(
+    const std::function<std::optional<SpecMarkDecision>(const std::string&)>&
+        decide,
+    const std::optional<std::string>& under) {
+  SpecMarkReport report;
+  std::size_t n = 0;
+  for (const Value& v : valuesOf(*doc_)) {
+    const Parsed p = parse(v.text);
+    std::vector<std::string> ids;
+    for (std::size_t k = 0; k < p.marks.size(); k++) {
+      ids.push_back("M-" + std::to_string(++n));
+    }
+    if (!pathUnder(v.path, under)) continue;
+    for (const auto& [line, code] : p.markIssues) {
+      report.malformed.push_back({v.path, v.field, line, code});
+    }
+    std::string text = v.text;
+    std::vector<SpecMarkOutcome> outcomes;
+    for (std::size_t k = p.marks.size(); k-- > 0;) {
+      const std::optional<SpecMarkDecision> d = decide(ids[k]);
+      if (!d || *d == SpecMarkDecision::Leave) continue;
+      const Mark& m = p.marks[k];
+      const std::string repl = markReplacement(m, *d == SpecMarkDecision::Accept);
+      SpecMarkOutcome o;
+      o.id = ids[k];
+      o.path = v.path;
+      o.field = v.field;
+      o.line = m.line;
+      o.markKind = m.kind;
+      o.decision = *d;
+      o.markup = v.text.substr(m.start, m.end - m.start);
+      o.result = repl;
+      outcomes.insert(outcomes.begin(), std::move(o));
+      text = replaceMark(text, m, repl);
+    }
+    if (text != v.text) setValue(*doc_, v.path, v.field, text);
+    for (SpecMarkOutcome& o : outcomes) report.applied.push_back(std::move(o));
+  }
+  return report;
+}
+
+SpecMarkReport SpecReviewAnnotations::decideMarks(
+    const std::map<std::string, SpecMarkDecision>& decisions,
+    const std::string& revision) {
+  const std::string current = this->revision();
+  if (revision != current) {
+    throw SpecReviewAnnotationError("the document changed since revision " +
+                                    revision + " (now " + current +
+                                    "); list the marks again");
+  }
+  std::set<std::string> known;
+  for (const SpecMarkEntry& m : listMarks()) known.insert(m.id);
+  for (const auto& [id, d] : decisions) {
+    (void)d;
+    if (known.count(id) == 0) {
+      throw SpecReviewAnnotationError("no inline mark " + id +
+                                      " in the document");
+    }
+  }
+  return applyMarks(
+      [&](const std::string& id) -> std::optional<SpecMarkDecision> {
+        const auto it = decisions.find(id);
+        if (it == decisions.end()) return std::nullopt;
+        return it->second;
+      },
+      std::nullopt);
+}
+
+SpecMarkReport SpecReviewAnnotations::acceptAllMarks(
+    const std::optional<std::string>& path) {
+  return applyMarks(
+      [](const std::string&) -> std::optional<SpecMarkDecision> {
+        return SpecMarkDecision::Accept;
+      },
+      path);
+}
+
+SpecMarkReport SpecReviewAnnotations::rejectAllMarks(
+    const std::optional<std::string>& path) {
+  return applyMarks(
+      [](const std::string&) -> std::optional<SpecMarkDecision> {
+        return SpecMarkDecision::Reject;
+      },
+      path);
+}
+
+SpecMarkReport SpecReviewAnnotations::removeAllAnnotations() {
+  SpecMarkReport report = acceptAllMarks();
+  for (const Value& v : valuesOf(*doc_)) {
+    std::string text = v.text;
+    while (true) {
+      const Parsed p = parse(text);
+      if (p.blocks.empty()) break;
+      const Block& b = p.blocks.back();
+      text = removeLines(text, b.start, b.end);
+    }
+    if (text != v.text) setValue(*doc_, v.path, v.field, text);
+  }
+  return report;
 }
 
 }  // namespace som

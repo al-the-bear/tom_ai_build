@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+- Inline-mark review (SOM §11.9.3, annot4), in `spec_review_annotations`, a
+  port of the Dart reference: `spec_review_annotations_revision` (FNV-1a
+  64-bit, 16 hex digits), `spec_review_annotations_list_marks`
+  (`SpecMarkEntryList` of `SpecMarkEntry`, ids `M-<n>`,
+  `spec_mark_entry_to_json`), `spec_review_annotations_decide_marks`
+  (`SpecMarkDecisionItem` array, refused on a stale revision or an unknown
+  id), `spec_review_annotations_accept_all_marks` / `_reject_all_marks`
+  (optional path), `spec_review_annotations_remove_all_annotations`, and the
+  text-level `spec_apply_inline_marks_text`. New enum `SpecMarkDecision`
+  (`spec_mark_decision_name`, `spec_mark_decision_parse`); every operation
+  fills a `SpecMarkReport` of `SpecMarkOutcome`s and `SpecMarkIssue`s
+  (`unclosed`, `nested`, `noArrow`; `spec_mark_report_to_json`,
+  `spec_mark_report_free`). Accepting or rejecting a mark (also
+  `spec_review_annotations_apply_mark`) now follows the full whitespace rules:
+  tabs count as spaces, `]` and `}` join the punctuation set, and a mark that
+  was a whole line takes its line with it. The conformance harness runs
+  `inline_mark_cases.json`. Guide: `doc/review_annotations.md`, "Reviewing
+  inline marks".
+
 - Review annotations (SOM §11.9, annot2). New module `spec_review_annotations`
   (`include/spec_review_annotations.h`, in the umbrella header), a port of the
   Dart `spec_review_annotations.dart`: `SpecReviewAnnotations`

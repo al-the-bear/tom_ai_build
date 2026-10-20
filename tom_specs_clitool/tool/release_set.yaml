@@ -99,16 +99,11 @@ workspace_prefixes:
 # no longer drifts the package that holds it.
 unpublished_drift:
   tom_specs_model: >-
-    1.6.15 (which supersedes the never-uploaded 1.6.14) is not yet on pub.dev,
-    nor is tom_som_dart_v0 1.6.15: both hit the per-package daily limit
-    (uamtcb6). tom_som_dart_runtime 1.6.15, the annotation API (annot2), is
+    1.6.16 (superseding the never-uploaded 1.6.14 and 1.6.15) is not yet on
+    pub.dev, nor is tom_som_dart_v0 1.6.16: both hit the per-package daily
+    limit (uamtcb6). tom_som_dart_runtime 1.6.16 (annot2 + annot4) is
     published. uamtcb6 publishes the model and then the facade from HEAD,
     records the commit under published_from:, and removes this note.
-  tom_som_dart_runtime: >-
-    Test-only change since 1.6.15: the conformance test builds the review
-    annotation cases of annot3 (annotations in form preambles and field values,
-    in markdown_import_cases.json and docspecs_cases.json). No library code
-    changed; it ships with the next chain release.
 
 # Where each member was actually published from, when that is not the commit
 # that set its version. A change that lands after the bump and before the

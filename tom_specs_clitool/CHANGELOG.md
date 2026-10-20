@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.10.1
+
+- The section-citation gate also reads `tom_doc_specs/lib` and
+  `tom_doc_scanner/test`, which now cite SOM §11.9 (review annotations).
+
 ## 0.10.0
 
 - `generate_registry_tests`: generates the registry part of an application's

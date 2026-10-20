@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 26 files
-// Generated: 2026-10-20T09:20:45.179647 by tom_d4rt_generator 1.52.0
+// Generated: 2026-10-20T10:11:30.324965 by tom_d4rt_generator 1.52.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -83,6 +83,10 @@ class SomRuntimeBridge {
       _createSpecReviewAnnotationBridge(),
       _createSpecReviewAnnotationCountsBridge(),
       _createSpecQuestionDraftBridge(),
+      _createSpecMarkEntryBridge(),
+      _createSpecMarkOutcomeBridge(),
+      _createSpecMarkIssueBridge(),
+      _createSpecMarkReportBridge(),
       _createSpecReviewAnnotationErrorBridge(),
       _createSpecReviewAnnotationsBridge(),
       _createSpecChipBridge(),
@@ -187,6 +191,10 @@ class SomRuntimeBridge {
       'SpecReviewAnnotation': _createSpecReviewAnnotationBridge,
       'SpecReviewAnnotationCounts': _createSpecReviewAnnotationCountsBridge,
       'SpecQuestionDraft': _createSpecQuestionDraftBridge,
+      'SpecMarkEntry': _createSpecMarkEntryBridge,
+      'SpecMarkOutcome': _createSpecMarkOutcomeBridge,
+      'SpecMarkIssue': _createSpecMarkIssueBridge,
+      'SpecMarkReport': _createSpecMarkReportBridge,
       'SpecReviewAnnotationError': _createSpecReviewAnnotationErrorBridge,
       'SpecReviewAnnotations': _createSpecReviewAnnotationsBridge,
       'SpecChip': _createSpecChipBridge,
@@ -292,6 +300,10 @@ class SomRuntimeBridge {
       'SpecReviewAnnotationCounts':
           $tom_som_dart_runtime_20.SpecReviewAnnotationCounts,
       'SpecQuestionDraft': $tom_som_dart_runtime_20.SpecQuestionDraft,
+      'SpecMarkEntry': $tom_som_dart_runtime_20.SpecMarkEntry,
+      'SpecMarkOutcome': $tom_som_dart_runtime_20.SpecMarkOutcome,
+      'SpecMarkIssue': $tom_som_dart_runtime_20.SpecMarkIssue,
+      'SpecMarkReport': $tom_som_dart_runtime_20.SpecMarkReport,
       'SpecReviewAnnotationError':
           $tom_som_dart_runtime_20.SpecReviewAnnotationError,
       'SpecReviewAnnotations': $tom_som_dart_runtime_20.SpecReviewAnnotations,
@@ -413,6 +425,14 @@ class SomRuntimeBridge {
       'SpecReviewAnnotationCounts':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecQuestionDraft':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkEntry':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkOutcome':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkIssue':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkReport':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecReviewAnnotationError':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
@@ -605,6 +625,10 @@ class SomRuntimeBridge {
         name: 'SpecMarkKind',
         values: $tom_som_dart_runtime_20.SpecMarkKind.values,
       ),
+      BridgedEnumDefinition<$tom_som_dart_runtime_20.SpecMarkDecision>(
+        name: 'SpecMarkDecision',
+        values: $tom_som_dart_runtime_20.SpecMarkDecision.values,
+      ),
       BridgedEnumDefinition<$tom_som_dart_runtime_3.SpecChipRole>(
         name: 'SpecChipRole',
         values: $tom_som_dart_runtime_3.SpecChipRole.values,
@@ -693,6 +717,8 @@ class SomRuntimeBridge {
       'SpecReviewAnnotationKind':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecMarkKind':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'SpecMarkDecision':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'SpecChipRole':
           'package:tom_som_dart_runtime/src/spec_annotation_display.dart',
@@ -1299,6 +1325,24 @@ class SomRuntimeBridge {
           'formatQuestionBlock',
         );
         return $tom_som_dart_runtime_20.formatQuestionBlock(q);
+      },
+      'applyInlineMarksText': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'applyInlineMarksText');
+        final value = D4.getRequiredArg<String>(
+          positional,
+          0,
+          'value',
+          'applyInlineMarksText',
+        );
+        final accept = D4.getRequiredNamedArg<bool>(
+          named,
+          'accept',
+          'applyInlineMarksText',
+        );
+        return $tom_som_dart_runtime_20.applyInlineMarksText(
+          value,
+          accept: accept,
+        );
       },
       'stripAnnotationsText': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stripAnnotationsText');
@@ -1962,6 +2006,8 @@ class SomRuntimeBridge {
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'formatQuestionBlock':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
+      'applyInlineMarksText':
+          'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'stripAnnotationsText':
           'package:tom_som_dart_runtime/src/spec_review_annotations.dart',
       'kindChips':
@@ -2049,6 +2095,8 @@ class SomRuntimeBridge {
           'List<String> formatCommentBlock({required String id, required String text, String? author})',
       'formatQuestionBlock':
           'List<String> formatQuestionBlock(SpecQuestionDraft q)',
+      'applyInlineMarksText':
+          'String applyInlineMarksText(String value, {required bool accept})',
       'stripAnnotationsText': 'String stripAnnotationsText(String value)',
       'kindChips':
           'List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp, NoArtifactLink? noArtifact)',
@@ -2174,6 +2222,7 @@ class SomRuntimeBridge {
     'DocSpecsViolationRule',
     'SpecReviewAnnotationKind',
     'SpecMarkKind',
+    'SpecMarkDecision',
     'SpecChipRole',
     'CodeSpecsRoutingVerdict',
     'CodeSpecsGateCheck',
@@ -3584,6 +3633,444 @@ BridgedClass _createSpecQuestionDraftBridge() {
 }
 
 // =============================================================================
+// SpecMarkEntry Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkEntryBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_20.SpecMarkEntry,
+    name: 'SpecMarkEntry',
+    isAssignable: (v) => v is $tom_som_dart_runtime_20.SpecMarkEntry,
+    constructors: {
+      '': (visitor, positional, named) {
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'SpecMarkEntry');
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecMarkEntry',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'SpecMarkEntry',
+        );
+        final markKind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_20.SpecMarkKind>(
+              named,
+              'markKind',
+              'SpecMarkEntry',
+            );
+        final oldText = D4.getRequiredNamedArg<String>(
+          named,
+          'oldText',
+          'SpecMarkEntry',
+        );
+        final newText = D4.getRequiredNamedArg<String>(
+          named,
+          'newText',
+          'SpecMarkEntry',
+        );
+        final comment = D4.getOptionalNamedArg<String?>(named, 'comment');
+        final markup = D4.getRequiredNamedArg<String>(
+          named,
+          'markup',
+          'SpecMarkEntry',
+        );
+        final context = D4.getRequiredNamedArg<String>(
+          named,
+          'context',
+          'SpecMarkEntry',
+        );
+        return $tom_som_dart_runtime_20.SpecMarkEntry(
+          id: id,
+          path: path,
+          field: field,
+          line: line,
+          markKind: markKind,
+          oldText: oldText,
+          newText: newText,
+          comment: comment,
+          markup: markup,
+          context: context,
+        );
+      },
+    },
+    getters: {
+      'id': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .id,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .path,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .field,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .line,
+      'markKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .markKind,
+      'oldText': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .oldText,
+      'newText': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .newText,
+      'comment': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .comment,
+      'markup': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .markup,
+      'context': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+            target,
+            'SpecMarkEntry',
+          )
+          .context,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_20.SpecMarkEntry>(
+          target,
+          'SpecMarkEntry',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecMarkEntry({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required String oldText, required String newText, String? comment, required String markup, required String context})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'id': 'String get id',
+      'path': 'String get path',
+      'field': 'String? get field',
+      'line': 'int get line',
+      'markKind': 'SpecMarkKind get markKind',
+      'oldText': 'String get oldText',
+      'newText': 'String get newText',
+      'comment': 'String? get comment',
+      'markup': 'String get markup',
+      'context': 'String get context',
+    },
+  );
+}
+
+// =============================================================================
+// SpecMarkOutcome Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkOutcomeBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_20.SpecMarkOutcome,
+    name: 'SpecMarkOutcome',
+    isAssignable: (v) => v is $tom_som_dart_runtime_20.SpecMarkOutcome,
+    constructors: {
+      '': (visitor, positional, named) {
+        final id = D4.getRequiredNamedArg<String>(
+          named,
+          'id',
+          'SpecMarkOutcome',
+        );
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecMarkOutcome',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'SpecMarkOutcome',
+        );
+        final markKind = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_20.SpecMarkKind>(
+              named,
+              'markKind',
+              'SpecMarkOutcome',
+            );
+        final decision = D4
+            .getRequiredNamedArg<$tom_som_dart_runtime_20.SpecMarkDecision>(
+              named,
+              'decision',
+              'SpecMarkOutcome',
+            );
+        final markup = D4.getRequiredNamedArg<String>(
+          named,
+          'markup',
+          'SpecMarkOutcome',
+        );
+        final result = D4.getRequiredNamedArg<String>(
+          named,
+          'result',
+          'SpecMarkOutcome',
+        );
+        return $tom_som_dart_runtime_20.SpecMarkOutcome(
+          id: id,
+          path: path,
+          field: field,
+          line: line,
+          markKind: markKind,
+          decision: decision,
+          markup: markup,
+          result: result,
+        );
+      },
+    },
+    getters: {
+      'id': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .id,
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .path,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .field,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .line,
+      'markKind': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .markKind,
+      'decision': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .decision,
+      'markup': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .markup,
+      'result': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+            target,
+            'SpecMarkOutcome',
+          )
+          .result,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+          target,
+          'SpecMarkOutcome',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecMarkOutcome({required String id, required String path, String? field, required int line, required SpecMarkKind markKind, required SpecMarkDecision decision, required String markup, required String result})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'id': 'String get id',
+      'path': 'String get path',
+      'field': 'String? get field',
+      'line': 'int get line',
+      'markKind': 'SpecMarkKind get markKind',
+      'decision': 'SpecMarkDecision get decision',
+      'markup': 'String get markup',
+      'result': 'String get result',
+    },
+  );
+}
+
+// =============================================================================
+// SpecMarkIssue Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkIssueBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_20.SpecMarkIssue,
+    name: 'SpecMarkIssue',
+    isAssignable: (v) => v is $tom_som_dart_runtime_20.SpecMarkIssue,
+    constructors: {
+      '': (visitor, positional, named) {
+        final path = D4.getRequiredNamedArg<String>(
+          named,
+          'path',
+          'SpecMarkIssue',
+        );
+        final field = D4.getOptionalNamedArg<String?>(named, 'field');
+        final line = D4.getRequiredNamedArg<int>(
+          named,
+          'line',
+          'SpecMarkIssue',
+        );
+        final issue = D4.getRequiredNamedArg<String>(
+          named,
+          'issue',
+          'SpecMarkIssue',
+        );
+        return $tom_som_dart_runtime_20.SpecMarkIssue(
+          path: path,
+          field: field,
+          line: line,
+          issue: issue,
+        );
+      },
+    },
+    getters: {
+      'path': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkIssue>(
+            target,
+            'SpecMarkIssue',
+          )
+          .path,
+      'field': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkIssue>(
+            target,
+            'SpecMarkIssue',
+          )
+          .field,
+      'line': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkIssue>(
+            target,
+            'SpecMarkIssue',
+          )
+          .line,
+      'issue': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkIssue>(
+            target,
+            'SpecMarkIssue',
+          )
+          .issue,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_20.SpecMarkIssue>(
+          target,
+          'SpecMarkIssue',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecMarkIssue({required String path, String? field, required int line, required String issue})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'path': 'String get path',
+      'field': 'String? get field',
+      'line': 'int get line',
+      'issue': 'String get issue',
+    },
+  );
+}
+
+// =============================================================================
+// SpecMarkReport Bridge
+// =============================================================================
+
+BridgedClass _createSpecMarkReportBridge() {
+  return BridgedClass(
+    nativeType: $tom_som_dart_runtime_20.SpecMarkReport,
+    name: 'SpecMarkReport',
+    isAssignable: (v) => v is $tom_som_dart_runtime_20.SpecMarkReport,
+    constructors: {
+      '': (visitor, positional, named) {
+        final applied = named.containsKey('applied') && named['applied'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_20.SpecMarkOutcome>(
+                named['applied'],
+                'applied',
+              )
+            : const <$tom_som_dart_runtime_20.SpecMarkOutcome>[];
+        final malformed =
+            named.containsKey('malformed') && named['malformed'] != null
+            ? D4.coerceList<$tom_som_dart_runtime_20.SpecMarkIssue>(
+                named['malformed'],
+                'malformed',
+              )
+            : const <$tom_som_dart_runtime_20.SpecMarkIssue>[];
+        return $tom_som_dart_runtime_20.SpecMarkReport(
+          applied: applied,
+          malformed: malformed,
+        );
+      },
+    },
+    getters: {
+      'applied': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkReport>(
+            target,
+            'SpecMarkReport',
+          )
+          .applied,
+      'malformed': (visitor, target) => D4
+          .validateTarget<$tom_som_dart_runtime_20.SpecMarkReport>(
+            target,
+            'SpecMarkReport',
+          )
+          .malformed,
+    },
+    methods: {
+      'toJson': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_20.SpecMarkReport>(
+          target,
+          'SpecMarkReport',
+        );
+        return t.toJson();
+      },
+    },
+    constructorSignatures: {
+      '': 'const SpecMarkReport({List<SpecMarkOutcome> applied = const [], List<SpecMarkIssue> malformed = const []})',
+    },
+    methodSignatures: {'toJson': 'Map<String, Object?> toJson()'},
+    getterSignatures: {
+      'applied': 'List<SpecMarkOutcome> get applied',
+      'malformed': 'List<SpecMarkIssue> get malformed',
+    },
+  );
+}
+
+// =============================================================================
 // SpecReviewAnnotationError Bridge
 // =============================================================================
 
@@ -3860,6 +4347,73 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
         t.applyMark(path: path, field: field, index: index, accept: accept);
         return null;
       },
+      'revision': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        return t.revision();
+      },
+      'listMarks': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getOptionalNamedArg<String?>(named, 'path');
+        return t.listMarks(path: path);
+      },
+      'decideMarks': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        D4.requireMinArgs(positional, 1, 'decideMarks');
+        if (positional.isEmpty) {
+          throw ArgumentError(
+            'decideMarks: Missing required argument "decisions" at position 0',
+          );
+        }
+        final decisions = D4
+            .coerceMap<String, $tom_som_dart_runtime_20.SpecMarkDecision>(
+              positional[0],
+              'decisions',
+            );
+        final revision = D4.getRequiredNamedArg<String>(
+          named,
+          'revision',
+          'decideMarks',
+        );
+        return t.decideMarks(decisions, revision: revision);
+      },
+      'acceptAllMarks': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getOptionalNamedArg<String?>(named, 'path');
+        return t.acceptAllMarks(path: path);
+      },
+      'rejectAllMarks': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        final path = D4.getOptionalNamedArg<String?>(named, 'path');
+        return t.rejectAllMarks(path: path);
+      },
+      'removeAllAnnotations': (visitor, target, positional, named, typeArgs) {
+        final t = D4
+            .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
+              target,
+              'SpecReviewAnnotations',
+            );
+        return t.removeAllAnnotations();
+      },
       'stripped': (visitor, target, positional, named, typeArgs) {
         final t = D4
             .validateTarget<$tom_som_dart_runtime_20.SpecReviewAnnotations>(
@@ -3896,6 +4450,13 @@ BridgedClass _createSpecReviewAnnotationsBridge() {
       'resolve': 'void resolve(String id)',
       'applyMark':
           'void applyMark({required String path, String? field, required int index, bool accept = true})',
+      'revision': 'String revision()',
+      'listMarks': 'List<SpecMarkEntry> listMarks({String? path})',
+      'decideMarks':
+          'SpecMarkReport decideMarks(Map<String, SpecMarkDecision> decisions, {required String revision})',
+      'acceptAllMarks': 'SpecMarkReport acceptAllMarks({String? path})',
+      'rejectAllMarks': 'SpecMarkReport rejectAllMarks({String? path})',
+      'removeAllAnnotations': 'SpecMarkReport removeAllAnnotations()',
       'stripped': 'SpecDocument stripped()',
       'validate': 'List<SpecValidationError> validate()',
     },

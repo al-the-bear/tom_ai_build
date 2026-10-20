@@ -13,6 +13,7 @@ package somruntime
 // number is the same in all of them. Byte offsets are used internally only.
 
 import (
+	"fmt"
 	"regexp"
 	"sort"
 	"strconv"
@@ -290,6 +291,15 @@ type annParsed struct {
 	comments  []*annComment
 	marks     []*annMark
 	malformed []string
+	// markIssues are the malformed inline marks as (value line, issue code):
+	// `unclosed`, `nested`, `noArrow`.
+	markIssues []annMarkIssue
+}
+
+// annMarkIssue is one malformed inline mark.
+type annMarkIssue struct {
+	line  int
+	issue string
 }
 
 func annLstrip(s string) string {
@@ -679,6 +689,7 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 			p.malformed = append(p.malformed,
 				"line "+strconv.Itoa(line)+": inline mark \""+opener+
 					"\" is not closed in its paragraph (SOM §11.9.3)")
+			p.markIssues = append(p.markIssues, annMarkIssue{line, "unclosed"})
 			i += 3
 			continue
 		}
@@ -686,6 +697,7 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 		if annContainsOpener(inner) {
 			p.malformed = append(p.malformed,
 				"line "+strconv.Itoa(line)+": inline marks do not nest (SOM §11.9.3)")
+			p.markIssues = append(p.markIssues, annMarkIssue{line, "nested"})
 			i = closeAt + 3
 			continue
 		}
@@ -717,6 +729,7 @@ func annScanSegment(p *annParsed, seg string, base int, lineOf func(int) int) {
 			if arrow < 0 {
 				p.malformed = append(p.malformed,
 					"line "+strconv.Itoa(line)+": a substitution has no \"~>\" (SOM §11.9.3)")
+				p.markIssues = append(p.markIssues, annMarkIssue{line, "noArrow"})
 				i = end
 				continue
 			}
@@ -924,29 +937,56 @@ func FormatQuestionBlock(q SpecQuestionDraft) []string {
 	return append(lines, ">", "> "+annAnswerLabel)
 }
 
-// annReplaceMark applies a mark's replacement and tidies the one space a
-// removal leaves.
+// annReplaceMark applies a mark's replacement with the whitespace rules of
+// SOM §11.9.3: never join two words, never leave a double space or a space
+// before punctuation, and a mark that was a whole line leaves no blank line.
 func annReplaceMark(value string, m *annMark, replacement string) string {
 	before := value[:m.start]
 	after := value[m.end:]
+	isSpace := func(c byte) bool { return c == ' ' || c == '\t' }
+	trimEnd := func(s string) string { return strings.TrimRight(s, " \t") }
+	trimStart := func(s string) string { return strings.TrimLeft(s, " \t") }
 	if replacement == "" {
-		if strings.HasSuffix(before, " ") &&
-			(after == "" || after[0] == ' ' || after[0] == '\n' ||
-				strings.IndexByte(".,;:!?)", after[0]) >= 0) {
-			before = before[:len(before)-1]
-		} else if (before == "" || strings.HasSuffix(before, "\n")) &&
-			strings.HasPrefix(after, " ") {
-			after = after[1:]
+		tb := trimEnd(before)
+		ta := trimStart(after)
+		lineStart := tb == "" || strings.HasSuffix(tb, "\n")
+		lineEnd := ta == "" || strings.HasPrefix(ta, "\n")
+		if lineStart && lineEnd {
+			// The mark was the whole line: the line goes, and with it one of
+			// the newlines around it; a blank line left doubled is merged.
+			before = tb
+			after = ta
+			if strings.HasPrefix(after, "\n") {
+				after = after[1:]
+			} else if strings.HasSuffix(before, "\n") {
+				before = before[:len(before)-1]
+			}
+			if (before == "" || strings.HasSuffix(before, "\n\n")) && strings.HasPrefix(after, "\n") {
+				after = after[1:]
+			}
+			if after == "" {
+				before = strings.TrimRight(before, "\n")
+			}
+			return before + after
 		}
-	} else {
-		// Never join two words: a mark written flush against a word keeps a
-		// space on that side.
-		if annLastIsWord(before) && annFirstIsWord(replacement) {
-			replacement = " " + replacement
+		if before != "" && isSpace(before[len(before)-1]) {
+			if after != "" && isSpace(after[0]) {
+				after = trimStart(after)
+			} else if after == "" || after[0] == '\n' || strings.IndexByte(".,;:!?)]}", after[0]) >= 0 {
+				before = trimEnd(before)
+			}
+		} else if (before == "" || strings.HasSuffix(before, "\n")) && after != "" && isSpace(after[0]) {
+			after = trimStart(after)
 		}
-		if annLastIsWord(replacement) && annFirstIsWord(after) {
-			replacement = replacement + " "
-		}
+		return before + after
+	}
+	// Never join two words: a mark written flush against a word keeps a space
+	// on that side.
+	if annLastIsWord(before) && annFirstIsWord(replacement) {
+		replacement = " " + replacement
+	}
+	if annLastIsWord(replacement) && annFirstIsWord(after) {
+		replacement = replacement + " "
 	}
 	return before + replacement + after
 }
@@ -994,6 +1034,18 @@ func annMarkReplacement(m *annMark, accept bool) string {
 	default:
 		return ""
 	}
+}
+
+// ApplyInlineMarksText returns value with every inline mark accepted (accept)
+// or rejected, and every highlight and comment mark removed, by the rules of
+// SOM §11.9.3. Marks in code and malformed marks stay as written.
+func ApplyInlineMarksText(value string, accept bool) string {
+	v := value
+	marks := annParse(v).marks
+	for k := len(marks) - 1; k >= 0; k-- {
+		v = annReplaceMark(v, marks[k], annMarkReplacement(marks[k], accept))
+	}
+	return v
 }
 
 // StripAnnotationsText returns value without any comment block, question
@@ -1426,4 +1478,320 @@ func (r *SpecReviewAnnotations) Validate() []SpecValidationError {
 	}
 	sort.SliceStable(errs, func(i, j int) bool { return errs[i].Path < errs[j].Path })
 	return errs
+}
+
+// ---------------------------------------------------------------------------
+// Reviewing inline marks (SOM §11.9.3).
+// ---------------------------------------------------------------------------
+
+// SpecMarkDecision is what to do with one inline mark.
+type SpecMarkDecision string
+
+const (
+	// SpecMarkDecisionAccept takes the change: an insertion's text, nothing
+	// for a deletion, a substitution's new text.
+	SpecMarkDecisionAccept SpecMarkDecision = "accept"
+	// SpecMarkDecisionReject undoes the change: nothing for an insertion, a
+	// deletion's text, a substitution's old text.
+	SpecMarkDecisionReject SpecMarkDecision = "reject"
+	// SpecMarkDecisionLeave keeps the mark as written.
+	SpecMarkDecisionLeave SpecMarkDecision = "leave"
+)
+
+// SpecMarkDecisions lists every SpecMarkDecision, in declaration order.
+var SpecMarkDecisions = []SpecMarkDecision{
+	SpecMarkDecisionAccept,
+	SpecMarkDecisionReject,
+	SpecMarkDecisionLeave,
+}
+
+// SpecMarkEntry is one inline mark as ListMarks reports it.
+type SpecMarkEntry struct {
+	// ID is `M-<n>`: the mark's 1-based position among all marks of the
+	// document, in document order. Stable for one Revision.
+	ID string
+	// Path is the value's path.
+	Path string
+	// Field is the form field, or nil for content.
+	Field *string
+	// Line is the 0-based line within the value where the mark opens.
+	Line int
+	// MarkKind is the mark's kind.
+	MarkKind SpecMarkKind
+	// OldText is the text after rejecting the mark.
+	OldText string
+	// NewText is the text after accepting the mark.
+	NewText string
+	// Comment is a comment mark's or a commented highlight's comment.
+	Comment *string
+	// Markup is the mark as written.
+	Markup string
+	// Context is the paragraph holding the mark, verbatim — for display.
+	Context string
+}
+
+// ToJSON is the canonical JSON form the conformance corpus pins.
+func (e SpecMarkEntry) ToJSON() map[string]any {
+	return map[string]any{
+		"id":       e.ID,
+		"path":     e.Path,
+		"field":    nullableString(e.Field),
+		"line":     e.Line,
+		"markKind": string(e.MarkKind),
+		"oldText":  e.OldText,
+		"newText":  e.NewText,
+		"comment":  nullableString(e.Comment),
+		"markup":   e.Markup,
+		"context":  e.Context,
+	}
+}
+
+// SpecMarkOutcome is what was done to one mark.
+type SpecMarkOutcome struct {
+	// ID is the mark's id at the revision the operation ran on.
+	ID string
+	// Path is the value's path.
+	Path string
+	// Field is the form field, or nil for content.
+	Field *string
+	// Line is the 0-based line within the value where the mark opened.
+	Line int
+	// MarkKind is the mark's kind.
+	MarkKind SpecMarkKind
+	// Decision is accept or reject.
+	Decision SpecMarkDecision
+	// Markup is the mark as written.
+	Markup string
+	// Result is the text that replaced it.
+	Result string
+}
+
+// ToJSON is the canonical JSON form.
+func (o SpecMarkOutcome) ToJSON() map[string]any {
+	return map[string]any{
+		"id":       o.ID,
+		"path":     o.Path,
+		"field":    nullableString(o.Field),
+		"line":     o.Line,
+		"markKind": string(o.MarkKind),
+		"decision": string(o.Decision),
+		"markup":   o.Markup,
+		"result":   o.Result,
+	}
+}
+
+// SpecMarkIssue is a mark the scanner could not read; it is left as written.
+type SpecMarkIssue struct {
+	// Path is the value's path.
+	Path string
+	// Field is the form field, or nil for content.
+	Field *string
+	// Line is the 0-based line within the value.
+	Line int
+	// Issue is `unclosed`, `nested` or `noArrow`.
+	Issue string
+}
+
+// ToJSON is the canonical JSON form.
+func (i SpecMarkIssue) ToJSON() map[string]any {
+	return map[string]any{
+		"path":  i.Path,
+		"field": nullableString(i.Field),
+		"line":  i.Line,
+		"issue": i.Issue,
+	}
+}
+
+// SpecMarkReport is the report of a mark operation, for the decision log.
+type SpecMarkReport struct {
+	// Applied is what was done, in document order.
+	Applied []SpecMarkOutcome
+	// Malformed are the malformed marks in scope, left as written.
+	Malformed []SpecMarkIssue
+}
+
+// ToJSON is the canonical JSON form.
+func (r SpecMarkReport) ToJSON() map[string]any {
+	applied := make([]any, 0, len(r.Applied))
+	for _, a := range r.Applied {
+		applied = append(applied, a.ToJSON())
+	}
+	malformed := make([]any, 0, len(r.Malformed))
+	for _, m := range r.Malformed {
+		malformed = append(malformed, m.ToJSON())
+	}
+	return map[string]any{"applied": applied, "malformed": malformed}
+}
+
+// Revision is the revision the mark ids are stable for: FNV-1a 64-bit over
+// the UTF-8 of every value in document order (path, NUL, field or empty,
+// NUL, text, NUL), as 16 lower-case hex digits. Any change to a value changes
+// it.
+func (r *SpecReviewAnnotations) Revision() string {
+	h := uint64(0xcbf29ce484222325)
+	const prime = uint64(0x100000001b3)
+	add := func(s string) {
+		for k := 0; k < len(s); k++ {
+			h ^= uint64(s[k])
+			h *= prime
+		}
+		h *= prime // the NUL byte: h ^ 0 == h
+	}
+	for _, v := range r.values() {
+		add(v.path)
+		add(v.field)
+		add(v.text)
+	}
+	return fmt.Sprintf("%016x", h)
+}
+
+func annUnder(path, under string) bool {
+	return under == "" || path == under || strings.HasPrefix(path, under+"/")
+}
+
+// ListMarks returns every inline mark of the document, or of the subtree at
+// path ("" for the whole document), in document order.
+func (r *SpecReviewAnnotations) ListMarks(path string) []SpecMarkEntry {
+	out := []SpecMarkEntry{}
+	n := 0
+	for _, v := range r.values() {
+		p := annParse(v.text)
+		paras := annParagraphs(p.lines, p.code)
+		for _, m := range p.marks {
+			n++
+			id := "M-" + strconv.Itoa(n)
+			if !annUnder(v.path, path) {
+				continue
+			}
+			para := [2]int{m.line, m.line}
+			for _, pr := range paras {
+				if pr[0] <= m.line && m.line <= pr[1] {
+					para = pr
+					break
+				}
+			}
+			out = append(out, SpecMarkEntry{
+				ID:       id,
+				Path:     v.path,
+				Field:    annFieldPtr(v.field),
+				Line:     m.line,
+				MarkKind: m.kind,
+				OldText:  annMarkReplacement(m, false),
+				NewText:  annMarkReplacement(m, true),
+				Comment:  m.comment,
+				Markup:   v.text[m.start:m.end],
+				Context:  strings.Join(p.lines[para[0]:para[1]+1], "\n"),
+			})
+		}
+	}
+	return out
+}
+
+// applyMarks applies decide to every mark in the subtree under ("" for the
+// whole document), one write per value. decide answers "" for no decision.
+func (r *SpecReviewAnnotations) applyMarks(decide func(id string) SpecMarkDecision, under string) SpecMarkReport {
+	applied := []SpecMarkOutcome{}
+	issues := []SpecMarkIssue{}
+	n := 0
+	for _, v := range r.values() {
+		p := annParse(v.text)
+		ids := make([]string, len(p.marks))
+		for k := range p.marks {
+			n++
+			ids[k] = "M-" + strconv.Itoa(n)
+		}
+		if !annUnder(v.path, under) {
+			continue
+		}
+		for _, is := range p.markIssues {
+			issues = append(issues, SpecMarkIssue{Path: v.path, Field: annFieldPtr(v.field), Line: is.line, Issue: is.issue})
+		}
+		value := v.text
+		var outcomes []SpecMarkOutcome
+		for k := len(p.marks) - 1; k >= 0; k-- {
+			d := decide(ids[k])
+			if d == "" || d == SpecMarkDecisionLeave {
+				continue
+			}
+			m := p.marks[k]
+			repl := annMarkReplacement(m, d == SpecMarkDecisionAccept)
+			outcomes = append([]SpecMarkOutcome{{
+				ID:       ids[k],
+				Path:     v.path,
+				Field:    annFieldPtr(v.field),
+				Line:     m.line,
+				MarkKind: m.kind,
+				Decision: d,
+				Markup:   v.text[m.start:m.end],
+				Result:   repl,
+			}}, outcomes...)
+			value = annReplaceMark(value, m, repl)
+		}
+		if value != v.text {
+			r.set(v.path, v.field, value)
+		}
+		applied = append(applied, outcomes...)
+	}
+	return SpecMarkReport{Applied: applied, Malformed: issues}
+}
+
+// DecideMarks applies one decision per named mark in one write. Refused —
+// nothing changes — when the document is no longer at revision, or when a
+// decision names a mark that does not exist. Marks not named, and marks
+// decided leave, stay.
+func (r *SpecReviewAnnotations) DecideMarks(decisions map[string]SpecMarkDecision, revision string) (SpecMarkReport, error) {
+	current := r.Revision()
+	if revision != current {
+		return SpecMarkReport{}, &SpecReviewAnnotationError{Message: "the document changed since revision " +
+			revision + " (now " + current + "); list the marks again"}
+	}
+	known := map[string]bool{}
+	for _, m := range r.ListMarks("") {
+		known[m.ID] = true
+	}
+	ids := make([]string, 0, len(decisions))
+	for id := range decisions {
+		ids = append(ids, id)
+	}
+	sort.Strings(ids)
+	for _, id := range ids {
+		if !known[id] {
+			return SpecMarkReport{}, &SpecReviewAnnotationError{Message: "no inline mark " + id + " in the document"}
+		}
+	}
+	return r.applyMarks(func(id string) SpecMarkDecision { return decisions[id] }, ""), nil
+}
+
+// AcceptAllMarks accepts every inline mark under path ("" for the whole
+// document).
+func (r *SpecReviewAnnotations) AcceptAllMarks(path string) SpecMarkReport {
+	return r.applyMarks(func(string) SpecMarkDecision { return SpecMarkDecisionAccept }, path)
+}
+
+// RejectAllMarks rejects every inline mark under path ("" for the whole
+// document).
+func (r *SpecReviewAnnotations) RejectAllMarks(path string) SpecMarkReport {
+	return r.applyMarks(func(string) SpecMarkDecision { return SpecMarkDecisionReject }, path)
+}
+
+// RemoveAllAnnotations removes every annotation and writes the result back:
+// every inline mark accepted, every comment and question block removed.
+// Malformed marks stay and are reported.
+func (r *SpecReviewAnnotations) RemoveAllAnnotations() SpecMarkReport {
+	report := r.AcceptAllMarks("")
+	for _, v := range r.values() {
+		value := v.text
+		for {
+			p := annParse(value)
+			if len(p.blocks) == 0 {
+				break
+			}
+			b := p.blocks[len(p.blocks)-1]
+			value = annRemoveLines(value, b.start, b.end)
+		}
+		if value != v.text {
+			r.set(v.path, v.field, value)
+		}
+	}
+	return report
 }

@@ -74,6 +74,7 @@ void main() {
   final nodeCreationCases = _nodeCreationCases(model);
   final nodeCreationScript = _nodeCreationScript(model);
   final annotationCases = _annotationCases(model, tree);
+  final inlineMarkCases = _inlineMarkCases(model, tree);
 
   setUpAll(() {
     if (!update) return;
@@ -127,6 +128,7 @@ void main() {
     write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
     write('node_creation_script.json', '${enc.convert(nodeCreationScript)}\n');
     write('annotation_cases.json', '${enc.convert(annotationCases)}\n');
+    write('inline_mark_cases.json', '${enc.convert(inlineMarkCases)}\n');
   });
 
   String read(String name) =>
@@ -1094,6 +1096,27 @@ void main() {
             (c['review'] as Map).cast<String, dynamic>(),
             (c['renamed'] as Map).cast<String, String>(),
           ),
+          c['expect'],
+        );
+      });
+    }
+  });
+
+  group('inline_mark_cases.json (accepting and rejecting marks)', () {
+    final table = update
+        ? inlineMarkCases
+        : jsonDecode(read('inline_mark_cases.json')) as Map<String, dynamic>;
+    for (final c in (table['textCases'] as List).cast<Map<String, dynamic>>()) {
+      test('marks text: ${c['name']}', () {
+        final text = c['text'] as String;
+        expect(applyInlineMarksText(text, accept: true), c['accept']);
+        expect(applyInlineMarksText(text, accept: false), c['reject']);
+      });
+    }
+    for (final c in (table['cases'] as List).cast<Map<String, dynamic>>()) {
+      test('marks: ${c['name']}', () {
+        expect(
+          jsonDecode(jsonEncode(_runAnnotationCase(model, tree, c))),
           c['expect'],
         );
       });
@@ -8103,6 +8126,25 @@ Map<String, Object?> _runAnnotationCase(
           return null;
         }(),
         'strip' => api.stripped().toJson(),
+        'revision' => api.revision(),
+        'listMarks' => [
+          for (final m in api.listMarks(path: op['path'] as String?))
+            m.toJson(),
+        ],
+        'decideMarks' => api.decideMarks(
+          {
+            for (final e in (op['decisions'] as Map).entries)
+              e.key as String: SpecMarkDecision.values.byName(
+                e.value as String,
+              ),
+          },
+          revision: op['revision'] == '@current'
+              ? api.revision()
+              : op['revision'] as String,
+        ).toJson(),
+        'acceptAll' => api.acceptAllMarks(path: op['path'] as String?).toJson(),
+        'rejectAll' => api.rejectAllMarks(path: op['path'] as String?).toJson(),
+        'removeAll' => api.removeAllAnnotations().toJson(),
         'roundTrip' => () {
           final yaml = SpecDocumentYaml.encode(
             document: doc,
@@ -8130,4 +8172,124 @@ Map<String, Object?> _runAnnotationCase(
     }
   }
   return {'results': results, 'state': doc.toJson()};
+}
+
+// ---------------------------------------------------------------------------
+// inline_mark_cases.json — accepting and rejecting inline marks (SOM §11.9.3).
+// ---------------------------------------------------------------------------
+
+Map<String, dynamic> _inlineMarkCases(SpecModel model, SomMetaTree tree) {
+  final texts = <String, String>{
+    'insertion': 'We add {++ new ++} words.',
+    'deletion': 'We drop {-- old --} words.',
+    'substitution': 'Use {~~ red ~> blue ~~} paint.',
+    'substitution to nothing': 'a {~~ b ~> ~~} c',
+    'commented highlight': 'The {== key ==}{>> why? <<} point.',
+    'highlight alone': 'The {== key ==} point.',
+    'comment alone': 'A note{>> check <<} here.',
+    'comment between words': 'A {>> check <<} note.',
+    'removal between words': 'a {-- b --} c',
+    'removal before punctuation': 'end {-- gone --}.',
+    'removal in brackets': '(a {-- b --})',
+    'removal at the start': '{-- gone --} start',
+    'removal around tabs': 'a\t{-- b --}\tc',
+    'insertion flush against words': 'flush{++ added ++}word',
+    'insertion before punctuation': 'x {++ y ++}.',
+    'whole line between lines': 'first\n{-- line --}\nlast',
+    'whole line between paragraphs':
+        'para one\n\n{-- whole paragraph --}\n\npara two',
+    'whole line at the end': 'a\n\n{-- last --}',
+    'whole line at the start': '{-- first --}\n\nrest',
+    'only a mark': '{-- only --}',
+    'mark spanning lines': 'keep {++ two\nlines ++} end',
+    'markdown inside a mark': 'a {++ **bold** ++} b',
+    'marks in code stay': '`{++ x ++}` and\n```\n{-- y --}\n```\nok {++ z ++}',
+    'unclosed mark stays': 'open {++ never',
+    'nested marks stay': 'nest {++ a {-- b --} ++} x',
+    'substitution without arrow stays': '{~~ no arrow ~~} y',
+    'several marks in one line':
+        'Use {~~ red ~> blue ~~} paint{++ twice ++}, {-- not --} once.',
+  };
+  final textCases = [
+    for (final e in texts.entries)
+      {
+        'name': e.key,
+        'text': e.value,
+        'accept': applyInlineMarksText(e.value, accept: true),
+        'reject': applyInlineMarksText(e.value, accept: false),
+      },
+  ];
+  final base = _annotationState();
+  final withMalformed = jsonDecode(jsonEncode(base)) as Map<String, dynamic>;
+  (withMalformed['content'] as Map)['DEMO/MIX/tail'] =
+      'Tail {++ never closed.\n\nAnd {-- gone --} here.';
+  final cases = <Map<String, dynamic>>[
+    {
+      'name': 'list marks and the revision',
+      'state': withMalformed,
+      'ops': [
+        {'op': 'revision'},
+        {'op': 'listMarks'},
+        {'op': 'listMarks', 'path': 'DEMO/DET'},
+      ],
+    },
+    {
+      'name': 'decide mark by mark',
+      'state': withMalformed,
+      'ops': [
+        {
+          'op': 'decideMarks',
+          'revision': '@current',
+          'decisions': {
+            'M-1': 'accept',
+            'M-2': 'reject',
+            'M-3': 'leave',
+            'M-4': 'accept',
+            'M-6': 'accept',
+            'M-7': 'reject',
+          },
+        },
+        {'op': 'listMarks'},
+        {'op': 'revision'},
+      ],
+    },
+    {
+      'name': 'a stale revision or an unknown mark is refused',
+      'state': withMalformed,
+      'ops': [
+        {
+          'op': 'decideMarks',
+          'revision': '0000000000000000',
+          'decisions': {'M-1': 'accept'},
+        },
+        {
+          'op': 'decideMarks',
+          'revision': '@current',
+          'decisions': {'M-99': 'accept'},
+        },
+        {'op': 'counts'},
+      ],
+    },
+    {
+      'name': 'accept all under a path, then reject all',
+      'state': withMalformed,
+      'ops': [
+        {'op': 'acceptAll', 'path': 'DEMO/DET'},
+        {'op': 'rejectAll'},
+        {'op': 'listMarks'},
+      ],
+    },
+    {
+      'name': 'remove all annotations',
+      'state': withMalformed,
+      'ops': [
+        {'op': 'removeAll'},
+        {'op': 'counts'},
+      ],
+    },
+  ];
+  for (final c in cases) {
+    c['expect'] = _runAnnotationCase(model, tree, c);
+  }
+  return {'textCases': textCases, 'cases': cases};
 }

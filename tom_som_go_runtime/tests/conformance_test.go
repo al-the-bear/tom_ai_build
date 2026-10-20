@@ -235,6 +235,7 @@ func TestConformance(t *testing.T) {
 	testNodeCreation(c, t, model)
 	testNodeCreationScript(c, t, model)
 	testAnnotations(c, t, model, tree)
+	testInlineMarks(c, t, model, tree)
 
 	c.finish()
 }
@@ -2955,6 +2956,36 @@ func runAnnotationCase(t *testing.T, model *som.SpecModel, tree *som.SomMetaTree
 			err = api.ApplyMark(opString(op, "path"), opString(op, "field"), opInt(op, "index"), accept)
 		case "strip":
 			result = api.Stripped().ToJSON()
+		case "revision":
+			result = api.Revision()
+		case "listMarks":
+			list := []any{}
+			for _, m := range api.ListMarks(opString(op, "path")) {
+				list = append(list, m.ToJSON())
+			}
+			result = list
+		case "decideMarks":
+			decisions := map[string]som.SpecMarkDecision{}
+			if ds, ok := op["decisions"].(map[string]any); ok {
+				for id, d := range ds {
+					decisions[id] = som.SpecMarkDecision(d.(string))
+				}
+			}
+			revision := opString(op, "revision")
+			if revision == "@current" {
+				revision = api.Revision()
+			}
+			var report som.SpecMarkReport
+			report, err = api.DecideMarks(decisions, revision)
+			if err == nil {
+				result = report.ToJSON()
+			}
+		case "acceptAll":
+			result = api.AcceptAllMarks(opString(op, "path")).ToJSON()
+		case "rejectAll":
+			result = api.RejectAllMarks(opString(op, "path")).ToJSON()
+		case "removeAll":
+			result = api.RemoveAllAnnotations().ToJSON()
 		case "roundTrip":
 			current := canonJSON(t, doc.ToJSON())
 			yamlOK := false
@@ -2998,6 +3029,38 @@ func testAnnotations(c *checker, t *testing.T, model *som.SpecModel, tree *som.S
 		got := runAnnotationCase(t, model, tree, cc)
 		want := toGenericJSON(t, cc.Expect)
 		c.check("annotations["+cc.Name+"]", reflect.DeepEqual(got, want),
+			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
+	}
+}
+
+// testInlineMarks replays inline_mark_cases.json: accepting and rejecting
+// inline marks in one text (textCases), and the scripted mark review —
+// revision, listMarks, decideMarks, acceptAll, rejectAll, removeAll (cases).
+func testInlineMarks(c *checker, t *testing.T, model *som.SpecModel, tree *som.SomMetaTree) {
+	var table struct {
+		TextCases []struct {
+			Name   string `json:"name"`
+			Text   string `json:"text"`
+			Accept string `json:"accept"`
+			Reject string `json:"reject"`
+		} `json:"textCases"`
+		Cases []annotationCase `json:"cases"`
+	}
+	readJSON(t, "inline_mark_cases.json", &table)
+	c.check("inlineMarks.textCases", len(table.TextCases) > 0, "no textCases in inline_mark_cases.json")
+	c.check("inlineMarks.cases", len(table.Cases) > 0, "no cases in inline_mark_cases.json")
+	for _, tc := range table.TextCases {
+		acc := som.ApplyInlineMarksText(tc.Text, true)
+		c.check("inlineMarks.text["+tc.Name+"].accept", acc == tc.Accept,
+			"got "+strconv.Quote(acc)+" want "+strconv.Quote(tc.Accept))
+		rej := som.ApplyInlineMarksText(tc.Text, false)
+		c.check("inlineMarks.text["+tc.Name+"].reject", rej == tc.Reject,
+			"got "+strconv.Quote(rej)+" want "+strconv.Quote(tc.Reject))
+	}
+	for _, cc := range table.Cases {
+		got := runAnnotationCase(t, model, tree, cc)
+		want := toGenericJSON(t, cc.Expect)
+		c.check("inlineMarks["+cc.Name+"]", reflect.DeepEqual(got, want),
 			"got "+canonJSON(t, got)+" want "+canonJSON(t, want))
 	}
 }

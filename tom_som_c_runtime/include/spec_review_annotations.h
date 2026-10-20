@@ -157,7 +157,102 @@ typedef struct {
 void spec_review_annotation_error_init(SpecReviewAnnotationError *err);
 void spec_review_annotation_error_free(SpecReviewAnnotationError *err);
 
+/* ---- inline-mark review (SOM §11.9.3) ------------------------------------ */
+
+/* What to do with one inline mark. */
+typedef enum {
+  /* Take the change: an insertion's text, nothing for a deletion, a
+   * substitution's new text. */
+  SPEC_MARK_DECISION_ACCEPT = 0,
+  /* Undo the change: nothing for an insertion, a deletion's text, a
+   * substitution's old text. */
+  SPEC_MARK_DECISION_REJECT = 1,
+  /* Keep the mark as written. */
+  SPEC_MARK_DECISION_LEAVE = 2,
+} SpecMarkDecision;
+
+/* The decision's wire name (`"accept"`, `"reject"`, `"leave"`); static. */
+const char *spec_mark_decision_name(SpecMarkDecision d);
+
+/* Parses a wire name into `*out`; 0 when unknown. */
+int spec_mark_decision_parse(const char *name, SpecMarkDecision *out);
+
+/* One inline mark as `spec_review_annotations_list_marks` reports it. Every
+ * string is owned; `field` and `comment` may be NULL. */
+typedef struct {
+  /* `M-<n>`: the mark's 1-based position among all marks of the document, in
+   * document order. Stable for one `spec_review_annotations_revision`. */
+  char *id;
+  char *path;
+  char *field;          /* NULL for content */
+  size_t line;          /* 0-based line within the value where it opens */
+  SpecMarkKind mark_kind;
+  char *old_text;       /* the text after rejecting the mark */
+  char *new_text;       /* the text after accepting the mark */
+  char *comment;        /* a comment mark's / commented highlight's comment */
+  char *markup;         /* the mark as written */
+  char *context;        /* the paragraph holding the mark, verbatim */
+} SpecMarkEntry;
+
+void spec_mark_entry_free(SpecMarkEntry *e);
+/* The canonical JSON form the conformance corpus pins. Owned. */
+char *spec_mark_entry_to_json(const SpecMarkEntry *e);
+
+typedef struct {
+  SpecMarkEntry *items;
+  size_t len;
+  size_t cap;
+} SpecMarkEntryList;
+
+void spec_mark_entry_list_init(SpecMarkEntryList *l);
+void spec_mark_entry_list_free(SpecMarkEntryList *l);
+
+/* What was done to one mark. Strings owned; `field` may be NULL. */
+typedef struct {
+  char *id; /* the mark's id at the revision the operation ran on */
+  char *path;
+  char *field;
+  size_t line;
+  SpecMarkKind mark_kind;
+  SpecMarkDecision decision; /* accept or reject */
+  char *markup;              /* the mark as written */
+  char *result;              /* the text that replaced it */
+} SpecMarkOutcome;
+
+/* A mark the scanner could not read; it is left as written. */
+typedef struct {
+  char *path;
+  char *field;
+  size_t line;
+  char *issue; /* `unclosed`, `nested` or `noArrow` */
+} SpecMarkIssue;
+
+/* The report of a mark operation, for the decision log. Initialise with
+ * `spec_mark_report_init`, release with `spec_mark_report_free`. */
+typedef struct {
+  SpecMarkOutcome *applied; /* what was done, in document order */
+  size_t applied_len, applied_cap;
+  SpecMarkIssue *malformed; /* malformed marks in scope, left as written */
+  size_t malformed_len, malformed_cap;
+} SpecMarkReport;
+
+void spec_mark_report_init(SpecMarkReport *r);
+void spec_mark_report_free(SpecMarkReport *r);
+/* `{applied: [...], malformed: [...]}`. Owned. */
+char *spec_mark_report_to_json(const SpecMarkReport *r);
+
+/* One decision of `spec_review_annotations_decide_marks`. Borrowed. */
+typedef struct {
+  const char *id;
+  SpecMarkDecision decision;
+} SpecMarkDecisionItem;
+
 /* ---- text level: one value ---------------------------------------------- */
+
+/* `value` with every inline mark accepted (`accept` non-zero) or rejected,
+ * and every highlight and comment mark removed. Marks in code and malformed
+ * marks stay as written. Owned result. */
+char *spec_apply_inline_marks_text(const char *value, int accept);
 
 /* The lines of a comment block (`author` NULL or "" for none), written into
  * `out` (initialised by the callee). */
@@ -260,6 +355,46 @@ int spec_review_annotations_apply_mark(const SpecReviewAnnotations *r,
                                        const char *path, const char *field,
                                        long long index, int accept,
                                        SpecReviewAnnotationError *err);
+
+/* The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8 of
+ * every value in document order (path, NUL, field or empty, NUL, text, NUL),
+ * as 16 lower-case hex digits. Owned. */
+char *spec_review_annotations_revision(const SpecReviewAnnotations *r);
+
+/* Every inline mark of the document, or of the subtree at `path` (NULL: the
+ * whole document), in document order, written into `out` (initialised by the
+ * callee; release with `spec_mark_entry_list_free`). */
+void spec_review_annotations_list_marks(const SpecReviewAnnotations *r,
+                                        const char *path,
+                                        SpecMarkEntryList *out);
+
+/* Applies one decision per named mark in one write. Refused — returns 0,
+ * fills `*err`, changes nothing — when the document is no longer at
+ * `revision`, or when a decision names a mark that does not exist (a later
+ * duplicate id overrides an earlier one). Marks not named, and marks decided
+ * `leave`, stay. `out` is initialised by the callee in every case. */
+int spec_review_annotations_decide_marks(const SpecReviewAnnotations *r,
+                                         const SpecMarkDecisionItem *decisions,
+                                         size_t decisions_len,
+                                         const char *revision,
+                                         SpecMarkReport *out,
+                                         SpecReviewAnnotationError *err);
+
+/* Accepts every inline mark under `path` (NULL: the whole document). */
+void spec_review_annotations_accept_all_marks(const SpecReviewAnnotations *r,
+                                              const char *path,
+                                              SpecMarkReport *out);
+
+/* Rejects every inline mark under `path` (NULL: the whole document). */
+void spec_review_annotations_reject_all_marks(const SpecReviewAnnotations *r,
+                                              const char *path,
+                                              SpecMarkReport *out);
+
+/* Removes every annotation and writes the result back: every inline mark
+ * accepted, every comment and question block removed. Malformed marks stay
+ * and are reported. `out` holds the accept report. */
+void spec_review_annotations_remove_all_annotations(
+    const SpecReviewAnnotations *r, SpecMarkReport *out);
 
 /* A copy of the document without any annotation, for reading. The document
  * itself is unchanged. Owned heap document: release with

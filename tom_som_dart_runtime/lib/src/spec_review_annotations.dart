@@ -11,6 +11,8 @@
 /// number is the same in all of them.
 library;
 
+import 'dart:convert';
+
 import 'spec_document.dart';
 import 'spec_validator.dart';
 
@@ -247,6 +249,182 @@ class SpecQuestionDraft {
       );
 }
 
+/// What to do with one inline mark (SOM §11.9.3).
+enum SpecMarkDecision {
+  /// Take the change: an insertion's text, nothing for a deletion, a
+  /// substitution's new text.
+  accept,
+
+  /// Undo the change: nothing for an insertion, a deletion's text, a
+  /// substitution's old text.
+  reject,
+
+  /// Keep the mark as written.
+  leave,
+}
+
+/// One inline mark as `listMarks` reports it.
+class SpecMarkEntry {
+  /// `M-<n>`: the mark's 1-based position among all marks of the document, in
+  /// document order. Stable for one [SpecReviewAnnotations.revision].
+  final String id;
+
+  /// The value's path.
+  final String path;
+
+  /// The form field, or null for content.
+  final String? field;
+
+  /// The 0-based line within the value where the mark opens.
+  final int line;
+
+  /// The mark's kind.
+  final SpecMarkKind markKind;
+
+  /// The text after rejecting the mark.
+  final String oldText;
+
+  /// The text after accepting the mark.
+  final String newText;
+
+  /// A comment mark's or a commented highlight's comment.
+  final String? comment;
+
+  /// The mark as written.
+  final String markup;
+
+  /// The paragraph holding the mark, verbatim — for display.
+  final String context;
+
+  /// Creates an entry.
+  const SpecMarkEntry({
+    required this.id,
+    required this.path,
+    this.field,
+    required this.line,
+    required this.markKind,
+    required this.oldText,
+    required this.newText,
+    this.comment,
+    required this.markup,
+    required this.context,
+  });
+
+  /// The canonical JSON form the conformance corpus pins.
+  Map<String, Object?> toJson() => {
+    'id': id,
+    'path': path,
+    'field': field,
+    'line': line,
+    'markKind': markKind.name,
+    'oldText': oldText,
+    'newText': newText,
+    'comment': comment,
+    'markup': markup,
+    'context': context,
+  };
+}
+
+/// What was done to one mark.
+class SpecMarkOutcome {
+  /// The mark's id at the revision the operation ran on.
+  final String id;
+
+  /// The value's path.
+  final String path;
+
+  /// The form field, or null for content.
+  final String? field;
+
+  /// The 0-based line within the value where the mark opened.
+  final int line;
+
+  /// The mark's kind.
+  final SpecMarkKind markKind;
+
+  /// Accepted or rejected.
+  final SpecMarkDecision decision;
+
+  /// The mark as written.
+  final String markup;
+
+  /// The text that replaced it.
+  final String result;
+
+  /// Creates an outcome.
+  const SpecMarkOutcome({
+    required this.id,
+    required this.path,
+    this.field,
+    required this.line,
+    required this.markKind,
+    required this.decision,
+    required this.markup,
+    required this.result,
+  });
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {
+    'id': id,
+    'path': path,
+    'field': field,
+    'line': line,
+    'markKind': markKind.name,
+    'decision': decision.name,
+    'markup': markup,
+    'result': result,
+  };
+}
+
+/// A mark the scanner could not read; it is left as written.
+class SpecMarkIssue {
+  /// The value's path.
+  final String path;
+
+  /// The form field, or null for content.
+  final String? field;
+
+  /// The 0-based line within the value.
+  final int line;
+
+  /// `unclosed`, `nested` or `noArrow`.
+  final String issue;
+
+  /// Creates an issue.
+  const SpecMarkIssue({
+    required this.path,
+    this.field,
+    required this.line,
+    required this.issue,
+  });
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {
+    'path': path,
+    'field': field,
+    'line': line,
+    'issue': issue,
+  };
+}
+
+/// The report of a mark operation, for the decision log.
+class SpecMarkReport {
+  /// What was done, in document order.
+  final List<SpecMarkOutcome> applied;
+
+  /// Malformed marks in scope, left as written.
+  final List<SpecMarkIssue> malformed;
+
+  /// Creates a report.
+  const SpecMarkReport({this.applied = const [], this.malformed = const []});
+
+  /// The canonical JSON form.
+  Map<String, Object?> toJson() => {
+    'applied': [for (final a in applied) a.toJson()],
+    'malformed': [for (final m in malformed) m.toJson()],
+  };
+}
+
 /// Thrown when an operation names an annotation, value or paragraph that does
 /// not exist.
 class SpecReviewAnnotationError implements Exception {
@@ -357,6 +535,10 @@ class _Parsed {
   final Map<_Block, bool> combined = {};
   final List<_Mark> marks = [];
   final List<String> malformed = [];
+
+  /// Malformed inline marks as (value line, issue code): `unclosed`,
+  /// `nested`, `noArrow`.
+  final List<(int, String)> markIssues = [];
   _Parsed(this.lines, this.code);
 }
 
@@ -709,12 +891,14 @@ void _scanSegment(_Parsed p, String seg, int base, int Function(int) lineOf) {
         'line $line: inline mark "$opener" is not closed in its paragraph '
         '(SOM §11.9.3)',
       );
+      p.markIssues.add((line, 'unclosed'));
       i += 3;
       continue;
     }
     final inner = seg.substring(i + 3, close);
     if (_openers.any(inner.contains)) {
       p.malformed.add('line $line: inline marks do not nest (SOM §11.9.3)');
+      p.markIssues.add((line, 'nested'));
       i = close + 3;
       continue;
     }
@@ -785,6 +969,7 @@ void _scanSegment(_Parsed p, String seg, int base, int Function(int) lineOf) {
           p.malformed.add(
             'line $line: a substitution has no "~>" (SOM §11.9.3)',
           );
+          p.markIssues.add((line, 'noArrow'));
           i = end;
           continue;
         }
@@ -977,34 +1162,81 @@ List<String> formatQuestionBlock(SpecQuestionDraft q) {
   return lines;
 }
 
-/// Applies a mark's replacement and tidies the one space a removal leaves.
+/// Applies a mark's replacement with the whitespace rules of SOM §11.9.3:
+/// never join two words, never leave a double space or a space before
+/// punctuation, and a mark that was a whole line leaves no blank line.
 String _replaceMark(String value, _Mark m, String replacement0) {
   var replacement = replacement0;
   var before = value.substring(0, m.start);
   var after = value.substring(m.end);
-  if (replacement.isEmpty) {
-    if (before.endsWith(' ') &&
-        (after.isEmpty ||
-            after.startsWith(' ') ||
-            after.startsWith('\n') ||
-            '.,;:!?)'.contains(after[0]))) {
-      before = before.substring(0, before.length - 1);
-    } else if ((before.isEmpty || before.endsWith('\n')) &&
-        after.startsWith(' ')) {
-      after = after.substring(1);
+  bool isSpace(String c) => c == ' ' || c == '\t';
+  String trimEndSpaces(String s) {
+    var k = s.length;
+    while (k > 0 && isSpace(s[k - 1])) {
+      k--;
     }
+    return s.substring(0, k);
   }
-  if (replacement.isNotEmpty) {
-    // Never join two words: a mark written flush against a word keeps a
-    // space on that side.
-    if (_wordChar(before) && _wordCharAt(replacement, 0)) {
-      replacement = ' $replacement';
+
+  String trimStartSpaces(String s) {
+    var k = 0;
+    while (k < s.length && isSpace(s[k])) {
+      k++;
     }
-    if (_wordCharAt(replacement, replacement.length - 1) &&
+    return s.substring(k);
+  }
+
+  if (replacement.isEmpty) {
+    final lineStart =
+        trimEndSpaces(before).isEmpty || trimEndSpaces(before).endsWith('\n');
+    final lineEnd =
+        trimStartSpaces(after).isEmpty ||
+        trimStartSpaces(after).startsWith('\n');
+    if (lineStart && lineEnd) {
+      // The mark was the whole line: the line goes, and with it one of the
+      // newlines around it; a blank line left doubled is merged.
+      before = trimEndSpaces(before);
+      after = trimStartSpaces(after);
+      if (after.startsWith('\n')) {
+        after = after.substring(1);
+      } else if (before.endsWith('\n')) {
+        before = before.substring(0, before.length - 1);
+      }
+      if ((before.isEmpty || before.endsWith('\n\n')) &&
+          after.startsWith('\n')) {
+        after = after.substring(1);
+      }
+      if (after.isEmpty) {
+        while (before.endsWith('\n')) {
+          before = before.substring(0, before.length - 1);
+        }
+      }
+      return '$before$after';
+    }
+    if (before.isNotEmpty && isSpace(before[before.length - 1])) {
+      if (after.isNotEmpty && isSpace(after[0])) {
+        after = trimStartSpaces(after);
+      } else if (after.isEmpty ||
+          after.startsWith('\n') ||
+          '.,;:!?)]}'.contains(after[0])) {
+        before = trimEndSpaces(before);
+      }
+    } else if ((before.isEmpty || before.endsWith('\n')) &&
         after.isNotEmpty &&
-        _wordCharAt(after, 0)) {
-      replacement = '$replacement ';
+        isSpace(after[0])) {
+      after = trimStartSpaces(after);
     }
+    return '$before$after';
+  }
+  // Never join two words: a mark written flush against a word keeps a space
+  // on that side.
+  if (_wordChar(before) && _wordCharAt(replacement, 0)) {
+    replacement = ' $replacement';
+  }
+  if (_wordCharAt(replacement, replacement.length - 1) &&
+      after.isNotEmpty &&
+      _wordCharAt(after, 0)) {
+    replacement = '$replacement ';
   }
   return '$before$replacement$after';
 }
@@ -1026,6 +1258,18 @@ String _markReplacement(_Mark m, bool accept) => switch (m.kind) {
   SpecMarkKind.highlight => m.text,
   SpecMarkKind.comment => '',
 };
+
+/// [value] with every inline mark accepted ([accept]) or rejected, and every
+/// highlight and comment mark removed, by the rules of SOM §11.9.3. Marks in
+/// code and malformed marks stay as written.
+String applyInlineMarksText(String value, {required bool accept}) {
+  var v = value;
+  final marks = _parse(v).marks;
+  for (final m in marks.reversed) {
+    v = _replaceMark(v, m, _markReplacement(m, accept));
+  }
+  return v;
+}
 
 /// [value] without any comment block, question block or inline mark (every
 /// mark accepted). Plain quotes and code stay.
@@ -1312,6 +1556,161 @@ class SpecReviewAnnotations {
     }
     final m = marks[index];
     _set(path, field, _replaceMark(value, m, _markReplacement(m, accept)));
+  }
+
+  /// The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8
+  /// of every value in document order (path, NUL, field or empty, NUL, text,
+  /// NUL), as 16 lower-case hex digits. Any change to a value changes it.
+  String revision() {
+    var h = BigInt.parse('cbf29ce484222325', radix: 16);
+    final prime = BigInt.parse('100000001b3', radix: 16);
+    final mask = (BigInt.one << 64) - BigInt.one;
+    void add(String s) {
+      for (final b in utf8.encode(s)) {
+        h = ((h ^ BigInt.from(b)) * prime) & mask;
+      }
+      h = ((h ^ BigInt.zero) * prime) & mask;
+    }
+
+    for (final (path, field, text) in _values()) {
+      add(path);
+      add(field ?? '');
+      add(text);
+    }
+    return h.toRadixString(16).padLeft(16, '0');
+  }
+
+  static bool _under(String path, String? under) =>
+      under == null || path == under || path.startsWith('$under/');
+
+  /// Every inline mark of the document, or of the subtree at [path], in
+  /// document order.
+  List<SpecMarkEntry> listMarks({String? path}) {
+    final out = <SpecMarkEntry>[];
+    var n = 0;
+    for (final (vpath, field, text) in _values()) {
+      final p = _parse(text);
+      final paras = _paragraphs(p.lines, p.code);
+      for (final m in p.marks) {
+        final id = 'M-${++n}';
+        if (!_under(vpath, path)) continue;
+        final para = paras.firstWhere(
+          (r) => r.$1 <= m.line && m.line <= r.$2,
+          orElse: () => (m.line, m.line),
+        );
+        out.add(
+          SpecMarkEntry(
+            id: id,
+            path: vpath,
+            field: field,
+            line: m.line,
+            markKind: m.kind,
+            oldText: _markReplacement(m, false),
+            newText: _markReplacement(m, true),
+            comment: m.comment,
+            markup: text.substring(m.start, m.end),
+            context: p.lines.sublist(para.$1, para.$2 + 1).join('\n'),
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// Applies [decide] to every mark in the subtree [under] (null: the whole
+  /// document), one write per value.
+  SpecMarkReport _applyMarks(
+    SpecMarkDecision? Function(String id) decide, {
+    String? under,
+  }) {
+    final applied = <SpecMarkOutcome>[];
+    final issues = <SpecMarkIssue>[];
+    var n = 0;
+    for (final (path, field, text) in _values()) {
+      final p = _parse(text);
+      final ids = [for (final _ in p.marks) 'M-${++n}'];
+      if (!_under(path, under)) continue;
+      for (final (line, code) in p.markIssues) {
+        issues.add(
+          SpecMarkIssue(path: path, field: field, line: line, issue: code),
+        );
+      }
+      var v = text;
+      final outcomes = <SpecMarkOutcome>[];
+      for (var k = p.marks.length - 1; k >= 0; k--) {
+        final d = decide(ids[k]);
+        if (d == null || d == SpecMarkDecision.leave) continue;
+        final m = p.marks[k];
+        final repl = _markReplacement(m, d == SpecMarkDecision.accept);
+        outcomes.insert(
+          0,
+          SpecMarkOutcome(
+            id: ids[k],
+            path: path,
+            field: field,
+            line: m.line,
+            markKind: m.kind,
+            decision: d,
+            markup: text.substring(m.start, m.end),
+            result: repl,
+          ),
+        );
+        v = _replaceMark(v, m, repl);
+      }
+      if (v != text) _set(path, field, v);
+      applied.addAll(outcomes);
+    }
+    return SpecMarkReport(applied: applied, malformed: issues);
+  }
+
+  /// Applies one decision per named mark in one write. Refused — nothing
+  /// changes — when the document is no longer at [revision], or when a
+  /// decision names a mark that does not exist. Marks not named, and marks
+  /// decided `leave`, stay.
+  SpecMarkReport decideMarks(
+    Map<String, SpecMarkDecision> decisions, {
+    required String revision,
+  }) {
+    final current = this.revision();
+    if (revision != current) {
+      throw SpecReviewAnnotationError(
+        'the document changed since revision $revision (now $current); '
+        'list the marks again',
+      );
+    }
+    final known = {for (final m in listMarks()) m.id};
+    for (final id in decisions.keys) {
+      if (!known.contains(id)) {
+        throw SpecReviewAnnotationError('no inline mark $id in the document');
+      }
+    }
+    return _applyMarks((id) => decisions[id]);
+  }
+
+  /// Accepts every inline mark under [path] (null: the whole document).
+  SpecMarkReport acceptAllMarks({String? path}) =>
+      _applyMarks((_) => SpecMarkDecision.accept, under: path);
+
+  /// Rejects every inline mark under [path] (null: the whole document).
+  SpecMarkReport rejectAllMarks({String? path}) =>
+      _applyMarks((_) => SpecMarkDecision.reject, under: path);
+
+  /// Removes every annotation and writes the result back: every inline mark
+  /// accepted, every comment and question block removed. Malformed marks
+  /// stay and are reported.
+  SpecMarkReport removeAllAnnotations() {
+    final report = acceptAllMarks();
+    for (final (path, field, text) in _values()) {
+      var v = text;
+      while (true) {
+        final p = _parse(v);
+        if (p.blocks.isEmpty) break;
+        final b = p.blocks.last;
+        v = _removeLines(v, b.start, b.end);
+      }
+      if (v != text) _set(path, field, v);
+    }
+    return report;
   }
 
   /// A copy of the document without any annotation, for reading. The

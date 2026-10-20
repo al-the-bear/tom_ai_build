@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Reviewing inline marks (SOM §11.9.3): `SpecReviewAnnotations.revision`,
+  `listMarks`, `decideMarks` (accept / reject / leave in one write, refused on
+  a stale revision or an unknown id), `acceptAllMarks` / `rejectAllMarks`
+  under a path, `removeAllAnnotations`, and `applyInlineMarksText`, with
+  `SpecMarkDecision`, `SpecMarkEntry`, `SpecMarkOutcome`, `SpecMarkIssue` and
+  `SpecMarkReport`. Each operation returns a `SpecMarkReport` for the
+  decision log. Accepting and rejecting follow whitespace rules — words never
+  join, no double space or space before punctuation, a whole-line mark leaves
+  no blank line — which `applyMark` now follows too. Malformed marks are left
+  as written and reported. Conformance: `inline_mark_cases.json`.
+
 - Review annotations (SOM §11.9): `SpecReviewAnnotations` (`spec_review_annotations.js`)
   lists and edits comment blocks, question blocks and CriticMarkup inline
   marks in content and form-field values — `list`, `counts`,

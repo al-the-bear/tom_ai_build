@@ -1620,8 +1620,63 @@ Marks do not nest and do not span a blank line. An opening delimiter without
 its closing one in the same paragraph is a finding. Marks may stand anywhere in
 prose: in narrative text, in a form's preamble, inside a form field's value,
 and inside annotation blocks. In a field value they are part of the value.
-annot4 fixes what accepting and rejecting each kind produces, and annot5
-specifies how the API writes them.
+annot5 specifies how the API writes them.
+
+**Accepting and rejecting.** A change mark is decided one of two ways:
+accepting takes the change, rejecting undoes it. A highlight or a comment
+mark is not a change, so either decision removes it and leaves the
+highlighted text:
+
+| Mark | Accept | Reject |
+|------|--------|--------|
+| `{++ added ++}` | `added` | (nothing) |
+| `{-- removed --}` | (nothing) | `removed` |
+| `{~~ old ~> new ~~}` | `new` | `old` |
+| `{== text ==}`, with or without `{>> comment <<}` | `text` | `text` |
+| `{>> comment <<}` | (nothing) | (nothing) |
+
+The text between the delimiters is trimmed, and it may hold markdown and line
+breaks.
+
+The whitespace comes out right both ways:
+
+- **Words never join.** A mark written flush against a word keeps a space on
+  that side (`flush{++ added ++}word` → `flush added word`).
+- **No double space, and no space before punctuation.** A removal between two
+  spaces leaves one, and a removal before `.,;:!?)]}` or a line end leaves
+  none (`end {-- gone --}.` → `end.`).
+- **A whole-line mark leaves no blank line.** A removed mark that was a whole
+  line takes the line with it. A blank line left doubled is merged, and a
+  value that ends in the removal loses its trailing newlines.
+
+Marks inside code are never touched. A malformed mark is left as it is and
+reported, never applied.
+
+**Reviewing.** The review operations sit beside the annotation API of
+§11.9.6:
+
+- **List** the marks of the document or of a subtree. Each mark is listed
+  with:
+  - its id `M-<n>`, the mark's position among all marks of the document in
+    document order;
+  - its kind and path;
+  - the old and new text, the markup as written, and the paragraph holding it.
+- **Decide** mark by mark: one call takes `{id → accept | reject | leave}`
+  and applies it in one write. Marks not named, and marks decided `leave`,
+  stay.
+- **Accept all** or **reject all**, under a path or in the whole document.
+- **Remove all annotations**: accept every mark, remove every comment and
+  question block, and write the result back.
+
+Every operation returns a report for the decision log. The report lists each
+applied mark (id, kind, path, decision, the markup and the text that replaced
+it) and the malformed marks in scope.
+
+Mark ids are stable for one **revision**: FNV-1a 64-bit over the UTF-8 of
+every value in document order (path, NUL, field or empty, NUL, text, NUL),
+written as 16 hex digits. Any change to a value changes it. A decision call
+carries the revision its ids came from and is refused when the document has
+changed since. Cases: `corpus/inline_mark_cases.json`.
 
 #### 11.9.4 Placement
 

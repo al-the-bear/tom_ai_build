@@ -73,6 +73,8 @@ import tom_som_runtime.SpecQueryMatch;
 import tom_som_runtime.SpecQuestionDraft;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
+import tom_som_runtime.SpecMarkDecision;
+import tom_som_runtime.SpecMarkEntry;
 import tom_som_runtime.SpecReviewAnnotation;
 import tom_som_runtime.SpecReviewAnnotationError;
 import tom_som_runtime.SpecReviewAnnotations;
@@ -862,6 +864,35 @@ public final class ConformanceRunner {
     }
   }
 
+  /**
+   * {@code inline_mark_cases.json}: accepting and rejecting inline marks (SOM §11.9.3). The text
+   * cases pin {@code applyInlineMarksText}; the scripted cases run like the annotation cases.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testInlineMarkCases(SpecModel model, SomMetaTree tree) throws IOException {
+    Map<String, Object> table = readJsonObject("inline_mark_cases.json");
+    for (Object caseObj : (List<Object>) table.get("textCases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String text = (String) c.get("text");
+      String accept = SpecReviewAnnotations.applyInlineMarksText(text, true);
+      String reject = SpecReviewAnnotations.applyInlineMarksText(text, false);
+      check(
+          "marks text[" + c.get("name") + "].accept",
+          accept.equals(c.get("accept")),
+          "got " + Json.write(accept) + ", want " + Json.write(c.get("accept")));
+      check(
+          "marks text[" + c.get("name") + "].reject",
+          reject.equals(c.get("reject")),
+          "got " + Json.write(reject) + ", want " + Json.write(c.get("reject")));
+    }
+    for (Object caseObj : (List<Object>) table.get("cases")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      Map<String, Object> got = runAnnotationCase(model, tree, c);
+      Object expect = c.get("expect");
+      check("marks[" + c.get("name") + "]", got.equals(expect), jsonMismatch(got, expect));
+    }
+  }
+
   /** Runs one {@code annotation_cases.json} case: {@code {results, state}}. */
   @SuppressWarnings("unchecked")
   private static Map<String, Object> runAnnotationCase(
@@ -948,6 +979,33 @@ public final class ConformanceRunner {
         return null;
       case "strip":
         return api.stripped().toJson();
+      case "revision":
+        return api.revision();
+      case "listMarks":
+        {
+          List<Object> out = new ArrayList<>();
+          for (SpecMarkEntry m : api.listMarks((String) op.get("path"))) {
+            out.add(m.toJson());
+          }
+          return out;
+        }
+      case "decideMarks":
+        {
+          Map<String, SpecMarkDecision> decisions = new LinkedHashMap<>();
+          for (Map.Entry<String, Object> e :
+              ((Map<String, Object>) op.get("decisions")).entrySet()) {
+            decisions.put(e.getKey(), SpecMarkDecision.fromValue((String) e.getValue()));
+          }
+          String rev = (String) op.get("revision");
+          return api.decideMarks(decisions, "@current".equals(rev) ? api.revision() : rev)
+              .toJson();
+        }
+      case "acceptAll":
+        return api.acceptAllMarks((String) op.get("path")).toJson();
+      case "rejectAll":
+        return api.rejectAllMarks((String) op.get("path")).toJson();
+      case "removeAll":
+        return api.removeAllAnnotations().toJson();
       case "roundTrip":
         {
           String yaml = SpecDocumentYaml.encode(doc, tree, MODEL_VERSION);
@@ -2491,6 +2549,7 @@ public final class ConformanceRunner {
     testMarkdownApplyCases(model);
     testAssemblyCases();
     testAnnotationCases(model, tree);
+    testInlineMarkCases(model, tree);
     testListMoveCases(model);
     testReflection(model);
     testValidation(model);

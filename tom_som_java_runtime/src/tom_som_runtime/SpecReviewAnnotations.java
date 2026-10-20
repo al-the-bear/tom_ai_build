@@ -9,7 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
 import java.util.regex.Pattern;
 
@@ -188,6 +190,9 @@ public final class SpecReviewAnnotations {
     final List<Comment> comments = new ArrayList<>();
     final List<Mark> marks = new ArrayList<>();
     final List<String> malformed = new ArrayList<>();
+
+    /** Malformed inline marks as (value line, issue code): unclosed, nested, noArrow. */
+    final List<Object[]> markIssues = new ArrayList<>();
 
     Parsed(List<String> lines, boolean[] code) {
       this.lines = lines;
@@ -617,12 +622,14 @@ public final class SpecReviewAnnotations {
                 + ": inline mark \""
                 + opener
                 + "\" is not closed in its paragraph (SOM §11.9.3)");
+        p.markIssues.add(new Object[] {line, "unclosed"});
         i += 3;
         continue;
       }
       String in = seg.substring(i + 3, close);
       if (hasOpener(in)) {
         p.malformed.add("line " + line + ": inline marks do not nest (SOM §11.9.3)");
+        p.markIssues.add(new Object[] {line, "nested"});
         i = close + 3;
         continue;
       }
@@ -661,6 +668,7 @@ public final class SpecReviewAnnotations {
             int arrow = in.indexOf("~>");
             if (arrow < 0) {
               p.malformed.add("line " + line + ": a substitution has no \"~>\" (SOM §11.9.3)");
+              p.markIssues.add(new Object[] {line, "noArrow"});
               i = end;
               continue;
             }
@@ -920,32 +928,84 @@ public final class SpecReviewAnnotations {
     return !s.isEmpty() && wordCharAt(s, s.length() - 1);
   }
 
-  /** Applies a mark's replacement and tidies the one space a removal leaves. */
+  private static boolean isSpace(char c) {
+    return c == ' ' || c == '\t';
+  }
+
+  private static String trimEndSpaces(String s) {
+    int k = s.length();
+    while (k > 0 && isSpace(s.charAt(k - 1))) {
+      k--;
+    }
+    return s.substring(0, k);
+  }
+
+  private static String trimStartSpaces(String s) {
+    int k = 0;
+    while (k < s.length() && isSpace(s.charAt(k))) {
+      k++;
+    }
+    return s.substring(k);
+  }
+
+  /**
+   * Applies a mark's replacement with the whitespace rules of SOM §11.9.3: never join two words,
+   * never leave a double space or a space before punctuation, and a mark that was a whole line
+   * leaves no blank line.
+   */
   private static String replaceMark(String value, Mark m, String replacement0) {
     String replacement = replacement0;
     String before = value.substring(0, m.start);
     String after = value.substring(m.end);
     if (replacement.isEmpty()) {
-      if (before.endsWith(" ")
-          && (after.isEmpty()
-              || after.startsWith(" ")
-              || after.startsWith("\n")
-              || ".,;:!?)".indexOf(after.charAt(0)) >= 0)) {
-        before = before.substring(0, before.length() - 1);
-      } else if ((before.isEmpty() || before.endsWith("\n")) && after.startsWith(" ")) {
-        after = after.substring(1);
+      String tb = trimEndSpaces(before);
+      String ta = trimStartSpaces(after);
+      boolean lineStart = tb.isEmpty() || tb.endsWith("\n");
+      boolean lineEnd = ta.isEmpty() || ta.startsWith("\n");
+      if (lineStart && lineEnd) {
+        // The mark was the whole line: the line goes, and with it one of the
+        // newlines around it; a blank line left doubled is merged.
+        before = tb;
+        after = ta;
+        if (after.startsWith("\n")) {
+          after = after.substring(1);
+        } else if (before.endsWith("\n")) {
+          before = before.substring(0, before.length() - 1);
+        }
+        if ((before.isEmpty() || before.endsWith("\n\n")) && after.startsWith("\n")) {
+          after = after.substring(1);
+        }
+        if (after.isEmpty()) {
+          while (before.endsWith("\n")) {
+            before = before.substring(0, before.length() - 1);
+          }
+        }
+        return before + after;
       }
-    } else {
-      // Never join two words: a mark written flush against a word keeps a
-      // space on that side.
-      if (wordChar(before) && wordCharAt(replacement, 0)) {
-        replacement = " " + replacement;
-      }
-      if (wordCharAt(replacement, replacement.length() - 1)
+      if (!before.isEmpty() && isSpace(before.charAt(before.length() - 1))) {
+        if (!after.isEmpty() && isSpace(after.charAt(0))) {
+          after = trimStartSpaces(after);
+        } else if (after.isEmpty()
+            || after.startsWith("\n")
+            || ".,;:!?)]}".indexOf(after.charAt(0)) >= 0) {
+          before = trimEndSpaces(before);
+        }
+      } else if ((before.isEmpty() || before.endsWith("\n"))
           && !after.isEmpty()
-          && wordCharAt(after, 0)) {
-        replacement = replacement + " ";
+          && isSpace(after.charAt(0))) {
+        after = trimStartSpaces(after);
       }
+      return before + after;
+    }
+    // Never join two words: a mark written flush against a word keeps a space
+    // on that side.
+    if (wordChar(before) && wordCharAt(replacement, 0)) {
+      replacement = " " + replacement;
+    }
+    if (wordCharAt(replacement, replacement.length() - 1)
+        && !after.isEmpty()
+        && wordCharAt(after, 0)) {
+      replacement = replacement + " ";
     }
     return before + replacement + after;
   }
@@ -963,6 +1023,21 @@ public final class SpecReviewAnnotations {
       default:
         return "";
     }
+  }
+
+  /**
+   * {@code value} with every inline mark accepted ({@code accept}) or rejected, and every highlight
+   * and comment mark removed, by the rules of SOM §11.9.3. Marks in code and malformed marks stay
+   * as written.
+   */
+  public static String applyInlineMarksText(String value, boolean accept) {
+    String v = value;
+    List<Mark> marks = parse(v).marks;
+    for (int k = marks.size() - 1; k >= 0; k--) {
+      Mark m = marks.get(k);
+      v = replaceMark(v, m, markReplacement(m, accept));
+    }
+    return v;
   }
 
   /**
@@ -1276,6 +1351,202 @@ public final class SpecReviewAnnotations {
     }
     Mark m = marks.get(index);
     set(path, field, replaceMark(value, m, markReplacement(m, accept)));
+  }
+
+  private static final long FNV_OFFSET = 0xcbf29ce484222325L;
+  private static final long FNV_PRIME = 0x100000001b3L;
+
+  private static long fnvAdd(long h0, String s) {
+    long h = h0;
+    for (byte b : s.getBytes(StandardCharsets.UTF_8)) {
+      h = (h ^ (b & 0xff)) * FNV_PRIME;
+    }
+    return h * FNV_PRIME;
+  }
+
+  /**
+   * The revision the mark ids are stable for: FNV-1a 64-bit over the UTF-8 of every value in
+   * document order (path, NUL, field or empty, NUL, text, NUL), as 16 lower-case hex digits. Any
+   * change to a value changes it.
+   */
+  public String revision() {
+    long h = FNV_OFFSET;
+    for (Value v : values()) {
+      h = fnvAdd(h, v.path);
+      h = fnvAdd(h, v.field == null ? "" : v.field);
+      h = fnvAdd(h, v.text);
+    }
+    String hex = Long.toUnsignedString(h, 16);
+    StringBuilder sb = new StringBuilder();
+    for (int k = hex.length(); k < 16; k++) {
+      sb.append('0');
+    }
+    return sb.append(hex).toString();
+  }
+
+  private static boolean under(String path, String under) {
+    return under == null || path.equals(under) || path.startsWith(under + "/");
+  }
+
+  /** Every inline mark of the document, in document order. */
+  public List<SpecMarkEntry> listMarks() {
+    return listMarks(null);
+  }
+
+  /** Every inline mark of the subtree at {@code path} (null: the document), in document order. */
+  public List<SpecMarkEntry> listMarks(String path) {
+    List<SpecMarkEntry> out = new ArrayList<>();
+    int n = 0;
+    for (Value v : values()) {
+      Parsed p = parse(v.text);
+      List<int[]> paras = paragraphs(p.lines, p.code);
+      for (Mark m : p.marks) {
+        String id = "M-" + (++n);
+        if (!under(v.path, path)) {
+          continue;
+        }
+        int[] para = new int[] {m.line, m.line};
+        for (int[] r : paras) {
+          if (r[0] <= m.line && m.line <= r[1]) {
+            para = r;
+            break;
+          }
+        }
+        out.add(
+            new SpecMarkEntry(
+                id,
+                v.path,
+                v.field,
+                m.line,
+                m.kind,
+                markReplacement(m, false),
+                markReplacement(m, true),
+                m.comment,
+                v.text.substring(m.start, m.end),
+                String.join("\n", p.lines.subList(para[0], para[1] + 1))));
+      }
+    }
+    return out;
+  }
+
+  /**
+   * Applies {@code decide} to every mark in the subtree {@code underPath} (null: the whole
+   * document), one write per value.
+   */
+  private SpecMarkReport applyMarks(Function<String, SpecMarkDecision> decide, String underPath) {
+    List<SpecMarkOutcome> applied = new ArrayList<>();
+    List<SpecMarkIssue> issues = new ArrayList<>();
+    int n = 0;
+    for (Value val : values()) {
+      Parsed p = parse(val.text);
+      List<String> ids = new ArrayList<>();
+      for (int k = 0; k < p.marks.size(); k++) {
+        ids.add("M-" + (++n));
+      }
+      if (!under(val.path, underPath)) {
+        continue;
+      }
+      for (Object[] issue : p.markIssues) {
+        issues.add(new SpecMarkIssue(val.path, val.field, (Integer) issue[0], (String) issue[1]));
+      }
+      String v = val.text;
+      List<SpecMarkOutcome> outcomes = new ArrayList<>();
+      for (int k = p.marks.size() - 1; k >= 0; k--) {
+        SpecMarkDecision d = decide.apply(ids.get(k));
+        if (d == null || d == SpecMarkDecision.LEAVE) {
+          continue;
+        }
+        Mark m = p.marks.get(k);
+        String repl = markReplacement(m, d == SpecMarkDecision.ACCEPT);
+        outcomes.add(
+            0,
+            new SpecMarkOutcome(
+                ids.get(k),
+                val.path,
+                val.field,
+                m.line,
+                m.kind,
+                d,
+                val.text.substring(m.start, m.end),
+                repl));
+        v = replaceMark(v, m, repl);
+      }
+      if (!v.equals(val.text)) {
+        set(val.path, val.field, v);
+      }
+      applied.addAll(outcomes);
+    }
+    return new SpecMarkReport(applied, issues);
+  }
+
+  /**
+   * Applies one decision per named mark in one write. Refused — nothing changes — when the document
+   * is no longer at {@code revision}, or when a decision names a mark that does not exist. Marks
+   * not named, and marks decided {@code LEAVE}, stay.
+   */
+  public SpecMarkReport decideMarks(Map<String, SpecMarkDecision> decisions, String revision) {
+    String current = revision();
+    if (!revision.equals(current)) {
+      throw new SpecReviewAnnotationError(
+          "the document changed since revision "
+              + revision
+              + " (now "
+              + current
+              + "); list the marks again");
+    }
+    Set<String> known = new HashSet<>();
+    for (SpecMarkEntry m : listMarks()) {
+      known.add(m.id);
+    }
+    for (String id : decisions.keySet()) {
+      if (!known.contains(id)) {
+        throw new SpecReviewAnnotationError("no inline mark " + id + " in the document");
+      }
+    }
+    return applyMarks(decisions::get, null);
+  }
+
+  /** Accepts every inline mark of the document. */
+  public SpecMarkReport acceptAllMarks() {
+    return acceptAllMarks(null);
+  }
+
+  /** Accepts every inline mark under {@code path} (null: the whole document). */
+  public SpecMarkReport acceptAllMarks(String path) {
+    return applyMarks(id -> SpecMarkDecision.ACCEPT, path);
+  }
+
+  /** Rejects every inline mark of the document. */
+  public SpecMarkReport rejectAllMarks() {
+    return rejectAllMarks(null);
+  }
+
+  /** Rejects every inline mark under {@code path} (null: the whole document). */
+  public SpecMarkReport rejectAllMarks(String path) {
+    return applyMarks(id -> SpecMarkDecision.REJECT, path);
+  }
+
+  /**
+   * Removes every annotation and writes the result back: every inline mark accepted, every comment
+   * and question block removed. Malformed marks stay and are reported.
+   */
+  public SpecMarkReport removeAllAnnotations() {
+    SpecMarkReport report = acceptAllMarks();
+    for (Value val : values()) {
+      String v = val.text;
+      while (true) {
+        Parsed p = parse(v);
+        if (p.blocks.isEmpty()) {
+          break;
+        }
+        Block b = p.blocks.get(p.blocks.size() - 1);
+        v = removeLines(v, b.start, b.end);
+      }
+      if (!v.equals(val.text)) {
+        set(val.path, val.field, v);
+      }
+    }
+    return report;
   }
 
   /** A copy of the document without any annotation, for reading. The document is unchanged. */

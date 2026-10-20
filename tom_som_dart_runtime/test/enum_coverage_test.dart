@@ -235,6 +235,20 @@ final List<CorpusGuardedEnum> _guarded = [
     why: 'SOM §11.9.3: each of the five CriticMarkup marks is listed',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecMarkDecision',
+    declared: _wire(SpecMarkDecision.values),
+    corpusFile: 'inline_mark_cases.json',
+    exercised: (c) => {
+      for (final k
+          in ((c as Map<String, dynamic>)['cases'] as List)
+              .cast<Map<String, dynamic>>())
+        for (final op in (k['ops'] as List).cast<Map<String, dynamic>>())
+          if (op['op'] == 'decideMarks')
+            for (final d in (op['decisions'] as Map).values) d as String,
+    },
+    why: 'SOM §11.9.3: a mixed decision set holds accept, reject and leave',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SpecValidationCode',
     declared: _wire(SpecValidationCode.values),
     corpusFile: 'validation_cases.json',

@@ -2907,6 +2907,44 @@ static std::string run_annotation_op(const som::SpecModel& model,
                     som::jsonAsBool(som::jsonGet(op, "accept")).value_or(true));
       return "null";
     }
+    if (name == "revision") return som::jsonEncodeStr(api.revision());
+    if (name == "listMarks") {
+      std::string b = "[";
+      const auto marks = api.listMarks(json_opt_str(op, "path"));
+      for (std::size_t i = 0; i < marks.size(); i++) {
+        if (i > 0) b += ",";
+        b += marks[i].toJson();
+      }
+      return json_text_canon(b + "]");
+    }
+    if (name == "decideMarks") {
+      std::map<std::string, som::SpecMarkDecision> decisions;
+      som::JsonRef ds = som::jsonGet(op, "decisions");
+      if (ds != nullptr && ds->type == som::JsonType::Object) {
+        for (const auto& [id, v] : ds->object) {
+          const std::string* dn = som::jsonAsStr(v);
+          const auto d = som::specMarkDecisionFromName(dn ? *dn : "");
+          if (!d) {
+            std::fprintf(stderr, "unknown mark decision %s\n",
+                         dn ? dn->c_str() : "");
+            std::exit(2);
+          }
+          decisions[id] = *d;
+        }
+      }
+      std::string rev = som::jsonStrOr(op, "revision");
+      if (rev == "@current") rev = api.revision();
+      return json_text_canon(api.decideMarks(decisions, rev).toJson());
+    }
+    if (name == "acceptAll") {
+      return json_text_canon(api.acceptAllMarks(json_opt_str(op, "path")).toJson());
+    }
+    if (name == "rejectAll") {
+      return json_text_canon(api.rejectAllMarks(json_opt_str(op, "path")).toJson());
+    }
+    if (name == "removeAll") {
+      return json_text_canon(api.removeAllAnnotations().toJson());
+    }
     if (name == "strip") return doc_canonical(api.stripped());
     if (name == "roundTrip") {
       const std::string before = doc_canonical(api.doc());
@@ -2938,15 +2976,17 @@ static std::string run_annotation_op(const som::SpecModel& model,
 /* annotation_cases.json, run like the Dart reference's `_runAnnotationCase`:
  * every op runs in order on one document loaded from `state`; each op's
  * result and the final state must equal `expect` (JSON equality). */
-static void test_annotations(Checker& c, const som::SpecModel& model,
-                             const som::SomMetaTree& tree) {
-  som::JsonPtr table = read_json("annotation_cases.json");
+static void run_annotation_cases(Checker& c, const som::SpecModel& model,
+                                 const som::SomMetaTree& tree,
+                                 const std::string& file,
+                                 const std::string& prefix) {
+  som::JsonPtr table = read_json(file);
   som::JsonRef cases = som::jsonGet(table, "cases");
   const std::size_t n = som::jsonArrayLen(cases);
-  c.check("annotations.cases", n > 0, "no cases in annotation_cases.json");
+  c.check(prefix + ".cases", n > 0, "no cases in " + file);
   for (std::size_t i = 0; i < n; i++) {
     som::JsonRef kase = som::jsonArrayAt(cases, i);
-    const std::string label = "annotations[" + som::jsonStrOr(kase, "name") + "]";
+    const std::string label = prefix + "[" + som::jsonStrOr(kase, "name") + "]";
     som::SpecDocument doc =
         doc_from_state(som::documentJsonFromJson(som::jsonGet(kase, "state")));
     som::SpecReviewAnnotations api(doc, json_opt_str(kase, "qualifier"));
@@ -2972,6 +3012,34 @@ static void test_annotations(Checker& c, const som::SpecModel& model,
     const std::string w = state_canonical(som::jsonGet(expect, "state"));
     c.check(label + ".state", got == w, byte_diff(label + ".state", got, w));
   }
+}
+
+static void test_annotations(Checker& c, const som::SpecModel& model,
+                             const som::SomMetaTree& tree) {
+  run_annotation_cases(c, model, tree, "annotation_cases.json", "annotations");
+}
+
+/* inline_mark_cases.json: `textCases` pin `applyInlineMarksText` (accept and
+ * reject); `cases` run like annotation_cases.json. */
+static void test_inline_marks(Checker& c, const som::SpecModel& model,
+                              const som::SomMetaTree& tree) {
+  som::JsonPtr table = read_json("inline_mark_cases.json");
+  som::JsonRef texts = som::jsonGet(table, "textCases");
+  const std::size_t n = som::jsonArrayLen(texts);
+  c.check("inlineMarks.textCases", n > 0,
+          "no textCases in inline_mark_cases.json");
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef t = som::jsonArrayAt(texts, i);
+    const std::string text = som::jsonStrOr(t, "text");
+    for (const bool accept : {true, false}) {
+      const std::string want = som::jsonStrOr(t, accept ? "accept" : "reject");
+      const std::string got = som::applyInlineMarksText(text, accept);
+      const std::string tag = "inlineMarks.text[" + som::jsonStrOr(t, "name") +
+                              "]." + (accept ? "accept" : "reject");
+      c.check(tag, got == want, byte_diff(tag, got, want));
+    }
+  }
+  run_annotation_cases(c, model, tree, "inline_mark_cases.json", "inlineMarks");
 }
 
 int main(int argc, char** argv) {
@@ -3021,6 +3089,7 @@ int main(int argc, char** argv) {
   test_assembly(c);
   test_list_move(c, *model);
   test_annotations(c, *model, *tree);
+  test_inline_marks(c, *model, *tree);
 
   return c.finish();
 }
